@@ -476,8 +476,8 @@ choices whose option space genuinely is closed and consequence-free.
 1. **Ground first**: read `primer@verify-before-relying` again, whole,
    then the project's record: its homes before the first round, and its
    search when this step says. The
-   goals homes of the project's root and of every Component the question
-   touches; their design homes; their `rejected` homes; their
+   goals home of the project's root; the design homes of the root and of
+   every Component the question touches; their `rejected` homes; their
    `README.md` files, which state their contracts; and a search of the
    record by `grep` for the question's subject. Then draft the shapes,
    the owner's proposal if one was made and your own, and challenge

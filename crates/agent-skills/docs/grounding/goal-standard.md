@@ -50,9 +50,8 @@ than these findings, and a finding changed one of them only by an argument the o
 
 These support a rule that a goal keeps its meaning in a project emptied of its design and its
 code: a goal tied to a part as built changes when that part is redesigned, which is the instability
-the sources place in requirements and plans, never in goals. They support too that a Component's
-goal may name its own Component and those that enclose it, since a Component's goal is a "how" of
-its parent's goal.
+the sources place in requirements and plans, never in goals. A goal of one Component is a "how" of
+its parent's goal, in the same sources' terms, which the standard records as a design head.
 
 **Where a source goes against it.** Two sources contradict a reading in which a goal never changes:
 
@@ -67,8 +66,8 @@ The rule judges dependence on a design choice, not immutability, so neither cont
 D. M. Berry, "What, Not How? When Is 'How' Really 'What'?", University of Waterloo,
 https://cs.uwaterloo.ca/~dberry/what.not.how.html (abstract read): "In several specific domains, it
 may be necessary to say how to make the what precise enough". This is weak evidence, an abstract with
-no worked case. Rule 1 of the standard already admits a kind of interface as an outcome where the
-owner intends it.
+no worked case. Rule 2 of the standard admits a kind of interface as an outcome where it passes the
+purpose test of rule 1.
 
 ## Unambiguous is not narrow
 
@@ -123,9 +122,10 @@ repair of wording.
   (secondary): "surrogation" is the tendency to "lose sight of the strategic construct(s) the measures
   are intended to represent". In their report, several measures reduce it.
 
-These support rule 6 of the standard, under which an outcome judged only in use is measured by what
-the project builds to pursue it and to learn from its use, never by a list of the properties it is
-taken to consist of. They also support a test that sorts such an outcome: **does it depend on
+These support that an outcome judged only in use is shown met by what the project builds to pursue
+it and to learn from its use, never by a list of the properties it is taken to consist of. The
+standard states no measure in a goal, by its rule 7, so a design head that says how a goal is shown
+met is what these findings bear on. They also support a test that sorts such an outcome: **does it depend on
 anything the project does not control, such as its users, their data or their environment?** KAOS's
 sort by who can enforce a goal gives this wording. It states more directly than a sort by kind of
 outcome the case of a project whose effects land in its users' environment. A correctness outcome
@@ -149,15 +149,15 @@ move what the project builds, never shaped so that the tree as it stands meets i
 
 - **Logical conflict.** RE'01 (read): goals conflict when no behaviour meets them all under the domain.
   A behaviour a goal does not constrain is unconstrained. So a goal that rules out what another goal
-  only admits is no conflict: a state without that behaviour meets both. This agrees with rule 5 of the
+  only admits is no conflict: a state without that behaviour meets both. This agrees with rule 6 of the
   standard, "No state of the project meets one goal only by failing another", under a reading in
   three layers: what a goal requires, what it admits, and what it rules out.
 - **Divergence under a boundary condition.** RE'01 (read): goals G1 to Gn are divergent when a
   non-trivial condition B, possible in the domain, makes them jointly inconsistent, while every proper
   subset stays consistent. Logical conflict is the special case. A divergence is two outcomes that
-  compete under a condition, which rule 5's ranking sentence covers: "Where two outcomes compete,
+  compete under a condition, which rule 6's ranking sentence covers: "Where two purposes compete,
   including two that can both be met except under a condition the project or its use makes
-  possible, a goal states which ranks first". So a divergence is a question for the owner, with its condition.
+  possible, a ranking states which comes first". So a divergence is a question for the owner, with its condition.
 - **Graded contributions.** The NFR framework grades how a design or a goal contributes to another:
   make, help, hurt, break (L. Chung, B. Nixon, E. Yu, J. Mylopoulos, *Non-Functional Requirements in
   Software Engineering*, 2000, secondary). A "hurt" is a trade-off that a design weighs, argued in its
@@ -165,7 +165,7 @@ move what the project builds, never shaped so that the tree as it stands meets i
 - **Antigoals and accepted risk.** G. Klein, *Sources of Power*, 1998 (secondary), lists antigoals,
   outcomes to avoid, among the parts of an intent, and JP 3-0 (secondary) has the intent state "where
   the commander will accept risk". Antigoals are what a goal rules out. A cost the owner accepts in
-  pursuing a goal is a ranking between goals, rule 5, or a local cost a design head weighs. The
+  pursuing a goal is a ranking between goals, rule 6, or a local cost a design head weighs. The
   standard needs no fourth layer for it.
 
 ## How a review of a goal set stops

@@ -48,7 +48,8 @@ behalf is shown to the owner first: the Components, the goals, the place of each
 that no row of the knowledge table settles,
 and each choice below that changes the project's build or a file it already has. A run without
 the owner, such as a trial, makes those choices itself, except the goals, which only the owner
-states: such a run writes no goal, and leaves each goals home with no entry, awaiting the owner's.
+states: such a run writes no goal, and leaves the root's goals home with no entry, awaiting the
+owner's.
 
 ## Pin the checker, and decide how it runs `##pin-the-checker`
 
@@ -197,7 +198,8 @@ it is written when the owner wants known work ordered, under `skill@knowledge-ar
 
 Each document opens with a short introduction saying what it holds and what it does not. An empty
 register home says it holds no entry yet. **The project states its goals in the root's goals
-home**: run `skill@knowledge-architect-goal-setting` with the owner.
+home**: run `skill@knowledge-architect-goal-setting` with the owner. Each Component's purpose is
+recorded as step 3 of `skill@knowledge-architect-component-creation@creation-procedure` says.
 
 ## The root CLAUDE.md `##root-claude-md`
 
@@ -246,24 +248,22 @@ filtered through a pipe. In a Rust project, the shape is the maintenance crate o
 list to the published library knowledge-architect-gates.
 
 A maintenance tool of that kind is a Component of its own, which serves the project rather than its
-consumers. Two shapes are recommended for it. A project that adopts one records it as a design head,
-argued like any decision, under `skill@knowledge-architect-decision-recording`:
+consumers. Propose two shapes for it to the owner. A project that adopts one records it as a design
+head, argued like any decision, under `skill@knowledge-architect-decision-recording`:
 
-- **Every gate the project owes before a merge runs from one command.** The gates include
-  formatting, the document check, the commit messages, the linter where the project has one, the
-  tests, and the rebase check where the project requires a branch to contain the main branch before
-  it merges. By default the command runs every gate of the list but the rebase check, all of them
-  when one fails, and its exit code says whether the gates it ran pass. Run with the rebase check,
-  its exit code is the one verdict, on the working tree and the branch's commits, on whether the
-  gates let the branch merge: wherever that verdict is taken, it is taken from this command, never
-  from another list of gates.
+- **The one command of the paragraph above gives the one verdict on a merge.** Its list holds the
+  rebase check too, where the project requires a branch to contain the main branch before it
+  merges, and runs it only when asked. Run with the rebase check, its exit code is the one
+  verdict, on the working tree and the branch's commits, on whether the gates let the branch merge:
+  wherever that verdict is taken, it is taken from this command, never from another list of gates.
 - **The local part of a mechanical task the project's own instructions require repeatedly is a
   command of the tool**, so it runs the same way each time. Such a task needs no judgement and
   takes several steps; is local to the project, one its own instructions require, or the procedure
   they fix for one the installed text requires; and comes at a recurring moment, such as each
   commit, each reword or each merge. A task the installed text requires of every project that
   adopts the workflow, with no procedure of the project's own, is the workflow's to automate, not
-  the tool's.
+  the tool's. The part of a task's procedure that the workflow ships is not local once it ships;
+  until then the local command stays.
 
 ## Finish `##finish-setup`
 

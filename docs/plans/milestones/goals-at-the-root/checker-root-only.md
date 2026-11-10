@@ -16,9 +16,12 @@ threads, its arguments and its decided design are in the milestone document.
   change is in the list of homes they write; `home_text` in `path@create@src/command.rs` keeps its
   one `goal` arm, which the root still needs.
 - **`query`**: the goal context of `klarch worklist` is the root's goals alone.
-- **The shipped text**: each of the 7 sites that write the form `register@*@goal` names the root's
-  goals home in a form that resolves in every installing project, and every sentence that says
-  what the checker requires of a Component, `primer@checker-model` among them.
+- **The shipped text**: each site that writes the form `register@*@goal` names the root's goals
+  home in a form that resolves in every installing project, 5 lines of the source since slice 1
+  rewrote two of the 7; every sentence that says what the checker requires of a Component,
+  `primer@checker-model` among them; and the citation rule of rule 8 of the goal standard with its
+  twin in `primer@where-knowledge-goes`, which still speak of a location's goals home and of a
+  goal's own Component.
 - **This repository**: each Component's empty docs/goals.md is deleted, in the first commit, with
   the change of the checker that refuses it, per `primer@branch-commits`.
 - **The record**: the entries the milestone document's table gives slice 2;

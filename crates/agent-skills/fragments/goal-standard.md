@@ -15,7 +15,7 @@ it.
 
 %% `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`. Cases: of knowledge-architect's
 %% 54 goals, 33 were goals of one Component, several of which stated how the Component fits in the
-%% split, and 24 stated that they refined another goal, 10 of them the widest goal of the root. The
+%% split. The
 %% scope's condition was rule 8 of the standard before the kinds. Its case: rootpoint's goal on
 %% content kinds, whose sentence on concurrent editing named the design it excluded, which another
 %% goal would have argued for, and whose part on staying small named none.
@@ -95,7 +95,8 @@ it.
 7. **It states no measure.** What would show the goal met, what the project builds to pursue it,
    and how the project learns from its use whether it is met, are design decisions, each in a head
    that cites the goal.
-%% `design@agent-skills@no-goal-refines-another`. The citation rule is
+%% `design@agent-skills@no-goal-refines-another`. Case: 24 of knowledge-architect's 54 goals stated
+%% that they refined another goal, 10 of them the widest goal of the root. The citation rule is
 %% `design@check@goals-home-cites-upward-only`, which the checker enforces.
 8. **It refines no other goal, and cites only goals and registers of its own Component, or, in a
    location's goals home, of that location, or of a Component enclosing it.** A statement grounded

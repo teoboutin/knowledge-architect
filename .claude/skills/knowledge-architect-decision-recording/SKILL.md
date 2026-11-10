@@ -110,8 +110,8 @@ records dozens per unit of work stops being readable and stops being ranked.
 **The owner's intent earns no head of its own.** A decision that would earn a head only as the
 owner's intent is drafted as a goal under `skill@knowledge-architect-goal-setting` where it states
 a purpose of the project, a scope that bounds one or a ranking between two, and is otherwise an
-argument, a fact or a choice at a fork, which lands as the table below says; an argument the owner
-made earns a head by the tests above, like any other.
+argument or a choice at a fork, which lands as the table of what the owner brings says; an argument
+the owner made earns a head by the tests above, like any other.
 
 A choice that turns on what the specification means, or on how the tool behaves, is expensive to
 get wrong and expensive to derive again, and it is visible: the argument quotes the specification
@@ -125,7 +125,7 @@ fails test 2.
 
 **A head carries the intent it serves, its shape and the standing argument, not implementation.**
 How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
-constraint from and stating that constraint beside the reference; what a Component is for belongs
+constraint from; what a Component is for belongs
 here too, and what the project is for is its goals home's. How a particular function does its
 work belongs in a comment at that function. The test: **if changing a piece of code would force a
 change to the design home, it is design; if the design home would be unaffected, it is a comment.**

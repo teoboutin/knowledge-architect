@@ -105,13 +105,12 @@ would declare its flags again, and the copies would drift. The rival, each Compo
 shared crate sits above them and the binary flattening them, restates the interface's decisions in each domain crate. It
 is stated by the component-creation skill.
 
-### The installed text states what an intermediate Component is and which decisions it holds, and no occasion on which one is created `##no-installed-rule-on-when-an-intermediate-component-exists`
+### An intermediate Component is a directory of Components with no code of its own, and a decision on how the code of several Components is written goes to the lowest one enclosing them `##shared-code-decisions-go-to-the-lowest-enclosing-component`
 
 An intermediate Component groups the Components nested under its directory. Its own files hold no
 Rust code, per `goal@knowledge-architect@projects-are-split-into-components`, so it is no crate, and
 each Component nested under it that holds Rust code is a crate, per
-`design@agent-skills@component-crate-mapping`. The installed text states no occasion on which one is
-created: a project argues one in its own design.
+`design@agent-skills@component-crate-mapping`.
 A decision that shapes how the code of several Components is written goes to the design home of the
 lowest intermediate Component enclosing them all, or to the root's where none encloses them all.
 Two decisions binding several Components are the root's whatever encloses them: a decision on their
@@ -123,18 +122,14 @@ for every Component of a kind, a property a Component has whatever part of the p
 since a Component anywhere in the tree can gain it. The component-creation skill states what an
 intermediate Component is, and point 3 of the decision-recording skill's rule on the owning
 Component places the decision. How a reading reaches the intermediate's design is
-`design@agent-skills@enclosing-design-read-at-grounding`.
+`design@agent-skills@enclosing-design-read-at-grounding`. When one is created is
+`design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`.
 
 The directories form a tree, so every set of Components has one lowest enclosing Component, and the
-same decisions give the same homes in whatever order they were met. Its cost: a decision in the
-lowest enclosing Component is loaded by the sessions of the other Components it encloses.
-
-No occasion is stated because none has an instance in use, per
-`design@agent-skills@behaviour-additions-need-real-use`. The occasion the installed text stated, a
-purpose the nested Components serve together, stated in the intermediate Component's goals home and
-refined by their goals, left when goals became the root's alone, per
-`design@agent-skills@goals-home-at-the-root-only`. The owner chose silence over a guideline that no
-use supports, to learn from the first project that creates one.
+same decisions give the same homes in whatever order they were met. Its costs: a decision in the
+lowest enclosing Component is loaded by the sessions of the other Components it encloses; and
+moving a Component under or out of an intermediate Component moves the decisions whose lowest
+enclosing Component changes.
 
 The rivals lost:
 
@@ -143,8 +138,9 @@ The rivals lost:
   session, since every change to code reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, against the reason of
   `goal@knowledge-architect@projects-are-split-into-components`, that each Component's design stays
-  small enough to read whole. The owner chose to keep the intermediate Component over it, which no
-  goal ranks, to be judged when a project first needs one.
+  small enough to read whole. The owner chose over it the intermediate Component created for a
+  purpose stated in goals, which no goal ranked, to be judged when a project first needs one. That
+  occasion is no longer stated, and the choice was not put to the owner again without it.
 - **An intermediate Component as a declared set of Components rather than a directory.**
   `goal@knowledge-architect@projects-are-split-into-components` defines a Component as what the
   checker's manifest declares, a directory or the project's root, and the owner keeps each
@@ -154,6 +150,19 @@ The rivals lost:
   definition excludes; and every dependency of one nested Component reaches every consumer of the
   crate, the fact `rejected@knowledge-architect@git-module-made-public` lost on. The owner chose to
   keep the goal as it stands.
+
+### The installed text states no occasion on which an intermediate Component is created `##no-installed-rule-on-when-an-intermediate-component-exists`
+
+The installed text says what an intermediate Component is and which decisions it holds, per
+`design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`, and names no
+occasion on which a project creates one: a project argues one in its own design.
+
+No occasion has an instance in use, and an instruction on how an agent behaves needs one, per
+`design@agent-skills@behaviour-additions-need-real-use`. The rival, an occasion stated, has one
+candidate with a ground in the record: a purpose the nested Components serve together, stated in
+the intermediate Component's goals home and refined by their goals. It needs goals of a Component,
+which `design@agent-skills@goals-home-at-the-root-only` excludes. The owner chose silence over a
+guideline that no use supports, to learn from the first project that creates one.
 
 ### That a Component is bound by the design of every intermediate Component enclosing it is stated once, in the primer, for every reading of a design home `##enclosing-design-read-at-grounding`
 
@@ -166,7 +175,7 @@ skill's loop step 1, the planning skill's grounding of a slice and the design-co
 name the design home of the Component touched, and some the root's, and none of them would otherwise
 name an intermediate Component's. An intermediate Component's heads bind the Components nested under
 it as the root's bind the Components they concern, per
-`design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`. The development skill, which names the
+`design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`. The development skill, which names the
 root's beside the Component's, restates the binding in one sentence with its pointer to the primer,
 as `primer@where-knowledge-goes` admits.
 

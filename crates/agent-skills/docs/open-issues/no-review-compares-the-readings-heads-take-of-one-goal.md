@@ -52,7 +52,7 @@ threatens `goal@knowledge-architect@agents-work-without-drift`.
 
 ### What would close it
 
-A design discussion, re-entered when a review, an audit or a retrospective finds two heads whose
-stated constraints from one goal cannot both hold: it decides whether a review compares the
+A design discussion, opened on the owner's word, or when a review, an audit or a retrospective
+finds two heads whose stated constraints from one goal cannot both hold: it decides whether a review compares the
 readings, on which axis, and with which command of the checker. An instance found is its evidence;
 until one is, the comparison stays unbuilt.

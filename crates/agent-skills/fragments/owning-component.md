@@ -4,7 +4,7 @@ Component too.
 
 %% Point 1 and the rule of one Component in point 4 are `design@agent-skills@dependency-decision-home`;
 %% point 3 is
-%% `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`.
+%% `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`.
 1. Does the decision shape the layout of the project: which Components exist, how they depend on
    each other, constraining more than one of them, or how several of them are shaped or packaged? One Component depending on another constrains
    both: the second gains a consumer of its interface and cannot depend on the first. Then it

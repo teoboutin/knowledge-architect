@@ -7,9 +7,10 @@
 A goal is met or unmet, and stays in its goals home whether it is met or not yet met. The rule
 and its reason are the owner's: a goal removed when it is achieved stops being checked, and can
 stop being met without anyone noticing, so a goal leaves only when the owner abandons it, per
-`goal@knowledge-architect@the-owner-decides`, or rules that it is no purpose, scope or ranking, per
-`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`: its intent is then kept, recorded
-as the decision it is. The owner adopted it in the head of this repository's
+`goal@knowledge-architect@the-owner-decides`. A goal also leaves when the owner rules that it is no
+purpose, scope or ranking, per `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`:
+that case is the session's, which follows from the three kinds, and it keeps the rule that a goal
+leaves on the owner's word alone. The owner adopted it in the head of this repository's
 root goals home, which stated it until the review of the whole goal set left the rules of
 goal-setting to the skill. A goal drafted to move what the project builds is
 expected to be unmet when it is written, per `design@agent-skills@goal-drafted-to-move-the-tree`.
@@ -50,10 +51,12 @@ A case written into a goal binds every later agent outright on a point that no a
 rival settled. Three of this repository's goals were rewritten without their cases as a test: one
 became a design head, and in the two that stayed goals every case either repeated the statement or
 closed a question of how much, which `design@agent-skills@goal-one-meaning-any-breadth` leaves to a
-design head. The test covered two purposes and no scope. The rewrites are in the plan document of
-the work that removed the cases, which
-`git log --name-only -- docs/plans/milestones/goals-at-the-root/` finds. The owner agreed, on those
-rewrites, that what a goal admits and rules out case by case is design.
+design head. The test covered two purposes and no scope. One of the two is the goal on a session
+that orchestrates its work, whose 11 cases a reader sorts again from
+`git show cb8d5a22:crates/agent-skills/docs/goals.md`. The rewrites themselves are in no tree: the
+plan document of the work that removed the cases, which
+`git log --name-only -- docs/plans/milestones/goals-at-the-root/` finds, holds their result. The
+owner agreed, on those rewrites, that what a goal admits and rules out case by case is design.
 
 The rival, one or more "for instance" cases for each layer the goal has, written into the goal from
 the boundary block the owner ruled on, `rejected@agent-skills@goal-carries-reading-examples`, kept
@@ -80,12 +83,7 @@ layers and as a direction, and holds eight numbered rules, each argued in a head
 - rule 2, `design@agent-skills@goal-outcome-survives-empty-skeleton`;
 - rule 3, `design@agent-skills@goal-one-meaning-any-breadth`;
 - rules 4 and 6 and the layers, `design@agent-skills@requires-admits-rules-out`;
-- rule 5: two statements are two goals when each means something without the other, and a
-  qualifier or a domain belongs to the goal it qualifies, so a scope is a goal of its own only
-  where it means something without any one purpose. Two goals may share an aspect, which is a
-  finding of rule 6 only where the two cannot both be met. Its test is the head standard's rule on
-  an exception, not the test of reversing one part alone, which splits a rule from its exception,
-  per `rejected@agent-skills@head-split-by-independent-reversal`;
+- rule 5, `design@agent-skills@goal-holds-one-intent`;
 - rule 7, `design@agent-skills@what-shows-a-goal-met-is-design`;
 - rule 8, `design@agent-skills@no-goal-refines-another`, with the rule that a goals home cites only
   goals and registers of its own or an enclosing Component, per
@@ -141,10 +139,10 @@ removed nothing in the project would need to exist; and a statement that can res
 better recorded as a decision, since a goal binds outright, is not questioned, and so does not
 improve. The scope and the ranking are the session's addition, for the one class the purpose test
 fails: removing a scope makes nothing lose its reason to exist. The owner found the three kinds
-probably right, a purpose widening what the project is for and a scope reducing it. Under the
-standard that had no kinds, 33 of this repository's 54 goals were goals of one Component, and 24
-stated that they refined another goal, per `design@agent-skills@goals-home-at-the-root-only` and
-`design@agent-skills@no-goal-refines-another`.
+probably right, a purpose widening what the project is for and a scope reducing it. A standard
+with no kinds admits a goal for each part of a project and a goal for each step toward another:
+`design@agent-skills@goals-home-at-the-root-only` and `design@agent-skills@no-goal-refines-another`
+hold the counts of each in this repository's goals.
 
 A scope names the design it excludes, one that a purpose would otherwise argue for, in words that
 keep their meaning under rule 2. A property of smallness with no named design is the owner's scope
@@ -221,6 +219,15 @@ a mutation of several files as unmet. Rule 4 allows the distillation goal-settin
 wider than each statement it is drawn from: the defect it prevents is a reach the owner never saw,
 so the rival "no wider than the owner's statement" forbids what the skill exists to do.
 
+### A goal holds one intent, and two goals may share an aspect `##goal-holds-one-intent`
+
+Rule 5 of the goal standard: two statements are two goals when each means something without the
+other, and a qualifier or a domain belongs to the goal it qualifies, so a scope is a goal of its
+own only where it means something without any one purpose. Two goals may share an aspect, which is
+a finding of rule 6 only where the two cannot both be met. Its test is the head standard's rule on
+an exception, not the test of reversing one part alone, which splits a rule from its exception, per
+`rejected@agent-skills@head-split-by-independent-reversal`.
+
 ### A new or reworded goal is drafted to move what the project builds, and is expected to be unmet `##goal-drafted-to-move-the-tree`
 
 A drafter never shapes a goal so that the project as it stands meets it, and the boundary block
@@ -236,16 +243,15 @@ counts objectives always fully met as not ambitious enough. It derives from
 
 Rule 7 of the goal standard: a goal says nothing of what would show it met, of what the project
 builds to pursue it, or of how the project learns from its use whether it is met. Each is a design
-decision, in a head that cites the goal. No check and no review reports a goal that no head cites:
+decision, in a head that cites the goal. No check reports a goal that no head cites:
 a new goal is expected to be unmet, per `design@agent-skills@goal-drafted-to-move-the-tree`, and a
 new project holds goals before any design. The owner refused such a check.
 
-The measure is where a mechanism enters a goal. In this repository's goals as
-`git show cb8d5a22:crates/agent-skills/docs/goals.md` and
-`git show cb8d5a22:docs/goals.md` hold them, the measure of the goal on a session that orchestrates
-its work named the questions a retrospective asks, and the measure of the goal on the quality of
-the code the workflow leads to listed three properties and bound every unit a change edits to state
-why it departed from them. A mechanism stated in a goal binds outright and was argued against no
+The measure is where a mechanism enters a goal. In this repository's goals, the measure of the goal
+on a session that orchestrates its work, as `git show cb8d5a22:crates/agent-skills/docs/goals.md`
+holds it, names the questions a retrospective asks; and the measure of the goal on the quality of
+the code the workflow leads to, as `git show adc9fb9d^:docs/goals.md` holds it, requires three
+properties of every unit a change edits, each departure argued. A mechanism stated in a goal binds outright and was argued against no
 rival; stated in a head, it is argued, and a better argument reverses it. The owner holds that the
 existence of such a mechanism, and its content, are design.
 
@@ -289,7 +295,8 @@ Component needs a design argument and no goal-setting session.
 A Component is a part whose existence comes from a design choice, which
 `design@agent-skills@goal-outcome-survives-empty-skeleton` keeps out of a goal: a goal anchored in a
 Component does not exist in the project emptied of its design, and moving code between Components
-moved goals only the owner may change. The order is the goals, then a head that argues a split,
+would move goals only the owner may change. Of this repository's 54 goals, 33 were goals of one
+Component, which `git grep -c '^## ' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals home. The order is the goals, then a head that argues a split,
 then the Component, so a redesign of the split touches no goal. The owner proposed it, on two
 observations of this repository's Component goals: they were detailed enough to state design, and
 several stated how their Component fits in the split.
@@ -297,8 +304,9 @@ several stated how their Component fits in the split.
 Its costs, as the owner was told them, the owner counting the first as what the decision is for:
 the owner no
 longer rules each Component's purpose, which an agent may reverse on argument and report; a session
-working in one Component reads the root's goals that bear on it; and a project that stated goals
-in its Components reviews its whole goal set. The rival, every Component stating at least one goal,
+working in one Component reads the root's goals that bear on it; and the checker's change breaks
+every reference to a goal of a Component, so a project that stated such goals reviews its whole
+goal set. The rival, every Component stating at least one goal,
 is `rejected@agent-skills@a-goal-for-every-component`. A Component that may keep goals, but none
 stating its place in the split, fails the same test of the skeleton.
 
@@ -363,7 +371,8 @@ It is fresh, never a fork, because the drafter is anchored on its own reading: i
 thaum a draft's excess reach went unnoticed by the drafter and the owner alike, which is the nearest
 rival, the drafter checking its own draft, refuted. It reads every statement of the owner, not only
 those the drafter drew on, so a statement the drafter left out still reaches the check of a part
-dropped. The owner reported, unsure, that a project's goals stay in the tens and that one agent reads at
+dropped. The owner reported, unsure, that the goals of a project's root which refine no other stay in the
+tens, which is every goal of a project since none refines another, and that one agent reads at
 least 100 goals when it does only that; no rule splits a larger set
 before evidence asks for one: the review of the whole goal set splits a set into clusters for each
 reviewer's focus, per `design@agent-skills@whole-set-rounds`, not for one agent's reach. It serves
@@ -400,7 +409,7 @@ The findings of the kinds, of a measure and of a refinement are graded by who se
   `design@agent-skills@goal-one-meaning-any-breadth`.
 
 No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
-question of intent. Under the standard that held a measure, the draft-mode review recorded in
+question of intent. A draft-mode review of goals that held a measure, recorded in
 `git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged the reason
 requirement of `goal@agent-skills@only-needed-instructions` only as unmeasured, `minor`; the goal
 was written with that requirement, and a later branch removed it on the owner's word that it was
