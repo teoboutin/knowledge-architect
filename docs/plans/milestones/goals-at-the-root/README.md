@@ -2393,9 +2393,9 @@ thread it guards stands.
 
 ## Implementation sequence
 
-1. [The standard, and the rewrite of this repository's goals](standard-and-rewrite.md):
-   `spec@goals-at-the-root@standard-and-rewrite`. It fails alone on a goal the new standard cannot
-   sort, or on a round of the whole-set review that does not converge.
+1. The standard, and the rewrite of this repository's goals, #standard-and-rewrite. It landed, and
+   its spec left: `git log --diff-filter=D --name-only -- docs/plans/milestones/goals-at-the-root/`
+   finds the commit that deleted it.
 2. [The register `goal` is the root's alone](checker-root-only.md):
    `spec@goals-at-the-root@checker-root-only`. It fails alone on a tree the checker refuses for a
    goals home, or accepts with one outside the root.
