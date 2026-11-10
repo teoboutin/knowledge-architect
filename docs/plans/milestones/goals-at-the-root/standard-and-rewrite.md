@@ -141,6 +141,8 @@ the standard's test.
   depends on nothing of the checker; whether `goal@agent-skills@session-orchestrates-the-work` is
   a purpose or a means to two other outcomes; and the clause "through a goal" of
   `goal@knowledge-architect@the-owner-decides`, read as a goal of the three kinds.
+- The root's `CLAUDE.md` says that Components refine or add to the main goals, which the one pass
+  makes false: its first commit rewrites that sentence.
 - A question the audit's search adds, put to the owner with the analysis: if
   `goal@check@relocation-needs-only-goal-changes` becomes a head, whether the owner's ruling that it
   admits no exception for a reference naming an anchor's own directory, which
@@ -231,6 +233,6 @@ the sorting.
 | the threads on the standard: the three kinds, one direction, no measure, the example, no refinement | `register@agent-skills@design`, its subdocument on goals: a head rewritten in place where the milestone document's table says rewritten; where it says reversed, a new head under the thread's slug, the incumbent judged for `register@agent-skills@rejected` | at this slice's landing |
 | goals at the root only, as an instruction of the installed text | `register@agent-skills@design`, a new head under the thread's slug, with `goals-required` reversed | at this slice's landing |
 | a goal's reading as a head's premise | `design@agent-skills@standing-argument-in-head`, rewritten; the comparison in the issue D3 opens, and no head | at this slice's landing |
-| the installed text's silence on an intermediate Component | `intermediate-component-occasion`, rewritten and its slug renamed with every reference to it; `no-intermediate-component`, removed | at this slice's landing |
+| the installed text's silence on an intermediate Component | `intermediate-component-occasion` (now `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component` and `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`), rewritten and its slug renamed with every reference to it; `no-intermediate-component`, removed | at this slice's landing |
 | each head the analysis argued, and the heads that argue the existence of `check`, `gates` and `xtask` | the design home `skill@knowledge-architect-decision-recording@owning-component` gives each: the root's for which Components exist | at this slice's landing |
 | every cause of the premortem but the one on a consumer's pin, and the losing alternatives | as the milestone document's harvest says | at this slice's landing |

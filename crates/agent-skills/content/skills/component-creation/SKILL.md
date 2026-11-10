@@ -50,8 +50,10 @@ each command or subcommand in a module of its own: the test of two changes is ap
 Component, not to each command, since a change of their shared design touches every one of them,
 and a change to one command alone differs from the others only in subject and application.
 
-%% No occasion on which an intermediate Component is created is stated, per
-%% `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`, and the home of
+%% What an intermediate Component is and holds is
+%% `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`; no occasion on
+%% which one is created is stated, per
+%% `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`; and the home of
 %% a decision about dependencies is `design@agent-skills@dependency-decision-home`.
 **An intermediate Component** groups the Components nested under its directory. Its own files hold no Rust code, so it is no crate: each Component nested under it that
 holds Rust code is a crate of its own. A decision that shapes how the code of several Components is

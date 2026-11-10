@@ -47,14 +47,13 @@ whose whole record costs more agents than one grounding should, per
 `design@query@clusters-packed-under-a-word-bound`, re-taken with `klarch worklist --out` over the
 tree.
 
-### Goal agents grade every goal, beside the session's own reading of the goals homes its grounding names `##searcher-grades-goals`
+### Goal agents grade every goal, beside the session's own reading of the goals its grounding names `##searcher-grades-goals`
 
 Every goal is graded once, by a goal agent that reads it whole, per `design@query@goal-context-once`,
 and each verdict names the subjects of the work it is against, so a goal that constrains a thread is
 named with that thread. A cluster agent holds the goals that bind its entries by their title lines,
-and reads a goal whole before a verdict rests on it. The session still reads the goals homes itself:
-at the design skill's grounding, those of the root and of every Component the question touches, and
-at the intake, the goal each finding serves or threatens. The decision is the owner's: the owner saw
+and reads a goal whole before a verdict rests on it. The session still reads the goals itself: at
+the design skill's grounding, the root's goals home, and at the intake, the goal each finding serves or threatens. The decision is the owner's: the owner saw
 design sessions miss a goal twice, although the goals homes are small enough to be read whole, and
 ruled that both readings stay. How a session misses a goal it is told to read is not established;
 the owner did not know. The nearest rival, the session's reading alone, is the reading those

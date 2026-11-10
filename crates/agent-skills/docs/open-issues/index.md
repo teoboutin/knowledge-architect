@@ -1,10 +1,11 @@
 **Generated — do not edit.** `cargo klarch index`
 
-57 entries
+58 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
+| defect | [A slice's spec with no section "What is already decided" gives its design audit no seed](a-slice-s-spec-with-no-section-of-decided-entries-gives-its-audit-no-seed.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |

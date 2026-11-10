@@ -156,18 +156,19 @@ owner brings lands by its kind, as the head-ground fragment's table states:
 - a reading of a source is the source;
 - a choice the argument leaves open is first asked whether it shows a ranking between two purposes
   that holds across decisions, which is then a goal to draft, and is otherwise a fork's choice,
-  recorded per `design@agent-skills@fork-choice-in-weak-form`. The owner chose this over a pick at a
-  fork always recorded in the weak form, which no goal ranks: the first question keeps a route to a
-  ranking, and no goal is proposed to settle one fork, per
+  recorded per `design@agent-skills@fork-choice-in-weak-form`. The session chose this over a pick at
+  a fork always recorded in the weak form, which no goal ranks; the owner approved it. The first
+  question keeps a route to a ranking, and no goal is proposed to settle one fork, per
   `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`.
 
 A preference about a mechanism, or an intent that is none of the three kinds, is no case of its
 own: it is an argument, or a choice at a fork. A head whose ground cites the owner's words is read
 by the same table.
 
-An intent and an argument are told apart by two things a session can establish: the statement's
-role in the decision, an outcome to reach or a reason for one shape over its rival, and whether a
-goal or a recorded decision already serves it against each rival it is cited to defeat. Both
+An intent that is a goal and an argument are told apart by two things a session can establish: the
+statement's kind, a purpose of the project, a scope that bounds one or a ranking between two, or a
+reason for one shape over its rival, and whether a goal or a recorded decision already serves it
+against each rival it is cited to defeat. Both
 follow from the decision and the record, per `design@agent-skills@questions-go-to-their-authority`.
 The rival, putting each doubtful reading to the owner, costs one question per reading that the
 record answers. The intent row drafts no goal for an outcome a recorded decision already serves

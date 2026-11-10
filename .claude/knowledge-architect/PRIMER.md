@@ -369,8 +369,9 @@ whose act does not apply it whole.
 
 | the statement is about | home | it leaves when |
 | --- | --- | --- |
-| what the project is for, whom or what that serves, and which of two purposes comes first | the goals home of the project's root | the owner abandons the goal, or rules that it is a decision |
-| what a Component is for, and how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
+| what the project is for, whom or what that serves, and which of two purposes comes first | the goals home of the project's root | the owner abandons the goal, or rules that it is no purpose, scope or ranking |
+| what a Component is for | the root's design home, in the head that argues the Component's existence | the design changes: the entry is rewritten in place |
+| how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
 | a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
 | evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, another entry or a check takes it over, or a condition of the tripwire standard of `skill@knowledge-architect-decision-recording@ruled-tripwires` excludes it |
@@ -490,8 +491,8 @@ records dozens per unit of work stops being readable and stops being ranked.
 **The owner's intent earns no head of its own.** A decision that would earn a head only as the
 owner's intent is drafted as a goal under `skill@knowledge-architect-goal-setting` where it states
 a purpose of the project, a scope that bounds one or a ranking between two, and is otherwise an
-argument, a fact or a choice at a fork, which lands as the table below says; an argument the owner
-made earns a head by the tests above, like any other.
+argument or a choice at a fork, which lands as the table of what the owner brings says; an argument
+the owner made earns a head by the tests above, like any other.
 
 A choice that turns on what the specification means, or on how the tool behaves, is expensive to
 get wrong and expensive to derive again, and it is visible: the argument quotes the specification
@@ -505,7 +506,7 @@ fails test 2.
 
 **A head carries the intent it serves, its shape and the standing argument, not implementation.**
 How the project is arranged to reach its goals belongs here, each head citing the goal it derives a
-constraint from and stating that constraint beside the reference; what a Component is for belongs
+constraint from; what a Component is for belongs
 here too, and what the project is for is its goals home's. How a particular function does its
 work belongs in a comment at that function. The test: **if changing a piece of code would force a
 change to the design home, it is design; if the design home would be unaffected, it is a comment.**

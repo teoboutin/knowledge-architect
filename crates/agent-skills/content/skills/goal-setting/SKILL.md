@@ -24,8 +24,7 @@ That is why an agent never edits a goal outside this skill.
 
 A goal stays in its home, **met or not yet met**. One removed when it is achieved stops being
 checked, and can stop being met without anyone noticing. **A goal leaves only on the owner's
-word**: when the owner abandons it, or rules that it is no purpose, scope or ranking, and it is
-then recorded as the decision it is.
+word**: when the owner abandons it, or rules that it is no purpose, scope or ranking.
 
 ## The shape of a goal entry {{slug:goal-entry-shape}}
 
@@ -53,8 +52,9 @@ home holds is prose under the level-one title, never a level-two section.
 %% owner may change.
 **Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
 Components serve it. No other Component and no location states a goal: the goals home each
-Component carries, `register@*@goal`, holds no entry outside the root. Where the goals are many, the root's home is a directory behind a `README.md` that links
-each of its files, one file per subject, the form `primer@checker-model` gives a heading register.
+Component carries, `register@*@goal`, holds no entry outside the root. The root's home may be a
+directory behind a `README.md` that links each of its files, the form `primer@checker-model` gives a
+heading register.
 
 %% The head restates no rule of this skill, since a restatement there drifted from the skill and an
 %% agent that edits a goal loads the skill anyway. The definitions are shared there because most

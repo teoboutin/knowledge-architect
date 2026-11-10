@@ -135,7 +135,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 
 | finding | rule | grade | route |
 | --- | --- | --- | --- |
-| the goal is in a goals home other than the root's | 1 | `blocks` | `settled` |
+| the goal is in a goals home other than the root's, where `skill@knowledge-architect-goal-setting@goal-entry-shape` has every goal sit; the repair is its move to the root's home where it passes rule 1 | none | `blocks` | `settled` |
 | the goal is no purpose, scope or ranking: it states the purpose of one part of the project, how something is built, or the outcome of one decision | 1 | `blocks` | `intent` |
 | a scope that names no design a purpose would argue for | 1 | `asks` | `intent` |
 | the goal names a part whose existence comes from a design choice | 2 | `blocks` | `settled` |
@@ -152,9 +152,8 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a citation rule 8 refuses | 8 | `blocks` | `settled` |
 | a statement of the owner in conflict, or a part of the statements dropped, (a) or (b) | none | `blocks` | `contradiction` |
 
-For a finding of rule 1 routed `intent`, the case is what the project provides that would lose its
-reason to exist were the goal removed, or that nothing would. A question a goal leaves open of
-when, how much or by what means is no finding.
+For a finding that a goal is no purpose, scope or ranking, the case is what the project provides
+that would lose its reason to exist were the goal removed, or that nothing would.
 A case the goal only admits is no finding, and a goal that the project does not meet yet is none.
 A finding on a goal's reach never proposes a narrower wording: it lists the cases, and the owner
 rules on them. A goal with no finding is listed as conforming. In draft and whole-set mode, end each

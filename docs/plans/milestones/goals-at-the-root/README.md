@@ -40,6 +40,7 @@ This repository adds:
 | name | what it names |
 | --- | --- |
 | the standard | the goal standard, the fragment `path@agent-skills@fragments/goal-standard.md`, which the goal-setting skill and the goal reviewer host |
+| a rule by its number | in this document and in the slices' specs, a rule of the standard as numbered before slice 1 rewrote it: the old rules 1 to 5 are the new 2 to 6, the old 6 is replaced by the new 7, the old 7 is the new 8, and the old 8 is the scope's condition in the new rule 1 |
 | the goal-setting skill | `path@agent-skills@content/skills/goal-setting/SKILL.md`, installed as `skill@knowledge-architect-goal-setting` |
 | the goal reviewer | `agent@knowledge-architect-goal-reviewer` |
 | a goals home | the home of the register `goal` of an anchor: docs/goals.md of a Component today |
@@ -156,12 +157,12 @@ design audit of the slice named runs it, since the list changes with every commi
 | `design@agent-skills@code-shape-axis` | rewritten: its ground is a line of a measure, which leaves; the head keeps the goal as its ground, and states itself the constraint that line carried, argued in the analysis | 1 |
 | `design@agent-skills@component-skill-delivery` | rewritten: its fifth moment, a purpose stated for several Components, leaves; component creation no longer sends to goal-setting | 1 |
 | `design@agent-skills@expectation-set-bounds-scope` | rewritten: its boundary sentence argues from the measure of a refining goal | 1 |
-| `rejected@agent-skills@goal-carries-reading-examples` | reversed: a goal carries no fixed block of cases | 1 |
+| the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`) | reversed: a goal carries no fixed block of cases | 1 |
 | `design@agent-skills@goal-draft-shows-reach` | rewritten: the reach by layer is shown to the owner, and is not kept in the goal | 1 |
 | `design@agent-skills@goal-entry-shape` | rewritten: a goal entry holds a statement, with no measure and no fixed block of cases; its argument against a bound on length stands | 1 |
-| `goal-exclusion-names-its-design` | rewritten: rule 8 becomes the condition of the scope kind; "what a Component is not for" leaves | 1 |
+| `goal-exclusion-names-its-design` | folded into `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`: rule 8 becomes the condition of the scope kind; "what a Component is not for" leaves | 1 |
 | `design@agent-skills@goal-finding-grades` | rewritten: the rows that grade a finding on a measure leave, in the head and in the goal reviewer's table; a question of when, how much or by what means is no finding | 1 |
-| `goal-holds-one-intent` | rewritten: a measure is no longer part of a goal. A scope is a goal of its own only where it means something without any one purpose; otherwise it stays a qualifier of the purpose it bounds, as the head says of a domain | 1 |
+| `design@agent-skills@goal-holds-one-intent` | rewritten: a measure is no longer part of a goal. A scope is a goal of its own only where it means something without any one purpose; otherwise it stays a qualifier of the purpose it bounds, as the head says of a domain | 1 |
 | `goal-met-in-tree-or-in-use` | reversed: a goal carries no measure; how a goal is pursued and shown met is design | 1 |
 | `design@agent-skills@goal-one-meaning-any-breadth` | rewritten: a question of when, how much or by what means is no finding; the clause on the set a universal ranges over leaves, D2 | 1 |
 | `design@agent-skills@goal-outcome-survives-empty-skeleton` | rewritten: the sentence that a Component's goal may name its own Component leaves; a kind of interface is a goal only as a purpose | 1 |
@@ -171,7 +172,7 @@ design audit of the slice named runs it, since the list changes with every commi
 | `design@agent-skills@heads-stand-on-argument` | rewritten: its table's row on an intent that states an outcome narrows to the three kinds, with the head-ground fragment | 1 |
 | `design@agent-skills@installed-skill-takes-precedence` | rewritten: its exception cites the root's complete-workflow goal directly; the owner agreed to that default of the session | 1 |
 | `design@agent-skills@instruction-record-is-minimal` | rewritten: its recording test names a refining goal the review judges again | 1 |
-| `intermediate-component-occasion` | rewritten: the occasion leaves, and the installed text states none. Of its six rivals, the three that name an occasion (a shared principle, a split, a count) are refused no longer; the two that name a form (a declared set, a crate whose Components are modules) stay refused. Its slug is renamed to what it then states | 1 |
+| `intermediate-component-occasion` (now `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component` and `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`) | rewritten: the occasion leaves, and the installed text states none. Of its six rivals, the three that name an occasion (a shared principle, a split, a count) are refused no longer; the two that name a form (a declared set, a crate whose Components are modules) stay refused. Its slug is renamed to what it then states | 1 |
 | `design@agent-skills@plan-read-against-the-record` | rewritten: the reviewer reads the root's goals home; its quotation of a measure leaves | 1 |
 | `design@agent-skills@questions-go-to-their-authority` | rewritten: "an intent is a goal to set" narrows to the three kinds, with `primer@question-authority` | 1 |
 | `design@agent-skills@searcher-grades-goals` | rewritten: the session reads the root's goals home alone | 1 |
@@ -190,7 +191,7 @@ design audit of the slice named runs it, since the list changes with every commi
 | `rejected@agent-skills@goal-measured-by-evidence-from-use` | kept, its reason narrowed: rule 6, which it cites, leaves; what still holds is the owner's argument that a measure on use has limited feasibility. The head that replaces `goal-met-in-tree-or-in-use` cites it. The discussion the parked thread opens owes a new argument against it | 1 |
 | `rejected@agent-skills@owner-intent-entry-test` | kept, its reason narrowed: an intent that states a purpose, a scope or a ranking is a goal, and any other is an argument or a choice at a fork. The harvest writes no head that stands on the owner's intent alone | 1 |
 | `design@agent-skills@intent-through-goals-not-overrule` | read again in the whole-set review, with `goal@knowledge-architect@the-owner-decides`: "through a goal" is read as a goal of the three kinds, which the owner keeps as a way to change a decision | 1 |
-| `design@agent-skills@goal-reviewer-agent` | rewritten: "every goals home" and its premise on root goals that refine no other | 1 |
+| `design@agent-skills@goal-reviewer-agent` | rewritten: its premise on root goals that refine no other. The reviewer keeps reading every goals home, a goal outside the root's being its finding, which slice 1 decided against this row's first form | 1 |
 
 Where each entry is referenced, outside this milestone's documents, at the commit that wrote this list:
 
@@ -200,12 +201,12 @@ Where each entry is referenced, outside this milestone's documents, at the commi
 - `design@agent-skills@code-shape-axis`: agent-skills: design heads (1), installed text source (1).
 - `design@agent-skills@component-skill-delivery`: agent-skills: design heads (1), installed text source (2).
 - `design@agent-skills@expectation-set-bounds-scope`: agent-skills: design heads (1), installed text source (1), issues (1), other documents (1), tripwires (2).
-- `rejected@agent-skills@goal-carries-reading-examples`: agent-skills: design heads (2).
+- the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`): agent-skills: design heads (2).
 - `design@agent-skills@goal-draft-shows-reach`: agent-skills: design heads (1), installed text source (1).
 - `design@agent-skills@goal-entry-shape`: agent-skills: installed text source (1).
 - `goal-exclusion-names-its-design`: agent-skills: design heads (1).
 - `design@agent-skills@goal-finding-grades`: agent-skills: design heads (2), installed text source (1), other documents (1).
-- `goal-holds-one-intent`: agent-skills: design heads (1).
+- `design@agent-skills@goal-holds-one-intent`: agent-skills: design heads (1).
 - `goal-met-in-tree-or-in-use`: agent-skills: design heads (2).
 - `design@agent-skills@goal-one-meaning-any-breadth`: agent-skills: design heads (1).
 - `design@agent-skills@goal-outcome-survives-empty-skeleton`: agent-skills: design heads (2).
@@ -489,13 +490,13 @@ Triggers met, ruled before the work:
 - `design@agent-skills@intake-outcome-authority`: constrains, respect.
 - `design@agent-skills@goal-lifecycle`: constrains, respect.
 - `design@agent-skills@goal-entry-shape`: conflicts, check-reversal.
-- `rejected@agent-skills@goal-carries-reading-examples`: conflicts, check-reversal.
+- the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`): conflicts, check-reversal.
 - `design@agent-skills@goals-change-through-goal-setting`: conflicts, check-reversal.
 - `design@agent-skills@goal-standard-rules`: conflicts, check-reversal.
 - `design@agent-skills@goal-outcome-survives-empty-skeleton`: conflicts, check-reversal.
 - `design@agent-skills@goal-one-meaning-any-breadth`: conflicts, check-reversal.
 - `design@agent-skills@requires-admits-rules-out`: constrains, respect.
-- `goal-holds-one-intent`: conflicts, check-reversal.
+- `design@agent-skills@goal-holds-one-intent`: conflicts, check-reversal.
 - `design@agent-skills@goal-drafted-to-move-the-tree`: constrains, respect.
 - `goal-met-in-tree-or-in-use`: conflicts, check-reversal.
 - `goal-exclusion-names-its-design`: conflicts, check-reversal.
@@ -734,7 +735,7 @@ Triggers met, ruled before the work:
 - `design@agent-skills@premortem-as-watch-points`: constrains, respect.
 - `design@agent-skills@goal-lifecycle`: constrains, respect.
 - `design@agent-skills@goal-entry-shape`: conflicts, check-reversal.
-- `rejected@agent-skills@goal-carries-reading-examples`: conflicts, check-reversal.
+- the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`): conflicts, check-reversal.
 - `design@agent-skills@goals-change-through-goal-setting`: constrains, respect.
 - `design@agent-skills@goal-standard-rules`: constrains, respect.
 - `design@agent-skills@goal-outcome-survives-empty-skeleton`: constrains, respect.
@@ -1769,11 +1770,11 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@what-shows-a-goal-me
 
 **Note**: From finding 3: the argument a reversal owes.
 
-### `rejected@agent-skills@goal-carries-reading-examples` already defeated "cases shown in the drafting exchange (cut) `##arg-84`
+### the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`) already defeated "cases shown in the drafting exchange (cut) `##arg-84`
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@a-goal-carries-an-example-only-for-its-direction`, `thread@goals-at-the-root@goal-cases-stay-in-the-discussion`.
 
-> - `rejected@agent-skills@goal-carries-reading-examples` already defeated "cases shown in the drafting exchange only", on the reading being lost when the record leaves. The new fact: in both rewrites every case closed a question of how much. The synthesis keeps an example where the direction needs one, which answers the old objection in part.
+> - the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`) already defeated "cases shown in the drafting exchange only", on the reading being lost when the record leaves. The new fact: in both rewrites every case closed a question of how much. The synthesis keeps an example where the direction needs one, which answers the old objection in part.
 
 **Note**: From finding 3: the argument a reversal owes. "in part" is the session's own hedge.
 
@@ -2183,7 +2184,7 @@ A goal entry holds no fixed block of cases. Its prose may carry an example where
 alone would be read in the wrong direction. The reach by layer, what a draft requires, admits and
 rules out, is still shown to the owner in the drafting exchange.
 
-This reverses `rejected@agent-skills@goal-carries-reading-examples`, which kept the cases so that the
+This reverses the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`), which kept the cases so that the
 reading is not lost. The fact its record did not hold: in the two goals that stayed goals among
 three rewritten as a test, every case either repeated the statement or closed a question of how
 much. The test covered two purposes and no scope.
@@ -2421,7 +2422,7 @@ form the shipped text writes for the root's goals home, which slice 2's spec sta
 | --- | --- | --- |
 | each slice's decisions | its spec's harvest row | at that slice's landing |
 | the reversed and rewritten entries of "What is already decided" | each in its own home, by the slice its row names | at that slice's landing |
-| the losing alternatives above, and the three heads the work reverses, `goals-required`, `goal-met-in-tree-or-in-use` and `rejected@agent-skills@goal-carries-reading-examples`, each as `skill@knowledge-architect-decision-recording@reversal-check` asks | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
+| the losing alternatives above, and the three heads the work reverses, `goals-required`, `goal-met-in-tree-or-in-use` and the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`), each as `skill@knowledge-architect-decision-recording@reversal-check` asks | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
 | every cause of the premortem, each listed with its outcome and, where dropped, the condition it fails | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at slice 1's landing; the cause on a consumer's pin at slice 2's |
 | `acceptance@goals-at-the-root@the-goals-home-is-not-larger` | reported as `skill@knowledge-architect-planning@acceptance-criteria` says | at slice 1's landing, and when this document leaves |
 | this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 to D4 | after slice 2 |

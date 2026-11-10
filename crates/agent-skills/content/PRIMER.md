@@ -368,8 +368,9 @@ it was written.
 
 | the statement is about | home | it leaves when |
 | --- | --- | --- |
-| what the project is for, whom or what that serves, and which of two purposes comes first | the goals home of the project's root | the owner abandons the goal, or rules that it is a decision |
-| what a Component is for, and how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
+| what the project is for, whom or what that serves, and which of two purposes comes first | the goals home of the project's root | the owner abandons the goal, or rules that it is no purpose, scope or ranking |
+| what a Component is for | the root's design home, in the head that argues the Component's existence | the design changes: the entry is rewritten in place |
+| how the project or a Component is built, and why | that Component's design home, `register@*@design` | the design changes: the entry is rewritten in place |
 | a design not kept, and why | that Component's `register@*@rejected`, each entry cited by the design heads whose argument covers it | it is reopened, chosen and built; the owner rules it fails every recording test; or no design head cites it any longer and no head of absence is written for it; a reversal moves the reversed decision into it if it meets a recording test of `skill@knowledge-architect-decision-recording` |
 | what is outstanding: a defect, an unexplained observation, an open question, missing work | one file in the owning anchor's issue directory, `register@*@issue` in a Component | the issue closes |
 | evidence that would flip a recorded decision whose work exists, or that no work implements | the owning Component's tripwires home, `register@*@tripwire` | it fires, its horizon passes, its decision is gone, another entry or a check takes it over, or a condition of the tripwire standard of `skill@knowledge-architect-decision-recording@ruled-tripwires` excludes it |
