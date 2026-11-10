@@ -18,7 +18,7 @@ and two searches of the whole record.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults D1 and D2 are not ruled.
+  waits. Its defaults D1 to D4 are not ruled.
 
 ## How the work is done
 
@@ -49,14 +49,28 @@ This repository adds:
 | the cases | the list of a goal that begins "Requires, for instance", "Admits, for instance" and "Rules out, for instance" |
 | the whole-set review | the review of the whole goal set, `skill@knowledge-architect-goal-setting@whole-set-review`, whose rounds `design@agent-skills@whole-set-rounds` states |
 | the first search, the second search | the two searches of the whole record the discussion ran, each by 17 agents of `agent@knowledge-architect-record-searcher` |
+| a theme | a set of goals on one subject that touch each other, the set `design@agent-skills@whole-set-rounds` gives one reviewer; one theme file holds one theme. The analysis proposes the themes and the owner rules them with it |
+| the reach by layer | what a goal draft requires, admits and rules out, shown to the owner at drafting, per `design@agent-skills@goal-draft-shows-reach` |
+| a blocking finding | a finding the goal reviewer grades `blocks`, per `design@agent-skills@goal-finding-grades` |
+| the need test | the test of `skill@knowledge-architect-agent-configuration` by which an instruction stays in agent-facing text only where an act needs it |
+| the primer's source | `path@agent-skills@content/PRIMER.md` |
+| the goal reviewer's source | `path@agent-skills@content/agents/goal-reviewer.md` |
+| the decision-record reviewer's source | `path@agent-skills@content/agents/decision-record-reviewer.md` |
+| the head-ground fragment | `path@agent-skills@fragments/head-ground.md` |
+| the checkpoint table | the table of every thread with its state that the session showed in round 12, which the owner's word of round 13 answered; it is under Threads |
 
 ## What the work is
 
 **What exists today.**
 
 - 54 goals in 13 goals homes: 21 at the root, 33 in 12 Components, counted by
-  `grep -c '^## '` over each goals home; 22,350 words by `wc -w` over the same files.
-- 24 refining goals, 21 of them Component goals, counted by `grep -c '^It refines'`.
+  `grep -c '^## '` over each goals home; 19,045 words by `wc -w` over the same 13 files. The
+  discussion used 22,350, a figure the session took with a fourteenth file in the sum, the
+  goal-setting skill; the review of this document corrected it.
+- 24 goals hold a line that begins "It refines", 21 of them Component goals, counted by
+  `grep -c '^It refines'`. One more states its refinement inside a paragraph,
+  `goal@model@a-tool-reads-the-documents-with-no-check`, found by `grep -n 'refines'`; the
+  discussion did not sort it.
 - The standard has eight rules. Rule 1 lets a Component's goal name its own Component. Rule 2 asks
   one reading. Rule 6 asks a measure built in the tree. Rule 7 states how a goal refines another.
 - `design@agent-skills@goals-required` asks every Component for at least one goal, and the
@@ -64,13 +78,17 @@ This repository adds:
 - The register `goal` is one of the registers every Component carries, per
   `design@model@registers-are-declared`; `klarch init` and `klarch new-component` write a goals
   home for each Component, per `design@create@component-command`.
-- The root's design home already holds one head per crate that argues its existence, such as
-  `design@knowledge-architect@git-crate`.
+- The root's design home holds a head that argues the existence of 9 of the 12 Components under
+  it, such as `design@knowledge-architect@git-crate`. It holds none for `check`, `gates` and
+  `xtask`; the head of `gates` is in its own home, `design@gates@gates-crate`, and
+  `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home` asks whether it moves.
 
 **What the work changes.**
 
 - The standard, the goal-setting skill, the goal reviewer, the primer's text on goals, the
-  component-creation skill and the setup skill.
+  component-creation skill, the setup skill, the head-ground fragment and the decision-recording
+  skill; and each other installed text that a row of the table below makes false, such as the
+  texts of the planning, design and audit skills that name the goals home of every Component.
 - This repository's 54 goals: each is judged again, kept, merged, turned into a design head or
   removed, and the goals kept move to the root's goals home, a directory of files by theme.
 - The checker, `model`, `query` and `create`: the register `goal` is the root's alone.
@@ -111,26 +129,39 @@ This repository adds:
   new standard.
 - `primer@branch-commits`: every commit of a branch passes the checker at its tip.
 
-**Recorded entries the work reverses or rewrites.** The two searches graded each as conflicting or
-as a rejected design coming back. Each row names what changes and the slice that carries it. The
-texts that reference each entry follow the table; the slice named updates each of them, and the
-slice's design audit reads the list again with `cargo klarch show`.
+- `design@agent-skills@verdicts-reach-the-conformance-review`: the design-conformance axis runs at
+  a merge only on a commit message that carries a search's line with a verdict other than
+  `constrains` and `unrelated`.
+- `design@agent-skills@no-instruction-for-a-goal-read-two-ways`: no installed text tells an agent
+  what to do when a goal it applies reads two ways. The rule that a question of when, how much or
+  by what means is left to design is a rule for the drafter and the reviewer of a goal, and is
+  written as no instruction to an agent that applies one.
+- `rejected@agent-skills@owner-intent-entry-test` and
+  `rejected@agent-skills@goal-measured-by-evidence-from-use`: both stay refused. The harvest of
+  slice 1 narrows the reason of each to what still holds, as the table says.
+
+The two searches graded six of these as conflicting with a first form of the design, or as coming
+back; the design was corrected to respect each, and none is reversed or rewritten.
+
+**Recorded entries the work reverses or rewrites.** The two searches graded each as conflicting.
+Each row names what changes and the slice that carries it. Where each entry is referenced follows
+the table, by Component and by kind of text; `cargo klarch show <entry>` lists the files, and the
+design audit of the slice named runs it, since the list changes with every commit.
 
 | entry | what changes | slice |
 | --- | --- | --- |
 | `design@agent-skills@a-head-is-owed-by-an-entry-test` | rewritten: an owner's intent is a goal only as a purpose, a scope or a ranking; any other enters design as a fact or a weighing of cost | 1 |
 | `design@agent-skills@audit-outcomes` | rewritten: its outcome "an intent of the owner cited as a ground, drafted as a goal" narrows to the three kinds; its quotation of the complete-workflow goal is corrected | 1 |
 | `design@agent-skills@capabilities-not-structure` | rewritten: its second paragraph takes a goal's weight from a refining goal the review judges again | 1 |
-| `design@agent-skills@code-shape-axis` | rewritten: its ground is a line of a measure, which leaves; the head is argued again or keeps the goal alone as its ground | 1 |
+| `design@agent-skills@code-shape-axis` | rewritten: its ground is a line of a measure, which leaves; the head keeps the goal as its ground, and states itself the constraint that line carried, argued in the analysis | 1 |
 | `design@agent-skills@component-skill-delivery` | rewritten: its fifth moment, a purpose stated for several Components, leaves; component creation no longer sends to goal-setting | 1 |
-| `design@agent-skills@dependency-decision-home` | kept; the draft that contradicted it was corrected. Its rival's citation of a sentence of the split goal is read again | 1 |
 | `design@agent-skills@expectation-set-bounds-scope` | rewritten: its boundary sentence argues from the measure of a refining goal | 1 |
 | `design@agent-skills@goal-carries-reading-examples` | reversed: a goal carries no fixed block of cases | 1 |
 | `design@agent-skills@goal-draft-shows-reach` | rewritten: the reach by layer is shown to the owner, and is not kept in the goal | 1 |
 | `design@agent-skills@goal-entry-shape` | rewritten: a goal entry holds a statement, with no measure and no fixed block of cases; its argument against a bound on length stands | 1 |
 | `design@agent-skills@goal-exclusion-names-its-design` | rewritten: rule 8 becomes the condition of the scope kind; "what a Component is not for" leaves | 1 |
-| `design@agent-skills@goal-finding-grades` | rewritten: the two rows that grade a finding on a measure leave; a question of when, how much or by what means is no finding | 1 |
-| `design@agent-skills@goal-holds-one-intent` | rewritten: a measure is no longer part of a goal; its test, each means something without the other, is the test of a goal that stands alone | 1 |
+| `design@agent-skills@goal-finding-grades` | rewritten: the rows that grade a finding on a measure leave, in the head and in the goal reviewer's table; a question of when, how much or by what means is no finding | 1 |
+| `design@agent-skills@goal-holds-one-intent` | rewritten: a measure is no longer part of a goal. A scope is a goal of its own only where it means something without any one purpose; otherwise it stays a qualifier of the purpose it bounds, as the head says of a domain | 1 |
 | `design@agent-skills@goal-met-in-tree-or-in-use` | reversed: a goal carries no measure; how a goal is pursued and shown met is design | 1 |
 | `design@agent-skills@goal-one-meaning-any-breadth` | rewritten: a question of when, how much or by what means is no finding; the clause on the set a universal ranges over leaves, D2 | 1 |
 | `design@agent-skills@goal-outcome-survives-empty-skeleton` | rewritten: the sentence that a Component's goal may name its own Component leaves; a kind of interface is a goal only as a purpose | 1 |
@@ -138,18 +169,14 @@ slice's design audit reads the list again with `cargo klarch show`.
 | `design@agent-skills@goals-required` | reversed: a Component states no goal | 1 |
 | `design@agent-skills@goal-standard-rules` | rewritten with the new rules | 1 |
 | `design@agent-skills@heads-stand-on-argument` | rewritten: its table's row on an intent that states an outcome narrows to the three kinds, with the head-ground fragment | 1 |
-| `design@agent-skills@installed-skill-takes-precedence` | rewritten: its exception cites the root's complete-workflow goal directly, on the owner's ruling | 1 |
+| `design@agent-skills@installed-skill-takes-precedence` | rewritten: its exception cites the root's complete-workflow goal directly; the owner agreed to that default of the session | 1 |
 | `design@agent-skills@instruction-record-is-minimal` | rewritten: its recording test names a refining goal the review judges again | 1 |
-| `design@agent-skills@intermediate-component-occasion` | rewritten: the occasion leaves, and the installed text states none | 1 |
-| `design@agent-skills@new-or-reshaped-head-needs-design` | kept; the harvest was corrected to respect it | 1 |
-| `design@agent-skills@no-instruction-for-a-goal-read-two-ways` | read again: a goal read two ways in use is more frequent under one direction | 1 |
+| `design@agent-skills@intermediate-component-occasion` | rewritten: the occasion leaves, and the installed text states none. Of its six rivals, the three that name an occasion (a shared principle, a split, a count) are refused no longer; the two that name a form (a declared set, a crate whose Components are modules) stay refused. Its slug is renamed to what it then states | 1 |
 | `design@agent-skills@plan-read-against-the-record` | rewritten: the reviewer reads the root's goals home; its quotation of a measure leaves | 1 |
 | `design@agent-skills@questions-go-to-their-authority` | rewritten: "an intent is a goal to set" narrows to the three kinds, with `primer@question-authority` | 1 |
 | `design@agent-skills@searcher-grades-goals` | rewritten: the session reads the root's goals home alone | 1 |
 | `design@agent-skills@shipped-text-cites-no-entry` | rewritten: the form that names a goals home in the shipped text names the root's | 2 |
 | `design@agent-skills@standing-argument-in-head` | rewritten: a head states, beside its reference to a goal, the constraint it derives from it, with the head-ground fragment | 1 |
-| `design@agent-skills@unargued-approval-is-argued` | kept; the harvest was corrected to respect it | 1 |
-| `design@agent-skills@verdicts-reach-the-conformance-review` | kept; the comparison of readings goes to the decision-record axis instead | 1 |
 | `design@check@every-path-names-its-anchor` | rewritten: its exception for a goals home leaves; the head is split, per `issue@check@core-heads-bundle-decisions-with-many-citing-sites` | 2 |
 | `design@check@goals-home-cites-upward-only` | rewritten: one goals home remains, and no goal refines another | 2 |
 | `design@check@nothing-of-a-project-is-compiled-in` | rewritten: the count of registers every Component carries, and the starting text of a goals home | 2 |
@@ -160,55 +187,54 @@ slice's design audit reads the list again with `cargo klarch show`.
 | `design@mutate@one-file-per-run` | rewritten: its sentence on a clause of a measure; the owner's choice it reports is carried into the head | 1 |
 | `design@query@goal-context-once` | rewritten: the clauses on the goals of enclosing Components and of search units leave, with the `worklist` code they describe | 2 |
 | `design@transcript@transcript-labels-in-code` | rewritten: it holds the constraint itself, where it cited a case of a goal | 1 |
-| `rejected@agent-skills@goal-measured-by-evidence-from-use` | kept; the discussion the parked thread opens owes a new argument against it | 1 |
-| `rejected@agent-skills@owner-intent-entry-test` | kept; the harvest writes no head that stands on the owner's intent alone | 1 |
+| `rejected@agent-skills@goal-measured-by-evidence-from-use` | kept, its reason narrowed: rule 6, which it cites, leaves; what still holds is the owner's argument that a measure on use has limited feasibility. The head that replaces `design@agent-skills@goal-met-in-tree-or-in-use` cites it. The discussion the parked thread opens owes a new argument against it | 1 |
+| `rejected@agent-skills@owner-intent-entry-test` | kept, its reason narrowed: an intent that states a purpose, a scope or a ranking is a goal, and any other is an argument or a choice at a fork. The harvest writes no head that stands on the owner's intent alone | 1 |
+| `design@agent-skills@intent-through-goals-not-overrule` | read again in the whole-set review, with `goal@knowledge-architect@the-owner-decides`: "through a goal" is read as a goal of the three kinds, which the owner keeps as a way to change a decision | 1 |
+| `design@agent-skills@goal-reviewer-agent` | rewritten: "every goals home" and its premise on root goals that refine no other | 1 |
 
-The files that reference each entry, with the count of references in each:
+Where each entry is referenced, outside this milestone's documents, at the commit that wrote this list:
 
-- `design@agent-skills@a-head-is-owed-by-an-entry-test`: crates/agent-skills/docs/design/design-skill-and-heads.md (2), crates/agent-skills/docs/design/owner-and-intent.md (1), crates/agent-skills/docs/design/shipped-set.md (1), crates/agent-skills/docs/open-issues/audit-axes-beyond-the-design-record.md (1), crates/agent-skills/docs/open-issues/the-material-finding-duty-has-no-head.md (1), crates/agent-skills/docs/tripwires.md (1), crates/agent-skills/fragments/head-entry-tests.md (1).
-- `design@agent-skills@audit-outcomes`: crates/agent-skills/docs/design/audit-record-axes.md (1), crates/agent-skills/docs/design/audit-workflow-axis.md (3), crates/agent-skills/docs/design/retrospective.md (1), crates/agent-skills/docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md (1), crates/agent-skills/docs/open-issues/an-upstream-finding-stays-in-every-later-old-text-count.md (1), crates/agent-skills/docs/open-issues/texts-send-the-owner-more-than-the-closed-list.md (1), crates/agent-skills/docs/rejected.md (1), docs/design.md (1).
-- `design@agent-skills@capabilities-not-structure`: crates/agent-skills/docs/design/audit-workflow-axis.md (2), crates/agent-skills/docs/design/how-installed-text-changes.md (1), crates/agent-skills/docs/design/owner-and-intent.md (1), crates/agent-skills/docs/design/project-configuration.md (1), crates/agent-skills/docs/design/record-search.md (1), crates/agent-skills/docs/open-issues/the-retrospective-counts-no-review-cost.md (1), crates/agent-skills/docs/rejected.md (2).
-- `design@agent-skills@code-shape-axis`: crates/agent-skills/content/agents/code-shape-reviewer.md (1), crates/agent-skills/docs/design/development.md (1).
-- `design@agent-skills@component-skill-delivery`: crates/agent-skills/content/skills/component-creation/SKILL.md (1), crates/agent-skills/docs/design/shipped-set.md (1), crates/agent-skills/fragments/when-to-split.md (1).
-- `design@agent-skills@dependency-decision-home`: crates/agent-skills/content/skills/component-creation/SKILL.md (1), crates/agent-skills/docs/design/components.md (1), crates/agent-skills/fragments/owning-component.md (1), crates/gates/docs/open-issues/the-gates-crate-head-may-belong-in-the-root-design-home.md (1).
-- `design@agent-skills@expectation-set-bounds-scope`: crates/agent-skills/content/skills/retrospective-intake/SKILL.md (1), crates/agent-skills/docs/design/design-skill-and-heads.md (1), crates/agent-skills/docs/open-issues/expectation-sets-for-the-installed-skills.md (1), crates/agent-skills/docs/tripwires.md (2), crates/agent-skills/README.md (1).
-- `design@agent-skills@goal-carries-reading-examples`: crates/agent-skills/docs/design/goals.md (2).
-- `design@agent-skills@goal-draft-shows-reach`: crates/agent-skills/content/skills/goal-setting/SKILL.md (1), crates/agent-skills/docs/design/goals.md (1), crates/agent-skills/docs/open-issues/goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet.md (1).
-- `design@agent-skills@goal-entry-shape`: crates/agent-skills/content/skills/goal-setting/SKILL.md (1).
-- `design@agent-skills@goal-exclusion-names-its-design`: crates/agent-skills/docs/design/goals.md (1).
-- `design@agent-skills@goal-finding-grades`: crates/agent-skills/content/agents/goal-reviewer.md (1), crates/agent-skills/docs/design/goals.md (2), crates/agent-skills/docs/grounding/goal-standard.md (1).
-- `design@agent-skills@goal-holds-one-intent`: crates/agent-skills/docs/design/goals.md (1).
-- `design@agent-skills@goal-met-in-tree-or-in-use`: crates/agent-skills/docs/design/goals.md (2), crates/agent-skills/docs/open-issues/the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for.md (2).
-- `design@agent-skills@goal-one-meaning-any-breadth`: crates/agent-skills/docs/design/goals.md (1).
-- `design@agent-skills@goal-outcome-survives-empty-skeleton`: crates/agent-skills/docs/design/goals.md (2).
-- `design@agent-skills@goals-change-through-goal-setting`: crates/check/docs/design/run-model.md (1).
-- `design@agent-skills@goals-required`: crates/check/docs/open-issues/a-component-states-at-least-one-goal.md (1).
-- `design@agent-skills@goal-standard-rules`: crates/agent-skills/docs/design/goals.md (1), crates/agent-skills/docs/design/shipped-set.md (1), crates/agent-skills/docs/grounding/goal-standard.md (1), crates/agent-skills/docs/open-issues/a-target-project-collects-no-feedback-from-use.md (1), crates/agent-skills/docs/open-issues/goal-design-heads-may-repeat-the-fragment-s-reasons.md (2), crates/agent-skills/fragments/goal-standard.md (2).
-- `design@agent-skills@heads-stand-on-argument`: crates/agent-skills/docs/design/design-skill-and-heads.md (4), crates/agent-skills/docs/design/owner-and-intent.md (3), crates/agent-skills/docs/design/premortem-and-tripwires.md (1), crates/agent-skills/docs/design/project-configuration.md (1), crates/agent-skills/docs/design/what-earns-a-record.md (1), crates/agent-skills/docs/tripwires.md (2), crates/agent-skills/fragments/head-ground.md (1).
-- `design@agent-skills@installed-skill-takes-precedence`: crates/agent-skills/content/PRIMER.md (1), crates/agent-skills/docs/design/how-installed-text-changes.md (1), crates/agent-skills/docs/design/project-configuration.md (1).
-- `design@agent-skills@instruction-record-is-minimal`: crates/agent-skills/CLAUDE.md (1), crates/agent-skills/docs/design/plan-documents.md (1), crates/agent-skills/docs/design/what-earns-a-record.md (1).
-- `design@agent-skills@intermediate-component-occasion`: crates/agent-skills/content/skills/component-creation/SKILL.md (1), crates/agent-skills/content/skills/goal-setting/SKILL.md (1), crates/agent-skills/docs/design/components.md (2), crates/agent-skills/fragments/owning-component.md (1), crates/check/docs/design/entities-and-headings.md (1), docs/design.md (1), docs/open-issues/root-goals-about-the-checker-may-belong-to-an-intermediate-component.md (1).
-- `design@agent-skills@new-or-reshaped-head-needs-design`: crates/agent-skills/docs/design/design-skill-and-heads.md (2), crates/agent-skills/docs/design/plan-documents.md (1), crates/agent-skills/docs/design/project-configuration.md (1), crates/agent-skills/docs/open-issues/a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md (2).
-- `design@agent-skills@no-instruction-for-a-goal-read-two-ways`: none.
-- `design@agent-skills@plan-read-against-the-record`: crates/agent-skills/content/skills/planning/SKILL.md (1), crates/agent-skills/docs/design/record-search.md (1), crates/agent-skills/docs/design/reviews.md (1), crates/agent-skills/docs/open-issues/audit-axes-beyond-the-design-record.md (1), crates/agent-skills/docs/rejected.md (1).
-- `design@agent-skills@questions-go-to-their-authority`: crates/agent-skills/docs/design/audit-method.md (1), crates/agent-skills/docs/design/owner-and-intent.md (5), crates/agent-skills/docs/design/plan-documents.md (1), crates/agent-skills/docs/design/project-configuration.md (6), crates/agent-skills/docs/design/retrospective.md (1), crates/agent-skills/docs/open-issues/a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md (1), crates/agent-skills/docs/open-issues/patching-an-installed-skill.md (1), crates/agent-skills/docs/rejected.md (1), crates/agent-skills/docs/tripwires.md (1).
-- `design@agent-skills@searcher-grades-goals`: crates/agent-skills/content/skills/design/SKILL.md (1), crates/agent-skills/docs/open-issues/a-spec-worked-without-its-design-audit-missed-a-critical-gap.md (1), crates/query/docs/design.md (1).
-- `design@agent-skills@shipped-text-cites-no-entry`: .claude/skills/klarch-release/SKILL.md (1), crates/agent-skills/CLAUDE.md (3), crates/agent-skills/docs/design/project-configuration.md (1), crates/agent-skills/docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md (1), crates/agent-skills/docs/open-issues/shipped-text-citing-an-entry-is-unchecked.md (2).
-- `design@agent-skills@standing-argument-in-head`: crates/agent-skills/docs/design/plan-documents.md (1), crates/agent-skills/docs/open-issues/a-head-s-measurement-says-nothing-of-its-magnitude.md (2).
-- `design@agent-skills@unargued-approval-is-argued`: none.
-- `design@agent-skills@verdicts-reach-the-conformance-review`: crates/agent-skills/content/agents/design-conformance-reviewer.md (1), crates/agent-skills/docs/design/record-search.md (1).
-- `design@check@every-path-names-its-anchor`: crates/agent-skills/content/agents/routing-reviewer.md (2), crates/check/docs/design/commit-messages.md (1), crates/check/docs/design/entities-and-headings.md (1), crates/check/docs/open-issues/core-heads-bundle-decisions-with-many-citing-sites.md (1), crates/check/docs/open-issues/texts-citing-the-relocation-goal-state-its-old-measure.md (1), crates/check/docs/rejected.md (3), crates/check/README.md (1), crates/check/src/check/references.rs (2), crates/model/docs/design/anchors.md (2), crates/model/docs/design/entities-and-headings.md (1), crates/model/docs/design/paths-and-links.md (1), crates/model/docs/design/plan-documents.md (1), crates/model/docs/design/reference-lints.md (1), crates/model/docs/open-issues/a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md (1), crates/model/docs/open-issues/a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md (1), crates/model/src/manifest.rs (1), crates/model/src/resolver.rs (1), docs/plans/specs/path-quickfixes.md (8).
-- `design@check@goals-home-cites-upward-only`: crates/agent-skills/content/skills/goal-setting/SKILL.md (1), crates/agent-skills/docs/design/goals.md (2), crates/agent-skills/fragments/goal-standard.md (1), crates/check/docs/design/entities-and-headings.md (1), crates/check/docs/design/paths-and-links.md (1), crates/check/docs/open-issues/some-findings-in-a-goals-home-name-a-form-refused-there.md (2), crates/check/docs/open-issues/texts-citing-the-relocation-goal-state-its-old-measure.md (1), crates/check/README.md (1), crates/check/src/check/references.rs (3), crates/model/docs/design/plan-documents.md (1).
-- `design@check@nothing-of-a-project-is-compiled-in`: crates/agent-skills/docs/open-issues/pointers-written-bare-to-clear-a-finding-reach-no-check.md (1), crates/check/CLAUDE.md (1), crates/check/docs/design/prose.md (1), crates/check/README.md (1), crates/create/docs/design.md (1), crates/create/docs/open-issues/a-new-register-home-still-says-no-entry-yet-after-its-first-entry.md (1), crates/create/src/command.rs (2), crates/model/docs/design/anchors.md (2), crates/model/docs/design/plan-documents.md (1).
-- `design@create@component-command`: crates/cli/tests/init.rs (1), crates/create/src/command.rs (1).
-- `design@knowledge-architect@no-intermediate-component`: docs/open-issues/root-goals-about-the-checker-may-belong-to-an-intermediate-component.md (1).
-- `design@model@components-carry-the-same-documents`: crates/agent-skills/content/agents/standing-state-reviewer.md (1), crates/agent-skills/docs/design/components.md (1), crates/agent-skills/docs/design/shipped-set.md (1), crates/check/docs/design/run-model.md (1), crates/model/docs/design/anchors.md (1), crates/model/docs/open-issues/the-walk-may-exclude-a-file-the-model-requires.md (1), crates/model/src/walk.rs (1), docs/design.md (1).
-- `design@model@registers-are-declared`: crates/check/docs/design/run-model.md (1), crates/check/docs/rejected.md (1), crates/check/README.md (1), crates/model/docs/design/paths-and-links.md (1), crates/model/docs/design/plan-documents.md (1), crates/model/src/manifest.rs (2).
-- `design@mutate@one-file-per-run`: crates/mutate/docs/open-issues/a-mutation-of-several-files.md (2).
-- `design@query@goal-context-once`: crates/agent-skills/docs/design/record-search.md (3), crates/query/docs/design.md (3).
-- `design@transcript@transcript-labels-in-code`: crates/agent-skills/docs/design/reviews.md (1), crates/transcript/CLAUDE.md (1), crates/transcript/docs/open-issues/no-verb-takes-the-inventory-of-the-transcripts-line-kinds.md (1), crates/transcript/docs/open-issues/the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag.md (3), crates/transcript/docs/rejected.md (1), crates/transcript/src/reader.rs (7).
-- `rejected@agent-skills@goal-measured-by-evidence-from-use`: crates/agent-skills/docs/design/goals.md (1).
-- `rejected@agent-skills@owner-intent-entry-test`: crates/agent-skills/docs/design/owner-and-intent.md (1), crates/agent-skills/docs/design/project-configuration.md (1), crates/agent-skills/docs/design/what-earns-a-record.md (1).
+- `design@agent-skills@a-head-is-owed-by-an-entry-test`: agent-skills: design heads (4), installed text source (1), issues (2), tripwires (1).
+- `design@agent-skills@audit-outcomes`: agent-skills: design heads (5), issues (3), rejected designs (1); the root: design heads (1).
+- `design@agent-skills@capabilities-not-structure`: agent-skills: design heads (6), issues (1), rejected designs (2).
+- `design@agent-skills@code-shape-axis`: agent-skills: design heads (1), installed text source (1).
+- `design@agent-skills@component-skill-delivery`: agent-skills: design heads (1), installed text source (2).
+- `design@agent-skills@expectation-set-bounds-scope`: agent-skills: design heads (1), installed text source (1), issues (1), other documents (1), tripwires (2).
+- `design@agent-skills@goal-carries-reading-examples`: agent-skills: design heads (2).
+- `design@agent-skills@goal-draft-shows-reach`: agent-skills: design heads (1), installed text source (1).
+- `design@agent-skills@goal-entry-shape`: agent-skills: installed text source (1).
+- `design@agent-skills@goal-exclusion-names-its-design`: agent-skills: design heads (1).
+- `design@agent-skills@goal-finding-grades`: agent-skills: design heads (2), installed text source (1), other documents (1).
+- `design@agent-skills@goal-holds-one-intent`: agent-skills: design heads (1).
+- `design@agent-skills@goal-met-in-tree-or-in-use`: agent-skills: design heads (2).
+- `design@agent-skills@goal-one-meaning-any-breadth`: agent-skills: design heads (1).
+- `design@agent-skills@goal-outcome-survives-empty-skeleton`: agent-skills: design heads (2).
+- `design@agent-skills@goals-change-through-goal-setting`: check: design heads (1).
+- `design@agent-skills@goals-required`: nowhere.
+- `design@agent-skills@goal-standard-rules`: agent-skills: design heads (2), installed text source (2), issues (1), other documents (1).
+- `design@agent-skills@heads-stand-on-argument`: agent-skills: design heads (9), installed text source (1), tripwires (3).
+- `design@agent-skills@installed-skill-takes-precedence`: agent-skills: design heads (2), installed text source (1).
+- `design@agent-skills@instruction-record-is-minimal`: agent-skills: design heads (2), other documents (1).
+- `design@agent-skills@intermediate-component-occasion`: agent-skills: design heads (2), installed text source (3); check: design heads (1); the root: design heads (1).
+- `design@agent-skills@plan-read-against-the-record`: agent-skills: design heads (2), installed text source (1), issues (1), rejected designs (1).
+- `design@agent-skills@questions-go-to-their-authority`: agent-skills: design heads (14), issues (2), rejected designs (1), tripwires (1).
+- `design@agent-skills@searcher-grades-goals`: agent-skills: installed text source (1), issues (1); query: design heads (1).
+- `design@agent-skills@shipped-text-cites-no-entry`: agent-config: installed copies (1); agent-skills: design heads (1), issues (3), other documents (3).
+- `design@agent-skills@standing-argument-in-head`: agent-skills: design heads (1), issues (2).
+- `design@check@every-path-names-its-anchor`: agent-skills: installed text source (2); check: design heads (2), issues (2), other documents (1), rejected designs (3), source (2); model: design heads (6), issues (2), source (2); the root: another plan document (8).
+- `design@check@goals-home-cites-upward-only`: agent-skills: design heads (2), installed text source (2); check: design heads (2), issues (3), other documents (1), source (3); model: design heads (1).
+- `design@check@nothing-of-a-project-is-compiled-in`: agent-skills: issues (1); check: design heads (1), other documents (2); create: design heads (1), issues (1), source (2); model: design heads (3).
+- `design@create@component-command`: cli: source (1); create: source (1).
+- `design@knowledge-architect@no-intermediate-component`: nowhere.
+- `design@model@components-carry-the-same-documents`: agent-skills: design heads (2), installed text source (1); check: design heads (1); model: design heads (1), issues (1), source (1); the root: design heads (1).
+- `design@model@registers-are-declared`: check: design heads (1), other documents (1), rejected designs (1); model: design heads (2), source (2).
+- `design@mutate@one-file-per-run`: mutate: issues (2).
+- `design@query@goal-context-once`: agent-skills: design heads (3); query: design heads (3).
+- `design@transcript@transcript-labels-in-code`: agent-skills: design heads (1); transcript: issues (1), other documents (1), rejected designs (1), source (7).
+- `rejected@agent-skills@goal-measured-by-evidence-from-use`: agent-skills: design heads (1).
+- `rejected@agent-skills@owner-intent-entry-test`: agent-skills: design heads (3).
+- `design@agent-skills@intent-through-goals-not-overrule`: agent-skills: design heads (3).
+- `design@agent-skills@goal-reviewer-agent`: agent-skills: design heads (1), installed text source (1).
 
 **The verdicts of the two searches.** The first search ran on nine subjects and gave 318 entries a
 verdict other than `unrelated`; the second ran on four subjects opened after it and gave 124. Their
@@ -217,28 +243,40 @@ generated lines follow, whole. The outcome of each is by its verdict:
 | verdict, action | outcome |
 | --- | --- |
 | `constrains`, `respect` or `none` | the decided design respects the entry; where the entry cites a Component goal or a measure, slice 1's analysis of that goal re-points or rewrites it |
-| `conflicts`, `check-reversal` | the entry is in the table above, with what changes and its slice |
+| `conflicts`, `check-reversal` | the entry is in the table above, with what changes and its slice, or among the decisions the design rests on, where the design was corrected to respect it |
 | `conflicts`, `goal-setting` | each of the 54 goals; slice 1's whole-set review judges it |
-| `brings-back`, `new-argument-needed` | in the table above: both rejected designs are kept |
-| `closes`, `close-with-the-work` | closed by the commit that adds this document, where the work's design answers it, as named below |
-| `trigger-met`, `rule-before-work` | ruled below |
+| `brings-back`, `new-argument-needed` | in the table above: both rejected designs stay refused, their reasons narrowed |
+| `closes`, `close-with-the-work` | closed by a commit of this document's own branch, as named below |
+| `trigger-met`, `rule-before-work` | ruled below; the third such verdict is on the first issue closed below, whose trigger was this discussion |
 | `worsens` or `touches` | stays open; named below where the work owes it an edit |
 
-Issues the commit that adds this document closes, their work being scheduled here. Each is named
-by its bare slug, its entry being deleted by that commit:
+Issues that the branch of this document closes, their work being scheduled here. Each is named by
+its bare slug, its entry being deleted on that branch:
 
 - `the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for`: its
-  re-entry point was this discussion. The owner's words it held are in the items of this document.
+  re-entry point was this discussion. The owner's words it held are quoted below this list.
 - `goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`:
   no step is added, `thread@goals-at-the-root@goal-discussion-before-the-draft`.
 - `a-component-states-at-least-one-goal`: the check is refused, a Component stating no
   goal.
 - `root-goals-about-the-checker-may-belong-to-an-intermediate-component`:
   goals live at the root, and the installed text states no occasion for an intermediate Component.
+- `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: a case of a goal
+  read two ways, the owner's reading held in `design@transcript@transcript-labels-in-code` alone.
+  Its closing asked the case reworded in the goal. The design answers it the other way: the cases
+  leave the goal, and slice 1 rewrites that head to hold the reading as its own statement,
+  attributed to the owner as it is today. The reading: the goal rules out a test on what a line
+  means in the discussion, not a label read from a tag the harness writes.
+- `goal-design-heads-may-repeat-the-fragment-s-reasons`: slice 1 rewrites the
+  section of 24 heads it describes, and its step 1 holds the pass the entry asked: head by head,
+  under `skill@knowledge-architect-decision-recording`, a head that argues only a rule the fragment
+  alone states is kept on a reason of its own or folded into the fragment's `%%` comment and
+  `design@agent-skills@goal-standard-rules`.
 
 The first of them held words of the owner from before the discussion, quoted on the owner's
 request, which that entry said leave with it. They are kept here, as the discussion's first
-statement. At the goal of `cli`, on a proposal to extend a test to every command:
+statement. Given at the goal of `cli`, on a proposal to extend a test so that it reached every
+command for each kind of refused invocation:
 
 > tbh, the goal itself is probably enough. I don't think it is worth it to try everything to have a mechanical test that detects any breach of that goal. Keep the effort on that reasonable. Goals are supposed to cover aspects that shape the future of the project, and that argumentation alone would not necessarily be able to defend (for example the cost/effort being one day considered to high might end up outweighing the justification or value).
 > Most of the time, a goal being met won't be testable by a mechanical test, and that is probably when goals have the most value.
@@ -248,20 +286,31 @@ At the same goals, on whether an outcome should be a goal or a design head:
 
 > Goals should not be added just for the sake of adding goals.
 
-At the intake of forty retrospective files:
+At the intake of forty retrospective files, ruling to keep the intent row of the table of what the
+owner brings, by which an outcome a recorded decision already serves against every rival it is
+cited to defeat is drafted as no goal:
 
 > Since goals bind very strongly, I want to avoid having too much of them, especially when they are things that can rest on argument. Because that means a reversal would be a better shape. If a goal state it, it would never be questioned, thus never improve. I think goals should be overall focused more on outcomes of the project and not on its shape. And I think the current standard is creating goals that are a bit too focused on shapes than on outcomes and functions of the product the project delivers.
 
+The closed entry on a discovery step recorded that the owner first proposed such a step, its shape
+open, at an earlier slice. The closed entry on the missing check recorded that 8 of the 12
+Components of thaum, the checker's first user, stated no goal, counted on thaum's main at e98e296.
+
 Issues that stay open and that a slice edits:
 
-- `issue@transcript@the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: slice 1 closes it
-  when `design@transcript@transcript-labels-in-code` holds the reading itself.
-- `issue@agent-skills@goal-design-heads-may-repeat-the-fragment-s-reasons`: slice 1 rewrites the
-  section it describes, and closes it there.
 - `issue@agent-skills@audit-axes-beyond-the-design-record` and
   `issue@agent-skills@the-review-does-not-ask-whether-items-are-cited-where-they-bear`: slice 1
   writes the parked thread's leads into them, and removes from the first its bullet that treats a
-  goal no head serves as a finding.
+  goal no head serves as a finding. What it writes respects the heads the second search set
+  against those leads, each cited there: `design@agent-skills@audit-method`,
+  `design@agent-skills@audit-axis-runs-a-workflow`, `design@agent-skills@audit-outcomes`,
+  `design@agent-skills@audit-triggers`, `design@agent-skills@audit-agent-per-axis`,
+  `design@agent-skills@searcher-grades-goals`, `design@agent-skills@premortem-as-watch-points`,
+  `design@agent-skills@goal-lifecycle`, `design@agent-skills@goal-drafted-to-move-the-tree`,
+  `design@agent-skills@goal-set-review-in-goal-setting`,
+  `design@agent-skills@goals-axis-in-the-review-before-a-merge` and
+  `design@agent-skills@goal-reviewer-agent`. Their re-entry is written as a design discussion, on
+  the owner's word, since no review reads a re-entry point written as an event.
 - `issue@agent-skills@a-target-project-collects-no-feedback-from-use`: worsened, since rule 6 was
   the one text that asked what a project builds to learn from use. Slice 1 rewrites its summary and
   cites it from the two issues above.
@@ -270,6 +319,23 @@ Issues that stay open and that a slice edits:
   for more intent moved into goals.
 - `issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`: the
   whole-set review judges that goal with the widening the issue holds, and closes or re-points it.
+  It stays open because this document schedules the occasion and not the outcome: the wording of
+  a goal is ruled in that review.
+- `issue@agent-skills@this-repository-s-heads-await-the-design-record-axis`: slice 1 adds to it
+  that each standing head citing a goal states its constraint beside the reference.
+- `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`: slice 1
+  rewrites its lead that the goal of the planned Component is written when it is created.
+- `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`: read again
+  in slice 1, the setup skill's two template goals for the maintenance crate leaving.
+- `issue@check@no-checked-form-cites-a-point-inside-a-section`: slice 1 searches every citation of
+  a rule of the standard by its number and rewrites it, the numbers changing.
+- `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: read at slice
+  1's one pass, which empties twelve goals homes, and at slice 2, which deletes them.
+- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: answered by slice 1, which
+  moves that head to the root's design home.
+- `issue@model@the-resolver-s-arms-have-mutation-survivors` and
+  `issue@check@some-findings-in-a-goals-home-name-a-form-refused-there`: slice 2 edits the code
+  each names, and writes its own test of the rule on what a goals home cites.
 - `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`:
   slice 1 removes its case about a Component's goals.
 - `issue@query@show-lists-no-subdocument-of-a-directory-home`: worsened, the root's goals home
@@ -328,7 +394,7 @@ Triggers met, ruled before the work:
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: touches, respect.
 - `design@transcript@transcript-command-reads-any-project`: constrains, respect.
 - `design@transcript@transcript-labels-in-code`: constrains, respect.
-- `issue@transcript@the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: closes, close-with-the-work.
+- `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: closes, close-with-the-work.
 - `design@gates@gates-crate`: constrains, respect.
 - `design@gates@a-project-holds-its-gate-list`: constrains, respect.
 - `design@gates@the-library-owns-the-flags`: constrains, respect.
@@ -450,7 +516,7 @@ Triggers met, ruled before the work:
 - `rejected@agent-skills@goal-universal-names-its-set`: constrains, respect.
 - `rejected@agent-skills@ledger-written-during-discussion`: constrains, respect.
 - `issue@agent-skills@a-target-project-collects-no-feedback-from-use`: worsens, respect.
-- `issue@agent-skills@goal-design-heads-may-repeat-the-fragment-s-reasons`: touches, respect.
+- `goal-design-heads-may-repeat-the-fragment-s-reasons`: touches, respect.
 - `goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`: closes, close-with-the-work.
 - `the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for`: closes, close-with-the-work.
 - `design@agent-skills@ruled-items-labelled`: constrains, respect.
@@ -616,7 +682,7 @@ Triggers met, ruled before the work:
 - `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`: worsens, respect.
 - `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`: touches, respect.
 - `design@transcript@transcript-labels-in-code`: conflicts, check-reversal.
-- `issue@transcript@the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: touches, respect.
+- `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: touches, respect.
 - `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: constrains, none.
 - `design@agent-skills@audit-is-an-activity`: constrains, respect.
 - `design@agent-skills@audit-method`: constrains, respect.
@@ -689,7 +755,7 @@ Triggers met, ruled before the work:
 - `rejected@agent-skills@goal-set-review-as-an-audit-axis`: constrains, respect.
 - `rejected@agent-skills@goal-universal-names-its-set`: constrains, respect.
 - `issue@agent-skills@a-target-project-collects-no-feedback-from-use`: touches, respect.
-- `issue@agent-skills@goal-design-heads-may-repeat-the-fragment-s-reasons`: touches, respect.
+- `goal-design-heads-may-repeat-the-fragment-s-reasons`: touches, respect.
 - `goal-setting-has-no-step-to-discover-an-intent-the-owner-does-not-hold-yet`: touches, respect.
 - `the-goal-standard-does-not-say-what-a-goal-is-worth-or-what-it-is-for`: trigger-met, rule-before-work.
 - `design@agent-skills@design-record-axis`: constrains, respect.
@@ -781,6 +847,30 @@ word naming it, D1.
 
 ## Threads
 
+The checkpoint table the session showed in round 12, which the owner's word of round 13, "agreed on
+the table, proceed to planning", answered. A thread it shows `presumed-settled` closed `approved` on
+that word. "You" is the owner and "me" the session.
+
+| state | thread | closure |
+| --- | --- | --- |
+| approved | #standard-and-rewrite-on-one-branch | your word, kept against cause 3 |
+| ruled-out | #goal-discussion-before-the-draft | your word; its occasion, a new Component's goals, is gone |
+| ruled-out | #component-goals-optional | fails rule 1's own test |
+| withdrawn | #a-goal-is-what-argument-cannot-defend | by me; the purpose test needs no stop |
+| withdrawn | #goal-interpretation-register | by you |
+| superseded | #goal-cases-stay-in-the-discussion | by #a-goal-carries-an-example-only-for-its-direction |
+| parked | #goal-pursuit-is-judged-by-review-and-audit | cause and re-entry in the two issues above |
+| presumed-settled | #goals-home-at-the-root-only | a Component's head in the root's design home; no location carries goals |
+| presumed-settled | #a-goal-is-a-purpose-the-project-exists-for | purpose, scope, ranking; a scope names the design it excludes |
+| presumed-settled | #no-goal-refines-another | 7 stand alone, 14 become heads, 3 as you ruled |
+| presumed-settled | #a-goal-states-a-direction-and-leaves-the-rest-to-design | when, how much and by what means are no finding |
+| presumed-settled | #what-shows-a-goal-met-is-design | no measure, no check |
+| presumed-settled | #a-goal-carries-an-example-only-for-its-direction | no fixed block of cases |
+| presumed-settled | #a-removed-goal-is-harvested-sentence-by-sentence | a head only if argued; every goal judged for whether it stays |
+| presumed-settled | #a-goal-s-reading-is-a-head-s-premise | comparison by the decision-record axis |
+| presumed-settled | #no-installed-rule-on-when-an-intermediate-component-exists | the installed text is silent |
+| presumed-settled | #goals-are-edited-in-one-pass-under-the-whole-set-review | yours, this round |
+
 ### Goals live in the root's goals home only, split into files by theme `##goals-home-at-the-root-only`
 
 Proposed by the owner in round 1; named by the session. Final state: `approved`, on the owner's
@@ -795,8 +885,8 @@ Moved by `argument@goals-at-the-root@arg-5`, `argument@goals-at-the-root@arg-6`,
 `argument@goals-at-the-root@arg-14`, `argument@goals-at-the-root@arg-15`,
 `argument@goals-at-the-root@arg-28`, `argument@goals-at-the-root@arg-82`. Its costs:
 `argument@goals-at-the-root@arg-16` to `argument@goals-at-the-root@arg-19`. Shape: "Decided
-design", its first subsection. Harvest: slice 1 for the installed text and the root's design home,
-slice 2 for the checker.
+design", its first subsection. Harvest: slice 1 for the installed text and for the heads of
+the root's design home that argue each Component's existence, slice 2 for the checker.
 
 ### A Component may keep goals, but none that states its place in the split `##component-goals-optional`
 
@@ -837,6 +927,7 @@ no-goal-refines-another, this is the final state we expect."
 
 Moved by `argument@goals-at-the-root@arg-26`, `argument@goals-at-the-root@arg-36`,
 `argument@goals-at-the-root@arg-37`, `argument@goals-at-the-root@arg-46` to
+`argument@goals-at-the-root@arg-48`, `argument@goals-at-the-root@arg-50`,
 `argument@goals-at-the-root@arg-51`, `argument@goals-at-the-root@arg-57` to
 `argument@goals-at-the-root@arg-59`, `argument@goals-at-the-root@arg-86`. Shape: "Decided design"
 and the first mapping table. Harvest: slice 1.
@@ -866,12 +957,15 @@ Moved by `argument@goals-at-the-root@arg-22`, `argument@goals-at-the-root@arg-33
 
 ### Goal-setting gains no discussion step before the draft `##goal-discussion-before-the-draft`
 
-The proposal, a step before the draft that shows the owner consequences, was the session's in round
-1, from an issue. Final state: `ruled-out`, on the owner's word, round 5: "agreed to rule out
+The proposal, a step before the draft that shows the owner consequences, was the owner's at an
+earlier slice, its shape open, as the closed issue recorded; the session brought it into this
+discussion in round 1. Final state: `ruled-out`, on the owner's word, round 5: "agreed to rule out
 goal-discussion-before-the-draft". Earlier, round 4: "About the goal-discussion thread: I am not
 sure whether keeping it is worth it. Since goals are expected to become thinner, maybe this step is
 less needed." Moved by `argument@goals-at-the-root@arg-4`, `argument@goals-at-the-root@arg-23`,
-`argument@goals-at-the-root@arg-61`, `argument@goals-at-the-root@arg-64`.
+`argument@goals-at-the-root@arg-61`, `argument@goals-at-the-root@arg-64`. Harvest: slice 1 judges
+it as a losing alternative, and records that step 1 of goal-setting is kept in the `%%` comment of
+that step.
 
 ### The cases of a goal are shown in the drafting exchange and not recorded `##goal-cases-stay-in-the-discussion`
 
@@ -886,7 +980,8 @@ actually design territory. Your examples show it quite clearly." Moved by
 
 ### A goal holds no fixed block of cases, and an example only where its direction needs one `##a-goal-carries-an-example-only-for-its-direction`
 
-Proposed by the session in round 5, as a synthesis after three goals were rewritten as a test.
+Proposed by the session in round 5, as a synthesis after three goals were rewritten as a test, two
+of which stayed goals and one of which became a head.
 Final state: `approved`, round 13. The owner, round 6:
 "a-goal-carries-an-example-only-for-its-direction: yes, this can be kept." Moved by
 `argument@goals-at-the-root@arg-69`, `argument@goals-at-the-root@arg-70`,
@@ -921,7 +1016,9 @@ multiple sessions can do. This is not a problem anyway." Moved by
 `argument@goals-at-the-root@arg-56`, `argument@goals-at-the-root@arg-62`,
 `argument@goals-at-the-root@arg-65`, `argument@goals-at-the-root@arg-66`,
 `argument@goals-at-the-root@arg-109`, `argument@goals-at-the-root@arg-111` to
-`argument@goals-at-the-root@arg-114`. Shape: "Implementation sequence".
+`argument@goals-at-the-root@arg-114`. Shape: "Decided design", its last subsection, and
+"Implementation sequence". Harvest: none, since it decides how this work is cut and nothing a later
+change reads.
 
 ### An interpretation of a goal is recorded in a register of its own `##goal-interpretation-register`
 
@@ -931,7 +1028,8 @@ goal\", which would be what we consider to be admitted or ruled out by it. Or we
 current shape. Do you think this case (or something similar) could be missing right now ?" Final
 state: `withdrawn` by the owner, round 7: "Agreed, I withdraw goal-interpretation-register, and
 a-goal-s-reading-is-a-head-s-premise is a good idea to solve the gap you identified". Moved by
-`argument@goals-at-the-root@arg-74` to `argument@goals-at-the-root@arg-77`.
+`argument@goals-at-the-root@arg-74` to `argument@goals-at-the-root@arg-77`, and
+`argument@goals-at-the-root@arg-79`.
 
 ### A head states the constraint it derives from a goal, and the decision-record axis compares the readings of one goal `##a-goal-s-reading-is-a-head-s-premise`
 
@@ -940,7 +1038,7 @@ comparison was the design-conformance axis's; the session moved the comparison t
 decision-record axis in round 12 and said so, on `argument@goals-at-the-root@arg-117`. Final state:
 `approved`, round 13, on the word against the table that showed the moved form. Moved by
 `argument@goals-at-the-root@arg-75`, `argument@goals-at-the-root@arg-78`,
-`argument@goals-at-the-root@arg-79`, `argument@goals-at-the-root@arg-117`,
+`argument@goals-at-the-root@arg-117`,
 `argument@goals-at-the-root@arg-120`. Shape: "Decided design". Harvest: slice 1.
 
 ### The installed text states no occasion on which an intermediate Component is created `##no-installed-rule-on-when-an-intermediate-component-exists`
@@ -983,8 +1081,10 @@ because the whole goal home have to be consistent with no contradictions. The an
 sentence can be done per batch. But the edits to the goals cannot. They should happen under the
 whole set review procedure, edit all goals, one reviewer per theme and one global reviewer, then
 another round." Moved by `argument@goals-at-the-root@arg-115`,
-`argument@goals-at-the-root@arg-116`. Shape: slice 1's spec. Harvest: none, since
-`design@agent-skills@whole-set-rounds` already states the procedure.
+`argument@goals-at-the-root@arg-116`. Shape: slice 1's spec. Harvest: none.
+`design@agent-skills@whole-set-rounds` states the rounds, one reviewer per set of goals that touch
+each other and one over the whole set; the order, the analysis first and then one pass, is this
+slice's own and nothing a later change reads.
 
 ## Arguments
 
@@ -992,7 +1092,8 @@ One item per argument of the discussion, in order of appearance, from the sessio
 title is the argument's first words, cut where marked. "Bears on" names threads of this document.
 The key words are verbatim, with two changes the checker requires: a slug or a path the speaker
 wrote bare is written as its reference, and a reference in a title keeps its backticks. The same
-holds for the owner's words quoted under Threads.
+holds for the owner's words quoted under Threads. A Note is the assembly's, not the speaker's. A
+table an argument announces and does not hold is under "Decided design" or "Mapping tables".
 
 ### Overall, I think that goals should be about outcomes of the project as a whole, and that this is currently (cut) `##arg-1`
 
@@ -1054,6 +1155,8 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 **Note**: Measurement.
 
+**Note**: Later: the review of this document corrected 22,350 to 19,045, the session having summed a fourteenth file, the goal-setting skill.
+
 ### The standard itself licenses defect 2. Rule 1 says: "A Component's goal may name its own Component and the (cut) `##arg-9`
 
 Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`, `thread@goals-at-the-root@component-goals-optional`.
@@ -1090,7 +1193,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goal-discussion-befo
 >
 > | `a-component-states-at-least-one-goal` | a check that each Component has a goal | would close as refused, with `goals-required` reversed |
 
-**Note**: The session's reading of the open issues; the whole table is T1008-1015, in part F.
+**Note**: The session's reading of the open issues; the whole table is under "Decided design" or "Mapping tables".
 
 ### Why it works: it answers "which comes first". The order becomes goals, then a head that argues a split, then (cut) `##arg-14`
 
@@ -1098,7 +1201,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 > - **Why it works**: it answers "which comes first". The order becomes goals, then a head that argues a split, then the Component. A redesign of the split touches no goal.
 
-### Nearest rival: `thread@goals-at-the-root@component-goals-optional`, where a Component may keep goals but none that state its place. The (cut) `##arg-15`
+### Nearest rival: #component-goals-optional, where a Component may keep goals but none that state its place. The (cut) `##arg-15`
 
 Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`, `thread@goals-at-the-root@component-goals-optional`.
 
@@ -1146,7 +1249,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@a-goal-is-what-argum
 >
 > - **Cost**: every goal has a "why" above it, so the test needs a stop. My proposed stop is your ruling, asked in the discussion step: "would you hold this against an argument that it costs too much?"
 
-**Note**: Later: round 2, the owner doubts it and the session withdraws the thread. The "because" test returns in round 2 as the ground of #no-goal-refines-another (`argument@goals-at-the-root@arg-37`).
+**Note**: Later: round 2, the owner doubts it and the session withdraws the thread. The "because" test returns in round 2 as the ground of `thread@goals-at-the-root@no-goal-refines-another` (`argument@goals-at-the-root@arg-37`).
 
 ### Rule 2 changes from "one reading" to "one direction". A question of when, how much or by what means is listed (cut) `##arg-21`
 
@@ -1172,7 +1275,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goal-discussion-befo
 
 > The session first shows what a candidate outcome would have ruled in or out among recorded decisions; you form the intent; then it drafts. The reviewer keeps three questions: fidelity to your statements, contradiction between goals, and a clause a head could carry.
 
-**Note**: Later: the thread is ruled out in rounds 4, 5 and 7. What became of the reviewer's "three questions" is not said afterwards in the transcript.
+**Note**: Later: the thread is ruled out on the owner's word of round 5. What became of the reviewer's "three questions" is not said afterwards in the transcript.
 
 ### The requires/admits/rules-out cases are shown to you but not recorded in the goal. They are where clauses (cut) `##arg-24`
 
@@ -1186,7 +1289,7 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 > Root-only does not by itself give few goals. By title, about 8 of the 33 Component goals state a place in the split; the others read as product outcomes (`create`'s "a project adopts by one command", `check`'s five). Moved up unchanged, the root would hold about 45. Only #a-goal-is-what-argument-cannot-defend, applied in a review of the whole set, thins them.
 
-**Note**: Later: round 2, the session withdraws the figure: "My earlier figure of about 45 root goals is withdrawn; the count after the review is not known." (T1137)
+**Note**: Later: round 2, the session withdraws the figure: "My earlier figure of about 45 root goals is withdrawn; the count after the review is not known."
 
 ### If a goal refines another one, it is most likely that the goal is trying to have the refined goal enforced by (cut) `##arg-26`
 
@@ -1240,7 +1343,7 @@ Round 2, by the owner. Bears on `thread@goals-at-the-root@a-goal-is-what-argumen
 >
 > There is no argument that defend the existence of these goals, because they are just the purpose of the project, and nothing else.
 
-**Note**: The owner's two worked examples of adding a goal are in the same paragraph, T1093.
+**Note**: The owner's two worked examples of adding a goal are in the same paragraph.
 
 ### Once again, what you state as a cost is actually the feature here. Because a design decision has to close the (cut) `##arg-32`
 
@@ -1284,7 +1387,7 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-anot
 
 > 25 of the 54 goals carry a line "It refines …" (`grep -c '^It refines'` per goals home): 22 of the 33 Component goals, all 9 of `agent-skills` and all 5 of `check`, and 3 root goals that refine another root goal (`mechanical-tasks-are-the-tool-s`, `goal@knowledge-architect@the-workflow-leads-to-better-code`, `goal@knowledge-architect@projects-are-split-into-components`).
 
-**Note**: Measurement. Later: round 3, corrected: "A correction first: I wrote that 25 goals carry "It refines". The count is 24, 21 of them in Components; I mis-added the per-home figures." (T1168)
+**Note**: Measurement. Later: round 3, corrected: "A correction first: I wrote that 25 goals carry "It refines". The count is 24, 21 of them in Components; I mis-added the per-home figures."
 
 ### Your observation is the "because" test I proposed, in the cases where the drafter already wrote the (cut) `##arg-37`
 
@@ -1298,9 +1401,9 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-anot
 
 > **The finding: the orchestration goal is one of the 25.** It refines `goal@knowledge-architect@agents-get-a-complete-workflow`. By your test it is a design head, not a goal, even in the short form I illustrated. The argument for that reading: dispatching agents is a means. The outcomes are that the session's context goes to design with you, and that you are told each decision. A harness with a far larger context could reach both with less dispatch, and a goal that names orchestration would forbid that improvement.
 
-**Note**: Later: round 3, the owner contests it (`argument@goals-at-the-root@arg-47`); the session then sorts the goal as "orthogonal, on your word; the question of means stays for its rewrite" (T1182). "25" is the figure later corrected to 24.
+**Note**: Later: round 3, the owner contests it (`argument@goals-at-the-root@arg-47`); the session then sorts the goal as "orthogonal, on your word; the question of means stays for its rewrite". "25" is the figure later corrected to 24.
 
-### I withdraw `thread@goals-at-the-root@a-goal-is-what-argument-cannot-defend`. Your formulation needs no ruling from you as its stop: (cut) `##arg-39`
+### I withdraw #a-goal-is-what-argument-cannot-defend. Your formulation needs no ruling from you as its stop: (cut) `##arg-39`
 
 Round 2, by the session. Bears on `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@a-goal-is-what-argument-cannot-defend`.
 
@@ -1314,7 +1417,7 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@a-goal-is-a-purpose-
 >
 > A cost weighed inside one decision stays in design, as you say. A ranking is a goal only when it recurs across decisions.
 
-**Note**: The table of the three kinds is T1126-1130, in part F.
+**Note**: The table of the three kinds is under "Decided design" or "Mapping tables".
 
 ### The primer's routing changes. Today an owner's intent "that states an outcome" is drafted as a goal, and at a (cut) `##arg-41`
 
@@ -1330,7 +1433,7 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 > - **Root-only plus no refinement removes more than relocation would.** If the 22 refining Component goals become heads, at most 11 Component goals remain to be judged as purposes, and several of those are placement goals (`git`, `xtask`, `cli`). My earlier figure of about 45 root goals is withdrawn; the count after the review is not known.
 
-**Note**: The figure 22 is the one corrected in round 3 to 21 (T1168); the session did not restate the "at most 11" that followed from it.
+**Note**: The figure 22 is the one corrected in round 3 to 21; the session did not restate the "at most 11" that followed from it.
 
 ### The measure clauses become heads, not nothing. Each "It is met while…" that names a retrospective question or (cut) `##arg-43`
 
@@ -1402,7 +1505,7 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-anot
 
 > That gives 7 orthogonal, 14 heads and 3 unsure. Your caveat changes the procedure, not the end state: after the review no goal says "It refines". An orthogonal goal drops the line and stands alone; a grounded one becomes a head. So #no-goal-refines-another stays, with each case judged by the three kinds.
 
-**Note**: The table of the 24 refinements is T1176-1201, in part F. The session calls it "a first pass for you to contest, not a verdict".
+**Note**: The table of the 24 refinements is under "Decided design" or "Mapping tables". The session calls it "a first pass for you to contest, not a verdict".
 
 ### One limit of the title method: it finds the heart of the intent, but your rulings sit in the bodies. The (cut) `##arg-52`
 
@@ -1418,7 +1521,7 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-ha
 >
 > The orchestration measure "the retrospective asks whether the main session spent its context on work an agent could have carried" is the first row: the retrospective skill already holds the question.
 
-**Note**: Answers `argument@goals-at-the-root@arg-49`. The table of four destinations is T1211-1216, in part F.
+**Note**: Answers `argument@goals-at-the-root@arg-49`. The table of four destinations is under "Decided design" or "Mapping tables".
 
 ### The cost to name: a head made from goal words was never argued against a rival. I propose it says so in its (cut) `##arg-54`
 
@@ -1428,7 +1531,7 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-ha
 
 **Note**: Later: round 7, withdrawn by finding 1 of the first record search (`argument@goals-at-the-root@arg-81`): such a head is argued or not written.
 
-### So I open `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence`: each removed or shortened goal gets a table of (cut) `##arg-55`
+### So I open #a-removed-goal-is-harvested-sentence-by-sentence: each removed or shortened goal gets a table of (cut) `##arg-55`
 
 Round 3, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence`.
 
@@ -1518,7 +1621,7 @@ Round 4, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 >
 > The cost of slice 1 is its size: one branch carries the installed text and every batch of your rulings. The record of each batch in `path@knowledge-architect@docs/goal-reviews/` is committed round by round, which is what that directory exists for.
 
-**Note**: The table of the two slices is T1953-1956, in part F.
+**Note**: The table of the two slices is under "Decided design" or "Mapping tables".
 
 ### Today it is 6 paragraphs, a measure and 11 cases. Sorting its cases `##arg-67`
 
@@ -1528,7 +1631,7 @@ Round 5, by the session. Bears on `thread@goals-at-the-root@goal-cases-stay-in-t
 >
 > All 11 are of this kind. None changes the direction; each closes a question the rewrite leaves to a head.
 
-**Note**: Rewrite 1, the orchestration goal, T1991-2005, in part F. The session calls the rewrites "illustrations of shape, not drafts for ruling".
+**Note**: Rewrite 1, the orchestration goal. The session calls the rewrites "illustrations of shape, not drafts for ruling".
 
 ### A finding from this one: `design@knowledge-architect@git-crate` says "It serves goal@git@a-pure-wrapper-over-git". With that goal gone, (cut) `##arg-68`
 
@@ -1536,7 +1639,7 @@ Round 5, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-ha
 
 > A finding from this one: `design@knowledge-architect@git-crate` says "It serves `goal@git@a-pure-wrapper-over-git`". With that goal gone, the head stands on its own fact, that the rival "puts the checker's own dependencies into the build of every tool that needs git". So a head that cited a placement goal does not always need another goal; some stand on a fact alone.
 
-**Note**: Rewrite 3, `git`'s goal turned into its head, T2021-2027, in part F. Its carried sentence ends "*(Carried from a goal; not argued against a rival.)*", the marking that finding 1 of round 7 withdraws.
+**Note**: Rewrite 3, `git`'s goal turned into its head. Its carried sentence ends "*(Carried from a goal; not argued against a rival.)*", the marking that finding 1 of round 7 withdraws.
 
 ### My commitment was: if a goal of five sentences or fewer leaves two readers moving in different directions, (cut) `##arg-69`
 
@@ -1566,7 +1669,7 @@ Round 5, by the session. Bears on no thread by name.
 
 > The 17 searchers returned, but the check of their reports failed on 11 of them: 625 findings, mostly quotations copied from an entry's title instead of its body, and in two reports (agents 3 and 13) lines that were never graded.
 
-**Note**: Fact about the first record search (L169). Later: round 7 gives another cause: "The check of a searcher's report refuses a quotation that stops before a word's trailing punctuation, with a message that does not say so; this caused most of the 625 first-pass findings." (T2203)
+**Note**: Fact about the first record search. Later: round 7 gives another cause: "The check of a searcher's report refuses a quotation that stops before a word's trailing punctuation, with a message that does not say so; this caused most of the 625 first-pass findings."
 
 ### I agree the admits and rules out cases were actually design territory. Your examples show it quite clearly `##arg-73`
 
@@ -1590,7 +1693,7 @@ Round 6, by the session. Bears on `thread@goals-at-the-root@goal-interpretation-
 >
 > And they are found from the goal: `cargo klarch show goal@<anchor>@<id>` lists every entry that cites it. So "every reading of this goal" is one command.
 
-**Note**: The table of three cases is T2088-2092, in part F.
+**Note**: The table of three cases is under "Decided design" or "Mapping tables".
 
 ### Take the orchestration case "Admits: the main session reading one known file itself". As a head it must name (cut) `##arg-76`
 
@@ -1632,13 +1735,13 @@ Round 7, by the session. Bears on no thread by name.
 
 **Note**: Figure of the first record search.
 
-### So I change `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence`. A carried sentence becomes a head only when it (cut) `##arg-81`
+### So I change #a-removed-goal-is-harvested-sentence-by-sentence. A carried sentence becomes a head only when it (cut) `##arg-81`
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence`.
 
 > So I change #a-removed-goal-is-harvested-sentence-by-sentence. A carried sentence becomes a head only when it passes an entry test and the batch argues it against a rival. Otherwise it goes nowhere, or to a `design` issue to argue later. This costs more work per goal, and it is the outcome you asked for: no detail kept without an argument.
 
-**Note**: From finding 1 (part E). Withdraws the marking of `argument@goals-at-the-root@arg-54`. The owner agreed in round 8.
+**Note**: From finding 1. Withdraws the marking of `argument@goals-at-the-root@arg-54`. The owner agreed in round 8.
 
 ### My draft put the head that argues a Component's existence "in the design home of the Component enclosing it". (cut) `##arg-82`
 
@@ -1646,7 +1749,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 > My draft put the head that argues a Component's existence "in the design home of the Component enclosing it". `design@agent-skills@dependency-decision-home` says: "Which Components exist … are the root's design home's", on your choice of the root over the lowest enclosing Component. The draft now follows it, which matches `register@knowledge-architect@design` as it stands.
 
-**Note**: From finding 2 (part E). Corrects the session's own draft. The owner agreed in round 8.
+**Note**: From finding 2. Corrects the session's own draft. The owner agreed in round 8.
 
 ### `design@agent-skills@goal-met-in-tree-or-in-use` already refused a measure "kept apart from the goal and (cut) `##arg-83`
 
@@ -1654,7 +1757,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@what-shows-a-goal-me
 
 > - `design@agent-skills@goal-met-in-tree-or-in-use` already refused a measure "kept apart from the goal and revised by agents", and records that you "chose the mechanism as the reading that gives a systematic check". The new fact that reopens it: the measure is where mechanism enters a goal, as the orchestration measure naming the retrospective's questions shows.
 
-**Note**: From finding 3 (part E): the argument a reversal owes.
+**Note**: From finding 3: the argument a reversal owes.
 
 ### `design@agent-skills@goal-carries-reading-examples` already defeated "cases shown in the drafting exchange (cut) `##arg-84`
 
@@ -1662,7 +1765,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@a-goal-carries-an-ex
 
 > - `design@agent-skills@goal-carries-reading-examples` already defeated "cases shown in the drafting exchange only", on the reading being lost when the record leaves. The new fact: in both rewrites every case closed a question of how much. The synthesis keeps an example where the direction needs one, which answers the old objection in part.
 
-**Note**: From finding 3 (part E): the argument a reversal owes. "in part" is the session's own hedge.
+**Note**: From finding 3: the argument a reversal owes. "in part" is the session's own hedge.
 
 ### Intermediate Components. `design@agent-skills@intermediate-component-occasion` records your argument that goals (cut) `##arg-85`
 
@@ -1724,7 +1827,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 > - **A split comes due.** Editing `design@check@every-path-names-its-anchor` meets the re-entry point of `issue@check@core-heads-bundle-decisions-with-many-citing-sites`, 25 citing sites. I place that split in slice 2.
 
-### The shipped text writes register@@goal at 7 sites, which assumes every Component has a goals home. Slice 2 (cut) `##arg-93`
+### The shipped text writes the form that names every Component's goals home at 7 sites `##arg-93`
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`, `thread@goals-at-the-root@standard-and-rewrite-on-one-branch`.
 
@@ -1740,7 +1843,7 @@ Round 7, by the session. Bears on no thread by name.
 
 **Note**: Deferred to the rewrite.
 
-### `thread@goals-at-the-root@component-goals-optional` is closed ruled-out: a goal anchored in a Component names a part whose existence (cut) `##arg-95`
+### #component-goals-optional is closed ruled-out: a goal anchored in a Component names a part whose existence (cut) `##arg-95`
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@component-goals-optional`.
 
@@ -1754,7 +1857,7 @@ Round 8, by the owner. Bears on `thread@goals-at-the-root@no-installed-rule-on-w
 
 > 1. maybe this needs further discussion. The split on design was argued to be flawed. TBH, I think the split that would not risk problems should be on a different axis than design. I think it is still about purpose.
 
-**Note**: The whole paragraph, with the `klarch` binary example and its hedges, is T2208 (part A, round 8). Quoted there further: "I am not sure this split is the one that makes sense. And maybe it actually would not really benefit from the intermediate component."
+**Note**: The whole paragraph, with the `klarch` binary example and its hedges, is the owner\'s message of round 8. Quoted there further: "I am not sure this split is the one that makes sense. And maybe it actually would not really benefit from the intermediate component."
 
 ### If we find none that is general enough, we can just leave intermediate component splits to per project (cut) `##arg-97`
 
@@ -1804,7 +1907,7 @@ Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on
 >
 > It keeps the property the old head wanted: a deliverable answers to a purpose goal at the root, so the layout does not depend on the order of decisions. But I see two weaknesses:
 
-**Note**: The grouping table is T2221-2225, in part F. A lead tested and not kept.
+**Note**: The grouping table is under "Decided design" or "Mapping tables". A lead tested and not kept.
 
 ### What the group would hold is design. With no goals home, an intermediate Component carries a design home, (cut) `##arg-103`
 
@@ -1822,7 +1925,7 @@ Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on
 
 **Note**: Second weakness of the lead; the fact the session rests the fallback on.
 
-### So I support your fallback, on that second fact: `thread@goals-at-the-root@no-installed-rule-on-when-an-intermediate-component-exists`. (cut) `##arg-105`
+### So I support your fallback, on that second fact: #no-installed-rule-on-when-an-intermediate-component-exists. (cut) `##arg-105`
 
 Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on-when-an-intermediate-component-exists`.
 
@@ -1864,7 +1967,7 @@ Round 9, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 > **Cause 3 is the one I think most likely.** The design already tolerates a partial state, because nothing refuses a Component's goals home until slice 2. So there is an option you have not been shown: slice 1 merges once the standard has been applied to the root's 21 goals and the 9 of `agent-skills`, and the other 24 follow on a second branch. Your reason for one branch was that the rewrite tests the standard, and 30 goals of the 54 test it. I keep one branch as you ruled, with the batches committed theme by theme, unless you want the option.
 
-**Note**: An option offered against premortem cause 3 (part D). Later: round 10, the owner keeps one branch (`argument@goals-at-the-root@arg-111`). The option lost.
+**Note**: An option offered against premortem cause 3. Later: round 10, the owner keeps one branch (`argument@goals-at-the-root@arg-111`). The option lost.
 
 ### One item I drop rather than record: the klarch grouping. You called it an example and out of scope, so no (cut) `##arg-110`
 
@@ -1918,7 +2021,7 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@goals-are-edited-in
 
 > You are right, and the record already holds the procedure you describe. `design@agent-skills@whole-set-rounds`: "Each round dispatches together one goal reviewer per set of goals that touch each other, in draft mode, and one in whole-set mode … the next round waiting for the answer." I withdraw "theme by theme" for the edits. Slice 1 becomes, in order:
 
-**Note**: The order of slice 1 is T2389-2391, in part F.
+**Note**: The order of slice 1 is under "Decided design" or "Mapping tables".
 
 ### The comparison of readings moves to another axis. I put it on the design-conformance axis. (cut) `##arg-117`
 
@@ -1926,7 +2029,7 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@a-goal-s-reading-is
 
 > - **The comparison of readings moves to another axis.** I put it on the design-conformance axis. `design@agent-skills@verdicts-reach-the-conformance-review` runs that axis at a merge only when a commit message carries a record search's lines, so a head written on another branch would be compared by nobody. The decision-record axis reads every head a diff writes. The comparison goes there.
 
-**Note**: Corrects `argument@goals-at-the-root@arg-78`. From the second record search (part E).
+**Note**: Corrects `argument@goals-at-the-root@arg-78`. From the second record search.
 
 ### The parked thread gets no new issue. `issue@agent-skills@audit-axes-beyond-the-design-record` already keeps the (cut) `##arg-118`
 
@@ -1942,13 +2045,15 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@goal-pursuit-is-jud
 
 > - **One of your leads meets a rejected design.** `rejected@agent-skills@goal-measured-by-evidence-from-use` refused evidence from use as what shows a goal met. The parked thread's discussion will owe a new argument against it. I note that in the issue.
 
-### A cost of readings held in heads. `issue@transcript@the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag` (cut) `##arg-120`
+### A cost of readings held in heads. `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag` (cut) `##arg-120`
 
 Round 12, by the session. Bears on `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise`, `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`.
 
-> - **A cost of readings held in heads.** `issue@transcript@the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag` reports that a session reading a goal alone found a head in conflict with it and asked you again. Thin goals make this more frequent. It is not silent, since it reaches you each time, so it is no tripwire.
+> - **A cost of readings held in heads.** `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag` reports that a session reading a goal alone found a head in conflict with it and asked you again. Thin goals make this more frequent. It is not silent, since it reaches you each time, so it is no tripwire.
 
 **Note**: A cost named and accepted by the session as not silent.
+
+**Note**: The issue states it as what a later session would do, not as something that happened.
 
 ### This repository's head of absence leaves. `design@knowledge-architect@no-intermediate-component` argues only (cut) `##arg-121`
 
@@ -1963,6 +2068,8 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-o
 > - **Silence refuses nothing.** The old head refused four other occasions for an intermediate Component, grouping by a shared principle among them. A project may now argue any of them.
 
 **Note**: A consequence of the silence, stated and not argued further.
+
+**Note**: The old head lists six rivals, three of which name an occasion; "Decided design" says which are refused no longer.
 
 ## New names, in one place
 
@@ -1986,7 +2093,9 @@ a README, the form a heading register already admits. A reference to a goal name
 anchor, whatever the file. A Component carries no goals home, and neither does a location. A
 Component's purpose is the statement of the design head that argues its existence, in the root's
 design home, per `design@agent-skills@dependency-decision-home`. Creating or splitting a Component
-needs a design argument and no goal-setting session.
+needs a design argument and no goal-setting session. Three Components have no such head in the
+root's design home today: slice 1 writes one for `check` and one for `xtask`, each argued under
+the design skill, and moves the head of `gates` there.
 
 The argument: rule 1 of the standard says a goal "names no part whose existence comes from a design
 choice", and a Component is such a part. The order becomes goals, then a head that argues a split,
@@ -2003,13 +2112,16 @@ it; the checker's change breaks every reference to a Component goal.
 
 | kind | test |
 | --- | --- |
-| purpose | removed, some part of what the project provides has no reason left to exist |
+| purpose | removed, some part of what the project provides, or is to provide, has no reason left to exist |
 | scope | it bounds whom or what the purposes serve, and names the design it excludes |
 | ranking | two purposes compete, and it says which comes first, across decisions |
 
 Anything else is design. The owner's word enters design through a fact the owner holds and the
-weighing of a cost at a fork, not through a goal on one decision. A kind of interface, such as a
-command line, is a goal only where it passes the purpose test.
+weighing of a cost at a fork, not through a goal on one decision. A goal of the three kinds stays
+a way for the owner to change a decision, as `goal@knowledge-architect@the-owner-decides` says. A
+kind of interface, such as a command line, is a goal only where it passes the purpose test. The
+purpose test admits a purpose that nothing built serves yet, a new goal being expected to be unmet,
+per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 The argument is the owner's: a goal is what drives the project to exist, and no argument defends a
 purpose. The scope and the ranking answer the one class the purpose test fails: removing a scope
@@ -2021,8 +2133,10 @@ its stop.
 
 No goal holds a line "It refines". A statement grounded on another goal is a design head that cites
 that goal. A goal whose intent is independent of the goal it named stands alone, without the line.
-Rule 7's clause on refinement leaves. The first mapping table sorts the 24 refining goals, by title
-and slug, as the owner agreed; the body of each is still read sentence by sentence.
+Rule 7's clause on refinement leaves. The first mapping table gives a first sorting of the 24 goals
+that hold a line "It refines", by title and slug, to which the owner agreed. The analysis reads the
+body of each sentence by sentence, may overturn a row with its reason, and the owner rules each
+goal in the whole-set review; no row binds that ruling.
 
 The fact behind it: 10 of the 24 refine `goal@knowledge-architect@agents-get-a-complete-workflow`,
 the widest goal, because the standard has the drafter of a Component goal name a goal of the root.
@@ -2032,8 +2146,10 @@ the widest goal, because the standard has the drafter of a Component goal name a
 Rule 2 keeps "every term has one meaning", and its test of two readings as two directions, which
 `design@agent-skills@goal-one-meaning-any-breadth` already states. What is new: a question of when,
 how much or by what means is no finding, and the goal reviewer does not block on it. A design head
-closes such a question, on argument against a rival. The clause that every universal names the set
-it ranges over leaves, since it produces such clauses, D2.
+closes such a question, on argument against a rival. This is a rule for the drafter and the
+reviewer of a goal: it adds no instruction for an agent that applies a goal and finds it open, per
+`design@agent-skills@no-instruction-for-a-goal-read-two-ways`. The clause that every universal
+names the set it ranges over leaves, since it produces such clauses, D2.
 
 The cost, which the owner called the feature: two sessions may resolve an open point differently
 until a head settles it.
@@ -2057,38 +2173,59 @@ alone would be read in the wrong direction. The reach by layer, what a draft req
 rules out, is still shown to the owner in the drafting exchange.
 
 This reverses `design@agent-skills@goal-carries-reading-examples`, which kept the cases so that the
-reading is not lost. The fact its record did not hold: in two goals rewritten as a test, every case
-either repeated the statement or closed a question of how much. The test covered two purposes and
-no scope.
+reading is not lost. The fact its record did not hold: in the two goals that stayed goals among
+three rewritten as a test, every case either repeated the statement or closed a question of how
+much. The test covered two purposes and no scope.
 
 ### A removed goal is sorted sentence by sentence
 
 Every goal is judged for whether it stays. For each goal removed, merged or shortened, the analysis
 holds a table of its sentences, each with one destination of the second mapping table. A sentence
 becomes a head only where it passes an entry test of `primer@design-heads` and the analysis argues
-it against a rival. No head says it was carried and not argued. The reviewers of the whole-set
-review read every row.
+it against a rival. No head says it was carried and not argued. Such a head is a decision that
+creates a head, so it goes through the in-change path of `skill@knowledge-architect-design`, per
+`design@agent-skills@new-or-reshaped-head-needs-design`: the analysis holds its argument, and the
+message of the commit that writes the head carries the deliberation.
+
+The owner rules the analysis before any goal is edited: for each goal, whether it is kept, merged,
+turned into a head or removed, and every sentence sent nowhere, which is shown to the owner before
+it is deleted. The reviewers of the whole-set review read every row of the analysis, a line this
+repository adds to their briefs for this one review; the shipped goal reviewer gains no such duty.
 
 ### A goal's reading is a head's premise
 
 An interpretation of a goal has no register. A head that derives a constraint from a goal states
 that constraint in one sentence beside its reference to the goal. The decision-record axis of a
 review compares the reading of a head a diff writes with the readings of the other heads that cite
-the same goal, which `cargo klarch show` lists.
+the same goal, which `cargo klarch show` lists, and reports only two readings that cannot both
+hold: several heads may read one goal in ways that differ and agree.
+
+Both are instructions about how an agent behaves, which
+`design@agent-skills@behaviour-additions-need-real-use` and
+`goal@knowledge-architect@the-workflow-improves-through-real-use` admit only on evidence from real
+use or on a defect provable by reading. The first has such evidence: two recorded cases of a
+reading held in a head and not found from the goal, in
+`issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` and in the
+closed entry on the transcript goal's case. The comparison rests on a prediction, that thinner
+goals make two heads read one goal in opposite ways. Whether it is built or parked as an issue is
+D3.
 
 The rival, `thread@goals-at-the-root@goal-interpretation-register`, loses on one fact: a head must
 name a decision, its rival and the fact that defeats the rival, and an interpretation recorded apart
 from a decision is argued against none. The axis is the decision-record one because
 `design@agent-skills@verdicts-reach-the-conformance-review` runs the design-conformance axis at a
-merge only on a commit message that carries a search's lines.
+merge only on a commit message that carries a search's line with a verdict other than `constrains`
+and `unrelated`.
 
 ### The installed text is silent on when an intermediate Component exists
 
 The installed text keeps what an intermediate Component is, where a decision on the code of several
 Components goes, and that its design binds what it encloses. It states no occasion. A project argues
 one in its own design. No instance in use supports a replacement of the occasion that leaves, per
-`design@agent-skills@behaviour-additions-need-real-use`. The four occasions the old head refused
-are refused no longer.
+`design@agent-skills@behaviour-additions-need-real-use`. The old head lists six rivals. The three
+that name an occasion, a shared principle, a split and a count of Components, are refused no
+longer. The two that name a form, a declared set and a crate whose Components are its modules,
+stay refused. The sixth is the absence of any intermediate Component.
 
 ### The goals are edited in one pass
 
@@ -2097,28 +2234,39 @@ committed, which edits no goals home; then every goal edited in one pass in the 
 reviewed in the rounds of `design@agent-skills@whole-set-rounds`, one reviewer per theme and one
 over the whole set, the owner answering between rounds.
 
+### The standard and the rewrite land on one branch
+
+Slice 1 is one branch: the new standard reaches the main branch with the goals it was applied to,
+since the rewrite of this repository's goals is the only test the standard gets. The owner keeps
+one branch against its weight on a fact the owner holds: no other work starts on the main branch
+while it is open, and several sessions may carry it. The checker's change is slice 2, since every
+commit of a branch passes the checker at its tip. The two slices ship in one version: no release is
+made between them, and the changelog's Migration entry is written once, for both.
+
 ## Mapping tables
 
-**The 24 refining goals.** A first sorting by title, agreed by the owner in round 4, with the three
-unsure rows as the owner ruled them. "Stands alone" names the kind it is judged as.
+**The goals that state a refinement.** A first sorting by title of the 24 that hold a line "It
+refines", to which the owner agreed in round 4, the three unsure rows as the owner answered them,
+with the hedges of those answers. "Stands alone" names the kind it is judged as. The analysis may
+overturn any row, and the owner rules each goal.
 
 | goal | outcome |
 | --- | --- |
 | `goal@knowledge-architect@mechanical-tasks-are-the-tool-s` | stands alone: purpose |
 | `goal@knowledge-architect@the-workflow-leads-to-better-code` | stands alone: purpose |
-| `goal@knowledge-architect@projects-are-split-into-components` | stays a goal, on the owner's ruling; a wider wording is drafted in the review |
+| `goal@knowledge-architect@projects-are-split-into-components` | stays a goal: the owner leans to keeping it; a wider wording is drafted in the review |
 | `goal@agent-skills@only-needed-instructions` | stands alone: ranking |
-| `goal@agent-skills@session-orchestrates-the-work` | stands alone, on the owner's word that it is orthogonal to the goal it names |
-| `goal@agent-skills@installed-text-works-in-any-environment` | head, on the owner's ruling |
+| `goal@agent-skills@session-orchestrates-the-work` | stands alone: the owner finds it "pretty much orthogonal" to the goal it names; whether it is a purpose or a means is open |
+| `goal@agent-skills@installed-text-works-in-any-environment` | head: the owner finds it "probably a mean" to the complete-workflow goal |
 | `goal@agent-skills@one-skill-per-activity` | head |
 | `goal@agent-skills@no-contradiction-in-workflow` | head |
 | `goal@agent-skills@reviews-judge-by-the-writer-s-criteria` | head |
 | `goal@agent-skills@reviews-judge-what-no-tool-can` | head |
 | `goal@agent-skills@installed-text-works-in-every-target-project` | head |
-| `goal@agent-skills@goals-state-the-owner-s-intent` | head |
-| `goal@check@relocation-needs-only-goal-changes` | stands alone: purpose |
+| `goal@agent-skills@goals-state-the-owner-s-intent` | head by its title; whether it stays a goal is open |
+| `goal@check@relocation-needs-only-goal-changes` | stands alone by its title: purpose; whether it stays a goal is open |
 | `goal@check@projects-add-their-own-checks` | stands alone: purpose |
-| `goal@check@document-rules-are-checked` | merged into `goal@knowledge-architect@documentation-stays-consistent`, on the owner's ruling |
+| `goal@check@document-rules-are-checked` | merged into `goal@knowledge-architect@documentation-stays-consistent`: the owner finds it "should probably just merge" |
 | `goal@check@documents-stay-current` | head |
 | `goal@check@checks-a-commit-from-its-hook` | head |
 | `goal@model@recorded-items-can-be-referenced` | stands alone: purpose |
@@ -2129,7 +2277,9 @@ unsure rows as the owner ruled them. "Stands alone" names the kind it is judged 
 | `goal@testing@an-extension-is-tested-over-a-project` | head |
 | `goal@transcript@a-session-reads-past-sessions` | head |
 
-The 30 goals that refine none have no row: the analysis judges each by the three kinds.
+`goal@model@a-tool-reads-the-documents-with-no-check` states inside a paragraph that it refines
+`goal@knowledge-architect@mechanical-tasks-are-the-tool-s`; the discussion did not sort it. It and
+the 29 goals that refine none have no row: the analysis judges each by the three kinds.
 
 **The destination of a sentence of a goal removed, merged or shortened.**
 
@@ -2139,7 +2289,9 @@ The 30 goals that refine none have no row: the analysis judges each by the three
 | a shape an existing head already argues | that head; the goal's copy is deleted |
 | a reason respected at several sites, or an interface others consume, which the analysis argues against a rival | a new head, citing the goal it is grounded on |
 | such a reason the analysis does not argue | an issue of kind `design`, which argues it later |
-| a ruling of the owner on a cost or a fact | the head it bears on, attributed to the owner |
+| a ruling of the owner on a cost or a fact | the head it bears on, attributed to the owner; where no head exists, a new head argued as above, or the issue |
+| what the goal it stays in, or the goal a merged goal joins, still states | that goal |
+| a repetition of the goal's own statement | nowhere |
 
 ## Losing alternatives
 
@@ -2164,7 +2316,7 @@ The 30 goals that refine none have no row: the analysis judges each by the three
   left with no instance in use; the goal edits made theme by theme, which leaves a goals home half
   ported; a Component's head in the design home of the Component enclosing it, against
   `design@agent-skills@dependency-decision-home`; a new issue for the parked thread, two issues
-  already holding its leads; slice 1 merged after 30 goals of the 54, which the owner refused.
+  holding part of its leads, which slice 1 extends; slice 1 merged after 30 goals of the 54, which the owner refused.
 
 ## Readings
 
@@ -2176,13 +2328,13 @@ None: the work reads no external specification.
 | --- | --- | --- |
 | thin goals stop steering: merged work moves against a goal and no procedure reports it | `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`, `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | named as a cause for the harvest of slice 1 to judge as a tripwire; it is the cause of the parked thread |
 | the root's goals home ends larger than the 13 homes are today | `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@goals-home-at-the-root-only` | becomes `acceptance@goals-at-the-root@the-goals-home-is-not-larger` |
-| the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | not silent. The owner keeps one branch: no other work starts on main meanwhile, and several sessions may carry it |
+| the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch: no other work starts on main meanwhile, and several sessions may carry it |
 | with measures gone, a review removes an installed instruction that a measure protected, `goal@agent-skills@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
-| two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | converted into the comparison by the decision-record axis |
-| the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | dropped: the decision-record axis judges each head's argument |
-| an agent reverses a Component's purpose on argument and the owner learns it late | `thread@goals-at-the-root@goals-home-at-the-root-only` | dropped: the turn's "Decided" section and the transcript axis report it |
-| a consumer does not move its pin, the review of its whole goal set costing too much | slice 2 | dropped: the owner runs the consumers and would see it |
-| a session reading a goal alone finds a head in conflict with it and asks the owner again | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | dropped: it reaches the owner each time |
+| two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | converted into the comparison by the decision-record axis, if D3 keeps it; otherwise the issue D3 opens holds it |
+| the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1 of the tripwire standard, the decision-record axis judging each head's argument |
+| an agent reverses a Component's purpose on argument and the owner learns it late | `thread@goals-at-the-root@goals-home-at-the-root-only` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the turn's "Decided" section and the transcript axis reporting it |
+| a consumer does not move its pin, the review of its whole goal set costing too much | slice 2 | named as a cause for the harvest of slice 2 to judge; expected to be dropped on a doubt, the owner running the consumers |
+| a session reading a goal alone finds a head in conflict with it and asks the owner again | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, since it reaches the owner each time |
 
 ## Acceptance criteria
 
@@ -2190,8 +2342,13 @@ None: the work reads no external specification.
 
 Guards `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`. Judged at slice 1.
 Fires when `wc -w` over the files of the root's goals home, after the whole-set review's last
-round, exceeds 22,350, the total of the 13 goals homes at the commit this document was written on.
+round, exceeds 19,045, the total of the 13 goals homes at the commit this document was written on.
 Its firing shows that the three kinds do not thin the goals, and reopens the thread.
+
+It is a ceiling on the whole home, never a bound on one goal:
+`design@agent-skills@goal-entry-shape` argues against a bound on a goal's length, and that
+argument stands. It is a weak observable: 54 measures and 183 case lines leave the goals, so the
+home shrinks unless the kept goals grow by as much. No tighter bound has a basis in a measurement.
 
 ## Implementation sequence
 
@@ -2218,6 +2375,23 @@ what removes them, leaving each Component's goals home empty, which the checker 
   names the set it ranges over leaves the standard. The session proposed it in round 7, and the
   owner's answers named neither it nor the table row that holds it. It bears on
   `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`.
+- **D3**, not ruled, from the design-conformance review. The comparison of the readings of one goal
+  by the decision-record axis is an instruction about how an agent behaves that rests on a
+  prediction, against `goal@knowledge-architect@the-workflow-improves-through-real-use`. The owner
+  approved the thread that holds it. Default: slice 1 does not build the comparison, and opens an
+  issue of kind `design` that holds it with the cause it answers; the sentence a head states
+  beside its reference to a goal is built. It bears on
+  `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise`.
+- **D4**, not ruled, from the design-conformance review. Slice 1 installs the new standard before
+  the one pass, so between its first step and the one pass the branch holds installed text that
+  `goal@agent-skills@goals-state-the-owner-s-intent` contradicts, that goal stating that what shows
+  a goal met is in what the project builds. The first search asked that this goal be ruled with the
+  standard, before the others. Default: the order stands, the state never reaching the main
+  branch, and the whole-set review rules that goal with the others. It bears on
+  `thread@goals-at-the-root@goals-are-edited-in-one-pass-under-the-whole-set-review`.
+
+One question is put to the owner at slice 2's design audit and has no default built before it: the
+form the shipped text writes for the root's goals home, which slice 2's spec states.
 
 ## Harvest
 
@@ -2225,8 +2399,8 @@ what removes them, leaving each Component's goals home empty, which the checker 
 | --- | --- | --- |
 | each slice's decisions | its spec's harvest row | at that slice's landing |
 | the reversed and rewritten entries of "What is already decided" | each in its own home, by the slice its row names | at that slice's landing |
-| the losing alternatives above | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
-| the premortem's first cause | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at slice 1's landing |
+| the losing alternatives above, and the three heads the work reverses, `design@agent-skills@goals-required`, `design@agent-skills@goal-met-in-tree-or-in-use` and `design@agent-skills@goal-carries-reading-examples`, each as `skill@knowledge-architect-decision-recording@reversal-check` asks | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
+| every cause of the premortem, each listed with its outcome and, where dropped, the condition it fails | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at slice 1's landing; the cause on a consumer's pin at slice 2's |
 | `acceptance@goals-at-the-root@the-goals-home-is-not-larger` | reported as `skill@knowledge-architect-planning@acceptance-criteria` says | at slice 1's landing, and when this document leaves |
 | this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 and D2 | after slice 2 |
 
@@ -2236,7 +2410,6 @@ what removes them, leaving each Component's goals home empty, which the checker 
   ships slice 2: its Migration entry names that review.
 - The discussion of `thread@goals-at-the-root@goal-pursuit-is-judged-by-review-and-audit` opens from
   the two issues that hold its leads, on the owner's word or on the evidence that reopens it.
-- An occasion for an intermediate Component is argued when a consumer first creates one; nothing
-  records it until then.
 - `issue@agent-skills@this-repository-s-heads-await-the-design-record-axis`: the pass it awaits
-  brings each standing head that cites a goal to state its constraint beside the reference.
+  brings each standing head that cites a goal to state its constraint beside the reference; slice
+  1 writes that into the issue.
