@@ -188,6 +188,78 @@ different directions, it goes to the owner. The owner:
 It is built on this branch through the design skill's in-change path, and is no part of the
 goals' rewrite.
 
+### The eight questions left open after the triage
+
+The session told the owner that the owner's earlier ruling on
+`goal@check@relocation-needs-only-goal-changes`, that it admits no exception for a reference naming
+an anchor's own directory, loses its object once that goal is a head, with a default that the head
+keeps it as the owner's. It then put eight questions, each with a default:
+
+1. the linked site: for every target project, or for this repository's documents only; default,
+   every target project;
+2. a project's own checks: whether a published library API is part of the purpose; default, no,
+   the API is design;
+3. whether the tools goal owes a tool for every task that meets its test, or only once the owner
+   has taken the task in; default, once taken in;
+4. whether the first goal includes that a tool can tell whether what it read is right, and whether
+   "tools" reaches programs other than knowledge-architect's own; default, yes to the first, no to
+   the second, other programs being admitted and not served;
+5. whether "the workflow does not teach how to write Rust idiomatically" stays in the thinner
+   workflow goal; default, yes, as one sentence;
+6. the ranking of the drift goal, with no goal on the owner's attention; default, it keeps "never
+   before the owner's decisions, the exchange with the owner and the check of the owner's word";
+7. the four statements on asks in general, that knowledge-architect asks more than the four
+   conditions, that a project not yet following an ask is still a target project, that its working
+   is guaranteed only as far as the asks are followed, and that nothing is built only for a state
+   that follows none; default, they stay in the scope goal as one sentence;
+8. the `claude` harness and git; default, both are scope, named in the scope goal, the asks on
+   gates going to heads with the other asks.
+
+The owner:
+
+> My ruling on goal@check@relocation-needs-only-goal-changes can be dropped. No need to carry it
+> on my word.
+> For the questions:
+>
+> 1. default, every target project. This is what I intended with that goal from the begining. Not
+> sure how it came to deviate.
+> 2. agreed on default
+> 3. default
+> 4. default
+> 5. IMO this is a design choice, on the argument that llm agents know how to write rust code (at
+> least those that are sufficiently performant to follow this workflow), and that guidelines from
+> a higher vantage are a more valuable use of instruction budget.
+> 6. default
+> 7. default
+> 8. default
+
+So seven defaults hold. On the fifth, the exclusion of Rust idiom is no sentence of the workflow
+goal: it is a design head, on the owner's argument, which the head records as an argument and not
+as a ruling. The earlier ruling on the relocation goal is dropped, and the head that takes that
+goal's statements may be reopened on that point by an argument.
+
+### The state of the work, for a session that resumes it
+
+Done, in the commits of this branch: steps 1 and 2 of the slice's spec, its design audit, an early
+review with its repairs, this analysis verified and corrected, and every ruling above. Nothing of
+a goals home is edited yet.
+
+Next is step 4 of the spec, the one pass. Its first commit holds all of this, and passes the
+checker:
+
+- the 21 goals of the list above, drafted in the six files of the root's goals home, a directory
+  behind a README whose head is the owner's paragraph on the documentation model and the workflow.
+  Each draft is written from the rows that stay in its goal, from the rows the reading of holders
+  gives it, and from the owner's words in this file and in `milestone@plans@goals-at-the-root`;
+- each Component's goals home left with no entry;
+- every reference to a goal that moved or left re-pointed, in every text `cargo klarch show` lists;
+- each head the theme sections and the rulings argue, written under the design skill's in-change
+  path, and each row sent to an issue of kind `design` opened as one, grouped by subject;
+- the root's `CLAUDE.md` sentence on Components refining the main goals rewritten.
+
+Then come the rounds of the whole-set review, one goal reviewer per file and one over the set,
+each brief asking it to read every row of this analysis for its file.
+
 ## Theme: The record and its documents
 
 Questions Q1 to Q17.
