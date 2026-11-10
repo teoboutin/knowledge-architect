@@ -121,7 +121,7 @@ Reversed or rewritten, each at step 5 (the harvest) unless named:
 - `agent-skills`: `design@agent-skills@one-record-searcher`, `design@agent-skills@searcher-grades-goals`,
   `search-relevance-grade` (`design@agent-skills@verdict-report`), `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`),
   `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`),
-  `design@agent-skills@seeds-name-decisions`, `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`),
+  `design@agent-skills@seeds-name-decisions`, `search-waits-until-the-scope-settles` (`design@agent-skills@search-runs-once-the-shapes-settle`, `design@agent-skills@search-reads-the-draft`),
   `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@search-reads-the-whole-record`,
   `design@agent-skills@design-hands-off-to-planning`, `design@agent-skills@subject-split-standard` (with
   `path@agent-skills@fragments/subject-split.md`), and the sentence of
@@ -151,7 +151,7 @@ citations, outside this spec. Each is read at the harvest, except the installed 
 - `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`): `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (1), `path@agent-skills@docs/open-issues/the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md` (2), `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` (1), `the-search-s-graded-entries-exceed-what-one-session-reads-whole` (5), `register@agent-skills@rejected` (1).
 - `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`): `path@agent-skills@docs/design/record-search.md` (1), `the-lines-owed-per-graded-entry-are-written-by-a-script-at-every-occasion` (1).
 - `design@agent-skills@seeds-name-decisions`: `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone` (2).
-- `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`): `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/design-skill-and-heads.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` (1).
+- `search-waits-until-the-scope-settles` (`design@agent-skills@search-runs-once-the-shapes-settle`, `design@agent-skills@search-reads-the-draft`): `path@agent-skills@content/skills/design/SKILL.md` (1), `path@agent-skills@docs/design/design-skill-and-heads.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `the-reading-on-touch-of-may-bear-entries-met-its-reopening-condition` (1).
 - `design@agent-skills@record-searched-before-the-work`: `path@agent-skills@docs/design/project-configuration.md` (1), `path@agent-skills@docs/design/record-search.md` (1), `path@agent-skills@docs/design/reviews.md` (2), `path@agent-skills@docs/open-issues/a-pending-ruled-file-is-reached-by-no-installed-search.md` (2), `a-slice-s-design-audit-is-seeded-with-every-decision-of-its-milestone` (2), `register@agent-skills@tripwire` (2).
 - `design@agent-skills@search-reads-the-whole-record`: `path@agent-skills@docs/open-issues/a-lighter-pass-for-untouched-components.md` (1), `the-search-s-graded-entries-exceed-what-one-session-reads-whole` (1).
 - `design@agent-skills@design-hands-off-to-planning`: `path@agent-skills@docs/design/plan-documents.md` (1), `path@check@docs/design/plan-documents.md` (1).
@@ -235,7 +235,7 @@ session, and were not checked line by line.
 - `design@agent-skills@searcher-grades-goals`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `search-relevance-grade` (`design@agent-skills@verdict-report`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
-- `search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
+- `search-waits-until-the-scope-settles` (`design@agent-skills@search-runs-once-the-shapes-settle`, `design@agent-skills@search-reads-the-draft`): conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@no-thread-closes-before-the-search`: constrains, respect. Rested on; its sentence on the cost of a reading after the owner's rulings is rewritten at the harvest with the reason of `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
 - `design@agent-skills@seeds-name-decisions`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
 - `design@agent-skills@record-searched-before-the-work`: conflicts, check-reversal. Listed as reversed or rewritten; judged at the harvest.
@@ -453,7 +453,7 @@ around 250,000 tokens, so the measure to weigh is cost. The session proposed 50,
 with a middle ground of 40k first. Because we are also demanding more detailed results of searchers,
 I think we can raise incrementally, rather too much at once. This should leave plenty more ground."
 State: `approved`, round 20. Section: "Decided design". Harvest:
-`design@query@clusters-packed-under-a-word-bound`.
+`design@query@clusters-packed-under-a-word-bound`, `design@query@worklist-bound-is-40000-words`.
 
 ### The packing unit is a search unit, a Component or a declared location, alone above half the bound `##component-packing`
 
@@ -475,7 +475,10 @@ context entries in full text (`argument@record-search-verdicts@arg-50`,
 units into the room of large ones, which no goal ranks, at a cost of one agent over this repository
 (`argument@record-search-verdicts@arg-34`). State: `approved`, round 20. Section: "Decided design".
 Harvest: `design@query@clusters-packed-under-a-word-bound`, `residual-grouped-by-anchor` (`design@query@residual-grouped-by-search-unit`),
-`design@query@cluster-rooted-at-a-subject`, `design@agent-skills@search-reads-the-whole-record`,
+`design@query@cluster-rooted-at-a-subject`, `design@query@packed-by-search-unit`,
+`design@query@constructed-anchor-in-its-home-s-unit`, `design@query@shared-entry-in-its-most-tied-cluster`,
+`design@query@context-entries-given-whole`, `design@query@search-unit-above-half-the-bound-alone`,
+`design@agent-skills@search-reads-the-whole-record`,
 `design@agent-skills@subject-split-standard`; the reason of
 `rejected@query@one-search-agent-per-anchor`.
 
@@ -489,7 +492,8 @@ a conditional verdict consumed as unconditional (`argument@record-search-verdict
 the session withdrew the field for `owner-question` (`argument@record-search-verdicts@arg-47`). The
 owner, round 17: "verdict-report agreed." Members from the second search
 (`argument@record-search-verdicts@arg-50`) and from this spec's first review. State: `approved`,
-round 20. Section: "Decided design". Harvest: `search-relevance-grade` (`design@agent-skills@verdict-report`),
+round 20. Section: "Decided design". Harvest: `search-relevance-grade` (`design@agent-skills@verdict-report`,
+`design@agent-skills@verdict-states-a-conclusion`, `design@agent-skills@every-verdict-quotes-its-entry`),
 `may-bear-read-on-touch` (`design@agent-skills@session-acts-on-the-verdicts`), `design@agent-skills@one-record-searcher`,
 `unread-entries-reach-the-conformance-review` (`design@agent-skills@verdicts-reach-the-conformance-review`),
 `design@query@worklist-writes-and-verifies-the-reports`, `graded-entries-assembled` (`design@query@occasion-shaped-output`).
@@ -514,7 +518,8 @@ the spec fits in the curent design and code (and fix if it does not), not to red
 session did." Shaped by the session (`argument@record-search-verdicts@arg-23`). The owner, round 3:
 "slice-audit-checks-fit: agreed". Members from both searches and this spec's first review. State:
 `approved`, round 20. Section: "Decided design". Harvest: `design@agent-skills@seeds-name-decisions`,
-`design@agent-skills@record-searched-before-the-work`.
+`design@agent-skills@record-searched-before-the-work`, `design@agent-skills@design-audit-checks-fit`,
+`design@query@since-marks-changed-entries`, `design@query@seeds-from-the-plan-s-decided-section`.
 
 ### The search's work at the design grounding is the draft of the document that carries the deliberation `##search-reads-the-draft`
 
@@ -524,7 +529,7 @@ be to have a plan document already written". Argued by the session
 search on it". Answered by the second search (`argument@record-search-verdicts@arg-50`): the draft is
 never the plan document. The owner, round 19, on the searches of this discussion: "For the question,
 I would count that as real use." State: `approved`, round 20. Section: "Decided design". Harvest:
-`search-waits-until-the-scope-settles` (`design@agent-skills@search-reads-the-draft`),
+`search-waits-until-the-scope-settles` (`design@agent-skills@search-runs-once-the-shapes-settle`, `design@agent-skills@search-reads-the-draft`),
 `design@agent-skills@record-searched-before-the-work`, `design@agent-skills@design-hands-off-to-planning`,
 and the reason of `rejected@agent-skills@conformance-reader-at-the-checkpoint`.
 

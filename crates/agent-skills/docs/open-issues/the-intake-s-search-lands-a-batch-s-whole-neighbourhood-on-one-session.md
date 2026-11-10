@@ -20,8 +20,9 @@ analyses of forty received retrospective files, three outcomes for the owner" re
 intake of seventeen files graded 200 entries `bears` and 164 `may-bear`; the intake of forty files 333
 and 249, which nine checking subagents read in parts, as
 `rejected@agent-skills@relevance-grades-read-by-the-session` also states; and an intake of thirteen
-files, whose session read 64 standing entries whole, about 167 KB, as the head of the record
-searcher stated before the verdict shape.
+files, whose session read 64 standing entries whole, about 167 KB, as
+`design@agent-skills@one-record-searcher` stated in the tree of the commit "[intake] The analyses of
+forty received retrospective files, three outcomes for the owner".
 
 The owner's statement, in the design discussion of the record search: the search suits the design
 skill better than the design audit and the intake; the intake may have a deeper problem, since its
