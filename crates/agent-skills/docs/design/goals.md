@@ -7,53 +7,64 @@
 A goal is met or unmet, and stays in its goals home whether it is met or not yet met. The rule
 and its reason are the owner's: a goal removed when it is achieved stops being checked, and can
 stop being met without anyone noticing, so a goal leaves only when the owner abandons it, per
-`goal@knowledge-architect@the-owner-decides`. The owner adopted it in the head of this repository's
+`goal@knowledge-architect@the-owner-decides`, or rules that it is no purpose, scope or ranking, per
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`: its intent is then kept, recorded
+as the decision it is. The owner adopted it in the head of this repository's
 root goals home, which stated it until the review of the whole goal set left the rules of
 goal-setting to the skill. A goal drafted to move what the project builds is
 expected to be unmet when it is written, per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
-### A goal entry states an outcome and what would show it met, in a body with no bound on its length `##goal-entry-shape`
+### A goal entry states an outcome, in a body with no bound on its length `##goal-entry-shape`
 
 A goal is a heading stating an outcome as a sentence, with its slug, at the level `model` gives the
 goal register, per `design@model@an-entry-is-a-heading-at-the-register-level`, and a body saying what
-it means and what would show it is met, with the cases of `design@agent-skills@goal-carries-reading-examples`.
-What it may state is the goal standard's, per `design@agent-skills@goal-standard-rules`; its first
-rule carries the outcome test, per `design@agent-skills@goal-outcome-survives-empty-skeleton`. The
-body has no bound on its length, and names the members of a set in a list where it has several.
+it means. It holds no measure, per `design@agent-skills@what-shows-a-goal-met-is-design`, and no
+fixed block of cases, per `design@agent-skills@a-goal-carries-an-example-only-for-its-direction`.
+What it may state is the goal standard's, per `design@agent-skills@goal-standard-rules`. The body has
+no bound on its length, and names the members of a set in a list where it has several.
 
 A session that argues from a goal applies the goal whole, so the words it reads cost that session
 nothing, by the primer's rule on the size cost of agent-facing text; a goal pressed into few
-sentences carries its sets and its measure in long ones, and long sentences read two ways, against
-the goal standard's rule of one reading. The owner made this argument: the standard needs more than
-four sentences to state what matters, the bound probably makes one reading harder to keep, and the
+sentences carries its sets in long ones, and long sentences read two ways, against the goal
+standard's rule of one direction. The owner made this argument: the standard needs more than four
+sentences to state what matters, the bound probably makes one reading harder to keep, and the
 owner was fairly certain that a list makes some goals more readable. The measurement
 behind it was taken on the drafts of this repository's 31 goals written under a bound of two to four
-sentences, as the review record added by the commit "[agent-skills] A goal's body has no sentence
-bound, and the whole-set review runs in rounds the owner answers" holds them: 9 goals broke the
-bound, and 51 of the 129 sentences of the 31 goals ran over 40 words. The script that takes it again
-is in the message of the commit "[agent-skills] Repairs of the review before the merge of the
-goal-standard branch". The nearest rival, a soft bound such as "as short as the standard allows",
-gives a reviewer nothing to apply, and keeps the pressure that produced the long sentences. Its
-rival with a fixed bound is `rejected@agent-skills@goal-body-in-two-to-four-sentences`.
+sentences, each of which then held a measure, as the review record added by the commit
+"[agent-skills] A goal's body has no sentence bound, and the whole-set review runs in rounds the
+owner answers" holds them: 9 goals broke the bound, and 51 of the 129 sentences of the 31 goals ran
+over 40 words. The script that takes it again is in the message of the commit "[agent-skills]
+Repairs of the review before the merge of the goal-standard branch". The nearest rival, a soft bound
+such as "as short as the standard allows", gives a reviewer nothing to apply, and keeps the pressure
+that produced the long sentences. Its rival with a fixed bound is
+`rejected@agent-skills@goal-body-in-two-to-four-sentences`.
 
-### A goal carries "for instance" cases of each layer it has, the boundary block's cases the owner kept, which bind nothing `##goal-carries-reading-examples`
+### A goal holds no fixed block of cases, and an example only where its statement alone would be read in the wrong direction `##a-goal-carries-an-example-only-for-its-direction`
 
-A goal's body carries, for each layer it has, what it requires, what it admits and what it rules
-out, one or more "for instance" cases, those of the boundary block the owner's ruling kept, per
-`design@agent-skills@goal-draft-shows-reach`. The block leaves with the ruling, so a later agent
-reads the goal alone; the owner proposed that example lines per layer written into the goal could
-carry the reading the owner ruled on better. A case shows a reading and binds nothing, since a case
-taken as the measure narrows the outcome to what was foreseen, the defect
-`design@agent-skills@goal-met-in-tree-or-in-use` names. Their count is one or more for each layer the
-goal has, not one per layer, since `goal@agent-skills@only-needed-instructions` refuses a fixed count,
-on what an agent decides by its judgement, that the work can be carried out as intended without and
-that another instruction needs to vary, and a goal that rules nothing out has no case to show there.
-The rival, the goal written bare with its reading left in the review's record, loses that reading
-when the record leaves.
+A goal's body holds no list of what it requires, what it admits and what it rules out. Its prose
+may carry an example where the statement alone would be read in the wrong direction; an example
+shows a reading and binds nothing. The reach of a draft by layer is shown to the owner before the
+ruling, per `design@agent-skills@goal-draft-shows-reach`, and is not kept in the goal.
+
+A case written into a goal binds every later agent outright on a point that no argument and no
+rival settled. Three of this repository's goals were rewritten without their cases as a test: one
+became a design head, and in the two that stayed goals every case either repeated the statement or
+closed a question of how much, which `design@agent-skills@goal-one-meaning-any-breadth` leaves to a
+design head. The test covered two purposes and no scope. The rewrites are in the plan document of
+the work that removed the cases, which
+`git log --name-only -- docs/plans/milestones/goals-at-the-root/` finds. The owner agreed, on those
+rewrites, that what a goal admits and rules out case by case is design.
+
+The rival, one or more "for instance" cases for each layer the goal has, written into the goal from
+the boundary block the owner ruled on, `rejected@agent-skills@goal-carries-reading-examples`, kept
+the cases so that the reading the owner ruled on is not lost when the review's record leaves. A
+reading that a decision needs is stated by the head that derives a constraint from the goal, where
+it is argued. The example stays because the owner, unsure, thought that such clauses make the
+intent clearer to a later reader of the goal, which holds of a direction and not of a bound.
 
 ### Goals change only through the goal-setting skill `##goals-change-through-goal-setting`
 
-The goal-setting skill runs at setup for every Component, when the owner states, rewords or abandons
+The goal-setting skill runs at setup, when the owner states, rewords or abandons
 a purpose, when a decision conflicts with a goal and the primer's rule sends the conflict to the
 owner, and for the review of the whole goal set, on the owner's request or at a pin move across a
 version whose Migration entry names it, per `design@agent-skills@goal-set-review-in-goal-setting`.
@@ -63,24 +74,27 @@ presumption, per `goal@knowledge-architect@the-owner-decides`.
 ### A proper goal meets the rules of the goal standard, written once as a fragment that goal-setting and the goal reviewer host `##goal-standard-rules`
 
 The goal standard is `path@agent-skills@fragments/goal-standard.md`. It reads a goal in three
-layers and as a direction, and holds eight numbered rules, each argued in a head, rule 7 in place
-and in `check`'s head:
+layers and as a direction, and holds eight numbered rules, each argued in a head or here:
 
-- rule 1, `design@agent-skills@goal-outcome-survives-empty-skeleton`;
-- rule 2, `design@agent-skills@goal-one-meaning-any-breadth`;
-- rules 3 and 5 and the layers, `design@agent-skills@requires-admits-rules-out`;
-- rule 4, `design@agent-skills@goal-holds-one-intent`;
-- rule 6, `design@agent-skills@goal-met-in-tree-or-in-use`;
-- rule 7: a refinement neither widens nor contradicts the goal it refines, which follows from the
-  rule of no contradiction, and a goals home cites only goals and registers of its own or an
-  enclosing Component, per `design@check@goals-home-cites-upward-only`;
-- rule 8, `design@agent-skills@goal-exclusion-names-its-design`;
+- rule 1, the three kinds, `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`;
+- rule 2, `design@agent-skills@goal-outcome-survives-empty-skeleton`;
+- rule 3, `design@agent-skills@goal-one-meaning-any-breadth`;
+- rules 4 and 6 and the layers, `design@agent-skills@requires-admits-rules-out`;
+- rule 5: two statements are two goals when each means something without the other, and a
+  qualifier or a domain belongs to the goal it qualifies, so a scope is a goal of its own only
+  where it means something without any one purpose. Two goals may share an aspect, which is a
+  finding of rule 6 only where the two cannot both be met. Its test is the head standard's rule on
+  an exception, not the test of reversing one part alone, which splits a rule from its exception,
+  per `rejected@agent-skills@head-split-by-independent-reversal`;
+- rule 7, `design@agent-skills@what-shows-a-goal-met-is-design`;
+- rule 8, `design@agent-skills@no-goal-refines-another`, with the rule that a goals home cites only
+  goals and registers of its own or an enclosing Component, per
+  `design@check@goals-home-cites-upward-only`;
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 Each rule's case, read in the goal histories of rootpoint, thaum and this repository, is a `%%`
-comment beside it, except rule 7, of which no case was observed; its comment names `check`'s head
-that argues its citation rule. The findings from
-other fields the rules lean on are `path@agent-skills@docs/grounding/goal-standard.md`.
+comment beside it. The findings from other fields the rules lean on are
+`path@agent-skills@docs/grounding/goal-standard.md`.
 
 The drafter writes to it and the reviewer judges by it: goal-setting hosts it in
 `skill@knowledge-architect-goal-setting@goal-or-not`, and the goal reviewer in
@@ -101,18 +115,57 @@ changes over 7 commits, which `git log --follow -p -- docs/goals.md` in rootpoin
 step caught no defect: reviews or the session caught 4, the owner 3, a design discussion 2; in 3 of
 its 4 cases of excess reach the excess was a conflict with a sibling goal. The mechanism is a phrase
 the owner bounded by its context turned into a universal with no qualifier, read by the owner for
-intent and not for what it rules out. The deliberation that read those histories is the spec of the
-work that built the standard, which `git log --diff-filter=D --name-only -- docs/plans/` finds.
+intent and not for what it rules out. The deliberations that read those histories, and that brought
+the standard to the three kinds, are the plan documents of the work that built it, which
+`git log --name-only -- docs/plans/` finds.
+
+### A goal is a purpose the project exists for, a scope that bounds one, or a ranking between two, and any other statement is design `##a-goal-is-a-purpose-the-project-exists-for`
+
+Rule 1 of the goal standard sorts a goal into three kinds, each with its test:
+
+| kind | test |
+| --- | --- |
+| purpose | removed, some part of what the project provides, or is to provide, has no reason left to exist |
+| scope | it bounds whom or what the purposes serve, and names the design it excludes |
+| ranking | two purposes compete, and it says which comes first, across decisions |
+
+Any other statement is design, whoever makes it. The owner's word enters design through the
+weighing of a cost at a fork and through facts the owner holds, among a few more such ways the owner
+did not list, and not through a goal on one decision, per
+`design@agent-skills@heads-stand-on-argument`. A goal of the three kinds stays a way for the owner
+to change a decision, as `goal@knowledge-architect@the-owner-decides` says. The purpose test admits
+a purpose that nothing built serves yet, per `design@agent-skills@goal-drafted-to-move-the-tree`.
+
+The argument is the owner's: a goal is what drives the project to exist, so that with every goal
+removed nothing in the project would need to exist; and a statement that can rest on an argument is
+better recorded as a decision, since a goal binds outright, is not questioned, and so does not
+improve. The scope and the ranking are the session's addition, for the one class the purpose test
+fails: removing a scope makes nothing lose its reason to exist. The owner found the three kinds
+probably right, a purpose widening what the project is for and a scope reducing it. Under the
+standard that had no kinds, 33 of this repository's 54 goals were goals of one Component, and 24
+stated that they refined another goal, per `design@agent-skills@goals-home-at-the-root-only` and
+`design@agent-skills@no-goal-refines-another`.
+
+A scope names the design it excludes, one that a purpose would otherwise argue for, in words that
+keep their meaning under rule 2. A property of smallness with no named design is the owner's scope
+control, exercised by what the owner asks for, or a quality argument a head makes against its own
+rival. A scope is a goal of its own only where it means something without any one purpose, per
+rule 5.
+
+The rival, a goal as what the owner holds against an argument on cost, which the session drew from
+the owner's earlier words, needs a ruling of the owner on each statement to tell a goal from a
+decision; the purpose test needs none. The owner was not fully in favour of it, and uncertain that
+it was the right answer.
 
 ### A goal keeps its meaning in the project emptied of its design and its code, and states an outcome, not a mechanism `##goal-outcome-survives-empty-skeleton`
 
-Rule 1 of the goal standard: a goal states an outcome the owner intends, which keeps its meaning,
+Rule 2 of the goal standard: a goal states an outcome the owner intends, which keeps its meaning,
 word for word, in the project reduced to an empty skeleton, every design head, document and line of
 code removed. It may define what the project provides and then name it, and names no part whose
-existence comes from a design choice; a Component's goal may name its own Component and those that
-enclose it, since changing the shape there changes what the goal states anyway. A sentence is a
-mechanism when, changed, the Component would still be for what the owner intends, and an outcome
-when the change would make it for something else.
+existence comes from a design choice, a Component included, per
+`design@agent-skills@goals-home-at-the-root-only`. A sentence is a mechanism when, changed, the
+project would still be for what the owner intends, and an outcome when the change would make it for
+something else.
 
 A goal that names a part as built binds the part, so a redesign rewrites goals only the owner may
 change, against `goal@knowledge-architect@agents-work-without-drift`. The owner argued that a goal
@@ -122,46 +175,51 @@ in a goal's level, a requirement being one way of achieving a goal. The nearest 
 other wording, every word under the goal replaced with the same function, follows from the skeleton
 test, which a reviewer applies directly by deleting the project and reading the sentence.
 
-The outcome test reads against the owner's intent: an owner who intends a command line makes a
-Component without one for something else, so a kind of interface the owner intends to provide is an
-outcome, and the owner argued that such an interface is stated as a goal; renaming a command leaves
-the Component for what the owner intends, so its exact form is a decision, which an interface others
-consume makes a head. An absolute list of what a goal never names, the rival, ruled out a kind of
-interface the owner intended to provide.
+The outcome test reads against the owner's intent: a project whose purpose is to provide a command
+line is for something else without one, so a kind of interface is an outcome where it passes the
+purpose test of `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; renaming a command
+leaves the project for what the owner intends, so its exact form is a decision, which an interface
+others consume makes a head. An absolute list of what a goal never names, the rival, ruled out a
+kind of interface the owner intended to provide.
 
-### A goal's rule of one reading judges ambiguity, never breadth `##goal-one-meaning-any-breadth`
+### A goal's rule of one direction judges ambiguity, never breadth, and leaves a question of when, how much or by what means to design `##goal-one-meaning-any-breadth`
 
-Rule 2 of the goal standard: every term has one meaning in the project, and a goal reads two ways
+Rule 3 of the goal standard: every term has one meaning in the project, and a goal reads two ways
 when two agents in the same situation, reading it, would move in different directions. A goal that
-admits many shapes in one direction reads one way, and a universal names its set only in what a goal
-requires or rules out. The owner argued that a goal has no ambiguity without being narrowed, and
-reported that the reviews tended to narrow goals to the shape that admits the owner's intent and nothing
-more; asking every universal to name its set added a scope at each repair. ISO/IEC/IEEE 29148, read
+admits many shapes in one direction reads one way. A question it leaves open of when, how much or
+by what means is no defect: a design head closes it, on its argument against a rival, and the goal
+reviewer reports none, per `design@agent-skills@goal-finding-grades`.
+
+The owner argued that a goal has no ambiguity without being narrowed, and reported that the reviews
+tended to narrow goals to the shape that admits the owner's intent and nothing more; asking every
+universal to name its set added a scope at each repair. ISO/IEC/IEEE 29148, read
 in `path@agent-skills@docs/grounding/goal-standard.md`, keeps "unambiguous" apart from "appropriate",
 the level of abstraction. The rival, every universal naming its set wherever it stands,
-`rejected@agent-skills@goal-universal-names-its-set`, made each repair narrower than the last.
+`rejected@agent-skills@goal-universal-names-its-set`, made each repair narrower than the last, and
+the same clause kept only in what a goal requires or rules out still produced clauses that close a
+question of how much.
+
+A goal that closes a question of when, how much or by what means holds a detail decided with no
+argument and no rival proposed, which then binds outright; the owner named that a major defect of
+this repository's goals as they stood. Its cost, which the owner counts as what the rule is for: two
+sessions may resolve an open point differently until a head settles it, and a head an agent can
+reverse on argument settles it. The rule is the drafter's and the reviewer's: an agent that applies
+a goal and finds it open gets no instruction of its own, per
+`design@agent-skills@no-instruction-for-a-goal-read-two-ways`.
 
 ### A goal is read in three layers, and only one goal ruling out what another requires is a contradiction `##requires-admits-rules-out`
 
-A goal is read as what it requires, what it admits and what it rules out. Rule 3: a goal requires
+A goal is read as what it requires, what it admits and what it rules out. Rule 4: a goal requires
 nothing and rules out nothing the owner has not required or ruled out knowingly, and what it admits
-needs no ruling. Rule 5: a goal that rules out what another requires contradicts it; one that rules
-out what another only admits does not, and the exclusion holds; two outcomes that compete, under a
-condition or always, are ranked by a goal. The owner argued that admitting is not requiring: a goal
-that rules out what another only admits leaves a state that meets both, which rule 5's sentence "No
+needs no ruling. Rule 6: a goal that rules out what another requires contradicts it; one that rules
+out what another only admits does not, and the exclusion holds; two purposes that compete, under a
+condition or always, are ranked by a goal of the ranking kind. The owner argued that admitting is not requiring: a goal
+that rules out what another only admits leaves a state that meets both, which rule 6's sentence "No
 state of the project meets one goal only by failing another" already held. The rival, two layers,
 read an admitted case as a requirement, as an issue of the mutate Component read a goal that admits
-a mutation of several files as unmet. Rule 3 allows the distillation goal-setting is for, a goal
+a mutation of several files as unmet. Rule 4 allows the distillation goal-setting is for, a goal
 wider than each statement it is drawn from: the defect it prevents is a reach the owner never saw,
 so the rival "no wider than the owner's statement" forbids what the skill exists to do.
-
-### A goal holds one intent, and two goals may share an aspect `##goal-holds-one-intent`
-
-Rule 4 of the goal standard: two statements are two goals when each means something without the
-other, and a qualifier, a domain or a measure belongs to the goal it qualifies. Two goals may share
-an aspect, which is a finding of rule 5 only where the two cannot both be met. Its test is the head
-standard's rule on an exception, not the test of reversing one part alone, which splits a rule from
-its exception, per `rejected@agent-skills@head-split-by-independent-reversal`.
 
 ### A new or reworded goal is drafted to move what the project builds, and is expected to be unmet `##goal-drafted-to-move-the-tree`
 
@@ -174,31 +232,75 @@ Google re:Work's guide to objectives, read in `path@agent-skills@docs/grounding/
 counts objectives always fully met as not ambitious enough. It derives from
 `goal@agent-skills@goals-state-the-owner-s-intent`.
 
-### What shows a goal met is sorted by whether its outcome depends on what the project does not control `##goal-met-in-tree-or-in-use`
+### A goal states no measure: what shows it met, and how the project pursues it, are design decisions in heads that cite it `##what-shows-a-goal-met-is-design`
 
-Rule 6 of the goal standard: what shows a goal met is in what the project builds, never a plan
-document or anything that leaves. An outcome that depends on nothing the project does not control is
-shown by a check or a test over what the project builds or produces. One that depends on its users,
-their data or their environment is judged only in use, and is shown by what the project builds to
-pursue it and to learn from its use whether it is met, never by a list of the properties the outcome
-is taken to consist of: a drafter held to one reading turns such an outcome into the most specific
-observable it can find, and the list then binds every agent to what was foreseen before any use. The
-test is KAOS's sort by who can enforce a goal, read in
-`path@agent-skills@docs/grounding/goal-standard.md`, and the owner's goals measured through reports
-from use are its model. The measure is what the project builds, on the owner's argument that in most
-projects a measure on use has limited feasibility; evidence from use shows the goal unmet in
-practice. The rival, evidence from use itself as the measure where it can be gathered,
-`rejected@agent-skills@goal-measured-by-evidence-from-use`, lost on that premise, and the owner chose
-the mechanism as the reading that gives a systematic check. A measure kept apart from the goal and
-revised by agents would move what shows a goal met out of the owner's statements, per
-`primer@goals-bind`.
+Rule 7 of the goal standard: a goal says nothing of what would show it met, of what the project
+builds to pursue it, or of how the project learns from its use whether it is met. Each is a design
+decision, in a head that cites the goal. No check and no review reports a goal that no head cites:
+a new goal is expected to be unmet, per `design@agent-skills@goal-drafted-to-move-the-tree`, and a
+new project holds goals before any design. The owner refused such a check.
 
-### A statement of what a Component is not for is a goal only when it names the design it excludes `##goal-exclusion-names-its-design`
+The measure is where a mechanism enters a goal. In this repository's goals as
+`git show cb8d5a22:crates/agent-skills/docs/goals.md` and
+`git show cb8d5a22:docs/goals.md` hold them, the measure of the goal on a session that orchestrates
+its work named the questions a retrospective asks, and the measure of the goal on the quality of
+the code the workflow leads to listed three properties and bound every unit a change edits to state
+why it departed from them. A mechanism stated in a goal binds outright and was argued against no
+rival; stated in a head, it is argued, and a better argument reverses it. The owner holds that the
+existence of such a mechanism, and its content, are design.
 
-Rule 8 of the goal standard admits an exclusion only where another goal would otherwise argue for
-the design it names, described in words that keep their meaning under rule 1: a property of
-smallness with no named design is the owner's scope control, exercised by what the owner asks for,
-or a quality argument a head makes against its own rival.
+The rival, a measure in the goal on what the project builds,
+`rejected@agent-skills@goal-measure-in-what-the-project-builds`, refused a measure kept apart from
+the goal and revised by agents, as moving what shows a goal met out of the owner's statements. What
+shows a goal met is a means to the owner's intent and not the intent, so an agent revising it on
+argument revises no statement of the owner. Evidence from use as the measure,
+`rejected@agent-skills@goal-measured-by-evidence-from-use`, stays refused as a rule of the standard.
+
+Its cost: no text of a goal says when it is met, so whether merged work moved toward the goals or
+against them is judged only where a head, a review or an audit asks. Which review and which audit
+ask it is open, in `issue@agent-skills@audit-axes-beyond-the-design-record`.
+
+### No goal refines another: a statement grounded on a goal is a design head that cites it `##no-goal-refines-another`
+
+Rule 8 of the goal standard: no goal states that it refines another. A statement grounded on
+another goal is a design head, which cites that goal; a goal whose intent holds without the other
+stands alone.
+
+A statement derived from a goal is derived by an argument, so it is a decision: as a goal it binds
+outright and is never argued again, and as a head a better argument reverses it. Of this
+repository's 54 goals, 24 held a line stating a refinement, which
+`git grep -c '^It refines' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals home, and 10 of
+them named the widest goal of
+the root, since the standard had the drafter of a Component's goal name a goal of the root. The
+owner observed that the goals that refine another tend to be those closest to a design entry, and
+added
+that not every one is a shape grounded on the goal it names: such a goal keeps its place as a goal,
+without the line. The rival, a refinement kept under a rule that it neither widens nor contradicts
+the goal it refines, keeps a tree of goals whose lower levels state how the level above is reached.
+
+### Goals live in the root's goals home alone, and no other Component and no location states one `##goals-home-at-the-root-only`
+
+The installed text has every goal written in the goals home of the project's root, which may be a
+directory of files by subject behind a README. No other Component and no location states a goal. A
+Component's purpose is the statement of the design head that argues its existence, in the root's
+design home, per `design@agent-skills@dependency-decision-home`, and creating or splitting a
+Component needs a design argument and no goal-setting session.
+
+A Component is a part whose existence comes from a design choice, which
+`design@agent-skills@goal-outcome-survives-empty-skeleton` keeps out of a goal: a goal anchored in a
+Component does not exist in the project emptied of its design, and moving code between Components
+moved goals only the owner may change. The order is the goals, then a head that argues a split,
+then the Component, so a redesign of the split touches no goal. The owner proposed it, on two
+observations of this repository's Component goals: they were detailed enough to state design, and
+several stated how their Component fits in the split.
+
+Its costs, as the owner was told them, the owner counting the first as what the decision is for:
+the owner no
+longer rules each Component's purpose, which an agent may reverse on argument and report; a session
+working in one Component reads the root's goals that bear on it; and a project that stated goals
+in its Components reviews its whole goal set. The rival, every Component stating at least one goal,
+is `rejected@agent-skills@a-goal-for-every-component`. A Component that may keep goals, but none
+stating its place in the split, fails the same test of the skeleton.
 
 ### An agent that meets a goal reading two ways in use gets no instruction of its own `##no-instruction-for-a-goal-read-two-ways`
 
@@ -215,8 +317,8 @@ future work; for each layer it has, requires, admits and rules out, at least one
 it reaches that the owner may not intend, those it only admits shown for information; each sibling goal it
 touches with the relation, a conflict named as such; and each question of intent the reviewer
 raised, with the case on which the readings differ. A contradiction is put at the top of the draft.
-The block is not written to the goals home; the cases of it the owner's ruling keeps are, per
-`design@agent-skills@goal-carries-reading-examples`.
+The block is not written to the goals home, and no case of it is kept in the goal, per
+`design@agent-skills@a-goal-carries-an-example-only-for-its-direction`.
 
 The block turns a goal's reach into cases the owner judges by intent, since a prose goal is easy to
 approve without seeing what it rules out, and the owner reported approving rootpoint's goals in a
@@ -249,9 +351,9 @@ derives from `goal@agent-skills@goals-state-the-owner-s-intent`.
 `agent@knowledge-architect-goal-reviewer` is read-only and hosts the goal standard. In draft mode,
 goal-setting dispatches it before every ruling of the owner, on the whole batch of new and reworded
 goals, every relevant statement of the owner verbatim whether or not the drafter drew on it, and
-every goals home, and again on each repaired or reworded version, so the version shown is a version
-reviewed. In whole-set mode it reads every goals home and gives every goal's boundary block
-material, on which the owner judges rule 3. In merge mode it is the goals axis of the review before
+every goals home the project declares, a goal outside the root's being a finding, and again on each
+repaired or reworded version, so the version shown is a version reviewed. In whole-set mode it reads
+every goals home and gives every goal's boundary block material, on which the owner judges rule 4. In merge mode it is the goals axis of the review before
 a merge, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`. Each mode's own checks
 fire only on the input its brief carries, so one fragment serves three modes. How it grades is
 `design@agent-skills@goal-finding-grades`, and when its reviews stop
@@ -261,8 +363,8 @@ It is fresh, never a fork, because the drafter is anchored on its own reading: i
 thaum a draft's excess reach went unnoticed by the drafter and the owner alike, which is the nearest
 rival, the drafter checking its own draft, refuted. It reads every statement of the owner, not only
 those the drafter drew on, so a statement the drafter left out still reaches the check of a part
-dropped. The owner reported, unsure, that a project's root goals refining no other goal stay in the
-tens and that one agent reads at least 100 goals when it does only that; no rule splits a larger set
+dropped. The owner reported, unsure, that a project's goals stay in the tens and that one agent reads at
+least 100 goals when it does only that; no rule splits a larger set
 before evidence asks for one: the review of the whole goal set splits a set into clusters for each
 reviewer's focus, per `design@agent-skills@whole-set-rounds`, not for one agent's reach. It serves
 `goal@knowledge-architect@the-owner-decides`.
@@ -279,18 +381,30 @@ statements; `asks`, a question the owner rules on; `minor`, a finding that chang
 The owner argued that, with `minor` as the only grade, more grades of gravity might help the
 reviews converge.
 
-Two rules' findings are `minor`. Rule 4's two intents in one goal: the owner argued that such a
+One rule's finding is `minor`, rule 5's two intents in one goal: the owner argued that such a
 finding does not change what an agent does in the project, and that no overlap at all between goals
-is probably out of reach. Rule 6's wording of a measure: the owner chose to count its findings apart
-rather than weigh them as the other rules' findings, which no goal ranks. That a finding changes no
-agent's act does not hold for a goal judged only in use that is measured by a list of the properties
-of its outcome, since the list binds every agent at its widest reading: such a finding is `asks`,
-routed `intent`. Tagged `minor`, such a reach reaches the tree, since a reach shown as a minor
-measure finding does not reach the owner as a question of intent: the draft-mode review recorded in
+is probably out of reach.
+
+The findings of the kinds, of a measure and of a refinement are graded by who settles them:
+
+- a goal that is no purpose, scope or ranking is `blocks`, routed `intent`: it binds outright what
+  an argument should settle, and whether anything the project provides would lose its reason to
+  exist without it is the owner's to say;
+- a goal outside the root's goals home, and a measure, are `blocks`, routed `settled`, since
+  `design@agent-skills@goals-home-at-the-root-only` and
+  `design@agent-skills@what-shows-a-goal-met-is-design` decide them;
+- a clause that closes a question of when, how much or by what means, and a statement that a goal
+  refines another, are `asks`, routed `intent`: whether the clause is part of the purpose, and
+  whether the intent holds without the other goal, are the owner's;
+- a question a goal leaves open of when, how much or by what means is no finding, per
+  `design@agent-skills@goal-one-meaning-any-breadth`.
+
+No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
+question of intent. Under the standard that held a measure, the draft-mode review recorded in
 `git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged the reason
-requirement of `goal@agent-skills@only-needed-instructions` only as unmeasured, rule 6, `minor`; the
-goal was written with that requirement, and a later branch removed it on the owner's word that it
-was wrong and missed when the owner read the drafts.
+requirement of `goal@agent-skills@only-needed-instructions` only as unmeasured, `minor`; the goal
+was written with that requirement, and a later branch removed it on the owner's word that it was
+wrong and missed when the owner read the drafts.
 
 ### A goal review stops at its first round, from the second on, with no blocking finding left on the wording the previous round read `##goal-review-stops-on-old-wording`
 
@@ -407,7 +521,7 @@ project audit with its saved workflow, `rejected@agent-skills@goal-set-review-as
 Each round dispatches together one goal reviewer per set of goals that touch each other, in draft
 mode, and one in whole-set mode; the sets give each reviewer a cluster to read against every rule,
 which is focus, not a bound on what one agent reads; the session writes the repairs and its defaults
-in the goals homes of the working tree, and puts every question of intent and every contradiction to
+in the goals home of the working tree, and puts every question of intent and every contradiction to
 the owner in one message, the next round waiting for the answer. The record, one file
 `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md`, holds each round's counts per reviewer, rule,
 grade, route and old or new wording, outcomes and defaults, the
@@ -449,7 +563,7 @@ serves `goal@knowledge-architect@the-owner-decides` and
 ### A goal-setting batch of more than three goals is drafted and ruled in the tree, three or fewer in the conversation `##goal-batch-ruled-in-the-tree`
 
 A batch of three goals or fewer is drafted in the message and ruled by slug. A larger batch is
-written in the goals homes of the working tree, its source marks, its boundary blocks and the
+written in the goals home of the working tree, its source marks, its boundary blocks and the
 reviewer's findings in a record of `path@knowledge-architect@docs/goal-reviews/`, and the owner
 rules on the batch as the tree holds it, naming each goal dropped or reworded. The owner argued that
 a larger batch is read more readily in the tree, and found ruling by slug inconvenient for the 31

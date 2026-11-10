@@ -191,17 +191,6 @@ re-exporting its typed functions, with no role module, and every module private 
 
 The design this decision did not keep: `rejected@knowledge-architect@module-tree-as-public-api`.
 
-### No intermediate Component groups the checker's Components or the installed text's `##no-intermediate-component`
-
-The Components of the checker and of the text it installs sit beside one another under crates/,
-with no intermediate Component above any group of them. An intermediate Component groups Components
-that serve a purpose of their own, stated in its goals home and refined by their goals, per
-`design@agent-skills@intermediate-component-occasion`. Every goal of these Components refines a goal
-of the root's goals home directly, or none, so no purpose is stated for a group of them. A decision
-binding several of them goes to their lowest enclosing Component, the root, which holds the rules
-this repository states for every crate it publishes as rules for a kind. It serves `goal@knowledge-architect@projects-are-split-into-components`. A purpose the owner states
-for a group of these Components reopens it.
-
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
 The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in

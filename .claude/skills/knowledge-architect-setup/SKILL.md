@@ -178,7 +178,7 @@ Every Component carries the same documents. `cargo klarch check` names each one 
 | --- | --- |
 | `README.md` | how a user uses the Component |
 | `CLAUDE.md` | the contracts and traps a developer needs, true of the code as it stands |
-| `register@*@goal`, one file, or a directory with a `README.md` | what the Component is for |
+| `register@*@goal`, one file, or a directory with a `README.md` | what the project is for, in the root's alone: any other holds no entry |
 | `register@*@design`, one file, or a directory with a `README.md` | how it is built and why; it may hold no entry yet |
 | `register@*@rejected`, one file, or a directory with a `README.md` | the designs not kept, and why, each cited by a design head; it may hold no entry yet |
 | `register@*@tripwire`, one file, or a directory with a `README.md` | evidence that would flip a decision; it may hold no entry yet |
@@ -196,8 +196,8 @@ Every Component carries the same documents. `cargo klarch check` names each one 
 it is written when the owner wants known work ordered, under `skill@knowledge-architect-planning`.
 
 Each document opens with a short introduction saying what it holds and what it does not. An empty
-register home says it holds no entry yet. **Every Component states at least one goal**: run
-`skill@knowledge-architect-goal-setting` with the owner for each one.
+register home says it holds no entry yet. **The project states its goals in the root's goals
+home**: run `skill@knowledge-architect-goal-setting` with the owner.
 
 ## The root CLAUDE.md `##root-claude-md`
 
@@ -246,60 +246,24 @@ filtered through a pipe. In a Rust project, the shape is the maintenance crate o
 list to the published library knowledge-architect-gates.
 
 A maintenance tool of that kind is a Component of its own, which serves the project rather than its
-consumers. Propose these two goals for it, under `skill@knowledge-architect-goal-setting`, for the
-owner's ruling like any draft:
+consumers. Two shapes are recommended for it. A project that adopts one records it as a design head,
+argued like any decision, under `skill@knowledge-architect-decision-recording`:
 
-```markdown
-## Every gate the project owes before a merge runs from one command `##one-command-runs-every-gate`
-
-One command runs every gate of the project's list, the rebase check, where the list holds one, only
-when asked. The gates include:
-
-- formatting;
-- the document check;
-- the commit messages;
-- the linter, where the project has one;
-- the tests;
-- the rebase check, where the project requires a branch to contain the main branch before it merges.
-
-By default it runs every gate of the list but the rebase check, all of them when one fails, and its
-exit code says whether the gates it ran pass. Run with the rebase check, its exit code is the one
-verdict, on the working tree and the branch's commits, which says whether the gates let the branch
-merge.
-
-It is met while the command's list holds each of these gates, and wherever the verdict on whether
-the gates let a branch merge is taken, it is this one command.
-
-- Requires, for instance: the check that decides whether a branch may merge takes the verdict on
-  whether the gates let it merge from this command, not from a list of gates of its own.
-- Admits, for instance: a session running one gate by hand where that is cheaper.
-- Rules out, for instance: a verdict on whether the gates let a branch merge taken from another list
-  of gates than the command's.
-
-## The local part of a mechanical task this repository's own instructions require repeatedly is a command of the tool `##repeated-tasks-are-automated`
-
-A task becomes a command of the tool, so it runs the same way each time, when it meets all of these:
-
-- needs no judgement, and takes several steps;
-- is local to this repository: one its own instructions require, or the procedure they fix for one
-  the installed text requires;
-- comes at a recurring moment, such as each commit, each reword or each merge.
-
-A task the installed text requires of every project that adopts the workflow, with no procedure of
-this repository's own, is the workflow's to automate, not the tool's. The part of a task's
-procedure that the workflow ships is not local once it ships; until then the local command stays,
-and the rest of the task is the tool's where it meets these conditions.
-
-It is met while each such task that this repository's own instructions require, or whose procedure
-they fix, has a command of the tool. Such a task left to be done by hand shows the goal unmet in
-practice.
-
-- Requires, for instance: the check, at each history edit of a branch, that the edit lost no
-  content, where this repository's instructions fix how it is checked, is a command of the tool.
-- Admits, for instance: a command of the tool for a task done once.
-- Rules out, for instance: the checks that each merge repeats, which this repository's instructions
-  fix, left to a session to type one by one.
-```
+- **Every gate the project owes before a merge runs from one command.** The gates include
+  formatting, the document check, the commit messages, the linter where the project has one, the
+  tests, and the rebase check where the project requires a branch to contain the main branch before
+  it merges. By default the command runs every gate of the list but the rebase check, all of them
+  when one fails, and its exit code says whether the gates it ran pass. Run with the rebase check,
+  its exit code is the one verdict, on the working tree and the branch's commits, on whether the
+  gates let the branch merge: wherever that verdict is taken, it is taken from this command, never
+  from another list of gates.
+- **The local part of a mechanical task the project's own instructions require repeatedly is a
+  command of the tool**, so it runs the same way each time. Such a task needs no judgement and
+  takes several steps; is local to the project, one its own instructions require, or the procedure
+  they fix for one the installed text requires; and comes at a recurring moment, such as each
+  commit, each reword or each merge. A task the installed text requires of every project that
+  adopts the workflow, with no procedure of the project's own, is the workflow's to automate, not
+  the tool's.
 
 ## Finish `##finish-setup`
 

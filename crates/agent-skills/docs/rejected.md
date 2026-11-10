@@ -644,11 +644,12 @@ not hold, is meant to stop.
 
 `live`. A decision earned a head when the owner, asked under a label, confirmed that a ruling an
 agent could reverse as a small fix, or an argument the owner wanted kept, recorded the owner's
-intent. An intent that states an outcome is a goal, which a goal-setting draft puts to the owner as
-the test's question did, and a preference about a mechanism is an argument or a choice at a fork,
-so the test admitted nothing a goal, an argument or a fork does not hold. It is kept because a
-doubt remains: intents moved into goals could swell the goals homes with local preferences, until
-goals stop reading as what the project is for.
+intent. An intent that states a purpose of the project, a scope that bounds one or a ranking
+between two is a goal, which a goal-setting draft puts to the owner as the test's question did,
+and any other intent, a preference about a mechanism included, is an argument or a choice at a
+fork, so the test admitted nothing a goal, an argument or a fork does not hold. It is kept because
+a doubt remains that an intent of the owner which is none of the three kinds, and which no argument
+carries, is recorded nowhere.
 
 ### A goal's body bound to two to four sentences `##goal-body-in-two-to-four-sentences`
 
@@ -659,12 +660,39 @@ session that argues from a goal applies it whole, so a longer goal costs it noth
 
 ### A goal judged only in use measured by the evidence from its use, where that evidence can be gathered `##goal-measured-by-evidence-from-use`
 
-`live`. It would reverse the premise of rule 6 of the goal standard, the owner's argument that in
-most projects a measure on use has limited feasibility, so a goal is measured on what the project
-builds; and the owner chose the mechanism the project builds to pursue the outcome and learn from
-its use as the reading that gives a systematic check. It is kept because a doubt remains that the
-mechanism meets every goal: a mechanism can become vacuous, such as "a review exists", so that a
-goal measured by it can never be shown unmet.
+`live`. As a rule of the goal standard it puts a measure in the goal, which
+`design@agent-skills@what-shows-a-goal-met-is-design` refuses; and the owner argued that in most
+projects a measure on use has limited feasibility. It is kept because a doubt remains that goals
+with no measure hold the work to them, and a head that says how a goal is shown met may take its
+evidence from use where that evidence can be gathered.
+
+### A goal carrying a measure, what the project builds that shows it met `##goal-measure-in-what-the-project-builds`
+
+`live`. The measure is where a mechanism entered a goal, bound outright and argued against no
+rival: in this repository's goals as `git show cb8d5a22:crates/agent-skills/docs/goals.md` and
+`git show cb8d5a22:docs/goals.md` hold them, the measure of the goal on a session that orchestrates
+its work named the questions a retrospective asks, and the measure of the goal on the quality of
+the code listed three properties that bound every unit a change edits. It is kept because a doubt
+remains that goals with no measure hold the work to them.
+
+### A goal carrying "for instance" cases of what it requires, admits and rules out `##goal-carries-reading-examples`
+
+`live`. Three of this repository's goals were rewritten without their cases as a test, in the plan
+document that `git log --name-only -- docs/plans/milestones/goals-at-the-root/` finds: one became a
+design head, and in the two that stayed goals every case either repeated the statement or closed a
+question of how much, which a design head closes on its argument. It is kept because the test
+covered two purposes and no scope, so a doubt remains that a scope reads as intended without a case
+of what it excludes.
+
+### Every Component stating at least one goal `##a-goal-for-every-component`
+
+`live`. A Component exists by a design choice, so a goal anchored in one names a part the goal
+standard's skeleton test removes, and a redesign of the split moved goals only the owner may
+change. Of this repository's 33 goals of a Component, 21 held a line naming a root goal they
+refined, which `git grep -c '^It refines' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals
+home. In thaum, the checker's first user, 8 of 12 Components stated no goal, counted on its main
+branch at its commit e98e296. It is kept because a doubt remains that a Component with no goal of
+its own gives its design enough to be judged against.
 
 ### The review of the whole goal set as a fourth axis of the project audit, with a saved workflow of its own `##goal-set-review-as-an-audit-axis`
 

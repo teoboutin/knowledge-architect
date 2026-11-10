@@ -10,7 +10,10 @@ a signature crossing a separately built unit, a file format, a document grammar 
 the same reason must be respected at more than one site, or at none, a name or a path repeated for
 consistency being no reason; or its argument turns on the behaviour of something outside the project,
 an external specification or a tool's behaviour, documented or measured. The owner's intent earns
-no head of its own: an intent that states an outcome is drafted as a goal, and an argument the
+no head of its own: an intent that states a purpose of the project, a scope that bounds one or a
+ranking between two is drafted as a goal, per
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`, any other intent is an argument, a
+fact or a choice at a fork, and an argument the
 owner made earns a head by the three tests, per `design@agent-skills@heads-stand-on-argument`.
 Every other
 decision lives in a comment at its code, a `%%` line for the installed text, and in the commit that
@@ -52,8 +55,9 @@ one module would pass no test. Test 3 counts a tool's behaviour measured as well
 measurement costs as much to take again as a documentation reading to derive again, and a
 documented-only test 3 fails where the documentation is silent. The rival of a fourth test, the
 owner's own intent confirmed when asked, admits nothing a goal, an argument or a fork does not
-hold: on the owner's argument, an intent that states an outcome is a goal, which a goal-setting
-draft puts to the owner, and a preference about a mechanism is an argument or a choice at a fork.
+hold: on the owner's argument, an intent that states a purpose, a scope or a ranking is a goal,
+which a goal-setting draft puts to the owner, and any other intent, a preference about a mechanism
+included, is an argument or a choice at a fork.
 Any recorded ruling of the owner as a test, a wider rival, admits nearly every head harvested from
 a discussion, since the workflow asks the owner to confirm most decisions. The design this
 decision did not keep: `rejected@agent-skills@owner-intent-entry-test`. Within test 2, "the same statement at more than one site"
