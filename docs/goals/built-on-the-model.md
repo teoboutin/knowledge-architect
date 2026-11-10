@@ -6,9 +6,9 @@ The goals on what knowledge-architect builds on the documentation model: the che
 
 In a target project, agents change code faster than a review alone can follow. Reviews and audits
 judge what the documents mean: whether the code departs from what they state, and whether two
-documents agree. The checker and the tools that list the recorded items, as knowledge-architect
-ships them, support them and judge no meaning, whatever a project's own checks may do. A mechanical
-rule, such as that a flag a document names is one the program declares, judges none.
+documents agree. The checker and the tools that list the recorded items support
+them. They are mechanical, and a mechanical tool cannot judge meaning: a rule such as that a flag
+a document names is one the program declares judges none.
 
 A tree that passes the checker conforms, in the texts the checker reads, to every rule the checker
 holds for every project and to every rule the project declares, save those the project switches off
@@ -24,8 +24,7 @@ change to knowledge-architect. They run and report with the checker's own.
 ## A target project's documents render as one linked site `##documents-render-as-a-linked-site`
 
 The documents of each target project render as one site of that project, in which each reference
-is a link to what it names, so a reader follows a reference by a link. A project can host that site with what it
-releases.
+is a link to what it names, so a reader follows a reference by a link. A project can host that site when it releases.
 
 ## A task that a tool does at a lower cost, or with a better result, is done by a tool knowledge-architect provides, once knowledge-architect's owner has taken the task in `##tasks-a-tool-does-better-are-the-tool-s`
 

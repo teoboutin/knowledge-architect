@@ -7,7 +7,8 @@ The goals on the workflow that knowledge-architect installs for the agents of a 
 The workflow covers the generic part of each activity that knowledge-architect's owner has taken
 in, an activity that only some target projects carry out included. It is there to raise the quality
 and the efficiency of the agents' work. It is complete: an agent carries each activity out with the
-workflow and what its project adds, and needs no instruction from outside them. The activities
+workflow and what its project adds, and needs no instruction from outside what knowledge-architect
+provides and what its project adds. The activities
 taken in include these, and the list grows:
 
 - setting up a project;
@@ -36,8 +37,7 @@ case or lapse found, so that no instruction leaves an ambiguity.
 ## The workflow leads agents to write better code in a target project `##the-workflow-leads-to-better-code`
 
 What the workflow says about code and tests aims at code of better quality in a target project, the
-code of its tests and of its maintenance tools included. This goal fixes no definition of quality:
-what makes code better is learned from use.
+code of its tests and of its maintenance tools included. This goal fixes no definition of quality.
 
 ## The workflow leads a target project to be split into modular units, each with one purpose `##projects-are-split-into-modular-units`
 
@@ -45,8 +45,7 @@ A split matters at more than one layer of a target project: the project into its
 one part, and the documents of its design by subject. Units that each serve one purpose make the
 project easier to explore and to work in, since an agent reads one unit whole and changes one at a
 time. They also make an agent's change easier for a person to review. One purpose per unit is a
-direction, not a rule a unit fails alone: what makes a split good is learned from use, so this goal
-fixes no rule of splitting.
+direction, not a rule a unit fails alone: this goal fixes no rule of splitting.
 
 ## The workflow improves through real use `##the-workflow-improves-through-real-use`
 
@@ -54,8 +53,7 @@ Real use is a session that applies the workflow inside a real target project, on
 merge into that project's main branch, under the supervision of a person who contributes to the
 project or owns it. It is the test of how an agent behaves under the workflow. What real use shows
 unclear, missing or wrong in the workflow reaches knowledge-architect and changes the workflow.
-Where such a change is an owner's to rule, that owner is knowledge-architect's. This goal forbids no
-change that is argued to lead to a better result in what a target project implements or records.
+Where such a change is an owner's to rule, that owner is knowledge-architect's.
 
 ## The main session orchestrates agents that carry the work, and keeps its focus on the design and the decisions `##session-orchestrates-the-work`
 

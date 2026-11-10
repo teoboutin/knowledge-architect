@@ -23,7 +23,7 @@ adopter, means a target project.
 knowledge-architect asks more of a target project than these conditions. Among what it asks, the
 project is a git repository, and its agents run under the `claude` harness. A project that does not
 yet follow an ask is still a target project. knowledge-architect guarantees its working only as far
-as a project follows what it asks, and builds nothing only to serve a state that follows none,
+as a project follows what it asks, and builds nothing only to serve a state that does not follow an ask,
 other than what helps a project into conformance: not a mode of the checker for another harness.
 
 Nothing is built or repaired only to serve another project: not a mode for a project in another
@@ -53,5 +53,4 @@ never an argument against a check the workflow needs to work well.
 
 A person or an agent adopting knowledge-architect in a target project, new or existing, finds what
 to do in its documentation, where they already look for it, in plain words and with examples,
-without reading its source or asking knowledge-architect's owner. Adopting asks little work of
-them.
+without reading its source or asking knowledge-architect's owner.
