@@ -6,8 +6,8 @@ The goals on the structure of a target project's documentation, on the model of 
 
 knowledge-architect defines a structure for a target project's documentation, and a project
 can declare kinds of entries of its own under it. Each recorded item
-takes a name. A reference that the checker checks is
-written in one readable form, the same in every project, in any text the checker reads, and it says what it
+takes a name. A reference is written in a
+readable form, the same in every project, in any text the checker reads, and it says what it
 names, with one reading.
 
 knowledge-architect provides a model of that documentation, which its tools read: what the project
@@ -28,6 +28,6 @@ again or reversing a decision blind.
 
 ## A recorded item reaches the work it bears on `##records-reach-their-reader`
 
-In a target project, each recorded item is stated in one home, and is cited at each
+In a target project, each recorded item keeps one home, and is cited at each
 place where it bears on other work and where a project may write a reference the checker checks. A session working
 at such a place meets the item, and a session changing the item can list what to read again.

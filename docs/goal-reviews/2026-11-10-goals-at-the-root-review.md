@@ -3773,6 +3773,46 @@ files of the goals home had changed on those answers. No reviewer graded a findi
 findings as reported, 12 graded `asks` and one `minor`, on the head and on four goals, and three
 files with none. The round meets the stop and writes no repair. Their reports follow as returned.
 
+#### The owner's answers after round 3
+
+The session told the owner that a premise it had given with T1 was false: the checker checks a
+relative link in a README, so the bound "A reference that the checker checks is written in one
+readable form" does not leave that link out, and can be read as ruling the link form out. It
+proposed to move the bound into the definition of a reference. It put four more points, each with
+a proposed edit or reading:
+
+1. the head defines a tool as "a mechanical program, a command or a library function, that a
+   person or an agent working in a target project runs", without "other than the installed text";
+2. "each recorded item keeps one home, and is cited at each place where it bears", in place of "is
+   stated in one home";
+3. no edit to the ranking of the drift goal, read as covering all that
+   `goal@knowledge-architect@the-owner-decides` states, the owner seeing what agents decided
+   included;
+4. "a condition or an ask of" the scope goal read narrowly, as the asks that goal itself names, an
+   ask a design head holds being changed on argument and reported.
+
+It asked the owner to rule the goals as a batch. The owner:
+
+> About T1: I think the source of defect here is that it says "one readable form", where the one
+> rules out too much. I think that the focus on one primary form of reference should be left ot
+> design, on the argument that it is easier to zork zith. Amd markdozn syntax is still allowed
+> sometimes
+> Agreed on the other 4 proposaals
+
+What the session wrote in the goals:
+
+- on the form of a reference, the owner's diagnosis and not the session's proposal: the goal says
+  "A reference is written in a readable form, the same in every project, in any text the checker
+  reads, and it says what it names, with one reading." It no longer says "one" form, nor "that the
+  checker checks". That one form is the primary one is a design decision, on the argument that it
+  is easier to work with, and the markdown link stays a reference. The definition in the head is
+  unchanged;
+- point 1 and point 2, as proposed;
+- points 3 and 4: no text changes; the readings are recorded here, and the three heads that read
+  an ask widely are rewritten with the rest of the record.
+
+The owner did not rule the goals as a batch in this answer.
+
 #### Round 3, the reviewer of: The documentation model
 
 **Result:** 4 findings. None is graded `blocks`. Three are graded `asks` and one `minor`. Three are on new wording and one is on old wording. `goal@knowledge-architect@design-is-recorded-with-its-arguments` conforms.
