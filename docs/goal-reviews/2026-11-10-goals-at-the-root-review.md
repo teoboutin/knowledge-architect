@@ -86,7 +86,7 @@ quotation against the goals and the rulings. Its text follows. The outcomes:
 - S13 is not applied: it changes the words of a row the analysis keeps, "Real use is the test",
   and goes to the owner with R8;
 - S7, S11, S17 and S23 take no edit, for the reason each gives;
-- the 17 questions R1 to R17 are open, and the goals keep their wording on each;
+- the 17 questions R1 to R17 were put to the owner, whose answers are above;
 - the 11 findings dropped are judged to need nothing, each on the ruling or the rule quoted.
 
 Read whole: docs/goals/ (README.md and six files), the section "A goal, and what is not one" of the goal-setting skill, "## The owner's rulings" of the analysis (every subsection), and "### Round 1" of the review record (lines 35 to 1618). 78 findings as reported; 55 after merging.
@@ -2087,6 +2087,254 @@ answers to round 1 into the goals: one per file in draft mode, and one over the 
 reviewer graded a finding `blocks`, on old wording or on new, so the round meets the stop of
 `skill@knowledge-architect-goal-setting@drawing-out-intent` and writes no repair: its findings go to
 the owner beside the goals. Their reports follow as returned.
+
+#### The consolidation of round 2, put to the owner with the goals
+
+One agent merged the seven reports of round 2: 20 findings as reported, 13 after merging, none
+graded `blocks`. Its text follows: the 13 questions T1 to T13, then each goal with its reach, for
+the owner's ruling. One of the 13 is answered already: on T8, the session had told the owner, with
+R8, that a reviewer reads "the test" as the only admitted evidence and that the repair was not
+applied, and the owner took the default, which keeps "the test".
+
+Read whole: the goals home (the head and six files, 21 goals); the section "A goal, and what is not one" of the goal-setting skill; in the review record, the owner's answers to R1 to R17, the consolidation of round 1 (Parts 1, 2, 4) and all of "### Round 2"; "## The owner's rulings" of the analysis. Not read: Part 3 of round 1, the milestone document.
+
+Verification. Every quotation of a goal below matches docs/goals/ as the tree holds it. Every quotation of the owner matches the record or the rulings section. Analysis rows checked by search: row 3 of the code goal (line 1360), row 2 of the generic goal (line 2943), row 2 of the drift goal (line 324), triage lines 4892 and 4990, the analysis's draft of "a tool" (line 2899). Design lines checked: docs/design.md lines 125 and 786; development.md line 139 and project-configuration.md lines 630, 633, 660 of the agent-skills design. Not confirmed by my search (wrapped lines, not pursued), so not quoted below: the reviewers' quotations of `design@check@links-are-navigation-rows`, `design@agent-skills@restatement-size-test` and `design@create@init-command`. The old "glue" sentence with its examples is not in the analysis under the words I searched; I give it as the adoption reviewer quotes it.
+
+One point against the brief: round 2's findings are not all graded `asks`. The whole-set reviewer grades its 15a `minor`. None is `blocks`.
+
+##### PART A: Questions of round 2
+
+20 findings as reported, 13 after merging, none dropped. Defaults keep the current text, except T2.
+
+**T1. The head and `goal@knowledge-architect@documentation-has-a-structure-and-a-model`** (model 1, whole-set H1)
+Question: with the wide definition you took on R2 ("a pointer by which one text names a recorded item, a file, a directory or a section of a text"), does "A reference is written in one readable form" bind every such pointer, or only the reference the checker checks?
+Case: a relative markdown link in a README (the goals home's own head holds six); the import line of the root CLAUDE.md; a path in the manifest.
+Default: text kept.
+If every pointer: the link form is ruled out at a goal's weight, and the model and the site owe "what each reference names" for each. If only the checked form: the definition or the sentence gains that bound.
+
+**T2. `goal@knowledge-architect@documentation-has-a-structure-and-a-model`** (model 2, whole-set H2)
+Question: the head now defines a tool as "something a person or an agent working in a target project runs, other than the installed text". Is "A tool can tell" any such program, or one of knowledge-architect's?
+Case: a project's own gate runner that reads the model. Your ruling on question 4, "4. default", was: "other programs being admitted and not served".
+Default, an edit the ruling implies. Current: "A tool can tell whether what it read is complete and right, and what is wrong where it is not." Replacement: "A tool of knowledge-architect can tell whether what it read is complete and right, and what is wrong where it is not."
+If you now want other programs served: the text stays, and ruling 4 is reversed.
+
+**T3. `goal@knowledge-architect@records-reach-their-reader`** (model 3; the whole-set reviewer names it as an exclusion not shown to you)
+Question: "is cited, never copied" was written by the session's repair S6, on no word of yours. Does it mean "no second home", or "no sentence of the item restated where a reference can stand"?
+Case: one sentence of a decision restated with its pointer beside it, which the installed text admits and the root CLAUDE.md does several times; an entry's title in a generated index.
+Default: text kept.
+If "no second home": such restatements stay admitted, and the words may be reworded or removed. If strict: they are ruled out at a goal's weight, and the primer's restatement rule falls.
+
+**T4. The head, bearing on `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`** (built H-1; the whole-set reviewer lists it as boundary material)
+Question: a tool is "other than the installed text" by the session's repair S2. Can an installed agent or a saved workflow be the tool this goal owes for a task taken in? And is a saved workflow installed text at all?
+Case: the three audit axes, each run today by a saved workflow; a reviewer agent that gives every entry one verdict.
+Default: text kept, so neither is a tool.
+If kept: the goal is unmet for such a task until a program does it. If they can be the tool: the definition loses or narrows "other than the installed text".
+
+**T5. `goal@knowledge-architect@documentation-stays-consistent`** (built C-1, whole-set 4a)
+Question: you answered R4: "this was never a ruling, but simply a fact, that a mechanical tool simply cannot judge meaning." The goal now also says of the checker and the listing tools "They are mechanical". Is that an outcome you hold, or a description that forbids nothing?
+Case: a shipped check that compares a design head with the code by a model's reading; a project's own check that judges meaning and runs with the checker's.
+Default: text kept, read as a description.
+If an outcome: both checks are ruled out at a goal's weight, the bound R4 removed. If a description: the sentence may be reworded to keep the fact only, and both checks are design decisions.
+
+**T6. `goal@knowledge-architect@agents-get-a-complete-workflow`** (workflow 1)
+Question: "It is complete: an agent carries each activity out with the workflow and what its project adds, and needs no instruction from outside what knowledge-architect provides and what its project adds." May an instruction an agent needs sit outside the installed text, in the README or a command's help? Your R6 answer: "the changelog cannot be considered "an instruction". I agree on your default wording to fix."
+Case: an agent shortens the installed text by moving a procedure to the README.
+Default: text kept.
+If it must be installed: the first half governs and the second is narrowed. If anything knowledge-architect provides counts: a text no session loads counts toward "complete".
+
+**T7. `goal@knowledge-architect@the-workflow-leads-to-better-code`** (workflow 2)
+Question: "This goal fixes no definition of quality." now stands alone, after R7. Does it rule out a fixed definition, or only say the goal states none?
+Case: a design head or an installed instruction that fixes a definition of quality every edited unit must meet.
+Default: text kept, read as an exclusion, as the analysis row has it ("stays in the goal: it names the design it excludes, a fixed definition").
+If an exclusion: such a head is ruled out, and the sentence may say so of the workflow. If silence: a head may fix one on its argument.
+
+**T8. `goal@knowledge-architect@the-workflow-improves-through-real-use`** (whole-set 12a; the workflow reviewer raises its premise outside its findings)
+Question: "It is the test of how an agent behaves under the workflow." Is real use the only evidence admitted at a goal's weight?
+Case: a mock project built to observe how an agent follows an instruction.
+Premise to check: the default of R8 you agreed read "with S13 the goal no longer reads as a bar", and S13 was not applied. The record says you were told so, not in which words.
+Default: text kept.
+If the only test: mock runs are ruled out by the goal, not by a head's presumption. If not: the sentence is reworded as S13 proposed, "It shows how an agent behaves under the workflow."
+
+**T9. `goal@knowledge-architect@agents-work-without-drift`** (together D1)
+Question: "A recorded decision, or a reason recorded beside code or agent-facing text, changes only by a change that reverses it on purpose and argues the reversal." Does it bound reversals only, or every change? The words "or a reason recorded beside code or agent-facing text" are the session's repair S15.
+Case: an agent rewrites a comment to state the same reason for reshaped code, or completes an incomplete reason.
+Default: text kept, read as bounding reversals, as the kept row has it ("until a change reverses part of it").
+If reversals only: the sentence may be reworded to say so. If every change: each such edit is refused or argued as a reversal.
+
+**T10. `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`** (together G1, whole-set 15a, graded `minor`)
+Question: "so that every target project that has a use for it, or is meant to, gets it." Who judges "has a use", and what completes "is meant to"? The words are the session's repair S16. The kept row read: "it serves each target project that carries out its activity, or is meant to."
+Case: a testing method taken in, and a target project that runs no such tests.
+Default: text kept.
+If the project is meant to test so: it gets the part, and the row's verb comes back. If "a use" is the project's own call: the part reaches only the projects that chose it.
+
+**T11. `goal@knowledge-architect@the-owner-decides`, with `goal@knowledge-architect@serves-one-kind-of-project`** (owner F1, adoption 2, whole-set 16a)
+Question: knowledge-architect's owner decides "each addition, tightening or removal of a condition or an ask of" the scope goal. Is an ask only one the scope goal names (git, the `claude` harness), or any ask of a target project, those a design head holds included? R10 set narrow against checker rules and workflow instructions, not these two readings.
+Case: an agent, on a settled argument, removes the ask of the lints or of the maintenance crate, or adds a gates ask.
+Default: text kept.
+If named asks only: the agent decides and reports, the clause adds nothing to "the owner sets and changes the goals", and two heads lose their ground. If any ask: each waits for you, and "a state that does not follow an ask" in the scope goal binds over the same wider set.
+
+**T12. `goal@knowledge-architect@serves-one-kind-of-project`** (adoption 1)
+Question: the session's repair S21 replaced the "glue" clause by "apart from the code in another language that a platform it is built for requires". Do you intend what it now reaches?
+Case: a Rust game that ships shaders, named by the old text; the HTML and CSS of a web target; a mobile project whose Kotlin or Swift shell is half of what it ships.
+Default: text kept.
+Each answer sets whether these three are target projects: the first two may fall out under one reading, and the third comes in at any size, where "glue" carried smallness.
+
+**T13. `goal@knowledge-architect@adoption-is-easy`** (adoption 3, whole-set 21a)
+Question: after R16 deleted "Adopting asks little work of them.", the title still says "Adopting knowledge-architect is easy". Is ease an outcome, or does the goal ask for documentation only?
+Case: a command that writes an adopter's files; an existing project with many documents to move.
+Default: text kept, read by its body. R16 put it so: "If no, the goal asks only that the move be explained."
+If documentation only: the title may be reworded, and two heads of the root's design home that say "adopting asks little work" lose the ground they cite. If ease is an outcome: the deleted sentence's ranking question against `goal@knowledge-architect@every-target-project-can-adopt-it` returns.
+
+Dropped as settled by a word of yours: none. Dropped as a question of when, how much or by what means: none. The reviewers had already left out every point the record settles (R2, R3, R5, R9, R12 to R15, R17, the dropped list of round 1) and reported none again. T2, T7 and T13 are the nearest to settled: a ruling or an answer gives the reading, and the open point is whether the text is reworded.
+
+##### PART B: The goals for ruling
+
+**The head.** "knowledge-architect goals".
+Asks: a defined documentation structure, a model of it and a scanner; a workflow; the two designed to work together. It defines nine terms.
+Requires the scanner (R1). Admits tools built "or outside of it". Rules out nothing by its own words.
+May not intend: T1, T2, T4; "a tool" covers the compiler and git; the run of a dispatched agent is "a session".
+
+**`goal@knowledge-architect@documentation-has-a-structure-and-a-model`.** "A project's documentation has a defined structure, and a model of it that tools read".
+Asks: one reference form in every project; a model its tools read, which says whether a read is complete and right.
+Requires each recorded item, a goal included, to take a name. Admits a project that declares no kind of its own. Rules out a model that reports a breach of a rule on content.
+May not intend: T1, T2; a plan document's items each take a name.
+
+**`goal@knowledge-architect@design-is-recorded-with-its-arguments`.** "A project's documentation records its design, with the intent and the arguments behind it".
+Asks: decisions, what is outstanding and the evidence that would flip a decision are recorded.
+Requires an entry to carry the alternatives that lost. Admits any threshold between an entry and a comment. Rules out an entry with its conclusion alone.
+May not intend: "any other decision" reaches every implementation choice whose code does not show its reason; an entry owes alternatives where none was weighed.
+
+**`goal@knowledge-architect@records-reach-their-reader`.** "A recorded item reaches the work it bears on".
+Asks: each item stated once and cited wherever it bears and a checked reference can stand.
+Requires a session changing an item to be able to list what to read again. Admits no citation where no checked reference can be written. Rules out an item with two homes.
+May not intend: T3; each goal owed a citation wherever it bears, code comments included.
+
+**`goal@knowledge-architect@documentation-stays-consistent`.** "A target project's documentation stays consistent with its code and with itself".
+Asks: reviews and audits judge meaning; a pass of the checker means conformance.
+Requires a tree with a missing cited thing to fail. Admits a rule switched off by a declaration. Rules out conformance taken from a reviewer's memory.
+May not intend: T5; "nothing cited there is missing" now covers files, directories and sections.
+
+**`goal@knowledge-architect@projects-add-their-own-checks`.** "A target project adds checks of its own, which run with the checker's".
+Asks: a project adds a check with no change to knowledge-architect.
+Requires its findings to report with the checker's. Admits any form of the means, a rule in the manifest included. Rules out a check that needs a patched knowledge-architect.
+May not intend: a check that needs the project's build is still owed a place in the checker's run; T5, second case.
+
+**`goal@knowledge-architect@documents-render-as-a-linked-site`.** "A target project's documents render as one linked site".
+Asks: a render for every target project; none exists today.
+Requires each reference to be a link to what it names. Admits a project that never hosts. Rules out a render for knowledge-architect's repository only.
+May not intend: links to code files and directories under the wide definition; plan documents and open issues render and, where hosted, are published.
+
+**`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`.** "A task that a tool does at a lower cost, or with a better result, is done by a tool knowledge-architect provides, once knowledge-architect's owner has taken the task in".
+Asks: a tool for each task taken in.
+Requires the same result for every session. Admits a task never taken in. Rules out a task counted as taken in because the workflow asks it.
+May not intend: T4; every task an agent carries out is a candidate, a benchmark run or a refactoring included; a task of one step.
+
+**`goal@knowledge-architect@agents-get-a-complete-workflow`.** "AI agents get a complete workflow for each activity of a target project whose generic part knowledge-architect's owner has taken in".
+Asks: instructions for "working on a branch under a linear history" and "releasing", which no installed skill holds.
+Requires every listed activity covered. Admits a pointer to the changelog's Migration entries. Rules out an installed instruction that defers to a plugin's.
+May not intend: T6; the brief a main session writes for a dispatched agent is named on neither side.
+
+**`goal@knowledge-architect@only-needed-instructions`.** "The workflow states what an agent needs to carry out the activities it covers, and leaves every other case to the agent's judgement".
+Asks: an instruction enters only where an agent needs it. It bounds, and builds nothing.
+Requires nothing built. Admits an instruction for a case judgement handles poorly. Rules out an instruction added because one session lapsed once.
+May not intend: it also bounds instructions that serve the drift goal and the three owner goals.
+
+**`goal@knowledge-architect@the-workflow-leads-to-better-code`.** "The workflow leads agents to write better code in a target project".
+Asks: what the workflow says on code and tests aims at better code, tests and maintenance tools included.
+Requires the workflow to say something on code. Admits any shape of guidance. Rules out a fixed definition of quality, on one reading.
+May not intend: T7; the aim reaches non-Rust code and scripts; the goal no longer says guidance is corrected by use.
+
+**`goal@knowledge-architect@projects-are-split-into-modular-units`.** "The workflow leads a target project to be split into modular units, each with one purpose".
+Asks: the workflow moves a project toward units of one purpose, at three layers.
+Requires the workflow to say something that leads there. Admits a project of one purpose kept whole. Rules out a rule of splitting that a unit fails alone.
+May not intend: it grounds heads on code inside one crate and on design documents by subject.
+
+**`goal@knowledge-architect@the-workflow-improves-through-real-use`.** "The workflow improves through real use".
+Asks: what real use shows wrong reaches knowledge-architect and changes the workflow.
+Requires a route from any target project, one you do not own included. Admits any means of collecting. Rules out, on one reading, evidence other than real use.
+May not intend: T8; a session with no supervising person is no real use; one dispatched agent's run counts as real use.
+
+**`goal@knowledge-architect@session-orchestrates-the-work`.** "The main session orchestrates agents that carry the work, and keeps its focus on the design and the decisions".
+Asks: more dispatch than the installed text has today.
+Requires work carried by dispatched agents and acted on. Admits the main session reading one known file itself. Rules out a main session that carries all the work as the standing shape.
+May not intend: "reporting each decision taken" is wider than R11's words; a harness with a far larger context still owes the dispatch.
+
+**`goal@knowledge-architect@agents-work-without-drift`.** "Agents work autonomously without drifting from the design recorded in their project".
+Asks: less supervision, with work inside the goals, the decisions and the recorded reasons; it ranks first.
+Requires a reversal made on purpose and argued. Admits any place for the argument. Rules out a silent reversal.
+May not intend: T9; a reason held only in a commit message is in neither list; the ranking yields to the project's owner, not to knowledge-architect's.
+
+**`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.** "The generic part of a tool or a procedure that a target project sets up or changes is shipped by knowledge-architect once knowledge-architect's owner takes it in".
+Asks: the generic part of a project's tool or procedure ships once taken in.
+Requires a gate taken in to ship for other projects. Admits a generic part never taken in. Rules out shipping a part because it is generic.
+May not intend: T10; a tool a project set up now falls under this goal and the tasks goal, each with its own taking in.
+
+**`goal@knowledge-architect@the-owner-decides`.** "The owner decides what no argument settles, and sees what the agents decided".
+Asks: each question goes to the authority that answers it, and every agent decision is visible.
+Requires a choice between readings of a goal that survive the argument to go to the owner. Admits a default taken and reported. Rules out an irreversible action on argument alone.
+May not intend: T11; every choice with a reason in a commit message "enters the record" and "reaches the owner"; "changes the goals" reaches a rewrap or a slug rename.
+
+**`goal@knowledge-architect@the-owner-s-word-is-verified`.** "Agents verify the owner's word before acting on it, and build nothing on a contradiction".
+Asks: the check in every activity; the installed text asks it only of a premise the session supplied.
+Requires the code read before acting on a premise about it. Admits the rest of the work going on. Rules out building on an unresolved contradiction.
+May not intend: the check reaches a bare pick at a fork; no check of what a goal assumes.
+
+**`goal@knowledge-architect@design-with-agents-as-counterparts`.** "The owner designs with agents as counterparts".
+Asks: design decided in an argued exchange where both propose.
+Requires the agent to challenge your proposal on its failures and costs. Admits a design an agent closes on its argument outside an exchange (R13). Rules out your proposal built unchallenged.
+May not intend: what you are owed turns on which acts count as an exchange, which only heads say.
+
+**`goal@knowledge-architect@serves-one-kind-of-project`.** "knowledge-architect serves one kind of project: a Rust project whose development AI agents drive, under a linear history".
+Asks: build and repair for the kind only; never narrow it on what today's projects need.
+Requires a check that no current project trips to be kept. Admits a project not yet a git repository. Rules out a checker mode for another harness.
+May not intend: T12; T11 over "a state that does not follow an ask"; the last paragraph's exemption names no taking in of a task or an activity.
+
+**`goal@knowledge-architect@every-target-project-can-adopt-it`.** "Every target project can adopt knowledge-architect, and a new one is served first".
+Asks: nothing particular to one project in what is provided.
+Requires every list a check reads to come from the project's declaration. Admits a project that stays on an old version. Rules out softening a needed check on an adopter's cost.
+May not intend: no exception for knowledge-architect's own tree; a security fix cannot be forced; "served first" has no bound.
+
+**`goal@knowledge-architect@adoption-is-easy`.** "Adopting knowledge-architect is easy, with documentation that is clear and reaches its reader".
+Asks: each step of adopting written in documentation; the asks of the scope goal are stated to no adopter today.
+Requires plain words and examples. Admits an adoption that takes much work, well explained. Rules out a step learned only from the source or from you.
+May not intend: T13; "without asking knowledge-architect's owner" reaches an agent in your own project.
+
+##### PART C: Counts
+
+As each report gives them:
+
+| reviewer | findings | by rule | by grade | by route | wording |
+| --- | --- | --- | --- | --- | --- |
+| the documentation model | 3 | r3 1, r4 2 | asks 3 | intent 3 | new 3 |
+| what is built on the model | 2 | r3 1, r4 1 | asks 2 | intent 2 | new 2 |
+| the workflow | 2 | r3 2 | asks 2 | intent 2 (one may be placed settled) | new 2 |
+| the two together | 2 | r3 2 | asks 2 | intent 2 | new 2 |
+| the owner and the agents | 1 | r3 1 (a rule 8 note, not counted) | asks 1 | intent 1 | new 1 |
+| whom the project serves, and adoption | 3 | r3 2, r4 1 | asks 3 | intent 3 | new 2, old 1 |
+| the whole set | 7 | r3 7 (16a touches r8, 4a r2) | asks 6, minor 1 | intent 5, settled 2 | new 5, old 2 |
+| sum | 20 | r3 16, r4 4 | blocks 0, asks 19, minor 1 | intent 18, settled 2, contradiction 0 | new 17, old 3 |
+
+Merged total: 13 questions, 7 findings absorbed.
+- T1: two findings. T2: two. T5: two. T10: two. T11: three. T13: two. T3, T4, T6, T7, T8, T9, T12: one each.
+- By highest grade given: asks 13. By wording: new 11, old 2 (T8, T13).
+- Goals with a question: 11 of 21, and the head. With none: `goal@knowledge-architect@design-is-recorded-with-its-arguments`, `goal@knowledge-architect@projects-add-their-own-checks`, `goal@knowledge-architect@documents-render-as-a-linked-site`, `goal@knowledge-architect@only-needed-instructions`, `goal@knowledge-architect@projects-are-split-into-modular-units`, `goal@knowledge-architect@session-orchestrates-the-work`, `goal@knowledge-architect@the-owner-s-word-is-verified`, `goal@knowledge-architect@design-with-agents-as-counterparts`, `goal@knowledge-architect@every-target-project-can-adopt-it`. `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has none of its own; T4 bears on it.
+
+Dropped: 0. Reason: no round 2 finding repeats a point an answer or a ruling closes, and none only asks the goal to close a question of when, how much or by what means. The reviewers named such points as "not reported again" or as boundary material, not as findings.
+
+##### Decided
+
+- T2 stays in the list with an edit as its default, and is not dropped as settled. Ground: ruling 4 fixes the reading, and the text still reads the other way.
+- T7, T9 and T13 keep the text as default, with the reading a kept row or R16 gives. Ground: the rulings say the wording of each kept goal is not ruled, so no edit is clearly implied.
+- T3 and T4 are kept though the whole-set reviewer filed them as boundary material. Ground: a file reviewer graded each `asks`, and each rests on a repair of the session that you did not rule.
+- T6 is kept, not dropped as a question of by what means. Ground: the two halves of the sentence move an agent two ways on where a needed instruction is written.
+
+##### Met outside the task
+
+- The premise of your R8 answer (see T8) is for the session to check against the message it sent you.
+- The record says of R7 that the heads "hold" the statement on learning from use. The workflow reviewer's search finds it in no head and no issue entry. Not re-run by me.
+- Stale restatements the reviewers list, not re-checked by me except the first: docs/design.md lines 125 and 786 ("adopting asks little work", confirmed); four agent-skills texts with the former words of the completeness sentence; six READMEs and one issue of `model` with "apart from the glue its targets need"; project-configuration.md line 633 citing the scope goal for "adding an ask is the owner's" (confirmed); an issue of `check` quoting "publishes".
+- The record's line under the consolidation of round 1 still says "the 17 questions R1 to R17 are open".
+- Two round 2 reviewers each left one file in the session scratchpad: anchors.txt and r2-whole-check.txt.
 
 #### Round 2, the reviewer of: The documentation model
 
