@@ -196,9 +196,9 @@ a fixed mapping between a unit of the work and a unit of what the work produces,
 a section of a document, that the work can be carried out as intended without, and that another
 instruction needs to vary. The clause bears on what an agent decides by its judgement in carrying
 out its work, such as the shapes it proposes in the design of a solution, where a fixed structure
-narrows what is proposed. It does not bear on a command an agent runs, nor on a structure that a
-command or the checker carries out, or refuses before the work is committed, or, for a commit, at
-the check the workflow runs right after it.
+narrows what is proposed. It does not bear on a command an agent runs, on its output, or on a fixed
+sequence of commands to run, nor on a structure that a command or the checker carries out, or that a
+check the work must pass refuses.
 
 An instruction or a structure whose act the text of a goal of knowledge-architect states, in its
 body or its measure, every Component's goals whose measure is the installed text included, is
@@ -209,13 +209,12 @@ It is met while each installed instruction names an act the workflow needs, and 
 imposes on what an agent decides by its judgement in carrying out its work no fixed sequence, fixed
 count, or fixed mapping between a unit of the work and a unit of what the work produces, such as a
 commit or a section of a document, that the work can be carried out as intended without and that
-another instruction needs to vary, other than one that a command or the checker carries out, or
-refuses before the work is committed, or, for a commit, at the check the workflow runs right after
-it. A review that finds an instruction for a case judgement handles, or such a structure, other than
-one whose act a goal's text states, shows the goal unmet in practice; it is answered by removing
-that instruction or that structure rather than by adding a rule. The retrospective asks whether an
-installed instruction its session met covered a case the session's judgement handles well enough, or
-imposed such a structure.
+another instruction needs to vary, other than one that a command or the checker carries out, or that
+a check the work must pass refuses. A review that finds an instruction for a case judgement handles,
+or such a structure, other than one whose act a goal's text states, shows the goal unmet in
+practice; it is answered by removing that instruction or that structure rather than by adding a
+rule. The retrospective asks whether an installed instruction its session met covered a case the
+session's judgement handles well enough, or imposed such a structure.
 
 It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
@@ -262,7 +261,7 @@ It refines `goal@knowledge-architect@the-owner-decides`.
 The main session is the session that the person supervising the work exchanges with. It does
 itself what needs it:
 
-- the design, the goals, and their discussion with that person;
+- the design and the goals, discussed with that person;
 - the decisions on the design, but those a dispatched agent meets in its own part of the work, and
   the questions put to that person;
 - the writing of the plan documents that record what was designed;
@@ -286,11 +285,13 @@ Each such agent checks its conclusions before it reports them, as the main sessi
 claims, no more and no less, and reports them with the evidence each one rests on, in a form that
 names what it considered and can be checked without doing the work again. A stricter check is a
 check against another standard than the one the main session applies to its own claims, or a chain
-of checks, each checking the check before it. A review judges the work, not the check before it: it
-is no stricter check, it is a part of the work like any other, and how often the work is reviewed is a
-way of dividing it, left to the main session's judgement where the installed text sets no rule,
-such as a review before a merge. The check of a dispatched agent's conclusions does not make the
-total cost of the work significantly higher.
+of checks, each checking the check before it. A check of another agent's conclusions against their
+evidence is no chain: a chain begins only with a check of that check. A review judges the work, not
+the check before it: it is no stricter check, it is a part of the work like any other, and how often
+the work is reviewed is a way of dividing it, left to the main session's judgement where the
+installed text sets no rule, such as a review before a merge. The check of a dispatched agent's
+conclusions does not make the total cost of the work significantly higher than the same dispatched
+work without that check.
 
 It is met while the installed text keeps with the main session each part listed above as its own,
 has it dispatch the rest at its judgement, and states for each dispatched part the report its agent
@@ -305,7 +306,7 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 
 - Requires, for instance: an agent that reads the project's record against the work returns, for
   each entry it judges, its conclusion with evidence that can be checked without reading the entry
-  whole, and names every entry it was given.
+  whole, and names every entry it was given and which of them it judged.
 - Requires, for instance: where the main session judges a change worth a dispatch, its code is
   written by a dispatched agent and judged by a dispatched review, and the main session acts on the
   review's findings.
@@ -317,8 +318,7 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
   as the installed text says which choices return to the main session.
 - Admits, for instance: a review dispatched after each step of a dispatched developer's change.
 - Admits, for instance: an instruction that has a dispatched agent check another agent's
-  conclusions against their evidence before the main session acts on them; a chain of checks begins
-  only with a check of that check.
+  conclusions against their evidence before the main session acts on them.
 - Rules out, for instance: an instruction that has the main session read whole every entry a
   search returns, where it acts on few of them.
 - Rules out, for instance: the main session acting on an agent's conclusion that was not checked as
@@ -326,4 +326,5 @@ It refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
 - Rules out, for instance: an instruction that holds a dispatched agent's report to a stricter check
   than the main session's own claims.
 - Rules out, for instance: the main session taking over a part of a dispatched agent's coherent part
-  of the work, such as its commit, because that part alone is small.
+  of the work, such as its commit, because that part alone is small, while that agent carries its
+  part.
