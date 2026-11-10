@@ -27,8 +27,19 @@ form.
 
 ## Questions open
 
-One: the owner's ruling on the 21 goals and the head as a batch, as the tree holds them. The
-rounds are stopped on the owner's word.
+None. The owner ruled the batch, below.
+
+## The owner's ruling on the batch
+
+The session asked the owner, after the rounds had stopped, to rule the 21 goals and the head as
+`register@knowledge-architect@goal` holds them, naming any goal dropped or reworded. The owner:
+
+> I agree on the current batch of goals, we can go with that
+
+So the head and the 21 goals are ruled as the tree holds them at the commit that writes this
+section: none is dropped, and none is reworded beyond the answers recorded under each round. The
+three edits written after round 3 were read by no round; the goals axis of the review before the
+merge reads them.
 
 ## Rounds
 
