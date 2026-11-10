@@ -79,10 +79,34 @@ source, some touched the model's files alone and some the checks alone, as the c
 milestone document that the commit "[review] Repairs of the review of the plan documents of the
 Component split and of the rules that cut it" writes takes again. It serves
 `goal@knowledge-architect@documentation-has-a-structure-and-a-model`, which asks for a model that
-judges none of what the documents say and lets a tool tell whether what it read is complete and
+reports no breach of a rule on what a document says and lets a tool tell whether what it read is complete and
 right, and `goal@knowledge-architect@documents-render-as-a-linked-site`, whose site is built from
 what each reference names. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
+
+### The checks, and the commands that run the checker or install the workflow, are a crate of their own, between the model and the binary `##check-crate`
+
+`knowledge-architect-check`, in crates/check, reports each breach of the rules it holds for every
+project and of those a project declares, and keeps what it generates current. It holds every check
+of the last phase, the logic of the commands that run the checker or install the workflow behind a
+typed API, and what an extension is written against, per
+`design@check@an-extension-plugs-in-through-phased-hooks`. It depends on `model`, `git` and
+`agent-skills` by path and by exact version, per `design@knowledge-architect@version-lockstep`;
+`create` and `testing` depend on it, and `cli` re-exports what a consumer needs of it, per
+`design@knowledge-architect@the-binary-crate-keeps-the-package-name`. It serves
+`goal@knowledge-architect@documentation-stays-consistent`, under which conformance is established
+by running the checker, so every command that judges a tree, `check`, `commits` and the end of
+`init`, runs these checks from one library; and
+`goal@knowledge-architect@projects-add-their-own-checks`, under which a project's own checks run
+and report with the checker's own, so the checks are a library that a binary registering an
+extension links.
+
+Two rivals lost. The checks inside the binary's crate, `cli`, form a cycle: `create` ends `init`
+and `new-component` as `check --fix` ends, per `design@knowledge-architect@create-crate`, and `cli`
+depends on `create`, as `rejected@knowledge-architect@single-crate` says of any library kept with
+the binary once the commands span crates. The checks in one crate with the model put every check
+into the build of a tool over the record, such as `query`, which depends on nothing of the checks,
+per `design@knowledge-architect@model-crate` and `design@query@query-depends-on-no-check`.
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
@@ -122,7 +146,7 @@ The nearest rival, a module of `check`, ties a change of that format to the chec
 
 `knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
 each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
-version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-modular-units`, and serves `goal@knowledge-architect@adoption-is-easy`, under which adopting asks little work of a person or an agent, through `design@create@init-command` and `design@create@component-command`. The cost is what `check` publishes for it, under
+version. `cli` depends on it. It has a purpose and a design of its own, per `goal@knowledge-architect@projects-are-split-into-modular-units`, which directs a project into units that each serve one purpose: a project is created, or a Component added to one, by one command, per `design@create@init-command` and `design@create@component-command`. It serves `goal@knowledge-architect@every-target-project-can-adopt-it`, under which a new target project, which adopts knowledge-architect from its first commit, is served first. The cost is what `check` publishes for it, under
 `design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
 what a new project holds.
 
@@ -201,6 +225,26 @@ re-exporting its typed functions, with no role module, and every module private 
 
 The design this decision did not keep: `rejected@knowledge-architect@module-tree-as-public-api`.
 
+### The gates runner is a published library, and a project keeps a small binary of its own `##gates-crate`
+
+The runner is the package knowledge-architect-gates. A project's maintenance crate, a crate named
+xtask run through a cargo alias, which every Rust target project has, per
+`design@agent-skills@maintenance-crate-ask`, hands it the project root, its gate list and the
+flags it parsed. How the gates run is `register@gates@design`. The runner is, almost line for line, the gates code thaum holds at its commit e98e296, as a comparison of
+`git -C <thaum checkout> show e98e296:tools/xtask/src/gates.rs` with this crate shows. It serves
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, under which the generic part
+of a tool that knowledge-architect's owner has taken in is shipped so that it serves each target
+project that carries out its activity: the runner is the generic part of a project's gates, and a project
+adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of
+`klarch` lost: it would make that binary run cargo, the linter and the tests, and a tool whose
+result does not exist without running the project's build or its tests is no command of `klarch`,
+per `design@knowledge-architect@mutation-command-host`. A published binary configured by a file lost because it leaves the project no place for its
+other repeated tasks, and adds a configuration format a list in Rust does not need.
+
+The designs this decision did not keep: `rejected@gates@gates-command-of-the-checker`,
+`rejected@gates@gates-binary-configured-by-file` and
+`rejected@gates@each-project-writes-its-runner`.
+
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
 The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in
@@ -211,7 +255,7 @@ the gates library, and neither of them links it.
 
 The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
-runs a project's merge gates, per `design@gates@gates-crate`, and a mutation is no gate: hosted
+runs a project's merge gates, per `design@knowledge-architect@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
 `klarch` is no host either. The owner chose to keep out of `klarch` a tool that runs the project's
 build or its tests, over a command of `klarch` that runs them, which no goal ranks, and was unsure
@@ -229,6 +273,26 @@ not among what knowledge-architect asks of a target project, and the setup skill
 the maintenance crate's shape. Which tool taken in becomes an ask is argued by no head, which
 `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds. It costs one more crate in the
 publish order, after the gates library and before `cli`, per `design@knowledge-architect@partial-publish-rerun`.
+
+### This repository's maintenance commands are a crate of their own, never published, apart from the published program `##xtask-crate`
+
+tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
+the tasks this repository's own instructions require, or whose procedure they fix, per
+`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `mutate` and
+`gates`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per
+`design@agent-skills@maintenance-crate-ask`, which this repository, a target project, carries. It
+depends on `cli`, `gates` and `mutate` by path alone, and is never published, so it carries none of
+the files a published crate ships, per `design@knowledge-architect@package-include-whitelist`. It
+serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, under which what is
+particular to one project stays in that project: a task local to this repository is kept out of
+what knowledge-architect ships.
+
+The nearest rival puts these commands in the published program, as commands of `klarch`. Two
+facts defeat it. The command line of `klarch` is offered by every adopting project's binary, and a
+task local to this repository either finds nothing to work on in another project or ships this
+repository's sources in every binary, as `rejected@xtask@source-view-in-the-checker` records of the
+source view. And `gates` and `mutate` run the project's build or its tests, which no command of
+`klarch` does, per `design@knowledge-architect@mutation-command-host`.
 
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 
@@ -783,8 +847,9 @@ What the rule admits today:
 
 `goal@knowledge-architect@agents-work-without-drift` has agents carry a project's work with less
 supervision, so a command an agent runs writes with no person reading first what it would replace.
-`goal@knowledge-architect@adoption-is-easy` has adopting ask little work, so an existing project
-runs `init` without first saving what it holds. The owner argued, with a hedge, that such a loss
+`goal@knowledge-architect@every-target-project-can-adopt-it` has an existing project adopt
+knowledge-architect by bringing the documents it holds into conformance, so `init` runs over a tree
+that holds what the project wrote. The owner argued, with a hedge, that such a loss
 makes a tool poor to use.
 
 The nearest rival overwrites or removes, lists what it did, and leaves the recovery to git. No

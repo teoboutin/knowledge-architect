@@ -45,7 +45,7 @@ package with no error.
 `live`. The gates library would have carried the mutation's run and restore, which a maintenance
 crate already depends on. Every project that runs its gates through the library would then build
 the mutation code, which no gate uses, and the library would hold a tool that judges nothing about
-a branch's merge, against the purpose `design@gates@gates-crate` gives it.
+a branch's merge, against the purpose `design@knowledge-architect@gates-crate` gives it.
 
 ### The checker's git module made public, for the other tools that need git `##git-module-made-public`
 

@@ -19,8 +19,8 @@ registers, `skill@knowledge-architect-setup`; **recording the decision**,
 
 ## What a Component is by default {{slug:component-criteria}}
 
-%% The criteria are guidelines that real use corrects, per
-%% `goal@knowledge-architect@projects-are-split-into-modular-units`, through the retrospective's question.
+%% The criteria are guidelines that real use corrects, through the retrospective's question, per
+%% `design@agent-skills@component-skill-delivery`.
 %% The domain criterion is stated here alone, so no head: the owner's argument that a Component takes
 %% decisions about one main matter, with smaller side ones allowed; the word is "domain" because a
 %% subject is a part of a design home, per `design@agent-skills@subject-split-standard`.

@@ -28,13 +28,21 @@ the code-shape reviewer, so the reviewer applies the standard it reads. A depart
 reports in code a change writes is restructured or argued in a comment at the code; in a unit the
 change edits, only the lines the change writes are weighed.
 
-`goal@knowledge-architect@the-workflow-leads-to-better-code` asks for a default shape and a review
-that weighs a branch against it, and lists no property. The shape binds the lines a change writes,
-not every unit it touches: a rule over the whole unit would leave a one-line fix in a long function
-only two moves, both against the change's interest, restructuring the function or departing from the
-rule, and the owner reported that rules too strict make agents take misaligned actions. That the
-development skill, not a goal, states the shape is the session's choice over a goal listing the
-properties, which no goal ranks; the owner approved it. "One reason to change" is the reading of one
+`goal@knowledge-architect@the-workflow-leads-to-better-code` has what the workflow says about code
+aim at code of better quality, and states no property of it, since a property is a mechanism and no
+goal states one, per `design@agent-skills@goal-outcome-survives-empty-skeleton`: the default shape
+is how the workflow pursues that aim, and the review of `design@agent-skills@code-shape-axis`
+weighs each branch against it. The shape is a guideline, not a rule a unit fails alone: a departure
+stays where its reason is argued at the code. What makes code better is learned from use rather
+than fixed before it: the owner reported that it is hard to define before use, and that a rule or a
+guideline too strict to follow makes agents take actions misaligned with what it was meant for. So
+the retrospective asks whether a rule about code proved too hard or too strict, per
+`design@agent-skills@premortem-as-watch-points`, and its findings change the shape, per
+`goal@knowledge-architect@the-workflow-improves-through-real-use`. The nearest rival, a definition
+of quality fixed as a rule every unit must meet, leaves a session whose code the definition fits
+badly no move but to break the rule or to act against the code's interest. The shape binds the lines a change writes, not every unit it touches: a rule over the
+whole unit would leave a one-line fix in a long function only two moves, both against the change's
+interest, restructuring the function or departing from the rule. "One reason to change" is the reading of one
 responsibility that a test can apply: the reading "does one thing" leads to code where everything is
 a function, which the fragmentation clause names as a departure too.
 
@@ -80,7 +88,7 @@ would observe has no effect a consumer could see, the claim is a unit test's. Co
 integrated test can reach and no consumer can observe is suspect, and its comment and the commit
 that added it are read before any of it is removed, per `design@agent-skills@local-intent-binds`.
 The statement is a property of the default shape of `design@agent-skills@default-code-shape`, a
-guideline per `goal@knowledge-architect@the-workflow-leads-to-better-code`, and the
+guideline as that head argues, and the
 component-creation skill defines the integrated test in the same words, for the tests a shared test
 Component holds.
 
@@ -136,7 +144,11 @@ The setup asks a crate a target project publishes to warn on `missing_docs`,
 `clippy::missing_errors_doc` and `clippy::missing_panics_doc`, which its clippy gate, denying
 warnings, turns into failures. A lint answers whether an item is documented with no reading, and
 what its documentation says is the code-claims axis's, per `design@agent-skills@code-claims-scope`;
-a documentation axis of its own would duplicate that method. The lints are an ask of every target
-project, which adding goes to the owner's word, per `goal@knowledge-architect@the-owner-decides`,
-and the owner gave it; the setup delivers them so that every target project gets them, per
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+a documentation axis of its own would duplicate that method. The lints are asked of every target
+project by this head, on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
+knowledge-architect's owner the conditions and the asks that
+`goal@knowledge-architect@serves-one-kind-of-project` itself names, a git repository and the
+`claude` harness, so an ask a design head holds, as this one, changes on an argument, and the change
+is reported to the owner. The setup delivers them so that every target project gets them, per
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, which ships the generic part of
+a tool once knowledge-architect's owner takes it in; the lints were taken in on the owner's word.

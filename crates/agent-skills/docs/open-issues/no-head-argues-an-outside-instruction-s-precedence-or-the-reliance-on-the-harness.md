@@ -31,8 +31,8 @@ The statements, each with what it bound:
   by a reading of `goal@knowledge-architect@serves-one-kind-of-project`, which asks that a target
   project's agents run under the `claude` harness, with
   `goal@knowledge-architect@agents-get-a-complete-workflow`, under which an agent "needs no
-  instruction from outside" the workflow and what its project adds: a mechanism of the harness is no
-  instruction.
+  instruction from outside what knowledge-architect provides and what its project adds": a mechanism
+  of the harness is no instruction.
 
 Instances seen: one, of an instruction of the configuration followed in place of a project's own.
 `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`

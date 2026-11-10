@@ -27,13 +27,13 @@ not why the outcome goes to the owner. A slice 4 review of that milestone found 
 not argued there, since the slice's spec named the outcome as staying.
 
 A move can still bear on the owner: a head whose Component is uncertain under
-`skill@knowledge-architect-decision-recording@owning-component`, or whose move changes what another Component's goals constrain. Those cases may justify the
-owner list for some moves and not others.
+`skill@knowledge-architect-decision-recording@owning-component`. That case may justify the owner
+list for some moves and not others.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-owner-decides` counts a question the record answered, put to the
-owner, as the goal unmet. Each misfiled head an audit finds is one more question the owner
+`goal@knowledge-architect@the-owner-decides` has agents decide, by argument, what the record
+settles, and the owner decide the rest. Each misfiled head an audit finds is one more question the owner
 answers that the record already answers. The head also contradicts itself: its first rule applies
 the move, and its list of owner outcomes holds it.
 

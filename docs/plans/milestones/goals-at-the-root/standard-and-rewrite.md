@@ -64,7 +64,7 @@ fixes:
    in its own commit.
 4. **The record.** Each entry the milestone document's table gives slice 1, rewritten, reversed or
    removed; a head that argues the existence of `check` and one for `xtask`, each under the design
-   skill, and `design@gates@gates-crate` moved to the root's design home; the issues named in the
+   skill, and `design@knowledge-architect@gates-crate` moved to the root's design home; the issues named in the
    milestone document, closed or edited; the changelog's entries, written as
    `design@knowledge-architect@changelog-entries` and `design@knowledge-architect@versioning-policy`
    say, with the Migration entry `design@agent-skills@audit-triggers` owes a version that changes

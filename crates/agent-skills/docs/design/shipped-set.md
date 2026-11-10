@@ -213,9 +213,9 @@ the shipped text may name and cite.
 An installed skill or agent hands off only to another skill or agent of the set its version ships,
 or to the project's own skills. It never names a plugin or a skill from outside the set. A skill
 outside the set may be absent in the project, or present at a version that contradicts the installed
-one, and either makes the installed text depend on a skill from outside the workflow and what the
-project adds, where `goal@knowledge-architect@agents-get-a-complete-workflow` has an agent need no
-instruction from outside them.
+one, and either makes the installed text depend on a skill from outside what knowledge-architect
+provides and what the project adds, where `goal@knowledge-architect@agents-get-a-complete-workflow`
+has an agent need no instruction from outside them.
 
 The set is written across several changes before a version is released, so a skill may name a
 member of the set by its installed name before that member lands. No release ships a name its set

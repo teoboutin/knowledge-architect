@@ -81,8 +81,8 @@ This repository adds:
   home for each Component, per `design@create@component-command`.
 - The root's design home holds a head that argues the existence of 9 of the 12 Components under
   it, such as `design@knowledge-architect@git-crate`. It holds none for `check`, `gates` and
-  `xtask`; the head of `gates` is in its own home, `design@gates@gates-crate`, and
-  `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home` asks whether it moves.
+  `xtask`; the head of `gates` is in its own home, `design@knowledge-architect@gates-crate`, and
+  `the-gates-crate-head-may-belong-in-the-root-design-home` asks whether it moves.
 
 **What the work changes.**
 
@@ -318,7 +318,7 @@ Issues that stay open and that a slice edits:
 - `issue@agent-skills@a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules`:
   slice 1 rewords its summary, on the owner's ruling that this work replaces the wish it records
   for more intent moved into goals.
-- `issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`: the
+- `the-mechanical-tasks-goal-omits-what-a-helper-does-better`: the
   whole-set review judges that goal with the widening the issue holds, and closes or re-points it.
   It stays open because this document schedules the occasion and not the outcome: the wording of
   a goal is ruled in that review.
@@ -332,7 +332,7 @@ Issues that stay open and that a slice edits:
   a rule of the standard by its number and rewrites it, the numbers changing.
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: read at slice
   1's one pass, which empties twelve goals homes, and at slice 2, which deletes them.
-- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: closed by the commit of
+- `the-gates-crate-head-may-belong-in-the-root-design-home`: closed by the commit of
   slice 1 that moves that head to the root's design home.
 - `issue@model@the-resolver-s-arms-have-mutation-survivors` and
   `issue@check@some-findings-in-a-goals-home-name-a-form-refused-there`: slice 2 edits the code
@@ -396,11 +396,11 @@ Triggers met, ruled before the work:
 - `design@transcript@transcript-command-reads-any-project`: constrains, respect.
 - `design@transcript@transcript-labels-in-code`: constrains, respect.
 - `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: closes, close-with-the-work.
-- `design@gates@gates-crate`: constrains, respect.
+- `design@knowledge-architect@gates-crate`: constrains, respect.
 - `design@gates@a-project-holds-its-gate-list`: constrains, respect.
 - `design@gates@the-library-owns-the-flags`: constrains, respect.
 - `issue@gates@the-gate-list-head-bundles-the-library-s-independence`: trigger-met, rule-before-work.
-- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: touches, respect.
+- `the-gates-crate-head-may-belong-in-the-root-design-home`: touches, respect.
 - `issue@gates@the-library-has-no-merge-verdict`: touches, respect.
 - `design@xtask@source-view-in-the-tool`: constrains, respect.
 - `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`: touches, respect.
@@ -586,7 +586,7 @@ Triggers met, ruled before the work:
 - `design@knowledge-architect@git-flow`: constrains, respect.
 - `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`: touches, respect.
 - `issue@knowledge-architect@no-command-renames-or-moves-an-entry-or-a-component`: touches, respect.
-- `issue@knowledge-architect@the-mechanical-tasks-goal-omits-what-a-helper-does-better`: touches, respect.
+- `the-mechanical-tasks-goal-omits-what-a-helper-does-better`: touches, respect.
 - `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up`: touches, respect.
 - `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`: touches, respect.
 - `design@knowledge-architect@versioning-policy`: constrains, respect.
@@ -684,7 +684,7 @@ Triggers met, ruled before the work:
 - `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`: touches, respect.
 - `design@transcript@transcript-labels-in-code`: conflicts, check-reversal.
 - `the-goal-s-ruled-out-case-reads-two-ways-on-a-harness-tag`: touches, respect.
-- `issue@gates@the-gates-crate-head-may-belong-in-the-root-design-home`: constrains, none.
+- `the-gates-crate-head-may-belong-in-the-root-design-home`: constrains, none.
 - `design@agent-skills@audit-is-an-activity`: constrains, respect.
 - `design@agent-skills@audit-method`: constrains, respect.
 - `design@agent-skills@audit-axis-runs-a-workflow`: constrains, respect.

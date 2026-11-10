@@ -316,15 +316,23 @@ decision-recording skill and the project-audit skill each state it, so the reaso
 sites. What stays the owner's beside it is what `primer@question-authority` lists: a goal, a fact
 only the owner holds, a contradiction, a fork and an action that cannot be undone.
 
-It serves `goal@knowledge-architect@the-owner-decides`, which states it. Its
-argument is the owner's proposal: the overrule weakens the agent's challenge of the owner's
-arguments, and lets the owner's preference pass as argument without being recorded as the owner's
-intent; the owner judged it of little use, and probably problematic, and reported thinking
-the path was never used. Asked for a reason, an overrule always yields a fact, an intent or an
-argument, each of which lands by `design@agent-skills@heads-stand-on-argument`, and three cases, a
-doubt the owner cannot yet state, a wish to stop, and a goal that answers one case wrongly, need
-none: a doubt is a fact the discussion builds evidence on, "Stop" ends a discussion, and a goal
-changes through `skill@knowledge-architect-goal-setting`. The nearest rival, the owner able to
+Under `goal@knowledge-architect@the-owner-decides`, agents decide by argument what the goals, the
+record, the code and the sources settle, and the owner decides what survives the argument; under
+`goal@knowledge-architect@design-with-agents-as-counterparts`, the owner challenges a proposal, adds
+an argument or a fact, or changes the direction of the design. A word that decides against an
+argument without one would decide what the argument settled, so the head names the means by which
+the owner changes a direction: a goal, which the owner sets and changes, read as a goal of the three
+kinds of `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; a fact; or an argument, a
+cost the owner weighs included. Its argument is the owner's proposal: the overrule weakens the
+agent's challenge of the owner's arguments, and lets the owner's preference pass as argument
+without being recorded as a goal, a fact or an argument; the owner judged it of little use, and
+probably problematic, and reported thinking the path was never used. Asked for a reason, an
+overrule always yields a fact, an intent or an argument, each of which lands by
+`design@agent-skills@heads-stand-on-argument`, an intent being a goal only where it states a
+purpose, a scope or a ranking, and three cases, a doubt the owner cannot yet state, a wish to stop,
+and a goal that answers one case wrongly, need none: a doubt is a fact the discussion builds
+evidence on, "Stop" ends a discussion, and a goal changes through
+`skill@knowledge-architect-goal-setting`. The nearest rival, the owner able to
 overrule any decision for any reason, keeps that path for a case none of the three shows.
 
 ### A default that holds no fork, on bounded work or settled by the record, is built without waiting for the owner's word `##derived-decision-proceeds-on-default`

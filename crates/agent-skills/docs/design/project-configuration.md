@@ -331,9 +331,9 @@ reading of a goal. A subagent reports its decisions under the same title, and th
 session carries them into its own.
 
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which the owner is informed of every
-decision that earns durable text or a line of the "Decided" section, and can contest any of them
-with a goal, a fact or an argument, and `design@agent-skills@questions-go-to-their-authority` gives
+It serves `goal@knowledge-architect@the-owner-decides`, under which each decision the agents make
+that enters the record, and each choice they make on a question that is the owner's, reaches the
+owner, who can contest it with a goal, a fact or an argument, and `design@agent-skills@questions-go-to-their-authority` gives
 the session many of those decisions. The nearest rival, the commit messages and the pull request,
 loses because a decision made and reverted within one session reaches no commit, while the owner
 reads the turn. An implementation choice is left out because a list of every choice would hide the
@@ -515,7 +515,7 @@ no outside skill, per `design@agent-skills@no-external-handoff`.
 
 The ground is `goal@knowledge-architect@agents-get-a-complete-workflow`: an agent carries each
 activity out with the workflow and what its project adds, and needs no instruction from outside
-them, so no skill the environment adds takes the place of an installed one for an activity the set
+what knowledge-architect provides and what its project adds, so no skill the environment adds takes the place of an installed one for an activity the set
 covers. The harness lists a plugin's skill beside the installed ones: both cloud
 sessions read for `design@agent-skills@settled-means-recorded` listed a plugin's design-discussion
 skill beside `skill@knowledge-architect-design`, the two descriptions opening with one sentence.
@@ -572,7 +572,7 @@ keeps, and writes its own version as the pin, per `design@create@init-command`.
 One command runs every check a project owes before a merge, runs them all when one fails, and exits
 non-zero when any fails, so a verdict is one exit code and nothing is read through a pipe. In a Rust
 project it is a command of the maintenance crate, per `design@agent-skills@xtask-pins-checker`, run
-by the published gates library, per `design@gates@gates-crate`; every Rust target project has that
+by the published gates library, per `design@knowledge-architect@gates-crate`; every Rust target project has that
 crate, per `design@agent-skills@maintenance-crate-ask`, so every adopting project runs the gates
 refined in this repository and in thaum. The gates a project owes are its own list, per
 `design@gates@a-project-holds-its-gate-list`.
@@ -618,21 +618,23 @@ library, all pinned exactly, at the version `[project] checker-version` declares
 commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
 which it carries under a command of its own through the library of the package `knowledge-architect`, per
 `design@cli@the-commands-are-a-library-module`. The gates run through the published library, per
-`design@gates@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
+`design@knowledge-architect@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
 crate per tool would otherwise do, and gives the project's other repeated tasks a place, so that
 every target project gets its gates and its maintenance commands in one shape, per
 `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The cost accepted: building the gates builds
 the checker, which the check gate needs anyway, and the mutation library.
 
-### Every Rust target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
+### Every target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
 
-knowledge-architect asks every Rust target project to carry the maintenance crate of
+knowledge-architect asks every target project to carry the maintenance crate of
 `design@agent-skills@xtask-pins-checker`, so that a command of the installed text, such as
-`cargo x gates` or `cargo x mutate`, names one invocation in every project. The ask is on the
-owner's word; adding an ask is the owner's, per `goal@knowledge-architect@serves-one-kind-of-project`,
-which also makes how an ask is met, the command's name, a design decision of knowledge-architect.
-The setup skill states it, and offers a Rust project no local install of the checker, which would
+`cargo x gates` or `cargo x mutate`, names one invocation in every project; every target project is
+a Rust project built by Cargo, per `goal@knowledge-architect@serves-one-kind-of-project`. The ask is
+this head's decision, held on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
+knowledge-architect's owner the conditions and the asks that the scope goal itself names, a git
+repository and the `claude` harness, so an ask a design head holds changes on an argument, and the
+change is reported to the owner. The setup skill states it, and offers a Rust project no local install of the checker, which would
 leave it with no maintenance crate and a gates command of its own:
 `rejected@agent-skills@rust-project-on-a-local-install`. The cost accepted, on the owner's word: a
 Rust project that is one package gains a workspace for the crate. A project with a Cargo workspace or
@@ -657,8 +659,9 @@ does not yet conform at those sites, and that issue holds the work. Two target p
 rootpoint, merge locally and run neither, per that issue, so an instruction that assumes either
 does not apply in them. In a private project with one contributor, continuous integration on pull
 requests spends limited minutes, and a pull request brings little value. Making either an ask of
-every target project is the second rival: an ask is added by knowledge-architect's owner, per
-`goal@knowledge-architect@the-owner-decides`, and none is.
+every target project is the second rival, which loses on the same facts: it would ask continuous
+integration and pull requests of two target projects that run neither, for the cost above, and no
+goal and no head argues for them.
 
 ### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
 

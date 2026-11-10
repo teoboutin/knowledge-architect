@@ -7,8 +7,13 @@ kind: design
 
 `skill@knowledge-architect-decision-recording@when-recording-happens` writes a default awaiting the
 owner into a design head only once the owner rules on it. The owner wants that condition changed so
-that agents are more autonomous about design, defaults and records, and more of the owner's intent
-moves into goals. No discussion has decided how.
+that agents are more autonomous about design, defaults and records. The owner's wish, recorded here
+first, that more of the owner's intent move into goals is replaced, on the owner's word, by the
+goal standard of `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`, under which a
+goal is a purpose, a scope or a ranking and any other statement is design. The owner named two
+opposite fixes, a default that enters the record with no ruling, and a default that needs the
+owner's ruling stopping the work to ask, chose neither, and left the choice to this entry's
+discussion.
 
 ## Details
 

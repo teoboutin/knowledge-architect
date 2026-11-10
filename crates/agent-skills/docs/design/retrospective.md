@@ -51,7 +51,9 @@ decision or a goal whose failure would be seen in real sessions before any check
 guideline about code or tests, or about splitting the project into Components, proved too hard or
 too strict or was followed against the work's interest,
 `goal@knowledge-architect@the-workflow-leads-to-better-code` and
-`goal@knowledge-architect@projects-are-split-into-modular-units`, whose learning from use it is; a lint
+`goal@knowledge-architect@projects-are-split-into-modular-units`, whose default shape and default
+criteria are learned from use, per `design@agent-skills@default-code-shape` and
+`design@agent-skills@component-skill-delivery`; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
 question, which no goal ranks, and the owner approved it. The question
 on a mechanical task is asked of every session, since every session follows the workflow's procedures, where the question that lost in

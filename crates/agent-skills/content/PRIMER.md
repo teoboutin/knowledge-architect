@@ -485,7 +485,8 @@ shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
 ## The installed skills {{slug:installed-skills}}
 
 %% The opening paragraph serves `goal@knowledge-architect@agents-get-a-complete-workflow`, under
-%% which an agent needs no instruction from outside the workflow and what its project adds. Of two
+%% which an agent needs no instruction from outside what knowledge-architect provides and what its
+%% project adds. Of two
 %% cloud sessions with no user-level instruction, one read sections of skills found by `grep` in
 %% place of loading them and wrote into a design home without the decision-recording skill, and the
 %% other loaded that skill only after the decision it records: an event-shaped trigger was skipped

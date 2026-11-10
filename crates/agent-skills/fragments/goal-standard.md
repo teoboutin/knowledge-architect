@@ -16,9 +16,9 @@ it.
 %% `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`. Cases: of knowledge-architect's
 %% 54 goals, 33 were goals of one Component, several of which stated how the Component fits in the
 %% split. The
-%% scope's condition was rule 8 of the standard before the kinds. Its case: rootpoint's goal on
-%% content kinds, whose sentence on concurrent editing named the design it excluded, which another
-%% goal would have argued for, and whose part on staying small named none.
+%% scope's condition, that it names the design it excludes: its case is rootpoint's goal on content
+%% kinds, whose sentence on concurrent editing named the design it excluded, which another goal
+%% would have argued for, and whose part on staying small named none.
 1. **It is a purpose, a scope or a ranking of the project as a whole.**
    - A **purpose** states what the project exists to provide, and for whom. The test: were it
      removed, some part of what the project provides, or is to provide, would have no reason left

@@ -32,8 +32,9 @@ each step to a session.
 `run` takes the one file `--file` names; a `--patch` that names any other path is refused with 2,
 before the baseline. The record, its comparison and its restore are per file, and a patch whose
 other hunks the run would drop gives a verdict about a mutant that is not the one the caller wrote.
-This is the current limit of the tool, not its scope: the owner chose not to limit the crate to one
-file, and `issue@mutate@a-mutation-of-several-files` holds the work.
+This is the current limit of the tool, not its scope: the owner chose a crate that applies a
+mutation of several files over one limited to one file, which no goal ranks, and
+`issue@mutate@a-mutation-of-several-files` holds the work.
 
 ### The apply, the run and the restore are one command `##one-command-owns-the-interval`
 

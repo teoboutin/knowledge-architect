@@ -33,7 +33,7 @@ The statements nobody has argued, each with what it bound:
   bound five limits of the rule.
 
 The instances seen: `design@knowledge-architect@cli-crate`, `design@knowledge-architect@transcript-crate`,
-`design@knowledge-architect@mutation-command-host` and `design@gates@gates-crate` each place a tool by the rule.
+`design@knowledge-architect@mutation-command-host` and `design@knowledge-architect@gates-crate` each place a tool by the rule.
 
 The suspected mechanism: the rule was held as a statement no argument had to defend, so no head gave it a rival and a
 fact.

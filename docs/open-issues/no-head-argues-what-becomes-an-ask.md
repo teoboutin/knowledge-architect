@@ -8,7 +8,9 @@ kind: design
 `goal@knowledge-architect@serves-one-kind-of-project` says that knowledge-architect asks more of a
 target project than its four conditions, and names two asks: a git repository, and agents under the
 `claude` harness. `goal@knowledge-architect@the-owner-decides` gives knowledge-architect's owner
-each addition, tightening or removal of an ask. No goal and no design head states how a tool or a
+each addition, tightening or removal of a condition or an ask of that goal, which the owner reads
+as the asks the goal itself names: an ask that a design head holds changes on an argument, and the
+change is reported to the owner. No goal and no design head states how a tool or a
 decision becomes an ask, what a quality tool is, or the asks on the use of the workflow with the
 checker, on the gates and on the merge verdict. Each statement below binds nothing until a head
 argues it.
@@ -69,8 +71,8 @@ invocation differs between the projects that use the gates library.
 
 A design discussion under `skill@knowledge-architect-design` that argues each statement, or drops
 it with its reason: the rule of what becomes an ask, with the definition it needs; and each ask
-that no goal states, recorded as a head on the owner's word where it is the owner's, per
-`goal@knowledge-architect@the-owner-decides`.
+that no goal states, recorded as a head on its argument, the owner's word being owed only for an ask
+the scope goal itself names, per `goal@knowledge-architect@the-owner-decides`.
 
 ### Re-entry point
 

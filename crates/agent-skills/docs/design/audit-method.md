@@ -250,8 +250,8 @@ written for the Workflow tool alone, was argued before that ask, on its failing 
 harness, and is to be argued again, per `issue@agent-skills@heads-argued-from-another-harness`.
 A saved workflow is a mechanism of that harness, which every target project's agents run under: it
 is particular to no target project, which `goal@knowledge-architect@every-target-project-can-adopt-it`
-excludes, and it is no instruction from outside the workflow and the project, which
-`goal@knowledge-architect@agents-get-a-complete-workflow` excludes. The owner weighed the dependency on the harness as acceptable, on the ground
+excludes, and it is no instruction from outside what knowledge-architect provides and what the
+project adds, which `goal@knowledge-architect@agents-get-a-complete-workflow` excludes. The owner weighed the dependency on the harness as acceptable, on the ground
 that the owner personally uses only Claude Code and does not really expect anyone else to start
 using the workflow, beyond the owner's own use in more projects than thaum. The cost of shipping
 them: each saved workflow is listed in every session

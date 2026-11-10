@@ -385,7 +385,8 @@ tens, which is every goal of a project since none refines another, and that one 
 least 100 goals when it does only that; no rule splits a larger set
 before evidence asks for one: the review of the whole goal set splits a set into clusters for each
 reviewer's focus, per `design@agent-skills@whole-set-rounds`, not for one agent's reach. It serves
-`goal@knowledge-architect@the-owner-decides`.
+`goal@knowledge-architect@the-owner-decides`, under which the owner sets and changes the goals: the
+owner rules each goal with what it requires and rules out shown by a reader apart from the drafter.
 
 ### The goal reviewer grades each finding by what it changes in an agent's act, beside the route that says who answers it `##goal-finding-grades`
 

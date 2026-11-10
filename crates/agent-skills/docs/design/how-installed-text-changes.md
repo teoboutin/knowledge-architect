@@ -8,17 +8,21 @@ whose record is docs/decisions.md on its branch next. A figure is taken again fr
 
 ### The record of the installed text keeps intent and coherence, not wording `##instruction-record-is-minimal`
 
-A decision about the installed text is recorded only where it keeps the owner's intent on record, as
-`goal@knowledge-architect@design-is-recorded-with-its-arguments` asks, or keeps two parts of the
-workflow consistent, as `design@agent-skills@no-two-installed-instructions-contradict` asks; or where
-another entry test
-admits it, such as a reason several installed texts must respect. A rewording, and the rationale for how one instruction
+A decision about the installed text is recorded only where it keeps the owner's intent on record,
+since `goal@knowledge-architect@design-is-recorded-with-its-arguments` has each decision a project
+records carry its intent and its argument, and has the reason of any other decision recorded beside
+its text; or where it keeps two parts of the workflow consistent, which
+`design@agent-skills@no-two-installed-instructions-contradict` requires; or where another entry
+test admits it, such as a reason several installed texts must respect. A rewording, and the rationale for how one instruction
 is phrased, is not recorded. Such proposals can be made without bound, unlike a technical decision,
 which costs implementation work. The commit message carries a rewording's argument.
 
-The owner's intent is on record in a goal, drafted under `skill@knowledge-architect-goal-setting`,
-and the owner's choice at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`;
-an approval of the agent's proposal is neither.
+The owner's intent is on record in a goal, drafted under `skill@knowledge-architect-goal-setting`
+where it states a purpose of the project, a scope that bounds one or a ranking between two, per
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; in a head, as an argument the owner
+made; and as the owner's choice at a fork in its weak form, per
+`design@agent-skills@fork-choice-in-weak-form`. An approval of the agent's proposal is none of
+these.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree
 with, as the planning skill's sections agree with what `check` checks; a decision of this
 repository alone is not one, since the installed text names none of this repository's conventions.

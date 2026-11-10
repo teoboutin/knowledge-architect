@@ -16,7 +16,7 @@ the check read git's listing, per `design@git@failed-git-is-an-error`, and the i
 No directory of audit reports or of retrospective analyses, and no roadmap, is written: each is
 created when first needed. A project created from nothing is the target
 `goal@knowledge-architect@every-target-project-can-adopt-it` puts first, and its creation is where a person
-or an agent starts, per `goal@knowledge-architect@adoption-is-easy`: without the command, every
+or an agent starts: without the command, every
 file `klarch init` lists as `wrote` but the installed ones and the manifest is written by hand
 before the first check passes.
 

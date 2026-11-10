@@ -8,7 +8,8 @@ kind: todo
 The walk parses two file kinds, Markdown and Rust source. A reference written in a comment of any
 other language is never read: it is not checked, `show` does not list it, and a deleted or renamed
 entry leaves it dangling with no finding. A target project's files in another language, the
-installed saved workflows and the glue its targets need, get the document checks and none of the
+installed saved workflows and the code in another language that a platform it is built for
+requires, get the document checks and none of the
 code-comment checks.
 
 ## Details
@@ -32,8 +33,9 @@ audit found one such pointer already broken, a prompt naming a point the section
 
 Every target project's code is Rust, per `goal@knowledge-architect@serves-one-kind-of-project`, but
 it holds files in other languages that a reference can sit in: the installed saved workflows, which
-are JavaScript in every target project that installs the workflow, and the glue its targets need,
-such as the JavaScript and the HTML of a web target. The installed skills tell an agent to name an
+are JavaScript in every target project that installs the workflow, and the code in another
+language that a platform it is built for requires, such as the JavaScript and the HTML of a web
+target. The installed skills tell an agent to name an
 issue in the comment at the code that exists because of it, so that closing the issue dangles the
 comment. In such a file that instruction produces references nothing reads, and the skills have to
 tell the agent to grep instead. A project in another language is no target project, so it is no

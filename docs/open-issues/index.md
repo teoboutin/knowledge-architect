@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-24 entries
+23 entries
 
 | kind | title |
 | --- | --- |
@@ -20,7 +20,6 @@
 | todo | [No gate builds the crates' documentation, so a broken link in it reaches no run](no-gate-builds-the-documentation.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
-| todo | [The goal on mechanical tasks does not cover an action a command would make more efficient or better](the-mechanical-tasks-goal-omits-what-a-helper-does-better.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
 | todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
