@@ -4,7 +4,7 @@ knowledge-architect is the common toolchain of one kind of project, the target p
 
 Its starting point is a documentation structure that it defines, a model that represents that
 structure, and a scanner. This is the starting point of the other goals: some add content to the
-model, such as citations, design entries and issues, while others add features that work upon it,
+model, such as references, design entries and issues, while others add features that work upon it,
 such as the checker and the render.
 
 Beside that, knowledge-architect ships a workflow for agents, which has its own goals.
@@ -23,11 +23,15 @@ These words hold in these senses for the goals of this home:
 - **the record** of a project is made of: its decisions with their arguments, the designs it did
   not keep and why, what is outstanding, the evidence that would flip a recorded decision, and the
   reasons recorded beside its code, its agent-facing text and in the messages of the commits that
-  made them. Nothing else is part of it, its goals included;
+  made them. Its goals are no part of it, and neither is anything else;
 - **a recorded item**: a goal, or an entry of a kind that keeps a home of its own, one the workflow
   gives or one a project declares, such as a decision, a design not kept, something outstanding, or
   a piece of evidence that would flip a decision. A reason recorded beside code or in a commit
   message is none;
+- **a reference**: a pointer by which one text names a recorded item;
+- **a tool**: something a person or an agent working in a target project runs, other than the
+  installed text;
+- **a session**: one run of an AI agent on a project's work;
 - **the generic part** of an activity, a tool or a procedure: the part that does not depend on what
   the project builds;
 - **a target project**: the kind of project knowledge-architect serves, which
