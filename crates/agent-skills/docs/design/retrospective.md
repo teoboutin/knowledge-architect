@@ -109,7 +109,7 @@ rival, a section of the retrospective that avoids describing twice how the repor
 on that practice: a session with no session to examine would load the procedure for examining one,
 and every retrospective offer would load the intake. The intake hosts the report's format and the kinds of a defect as fragments the retrospective
 hosts too, so each is written once, and points to the retrospective's expectation sets and to its
-form for citing a finding; the goal's measure admits it, since an agent reads another skill only at a step that points to it. A project adds to the intake through a skill
+form for citing a finding; `design@agent-skills@one-skill-per-activity` admits it, since an agent reads another skill only at a step that points to it. A project adds to the intake through a skill
 of its own, per `design@agent-skills@overlay-by-separate-skills`.
 
 ### A project's intake analyses only its own retrospective file, reading the workflow file only for the other side of an interaction finding `##intake-takes-the-project-file`
@@ -179,8 +179,8 @@ to change, a fact only the owner holds, a fork, a contradiction no argument reso
 publication are the owner's, each an owner item whose line stays pending until the owner rules.
 "Handle now" or "an issue" is the session's by the rule the review and the audit apply: the
 finding's work lands in the intake's branch, or needs a branch of its own. It serves
-`goal@knowledge-architect@the-owner-decides`, under which a question the record answered, put to the
-owner, shows the goal unmet: at the intakes of this repository, about 6 rulings in 7 approved the
+`goal@knowledge-architect@the-owner-decides`, under which agents decide what the record settles, so a
+question the record answered is not the owner's: at the intakes of this repository, about 6 rulings in 7 approved the
 session's default. Of the 356 `Outcome` lines of the 60 analyses deleted from
 `path@knowledge-architect@docs/retrospective-reports/` up to commit 6f75bc98, 305 begin with
 "approved" or "accepted", taken again with:

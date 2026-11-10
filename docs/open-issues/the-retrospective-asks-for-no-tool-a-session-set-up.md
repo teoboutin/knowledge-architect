@@ -5,11 +5,12 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` is met while the installed text
-has each tool and procedure a session sets up or changes, to make development more efficient or the
-project better, reported to knowledge-architect's owner, each report saying which part the session
-finds generic and whether knowledge-architect already ships it. No installed text asks for such a
-report. The owner's design consideration placed the question in the retrospective.
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has the generic part of a tool
+or a procedure that a target project sets up or changes shipped once knowledge-architect's owner
+takes it in. The owner can take in only what reaches the owner: each tool and procedure a session
+sets up or changes, to make development more efficient or the project better, reported, each report
+saying which part the session finds generic and whether knowledge-architect already ships it. No
+installed text asks for such a report. The owner's design consideration placed the question in the retrospective.
 
 ## Details
 

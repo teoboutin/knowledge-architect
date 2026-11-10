@@ -101,7 +101,7 @@ on what grounding, investigation and experiment bring, and nobody knows in advan
 it, as the owner's opinion, answering a proposed path that would bound a discussion to one decision met during a task. Too
 much structure hinders the agent's freedom to carry investigations of various shapes and to
 challenge and refine proposals, against `goal@knowledge-architect@design-with-agents-as-counterparts`,
-whose exchange is open and argued, and `goal@knowledge-architect@only-needed-instructions`, under which
+whose exchange is open and argued, and `design@agent-skills@capabilities-not-structure`, under which
 the installed text imposes no count the work does not need. The rival, a bound on threads or rounds
 to save tokens and the owner's attention, buys nothing: the owner can end a discussion at any
 point, and bounded work already gets a single proposal. A path chosen by the cost of reversal, or by where the work lands, changes where the
@@ -152,8 +152,9 @@ body. A title states no more than its argument argues.
 
 A count or a list in a title goes stale at the next member, and every later member then reads as a
 change of the decision, with its reversal, its slug rename and its tripwire rename, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`, under which a decision reversed by
-accident that the workflow would have spared shows the goal unmet. The nearest rival, the instance
+`goal@knowledge-architect@agents-get-a-complete-workflow`, which is there to raise the
+efficiency of the agents' work: a decision reversed by accident costs a reversal the workflow could
+have spared. The nearest rival, the instance
 in the title, has that cost: an audit of this repository's design heads at commit eee5176f, reading
 every head and its history, finds the instance stated as the rule in 27 of its 189 heads, and its
 history holds rewrites of such heads that a member the argument already admitted forced. The figure

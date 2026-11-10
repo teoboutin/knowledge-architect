@@ -76,3 +76,19 @@ than read in one file.
 ### The harness kept a role module of `check`, re-exported by `cli` at `knowledge_architect::testing`, with the shared test crate unpublished `##harness-kept-in-check`
 
 `live`. It spares an extension's tests one change of import and one more dependency, and the project one first publish. It is the import path extension writers use. The owner chose the published crate, believing it more natural that an extension's tests pull it separately.
+
+### A `gates` command of the checker's binary, with the gate list declared in the manifest `##gates-command-of-the-checker`
+
+`live`. It would have changed the manifest's format and the checker's command line, and needed no
+code in a project. It would make `klarch` run cargo, the linter and the tests.
+
+### A published gates binary configured by a file `##gates-binary-configured-by-file`
+
+`live`. It would have added a configuration file format, which a gate list in Rust does not need,
+and it leaves a project no binary of its own for its other repeated tasks.
+
+### No gates code shipped: each project writes its own runner `##each-project-writes-its-runner`
+
+`live`. Each project would keep the runner's logic and its tests, `path@gates@src/`, and refine it
+alone. It is kept because a doubt remains: the library's interface may still carry assumptions of
+the two projects it came from, and a project it does not fit falls back to writing its own.

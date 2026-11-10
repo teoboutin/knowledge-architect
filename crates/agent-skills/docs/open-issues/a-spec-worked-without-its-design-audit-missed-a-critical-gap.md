@@ -43,8 +43,9 @@ the code and the design homes, where the installed planning skill is code of thi
 
 It strains the instruction of `skill@knowledge-architect-planning@working-a-slice` that skips a
 spec's design audit when the converging session works it on an unmoved main branch, argued in the
-`%%` line beside it, against `goal@knowledge-architect@agents-work-without-drift`, which asks that
-a departure be caught before it merges: here a review caught it, after the work was built.
+`%%` line beside it, against `goal@knowledge-architect@agents-work-without-drift`, under which what
+agents build stays within the recorded design: here a review caught the departure, after the work
+was built.
 
 ### What would close it
 

@@ -13,8 +13,8 @@ bounded work's proposal, and the diff that implements it fit the record.
 Read "the document" below as that message and that diff, and its declared departures, where
 "What is already decided" names them for a plan document, as the heads the diff rewrites and those
 the message names as reversed. The record is what the project has
-decided and what it is for: the goals homes, the design homes and the rejected designs of its
-Components. **Not** whether the document is sufficient to act on, whether its statements about the
+decided and what it is for: the goals home of its root, and the design homes and the rejected designs of
+its Components. **Not** whether the document is sufficient to act on, whether its statements about the
 code are true, whether it records the discussion that produced it, whether an acceptance criterion
 is well formed, or whether a harvest wrote what the document said would land; those are other
 axes. You rewrite nothing.

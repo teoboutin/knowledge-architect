@@ -140,8 +140,9 @@ evidence bring, which nobody knows in advance.
 
 %% Nothing is committed before the premortem has run: a premortem can surface a material finding
 %% that reopens a thread, and work committed before it would then be undone, against
-%% `goal@knowledge-architect@agents-get-a-complete-workflow`, under which a decision reversed by
-%% accident that the workflow would have spared shows the goal unmet. The commit that carries the
+%% `goal@knowledge-architect@agents-get-a-complete-workflow`, which is there to raise the
+%% efficiency of the agents' work: a decision reversed by accident costs a reversal the workflow
+%% could have spared. The commit that carries the
 %% deliberation carries the premortem's causes and criteria, as a plan document would; the rival,
 %% the premortem landing in the later commit that writes the tripwires, splits the deliberation over
 %% two commits.

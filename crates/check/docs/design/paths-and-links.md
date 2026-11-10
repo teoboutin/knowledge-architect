@@ -125,3 +125,7 @@ included. Generated text cannot go stale, which is what the upward ban on hand-w
 exists against.
 
 The design this decision did not keep: `rejected@check@single-link-shape`.
+
+That the backticked reference is the primary form of a pointer, and the link a second form for
+navigation alone, is a design decision and no goal's: the owner's argument for one primary form is
+that it is easier to work with.

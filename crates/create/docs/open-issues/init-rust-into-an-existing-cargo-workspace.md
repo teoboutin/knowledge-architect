@@ -22,7 +22,7 @@ configuration, files the project owns, which no command edits today.
 
 A project adopting the workflow, new or existing, is the case `goal@knowledge-architect@adoption-is-easy`
 names, and the gates `--rust` writes are a generic part that
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has every target project get. An existing project is the one the
+`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has shipped so that it serves each target project that carries out its activity. An existing project is the one the
 owner gave as `init`'s example, per `design@create@init-keeps-existing-files`. The refusal is the
 shape `design@create@rust-scaffold` decides.
 

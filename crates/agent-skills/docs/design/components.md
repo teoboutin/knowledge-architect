@@ -118,7 +118,7 @@ is stated by the component-creation skill.
 ### An intermediate Component is a directory of Components with no code of its own, and a decision on how the code of several Components is written goes to the lowest one enclosing them `##shared-code-decisions-go-to-the-lowest-enclosing-component`
 
 An intermediate Component groups the Components nested under its directory. Its own files hold no
-Rust code, per `goal@knowledge-architect@projects-are-split-into-modular-units`, so it is no crate, and
+Rust code, so it is no crate, and
 each Component nested under it that holds Rust code is a crate, per
 `design@agent-skills@component-crate-mapping`.
 A decision that shapes how the code of several Components is written goes to the design home of the
@@ -146,20 +146,19 @@ The rivals lost:
 - **No intermediate Component, every decision binding several Components in the root's design
   home.** It holds one shape fewer, and every principle shared by a subset is loaded by every
   session, since every change to code reads the root's design home, per
-  `skill@knowledge-architect-development@ground-before-editing`, against the reason of
-  `goal@knowledge-architect@projects-are-split-into-modular-units`, that each Component's design stays
-  small enough to read whole. The owner chose over it the intermediate Component created for a
-  purpose stated in goals, which no goal ranked, to be judged when a project first needs one. That
-  occasion is no longer stated, and the choice was not put to the owner again without it.
+  `skill@knowledge-architect-development@ground-before-editing`, against
+  `goal@knowledge-architect@projects-are-split-into-modular-units`, under which an agent reads one unit
+  whole: a Component's design stays small enough for that. The owner's earlier choice over it was of an
+  intermediate Component created for a purpose stated in goals, an occasion no text states: the
+  rival loses on the argument above, not on that choice.
 - **An intermediate Component as a declared set of Components rather than a directory.**
-  `goal@knowledge-architect@projects-are-split-into-modular-units` defines a Component as what the
-  checker's manifest declares, a directory or the project's root, and the owner keeps each
-  Component tied to the filesystem tree.
+  A Component is what the checker's manifest declares, a directory or the project's root, and the
+  owner keeps each Component tied to the filesystem tree.
 - **An intermediate Component that is a crate whose nested Components are its modules.** Its crate
-  root holds Rust code, a public interface, a dependency list and a version, which the goal's
-  definition excludes; and every dependency of one nested Component reaches every consumer of the
+  root holds Rust code, a public interface, a dependency list and a version, which an
+  intermediate Component, holding no Rust code, excludes; and every dependency of one nested Component reaches every consumer of the
   crate, the fact `rejected@knowledge-architect@git-module-made-public` lost on. The owner chose to
-  keep the goal as it stands.
+  keep an intermediate Component without Rust code.
 
 ### The installed text states no occasion on which an intermediate Component is created `##no-installed-rule-on-when-an-intermediate-component-exists`
 
@@ -209,8 +208,8 @@ The rivals lost:
 - **Every decision about dependencies in the root's design home.** A rule that binds one Component
   alone would be loaded by every session that reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, outside the Component it binds,
-  against the reason of `goal@knowledge-architect@projects-are-split-into-modular-units`, that each
-  Component's design stays small enough to read whole.
+  against `goal@knowledge-architect@projects-are-split-into-modular-units`, under which an agent reads
+  one unit whole: a Component's design stays small enough for that.
 - **The lowest Component enclosing every Component the decision constrains.** It keeps the root
   smaller, and moves every dependency decision among a group into the intermediate Component that
   encloses it, with the references to them. The owner chose the root over it, which no goal ranks, so that

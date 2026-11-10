@@ -243,7 +243,7 @@ session of the other: the Component procedure written into the design skill woul
 design discussion, most of which create no Component, per
 `design@agent-skills@component-skill-delivery`. A skill cut by what it reads bundles two
 methodologies: the review of the whole goal set reads a whole project, as an audit does, and no
-edit lands from it, where an audit applies its repairs in its own branch, per
+goal merges from it on the session's word, where an audit's settled repairs do, per
 `design@agent-skills@goal-set-review-in-goal-setting`.
 
 ### A skill is named by its activity, as a noun of one or two words `##naming-rule`

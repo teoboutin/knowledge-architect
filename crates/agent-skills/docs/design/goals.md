@@ -10,9 +10,8 @@ stop being met without anyone noticing, so a goal leaves only when the owner aba
 `goal@knowledge-architect@the-owner-decides`. A goal also leaves when the owner rules that it is no
 purpose, scope or ranking, per `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`:
 that case is the session's, which follows from the three kinds, and it keeps the rule that a goal
-leaves on the owner's word alone. The owner adopted it in the head of this repository's
-root goals home, which stated it until the review of the whole goal set left the rules of
-goal-setting to the skill. A goal drafted to move what the project builds is
+leaves on the owner's word alone. The rule is the owner's, and the
+goal-setting skill states it. A goal drafted to move what the project builds is
 expected to be unmet when it is written, per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 ### A goal entry states an outcome, in a body with no bound on its length `##goal-entry-shape`
@@ -276,8 +275,8 @@ stands alone.
 
 A statement derived from a goal is derived by an argument, so it is a decision: as a goal it binds
 outright and is never argued again, and as a head a better argument reverses it. Of this
-repository's 54 goals, 24 held a line stating a refinement, which
-`git grep -c '^It refines' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals home, and 10 of
+repository's 54 goals, 25 held a sentence stating a refinement, which
+`git grep -c 'It refines' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals home, and 10 of
 them named the widest goal of
 the root, since the standard had the drafter of a Component's goal name a goal of the root. The
 owner observed that the goals that refine another tend to be those closest to a design entry, and
@@ -298,14 +297,14 @@ A Component is a part whose existence comes from a design choice, which
 `design@agent-skills@goal-outcome-survives-empty-skeleton` keeps out of a goal: a goal anchored in a
 Component does not exist in the project emptied of its design, and moving code between Components
 would move goals only the owner may change. Of this repository's 54 goals, 33 were goals of one
-Component, which `git grep -c '^## ' cb8d5a22 -- ':(glob)**/docs/goals.md'` counts per goals home. The order is the goals, then a head that argues a split,
+Component, which `git grep -c '^## ' cb8d5a22 -- ':(glob)crates/*/docs/goals.md' ':(glob)tools/*/docs/goals.md'` counts per goals home. The order is the goals, then a head that argues a split,
 then the Component, so a redesign of the split touches no goal. The owner proposed it, on two
 observations of this repository's Component goals: they were detailed enough to state design, and
 several stated how their Component fits in the split.
 
 Its costs, as the owner was told them, the owner counting the first as what the decision is for:
-the owner no
-longer rules each Component's purpose, which an agent may reverse on argument and report; a session
+the owner does not
+rule each Component's purpose, which an agent may reverse on argument and report; a session
 working in one Component reads the root's goals that bear on it; and the checker's change breaks
 every reference to a goal of a Component, so a project that stated such goals reviews its whole
 goal set. The rival, every Component stating at least one goal,
@@ -523,15 +522,15 @@ serves `goal@knowledge-architect@the-owner-decides`.
 
 `skill@knowledge-architect-goal-setting@whole-set-review` reviews every goal of a project, on the
 owner's request and at a pin move across a version whose Migration entry names it. It follows
-goal-setting's methodology, a fresh reviewer and goals ruled by the owner, since every goal edit is
-the owner's, so an audit's split between edits applied in its branch and items put to the owner has
-nothing to split. The owner argued that an activity is its methodology, not the scope of what it
+goal-setting's methodology, a fresh reviewer and goals ruled by the owner, since the owner rules on
+every goal before it merges, so an audit's split between repairs that merge on the session's word
+and items put to the owner has nothing to split. The owner argued that an activity is its methodology, not the scope of what it
 reads: two activities that follow different methodologies are two, and are not bundled in one skill,
 per `design@agent-skills@one-skill-per-activity`. The review shares means with the audit, rounds of
 fresh reviewers, a committed record and a stop on a count, per
-`design@agent-skills@whole-set-rounds`; its methodology stays goal-setting's because no edit lands
-from the review itself: the owner rules on every goal before it is written, where an audit applies
-its settled repairs in its own branch. That argument defeats the rival, a fourth axis of the
+`design@agent-skills@whole-set-rounds`; its methodology stays goal-setting's because no goal
+merges from the review on the session's word: the owner rules on every goal of the set before the
+branch merges, where an audit's settled repairs merge on the session's word. That argument defeats the rival, a fourth axis of the
 project audit with its saved workflow, `rejected@agent-skills@goal-set-review-as-an-audit-axis`.
 
 ### The review of the whole goal set runs in rounds the owner answers, over a record committed in docs/goal-reviews/ `##whole-set-rounds`

@@ -91,8 +91,8 @@ owner", with the findings it groups as cluster K.
 
 A ruling of the owner recorded after the last transcript review is read by no reviewer, against
 `goal@knowledge-architect@the-owner-decides` and `goal@knowledge-architect@design-is-recorded-with-its-arguments`;
-re-reviewing every such repair works against the bounded review end that
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks for. It strains
+re-reviewing every such repair works against the efficiency that
+`goal@knowledge-architect@agents-get-a-complete-workflow` is there to raise. It strains
 `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
 
 ### What would close it

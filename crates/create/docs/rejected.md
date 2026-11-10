@@ -23,4 +23,4 @@ a mistaken run, deletes them too. The owner chose a refusal there over following
 
 `live`. A project in a subdirectory of a repository passes the check, so a refusal there refuses a
 legal layout, and a new or empty directory outside every repository loses nothing to `git init`.
-The kept rule does not spare every mistaken run a messy cleanup, which `design@create@init-asks-no-confirmation` and `design@create@init-keeps-existing-files` answer by keeping or refusing what a run would overwrite, not by refusing the place.
+The kept rule does not spare every mistaken run a messy cleanup, which `design@create@init-asks-no-confirmation` and `design@create@init-keeps-existing-files` answer by keeping or refusing what a run would overwrite, not by refusing the place; what a run would remove is `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`, against `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`.

@@ -27,8 +27,8 @@ it met first". Not established: which work on the point the primer means to go o
 
 ### Why it matters
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks that each instruction say what it
-asks "plainly enough to follow without guessing what it means". A session meeting a divergence
+`design@agent-skills@no-two-installed-instructions-contradict` has each installed instruction
+say what it requires "plainly enough to follow without guessing what it means". A session meeting a divergence
 either holds work it could have done or builds on a head that the owner may reverse.
 
 ### What would close it

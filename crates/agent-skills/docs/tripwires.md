@@ -340,7 +340,8 @@ from the commit that writes this line.
 The decision rests on the premise that a session tells a default the record settles from a choice
 the goals and the record leave open, so that only the first is built and merged on the session's
 word, and the second meets the owner before the merge, per
-`goal@knowledge-architect@design-with-agents-as-counterparts`.
+`design@agent-skills@default-ruled-before-merge`, while the owner can still challenge it, as
+`goal@knowledge-architect@design-with-agents-as-counterparts` has it.
 
 **Fires when:** a decision found on the main branch was a choice between shapes that all met every
 binding constraint, which no goal ranked, and the branch that merged it reported it under "Decided"
@@ -447,8 +448,9 @@ gap shows only in a later session.
 **Fires when:** an analysis of a retrospective workflow file received under
 `path@knowledge-architect@docs/retrospective-reports/`, or an audit report of the agentic-workflow
 axis, reports a session that lacked an instruction which an earlier audit or review had removed on
-the need test, and whose act a measure of a goal stated in the goals homes as
-`git show cb8d5a22:docs/goals.md` and `git show cb8d5a22:crates/agent-skills/docs/goals.md` hold them.
+the need test, and whose act a measure of a goal stated in a goals home as the commit `cb8d5a22`
+holds it, the root's or a Component's, which
+`git grep -n 'It is met while' cb8d5a22 -- ':(glob)**/docs/goals.md'` lists.
 **Response:** reopen `design@agent-skills@what-shows-a-goal-met-is-design` on what protects a needed
 instruction once no goal names its act, with the instance.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and

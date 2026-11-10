@@ -91,9 +91,8 @@ word**: when the owner abandons it, or rules that it is no purpose, scope or ran
 ## The shape of a goal entry `##goal-entry-shape`
 
 A level-two heading stating the goal as a sentence, its slug at the end, then the body: what the
-goal means. The body holds no measure, as rule 7 says, and no list of cases. It carries an example
-only where the statement alone would be read in the wrong direction; an example shows a reading and
-binds nothing. The body holds what the goal standard asks of it, at the length that takes: short
+goal means. The body holds no list of cases. It carries an example only where the statement alone
+would be read in the wrong direction; an example shows a reading and binds nothing. The body holds what the goal standard asks of it, at the length that takes: short
 sentences, and a list where it names the members of a set, such as the activities a goal covers.
 Every level-two heading of a goals home is a goal and carries a slug: the head that says what the
 home holds is prose under the level-one title, never a level-two section.

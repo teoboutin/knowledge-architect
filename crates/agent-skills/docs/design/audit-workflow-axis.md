@@ -53,8 +53,9 @@ rather than the session's judgement dispatches the agents. The table lives in th
 hand were a run's largest input and the source of its slips, which the owner judged error
 prone. A fixed count stated in the installed text, for the session to apply by its judgement,
 would be a structure another instruction needs to vary, against
-`goal@knowledge-architect@only-needed-instructions`, whose clause on structure does not bear on one the
-script carries out.
+`design@agent-skills@capabilities-not-structure`, under which the installed text imposes no structure the
+work does not need. A structure the script carries out is read here as outside that rule, a limit
+no head argues yet: `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`.
 
 Two lenses read beside the corpus. L7 starts from the checker's user documentation, its README for
 the version the project uses and the help of each command, and reports a rule the corpus states

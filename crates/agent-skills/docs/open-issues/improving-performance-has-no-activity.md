@@ -22,8 +22,9 @@ cannot reproduce its findings.
 
 ### Why it matters
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks the workflow to cover the activities
-of a target project, and improving performance is one a project meets once a path matters. Without a
+`goal@knowledge-architect@agents-get-a-complete-workflow` has the workflow cover each activity
+whose generic part knowledge-architect's owner has taken in. Improving performance is an activity a
+project meets once a path matters, and it is none of those taken in. Without a
 procedure, each session improvises the measurement, and a claimed improvement carries no evidence a
 reader can take again.
 

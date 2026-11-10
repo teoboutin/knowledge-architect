@@ -62,7 +62,7 @@ admit what the audit refuses. The rule is stated in
 `design@agent-skills@admission-rules-home`. The evidence behind it comes from one skill, and the skills and agents forked from thaum have not
 been edited under it, so a text that needs a different standard argues its exception. Two exceptions are argued in heads of their own,
 `design@agent-skills@staged-check-before-each-commit`, and `design@agent-skills@installed-skill-takes-precedence`,
-whose ground is a goal on the owner's ruling.
+whose ground is a goal.
 
 ### An installed skill's text carries no size budget `##no-size-budget`
 

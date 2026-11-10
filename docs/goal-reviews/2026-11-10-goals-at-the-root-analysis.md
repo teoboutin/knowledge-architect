@@ -3053,7 +3053,7 @@ me, which stands on a clear argument". None names this goal. The rewrite must as
 | 7 | "It is met while the workflow's setup gives each such tool in its recommended shape, the three included, so that a target project set up by following it designs none of them itself." | the measure | nowhere: repeats the statement; "designs none of them itself" is kept in G-B's draft as "has to design none of them itself", which leaves a project free to add a tool of its own, as row 9 admits |
 | 8 | "Requires, for instance: the workflow's setup gives the check of commit messages as documents in its recommended shape." | an instance | existing head: `design@gates@a-project-holds-its-gate-list` |
 | 9 | "Admits, for instance: a target project that adds a quality tool of its own beside those the workflow's setup gives." | a question of how much | existing head: `design@gates@a-project-holds-its-gate-list`: "A project adds, removes or reorders gates in the list it receives" |
-| 10 | "Rules out, for instance: a target project set up by following the workflow's setup that has to design its own runner of the gates." | the statement, negated | existing head: `design@knowledge-architect@gates-crate`, with `rejected@gates@each-project-writes-its-runner` |
+| 10 | "Rules out, for instance: a target project set up by following the workflow's setup that has to design its own runner of the gates." | the statement, negated | existing head: `design@knowledge-architect@gates-crate`, with `rejected@knowledge-architect@each-project-writes-its-runner` |
 
 **Draft**: none of its own. Its outcome is one sentence of G-B's draft.
 
@@ -3129,7 +3129,7 @@ is the rule it would have stated.
   binary". By `primer@design-heads`, an intent of the owner that states an outcome is a goal to
   draft, and a pick at a fork is recorded in the weak form: Q67a.
 - The exception has no argued reason either. Its rival is a `gates` command of `klarch`, and
-  `rejected@gates@gates-command-of-the-checker` states its consequence, "It would make `klarch` run
+  `rejected@knowledge-architect@gates-command-of-the-checker` states its consequence, "It would make `klarch` run
   cargo, the linter and the tests", and no reason why that is refused. The head that holds the
   exception records it as the owner's choice in the weak form, with the owner's doubt on the
   criterion, unless the owner gives the reason, Q66.
@@ -3503,7 +3503,7 @@ agree on your list for the refinements."
 | 8 | "Requires, for instance: a target project writes no code of its own to keep a gate's complete log or to distil its failure." | row 5b | existing head: `design@gates@distill-over-full-logs` |
 | 9 | "Admits, for instance: a project that keeps in its own code a behaviour of a gate command until its own move to a released version of knowledge-architect that ships it." | the copy rule | design issue: the same |
 | 10 | "Admits, for instance: a project that writes in its own code a behaviour knowledge-architect's owner has taken in, before a released version ships it." | the copy rule | design issue: the same |
-| 11 | "Rules out, for instance: a target project that writes its own runner for its gates." | the rival | existing head: `design@knowledge-architect@gates-crate`, with `rejected@gates@each-project-writes-its-runner` |
+| 11 | "Rules out, for instance: a target project that writes its own runner for its gates." | the rival | existing head: `design@knowledge-architect@gates-crate`, with `rejected@knowledge-architect@each-project-writes-its-runner` |
 | 12 | "Rules out, for instance: a project that keeps its own copy of a behaviour after its move to a released version that ships it." | the copy rule | design issue: the same |
 
 **Questions for the owner**
@@ -3514,7 +3514,7 @@ agree on your list for the refinements."
   reason, the independence takes a head of its own; without one, the issue offers "the sentence
   leaves the gate-list head for a comment at `project_root`".
 - Q75. As a goal, this text ruled out a project's own runner outright. As a head it is a
-  presumption, and `rejected@gates@each-project-writes-its-runner` is `live`, kept "because a doubt
+  presumption, and `rejected@knowledge-architect@each-project-writes-its-runner` is `live`, kept "because a doubt
   remains". What still rules a runner out is the ask of
   `goal@knowledge-architect@serves-one-kind-of-project` (other theme), if that theme keeps the ask
   in the goal. Does the owner want the ask to keep binding outright?
@@ -4473,7 +4473,7 @@ Short names used below: "workflow goal" = `goal@knowledge-architect@agents-get-a
 | `owner-attention-on-what-is-theirs` | 6b, 7 | "and puts a proposal before the owner with its grounding and its consequences already established"; "the agent takes the measurements a proposal rests on" | "the goal it merges into" | `goal@knowledge-architect@design-with-agents-as-counterparts`. Its draft changes "grounded in the project's record and in measurements" back to the goal's own words, "grounded in the record and backed by the measurements the agent takes" | the draft dropped who takes the measurements, so row 7 is not carried today |
 | `owner-attention-on-what-is-theirs` | 8 | "Admits, for instance: the owner reads the whole transcript" | "repeats the statement" of a goal that is gone | nowhere: no goal bounds what the owner reads, as the owner ruled | an Admits case binds nothing |
 | `goal@knowledge-architect@agents-work-without-drift` | 4, 7, 8 | "Where two goals compete, it ranks first"; "the owner's authority, exchange and attention" | "the ranking goal of Q1"; the list keeps the ranking inside the drift goal, and the attention goal is gone | the drift goal: its draft gains the two sentences of the ranking draft, without "the owner's attention". Owner's question 9 | the drift draft holds no ranking sentence today; Q2 says an item falls with its goal |
-| `setup-brings-quality-tools` | 1a, 7 | "A target project that adopts knowledge-architect is led to set up the quality tools"; "designs none of them itself" | merge into G-B, which the rulings make design | existing head `design@knowledge-architect@gates-crate`: "a project adopting the workflow gets gates refined over two projects instead of writing its own", with `rejected@gates@each-project-writes-its-runner`. G-B's draft loses "A target project that adopts knowledge-architect gets the tools that judge its quality among them, and has to design none of them itself." | the rulings' table: "design: four existing heads hold it" |
+| `setup-brings-quality-tools` | 1a, 7 | "A target project that adopts knowledge-architect is led to set up the quality tools"; "designs none of them itself" | merge into G-B, which the rulings make design | existing head `design@knowledge-architect@gates-crate`: "a project adopting the workflow gets gates refined over two projects instead of writing its own", with `rejected@knowledge-architect@each-project-writes-its-runner`. G-B's draft loses "A target project that adopts knowledge-architect gets the tools that judge its quality among them, and has to design none of them itself." | the rulings' table: "design: four existing heads hold it" |
 | `setup-brings-quality-tools` | 1b | "each is an ask" | the scope goal, whose own row 14a sends the sentence to a design issue | issue of kind design: the one of rows 12 to 18 of the scope goal | the holder's own analysis drops it |
 | `setup-brings-quality-tools` | 5, 6 | "Continuous integration is none of the three"; "The workflow's setup may offer a shape for it" | the workflow goal, whose rows 16 to 19 send the sentence to a new head | the new head the analysis proposes, `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`. Its rival is the installed text as `issue@agent-skills@installed-text-assumes-pull-requests-and-ci` lists it, which resolves | the holder's own analysis drops it |
 | scope goal | 15c | "and a shape of continuous integration or of pull requests becomes no ask" | the workflow goal, same case | the same new head | same |
@@ -4986,7 +4986,7 @@ None.
 **Q75 and Q76c, one question.** Today the scope goal asks two things of every target project about gates: it "runs every gate it owes, from one command, through a library that knowledge-architect publishes", and "that command judges whether the gates let a branch merge, with the same invocation in every target project". Do these two stay in the scope goal, where they bind outright, or do they become design heads, which an agent may reverse on a better argument and report?
 
 - Default I propose: design heads, as the theme of that goal proposes for every ask, with `goal@knowledge-architect@the-owner-decides` keeping "each addition, tightening or removal of an ask" as the owner's. Under it, a head states the runner ask on the owner's word, and the merge verdict stays in `issue@gates@the-library-has-no-merge-verdict` until it is argued.
-- If they stay in the goal: the draft of the scope goal gains a sentence on the asks; a project's own gate runner stays ruled out outright, which `rejected@gates@each-project-writes-its-runner`, still `live`, does not do alone; rows 4 and 5d of this theme have their holder.
+- If they stay in the goal: the draft of the scope goal gains a sentence on the asks; a project's own gate runner stays ruled out outright, which `rejected@knowledge-architect@each-project-writes-its-runner`, still `live`, does not do alone; rows 4 and 5d of this theme have their holder.
 - If they are design and the item of `goal@knowledge-architect@the-owner-decides` does not stay: an agent can drop the gates ask on an argument, and nothing but a presumption rules out a project's own runner.
 
 This is asked once, with Q78, Q78a, Q82 and Q82a of the theme "Whom the project serves" and Q49 of the theme "The owner and the agents". I did not triage those themes.

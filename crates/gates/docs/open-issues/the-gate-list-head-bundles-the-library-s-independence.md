@@ -43,7 +43,8 @@ marker's name from the caller. It states no reason why the crate as a whole depe
 the checker (`assumption`: the reason is that a published library should not carry one project's
 assumptions, but no record says so). The owner was asked for the reason during the first run of
 the design-record audit, and gave none. The rewrite of the root's goals, which read the gate-list
-head again, did not answer it either: the question was not put to the owner there.
+head again, did not answer it either: the question was put to the owner at the
+review before that work merged, and the owner gave no reason.
 
 **Suspected mechanism**: the sentence was written as a fact about the extracted crate, beside the
 decision it was extracted with, and was never argued on its own.

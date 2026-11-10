@@ -32,8 +32,8 @@ meets only the primer's condition. Found by the fidelity-of-relocation review of
 
 ### Why it matters
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` asks that each instruction be plain enough
-to follow without guessing. A session writing a test that pins a behaviour an open issue describes
+`design@agent-skills@no-two-installed-instructions-contradict` has each installed instruction
+say what it requires plainly enough to follow without guessing. A session writing a test that pins a behaviour an open issue describes
 can read either condition, and under one of them it writes no reference, so closing the issue does
 not reach the test, against the reason the head gives: "closing the entry dangles the comment, so
 the site is revisited".
