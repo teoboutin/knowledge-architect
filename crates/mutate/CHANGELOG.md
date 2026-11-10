@@ -48,17 +48,36 @@ an empty subsection is omitted.
 - `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since` and
   `seeds_from`, and `cli::run` refuses a value that sets any of them beside `verify`. A program that
   builds the struct by a literal adds them, empty or `None` for the run it made before.
-- `agent-skills`, patch: the goal standard, which goal-setting and the goal reviewer apply, asks a
-  goal to keep its meaning in the project emptied of its design and its code, so it names no part
-  that exists by a design choice; reads a goal in three layers, what it requires, admits and rules
-  out, where only ruling out what another goal requires is a contradiction; judges ambiguity, never
-  breadth; measures an outcome that depends on what the project does not control by what the project
-  builds to pursue it and to learn from its use, never by a list of the properties the outcome is
-  taken to consist of; and has a goals home cite only goals and registers of its own Component or of
-  one enclosing it. A goal's body carries "for instance" cases for each layer it has. A goals home's
-  head states its Component's purpose and the few definitions its goals share, and restates no rule
-  of goal-setting. A project's goals are brought to the standard by
-  `skill@knowledge-architect-goal-setting@whole-set-review`.
+- `agent-skills`, patch: a goal is a purpose of the project as a whole, a scope that bounds whom or
+  what the purposes serve and names the design it excludes, or a ranking between two purposes that
+  holds across decisions. Any other statement is design, a Component's purpose included: it is the
+  statement of the design head that argues the Component's existence, in the root's design home.
+  Every goal sits in the root's goals home, one file or a directory of files behind a `README.md`,
+  and no other Component and no location states one. The goal standard, which goal-setting and the
+  goal reviewer apply, asks a goal to keep its meaning in the project emptied of its design and its
+  code, so it names no part that exists by a design choice, a Component included; to state one
+  direction, a question of when, how much or by what means being left to a design head; to rule out
+  nothing the owner has not ruled out knowingly, only ruling out what another goal requires being a
+  contradiction; to state no measure, what would show it met and how the project pursues it being
+  design; and to refine no other goal, a statement grounded on another goal being a design head that
+  cites it. A goal's body holds no list of cases, and an example only where the statement alone
+  would be read in the wrong direction. A goals home cites only goals and registers of its own
+  Component or of one enclosing it. The head of the root's goals home states what the project is
+  for as a whole and the few definitions its goals share, and restates no rule of goal-setting. A
+  project brings its goals to the standard by
+  `skill@knowledge-architect-goal-setting@whole-set-review`: each goal of a Component moved to the
+  root's goals home or recorded as a design head, the two goals the setup skill proposed for a
+  maintenance tool among them; each measure, "It is met while", and each line stating that a goal
+  refines another, removed; each Component's goals home left with no entry; each Component's
+  purpose recorded as the statement of the head that argues its existence; and each reference to a
+  goal that moved or left re-pointed.
+- `agent-skills`, patch: a design head that derives a constraint from a goal states that constraint
+  in one sentence beside its reference to the goal, and an intent of the owner cited as a head's
+  ground is a goal to draft only where it states a purpose of the project, a scope that bounds one
+  or a ranking between two, and is otherwise an argument or a choice at a fork. Run the
+  design-record axis of the project audit,
+  `skill@knowledge-architect-project-audit@design-record-axis`, after the review of the whole goal set, which changes the goals the heads cite: it brings each
+  head that cites a goal or the owner's intent to these rules in the branch.
 - `agent-skills`, patch: knowledge-architect asks every Rust target project to carry the maintenance
   crate, whose commands run as `cargo x <command>`, and the setup skill no longer offers a Rust
   project a local install of the checker. A Rust project that runs the checker from a local install
@@ -127,7 +146,10 @@ an empty subsection is omitted.
 ### Workflow
 
 - `agent-skills`, patch: the goal reviewer grades each finding `blocks`, `asks` or `minor` beside its
-  route, and puts a goal's reach to the owner instead of proposing a narrower wording; goal-setting's
+  route, and puts a goal's reach to the owner instead of proposing a narrower wording; it reports as
+  `blocks` a goal that is no purpose, scope or ranking, a goal outside the root's goals home and a
+  measure, and as `asks` a statement that a goal refines another and a clause that closes a question
+  of when, how much or by what means; goal-setting's
   reviews in rounds, a draft batch and the whole goal set alike, stop when a round leaves no `blocks`
   finding on wording the previous round read, or put the stop to the owner when that count does not
   fall, or from the second round where every such finding is a contradiction; a goal the owner
@@ -148,7 +170,9 @@ an empty subsection is omitted.
   intermediate Component, which holds the design that the Components nested under it share and no
   Rust code of its own, the signals against a split, the mapping of every Component that holds Rust
   code to one crate, the shapes, among them a top-level binary crate and a shared test Component of
-  integrated tests, the naming, and the procedure of a creation or a split. The design and
+  integrated tests, the naming, and the procedure of a creation or a split, which records the new
+  Component's purpose as the statement of the design head that argues its existence, in the root's
+  design home, and writes no goal for it. The design and
   development skills send a session to it where work belongs to no Component or a Component gains a
   second reason to change, and the setup skill points to it for
   the criteria and the naming. A project with a skill of its own for this activity reads it against
@@ -156,11 +180,9 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the decision-recording skill sends a principle on how the code of several
   Components is written to the lowest intermediate Component enclosing them all, or to the root where
   none does, and a principle stated for a kind of Component, or a decision on their shape, packaging
-  or layout, to the root; an intermediate
-  Component groups Components that serve a purpose of their own, which its goals home states and
-  their goals refine, as the goal-setting skill now says; and a
-  reversal's successor to the Component its rule on the owning Component gives it, the incumbent
-  leaving its own home in the same change, where the successor stayed in the incumbent's Component.
+  or layout, to the root; and a reversal's successor to the Component its rule on the owning
+  Component gives it, the incumbent leaving its own home in the same change, where the successor
+  stayed in the incumbent's Component.
   The primer states that a Component is bound by the design of the root and of every intermediate
   Component enclosing it, so a reading of its design home includes theirs.
 - `agent-skills`, patch: the design skill's search of the record runs once a discussion's shapes
@@ -199,20 +221,42 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the retrospective asks whether a rule about code or tests, or about
   splitting the project into Components, proved too hard or too strict, or was followed against the
   work's interest.
-- `agent-skills`, patch: the goal reviewer tags `intent`, instead of `minor`, a finding that a goal
-  judged only in use is measured by a list of the properties of its outcome, so the owner is asked
-  whether the cases that list rules out are meant.
 - `agent-skills`, patch: the standing-state reviewer and the tripwire auditor run no `git fetch`:
   where a horizon names release tags that the repository does not hold, they list the remote's with
   `git ls-remote --tags <remote>`, `<remote>` the remote the main branch is fetched from, and report
   the horizon as not counted, naming `git fetch --tags` for the dispatcher to run in its own
   checkout, as they already did for a shallow clone with `git fetch --unshallow`.
-- `agent-skills`, patch: the primer's table of what the owner brings tells an intent to draft as a
-  goal from an argument by two checks: the statement gives an outcome the project is to reach, not
-  a reason for one shape over its rival, and no goal or recorded decision already serves it against
-  every rival it is cited to defeat. A session therefore drafts a goal for a ruling that a head
-  cites against a rival no other record defeats, and keeps the owner's reason for a shape as an
-  argument in the head.
+- `agent-skills`, patch: the primer's table of what the owner brings drafts an intent as a goal only
+  where it states a purpose of the project, a scope that bounds one or a ranking between two, as
+  `skill@knowledge-architect-goal-setting@goal-or-not` tests them, and no goal or recorded decision
+  already serves it against every rival it is cited to defeat; any other intent of the owner is an
+  argument or a choice at a fork. A pick of the owner at a fork is first asked whether it shows a
+  ranking between two purposes that holds across decisions, which is then a goal to draft, where it
+  was asked whether a missing goal ranks the shapes. A session therefore keeps the owner's reason
+  for a shape as an argument in the head, and the project audit puts an intent cited as a head's
+  ground on the owner list as a goal to draft only where it is of those three kinds.
+- `agent-skills`, patch: a design head that derives a constraint from a goal states that constraint
+  in one sentence beside its reference to the goal, as the primer, the decision-recording and design
+  skills, the decision-record reviewer and the design-record auditor now say.
+- `agent-skills`, patch: a line of a turn's "Decided" section for a decision that turns on a reading
+  of a goal, an implementation choice included, names the goal, the reading taken and the rival
+  that reading defeats. A decision turns on a reading where the rival would stand under another
+  reading the goal's words admit; where no argument ranks two readings that move the work in
+  different directions, nothing is decided and the question goes to the owner, per
+  `primer@decided-section`.
+- `agent-skills`, patch: goal-setting drafts the goals of the project, in the root's goals home,
+  and no longer a Component's: its occasion "a Component has no goal" is gone, and the setup skill
+  asks for the project's goals, no longer for one goal per Component, and has each Component's
+  purpose recorded as step 3 of `skill@knowledge-architect-component-creation@creation-procedure`
+  says. Goal-setting's first step asks the owner what the project is for and for whom, what it is
+  not for, and which comes first where two purposes compete, where it asked what would show that it
+  fails. A
+  goal also leaves its home when the owner rules that it is no purpose, scope or ranking. The design
+  skill's grounding reads the root's goals home alone.
+- `agent-skills`, patch: the setup skill proposes to the owner two shapes for a maintenance tool,
+  the one command whose verdict decides whether a branch may merge, and a command of the tool for
+  each repeated local mechanical task, which a project that adopts one records as a design head,
+  where it proposed them as two goals of the tool.
 - `agent-skills`, patch: before a design head is written, or judged to hold one decision, each of
   its statements is given its nearest rival, so a writer or a reviewer finds every decision a head
   bundles in one reading.
