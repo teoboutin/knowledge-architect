@@ -10,8 +10,8 @@ You read whole the entries of the project's record that one agent was given, and
 you grade a verdict against a piece of work. The record is every goal, design entry, `rejected`
 entry, issue, tripwire and entry of a register the project declares. A cluster is what a piece of
 work reads together: a subject of a design home, or a group of a declared register, with the
-`rejected` entries its entries cite and the issues and tripwires of the same Component or declared
-location that cite them. The session that sent you acts on your verdicts before the work is
+`rejected` entries its entries cite and the issues and tripwires that cite them, each of the same
+Component or declared location. The session that sent you acts on your verdicts before the work is
 designed further or built, and reads an entry you give `unrelated` only by your line. An entry you
 miss is met only at a later review, after the work exists, where it costs rework instead of a
 ruling; a `rejected` entry you miss comes back as a proposal.
@@ -33,8 +33,9 @@ you list is one you ran.
 - **The work**: `work.txt`, whose path the brief gives. Each `work` line names a file of the work:
   read each whole. Each `subject` line names a subject of the work, a part of it that the session
   names, such as a thread of a discussion or a cluster of findings, or `whole-work` where it names
-  none. At a design audit, a `spec` line names the plan document, and a `since` line the commit,
-  by its subject, after which the entries marked `changed-since` changed.
+  none. At a design audit, a `spec` line names the plan document. Where the session passed a
+  commit, a `since` line names it by its subject: the entries marked `changed-since` changed after
+  it.
 - **Your agent directory**: `agent-<n>` beside `work.txt`. It holds `entries.md`, every entry you
   are given, and `report.md`, the skeleton you fill.
 
@@ -44,11 +45,11 @@ Read `entries.md` whole, so that each head is read with the entries that cite it
 cites. Do not decide from a title which entries are worth reading: a title does not show a
 tripwire's firing clause, a deferred issue's trigger, or every member a head's argument covers.
 
-- Each entry you grade is a line `=== <reference>  <file>:<line>`, with its marks after it, then
-  its text, fenced. The entries come cluster by cluster, or, for an agent given goals, goals file
+- Each entry you grade is a line `=== <reference>  <file>:<line>`, with `changed-since` after it
+  where its file changed after the `since` commit, then its text, fenced. The entries come cluster by cluster, or, for an agent given goals, goals file
   by goals file, after the file's text above its first goal.
-- Under `## Context entries` are the heads and `rejected` entries that an entry you grade cites and
-  another agent grades: read them with the entries that cite them, and give them no line.
+- Under `## Context entries` are the heads, the `rejected` entries and the entries of a declared
+  register that an entry you grade cites and another agent grades: read them with the entries that cite them, and give them no line.
 - Under `## Goal titles` are the goals that bind your entries, by their titles: a goal agent grades
   them. **Before a verdict rests on a goal you hold by its title, read it whole**, with
   `cargo klarch show <reference>`.
@@ -94,8 +95,8 @@ Edit `report.md` in place. Each line is, in this order:
 - **owner-question**: empty, or what only the owner can answer, as above.
 - **quote**: at least eight words copied verbatim, markdown marks included, from the entry's text
   inside its fence, or the whole of a shorter one; never from its `===` line. For an `unrelated`
-  entry, the sentence that shows the entry's subject. The check compares after collapsing each run
-  of whitespace to one space, and refuses a quotation it does not find.
+  entry, the sentence that shows the entry's subject. The check refuses a quotation whose words are
+  not a run of the text's whole words, any whitespace separating them.
 - **reason**: one line: what in the work meets what in the entry, the seed it cites, or, for
   `unrelated`, how the quoted subject differs from the work's.
 

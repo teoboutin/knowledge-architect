@@ -606,12 +606,12 @@ choices whose option space genuinely is closed and consequence-free.
    decisions read so far that the problem and the shapes rest on or may
    change, never a goal: a goal is graded by a goal agent and reaches
    the cluster agents by its title, and an entry citing a seed is never
-   `unrelated`, so a goal seed puts every entry citing it in the
-   verdict files.
-   Read the verdict files it writes, or hand them to agents you
-   dispatch, at your judgement, and act on each verdict, checked as you
-   check your own claims; `cargo klarch show <kind>@<anchor>@<id>` reads
-   any other entry the question bears on. By its action:
+   `unrelated`, so a goal seed puts every entry citing it in
+   `generated-lines.md`, and into the outcomes the round after the
+   search states.
+   `cargo klarch show <kind>@<anchor>@<id>` reads any other entry the
+   question bears on. Act on the verdict files the search writes as
+   that description says, each verdict by its action:
 
    - `respect`: the shapes keep within the quoted sentence;
    - `check-reversal`: `skill@knowledge-architect-decision-recording@reversal-check`,
@@ -625,15 +625,13 @@ choices whose option space genuinely is closed and consequence-free.
    - `rule-before-work`: ruled before the work is designed further or
      built: a firing by
      `skill@knowledge-architect-issue-tracking@movement-instruction`, and
-     a dependency, a trigger or a re-entry point in this discussion;
-   - an `owner-question`: put to the owner, as `primer@question-authority` says.
+     a dependency, a trigger or a re-entry point in this discussion.
 
    The findings revise the draft; the premortem and the convergence
    follow. The round after the search states the outcome of each
    verdict other than `unrelated`: the answer the discussion gives,
    that the design respects it, or that it stays open. On the full
-   path, the plan document records them, assembled from the transcript,
-   never from the draft. When a thread opens, after the search, on a
+   path, the plan document records them. When a thread opens, after the search, on a
    subject its work did not cover, run a search of its own, with the
    draft extended by that thread as the work and the thread as its
    subject: the search judged the record against the draft it was given. Where the record is silent, read the code and its history; where it is empty, state that the record starts with this

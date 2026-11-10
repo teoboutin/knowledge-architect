@@ -72,10 +72,10 @@ A finding is cited by its id and its file's stem, in the form
 %% `design@query@cluster-rooted-at-a-subject`, and its verdicts at an intake
 %% `design@agent-skills@search-relevance-grade`.
 
-   Read the verdict files the search's check writes, one per subject, or hand them to the agents of
-   `skill@knowledge-architect-retrospective-intake@intake-subagents`, at your judgement, and act on
-   each verdict, checked as you check your own claims; read with `{{command}} show <ref>` every
-   other entry a proposal rests on or would change. The search finds what a grep per finding
+   Act on the verdict files the search's check writes, one per subject, as that description says,
+   the agents you hand them to being those of
+   `skill@knowledge-architect-retrospective-intake@intake-subagents`; read with
+   `{{command}} show <ref>` every other entry a proposal rests on or would change. The search finds what a grep per finding
    does not: a finding already recorded, a deferred issue whose trigger the file meets, a tripwire
    whose firing evidence the file carries, a design issue whose re-entry it meets, and a head or a
    goal a proposed fix would contradict or strain.

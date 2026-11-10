@@ -57,9 +57,8 @@ Write the draft the search reads, as loop step 1 of `skill@knowledge-architect-d
 asks, in your scratch space, with the sections of a spec that carry the design: what the work is,
 what is already decided, the threads as they stand, the decided design as proposed, and the losing
 alternatives. It is held to fewer constraints than a plan document, since the checker reads no
-scratch file. The findings of the search
-revise it, and a thread that opens after the search extends it for its own search. It is never read
-as the discussion's state, and never the source of the plan document.
+scratch file. The search's findings revise it, and a later thread extends it, as that loop step
+says. It is never read as the discussion's state, and never the source of the plan document.
 
 **The plan document: in the session where the discussion converged, before that session ends.** The discussion's
 ledger, every thread with its state and its argument, lives in that conversation and in the
@@ -453,7 +452,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    `--subject spec-audit` and `--since` the commit that last changed it. `--seeds-from` takes as
    seeds the design entries and the declared-register entries the spec's section "What is already
    decided" cites, and `--since` marks `changed-since` each entry whose file changed after that
-   commit. The search's check writes `gaps.md`, each verdict other than `constrains` and
+   commit. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
    `unrelated`, with its entry's text: read it, and sort each verdict into the sorts below as a gap;
    a `constrains` verdict is a fit. The audit's record is `fit-lines.md`, whole, the line of each
    entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the

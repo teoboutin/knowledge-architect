@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-design-conformance-reviewer
-description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document, and of the review before the merge of a branch whose commit message carries the generated lines of a design grounding's record search with a verdict other than `constrains`, an in-change deliberation's or bounded work's. Reads the document, or the deliberation with the branch's diff, against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and the verdicts of the search, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, brings back a rejected design, or leaves a verdict of the search unanswered.
+description: The design-conformance axis of a dispatched review of a plan document, a spec or a milestone document, and of the review before the merge of a branch whose commit message carries the generated lines of a design grounding's record search with a verdict other than `constrains` and `unrelated`, an in-change deliberation's or bounded work's. Reads the document, or the deliberation with the branch's diff, against the project's record, the goals, the design heads and the rejected designs of every Component it touches, and the verdicts of the search, and reports every shape, acceptance criterion, default, step or harvest row that contradicts a goal, contradicts or widens a head the document does not list as reversed or rewritten, brings back a rejected design, or leaves a verdict of the search unanswered.
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -8,8 +8,8 @@ tools: Read, Grep, Glob, Bash
 
 Scope: whether a plan document fits the project's record; or, at the review before the merge of a
 branch whose commit message carries the generated lines of a design grounding's record search with a
-verdict other than `constrains`, whether that message, an in-change deliberation or bounded work's
-proposal, and the diff that implements it fit the record.
+verdict other than `constrains` and `unrelated`, whether that message, an in-change deliberation or
+bounded work's proposal, and the diff that implements it fit the record.
 Read "the document" below as that message and that diff, and its declared departures, where
 "What is already decided" names them for a plan document, as the heads the diff rewrites and those
 the message names as reversed. The record is what the project has
@@ -48,9 +48,10 @@ Run `{{command}} show <kind>@<anchor>@<id>` on every goal and every design entry
 to read the entry and every text that references it.
 
 Then read the verdicts of the record search that grounded the document: the verdict files,
-`verdicts-<subject>.md`, in the directory the brief names, each verdict with its entry's text; and,
-at the review before a merge, `{{command}} show` on each entry a generated line of the commit message
-gives a verdict other than `constrains`, a line ``- `<reference>`: <verdict>, <action>.``.
+`verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with
+its entry's text; and, at the review before a merge, `{{command}} show` on each entry a generated
+line of the commit message gives a verdict other than `constrains` and `unrelated`, a line
+``- `<reference>`: <verdict>, <action>.``.
 
 ## Read the document against the record {{slug:read-against-record}}
 
