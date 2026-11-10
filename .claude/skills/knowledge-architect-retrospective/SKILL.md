@@ -123,8 +123,9 @@ finding adds a rule, and added rules interact at the next pass. A cause is one o
 
 - **two homes for one moment**: instructions about one moment or one kind of act stated in more
   than one text;
-- **a structure the work did not need**: a fixed sequence, count or mapping that another
-  instruction needs to vary;
+- **a structure the work did not need**: a fixed sequence, count or mapping, imposed on what an
+  agent decides by its judgement, that the work can be carried out as intended without and that
+  another instruction needs to vary;
 - **a restatement that drifted from its home**;
 - **a rule written for one interaction**: a narrow rule where judgement already decides.
 

@@ -45,7 +45,8 @@ reads the goal alone; the owner proposed that example lines per layer written in
 carry the reading the owner ruled on better. A case shows a reading and binds nothing, since a case
 taken as the measure narrows the outcome to what was foreseen, the defect
 `design@agent-skills@goal-met-in-tree-or-in-use` names. Their count is one or more for each layer the
-goal has, not one per layer, since `goal@agent-skills@only-needed-instructions` refuses a fixed count
+goal has, not one per layer, since `goal@agent-skills@only-needed-instructions` refuses a fixed count,
+on what an agent decides by its judgement, that the work can be carried out as intended without and
 that another instruction needs to vary, and a goal that rules nothing out has no case to show there.
 The rival, the goal written bare with its reading left in the review's record, loses that reading
 when the record leaves.

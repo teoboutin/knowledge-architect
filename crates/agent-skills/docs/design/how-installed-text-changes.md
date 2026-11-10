@@ -126,7 +126,7 @@ are. When both readings fit, the capability form is written: a tool and the judg
 not a script for one interaction.
 
 A structure an instruction imposes on the work has the same cost as a rule added for one gap: a
-fixed sequence, count or mapping between a unit of the work and a unit of its record meets another
+fixed sequence, count or mapping between a unit of the work and a unit of what the work produces meets another
 instruction that needs that unit to vary, and the session is left with two instructions it cannot
 both obey, and less room to work on its own. So the installed text imposes no structure the work
 does not need, per `goal@agent-skills@only-needed-instructions`, which gives this
