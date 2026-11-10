@@ -25,7 +25,7 @@ taken in include these, and the list grows:
 - the retrospective;
 - the intake of a retrospective's findings.
 
-## The workflow states what an agent needs to carry out its activities, and leaves every other case to the agent's judgement `##only-needed-instructions`
+## The workflow states what an agent needs to carry out the activities it covers, and leaves every other case to the agent's judgement `##only-needed-instructions`
 
 The workflow does not try to cover every case. The situations an agent may meet under it have no
 limit, and the agent's judgement is meant to handle those the workflow does not cover. A case that
@@ -60,6 +60,6 @@ change that is argued to lead to a better result in what a target project implem
 ## The main session orchestrates agents that carry the work, and keeps its focus on the design and the decisions `##session-orchestrates-the-work`
 
 The main session is the session that the person supervising the work exchanges with. It
-orchestrates agents it dispatches to carry the work, so that it can focus on deciding the design
-with that person, and on reporting each decision taken. This goal does not say when a dispatch
+orchestrates agents it dispatches to carry the work, and acts on what comes back, so that it can
+focus on deciding the design with that person, and on reporting each decision taken. This goal does not say when a dispatch
 happens, nor for which kind or size of work.

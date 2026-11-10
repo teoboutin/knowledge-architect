@@ -8,8 +8,9 @@ knowledge-architect is built for its owner's own projects, open source or privat
 of agent instructions and tools serves all of them, and work on one makes the others more
 efficient. Ownership is no condition. A target project is a project that holds all of these:
 
-- the code it builds and ships is Rust, built by Cargo, apart from the glue its targets need. Files
-  the workflow installs, the configuration of a continuous integration and scripts kept beside the
+- the code it builds and ships is Rust, built by Cargo, apart from the code in another language
+  that a platform it is built for requires. Files
+  knowledge-architect installs, the configuration of a continuous integration and scripts kept beside the
   code are no code it ships;
 - AI agents drive its development: its code, its documents, its entries and its reviews. An edit
   that a person makes now and then leaves it a target project;
@@ -35,7 +36,8 @@ The kind is these conditions, not the projects that exist today: that a current 
 not need a thing, or does otherwise, is no reason to narrow the conditions, or to limit or remove
 what knowledge-architect covers. That argument still counts for the economy of the workflow's text,
 for whether an instruction enters it, for the choice of knowledge-architect's owner to take in the
-generic part of a tool or a procedure, and for the order of known work.
+generic part of a tool or a procedure, and for the order of known work, which is
+knowledge-architect's owner's.
 
 ## Every target project can adopt knowledge-architect, and a new one is served first `##every-target-project-can-adopt-it`
 

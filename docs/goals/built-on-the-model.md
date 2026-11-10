@@ -18,18 +18,18 @@ checker, not by a reviewer remembering the rules.
 ## A target project adds checks of its own, which run with the checker's `##projects-add-their-own-checks`
 
 A target project whose conventions the checker's own rules do not cover adds checks of its own, to
-guard its own design intent. It adds them with what knowledge-architect publishes, and with no
+guard its own design intent. It adds them with what knowledge-architect provides, and with no
 change to knowledge-architect. They run and report with the checker's own.
 
 ## A target project's documents render as one linked site `##documents-render-as-a-linked-site`
 
-The documents of every target project render as one site, in which each reference is a link to
-what it names, so a reader follows a reference by a link. A project can host that site with what it
+The documents of each target project render as one site of that project, in which each reference
+is a link to what it names, so a reader follows a reference by a link. A project can host that site with what it
 releases.
 
-## A task of the workflow that a tool does at a lower cost, or with a better result, is done by a tool knowledge-architect provides, once its owner has taken the task in `##tasks-a-tool-does-better-are-the-tool-s`
+## A task that a tool does at a lower cost, or with a better result, is done by a tool knowledge-architect provides, once knowledge-architect's owner has taken the task in `##tasks-a-tool-does-better-are-the-tool-s`
 
-The workflow asks tasks of the agents of a target project. Where a tool does such a task at a lower
+The agents of a target project carry out tasks, those the workflow asks among them. Where a tool does such a task at a lower
 cost to the agent than the agent's own means, or reaches a better result, and knowledge-architect's
 owner has taken the task in, knowledge-architect provides a tool that does it. So each session gets
 the same result, and none builds its own means again.
