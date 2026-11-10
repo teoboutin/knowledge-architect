@@ -27,8 +27,8 @@ form.
 
 ## Questions open
 
-Round 3 met the stop with no `blocks` finding. Its findings are put to the owner with the goals,
-for the ruling of the batch; the owner answered the questions of rounds 1 and 2.
+One: the owner's ruling on the 21 goals and the head as a batch, as the tree holds them. The
+rounds are stopped on the owner's word.
 
 ## Rounds
 
@@ -3812,6 +3812,18 @@ What the session wrote in the goals:
   an ask widely are rewritten with the rest of the record.
 
 The owner did not rule the goals as a batch in this answer.
+
+#### The owner stops the rounds
+
+The session asked whether a fourth round reads the three edits written after round 3, on the head
+and on two goals, or whether the rounds stop on the owner's word, and told the owner that in the
+second case those edits are unreviewed until the goals axis of the review before the merge reads
+them. It recommended the stop. The owner:
+
+> and I think we can stop the rounds there, after these edits
+
+So no fourth round runs. The edits on the form of a reference, on the definition of a tool and on
+"keeps one home" are read by the goals axis of the review before the merge.
 
 #### Round 3, the reviewer of: The documentation model
 
