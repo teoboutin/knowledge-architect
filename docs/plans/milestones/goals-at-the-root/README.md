@@ -150,7 +150,7 @@ design audit of the slice named runs it, since the list changes with every commi
 
 | entry | what changes | slice |
 | --- | --- | --- |
-| `design@agent-skills@a-head-is-owed-by-an-entry-test` | rewritten: an owner's intent is a goal only as a purpose, a scope or a ranking; any other enters design as a fact or a weighing of cost | 1 |
+| `design@agent-skills@a-head-is-owed-by-an-entry-test` | rewritten: an owner's intent is a goal only as a purpose, a scope or a ranking; any other enters design as an argument, a fact or a weighing of cost | 1 |
 | `design@agent-skills@audit-outcomes` | rewritten: its outcome "an intent of the owner cited as a ground, drafted as a goal" narrows to the three kinds; its quotation of the complete-workflow goal is corrected | 1 |
 | `design@agent-skills@capabilities-not-structure` | rewritten: its second paragraph takes a goal's weight from a refining goal the review judges again | 1 |
 | `design@agent-skills@code-shape-axis` | rewritten: its ground is a line of a measure, which leaves; the head keeps the goal as its ground, and states itself the constraint that line carried, argued in the analysis | 1 |
@@ -1092,7 +1092,9 @@ One item per argument of the discussion, in order of appearance, from the sessio
 title is the argument's first words, cut where marked. "Bears on" names threads of this document.
 The key words are verbatim, with two changes the checker requires: a slug or a path the speaker
 wrote bare is written as its reference, and a reference in a title keeps its backticks. The same
-holds for the owner's words quoted under Threads. A Note is the assembly's, not the speaker's. A
+holds for the owner's words quoted under Threads. An empty quote line between two quote lines marks sentences of the speaker left out; a
+later quote line marked as restored was added by the transcript review of this document. A Note is
+the assembly's, not the speaker's. A
 table an argument announces and does not hold is under "Decided design" or "Mapping tables".
 
 ### Overall, I think that goals should be about outcomes of the project as a whole, and that this is currently (cut) `##arg-1`
@@ -1308,6 +1310,10 @@ Round 2, by the owner. Bears on `thread@goals-at-the-root@a-goal-is-a-purpose-th
 > So goals are supposed to steer the project, its design and the work, toward something that provides a given service or result, with the detailed features and their API shapes left to discussion, often to maximize ergonomics, and sometimes with specific constraints on more precise outcomes. They are not supposed to be about overruling on individual decisions. In practice, the only point where it makes sense to rule on a decision is by how costs are weighted.
 >
 > If I judge a cost too large, i can overrule a decision without needing a goal.
+>
+> Restored: However, personally (and I believe anyone should probably follow this principle, at least I think we can ask that of target projects), when I develop a project (under knowledge-architect or not), I want to take the solution that under argumentation, will fulfill our goals the best, under acceptable costs.
+>
+> Restored: This is the part where the owner word should enter design (along with a few mores such as facts), and I think this part is already well handled by design, which asks me about facts and cost weightings.
 
 **Note**: The owner's principle on where the owner's word enters.
 
@@ -1342,6 +1348,8 @@ Round 2, by the owner. Bears on `thread@goals-at-the-root@a-goal-is-what-argumen
 > More than that, I think that a goal is what drives the project itself to exist. If I remove all goals, then nothing in the project would even need to exist to fulfill them.
 >
 > There is no argument that defend the existence of these goals, because they are just the purpose of the project, and nothing else.
+>
+> Restored: If I add the goal that we ship a documentation model and checker that allow declaring various types of entries and citing them, we have most of the current shape. Then I add that these model and checker are supposed to serve a project keeping design documentation up to date with code, in a project developed by LLM agents, and we have the current shape that appears, with the current enforced categories of entries, such as goals, design, rejected...
 
 **Note**: The owner's two worked examples of adding a goal are in the same paragraph.
 
@@ -1522,6 +1530,8 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@a-removed-goal-is-ha
 > The orchestration measure "the retrospective asks whether the main session spent its context on work an agent could have carried" is the first row: the retrospective skill already holds the question.
 
 **Note**: Answers `argument@goals-at-the-root@arg-49`. The table of four destinations is under "Decided design" or "Mapping tables".
+
+**Note**: A searcher of the first search found the example false: the retrospective skill holds no question on a main session spending its context, so that measure sentence takes another row than the first.
 
 ### The cost to name: a head made from goal words was never argued against a rival. I propose it says so in its (cut) `##arg-54`
 
@@ -2116,8 +2126,9 @@ it; the checker's change breaks every reference to a Component goal.
 | scope | it bounds whom or what the purposes serve, and names the design it excludes |
 | ranking | two purposes compete, and it says which comes first, across decisions |
 
-Anything else is design. The owner's word enters design through a fact the owner holds and the
-weighing of a cost at a fork, not through a goal on one decision. A goal of the three kinds stays
+Anything else is design. The owner's word enters design through the weighing of a cost at a fork
+and through facts the owner holds, among a few more such that the owner did not list, not through
+a goal on one decision. A goal of the three kinds stays
 a way for the owner to change a decision, as `goal@knowledge-architect@the-owner-decides` says. A
 kind of interface, such as a command line, is a goal only where it passes the purpose test. The
 purpose test admits a purpose that nothing built serves yet, a new goal being expected to be unmet,
@@ -2238,8 +2249,8 @@ over the whole set, the owner answering between rounds.
 
 Slice 1 is one branch: the new standard reaches the main branch with the goals it was applied to,
 since the rewrite of this repository's goals is the only test the standard gets. The owner keeps
-one branch against its weight on a fact the owner holds: no other work starts on the main branch
-while it is open, and several sessions may carry it. The checker's change is slice 2, since every
+one branch against its weight on what the owner reported: the owner has no plan to start other
+work on the main branch while it is open, and several sessions may carry it. The checker's change is slice 2, since every
 commit of a branch passes the checker at its tip. The two slices ship in one version: no release is
 made between them, and the changelog's Migration entry is written once, for both.
 
@@ -2328,7 +2339,7 @@ None: the work reads no external specification.
 | --- | --- | --- |
 | thin goals stop steering: merged work moves against a goal and no procedure reports it | `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`, `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | named as a cause for the harvest of slice 1 to judge as a tripwire; it is the cause of the parked thread |
 | the root's goals home ends larger than the 13 homes are today | `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@goals-home-at-the-root-only` | becomes `acceptance@goals-at-the-root@the-goals-home-is-not-larger` |
-| the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch: no other work starts on main meanwhile, and several sessions may carry it |
+| the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch, having no plan to start other work on main meanwhile, and several sessions may carry it |
 | with measures gone, a review removes an installed instruction that a measure protected, `goal@agent-skills@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
 | two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | converted into the comparison by the decision-record axis, if D3 keeps it; otherwise the issue D3 opens holds it |
 | the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1 of the tripwire standard, the decision-record axis judging each head's argument |
@@ -2402,7 +2413,7 @@ form the shipped text writes for the root's goals home, which slice 2's spec sta
 | the losing alternatives above, and the three heads the work reverses, `design@agent-skills@goals-required`, `design@agent-skills@goal-met-in-tree-or-in-use` and `design@agent-skills@goal-carries-reading-examples`, each as `skill@knowledge-architect-decision-recording@reversal-check` asks | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
 | every cause of the premortem, each listed with its outcome and, where dropped, the condition it fails | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at slice 1's landing; the cause on a consumer's pin at slice 2's |
 | `acceptance@goals-at-the-root@the-goals-home-is-not-larger` | reported as `skill@knowledge-architect-planning@acceptance-criteria` says | at slice 1's landing, and when this document leaves |
-| this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 and D2 | after slice 2 |
+| this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 to D4 | after slice 2 |
 
 ## Later consequences
 
