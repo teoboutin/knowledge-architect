@@ -94,6 +94,22 @@ fn with_history(project: &Path, origin_at: &str) {
     git(&["update-ref", "refs/remotes/origin/main", &target]);
 }
 
+// The claim, per `design@gates@verdict-from-exit-codes`: outside a project the gates never start,
+// and the run exits 2, not the 1 of a failed gate. Mutation check: `ExitCode::from(2)` in xtask's
+// `abort` made `ExitCode::FAILURE` fails it.
+#[test]
+fn outside_a_project_the_gates_exit_two() {
+    let project = fake_project("outside");
+    std::fs::remove_file(project.join("knowledge-architect.toml")).expect("the marker removed");
+    let output = xtask_in(&project, "")
+        .output()
+        .expect("the built xtask binary runs");
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert_eq!(output.status.code(), Some(2), "{stderr}");
+    assert!(stderr.contains("not inside the project"), "{stderr}");
+    let _ = std::fs::remove_dir_all(&project);
+}
+
 // The claim behind `design@gates@gates-refuse-a-pipe`: a pipe on stdout is
 // refused before any gate runs, because the pipe's reader would replace the exit code the run
 // exists to deliver. A harness capturing through a pipe is exactly that shape, so this is the
@@ -108,8 +124,9 @@ fn a_piped_stdout_is_refused_before_any_gate_runs() {
         .expect("the built xtask binary runs");
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(
-        !output.status.success() && stderr.contains("does not write its report into a pipe"),
-        "the pipe must be refused, with the reason: {status:?} {stderr}",
+        output.status.code() == Some(2) && stderr.contains("does not write its report into a pipe"),
+        "the pipe must be refused as a run that could not start, exit 2, with the reason: \
+         {status:?} {stderr}",
         status = output.status
     );
     assert!(

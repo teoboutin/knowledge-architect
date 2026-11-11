@@ -517,9 +517,12 @@ fn ancestry_hint(base: &str) -> String {
     }
 }
 
+/// A run that could not start: a refusal before any gate ran. It exits 2, as a parse failure clap
+/// refuses already does, so a caller tells "the gates never ran" from "a gate failed", per
+/// `design@gates@verdict-from-exit-codes`.
 fn abort(message: &str) -> ExitCode {
     complain(&format!("gates: {message}"));
-    ExitCode::FAILURE
+    ExitCode::from(2)
 }
 
 /// Whether stdout is a FIFO: a shell pipe, or a harness capturing through one. A terminal, a

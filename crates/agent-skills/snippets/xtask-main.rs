@@ -37,7 +37,7 @@ fn main() -> ExitCode {
             let cwd = std::env::current_dir().expect("a working directory");
             let Some(root) = project_root(&cwd, knowledge_architect::MANIFEST_NAME) else {
                 eprintln!("xtask: not inside the project");
-                return ExitCode::FAILURE;
+                return ExitCode::from(2);
             };
             let checker = Checker {
                 package: "xtask",
