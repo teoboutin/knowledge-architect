@@ -92,3 +92,11 @@ and it leaves a project no binary of its own for its other repeated tasks.
 `live`. Each project would keep the runner's logic and its tests, `path@gates@src/`, and refine it
 alone. It is kept because a doubt remains: the library's interface may still carry assumptions of
 the two projects it came from, and a project it does not fit falls back to writing its own.
+
+### The changelog read by every check, each finding in a released section ruled by the owner case by case `##changelog-read-by-every-check`
+
+`live`. Every span of the changelog that names an entry is checked, so a renamed or deleted entry
+in the `Next release` section is reported. It loses on the owner's argument that the changelog
+faces outward and should hold no reference to real content, a span shaped like one being read as a
+name or a syntax example, and on its cost to a released section: each later change of the grammar
+gives a finding there, whose repair would change the section's content.

@@ -46,8 +46,9 @@ mock project that holds it, outside the tree. Entries follow the order CHANGELOG
 
 **Did a released section's content change?** A released section's content never changes; its
 structure may, per `design@knowledge-architect@changelog-section-fixed-at-release`, read whole.
-Any change to a statement of a released section is a finding: no check reads the changelog, so no
-finding of the checker excuses one.
+Any change to a statement of a released section is a finding: no check reads the changelog, per
+`design@knowledge-architect@the-changelog-is-outside-the-walk`, so no finding of the checker excuses
+one.
 
 **Is the version right?** It follows the highest class among the entries, a patch at least, under
 the policy's mapping onto Cargo's two positions while at 0.x.

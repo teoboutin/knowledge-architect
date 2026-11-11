@@ -16,10 +16,10 @@ as a reference.
 
 On the owner's word, at the review before the merge of the slice that made the register `goal` the
 root's alone, the changelog left the walk, per
-`design@knowledge-architect@changelog-section-fixed-at-release`, and the owner stated that it
+`design@knowledge-architect@the-changelog-is-outside-the-walk`, and the owner stated that it
 should hold no reference to real content. The skip row is built; the rule is not. The changelog
-holds 77 backticked spans with an `@`, counted by `grep -c` over CHANGELOG.md on that branch, some
-references and some syntax examples. `design@knowledge-architect@changelog-entries` says an entry
+holds 77 lines with a backticked span holding an `@`, counted by `grep -c` over CHANGELOG.md on that
+branch, some of the spans references and some syntax examples. `design@knowledge-architect@changelog-entries` says an entry
 for a change of the rules recorded content must meet "cites the section that brings that content to
 them ... as a reference, so the move of the pin runs it", and
 `design@agent-skills@audit-triggers`, which the installed project-audit and setup skills follow,
