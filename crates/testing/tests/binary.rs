@@ -4653,7 +4653,9 @@ fn check_staged_compares_an_installed_file_a_walk_row_skips() {
 
 /// The claim: a symbolic link in the installer's namespace that a `skip-files` row keeps is
 /// still judged by the installed-file check, which reads the namespace whatever the walk rows
-/// say: the row silences the link's own finding and no other. Mutation checked: `from_listing`
+/// say: the row silences the link's own finding and no other. Ownership is decided by the name,
+/// per `design@check@owned-namespace-check`, and the installed files are outside the walk, so no
+/// walk row governs them, per `design@check@installed-files-outside-the-walk`. Mutation checked: `from_listing`
 /// leaving a link out of `installed` at the owned test makes the stray pass.
 #[test]
 fn a_link_in_the_installers_namespace_a_skip_row_keeps_is_still_judged() {
