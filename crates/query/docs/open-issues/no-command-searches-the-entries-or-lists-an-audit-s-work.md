@@ -27,7 +27,8 @@ is designed: which keywords, which measure of closeness, and which axis's lists,
 ### Why it matters
 
 `goal@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide a
-tool for a task that a tool does at a lower cost or better, searching what a project holds included,
+tool for a task that recurs and that a tool does at a lower cost or better, searching what a project
+holds included,
 once knowledge-architect's owner has taken the task in, which the owner has not done for either of
 these. A grep misses an entry whose words differ from the search's,
 and a work list built by hand can drop an entry, as `issue@query@no-command-lists-the-standing-entries-citing-a-set-of-entries`

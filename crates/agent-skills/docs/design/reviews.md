@@ -382,4 +382,4 @@ No installed agent reviews security as an axis of its own. The adversarial revie
 reach a panic, a wrong result or a lost input from an accepted input, and code marked `unsafe` is a
 lint gate's to refuse, not a reviewer's to judge. The setup asks every crate of a target project
 for a lint on `unsafe` code, in `skill@knowledge-architect-setup@rust-project`, so the clippy gate
-refuses an `unsafe` block nobody argued. The session proposed the lint and the owner approved it.
+refuses an `unsafe` block nobody argued.

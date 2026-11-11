@@ -122,7 +122,7 @@ every declared register's included, is refused for a Component, a location, the 
 plan and an entry of a directory register, per `design@model@a-placed-name-reads-as-nothing-else`
 for the last two. The decision stands on that shadowing, which reaches every kind. On the owner's
 word, every kind's name is refused for every name that can be an anchor, a Component's and a
-location's among them, and the decision was taken early.
+location's among them.
 
 ### No two anchors the manifest resolves share a name `##anchor-names-unique`
 

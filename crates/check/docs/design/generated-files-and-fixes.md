@@ -26,12 +26,12 @@ it rewrote.
 **That last claim is held by a refusal, not by the paths being generated.** `fs::write` follows
 a symlink and writes through it, so a generated path that is one would replace content this
 command never produced: the symlink refusal holds the claim, and removing it makes the paragraph
-above false. A second refusal holds the write's all-or-nothing shape: a destination directory the
-manifest declares but the tree does not have is a manifest defect rather than something to create,
-and nothing creates it, so a write there would fail part-way, losing nothing but leaving the tree
-changed, which its exit 1 reports. Both are checked over **every** destination before any is
-written, so a refusal comes before the first write; a write that fails later for another reason
-exits 1, naming what it wrote.
+above false. A second refusal keeps a known cause of failure out of the writes: a destination
+directory the manifest declares but the tree does not have is a manifest defect rather than
+something to create, and nothing creates it, so a write there would fail, losing nothing, possibly
+after other writes. Both are checked over **every** destination before any is written, so a refusal
+comes before the first write, exit 2. A write that fails for another reason exits 2 when nothing
+was written before it, and 1 once something was, naming what it wrote.
 
 ### One question has one command that answers it `##one-question-one-command`
 

@@ -193,7 +193,8 @@ adversarial reviewer runs mutations in, per
 
 - No exception by size or kind.
 - Once it holds a first commit, the branch is pushed and a **draft** pull request is opened for
-  it: `git push -u origin <branch>`, then `gh pr create --draft`. CI does not run on a draft.
+  it: `git push -u origin <branch>`, then `gh pr create --draft`. CI does not run on a draft, per
+  `design@knowledge-architect@ci-skips-a-draft`.
 - **A commit is pushed only after `cargo klarch commits` has passed on it**: in a command of its
   own, or behind `&&` on the bare check. A push after `;`, or after a check whose output went
   through a pipe in a shell without `pipefail`, runs whatever the check found. Its home is
@@ -267,11 +268,8 @@ needed and none is lost.
 
 **A stopped commit is finished with its own message, kept verbatim**: once the tree resolves the
 conflict and is staged, `git commit -q --cleanup=verbatim -C REBASE_HEAD`, then
-`git rebase --continue`. A plain `--continue` passes the message through the editor's cleanup,
-which deletes every line opening with `#`, a `## ` heading of the message included, and
-`cargo klarch commits` sees nothing wrong with the shortened message. `--continue` under
-`core.commentChar` set to another character, or under `commit.cleanup=verbatim`, keeps the line and
-appends git's conflict notes or its editor template to the message, measured with git 2.53.0. The range-diff's
+`git rebase --continue`, per `design@knowledge-architect@a-stopped-rebase-keeps-its-message`: a
+plain `--continue` deletes every line of the message opening with `#`. The range-diff's
 `@@ Commit message` hunks then show no change for any commit the rebase carried.
 
 4. **Work is reviewed before any merge to main.**
@@ -292,7 +290,7 @@ appends git's conflict notes or its editor template to the message, measured wit
   was a draft is skipped, so no run covers the current head.
 
 5. **When CI passed on the current head, merge the pull request through GitHub.** main accepts
-   no direct push: a ruleset requires a pull request whose branch is up to date with main and
+   no direct push, per `design@knowledge-architect@main-is-guarded-by-a-ruleset`: a ruleset requires a pull request whose branch is up to date with main and
    whose CI check passed, and a linear history. The merge predicate:
 
 ```sh
