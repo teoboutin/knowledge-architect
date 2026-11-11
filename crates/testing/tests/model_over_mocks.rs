@@ -455,7 +455,7 @@ mod unsound {
         // `design@model@headings-open-with-hash-marks`.
         assert!(one_of(&found, "markdown reads a heading here").starts_with("notes/structure.md:7"));
         // A goals home in a Component, which the root alone carries, holding a goal, per
-        // `design@model@registers-are-declared`: its repair moves the goal.
+        // `design@model@goal-register-carried-by-the-root-alone`: its repair moves the goal.
         let foreign = one_of(
             &found,
             "a home of the goal register in the component `the-widget`",

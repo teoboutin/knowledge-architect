@@ -612,7 +612,7 @@ fn plan_citation(entities: &Entities, rel: &Path) -> Option<String> {
 }
 
 /// Every reference the section "What is already decided" of `doc` writes, in the order written,
-/// as `<kind>@<anchor>@<id>`, or `None` where `doc` holds no level-two heading of that title.
+/// as `spelled` writes it, or `None` where `doc` holds no level-two heading of that title.
 ///
 /// The section runs from its heading to the next heading of level two or one, so its own
 /// subsections are in it. A span that is no reference of the project's kinds is left out; whether

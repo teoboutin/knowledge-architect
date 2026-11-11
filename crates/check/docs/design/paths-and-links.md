@@ -67,8 +67,8 @@ segment stood was reported then. **What it buys** is the silence of another tool
 is nearly every path-shaped span of a project new to the tool. Re-take it with `cargo klarch check`
 over a foreign project carrying the required structure, counting the findings under each rule; a
 census in which the silence hides a real pointer of this tree reopens it. The census that decided
-it is in the commit found with
-`git log --grep='only where it names something of this project'`. Reporting every path-shaped span
+it is in the message of the commit "Report an unanchored path or a retired slug form only where it
+names something of this project". Reporting every path-shaped span
 is `rejected@check@every-path-shaped-span-reported`. This serves `goal@every-target-project-can-adopt-it`
 and `goal@adoption-is-easy`.
 
@@ -104,7 +104,9 @@ anchor edits its one line of the project's `knowledge-architect.toml` and no doc
 fixed-string grep per anchor is an
 anchor's complete inbound-reference list. An anchor's own directory is the one target with no
 spelling under its own name, so it is named from an ancestor — a reference that names a
-location, which a move is expected to break.
+location, which a move is expected to break. A plan document is the exception: the rule on a
+`path` to a spec or a milestone is judged before this one, and overrides the ancestor's spelling of
+a milestone's own directory, per `design@check@every-path-names-its-anchor`.
 
 ### A relative markdown link is a navigation row, and README.md and index.md files are the navigation homes `##links-are-navigation-rows`
 

@@ -61,23 +61,22 @@ the character its prose collides with least. It loses because every instruction 
 would be parameterised on it, and `@` already meets almost nothing in Rust and only email addresses
 in prose, which never sit in backticks here.
 
-### A register reference with no anchor, `<kind>@<id>` for a register a project has only one instance of `##register-reference-without-anchor`
+### A register reference with no anchor, `<kind>@<id>`, for a register a project declares or carries in every Component `##register-reference-without-anchor`
 
 `live`. It is shorter for the common case. It loses, for a register a project declares or carries
 in every Component, because the extracted tool cannot know which such register is single-instance in
 a given project, and one three-part grammar serves every kind without a special case in the resolver
 or in the instructions. Its first reason does not hold for a kind whose namespace the harness fixes,
-which `design@model@harness-kinds-cited-without-anchor` cites with no anchor, nor for a register the
-tool gives to the root alone, which `design@model@root-register-reference-has-no-anchor` cites with
-no anchor; the second stands as the cost both heads accept.
+nor for a register the tool gives to the root alone, whose one carrier no declaration moves; the second stands as the cost
+of a form with no anchor wherever one is written.
 
 ### `*` read under `register` as every anchor that carries the register, so that the goals home with `*` as its anchor names the root's `##star-names-every-carrier-of-a-register`
 
 `live`. It keeps the form the shipped text wrote and the released changelog's line resolving, and
 adds no reserved word. It loses at the owner's fork to the form with no anchor, which no goal
-ranks: `*` would then read as every Component under `path` and as every carrier under `register`,
-two readings of one word, while a goal is still cited with an anchor that each project spells with
-its own name.
+ranks. The costs weighed at that fork: `*` would read as every Component under `path` and as every
+carrier under `register`, two readings of one word, and a goal would still be cited with an anchor
+that each project spells with its own name.
 
 ### A reserved anchor word for the project's root, so that `register@<word>@goal` and `goal@<word>@<id>` resolve in every project `##reserved-word-for-the-root`
 
@@ -85,15 +84,24 @@ its own name.
 at the owner's fork to the form with no anchor, and on a measured cost besides: `is_anchor_word` of
 `path@model@src/entity.rs` covers every reserved word, so every backticked span of that word
 before an `@`, as a login `root@<host>`, would be a finding in every project; and a Component or a
-project named by the word would be refused.
+project named by the word would be refused. The loss covers register references only: a reserved
+word for a root path stays open in
+`issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`.
 
-### The plan registers cited with no anchor, a milestone by its kind and its id alone, and the home of `spec` or `milestone` by the register alone `##plan-register-cited-without-anchor`
+### The plan registers cited with no anchor, a milestone by its kind and its id alone, and the home of `spec` or `milestone` by the register alone `##plan-register-references-have-no-anchor`
 
-`live`. It extends the form with no anchor to the registers of the anchor `plans`. It loses on the
-carriers: `spec` is carried by `plans` and by each milestone, so a spec cited by its id alone beside
-`spec@<milestone>@<slice>` would read the anchor from the segment count within one kind, the special
-case the form with no anchor refuses; and the owner chose to keep `milestone`'s anchor too, over a
-form for it alone, which no goal ranks.
+`live`. It extends the form with no anchor to the registers of the anchor `plans`. It loses at the
+owner's fork: the owner chose to keep the plan registers' anchor over dropping it for `milestone`
+alone and over `spec@<id>` beside `spec@<milestone>@<slice>`, which no goal ranks. The costs weighed
+at that fork: `spec` has two carriers, `plans` and each milestone, so a spec cited by its id alone
+would read the anchor from the segment count within one kind, the special case the form with no
+anchor refuses.
+
+### The anchored goal form kept resolving beside the form with no anchor, as a second spelling `##anchored-goal-form-as-a-second-spelling`
+
+`live`. It keeps every goal reference written with an anchor resolving. It loses on shape: two
+spellings of one entry put two shapes on one meaning, the reason
+`rejected@check@at-prefix-root-relative-path` gives.
 
 ### An anchor the tool constructs for the agent configuration, so that a skill, an agent and their sections keep three segments, as `skill@<cfg>@<name>` `##agent-configuration-anchor`
 

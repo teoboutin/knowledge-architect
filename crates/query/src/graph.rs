@@ -141,8 +141,8 @@ pub(crate) struct Graph {
     /// For each entry, by index, the entries of the record it cites.
     pub cites: BTreeMap<usize, BTreeSet<usize>>,
     /// For each search unit, by name, the goals whose title lines an agent holding it is given:
-    /// the root's, each enclosing Component's from the outermost, then its own, each in the order
-    /// they are written.
+    /// the root's, since the root alone carries the register `goal`, in the order they are
+    /// written. Every unit holds the same list, kept per unit so `title_lines` reads it by unit.
     pub titles: BTreeMap<String, Vec<usize>>,
 }
 
@@ -379,19 +379,18 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
             prose,
         });
     }
+    // The goals are the root's alone, per `design@query@goal-context-once`, so every search unit
+    // is given the same title lines.
+    let root = anchors.root_name();
+    let mut root_goals: Vec<usize> = (0..entries.len())
+        .filter(|&i| entries[i].role == Role::Goal && entries[i].unit == root)
+        .collect();
+    root_goals.sort_by(|&a, &b| {
+        let (sa, sb) = (&entries[a].record.site, &entries[b].record.site);
+        (&sa.file, sa.line).cmp(&(&sb.file, sb.line))
+    });
     for anchor in anchors.all().iter().filter(|a| a.constructed.is_none()) {
-        let mut list: Vec<usize> = Vec::new();
-        for owner in title_units(anchors) {
-            let mut own: Vec<usize> = (0..entries.len())
-                .filter(|&i| entries[i].role == Role::Goal && entries[i].unit == owner)
-                .collect();
-            own.sort_by(|&a, &b| {
-                let (sa, sb) = (&entries[a].record.site, &entries[b].record.site);
-                (&sa.file, sa.line).cmp(&(&sb.file, sb.line))
-            });
-            list.extend(own);
-        }
-        titles.insert(anchor.name.clone(), list);
+        titles.insert(anchor.name.clone(), root_goals.clone());
     }
     Graph {
         entries,
@@ -423,13 +422,6 @@ fn search_unit(anchors: &Anchors, name: &str) -> String {
     }
     // An anchor no declaration reaches, which the entity table never places an entry in.
     name.to_string()
-}
-
-/// The search units whose goals an agent holding a search unit is given as title lines: the
-/// root's alone, since the project's root alone carries the register `goal`, per
-/// `design@query@goal-context-once`.
-fn title_units(anchors: &Anchors) -> Vec<String> {
-    vec![anchors.root_name().to_string()]
 }
 
 /// The lines of `text` above the 1-based line `line`.
@@ -1062,8 +1054,8 @@ mod tests {
     }
 
     /// The claim: the title lines of every search unit are the root's goals, the root alone
-    /// carrying the register `goal`; a goal agent holds none. Mutation checked: `title_units`
-    /// returning no unit, which leaves every search unit with no title line.
+    /// carrying the register `goal`; a goal agent holds none. Mutation checked: the root's goals
+    /// filtered by a unit no anchor names, which leaves every search unit with no title line.
     #[test]
     fn the_title_lines_of_every_search_unit_are_the_root_s_goals() {
         let g = graph_of(&project());

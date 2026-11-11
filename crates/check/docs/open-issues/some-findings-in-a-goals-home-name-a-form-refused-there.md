@@ -5,7 +5,7 @@ kind: defect
 
 ## Summary
 
-`design@check@goals-home-cites-upward-only` says that every finding of the reference check that
+`design@check@goals-home-cites-only-goals-and-root-homes` says that every finding of the reference check that
 would name a reference form in a goals home names the goals-home repair instead,
 `GOALS_HOME_REPAIR` in `path@check@src/check/references.rs`. The code does so for five findings
 only. Four other findings still name a form the citation check refuses in a goals home, and the
@@ -81,7 +81,7 @@ refused kind and anchor, as its unit tests show. The five listed findings name i
 
 A writer in a goals home who follows one of these repairs writes a form the citation check then
 refuses, or, for a goal, renames it outside goal-setting. The code is the defect against
-`design@check@goals-home-cites-upward-only`, whose argument stands, per `primer@intent-and-claims`:
+`design@check@goals-home-cites-only-goals-and-root-homes`, whose argument stands, per `primer@intent-and-claims`:
 the design home prevails. It threatens `goal@the-owner-decides`, since a repair
 that rewrites a goal sends an agent to change a goal on its own.
 

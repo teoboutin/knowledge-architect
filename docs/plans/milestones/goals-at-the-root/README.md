@@ -181,7 +181,7 @@ design audit of the slice named runs it, since the list changes with every commi
 | `design@agent-skills@shipped-text-cites-no-entry` | rewritten: the form that names a goals home in the shipped text names the root's | 2 |
 | `design@agent-skills@standing-argument-in-head` | rewritten: a head states, beside its reference to a goal, the constraint it derives from it, with the head-ground fragment | 1 |
 | `design@check@every-path-names-its-anchor` | rewritten: its exception for a goals home leaves, from the paragraph now `design@check@deepest-anchor-wins`; the head is split, per `issue@check@core-heads-bundle-decisions-with-many-citing-sites` | 2 |
-| `design@check@goals-home-cites-upward-only` | rewritten: one goals home remains, and no goal refines another | 2 |
+| `design@check@goals-home-cites-only-goals-and-root-homes` | rewritten: one goals home remains, and no goal refines another | 2 |
 | `design@check@nothing-of-a-project-is-compiled-in` | rewritten: the count of registers every Component carries, and the starting text of a goals home | 2 |
 | `design@create@component-command` | rewritten: a new Component is written no goals home | 2 |
 | `no-intermediate-component` | removed: its only argument is the occasion that leaves | 1 |
@@ -225,7 +225,7 @@ Where each entry is referenced, outside this milestone's documents, at the commi
 - `design@agent-skills@shipped-text-cites-no-entry`: agent-config: installed copies (1); agent-skills: design heads (1), issues (3), other documents (3).
 - `design@agent-skills@standing-argument-in-head`: agent-skills: design heads (1), issues (2).
 - `design@check@every-path-names-its-anchor`: agent-skills: installed text source (2); check: design heads (2), issues (2), other documents (1), rejected designs (3), source (2); model: design heads (6), issues (2), source (2); the root: another plan document (8).
-- `design@check@goals-home-cites-upward-only`: agent-skills: design heads (2), installed text source (2); check: design heads (2), issues (3), other documents (1), source (3); model: design heads (1).
+- `design@check@goals-home-cites-only-goals-and-root-homes`: agent-skills: design heads (2), installed text source (2); check: design heads (2), issues (3), other documents (1), source (3); model: design heads (1).
 - `design@check@nothing-of-a-project-is-compiled-in`: agent-skills: issues (1); check: design heads (1), other documents (2); create: design heads (1), issues (1), source (2); model: design heads (3).
 - `design@create@component-command`: cli: source (1); create: source (1).
 - `no-intermediate-component`: nowhere.
@@ -558,7 +558,7 @@ Triggers met, ruled before the work:
 - `design@check@the-regime-has-no-opt-out`: constrains, respect.
 - `a-component-states-at-least-one-goal`: closes, close-with-the-work.
 - `issue@check@no-checked-form-cites-a-point-inside-a-section`: touches, respect.
-- `design@check@goals-home-cites-upward-only`: conflicts, check-reversal.
+- `design@check@goals-home-cites-only-goals-and-root-homes`: conflicts, check-reversal.
 - `design@check@no-citation-direction-rule`: constrains, respect.
 - `issue@check@some-findings-in-a-goals-home-name-a-form-refused-there`: touches, respect.
 - `issue@check@texts-citing-the-relocation-goal-state-its-old-measure`: touches, respect.
@@ -774,7 +774,7 @@ Triggers met, ruled before the work:
 - `design@agent-skills@goals-axis-in-the-review-before-a-merge`: constrains, respect.
 - `issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed`: touches, respect.
 - `design@check@orphan-rejected-entry`: constrains, respect.
-- `design@check@goals-home-cites-upward-only`: conflicts, check-reversal.
+- `design@check@goals-home-cites-only-goals-and-root-homes`: conflicts, check-reversal.
 - `no-intermediate-component`: conflicts, check-reversal.
 - `root-goals-about-the-checker-may-belong-to-an-intermediate-component`: closes, close-with-the-work.
 - `design@knowledge-architect@versioning-policy`: constrains, respect.
@@ -1861,7 +1861,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`, `thread@goals-at-the-root@standard-and-rewrite-on-one-branch`.
 
-> - **The shipped text writes register@* at 7 sites**, which assumes every Component has a goals home. Slice 2 owes a form that names the root's.
+> - **The shipped text writes register@*@goal at 7 sites**, which assumes every Component has a goals home. Slice 2 owes a form that names the root's.
 
 **Note**: Count.
 
@@ -2123,7 +2123,7 @@ Round 1 of the design audit of slice 2, by the session. Bears on
 >
 > 1. **Do entries drop the anchor too** (`goal@<id>`), or only the home (`register@goal`)? My default is both.
 > 2. **Where do the plan registers go?** My default is a slice 3 of this milestone, shipping in the same version so consumers make one migration.
-> 3. **The released 0.7.0 line.** (a) It is rewritten to `register@goal`, as a case you rule under the released-section rule, which is my default. (b) register@* keeps resolving as a second spelling, against the one-shape rule.
+> 3. **The released 0.7.0 line.** (a) It is rewritten to `register@goal`, as a case you rule under the released-section rule, which is my default. (b) register@*@goal keeps resolving as a second spelling, against the one-shape rule.
 
 **Note**: A form the session wrote in backticks that the checker of this document's tree refuses, a reference with no anchor or a kind with no segment, is written here without them, a third change of the kind the section's preamble names.
 
@@ -2158,6 +2158,32 @@ Round 3 of the design audit of slice 2, by the owner, ruling D5 and D6. Bears on
 > D5 the goal is for tasks that are repeated. A one shot migration is not in scope.
 > D6 drop that slice.
 
+### hmm, now that I think about it, the changelog should probably be kept outside the reference checker (cut) `##arg-128`
+
+The review before the merge of slice 2, by the owner, after the session reported that rewriting the
+released 0.7.0 line changed a released section's content. Bears on
+`thread@goals-at-the-root@released-changelog-line-repaired`.
+
+> hmm, now that I think about it, the changelog should probably be kept outside the reference checker, the same way CRATES-IO.md files are. Since they are outwrd facing, they should not be holding references to real content, and syntax examples of it should not be treated as actual references.
+
+### In this slice: the skip row for the root `CHANGELOG.md`, with its reason (cut) `##arg-129`
+
+The session's default on `argument@goals-at-the-root@arg-128`, and the owner's approval of it. Bears
+on `thread@goals-at-the-root@released-changelog-line-repaired`.
+
+> **In this slice:**
+> - the skip row for the root `CHANGELOG.md`, with its reason;
+> - the 0.7.0 line restored byte for byte;
+> - the comment in `knowledge-architect.toml` that says the root changelog "is checked" corrected;
+> - `design@knowledge-architect@changelog-section-fixed-at-release` rewritten to the code: the changelog is outside the walk, so no check reads a released section;
+> - the question you ruled on, closed in the record as you chose it.
+>
+> **Left as an issue of kind `design`, under `knowledge-architect`:** the rule that an entry names no real content as a reference, the rewriting of the existing spans, and the rewrites of `design@knowledge-architect@changelog-entries` and `design@agent-skills@audit-triggers` it implies.
+
+The owner:
+
+> go with that
+
 ## New names, in one place
 
 ```
@@ -2176,8 +2202,8 @@ Existing names the design uses: the register `goal`, `GOAL_REGISTER` in
 ### Goals live at the root only
 
 A goal is in the root's goals home, and nowhere else. The home is a directory of theme files behind
-a README, the form a heading register already admits. A reference to a goal names the root as its
-anchor, whatever the file. A Component carries no goals home, and neither does a location. A
+a README, the form a heading register already admits. A reference to a goal names no anchor,
+`goal@<id>`, whatever the file, per `thread@goals-at-the-root@root-register-reference-has-no-anchor`. A Component carries no goals home, and neither does a location. A
 Component's purpose is the statement of the design head that argues its existence, in the root's
 design home, per `design@agent-skills@dependency-decision-home`. Creating or splitting a Component
 needs a design argument and no goal-setting session. Three Components have no such head in the

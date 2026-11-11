@@ -175,7 +175,8 @@ default, the `claude` harness.
 
 ## The documents each Component carries {{slug:component-documents}}
 
-Every Component carries the same documents. `{{command}} check` names each one missing:
+Every Component carries the documents below, except the goals home, which the root alone carries.
+`{{command}} check` names each one missing:
 
 | document | holds |
 | --- | --- |

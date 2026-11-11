@@ -1,14 +1,17 @@
 # WHAT THIS MOCK EXERCISES, for `klarch`: the phase gate. It carries one planted defect
 # per assertion of the first phases that read the tree — a declared path that is not there, a
 # missing heading home, the retired file shape of a file register, a location whose home is
-# absent, a file the walk cannot read as text, a heading markdown reads and the checker does not
+# absent, a file the walk cannot read as text, a heading markdown reads and the checker does not,
+# a goals home in the Component `the-widget`, which holds a goal, though the root alone carries
+# the register
 # — and, behind them, the definition-site defects
 # of the entity table: a slug defined twice, one at a level its register does not declare, one
 # at the head of a plain line, one in a table cell, one outside every register home, one in the
-# middle of a line, a heading at its register's level with no slug, and an entry id no reference
-# can spell. A run over it stops at phase 2 and prints those findings; the
-# tests in `path@testing@tests/model_over_mocks.rs` reach the phase-3 defects by
-# calling the entity table directly. The phase-4 defects, one per check, are `planted`'s, which is
+# middle of a line, a heading at its register's level with no slug, an entry id no reference
+# can spell, and the slug of that goal, written in a file that is no register home. A run over
+# it stops at phase 2 and prints those findings; the tests in
+# `path@testing@tests/model_over_mocks.rs` reach the phase-3 defects by calling the entity table
+# directly. The phase-4 defects, one per check, are `planted`'s, which is
 # clean through phase 3 for exactly that reason.
 
 [project]

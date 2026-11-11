@@ -2,9 +2,9 @@
 
 ## Entities, ids and headings
 
-### The goals home cites only a goal or a register's home of the root, and every other reference there is refused `##goals-home-cites-upward-only`
+### The goals home cites only a goal or a register's home of the root, and every other reference there is refused `##goals-home-cites-only-goals-and-root-homes`
 
-In the goals home, which the root alone carries, per `design@model@registers-are-declared`, its
+In the goals home, which the root alone carries, per `design@model@goal-register-carried-by-the-root-alone`, its
 goals and its head alike, a reference is refused unless it is a `goal` reference or a `register`
 reference to a home of the root. A refused reference gets a finding of its own, beside any finding
 its resolution gives, except a `path` or a `planned` reference, which is judged by this finding
@@ -49,6 +49,6 @@ A search's clusters are built per `design@query@record-is-every-register-entry`.
 Membership of a cluster reads an edge either way, so a rule that citations run from goals down to
 issues would buy acyclicity alone, which serves a transitive membership that merges the clusters.
 A goals home is the one place a direction is checked, for a reason of its own, the stability of a
-goal, per `design@check@goals-home-cites-upward-only`.
+goal, per `design@check@goals-home-cites-only-goals-and-root-homes`.
 The design this decision did not keep: `rejected@check@citation-direction-checked`.
 

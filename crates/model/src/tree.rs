@@ -761,7 +761,8 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
 }
 
 /// A home, in a Component other than the root, of a register the root alone carries: one finding
-/// per home the tree holds, in either shape, per `design@model@registers-are-declared`.
+/// per home the tree holds, in either shape, per
+/// `design@model@goal-register-carried-by-the-root-alone`.
 ///
 /// It is this phase's, since such a file is no register home, so a slugged heading in it would
 /// otherwise be reported only as a misplaced definition, a finding that hides the repair. The
@@ -788,6 +789,8 @@ fn foreign_root_homes(
             if !inputs.present.contains(&home) {
                 continue;
             }
+            // An entry is a slug at a heading of the register's level; a heading with no slug
+            // defines nothing, so a home holding only such headings is deleted like an empty one.
             let level = register.level.unwrap_or(2);
             let holds_entries = model
                 .documents()
@@ -795,7 +798,9 @@ fn foreign_root_homes(
                 .filter(|d| d.rel == home || d.rel.starts_with(&home))
                 .any(|d| {
                     d.observations.iter().any(|o| {
-                        matches!(&o.what, crate::scan::Observation::Heading { level: l, .. } if *l == level)
+                        matches!(&o.what, crate::scan::Observation::SlugDef {
+                            site: crate::scan::SlugSite::Heading(l), ..
+                        } if *l == level)
                     })
                 });
             let what = format!(

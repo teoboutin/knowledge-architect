@@ -6054,8 +6054,8 @@ fn worklist_gives_a_head_another_agent_grades_as_a_context_entry() {
 
 /// The claim: every cluster agent holds the title lines of the root's goals, the root alone
 /// carrying the register `goal`; a goal agent grades every goal, and no entry of another register.
-/// Mutation checked: `title_units` of `path@query@src/graph.rs` returning no unit, which leaves
-/// `widget`'s agent with no title line; caught.
+/// Mutation checked: in `graph` of `path@query@src/graph.rs`, the root's goals filtered by a unit
+/// no anchor names, which leaves `widget`'s agent with no title line; caught.
 #[test]
 fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
     let (_sandbox, out, _) = worklist_out("worklist-titles", &["--bound", "120"]);
@@ -8735,10 +8735,97 @@ fn a_goals_home_in_a_component_is_refused_with_the_repair_of_its_case() {
     assert_eq!(code, 1, "{out}{err}");
     assert!(out.contains("move each entry to the root's home"), "{out}");
     assert!(!out.contains("delete it; it holds no entry"), "{out}");
+
+    // A heading with no slug defines no goal, so its home is deleted like an empty one.
+    let unslugged = core_with_a_part(
+        "goals-home-unslugged",
+        &[(
+            "part/docs/goals.md",
+            "# Goals — part\n\n## Notes\n\nProse.\n",
+        )],
+    );
+    let (out, err, code) = unslugged.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("delete it; it holds no entry"), "{out}");
+}
+
+/// The claim: a goals home in a Component in its directory shape is refused too, its repair by
+/// what its files hold. Mutations checked, in `foreign_root_homes` of `path@model@src/tree.rs`:
+/// `for home in [file, base] {` made `for home in [file] {`, which leaves the directory unreported;
+/// and the file filter `d.rel == home || d.rel.starts_with(&home)` made `d.rel == home`, which tells
+/// a directory holding a goal to be deleted; each caught.
+#[test]
+fn a_goals_home_in_a_component_in_its_directory_shape_is_refused() {
+    let empty = core_with_a_part(
+        "goals-dir-empty",
+        &[("part/docs/goals/README.md", "# Goals — part\n\nNo entry.\n")],
+    );
+    let (out, err, code) = empty.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains("`part/docs/goals` is a home of the goal register in the component `part`"),
+        "{out}"
+    );
+    assert!(out.contains("delete it; it holds no entry"), "{out}");
+
+    let holding = core_with_a_part(
+        "goals-dir-holding",
+        &[
+            (
+                "part/docs/goals/README.md",
+                "# Goals — part\n\n- [One](one.md)\n",
+            ),
+            (
+                "part/docs/goals/one.md",
+                "# One\n\n## A goal of the part `##part-goal`\n\nIt.\n",
+            ),
+        ],
+    );
+    let (out, err, code) = holding.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("move each entry to the root's home"), "{out}");
+}
+
+/// The claim: a goal is cited `goal@<id>` whichever theme file of the root's goals home in its
+/// directory shape holds it. Test: the `dirhome` mock, whose goals home is a directory, with a
+/// second theme file and a design head citing a goal of each.
+#[test]
+fn a_goal_is_cited_with_no_anchor_whatever_theme_file_holds_it() {
+    let sandbox = Sandbox::seeded(
+        "goal-theme-files",
+        "dirhome",
+        &[(
+            "docs/goals/two-goal.md",
+            "# Two\n\n## A second goal `##second-goal`\n\nIt.\n",
+        )],
+    );
+    let readme = std::fs::read_to_string(sandbox.path("docs/goals/README.md")).expect("a README");
+    sandbox.write(
+        "docs/goals/README.md",
+        &format!("{readme}- [Two](two-goal.md)\n"),
+    );
+    let first = std::fs::read_to_string(sandbox.path("docs/goals/one-goal.md")).expect("one goal");
+    let slug = first
+        .lines()
+        .find_map(|l| {
+            l.split("`##")
+                .nth(1)
+                .map(|s| s.trim_end_matches('`').to_string())
+        })
+        .expect("a slug");
+    let design =
+        std::fs::read_to_string(sandbox.path("docs/design/README.md")).expect("a design home");
+    sandbox.write(
+        "docs/design/README.md",
+        &format!("{design}\nIt serves `goal@{slug}` and `goal@second-goal`.\n"),
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{out}{err}");
 }
 
 /// The claim: a location that declares the register `goal` is refused, the register dropped from
-/// its row and the rest of the tree judged. Mutation checked: the refusal in `resolve_anchors` of
+/// its row and the run stopped at phase 1, the manifest's phase. Mutation checked: the refusal in `resolve_anchors` of
 /// `path@model@src/manifest.rs`, `if known.scope == Scope::Root {` made `if false {`; caught.
 #[test]
 fn a_location_that_declares_the_goal_register_is_refused() {
@@ -8843,8 +8930,15 @@ fn show_and_id_answer_a_goal_in_the_form_with_no_anchor() {
     let (out, err, code) = sandbox.run(&["show", "register@goal"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.contains("docs/goals.md"), "{out}");
-    let (out, err, code) = sandbox.run(&["show", "goal@core-mock@core-goal"]);
-    assert_eq!(code, 2, "{out}{err}");
+    for refused in [
+        "goal@core-mock@core-goal",
+        "register@core-mock@goal",
+        "register@*@goal",
+    ] {
+        let (out, err, code) = sandbox.run(&["show", refused]);
+        assert_eq!(code, 2, "{refused}: {out}{err}");
+        assert!(err.contains("is malformed"), "{refused}: {err}");
+    }
     let (out, err, code) = sandbox.run(&["id", "core-goal"]);
     assert_eq!(code, 1, "{out}{err}");
     assert!(out.contains("goal@core-goal"), "{out}");

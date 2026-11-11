@@ -1,6 +1,7 @@
 //! What a reference resolves to, with no finding attached.
 //!
-//! One grammar, `` `<kind>@<anchor>@<id>` ``, and one resolver. A reference to a table kind —
+//! One grammar, `` `<kind>@<anchor>@<id>` ``, the anchor left out only where the tool fixes it, a
+//! harness kind's or a register's the root alone carries, and one resolver. A reference to a table kind —
 //! `design`, `goal`, `tripwire` — is looked up in the table `entity::Entities` builds from the
 //! walk; a `path` reference is resolved against the survey under the same anchors, and a
 //! `register` reference against the anchors that carry the register, per
@@ -911,8 +912,9 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
             let (bare, suffix) = without_suffix(path);
             if let Some(r) = anchors.generic_home_target(bare.trim_end_matches('/')) {
                 // A register attached to some Components has no `register` form under `*`: each
-                // of its homes is named under the Component that keeps it.
-                return Err(if r.scope != Scope::Component {
+                // of its homes is named under the Component that keeps it. The root's register is
+                // named with no anchor, which `HomeByPath` spells.
+                return Err(if r.scope == Scope::OptIn {
                     Cause::AttachedHomesByPath {
                         register: r.name.to_string(),
                         components: r.components.join(", "),

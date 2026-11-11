@@ -61,10 +61,10 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
    A span is a reference candidate when its head before the first `@` is a kind or an anchor, per
    `design@model@at-span-candidate-rule`. Every candidate either carries a placeholder in
-   angle brackets, as in `goal@<anchor>@<id>`, is a path or a register's home every conforming
-   project holds, `path@*@<path>`, `path@plans@<path>`, `register@*@<register>` or
-   `register@plans@<register>`, or cites the shipped set's own skills, agents, primer
-   and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the checker resolves
+   angle brackets, as in `design@<anchor>@<id>` or the goal form `goal@<id>`, is a path or a
+   register's home every conforming project holds, `path@*@<path>`, `path@plans@<path>`,
+   `register@*@<register>`, `register@plans@<register>` or `register@goal`, or cites the shipped
+   set's own skills, agents, primer and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the checker resolves
    within the set. No candidate names an entry. This is done by hand until
    `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` closes, per
    `design@agent-skills@shipped-text-cites-no-entry`.

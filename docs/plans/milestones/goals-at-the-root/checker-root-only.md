@@ -19,7 +19,7 @@ amendment.
     slugged heading in it hides the repair;
   - a goal is cited `goal@<id>` and the root's goals home `register@goal`, resolved by the resolver
     from the kind and the register, never from the segment count alone; the forms
-    `goal@<anchor>@<id>`, `register@<anchor>@goal` and register@* are refused, each finding
+    `goal@<anchor>@<id>`, `register@<anchor>@goal` and register@*@goal are refused, each finding
     naming the form with no anchor as its one repair, with no switch that keeps accepting them.
     A declared register keeps `<kind>@<anchor>@<id>`.
 - **`check`**: the repair the refusal of a Component's goals home names has two cases, per
@@ -42,7 +42,7 @@ amendment.
   - `show` answers the forms with no anchor and the refused forms as the check does: its `*` arm
     and `cited_at` in `path@query@src/show.rs` serve a Component's home only.
 - **The shipped text**:
-  - the 5 lines of the source that write register@* write `register@goal`;
+  - the 5 lines of the source that write register@*@goal write `register@goal`;
   - the primer's statement of the reference grammar, "A reference is one backticked span,
     `<kind>@<anchor>@<id>`", states the forms with no anchor too, per
     `design@agent-skills@workflow-axis-lenses`;
@@ -54,7 +54,7 @@ amendment.
   - the shipped lines that speak of goals homes in the plural:
     `path@agent-skills@content/agents/workflow-auditor.md`,
     `path@agent-skills@fragments/admission-record-check.md` and the line before the
-    register@* line of `path@agent-skills@content/skills/retrospective-intake/SKILL.md`;
+    register@*@goal line of `path@agent-skills@content/skills/retrospective-intake/SKILL.md`;
   - the goal reviewer's row on a goal in a goals home other than the root's, in
     `path@agent-skills@content/agents/goal-reviewer.md`, judged once `anchors` lists no such home;
   - the 11 `%%` lines of content/ that cite a goal.
@@ -64,9 +64,9 @@ amendment.
     `register@goal`, the goals' own bodies included: a respelling of reference form that changes no
     word of a goal's statement, which the first commit's message says, per
     `design@agent-skills@goals-change-through-goal-setting`;
-  - the line of the released 0.7.0 section of CHANGELOG.md that writes register@* is
-    rewritten to `register@goal`, on the owner's ruling, `thread@goals-at-the-root@released-changelog-line-repaired`,
-    and `cargo x changelog` rewrites each crate's copy in the same commit;
+  - CHANGELOG.md leaves the walk, by a row of `[walk] skip-files` in the manifest, and its released
+    0.7.0 line stays as released, on the owner's word at the review before the merge,
+    `thread@goals-at-the-root@released-changelog-line-repaired`;
   - the developer documents the slice makes false: `path@check@README.md`, on what a goals home may
     cite and on what the word component means; `path@cli@README.md`, on the work list's goal title
     lines; `path@cli@CRATES-IO.md`, which lists goals as a Component's.
@@ -97,25 +97,30 @@ amendment.
 ## Claims
 
 - **A project with a goals home in a Component other than the root is refused, with a finding that
-  names the file and the repair of its case.** Test: a mock project of `path@testing@tests/`
-  holding an empty one and one holding a goal. Shown to fail: `cargo x mutate` on the condition of
-  the new refusal in `tree`, the test then passing a tree it must refuse.
-- **A location that declares the register `goal` is refused, and the rest of the tree is judged.**
-  Test: a mock manifest. Shown to fail: `cargo x mutate` on that condition in the manifest's parse.
+  names the file and the repair of its case.** Test: the tests of `path@testing@tests/binary.rs`
+  over a copy of `core` given a Component, its goals home absent, empty, holding a goal, or holding
+  a heading with no slug, in either shape; and the planted defect of `unsound`. Shown to fail:
+  `cargo x mutate` on the condition of the new refusal in `tree`, and on its test of what the home
+  holds, the test then passing a tree it must refuse or naming the wrong repair.
+- **A location that declares the register `goal` is refused, the register dropped from its row, and
+  the run stops at phase 1.** Test: a copy of `core` whose manifest gains such a location. Shown to
+  fail: `cargo x mutate` on that condition in the manifest's parse.
 - **A project whose only goals home is the root's passes, the home being one file or a directory
-  of files behind a README.** Test: two mock projects. Shown to fail: `cargo x mutate` on the
-  branch that admits the directory form.
+  of files behind a README.** Test: the conformant mocks, `core` with a file and `dirhome` with a
+  directory. Shown to fail: `cargo x mutate` on the test that keeps the root out of the refusal in
+  `tree`.
 - **`klarch init` and `klarch new-component` write no goals home for a Component, and the tree
   they write passes the check.** Test: the tests of `create` over a scaffolded project, and
   `a_component_added_either_way_passes_the_check` of `path@cli@tests/init.rs`. Shown to fail:
-  `cargo x mutate` on the list of the registers every Component carries in
+  `cargo x mutate` on the root-scoped arm of `carried_by_component` in
   `path@model@src/manifest.rs`, which `create` reads.
 - **A goal is cited `goal@<id>` and the root's goals home `register@goal`, whatever theme file holds
-  the goal.** Test: a mock project citing a goal of each of two files, and its goals home. Shown to
-  fail: `cargo x mutate` on the resolver's arm of the form with no anchor.
+  the goal.** Test: a copy of `core` given a Component that cites a goal and the goals home, and a
+  copy of `dirhome` citing a goal of each of two theme files. Shown to fail: `cargo x mutate` on the
+  arms of `candidate` in `path@model@src/entity.rs` that read the form with no anchor.
 - **Each anchored goal form is refused, with the form with no anchor as its one repair.** Test: a
-  mock project writing `goal@<anchor>@<id>`, `register@<anchor>@goal` and register@*.
-  Shown to fail: `cargo x mutate` on each refusal.
+  copy of `core` writing `goal@<anchor>@<id>`, `register@<anchor>@goal` and register@*@goal.
+  Shown to fail: `cargo x mutate` on the arm of `candidate` that refuses the anchored form.
 - **A goals home cites a goal or a register of the root, and every other reference there is
   refused.** Test: the slice's own test of each refused kind, the suite holding survivors there
   today, per `issue@model@the-resolver-s-arms-have-mutation-survivors`. Shown to fail:
@@ -124,8 +129,9 @@ amendment.
   Test: the tests of `query` over a mock project. Shown to fail: `cargo x mutate` on the gathering
   of the goal context.
 - **`show` answers each form with no anchor and each refused form as the check does.** Test: the
-  binary's tests of `show` in `path@testing@tests/binary.rs`. Shown to fail: `cargo x mutate` on
-  the `*` arm of `path@query@src/show.rs`.
+  binary's tests of `show` and `id` in `path@testing@tests/binary.rs`. `show` reads a reference
+  through the resolver, so its arms needed no change. Shown to fail: `cargo x mutate` on `spelled`
+  in `path@model@src/entity.rs`, the one printer of a reference, which `id` prints with.
 - **Every form the shipped text writes for the goals home resolves in a project other than this
   one.** No check reads a reference in an installed copy, per
   `design@check@installed-files-outside-the-walk`, so the test is a shipped-set test of
@@ -138,8 +144,10 @@ Each mutation is run with `cargo x mutate`, as `skill@knowledge-architect-develo
 ## Fixtures
 
 Two of the five mock projects of `path@testing@tests/` declare a Component and hold a goals home in
-it, `planted` and `unsound`. Each is edited to hold its goals at its root, and one new mock project
-holds a goals home in a Component, for the refusal. Every goal reference of the mock projects and of
+it, `planted` and `unsound`. `planted`'s Component loses its goals home. `unsound`'s Component keeps
+its goals home, which holds a goal, as a planted phase-2 defect, since a phase-2 defect is
+`unsound`'s, per `path@testing@CLAUDE.md`. No new mock project is written: the refusal's other
+cases are built by the tests of `path@testing@tests/binary.rs` in a copy of `core`. Every goal reference of the mock projects and of
 the tests is written in the form with no anchor. `path@testing@tests/` is outside this repository's
 walk, per `design@testing@test-files-outside-the-walk`, so an anchored form left there is found by a
 search and by each mock's own test, never by `cargo klarch check`. Tests that write a goals home
@@ -153,7 +161,7 @@ The entries this slice rewrites, those the milestone document's table gives it a
 audit found it makes false, so that a later audit of this slice's work seeds from them:
 
 - the milestone's rows: `design@agent-skills@shipped-text-cites-no-entry`,
-  `design@check@every-path-names-its-anchor`, `design@check@goals-home-cites-upward-only`,
+  `design@check@every-path-names-its-anchor`, `design@check@goals-home-cites-only-goals-and-root-homes`,
   `design@check@nothing-of-a-project-is-compiled-in`, `design@create@component-command`,
   `design@model@components-carry-the-same-documents`, `design@model@registers-are-declared`,
   `design@query@goal-context-once`;
@@ -161,16 +169,23 @@ audit found it makes false, so that a later audit of this slice's work seeds fro
   `design@model@anchors-are-components-and-locations`,
   `design@model@a-component-carries-what-a-project-attaches`;
 - found at the audit, on the form with no anchor: `design@model@reserved-anchors`,
-  `design@model@register-home-reference`, `design@model@harness-kinds-cited-without-anchor`,
-  `design@model@an-entity-belongs-to-its-anchor`, `design@model@one-entity-table`,
-  `design@model@an-unresolved-reference-is-reported`, `design@model@path-to-a-home-is-reported`,
-  `design@model@at-span-candidate-rule`, `design@agent-skills@a-reference-claims-a-revisit`, and
+  `design@model@register-home-reference`, `design@model@an-entity-belongs-to-its-anchor`,
+  `design@model@path-to-a-home-is-reported`, `design@model@at-span-candidate-rule`,
+  `design@agent-skills@a-reference-claims-a-revisit`, and
   `rejected@model@register-reference-without-anchor`, which comes back on a new argument;
+- judged at the audit and left as they stand, since none states a reference form that the form with
+  no anchor makes false: `design@model@harness-kinds-cited-without-anchor`,
+  `design@model@one-entity-table` and `design@model@an-unresolved-reference-is-reported`;
 - split out of `design@check@every-path-names-its-anchor` and `design@model@reserved-anchors`, per
   `issue@check@core-heads-bundle-decisions-with-many-citing-sites`:
   `design@check@unanchored-path-first-segment-here`, `design@check@deepest-anchor-wins`,
   `design@model@escape-anchor-elsewhere`, `design@model@foreign-file-names-its-project` and
-  `design@model@generic-anchor-names-every-component-copy`.
+  `design@model@generic-anchor-names-every-component-copy`;
+- written at the review before the merge, each out of a head above that held two decisions:
+  `design@model@goal-register-carried-by-the-root-alone`, out of
+  `design@model@registers-are-declared`, and
+  `design@model@anchored-root-register-reference-is-malformed`, out of
+  `design@model@root-register-reference-has-no-anchor`, the head this slice writes.
 
 ## Audit subjects
 
@@ -215,7 +230,7 @@ defeats it. Arguments: `argument@goals-at-the-root@arg-123`, `argument@goals-at-
 `argument@goals-at-the-root@arg-125`. Its shape is under Decided design; it is harvested into the
 rewrites of `design@model@reserved-anchors`, `design@model@register-home-reference` and
 `design@model@harness-kinds-cited-without-anchor`, and into
-`rejected@model@register-reference-without-anchor`, narrowed to declared registers.
+`rejected@model@register-reference-without-anchor`, narrowed to the registers a project declares or carries in every Component.
 
 The owner's words, round 1:
 
@@ -229,14 +244,19 @@ The fork's choice, in the weak form: the owner chose the form with no anchor ove
 anchor that carries the register, a new reserved anchor word for the root, and the root's goals home
 named in words with no reference, which no goal ranks.
 
-### The released 0.7.0 line that writes register@* is rewritten in place `##released-changelog-line-repaired`
+### The released 0.7.0 line that writes register@*@goal stays as released, and the changelog leaves the walk `##released-changelog-line-repaired`
 
-Proposed by the session in round 1 of this slice's audit, as its default. Final state: `approved`,
-on the owner's word, round 2, "3. a". Argument: `argument@goals-at-the-root@arg-124`. Harvested into
-the commit that rewrites the line, as a case the owner rules under
-`design@knowledge-architect@changelog-section-fixed-at-release`; it earns no head, a ruling on one
-line. The rival, register@* kept resolving as a second spelling, loses to one shape per
-meaning, `rejected@check@at-prefix-root-relative-path`'s reason.
+Proposed by the session in round 1 of this slice's audit, as its default: the line rewritten in
+place. Approved on the owner's word, round 2, "3. a", on `argument@goals-at-the-root@arg-124`. The
+review before the merge found that the rewrite changed a released section's content, against
+`design@knowledge-architect@changelog-section-fixed-at-release`, whose premise the default had
+missed. The owner then proposed `argument@goals-at-the-root@arg-128` and approved the session's
+default, `argument@goals-at-the-root@arg-129`. Final state: `approved`, on that word. The line is
+restored as released, CHANGELOG.md leaves the walk, and that head is rewritten to say no check
+reads the changelog. The rule that the changelog holds no reference to real content is left to
+`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`. The rival, register@*@goal
+kept resolving as a second spelling, loses to one shape per meaning,
+`rejected@model@anchored-goal-form-as-a-second-spelling`.
 
 ## Decided design
 
@@ -269,8 +289,9 @@ every project would become a finding.
   covers register references only.
 - The root's goals home named in words with no reference, lost at the same fork; it would leave the
   5 shipped sites with no checked pointer.
-- register@* kept resolving beside `register@goal`, lost to
-  `thread@goals-at-the-root@released-changelog-line-repaired`.
+- register@*@goal kept resolving beside `register@goal`, lost to
+  `thread@goals-at-the-root@released-changelog-line-repaired`, and recorded as
+  `rejected@model@anchored-goal-form-as-a-second-spelling`.
 
 ## Implementation sequence
 
@@ -284,18 +305,20 @@ every project would become a finding.
 2. `query`: the goal context, `id`, `worklist` and `show`. Fails alone on its tests.
 3. The shipped text, the shipped-set test of its forms, and the install. Fails alone on that test.
 4. The record, the two split heads and the changelog. Fails alone on `cargo klarch check`.
-5. The harvest, in commits of their own. The spec leaves in a commit of its own after the review
-   before the merge, as `skill@knowledge-architect-planning@plan-document-leaves` says.
+5. The harvest, in commits of their own. The spec and the milestone document leave in a commit of
+   their own after the review before the merge, as
+   `skill@knowledge-architect-planning@plan-document-leaves` says, every entry that cites either
+   re-pointed in that commit.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
-| the register `goal` is the root's alone | `design@model@registers-are-declared`, `design@model@components-carry-the-same-documents`, `design@model@anchors-are-components-and-locations` and `design@model@a-component-carries-what-a-project-attaches`, rewritten in place | at this slice's landing |
-| the refusal of a goals home outside the root, and what a goals home cites | `design@check@goals-home-cites-upward-only`, rewritten; `design@check@nothing-of-a-project-is-compiled-in`; `design@agent-skills@goal-standard-rules` | at this slice's landing |
+| the register `goal` is the root's alone | `design@model@goal-register-carried-by-the-root-alone`, new; `design@model@registers-are-declared`, `design@model@components-carry-the-same-documents`, `design@model@anchors-are-components-and-locations` and `design@model@a-component-carries-what-a-project-attaches`, rewritten in place | at this slice's landing |
+| the refusal of a goals home outside the root, and what a goals home cites | `design@check@goals-home-cites-only-goals-and-root-homes`, rewritten and renamed from `goals-home-cites-upward-only`; `design@check@nothing-of-a-project-is-compiled-in`; `design@agent-skills@goal-standard-rules` | at this slice's landing |
 | what `init` and `new-component` write | `design@create@component-command` | at this slice's landing |
 | the goal context of the work list | `design@query@goal-context-once` | at this slice's landing |
-| a register whose one carrier the tool fixes is cited with no anchor, #root-register-reference-has-no-anchor | `design@model@reserved-anchors`, split; `design@model@register-home-reference`, `design@model@harness-kinds-cited-without-anchor`, `design@model@an-entity-belongs-to-its-anchor`, `design@model@one-entity-table`, `design@model@an-unresolved-reference-is-reported`, `design@model@path-to-a-home-is-reported`, `design@model@at-span-candidate-rule` and `design@agent-skills@a-reference-claims-a-revisit`, rewritten; `rejected@model@register-reference-without-anchor`, narrowed to declared registers | at this slice's landing |
+| a register whose one carrier the tool fixes is cited with no anchor, #root-register-reference-has-no-anchor | `design@model@root-register-reference-has-no-anchor` and `design@model@anchored-root-register-reference-is-malformed`, new; `design@model@reserved-anchors`, split into `design@model@escape-anchor-elsewhere`, `design@model@foreign-file-names-its-project` and `design@model@generic-anchor-names-every-component-copy`; `design@model@register-home-reference`, `design@model@an-entity-belongs-to-its-anchor`, `design@model@path-to-a-home-is-reported`, `design@model@at-span-candidate-rule` and `design@agent-skills@a-reference-claims-a-revisit`, rewritten; `rejected@model@register-reference-without-anchor`, narrowed to the registers a project declares or carries in every Component | at this slice's landing |
 | the losing alternatives above, and `thread@goals-at-the-root@plan-register-references-have-no-anchor` | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at this slice's landing |
 | the form the shipped text writes for the goals home | `design@agent-skills@shipped-text-cites-no-entry` | at this slice's landing |
 | the premortem's cause on a consumer's pin | dropped, on the doubt clause of the tripwire standard: the owner reports running every consumer whose pin crosses this version, round 1 of this slice's audit | at this slice's landing |

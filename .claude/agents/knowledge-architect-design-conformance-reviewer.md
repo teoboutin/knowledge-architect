@@ -44,8 +44,8 @@ it is a directory. For each Component on the list, read whole:
 - its design home, `register@*@design`, every subdocument included where it is a directory;
 - its `register@*@rejected`.
 
-Run `cargo klarch show <kind>@<anchor>@<id>` on every goal and every design entry the document cites,
-to read the entry and every text that references it.
+Run `cargo klarch show goal@<id>` on every goal and `cargo klarch show <kind>@<anchor>@<id>` on
+every design entry the document cites, to read the entry and every text that references it.
 
 Then read the verdicts of the record search that grounded the document: the verdict files,
 `verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with

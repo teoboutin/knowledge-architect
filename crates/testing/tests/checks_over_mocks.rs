@@ -189,7 +189,7 @@ mod planted {
         // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
         // notes/ids.md, a defined id written outside its reference form, once per lint. And, in
         // docs/goals.md, a design head cited from a goals home, which resolves and is refused
-        // there, per `design@check@goals-home-cites-upward-only`. And, in this copy that holds no
+        // there, per `design@check@goals-home-cites-only-goals-and-root-homes`. And, in this copy that holds no
         // generated file, the three READMEs' links to an index that is not there.
         ("references", 31, "is referenced"),
         // One defect per shape assertion over what is there: an undeclared kind, a missing owed

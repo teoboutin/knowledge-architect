@@ -668,7 +668,8 @@ mod tests {
             .collect()
     }
 
-    /// Every path a component owes, under `dir`, with the file-shaped heading homes.
+    /// Every path a component owes, under `dir`, with the file-shaped heading homes, the root's
+    /// goals home among them, which a Component other than the root does not owe.
     fn all_of(dir: &str) -> Vec<String> {
         let at = |name: &str| {
             if dir.is_empty() {
@@ -723,7 +724,7 @@ mod tests {
             found[0].starts_with("docs/open-issues") && found[0].contains("no issue directory"),
             "{found:#?}"
         );
-        // The goals home is required of every component, which it was not before registers.
+        // The goals home is required of the root, which carries the register `goal` alone.
         let mut present = all_of("");
         present.retain(|p| p != "docs/goals.md");
         let found = findings(&manifest, &present);

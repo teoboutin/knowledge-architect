@@ -9,12 +9,13 @@
 //! rather than two: a directory either declares itself a project or it does not, and the tool
 //! refuses to run outside one instead of guessing a root from its own location.
 //!
-//! **Eleven registers are compiled in and the rest are declared.** `design`, `goal`, `tripwire`,
-//! `rejected` and `issue` are what the word component means here, so a project neither adds nor removes
-//! them; `spec` and `milestone` are the plan documents, carried by the plan anchors,
+//! **Eleven registers are compiled in and the rest are declared.** `design`, `tripwire`,
+//! `rejected` and `issue` are what the word component means here, and `goal` is the root's alone, so
+//! a project neither adds nor removes them; `spec` and `milestone` are the plan documents, carried by the plan anchors,
 //! which the tool constructs at [`PLANS_DIR`]. `[registers.<name>]` declares further ones, and
 //! `[locations.<name>]` names a directory that carries a subset of them. The argument is
-//! `design@model@registers-are-declared`.
+//! `design@model@registers-are-declared`, and for `goal`
+//! `design@model@goal-register-carried-by-the-root-alone`.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -60,7 +61,7 @@ pub const OWNED_PREFIX: &str = "knowledge-architect-";
 pub const ISSUE_REGISTER: &str = "issue";
 
 /// The built-in heading register of what the project is for, carried by the project's root alone
-/// and cited with no anchor, per `design@model@registers-are-declared`.
+/// and cited with no anchor, per `design@model@goal-register-carried-by-the-root-alone`.
 pub const GOAL_REGISTER: &str = "goal";
 
 /// The built-in heading register of evidence that would flip a decision, by the name a
@@ -1102,8 +1103,17 @@ fn resolve_components(
             ));
         }
     }
+    // A root-scoped register's directory is taken in every Component, not only at the root: an
+    // `opt-in` register attached to another Component at that directory would hold a file the
+    // tree refuses as a home of the root's register there, so each repair would undo the other.
     for register in registers.0.iter().filter(|r| r.scope == Scope::Root) {
-        taken.push((root.clone(), register.dir.clone(), register.name.clone()));
+        for component in &names {
+            taken.push((
+                component.clone(),
+                register.dir.clone(),
+                register.name.clone(),
+            ));
+        }
     }
     for register in registers.0.iter_mut().filter(|r| !r.components.is_empty()) {
         let name = register.name.clone();
@@ -1282,7 +1292,7 @@ fn resolve_anchors(
                 return false;
             }
             // The root carries a root-scoped register by a rule no declaration changes, per
-            // `design@model@registers-are-declared`, so a location naming one would hold a second
+            // `design@model@goal-register-carried-by-the-root-alone`, so a location naming one would hold a second
             // home of a register cited with no anchor, which no reference could tell apart.
             if known.scope == Scope::Root {
                 complaints.push(Finding::in_file(
@@ -2516,6 +2526,60 @@ pub(crate) mod tests {
     }
 
     /// A register declaration, folded into the built-in registers.
+    /// A declaration with one Component, `widget`, and `body` beside it.
+    fn with_widget(body: &str) -> Manifest {
+        let text = format!(
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"widget\"]\n\n\
+             {body}\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n\
+             "
+        );
+        Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration")
+    }
+
+    /// The claim: the root alone carries `goal`, and its directory is taken in every Component: a
+    /// location naming `goal` is refused that register; a register declared `scope = "component"`
+    /// at `dir = "goals"` is refused; and an `opt-in` register at `dir = "goals"` is refused by
+    /// each Component it names, the root and another alike. Mutations checked, each caught: in
+    /// `resolve_anchors`, `if known.scope == Scope::Root {` made `if false {`; in
+    /// `resolve_registers`, `if register.scope == Scope::OptIn {` made
+    /// `if register.scope != Scope::Component {`; and in `resolve_components`, the root-scoped
+    /// filter made `r.scope == Scope::Root && false`.
+    #[test]
+    fn the_root_alone_carries_goal_and_its_directory_is_taken_in_every_component() {
+        let m = with_widget("[locations.notes]\npath = \"notes\"\nregisters = [\"goal\"]\n");
+        assert!(
+            whats(&m).iter().any(|c| c.contains(
+                "[locations.notes] carries `goal`, which the project's root alone carries"
+            )),
+            "{:?}",
+            whats(&m)
+        );
+        let m = with_widget(
+            "[registers.aim]\nscope = \"component\"\nshape = \"heading\"\ndir = \"goals\"\nlevel = 2\n",
+        );
+        assert!(
+            whats(&m)
+                .iter()
+                .any(|c| c.contains("the aim and goal registers share the home directory `goals`")),
+            "{:?}",
+            whats(&m)
+        );
+        for component in ["widget", "a-project"] {
+            let m = with_widget(&format!(
+                "[registers.aim]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"goals\"\n\
+                 level = 2\ncomponents = [\"{component}\"]\n"
+            ));
+            assert!(
+                whats(&m)
+                    .iter()
+                    .any(|c| c.contains(component) && c.contains("goal")),
+                "{component}: {:?}",
+                whats(&m)
+            );
+        }
+    }
+
     fn with_registers(body: &str) -> Manifest {
         let text = format!(
             "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\

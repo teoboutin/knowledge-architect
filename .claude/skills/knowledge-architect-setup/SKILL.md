@@ -173,7 +173,8 @@ default, the `claude` harness.
 
 ## The documents each Component carries `##component-documents`
 
-Every Component carries the same documents. `cargo klarch check` names each one missing:
+Every Component carries the documents below, except the goals home, which the root alone carries.
+`cargo klarch check` names each one missing:
 
 | document | holds |
 | --- | --- |

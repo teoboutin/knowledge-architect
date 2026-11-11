@@ -217,8 +217,8 @@ its own rule; a third would argue for this one again.
 
 `live`. It let no backticked pointer pass unregistered, a pointer written after its target's
 directory left the tree included, and it needed no read of the tree. It loses on a census of a
-project new to the tool, in the commit found with
-`git log --grep='only where it names something of this project'`: nearly all its findings there
+project new to the tool, in the message of the commit "Report an unanchored path or a retired slug
+form only where it names something of this project": nearly all its findings there
 were another tool's notation (fixture paths of tests, paths on the user's machine, example paths in
 a changelog), each to be rewritten or anchored at `elsewhere` before the project passed, and the one
 real pointer, a stale one, is reported too when only a span whose first segment names something of
