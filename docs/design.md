@@ -473,6 +473,15 @@ CHANGELOG.md has one section per version, and one working section above them, `N
 which the release renames to its version. The working section may be reworded, restructured or
 pruned at any time. A released section's content never changes; its structure may.
 
+**A released section is already published, unchangeable.** Every published crate ships a copy of
+the root changelog, per `design@knowledge-architect@the-changelog-ships-in-every-crate`, and a
+version once on crates.io cannot be replaced, so the section a consumer reads at the version it
+pins is fixed there. A correction of a released section's content in the root would make the
+changelog say two things of one version, and a consumer that planned its move from the copy it
+fetched would never see the correction. The nearest rival, a released section corrected after its
+release, loses on that fact. A change of structure, a heading or the form of a reference, changes
+nothing a consumer plans from, so it is allowed.
+
 No check reads the changelog, per `design@knowledge-architect@the-changelog-is-outside-the-walk`,
 so no finding asks to change a released section.
 
