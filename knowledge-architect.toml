@@ -50,7 +50,7 @@ skip-dirs = []
 # The root changelog and the copies of it that each published crate ships, per
 # `design@knowledge-architect@the-changelog-ships-in-every-crate`. The changelog faces outward, as a
 # crate's page does, and a released section's content is fixed, so a reference or a syntax example
-# in it is no pointer a check judges, per `design@knowledge-architect@changelog-section-fixed-at-release`.
+# in it is no pointer a check judges, per `design@knowledge-architect@the-changelog-is-outside-the-walk`.
 # Each copy is byte-identical to the root's, and a test in tools/xtask fails while one differs.
 skip-files = [
     "CHANGELOG.md",

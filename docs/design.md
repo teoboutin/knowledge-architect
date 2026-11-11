@@ -323,7 +323,8 @@ copy, as the owner proposed: "I'd also provide a `cargo x` subcommand that updat
 copies at once". The test `every_published_crate_carries_the_root_changelog` in
 `path@xtask@src/changelog.rs` fails while one differs or a crate's `include` stops listing it, so a
 branch that writes an entry copies it before it can pass the gates. The walk skips the copies, by
-one `skip-files` row of the manifest per copy: the root file is checked, and they are identical to it. One
+one `skip-files` row of the manifest per copy: they are identical to the root file, which the walk
+skips too, per `design@knowledge-architect@the-changelog-is-outside-the-walk`. One
 changelog for every crate, rather than one per crate, keeps one file to write and gives each crate
 the whole history.
 
@@ -473,16 +474,26 @@ CHANGELOG.md has one section per version, and one working section above them, `N
 which the release renames to its version. The working section may be reworded, restructured or
 pruned at any time. A released section's content never changes; its structure may.
 
-**No check reads the changelog**, so no finding asks to change a released section: the root
-CHANGELOG.md is a row of `[walk] skip-files`, as the copies each crate ships are, per
-`design@knowledge-architect@the-changelog-ships-in-every-crate`. It is kept out on the owner's
-argument that the changelog faces outward, as a crate's page does, per
-`design@knowledge-architect@crates-io-page-file`, and should hold no reference to real content, a
-span shaped like one being read as a name or a syntax example; the entries do not meet that yet, per
-`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`. A check that read it
-would ask a released section to follow every later change of the grammar, which is a change of its
-content. The cost: a span of the `Next release` section that names a renamed or deleted entry is
-reported by no check; the release's review of its changelog reads each entry.
+No check reads the changelog, per `design@knowledge-architect@the-changelog-is-outside-the-walk`,
+so no finding asks to change a released section.
+
+### No check reads the changelog: the root CHANGELOG.md is outside the walk `##the-changelog-is-outside-the-walk`
+
+The root CHANGELOG.md is a row of `[walk] skip-files`, as the copies each crate ships are, per
+`design@knowledge-architect@the-changelog-ships-in-every-crate`, so no check reads a released
+section or the `Next release` section. It is kept out on the owner's argument that the changelog
+faces outward, as a crate's page does, and should hold no reference to real content, a span shaped
+like one being read as a name or a syntax example; the entries do not meet that yet, per
+`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`. A crate's page is kept
+free of references by a rule inside the walk instead, per
+`design@knowledge-architect@crates-io-page-file`, and the changelog cannot follow it: it writes
+syntax examples of the grammar, which a check would read as references. A check that read the
+changelog would ask a released section to follow every later change of the grammar, which is a
+change of its content, against `design@knowledge-architect@changelog-section-fixed-at-release`. The
+cost: a span of the `Next release` section that names a renamed or deleted entry is reported by no
+check, against `goal@documentation-stays-consistent` for this project's own changelog; the
+release's review of its changelog reads each entry. The design this decision did not keep:
+`rejected@knowledge-architect@changelog-read-by-every-check`.
 
 ### The branch that makes a change writes its changelog entries `##the-branch-writes-its-changelog-entries`
 

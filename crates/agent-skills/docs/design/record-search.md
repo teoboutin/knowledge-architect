@@ -338,8 +338,9 @@ settled into, which a reviewer dispatched at the checkpoint would read again,
 - for the design entries, the owner reported them missed in part many times, and in one case the
   owner approved a proposal contradicting a head the session had not read, caught only at the
   plan-document review; and an intake of thirteen received files analysed a finding about naming a
-  skill not yet created and missed the third exception of
-  `design@agent-skills@plain-text-is-no-repair`, which decides that case, and the owner recalled the
+  skill not yet created and missed the exception of
+  `design@agent-skills@plain-text-is-no-repair` for an entry or a skill a record of a deliberation
+  is still to create, which decides that case, and the owner recalled the
   head while ruling;
 - for the standing entries, in thaum the standing-state reviewer found, after the work, issues the
   changes bore on and tripwires that had fired, especially in the slices of large milestones, and

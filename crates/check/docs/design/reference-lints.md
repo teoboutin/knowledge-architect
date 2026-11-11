@@ -136,7 +136,7 @@ that a term's mentions read as its pointers, is not the intended use of the work
 owner's view, and `show` lists every citation of an entry.
 
 **CHANGELOG.md is read by none of the lints**: it is outside the walk, per
-`design@knowledge-architect@changelog-section-fixed-at-release`.
+`design@knowledge-architect@the-changelog-is-outside-the-walk`.
 
 **The lints cost little time.** Re-take it with `klarch check` over this repository, release
 build, median of five runs on one machine, against the same commit built with the lints' arms and
@@ -154,4 +154,4 @@ writer may make. A quotation left open ends at its paragraph, which ends at a bl
 a fence's edge, a list item or a table row, the blocks a renderer shows apart, so it cannot silence
 the rest of a file. A pointer someone writes inside a quotation goes unchecked, which is what the
 exemption costs. The nearest rival, no exemption, would report words the writer may not change. It
-is the fourth exception of `design@agent-skills@plain-text-is-no-repair`.
+is the exception for a quotation of `design@agent-skills@plain-text-is-no-repair`.

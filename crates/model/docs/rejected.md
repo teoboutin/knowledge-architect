@@ -72,7 +72,7 @@ of a form with no anchor wherever one is written.
 
 ### `*` read under `register` as every anchor that carries the register, so that the goals home with `*` as its anchor names the root's `##star-names-every-carrier-of-a-register`
 
-`live`. It keeps the form the shipped text wrote and the released changelog's line resolving, and
+`live`. It keeps the form the shipped text wrote resolving, and
 adds no reserved word. It loses at the owner's fork, which no goal ranks. The costs weighed at that fork: `*` would read as every Component under `path` and as every
 carrier under `register`, two readings of one word, and a goal would still be cited with an anchor
 that each project spells with its own name.
