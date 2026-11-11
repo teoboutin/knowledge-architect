@@ -446,7 +446,8 @@ under it, as a worktree under the root is; `--all-projects` reads every project'
   opens, with the subagent files it dispatched. A compaction and a resumed session stay in their
   session; `/clear` starts a new one. Its handle is its `sessionId`'s first 8 characters, with `#2`
   and on for a later session whose handle those characters already give, of the same id or of
-  another sharing them, so every handle `list` prints names one session.
+  another sharing them, a number already given passed over, so every handle `list` prints names one
+  session.
 - **`list`** prints one row per session, oldest first: its handle, its first and last time, its git
   branches, its count of lines the owner typed, of compactions and of subagents, and its first
   message from the owner. `--branch` keeps the sessions that worked on a branch, `--containing` the
