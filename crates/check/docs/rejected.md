@@ -293,6 +293,16 @@ root CLAUDE.md. A hook needs the installer to edit the user's settings file, whi
 user, and it needs a shell. It is kept because a doubt remains: the import is verified for the main
 session and a subagent of the `claude` harness, and another context or harness might not follow it.
 
+### The primer's import line accepted below the root CLAUDE.md's first line `##import-in-prose-by-parser`
+
+`live`. A line below the first counts only where the harness evaluates it, outside every fence, indented
+code block and comment, so the check would have to read the file as the harness's markdown parser
+does, which is not documented as CommonMark. A hand-written scanner of fences and comments passed three
+shapes the harness does not evaluate: a four-backtick fence holding a three-backtick line, a
+three-backtick line with an info string read as a close, and a comment opened mid-line. A CommonMark
+parser is right only as far as it matches the harness's. The last line is no exception, since an
+unclosed fence runs to the end of the document.
+
 ### An install record file listing what the installer wrote `##install-record-file`
 
 `live`. The checker would read a committed file of its own format to know which installed files are

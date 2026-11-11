@@ -208,9 +208,9 @@ goal is written for it, per step 3 of
 
 The project's root `CLAUDE.md` holds, besides what the project already keeps there:
 
-- **the primer's import line**, alone on its own line of prose, outside any code block:
+- **the primer's import line**, as the file's first line, with no space before or after it:
   `@.claude/knowledge-architect/PRIMER.md`. The install never writes it, because the root
-  `CLAUDE.md` belongs to the project; the check reports it missing until it is there;
+  `CLAUDE.md` belongs to the project; the check reports it until it is there;
 - **the project's rows of the knowledge table**, under a heading of their own: each kind of
   statement the project keeps somewhere the primer's table does not name, such as its changelog, a
   register it declares, a directory with a convention of its own. The plans directory and the

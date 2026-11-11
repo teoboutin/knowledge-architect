@@ -285,7 +285,7 @@ impl Sandbox {
         let claude = std::fs::read_to_string(self.path("CLAUDE.md")).expect("the root CLAUDE.md");
         self.write(
             "CLAUDE.md",
-            &format!("{claude}\n@.claude/knowledge-architect/PRIMER.md\n"),
+            &format!("@.claude/knowledge-architect/PRIMER.md\n\n{claude}"),
         );
         self.stage();
     }
@@ -3967,8 +3967,8 @@ fn tiny_project_serving_claude(history: &History) {
     );
     history.write(
         "CLAUDE.md",
-        "# tiny\n\nNothing here holds of any code: this project has none.\n\n\
-         @.claude/knowledge-architect/PRIMER.md\n",
+        "@.claude/knowledge-architect/PRIMER.md\n\n# tiny\n\n\
+         Nothing here holds of any code: this project has none.\n",
     );
     let (out, err, code) = history.run(&["install-agent-skills"]);
     assert_eq!(code, 0, "{out}{err}");

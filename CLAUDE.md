@@ -1,6 +1,6 @@
-# knowledge-architect
-
 @.claude/knowledge-architect/PRIMER.md
+
+# knowledge-architect
 
 A documentation checker and an agent workflow, shipped as Rust crates. The checker verifies that a project's documents meet the rules it holds and those the project declares, through declared registers and checked references. The workflow is a set of agent skills that the checker embeds and writes
 into a project on request.

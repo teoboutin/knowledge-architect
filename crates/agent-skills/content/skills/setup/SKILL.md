@@ -212,10 +212,11 @@ The project's root `CLAUDE.md` holds, besides what the project already keeps the
 
 %% The import line is filled by a delivery substitution of the build, since the checker reads its
 %% span as a malformed reference; the reason is the comment of its row in
-%% `path@agent-skills@build.rs`.
-- **the primer's import line**, alone on its own line of prose, outside any code block:
+%% `path@agent-skills@build.rs`. The first line is the one place no fence or comment can enclose,
+%% per `design@check@primer-import-line` and `design@check@import-line-exact-bytes`.
+- **the primer's import line**, as the file's first line, with no space before or after it:
   `{{primer-import}}`. The install never writes it, because the root
-  `CLAUDE.md` belongs to the project; the check reports it missing until it is there;
+  `CLAUDE.md` belongs to the project; the check reports it until it is there;
 - **the project's rows of the knowledge table**, under a heading of their own: each kind of
   statement the project keeps somewhere the primer's table does not name, such as its changelog, a
   register it declares, a directory with a convention of its own. The plans directory and the
