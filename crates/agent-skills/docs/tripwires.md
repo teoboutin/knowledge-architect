@@ -18,24 +18,6 @@ main branch with no review reporting it.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files under docs/retrospective-reports/, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@in-change-path`: a ruling lost or misstated in an in-change commit message `##ruling-lost-in-change`
-
-The decision rests on the premise that a commit message records the owner's rulings as the owner
-made them, as a plan document does, with no review of a plan document before the work.
-
-**Fires when:** a ruling of the owner is found missing from, or misstated in, the commit message
-that carries the deliberation of a discussion on the in-change path, after the branch's transcript
-review, and the misstatement is critical under
-`design@agent-skills@misstated-ruling-rated-by-what-it-changes`.
-**Response:** open a `defect` naming the ruling and the commit, and reopen
-`design@agent-skills@in-change-path` on its entry condition: whether a discussion with more than
-one approved thread takes the full path.
-**Re-entry:** the retrospective of each session that wrote such a commit message: it reads the
-session's own record against the message.
-**Watches until:** 10 commits on the main branch whose message carries the deliberation of a
-discussion on the in-change path and that add a heading to a design home; a message that only names
-the path as its subject is no occasion.
-
 ## Guarding `design@agent-skills@record-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
 
 The decision sends no search before work that goes through neither the design skill nor a
