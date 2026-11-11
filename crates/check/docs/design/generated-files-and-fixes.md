@@ -23,12 +23,14 @@ cannot: the worst a run can do is replace a file with what the tree says that fi
 only where the bytes differ, so running it to look moves not even an mtime, and it names each file
 it rewrote.
 
-**That last claim is held by two refusals, not by the paths being generated.** `fs::write` follows
+**That last claim is held by a refusal, not by the paths being generated.** `fs::write` follows
 a symlink and writes through it, so a generated path that is one would replace content this
-command never produced; and a destination directory the manifest declares but the tree does not
-have is a manifest defect rather than something to create. Both are checked over **every**
-destination before any is written, so a run either refuses having written nothing or writes them
-all. Remove either check and the paragraph above stops being true.
+command never produced: the symlink refusal holds the claim, and removing it makes the paragraph
+above false. A second refusal holds the write's all-or-nothing shape: a destination directory the
+manifest declares but the tree does not have is a manifest defect rather than something to create,
+and nothing creates it, so a write there would fail part-way, having lost nothing but having
+changed the tree before its exit 2. Both are checked over **every** destination before any is
+written, so a run either refuses having written nothing or writes them all.
 
 ### One question has one command that answers it `##one-question-one-command`
 
