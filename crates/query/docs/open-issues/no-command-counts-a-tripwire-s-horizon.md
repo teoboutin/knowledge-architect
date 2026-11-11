@@ -38,7 +38,7 @@ does not say whether a command that only counts, and judges nothing, is covered.
 ### Why it matters
 
 The count follows from the tree and the history with no judgement, per
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and is repeated over every tripwire at
+`goal@tasks-a-tool-does-better-are-the-tool-s`, and is repeated over every tripwire at
 every merge.
 
 ### What would close it

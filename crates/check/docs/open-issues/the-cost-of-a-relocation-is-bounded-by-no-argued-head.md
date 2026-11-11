@@ -46,7 +46,7 @@ The suspected mechanism: the bound was held as a statement no argument had to de
 argued the mechanism alone.
 
 What an argument for the bound has to answer. A derivation exists from
-`goal@knowledge-architect@records-reach-their-reader`: a recorded item is cited where it bears, so a citation that
+`goal@records-reach-their-reader`: a recorded item is cited where it bears, so a citation that
 does not survive a move of what it names reaches nobody until it is repaired. Its rival is a relocation repaired
 reference by reference, from the list of dangling references the checker gives. No fact found defeats that rival: it
 weighs a count of edits, which no goal ranks.

@@ -39,7 +39,7 @@ other register.
 
 A home's README is the directions a reader gets for that directory, per `primer@where-knowledge-goes`,
 and a false sentence there is met by every session that opens it, against
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 ### What would close it
 

@@ -7,7 +7,7 @@
 A goal is met or unmet, and stays in its goals home whether it is met or not yet met. The rule
 and its reason are the owner's: a goal removed when it is achieved stops being checked, and can
 stop being met without anyone noticing, so a goal leaves only when the owner abandons it, per
-`goal@knowledge-architect@the-owner-decides`. A goal also leaves when the owner rules that it is no
+`goal@the-owner-decides`. A goal also leaves when the owner rules that it is no
 purpose, scope or ranking, per `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`:
 that case is the session's, which follows from the three kinds, and it keeps the rule that a goal
 leaves on the owner's word alone. The rule is the owner's, and the
@@ -71,7 +71,7 @@ a purpose, when a decision conflicts with a goal and the primer's rule sends the
 owner, and for the review of the whole goal set, on the owner's request or at a pin move across a
 version whose Migration entry names it, per `design@agent-skills@goal-set-review-in-goal-setting`.
 An agent never edits a goal outside it, since a goal binds outright where a decision binds as a
-presumption, per `goal@knowledge-architect@the-owner-decides`.
+presumption, per `goal@the-owner-decides`.
 
 ### A proper goal meets the rules of the goal standard, written once as a fragment that goal-setting and the goal reviewer host `##goal-standard-rules`
 
@@ -102,8 +102,8 @@ reviewer briefed to read it, puts the reviewer's standard behind a read the brie
 which `rejected@agent-skills@one-generic-auditor-agent` records as uneven.
 
 The goals bind outright and are the only statements assumed to come from the owner, who sets and
-changes them, per `goal@knowledge-architect@the-owner-decides`, and agents work toward them over a long time, per
-`goal@knowledge-architect@agents-work-without-drift`. The outcome the standard's rules pursue is a
+changes them, per `goal@the-owner-decides`, and agents work toward them over a long time, per
+`goal@agents-work-without-drift`. The outcome the standard's rules pursue is a
 goal that states what the owner intends, at the breadth the owner gave it, and that keeps its
 meaning while the work moves toward it. So a goal
 must not require or rule out what the owner never did, since every later agent applies it at its widest reading, and must not change
@@ -130,7 +130,7 @@ Any other statement is design, whoever makes it. The owner's word enters design 
 weighing of a cost at a fork and through facts the owner holds, among a few more such ways the owner
 did not list, and not through a goal on one decision, per
 `design@agent-skills@heads-stand-on-argument`. A goal of the three kinds stays a way for the owner
-to change a decision, as `goal@knowledge-architect@the-owner-decides` says. The purpose test admits
+to change a decision, as `goal@the-owner-decides` says. The purpose test admits
 a purpose that nothing built serves yet, per `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 The argument is the owner's: a goal is what drives the project to exist, so that with every goal
@@ -165,7 +165,7 @@ project would still be for what the owner intends, and an outcome when the chang
 something else.
 
 A goal that names a part as built binds the part, so a redesign rewrites goals only the owner may
-change, against `goal@knowledge-architect@agents-work-without-drift`. The owner argued that a goal
+change, against `goal@agents-work-without-drift`. The owner argued that a goal
 keeps its sense in a project emptied of its design and its implementation, since goals are set
 before both, and the sources of `path@agent-skills@docs/grounding/goal-standard.md` place stability
 in a goal's level, a requirement being one way of achieving a goal. The nearest rival, the owner's
@@ -237,7 +237,7 @@ notices a misworded goal: a drafter
 that shapes a goal so the tree meets it states the project as it is, and the goal drives nothing.
 Google re:Work's guide to objectives, read in `path@agent-skills@docs/grounding/goal-standard.md`,
 counts objectives always fully met as not ambitious enough. It derives from
-`goal@knowledge-architect@the-owner-decides`: the owner states what the project is for, and a goal
+`goal@the-owner-decides`: the owner states what the project is for, and a goal
 shaped so that the tree meets it states what the project is.
 
 ### A goal states no measure: what shows it met, and how the project pursues it, are design decisions in heads that cite it `##what-shows-a-goal-met-is-design`
@@ -322,7 +322,7 @@ between a proposal and a goal goes to the owner, per `primer@goals-bind`, which 
 rootpoint's goal history showed working, and the goal reviewer reads a goal's readings before the
 owner rules. The rival, a rule of resolution for an agent applying a goal that reads two ways, adds
 a rule for a case the routing already decides, against
-`goal@knowledge-architect@only-needed-instructions`.
+`goal@only-needed-instructions`.
 
 ### A goal draft shows each goal with its boundary block, its reach by layer and what it asks of future work `##goal-draft-shows-reach`
 
@@ -338,8 +338,8 @@ The block turns a goal's reach into cases the owner judges by intent, since a pr
 approve without seeing what it rules out, and the owner reported approving rootpoint's goals in a
 rush, trusting proposals that read well. Whether a case was meant is a question of intent, so the
 rival, the repaired draft shown alone with the reviewer as the only reader of reach, leaves the
-reviewer a question it cannot rule on. It serves `goal@knowledge-architect@the-owner-decides`, and
-`goal@knowledge-architect@design-with-agents-as-counterparts`, under which the owner meets each
+reviewer a question it cannot rule on. It serves `goal@the-owner-decides`, and
+`goal@design-with-agents-as-counterparts`, under which the owner meets each
 proposal with its consequences established.
 
 ### The owner's statements go to the goal reviewer whole, not into the display of a draft `##goal-owner-statements-go-to-the-reviewer`
@@ -359,7 +359,7 @@ narrowing rules out. The owner argued that once a wording is approved, what it r
 owner's word for every later agent, noticed or not, and that a goal's reach is worth showing because
 it surfaces effects wider than the owner intended. The rival, a narrower wording as the default
 repair, rules out cases the owner never ruled out, which the next round reports as a new reach. It
-derives from `goal@knowledge-architect@the-owner-decides`: the owner states what the project is
+derives from `goal@the-owner-decides`: the owner states what the project is
 for, and a wording narrowed without the owner's word states what the owner did not.
 
 ### A fresh goal reviewer reads every version of a goal draft before the owner rules, in a draft, a whole-set and a merge mode `##goal-reviewer-agent`
@@ -384,7 +384,7 @@ tens, which is every goal of a project since none refines another, and that one 
 least 100 goals when it does only that; no rule splits a larger set
 before evidence asks for one: the review of the whole goal set splits a set into clusters for each
 reviewer's focus, per `design@agent-skills@whole-set-rounds`, not for one agent's reach. It serves
-`goal@knowledge-architect@the-owner-decides`, under which the owner sets and changes the goals: the
+`goal@the-owner-decides`, under which the owner sets and changes the goals: the
 owner rules each goal with what it requires and rules out shown by a reader apart from the drafter.
 
 ### The goal reviewer grades each finding by what it changes in an agent's act, beside the route that says who answers it `##goal-finding-grades`
@@ -420,7 +420,7 @@ The findings of the kinds, of a measure and of a refinement are graded by who se
 No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
 question of intent. A draft-mode review of goals that held a measure, recorded in
 `git show 0d2668e8^:docs/goal-reviews/2026-10-31-review-before-merge.md` flagged the reason
-requirement of `goal@knowledge-architect@only-needed-instructions` only as unmeasured, `minor`; the goal
+requirement of `goal@only-needed-instructions` only as unmeasured, `minor`; the goal
 was written with that requirement, and a later branch removed it on the owner's word that it was
 wrong and missed when the owner read the drafts.
 
@@ -516,7 +516,7 @@ planning skill's `skill@knowledge-architect-planning@plan-reviews`, the review s
 pointer. In thaum, a goal reworded as a plan's default was approved in one word with the plan's
 other defaults and set the goal against another; a review caught it only after the ruling. So the
 rival, the review row alone, catches a batched goal edit only after the approval it rides on. It
-serves `goal@knowledge-architect@the-owner-decides`.
+serves `goal@the-owner-decides`.
 
 ### The review of the whole goal set runs inside goal-setting, by the goal reviewer, not as an axis of the project audit `##goal-set-review-in-goal-setting`
 
@@ -574,7 +574,7 @@ the same two commits and gives two records of the owner's rulings two orders. It
 corroborated by the conversation alone, while each round's reviewers read this record against the
 tree and report an open question it misstates, and the owner answers it each round. The set
 reviewers found most of the findings, and the whole-set reviewer the conflicts across homes. It
-serves `goal@knowledge-architect@the-owner-decides`: every question of intent and every
+serves `goal@the-owner-decides`: every question of intent and every
 contradiction reaches the owner, who rules on the goals.
 
 ### A goal-setting batch of more than three goals is drafted and ruled in the tree, three or fewer in the conversation `##goal-batch-ruled-in-the-tree`

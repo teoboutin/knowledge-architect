@@ -31,7 +31,7 @@ audit found one such pointer already broken, a prompt naming a point the section
 
 ### Why it matters
 
-Every target project's code is Rust, per `goal@knowledge-architect@serves-one-kind-of-project`, but
+Every target project's code is Rust, per `goal@serves-one-kind-of-project`, but
 it holds files in other languages that a reference can sit in: the installed saved workflows, which
 are JavaScript in every target project that installs the workflow, and the code in another
 language that a platform it is built for requires, such as the JavaScript and the HTML of a web

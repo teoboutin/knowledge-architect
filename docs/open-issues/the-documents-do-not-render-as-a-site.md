@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@documents-render-as-a-linked-site` asks that the documents of each target
+`goal@documents-render-as-a-linked-site` asks that the documents of each target
 project render as one site of that project, each reference rendered as a link to what it names, and
 that a project can host that site when it releases. So the tool that builds the site is one that
 knowledge-architect provides to every target project, not a build of this repository's documents
@@ -26,7 +26,7 @@ work argues against that rival, or a change of the goal that the owner rules.
 
 ### Why it matters
 
-It is the work that fulfils `goal@knowledge-architect@documents-render-as-a-linked-site`. Until it exists, a
+It is the work that fulfils `goal@documents-render-as-a-linked-site`. Until it exists, a
 reader follows a reference by searching for its entry, not by a link.
 
 ### What would close it

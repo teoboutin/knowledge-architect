@@ -39,7 +39,7 @@ reading, one instance.
 ### Why it matters
 
 The transcript reviewer reads the whole of what it extracts, so every line before the work is a
-cost in its context, where `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has a
+cost in its context, where `goal@tasks-a-tool-does-better-are-the-tool-s` has a
 tool do a task of the workflow at a lower cost to the agent than the agent's own means.
 
 ### What would close it

@@ -69,7 +69,7 @@ repository and thaum without the rule they broke. The snippet pass cannot carry 
 so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a new
 project by `klarch init --rust`. A harness hook delivering pointed sections was defeated on its making
 the shipped workflow depend on a hook one harness runs, which an environment of another harness
-lacks; since `goal@knowledge-architect@serves-one-kind-of-project` asks every target project's
+lacks; since `goal@serves-one-kind-of-project` asks every target project's
 agents to run under the `claude` harness, that defeat is to be argued again, per
 `issue@agent-skills@heads-argued-from-another-harness`. A review of a changed fragment reads it
 in every host, since a sentence true in one host's context can be false in another's, as two
@@ -155,14 +155,14 @@ The design this decision did not keep:
 
 The text under content/, with the snippets the build inlines, is read in every project that installs
 it, so it names no Component and no convention of this repository:
-`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+`goal@every-target-project-can-adopt-it` has the workflow hold nothing
 particular to one target project. The one name it holds on purpose is the
 workflow's own upstream repository, where a retrospective's findings on the workflow go, per
 `design@agent-skills@retrospective-destination`. It cites no entry: a reference to an entry resolves
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path
 or a home that every conforming project holds may be written as a reference: `path@*@README.md`
 names each Component's own copy of a required document, per
-`design@model@components-carry-the-same-documents`; `register@*@goal` names each Component's own
+`design@model@components-carry-the-same-documents`; `register@goal` names each Component's own
 goals home, in whichever shape it has, per `design@model@register-home-reference`; and
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
 whose path the checker fixes, per `design@model@plans-dir-fixed`. Each is true in every installing
@@ -198,7 +198,7 @@ and its owner. That holds where the project's own goals and record say nothing o
 subject, and as far as the project follows what knowledge-architect asks. An edit of the installed
 text is argued from the side of such a project, as `path@agent-skills@CLAUDE.md` says.
 
-`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+`goal@every-target-project-can-adopt-it` has the workflow hold nothing
 particular to one target project, and this repository is one target project, so an instruction that
 needs this repository's record holds something particular to it. The nearest rival is an
 instruction that reads rightly only beside a reason this repository records, in a design head or in
@@ -214,7 +214,7 @@ An installed skill or agent hands off only to another skill or agent of the set 
 or to the project's own skills. It never names a plugin or a skill from outside the set. A skill
 outside the set may be absent in the project, or present at a version that contradicts the installed
 one, and either makes the installed text depend on a skill from outside what knowledge-architect
-provides and what the project adds, where `goal@knowledge-architect@agents-get-a-complete-workflow`
+provides and what the project adds, where `goal@agents-get-a-complete-workflow`
 has an agent need no instruction from outside them.
 
 The set is written across several changes before a version is released, so a skill may name a
@@ -234,7 +234,7 @@ carried out from it. `path@agent-skills@fragments/skill-self-sufficient.md` hold
 pointer. An installed agent is no skill, so one that several skills dispatch stays one file of the
 set.
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+`goal@agents-get-a-complete-workflow` has an agent carry each activity out with
 the workflow and what its project adds, so an agent that meets an activity finds its instructions
 in one place it can name, without knowing where else to look. The nearest rivals cut a skill by
 another unit, by what it reads or by the artifact it writes, or put two activities in one skill. A

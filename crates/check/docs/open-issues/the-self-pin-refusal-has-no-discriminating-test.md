@@ -29,7 +29,7 @@ compiled-in directory lies inside it, or the closure tested through
 
 `design@check@a-foreign-build-is-refused` and `design@check@checked-sentinel-values` state both guards, and no
 test would report either one lost. A stale copy of the installed text, or a registry's copy of the checker
-inside a project, would then pass, against `goal@knowledge-architect@agents-work-without-drift`.
+inside a project, would then pass, against `goal@agents-work-without-drift`.
 
 ### What would close it
 

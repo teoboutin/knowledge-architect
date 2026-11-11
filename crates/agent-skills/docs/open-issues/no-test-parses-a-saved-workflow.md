@@ -84,12 +84,12 @@ received retrospective files.
 ### Why it matters
 
 A saved workflow that does not parse fails at its first run in a project that installed it, after
-every gate passed, against `goal@knowledge-architect@documentation-stays-consistent`, the nearest
+every gate passed, against `goal@documentation-stays-consistent`, the nearest
 goal. A check that runs only where the machine holds a runtime is skipped on the others, as twice
 in a row.
 
 The counts a report states as exact are checked by nobody, against
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which the commit that added them cites:
+`goal@tasks-a-tool-does-better-are-the-tool-s`, which the commit that added them cites:
 a wrong count reaches the owner's list as a fact the session copied, not one it took.
 
 ### What would close it

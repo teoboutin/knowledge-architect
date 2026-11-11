@@ -5,9 +5,9 @@
 ### Plan documents are a structure the checker reads: the anchor `plans` carries a `spec` and a `milestone` register `##plan-register`
 
 The plans directory holds the decided design of work that is not built yet, which no other home
-holds, per `goal@knowledge-architect@design-is-recorded-with-its-arguments`. The checker reads it
+holds, per `goal@design-is-recorded-with-its-arguments`. The checker reads it
 as anchors and registers, so a citation of a plan is checked like any other, per
-`goal@knowledge-architect@documentation-stays-consistent`: the tool constructs the anchor `plans`,
+`goal@documentation-stays-consistent`: the tool constructs the anchor `plans`,
 carrying two built-in registers, `spec` and `milestone`, that no project declares. `spec` is
 also carried by each milestone anchor, for its slice specs, per
 `design@model@anchors-are-components-and-locations`; no other anchor carries either. Inside each

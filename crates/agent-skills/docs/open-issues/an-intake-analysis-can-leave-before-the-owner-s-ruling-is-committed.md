@@ -37,7 +37,7 @@ deletes the file in that same commit.
 
 The owner's verbatim words are kept only in a deliberation record, per `primer@design-heads`; a lost
 ruling leaves the outcome attributed with no words to check it against, against
-`goal@knowledge-architect@the-owner-s-word-is-verified`.
+`goal@the-owner-s-word-is-verified`.
 
 ### What would close it
 

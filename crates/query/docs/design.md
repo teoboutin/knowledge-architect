@@ -7,7 +7,7 @@ How query is built, and why.
 ### This crate depends on no crate of the checks `##query-depends-on-no-check`
 
 A tool over the record needs the model and at most phases 1 to 3, per `design@knowledge-architect@model-crate` and
-`goal@knowledge-architect@documentation-has-a-structure-and-a-model`, so nothing here runs or names a check, and
+`goal@documentation-has-a-structure-and-a-model`, so nothing here runs or names a check, and
 `cargo tree -e normal -p knowledge-architect-query` lists no `knowledge-architect-check`. So a program that
 consults a record pays for none of the checks, and each of them can change with no change here. A dependency added here passes
 every gate, so a reader of this head is what catches it. A command that needs a check's output goes to `check`, as
@@ -15,7 +15,7 @@ every gate, so a reader of this head is what catches it. A command that needs a 
 
 ### Each function takes a manifest its caller configures, and a program that links no check reads a project with an extension as it stands `##a-function-takes-a-configured-manifest`
 
-`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. On the owner's reading of its reach, `goal@knowledge-architect@documentation-has-a-structure-and-a-model` covers what makes the read wrong, and neither a pin nor an extension's table is that: a program that links no check reads the project as it stands. The session chose this over a type only `extension::configure` returns, placed in `model`, which each function would take, and which no goal ranks; the owner approved it. The choice costs a program that links no check a read that differs from a binary's; the rival's cost on `Manifest` as the facades publish it is not established. `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest` holds the owner's view that the precondition is ultimately to be enforced.
+`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. On the owner's reading of its reach, `goal@documentation-has-a-structure-and-a-model` covers what makes the read wrong, and neither a pin nor an extension's table is that: a program that links no check reads the project as it stands. The session chose this over a type only `extension::configure` returns, placed in `model`, which each function would take, and which no goal ranks; the owner approved it. The choice costs a program that links no check a read that differs from a binary's; the rival's cost on `Manifest` as the facades publish it is not established. `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest` holds the owner's view that the precondition is ultimately to be enforced.
 
 ### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
 
@@ -51,7 +51,7 @@ It answers a question no other command answers, per `design@check@one-question-o
 takes a whole reference, and the lints compute the set only to report a span. A design thread's slug
 is checked against the design and `rejected` entries of the Component that will own its decision,
 per `design@agent-skills@thread-slug-is-entry-id`, and without `id` a session checks it by a loop
-over two `show` calls per candidate, the case `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`
+over two `show` calls per candidate, the case `goal@tasks-a-tool-does-better-are-the-tool-s`
 gives the checker. An anchor's name, a Component's, a location's or a plan's, is no entity, so `id`
 lists none: a plan named like an anchor is refused by `check`, per
 `design@model@anchors-are-components-and-locations`. The rule on which collision refuses an id stays with the reader, since another
@@ -80,7 +80,7 @@ Agent-facing text is no part of it either: a decision stated by one text of it e
 entry test 2 of `primer@design-heads`, its reader is the session that edits that text and reads it
 whole, and the installed text cites no entry, so in an adopting project it would add nodes with no
 edges. The command relies on the checker working as intended: the edges are the references the
-checker resolves. It serves `goal@knowledge-architect@records-reach-their-reader`, a listing computed from the tree.
+checker resolves. It serves `goal@records-reach-their-reader`, a listing computed from the tree.
 
 ### Every Component and every declared location is a search unit, packed into an agent whole unless its load exceeds the bound `##packed-by-search-unit`
 
@@ -92,9 +92,9 @@ whose load fits the bound goes to one agent whole; one above it is split into it
 remainder, packed per `design@query@clusters-packed-under-a-word-bound`, an entry its clusters share
 kept in one of them, per `design@query@shared-entry-in-its-most-tied-cluster`.
 
-It serves `goal@knowledge-architect@agents-work-without-drift`, under which what agents build stays
+It serves `goal@agents-work-without-drift`, under which what agents build stays
 within the recorded design, so an issue is judged beside the design of its own Component; and
-`goal@knowledge-architect@every-target-project-can-adopt-it`, by which what knowledge-architect provides holds
+`goal@every-target-project-can-adopt-it`, by which what knowledge-architect provides holds
 nothing particular to one target project, so a project of one Component or with a large location, as thaum's `rules`, is
 packed by what its manifest declares. The owner judged an agent that grades an issue of a Component
 whose design it saw none of a major defect, and narrowed it to an issue that cites a head, which the
@@ -111,7 +111,7 @@ An anchor the tool constructs, the entry anchor of a Directory register or `plan
 search unit that holds its home, so it is never a search unit of its own. Its nearest rival, a
 constructed anchor as a search unit of its own, would pack every entry directory of a Directory
 register as an item of its own, apart from the register's home and its Component's design, against
-`goal@knowledge-architect@agents-work-without-drift`: an entry judged apart from the design of its
+`goal@agents-work-without-drift`: an entry judged apart from the design of its
 own Component is judged outside the recorded design that goal has the work stay within.
 
 ### An entry that the clusters of a split search unit share is graded in the cluster it is most tied to `##shared-entry-in-its-most-tied-cluster`
@@ -159,7 +159,7 @@ register by the anchor that carries it. A cluster is a unit with the `rejected` 
 unit that its entries cite, and the issues and tripwires of its search unit that cite them; it holds
 no goal, per `design@query@goal-context-once`.
 
-It serves `goal@knowledge-architect@every-target-project-can-adopt-it`, by which what knowledge-architect provides
+It serves `goal@every-target-project-can-adopt-it`, by which what knowledge-architect provides
 holds nothing particular to one target project: every unit comes from what the manifest declares and the tree holds. A subject groups what the work reads together: the owner
 chose that grouping for design entries, since a subject's kept and rejected entries have to be read
 together, and a standing entry joins the cluster of the heads it cites, since it is judged beside
@@ -179,7 +179,7 @@ Every head, entry of a declared register or `rejected` entry that an entry an ag
 and that the agent does not grade, is that agent's context entry: given whole, read only, and given
 no verdict there. It carries the grouping of `design@query@cluster-rooted-at-a-subject` across search
 units and across the agents of a split one: an issue that cites a head another agent grades is
-judged beside the head's text, which serves `goal@knowledge-architect@agents-work-without-drift`. Its
+judged beside the head's text, which serves `goal@agents-work-without-drift`. Its
 nearest rival, a context entry given by its title alone, packs fewer agents and judges such an issue
 without the head's text, which the rule exists to give it. A context entry counts in its agent's load,
 per `design@query@clusters-packed-under-a-word-bound`.
@@ -194,7 +194,7 @@ search unit, each group with its file's text above its first goal, and packed in
 rules of the cluster agents, per `design@query@search-unit-above-half-the-bound-alone`; so each goal
 is graded once, by an agent that reads it whole.
 
-It serves `goal@knowledge-architect@agents-get-a-complete-workflow`: an agent's reading grows with
+It serves `goal@agents-get-a-complete-workflow`: an agent's reading grows with
 the distinct entries of the record, not with how many clusters cite a goal. A title states the goal,
 and the searcher reads a goal whole before a verdict rests on it, per
 `design@agent-skills@searcher-grades-goals`. The nearest rival, every goal a cluster's entries cite
@@ -240,7 +240,7 @@ closing sections; a line it cannot parse stops it. The verdicts and their action
 `design@agent-skills@verdict-report`'s. When every report passes, it writes the files of
 `design@query@occasion-shaped-output`.
 
-It serves `goal@knowledge-architect@records-reach-their-reader` and `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`:
+It serves `goal@records-reach-their-reader` and `goal@tasks-a-tool-does-better-are-the-tool-s`:
 an instruction to give every entry one verdict, with a quotation of its text, is kept by a command,
 not by a reader. Each skeleton line names the verdicts its register admits, since a searcher reads
 the table once and applies it from memory: over three searches whose skeleton named none, 13 of 45
@@ -259,7 +259,7 @@ the work tree, an untracked or renamed file included, through `git`'s `paths_cha
 no code, and every entry is still graded. A failure of git stops the run with git's reason, per
 `design@git@failed-git-is-an-error`.
 
-It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: what changed since the design
+It serves `goal@tasks-a-tool-does-better-are-the-tool-s`: what changed since the design
 audit's spec is read from the tree by a command. A mark, not a filter: a search of what changed alone
 would miss the entries recorded before the work, `rejected@agent-skills@delta-search-at-convergence`,
 and `--since` draws attention where the record moved under a spec written earlier. Code is not
@@ -272,7 +272,7 @@ design entries and the declared-register entries its section "What is already de
 goal and no `rejected` entry; it combines with `--seed`, is refused where the path is no plan
 document, and writes the plan document into `work.txt`, which makes the run an audit for `--verify`.
 
-It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: the design audit's seeds are
+It serves `goal@tasks-a-tool-does-better-are-the-tool-s`: the design audit's seeds are
 read from the tree by a command, per `design@agent-skills@seeds-name-decisions`, which decides that a
 seed is a decision and never a goal. The nearest rival, the session listing the seeds by hand from
 the plan document, is a script each audit writes again: the slice of the integrated tests, on
@@ -306,9 +306,9 @@ first file it cannot remove, and a failed removal of a file this run wrote is no
 `--verify` reads no model, so the session reads what the searchers judged, whatever the tree has
 become since.
 
-It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`,
-`goal@knowledge-architect@records-reach-their-reader` and
-`goal@knowledge-architect@session-orchestrates-the-work`: a session that hands one subject of the work to an
+It serves `goal@tasks-a-tool-does-better-are-the-tool-s`,
+`goal@records-reach-their-reader` and
+`goal@session-orchestrates-the-work`: a session that hands one subject of the work to an
 agent hands it that subject's file, and the lines a commit message owes per entry are written by the
 command in forms `cargo klarch commits` judges. Written by each session, they cost a script per
 occasion: twelve sessions wrote them so, nine of this repository and three of thaum, and four met a
@@ -339,7 +339,7 @@ group above it only where its own entries exceed it, since the context entries a
 are no part of the subject the notice asks to split. The others are packed first-fit-decreasing,
 which fixes the number of agents, then dealt again over that many agents, each to the least-loaded
 agent it fits in; where one fits in none, the first-fit assignment stands. It serves
-`goal@knowledge-architect@agents-get-a-complete-workflow`: each agent's reading is bounded whatever
+`goal@agents-get-a-complete-workflow`: each agent's reading is bounded whatever
 the project's size, and no agent is spent on a remnant.
 
 What an agent reads is counted, not only what it grades: a bound on the graded entries alone would
@@ -377,4 +377,4 @@ directory of the harness's transcripts, the input, cache and output tokens of it
 `jq -s '[.[] | select(.message.usage) | .message.usage | .input_tokens + (.cache_creation_input_tokens//0) + (.cache_read_input_tokens//0) + .output_tokens] | last' <file>`.
 A search whose searchers peak above 250,000 tokens reopens the bound, and one whose peaks stay well
 under it is the ground of a next raise. No measurement of recall stands behind any value of the
-bound; real sessions measure it, per `goal@knowledge-architect@the-workflow-improves-through-real-use`.
+bound; real sessions measure it, per `goal@the-workflow-improves-through-real-use`.

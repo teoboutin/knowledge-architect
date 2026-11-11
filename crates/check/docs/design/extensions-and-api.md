@@ -8,7 +8,7 @@ The checker, `check` over `model`, checks what every project carries: the walk, 
 entity table, references, registers, generated indexes and commit messages. A subject that belongs to one project, such as
 thaum's verification of rule quotes against a pinned corpus, is an **extension**: a set of checks, the
 manifest tables they read, and the files they generate. Each of its checks is listed and counted
-like a check of `check`. This is what `goal@knowledge-architect@every-target-project-can-adopt-it`
+like a check of `check`. This is what `goal@every-target-project-can-adopt-it`
 requires: `check` is published for other projects, and nothing of thaum's subject is compiled
 into it. A binary registers its extensions at
 compile time. `klarch` registers none, and a project that needs an extension builds a
@@ -70,7 +70,7 @@ names, the inert lines and the fences. It scans a second time and keys what it f
 in the model it was given.
 
 This is what keeps `check` free of any one project's subject, which
-`goal@knowledge-architect@every-target-project-can-adopt-it` requires. A model generic over an extension's
+`goal@every-target-project-can-adopt-it` requires. A model generic over an extension's
 observation type would carry a type parameter into every check signature for the same data, and
 a type-erased slot per document would hold it inside `check` with no type checking; both are
 `rejected@check@model-generic-over-extension` and `rejected@check@type-erased-document-slot`.
@@ -108,7 +108,7 @@ The library has five kinds of consumer: a binary that registers an extension, th
 extension's tests, a frontend that is no command line, and `create`, the crate above it whose runs end as `check --fix` ends. Of these, the last two name `commands`, through this package, beside the tests of `testing`, which publishes `run`; `create` also takes the install from it, since `init` installs the shipped set,
 and `staged_changes_stop_the_fix`, a narrow answer, rather than the staged list that answers it. **Driving a run over a mock project is part of what the library
 publishes**, because a project that adopts the tool with a subject of its own, per
-`goal@knowledge-architect@every-target-project-can-adopt-it`, has to test that subject as `check` tests
+`goal@every-target-project-can-adopt-it`, has to test that subject as `check` tests
 its own. `design@check@a-foreign-build-is-refused` already requires every extension binary to test
 the refusal in its own suite. Its facade is shaped as `design@knowledge-architect@api-facade` says.
 

@@ -18,7 +18,7 @@ Whether a risk is worth watching trades the cost of watching against the risk. T
 it: a cause it admits and one it excludes are each decided by a named condition, so no fork
 remains, and the question is the session's, per `primer@question-authority` and
 `design@agent-skills@owner-rules-at-a-fork`. The owner stays informed of each outcome and contests
-any of them with a goal, a fact or an argument, per `goal@knowledge-architect@the-owner-decides`,
+any of them with a goal, a fact or an argument, per `goal@the-owner-decides`,
 and rules only on
 what the argument leaves open.
 The rival, the owner ruling on each cause, was measured: of 66 premortem causes the owner ruled on
@@ -64,7 +64,7 @@ standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
 fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the argument
 leaves open, and is informed of each removal and can contest it with a goal, a fact or an
-argument, per `goal@knowledge-architect@the-owner-decides`. The owner named the
+argument, per `goal@the-owner-decides`. The owner named the
 wording and the small changes of scope of tripwires among the rulings a clearer standard should
 let the session's judgement cover. Of the two shapes that meet these goals, the owner chose that
 the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an

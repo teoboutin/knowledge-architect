@@ -65,7 +65,7 @@ occasion holds the firing evidence.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-workflow-improves-through-real-use` relies on evidence from real
+`goal@the-workflow-improves-through-real-use` relies on evidence from real
 sessions reaching the decisions it bears on. `design@agent-skills@standing-state-review-before-every-merge`
 makes the standing-state review the standing re-entry point of every tripwire home, and that review
 holds only the tree. A tripwire whose evidence arises where nobody reads the tripwire guards

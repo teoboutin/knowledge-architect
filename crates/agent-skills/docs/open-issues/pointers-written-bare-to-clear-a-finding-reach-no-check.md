@@ -98,7 +98,7 @@ of forty received retrospective files, three outcomes for the owner".
 ### Why it matters
 
 A pointer written bare is read by no check, so it dangles unseen when its target moves, against
-`goal@knowledge-architect@documentation-stays-consistent`. The two later instances each had a
+`goal@documentation-stays-consistent`. The two later instances each had a
 repair in reach, a checked form or an admitted bare name, which the finding's message did not name
 or no text gave.
 

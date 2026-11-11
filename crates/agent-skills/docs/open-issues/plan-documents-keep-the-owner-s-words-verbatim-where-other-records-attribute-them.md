@@ -90,7 +90,7 @@ of 2026-11-06-knowledge-architect-cli-on-top-klarch-workflow, in the same commit
 ### Why it matters
 
 An attribution that loses a hedge records a firmer ruling than the owner gave, against
-`goal@knowledge-architect@the-owner-decides`; the transcript reviewer catches most of them, at a
+`goal@the-owner-decides`; the transcript reviewer catches most of them, at a
 review round each.
 
 ### What would close it

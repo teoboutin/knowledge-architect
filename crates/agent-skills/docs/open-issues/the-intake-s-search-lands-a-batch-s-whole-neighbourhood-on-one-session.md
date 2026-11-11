@@ -42,8 +42,8 @@ the audit's fit recorded" reaches the main branch, or the owner's word.
 ### Why it matters
 
 An intake whose session cannot carry its grounding judges outcomes on less than the record, against
-`goal@knowledge-architect@agents-work-without-drift`, and spends the main session's context on reading
-that `goal@knowledge-architect@session-orchestrates-the-work` hands to dispatched agents.
+`goal@agents-work-without-drift`, and spends the main session's context on reading
+that `goal@session-orchestrates-the-work` hands to dispatched agents.
 
 ### What would close it
 

@@ -9,7 +9,7 @@ locations, the registers, the walk's exclusions. The manifest is also the marker
 directory a project root. So one binary checks any project, a copy of a mock project included, with no special case in the code. A path that must not be
 checked is declared there, in one place, with its reason beside it.
 
-The constraint derives from `goal@knowledge-architect@every-target-project-can-adopt-it`. A list
+The constraint derives from `goal@every-target-project-can-adopt-it`. A list
 compiled in for one project is a list every other project is checked against. It also keeps the
 tests honest: a mock runs the same code path as a real tree, so a test over a mock tests the
 code that checks the real tree.
@@ -156,14 +156,14 @@ where its repair is a safe fix under `design@check@safe-fix-definition`, lost: t
 generated file that fails in every earlier commit of a branch is a history edit, which is no safe
 fix, and it is the same repair whatever left the file out of date. How a repair is
 carried out safely is the project's rule for that operation, not the finding's text. This serves
-`goal@knowledge-architect@adoption-is-easy`: the finding is what a consumer reads first.
+`goal@adoption-is-easy`: the finding is what a consumer reads first.
 
 ### Every rule over a document is enforced, and no declaration exempts a document from one `##the-regime-has-no-opt-out`
 
 The rules over documents are compiled in and the manifest declares nothing about them, so
 conformance of a document means the same thing in every tree this tool checks. There is no flag, no
 list and no severity: a rule either holds over a document or the run fails. The constraint derives
-from `goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
+from `goal@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
 `check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
 
 **A declared register adds obligations and removes none**, which is what keeps

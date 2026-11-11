@@ -62,8 +62,8 @@ Re-entry point: a design discussion under `skill@knowledge-architect-design`, on
 ### Why it matters
 
 Every default held for the owner's word before it enters a head keeps a branch's record incomplete
-until the ruling, against `goal@knowledge-architect@agents-work-without-drift`; a default written
-into a head before the ruling records as settled what `goal@knowledge-architect@design-with-agents-as-counterparts`
+until the ruling, against `goal@agents-work-without-drift`; a default written
+into a head before the ruling records as settled what `goal@design-with-agents-as-counterparts`
 asks the owner to meet before the merge.
 
 ### What would close it

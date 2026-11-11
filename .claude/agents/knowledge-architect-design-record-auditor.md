@@ -316,7 +316,7 @@ Component too.
 If it is a statement about what the project is _for_ rather than about how it is built, it is a
 goal, not a decision. Goals are a register of their own, in the goals home of the project's root,
 each entry a level-two heading carrying a slug. A decision that leans on one names it as
-`goal@<root>@<slug>`. What one Component is for is a decision, the statement of the head that
+`goal@<slug>`. What one Component is for is a decision, the statement of the head that
 argues the Component's existence, which point 1 places.
 
 If none of these fits, **ask the owner before writing it anywhere.**

@@ -13,9 +13,9 @@ design the project did not keep comes back only by a change that reopens it on p
 
 Where two purposes of knowledge-architect compete, this one comes first. It never comes before the
 decisions of the project's owner, the exchange with that owner and the check of that owner's word,
-which `goal@knowledge-architect@the-owner-decides`,
-`goal@knowledge-architect@design-with-agents-as-counterparts` and
-`goal@knowledge-architect@the-owner-s-word-is-verified` state.
+which `goal@the-owner-decides`,
+`goal@design-with-agents-as-counterparts` and
+`goal@the-owner-s-word-is-verified` state.
 
 ## The generic part of a tool or a procedure that a target project sets up or changes is shipped by knowledge-architect once knowledge-architect's owner takes it in `##generic-tools-and-procedures-are-shipped`
 

@@ -79,10 +79,44 @@ section belongs to a skill or to an agent.
 
 The nearest rival, an anchor the tool constructs for the agent configuration with three segments
 everywhere, lost: every name for it stutters or names a provider, and it carries nothing. It is
-`rejected@model@agent-configuration-anchor`. Serves `goal@knowledge-architect@every-target-project-can-adopt-it`:
+`rejected@model@agent-configuration-anchor`. Serves `goal@every-target-project-can-adopt-it`:
 one grammar, the same in every project, with a global namespace naming no anchor.
 
 The design this decision did not keep: `rejected@model@section-kind`.
+
+### A register that the project's root alone carries is cited with no anchor, and every anchored form of it is malformed `##root-register-reference-has-no-anchor`
+
+A register the project's root alone carries, by a rule compiled into the tool that no declaration
+changes, is cited `<kind>@<id>` for an entry and `register@<register>` for its home: today the
+register `goal`, as `goal@<id>` and `register@goal`, per `design@model@registers-are-declared`.
+The reference is read at the root's anchor. The same reference written with an anchor,
+`<kind>@<anchor>@<id>`, `register@<anchor>@<register>` or `register@*@<register>`, is malformed,
+its one repair the form with no anchor. The candidate rule reads the arity from the kind and the
+register, never from the segment count alone, so a declared register, a component-scoped one and
+every other kind keep `<kind>@<anchor>@<id>`.
+
+- **No anchor, because the tool fixes the register's one carrier**:
+  `rejected@model@register-reference-without-anchor` lost on two reasons. Its first, that the tool
+  cannot know which register has one instance in a project, fails here, since the tool gives the
+  register to the root and no declaration moves it. Its second, one grammar with no special case in
+  the resolver, is the cost this form accepts, as `design@model@harness-kinds-cited-without-anchor`
+  accepts it for the harness kinds. A declared register keeps its anchor because a manifest edit
+  changes its carriers, not because the tool cannot read them.
+- **The anchored forms are malformed, not a second spelling**: two spellings of one entry would put
+  two shapes on one meaning, the reason `rejected@check@at-prefix-root-relative-path` gives. Since
+  the root's name differs in each project, the anchored form would also be the one installed text
+  could not write.
+- **The choice is the owner's at a fork**: the owner chose this form over `*` read as every anchor
+  that carries the register, a new reserved anchor word for the root, and the root's goals home
+  named in words with no reference, which no goal ranks. A reserved word for the root costs besides
+  a finding on every backticked `root@<host>` span, since the candidate rule reads a reserved word
+  at the head of a span as an anchor in the kind position. The plan registers keep their anchor:
+  `spec` has the anchor `plans` and each milestone as carriers, and the owner chose to leave
+  `milestone` as it is too.
+
+It serves `goal@documentation-has-a-structure-and-a-model`: a reference is written the same in
+every project, with one reading, and a goal named by its id alone is written so in every project
+that installs the workflow.
 
 ### Every level-two heading of a section home of the harness is a section, and owes a slug `##section-homes-carry-slugs`
 
@@ -110,5 +144,5 @@ reads that block, is no heading.
   agent, whatever anchor holds its file.
 
 The finding on an unslugged heading names the repair, and the setup skill states the requirement,
-so an adopting project meets it in the documentation. Serves `goal@knowledge-architect@records-reach-their-reader`:
+so an adopting project meets it in the documentation. Serves `goal@records-reach-their-reader`:
 `show` on a section lists every text that cites it.

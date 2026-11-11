@@ -30,7 +30,7 @@ A finding on a library a project pins and cannot edit takes, under the current t
 outcomes the head argues each loses such a finding: handled now with nothing the project can edit,
 or an issue in a register the upstream cannot read. It strains
 `design@agent-skills@installed-fix-goes-upstream` and
-`goal@knowledge-architect@the-workflow-improves-through-real-use`.
+`goal@the-workflow-improves-through-real-use`.
 
 ### What would close it
 

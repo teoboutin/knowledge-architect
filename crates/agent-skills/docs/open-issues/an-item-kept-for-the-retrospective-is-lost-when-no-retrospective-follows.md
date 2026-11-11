@@ -41,7 +41,7 @@ below; the fit with "instances seen" is stated here.
 ### Why it matters
 
 Every lost item is a finding on the installed text or the checker that never reaches this
-repository, against `goal@knowledge-architect@the-workflow-improves-through-real-use`. It strains
+repository, against `goal@the-workflow-improves-through-real-use`. It strains
 `design@agent-skills@installed-fix-goes-upstream`, whose argument for the route is that the other
 outcomes lose such a finding.
 

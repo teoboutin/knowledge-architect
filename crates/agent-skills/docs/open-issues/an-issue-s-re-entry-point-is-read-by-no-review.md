@@ -60,7 +60,7 @@ change meets without rewriting it would have been read by no review.
 `design@agent-skills@standing-state-review-before-every-merge` makes the standing-state review the reader,
 for every change, of what waits for an event. A re-entry point that names such an event and that
 no review reads is a parked item with no re-entry, which the issue-tracking skill says the
-registers exist to avoid. It threatens `goal@knowledge-architect@agents-work-without-drift`.
+registers exist to avoid. It threatens `goal@agents-work-without-drift`.
 
 ### What would close it
 

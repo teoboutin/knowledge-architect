@@ -15,19 +15,19 @@ refusal of `design@check@installed-binary-version-check`, whatever the project's
 workflow. Its function takes the project's root, and is this crate's public interface, per
 `design@knowledge-architect@transcript-crate`.
 
-It serves `goal@knowledge-architect@agents-get-a-complete-workflow`, since without it a session that
+It serves `goal@agents-get-a-complete-workflow`, since without it a session that
 consults a transcript writes its own script. The task it takes from sessions is one the installed
 text asks of every project that adopts the workflow, with no procedure of this repository's own, so
 it is a published crate's to automate, not the maintenance tool's, per
 `design@xtask@a-local-task-is-the-maintenance-tool-s`:
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide
+`goal@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide
 the tool, so that each session of a target project gets the same result. The nearest rival, a command of the maintenance tool, is
 never published, so a project that adopts the workflow, such as thaum, would have no copy.
 
 ### The transcript command reads Claude Code's transcripts, and no other harness's `##transcript-reads-claude-code-alone`
 
 The reader knows one harness's layout and fields, Claude Code's.
-`goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
+`goal@serves-one-kind-of-project` asks every target project's agents to run
 under `claude`, and a second harness waits for a change of that ask, per
 `issue@check@configuration-for-several-agent-providers`.
 
@@ -133,7 +133,7 @@ subtypes, the `attachment.type` values, the content item types and the `origin.k
 harness writes, as measured. A value outside them is counted, never a failure:
 every verb's header names each with its count and its first file and line, with the count of
 `unlabelled` lines and each line that is no JSON, and ends, where any of them is non-zero, with the line asking for it to be reported as a finding
-on the checker in the retrospective. It serves `goal@knowledge-architect@the-workflow-improves-through-real-use`
+on the checker in the retrospective. It serves `goal@the-workflow-improves-through-real-use`
 by that route, per `design@agent-skills@unrecognised-entries-reach-upstream`.
 
 The harness documents the format as internal: "The entry format is internal to Claude Code and

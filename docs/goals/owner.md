@@ -12,7 +12,7 @@ contradiction no source or argument resolves.
 
 Whatever the argument settles, the project's owner decides every action that cannot be undone, and
 knowledge-architect's own owner decides each addition, tightening or removal of a
-condition or an ask of `goal@knowledge-architect@serves-one-kind-of-project`, and whether and when it takes in the generic
+condition or an ask of `goal@serves-one-kind-of-project`, and whether and when it takes in the generic
 part of a tool or a procedure.
 
 Each decision the agents make that enters the record, and each choice they make on a question

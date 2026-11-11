@@ -5,12 +5,12 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@serves-one-kind-of-project` defines a target project by four conditions,
+`goal@serves-one-kind-of-project` defines a target project by four conditions,
 says that knowledge-architect asks more of one, and names two asks: the project is a git
 repository, and its agents run under the `claude` harness. Two further asks are stated by no goal
 and argued by no head, which `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds:
 every gate run through the gates library from one command, and one merge invocation of that command
-in every target project. `goal@knowledge-architect@the-owner-decides` gives knowledge-architect's
+in every target project. `goal@the-owner-decides` gives knowledge-architect's
 owner each addition, tightening or removal of a condition or an ask of the scope goal; the owner
 chose to read that narrowly, as the asks the scope goal itself names, so an ask a design head holds,
 these two and the maintenance crate among them, is changed on argument and reported. The setup
@@ -42,8 +42,8 @@ conditions and the asks; and no design head names the command and its merge invo
 
 ### Why it matters
 
-`goal@knowledge-architect@serves-one-kind-of-project` guarantees knowledge-architect's working only
-as far as a project follows what it asks, and `goal@knowledge-architect@adoption-is-easy` has an
+`goal@serves-one-kind-of-project` guarantees knowledge-architect's working only
+as far as a project follows what it asks, and `goal@adoption-is-easy` has an
 adopter find what to do in the documentation. While the conditions and the asks are stated nowhere
 an adopter reads, an adopter cannot tell whether a project is served, nor which ask an installed
 instruction relies on when it fails in a project that does not follow it.

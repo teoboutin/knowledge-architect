@@ -442,11 +442,11 @@ mod planted {
     /// the reference it is written for.
     #[test]
     fn each_lint_on_a_defined_id_reports_its_planted_defect() {
-        let token = one("`goal@planted@planted-goal` is a reference written without backticks");
+        let token = one("`goal@planted-goal` is a reference written without backticks");
         assert!(token.starts_with("notes/ids.md:5"), "{token}");
         let bare = one("`planted-goal` is written in backticks without its kind");
         assert!(bare.starts_with("notes/ids.md:7"), "{bare}");
-        assert!(bare.contains("names `goal@planted@planted-goal`"), "{bare}");
+        assert!(bare.contains("names `goal@planted-goal`"), "{bare}");
         let plain = one("`planted-goal` is written as a plain word");
         assert!(plain.starts_with("notes/ids.md:9"), "{plain}");
     }

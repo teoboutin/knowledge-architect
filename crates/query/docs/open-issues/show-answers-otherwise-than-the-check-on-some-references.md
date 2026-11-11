@@ -19,7 +19,7 @@ kind: defect
 
 ### Why it matters
 
-`design@check@one-question-one-command` and `goal@knowledge-architect@records-reach-their-reader` rely on `show` naming every citation of an entry, and `path@query@src/show.rs` says a reference the check refuses resolves to nothing there either.
+`design@check@one-question-one-command` and `goal@records-reach-their-reader` rely on `show` naming every citation of an entry, and `path@query@src/show.rs` says a reference the check refuses resolves to nothing there either.
 
 ### What would close it
 

@@ -104,7 +104,7 @@ The three subsections are the three fields every kind owes:
   attached, or leave it out.
 
 **`Why it matters` names what the entry stands against**: the decision it strains, as
-`design@<anchor>@<id>`, and the goal it threatens, as `goal@<anchor>@<id>`, when it does directly.
+`design@<anchor>@<id>`, and the goal it threatens, as `goal@<id>`, when it does directly.
 That is what lets `cargo klarch show` on the decision list what is outstanding against it before it
 is reopened, and on the goal what stands between the project and it. A reference is a claim that
 the text is revisited when the entry it names changes, per `primer@where-knowledge-goes`. An entry

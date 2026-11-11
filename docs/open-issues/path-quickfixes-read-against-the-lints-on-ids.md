@@ -62,7 +62,7 @@ message; `issue@check@no-command-applies-the-repair-a-message-finding-names` rec
 ### Why it matters
 
 A plan document written against heads that have since changed is implemented against text that no
-longer states the design, against `goal@knowledge-architect@documentation-stays-consistent`; a
+longer states the design, against `goal@documentation-stays-consistent`; a
 respelling of an id several entries define would make the checker choose a meaning, which
 `design@check@backticked-bare-id` refuses.
 

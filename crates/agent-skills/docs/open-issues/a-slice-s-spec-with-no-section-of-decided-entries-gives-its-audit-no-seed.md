@@ -21,6 +21,12 @@ shape `rejected@agent-skills@slice-audit-seeded-by-the-milestone` refuses, since
 seed is never `unrelated` and the entries citing the other slice's decisions took lines they did
 not need. The alternative the installed text left, the slice's spec, gave no seed at all.
 
+At the design audit of the second slice of the same milestone, the slice's spec held no such
+section either, and `--seeds-from` it gave no seed. The session took as seeds, after the search, the
+8 entries the milestone document's table gives that slice: of the 53 entries that are or cite one
+of them, 7 had been graded `unrelated`, and their agents graded them again. The design audit then
+added the section to that slice's spec, citing the entries the slice rewrites.
+
 ### Why it matters
 
 An audit with no seed lets the search grade as `unrelated` an entry that cites a decision the

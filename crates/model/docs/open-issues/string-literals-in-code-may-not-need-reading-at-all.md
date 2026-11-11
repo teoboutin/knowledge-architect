@@ -75,7 +75,7 @@ one included, that writes no such literal.
 It strains `design@model@grammars-not-prefixes` and `design@check@checker-source-literals-are-data`,
 and it would reverse `rejected@check@no-string-literal-read` if the discussion ends that way. A
 citation written in a literal that nothing reads dangles silently when its entry is renamed, which
-`goal@knowledge-architect@documentation-stays-consistent` counts against. Against that, each test
+`goal@documentation-stays-consistent` counts against. Against that, each test
 that expects a rule-shaped text outside the compiled lists owes a binding, an exclusion from the walk
 or a further exempt directory, for a class of citation this repository does not hold.
 

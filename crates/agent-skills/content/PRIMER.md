@@ -288,7 +288,7 @@ included. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
-`claude` harness, and the home of each component register: `register@*@goal`,
+`claude` harness, and the home of each component register: `register@goal`,
 `register@*@design`, `register@*@rejected`, `register@*@tripwire` and `register@*@issue`.
 
 %% `design@agent-skills@enclosing-design-read-at-grounding`.
@@ -484,7 +484,7 @@ shaped, is `skill@knowledge-architect-decision-recording@head-shape`;
 
 ## The installed skills {{slug:installed-skills}}
 
-%% The opening paragraph serves `goal@knowledge-architect@agents-get-a-complete-workflow`, under
+%% The opening paragraph serves `goal@agents-get-a-complete-workflow`, under
 %% which an agent needs no instruction from outside what knowledge-architect provides and what its
 %% project adds. Of two
 %% cloud sessions with no user-level instruction, one read sections of skills found by `grep` in

@@ -146,6 +146,9 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 }
             }
         }
+        if anchor.is_component && !anchor.is_root() {
+            foreign_root_homes(&mut out, model, manifest, inputs, anchor);
+        }
         if anchor.constructed == Some(Constructed::Plans) {
             let readme = anchor.path.join("README.md");
             if !inputs.present.contains(&readme) || inputs.directories.contains(&readme) {
@@ -754,6 +757,67 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
              reference, and Windows creates no file under a name it forbids. Name it in [walk] \
              skip-files or in an ignore rule to keep it as it is",
         ));
+    }
+}
+
+/// A home, in a Component other than the root, of a register the root alone carries: one finding
+/// per home the tree holds, in either shape, per `design@model@registers-are-declared`.
+///
+/// It is this phase's, since such a file is no register home, so a slugged heading in it would
+/// otherwise be reported only as a misplaced definition, a finding that hides the repair. The
+/// repair has two cases, per `design@check@finding-names-the-repair`: a home that holds no entry
+/// heading is deleted; one that holds entries has each moved, which for `goal` is the
+/// goal-setting skill's, or turned into a design head. Read over the walked set, so a commit's
+/// own listing decides under `commits`.
+fn foreign_root_homes(
+    out: &mut Vec<Finding>,
+    model: &Model,
+    manifest: &Manifest,
+    inputs: &TreeInputs,
+    anchor: &Anchor,
+) {
+    let roots = manifest
+        .registers()
+        .all()
+        .iter()
+        .filter(|r| r.scope == crate::manifest::Scope::Root);
+    for register in roots {
+        let base = anchor.path.join("docs").join(&register.dir);
+        let file = base.with_extension("md");
+        for home in [file, base] {
+            if !inputs.present.contains(&home) {
+                continue;
+            }
+            let level = register.level.unwrap_or(2);
+            let holds_entries = model
+                .documents()
+                .iter()
+                .filter(|d| d.rel == home || d.rel.starts_with(&home))
+                .any(|d| {
+                    d.observations.iter().any(|o| {
+                        matches!(&o.what, crate::scan::Observation::Heading { level: l, .. } if *l == level)
+                    })
+                });
+            let what = format!(
+                "`{}` is a home of the {} register in the component `{}`, which the project's \
+                 root alone carries",
+                home.display(),
+                register.name,
+                anchor.name
+            );
+            let action = if holds_entries {
+                format!(
+                    "move each entry to the root's home of the register, a goal through the \
+                     project's goal-setting, or turn it into a design head of `{}`; then delete \
+                     the home",
+                    anchor.name
+                )
+            } else {
+                "delete it; it holds no entry, and the root's home is the register's one home"
+                    .to_string()
+            };
+            out.push(Finding::in_file(&home, what, action));
+        }
     }
 }
 

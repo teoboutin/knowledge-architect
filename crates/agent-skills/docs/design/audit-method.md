@@ -14,7 +14,7 @@ hold both standards in one text. A skill per axis would restate the method in ea
 are one activity, per `design@agent-skills@one-skill-per-activity`: the method is generic and each axis
 gives only its corpus, its dispatch and its outcomes, per `design@agent-skills@audit-method`. Every review reads a
 diff, so without an audit a drift between two heads no branch touches is read by no step of the
-workflow, against `goal@knowledge-architect@documentation-stays-consistent`. The goals are the
+workflow, against `goal@documentation-stays-consistent`. The goals are the
 exception: their review of the whole set reads the whole project on one aspect and runs inside
 goal-setting, since its methodology is goal-setting's and an activity is its methodology, per
 `design@agent-skills@goal-set-review-in-goal-setting`; the argument above, two standards in one
@@ -179,7 +179,7 @@ instructions each proposal adds and removes; for a re-check, the counts the reco
 of a pass, the owner-list one as the cross-check proposes it; and what a run restarted from its files
 no longer holds.
 
-It serves `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` without the command or the
+It serves `goal@tasks-a-tool-does-better-are-the-tool-s` without the command or the
 library function the goal names for a task: a count the run holds is no task the workflow asks of a
 session, and computing it in the script removes the agent's reading, where a command would leave the
 session one more step. A count the run holds follows,
@@ -243,15 +243,15 @@ The rival of one workflow auditing every axis at once lost on the owner's
 argument that it audits all axes of the project at once and produces a single report, which is too
 large a scope.
 
-`goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
+`goal@serves-one-kind-of-project` asks every target project's agents to run
 under `claude`, and a second provider waits for a change of that ask, per
 `issue@check@configuration-for-several-agent-providers`; the defeat of the rival below, a skill
 written for the Workflow tool alone, was argued before that ask, on its failing in every other
 harness, and is to be argued again, per `issue@agent-skills@heads-argued-from-another-harness`.
 A saved workflow is a mechanism of that harness, which every target project's agents run under: it
-is particular to no target project, which `goal@knowledge-architect@every-target-project-can-adopt-it`
+is particular to no target project, which `goal@every-target-project-can-adopt-it`
 excludes, and it is no instruction from outside what knowledge-architect provides and what the
-project adds, which `goal@knowledge-architect@agents-get-a-complete-workflow` excludes. The owner weighed the dependency on the harness as acceptable, on the ground
+project adds, which `goal@agents-get-a-complete-workflow` excludes. The owner weighed the dependency on the harness as acceptable, on the ground
 that the owner personally uses only Claude Code and does not really expect anyone else to start
 using the workflow, beyond the owner's own use in more projects than thaum. The cost of shipping
 them: each saved workflow is listed in every session
@@ -306,7 +306,7 @@ entry, but for a tripwire the standard or its lifecycle removes, per
 drafted as a goal where it states a purpose, a scope or a ranking, which side of a contradiction wins where no design head, goal or source settles
 it, a verdict where a rule reads two ways and no record states the reading, a head
 in the wrong Component and a conflict with a goal go to the owner, per
-`goal@knowledge-architect@the-owner-decides` and
+`goal@the-owner-decides` and
 `design@agent-skills@questions-go-to-their-authority`; any finding no case names goes there too. In
 the agentic-workflow axis, an instruction read two ways goes to the owner where nothing recorded
 states the reading meant, and is applied where a design head or another instruction states it. A
@@ -339,7 +339,7 @@ plainly enough to follow without guessing what it means, per
 `design@agent-skills@no-two-installed-instructions-contradict`, so an instruction that a
 reading confirms is read two ways is repaired, even where every act it allows is acceptable. What no
 instruction covers is left to judgement on purpose, per
-`goal@knowledge-architect@only-needed-instructions`, and is no finding. The rival outcome, a finding
+`goal@only-needed-instructions`, and is no finding. The rival outcome, a finding
 of two readings left to judgement where no text rules either act out, leaves such an instruction
 standing, against that head. Its cost stands: each repair writes new text, which
 `design@agent-skills@convergence-count-scope` counts apart and

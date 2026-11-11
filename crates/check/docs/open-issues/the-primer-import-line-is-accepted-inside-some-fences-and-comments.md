@@ -22,7 +22,7 @@ Each written over the root CLAUDE.md, then `klarch check` exits 0, as an adversa
 ### Why it matters
 
 A root CLAUDE.md in one of these shapes delivers no primer to any session and passes
-`design@check@primer-import-line`'s check, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
+`design@check@primer-import-line`'s check, against `goal@agents-get-a-complete-workflow`.
 
 ### What would close it
 

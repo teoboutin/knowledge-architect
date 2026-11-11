@@ -143,14 +143,14 @@ drafts; it stays open for every axis that has not adopted it.
 
 ### Why it matters
 
-`goal@knowledge-architect@documentation-stays-consistent` gives reviews and audits the judging of
+`goal@documentation-stays-consistent` gives reviews and audits the judging of
 what the documents mean, whether the code departs from what they state and whether two documents
 agree, and every review reads only what a diff touches. The design-record axis reads the
 decision record as a whole against the rules on its entries, and the agentic-workflow axis reads
 every instruction the harness delivers as one whole; a drift between two heads that no branch
 touches, between the code and a head no branch cites, or between an issue and the tree as it
 stands, is still read by no step of the workflow.
-`goal@knowledge-architect@agents-work-without-drift` depends on the whole record, since agents
+`goal@agents-work-without-drift` depends on the whole record, since agents
 ground on all of it.
 
 The design record's self-consistency axis may reuse the design-record axis's preflight, which lists

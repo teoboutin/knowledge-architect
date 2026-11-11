@@ -38,7 +38,7 @@ audit. All four sites were in one file, and each now writes its repair at `path@
 The reproduction, in any project whose manifest declares a Component `<c>` holding a goal
 `<goal-id>` and a README.md, and which installs a skill `<skill>` with a section `<slug>`: one
 document holding six spans, each in backticks, `path@<c>@README.md:3`, `path@<c>@README.md#top`,
-`goal@<c>@<goal-id>#top`, `goal@<c>@<goal-id>:12`, `skill@<skill>@<slug>:3` and
+`goal@<goal-id>#top`, `goal@<goal-id>:12`, `skill@<skill>@<slug>:3` and
 `primer@<slug-of-a-primer-section>#x`, each placeholder replaced by a real name. The draft's run of
 `cargo klarch check` over such a project gave six findings, and none names the suffix: two `path` findings with the `assert_target`
 repair, two goal findings with the `table` repair, one with the skill-section repair and one with
@@ -78,7 +78,7 @@ where the repair depends on the cause: an undefined id and an id carrying a suff
 repairs. A session that writes evidence with a location, as an analysis under
 `skill@knowledge-architect-retrospective-intake` asks in every project that installs the workflow,
 follows the message to the wrong segment, and no installed text supplies the rule instead, by the
-owner's ruling. Against `goal@knowledge-architect@adoption-is-easy`:
+owner's ruling. Against `goal@adoption-is-easy`:
 the finding is what a consumer reads first.
 
 ### What would close it

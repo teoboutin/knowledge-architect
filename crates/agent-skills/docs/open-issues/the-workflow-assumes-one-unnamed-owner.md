@@ -28,7 +28,7 @@ a project's documents.
 
 Where the assumption is stated: the expectation set of the design skill, in
 `path@agent-skills@content/skills/retrospective/SKILL.md`, "The owner is the person who can
-decide what is the owner's"; and `goal@knowledge-architect@the-owner-decides`. What is the owner's
+decide what is the owner's"; and `goal@the-owner-decides`. What is the owner's
 is the set of questions `primer@question-authority` gives the owner, so a decision on who rules
 inherits that set as the questions a person rules on.
 The primer's `primer@coined-terms` restates the term "the owner" in one sentence, with its pointer
@@ -40,10 +40,10 @@ nothing in its text or its record can say which person ruled.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-owner-decides` promises that the owner decides the forks and sees each
+`goal@the-owner-decides` promises that the owner decides the forks and sees each
 decision reported.
 With several contributors, a ruling recorded as the owner's cannot be traced to the person who gave
-it, and `goal@knowledge-architect@every-target-project-can-adopt-it` does not hold for such a project.
+it, and `goal@every-target-project-can-adopt-it` does not hold for such a project.
 
 ### Re-entry
 

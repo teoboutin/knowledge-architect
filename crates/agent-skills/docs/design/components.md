@@ -18,7 +18,7 @@ session to the skill; the design skill and the development skill host it, the tw
 which the first two moments are met, per `design@agent-skills@shared-text-fragment`. The setup skill
 points to the skill for the criteria and the naming.
 
-`goal@knowledge-architect@projects-are-split-into-modular-units` has the workflow lead a target
+`goal@projects-are-split-into-modular-units` has the workflow lead a target
 project toward units that each serve one purpose, the project's parts among them, as a direction and
 not a rule a unit fails alone. So the installed text states default criteria of a Component, as
 guidelines a Component that departs from one does not fail on that alone, and leads a session to
@@ -26,12 +26,12 @@ apply them at each of the moments above. What makes a split good is learned from
 fixed before it: the criteria are corrected by what the retrospective's question on a rule about
 splitting that proved too hard or too strict brings back, per
 `design@agent-skills@premortem-as-watch-points`, and the changes real use asks of the workflow, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`. The nearest rival, a rule of
+`goal@the-workflow-improves-through-real-use`. The nearest rival, a rule of
 splitting each Component must meet, fixes before any use what the goal leaves to a direction, and
 leaves a session whose project the rule fits badly no move but to break it. The activity's methodology, a cut of a boundary followed by a
 move of the record, is apart from a design discussion's and from the setup's, so it is an activity
 of its own and takes a skill of its own, per `design@agent-skills@one-skill-per-activity`;
-`goal@knowledge-architect@agents-get-a-complete-workflow` covers each activity the owner has taken
+`goal@agents-get-a-complete-workflow` covers each activity the owner has taken
 in, and its list of activities grows. The owner
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
@@ -80,7 +80,7 @@ practice does accept them, as gitoxide's crates read in
 published crate depends on, a release in dependency order and a version bump for each crate. The
 skill reads the publication status from the project's record, asks the owner where the record
 states none, and weighs the project's policy without setting it, per
-`goal@knowledge-architect@agents-get-a-complete-workflow`.
+`goal@agents-get-a-complete-workflow`.
 
 ### A split is weighed against what it costs between its parts `##component-split-signals`
 
@@ -147,7 +147,7 @@ The rivals lost:
   home.** It holds one shape fewer, and every principle shared by a subset is loaded by every
   session, since every change to code reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, against
-  `goal@knowledge-architect@projects-are-split-into-modular-units`, under which an agent reads one unit
+  `goal@projects-are-split-into-modular-units`, under which an agent reads one unit
   whole: a Component's design stays small enough for that. The owner's earlier choice over it was of an
   intermediate Component created for a purpose stated in goals, an occasion no text states: the
   rival loses on the argument above, not on that choice.
@@ -208,7 +208,7 @@ The rivals lost:
 - **Every decision about dependencies in the root's design home.** A rule that binds one Component
   alone would be loaded by every session that reads the root's design home, per
   `skill@knowledge-architect-development@ground-before-editing`, outside the Component it binds,
-  against `goal@knowledge-architect@projects-are-split-into-modular-units`, under which an agent reads
+  against `goal@projects-are-split-into-modular-units`, under which an agent reads
   one unit whole: a Component's design stays small enough for that.
 - **The lowest Component enclosing every Component the decision constrains.** It keeps the root
   smaller, and moves every dependency decision among a group into the intermediate Component that

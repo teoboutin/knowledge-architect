@@ -35,7 +35,7 @@ produce evidence.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-workflow-improves-through-real-use` defines real use as a session
+`goal@the-workflow-improves-through-real-use` defines real use as a session
 applying the workflow in a real project, under supervision. A census over real text fits that
 definition in part and a run built to observe agents in part. Until the reading is settled, a later
 session cannot tell whether a census of the same kind may support the choice of a shape.

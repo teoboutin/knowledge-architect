@@ -7,7 +7,7 @@
 The rule is the premise the workflow relies on to be useful: an entry is referenced wherever it is
 load-bearing, so the checker lists what a reversal, a closure or a firing touches, and the scope of
 reversing a decision is assessed from that list, per
-`goal@knowledge-architect@records-reach-their-reader`. Every citeable thing has one
+`goal@records-reach-their-reader`. Every citeable thing has one
 reference form, `<kind>@<anchor>@<id>`, and two mechanisms of the
 checker give a reference its value. `cargo klarch show <ref>` prints every reference to an entry,
 so what depends on an entry is computed from the tree and never written by hand. An entry that is
@@ -39,7 +39,7 @@ hand-written one is stale at the next reference written elsewhere.
 included; a string literal bound to a name yields none, per
 `design@model@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
 as live as a sentence in a document, and closing the issue reaches the code. This serves
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+`goal@design-is-recorded-with-its-arguments`.
 
 ### A sentence about the past whose reference dangles is rewritten to the present or removed, except a deleted skill's or agent's reference in a released changelog section and an absent entry, skill or agent in a record of a deliberation, and a quotation of the owner is kept with a reference beside it `##a-past-sentence-is-rewritten`
 
@@ -92,7 +92,7 @@ name is closed by shipping its own form.
 The scope is the checker's syntax, the owner's proposal: the rule was meant for plain text that
 copies the checker's syntax but omits the backticks to avoid the check, which the owner thought a
 better scope. It lets a writer tell from each span alone whether the exception
-applies, per `goal@knowledge-architect@agents-get-a-complete-workflow`: every sentence names
+applies, per `goal@agents-get-a-complete-workflow`: every sentence names
 something, and a scope of "any pointer" would ask for an issue entry beside every mention of a
 thing outside the project. The evasion the exception exists to stop is a reference or a path with its
 backticks removed, which this scope covers. A scope by target, any text naming something the tree
@@ -155,7 +155,7 @@ so another one weakens the check, and is argued as a change of this decision.
 
 The argument: an unchecked form that clears a finding clears it for good, so a habit of writing one
 empties the check while every run still passes, against
-`goal@knowledge-architect@documentation-stays-consistent`. Two narrower stances of the checker
+`goal@documentation-stays-consistent`. Two narrower stances of the checker
 make the same argument: `design@check@the-regime-has-no-opt-out`, where no declaration exempts a
 document from a rule, and `design@model@reserved-anchors`, where the escape anchor is refused on a
 path this tree holds, since it would otherwise silence the finding on a real path.

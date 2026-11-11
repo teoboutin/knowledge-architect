@@ -29,7 +29,7 @@ fewer, kept to the decisions that bear load, which leave to the agents' judgemen
 in them. Every session that changes local code reads the comment at that code, where a head reaches
 it through the reading that `design@agent-skills@code-change-reads-its-record` asks for or through a
 citation in the comment. The decision serves
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`: a later session can tell what it
+`goal@design-is-recorded-with-its-arguments`: a later session can tell what it
 may change and what a change costs from the head where one is owed, and from the comment where none
 is. The nearest rival of keeping the recorded decisions few, a head for every decision discussed
 with the owner, records a mechanism carried at one site by its comments, whose intent, on the
@@ -75,7 +75,7 @@ installed decision-recording skill: it would change an interface others consume,
 of `primer@design-heads` defines it, its reason rests on a reading of an external
 specification the project implements, it was refuted by evidence that cost work, or a doubt
 remains that the design kept meets every goal. The rest stay in the spec and the commit message.
-`goal@knowledge-architect@design-is-recorded-with-its-arguments` asks that a later session need not
+`goal@design-is-recorded-with-its-arguments` asks that a later session need not
 derive an argument again: an alternative refuted by reasoning is derived again in the one round its
 proposal costs, and one refuted by evidence is not. Recording every losing thread of
 every discussion would grow the `rejected` homes by proposals nobody would raise again, and a
@@ -106,8 +106,8 @@ lists every citation of it, with the file and the line of each. A design rejecte
 head of absence, per `design@agent-skills@losing-shape-test`, and the checker reports an entry that
 no design entry cites, per `design@check@orphan-rejected-entry`.
 
-It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments` and
-`goal@knowledge-architect@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
+It serves `goal@design-is-recorded-with-its-arguments` and
+`goal@records-reach-their-reader`: the owner observed that rejected alternatives are missed in
 design sessions and come back at the review of a plan document or after the work, and a design
 session reads heads. The hand-written direction sits in the head, the text that session reads, and
 the link back is `show`'s to compute, since an entry never lists what references it, per
@@ -138,7 +138,7 @@ split. A cluster above the bound is read whole by one agent, and thaum's state-m
 seen to read whole. The citations between heads give no split point, since most subjects are one
 connected group of heads beside a few that cite nothing of theirs, measured over this repository at
 ed9dd60 and over thaum by the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, so the second test
-stays a judgement. On `goal@knowledge-architect@only-needed-instructions`, the owner's reading is
+stays a judgement. On `goal@only-needed-instructions`, the owner's reading is
 that the goal covers a choice where either shape leaves the workflow working, and the split is what
 keeps it working. The delivery to a judge by a pointer loses to the fragment by
 `design@agent-skills@shared-text-fragment`. The design this decision did not keep:

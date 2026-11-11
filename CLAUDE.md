@@ -4,7 +4,7 @@
 
 A documentation checker and an agent workflow, shipped as Rust crates. The checker verifies that a project's documents meet the rules it holds and those the project declares, through declared registers and checked references. The workflow is a set of agent skills that the checker embeds and writes
 into a project on request.
-The goals are the project's, stated in the root's goals home, `register@knowledge-architect@goal`: a Component states none.
+The goals are the project's, stated in the root's goals home, `register@goal`: a Component states none.
 
 The repository is a virtual workspace with Components:
 

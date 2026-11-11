@@ -22,8 +22,8 @@ invariant-check sites of one directory of its engine, is not taken in,
 list of mutations, the sweep generalised, which no goal ranks, and which waits for a second real
 use.
 
-It serves `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: the generic part of
-thaum's tool, which its owner took in, and `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`,
+It serves `goal@generic-tools-and-procedures-are-shipped`: the generic part of
+thaum's tool, which its owner took in, and `goal@tasks-a-tool-does-better-are-the-tool-s`,
 since a mutation check performed by hand, as a scratch worktree with each step written out, leaves
 each step to a session.
 
@@ -135,7 +135,7 @@ none of it, per `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-pro
 
 The record is at the path `git rev-parse --git-path knowledge-architect-mutate` names. The git
 directory is the one place every target project has, since a target project is a git
-repository, per `goal@knowledge-architect@serves-one-kind-of-project`, where neither `cargo clean`
+repository, per `goal@serves-one-kind-of-project`, where neither `cargo clean`
 nor `git clean` reaches the only copy of a pre-image. No project writes an ignore rule for it, the
 checker's walk, which lists untracked files that no ignore rule covers, per
 `design@model@git-supplies-the-walk`, never reads it, and each worktree of a repository gets its

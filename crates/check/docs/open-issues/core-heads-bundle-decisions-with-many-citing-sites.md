@@ -85,7 +85,7 @@ of the bundled decisions cannot cite the decision it changes, since the slug nam
 `cargo klarch show` on the slug lists the sites of every bundled decision at once, so the list of
 texts to revisit is wider than the change. A `rejected` entry that the head cites cannot be
 checked against the one decision whose argument covers it. This strains `design@agent-skills@one-decision-per-head`,
-against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+against `goal@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 

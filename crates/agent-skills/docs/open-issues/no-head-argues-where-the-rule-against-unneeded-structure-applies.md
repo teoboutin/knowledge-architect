@@ -42,7 +42,7 @@ mapping in the installed text is one the rule bears on.
 
 ### Why it matters
 
-`goal@knowledge-architect@only-needed-instructions` has a case that judgement handles well enough
+`goal@only-needed-instructions` has a case that judgement handles well enough
 get no instruction, and it names no structure. While no head says where the rule on structure
 stops, a session can remove as unneeded a structure a command carries out, or keep one that narrows
 what an agent proposes, each on its own reading.

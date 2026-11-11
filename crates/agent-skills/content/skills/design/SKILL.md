@@ -48,7 +48,7 @@ fork — an approval, a rejection, "do X" — ends the argument on that
 point at any time, converged or not. "Stop" ends the discussion, and
 decides nothing against an argument.
 %% The owner has no word that decides against an argument without one: the owner changes a
-%% decision through a goal, a fact or an argument, per `goal@knowledge-architect@the-owner-decides`;
+%% decision through a goal, a fact or an argument, per `goal@the-owner-decides`;
 %% `design@agent-skills@owner-rules-at-a-fork`.
 
 - **Never assume the decision saw all its consequences.** A decision
@@ -140,7 +140,7 @@ evidence bring, which nobody knows in advance.
 
 %% Nothing is committed before the premortem has run: a premortem can surface a material finding
 %% that reopens a thread, and work committed before it would then be undone, against
-%% `goal@knowledge-architect@agents-get-a-complete-workflow`, which is there to raise the
+%% `goal@agents-get-a-complete-workflow`, which is there to raise the
 %% efficiency of the agents' work: a decision reversed by accident costs a reversal the workflow
 %% could have spared. The commit that carries the
 %% deliberation carries the premortem's causes and criteria, as a plan document would; the rival,

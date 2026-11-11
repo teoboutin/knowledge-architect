@@ -553,7 +553,7 @@ mod tests {
                     `path@a-project@docs/design.md` and `issue@notes@a-thing`.\n\n\
                     **Response:** reopen `design@a-project@a-decision`, and read \
                     `design@a-project@another-one`, `reading@notes@a-reading`, \
-                    `goal@a-project@a-goal`, `tripwire@a-project@second-one` and \
+                    `goal@a-goal`, `tripwire@a-project@second-one` and \
                     `rejected@a-project@not-kept`.\n\n\
                     ## The second one `##second-one`\n\n\
                     **Fires when:** something else.\n";
@@ -582,13 +582,13 @@ mod tests {
                 "design@a-project@a-decision".to_string(),
                 "design@a-project@another-one".to_string(),
                 "reading@notes@a-reading".to_string(),
-                "goal@a-project@a-goal".to_string(),
+                "goal@a-goal".to_string(),
             ]
         );
         assert_eq!(
             first.guarding(),
             "design@a-project@a-decision design@a-project@another-one \
-             reading@notes@a-reading goal@a-project@a-goal"
+             reading@notes@a-reading goal@a-goal"
         );
         let second = found
             .iter()

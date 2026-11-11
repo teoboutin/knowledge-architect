@@ -5,7 +5,7 @@ kind: design
 
 ## Summary
 
-`goal@knowledge-architect@serves-one-kind-of-project` asks every target project's agents to run
+`goal@serves-one-kind-of-project` asks every target project's agents to run
 under the `claude` harness, excludes a mode of the checker for another harness, and guarantees
 knowledge-architect's working only as far as a project follows what it asks. Several decisions
 defeated a rival, or keep a rejected design, on the ground that another harness would lack

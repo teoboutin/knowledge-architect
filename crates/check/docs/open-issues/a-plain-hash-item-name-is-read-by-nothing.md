@@ -73,7 +73,7 @@ the checker never reads; the discussion this entry asks for weighs that.
 ### Why it matters
 
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
-against `goal@knowledge-architect@design-is-recorded-with-its-arguments`, and
+against `goal@design-is-recorded-with-its-arguments`, and
 `tripwire@model@candidate-rule-silence` watches the same family of silence for backticked spans. A
 finding on a plain `#<id>` changes `design@check@retired-slug-reference-reported`.
 

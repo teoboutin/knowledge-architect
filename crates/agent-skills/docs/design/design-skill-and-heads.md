@@ -51,7 +51,7 @@ to test, the argument `design@agent-skills@design-home-write-loads-recording` ma
 load. Each exception is a record the session can look at, or a change it can see decides nothing. A
 record settles what the owner asks for or proposes, not merely the result a change must produce: a
 failing test states a result, and a shape the owner proposes to reach it is still challenged. It
-serves `goal@knowledge-architect@design-with-agents-as-counterparts`, under which the agent
+serves `goal@design-with-agents-as-counterparts`, under which the agent
 challenges the owner's proposals, grounded in the record. The trigger reaches a session that holds
 no user-level instruction, since the primer's list of installed skills carries it, per
 `design@agent-skills@primer-limit`.
@@ -100,7 +100,7 @@ rounds. A bound fixed before the discussion decides its size before its content,
 on what grounding, investigation and experiment bring, and nobody knows in advance; the owner argued
 it, as the owner's opinion, answering a proposed path that would bound a discussion to one decision met during a task. Too
 much structure hinders the agent's freedom to carry investigations of various shapes and to
-challenge and refine proposals, against `goal@knowledge-architect@design-with-agents-as-counterparts`,
+challenge and refine proposals, against `goal@design-with-agents-as-counterparts`,
 whose exchange is open and argued, and `design@agent-skills@capabilities-not-structure`, under which
 the installed text imposes no count the work does not need. The rival, a bound on threads or rounds
 to save tokens and the owner's attention, buys nothing: the owner can end a discussion at any
@@ -124,8 +124,8 @@ The decision-recording skill triggers once a decision has been made, or at the l
 text is about to be written, so a new decision met during an issue fix or a review repair otherwise
 reaches the record with no argument, no rival weighed,
 and none of the design skill's rules for reading the owner's word. This serves
-`goal@knowledge-architect@the-owner-decides` and
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. A member inside a head's argument
+`goal@the-owner-decides` and
+`goal@design-is-recorded-with-its-arguments`. A member inside a head's argument
 carries less risk: the decision the head records, and its argument, stand, and the title still
 tells a reader of the outline what is decided. The rival, every decision that earns durable
 text through the design skill, puts such an addition, and every relocation, to a full discussion
@@ -152,7 +152,7 @@ body. A title states no more than its argument argues.
 
 A count or a list in a title goes stale at the next member, and every later member then reads as a
 change of the decision, with its reversal, its slug rename and its tripwire rename, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`, which is there to raise the
+`goal@agents-get-a-complete-workflow`, which is there to raise the
 efficiency of the agents' work: a decision reversed by accident costs a reversal the workflow could
 have spared. The nearest rival, the instance
 in the title, has that cost: an audit of this repository's design heads at commit eee5176f, reading
@@ -254,8 +254,8 @@ result of that search. A load conditioned on whether an edit contradicts a head 
 fires only in a session that already applies those tests at the moment of writing; the skill holds
 the tests, in `skill@knowledge-architect-decision-recording@what-earns-a-head`, beside the
 recording procedures, so they reach the session at the moment of writing, per
-`design@agent-skills@one-home-for-head-rules`. This serves `goal@knowledge-architect@the-owner-decides`
-and `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+`design@agent-skills@one-home-for-head-rules`. This serves `goal@the-owner-decides`
+and `goal@design-is-recorded-with-its-arguments`.
 
 The nearest rival restates the backstop's tests beside the condition at each site. Its copies are
 written by hand and drift, where the skill's are a fragment the build writes, and it reaches only a session editing agent-facing

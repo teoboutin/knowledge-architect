@@ -50,7 +50,7 @@ today only by a subagent reading the file, at the release or when a branch's rev
 change with nothing reporting it. It strains
 `design@knowledge-architect@changelog-section-fixed-at-release`, whose rule on released sections
 has no mechanical guard, nor has the preamble's order of entries, against
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 ### What would close it
 

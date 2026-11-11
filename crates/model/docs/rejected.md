@@ -63,11 +63,13 @@ in prose, which never sit in backticks here.
 
 ### A register reference with no anchor, `<kind>@<id>` for a register a project has only one instance of `##register-reference-without-anchor`
 
-`live`. It is shorter for the common case. It loses because the extracted tool cannot know which
-register is single-instance in a given project, and one three-part grammar serves every kind without
-a special case in the resolver or in the instructions. Its first reason does not hold for a kind
-whose namespace the harness fixes, which `design@model@harness-kinds-cited-without-anchor` cites with
-no anchor; the second stands as the cost that head accepts.
+`live`. It is shorter for the common case. It loses, for a register a project declares or carries
+in every Component, because the extracted tool cannot know which such register is single-instance in
+a given project, and one three-part grammar serves every kind without a special case in the resolver
+or in the instructions. Its first reason does not hold for a kind whose namespace the harness fixes,
+which `design@model@harness-kinds-cited-without-anchor` cites with no anchor, nor for a register the
+tool gives to the root alone, which `design@model@root-register-reference-has-no-anchor` cites with
+no anchor; the second stands as the cost both heads accept.
 
 ### An anchor the tool constructs for the agent configuration, so that a skill, an agent and their sections keep three segments, as `skill@<cfg>@<name>` `##agent-configuration-anchor`
 
@@ -210,7 +212,7 @@ slice spec's anchor does.
 recorded, so alone it makes the pointer silent; recorded as a reserved word, it is a second spelling
 of what `*` means, and a typo of it is another placeholder, silent where a typo of `*` is an unknown
 anchor. The owner kept `*` while still finding it "a bit confusing", which is the doubt this entry
-keeps, against `goal@knowledge-architect@adoption-is-easy`.
+keeps, against `goal@adoption-is-easy`.
 
 ### `home` as the word of the kind naming a register's home `##home-kind-word`
 

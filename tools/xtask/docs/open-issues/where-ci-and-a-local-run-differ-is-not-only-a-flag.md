@@ -30,7 +30,7 @@ outside the axis, since that axis does not judge whether a head is true of the c
 The head is built intent, and a reader takes its bold sentence as a rule: a session that adds a
 CI-only behaviour reads it as owing a flag, while the library already adapts to Actions without
 one. A head false of the code misleads every reader until it is repaired,
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 ### What would close it
 

@@ -23,7 +23,7 @@ published crate.
 ### Why it matters
 
 A target project that does not yet follow an ask brings itself into conformance over time, per
-`goal@knowledge-architect@serves-one-kind-of-project`; meanwhile this repository's public items can
+`goal@serves-one-kind-of-project`; meanwhile this repository's public items can
 lack the documentation a consumer of its libraries needs, and the code-claims axis reads documents
 that may not exist.
 

@@ -40,7 +40,7 @@ Components and their directories.
 
 For each Component on the list, read whole:
 
-- its goals home, `register@*@goal`, every subdocument included where it is a directory;
+- its goals home, `register@goal`, every subdocument included where it is a directory;
 - its design home, `register@*@design`, every subdocument included where it is a directory;
 - its `register@*@rejected`.
 

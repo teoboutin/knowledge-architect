@@ -32,7 +32,7 @@ list for some moves and not others.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-owner-decides` has agents decide, by argument, what the record
+`goal@the-owner-decides` has agents decide, by argument, what the record
 settles, and the owner decide the rest. Each misfiled head an audit finds is one more question the owner
 answers that the record already answers. The head also contradicts itself: its first rule applies
 the move, and its list of owner outcomes holds it.

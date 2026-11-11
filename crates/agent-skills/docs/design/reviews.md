@@ -13,7 +13,7 @@ skill, a plan or a retrospective intake, per `design@agent-skills@record-searche
 A re-entry point that depends on whether a change looked related to a tripwire is one that a change
 touching the guarded decision indirectly skips: the reviewer reads every entry of every home, not
 the subset the diff seems to concern. This serves
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 A deferred issue's trigger answers the question a tripwire's firing clause answers, what will make
 someone do this, and the issue-tracking skill holds both to one test. So the reviewer reads every
@@ -34,7 +34,7 @@ rewritten; a rejected alternative brought back without a recorded reopening; and
 criterion whose observable the record rules out. The second rule keeps it from reporting each
 widening the document makes on purpose. It runs only commands that read.
 
-`goal@knowledge-architect@agents-work-without-drift` has what agents build stay within the design
+`goal@agents-work-without-drift` has what agents build stay within the design
 the project has recorded, a design not kept coming back only by a change that reopens it on
 purpose. A plan document states what its work will build, so a reading of it against the record
 before that work starts is where a departure is caught at the lowest cost. The owner named the
@@ -87,7 +87,7 @@ after every other axis has run and its repairs are committed, and not also in th
 whole branch and the transcripts of every session that worked on it. The findings of the other axes
 reach the session as messages of its transcript, so only a reviewer reading it after their repairs
 can tell whether each was acted on durably, per
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. A transcript reviewer sent in
+`goal@design-is-recorded-with-its-arguments`. A transcript reviewer sent in
 their batch as well would read the transcript before the owner answers the items the batch raises,
 and an answer of the owner given after its extraction reads to it as missing, as
 `skill@knowledge-architect-review@review-axes` says: its findings would report as missing what the
@@ -117,7 +117,7 @@ repair is reviewed by no axis again: a rewording, and an argument, a mention or 
 inside an existing head, included. One made before the last transcript review is still read by it,
 as every commit of the branch is. Without the record review, a head added, removed or reversed in
 answer to a review reaches the main branch with no review of its record, against
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`: the last transcript review judges
+`goal@design-is-recorded-with-its-arguments`: the last transcript review judges
 fidelity to the owner's rulings and not the record.
 
 The trigger is a whole head, which the diff shows: a heading with a slug that appears or disappears,
@@ -140,7 +140,7 @@ makes each agent directory that `klarch worklist` writes its searcher's scratch 
 Subagents sharing one scratch directory overwrite one another's files: parallel searchers in one
 session did, and one repeated its work, and reviewers in another could not tell whether files of the
 same names had been overwritten. A searcher that does not notice fills another agent's report,
-which `goal@knowledge-architect@agents-get-a-complete-workflow` does not allow of a step every
+which `goal@agents-get-a-complete-workflow` does not allow of a step every
 design discussion runs.
 
 The rival that keeps every agent from writing files lost: the searcher's own task is to fill its
@@ -158,7 +158,7 @@ outside any skill is judged by the same criteria. Every review and every audit t
 from the writer's, so the criteria of the reviews and of the audits agree with each other; for
 agent-facing text they are one standard, per `design@agent-skills@admission-rules-home`.
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+`goal@agents-get-a-complete-workflow` has an agent carry each activity out with
 the workflow and what its project adds, needing no instruction from outside what knowledge-architect
 provides and what its project adds, so a criterion a reviewer brings from outside them is one the
 writer could not have met. A writer bound by one
@@ -239,9 +239,9 @@ reviews and of the audits agree, per `design@agent-skills@reviews-judge-by-the-w
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
 checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves
-`goal@knowledge-architect@the-owner-decides`, whose forks are the owner's, so a ruling misrecorded
+`goal@the-owner-decides`, whose forks are the owner's, so a ruling misrecorded
 decides in the owner's place. The durability check serves
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. The check of rulings has shown its
+`goal@design-is-recorded-with-its-arguments`. The check of rulings has shown its
 worth: in the review of the change that installed the first skills, a reviewer briefed with it was
 the one of six to find a decision recorded narrower than the owner's approval. The milestone
 document of the v0.1 extraction holds that count, in its section on session B of step 5, and
@@ -261,7 +261,7 @@ what the labels mean and no rule for which lines to keep or whose they are. A ru
 reviewer's text, with the command as a helper, is applied by a script each session writes again,
 and stands in two homes beside the command's, against `design@check@one-question-one-command`; a
 fragment the build copies would still leave each session to write the script. It serves
-`goal@knowledge-architect@agents-get-a-complete-workflow`.
+`goal@agents-get-a-complete-workflow`.
 
 ### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
 
@@ -303,7 +303,7 @@ statement of the owner, and against every goal of the tree, and reports each goa
 by the owner no commit message of the range records. A goal edit can be made inside another
 activity: in thaum, a goal reworded as a plan's default reached the goals home inside a batch of
 other defaults. The rival, no row, leaves such an edit to be read by no step before it merges,
-against `goal@knowledge-architect@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
+against `goal@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
 the agent is the same one goal-setting dispatches.
 
 ### The shape of the code a branch writes is judged against the default shape by an installed reviewer, before the branch merges `##code-shape-axis`
@@ -312,7 +312,7 @@ the agent is the same one goal-setting dispatches.
 against the default shape of `design@agent-skills@default-code-shape`, and each test it adds by
 `design@agent-skills@test-economy`, in the review before the merge, so every branch's code is
 weighed against the shape before it merges.
-`goal@knowledge-architect@the-workflow-leads-to-better-code` has what the workflow says about code
+`goal@the-workflow-leads-to-better-code` has what the workflow says about code
 and tests aim at code of better quality, and the default shape is what it says about the shape of
 code. The nearest rival, the shape applied by the session that writes the code and weighed by no
 review, applies it only as far as that session did: a departure the writer did not see, or saw and
@@ -350,7 +350,7 @@ late, in the code's behaviour, would unbuild work built on it. The code-shape an
 judge what can be reworded or reshaped without unbuilding, and run once per branch, in the
 review before the merge and before the transcript reviewer, per
 `design@agent-skills@transcript-review-last-before-merge`. Every axis at every checkpoint would
-multiply the dispatches, against the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow`
+multiply the dispatches, against the efficiency `goal@agents-get-a-complete-workflow`
 asks of the workflow; the instrument that would show whether two more per branch are too many is
 `issue@agent-skills@the-retrospective-counts-no-review-cost`.
 

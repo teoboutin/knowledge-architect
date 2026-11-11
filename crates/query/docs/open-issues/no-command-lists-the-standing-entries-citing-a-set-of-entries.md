@@ -55,13 +55,13 @@ it. Analysed at the intake of 2026-10-24.
 
 ### Why it matters
 
-`goal@knowledge-architect@records-reach-their-reader` has a session changing an item able to list what to read again, and
+`goal@records-reach-their-reader` has a session changing an item able to list what to read again, and
 `primer@verify-before-relying` has a session read two listings: for
 any item, every text that references it, and everything outstanding and every piece of evidence that would flip a decision. For a change that touches several decisions, the tool
 computes the second list one entry at a time and by file and line, and the agent turns that into
 entries. That costs one call per entry and a hand mapping, and a mapping done by hand can drop an
 entry. The scripts that mapping took are a task of the kind
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
+`goal@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
 
 ### What would close it
 

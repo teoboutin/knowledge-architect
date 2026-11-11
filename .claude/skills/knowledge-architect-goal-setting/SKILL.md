@@ -105,7 +105,7 @@ home holds is prose under the level-one title, never a level-two section.
 
 **Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
 Components serve it. No other Component and no location states a goal: the goals home each
-Component carries, `register@*@goal`, holds no entry outside the root. The root's home may be a
+Component carries, `register@goal`, holds no entry outside the root. The root's home may be a
 directory behind a `README.md` that links each of its files, the form `primer@checker-model` gives a
 heading register.
 

@@ -4,4 +4,4 @@
 
 | title |
 | --- |
-| [The register `goal` is the root's alone](checker-root-only.md) |
+| [The register `goal` is the root's alone, and is cited with no anchor](checker-root-only.md) |

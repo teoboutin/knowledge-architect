@@ -50,7 +50,7 @@ which the spec-conformity and decision-record reviewers found. Each was repaired
 ### Why it matters
 
 A member beyond the argument enters a head with no deliberation, against
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`; here a reviewer caught each one,
+`goal@design-is-recorded-with-its-arguments`; here a reviewer caught each one,
 at a review round each.
 
 ### What would close it

@@ -38,7 +38,7 @@ kind. Both shapes are for the discussion.
 ### Why it matters
 
 Renaming or removing an item does not give the list of what to repair, against
-`goal@knowledge-architect@records-reach-their-reader`. `primer@where-knowledge-goes` asks a pointer no
+`goal@records-reach-their-reader`. `primer@where-knowledge-goes` asks a pointer no
 checked form expresses to be written beside a reference to an issue entry that records the missing
 form; this entry is that issue, and a site naming a Rust item in prose cites it.
 
