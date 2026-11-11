@@ -650,13 +650,16 @@ check makes the tree CI judged the tree main receives, which is
 what matters; a rebase-and-merge button alone, with no ruleset, leaves CI meaningless where the
 history was not already linear.
 
-### The merge waits for a successful run of CI on the head, not for the exit code of `gh pr checks` `##the-merge-waits-for-a-successful-run-on-the-head`
+### The merge reads the draft flag and waits for a successful run of CI on the head, not for the exit code of `gh pr checks` `##the-merge-waits-for-a-successful-run-on-the-head`
 
-A job that `if:` skips on a draft reports `skipped`, which GitHub counts as passing. So right after
-a pull request is marked ready, the only run on its head can be the one skipped while it was a
-draft, and `gh pr checks` then exits 0. The merge reads the draft flag itself and asks
-`gh run list` for a run on the head whose conclusion is success, as the merge predicate of
-`instructions@git-workflow` does.
+CI skips a draft, per `design@knowledge-architect@ci-skips-a-draft`, and a job that `if:` skips
+reports `skipped`, which GitHub counts as passing. So right after a pull request is marked ready,
+the only run on its head can be the one skipped while it was a draft, and `gh pr checks` then exits
+0, as the commit "Every item of a review report gets an outcome, a head is read against its
+approval, the merge predicate asks for a successful run, and a commit's subject is outside the gap
+head" records it observed. The merge reads the draft flag itself and asks `gh run list` for a run
+on the head whose conclusion is success, as the merge predicate of `instructions@git-workflow`
+does.
 
 ### A pull request reaches main by GitHub's rebase merge, the only method enabled `##rebase-merge-alone`
 
@@ -664,9 +667,9 @@ The rebase merge gives main the branch's commits with the same trees and message
 the per-commit check judged, and its message, a document of the project, reach main as they were,
 except a commit that changes no file, which it drops, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. A squash folds them
-into one, and a merge commit breaks the linear history the ruleset of
-`design@knowledge-architect@main-is-guarded-by-a-ruleset` requires. A fast-forward pushed from a
-checkout is a direct push, which that ruleset refuses, and GitHub offers no fast-forward merge
+into one, and a merge commit breaks the linear history of `goal@serves-one-kind-of-project`, which
+the ruleset of `design@knowledge-architect@main-is-guarded-by-a-ruleset` requires. A fast-forward
+pushed from a checkout is a direct push, which that ruleset refuses, and GitHub offers no fast-forward merge
 method.
 
 ### CI does not check a draft pull request `##ci-skips-a-draft`
