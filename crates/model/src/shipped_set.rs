@@ -132,8 +132,9 @@ fn the_shipped_set_judgement_reports_what_is_planted() {
 /// The claim: the shipped primer's section `primer@checker-model` names every reference kind the
 /// checker accepts, every built-in register, and every reserved anchor word, so a session
 /// reading any reference meets its kind there, per
-/// `design@agent-skills@checker-model-in-primer`. A kind or a word added to the checker fails
-/// this test until the section names it. Mutation: dropping `planned` from the section, or
+/// `design@agent-skills@checker-model-in-primer`. A kind added to the checker fails this test
+/// until the section names it. The reserved words are listed by hand below, as in
+/// `is_reserved_anchor` of `path@model@src/entity.rs`, so a word added there is added here too. Mutation: dropping `planned` from the section, or
 /// adding a kind to `HARNESS_KINDS`, fails it.
 #[test]
 fn the_primer_s_model_section_names_every_kind_and_reserved_word() {
