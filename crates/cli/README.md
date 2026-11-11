@@ -472,7 +472,7 @@ lines are what the harness or another agent delivered, with their kind, the comm
 fork's inherited context included; `agent` is the session's own text, `dispatch` the text a subagent
 received, `tool` a tool call or its result. A message line no field places is labelled by its text
 only where the harness writes that text whole, as an interrupt's, or writes a tag first, as a shell
-command's; any other is `dispatch` in a subagent file and `unlabelled` elsewhere, the message lines
+command's or a command's such as `/compact`; any other is `dispatch` in a subagent file and `unlabelled` elsewhere, the message lines
 of a transcript with no field at all, such as one of a session run with `claude -p`, included.
 
 **The format is the harness's own, which it documents as internal and liable to change between
