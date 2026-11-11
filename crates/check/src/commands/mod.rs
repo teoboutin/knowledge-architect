@@ -202,20 +202,25 @@ pub fn complete_working_tree(
 /// refusal is could-not-run, exit 2, per `design@cli@exit-code-ladder`.
 pub fn refuse_another_version(manifest: &Manifest, checker_dirs: &[&Path]) -> Result<(), String> {
     let root = manifest.root().to_path_buf();
-    let tracked = move |rel: &Path| {
-        crate::git::git(&root)
-            .args(["ls-files", "--"])
-            .args([rel])
-            .output()
-            .is_ok_and(|out| !out.is_empty())
-    };
     refuse_another_version_built_at(
         manifest,
         &crate::component_dir(),
         crate::CHECKER_VERSION,
         checker_dirs,
-        &tracked,
+        &|rel: &Path| git_tracks(&root, rel),
     )
+}
+
+/// Whether the git of the project at `root` tracks `rel`, the question the `"self"` pin asks of
+/// the checker's own `Cargo.toml`. A path git does not list, and a git that fails, both answer
+/// no: an empty listing is an untracked path, and a failure leaves the pin unconfirmed, so the
+/// refusal stands.
+fn git_tracks(root: &Path, rel: &Path) -> bool {
+    crate::git::git(root)
+        .args(["ls-files", "--"])
+        .args([rel])
+        .output()
+        .is_ok_and(|out| !out.is_empty())
 }
 
 /// The same, with the library's directory, its version, and the question "does the project's
@@ -949,6 +954,30 @@ mod tests {
         fn drop(&mut self) {
             let _ = std::fs::remove_dir_all(&self.0);
         }
+    }
+
+    /// The claim: `git_tracks` answers yes for a path the project's git lists, and no for a file
+    /// on disk it does not list, as a registry's copy of the checker inside a project is.
+    /// Mutation checked: `.is_ok_and(|out| !out.is_empty())` made `.is_ok()` answers yes for the
+    /// untracked file.
+    #[test]
+    fn git_tracks_answers_by_the_listing_and_not_by_the_disk() {
+        let scratch = Scratch::new("tracks");
+        let tree = scratch.dir("tree");
+        let run = |args: &[&str]| {
+            let status = std::process::Command::new("git")
+                .args(args)
+                .current_dir(&tree)
+                .status()
+                .expect("git runs");
+            assert!(status.success(), "git {args:?}");
+        };
+        run(&["init", "-q"]);
+        std::fs::write(tree.join("tracked.toml"), "[package]\n").expect("a file");
+        std::fs::write(tree.join("untracked.toml"), "[package]\n").expect("a file");
+        run(&["add", "tracked.toml"]);
+        assert!(super::git_tracks(&tree, Path::new("tracked.toml")));
+        assert!(!super::git_tracks(&tree, Path::new("untracked.toml")));
     }
 
     /// A manifest rooted at `root` whose key holds `value`.
