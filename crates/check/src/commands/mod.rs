@@ -157,7 +157,8 @@ pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
                 .unwrap_or_default();
         if !crate::agents::imports_primer(&claude) {
             outln!(
-                "the root CLAUDE.md does not import the primer: add a line holding exactly `{}`",
+                "the root CLAUDE.md does not import the primer on its first line: make that \
+                 line exactly `{}`",
                 crate::agents::IMPORT_LINE
             );
         }

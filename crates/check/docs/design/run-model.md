@@ -24,8 +24,9 @@ Five things are compiled in, and none of them describes a project:
   `init` and `new-component` write in each document and home: a title and a line on what it
   holds, or that it holds no entry yet, with no entry, no reference and no link, so it passes every check in any project, and no
   goal, which is the owner's to state, per `design@agent-skills@goals-change-through-goal-setting`;
-  the root CLAUDE.md is its title and the primer's import line, since what every root would say
-  alike is the primer's, per `design@agent-skills@primer-limit`.
+  the root CLAUDE.md is the primer's import line, on its first line per
+  `design@check@primer-import-line`, then its title, since what every root would say alike is the
+  primer's, per `design@agent-skills@primer-limit`.
 - **Where plan documents live**: the anchor `plans` at docs/plans/ of the root and its two
   registers, per `design@model@plans-dir-fixed`. It is the tool's convention for a kind of
   document every project has, not a fact about one project.

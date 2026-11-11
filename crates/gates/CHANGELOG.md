@@ -118,6 +118,11 @@ an empty subsection is omitted.
   depend on another belongs in that Component's. A head of the root's design home that only rules
   out a dependency of one Component is a head in the wrong Component, which
   `skill@knowledge-architect-project-audit@design-record-axis` finds.
+- `checks`, minor: the primer's import line counts only as the root CLAUDE.md's first line, exactly,
+  with no space before or after it; anywhere else, the check `agents` reports that the root
+  CLAUDE.md does not import the installed primer on its first line. A project moves the line to the
+  top of the file, above its title. This holds for every project the consumer's tests build, mock
+  projects included. `init` writes the import line first, then the title.
 
 ### New features
 

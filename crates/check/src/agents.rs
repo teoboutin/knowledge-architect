@@ -17,7 +17,7 @@ const PLACEHOLDER: &str = "{{command}}";
 /// The install path of the primer, which the project's root CLAUDE.md imports.
 pub(crate) const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
 
-/// The line of the root CLAUDE.md that imports the primer, alone on its line.
+/// The first line of the root CLAUDE.md, which imports the primer.
 pub const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
 
 /// A shipped template with the project's command filled in, with LF line endings.
@@ -51,45 +51,19 @@ pub(crate) fn shipped_from(
         .collect()
 }
 
-/// Whether a root CLAUDE.md holds the primer's import line, alone on a line of prose.
+/// Whether a root CLAUDE.md's first line is exactly the primer's import line, per
+/// `design@check@primer-import-line` and `design@check@import-line-exact-bytes`.
 ///
-/// A line inside a fenced block, an indented code block or an HTML comment is not prose, and an
-/// agent harness does not evaluate an import there, so it does not count. A byte-order mark
-/// before the first line is not part of it.
+/// A byte-order mark before the line and the line ending after it, `\n` or `\r\n`, are not part
+/// of it; nothing else is stripped. The import line anywhere else, or with a space before or
+/// after it, does not count.
 pub(crate) fn imports_primer(text: &str) -> bool {
+    // Nothing comes before the first line, so no fence, comment or other block can enclose it:
+    // this is the one position where whether the harness evaluates the import is known without
+    // modelling the harness's markdown parser. A leading space is refused because four of them
+    // make an indented code block.
     let text = text.strip_prefix('\u{feff}').unwrap_or(text);
-    let mut fence: Option<&str> = None;
-    let mut comment = false;
-    for line in text.lines() {
-        let trimmed = line.trim();
-        if let Some(open) = fence {
-            if trimmed.starts_with(open) {
-                fence = None;
-            }
-            continue;
-        }
-        if comment {
-            if trimmed.contains("-->") {
-                comment = false;
-            }
-            continue;
-        }
-        if trimmed.starts_with("```") || trimmed.starts_with("~~~") {
-            fence = Some(&trimmed[..3]);
-            continue;
-        }
-        if trimmed.starts_with("<!--") {
-            comment = !trimmed.contains("-->");
-            continue;
-        }
-        if line.starts_with("    ") || line.starts_with('\t') {
-            continue;
-        }
-        if trimmed == IMPORT_LINE {
-            return true;
-        }
-    }
-    false
+    text.lines().next() == Some(IMPORT_LINE)
 }
 
 /// What an install did, each list in path order.
@@ -600,39 +574,41 @@ mod shipped_text_tests {
         assert!(shipped_from(&none, &templates).is_empty());
     }
 
-    /// The claim: the import line counts alone on its line, with surrounding spaces ignored, and
-    /// not as part of another line.
+    /// The claim: the import line counts as the file's first line, whatever follows it, with a
+    /// byte-order mark before it and either line ending after it. Mutation: not stripping the
+    /// mark fails the third case.
     #[test]
-    fn the_import_line_is_found_alone_on_its_line() {
-        assert!(imports_primer(
-            "# P\n\n  @.claude/knowledge-architect/PRIMER.md  \n"
-        ));
-        assert!(!imports_primer(
-            "see @.claude/knowledge-architect/PRIMER.md for more\n"
-        ));
+    fn the_import_line_counts_as_the_first_line() {
+        for text in [
+            "@.claude/knowledge-architect/PRIMER.md\n\n# P\n\nThe project's own rules.\n",
+            "@.claude/knowledge-architect/PRIMER.md",
+            "\u{feff}@.claude/knowledge-architect/PRIMER.md\r\n# P\r\n",
+        ] {
+            assert!(imports_primer(text), "{text:?}");
+        }
     }
 
-    /// The claim: a line inside a fence, an indented code block or an HTML comment does not
-    /// count as the import, and a byte-order mark before it does not hide it. Mutations: matching
-    /// any trimmed line, or a prefix of one, fails the first cases; not stripping the mark fails
-    /// the last.
+    /// The claim: the import line counts nowhere but as the first line, and only exactly. The
+    /// first three cases are shapes the harness evaluates no import in, which a scanner of fences
+    /// and comments let pass, per `rejected@check@import-in-prose-by-parser`. Mutations: comparing
+    /// any line fails the cases whose import line is lower; trimming the first line fails the
+    /// cases with spaces.
     #[test]
-    fn only_a_prose_line_counts_as_the_import() {
+    fn the_import_line_counts_nowhere_else_and_only_exactly() {
         for text in [
-            "```\n@.claude/knowledge-architect/PRIMER.md\n```\n",
-            "~~~md\n@.claude/knowledge-architect/PRIMER.md\n~~~\n",
-            "<!--\n@.claude/knowledge-architect/PRIMER.md\n-->\n",
-            "<!-- @.claude/knowledge-architect/PRIMER.md -->\n",
+            "````\n```\n@.claude/knowledge-architect/PRIMER.md\n````\n",
+            "```\n```md\n@.claude/knowledge-architect/PRIMER.md\n```\n",
+            "x <!-- y\n@.claude/knowledge-architect/PRIMER.md\n-->\n",
+            "# P\n\n@.claude/knowledge-architect/PRIMER.md\n",
+            "\n@.claude/knowledge-architect/PRIMER.md\n",
             "    @.claude/knowledge-architect/PRIMER.md\n",
+            " @.claude/knowledge-architect/PRIMER.md\n",
+            "@.claude/knowledge-architect/PRIMER.md \n",
             "@.claude/knowledge-architect/PRIMER.md.bak\n",
+            "see @.claude/knowledge-architect/PRIMER.md\n",
+            "",
         ] {
             assert!(!imports_primer(text), "{text:?}");
         }
-        assert!(imports_primer(
-            "\u{feff}@.claude/knowledge-architect/PRIMER.md\r\n"
-        ));
-        assert!(imports_primer(
-            "```\ncode\n```\n@.claude/knowledge-architect/PRIMER.md\n"
-        ));
     }
 }

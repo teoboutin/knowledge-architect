@@ -86,8 +86,11 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
         match model.documents().iter().find(|d| d.rel == root) {
             Some(doc) if !imports_primer(&doc.text) => out.push(Finding::in_file(
                 &root,
-                "the root CLAUDE.md does not import the installed primer",
-                format!("add a line holding exactly `{IMPORT_LINE}`"),
+                "the root CLAUDE.md does not import the installed primer on its first line",
+                format!(
+                    "make the file's first line exactly `{IMPORT_LINE}`, and remove that line \
+                     wherever else it stands"
+                ),
             )),
             Some(_) => {}
             // A root CLAUDE.md the walk keeps out is phase 2's, in `tree`, and a missing one is
@@ -146,7 +149,7 @@ mod tests {
     }
 
     const SKILL: &str = ".claude/skills/knowledge-architect-a/SKILL.md";
-    const IMPORTING: &str = "# P\n\n@.claude/knowledge-architect/PRIMER.md\n";
+    const IMPORTING: &str = "@.claude/knowledge-architect/PRIMER.md\n\n# P\n";
 
     /// The claim: an installed set equal to the shipped one, with the primer imported, passes.
     /// Mutation: comparing against the template instead of the rendered text, or requiring the

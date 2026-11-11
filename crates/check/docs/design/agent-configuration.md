@@ -84,9 +84,31 @@ with no repair a commit already in history can take. `check --staged` compares, 
 next commit, per `design@check@staged-check-semantics`. A commit's tree is judged against the installed set it holds, per
 `design@model@installed-entities-from-the-tree`.
 
-### The root CLAUDE.md delivers the primer by an import line, which the project writes `##primer-import-line`
+### The root CLAUDE.md delivers the primer by an import line on its first line, which the project writes `##primer-import-line`
 
 The install does not edit the root CLAUDE.md, which belongs to the project: it says the import line is
-missing, and the family `agents` reports a root CLAUDE.md that does not import the shipped primer with a
-line holding exactly an at sign followed by .claude/knowledge-architect/PRIMER.md, with the line as its
-repair. The rival is `rejected@check@session-start-hook-primer`.
+not on the file's first line, and the family `agents` reports a root CLAUDE.md whose first line is not
+the import line, an at sign followed by .claude/knowledge-architect/PRIMER.md, with that first line as
+its repair. The import line anywhere else does not count. The rival delivery is
+`rejected@check@session-start-hook-primer`.
+
+The check serves `goal@agents-get-a-complete-workflow`: it passes only where the harness delivers the
+primer. Nothing comes before the first line, so no fence, indented code block or comment can enclose
+it, and whether the harness evaluates the import there is known without modelling the harness's
+markdown parser. Any lower line can be enclosed by what precedes it, the last line included, since an
+unclosed fence runs to the end of the document in CommonMark. A check that accepts the line lower down
+must parse as the harness parses, which is not documented as CommonMark, and every difference is a
+root CLAUDE.md that passes with no primer delivered: `rejected@check@import-in-prose-by-parser`. The
+saving of that rival, no line moved by a project that placed it elsewhere, is a migration, the lowest
+cost per `design@knowledge-architect@capability-cost-before-migration`, and no goal asks for another
+place. The check relies on the harness evaluating an import on any line of prose, which a session of
+the `claude` harness shows: the root CLAUDE.md reaches it with the import line as text, and the primer
+as a separate block after the whole file.
+
+### The first line is compared with the import line byte for byte `##import-line-exact-bytes`
+
+A byte-order mark before the line and the line ending after it, LF or CRLF, are not part of it, and
+nothing else is stripped: a first line with a space before or after the import line fails the check of
+`design@check@primer-import-line`. A leading space is refused because four of them make an indented
+code block, where the harness evaluates no import. A trailing one is harmless to the harness, and
+refusing it keeps one byte string the only accepted shape, which the finding's repair states.

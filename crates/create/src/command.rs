@@ -513,12 +513,13 @@ fn write_documents(
 }
 
 /// The starting text of a Component's README.md or CLAUDE.md, per
-/// `design@check@nothing-of-a-project-is-compiled-in`. The root's CLAUDE.md is its title and the
-/// primer's import line, and nothing else, since what every root would say alike is the
-/// primer's, per `design@agent-skills@primer-limit`.
+/// `design@check@nothing-of-a-project-is-compiled-in`. The root's CLAUDE.md is the primer's
+/// import line, on its first line per `design@check@primer-import-line`, then its title, and
+/// nothing else, since what every root would say alike is the primer's, per
+/// `design@agent-skills@primer-limit`.
 fn component_document(document: &str, name: &str, root: bool) -> String {
     match (document, root) {
-        (AGENT_DOCUMENT, true) => format!("# {name}\n\n{IMPORT_LINE}\n"),
+        (AGENT_DOCUMENT, true) => format!("{IMPORT_LINE}\n\n# {name}\n"),
         (AGENT_DOCUMENT, false) => format!(
             "# {name}\n\nThe contracts and traps a developer of {name} needs: none recorded yet.\n"
         ),
