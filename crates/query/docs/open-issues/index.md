@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-9 entries
+10 entries
 
 | kind | title |
 | --- | --- |
@@ -13,3 +13,4 @@
 | todo | [No command lists the texts that cite any of a set of entries, nor names the entry that holds each citation](no-command-lists-the-standing-entries-citing-a-set-of-entries.md) |
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
+| todo | [Two answers of `show` that differ from what the check reads, fixed on one branch](show-s-answers-on-one-branch.md) |

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-23 entries
+27 entries
 
 | kind | title |
 | --- | --- |
@@ -18,8 +18,11 @@
 | todo | [No command renames an entry or a Component, or moves entries between Components](no-command-renames-or-moves-an-entry-or-a-component.md) |
 | todo | [No gate builds the crates' documentation, so a broken link in it reaches no run](no-gate-builds-the-documentation.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
+| todo | [Two questions on how a saved workflow runs under the harness, answered on one branch](saved-workflows-under-the-harness-on-one-branch.md) |
+| todo | [The documentation lints and a gate that builds the documentation, on one branch](the-documentation-lints-on-one-branch.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
+| todo | [Two hand steps of a release, given a mechanism, on one branch](the-publish-steps-on-one-branch.md) |
 | todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
@@ -27,3 +30,4 @@
 | todo | [The goal of a tool for a task states no limit to tasks that repeat, which the owner holds](the-tool-goal-states-no-limit-to-repeated-tasks.md) |
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |
 | todo | [This repository's published crates warn on none of the documentation lints the setup asks for](this-repository-warns-on-none-of-the-documentation-lints.md) |
+| todo | [Mutation survivors left in three suites, caught on one branch](three-suites-mutation-survivors-on-one-branch.md) |
