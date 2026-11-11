@@ -18,7 +18,7 @@ and a release reviewer replaces the release-status axis". That commit's message 
 deliberation, by its own words ("its deliberation is this message"). It states the rule, "a
 released section's content never changes, its structure may", and argues the rest of the change:
 the entry tests, the review at the release, the lost alternatives. It gives no reason for the
-released-section rule. The owner's words that the head quotes, "older changelog section allow
+released-section rule. The owner's words on the case, "older changelog section allow
 structural changes, and this passes as a structural change in my view", rule on one member, a skill
 name written as its reference, and not on the rule.
 

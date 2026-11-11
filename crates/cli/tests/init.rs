@@ -540,8 +540,10 @@ fn new_component_keeps_every_comment_of_the_manifest() {
     }
 }
 
-/// `new-component` then `check` passes, and `init --component` lists the
-/// Component once and passes too.
+/// `new-component` then `check` passes, writing no goals home for the Component, and
+/// `init --component` lists the Component once and passes too. Mutation checked: in
+/// `carried_by_component` of `path@model@src/manifest.rs`, `Scope::Root => is_root,` made
+/// `Scope::Root => true,`, which writes a goals home in the new Component; caught.
 #[test]
 fn a_component_added_either_way_passes_the_check() {
     let scratch = Scratch::new("ac3-component");

@@ -73,15 +73,14 @@ of a form with no anchor wherever one is written.
 ### `*` read under `register` as every anchor that carries the register, so that the goals home with `*` as its anchor names the root's `##star-names-every-carrier-of-a-register`
 
 `live`. It keeps the form the shipped text wrote and the released changelog's line resolving, and
-adds no reserved word. It loses at the owner's fork to the form with no anchor, which no goal
-ranks. The costs weighed at that fork: `*` would read as every Component under `path` and as every
+adds no reserved word. It loses at the owner's fork, which no goal ranks. The costs weighed at that fork: `*` would read as every Component under `path` and as every
 carrier under `register`, two readings of one word, and a goal would still be cited with an anchor
 that each project spells with its own name.
 
 ### A reserved anchor word for the project's root, so that `register@<word>@goal` and `goal@<word>@<id>` resolve in every project `##reserved-word-for-the-root`
 
 `live`. It names the root in every project and would give a root path a checked form too. It loses
-at the owner's fork to the form with no anchor, and on a measured cost besides: `is_anchor_word` of
+at the owner's fork, which no goal ranks, and on a measured cost besides: `is_anchor_word` of
 `path@model@src/entity.rs` covers every reserved word, so every backticked span of that word
 before an `@`, as a login `root@<host>`, would be a finding in every project; and a Component or a
 project named by the word would be refused. The loss covers register references only: a reserved

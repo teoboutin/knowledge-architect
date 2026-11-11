@@ -38,6 +38,8 @@ A design discussion under `skill@knowledge-architect-design` decides how an entr
 cites, a section of an installed skill among them, with no reference; the two heads are rewritten
 to that outcome, the installed text that keys on a Migration entry's citation with them; and the
 `Next release` section is written so. Whether the released sections' spans are respelled is part of
-that discussion, since a released section's content never changes. Re-entry point: the next change
+that discussion, since a released section's content never changes; the owner's earlier view, that
+writing a name as its reference in a released section is a change of structure, is the case
+`issue@knowledge-architect@the-released-changelog-section-rule-has-no-argument` records. Re-entry point: the next change
 that writes a Migration entry citing a section of the installed text, or earlier on the owner's
 word.

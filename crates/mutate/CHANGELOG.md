@@ -10,9 +10,6 @@ an empty subsection is omitted.
 
 ### Migration
 
-- `library`, major: `cli::run` refuses a value of `cli::CheckArgs` that sets both `fix` and `staged`, and a
-  value of `cli::WorklistArgs` that sets a bound or a seed beside `verify`, as the command line does. Before, a
-  value built by hand with both of the first ran as `fix`. A binary that builds no such value changes nothing.
 - `checks`, patch: the findings on the installed agent files, one missing, differing or unshipped, a
   deletion of one not staged, and a root CLAUDE.md that does not import the primer, no longer stop a
   run in phase 2: the last phase reports them, beside every other finding, in a check named `agents`
@@ -22,13 +19,6 @@ an empty subsection is omitted.
   such a file changes.
 - `checks`, minor: `commits` reports a commit's tree whose `[walk]` rows, or an extension's generated list, keep the root CLAUDE.md out under the `claude` harness, as `check` reports it, in phase 2. A branch holding such a commit
   repairs it: no row may keep that file out.
-- `library`, major: the module `knowledge_architect::testing` leaves. An extension's tests add the package
-  `knowledge-architect-testing` to their dev-dependencies, at the exact version of `knowledge-architect`, and import
-  `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure` and `CHECKS` from `knowledge_architect_testing`.
-- `library`, major: `ROLES` of `knowledge-architect-transcript` holds eleven names, `owner-shell` added, so its array type
-  changes. A program that names the type `[&str; 10]` changes it.
-- `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
-  installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
 - `checks`, minor: the goals home, its goals and its head alike, cites only a goal or a register's
   home of the root; every other reference written there is a finding, a register's home of another
   Component, a design head, an issue, a path and a skill or an agent among them. A project rewords each goal that cites
@@ -42,9 +32,6 @@ an empty subsection is omitted.
   it into a design head, by `skill@knowledge-architect-goal-setting@whole-set-review`. This holds for
   every project the consumer's tests build, mock projects included. `init` and `new-component` write
   no goals home for a Component.
-- `manifest`, major: a location that declares the register `goal` in its `registers` list is refused
-  that register, a finding; a manifest that names it there stops being accepted as it was. A project
-  removes `goal` from the row and moves the location's goals to the root's goals home.
 - `checks`, minor: a goal is cited `goal@<id>` and the root's goals home `register@goal`, with no
   anchor. `goal@<anchor>@<id>`, `register@<anchor>@goal` and `register@*@goal` are malformed, each
   finding naming the form with no anchor. A project respells its goal references, in its documents,
@@ -55,10 +42,6 @@ an empty subsection is omitted.
 - `cli`, major: `show` refuses a goal or the root's goals home written with an anchor, exit 2, as
   malformed; `id`, `show` and `worklist` print a goal as `goal@<id>`; and `worklist` gives every
   agent the root's goals as title lines, and no other.
-- `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
-  scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
-  `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
-  program that holds the result past the `Anchors` it passed keeps them alive as long.
 - `cli`, major: `worklist --verify` judges reports whose lines give each entry a verdict, an
   `against`, an action, an `owner-question`, a quotation of the entry's text and a reason, after the
   seed field, with `## Decided` and `## Met outside the task` closing each report, and refuses a
@@ -67,6 +50,23 @@ an empty subsection is omitted.
   writes `bears.md` and `may-bear.md`. A project whose own skill, agent or script names those two
   files, or the grades `bears` and `may-bear`, rewrites it to the verdict files and the verdicts, as
   `agent@knowledge-architect-record-searcher` describes them.
+- `manifest`, major: a location that declares the register `goal` in its `registers` list is refused
+  that register, a finding; a manifest that names it there stops being accepted as it was. A project
+  removes `goal` from the row and moves the location's goals to the root's goals home.
+- `library`, major: `cli::run` refuses a value of `cli::CheckArgs` that sets both `fix` and `staged`, and a
+  value of `cli::WorklistArgs` that sets a bound or a seed beside `verify`, as the command line does. Before, a
+  value built by hand with both of the first ran as `fix`. A binary that builds no such value changes nothing.
+- `library`, major: the module `knowledge_architect::testing` leaves. An extension's tests add the package
+  `knowledge-architect-testing` to their dev-dependencies, at the exact version of `knowledge-architect`, and import
+  `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure` and `CHECKS` from `knowledge_architect_testing`.
+- `library`, major: `ROLES` of `knowledge-architect-transcript` holds eleven names, `owner-shell` added, so its array type
+  changes. A program that names the type `[&str; 10]` changes it.
+- `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
+  installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
+- `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
+  scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
+  `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
+  program that holds the result past the `Anchors` it passed keeps them alive as long.
 - `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since` and
   `seeds_from`, and `cli::run` refuses a value that sets any of them beside `verify`. A program that
   builds the struct by a literal adds them, empty or `None` for the run it made before.
