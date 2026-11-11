@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-16 entries
+18 entries
 
 | kind | title |
 | --- | --- |
@@ -17,6 +17,8 @@
 | question | [A reference to an anchor's own directory breaks when the anchor moves, where every other reference survives the move](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
+| todo | [The questions the walk and the path check ask git about ignored paths, fixed on one branch](the-ignore-questions-of-the-walk-on-one-branch.md) |
 | todo | [Arms of the resolver and of the lints beside it have mutations no test catches](the-resolver-s-arms-have-mutation-survivors.md) |
+| todo | [The scanner's reading of a span or a heading that differs from what the text means, fixed on one branch](the-scanner-s-reading-of-spans-and-headings-on-one-branch.md) |
 | todo | [The walk does not report the untracked files git's per-clone exclude file removes from it](the-walk-does-not-report-what-the-per-clone-exclude-file-removes.md) |
 | todo | [A row of `\[walk\]` may keep out a file the model requires, and only one such case is reported](the-walk-may-exclude-a-file-the-model-requires.md) |

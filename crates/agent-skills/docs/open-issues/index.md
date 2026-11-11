@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-58 entries
+63 entries
 
 | kind | title |
 | --- | --- |
@@ -46,6 +46,7 @@
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
 | todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
+| todo | [Rules of the installed text that no head argues, each given its argument or refused, on one branch](agent-skills-heads-owing-an-argument-on-one-branch.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
 | todo | [Only the design and setup skills state what they expect of the owner](expectation-sets-for-the-installed-skills.md) |
 | todo | [Improving performance has no installed activity, nor a benchmark procedure](improving-performance-has-no-activity.md) |
@@ -58,7 +59,11 @@
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
+| todo | [The counts a project audit's passes are compared by, fixed on one branch](the-audit-s-convergence-checks-on-one-branch.md) |
 | todo | [The installed text has the main session carry work it could dispatch, and says nothing of how a dispatch is judged](the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md) |
+| todo | [The shape and the life of a retrospective intake's analysis, fixed on one branch](the-intake-analysis-s-sections-on-one-branch.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
+| todo | [What the record search of a slice's design audit reads and seeds from, fixed on one branch](the-slice-audit-s-search-on-one-branch.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
+| todo | [What a project audit puts on the owner's list, narrowed to the closed list, on one branch](what-the-audit-sends-the-owner-on-one-branch.md) |

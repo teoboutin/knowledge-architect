@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-5 entries
+6 entries
 
 | kind | title |
 | --- | --- |
@@ -9,3 +9,4 @@
 | todo | [A result the harness cut is printed by `transcript show --full` as if whole](a-result-the-harness-cut-is-printed-as-whole.md) |
 | todo | [No verb of `transcript` takes the inventory of the transcripts' line kinds and their keys](no-verb-takes-the-inventory-of-the-transcripts-line-kinds.md) |
 | todo | [`transcript show --from` starts only at a line the owner typed](show-starts-only-at-a-line-the-owner-typed.md) |
+| todo | [The transcript reader's gaps in what it prints and what it reads, fixed on one branch](the-transcript-reader-s-gaps-on-one-branch.md) |

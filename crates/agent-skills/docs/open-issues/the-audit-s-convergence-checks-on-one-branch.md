@@ -1,0 +1,36 @@
+---
+kind: todo
+---
+# The counts a project audit's passes are compared by, fixed on one branch
+
+## Summary
+
+A cluster of the issue record: three entries on what the audit's method counts from one pass to the
+next, which one branch closes together. Each member's own entry holds its observation, its reason
+and its closing work; this entry holds only that they go together.
+
+## Details
+
+### What
+
+The members:
+
+- `issue@agent-skills@an-upstream-finding-stays-in-every-later-old-text-count`
+- `issue@agent-skills@no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s`
+- `issue@agent-skills@no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing`
+
+They go on one branch because each changes `skill@knowledge-architect-project-audit` and its saved
+workflows on how a pass's report is counted. Found by a triage of the whole issue record on
+2026-11-11, which read every entry against the tree and sized it: each member was judged to have a
+clear path to closing, and to be more work than a fix of a few dozen lines.
+
+### Why it matters
+
+Each member's cost of being left is its own entry's. Taken one per branch, each pays again the
+grounding, the review and the merge that the others share, so the cluster is the unit the roadmap
+orders.
+
+### What would close it
+
+One branch that closes every member. A member closed alone, or found to need a design discussion,
+leaves this list in the commit that closes it or moves it; the entry closes with its last member.
