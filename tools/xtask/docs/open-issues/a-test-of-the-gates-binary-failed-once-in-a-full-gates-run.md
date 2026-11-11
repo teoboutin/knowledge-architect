@@ -36,7 +36,8 @@ fake cargo, and no log of `fmt`, `check` or `commits`. So the first gates of tha
 and the later ones ran. Not established: why. A lead, not checked: the test writes its fake
 programs and runs them at once, while the other tests of the file do the same in other threads,
 and a program just written cannot be run while another thread's child still holds it open for
-writing; the test prints neither the run's output nor its error.
+writing; the failing run printed neither the run's output nor its error, which the test now
+prints when it fails.
 
 ### Why it matters
 

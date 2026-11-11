@@ -1,8 +1,8 @@
 //! Running the gates: each gate in order, every byte of its output in a log, a distilled extract
 //! of what failed, and one verdict from the children's exit codes.
 //!
-//! The output and exit-code contract is `design@gates@verdict-from-exit-codes` and
-//! `design@gates@distill-over-full-logs`. Which gates a project runs is its own list, per
+//! The output and exit-code contract is `design@gates@verdict-from-exit-codes`,
+//! `design@gates@a-refusal-exits-two` and `design@gates@distill-over-full-logs`. Which gates a project runs is its own list, per
 //! `design@gates@a-project-holds-its-gate-list`.
 
 use crate::process::{announce, complain, run_captured, say, Completed, Spec};
@@ -213,8 +213,10 @@ impl Outcome<'_> {
 
 /// Runs `gates` from the project `root`, writes every gate's full output under
 /// `<root>/target/gates/`, prints one verdict line per gate and an extract per failure, and
-/// returns the run's exit code: success when every gate that ran passed and every gate could
-/// run. Refuses to write its report into a pipe, outside GitHub Actions.
+/// returns the run's exit code: success when every gate ran and passed; 1 when a gate failed or
+/// could not be started; 2 when the run refused before any gate, as it refuses to write its
+/// report into a pipe outside GitHub Actions, or a log directory it cannot create, per
+/// `design@gates@a-refusal-exits-two`.
 pub fn run(root: &Path, gates: &[Gate], args: &GatesArgs) -> ExitCode {
     // Refused before any gate runs: the run's product is its exit code, and a pipe hands that
     // to the reader at the far end (`| tail` exits with tail's status in a shell without
@@ -517,9 +519,8 @@ fn ancestry_hint(base: &str) -> String {
     }
 }
 
-/// A run that could not start: a refusal before any gate ran. It exits 2, as a parse failure clap
-/// refuses already does, so a caller tells "the gates never ran" from "a gate failed", per
-/// `design@gates@verdict-from-exit-codes`.
+/// A run that could not start: a refusal before any gate ran. It exits 2, per
+/// `design@gates@a-refusal-exits-two`.
 fn abort(message: &str) -> ExitCode {
     complain(&format!("gates: {message}"));
     ExitCode::from(2)
