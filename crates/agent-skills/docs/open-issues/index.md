@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-63 entries
+62 entries
 
 | kind | title |
 | --- | --- |
@@ -24,7 +24,6 @@
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
 | design | [No design head argues that an installed instruction prevails over one the configuration adds, nor that the installed text may rely on the harness's own mechanisms](no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness.md) |
 | design | [No design head argues the expectation that a target project records little of its own about its agent-facing text](no-head-argues-that-a-target-project-records-little-about-its-agent-facing-text.md) |
-| design | [No design head argues that an installed text which fails a goal is a defect provable by reading](no-head-argues-that-a-text-failing-a-goal-is-repaired-on-reading.md) |
 | design | [No design head argues where the rule against structure the work does not need applies, nor the repair of an instruction for a case judgement handles](no-head-argues-where-the-rule-against-unneeded-structure-applies.md) |
 | design | [No review compares the readings that several design heads take of one goal](no-review-compares-the-readings-heads-take-of-one-goal.md) |
 | design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
