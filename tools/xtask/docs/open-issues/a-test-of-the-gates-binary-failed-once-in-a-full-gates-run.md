@@ -46,6 +46,6 @@ one.
 
 ### What would close it
 
-The test made to print the run's output and the fake project's logs when its first assertion
-fails; then either a second failure read from them and its cause fixed, or, if none recurs over the
+The test prints the run's status, its stdout and stderr, and every gate log of the fake project
+when its first assertion fails. What remains: either a second failure read from them and its cause fixed, or, if none recurs over the
 gates runs of the next three merged branches, this entry closed as not reproduced.
