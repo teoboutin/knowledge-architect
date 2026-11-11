@@ -124,7 +124,8 @@ pub enum WorklistMode {
     /// against the `agents.txt`, `work.txt` and `shown.md` of the directory that holds it, by the
     /// rules `Verify` judges each report by, with the same findings. It writes and removes no
     /// file, and judges no other agent's report, so an agent runs it on its own report while the
-    /// others still fill theirs. Exit 0 when the report passes, 1 with its findings when it fails.
+    /// others still fill theirs. Exit 0 when the report passes, 1 with its findings when it fails;
+    /// `worklist` lists the refusals, each an `Err`.
     Check {
         /// The agent's directory, `<dir>/agent-<n>`.
         agent_dir: std::path::PathBuf,
@@ -962,7 +963,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
 ///
 /// It judges by the same function as `verify`, so a report it passes passes `verify`'s judgement
 /// of that report and a report it fails gives the same findings there, per
-/// `design@query@worklist-writes-and-verifies-the-reports`: one judgement, which a searcher runs
+/// `design@query@worklist-check-judges-one-report`: one judgement, which a searcher runs
 /// on its own report before it returns while the other agents of the list still fill theirs. So
 /// it writes and removes no file, the outputs of an earlier `verify` included, and judges no
 /// other agent's report.

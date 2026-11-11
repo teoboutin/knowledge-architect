@@ -8,7 +8,7 @@
 `klarch worklist --out` wrote, per `design@query@worklist-writes-and-verifies-the-reports`. It reads
 every file of the work whole, then its entries whole, leaning to recall, with their context entries
 and its goal title lines, edits its report in place and runs `klarch worklist --check` on it,
-repairing each finding, before it returns, or returns it as text where the harness refuses every
+repairing each finding, before it returns, per `design@query@worklist-check-judges-one-report`, or returns it as text where the harness refuses every
 write of it. The same agent grades the clusters of a cluster agent and the goals of a goal agent,
 per `design@query@goal-context-once`. Its description carries the dispatch, since a dispatcher reads
 an agent's description and never its body: the work list written with the work, the subjects and the
@@ -99,7 +99,7 @@ entry an agent is given takes a line, `unrelated` included, so that the coverage
 left without a verdict, the form that names what the agent considered. The nearest
 rival, grades of how closely an entry bears whose entries the session reads whole, is
 `rejected@agent-skills@relevance-grades-read-by-the-session`. What a search still misses, its checks
-holding nothing of its judgement, is what `tripwire@agent-skills@record-search-misses` watches.
+holding nothing of its judgement, is the question of `issue@agent-skills@a-record-search-misses-what-is-added-after-it`.
 
 ### A seed and an entry that cites one are never `unrelated`, so each takes a generated line `##a-seed-and-its-citers-are-never-unrelated`
 
@@ -157,7 +157,7 @@ a dispatched agent brings back, which it can do without doing the work again onl
 conclusion carries the evidence it rests on: an `unrelated` verdict is such a conclusion, and its
 quotation is the evidence a command checks. The nearest rival, an `unrelated` line with a reason
 alone, is a paraphrase no command checks. What the quotation does
-not hold of the searcher's judgement is what `tripwire@agent-skills@record-search-misses` watches.
+not hold of the searcher's judgement is a question of `issue@agent-skills@a-record-search-misses-what-is-added-after-it`.
 
 ### The session acts on each verdict by its action, checked as it checks its own claims, and reads an entry whole only where it reasons over it `##session-acts-on-the-verdicts`
 
@@ -374,7 +374,7 @@ rulings on criteria left the workflow,
 the commit "[plans] The spec of the graded entries' assembly and of `klarch id` leaves: its work has landed, and every default is ruled" removed, and the tripwire on attributions that the commit "[tripwires] Three
 tripwires leave, their horizons passed unfired" removed, and each was recorded days before its
 search ran, dated with `git log -S"##<slug>"` and `--diff-filter=A`. The work list and its check take
-the grouping of the entries and the checks a report can be given from the agents, and `tripwire@agent-skills@record-search-misses` watches
+the grouping of the entries and the checks a report can be given from the agents, and `issue@agent-skills@a-record-search-misses-what-is-added-after-it` holds
 what judgement still misses. The designs this decision did not keep:
 `rejected@agent-skills@conformance-reader-at-the-checkpoint` and
 `rejected@agent-skills@delta-search-at-convergence`.

@@ -173,8 +173,9 @@ A dispatcher that saved each report as it arrived, from the message alone, saved
 or none, against the instruction to save it whole, in seven of the twelve sessions the deleted issue
 on it recorded, which `git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/`
 lists. Two other rivals that issue named lost. A script of the dispatcher over the harness's files,
-the task output files, a saved workflow's journal or the subagents' transcripts, failed twice in
-the five sessions that used it, two reports coming out empty and one file giving the wrong text,
+the task output files, a saved workflow's journal or the subagents' transcripts, failed in two of
+the five sessions that used it, two reports coming out empty in one, and a file giving the wrong
+text twice in the other,
 and a saved workflow's completion notice cut the joined reports short. A verb of the checker's
 `transcript` command that writes a subagent's last message to a file, as
 `design@agent-skills@transcript-extraction-is-the-checker-s` would place it, reads that message
@@ -183,17 +184,21 @@ the reviewer already holds its report and a tool that writes it.
 
 ### A subagent writes a report file with a shell redirect, since the harness refuses its file tool on a report file by its name `##report-written-through-the-shell`
 
-A reviewer, a record searcher filling its `report.md`, an auditor, and the report step of an audit's
-saved workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
+A reviewer, a record searcher filling its `report.md`, and the report step of an audit's saved
+workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
 searcher, by `Edit` of the skeleton, never by `Write`, and fall back to returning the report as text
-where the harness refuses the write.
+where the harness refuses the write. An auditor's drafts are no report file of a name the
+harness refuses, and an auditor writes them with a shell redirect only where the file tool is
+refused.
 
 The argument turns on the harness's behaviour. Claude Code refuses a subagent's `Write` of a new
 `report.md`, of a new `findings.md` and over an existing `report.md`, with "Subagents should return
 findings as text, not write report files. Include this content in your final response instead.",
 and lets the same subagent `Write` a `review.md`, a `scratch.md` or a `report.txt`, `Edit` an
-existing `report.md`, and write a `report.md` with a shell redirect. One general-purpose agent sent
-to make each of these calls in a scratch directory takes the measurement again; it was taken in the
+existing `report.md`, and write a `report-bash.md` with a shell redirect; the record searchers and
+the reviewers of the sessions that built this wrote their `report.md` with a shell redirect, none
+refused. One general-purpose agent sent to make each of these calls in a scratch directory takes the
+measurement again; it was taken in the
 auto permission mode, and the default mode is not established. Two rivals lost. A file name the
 harness does not refuse depends on a pattern no documentation states, which a release of the
 harness can change with no signal. A skeleton the dispatcher creates and the reviewer fills by

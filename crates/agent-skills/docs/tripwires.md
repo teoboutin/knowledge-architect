@@ -255,39 +255,6 @@ design-record axis of `skill@knowledge-architect-project-audit`.
 **Watches until:** 15 commits on the main branch that add a level-three heading to a `rejected`
 home, and one pass of the design-record axis.
 
-## Guarding `design@agent-skills@one-record-searcher`: an entry the work bears on given `unrelated`, or a verdict that asks less of the work than it bears, though the search ran `##record-search-misses`
-
-The decision rests on the premise that a searcher reading its entries whole gives every entry a
-piece of work bears on the verdict it bears, a check of its report holding nothing of its judgement
-beyond the quotation's presence in the entry's text: a quotation can be verbatim and still not the
-sentence that decides, so the check passes a wrong verdict.
-
-**Fires when:** in two separate discussions, audits or intakes where the record search ran and its
-reports passed `klarch worklist --verify`, an entry is found that the work bore on and that the
-search gave `unrelated`, or `constrains` where the work contradicted, widened or brought it back: a
-head contradicted, a `rejected` entry brought back without a recorded reopening, an issue or a
-tripwire met, found by the design-conformance review or the standing-state review of the work, or by
-an outcome of an intake. Or once, on the main branch, with no review having reported it.
-**Response:** open a `design` issue naming the review and the work, and reopen
-`design@agent-skills@one-record-searcher`, asking whether the miss came from the size of the
-agent's load, `design@query@clusters-packed-under-a-word-bound` and
-`design@query@worklist-bound-is-40000-words`, from a split of a search unit that sent entries that
-interact to different agents, `design@query@packed-by-search-unit` and
-`design@query@shared-entry-in-its-most-tied-cluster`, from its reading, from the
-quotation the verdict rests on, `design@agent-skills@every-verdict-quotes-its-entry`, or from a thread or a fix on a
-subject the search's work did not cover, per `design@agent-skills@record-searched-before-the-work`.
-**Re-entry:** the reviews of every plan document, each retrospective, and the review of the branch
-that carries out an intake's outcomes.
-**Watches until:** three plan documents deleted at their landing and three commits that add
-analyses of received retrospective files under docs/retrospective-reports/, on the main branch,
-both counted from the commit that writes this line, the first that guards the record searcher.
-**Evidence:** one discussion, reported by its review: the search of the discussion that designed the
-development skill and the component skill graded `design@knowledge-architect@changelog-reviewed-at-the-release`
-`unrelated`, in the grades of that search, and the milestone's design-conformance review found that the
-widened code-claims reviewer the milestone designs rests on it, in the commit "[review] Repairs of
-the plan documents' reviews: slice 1's sites of a fourth crate, the retrospective's two clauses, D1
-and D2 awaiting the owner".
-
 ## Guarding `design@agent-skills@workflow-axis-lenses`: in a pass, one agent of each duplicated lens alone reports every confirmed finding of that lens `##duplicate-auditors-add-nothing`
 
 The decision rests on the premise that a second agent on one lens finds what the others of that lens

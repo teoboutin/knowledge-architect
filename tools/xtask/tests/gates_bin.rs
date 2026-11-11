@@ -212,6 +212,8 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
         "{}",
         log("test")
     );
+    // `--locked` sets no other flag's variable.
+    assert!(log("test").contains("ci=[]"), "{}", log("test"));
     // Without the flag, no gate receives it.
     let (_, _, _) = gates_output_with(&project, "", &[], &[]);
     assert!(!log("test").contains("--locked"), "{}", log("test"));

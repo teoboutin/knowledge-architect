@@ -188,6 +188,20 @@ fn selected(gates: &[Gate], require_rebased: bool) -> Vec<&Gate> {
         .collect()
 }
 
+/// A gate's environment beside the one it inherits: its own variables, and [`CI_VAR`] set to `1`
+/// under `--ci`, per `design@gates@ci-flag-for-ci-only-requirements`.
+fn gate_envs(gate: &Gate, ci: bool) -> Vec<(&str, &str)> {
+    let mut envs: Vec<(&str, &str)> = gate
+        .envs
+        .iter()
+        .map(|(k, v)| (k.as_str(), v.as_str()))
+        .collect();
+    if ci {
+        envs.push((CI_VAR, "1"));
+    }
+    envs
+}
+
 /// A gate's arguments, with `--locked` inserted when asked for and the gate resolves.
 ///
 /// The flag is cargo's, so it goes before the first `--`: after it, it would be an argument
@@ -270,14 +284,7 @@ pub fn run(root: &Path, gates: &[Gate], args: &GatesArgs) -> ExitCode {
                 announce(&gate.name);
             }
             let gate_args = gate_args(gate, args.locked);
-            let mut envs: Vec<(&str, &str)> = gate
-                .envs
-                .iter()
-                .map(|(k, v)| (k.as_str(), v.as_str()))
-                .collect();
-            if args.ci {
-                envs.push((CI_VAR, "1"));
-            }
+            let envs = gate_envs(gate, args.ci);
             run_captured(
                 &Spec {
                     program: &gate.program,
@@ -742,6 +749,24 @@ mod tests {
                 "origin/main..HEAD"
             ]
         );
+    }
+
+    // The claim: `--ci` adds `CI_VAR=1` to a gate's own variables, and without it a gate's
+    // environment is its own variables alone. Mutation check: `if ci {` made `if true {` in
+    // `gate_envs` fails the second assertion, and `if false {` the first.
+    #[test]
+    fn ci_adds_the_ci_variable_to_a_gate_s_own() {
+        let mut gate = rust_project(
+            Checker {
+                package: "p",
+                prefix: &[],
+            },
+            "origin/main",
+        )
+        .remove(0);
+        gate.envs = vec![("OWN".to_string(), "x".to_string())];
+        assert_eq!(gate_envs(&gate, true), [("OWN", "x"), (CI_VAR, "1")]);
+        assert_eq!(gate_envs(&gate, false), [("OWN", "x")]);
     }
 
     // The claim: `--locked` goes before the first `--`, and only into a gate that resolves.
