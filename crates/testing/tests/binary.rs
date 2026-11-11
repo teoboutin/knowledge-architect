@@ -2348,6 +2348,22 @@ fn a_lint_both_trees_raise_is_reported_once() {
     }
 }
 
+/// The claim: a message's `path` reference to a target an ignore rule covers is exempt, as the
+/// same reference in a document is, though no document of either tree cites it. Mutation checked:
+/// the message's own ignore answers left empty reports the target as missing.
+#[test]
+fn a_message_citing_an_ignored_target_no_document_cites_passes() {
+    let history = History::new("commit-message-ignored");
+    tiny_project(&history, false);
+    // No file is written under `build/`: an ignored target is exempt whether or not it exists,
+    // and a file on disk would not tell the two trees' listings from the ignore answer.
+    history.write(".gitignore", "build/\n");
+    let base = history.commit("The project is created\n");
+    history.commit("A subject line\n\nIt reads `path@tiny@build/out.txt`.\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+}
+
 /// The claim: a span repeated on one line of a message is one finding per occurrence, whichever
 /// tree holds what it names: the commit's own, both, or the parent's alone, as the commit that
 /// deletes the file has it. Mutation checked: the union of the two trees' lints made a set again
