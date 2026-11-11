@@ -36,6 +36,10 @@ const KNOWN_METADATA_TYPES: &[&str] = &[
     "frame-link",
     "bridge-session",
     "tools-used",
+    // Measured over the 930 lines of this type in the transcripts of one machine, 2026-11-11: each
+    // holds `type`, `accountUuid`, `organizationUuid` and `sessionId` alone, the account that owns
+    // the session and no message.
+    "session-owner",
 ];
 
 /// The `system` subtypes: `local_command`, `compact_boundary` and `model_refusal_no_fallback` are
