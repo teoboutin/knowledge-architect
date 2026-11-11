@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+27 entries
 
 | kind | title |
 | --- | --- |
@@ -30,5 +30,4 @@
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
 | todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |
 | todo | [Texts that state what a relocation costs are read again once its bound is argued](texts-citing-the-relocation-goal-state-its-old-measure.md) |
-| todo | [The refusal of the `"self"` pin has no test that fails when its question to git is removed](the-self-pin-refusal-has-no-discriminating-test.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
