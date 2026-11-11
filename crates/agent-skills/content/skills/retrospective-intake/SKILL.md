@@ -95,7 +95,7 @@ A finding is cited by its id and its file's stem, in the form
 
 ## What to establish for each finding or cluster {{slug:what-to-establish}}
 %% The count fallback of item b is right only while the main branch's history between the tag and
-%% the commit is linear, as `design@knowledge-architect@git-flow` keeps it in this repository.
+%% the commit is linear, as `design@knowledge-architect@main-is-guarded-by-a-ruleset` keeps it in this repository.
 
 The order is a suggestion; the content is not.
 

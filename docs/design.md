@@ -625,9 +625,11 @@ a re-run cannot change.
   `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
-  folded where appending leaves an earlier commit failing the per-commit rule below; the record of a
-  review whose repairs were all folded lands as
-  `design@knowledge-architect@a-folded-review-s-record-rides-the-last-commit` decides.
+  folded where appending leaves an earlier commit failing the per-commit rule below. Where every
+  repair was folded, the record of the review goes into the message of the branch's last commit, as
+  `skill@knowledge-architect-review@what-review-leaves` says. The owner's reason the fold applies
+  here is that this repository keeps rewriting its checker, so a repair that changes what it judges
+  is no rare case.
 - **Every commit of a branch passes the check under the branch tip's checker**, as
   `design@check@a-commit-message-is-a-document` decides. So work whose intermediate trees cannot
   pass lands as one commit, squashed before review.
@@ -635,31 +637,24 @@ a re-run cannot change.
   pull request reaches it by a rebase merge, per `design@knowledge-architect@rebase-merge-alone`.
   main's history is never rewritten.
 
-### The record of a review whose repairs were all folded goes into the branch's last commit message `##a-folded-review-s-record-rides-the-last-commit`
-
-Where every repair of a review was folded, no repair commit is left to carry the record of the
-review, and a commit of its own would change no file, which the rebase merge drops, per
-`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. So the record goes
-into the message of the branch's last commit, by a reword with a clean tree. The fold applies here,
-on the owner's reason, because this repository keeps rewriting its checker, so a repair that
-changes what it judges is no rare case.
-
 ### A GitHub ruleset with no bypass guards main `##main-is-guarded-by-a-ruleset`
 
 A GitHub ruleset on main, with no bypass, the owner included, requires a pull request, the status
 check of CI on a branch up to date with main, and a linear history, and blocks force pushes and
-deletion. The rules are checked by GitHub, not by a session's discipline, with one gap: a job
-skipped while the pull request was a draft counts as passing, so right after it is marked ready
-the skipped run can be the only one on its head. The merge waits for a run on the head whose
-conclusion is success. The strict check makes the tree CI judged the tree main receives, which is
+deletion. The linear history is on the owner's word. The rules are checked by GitHub, not by a
+session's discipline, with one gap: a job skipped while the pull request was a draft counts as
+passing, so right after it is marked ready the skipped run can be the only one on its head, which
+the merge predicate of `instructions@git-workflow` answers. The strict check makes the tree CI judged the tree main receives, which is
 what matters; a rebase-and-merge button alone, with no ruleset, leaves CI meaningless where the
 history was not already linear.
 
 ### A pull request reaches main by GitHub's rebase merge, the only method enabled `##rebase-merge-alone`
 
 The rebase merge gives main the branch's commits with the same trees and messages, so each commit
-the per-commit check judged, and its message, a document of the project, reach main as they were.
-A squash folds them into one, and a merge commit breaks the linear history the ruleset of
+the per-commit check judged, and its message, a document of the project, reach main as they were,
+except a commit that changes no file, which it drops, per
+`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. A squash folds them
+into one, and a merge commit breaks the linear history the ruleset of
 `design@knowledge-architect@main-is-guarded-by-a-ruleset` requires. A fast-forward pushed from a
 checkout is a direct push, which that ruleset refuses, and GitHub offers no fast-forward merge
 method.

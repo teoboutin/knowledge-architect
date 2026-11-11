@@ -182,7 +182,9 @@ design home of the checker, and here the checker's rules are decided in that hom
 
 ## Git `##git-workflow`
 
-Linear history, no merge commits, and no direct push to main. This section is a restatement. Its home is
+Linear history, no merge commits, and no direct push to main, per
+`design@knowledge-architect@main-is-guarded-by-a-ruleset` and
+`design@knowledge-architect@rebase-merge-alone`. This section is a restatement. Its home is
 `design@knowledge-architect@git-flow`, except where a point or one of its bullets names another; the
 commands and procedures that carry those rules out are this file's own. **A scratch worktree made
 only for temporary testing is outside every rule of this section**, such as the one an
@@ -290,7 +292,8 @@ plain `--continue` deletes every line of the message opening with `#`. The range
   was a draft is skipped, so no run covers the current head.
 
 5. **When CI passed on the current head, merge the pull request through GitHub.** main accepts
-   no direct push, per `design@knowledge-architect@main-is-guarded-by-a-ruleset`: a ruleset requires a pull request whose branch is up to date with main and
+   no direct push, per `design@knowledge-architect@main-is-guarded-by-a-ruleset`, and takes a rebase
+   merge, per `design@knowledge-architect@rebase-merge-alone`: a ruleset requires a pull request whose branch is up to date with main and
    whose CI check passed, and a linear history. The merge predicate:
 
 ```sh
