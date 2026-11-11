@@ -68,7 +68,7 @@ jobs:
       - name: gates
         # `cargo --locked x`: the `x` alias resolves the workspace before the tool starts, and
         # without cargo's own flag it rewrites a drifted Cargo.lock before any gate sees it.
-        run: cargo --locked x gates --locked --fail-fast --require-rebased --full
+        run: cargo --locked x gates --locked --fail-fast --require-rebased --full --ci
 
       - name: gate logs
         if: failure()

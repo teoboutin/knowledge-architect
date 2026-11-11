@@ -110,7 +110,7 @@ stop at a failure unless `--fail-fast` asks for it. It writes each gate's comple
 `path@knowledge-architect@target/gates/`, and prints one verdict line per gate plus a distilled
 extract per failure; when the extract is not enough, the named log holds every byte. CI runs the
 same tool on every ready pull request, as
-`cargo --locked x gates --locked --fail-fast --require-rebased --full`. `--locked` makes lock drift
+`cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. `--locked` makes lock drift
 fail, and `--require-rebased` adds a sixth gate, `rebased`, first, which fails unless HEAD contains
 origin/main. Exit 0 means every gate passed. The gate list's primary home is
 `design@xtask@gates-list-primary-home`, and `path@xtask@README.md` is the usage. This is a

@@ -12,7 +12,7 @@ use std::process::{Command, Stdio};
 
 /// A directory holding the checker's manifest (so the tool accepts it as a project root) and,
 /// in its `bin`, a `cargo` stub that prints one line per invocation — with the value of
-/// `RUSTC_BOOTSTRAP` it received — sleeps briefly so the caller can act while gates are
+/// `RUSTC_BOOTSTRAP` and `KNOWLEDGE_ARCHITECT_CI` it received — sleeps briefly so the caller can act while gates are
 /// still running, and fails when `FAIL_ON` names a substring of its arguments.
 fn fake_project(name: &str) -> PathBuf {
     let dir = std::env::temp_dir().join(format!("xtask-gates-bin-{name}-{}", std::process::id()));
@@ -22,7 +22,7 @@ fn fake_project(name: &str) -> PathBuf {
         .expect("the root marker can be written");
     let stub = r#"#!/bin/sh
 sleep 0.2
-echo "fake cargo: $* bootstrap=[$RUSTC_BOOTSTRAP]"
+echo "fake cargo: $* bootstrap=[$RUSTC_BOOTSTRAP] ci=[$KNOWLEDGE_ARCHITECT_CI]"
 case "$*" in
   *"$FAIL_ON"*) [ -n "$FAIL_ON" ] && { echo "induced failure"; exit 1; };;
 esac
@@ -56,6 +56,8 @@ fn xtask_in(project: &Path, fail_on: &str) -> Command {
         // CI runs this suite under Actions, and the variable turns the pipe refusal off and
         // the annotations on; a test that wants either sets it back explicitly.
         .env_remove("GITHUB_ACTIONS")
+        // Set only by `--ci`, which a test asserts reaches every gate.
+        .env_remove("KNOWLEDGE_ARCHITECT_CI")
         .stdin(Stdio::null());
     command
 }
@@ -213,6 +215,28 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
     // Without the flag, no gate receives it.
     let (_, _, _) = gates_output_with(&project, "", &[], &[]);
     assert!(!log("test").contains("--locked"), "{}", log("test"));
+    let _ = std::fs::remove_dir_all(&project);
+}
+
+// The claim: `--ci` sets `KNOWLEDGE_ARCHITECT_CI` in every gate's environment, the test gate's
+// among them, which the parse test of the saved workflows reads, and without the flag no gate has
+// it. Mutation check: in `run` of `path@xtask@src/gates.rs`, `if args.ci {` made `if false {`
+// fails the first assertion.
+#[test]
+fn ci_reaches_every_gate() {
+    let project = fake_project("ci");
+    let log = |gate: &str| {
+        std::fs::read_to_string(project.join(format!("target/gates/{gate}.log")))
+            .unwrap_or_else(|_| panic!("the {gate} log was written"))
+    };
+    let (status, stdout, _) = gates_output_with(&project, "", &["--ci"], &[]);
+    assert!(status.success(), "{stdout}");
+    for gate in ["fmt", "check", "commits", "clippy", "test"] {
+        assert!(log(gate).contains("ci=[1]"), "{}", log(gate));
+    }
+    let (status, stdout, _) = gates_output_with(&project, "", &[], &[]);
+    assert!(status.success(), "{stdout}");
+    assert!(log("test").contains("ci=[]"), "{}", log("test"));
     let _ = std::fs::remove_dir_all(&project);
 }
 

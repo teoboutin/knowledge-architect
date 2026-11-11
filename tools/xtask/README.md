@@ -16,6 +16,7 @@ cargo x gates --fail-fast         # stop at the first failing gate
 cargo x gates --full              # additionally stream raw output live
 cargo x gates --locked            # pass --locked to every gate that resolves dependencies
 cargo x gates --require-rebased   # add the rebased gate: HEAD must contain origin/main
+cargo x gates --ci                # hold CI's requirements: a test needing node fails without it
 cargo x changelog                 # write the root CHANGELOG.md into every published crate
 cargo x skill <name>              # print a shipped skill, agent, saved workflow or `primer` from
                                   # its source, fragments and snippets inlined, comments kept

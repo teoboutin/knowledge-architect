@@ -52,7 +52,7 @@ The list in `path@xtask@src/gates.rs` is the one home of what the project's gate
 recommended list of the gates library, `design@gates@a-project-holds-its-gate-list`, with this
 repository's own package as the checker. A local run is `cargo x gates`, and
 `path@knowledge-architect@.github/workflows/ci.yml` runs the same tool in one step, on every push to a ready pull
-request: `cargo --locked x gates --locked --fail-fast --require-rebased --full`. A list restated as
+request: `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. A list restated as
 workflow steps drifts from this one, and a gate added to one list and not the other makes a
 local run pass what CI fails, or the reverse. The job UI names the failing gate through
 `design@gates@annotations-under-actions`, and the logs reach the reader as the workflow's
@@ -71,7 +71,14 @@ per `design@gates@gates-run-all`. `--require-rebased`, per `design@gates@rebase-
 `CLAUDE.md` asks the same ancestry question with git before the merge, and CI's full-depth
 checkout has fetched origin/main before the gate reads it.
 `--full`: under Actions nothing else streams, since the announce line is written to a terminal
-alone, and a hung gate must show which one it is.
+alone, and a hung gate must show which one it is. `--ci`, this repository's own flag beside the
+library's, is the one switch of every requirement CI holds and a local run does not: it sets
+`KNOWLEDGE_ARCHITECT_CI` for every gate, which inherits it, and a test that needs a tool a machine
+may lack skips without it locally and fails without it where the variable is set. The parse test
+of the saved workflows, in `path@agent-skills@src/workflow_parse.rs`, is the one that reads it, for
+`node`. A second such requirement reads the same variable, so CI's command still states every
+difference while no requirement adds a flag; the rival, the test reading the `CI` variable every CI
+system sets, leaves CI's verdict out of the command a reader copies.
 
 ### CI builds and tests the branch's tip alone `##ci-builds-the-tip-alone`
 

@@ -10,9 +10,9 @@ A file under content/ that the layout does not map fails the build.
 does not read**: a reference in it is checked by nobody, so it cites none. Its `meta` declares the
 installed file's stem as its `name`, which the build asserts. The harness runs the file's body as
 an async function, so a top-level `return` is legal there and `node --check` refuses it on the
-bare file: check it parses by wrapping the body in `async function body() {…}`, with `export`
-removed, on the installed copy under `path@agent-config@workflows/`, since a `%%` line of the
-source is no JavaScript. The build's passes run over it as over any shipped file: a `%%` line is
+bare file: `path@agent-skills@src/workflow_parse.rs` parses each installed workflow so wrapped,
+with `node`, in the crate's tests, skipping without `node` unless `cargo x gates --ci`, which CI
+runs, requires it. The build's passes run over it as over any shipped file: a `%%` line is
 removed, even inside a template literal, so a line of a prompt never opens with `%%`.
 
 This repository installs its own skills, and its check compares each installed file with the shipped
