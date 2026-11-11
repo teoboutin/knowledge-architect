@@ -260,6 +260,16 @@ reads the changelog. The rule that the changelog holds no reference to real cont
 kept resolving as a second spelling, loses to one shape per meaning,
 `rejected@model@anchored-goal-form-as-a-second-spelling`.
 
+The decision-record review of that repair found that `argument@goals-at-the-root@arg-128` names the
+crates' CRATES-IO.md pages as kept out of the checker, where they are walked and kept free of
+references by a rule inside the walk. Put to the owner as Q2, with the default that the skip stands
+on the owner's other words, the owner answered:
+
+> Q2 agreed, (a)
+
+The skip stands, as `design@knowledge-architect@the-changelog-is-outside-the-walk`, which states
+the precedent as it is.
+
 ## Decided design
 
 ### The root's `goal` is cited with no anchor
