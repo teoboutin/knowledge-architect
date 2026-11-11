@@ -1212,6 +1212,20 @@ fn parse_work(text: &str) -> Result<Work, String> {
     Ok(work)
 }
 
+/// What keeps a quotation's words from being a run of the body's, for the message that refuses it:
+/// the first word that is no whole word of the body, with a body word holding it where one does,
+/// as a word cut from its punctuation is; or, every word being one of the body's, that they do not
+/// stand there in this order.
+fn quotation_miss(quote: &[&str], body: &[&str]) -> String {
+    let Some(word) = quote.iter().find(|w| !body.contains(w)) else {
+        return "each of its words is in the text, but not in this order".to_string();
+    };
+    match body.iter().find(|b| b.contains(word)) {
+        Some(whole) => format!("its word `{word}` is part of the word `{whole}` there"),
+        None => format!("its word `{word}` is not in the text"),
+    }
+}
+
 /// An entry's own body: its own text in the snapshot without its first line, the
 /// `<reference>  <site>` line `show` prints above the body.
 fn own_body(own: &str) -> &str {
@@ -1587,8 +1601,10 @@ fn judge(
         ));
     } else if !body.windows(words).any(|run| run == quote.as_slice()) {
         out.push(format!(
-            "{at}  {reference}: the quotation is not in the entry's own text: copy it verbatim \
-             from the entry's body, never from its first line or from the sites that cite it"
+            "{at}  {reference}: the quotation is not in the entry's own text: {}; copy it \
+             verbatim from the entry's text, its heading included, never from the line naming \
+             the entry and its site above it, nor from the sites that cite it",
+            quotation_miss(&quote, &body)
         ));
     } else if words < owed {
         out.push(format!(
@@ -2086,7 +2102,9 @@ mod tests {
     /// by the count of its words instead; `words < owed` made `words < 1`; `QUOTE_WORDS.min(` made
     /// `QUOTE_WORDS.max(`, which refuses all of a short body; the whole-word match made the
     /// substring match of before, `body.join(" ").contains(&quote.join(" "))`, which finds the
-    /// fragments; and `if fields.reason.is_empty() {` made `if false {`; each caught.
+    /// fragments; and `if fields.reason.is_empty() {` made `if false {`; each caught. In
+    /// `quotation_miss`: `!body.contains(w)` made `body.contains(w)`, and the arm naming the body
+    /// word holding a cut word made the arm of a word not in the text, each caught.
     #[test]
     fn judge_owes_a_quotation_of_the_body_and_a_reason_on_every_line() {
         let with =
@@ -2102,6 +2120,19 @@ mod tests {
         assert!(with("A head `##a-head` It serves the work", "r")[0]
             .contains("the quotation holds 7 words"));
         assert!(with(QUOTE, "")[0].contains("has no reason"));
+        // The refusal says what keeps the words from being found, and from which line not to copy.
+        let cut = &with("A head `##a-head` It serves the work of the project", "r")[0];
+        assert!(
+            cut.contains("its word `project` is part of the word `project.` there"),
+            "{cut}"
+        );
+        assert!(cut.contains("its heading included, never from the line naming the entry"));
+        assert!(
+            with("A head `##a-head` It serves the work of the world", "r")[0]
+                .contains("its word `world` is not in the text")
+        );
+        assert!(with("head A `##a-head` It serves the work of the", "r")[0]
+            .contains("each of its words is in the text, but not in this order"));
         let short = |quote| {
             judge(
                 "r:1",
