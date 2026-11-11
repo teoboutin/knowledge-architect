@@ -176,7 +176,6 @@ pub(crate) fn judge_part(
                                 span,
                                 owner,
                                 Some((&kind, anchor)),
-                                anchors,
                             ));
                         }
                         if goals_of.is_some() && (kind.is_path() || kind.is_planned()) {
@@ -198,7 +197,7 @@ pub(crate) fn judge_part(
                         counts.references += 1;
                         if let Some(home_owner) = goals_of {
                             out.extend(goals_home_citation(
-                                &doc.rel, l.line, span, home_owner, None, anchors,
+                                &doc.rel, l.line, span, home_owner, None,
                             ));
                         }
                         if let Err(cause) = resolve::harness(&kind, owner, id, entities) {
@@ -328,27 +327,24 @@ fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a table::A
     (rel == home.file || rel.starts_with(&home.dir)).then_some(owner)
 }
 
-/// The finding on a reference written in a goals home that is not a goal or a register's home of
-/// the home's own Component or of a Component enclosing it, per
-/// `design@check@goals-home-cites-upward-only`.
+/// The finding on a reference written in the goals home that is not a goal or a register's home
+/// of the root, per `design@check@goals-home-cites-upward-only`.
 ///
 /// `target` is the reference's kind and the anchor it names, and `None` for a harness reference,
-/// which names no anchor and is refused whatever it names. An anchor is accepted where it is the
-/// home's own, or a Component whose directory holds the home's anchor, the root's empty path
-/// included; `*`, `elsewhere` and a name nothing declares name no such Component. A reference that
-/// resolves to nothing is reported apart, as its repair, so this judges the anchor as written,
-/// except a `path` or a `planned` reference, which `judge_part` does not resolve in a goals home
-/// and which gets this finding alone.
+/// which names no anchor and is refused whatever it names. The project's root alone carries the
+/// register `goal`, so the home's owner is the root, and a goal's reference, which names no anchor,
+/// is read at it. A reference that resolves to nothing is reported apart, as its repair, so this
+/// judges the anchor as written, except a `path` or a `planned` reference, which `judge_part` does
+/// not resolve in a goals home and which gets this finding alone.
 fn goals_home_citation(
     rel: &Path,
     line: u32,
     span: &str,
     owner: &table::Anchor,
     target: Option<(&Kind, &str)>,
-    anchors: &Anchors,
 ) -> Option<Finding> {
     if let Some((kind, anchor)) = target {
-        if admitted_in_goals_home(owner, kind.name(), anchor, anchors) {
+        if admitted_in_goals_home(owner, kind.name(), anchor) {
             return None;
         }
     }
@@ -357,7 +353,7 @@ fn goals_home_citation(
         line,
         format!(
             "`{span}` is cited in the goals home of `{}`, which cites only a goal or a register's \
-             home of its own anchor or of a Component that encloses it",
+             home of the project's root",
             owner.name
         ),
         GOALS_HOME_REPAIR,
@@ -366,24 +362,14 @@ fn goals_home_citation(
 
 /// The repair a finding names in a goals home, the citation check's and an id lint's alike, so
 /// that no finding there sends a writer to a reference the citation check refuses.
-const GOALS_HOME_REPAIR: &str = "cite a goal of the home's own anchor or of a Component enclosing \
-     it, or rewrite the sentence so it names no entry, a goal's rewording going through its \
-     project's goal-setting; a goal holds whatever it needs in its own words. Never keep the span \
-     with its backticks removed";
+const GOALS_HOME_REPAIR: &str = "cite a goal or a register's home of the root, or rewrite the \
+     sentence so it names no entry, a goal's rewording going through its project's goal-setting; a \
+     goal holds whatever it needs in its own words. Never keep the span with its backticks removed";
 
-/// Whether a reference of `kind` naming `anchor` may stand in the goals home `owner` keeps: a goal
-/// or a register's home of `owner` itself, or of a Component whose directory holds `owner`, the
-/// root's empty path included.
-fn admitted_in_goals_home(
-    owner: &table::Anchor,
-    kind: &str,
-    anchor: &str,
-    anchors: &Anchors,
-) -> bool {
-    (kind == GOAL_REGISTER || kind == table::REGISTER_KIND)
-        && anchors.by_name(anchor).is_some_and(|a| {
-            a.name == owner.name || (a.is_component && owner.path.starts_with(&a.path))
-        })
+/// Whether a reference of `kind` naming `anchor` may stand in the goals home `owner` keeps, the
+/// root's: a goal, which every goal is of the root, or a register's home of the root.
+fn admitted_in_goals_home(owner: &table::Anchor, kind: &str, anchor: &str) -> bool {
+    kind == GOAL_REGISTER || (kind == table::REGISTER_KIND && anchor == owner.name)
 }
 
 /// How an id was written outside its reference form.
@@ -443,13 +429,13 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
         .and_then(|t| goals_home_owner(rel, t.anchors).map(|o| (o, t.anchors)));
     let in_goals_home = |id: &str, how: IdForm| {
         let pairs = defined_pairs(id, tables, rel);
-        let Some((owner, anchors)) = goals_home else {
+        let Some((owner, _)) = goals_home else {
             return id_finding(rel, line, id, &render_forms(id, pairs), how);
         };
         let defined = !pairs.is_empty();
         let admitted: Vec<(String, String)> = pairs
             .into_iter()
-            .filter(|(kind, anchor)| admitted_in_goals_home(owner, kind, anchor, anchors))
+            .filter(|(kind, anchor)| admitted_in_goals_home(owner, kind, anchor))
             .collect();
         if admitted.is_empty() && defined {
             return Some(Finding::at(
@@ -476,7 +462,7 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
             let refused =
                 goals_home.is_some_and(|(owner, anchors)| match table::candidate(token, anchors) {
                     Candidate::Reference { kind, anchor, .. } => {
-                        !admitted_in_goals_home(owner, kind.name(), anchor, anchors)
+                        !admitted_in_goals_home(owner, kind.name(), anchor)
                     }
                     _ => true,
                 });
@@ -499,18 +485,11 @@ fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Opt
     }
 }
 
-/// Each form `id` is written as, rendered `<kind>@<anchor>@<id>`, or `<kind>@<id>` for a harness
-/// kind, sorted and with no repeat.
+/// Each form `id` is written as, rendered as `spelled` renders it, sorted and with no repeat.
 fn render_forms(id: &str, pairs: Vec<(String, String)>) -> Vec<String> {
     let mut forms: Vec<String> = pairs
         .into_iter()
-        .map(|(kind, anchor)| {
-            if anchor.is_empty() {
-                format!("{kind}@{id}")
-            } else {
-                format!("{kind}@{anchor}@{id}")
-            }
-        })
+        .map(|(kind, anchor)| crate::model::table::spelled(&kind, &anchor, id))
         .collect();
     forms.sort();
     forms.dedup();
@@ -1031,7 +1010,7 @@ mod tests {
         );
         // A reference of another kind with the same id: no citation.
         assert_eq!(
-            orphans("### D `##a-design`\n\nServes `goal@a-project@not-kept`.\n"),
+            orphans("### D `##a-design`\n\nServes `goal@not-kept`.\n"),
             1
         );
         // A citation in the entry's own heading line: a citation.
@@ -1121,7 +1100,7 @@ mod tests {
                 ("docs/tripwires.md", "## Guarding it `##shared-word`\n"),
                 (
                     "notes/a.md",
-                    "`goal@a-project@shared-word` and `tripwire@a-project@shared-word` resolve;\n\
+                    "`goal@shared-word` and `tripwire@a-project@shared-word` resolve;\n\
                      `design@a-project@shared-word` does not.\n",
                 ),
             ],
@@ -2737,7 +2716,7 @@ mod tests {
     #[test]
     fn a_register_reference_resolves_at_every_anchor_that_carries_the_register() {
         let found = register_checked(
-            "`register@a-project@design`, `register@a-part@goal`, `register@notes@issue`, \
+            "`register@a-project@design`, `register@goal`, `register@notes@issue`, \
              `register@plans@spec`, `register@plans@milestone`, `register@*@tripwire`, \
              `register@*@issue`.\n",
         );
@@ -2813,7 +2792,11 @@ mod tests {
             ("path@a-part@docs/design.md", "register@a-part@design"),
             ("path@a-part@docs/design/", "register@a-part@design"),
             ("path@a-part@docs/design", "register@a-part@design"),
-            ("path@a-part@docs/goals/README.md", "register@a-part@goal"),
+            (
+                "path@a-part@docs/rejected/README.md",
+                "register@a-part@rejected",
+            ),
+            ("path@a-project@docs/goals/README.md", "register@goal"),
             ("path@a-part@docs/open-issues/", "register@a-part@issue"),
             (
                 "path@a-project@docs/tripwires.md/",
@@ -2911,7 +2894,7 @@ mod tests {
             "path@a-part@docs/design.md#a-heading",
             "path@a-part@docs/design.md#1-intro",
             "path@a-part@docs/design.md:3#a",
-            "path@*@docs/goals.md:3-9",
+            "path@*@docs/rejected.md:3-9",
         ] {
             let found = register_checked(&format!("See `{span}`.\n"));
             assert_eq!(found.len(), 1, "{span}: {found:#?}");
@@ -2941,20 +2924,20 @@ mod tests {
     #[test]
     fn a_repair_that_lands_on_a_home_names_the_register_form() {
         let (_, anchors) = register_project();
-        let present: Vec<String> = ["parts/a-part/docs/goals.md", "docs/design.md"]
+        let present: Vec<String> = ["parts/a-part/docs/rejected.md", "docs/design.md"]
             .iter()
             .map(|p| p.to_string())
             .collect();
         for (at, text, form) in [
             (
                 "docs/plans/specs/t.md",
-                "Creates `planned@a-part@docs/goals.md`.\n",
-                "`register@a-part@goal`",
+                "Creates `planned@a-part@docs/rejected.md`.\n",
+                "`register@a-part@rejected`",
             ),
             (
                 "docs/plans/specs/t.md",
-                "Edits `planned@a-part@docs/goals.md:4`.\n",
-                "`register@a-part@goal`",
+                "Edits `planned@a-part@docs/rejected.md:4`.\n",
+                "`register@a-part@rejected`",
             ),
             (
                 "prose/p.md",
@@ -2985,7 +2968,7 @@ mod tests {
         let (found, _) = checked_under(
             vec![(
                 "docs/plans/specs/a-spec.md",
-                "Creates `planned@a-part@docs/goals.md`.\n",
+                "Creates `planned@a-part@docs/rejected.md`.\n",
             )],
             &[],
             &anchors,
@@ -2998,10 +2981,10 @@ mod tests {
 
     // --- citations in a goals home, per `design@check@goals-home-cites-upward-only` ----------
 
-    /// A manifest with a Component nested in another and a sibling beside them.
+    /// A manifest with the root and one Component beside it.
     fn nested_manifest() -> Manifest {
         let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
-             components = [\"parts/a-part\", \"parts/a-part/inner\", \"parts/b-part\"]\n\n\
+             components = [\"parts/a-part\"]\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
     }
@@ -3012,15 +2995,9 @@ mod tests {
         vec![
             (
                 "docs/goals.md",
-                "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n".to_string(),
-            ),
-            (
-                "parts/a-part/docs/goals.md",
-                "# Goals\n\n## The part goal `##part-goal`\n\nIt.\n".to_string(),
-            ),
-            (
-                "parts/b-part/docs/goals.md",
-                "# Goals\n\n## The sibling goal `##sibling-goal`\n\nIt.\n".to_string(),
+                "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n\n\
+                 ## The other goal `##other-goal`\n\nIt.\n"
+                    .to_string(),
             ),
             ("docs/design.md", format!("# Design\n\n{}\nIt.\n", head())),
         ]
@@ -3042,65 +3019,55 @@ mod tests {
             .collect()
     }
 
-    /// C1 of the spec: a goal or a register's home of the home's own Component or of one
-    /// enclosing it, the root included, passes in a goals home. Mutation checked: the root's
-    /// empty path read as enclosing nothing, `a.is_component && owner.path.starts_with(&a.path)`
-    /// replaced by `a.is_component && !a.path.as_os_str().is_empty() && owner.path.starts_with(&a.path)`,
-    /// caught.
+    /// A goal, and a register's home of the root in either spelling, pass in the goals home.
+    /// Mutations checked: the goal arm of `admitted_in_goals_home` dropped, `kind == GOAL_REGISTER
+    /// ||` removed, which refuses the goal; and the register arm's anchor test dropped,
+    /// `anchor == owner.name` replaced by `true`, which the next test catches.
     #[test]
-    fn a_goals_home_cites_a_goal_or_a_register_of_its_own_or_an_enclosing_component() {
+    fn the_goals_home_cites_a_goal_or_a_register_s_home_of_the_root() {
         let found = goals_home_findings(vec![(
-            "parts/a-part/inner/docs/goals.md",
-            "# Goals\n\n## The inner goal `##inner-goal`\n\nIt refines `goal@a-project@root-goal` \
-             and `goal@a-part@part-goal`, beside `goal@inner@inner-goal`, and its decisions are \
-             in `register@inner@design` under `register@a-project@goal`.\n",
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `goal@other-goal`, its \
+             decisions are in `register@a-project@design`, and it sits in `register@goal`.\n\n\
+             ## The other goal `##other-goal`\n\nIt.\n",
         )]);
         assert!(found.is_empty(), "{found:#?}");
     }
 
-    /// C2 of the spec: a goal or a register's home of a nested or a sibling Component, and every
-    /// other kind, is refused in a goals home. Mutation checked: the kind test of
-    /// `admitted_in_goals_home` dropped, `(kind == GOAL_REGISTER || kind == table::REGISTER_KIND)`
-    /// replaced by `true`, caught on the design and path spans.
+    /// A register's home of another Component, and every other kind, is refused in the goals
+    /// home. Mutations checked: the kind test of `admitted_in_goals_home` made `true`, caught on
+    /// the design and path spans; and `anchor == owner.name` made `true`, caught on the
+    /// Component's register.
     #[test]
-    fn a_goals_home_refuses_a_lower_or_sibling_component_and_every_other_kind() {
-        let found = goals_home_findings(vec![
-            (
-                "docs/goals.md",
-                "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `goal@a-part@part-goal`, \
-                 `register@a-part@design` and `design@a-project@a-decision`, beside \
-                 `path@a-project@docs/design.md`.\n",
-            ),
-            (
-                "parts/a-part/docs/goals.md",
-                "# Goals\n\n## The part goal `##part-goal`\n\nIt leans on \
-                 `goal@b-part@sibling-goal`.\n",
-            ),
-        ]);
+    fn the_goals_home_refuses_another_component_s_register_and_every_other_kind() {
+        let found = goals_home_findings(vec![(
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `register@a-part@design`, \
+             `design@a-project@a-decision` and `path@a-project@docs/design.md`.\n\n\
+             ## The other goal `##other-goal`\n\nIt.\n",
+        )]);
         for span in [
-            "`goal@a-part@part-goal`",
             "`register@a-part@design`",
             "`design@a-project@a-decision`",
             "`path@a-project@docs/design.md`",
-            "`goal@b-part@sibling-goal`",
         ] {
             assert!(
                 found.iter().any(|f| f.contains(span)),
                 "{span} not refused: {found:#?}"
             );
         }
-        assert_eq!(found.len(), 5, "{found:#?}");
+        assert_eq!(found.len(), 3, "{found:#?}");
     }
 
-    /// C3 of the spec: the same references outside a goals home raise no such finding.
-    /// Mutation checked: `goals_home_owner` answering the owning anchor for every file, its
-    /// last line replaced by `Some(owner)`, caught.
+    /// The same references outside the goals home raise no such finding. Mutation checked:
+    /// `goals_home_owner` answering the owning anchor for every file, its last line replaced by
+    /// `Some(owner)`, caught.
     #[test]
     fn a_reference_outside_a_goals_home_is_not_judged_by_its_direction() {
         let found = goals_home_findings(vec![(
             "docs/design.md",
-            "# Design\n\n### The decision `##a-decision`\n\nIt serves `goal@a-part@part-goal` \
-             and `goal@b-part@sibling-goal`.\n",
+            "# Design\n\n### The decision `##a-decision`\n\nIt serves `goal@root-goal` \
+             beside `register@a-part@design`.\n",
         )]);
         assert!(found.is_empty(), "{found:#?}");
     }
@@ -3129,10 +3096,9 @@ mod tests {
         );
     }
 
-    /// C5 of the spec: a goals home in the directory shape is judged like a file home, its
-    /// `README.md` head included. Mutation checked: the directory arm dropped from
-    /// `goals_home_owner`, `rel == home.file || rel.starts_with(&home.dir)` replaced by
-    /// `rel == home.file`, caught.
+    /// A goals home in the directory shape is judged like a file home, its `README.md` head
+    /// included. Mutation checked: the directory arm dropped from `goals_home_owner`,
+    /// `rel == home.file || rel.starts_with(&home.dir)` replaced by `rel == home.file`, caught.
     #[test]
     fn a_goals_home_in_the_directory_shape_is_judged_with_its_head() {
         let found = goals_home_findings(vec![
@@ -3143,7 +3109,8 @@ mod tests {
             ),
             (
                 "docs/goals/one.md",
-                "# One\n\n## The root goal `##root-goal`\n\nIt leans on `goal@a-part@part-goal`.\n",
+                "# One\n\n## The root goal `##root-goal`\n\nIt leans on \
+                 `register@a-part@design`.\n\n## The other goal `##other-goal`\n\nIt.\n",
             ),
         ]);
         assert!(
@@ -3199,42 +3166,6 @@ mod tests {
         assert!(found[0].contains("`skill@a-skill`"), "{found:#?}");
     }
 
-    /// A manifest with a location carrying `goal`, and a second location nested in it carrying
-    /// it too: the anchors a goals home may belong to beside a Component.
-    fn located_goals_manifest() -> Manifest {
-        let text =
-            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
-             [walk]\nskip-dirs = []\nskip-files = []\n\n\
-             [locations.notes]\npath = \"notes\"\nregisters = [\"goal\"]\n\n\
-             [locations.sub]\npath = \"notes/sub\"\nregisters = [\"goal\"]\n";
-        Manifest::parse(std::path::Path::new("/nowhere"), text).expect("a declaration")
-    }
-
-    /// A location's goals home cites its own goals and the root's, and refuses an enclosing
-    /// location's, since a location is no Component. Mutations checked, both caught: the own-name
-    /// arm of `admitted_in_goals_home` dropped, `a.name == owner.name || (a.is_component &&` replaced
-    /// by `(a.is_component &&`; and its Component test dropped, `(a.is_component &&
-    /// owner.path.starts_with(&a.path))` replaced by `(owner.path.starts_with(&a.path))`.
-    #[test]
-    fn a_location_s_goals_home_cites_its_own_goals_and_no_enclosing_location_s() {
-        let docs = vec![
-            ("docs/goals.md", "# Goals\n\n## The root goal `##root-goal`\n\nIt.\n"),
-            ("notes/goals.md", "# Goals\n\n## The notes goal `##notes-goal`\n\nIt.\n"),
-            (
-                "notes/sub/goals.md",
-                "# Goals\n\n## The sub goal `##sub-goal`\n\nIt refines `goal@a-project@root-goal`, \
-                 beside `goal@sub@sub-goal` and `goal@notes@notes-goal`.\n",
-            ),
-        ];
-        let (found, _) = checked_docs(&located_goals_manifest(), docs, &[]);
-        let found: Vec<&String> = found
-            .iter()
-            .filter(|f| f.contains("is cited in the goals home"))
-            .collect();
-        assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("`goal@notes@notes-goal`"), "{found:#?}");
-    }
-
     /// An id two entries define, one a goal the goals home may cite and one an entry it may not,
     /// is offered in the admitted form alone. Mutation checked: `id_lint` offering every form,
     /// `id_finding(rel, line, id, &render_forms(id, admitted), how)` replaced by
@@ -3259,7 +3190,7 @@ mod tests {
         let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
         let lint: Vec<&String> = found.iter().filter(|f| f.contains("`shared-id`")).collect();
         assert_eq!(lint.len(), 1, "{found:#?}");
-        assert!(lint[0].contains("`goal@a-project@shared-id`"), "{lint:#?}");
+        assert!(lint[0].contains("`goal@shared-id`"), "{lint:#?}");
         assert!(!lint[0].contains("design@a-project@shared-id"), "{lint:#?}");
     }
 

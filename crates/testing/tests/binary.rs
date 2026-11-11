@@ -2404,7 +2404,6 @@ fn a_message_naming_a_path_of_a_component_its_commit_removes_is_a_finding() {
             "# part\n\nA Component a later commit removes.\n",
         ),
         ("part/docs/design.md", "# part — design\n\nNo entry.\n"),
-        ("part/docs/goals.md", "# Goals — part\n\nNo entry.\n"),
         (
             "part/docs/tripwires.md",
             "# Tripwires — part\n\nNo entry.\n",
@@ -2611,10 +2610,6 @@ fn a_reference_no_tree_defines_is_reported_though_the_two_refuse_it_differently(
         (
             "other/docs/design.md",
             "# other — design\n\n### It records one decision `##other-anchor`\n\nIt exists.\n",
-        ),
-        (
-            "other/docs/goals.md",
-            "# Goals — other\n\n## Be a second anchor `##other-goal`\n\nOne goal.\n",
         ),
         (
             "other/docs/tripwires.md",
@@ -5631,7 +5626,7 @@ const WORKLIST_DESIGN: &str = "# Design — core-mock\n\n\
     ### One decision `##one-decision`\n\nA decision under no subject. The design it did not keep is \
     `rejected@core-mock@other-way`.\n\n\
     ## First subject\n\n\
-    ### A first head `##first-head`\n\nIt serves `goal@core-mock@fine-goal`.\n\n\
+    ### A first head `##first-head`\n\nIt serves `goal@fine-goal`.\n\n\
     ## Second subject\n\n\
     ### A long head `##long-head`\n\n\
     one two three four five six seven eight nine ten one two three four five six seven eight nine \
@@ -5639,9 +5634,9 @@ const WORKLIST_DESIGN: &str = "# Design — core-mock\n\n\
     nine ten one two three four five six seven eight nine ten one two three four five six seven \
     eight nine ten one two three four five six seven eight nine ten one two three four five six.\n";
 
-const WORKLIST_GOALS: &str = "# Goals — core-mock\n\n\
-    ## A fine goal `##fine-goal`\n\nIt refines `goal@core-mock@middle-goal`.\n\n\
-    ## A middle goal `##middle-goal`\n\nIt refines `goal@core-mock@top-goal`.\n\n\
+const WORKLIST_GOALS: &str = "# Goals — core-mock\n\nThe root's prose.\n\n\
+    ## A fine goal `##fine-goal`\n\nIt refines `goal@middle-goal`.\n\n\
+    ## A middle goal `##middle-goal`\n\nIt refines `goal@top-goal`.\n\n\
     ## A top goal `##top-goal`\n\nThe top.\n";
 
 const WORKLIST_TRIPWIRES: &str = "# Tripwires — core-mock\n\n\
@@ -5658,10 +5653,10 @@ fn worklist_issue(cites: &str) -> String {
 /// The worklist project, and a directory outside it for the work list, which does not exist yet.
 ///
 /// Beside the entries above: an issue of the root citing heads of both its subjects, one of
-/// `widget` citing a head of the root, a goal of `widget`, and a topic of `notes`, `alpha-topic`,
+/// `widget` citing a head of the root, and a topic of `notes`, `alpha-topic`,
 /// whose rule is an entry of an anchor the tool constructs.
 fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
-    let on_goal = worklist_issue("`goal@core-mock@top-goal`");
+    let on_goal = worklist_issue("`goal@top-goal`");
     let on_head = worklist_issue("`design@core-mock@first-head`");
     let on_both = worklist_issue("`design@core-mock@first-head` and `design@core-mock@long-head`");
     let on_the_root = worklist_issue("`design@core-mock@first-head`");
@@ -5677,11 +5672,6 @@ fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
             ("docs/open-issues/on-the-head.md", &on_head),
             ("docs/open-issues/on-both-subjects.md", &on_both),
             ("widget/README.md", "# widget\n\nA Component.\n"),
-            (
-                "widget/docs/goals.md",
-                "# Goals — widget\n\n## A widget goal `##widget-goal`\n\n\
-                 It refines `goal@core-mock@top-goal`.\n",
-            ),
             ("widget/docs/open-issues/on-the-root.md", &on_the_root),
             ("widget/docs/rejected.md", "# Rejected — widget\n"),
             ("widget/docs/tripwires.md", "# Tripwires — widget\n"),
@@ -5811,11 +5801,7 @@ fn worklist_lists_every_entry_of_the_record_in_its_search_unit_s_groups() {
     );
     assert_eq!(
         clusters["core-mock :: docs/goals.md"],
-        [
-            "goal@core-mock@fine-goal",
-            "goal@core-mock@middle-goal",
-            "goal@core-mock@top-goal",
-        ]
+        ["goal@fine-goal", "goal@middle-goal", "goal@top-goal",]
     );
 }
 
@@ -5826,10 +5812,9 @@ const WORKLIST_ENTRIES: &[&str] = &[
     "design@core-mock@long-head",
     "design@widget@gears-turn",
     "design@widget@springs-coil",
-    "goal@core-mock@fine-goal",
-    "goal@core-mock@middle-goal",
-    "goal@core-mock@top-goal",
-    "goal@widget@widget-goal",
+    "goal@fine-goal",
+    "goal@middle-goal",
+    "goal@top-goal",
     "rejected@core-mock@other-way",
     "tripwire@core-mock@first-premise",
     "issue@core-mock@on-the-goal",
@@ -6055,7 +6040,7 @@ fn worklist_gives_a_head_another_agent_grades_as_a_context_entry() {
     let context = worklist_section(&entries, "## Context entries");
     assert!(
         context.contains("=== design@core-mock@first-head  docs/design.md:")
-            && context.contains("It serves `goal@core-mock@fine-goal`."),
+            && context.contains("It serves `goal@fine-goal`."),
         "{entries}"
     );
     // The split root's own context: the first subject's issue cites the long head, graded apart.
@@ -6067,28 +6052,23 @@ fn worklist_gives_a_head_another_agent_grades_as_a_context_entry() {
     );
 }
 
-/// The claim: a cluster agent holds the title lines of the root's goals and of its search units'
-/// goals, a Component's own goal only where it holds that Component; a goal agent grades every goal
-/// of its search units, and no entry of another register. Mutation checked: `title_units` of
-/// `path@query@src/graph.rs` leaving out the unit itself, which drops `widget`'s goal from the
-/// title lines of `widget`'s agent; caught.
+/// The claim: every cluster agent holds the title lines of the root's goals, the root alone
+/// carrying the register `goal`; a goal agent grades every goal, and no entry of another register.
+/// Mutation checked: `title_units` of `path@query@src/graph.rs` returning no unit, which leaves
+/// `widget`'s agent with no title line; caught.
 #[test]
 fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
     let (_sandbox, out, _) = worklist_out("worklist-titles", &["--bound", "120"]);
     let root_titles = [
-        "- goal@core-mock@fine-goal  A fine goal",
-        "- goal@core-mock@middle-goal  A middle goal",
-        "- goal@core-mock@top-goal  A top goal",
+        "- goal@fine-goal  A fine goal",
+        "- goal@middle-goal  A middle goal",
+        "- goal@top-goal  A top goal",
     ];
     let (widget, _) = worklist_entries_of(&out, "design@widget@gears-turn");
     let titles = worklist_section(&widget, "## Goal titles");
     for line in root_titles {
         assert!(titles.contains(line), "{line}: {widget}");
     }
-    assert!(
-        titles.contains("- goal@widget@widget-goal  A widget goal"),
-        "{widget}"
-    );
     let (root, references) = worklist_entries_of(&out, "design@core-mock@long-head");
     assert!(
         references.iter().all(|r| worklist_unit(r) == "core-mock"),
@@ -6098,7 +6078,6 @@ fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
     for line in root_titles {
         assert!(titles.contains(line), "{line}: {root}");
     }
-    assert!(!titles.contains("goal@widget@"), "{root}");
     let mut goals: Vec<String> = Vec::new();
     for (agent, references) in worklist_agents(&out) {
         if references.iter().any(|r| r.starts_with("goal@")) {
@@ -6112,12 +6091,7 @@ fn worklist_gives_cluster_agents_title_lines_and_goal_agents_the_goals() {
     goals.sort();
     assert_eq!(
         goals,
-        [
-            "goal@core-mock@fine-goal",
-            "goal@core-mock@middle-goal",
-            "goal@core-mock@top-goal",
-            "goal@widget@widget-goal",
-        ]
+        ["goal@fine-goal", "goal@middle-goal", "goal@top-goal",]
     );
 }
 
@@ -6764,7 +6738,7 @@ fn worklist_refuses_a_new_directory_under_a_link_into_the_project() {
 /// which passes the stray line.
 #[test]
 fn worklist_fences_each_body_and_judges_a_graded_above_line() {
-    let forged = worklist_issue("`goal@core-mock@top-goal`").replace(
+    let forged = worklist_issue("`goal@top-goal`").replace(
         "x\n\n### Why",
         "=== design@core-mock@long-head  docs/design.md:1\n\n### Why",
     );
@@ -6812,7 +6786,7 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
     // An entry holding a fence of three backticks, so the snapshot's own fence must be longer.
     sandbox.write(
         "docs/open-issues/with-a-fence.md",
-        &worklist_issue("`goal@core-mock@top-goal`, run as\n\n```sh\nklarch check\n```\n"),
+        &worklist_issue("`goal@top-goal`, run as\n\n```sh\nklarch check\n```\n"),
     );
     sandbox.stage();
     let out_text = out.to_string_lossy().into_owned();
@@ -6946,7 +6920,7 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
     );
     let verdicts = std::fs::read_to_string(out.join("verdicts-whole-work.md")).expect("verdicts");
     assert!(
-        verdicts.contains("It serves `goal@core-mock@fine-goal`"),
+        verdicts.contains("It serves `goal@fine-goal`"),
         "{verdicts}"
     );
     assert!(
@@ -7036,7 +7010,7 @@ fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
     assert_eq!(code, 1, "{stdout}");
 
     // A phase-2 finding: a home every Component carries, deleted and staged.
-    std::fs::remove_file(sandbox.path("widget/docs/goals.md")).expect("a home removed");
+    std::fs::remove_file(sandbox.path("widget/docs/tripwires.md")).expect("a home removed");
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["id", "no-such-thing"]);
     assert_eq!(code, 2, "{stdout}{stderr}");
@@ -7179,17 +7153,15 @@ fn worklist_names_a_group_above_the_bound_only_by_its_own_entries() {
 #[test]
 fn worklist_gives_a_goal_agent_the_goals_file_s_prose() {
     let (_sandbox, out, _) = worklist_out("worklist-goals-prose", &[]);
-    let (entries, _) = worklist_entries_of(&out, "goal@widget@widget-goal");
-    let section = worklist_section(&entries, "## Goals: widget :: widget/docs/goals.md");
+    let (entries, _) = worklist_entries_of(&out, "goal@fine-goal");
+    let section = worklist_section(&entries, "## Goals: core-mock :: docs/goals.md");
     let prose = section
         .find("The goals file above its first goal:")
         .unwrap_or_else(|| panic!("no prose: {entries}"));
     let heading = section
-        .find("# Goals — widget")
+        .find("# Goals — core-mock")
         .expect("the file's heading");
-    let goal = section
-        .find("=== goal@widget@widget-goal  ")
-        .expect("the goal");
+    let goal = section.find("=== goal@fine-goal  ").expect("the goal");
     assert!(prose < heading && heading < goal, "{section}");
 }
 
@@ -7260,7 +7232,7 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
     ]);
     sandbox.write(
         "docs/open-issues/an-untracked-one.md",
-        &worklist_issue("`goal@core-mock@top-goal`"),
+        &worklist_issue("`goal@top-goal`"),
     );
     let (stdout, stderr, code) = sandbox.run(&["index"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
@@ -7381,7 +7353,7 @@ fn worklist_since_a_revision_git_cannot_resolve_stops_with_git_s_reason() {
 /// sections cite a head too.
 const WORKLIST_SPEC: &str = "# An audited spec\n\n## Status and audience\n\nIt names \
     `design@core-mock@long-head`.\n\n## What is already decided\n\n\
-    - `design@core-mock@first-head`\n- `goal@core-mock@top-goal`\n\
+    - `design@core-mock@first-head`\n- `goal@top-goal`\n\
     - `issue@core-mock@on-the-head`\n- `rejected@core-mock@other-way`\n\n\
     ### Of the notes\n\n- `rule@alpha-topic@alpha-rule`\n\n\
     ## Criteria\n\nIt names `design@widget@springs-coil`.\n";
@@ -8686,4 +8658,195 @@ fn a_refused_path_shape_is_one_finding_and_the_run_goes_on() {
         1,
         "{out}"
     );
+}
+
+// --- the register `goal` is the root's alone, and is cited with no anchor ----------------------
+
+/// The `core` mock with a Component `part` that carries every home it owes, and `extra` written
+/// beside them; staged.
+fn core_with_a_part(tag: &str, extra: &[(&str, &str)]) -> Sandbox {
+    let manifest = std::fs::read_to_string(source("core").join("knowledge-architect.toml"))
+        .expect("the core manifest");
+    let mut files: Vec<(&str, String)> = vec![
+        (
+            "knowledge-architect.toml",
+            manifest.replace("components = []", "components = [\"part\"]"),
+        ),
+        ("part/README.md", "# part\n\nA Component.\n".to_string()),
+        (
+            "part/docs/design.md",
+            "# part — design\n\nNo entry.\n".to_string(),
+        ),
+        (
+            "part/docs/tripwires.md",
+            "# part — tripwires\n\nNo entry.\n".to_string(),
+        ),
+        (
+            "part/docs/rejected.md",
+            "# part — rejected\n\nNo entry.\n".to_string(),
+        ),
+        (
+            "part/docs/open-issues/README.md",
+            "# part — open issues\n".to_string(),
+        ),
+        // The generated index of an issue home with no entry, as the root's in `core`; written
+        // here since `index` refuses a tree holding a phase-2 finding.
+        (
+            "part/docs/open-issues/index.md",
+            "**Generated — do not edit.** `klarch index`\n\n0 entries\n".to_string(),
+        ),
+    ];
+    files.extend(extra.iter().map(|(p, t)| (*p, t.to_string())));
+    let borrowed: Vec<(&str, &str)> = files.iter().map(|(p, t)| (*p, t.as_str())).collect();
+    Sandbox::seeded(tag, "core", &borrowed)
+}
+
+/// The claim: a goals home in a Component other than the root is refused, at phase 2, with the
+/// repair of its case: deleted where it holds no goal, its goals moved where it holds one; and the
+/// same Component with no goals home passes. Mutations checked, in `foreign_root_homes` of
+/// `path@model@src/tree.rs`: the presence test made `if true {`, which reports nothing; and
+/// `holds_entries` made `false`, which names the deletion for a home holding a goal; each caught.
+#[test]
+fn a_goals_home_in_a_component_is_refused_with_the_repair_of_its_case() {
+    let (out, err, code) = core_with_a_part("goals-home-none", &[]).run(&["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+
+    let empty = core_with_a_part(
+        "goals-home-empty",
+        &[("part/docs/goals.md", "# Goals — part\n\nNo entry.\n")],
+    );
+    let (out, err, code) = empty.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains("`part/docs/goals.md` is a home of the goal register in the component `part`"),
+        "{out}"
+    );
+    assert!(out.contains("delete it; it holds no entry"), "{out}");
+    assert!(out.contains("phase"), "{out}");
+
+    let holding = core_with_a_part(
+        "goals-home-holding",
+        &[(
+            "part/docs/goals.md",
+            "# Goals — part\n\n## A goal of the part `##part-goal`\n\nIt.\n",
+        )],
+    );
+    let (out, err, code) = holding.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("move each entry to the root's home"), "{out}");
+    assert!(!out.contains("delete it; it holds no entry"), "{out}");
+}
+
+/// The claim: a location that declares the register `goal` is refused, the register dropped from
+/// its row and the rest of the tree judged. Mutation checked: the refusal in `resolve_anchors` of
+/// `path@model@src/manifest.rs`, `if known.scope == Scope::Root {` made `if false {`; caught.
+#[test]
+fn a_location_that_declares_the_goal_register_is_refused() {
+    let manifest = std::fs::read_to_string(source("core").join("knowledge-architect.toml"))
+        .expect("the core manifest");
+    let manifest =
+        format!("{manifest}\n[locations.notes]\npath = \"notes\"\nregisters = [\"goal\"]\n");
+    let sandbox = Sandbox::seeded(
+        "goal-location",
+        "core",
+        &[
+            ("knowledge-architect.toml", &manifest),
+            ("notes/goals.md", "# Goals — notes\n\nNo entry.\n"),
+        ],
+    );
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains("[locations.notes] carries `goal`, which the project's root alone carries"),
+        "{out}"
+    );
+    assert!(!out.contains("notes/goals.md:"), "{out}");
+}
+
+/// The claim: a goal is cited `goal@<id>` and the root's goals home `register@goal`, and each
+/// anchored form is refused with the form with no anchor as its repair. Mutations checked, in
+/// `candidate` of `path@model@src/entity.rs`: the arm of a root-scoped register made to fall
+/// through, `if anchors.registers.is_root_register(kind.name()) {` made `if false {`, which
+/// refuses `goal@<id>` as two segments; the `register` arm's no-anchor case made to fall
+/// through, `None if anchors.registers.is_root_register(rest)` made `None if false`, which refuses
+/// `register@goal`; and its anchored case, `Some((_, id)) if anchors.registers.is_root_register(id)`
+/// made `Some((_, id)) if false`, which accepts `register@core-mock@goal`; each caught.
+#[test]
+fn a_goal_is_cited_with_no_anchor_and_each_anchored_form_is_refused() {
+    let goals = "# Goals — core-mock\n\n## A goal of the root `##core-goal`\n\nIt.\n";
+    let cited = core_with_a_part(
+        "goal-forms-ok",
+        &[
+            ("docs/goals.md", goals),
+            (
+                "part/docs/design.md",
+                "# part — design\n\nIt serves `goal@core-goal`, in `register@goal`.\n",
+            ),
+        ],
+    );
+    let (out, err, code) = cited.run(&["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+
+    let anchored = core_with_a_part(
+        "goal-forms-anchored",
+        &[
+            ("docs/goals.md", goals),
+            (
+                "part/docs/design.md",
+                "# part — design\n\nIt serves `goal@core-mock@core-goal`, in \
+                 `register@core-mock@goal`, or `register@*@goal`.\n",
+            ),
+        ],
+    );
+    let (out, err, code) = anchored.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains("`goal@core-mock@core-goal` is malformed")
+            && out.contains("write `<kind>@<id>` with no anchor"),
+        "{out}"
+    );
+    for span in ["`register@core-mock@goal`", "`register@*@goal`"] {
+        assert!(
+            out.contains(&format!("{span} is malformed")),
+            "{span}: {out}"
+        );
+    }
+    assert!(
+        out.contains("write `register@<register>` with no anchor"),
+        "{out}"
+    );
+}
+
+/// The claim: `show` resolves a goal and the root's goals home in the forms with no anchor, as the
+/// check does, and lists each citation; `id` prints a goal in that form; an anchored form is
+/// refused by `show` as malformed. Mutation checked: `spelled` of `path@model@src/entity.rs`
+/// spelling every reference with its anchor, `if anchor.is_empty() || root_register(kind) ||`
+/// made `if anchor.is_empty() ||`, which makes `id` print `goal@core-mock@core-goal`; caught.
+#[test]
+fn show_and_id_answer_a_goal_in_the_form_with_no_anchor() {
+    let sandbox = core_with_a_part(
+        "goal-forms-show",
+        &[
+            (
+                "docs/goals.md",
+                "# Goals — core-mock\n\n## A goal of the root `##core-goal`\n\nIt.\n",
+            ),
+            (
+                "part/docs/design.md",
+                "# part — design\n\nIt serves `goal@core-goal`, in `register@goal`.\n",
+            ),
+        ],
+    );
+    let (out, err, code) = sandbox.run(&["show", "goal@core-goal"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("part/docs/design.md:3"), "{out}");
+    let (out, err, code) = sandbox.run(&["show", "register@goal"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.contains("docs/goals.md"), "{out}");
+    let (out, err, code) = sandbox.run(&["show", "goal@core-mock@core-goal"]);
+    assert_eq!(code, 2, "{out}{err}");
+    let (out, err, code) = sandbox.run(&["id", "core-goal"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("goal@core-goal"), "{out}");
+    assert!(!out.contains("goal@core-mock@"), "{out}");
 }

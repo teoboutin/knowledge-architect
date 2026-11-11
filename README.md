@@ -13,7 +13,7 @@ It is built for projects developed mostly by AI agents, and has two parts that w
   issues, reviewing, auditing the whole project on one aspect, a retrospective, and the intake of
   a retrospective's findings.
 
-Why it exists, and what it aims for, is `register@knowledge-architect@goal`.
+Why it exists, and what it aims for, is `register@goal`.
 
 ## Status
 

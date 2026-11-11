@@ -85,7 +85,7 @@ issue, whose title names another instruction.
 
 A push that runs after a failing check publishes a commit the gate refused, and a commit after a
 failing staged check records a tree with findings, each repaired by an amend or a history edit,
-against `goal@knowledge-architect@agents-work-without-drift`. Under the lapse rule of
+against `goal@agents-work-without-drift`. Under the lapse rule of
 `skill@knowledge-architect-agent-configuration@admission-standard`, a lapse that recurs at one
 point of delivery is repaired by moving where the instruction is delivered.
 

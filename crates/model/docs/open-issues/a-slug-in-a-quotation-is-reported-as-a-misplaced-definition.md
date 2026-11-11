@@ -62,7 +62,7 @@ the scan; a second definition would be a second home.
 The finding has no repair the writer may make, which strains the argument of
 `design@check@quotation-read-by-no-id-lint` and the rule of
 `design@agent-skills@a-past-sentence-is-rewritten`, and it pushes a session to edit the owner's
-words or to write a pointer bare, against `goal@knowledge-architect@documentation-stays-consistent`.
+words or to write a pointer bare, against `goal@documentation-stays-consistent`.
 A session meeting the case now cites this entry beside the quotation, as `primer@where-knowledge-goes`
 asks of a pointer no checked form expresses.
 

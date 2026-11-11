@@ -36,7 +36,7 @@ Re-entry point: the next change to `design@model@harness-kinds-cited-without-anc
 
 A citation of a numbered point is a pointer `cargo klarch show` does not list and `check` does not
 judge, so renumbering a list or moving a test silently falsifies every citation of it, against
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. A new form changes
+`goal@design-is-recorded-with-its-arguments`. A new form changes
 `design@model@harness-kinds-cited-without-anchor` or `design@model@section-homes-carry-slugs`.
 
 ### What would close it

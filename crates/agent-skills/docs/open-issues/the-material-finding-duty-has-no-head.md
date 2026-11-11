@@ -34,7 +34,7 @@ until the head is written and the tests are applied.
 A reversal or a widening of the material-finding duty would leave
 `design@agent-skills@owner-word-holds-as-far-as-its-premise` agreeing with a duty that changed, and
 `cargo klarch show` would not list that head among what the change touches, against
-`goal@knowledge-architect@agents-work-without-drift`.
+`goal@agents-work-without-drift`.
 
 ### What would close it
 

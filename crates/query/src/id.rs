@@ -50,13 +50,7 @@ pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<Exit
             .get(candidate.as_str())
             .into_iter()
             .flatten()
-            .map(|(kind, anchor)| {
-                if anchor.is_empty() {
-                    format!("{}@{candidate}", kind.name())
-                } else {
-                    format!("{}@{anchor}@{candidate}", kind.name())
-                }
-            })
+            .map(|(kind, anchor)| crate::model::table::spelled(kind.name(), anchor, candidate))
             .collect();
         forms.sort();
         forms.dedup();

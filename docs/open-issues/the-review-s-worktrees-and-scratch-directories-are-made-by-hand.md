@@ -41,7 +41,7 @@ is ruled out by the invariant's own reason and by `design@check@a-foreign-build-
 ### Why it matters
 
 The task follows from the axes and the commit with no judgement, the kind of task
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` gives a command once the owner takes its
+`goal@tasks-a-tool-does-better-are-the-tool-s` gives a command once the owner takes its
 generic part in, and every review before a merge runs it again. `design@agent-skills@a-scratch-directory-per-subagent`
 records why each subagent gets its own directory.
 

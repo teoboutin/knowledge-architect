@@ -10,7 +10,7 @@ the line asking for each to be reported as a finding on the checker in the retro
 under "Met outside the task", so the session receives it, and the retrospective's item on the
 checker, `skill@knowledge-architect-retrospective@what-it-examines`, carries it to the workflow's
 file. A reader of the format the harness documents as internal learns of a change only from the
-sessions of the projects that use it, which `goal@knowledge-architect@the-workflow-improves-through-real-use`
+sessions of the projects that use it, which `goal@the-workflow-improves-through-real-use`
 relies on.
 
 The route is the owner's choice between two shapes neither of which failed a constraint, over a
@@ -42,16 +42,16 @@ or carried by hand over several steps a mechanical task the installed workflow a
 whether an installed rule about code or about splitting into Components proved too hard or too
 strict, or was followed against the work's interest. Real use
 is the test of the workflow, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`, and each question watches a
+`goal@the-workflow-improves-through-real-use`, and each question watches a
 decision or a goal whose failure would be seen in real sessions before any check could see it:
 `design@agent-skills@overlay-by-separate-skills`, the primer's delivery by an import line in
 `design@check@primer-import-line`, `design@agent-skills@no-routing-table`,
 `design@agent-skills@plain-text-is-no-repair`,
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and, for the question whether a rule or
+`goal@tasks-a-tool-does-better-are-the-tool-s`, and, for the question whether a rule or
 guideline about code or tests, or about splitting the project into Components, proved too hard or
 too strict or was followed against the work's interest,
-`goal@knowledge-architect@the-workflow-leads-to-better-code` and
-`goal@knowledge-architect@projects-are-split-into-modular-units`, whose default shape and default
+`goal@the-workflow-leads-to-better-code` and
+`goal@projects-are-split-into-modular-units`, whose default shape and default
 criteria are learned from use, per `design@agent-skills@default-code-shape` and
 `design@agent-skills@component-skill-delivery`; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
@@ -93,7 +93,7 @@ defeated it.
 `skill@knowledge-architect-retrospective-intake` analyses a project's own retrospective files
 finding by finding, writes the analysis, and decides each finding's outcome as
 `design@agent-skills@intake-outcome-authority` says. The retrospective writes the files; the intake takes them later, on the owner's
-word. `goal@knowledge-architect@agents-get-a-complete-workflow` names the intake among the
+word. `goal@agents-get-a-complete-workflow` names the intake among the
 workflow's activities.
 
 The two produce different artifacts, two files outside the project and an analysis inside it,
@@ -149,7 +149,7 @@ no change, it is dropped. The audit sends its findings on the installed text ups
 reason, per `design@agent-skills@audit-outcomes`. Adding a finding to a workflow file not yet sent
 is the session's, since the file stays on the machine and the owner reads it whole before it leaves;
 editing the issue that carries it, or opening a new one, is a publication, the owner's, per
-`goal@knowledge-architect@the-owner-decides`.
+`goal@the-owner-decides`.
 
 An item a session meets outside its task whose fix lies there takes the same route, per
 `primer@met-outside-the-task`: it goes to the workflow's file of the session's retrospective, and
@@ -179,7 +179,7 @@ to change, a fact only the owner holds, a fork, a contradiction no argument reso
 publication are the owner's, each an owner item whose line stays pending until the owner rules.
 "Handle now" or "an issue" is the session's by the rule the review and the audit apply: the
 finding's work lands in the intake's branch, or needs a branch of its own. It serves
-`goal@knowledge-architect@the-owner-decides`, under which agents decide what the record settles, so a
+`goal@the-owner-decides`, under which agents decide what the record settles, so a
 question the record answered is not the owner's: at the intakes of this repository, about 6 rulings in 7 approved the
 session's default. Of the 356 `Outcome` lines of the 60 analyses deleted from
 `path@knowledge-architect@docs/retrospective-reports/` up to commit 6f75bc98, 305 begin with
@@ -202,7 +202,7 @@ ruling owed on every finding, is `rejected@agent-skills@owner-rules-each-intake-
 The analysis keeps its shape, one section per finding with its evidence and its `Default` and
 `Outcome` lines, and the summary in the conversation says of each line who holds it, so that the
 owner sees every finding and its kind and can bring a fact, an argument or an intent to any of them
-before the merge, as `goal@knowledge-architect@the-owner-decides` asks of every decision the agents
+before the merge, as `goal@the-owner-decides` asks of every decision the agents
 make. The session weighs such an
 addition as any other, per `design@agent-skills@intent-through-goals-not-overrule`.
 
@@ -224,7 +224,7 @@ holds the analysis merges once no `Outcome` line is pending, per
 the work and makes a default no default. The issues its outcomes open are opened and the findings
 handled now are handled, in the commits their routes need; the commit that carries out its last outcome, or a later commit of the same branch,
 deletes it. The skill fixes no order of those commits, per
-`goal@knowledge-architect@only-needed-instructions`.
+`goal@only-needed-instructions`.
 
 It takes the shape of the audit's report file, `design@agent-skills@committed-audit-report`, whose
 argument holds here: the commit messages alone keep the outcomes and lose the evidence each ruling
@@ -243,7 +243,7 @@ an intake, since only the owner's directory tells a session which files are hand
 file loses the other side of an interaction finding, which a later intake reads. The installed text
 names no directory, since the retrospective writes its files where the owner directs, and a fixed
 one would be a convention of one setup, where
-`goal@knowledge-architect@every-target-project-can-adopt-it` has the workflow hold nothing
+`goal@every-target-project-can-adopt-it` has the workflow hold nothing
 particular to one target project;
 where the owner keeps them is a fact the owner's own instructions hold. A directory of received files can hold files an earlier intake
 analysed, which only the history of docs/retrospective-reports/ at the project's root tells apart, a

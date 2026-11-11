@@ -5,7 +5,7 @@ description: MUST use when new work may belong to no existing Component, when co
 
 %% The activity and its four moments are `design@agent-skills@component-skill-delivery`. The criteria
 %% are guidelines, never a rule a Component fails alone, per
-%% `goal@knowledge-architect@projects-are-split-into-modular-units`.
+%% `goal@projects-are-split-into-modular-units`.
 # Creating or splitting a Component
 
 Scope: deciding where a Component's boundary goes, and carrying out a creation or a split. One

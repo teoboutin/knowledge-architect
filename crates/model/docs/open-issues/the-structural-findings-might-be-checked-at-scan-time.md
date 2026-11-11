@@ -18,7 +18,7 @@ findings belong, without asking for a change at this slice.
 
 ### Why it matters
 
-It bears on `design@check@phases-gate-the-report` and on `goal@knowledge-architect@documentation-has-a-structure-and-a-model`: with these
+It bears on `design@check@phases-gate-the-report` and on `goal@documentation-has-a-structure-and-a-model`: with these
 findings at scan time, a tool has no way to read a model that is wrong, which `show` relies on today, since what it
 prints exists whatever else the model misses.
 

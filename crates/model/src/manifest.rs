@@ -59,8 +59,8 @@ pub const OWNED_PREFIX: &str = "knowledge-architect-";
 /// The name of the built-in issue register, which is the one register that accepts a key.
 pub const ISSUE_REGISTER: &str = "issue";
 
-/// The built-in heading register of what the project or a Component is for, whose entries refine
-/// one another by citation.
+/// The built-in heading register of what the project is for, carried by the project's root alone
+/// and cited with no anchor, per `design@model@registers-are-declared`.
 pub const GOAL_REGISTER: &str = "goal";
 
 /// The built-in heading register of evidence that would flip a decision, by the name a
@@ -193,6 +193,9 @@ pub enum Shape {
 pub enum Scope {
     /// Every component carries it.
     Component,
+    /// The project's root alone carries it, by a rule compiled into the tool that no declaration
+    /// changes, so a reference to it names no anchor. Only the built-in `goal` has it.
+    Root,
     /// Only the locations that name it carry it.
     OptIn,
 }
@@ -279,15 +282,30 @@ impl Registers {
         self.0.iter().filter(|r| r.scope == Scope::Component)
     }
 
-    /// The registers the Component named `name` carries: every component-scoped one, and each
-    /// `opt-in` register the project attaches to it.
+    /// The registers the Component named `name` carries: every component-scoped one, each
+    /// `opt-in` register the project attaches to it, and, at the root alone, each root-scoped one.
     pub(crate) fn carried_by_component<'a>(
         &'a self,
         name: &'a str,
+        is_root: bool,
     ) -> impl Iterator<Item = &'a Register> + 'a {
-        self.0
-            .iter()
-            .filter(move |r| r.scope == Scope::Component || r.components.iter().any(|c| c == name))
+        self.0.iter().filter(move |r| match r.scope {
+            Scope::Component => true,
+            Scope::Root => is_root,
+            Scope::OptIn => r.components.iter().any(|c| c == name),
+        })
+    }
+
+    /// Whether `name` is a register the project's root alone carries, whose references name no
+    /// anchor.
+    pub fn is_root_register(&self, name: &str) -> bool {
+        self.by_name(name).is_some_and(|r| r.scope == Scope::Root)
+    }
+
+    /// Whether `name` is the name of a register the project's root alone carries. The scope is
+    /// the tool's alone to give, to a built-in register, so the name answers with no manifest.
+    pub fn is_root_register_name(name: &str) -> bool {
+        name == GOAL_REGISTER
     }
 
     /// The compiled-in registers, before any declaration is read.
@@ -308,7 +326,10 @@ impl Registers {
         };
         let mut out = vec![
             heading("design", "design", 3),
-            heading(GOAL_REGISTER, "goals", 2),
+            Register {
+                scope: Scope::Root,
+                ..heading(GOAL_REGISTER, "goals", 2)
+            },
             heading(TRIPWIRE_REGISTER, "tripwires", 2),
             heading(REJECTED_REGISTER, "rejected", 3),
             Register {
@@ -971,10 +992,11 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
     });
     // Two component registers at one directory: the first one asked would answer for every
     // entry in the shared home, and every reference of the other kind would dangle for ever
-    // with nothing said. The later-declared one is refused; the built-in ones come first.
+    // with nothing said. The later-declared one is refused; the built-in ones come first. A
+    // root-scoped register keeps its home at the root's `docs/` beside them, so it counts too.
     let mut taken: Vec<(String, String)> = Vec::new();
     registers.0.retain(|register| {
-        if register.scope != Scope::Component {
+        if register.scope == Scope::OptIn {
             return true;
         }
         if let Some((other, _)) = taken.iter().find(|(_, dir)| *dir == register.dir) {
@@ -1079,6 +1101,9 @@ fn resolve_components(
                 register.name.clone(),
             ));
         }
+    }
+    for register in registers.0.iter().filter(|r| r.scope == Scope::Root) {
+        taken.push((root.clone(), register.dir.clone(), register.name.clone()));
     }
     for register in registers.0.iter_mut().filter(|r| !r.components.is_empty()) {
         let name = register.name.clone();
@@ -1187,7 +1212,7 @@ fn resolve_anchors(
 ) -> bool {
     let component_homes = |name: &str, path: &Path| -> Vec<(String, PathBuf)> {
         registers
-            .carried_by_component(name)
+            .carried_by_component(name, path.as_os_str().is_empty())
             .map(|r| (r.name.clone(), r.home_in(&path.join("docs"))))
             .collect()
     };
@@ -1253,6 +1278,17 @@ fn resolve_anchors(
                         "remove it from the row; the plan anchors, which the tool constructs under \
                          {PLANS_DIR}/, carry it alone"
                     ),
+                ));
+                return false;
+            }
+            // The root carries a root-scoped register by a rule no declaration changes, per
+            // `design@model@registers-are-declared`, so a location naming one would hold a second
+            // home of a register cited with no anchor, which no reference could tell apart.
+            if known.scope == Scope::Root {
+                complaints.push(Finding::in_file(
+                    MANIFEST_NAME,
+                    format!("[locations.{name}] carries `{register}`, which the project's root alone carries"),
+                    "remove it from the row; its entries go in the root's home of the register",
                 ));
                 return false;
             }
@@ -2846,7 +2882,7 @@ pub(crate) mod tests {
         assert_eq!(lore.components, ["game", "engine"]);
         let carried: Vec<&str> = m
             .registers()
-            .carried_by_component("engine")
+            .carried_by_component("engine", false)
             .map(|r| r.name.as_str())
             .collect();
         assert!(

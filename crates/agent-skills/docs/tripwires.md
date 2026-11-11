@@ -341,7 +341,7 @@ The decision rests on the premise that a session tells a default the record sett
 the goals and the record leave open, so that only the first is built and merged on the session's
 word, and the second meets the owner before the merge, per
 `design@agent-skills@default-ruled-before-merge`, while the owner can still challenge it, as
-`goal@knowledge-architect@design-with-agents-as-counterparts` has it.
+`goal@design-with-agents-as-counterparts` has it.
 
 **Fires when:** a decision found on the main branch was a choice between shapes that all met every
 binding constraint, which no goal ranked, and the branch that merged it reported it under "Decided"

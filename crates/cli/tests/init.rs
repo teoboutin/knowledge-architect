@@ -548,7 +548,10 @@ fn a_component_added_either_way_passes_the_check() {
     assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
     let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "crates/check"]);
     assert_eq!(code, 0, "{out}{err}");
-    assert!(scratch.path("p/crates/check/docs/goals.md").is_file());
+    // The root alone carries the goals home, so `new-component` writes the Component's other
+    // homes and none of the register `goal`, and the tree it leaves passes.
+    assert!(scratch.path("p/crates/check/docs/design.md").is_file());
+    assert!(!scratch.path("p/crates/check/docs/goals.md").exists());
     assert_eq!(klarch(&scratch.path("p"), &["check"]).2, 0);
 
     let (out, err, code) = klarch(&scratch.dir, &["init", "q", "--component", "svc"]);

@@ -59,7 +59,7 @@ check of the installed copies, are leads of the Component split, below.
 A project that wants to ship its own skills with a pinned version has to copy these passes, and the
 copy then drifts from this one. The owner is interested in reusing this capability in other
 projects. No
-decision of this project is strained by the split. `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`
+decision of this project is strained by the split. `goal@generic-tools-and-procedures-are-shipped`
 has knowledge-architect ship the generic part of a tool once knowledge-architect's owner takes it
 in, and the owner has not taken this one in.
 

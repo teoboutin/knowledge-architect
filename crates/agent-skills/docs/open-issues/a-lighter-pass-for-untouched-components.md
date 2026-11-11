@@ -78,7 +78,7 @@ owner".
 ### Why it matters
 
 A grounding whose search costs more agents than sessions will pay for gets skipped, against
-`goal@knowledge-architect@agents-work-without-drift`, which the search serves.
+`goal@agents-work-without-drift`, which the search serves.
 
 ### What would close it
 

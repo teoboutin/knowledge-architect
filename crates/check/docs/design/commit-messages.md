@@ -128,7 +128,7 @@ prints a SHA in lowercase, and `_` bounds a word as a letter or a digit does, si
 parts of an identifier. A project whose branch commits keep their SHAs until they reach the main
 branch has nothing to refuse; a rebase onto main before a fast-forward rewrites them as surely as a
 rebase merge does, so the check is off unless the manifest turns it on. It serves
-`goal@knowledge-architect@documentation-stays-consistent`: a rule against such citations is kept by running
+`goal@documentation-stays-consistent`: a rule against such citations is kept by running
 `commits`, not by a reviewer remembering it.
 
 The check lives in `commits` because it already holds every input: the range's commits, each

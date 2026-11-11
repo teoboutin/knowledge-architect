@@ -70,11 +70,11 @@ merged work that moved against a goal with no procedure reporting it.
 
 A departure from the record whose references all resolve passes each gate, so only a review
 catches it, and no installed text has a review look for it, against
-`goal@knowledge-architect@agents-work-without-drift`.
-`goal@knowledge-architect@documentation-stays-consistent` gives reviews and audits the judging of
+`goal@agents-work-without-drift`.
+`goal@documentation-stays-consistent` gives reviews and audits the judging of
 whether the code departs from what the documents state, and has the checker judge no meaning. An
 item that bears on the work and is not cited where it bears does not reach the session working
-there, against `goal@knowledge-architect@records-reach-their-reader`, and no check reports a
+there, against `goal@records-reach-their-reader`, and no check reports a
 citation that is missing.
 
 ### What would close it

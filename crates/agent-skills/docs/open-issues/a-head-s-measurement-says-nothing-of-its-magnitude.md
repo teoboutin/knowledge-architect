@@ -31,7 +31,7 @@ sentence at the commit step of a development skill, leaving other projects to th
 ### Why it matters
 
 A head whose figure is stale argues from a number no reader can reproduce, against
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`. The sentence would sit in a
+`goal@design-is-recorded-with-its-arguments`. The sentence would sit in a
 fragment the primer hosts, so it is weighed against `design@agent-skills@primer-limit`.
 
 ### What would close it

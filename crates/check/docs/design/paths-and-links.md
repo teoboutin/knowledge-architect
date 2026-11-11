@@ -40,8 +40,8 @@ over a foreign project carrying the required structure, counting the findings un
 census in which the silence hides a real pointer of this tree reopens it. The census that decided
 it is in the commit that rewrote this head, found with
 `git log --grep='only where it names something of this project'`. Reporting every path-shaped span
-is `rejected@check@every-path-shaped-span-reported`. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`
-and `goal@knowledge-architect@adoption-is-easy`.
+is `rejected@check@every-path-shaped-span-reported`. This serves `goal@every-target-project-can-adopt-it`
+and `goal@adoption-is-easy`.
 
 **A line suffix or a fragment keeps a span path-shaped, after a file with an extension.** A
 path followed by `:12`, the location an editor prints, and a path followed by a `#` and a

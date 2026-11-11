@@ -72,7 +72,7 @@ the root on disk at the commit audited no longer held. The copy delivered was ol
 
 `design@agent-skills@restatement-size-test` keeps a restatement only beside its pointer, on the
 premise that a drift is found where the two disagree. A drift no step reads stays in every session's
-context, against `goal@knowledge-architect@agents-work-without-drift`. In the fourth case, an axis
+context, against `goal@agents-work-without-drift`. In the fourth case, an axis
 dispatched without its agent loses the standard that `design@agent-skills@audit-agent-per-axis`
 puts in the agent's definition, against the same goal.
 

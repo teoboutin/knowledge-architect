@@ -179,7 +179,7 @@ Every Component carries the same documents. `cargo klarch check` names each one 
 | --- | --- |
 | `README.md` | how a user uses the Component |
 | `CLAUDE.md` | the contracts and traps a developer needs, true of the code as it stands |
-| `register@*@goal`, one file, or a directory with a `README.md` | what the project is for, in the root's alone: any other holds no entry |
+| `register@goal`, one file, or a directory with a `README.md` | what the project is for, in the root's alone: any other holds no entry |
 | `register@*@design`, one file, or a directory with a `README.md` | how it is built and why; it may hold no entry yet |
 | `register@*@rejected`, one file, or a directory with a `README.md` | the designs not kept, and why, each cited by a design head; it may hold no entry yet |
 | `register@*@tripwire`, one file, or a directory with a `README.md` | evidence that would flip a decision; it may hold no entry yet |

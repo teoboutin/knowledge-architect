@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@session-orchestrates-the-work` has the main session orchestrate agents it
+`goal@session-orchestrates-the-work` has the main session orchestrate agents it
 dispatches to carry the work, and act on what comes back, so that it can focus on the design and
 the decisions. It says neither when a dispatch happens nor for which work. The installed text as
 it stands has the main session carry the development itself, and gives no guidance on when a
@@ -105,8 +105,8 @@ Why the owner wants it, which bears on how each repair is argued:
 ### Why it matters
 
 While the main session carries the development, its context goes to that work and not to the
-design and the decisions, against `goal@knowledge-architect@session-orchestrates-the-work` and the
-efficiency `goal@knowledge-architect@agents-get-a-complete-workflow` asks.
+design and the decisions, against `goal@session-orchestrates-the-work` and the
+efficiency `goal@agents-get-a-complete-workflow` asks.
 
 ### What would close it
 

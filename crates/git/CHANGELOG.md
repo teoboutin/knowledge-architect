@@ -684,7 +684,7 @@ an empty subsection is omitted.
 - `checks`, minor: a `path` reference whose target is a register's home is reported: a heading
   register's file, its directory or that directory's `README.md`, a file register's directory, and
   the plans directory's `specs/` and `milestones/`. A project writes it as
-  `register@<anchor>@<register>`, as `register@*@goal` for every Component's goals home; this holds
+  `register@<anchor>@<register>`, as `register@goal` for every Component's goals home; this holds
   for mock projects too. The finding's repair names the form, and no `check --fix` writes it. A
   file-or-directory pair in one sentence becomes one span, a span with a line number or a fragment
   is repaired by hand, and a project's root CLAUDE.md that restates a home is among the sites. This

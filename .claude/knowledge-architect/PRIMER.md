@@ -283,7 +283,7 @@ included. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
-`claude` harness, and the home of each component register: `register@*@goal`,
+`claude` harness, and the home of each component register: `register@goal`,
 `register@*@design`, `register@*@rejected`, `register@*@tripwire` and `register@*@issue`.
 
 **A Component is bound by the design of the root and of every intermediate Component that encloses

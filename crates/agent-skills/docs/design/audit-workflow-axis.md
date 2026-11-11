@@ -117,7 +117,7 @@ workflow needs to function as intended. The class of an unneeded statement is in
 the owner ruled that all work that judges or edits agent-facing text follows one standard, per
 `design@agent-skills@admission-rules-home`.
 The nearest rival, every gap a finding to fill, fails
-`goal@knowledge-architect@only-needed-instructions`.
+`goal@only-needed-instructions`.
 
 A confirmed finding of two readings is repaired even where both acts it allows are acceptable, as
 `design@agent-skills@audit-outcomes` says. The rival that left it to judgement where no text rules
@@ -238,7 +238,7 @@ diff. That the intake's findings are bounded by real use, and the audit's are no
 argument, given as the owner's view; its extension to a review and to a session writing text is
 the session's reading of it, and the hold in every activity is
 `rejected@agent-skills@growth-held-in-every-activity`. The growth of a sum of instructions is a cost no goal
-ranks, since `goal@knowledge-architect@only-needed-instructions` judges each instruction. The standard
+ranks, since `goal@only-needed-instructions` judges each instruction. The standard
 holds the count and the report, and the audit's own text the hold, since a fragment names none of
 its hosts that routes differently by host, per `design@agent-skills@admission-rules-home`. Each pass of the agentic-workflow axis also gives the corpus's word count before and after in its
 commit message, for monitoring.
@@ -294,7 +294,7 @@ goal or a rejected alternative, and a repair can bring back an alternative that 
 repository's intake of received findings read the same record for its fixes, and the owner asked
 whether the audit could learn from what the intake did more thoroughly. The nearest rival, the check
 left to the session at the application, when the edit is written, comes after the owner's ruling, so the owner would rule on a repair without knowing that it reverses
-a head, against `goal@knowledge-architect@the-owner-decides`. The search by behaviour is a
+a head, against `goal@the-owner-decides`. The search by behaviour is a
 judgement, and a head it misses is found at the review of the audit's branch, which reads each
 repair against the design heads.
 

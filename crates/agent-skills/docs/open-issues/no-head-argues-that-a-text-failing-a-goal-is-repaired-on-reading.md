@@ -35,7 +35,7 @@ installed text fails a goal, with no instance from use.
 
 ### Why it matters
 
-`goal@knowledge-architect@the-workflow-improves-through-real-use` has real use as the test of how
+`goal@the-workflow-improves-through-real-use` has real use as the test of how
 an agent behaves under the workflow. A goal now states a direction and leaves when, how much and by
 what means to design, so "fails a goal" read widely admits any instruction a session derives from a
 goal, which is the class that head exists to hold to evidence.

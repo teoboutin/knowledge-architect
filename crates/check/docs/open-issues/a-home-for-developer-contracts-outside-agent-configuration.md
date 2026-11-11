@@ -47,12 +47,12 @@ skill, read whole, and no audit reads it. The new home decides where it goes.
 It strains `design@check@agents-table`, which drops CLAUDE.md from the required documents under
 `harness = []`, and with it the one place a developer's contracts are required to sit. The checker
 is built for agentic work, and a project without agents is no target project, per
-`goal@knowledge-architect@serves-one-kind-of-project`; a target project that uses the checker alone
+`goal@serves-one-kind-of-project`; a target project that uses the checker alone
 declares that empty list all the same. And the content is
 not agent-specific: a developer needs it whether an agent reads it or not. Where an agent does read
 it, the owner's investigation found the scoped file's delivery unreliable, so a contract stated
 there may not reach the agent working on the code, against
-`goal@knowledge-architect@agents-work-without-drift`.
+`goal@agents-work-without-drift`.
 
 ### Trigger
 

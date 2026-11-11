@@ -18,7 +18,7 @@ and two searches of the whole record.
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Its defaults D1 to D4 are ruled.
+  waits. Its defaults D1 to D7 are ruled.
 
 ## How the work is done
 
@@ -99,7 +99,7 @@ This repository adds:
 - The wording of each goal: it is ruled under `skill@knowledge-architect-goal-setting`, in slice
   1's whole-set review, not by this document.
 - A wider goal on modular units in place of
-  `goal@knowledge-architect@projects-are-split-into-modular-units`: the owner raised it, and it is a
+  `goal@projects-are-split-into-modular-units`: the owner raised it, and it is a
   goal to draft in that review.
 - A review axis or an audit axis that judges whether goals are pursued and met: parked, in
   `issue@agent-skills@audit-axes-beyond-the-design-record` and
@@ -192,7 +192,7 @@ design audit of the slice named runs it, since the list changes with every commi
 | `design@transcript@transcript-labels-in-code` | rewritten: it holds the constraint itself, where it cited a case of a goal | 1 |
 | `rejected@agent-skills@goal-measured-by-evidence-from-use` | kept, its reason narrowed: rule 6, which it cites, leaves; what still holds is the owner's argument that a measure on use has limited feasibility. The head that replaces `goal-met-in-tree-or-in-use` cites it. The discussion the parked thread opens owes a new argument against it | 1 |
 | `rejected@agent-skills@owner-intent-entry-test` | kept, its reason narrowed: an intent that states a purpose, a scope or a ranking is a goal, and any other is an argument or a choice at a fork. The harvest writes no head that stands on the owner's intent alone | 1 |
-| `design@agent-skills@intent-through-goals-not-overrule` | read again in the whole-set review, with `goal@knowledge-architect@the-owner-decides`: "through a goal" is read as a goal of the three kinds, which the owner keeps as a way to change a decision | 1 |
+| `design@agent-skills@intent-through-goals-not-overrule` | read again in the whole-set review, with `goal@the-owner-decides`: "through a goal" is read as a goal of the three kinds, which the owner keeps as a way to change a decision | 1 |
 | `design@agent-skills@goal-reviewer-agent` | rewritten: its premise on root goals that refine no other. The reviewer keeps reading every goals home, a goal outside the root's being its finding, which slice 1 decided against this row's first form | 1 |
 
 Where each entry is referenced, outside this milestone's documents, at the commit that wrote this list:
@@ -623,40 +623,40 @@ Triggers met, ruled before the work:
 - `design@model@resolver-outcome`: constrains, respect.
 - `design@model@no-check-below-the-model`: constrains, respect.
 - `design@model@a-failed-parse-is-loud`: constrains, respect.
-- `goal@knowledge-architect@agents-work-without-drift`: conflicts, goal-setting.
-- `goal@knowledge-architect@design-is-recorded-with-its-arguments`: conflicts, goal-setting.
-- `goal@knowledge-architect@agents-get-a-complete-workflow`: conflicts, goal-setting.
-- `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`: conflicts, goal-setting.
+- `goal@agents-work-without-drift`: conflicts, goal-setting.
+- `goal@design-is-recorded-with-its-arguments`: conflicts, goal-setting.
+- `goal@agents-get-a-complete-workflow`: conflicts, goal-setting.
+- `goal@tasks-a-tool-does-better-are-the-tool-s`: conflicts, goal-setting.
 - `structure-and-workflow-work-together`: conflicts, goal-setting.
 - `records-live-beside-the-code`: conflicts, goal-setting.
-- `goal@knowledge-architect@documentation-stays-consistent`: conflicts, goal-setting.
-- `goal@knowledge-architect@the-owner-decides`: conflicts, goal-setting.
-- `goal@knowledge-architect@the-owner-s-word-is-verified`: conflicts, goal-setting.
-- `goal@knowledge-architect@design-with-agents-as-counterparts`: conflicts, goal-setting.
+- `goal@documentation-stays-consistent`: conflicts, goal-setting.
+- `goal@the-owner-decides`: conflicts, goal-setting.
+- `goal@the-owner-s-word-is-verified`: conflicts, goal-setting.
+- `goal@design-with-agents-as-counterparts`: conflicts, goal-setting.
 - `owner-attention-on-what-is-theirs`: conflicts, goal-setting.
-- `goal@knowledge-architect@serves-one-kind-of-project`: conflicts, goal-setting.
-- `goal@knowledge-architect@every-target-project-can-adopt-it`: conflicts, goal-setting.
-- `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`: conflicts, goal-setting.
-- `goal@knowledge-architect@the-workflow-leads-to-better-code`: conflicts, goal-setting.
-- `goal@knowledge-architect@projects-are-split-into-modular-units`: conflicts, goal-setting.
-- `goal@knowledge-architect@adoption-is-easy`: conflicts, goal-setting.
-- `goal@knowledge-architect@the-workflow-improves-through-real-use`: conflicts, goal-setting.
+- `goal@serves-one-kind-of-project`: conflicts, goal-setting.
+- `goal@every-target-project-can-adopt-it`: conflicts, goal-setting.
+- `goal@generic-tools-and-procedures-are-shipped`: conflicts, goal-setting.
+- `goal@the-workflow-leads-to-better-code`: conflicts, goal-setting.
+- `goal@projects-are-split-into-modular-units`: conflicts, goal-setting.
+- `goal@adoption-is-easy`: conflicts, goal-setting.
+- `goal@the-workflow-improves-through-real-use`: conflicts, goal-setting.
 - `setup-brings-quality-tools`: conflicts, goal-setting.
-- `goal@knowledge-architect@records-reach-their-reader`: conflicts, goal-setting.
-- `goal@knowledge-architect@documents-render-as-a-linked-site`: conflicts, goal-setting.
+- `goal@records-reach-their-reader`: conflicts, goal-setting.
+- `goal@documents-render-as-a-linked-site`: conflicts, goal-setting.
 - `design@agent-skills@one-skill-per-activity`: conflicts, goal-setting.
 - `no-contradiction-in-workflow`: conflicts, goal-setting.
 - `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: conflicts, goal-setting.
 - `reviews-judge-what-no-tool-can`: conflicts, goal-setting.
 - `installed-text-works-in-every-target-project`: conflicts, goal-setting.
 - `installed-text-works-in-any-environment`: conflicts, goal-setting.
-- `goal@knowledge-architect@only-needed-instructions`: conflicts, goal-setting.
+- `goal@only-needed-instructions`: conflicts, goal-setting.
 - `goals-state-the-owner-s-intent`: conflicts, goal-setting.
-- `goal@knowledge-architect@session-orchestrates-the-work`: conflicts, goal-setting.
+- `goal@session-orchestrates-the-work`: conflicts, goal-setting.
 - `documents-stay-current`: conflicts, goal-setting.
 - `document-rules-are-checked`: conflicts, goal-setting.
 - `relocation-needs-only-goal-changes`: conflicts, goal-setting.
-- `goal@knowledge-architect@projects-add-their-own-checks`: conflicts, goal-setting.
+- `goal@projects-add-their-own-checks`: conflicts, goal-setting.
 - `checks-a-commit-from-its-hook`: conflicts, goal-setting.
 - `one-program-for-its-tools`: conflicts, goal-setting.
 - `one-home-for-the-command-line`: conflicts, goal-setting.
@@ -784,23 +784,23 @@ Triggers met, ruled before the work:
 - `design@model@components-carry-the-same-documents`: constrains, respect.
 - `design@model@a-wrong-declaration-is-a-finding`: constrains, respect.
 - `design@model@a-failed-parse-is-loud`: constrains, respect.
-- `goal@knowledge-architect@agents-work-without-drift`: constrains, respect.
-- `goal@knowledge-architect@design-is-recorded-with-its-arguments`: constrains, respect.
-- `goal@knowledge-architect@agents-get-a-complete-workflow`: constrains, respect.
+- `goal@agents-work-without-drift`: constrains, respect.
+- `goal@design-is-recorded-with-its-arguments`: constrains, respect.
+- `goal@agents-get-a-complete-workflow`: constrains, respect.
 - `structure-and-workflow-work-together`: constrains, respect.
-- `goal@knowledge-architect@documentation-stays-consistent`: constrains, respect.
-- `goal@knowledge-architect@the-owner-decides`: constrains, respect.
-- `goal@knowledge-architect@design-with-agents-as-counterparts`: constrains, respect.
+- `goal@documentation-stays-consistent`: constrains, respect.
+- `goal@the-owner-decides`: constrains, respect.
+- `goal@design-with-agents-as-counterparts`: constrains, respect.
 - `owner-attention-on-what-is-theirs`: constrains, respect.
-- `goal@knowledge-architect@projects-are-split-into-modular-units`: constrains, respect.
-- `goal@knowledge-architect@the-workflow-improves-through-real-use`: constrains, respect.
-- `goal@knowledge-architect@records-reach-their-reader`: constrains, respect.
+- `goal@projects-are-split-into-modular-units`: constrains, respect.
+- `goal@the-workflow-improves-through-real-use`: constrains, respect.
+- `goal@records-reach-their-reader`: constrains, respect.
 - `design@agent-skills@one-skill-per-activity`: constrains, respect.
 - `no-contradiction-in-workflow`: constrains, respect.
 - `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: constrains, respect.
 - `reviews-judge-what-no-tool-can`: constrains, respect.
 - `installed-text-works-in-every-target-project`: constrains, respect.
-- `goal@knowledge-architect@only-needed-instructions`: constrains, respect.
+- `goal@only-needed-instructions`: constrains, respect.
 - `goals-state-the-owner-s-intent`: constrains, respect.
 - `relocation-needs-only-goal-changes`: constrains, respect.
 - `the-record-is-consulted-as-the-workflow-requires`: constrains, respect.
@@ -813,7 +813,7 @@ Binding. Source: `primer@goals-bind`. Met: no thread changes it.
 
 ### No goal is edited, moved or removed outside goal-setting and the owner's ruling `##no-goal-changes-outside-goal-setting`
 
-Binding. Source: `goal@knowledge-architect@the-owner-decides` and
+Binding. Source: `goal@the-owner-decides` and
 `design@agent-skills@goals-change-through-goal-setting`. Met by
 `thread@goals-at-the-root@goals-are-edited-in-one-pass-under-the-whole-set-review`.
 
@@ -1089,6 +1089,23 @@ another round." Moved by `argument@goals-at-the-root@arg-115`,
 each other and one over the whole set; the order, the analysis first and then one pass, is this
 slice's own and nothing a later change reads.
 
+### The plan registers keep their anchor `##plan-register-references-have-no-anchor`
+
+Proposed by the owner at the design audit of slice 2, round 1, extending
+`thread@goals-at-the-root@root-register-reference-has-no-anchor` to "plans and other root only
+registers", and placed in a slice 3 by the owner's word, round 2, "2. slice 3". Its premise, that
+`spec` has one carrier, was the session's and proved false, `argument@goals-at-the-root@arg-126`,
+so the thread reopened with three shapes under D6. Final state: `ruled-out`, on the owner's word at
+that fork, round 3, "D6 drop that slice", `argument@goals-at-the-root@arg-127`: the plan registers
+keep `spec@plans@<id>`, `milestone@plans@<id>` and `register@plans@<register>`, and slice 3 left the
+milestone before any of its work. Arguments: `argument@goals-at-the-root@arg-123`,
+`argument@goals-at-the-root@arg-124`, `argument@goals-at-the-root@arg-125`,
+`argument@goals-at-the-root@arg-126`, `argument@goals-at-the-root@arg-127`. Harvested as a losing
+alternative of slice 2, judged by `skill@knowledge-architect-decision-recording@losing-alternatives`.
+
+The owner chose to keep the plan registers' anchor over dropping it for `milestone` alone and over
+`spec@<id>` beside `spec@<milestone>@<slice>`, which no goal ranks.
+
 ## Arguments
 
 One item per argument of the discussion, in order of appearance, from the session's transcript. A
@@ -1238,11 +1255,11 @@ Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 **Note**: Stated as a cost, with a measurement. Not answered by the owner.
 
-### `goal@knowledge-architect@projects-are-split-into-modular-units` says a split "keeps each Component's goals and (cut) `##arg-19`
+### `goal@projects-are-split-into-modular-units` says a split "keeps each Component's goals and (cut) `##arg-19`
 
 Round 1, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`.
 
->   - `goal@knowledge-architect@projects-are-split-into-modular-units` says a split "keeps each Component's goals and design small", so that goal needs rewording, which is yours.
+>   - `goal@projects-are-split-into-modular-units` says a split "keeps each Component's goals and design small", so that goal needs rewording, which is yours.
 
 **Note**: Stated as a cost.
 
@@ -1396,7 +1413,7 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-ro
 
 Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> 25 of the 54 goals carry a line "It refines …" (`grep -c '^It refines'` per goals home): 22 of the 33 Component goals, all 9 of `agent-skills` and all 5 of `check`, and 3 root goals that refine another root goal (`mechanical-tasks-are-the-tool-s`, `goal@knowledge-architect@the-workflow-leads-to-better-code`, `goal@knowledge-architect@projects-are-split-into-modular-units`).
+> 25 of the 54 goals carry a line "It refines …" (`grep -c '^It refines'` per goals home): 22 of the 33 Component goals, all 9 of `agent-skills` and all 5 of `check`, and 3 root goals that refine another root goal (`mechanical-tasks-are-the-tool-s`, `goal@the-workflow-leads-to-better-code`, `goal@projects-are-split-into-modular-units`).
 
 **Note**: Measurement. Later: round 3, corrected: "A correction first: I wrote that 25 goals carry "It refines". The count is 24, 21 of them in Components; I mis-added the per-home figures."
 
@@ -1406,11 +1423,11 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-anot
 
 > Your observation is the "because" test I proposed, in the cases where the drafter already wrote the "because". So I open **#no-goal-refines-another**: a statement whose ground is another goal is a design head citing it, and rule 7's refinement clause leaves the standard.
 
-### The finding: the orchestration goal is one of the 25. It refines `goal@knowledge-architect@agents-get-a-complete-workflow`. By your test (cut) `##arg-38`
+### The finding: the orchestration goal is one of the 25. It refines `goal@agents-get-a-complete-workflow`. By your test (cut) `##arg-38`
 
 Round 2, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> **The finding: the orchestration goal is one of the 25.** It refines `goal@knowledge-architect@agents-get-a-complete-workflow`. By your test it is a design head, not a goal, even in the short form I illustrated. The argument for that reading: dispatching agents is a means. The outcomes are that the session's context goes to design with you, and that you are told each decision. A harness with a far larger context could reach both with less dispatch, and a goal that names orchestration would forbid that improvement.
+> **The finding: the orchestration goal is one of the 25.** It refines `goal@agents-get-a-complete-workflow`. By your test it is a design head, not a goal, even in the short form I illustrated. The argument for that reading: dispatching agents is a means. The outcomes are that the session's context goes to design with you, and that you are told each decision. A harness with a far larger context could reach both with less dispatch, and a goal that names orchestration would forbid that improvement.
 
 **Note**: Later: round 3, the owner contests it (`argument@goals-at-the-root@arg-47`); the session then sorts the goal as "orthogonal, on your word; the question of means stays for its rewrite". "25" is the figure later corrected to 24.
 
@@ -1420,11 +1437,11 @@ Round 2, by the session. Bears on `thread@goals-at-the-root@a-goal-is-a-purpose-
 
 > I withdraw #a-goal-is-what-argument-cannot-defend. Your formulation needs no ruling from you as its stop: **remove the goal, and some part of what the project provides has no reason left to exist.** I open it as **#a-goal-is-a-purpose-the-project-exists-for**.
 
-### It fails on one class of goals you hold today. Remove `goal@knowledge-architect@serves-one-kind-of-project` (Rust, linear history) and (cut) `##arg-40`
+### It fails on one class of goals you hold today. Remove `goal@serves-one-kind-of-project` (Rust, linear history) and (cut) `##arg-40`
 
 Round 2, by the session. Bears on `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`.
 
-> It fails on one class of goals you hold today. Remove `goal@knowledge-architect@serves-one-kind-of-project` (Rust, linear history) and nothing loses its reason to exist; more would be built. The same holds for a ranking between two purposes, which rule 5 asks a goal to state. No argument from the purposes yields either. So I propose three kinds, and nothing else is a goal:
+> It fails on one class of goals you hold today. Remove `goal@serves-one-kind-of-project` (Rust, linear history) and nothing loses its reason to exist; more would be built. The same holds for a ranking between two purposes, which rule 5 asks a goal to state. No argument from the purposes yields either. So I propose three kinds, and nothing else is a goal:
 >
 > A cost weighed inside one decision stays in design, as you say. A ranking is a goal only when it recurs across decisions.
 
@@ -1478,11 +1495,11 @@ Round 3, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-anothe
 
 **Note**: Hedge of `argument@goals-at-the-root@arg-26`.
 
-### For the orchestration goal, i find it weird that it refines `goal@knowledge-architect@agents-get-a-complete-workflow` `##arg-47`
+### For the orchestration goal, i find it weird that it refines `goal@agents-get-a-complete-workflow` `##arg-47`
 
 Round 3, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> For the orchestration goal, i find it weird that it refines `goal@knowledge-architect@agents-get-a-complete-workflow`.
+> For the orchestration goal, i find it weird that it refines `goal@agents-get-a-complete-workflow`.
 >
 > They are pretty much orthogonal IMO. Maybe they were no longer, because the complete-workflow one got too detailed in its text. 
 
@@ -1502,11 +1519,11 @@ Round 3, by the owner. Bears on `thread@goals-at-the-root@a-removed-goal-is-harv
 
 > Also, if we remove any goal, we must be careful that sometimes, we might need to create new design entries to carry their words that have been carried. The whole set reword is gonna be quite hard to do properly here.
 
-### Your guess about `goal@knowledge-architect@agents-get-a-complete-workflow` matches the list: 10 of the 24 refine it. The goal-setting (cut) `##arg-50`
+### Your guess about `goal@agents-get-a-complete-workflow` matches the list: 10 of the 24 refine it. The goal-setting (cut) `##arg-50`
 
 Round 3, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> Your guess about `goal@knowledge-architect@agents-get-a-complete-workflow` matches the list: 10 of the 24 refine it. The goal-setting skill's description says it covers "how a Component's goal names the project goal it refines", so a drafter of a Component goal looks for a parent, and that goal is the widest one available.
+> Your guess about `goal@agents-get-a-complete-workflow` matches the list: 10 of the 24 refine it. The goal-setting skill's description says it covers "how a Component's goal names the project goal it refines", so a drafter of a Component goal looks for a parent, and that goal is the widest one available.
 
 **Note**: Measurement and its explanation.
 
@@ -1558,11 +1575,11 @@ Round 3, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 **Note**: Later: round 4, the owner doubts the standard merging apart from the rewrite (`argument@goals-at-the-root@arg-62`), and the cut becomes two slices (`argument@goals-at-the-root@arg-65`, `argument@goals-at-the-root@arg-66`). Round 12, "one theme per batch" is withdrawn for the edits (`argument@goals-at-the-root@arg-116`).
 
-### `goal@knowledge-architect@projects-are-split-into-modular-units`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and (cut) `##arg-57`
+### `goal@projects-are-split-into-modular-units`: It could be a mean to `goal@the-workflow-leads-to-better-code` I think (and (cut) `##arg-57`
 
 Round 4, by the owner. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> `goal@knowledge-architect@projects-are-split-into-modular-units`: It could be a mean to `goal@knowledge-architect@the-workflow-leads-to-better-code` I think (and maybe others), because a modular project often leads to a clearer API, and design docs that are easier to act on and to follow. But I lean to keeping it as a goal. It is partially orthogonal to better code, and it bears on more than just code.
+> `goal@projects-are-split-into-modular-units`: It could be a mean to `goal@the-workflow-leads-to-better-code` I think (and maybe others), because a modular project often leads to a clearer API, and design docs that are easier to act on and to follow. But I lean to keeping it as a goal. It is partially orthogonal to better code, and it bears on more than just code.
 >
 > Maybe it could be under a more general shape though, "Projects are split into modular units", which would bind at more layers than just components: splitting code of one component, as well as splitting files of design docs by subject in one components, are places where splitting matters too and makes exploring the project and working in it easier overall. It also makes it easier for a human to review changes done by agents, which is one point that also matters to me.
 
@@ -1604,11 +1621,11 @@ Round 4, by the owner. Bears on `thread@goals-at-the-root@standard-and-rewrite-o
 
 > I agree on the milestone shape, though I am unsure whether the reworked standard, skill and reviewer can be merged independently of the goal rewording itself. Maybe they should happen on the same branch.
 
-### `goal@knowledge-architect@projects-are-split-into-modular-units` stays a goal. Your wider form, "projects are split into modular units", is (cut) `##arg-63`
+### `goal@projects-are-split-into-modular-units` stays a goal. Your wider form, "projects are split into modular units", is (cut) `##arg-63`
 
 Round 4, by the session. Bears on `thread@goals-at-the-root@no-goal-refines-another`.
 
-> - **`goal@knowledge-architect@projects-are-split-into-modular-units`** stays a goal. Your wider form, "projects are split into modular units", is a new goal wording, so it is drafted under goal-setting during the rewrite, not decided here. One consequence to weigh then: stated at every layer (the code of one Component, the files of a design home), it becomes the ground for many more heads than today, and it competes with `only-needed-instructions`-style economy wherever a split adds files to read. That may call for a ranking.
+> - **`goal@projects-are-split-into-modular-units`** stays a goal. Your wider form, "projects are split into modular units", is a new goal wording, so it is drafted under goal-setting during the rewrite, not decided here. One consequence to weigh then: stated at every layer (the code of one Component, the files of a design home), it becomes the ground for many more heads than today, and it competes with `only-needed-instructions`-style economy wherever a split adds files to read. That may call for a ranking.
 
 **Note**: Deferred to the rewrite. The owner did not answer it.
 
@@ -1668,11 +1685,11 @@ Round 5, by the session. Bears on `thread@goals-at-the-root@a-goal-carries-an-ex
 
 > Your point still holds in one form: a later reader sometimes needs an example to get the direction. I propose a synthesis as **#a-goal-carries-an-example-only-for-its-direction**: no fixed "Requires, Admits, Rules out" block; a goal's prose may carry an example where the statement alone would be read in the wrong direction. The reach by layer is still shown to you in the drafting exchange.
 
-### One limit: both rewrites are purposes. I did not test a scope goal, and `goal@knowledge-architect@serves-one-kind-of-project` is the (cut) `##arg-71`
+### One limit: both rewrites are purposes. I did not test a scope goal, and `goal@serves-one-kind-of-project` is the (cut) `##arg-71`
 
 Round 5, by the session. Bears on `thread@goals-at-the-root@a-goal-carries-an-example-only-for-its-direction`, `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`.
 
-> One limit: both rewrites are purposes. I did not test a scope goal, and `goal@knowledge-architect@serves-one-kind-of-project` is the long one. A scope names what it excludes, so its examples may be the statement itself.
+> One limit: both rewrites are purposes. I did not test a scope goal, and `goal@serves-one-kind-of-project` is the long one. A scope names what it excludes, so its examples may be the statement itself.
 
 **Note**: A stated limit of the evidence. Not taken up afterwards in the transcript.
 
@@ -1844,7 +1861,7 @@ Round 7, by the session. Bears on `thread@goals-at-the-root@standard-and-rewrite
 
 Round 7, by the session. Bears on `thread@goals-at-the-root@goals-home-at-the-root-only`, `thread@goals-at-the-root@standard-and-rewrite-on-one-branch`.
 
-> - **The shipped text writes `register@*@goal` at 7 sites**, which assumes every Component has a goals home. Slice 2 owes a form that names the root's.
+> - **The shipped text writes register@* at 7 sites**, which assumes every Component has a goals home. Slice 2 owes a form that names the root's.
 
 **Note**: Count.
 
@@ -1934,7 +1951,7 @@ Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on
 
 Round 8, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-on-when-an-intermediate-component-exists`.
 
-> - **No instance exists.** This repository has none (`no-intermediate-component`), and I know of none in a consumer. `design@agent-skills@behaviour-additions-need-real-use` asks evidence from real use for an installed guideline, and `goal@knowledge-architect@projects-are-split-into-modular-units` says "what makes a split good is learned from use, so this goal fixes no rule".
+> - **No instance exists.** This repository has none (`no-intermediate-component`), and I know of none in a consumer. `design@agent-skills@behaviour-additions-need-real-use` asks evidence from real use for an installed guideline, and `goal@projects-are-split-into-modular-units` says "what makes a split good is learned from use, so this goal fixes no rule".
 
 **Note**: Second weakness of the lead; the fact the session rests the fallback on.
 
@@ -2084,12 +2101,69 @@ Round 12, by the session. Bears on `thread@goals-at-the-root@no-installed-rule-o
 
 **Note**: The old head lists six rivals, three of which name an occasion; "Decided design" says which are refused no longer.
 
+### `register@goal` would probably be a much more natural way to reference a register that can only exists (cut) `##arg-123`
+
+Round 1 of the design audit of slice 2, by the owner, answering Q1, the form the shipped text writes
+for the root's goals home. Bears on `thread@goals-at-the-root@root-register-reference-has-no-anchor`
+and `thread@goals-at-the-root@plan-register-references-have-no-anchor`.
+
+> `register@goal` would probably be a much more natural way to reference a register that can only exists at root. The same should probably apply to plans and other root only registers
+
+### Your answer is a fourth shape: drop the anchor for a register that only the root can carry. (cut) `##arg-124`
+
+Round 1 of the design audit of slice 2, by the session. Bears on
+`thread@goals-at-the-root@root-register-reference-has-no-anchor`,
+`thread@goals-at-the-root@plan-register-references-have-no-anchor` and
+`thread@goals-at-the-root@released-changelog-line-repaired`.
+
+> Your answer is a fourth shape: drop the anchor for a register that only the root can carry. The search already flagged that shape: it brings back `rejected@model@register-reference-without-anchor`. That entry lost on two reasons, and neither holds against your proposal, so this is a real reopening rather than a repeat:
+>
+> - **"The tool cannot know which register is single-instance in a project."** Once slice 2 makes `goal` the root's register by a compiled-in rule, the tool does know. The same holds for `spec` and `milestone`, whose one carrier, the `plans` anchor, is built in.
+> - **"One three-part grammar, with no special case."** `design@model@harness-kinds-cited-without-anchor` already broke that rule for skill@, agent@, primer@ and instructions@, and accepted the cost. Its argument transfers: where the tool fixes the only carrier, an anchor carries no information.
+>
+> 1. **Do entries drop the anchor too** (`goal@<id>`), or only the home (`register@goal`)? My default is both.
+> 2. **Where do the plan registers go?** My default is a slice 3 of this milestone, shipping in the same version so consumers make one migration.
+> 3. **The released 0.7.0 line.** (a) It is rewritten to `register@goal`, as a case you rule under the released-section rule, which is my default. (b) register@* keeps resolving as a second spelling, against the one-shape rule.
+
+**Note**: A form the session wrote in backticks that the checker of this document's tree refuses, a reference with no anchor or a kind with no segment, is written here without them, a third change of the kind the section's preamble names.
+
+### 1. both (cut) `##arg-125`
+
+Round 2 of the design audit of slice 2, by the owner, answering the three questions of
+`argument@goals-at-the-root@arg-124`. Bears on `thread@goals-at-the-root@root-register-reference-has-no-anchor`,
+`thread@goals-at-the-root@plan-register-references-have-no-anchor` and
+`thread@goals-at-the-root@released-changelog-line-repaired`.
+
+> 1. both
+> 2. slice 3
+> 3. a
+
+### Every milestone also carries `spec`: `design@model@plan-document-kinds` says "Each milestone directory (cut) `##arg-126`
+
+Round 2 of slice 2's audit, by the record search of the two threads, two agents of it apart, relayed
+by the session. Bears on `thread@goals-at-the-root@plan-register-references-have-no-anchor`.
+
+> Every milestone also carries `spec`: `design@model@plan-document-kinds` says "Each milestone directory is an anchor carrying `spec`". The resolver tests also use [a mock milestone's slice spec, cited with its milestone as its anchor]. So `spec@<id>` would mean "the default anchor `plans`, out of several carriers". Slice 2's argument, that the tool fixes the register's one carrier, does not cover that case.
+>
+> So `spec` would take two arities in one kind, `spec@<id>` and `spec@<milestone>@<slice>`. That is the special case in the resolver that the entry's second reason names, and the draft does not argue against it.
+
+**Note**: the bracketed words replace a reference of a mock project's tree, which names no anchor of this project.
+
+### D5 the goal is for tasks that are repeated. A one shot migration is not in scope. (cut) `##arg-127`
+
+Round 3 of the design audit of slice 2, by the owner, ruling D5 and D6. Bears on
+`thread@goals-at-the-root@root-register-reference-has-no-anchor` and
+`thread@goals-at-the-root@plan-register-references-have-no-anchor`.
+
+> D5 the goal is for tasks that are repeated. A one shot migration is not in scope.
+> D6 drop that slice.
+
 ## New names, in one place
 
 ```
 purpose, scope, ranking      the three kinds of goal; in `path@agent-skills@fragments/goal-standard.md`
 theme file                   one file of the root's goals home, a directory behind a README;
-                             in `register@knowledge-architect@goal`
+                             in `register@goal`
 the analysis                 the record of slice 1's sorting of each goal and of each sentence;
                              one file in `path@knowledge-architect@docs/goal-reviews/`
 ```
@@ -2132,7 +2206,7 @@ it; the checker's change breaks every reference to a Component goal.
 Anything else is design. The owner's word enters design through the weighing of a cost at a fork
 and through facts the owner holds, among a few more such that the owner did not list, not through
 a goal on one decision. A goal of the three kinds stays
-a way for the owner to change a decision, as `goal@knowledge-architect@the-owner-decides` says. A
+a way for the owner to change a decision, as `goal@the-owner-decides` says. A
 kind of interface, such as a command line, is a goal only where it passes the purpose test. The
 purpose test admits a purpose that nothing built serves yet, a new goal being expected to be unmet,
 per `design@agent-skills@goal-drafted-to-move-the-tree`.
@@ -2152,7 +2226,7 @@ that hold a line "It refines", by title and slug, to which the owner agreed. The
 body of each sentence by sentence, may overturn a row with its reason, and the owner rules each
 goal in the whole-set review; no row binds that ruling.
 
-The fact behind it: 10 of the 24 refine `goal@knowledge-architect@agents-get-a-complete-workflow`,
+The fact behind it: 10 of the 24 refine `goal@agents-get-a-complete-workflow`,
 the widest goal, because the standard has the drafter of a Component goal name a goal of the root.
 
 ### A goal states one direction
@@ -2179,7 +2253,7 @@ goals before any design.
 
 This reverses `goal-met-in-tree-or-in-use`, which refused a measure "kept apart
 from the goal and revised by agents". The fact its record did not hold: the measure is where a
-mechanism enters a goal, as the measure of `goal@knowledge-architect@session-orchestrates-the-work` names
+mechanism enters a goal, as the measure of `goal@session-orchestrates-the-work` names
 the retrospective's questions.
 
 ### A goal carries an example only for its direction
@@ -2218,7 +2292,7 @@ hold: several heads may read one goal in ways that differ and agree.
 
 Both are instructions about how an agent behaves, which
 `design@agent-skills@behaviour-additions-need-real-use` and
-`goal@knowledge-architect@the-workflow-improves-through-real-use` admit only on evidence from real
+`goal@the-workflow-improves-through-real-use` admit only on evidence from real
 use or on a defect provable by reading. The first has such evidence: two recorded cases of a
 reading held in a head and not found from the goal, in
 `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` and in the
@@ -2268,11 +2342,11 @@ overturn any row, and the owner rules each goal.
 
 | goal | outcome |
 | --- | --- |
-| `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` | stands alone: purpose |
-| `goal@knowledge-architect@the-workflow-leads-to-better-code` | stands alone: purpose |
-| `goal@knowledge-architect@projects-are-split-into-modular-units` | stays a goal: the owner leans to keeping it; a wider wording is drafted in the review |
-| `goal@knowledge-architect@only-needed-instructions` | stands alone: ranking |
-| `goal@knowledge-architect@session-orchestrates-the-work` | stands alone: the owner finds it "pretty much orthogonal" to the goal it names; whether it is a purpose or a means is open |
+| `goal@tasks-a-tool-does-better-are-the-tool-s` | stands alone: purpose |
+| `goal@the-workflow-leads-to-better-code` | stands alone: purpose |
+| `goal@projects-are-split-into-modular-units` | stays a goal: the owner leans to keeping it; a wider wording is drafted in the review |
+| `goal@only-needed-instructions` | stands alone: ranking |
+| `goal@session-orchestrates-the-work` | stands alone: the owner finds it "pretty much orthogonal" to the goal it names; whether it is a purpose or a means is open |
 | `installed-text-works-in-any-environment` | head: the owner finds it "probably a mean" to the complete-workflow goal |
 | `design@agent-skills@one-skill-per-activity` | head |
 | `no-contradiction-in-workflow` | head |
@@ -2281,8 +2355,8 @@ overturn any row, and the owner rules each goal.
 | `installed-text-works-in-every-target-project` | head |
 | `goals-state-the-owner-s-intent` | head by its title; whether it stays a goal is open |
 | `relocation-needs-only-goal-changes` | stands alone by its title: purpose; whether it stays a goal is open |
-| `goal@knowledge-architect@projects-add-their-own-checks` | stands alone: purpose |
-| `document-rules-are-checked` | merged into `goal@knowledge-architect@documentation-stays-consistent`: the owner finds it "should probably just merge" |
+| `goal@projects-add-their-own-checks` | stands alone: purpose |
+| `document-rules-are-checked` | merged into `goal@documentation-stays-consistent`: the owner finds it "should probably just merge" |
 | `documents-stay-current` | head |
 | `checks-a-commit-from-its-hook` | head |
 | `recorded-items-can-be-referenced` | stands alone: purpose |
@@ -2294,7 +2368,7 @@ overturn any row, and the owner rules each goal.
 | `a-session-reads-past-sessions` | head |
 
 `a-tool-reads-the-documents-with-no-check` states inside a paragraph that it refines
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`; the discussion did not sort it. It and
+`goal@tasks-a-tool-does-better-are-the-tool-s`; the discussion did not sort it. It and
 the 29 goals that refine none have no row: the analysis judges each by the three kinds.
 
 **The destination of a sentence of a goal removed, merged or shortened.**
@@ -2324,6 +2398,8 @@ the 29 goals that refine none have no row: the analysis judges each by the three
   sometimes needs an example to get the direction.
 - `thread@goals-at-the-root@goal-interpretation-register`, withdrawn for
   `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise`.
+- `thread@goals-at-the-root@plan-register-references-have-no-anchor`, ruled out at the owner's
+  fork, D6: the plan registers keep their anchor.
 - Inside threads, with no slug of their own: a head carried from a goal and marked as not argued,
   which brought back `rejected@agent-skills@owner-intent-entry-test`; a check that reports a goal
   no head cites, which fails on a new goal and on a new project; an intermediate Component created
@@ -2345,7 +2421,7 @@ None: the work reads no external specification.
 | thin goals stop steering: merged work moves against a goal and no procedure reports it | `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`, `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | named as a cause for the harvest of slice 1 to judge as a tripwire; it is the cause of the parked thread |
 | the root's goals home ends larger than the 13 homes are today | `thread@goals-at-the-root@a-goal-is-a-purpose-the-project-exists-for`, `thread@goals-at-the-root@goals-home-at-the-root-only` | becomes `acceptance@goals-at-the-root@the-goals-home-is-not-larger` |
 | the rewrite is too heavy for one branch | `thread@goals-at-the-root@standard-and-rewrite-on-one-branch` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the work being stopped by it. The owner keeps one branch, having no plan to start other work on main meanwhile, and several sessions may carry it |
-| with measures gone, a review removes an installed instruction that a measure protected, `goal@knowledge-architect@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
+| with measures gone, a review removes an installed instruction that a measure protected, `goal@only-needed-instructions` keeping an instruction where a goal's body or measure states its act | `thread@goals-at-the-root@what-shows-a-goal-met-is-design` | converted into a clause of slice 1: no installed instruction is removed on the need test before the whole-set review has ruled that goal |
 | two heads read one goal in opposite directions | `thread@goals-at-the-root@a-goal-s-reading-is-a-head-s-premise` | named as a cause for the harvest of slice 1 to judge: on D3 the comparison that answered it is parked, in the issue slice 1 opens |
 | the detail leaves the goals and returns in heads with thin arguments | `thread@goals-at-the-root@a-removed-goal-is-harvested-sentence-by-sentence` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1 of the tripwire standard, the decision-record axis judging each head's argument |
 | an agent reverses a Component's purpose on argument and the owner learns it late | `thread@goals-at-the-root@goals-home-at-the-root-only` | named as a cause for the harvest of slice 1 to judge; expected to fail condition 1, the turn's "Decided" section and the transcript axis reporting it |
@@ -2362,7 +2438,7 @@ None: the work reads no external specification.
 - an installed instruction that a measure protected is removed: kept, as
   `tripwire@agent-skills@a-measure-protected-instruction-is-removed-as-unneeded`, on a doubt and
   with a short horizon. The clause it had been converted into expired when the owner ruled
-  `goal@knowledge-architect@only-needed-instructions`;
+  `goal@only-needed-instructions`;
 - two heads read one goal in opposite directions: no tripwire. Its comparison is parked in
   `issue@agent-skills@no-review-compares-the-readings-heads-take-of-one-goal`, whose re-entry it is;
 - the detail returns in heads with thin arguments: dropped, on condition 1, the decision-record
@@ -2396,9 +2472,9 @@ thread it guards stands.
 1. The standard, and the rewrite of this repository's goals, #standard-and-rewrite. It landed, and
    its spec left: `git log --diff-filter=D --name-only -- docs/plans/milestones/goals-at-the-root/`
    finds the commit that deleted it.
-2. [The register `goal` is the root's alone](checker-root-only.md):
+2. [The register `goal` is the root's alone, and is cited with no anchor](checker-root-only.md):
    `spec@goals-at-the-root@checker-root-only`. It fails alone on a tree the checker refuses for a
-   goals home, or accepts with one outside the root.
+   goals home, or accepts with one outside the root, and on a goal cited with no anchor refused.
 
 ## Order rationale
 
@@ -2418,7 +2494,7 @@ what removes them, leaving each Component's goals home empty, which the checker 
   `thread@goals-at-the-root@a-goal-states-a-direction-and-leaves-the-rest-to-design`.
 - **D3**, ruled, on a condition the session then judged. From the design-conformance review. The comparison of the readings of one goal
   by the decision-record axis is an instruction about how an agent behaves that rests on a
-  prediction, against `goal@knowledge-architect@the-workflow-improves-through-real-use`. The owner
+  prediction, against `goal@the-workflow-improves-through-real-use`. The owner
   approved the thread that holds it. Default: slice 1 does not build the comparison, and opens an
   issue of kind `design` that holds it with the cause it answers; the sentence a head states
   beside its reference to a goal is built. It bears on
@@ -2432,7 +2508,7 @@ what removes them, leaving each Component's goals home empty, which the checker 
   ways, which is what a comparison among heads finds; and its cost is known where its benefit is
   not, one goal being cited 38 times and `cargo klarch show` giving a file and a line for each,
   mapped to its head by hand. The owner's remark on the scope of
-  `goal@knowledge-architect@the-workflow-improves-through-real-use` is among slice 1's audit
+  `goal@the-workflow-improves-through-real-use` is among slice 1's audit
   subjects, for the whole-set review.
 - **D4**, ruled: "agreed on D1 D2 D4". From the design-conformance review. Slice 1 installs the new standard before
   the one pass, so between its first step and the one pass the branch holds installed text that
@@ -2442,8 +2518,35 @@ what removes them, leaving each Component's goals home empty, which the checker 
   branch, and the whole-set review rules that goal with the others. It bears on
   `thread@goals-at-the-root@goals-are-edited-in-one-pass-under-the-whole-set-review`.
 
-One question is put to the owner at slice 2's design audit and has no default built before it: the
-form the shipped text writes for the root's goals home, which slice 2's spec states.
+The question put to the owner at slice 2's design audit, the form the shipped text writes for the
+root's goals home, is ruled: the owner chose the form with no anchor,
+`thread@goals-at-the-root@root-register-reference-has-no-anchor`, placed the plan registers in a
+slice 3 and ruled the released 0.7.0 line rewritten, as slice 2's spec records with the owner's
+words; on D6, the owner then dropped that slice.
+
+- **D5**, ruled: "D5 the goal is for tasks that are repeated. A one shot migration is not in
+  scope." The default stands, on the owner's reading of the goal's scope. From the record search of slice 2's audit, on
+  `goal@tasks-a-tool-does-better-are-the-tool-s`: the respelling of a
+  consumer's references to the forms with no anchor follows with no judgement from what the project
+  holds, so a tool could do it, and that goal provides one only once the owner takes the task in.
+  Default: no tool; each Migration entry gives the respelling as one command a consumer runs, and
+  the finding of each refused form names its one repair. It bears on
+  `thread@goals-at-the-root@root-register-reference-has-no-anchor` and
+  `thread@goals-at-the-root@plan-register-references-have-no-anchor`.
+- **D6**, ruled: "D6 drop that slice", shape (c). From the record search of slice 2's audit,
+  `argument@goals-at-the-root@arg-126`: `spec` has more than one carrier, the anchor `plans` and
+  each milestone, so the premise the session gave the plan thread is false for it. Shapes: (a)
+  `milestone` alone drops its anchor, and `spec` keeps `spec@plans@<id>`; (b) `spec@<id>` names a
+  spec of `plans`, beside `spec@<milestone>@<slice>`, two arities in one kind, the special case the
+  second reason of `rejected@model@register-reference-without-anchor` names, its cost accepted;
+  (c) slice 3 is dropped. Default: (b), the owner's direction in
+  `argument@goals-at-the-root@arg-123`, the arity read from the segment count within a kind as the
+  harness kinds already read `skill@<name>` beside `skill@<name>@<slug>`. It bears on
+  `thread@goals-at-the-root@plan-register-references-have-no-anchor`.
+- **D7**, ruled with D6: with no slice 3, nothing refuses the 0.2.0 line, which stays. The released 0.2.0 section of CHANGELOG.md writes `spec@plans@<id>`
+  and `milestone@plans@<id>` as placeholders, which slice 3 refuses. The owner's ruling on the 0.7.0
+  line covers that one line. Default: the 0.2.0 line is rewritten to the forms D6 rules, as the
+  0.7.0 line is. It bears on `thread@goals-at-the-root@plan-register-references-have-no-anchor`.
 
 ## Harvest
 
@@ -2454,7 +2557,7 @@ form the shipped text writes for the root's goals home, which slice 2's spec sta
 | the losing alternatives above, and the three heads the work reverses, `goals-required`, `goal-met-in-tree-or-in-use` and the design head on the cases a goal carried (its design is now `rejected@agent-skills@goal-carries-reading-examples`), each as `skill@knowledge-architect-decision-recording@reversal-check` asks | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` | at slice 1's landing |
 | every cause of the premortem, each listed with its outcome and, where dropped, the condition it fails | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` | at slice 1's landing; the cause on a consumer's pin at slice 2's |
 | `acceptance@goals-at-the-root@the-goals-home-is-not-larger` | reported as `skill@knowledge-architect-planning@acceptance-criteria` says | at slice 1's landing, and when this document leaves |
-| this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 to D4 | after slice 2 |
+| this document | nothing of its own: it leaves in the commit that deletes slice 2's spec, or the commit that records the last ruling of D1 to D7 | after slice 2 |
 
 ## Later consequences
 
@@ -2464,8 +2567,8 @@ form the shipped text writes for the root's goals home, which slice 2's spec sta
   Component's goals home; and the citation rule of rule 8 of the standard, with its twin in the
   primer, still speaks of a location's goals home.
 
-- The consumers of the checker run the whole-set review when their pin crosses the version that
-  ships slice 2: its Migration entry names that review.
+- The consumers of the checker run the whole-set review, and respell their goal references, when
+  their pin crosses the version that ships slice 2: its Migration entry names both.
 - The discussion of `thread@goals-at-the-root@goal-pursuit-is-judged-by-review-and-audit` opens from
   the two issues that hold its leads, on the owner's word or on the evidence that reopens it.
 - `issue@agent-skills@this-repository-s-heads-await-the-design-record-axis`: the pass it awaits

@@ -37,7 +37,7 @@ per `design@model@headings-open-with-hash-marks`.
 `design@model@an-entry-is-a-heading-at-the-register-level` rests on the scanner reading headings as
 markdown does. An entry defined on a line that a renderer shows as raw HTML or as metadata is one
 a reader of the rendered document cannot find, against
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 ### What would close it
 

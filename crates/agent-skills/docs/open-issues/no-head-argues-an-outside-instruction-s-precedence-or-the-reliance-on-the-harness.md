@@ -28,9 +28,9 @@ The statements, each with what it bound:
   configuration, and no head holds it.
 - "it may rely on the harness's own mechanisms." It admitted an installed skill that relies on a
   mechanism of the `claude` harness, such as the dispatch of an agent. No text states it. It follows
-  by a reading of `goal@knowledge-architect@serves-one-kind-of-project`, which asks that a target
+  by a reading of `goal@serves-one-kind-of-project`, which asks that a target
   project's agents run under the `claude` harness, with
-  `goal@knowledge-architect@agents-get-a-complete-workflow`, under which an agent "needs no
+  `goal@agents-get-a-complete-workflow`, under which an agent "needs no
   instruction from outside what knowledge-architect provides and what its project adds": a mechanism
   of the harness is no instruction.
 

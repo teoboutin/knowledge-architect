@@ -9,7 +9,7 @@ The workflow asks three tasks of rewriting a branch's history of a session: a co
 onto a moved main branch with the check that every commit carried over, applying a message the
 session wrote to a commit that is not the newest, and folding a repair into the commit it repairs
 with the check that no content was lost. The owner counts the three as taken in, so
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` owes each a tool that
+`goal@tasks-a-tool-does-better-are-the-tool-s` owes each a tool that
 knowledge-architect provides. No published crate offers any of them. Sessions run them by hand, as this
 repository's root `CLAUDE.md`, section `## Git`, describes, with `git filter-branch`, `git rebase -i
 --autosquash` and `git range-diff`.
@@ -36,7 +36,7 @@ repository did once, 2026-11-01, when a stricter check landed mid-branch; its sc
 editor stopped twice on a generated index and left a later commit's index stale, so the task
 includes regenerating the generated files at each replayed commit. `primer@branch-commits` offers
 the squash to one commit as the existing move. Whether a command does it is the owner's word, per
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, as for the port's other commands below.
+`goal@tasks-a-tool-does-better-are-the-tool-s`, as for the port's other commands below.
 
 ### Why it matters
 
@@ -70,9 +70,9 @@ These are leads for this work's own design session:
   may need an environment that the git heads say every invocation drops or keeps, such as a
   temporary `GIT_INDEX_FILE`.
 - **The three tasks above are taken in already**, on the owner's word, so
-  `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` owes each a tool.
+  `goal@tasks-a-tool-does-better-are-the-tool-s` owes each a tool.
   The port's other commands are a generic part whose taking in is the owner's word, at the port,
-  per `goal@knowledge-architect@the-owner-decides`.
+  per `goal@the-owner-decides`.
 - Every command it ships is bound by `design@knowledge-architect@no-operation-loses-content`.
 - **Whether it belongs in `klarch` at all is for this design session to read.** The owner leans to putting it there, since that makes
   shipping easier, and doubts it, since it is somewhat off the subject of a binary focused on documentation.

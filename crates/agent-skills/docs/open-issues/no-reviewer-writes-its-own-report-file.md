@@ -68,7 +68,7 @@ cluster D.
 ### Why it matters
 
 A condensed copy loses what the record of the review needs, and the save follows from the report
-with no judgement, per `goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`.
+with no judgement, per `goal@tasks-a-tool-does-better-are-the-tool-s`.
 
 ### What would close it
 

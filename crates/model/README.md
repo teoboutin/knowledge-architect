@@ -11,7 +11,7 @@ depends on it directly; its interface is at <https://docs.rs/knowledge-architect
 ## Who it serves
 
 knowledge-architect serves one kind of project, a target project, which holds all of these, per
-`goal@knowledge-architect@serves-one-kind-of-project`:
+`goal@serves-one-kind-of-project`:
 
 - the code it builds and ships is Rust, built by Cargo, apart from the code in another language that a platform it is built for requires;
 - AI agents drive its development: its code, its documents, its entries and its reviews;

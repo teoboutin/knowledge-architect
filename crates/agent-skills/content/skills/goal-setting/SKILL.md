@@ -51,7 +51,7 @@ home holds is prose under the level-one title, never a level-two section.
 %% owner may change.
 **Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
 Components serve it. No other Component and no location states a goal: the goals home each
-Component carries, `register@*@goal`, holds no entry outside the root. The root's home may be a
+Component carries, `register@goal`, holds no entry outside the root. The root's home may be a
 directory behind a `README.md` that links each of its files, the form `primer@checker-model` gives a
 heading register.
 
@@ -68,7 +68,7 @@ rule of this skill.
 ## Drawing out the owner's intent {{slug:drawing-out-intent}}
 
 %% The agent drafts so that the owner gets help with the wording, and the owner rules on every goal
-%% so that the goals home holds the owner's mind, per `goal@knowledge-architect@the-owner-decides`.
+%% so that the goals home holds the owner's mind, per `goal@the-owner-decides`.
 %% Drafting nothing and only asking gives up the help with the wording. Drafting and letting the
 %% owner correct accepts a goal by the owner's silence, which is not the owner's word; for the same
 %% reason a goal with no ruling is not written. It is not dropped either, since a goal with no

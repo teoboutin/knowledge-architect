@@ -98,7 +98,7 @@ that scope: `rejected@model@plan-items-exempt-from-the-grammar`. The census figu
 the design discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`. They are re-taken over a
 tree that still holds one-word ids, as a project's at its upgrade, by counting the plain words and
 the backticked words equal to each, `git grep -nwF` on each id, since the lints read ids of two
-segments only. This serves `goal@knowledge-architect@documentation-stays-consistent`.
+segments only. This serves `goal@documentation-stays-consistent`.
 
 ### An entry's heading puts its statement before its slug `##statement-precedes-the-slug`
 
@@ -201,5 +201,5 @@ needs: `path` and `planned` against the tree, per `design@check@every-path-names
 require a resolvable shape and see nothing without one, which needs no finding and no migration. It
 would also mean every pointer written in an older form stops being checked with nothing saying so. A
 silent false negative passes a tree that does not conform, against
-`goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
+`goal@documentation-stays-consistent`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@model@at-span-candidate-rule`.

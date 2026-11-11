@@ -5,7 +5,7 @@ kind: defect
 
 ## Summary
 
-`goal@knowledge-architect@the-owner-decides` has agents decide what the argument from the goals,
+`goal@the-owner-decides` has agents decide what the argument from the goals,
 the record, the code and the sources settles, and gives the owner the rest, which it lists: a
 choice between shapes that all survive the argument and a contradiction no argument resolves,
 beside every action that cannot be undone. The project audit sends the owner more: the removal of an
@@ -40,7 +40,7 @@ records one of these cases on its own.
 ### Why it matters
 
 A question the argument settles, put to the owner for a ruling, spends the owner's ruling on what
-is not the owner's, against `goal@knowledge-architect@the-owner-decides`, under which agents
+is not the owner's, against `goal@the-owner-decides`, under which agents
 decide what the argument settles.
 
 ### What would close it

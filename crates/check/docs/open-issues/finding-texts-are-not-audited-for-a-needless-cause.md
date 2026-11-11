@@ -24,7 +24,7 @@ causes that can produce it and whether one repair is correct for all of them.
 
 A finding that names a cause its reader does not have sends that reader to look for an edit, a
 file or a decision that does not exist, as the stale index's finding did after an upgrade, against
-`goal@knowledge-architect@adoption-is-easy`. The rule holds only where someone read the finding
+`goal@adoption-is-easy`. The rule holds only where someone read the finding
 against it.
 
 ### What would close it

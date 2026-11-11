@@ -9,7 +9,7 @@ kind: question
 configuration, and argues it as serving "a target project that uses the checker alone, which that
 goal admits", with the checker's mock projects. The owner's ruling in the review of the whole goal
 set made using both the workflow and the checker an ask of
-`goal@knowledge-architect@serves-one-kind-of-project`. A project that uses the checker alone is then
+`goal@serves-one-kind-of-project`. A project that uses the checker alone is then
 a target project that does not follow an ask, and that goal builds nothing only to serve such a
 state, other than what helps a project into conformance. The head's argument no longer stands as
 written; whether the empty list stays, on the mock projects alone or as a step into conformance, is
@@ -38,7 +38,7 @@ declares no harness:
 A design head that argues from a reach the goal no longer gives binds sessions on a false premise,
 per `primer@intent-and-claims`: the goal prevails, and the head is either reversed or re-argued. It
 strains `design@check@agents-table` and threatens
-`goal@knowledge-architect@serves-one-kind-of-project`.
+`goal@serves-one-kind-of-project`.
 
 ### What would close it
 

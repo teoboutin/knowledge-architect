@@ -249,7 +249,7 @@ fn a_fenced_illustration_is_neither_a_definition_nor_a_reference_in_a_real_file(
             "design@minimal@mock-anchor".to_string(),
             "design@minimal@mock-anchor".to_string(),
             "design@minimal@mock-anchor".to_string(),
-            "goal@minimal@mock-goal".to_string(),
+            "goal@mock-goal".to_string(),
             "note@notes@a-note-the-location-keeps".to_string(),
             "path@notes@b.md".to_string(),
             "register@notes@note".to_string(),
@@ -314,7 +314,7 @@ fn observations_come_out_of_a_real_walk_with_real_line_numbers() {
         at("docs/design.md", 5)
     );
     span("docs/design.md", 7, "path@notes@b.md");
-    span("notes/a.md", 5, "goal@minimal@mock-goal");
+    span("notes/a.md", 5, "goal@mock-goal");
     span("code/lib.rs", 1, "design@minimal@mock-anchor");
 }
 
@@ -355,6 +355,7 @@ mod unsound {
             "notes/structure.md",
             "knowledge-architect.toml",
             "docs/open-issues.md",
+            "parts/the-widget/docs/goals.md",
             "parts/the-widget/docs/tripwires.md",
             "agent-config/open-issues",
             "docs/plans/stray.md",
@@ -453,7 +454,21 @@ mod unsound {
         // A setext heading, which markdown reads and the scanner does not, per
         // `design@model@headings-open-with-hash-marks`.
         assert!(one_of(&found, "markdown reads a heading here").starts_with("notes/structure.md:7"));
-        assert_eq!(found.len(), 16, "{found:#?}");
+        // A goals home in a Component, which the root alone carries, holding a goal, per
+        // `design@model@registers-are-declared`: its repair moves the goal.
+        let foreign = one_of(
+            &found,
+            "a home of the goal register in the component `the-widget`",
+        );
+        assert!(
+            foreign.starts_with("parts/the-widget/docs/goals.md"),
+            "{foreign}"
+        );
+        assert!(
+            foreign.contains("move each entry to the root's home"),
+            "{foreign}"
+        );
+        assert_eq!(found.len(), 17, "{found:#?}");
     }
 
     #[test]
@@ -514,7 +529,14 @@ mod unsound {
         // `design@model@two-segment-ids`.
         let lonely = one_of(&all, "`##lonely` is an id of one segment");
         assert!(lonely.starts_with("docs/design/planted.md:"), "{lonely}");
-        assert_eq!(all.len(), 13, "{all:#?}");
+        // The goal in the Component's goals home defines nothing at phase 3, since the root alone
+        // carries the register; phase 2 stops a run first, with the repair.
+        let widget = one_of(
+            &all,
+            "`##widget-goal` is written in `parts/the-widget/docs/goals.md`",
+        );
+        assert!(widget.contains("no heading register home"), "{widget}");
+        assert_eq!(all.len(), 14, "{all:#?}");
     }
 
     #[test]

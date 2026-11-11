@@ -15,7 +15,7 @@ A review of the branch that created `testing` found `path@check@src/lib.rs` link
 
 ### Why it matters
 
-The crate documentation is the home of a library's API description, per the root `CLAUDE.md`, and `goal@knowledge-architect@adoption-is-easy` counts on it. A link that names nothing there is found by a reader, not by a gate.
+The crate documentation is the home of a library's API description, per the root `CLAUDE.md`, and `goal@adoption-is-easy` counts on it. A link that names nothing there is found by a reader, not by a gate.
 
 ### What would close it
 

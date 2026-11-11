@@ -33,7 +33,7 @@ first run of the agentic-workflow axis, as a predicted gap.
 
 `design@agent-skills@audit-triggers` names the end of an adopting project's move as an occasion of
 the design-record axis. Move work that lands without that run leaves the project's record
-under rules it was never brought to, against `goal@knowledge-architect@documentation-stays-consistent`.
+under rules it was never brought to, against `goal@documentation-stays-consistent`.
 
 ### What would close it
 

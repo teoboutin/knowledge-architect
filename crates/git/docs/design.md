@@ -36,7 +36,7 @@ repository's files, `GIT_DIR`, `GIT_WORK_TREE`, `GIT_COMMON_DIR`, `GIT_OBJECT_DI
 repository, its work tree or its object store. It keeps the list's other members, the
 configuration among them, and `GIT_INDEX_FILE`, per `design@git@index-file-variable-kept`. So git
 finds the repository from the project's directory, as `design@model@git-supplies-the-walk` reads it,
-and a run judges the project's own tree, which `goal@knowledge-architect@documentation-stays-consistent` needs of a
+and a run judges the project's own tree, which `goal@documentation-stays-consistent` needs of a
 verdict: with `GIT_DIR` naming another repository, the walk would be that repository's index.
 
 Refusing to run with one of them set leaves the pre-commit hook of a linked worktree unable to
@@ -51,7 +51,7 @@ Honouring the variables where the search from the project's directory finds no r
 two grounds. It lets a stray `GIT_DIR` in a shell outside every repository point the walk at
 another repository. And the one project it keeps checkable is a project whose repository git finds
 only through these variables, with no `.git` at or above its directory.
-`goal@knowledge-architect@serves-one-kind-of-project` asks that a target project be a git
+`goal@serves-one-kind-of-project` asks that a target project be a git
 repository, which this head reads as a `.git` at or above the project's directory, where git's own
 search finds it. Such a project is outside a worktree to the checker here, an error per
 `design@git@failed-git-is-an-error`, and so is a pre-commit hook's run in it.
@@ -106,7 +106,7 @@ with git's own reason.
 
 **No `git`, or no worktree, is an error carrying the reason.** Never an empty walk: a project
 reported as holding no document is a run that checked nothing and said so as a clean verdict,
-against `goal@knowledge-architect@documentation-stays-consistent`: a tree that passes the checker conforms, in the
+against `goal@documentation-stays-consistent`: a tree that passes the checker conforms, in the
 texts the checker reads, to every rule it holds. **Every invocation a verdict depends on fails that
 way**: the listing, the tracked-and-ignored listing and the `check-ignore` batch, each carrying
 git's own stderr, whatever the reason. The checker's commands give that error the code 2, a

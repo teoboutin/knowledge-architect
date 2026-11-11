@@ -26,7 +26,7 @@ is designed: which keywords, which measure of closeness, and which axis's lists,
 
 ### Why it matters
 
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide a
+`goal@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide a
 tool for a task that a tool does at a lower cost or better, searching what a project holds included,
 once knowledge-architect's owner has taken the task in, which the owner has not done for either of
 these. A grep misses an entry whose words differ from the search's,

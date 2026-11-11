@@ -46,7 +46,7 @@ That shape then needs the check run on the installed copy, which the build has s
 `design@agent-skills@statement-names-an-act` keeps maintainer-only text out of what an installing project
 receives. A rule whose stated mechanism does not exist for one kind of installed file is a
 contradiction a writer of that file cannot satisfy, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`.
+`goal@agents-get-a-complete-workflow`.
 
 ### What would close it
 

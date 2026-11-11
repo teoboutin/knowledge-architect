@@ -10,7 +10,7 @@ reason holds, and is marked `void` when it no longer does.
 proposals nobody would raise again, and a reader would search through them to find the few whose
 refutation cannot be derived again in one round. It is kept here because a doubt remains: the owner
 judges the filter "still a little imperfect", and
-`goal@knowledge-architect@design-is-recorded-with-its-arguments` asks for the alternatives that lost
+`goal@design-is-recorded-with-its-arguments` asks for the alternatives that lost
 and why, which the filter records only in part.
 
 ### A spec plus a separate detailed implementation plan, each step written out with its code `##spec-plus-detailed-plan`
@@ -66,7 +66,7 @@ again.
 `live`. A word that hands judgement over is an approval like any other, as is approving every
 default on a quick read. A session decides what the record and its sources settle by the rule of
 `primer@question-authority`, which every session applies, per
-`design@agent-skills@questions-go-to-their-authority`, never by a grant, and `goal@knowledge-architect@the-owner-decides` keeps an action that cannot be undone with the owner. The state was decided and reversed in one revision of
+`design@agent-skills@questions-go-to-their-authority`, never by a grant, and `goal@the-owner-decides` keeps an action that cannot be undone with the owner. The state was decided and reversed in one revision of
 designing-together, after five of that revision's eight blocking review findings fell on it: inside
 a grant, a correction whose own action could not be undone ran with no word from the owner.
 
@@ -722,7 +722,7 @@ installing the binary into a directory of its own, as a project with no Rust doe
 own gates command, so that its build gained no workspace. Such a project has no `cargo x`, so a
 command of the installed text has no name there, and its gates run outside the gates library, which
 knowledge-architect asks every target project to run its gates through, per
-`goal@knowledge-architect@serves-one-kind-of-project`. The cost it avoided is a workspace in a
+`goal@serves-one-kind-of-project`. The cost it avoided is a workspace in a
 one-package project, which `design@agent-skills@maintenance-crate-ask` accepts.
 
 ### The design skill's record search run right after the first challenge `##search-after-the-first-challenge`

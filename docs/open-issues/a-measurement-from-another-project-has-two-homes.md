@@ -46,7 +46,7 @@ closing below proposes to scope the root's grounding row to.
 
 `primer@where-knowledge-goes` gives every durable statement one home. A writer who meets two rows
 for one figure picks one by habit, and the next writer may pick the other, against
-`goal@knowledge-architect@agents-work-without-drift`.
+`goal@agents-work-without-drift`.
 
 ### What would close it
 

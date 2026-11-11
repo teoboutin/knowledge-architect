@@ -61,7 +61,7 @@ records the instance.
 ### Why it matters
 
 It strains `design@check@the-facade-publishes-what-a-consumer-needs`, whose membership leaves an extension nothing to ask these
-questions with. `goal@knowledge-architect@projects-add-their-own-checks` has a project add its checks "with what knowledge-architect provides, and with no change to knowledge-architect".
+questions with. `goal@projects-add-their-own-checks` has a project add its checks "with what knowledge-architect provides, and with no change to knowledge-architect".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else. For a project that runs one, a relocation that
 `design@check@every-path-names-its-anchor` makes one line of the manifest then also needs an edit of the extension.
@@ -70,7 +70,7 @@ quietly breaks where the manifest says something else. For a project that runs o
 
 The owner's later view, once the model became a public crate, unargued as yet and hedged: the view may no longer be necessary, unless the
 cost of recommending that an extension depend on `knowledge-architect-model` is too high. A design discussion weighs it, the cost of a view and of a
-narrower documented API against accepting use of more public API, which `goal@knowledge-architect@projects-add-their-own-checks` leaves free.
+narrower documented API against accepting use of more public API, which `goal@projects-add-their-own-checks` leaves free.
 
 The direction the owner chose: a narrow read-only view in the `extension` module, borrowing the
 entity table and the anchors, with an owner of a path, the entry at a site, the entries of a

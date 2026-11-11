@@ -90,9 +90,9 @@ owner", with the findings it groups as cluster K.
 ### Why it matters
 
 A ruling of the owner recorded after the last transcript review is read by no reviewer, against
-`goal@knowledge-architect@the-owner-decides` and `goal@knowledge-architect@design-is-recorded-with-its-arguments`;
+`goal@the-owner-decides` and `goal@design-is-recorded-with-its-arguments`;
 re-reviewing every such repair works against the efficiency that
-`goal@knowledge-architect@agents-get-a-complete-workflow` is there to raise. It strains
+`goal@agents-get-a-complete-workflow` is there to raise. It strains
 `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
 
 ### What would close it

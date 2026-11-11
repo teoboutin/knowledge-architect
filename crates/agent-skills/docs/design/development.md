@@ -11,8 +11,8 @@ commit's claim check, the review axes for code and their cadence, the conditiona
 the optional diff mutation sweep, the comment species, and the occasion of a Component's creation
 or split, at which the skill sends the session to `skill@knowledge-architect-component-creation`. It holds the generic part of this
 repository's own development procedure and of thaum's, which the owner took in, per
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, and it delivers the developing
-activity of `goal@knowledge-architect@agents-get-a-complete-workflow`. A project's own development
+`goal@generic-tools-and-procedures-are-shipped`, and it delivers the developing
+activity of `goal@agents-get-a-complete-workflow`. A project's own development
 skill stays and only adds, per `design@agent-skills@overlay-by-separate-skills`, since one installed
 text cannot hold what is particular to each project.
 
@@ -28,7 +28,7 @@ the code-shape reviewer, so the reviewer applies the standard it reads. A depart
 reports in code a change writes is restructured or argued in a comment at the code; in a unit the
 change edits, only the lines the change writes are weighed.
 
-`goal@knowledge-architect@the-workflow-leads-to-better-code` has what the workflow says about code
+`goal@the-workflow-leads-to-better-code` has what the workflow says about code
 aim at code of better quality, and states no property of it, since a property is a mechanism and no
 goal states one, per `design@agent-skills@goal-outcome-survives-empty-skeleton`: the default shape
 is how the workflow pursues that aim, and the review of `design@agent-skills@code-shape-axis`
@@ -38,7 +38,7 @@ than fixed before it: the owner reported that it is hard to define before use, a
 guideline too strict to follow makes agents take actions misaligned with what it was meant for. So
 the retrospective asks whether a rule about code proved too hard or too strict, per
 `design@agent-skills@premortem-as-watch-points`, and its findings change the shape, per
-`goal@knowledge-architect@the-workflow-improves-through-real-use`. The nearest rival, a definition
+`goal@the-workflow-improves-through-real-use`. The nearest rival, a definition
 of quality fixed as a rule every unit must meet, leaves a session whose code the definition fits
 badly no move but to break the rule or to act against the code's interest. The shape binds the lines a change writes, not every unit it touches: a rule over the
 whole unit would leave a one-line fix in a long function only two moves, both against the change's
@@ -56,10 +56,10 @@ the default shape of code, per `design@agent-skills@default-code-shape`, what a 
 may ship once knowledge-architect's owner takes it in; the clippy gate of the recommended list is
 one, per `design@gates@a-project-holds-its-gate-list`.
 
-`goal@knowledge-architect@only-needed-instructions` gives no instruction to a case that an agent's
+`goal@only-needed-instructions` gives no instruction to a case that an agent's
 judgement handles well enough, whichever goal the instruction would serve. The nearest rival is
 guidance on idiom in the development skill, which
-`goal@knowledge-architect@the-workflow-leads-to-better-code` could be read to call for. The owner
+`goal@the-workflow-leads-to-better-code` could be read to call for. The owner
 argued that LLM agents know how to write Rust code, at least those performant enough to follow this
 workflow, and that guidelines from a higher vantage are a more valuable use of the instruction
 budget. The workflow targets frontier-tier models, per
@@ -123,7 +123,7 @@ A project may run `cargo mutants --in-diff` over a branch's changed code before 
 review, and gives its survivors to the adversarial reviewers as leads. It costs one build and one
 test run per mutant, so it is optional. cargo-mutants is no gate of the list the setup recommends, per
 `design@gates@a-project-holds-its-gate-list`, and no ask, per
-`goal@knowledge-architect@serves-one-kind-of-project`: the session chose so, which no goal ranks, and
+`goal@serves-one-kind-of-project`: the session chose so, which no goal ranks, and
 the owner approved it. cargo-mutants' book states the two caveats the skill carries: a diff that touches
 only test code yields no mutant ("Testing code changed in a diff"), and rust flags set in a cargo
 configuration file are ignored ("Limitations"). It replaces no recorded mutation check: it chooses
@@ -145,10 +145,10 @@ The setup asks a crate a target project publishes to warn on `missing_docs`,
 warnings, turns into failures. A lint answers whether an item is documented with no reading, and
 what its documentation says is the code-claims axis's, per `design@agent-skills@code-claims-scope`;
 a documentation axis of its own would duplicate that method. The lints are asked of every target
-project by this head, on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
+project by this head, on its argument: `goal@the-owner-decides` reserves to
 knowledge-architect's owner the conditions and the asks that
-`goal@knowledge-architect@serves-one-kind-of-project` itself names, a git repository and the
+`goal@serves-one-kind-of-project` itself names, a git repository and the
 `claude` harness, so an ask a design head holds, as this one, changes on an argument, and the change
 is reported to the owner. The setup delivers them so that every target project gets them, per
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`, which ships the generic part of
+`goal@generic-tools-and-procedures-are-shipped`, which ships the generic part of
 a tool once knowledge-architect's owner takes it in; the lints were taken in on the owner's word.

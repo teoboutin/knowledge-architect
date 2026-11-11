@@ -15,7 +15,7 @@ to 3 find nothing, and runs the check, whose verdict is the run's. Outside every
 the check read git's listing, per `design@git@failed-git-is-an-error`, and the install reads none.
 No directory of audit reports or of retrospective analyses, and no roadmap, is written: each is
 created when first needed. A project created from nothing is the target
-`goal@knowledge-architect@every-target-project-can-adopt-it` puts first, and its creation is where a person
+`goal@every-target-project-can-adopt-it` puts first, and its creation is where a person
 or an agent starts: without the command, every
 file `klarch init` lists as `wrote` but the installed ones and the manifest is written by hand
 before the first check passes.
@@ -31,7 +31,7 @@ change of what a Component carries reaches `init` with no edit to it, per
 ### `init` follows `cargo init` wherever no argument departs from it `##init-follows-cargo-init`
 
 Rust is the language of every project knowledge-architect serves, per
-`goal@knowledge-architect@serves-one-kind-of-project`, and `cargo init` is the command its users
+`goal@serves-one-kind-of-project`, and `cargo init` is the command its users
 already type to start a project. The owner holds that following `cargo init`'s usage as far as
 possible is probably best, so a user's habits carry over to `init`: a choice about
 `init` that `cargo init` already makes is made the same way unless an argument departs from it. The
@@ -188,7 +188,7 @@ repository git decides, a negation or a leading space included; outside one, und
 line `target`, `target/`, `/target` or `/target/` does. This is the
 shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates of the list
 `design@gates@a-project-holds-its-gate-list` recommends, a gate being a tool whose generic part
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has shipped so that it serves each target project that carries out its activity.
+`goal@generic-tools-and-procedures-are-shipped` has shipped so that it serves each target project that carries out its activity.
 
 ### `init --rust` writes no CI workflow `##init-writes-no-ci-workflow`
 

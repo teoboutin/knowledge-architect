@@ -89,7 +89,7 @@ discussion, since a delivery at the commit, a hook among them, may serve both.
 ### Why it matters
 
 Each lapse costs an amend or a history edit, and a claim that survives misleads every later reader
-of the history, against `goal@knowledge-architect@agents-work-without-drift`. Under the lapse rule
+of the history, against `goal@agents-work-without-drift`. Under the lapse rule
 of `skill@knowledge-architect-agent-configuration@admission-standard`, a lapse that recurs at one
 point of delivery is repaired by moving where the instruction is delivered.
 

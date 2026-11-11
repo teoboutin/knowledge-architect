@@ -22,7 +22,7 @@ Reproduced with the binary, in a repository whose `.gitignore` names the path:
 
 ### Why it matters
 
-`design@create@init-asks-no-confirmation` refuses a PATH or a Component git ignores "whose files the check would read as missing with no repair but the rule", which holds of each file written, and a new project that `init` leaves failing its first check is not served first, as `goal@knowledge-architect@every-target-project-can-adopt-it` has a new target project served.
+`design@create@init-asks-no-confirmation` refuses a PATH or a Component git ignores "whose files the check would read as missing with no repair but the rule", which holds of each file written, and a new project that `init` leaves failing its first check is not served first, as `goal@every-target-project-can-adopt-it` has a new target project served.
 
 ### What would close it
 

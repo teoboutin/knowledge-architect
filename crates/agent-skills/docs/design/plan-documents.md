@@ -40,7 +40,7 @@ spec per slice, which hold the spec's sections between them, split as
 `design@agent-skills@milestone-split-by-lifetime` says. The two layers are the owner's proposal: "I
 would decompose this into two layers: plans for short work, and plan for multi session work". A
 spec plus a separate detailed implementation plan lost: both carry the same decisions and the
-second drifts from the first, against `goal@knowledge-architect@documentation-stays-consistent`.
+second drifts from the first, against `goal@documentation-stays-consistent`.
 The one exception is a detailed plan, if one is ever written for a less capable implementer: it covers a bounded
 amount of work and opens by saying it rests on assumptions, per
 `design@agent-skills@no-untested-snippet-is-authority`.
@@ -102,9 +102,9 @@ kind, which resolves against the commit's parent. A plan document kept after its
 second home for every decision it carried, and it starts drifting at the first later reversal.
 Walked by the checker, its references break at every reversal, and someone repairs a document about
 finished work; left out of the walk, it is unchecked text that a grep finds with no marker that it
-is stale. Either breaks `goal@knowledge-architect@documentation-stays-consistent`. Leaving the
+is stale. Either breaks `goal@documentation-stays-consistent`. Leaving the
 choice to each project lost too: the installed planning skill would have nothing to say where a
-document's work ends, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
+document's work ends, against `goal@agents-get-a-complete-workflow`.
 
 The deletion comes after the review before the merge, since four acts of that review need the
 document: the transcript reviewer's search of the tip for an argument's outcome, the standing-state
@@ -153,7 +153,7 @@ change, and it is planned work under the planning skill, per
 `design@agent-skills@adopting-existing-docs`. The cost is a spec, its plan reviews, its harvest and
 its deletion for every requested change that is not bounded, including one the converging session
 builds in one pull request, each review round of which the workflow could have spared lowering
-the efficiency that `goal@knowledge-architect@agents-get-a-complete-workflow` is there to raise. Widening the existing short path,
+the efficiency that `goal@agents-get-a-complete-workflow` is there to raise. Widening the existing short path,
 rather than adding a path for one decision met during a task, is the owner's proposal, on the
 owner's argument, given as the owner's opinion, that a discussion that starts with one decision
 should be bounded in neither threads nor rounds, since its size depends on what grounding,
@@ -177,7 +177,7 @@ design skill writes. The design skill ends at convergence and the premortem, its
 acceptance criteria written, and writes no plan document of its own. Its decisions are recorded when
 their work lands, per `design@agent-skills@design-home-is-built-intent`. One skill owns the
 document's shape, its draft's sections included: two skills describing the sections of one document
-would drift apart, against `goal@knowledge-architect@agents-get-a-complete-workflow`.
+would drift apart, against `goal@agents-get-a-complete-workflow`.
 
 ### A plan document is written in the session where its discussion converged `##plan-written-in-the-converging-session`
 
@@ -221,7 +221,7 @@ the criteria it judges. When the document leaves, a criterion that recurs is jud
 the standard, and written as a tripwire where it passes, per
 `design@agent-skills@tripwire-recording-authority`; any other is deleted. A separate file
 of criteria would hold statements about the same work with the same lifetime, drift from the
-document, against `goal@knowledge-architect@documentation-stays-consistent`, and stay behind when
+document, against `goal@documentation-stays-consistent`, and stay behind when
 the document leaves. The plan document is written in the session that converged, per
 `design@agent-skills@plan-written-in-the-converging-session`, so the criteria and the document
 are born together.
@@ -235,14 +235,14 @@ remains, and the question is the session's, per `primer@question-authority`; the
 ended the owner's ruling on each tripwire, `design@agent-skills@tripwire-recording-authority`,
 applies. A value a criterion's basis leaves open is a fork among values: the session lists it among
 the plan document's defaults awaiting the owner, so the owner meets it before the merge, per
-`goal@knowledge-architect@design-with-agents-as-counterparts`.
+`goal@design-with-agents-as-counterparts`.
 
 A criterion that fires leaves the plan document as a reopened decision: its firing opens a design
 discussion with the owner on the decision it guards, under `skill@knowledge-architect-design`. In
 that discussion each question goes to its authority, per
 `design@agent-skills@questions-go-to-their-authority`: the measurement says whether the decision
 failed, the argument settles the shape that replaces it where it can, and the owner rules its forks,
-per `goal@knowledge-architect@the-owner-decides`. The part of the work that rests on the guarded
+per `goal@the-owner-decides`. The part of the work that rests on the guarded
 decision waits for the discussion, and the rest goes on.
 
 The ruling a firing would have answered is the owner's at the discussion it opens, where the
@@ -267,7 +267,7 @@ The census of the 61 acceptance criteria of the 39 plan documents deleted from d
 completeness checks, which a review already reports, about 5 that failed the silence test, and 3
 that only a measurement of the built result in use could take: a criterion bound to pass, or one a
 review reports, misdirects the attention a criterion should hold, and an instruction that asks for
-it is one `goal@knowledge-architect@only-needed-instructions` removes. The corpus is listed by
+it is one `goal@only-needed-instructions` removes. The corpus is listed by
 `git log 741f655e --diff-filter=D --name-only -- docs/plans/`, each document read at its deleting
 commit's parent; the per-criterion verdicts were the agent's judgement, kept in no record, so only
 their order of magnitude is claimed. The same agent counted about ten past firings, of which one tested a decision. The
@@ -284,7 +284,7 @@ which the spec-conformity review judges; on the in-change path, the change appli
 keeps the check the owner did not want lost, and leaves `design@agent-skills@criteria-test-silent-premises`
 its criteria, whose firing reopens a decision. The rival, dropping such checks with the criteria
 that held them, loses a completeness check no review was told to look for, against
-`goal@knowledge-architect@agents-work-without-drift`, under which what agents build stays within
+`goal@agents-work-without-drift`, under which what agents build stays within
 the recorded design: a departure that no check and no review is told to look for merges unseen. Step 7 of the design
 skill, the planning skill's section on criteria and condition 1 of the tripwire standard route it.
 
@@ -312,7 +312,7 @@ A plan document, a spec or a milestone document, is merged to the main branch in
 its own or with its work, whatever the time of its work. An owner
 plans a feature that will not be built yet so that the work done meanwhile does not drift from it,
 which needs the document where every session reads it, on the main branch; that serves
-`goal@knowledge-architect@agents-work-without-drift`. What "spec" and "milestone" measure is the
+`goal@agents-work-without-drift`. What "spec" and "milestone" measure is the
 work, one pull request or several, not where the document lands. The document leaves when its work
 lands, per `design@agent-skills@plan-document-leaves-at-landing`.
 
@@ -360,7 +360,7 @@ The design this decision did not keep: `rejected@agent-skills@no-roadmap`.
 
 A row of the roadmap is added or moved on the owner's word, since ordering known work is a fork: no
 goal or decision ranks one piece of it over another, so the order is the owner's, per
-`goal@knowledge-architect@the-owner-decides`. The rival, any session ordering the work, would make
+`goal@the-owner-decides`. The rival, any session ordering the work, would make
 the order a session's choice where no argument settles it. The two edits that keep a row pointing at the same work, rewriting
 the row of an issue a new plan document closes and removing the row of a plan document that
 leaves, need no word, per `design@agent-skills@roadmap-orders-issues`.
@@ -387,7 +387,7 @@ the milestone directory. It applies to a spec, and to a milestone document with 
 which share the record by the rule of `design@agent-skills@milestone-split-by-lifetime`; the owner
 extended it to milestones, since they too are created through the design skill.
 `design@agent-skills@standing-argument-in-head` names the plan document as the home of the
-deliberation while it exists, and `goal@knowledge-architect@design-is-recorded-with-its-arguments`
+deliberation while it exists, and `goal@design-is-recorded-with-its-arguments`
 is served only where the rulings are recorded as the owner made them. On the in-change path, the
 commit message carries the same record, for the same reason, per
 `design@agent-skills@in-change-path`. The rival, a plan document recording each thread's final
@@ -417,7 +417,7 @@ sibling slice specs re-point a citation of a leaving slice with no question: tha
 reads the milestone against what landed. The retiring
 session revisits nothing itself: a revisit at that moment would redesign the citing plan at a time
 chosen by another plan's landing, rather than at its own audit, where the owner rules on it as
-`goal@knowledge-architect@the-owner-decides` asks.
+`goal@the-owner-decides` asks.
 
 The decision is recorded here because two installed skills apply it, the planning skill where a
 plan document leaves and the issue-tracking skill among the issue kinds, and both act on the

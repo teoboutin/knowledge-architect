@@ -45,7 +45,7 @@ a kind, answers it.
 ### Why it matters
 
 A pointer that the check reads as nothing is dropped from `cargo klarch show`'s list and dangles
-unseen when its target moves, against `goal@knowledge-architect@documentation-stays-consistent`.
+unseen when its target moves, against `goal@documentation-stays-consistent`.
 The plan's harvest reads its argument pointers to find each head's standing argument, so a silent
 pointer loses an argument at the harvest. It strains `design@model@at-span-candidate-rule`.
 

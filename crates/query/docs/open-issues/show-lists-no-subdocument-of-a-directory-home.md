@@ -21,7 +21,7 @@ references only. `design@model@register-home-reference` states that output as de
 
 Every text that asks a session to read a design home whole, by its register reference, reaches a
 directory whose index the session must find itself, against
-`goal@knowledge-architect@records-reach-their-reader`.
+`goal@records-reach-their-reader`.
 
 ### What would close it
 

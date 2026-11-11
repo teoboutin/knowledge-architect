@@ -16,8 +16,8 @@
 //! A cluster agent is given, beside the entries it grades, two things it reads and does not grade:
 //! the **context entries**, every head, entry of a declared register or `rejected` entry an entry
 //! it grades cites and it does not grade itself, whole, per
-//! `design@query@context-entries-given-whole`; and the **title lines** of the goals of the root, of each Component
-//! enclosing a search unit it holds, and of those search units.
+//! `design@query@context-entries-given-whole`; and the **title lines** of the goals, which the
+//! project's root alone carries.
 //!
 //! The groups are then packed into agents under a bound in words, by search unit, as [`plan`]
 //! says. Everything here is a pure function of the model and the entity table, so a test states its
@@ -87,10 +87,10 @@ pub(crate) struct Entry {
 }
 
 impl Entry {
-    /// The entry's reference, `<kind>@<anchor>@<id>`.
+    /// The entry's reference, as `spelled` renders it.
     pub(crate) fn reference(&self) -> String {
         let (kind, anchor, id) = &self.key;
-        format!("{}@{anchor}@{id}", kind.name())
+        crate::model::table::spelled(kind.name(), anchor, id)
     }
 
     /// The words of the entry's title line, the heading's statement without its slug.
@@ -381,7 +381,7 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
     }
     for anchor in anchors.all().iter().filter(|a| a.constructed.is_none()) {
         let mut list: Vec<usize> = Vec::new();
-        for owner in title_units(anchors, &anchor.name) {
+        for owner in title_units(anchors) {
             let mut own: Vec<usize> = (0..entries.len())
                 .filter(|&i| entries[i].role == Role::Goal && entries[i].unit == owner)
                 .collect();
@@ -425,26 +425,11 @@ fn search_unit(anchors: &Anchors, name: &str) -> String {
     name.to_string()
 }
 
-/// The search units whose goals an agent holding `unit` is given as title lines: the root, each
-/// Component enclosing `unit` from the outermost, and `unit` itself.
-fn title_units(anchors: &Anchors, unit: &str) -> Vec<String> {
-    let Some(own) = anchors.by_name(unit) else {
-        return Vec::new();
-    };
-    let mut enclosing: Vec<&table::Anchor> = anchors
-        .all()
-        .iter()
-        .filter(|c| {
-            c.is_component
-                && c.constructed.is_none()
-                && c.name != own.name
-                && own.path.starts_with(&c.path)
-        })
-        .collect();
-    enclosing.sort_by_key(|c| c.path.components().count());
-    let mut out: Vec<String> = enclosing.iter().map(|c| c.name.clone()).collect();
-    out.push(own.name.clone());
-    out
+/// The search units whose goals an agent holding a search unit is given as title lines: the
+/// root's alone, since the project's root alone carries the register `goal`, per
+/// `design@query@goal-context-once`.
+fn title_units(anchors: &Anchors) -> Vec<String> {
+    vec![anchors.root_name().to_string()]
 }
 
 /// The lines of `text` above the 1-based line `line`.
@@ -838,14 +823,14 @@ mod tests {
     const ROOT_DESIGN: &str = "# Design\n\n\
         ### A head before any subject `##early-head`\n\nText.\n\n\
         ## First subject\n\nProse that cites `design@a-project@other-head`, outside every entry.\n\n\
-        ### A first head `##first-head`\n\nIt serves `goal@a-project@fine-goal` and covers \
+        ### A first head `##first-head`\n\nIt serves `goal@fine-goal` and covers \
         `rejected@a-project@lost-shape`.\n\n\
         ## Second subject\n\n\
         ### Another head `##other-head`\n\nIt cites `design@a-project@first-head`.\n";
 
-    const ROOT_GOALS: &str = "# Goals\n\n\
-        ## A fine goal `##fine-goal`\n\nIt refines `goal@a-project@middle-goal`.\n\n\
-        ## A middle goal `##middle-goal`\n\nIt refines `goal@a-project@top-goal`.\n\n\
+    const ROOT_GOALS: &str = "# Goals\n\nThe root's prose.\n\n\
+        ## A fine goal `##fine-goal`\n\nIt refines `goal@middle-goal`.\n\n\
+        ## A middle goal `##middle-goal`\n\nIt refines `goal@top-goal`.\n\n\
         ## A top goal `##top-goal`\n\nThe top.\n\n\
         ## An unserved goal `##unserved-goal`\n\nNothing serves it.\n";
 
@@ -860,7 +845,7 @@ mod tests {
         ### Why it matters\n\nx\n\n### What would close it\n\nx\n";
 
     const ISSUE_ON_GOAL: &str = "---\nkind: todo\n---\n# On the goal\n\n## Summary\n\n\
-        It threatens `goal@a-project@fine-goal`.\n\n## Details\n\n### What\n\nx\n\n\
+        It threatens `goal@fine-goal`.\n\n## Details\n\n### What\n\nx\n\n\
         ### Why it matters\n\nx\n\n### What would close it\n\nx\n";
 
     fn project() -> Vec<(&'static str, &'static str)> {
@@ -890,11 +875,6 @@ mod tests {
             (
                 "notes/topics/alpha-topic/rules.md",
                 "# Alpha rules\n\n## An alpha rule `##alpha-rule`\n\nx\n",
-            ),
-            (
-                "widget/docs/goals.md",
-                "# Widget goals\n\nThe widget's prose.\n\n## A widget goal `##widget-goal`\n\n\
-                 It refines `goal@a-project@top-goal`.\n",
             ),
             (
                 "widget/docs/open-issues/on-a-root-head.md",
@@ -1072,22 +1052,20 @@ mod tests {
         assert_eq!(
             names(&g, goals),
             [
-                "goal@a-project@fine-goal",
-                "goal@a-project@middle-goal",
-                "goal@a-project@top-goal",
-                "goal@a-project@unserved-goal",
+                "goal@fine-goal",
+                "goal@middle-goal",
+                "goal@top-goal",
+                "goal@unserved-goal",
             ]
         );
-        let widget = group(&g, "widget :: widget/docs/goals.md");
-        assert_eq!(widget.prose, "# Widget goals\n\nThe widget's prose.\n");
+        assert_eq!(goals.prose, "# Goals\n\nThe root's prose.\n");
     }
 
-    /// The claim: the title lines of a search unit are the root's goals, then each enclosing
-    /// Component's, then its own; a goal agent holds none. Mutations checked: `title_units` leaving
-    /// out the unit itself, which drops the widget goal; and leaving out the enclosing Components,
-    /// which drops the root's goals from widget's list.
+    /// The claim: the title lines of every search unit are the root's goals, the root alone
+    /// carrying the register `goal`; a goal agent holds none. Mutation checked: `title_units`
+    /// returning no unit, which leaves every search unit with no title line.
     #[test]
-    fn the_title_lines_are_the_root_s_the_enclosing_components_and_the_unit_s_goals() {
+    fn the_title_lines_of_every_search_unit_are_the_root_s_goals() {
         let g = graph_of(&project());
         let refs = |unit: &str| -> Vec<String> {
             g.titles[unit]
@@ -1096,16 +1074,14 @@ mod tests {
                 .collect()
         };
         let root = [
-            "goal@a-project@fine-goal",
-            "goal@a-project@middle-goal",
-            "goal@a-project@top-goal",
-            "goal@a-project@unserved-goal",
+            "goal@fine-goal",
+            "goal@middle-goal",
+            "goal@top-goal",
+            "goal@unserved-goal",
         ];
         assert_eq!(refs("a-project"), root);
         assert_eq!(refs("notes"), root);
-        let mut widget: Vec<String> = root.iter().map(|s| s.to_string()).collect();
-        widget.push("goal@widget@widget-goal".to_string());
-        assert_eq!(refs("widget"), widget);
+        assert_eq!(refs("widget"), root);
         let goals = g
             .groups
             .iter()
@@ -1284,11 +1260,10 @@ mod tests {
         assert_eq!(
             refs(g.title_lines(&[first, widget])),
             [
-                "goal@a-project@fine-goal",
-                "goal@a-project@middle-goal",
-                "goal@a-project@top-goal",
-                "goal@a-project@unserved-goal",
-                "goal@widget@widget-goal",
+                "goal@fine-goal",
+                "goal@middle-goal",
+                "goal@top-goal",
+                "goal@unserved-goal",
             ]
         );
         // Apart, both groups count the root's title lines, and `widget`'s count the lost shape as
@@ -1307,64 +1282,14 @@ mod tests {
             g.load(&[first, widget]),
             g.load(&[first]) + g.load(&[widget]) - root_titles - shape
         );
-        let goals = at(&g, "widget :: widget/docs/goals.md");
+        let goals = at(&g, "a-project :: docs/goals.md");
         let goal_words: usize = g.groups[goals]
             .entries
             .iter()
             .map(|&i| g.entries[i].words)
             .sum();
-        // "# Widget goals\n\nThe widget's prose." holds 6 words.
-        assert_eq!(g.load(&[goals]), goal_words + 6);
-    }
-
-    /// The claim: a location enclosing a search unit gives it no title lines: only the root and
-    /// the Components enclosing it do. Mutation checked: `c.is_component &&` removed from the
-    /// filter of `title_units`, which gives the location `inner` the goal of the location `outer`
-    /// that encloses it; caught.
-    #[test]
-    fn a_location_enclosing_a_search_unit_gives_it_no_title_lines() {
-        let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
-             components = []\n\n\
-             [locations.outer]\npath = \"outer\"\nregisters = [\"goal\"]\n\n\
-             [locations.inner]\npath = \"outer/inner\"\nregisters = [\"rule\"]\n\n\
-             [registers.rule]\nscope = \"opt-in\"\nshape = \"heading\"\ndir = \"rules\"\nlevel = 2\n\n\
-             [agents]\nharness = []\n\n\
-             [walk]\nskip-dirs = []\nskip-files = []\n\n";
-        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
-        let g = graph_with(
-            &manifest,
-            &[
-                ("docs/goals.md", ROOT_GOALS),
-                (
-                    "outer/goals.md",
-                    "# Outer goals\n\n## An outer goal `##outer-goal`\n\nx\n",
-                ),
-                (
-                    "outer/inner/rules.md",
-                    "# Rules\n\n## An inner rule `##inner-rule`\n\nx\n",
-                ),
-            ],
-        );
-        let refs = |unit: &str| -> Vec<String> {
-            g.titles[unit]
-                .iter()
-                .map(|&i| g.entries[i].reference())
-                .collect()
-        };
-        assert!(
-            refs("outer").contains(&"goal@outer@outer-goal".to_string()),
-            "{:?}",
-            refs("outer")
-        );
-        assert_eq!(
-            refs("inner"),
-            [
-                "goal@a-project@fine-goal",
-                "goal@a-project@middle-goal",
-                "goal@a-project@top-goal",
-                "goal@a-project@unserved-goal",
-            ]
-        );
+        // "# Goals\n\nThe root's prose." holds 5 words.
+        assert_eq!(g.load(&[goals]), goal_words + 5);
     }
 
     /// The groups of `plan`'s agent, by search unit, each once.

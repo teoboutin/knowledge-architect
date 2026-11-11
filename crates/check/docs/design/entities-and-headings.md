@@ -23,7 +23,7 @@ against this rule, `issue@check@some-findings-in-a-goals-home-name-a-form-refuse
 other document cites in whatever direction its subject asks.
 
 A goal is the owner's statement and changes only through the owner, per
-`goal@knowledge-architect@the-owner-decides`, while agents write, move and close design heads,
+`goal@the-owner-decides`, while agents write, move and close design heads,
 issues and skill sections on their own. A goal that cites one of them is touched when it moves, and
 a goal tied to a nested Component is tied to a shape of the project: the nested Component can be
 split or replaced while the purpose above it stays. A goal refines a goal of its own Component or of
@@ -34,7 +34,7 @@ of the head on the lifecycle of goals, since that lifecycle rests on what the go
 a consumer's goals home cites none of this project's heads either.
 
 The rule is a check, not a rule the goal reviewer applies alone, since it is mechanical, per
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, and the same in every project, per
+`goal@tasks-a-tool-does-better-are-the-tool-s`, and the same in every project, per
 `design@check@the-regime-has-no-opt-out`. Its nearest rival, the one-way rule over every citation,
 `rejected@check@citation-direction-checked`, covered every document for an acyclicity that only the
 record search's clusters would use, and would fail every goal that refines another. This rule

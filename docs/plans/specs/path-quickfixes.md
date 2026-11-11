@@ -260,8 +260,8 @@ Open entries that bear on the work, read again at the audit:
 ### A fix never writes a reference that passes the check while naming something the writer did not mean `##no-silent-misbinding`
 
 Binding. Derived by the agent in the reply to round 1 from
-`goal@knowledge-architect@agents-work-without-drift` and
-`goal@knowledge-architect@documentation-stays-consistent`. Met by
+`goal@agents-work-without-drift` and
+`goal@documentation-stays-consistent`. Met by
 `thread@path-quickfixes@fix-admission`, `thread@path-quickfixes@respelling-fixes` and
 `thread@path-quickfixes@raw-path-inference`.
 

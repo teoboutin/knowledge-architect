@@ -9,7 +9,7 @@ whose record is docs/decisions.md on its branch next. A figure is taken again fr
 ### The record of the installed text keeps intent and coherence, not wording `##instruction-record-is-minimal`
 
 A decision about the installed text is recorded only where it keeps the owner's intent on record,
-since `goal@knowledge-architect@design-is-recorded-with-its-arguments` has each decision a project
+since `goal@design-is-recorded-with-its-arguments` has each decision a project
 records carry its intent and its argument, and has the reason of any other decision recorded beside
 its text; or where it keeps two parts of the workflow consistent, which
 `design@agent-skills@no-two-installed-instructions-contradict` requires; or where another entry
@@ -52,7 +52,7 @@ behaviour is parked as an issue, which states what a real session would have to 
 literature and synthetic scenarios originate no edit, a written example of divergent verdicts
 among them, and no run is built to observe how an agent
 follows the workflow's instructions, per `design@agent-skills@synthetic-evidence-not-built`. The rule derives from
-`goal@knowledge-architect@the-workflow-improves-through-real-use`, which is stated for the whole
+`goal@the-workflow-improves-through-real-use`, which is stated for the whole
 workflow, so it covers every installed skill and every installed agent, a reviewer agent growing
 the same way, one predicted check at a time, and a project's own agent-facing text alike: neither
 part of its argument, that a predicted behaviour is unreliable evidence and that rules grow one per
@@ -95,7 +95,7 @@ one does would take the repeated runs this rule refuses.
   briefed in a proposed report form: the run is done for the work, not built to produce evidence,
   which this head's argument refuses.
 
-The rule derives from `goal@knowledge-architect@the-workflow-improves-through-real-use`, under
+The rule derives from `goal@the-workflow-improves-through-real-use`, under
 which real use is the test of how an agent behaves under the workflow: a run built to observe an
 agent is no real use. The owner's argument: synthetic evidence is too unreliable, since
 reading it soundly would need at least a statistical analysis, which costs too much, and a proper
@@ -177,13 +177,13 @@ is one, per `design@agent-skills@questions-go-to-their-authority`. Each installe
 says what it requires plainly enough to follow without guessing what it means: an instruction that
 a reading confirms is read two ways is repaired, even where every act it allows is acceptable. A
 case no instruction covers is outside both statements, and is left to judgement, per
-`goal@knowledge-architect@only-needed-instructions`.
+`goal@only-needed-instructions`.
 
 The two statements are one decision. Each answers whether a session can follow the installed text
 as written, and each loses to one rival: the pair, or the instruction read two ways, left standing
 for the session's judgement to settle, which for an instruction read two ways is
 `rejected@agent-skills@two-readings-left-to-judgement`.
-`goal@knowledge-architect@agents-get-a-complete-workflow` has an agent carry each activity out with
+`goal@agents-get-a-complete-workflow` has an agent carry each activity out with
 the workflow and what its project adds, and an agent carries no activity out with an instruction it
 cannot follow as written. Judgement settles such a pair, or such an instruction, in one session
 only: the next session can settle it the other way, and a reviewer that holds the other instruction

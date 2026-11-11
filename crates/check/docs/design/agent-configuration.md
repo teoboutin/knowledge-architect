@@ -18,7 +18,7 @@ Under an empty list, the files of the installer's namespace are walked as the pr
 documents, like any others. A harness for another provider would be a value added to the list,
 requiring its own file and its own layout, which
 `issue@check@configuration-for-several-agent-providers` records;
-`goal@knowledge-architect@serves-one-kind-of-project` asks every target project to run its agents
+`goal@serves-one-kind-of-project` asks every target project to run its agents
 under `claude`, and excludes a mode of the checker for another harness. The empty list serves a
 target project that uses the checker alone, which that goal admits, and the checker's mock projects.
 
@@ -35,7 +35,7 @@ holding a table only an extension claims. An extension project therefore declare
 runs its own binary, preferably a cargo alias such as `cargo klarch`, and does not install its
 binary under the plain name. A command that cannot be printed on one line in a code span, empty or
 holding a line break or a backtick, is refused in phase 1, and the default stands. This serves
-`goal@knowledge-architect@every-target-project-can-adopt-it`: every project, extended or not, reads
+`goal@every-target-project-can-adopt-it`: every project, extended or not, reads
 instructions that name the command it actually runs.
 
 ### The installed agent files are committed `##installed-files-committed`
@@ -43,7 +43,7 @@ instructions that name the command it actually runs.
 `install-agent-skills` writes each file this version ships at its install path, rendered with the
 project's command, and the project commits them, so a session started from a fresh clone, a web
 session or a review in a new worktree has them without building anything, which serves
-`goal@knowledge-architect@agents-get-a-complete-workflow`. The rival, installing them on demand, gives
+`goal@agents-get-a-complete-workflow`. The rival, installing them on demand, gives
 such a session nothing until something has run the install.
 
 ### The installed agent files are outside the walk `##installed-files-outside-the-walk`

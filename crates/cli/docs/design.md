@@ -98,7 +98,7 @@ binds every command of `cli::Command`, a later one included, in every binary tha
 `design@cli@the-commands-are-a-library-module`. A command a project adds beside them is the project's, and so is what a
 project's own program does with a refusal.
 
-It serves `goal@knowledge-architect@documentation-stays-consistent`, by which conformance is established by running
+It serves `goal@documentation-stays-consistent`, by which conformance is established by running
 the checker: a gate that reads an exit code as the verdict must be able to tell an invocation that did not run from a
 check that passed. The caller of a refused invocation also knows that the tree is as it was, so it repairs the
 invocation and runs it again over the same tree.

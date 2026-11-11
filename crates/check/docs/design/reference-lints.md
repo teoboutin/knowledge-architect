@@ -21,7 +21,7 @@ otherwise have to rewrite its own notation to pass. What the silence costs is a 
 entry has since left the tree and whose word is no anchor: it names nothing here, so it is not
 reported. Re-take it as the path lint's census is re-taken, counting this lint's findings; a
 census in which the silence hides a pointer the migration missed reopens it. Reporting every such
-shape is `rejected@check@retired-slug-reference-always-reported`. This serves `goal@knowledge-architect@every-target-project-can-adopt-it`.
+shape is `rejected@check@retired-slug-reference-always-reported`. This serves `goal@every-target-project-can-adopt-it`.
 
 **The interpretation register's old entry numbers are not read.** They were thaum's own, and a
 lint naming them would belong to thaum's extension rather than to `check`. Keeping that lint permanently is
@@ -60,7 +60,7 @@ discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outsi
 found such tokens in this repository, every one a pointer, and none in thaum; the lint reports a
 token a writer stripped of its backticks, which is the evasion
 `design@agent-skills@plain-text-is-no-repair` refuses, and serves
-`goal@knowledge-architect@documentation-stays-consistent`.
+`goal@documentation-stays-consistent`.
 
 ### A backticked span that is exactly a defined id is a finding, whose repair names every reference the id can take `##backticked-bare-id`
 
@@ -81,7 +81,7 @@ trees are listed in one finding.
 
 **A bare id is a pointer written with no kind.** Silent, it dangles unseen when the entry is renamed
 or deleted. The reference costs the kind and its anchor, and `show` then lists the text among what
-cites the entry, per `goal@knowledge-architect@records-reach-their-reader`. The nearest rival, no finding and a
+cites the entry, per `goal@records-reach-their-reader`. The nearest rival, no finding and a
 listing of such spans, leaves every such pointer silent: `rejected@check@bare-id-listing-only`.
 
 **The match is exact against the table.** A crate's name, an id of another project and an id whose

@@ -36,7 +36,7 @@ These words hold in these senses for the goals of this home:
 - **the generic part** of an activity, a tool or a procedure: the part that does not depend on what
   the project builds;
 - **a target project**: the kind of project knowledge-architect serves, which
-  `goal@knowledge-architect@serves-one-kind-of-project` defines.
+  `goal@serves-one-kind-of-project` defines.
 
 The goals are in these files, in this order:
 

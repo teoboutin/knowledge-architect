@@ -270,14 +270,14 @@ fn item_registers() -> impl Iterator<Item = String> {
 
 impl Anchor {
     /// A component: every component-scoped register, and each `opt-in` one the project attaches
-    /// to it, homes under `docs/`.
+    /// to it, homes under `docs/`; the root carries each root-scoped one besides.
     pub(crate) fn component(name: &str, path: &Path, registers: &Registers) -> Self {
         Self {
             name: name.to_string(),
             path: path.to_path_buf(),
             home_base: path.join("docs"),
             registers: registers
-                .carried_by_component(name)
+                .carried_by_component(name, path.as_os_str().is_empty())
                 .map(|r| r.name.clone())
                 .collect(),
             is_component: true,
@@ -576,6 +576,17 @@ impl Anchors {
             .filter(|a| rel.starts_with(&a.path))
             .max_by_key(|a| (a.path.components().count(), a.is_component))
             .expect("the anchor at the root is a prefix of every path")
+    }
+
+    /// The name of the anchor at the project's root, which a reference to a root-scoped register
+    /// is read at.
+    pub fn root_name(&self) -> &str {
+        &self
+            .list
+            .iter()
+            .find(|a| a.is_root())
+            .expect("the root is always an anchor")
+            .name
     }
 
     /// The anchor a reference names, or `None` where nothing declares that name.
@@ -979,6 +990,19 @@ pub enum Candidate<'a> {
     },
 }
 
+/// The reference that names the entry `id` of `kind` at `anchor`, as a document writes it:
+/// `<kind>@<id>` for a harness kind, whose `anchor` is empty, and for a register the project's
+/// root alone carries, under its own kind or as its home under `register`; `<kind>@<anchor>@<id>`
+/// for every other.
+pub fn spelled(kind: &str, anchor: &str, id: &str) -> String {
+    let root_register = crate::manifest::Registers::is_root_register_name;
+    if anchor.is_empty() || root_register(kind) || (kind == REGISTER_KIND && root_register(id)) {
+        format!("{kind}@{id}")
+    } else {
+        format!("{kind}@{anchor}@{id}")
+    }
+}
+
 /// The candidate rule and the segmentation, over one backticked span holding an `@`.
 ///
 /// **Which spans are candidates.** The head — the text before the first `@` — is a known kind,
@@ -988,8 +1012,12 @@ pub enum Candidate<'a> {
 ///
 /// **Segmentation.** Every kind but `path` and `planned` takes exactly three segments; those two
 /// take an anchor and then everything after the second `@` as its id, so a path may hold an `@`.
-/// An empty segment is malformed in either shape.
-pub fn candidate<'a>(span: &'a str, anchors: &Anchors) -> Candidate<'a> {
+/// An empty segment is malformed in either shape. A register the project's root alone carries,
+/// and its home under `register`, take two segments and name no anchor: the reference is read at
+/// the root's anchor, and the same reference written with an anchor is malformed, its repair the
+/// form with none, per `design@model@root-register-reference-has-no-anchor`. The
+/// arity is read from the kind and the register, never from the segment count alone.
+pub fn candidate<'a>(span: &'a str, anchors: &'a Anchors) -> Candidate<'a> {
     let Some((head, rest)) = span.split_once('@') else {
         return Candidate::NotOne;
     };
@@ -1010,6 +1038,28 @@ pub fn candidate<'a>(span: &'a str, anchors: &Anchors) -> Candidate<'a> {
     };
     if kind.is_harness() {
         return harness_candidate(kind, rest);
+    }
+    if anchors.registers.is_root_register(kind.name()) {
+        return root_register_candidate(kind, rest, anchors);
+    }
+    if kind.is_register() {
+        match rest.split_once('@') {
+            None if anchors.registers.is_root_register(rest) => {
+                return Candidate::Reference {
+                    kind,
+                    anchor: anchors.root_name(),
+                    id: rest,
+                };
+            }
+            Some((_, id)) if anchors.registers.is_root_register(id) => {
+                return Candidate::Malformed {
+                    why: "an anchor segment before a register the project's root alone carries",
+                    repair: "write `register@<register>` with no anchor: the root alone carries \
+                             it, so its home is named by the register alone",
+                };
+            }
+            _ => {}
+        }
     }
     let Some((anchor, id)) = rest.split_once('@') else {
         return Candidate::Malformed {
@@ -1049,6 +1099,31 @@ pub fn candidate<'a>(span: &'a str, anchors: &Anchors) -> Candidate<'a> {
         };
     }
     Candidate::Reference { kind, anchor, id }
+}
+
+/// The segmentation of a reference to a register the project's root alone carries, `rest` being
+/// the span after the kind: one segment, the id, read at the root's anchor.
+fn root_register_candidate<'a>(kind: Kind, rest: &'a str, anchors: &'a Anchors) -> Candidate<'a> {
+    if rest.is_empty() {
+        return Candidate::Malformed {
+            why: "the id segment is empty",
+            repair:
+                "write the entry's id: an illustration of a form writes it as a placeholder in \
+                     angle brackets, as `<kind>@<id>`",
+        };
+    }
+    if rest.contains('@') {
+        return Candidate::Malformed {
+            why: "an anchor segment, where the register names none",
+            repair: "write `<kind>@<id>` with no anchor: the project's root alone carries the \
+                     register, so its entries are named by their id alone",
+        };
+    }
+    Candidate::Reference {
+        kind,
+        anchor: anchors.root_name(),
+        id: rest,
+    }
 }
 
 /// The segmentation of a harness kind's reference, `rest` being the span after the kind.
@@ -1803,13 +1878,7 @@ impl Entities {
                     .filter(|s| *s != site)
                     .map(Site::to_string)
                     .collect();
-                let named = if !kind.is_harness() {
-                    format!("{kind}@{anchor}@{id}")
-                } else if anchor.is_empty() {
-                    format!("{kind}@{id}")
-                } else {
-                    format!("{kind}@{anchor}@{id}")
-                };
+                let named = spelled(kind.name(), anchor, id);
                 found.push(Finding::at(
                     &site.file,
                     site.line,
@@ -1955,7 +2024,7 @@ impl Entities {
     }
 
     /// The misplaced, malformed and duplicate definitions found while building the table, phase 3's
-    /// findings, per `goal@knowledge-architect@documentation-has-a-structure-and-a-model`: a tool that builds the table reads here
+    /// findings, per `goal@documentation-has-a-structure-and-a-model`: a tool that builds the table reads here
     /// whether it can rely on it, whatever phase 2 found of the same tree.
     pub fn definition_findings(&self) -> &[Finding] {
         &self.findings
@@ -2841,15 +2910,16 @@ mod tests {
             "docs/rejected.md",
             "docs/rejected",
             "docs/tripwires.md",
-            "docs/goals.md",
-            "docs/goals",
-            "docs/goals/README.md",
             "docs/design",
             "docs/open-issues",
             "docs/tripwires/README.md",
         ] {
             assert_eq!(a.required_kind(home), None, "{home}");
             assert!(a.generic_home_target(home).is_some(), "{home}");
+        }
+        // The root alone carries the goals home, so `*`, every component's home, names none of it.
+        for home in ["docs/goals.md", "docs/goals", "docs/goals/README.md"] {
+            assert!(a.generic_home_target(home).is_none(), "{home}");
         }
         // A file register has no single-file shape, and a subdocument is no home.
         assert_eq!(a.required_kind("docs/open-issues.md"), None);

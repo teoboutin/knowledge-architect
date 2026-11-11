@@ -636,7 +636,7 @@ fn decided_references(doc: &Document, anchors: &Anchors) -> Option<Vec<String>> 
             .filter_map(|l| match &l.what {
                 Observation::Span(span) => match crate::model::table::candidate(span, anchors) {
                     Candidate::Reference { kind, anchor, id } => {
-                        Some(format!("{}@{anchor}@{id}", kind.name()))
+                        Some(crate::model::table::spelled(kind.name(), anchor, id))
                     }
                     _ => None,
                 },
@@ -1791,7 +1791,7 @@ mod tests {
         let (graph, index) = small_graph();
         let named = [
             "design@a-project@h-two",
-            "goal@a-project@a-goal",
+            "goal@a-goal",
             "rule@notes@a-rule",
             "design@a-project@nowhere",
         ]
@@ -1916,19 +1916,15 @@ mod tests {
     fn the_decided_section_runs_to_the_next_section_of_its_level() {
         let spec = "# A spec\n\n## Names\n\n`design@a-project@before`.\n\n\
                     ## What is already decided\n\n`design@a-project@first` and \
-                    `goal@a-project@a-goal`.\n\n### A subsection\n\n`rule@notes@a-rule`.\n\n\
+                    `goal@a-goal`.\n\n### A subsection\n\n`rule@notes@a-rule`.\n\n\
                     ## Criteria\n\n`design@a-project@after`.\n";
         let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec.md", spec)]);
         assert_eq!(
             decided_references(&model.documents()[0], &anchors),
             Some(
-                [
-                    "design@a-project@first",
-                    "goal@a-project@a-goal",
-                    "rule@notes@a-rule"
-                ]
-                .map(String::from)
-                .to_vec()
+                ["design@a-project@first", "goal@a-goal", "rule@notes@a-rule"]
+                    .map(String::from)
+                    .to_vec()
             )
         );
         let deeper = "# A spec\n\n### What is already decided\n\n`design@a-project@first`.\n";

@@ -41,7 +41,7 @@ harness's prompt, a local path or a tool that only that machine has, finds no ro
 place it, and the primer's last row then sends the session to ask the owner each time, or the
 session commits it into the root `CLAUDE.md`, where it reaches every other machine.
 Maintaining the agent configuration is an activity
-`goal@knowledge-architect@agents-get-a-complete-workflow` lists, which an agent carries out with
+`goal@agents-get-a-complete-workflow` lists, which an agent carries out with
 the workflow and what its project adds: for this case of it, the skill gives no place.
 
 ### What would close it

@@ -181,7 +181,7 @@ Every Component carries the same documents. `{{command}} check` names each one m
 | --- | --- |
 | `README.md` | how a user uses the Component |
 | `CLAUDE.md` | the contracts and traps a developer needs, true of the code as it stands |
-| `register@*@goal`, one file, or a directory with a `README.md` | what the project is for, in the root's alone: any other holds no entry |
+| `register@goal`, one file, or a directory with a `README.md` | what the project is for, in the root's alone: any other holds no entry |
 | `register@*@design`, one file, or a directory with a `README.md` | how it is built and why; it may hold no entry yet |
 | `register@*@rejected`, one file, or a directory with a `README.md` | the designs not kept, and why, each cited by a design head; it may hold no entry yet |
 | `register@*@tripwire`, one file, or a directory with a `README.md` | evidence that would flip a decision; it may hold no entry yet |
@@ -364,10 +364,10 @@ To move to another version:
 ## In a Rust project {{slug:rust-project}}
 
 %% The section is for Rust because every target project is a Rust project, per
-%% `goal@knowledge-architect@serves-one-kind-of-project`, and Rust is the language whose comments the
+%% `goal@serves-one-kind-of-project`, and Rust is the language whose comments the
 %% checker reads. The maintenance crate is `design@agent-skills@xtask-pins-checker`, and its gates
 %% command `design@agent-skills@gates-convention`: with them every target project gets the generic
-%% part of its gates, as `goal@knowledge-architect@generic-tools-and-procedures-are-shipped` asks of
+%% part of its gates, as `goal@generic-tools-and-procedures-are-shipped` asks of
 %% a part taken in.
 A Rust project gets its gates and its pinned checker from one maintenance crate, a package named
 `xtask` in a directory of its own, `<xtask-dir>/`, such as `xtask/` at the root, a member of its

@@ -29,7 +29,7 @@ which then name `GOALS_HOME_REPAIR`:
 These findings of the same check ignore `goals_of`, and still name a refused form in a goals home:
 
 1. **A markdown link.** `link` reports a link from a file that is no navigation home, such as the
-   root's goals home in its single-file shape, `register@knowledge-architect@goal`, with the repair
+   root's goals home in its single-file shape, `register@goal`, with the repair
    "in prose, point with a backticked `path@<anchor>@<path>` reference". A `path` reference is
    refused in a goals home.
 2. **A malformed candidate.** `Candidate::Malformed` carries its repair from `candidate` and
@@ -89,7 +89,7 @@ refused kind and anchor, as its unit tests show. The five listed findings name i
 A writer in a goals home who follows one of these repairs writes a form the citation check then
 refuses, or, for a goal, renames it outside goal-setting. The code is the defect against
 `design@check@goals-home-cites-upward-only`, whose argument stands, per `primer@intent-and-claims`:
-the design home prevails. It threatens `goal@knowledge-architect@the-owner-decides`, since a repair
+the design home prevails. It threatens `goal@the-owner-decides`, since a repair
 that rewrites a goal sends an agent to change a goal on its own.
 
 ### What would close it

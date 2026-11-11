@@ -125,7 +125,7 @@ install itself wrote, has nothing to tell them by: ownership is decided by a nam
 and no history, per that head. A fix that makes a choice, or touches
 git or a hand-written file, would rewrite what a writer meant, so its repair stays the reader's.
 The test is what keeps `--fix` safe to run after every edit, which serves
-`goal@knowledge-architect@agents-work-without-drift`. `tripwire@check@fix-makes-a-choice` watches
+`goal@agents-work-without-drift`. `tripwire@check@fix-makes-a-choice` watches
 it.
 
 ### `--fix` applies only the kinds of repair added to it on purpose, each passing the safe-fix test `##fix-scope`

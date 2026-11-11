@@ -11,7 +11,7 @@ shell the harness starts then fails a pipeline when any command of it fails, so 
 after a piped verdict does not run over a failing check. The primer's rule against that chain stays,
 for `;`, for any other shell, and because a filter drops lines in any shell: the option is bash's,
 and the setting the `claude` harness's. The setup delivers the setting, so that every target
-project gets it, per `goal@knowledge-architect@generic-tools-and-procedures-are-shipped`.
+project gets it, per `goal@generic-tools-and-procedures-are-shipped`.
 
 The rule alone did not hold: sessions chained a push or a commit on a piped verdict in five of nine
 sessions of one adopting project, three times pushing a commit that failed the gate, and five times
@@ -42,7 +42,7 @@ records (a goal, a decision, a losing alternative, an issue, a tripwire, a contr
 document) ship in the installed primer, and move with the version. A project's own rows, such as
 its changelog or a register it declares, sit in its root `CLAUDE.md`, which the project
 owns. A table written whole into each project at setup would keep the old routing after an upgrade
-that changes it, against `goal@knowledge-architect@agents-get-a-complete-workflow`. A table shipped
+that changes it, against `goal@agents-get-a-complete-workflow`. A table shipped
 whole would leave a project no place for its own rows, against
 `design@agent-skills@overlay-by-separate-skills`. A project row may refine a primer row with what is
 the project's own, such as a README that is also its package's page; it never contradicts one, and a row
@@ -73,7 +73,7 @@ presumption, `design@agent-skills@goals-bind`; the routing of a question by its 
 skill that routes them reaches only the sessions that load it; the owner's word bound by its premise,
 `design@agent-skills@owner-word-holds-as-far-as-its-premise`; the labels and an answer's authority,
 `design@agent-skills@ruled-items-labelled` and `design@agent-skills@answer-keeps-its-authority`; the
-room to judge, which states `goal@knowledge-architect@only-needed-instructions`, since every
+room to judge, which states `goal@only-needed-instructions`, since every
 session meets a situation no instruction covers; built intent
 and a reason at the code, `design@agent-skills@design-home-is-built-intent` and
 `design@agent-skills@local-intent-binds`; the verification rules,
@@ -157,7 +157,7 @@ fix that would contradict a head, or bring back a design the `rejected` home rec
 decision, sent to the design skill by the backstop of `primer@design-heads`, per
 `design@agent-skills@new-or-reshaped-head-needs-design`.
 
-It serves `goal@knowledge-architect@agents-work-without-drift`. The evidence of real use that
+It serves `goal@agents-work-without-drift`. The evidence of real use that
 `design@agent-skills@behaviour-additions-need-real-use` asks is the owner's, given from memory: in
 thaum and in rootpoint, where the owner met the problem mostly during bug investigations, a session
 investigating a bug was not really informed of where to look for known design, and looked for the
@@ -188,7 +188,7 @@ per `design@agent-skills@settled-means-recorded`.
 a goal binds outright, one from a decision binds as a presumption. A recorded decision was reviewed,
 but its review can miss a detail or an implication, more often as the volume of agentic work grows.
 When a decision conflicts with a goal, the likely cause is that the owner missed the conflict: the
-goal prevails, and the conflict goes to the owner, per `goal@knowledge-architect@the-owner-decides`.
+goal prevails, and the conflict goes to the owner, per `goal@the-owner-decides`.
 The rival, every recorded decision binding as the owner's word, would let an unreviewed implication
 of an approval overrule a goal.
 
@@ -218,7 +218,7 @@ over an installed instruction that sends to the owner a question it gives the se
 prevails over a decision. Which further actions a project reserves to its owner is the project's
 to state.
 
-It serves `goal@knowledge-architect@the-owner-decides`, which gives the owner what the argument
+It serves `goal@the-owner-decides`, which gives the owner what the argument
 leaves open and has agents decide what the record settles, so a question the record answered is the agents' to decide. A workflow whose only authority is the owner
 sends every question to the owner, and records every answer as a ruling. In thaum, which implements a published rules text, at least three of
 the eleven questions one session put to the owner were answered by the rules, and in this
@@ -252,7 +252,7 @@ measurement or the record answers is recorded as a reading or a fact, with its s
 source leaves the point open and the owner chose, the record says the owner chose among the
 readings the source permits.
 
-It serves `goal@knowledge-architect@the-owner-decides`, which sends to the owner only what the
+It serves `goal@the-owner-decides`, which sends to the owner only what the
 argument leaves open, so every other decision is recorded on its own ground. An answer recorded as a ruling
 weighs on every later session as the owner's intent: the owner observed that questioning such
 answers is discouraged, or that they come back to the owner even when the answer is obvious and the
@@ -276,7 +276,7 @@ project states, never inferred from an answer to a reading question.
 
 The three rules sit in one section because the second and the third are the first's two cases,
 split by the authority of the question, per `tripwire@agent-skills@split-rule-from-exception`. The
-hold derives from `goal@knowledge-architect@the-owner-s-word-is-verified`. The source rule's nearest
+hold derives from `goal@the-owner-s-word-is-verified`. The source rule's nearest
 rival, putting the owner's answer back to the owner with the source's reading as the default, is
 what thaum built first: it still asked, offered an option the specification forbids, and two of
 thaum's reviewers found it contradicted the specification's authority. The design skill holds the
@@ -287,7 +287,7 @@ where a word of the owner can arrive in any session, which is the content test o
 in a review repair and at an entry test on the owner's intent, `rejected@agent-skills@owner-intent-entry-test`,
 the second on a premise the session supplied, that the decision failed the first three tests, when
 the same change had made the second pass. A word acted on past its premise records a decision the
-owner did not make, against `goal@knowledge-architect@the-owner-decides`.
+owner did not make, against `goal@the-owner-decides`.
 
 The design this decision did not keep: `rejected@agent-skills@owner-reading-answer-put-back`.
 
@@ -299,7 +299,7 @@ the work is routed by `primer@question-authority`, per
 answers, the session decides and reports; a fork, a goal or a fact only the owner holds goes to the
 owner with a default the work proceeds on, a goal standing as it is meanwhile; a contradiction, or an action that cannot be undone, holds the part of the work
 that rests on it, as a contradiction does wherever it is met, per
-`goal@knowledge-architect@the-owner-s-word-is-verified`, and as `primer@owner-word-premise` and the
+`goal@the-owner-s-word-is-verified`, and as `primer@owner-word-premise` and the
 design skill's material finding say. A fix checkable from the diff alone lands in a commit of its
 own; an item whose `Why it matters` and `What would close it` can be written is opened as an
 issue; any other is named, with why it is dropped. An item whose fix lies in the installed text or
@@ -331,7 +331,7 @@ reading of a goal. A subagent reports its decisions under the same title, and th
 session carries them into its own.
 
 
-It serves `goal@knowledge-architect@the-owner-decides`, under which each decision the agents make
+It serves `goal@the-owner-decides`, under which each decision the agents make
 that enters the record, and each choice they make on a question that is the owner's, reaches the
 owner, who can contest it with a goal, a fact or an argument, and `design@agent-skills@questions-go-to-their-authority` gives
 the session many of those decisions. The nearest rival, the commit messages and the pull request,
@@ -513,7 +513,7 @@ place of the installed skill and of the project's skills that add to it. A proje
 beside the installed one, per `design@agent-skills@overlay-by-separate-skills`. The instruction names
 no outside skill, per `design@agent-skills@no-external-handoff`.
 
-The ground is `goal@knowledge-architect@agents-get-a-complete-workflow`: an agent carries each
+The ground is `goal@agents-get-a-complete-workflow`: an agent carries each
 activity out with the workflow and what its project adds, and needs no instruction from outside
 what knowledge-architect provides and what its project adds, so no skill the environment adds takes the place of an installed one for an activity the set
 covers. The harness lists a plugin's skill beside the installed ones: both cloud
@@ -622,7 +622,7 @@ which it carries under a command of its own through the library of the package `
 runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
 crate per tool would otherwise do, and gives the project's other repeated tasks a place, so that
 every target project gets its gates and its maintenance commands in one shape, per
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped`. The cost accepted: building the gates builds
+`goal@generic-tools-and-procedures-are-shipped`. The cost accepted: building the gates builds
 the checker, which the check gate needs anyway, and the mutation library.
 
 ### Every target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
@@ -630,8 +630,8 @@ the checker, which the check gate needs anyway, and the mutation library.
 knowledge-architect asks every target project to carry the maintenance crate of
 `design@agent-skills@xtask-pins-checker`, so that a command of the installed text, such as
 `cargo x gates` or `cargo x mutate`, names one invocation in every project; every target project is
-a Rust project built by Cargo, per `goal@knowledge-architect@serves-one-kind-of-project`. The ask was
-taken in on the owner's word, and is this head's decision, held on its argument: `goal@knowledge-architect@the-owner-decides` reserves to
+a Rust project built by Cargo, per `goal@serves-one-kind-of-project`. The ask was
+taken in on the owner's word, and is this head's decision, held on its argument: `goal@the-owner-decides` reserves to
 knowledge-architect's owner the conditions and the asks that the scope goal itself names, a git
 repository and the `claude` harness, so an ask a design head holds changes on an argument, and the
 change is reported to the owner. The setup skill states it, and offers a Rust project no local install of the checker, which would
@@ -649,7 +649,7 @@ shape is a part of the installed text, or a file the workflow's setup writes, th
 or leaves as a whole; one for continuous integration or for pull requests may ship. Running either
 is no activity the workflow covers.
 
-`goal@knowledge-architect@serves-one-kind-of-project` lists the conditions a target project holds,
+`goal@serves-one-kind-of-project` lists the conditions a target project holds,
 a linear history of its main branch among them, and none names a pull request, continuous
 integration or a hosting service, so a project that merges locally and runs no continuous
 integration is a target project the workflow serves. The nearest rival is an installed text that
@@ -668,7 +668,7 @@ goal and no head argues for them.
 For a crate the project publishes, the setup skill proposes to the owner a repository-facing
 README.md and a separate, short CRATES-IO.md as its crates.io page, named by `readme`: the split
 `design@knowledge-architect@crates-io-page-file` makes for this repository's own crates, for the
-same reason. It serves `goal@knowledge-architect@adoption-is-easy`.
+same reason. It serves `goal@adoption-is-easy`.
 
 The owner's intent, on the owner's own proposal: "Maybe I'd also make it the default in the set-up
 skill: for published Rust crates, keep the README.md as a repo facing document, and use a separate

@@ -13,7 +13,7 @@ whether the workflow lowers the cost of a change has no measurement.
 
 ### What
 
-`goal@knowledge-architect@agents-get-a-complete-workflow` is there to raise the efficiency
+`goal@agents-get-a-complete-workflow` is there to raise the efficiency
 of the agents' work, and a review round, an argument derived again, or a decision reversed by
 accident, that the workflow would have spared, is efficiency lost. No instrument counts any of them. The retrospective,
 `path@agent-skills@content/skills/retrospective/SKILL.md`, asks standing questions and writes two
@@ -79,13 +79,13 @@ owner":
 ### Why it matters
 
 Without the counts, no session sees the review rounds, the arguments derived again and the reversals
-by accident that lower the efficiency `goal@knowledge-architect@agents-get-a-complete-workflow` is there to
+by accident that lower the efficiency `goal@agents-get-a-complete-workflow` is there to
 raise,
 and a proposal to add or cut workflow text, which `design@agent-skills@capabilities-not-structure`
 weighs, is argued from intuition. The counts are also the evidence
-`goal@knowledge-architect@the-workflow-improves-through-real-use` names: real sessions as the test
+`goal@the-workflow-improves-through-real-use` names: real sessions as the test
 of the workflow. The count of drift corrections would also measure the supervision
-`goal@knowledge-architect@agents-work-without-drift` saves.
+`goal@agents-work-without-drift` saves.
 
 ### What would close it
 

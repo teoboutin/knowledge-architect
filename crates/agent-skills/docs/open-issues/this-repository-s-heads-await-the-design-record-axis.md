@@ -22,7 +22,7 @@ owner's intent as their ground include `design@agent-skills@no-untested-snippet-
 whose ranking was confirmed under the removed entry test, and a head of
 `path@model@docs/design/anchors.md` whose ground reads "the owner's intent"; a search for "the owner's intent" and "on the
 owner's word" over the design homes lists the rest. The heads that cite a goal are listed by
-`cargo klarch show` on each goal of `register@knowledge-architect@goal`; a head that a change of
+`cargo klarch show` on each goal of `register@goal`; a head that a change of
 this repository touched since the rule was written states the constraint already, and the others
 do not.
 
@@ -33,7 +33,7 @@ where the intent is of the three kinds, and otherwise as an argument; a later se
 whether to argue against it or ask the owner. A head that cites a goal with no constraint beside it
 leaves a reader to work out what the goal binds there, which two heads can read two ways. Both are
 against
-`goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+`goal@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 

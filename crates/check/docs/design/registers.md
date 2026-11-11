@@ -12,8 +12,8 @@ heading that names the design not kept, its slug last, and its body opens with a
 whole with every text that cites it, and a plan item, a review finding, a commit message or a head
 can name one design.
 
-It serves `goal@knowledge-architect@design-is-recorded-with-its-arguments`, which asks for the
-alternatives that lost and why, and `goal@knowledge-architect@records-reach-their-reader`, which asks that a
+It serves `goal@design-is-recorded-with-its-arguments`, which asks for the
+alternatives that lost and why, and `goal@records-reach-their-reader`, which asks that a
 recorded entry reach whoever needs it through checked references: an entry with no slug can be
 cited by nothing, and `show` prints an entry whole only when it is one. The home stays apart from
 the design home, on the owner's argument: an agent reading a decision file partly, by grep, could
@@ -53,7 +53,7 @@ head states, delete it and name the design and its reason beside that instructio
 `skill@knowledge-architect-decision-recording@losing-alternatives` admits since no head cites it. It is raised over a tree in
 `path@check@src/check/references.rs`, not over a commit message, which holds no design entry.
 
-It serves `goal@knowledge-architect@documentation-stays-consistent`: a head cites the designs its argument
+It serves `goal@documentation-stays-consistent`: a head cites the designs its argument
 covers, per `design@agent-skills@rejected-citation-direction`, and this check is what makes every
 `rejected` entry reachable from the text a design session reads, the head, rather than only from
 `show`. Only a citation from a design entry counts, on the owner's judgement; a citation counts by

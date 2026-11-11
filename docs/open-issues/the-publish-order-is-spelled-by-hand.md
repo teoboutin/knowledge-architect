@@ -50,7 +50,7 @@ the changelog copy. Ruled out: a test comparing the lists, which keeps every cop
 ### Why it matters
 
 A list that drifted publishes a crate before one it depends on, and the release stops part-way,
-against `goal@knowledge-architect@agents-work-without-drift`; four sessions met a hand-written
+against `goal@agents-work-without-drift`; four sessions met a hand-written
 crate list that had drifted.
 
 ### What would close it

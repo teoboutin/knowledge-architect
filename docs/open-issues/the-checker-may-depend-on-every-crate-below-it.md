@@ -23,7 +23,7 @@ owner's view contradicts neither. No recorded decision states which of these cra
 ### Why it matters
 
 A lint that needs what `query` computes has no recorded answer on where it may get it, and a session could copy the computation into `check`
-or read the absence of a dependency as a rule. The direction serves `goal@knowledge-architect@documentation-stays-consistent`. It costs each consumer of
+or read the absence of a dependency as a rule. The direction serves `goal@documentation-stays-consistent`. It costs each consumer of
 the checker the build of whatever it pulls in, mdbook's dependency tree if `render` holds it, which
 `testing` and the extension API's consumers meet.
 

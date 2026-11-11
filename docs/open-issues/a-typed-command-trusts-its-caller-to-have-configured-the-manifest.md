@@ -36,7 +36,7 @@ Not established: what that does to `Manifest` as the facades publish it.
 ### Why it matters
 
 `design@knowledge-architect@a-typed-command-prints-and-returns-its-code` offers these functions to a frontend that is no command line, and
-`goal@knowledge-architect@documentation-stays-consistent` holds that a tree the checker passes conforms. A precondition a caller can miss, with no
+`goal@documentation-stays-consistent` holds that a tree the checker passes conforms. A precondition a caller can miss, with no
 refusal, gives a pass on a tree the same checker fails.
 
 ### What would close it

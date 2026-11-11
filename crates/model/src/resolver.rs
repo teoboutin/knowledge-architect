@@ -399,8 +399,9 @@ impl Cause {
                 (
                     format!("`{span}` names {whose} home of the {register} register by its path"),
                     format!(
-                        "write `register@{anchor}@{register}`, which names the home in either of \
-                         its shapes, so a home that changes shape breaks no reference{}",
+                        "write `{}`, which names the home in either of its shapes, so a home \
+                         that changes shape breaks no reference{}",
+                        crate::entity::spelled(crate::entity::REGISTER_KIND, anchor, register),
                         if *suffix {
                             ". A reference names the home: drop the line number or the fragment, \
                              and name the point inside it in prose"
@@ -1132,7 +1133,9 @@ fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> Stri
     match anchors.home_target(Path::new(
         target.to_str().unwrap_or("").trim_end_matches('/'),
     )) {
-        Some((keeper, r)) => format!("register@{}@{}", keeper.name, r.name),
+        Some((keeper, r)) => {
+            crate::entity::spelled(crate::entity::REGISTER_KIND, &keeper.name, &r.name)
+        }
         None => format!("path@{anchor}@{path}"),
     }
 }

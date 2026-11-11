@@ -31,7 +31,7 @@ CI's machine shows is fixed by a commit no review covered. Should CI run on a dr
 ### Why it matters
 
 A failure found after the review lands unreviewed or costs another round, against
-`goal@knowledge-architect@agents-get-a-complete-workflow`. Running CI on drafts would change
+`goal@agents-get-a-complete-workflow`. Running CI on drafts would change
 `design@knowledge-architect@git-flow`, `design@xtask@gates-list-primary-home`, the CI file, and
 points 1, 4 and 5 of `instructions@git-workflow`.
 

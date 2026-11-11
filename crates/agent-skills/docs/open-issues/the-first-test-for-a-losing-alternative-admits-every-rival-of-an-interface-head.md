@@ -50,7 +50,7 @@ excluded both.
 
 `rejected@agent-skills@every-losing-thread-recorded` is `live`, with the owner's judgement that the
 filter is "still a little imperfect"; a filter read two ways grows the `rejected` homes unevenly,
-against `goal@knowledge-architect@design-is-recorded-with-its-arguments`.
+against `goal@design-is-recorded-with-its-arguments`.
 
 ### What would close it
 

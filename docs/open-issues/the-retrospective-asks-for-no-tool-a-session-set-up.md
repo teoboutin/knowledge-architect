@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`goal@knowledge-architect@generic-tools-and-procedures-are-shipped` has the generic part of a tool
+`goal@generic-tools-and-procedures-are-shipped` has the generic part of a tool
 or a procedure that a target project sets up or changes shipped once knowledge-architect's owner
 takes it in. The owner can take in only what reaches the owner: each tool and procedure a session
 sets up or changes, to make development more efficient or the project better, reported, each report

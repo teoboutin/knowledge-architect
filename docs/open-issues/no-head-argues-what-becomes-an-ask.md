@@ -5,9 +5,9 @@ kind: design
 
 ## Summary
 
-`goal@knowledge-architect@serves-one-kind-of-project` says that knowledge-architect asks more of a
+`goal@serves-one-kind-of-project` says that knowledge-architect asks more of a
 target project than its four conditions, and names two asks: a git repository, and agents under the
-`claude` harness. `goal@knowledge-architect@the-owner-decides` gives knowledge-architect's owner
+`claude` harness. `goal@the-owner-decides` gives knowledge-architect's owner
 each addition, tightening or removal of a condition or an ask of that goal, which the owner reads
 as the asks the goal itself names: an ask that a design head holds changes on an argument, and the
 change is reported to the owner. No goal and no design head states how a tool or a
@@ -28,7 +28,7 @@ quality tools that serve target projects":
 - "each is an ask", said of "the quality tools [...] whose generic part knowledge-architect's owner
   has taken in". It bound every target project to adopt each quality tool taken in.
 
-From `goal@knowledge-architect@serves-one-kind-of-project`, which no longer holds them:
+From `goal@serves-one-kind-of-project`, which no longer holds them:
 
 - "An ask that binds every target project is added by a design decision of knowledge-architect, or
   by taking in a quality tool, which then becomes an ask so that every target project adopts it".
@@ -78,7 +78,7 @@ invocation differs between the projects that use the gates library.
 A design discussion under `skill@knowledge-architect-design` that argues each statement, or drops
 it with its reason: the rule of what becomes an ask, with the definition it needs; and each ask
 that no goal states, recorded as a head on its argument, the owner's word being owed only for an ask
-the scope goal itself names, per `goal@knowledge-architect@the-owner-decides`.
+the scope goal itself names, per `goal@the-owner-decides`.
 
 ### Re-entry point
 

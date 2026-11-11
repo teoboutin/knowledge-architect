@@ -48,7 +48,7 @@ apart from a decision, where it is argued against no rival.
 
 Two heads that read one goal in opposite directions both bind as presumptions, and each cites a
 goal that binds outright, so a session grounding on one of them has no sign of the other. It
-threatens `goal@knowledge-architect@agents-work-without-drift`.
+threatens `goal@agents-work-without-drift`.
 
 ### What would close it
 

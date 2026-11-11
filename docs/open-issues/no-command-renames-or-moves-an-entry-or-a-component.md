@@ -66,7 +66,7 @@ writes documents, as `create` and `check --fix` do.
 ### Why it matters
 
 The references follow from the entity table with no judgement, per
-`goal@knowledge-architect@tasks-a-tool-does-better-are-the-tool-s`, which owes the task a command once the
+`goal@tasks-a-tool-does-better-are-the-tool-s`, which owes the task a command once the
 owner takes its generic part in. Each session's script is written again, and two of them rewrote a
 quotation, a plan argument and a code line.
 
