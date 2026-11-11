@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+29 entries
 
 | kind | title |
 | --- | --- |
+| defect | [A declared command holding a quote or a backslash installs saved workflows that do not parse](a-declared-command-with-a-quote-breaks-the-installed-workflows.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |

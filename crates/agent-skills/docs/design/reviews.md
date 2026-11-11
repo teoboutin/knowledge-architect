@@ -203,8 +203,8 @@ auto permission mode, and the default mode is not established. Two rivals lost. 
 harness does not refuse depends on a pattern no documentation states, which a release of the
 harness can change with no signal. A skeleton the dispatcher creates and the reviewer fills by
 `Edit` costs a dispatcher step per reviewer; it and the shell both write past the refusal's intent,
-and the owner chose the shell, which no goal ranks. No head argues the reliance on a mechanism of
-the harness against its own refusal, per
+and the owner chose the shell as the safest of the shapes, which no goal ranks. No head argues the
+reliance on a mechanism of the harness against its own refusal, per
 `issue@agent-skills@no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness`.
 
 ### A reviewer that writes its report file also returns the report whole as text `##reviewer-returns-its-report-whole`

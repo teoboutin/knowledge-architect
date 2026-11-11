@@ -29,7 +29,7 @@ pub struct GatesArgs {
     #[arg(long)]
     pub require_rebased: bool,
 
-    /// Hold the requirements CI holds on the tools a gate needs: set [`CI_VAR`] in every gate's
+    /// Hold the requirements CI holds and a local run does not: set [`CI_VAR`] in every gate's
     /// environment, so a test that needs a tool a machine may lack fails without it instead of
     /// skipping, per `design@gates@ci-flag-for-ci-only-requirements`.
     #[arg(long)]
