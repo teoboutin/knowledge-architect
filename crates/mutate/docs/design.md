@@ -131,6 +131,18 @@ opened has truncated it, so the record stays unless the file still holds its pre
 is where the content is kept when the crate cannot put it back, so that the crate's own writes lose
 none of it, per `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`.
 
+### A hard kill of a run does not reach the command it started `##hard-kill-leaves-the-command`
+
+The run starts the caller's command with `std::process` and waits on it, and the command does not
+share its fate: a `SIGKILL` of the run leaves the command running, with nothing waiting on it. The
+tree is unaffected, since the record is whole before the target is touched, per
+`design@mutate@record-survives-the-run`, so `restore` puts the file back whether or not the command
+still runs. What is left is a stray process. Stopping it would take what `std::process` does not
+offer: a `SIGKILL` runs no handler, so only `prctl(PR_SET_PDEATHSIG)` through `libc` reaches the
+child, on Linux alone, and a process group of the command's own reaches it on the signals a handler
+can catch, never on `SIGKILL`. The session chose the stray process over a dependency on `libc`
+and code for one platform, which no goal ranks; the owner approved it.
+
 ### The recovery record lives in the git directory `##record-lives-in-the-git-directory`
 
 The record is at the path `git rev-parse --git-path knowledge-architect-mutate` names. The git

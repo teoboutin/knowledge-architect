@@ -680,7 +680,8 @@ fn a_run_killed_mid_mutation_is_restored_byte_for_byte() {
     }
     run.kill().expect("killing the run");
     run.wait().expect("reaping the run");
-    // The command the run started outlives it, per the crate's issue on a hard kill; stop it.
+    // The command the run started outlives it, per `design@mutate@hard-kill-leaves-the-command`;
+    // stop it.
     s.write("stop", "");
     assert!(
         s.read(FILE).contains("MUT"),

@@ -91,7 +91,8 @@ crates/mutate/src/harness.rs: caught
 - **A mutant that cannot be written in full leaves the record standing** when the file no longer
   holds its content, and the run exits 1.
 - **A hard kill leaves the command running**, since the tool waits on it without owning its process
-  group: `issue@mutate@a-hard-kill-orphans-the-command`.
+  group; `restore` still puts the file back, per `design@mutate@hard-kill-leaves-the-command`. Stop
+  a long command a killed run started by hand.
 
 ## The library
 
