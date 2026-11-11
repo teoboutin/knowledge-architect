@@ -29,14 +29,36 @@ an empty subsection is omitted.
   changes. A program that names the type `[&str; 10]` changes it.
 - `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
   installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
-- `checks`, minor: a goals home, its goals and its head alike, cites only a goal or a register's home
-  of its own Component or of a Component that encloses it, the root included; every other reference
-  written there is a finding, a goal or a register's home of a nested or a sibling Component, a design
-  head, an issue, a path and a skill or an agent among them. A project rewords each goal that cites
+- `checks`, minor: the goals home, its goals and its head alike, cites only a goal or a register's
+  home of the root; every other reference written there is a finding, a register's home of another
+  Component, a design head, an issue, a path and a skill or an agent among them. A project rewords each goal that cites
   such an entry through goal-setting, its owner ruling each rewording, the draft mode of
   `skill@knowledge-architect-goal-setting@drawing-out-intent` serving where the citations touch few
   goals, and never by removing the backticks; the review of the whole goal set the standard's entry
   names may follow as work of its own.
+- `checks`, major: the register `goal` is carried by the project's root alone. A goals home in any
+  other Component, docs/goals.md or docs/goals/, is a phase-2 finding that stops the run: a project
+  deletes it where it holds no goal, and otherwise moves each goal to the root's goals home or turns
+  it into a design head, by `skill@knowledge-architect-goal-setting@whole-set-review`. This holds for
+  every project the consumer's tests build, mock projects included. `init` and `new-component` write
+  no goals home for a Component.
+- `manifest`, major: a location that declares the register `goal` in its `registers` list is refused
+  that register, a finding; a manifest that names it there stops being accepted as it was. A project
+  removes `goal` from the row and moves the location's goals to the root's goals home.
+- `checks`, minor: a goal is cited `goal@<id>` and the root's goals home `register@goal`, with no
+  anchor. `goal@<anchor>@<id>`, `register@<anchor>@goal` and the same home with `*` as its anchor are malformed, each
+  finding naming the form with no anchor. A project respells its goal references, in its documents,
+  its Rust comments and its mock projects, for instance with
+  `perl -pi -e 's/\bgoal\@[A-Za-z0-9*_-]+\@/goal\@/g; s/\bregister\@[A-Za-z0-9*_-]+\@goal\b/register\@goal/g'`
+  over its tracked Markdown and Rust files, its installed agent files apart, which the install
+  rewrites.
+- `cli`, major: `show` refuses a goal or the root's goals home written with an anchor, exit 2, as
+  malformed; `id`, `show` and `worklist` print a goal as `goal@<id>`; and `worklist` gives every
+  agent the root's goals as title lines, and no other.
+- `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
+  scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
+  `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
+  program that holds the result past the `Anchors` it passed keeps them alive as long.
 - `cli`, major: `worklist --verify` judges reports whose lines give each entry a verdict, an
   `against`, an action, an `owner-question`, a quotation of the entry's text and a reason, after the
   seed field, with `## Decided` and `## Met outside the task` closing each report, and refuses a
@@ -61,14 +83,14 @@ an empty subsection is omitted.
   contradiction; to state no measure, what would show it met and how the project pursues it being
   design; and to refine no other goal, a statement grounded on another goal being a design head that
   cites it. A goal's body holds no list of cases, and an example only where the statement alone
-  would be read in the wrong direction. A goals home cites only goals and registers of its own
-  Component or of one enclosing it. The head of the root's goals home states what the project is
+  would be read in the wrong direction. The goals home cites only goals and the root's homes of
+  registers. The head of the root's goals home states what the project is
   for as a whole and the few definitions its goals share, and restates no rule of goal-setting. A
   project brings its goals to the standard by
   `skill@knowledge-architect-goal-setting@whole-set-review`: each goal of a Component moved to the
   root's goals home or recorded as a design head, the two goals the setup skill proposed for a
   maintenance tool among them; each measure, "It is met while", and each line stating that a goal
-  refines another, removed; each Component's goals home left with no entry; each Component's
+  refines another, removed; each Component's goals home deleted, as the next entry says; each Component's
   purpose recorded as the statement of the head that argues its existence; and each reference to a
   goal that moved or left re-pointed.
 - `agent-skills`, patch: a design head that derives a constraint from a goal states that constraint
