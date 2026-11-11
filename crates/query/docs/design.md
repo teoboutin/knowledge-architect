@@ -251,7 +251,6 @@ register, and only the searcher's own correction, appended to its report, showed
 output is read by its own `--verify`, the searcher and the session, and is no contract with another
 reader, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 
-
 ### `worklist --check` judges one agent's report by the judgement of `--verify`, and writes nothing `##worklist-check-judges-one-report`
 
 `klarch worklist --check <dir>/agent-<n>` judges that one agent's report against the `agents.txt`,
@@ -266,6 +265,7 @@ disagree on a report: a report `--check` passes gives no finding under `--verify
 since `--verify` first removes, then writes, the outputs of the directory every agent of the list
 shares; `--verify <dir> --agent <n>`, the other rival, judges the same and makes the agent build two
 arguments from the one path it holds.
+
 ### `worklist --since` marks the entries whose file changed since a commit, and filters none `##since-marks-changed-entries`
 
 `--since <commit>` resolves the revision to one commit and marks `changed-since`, in `agents.txt` and

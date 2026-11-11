@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-63 entries
+64 entries
 
 | kind | title |
 | --- | --- |
@@ -17,6 +17,7 @@
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
+| design | [A record search misses what bears on a part of the work added after it ran](a-record-search-misses-what-is-added-after-it.md) |
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |

@@ -5893,7 +5893,8 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
     );
 }
 
-// ---- `worklist`, per `design@query@worklist-writes-and-verifies-the-reports` ----
+// ---- `worklist`, per `design@query@worklist-writes-and-verifies-the-reports` and
+// `design@query@worklist-check-judges-one-report` ----
 
 /// The manifest of the worklist project: the root `core-mock`, a Component `widget` whose design
 /// home is a directory, and a location `notes` carrying a declared file register with groups and a

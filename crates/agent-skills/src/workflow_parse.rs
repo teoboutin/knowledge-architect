@@ -20,7 +20,8 @@ use std::process::{Command, Stdio};
 
 /// The variable the gates library's `--ci` sets in every gate's environment, spelled here as the
 /// library spells it, per `design@gates@ci-flag-for-ci-only-requirements`: this crate depends on
-/// no other.
+/// no other. A test of xtask, `the_parse_test_reads_the_library_s_ci_variable`, reads this line and
+/// fails where the two spellings differ.
 const CI_VAR: &str = "KNOWLEDGE_ARCHITECT_CI";
 
 /// The program the check runs.
@@ -65,6 +66,9 @@ fn required() -> bool {
     std::env::var_os(CI_VAR).is_some()
 }
 
+/// What a run that skips prints, on its own stderr, which `cargo test` shows under `--nocapture`.
+const SKIPPED: &str = "skipped: no `node` can be started, so no saved workflow was parsed";
+
 /// The outcome of a check that needed `node`: `Ok(Some(_))` when it ran, `Ok(None)` when no
 /// `node` could be started and the run does not require it, and `Err` when the run requires it,
 /// so a CI runner without `node` fails the gate instead of passing it with nothing parsed.
@@ -75,10 +79,7 @@ fn checked<T>(outcome: Option<T>, required: bool) -> Result<Option<T>, &'static 
             "no `node` can be started, and `KNOWLEDGE_ARCHITECT_CI` is set, as `cargo x gates --ci` \
              sets it: the saved workflows must be parsed",
         ),
-        None => {
-            eprintln!("skipped: no `node` can be started, so no saved workflow was parsed");
-            Ok(None)
-        }
+        None => Ok(None),
     }
 }
 
@@ -101,7 +102,7 @@ fn every_installed_saved_workflow_parses() {
     for (path, text) in all {
         match checked(node_check(NODE, text), required()) {
             Err(failure) => panic!("{failure}"),
-            Ok(None) => return,
+            Ok(None) => return eprintln!("{SKIPPED}"),
             Ok(Some(Ok(()))) => {}
             Ok(Some(Err(message))) => panic!("{path} does not parse:\n{message}"),
         }
@@ -117,7 +118,7 @@ fn the_parse_check_fails_on_a_planted_syntax_error() {
     for (path, text) in workflows() {
         let passing = match checked(node_check(NODE, &format!("{text}\nreturn 1\n")), required()) {
             Err(failure) => panic!("{failure}"),
-            Ok(None) => return,
+            Ok(None) => return eprintln!("{SKIPPED}"),
             Ok(Some(result)) => result,
         };
         assert_eq!(passing, Ok(()), "{path}");

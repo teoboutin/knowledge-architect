@@ -78,8 +78,9 @@ mod tests {
     }
 
     /// The claim: CI runs the gates with `--ci`, so a test that needs a tool a machine may lack
-    /// fails there without it, per `design@gates@ci-flag-for-ci-only-requirements`. Mutation
-    /// checked: `--ci` removed from the gates step of the CI workflow; caught.
+    /// fails there without it, per `design@gates@ci-flag-for-ci-only-requirements`. Mutations
+    /// checked: `--ci` removed from the gates step of the CI workflow, and turned into a comment
+    /// of it, ` # --ci`; each caught.
     #[test]
     fn ci_runs_the_gates_with_the_ci_flag() {
         let workflow = include_str!("../../../.github/workflows/ci.yml");
@@ -87,6 +88,21 @@ mod tests {
             .lines()
             .find(|l| l.trim_start().starts_with("run: cargo --locked x gates"))
             .expect("the CI workflow runs the gates");
-        assert!(step.split_whitespace().any(|w| w == "--ci"), "{step}");
+        // YAML reads ` #` in a plain scalar as the start of a comment, which CI does not run.
+        let command = step.split(" #").next().unwrap_or(step);
+        assert!(command.split_whitespace().any(|w| w == "--ci"), "{step}");
+    }
+
+    /// The claim: the parse test of the saved workflows reads the variable the library's `--ci`
+    /// sets, though it spells it by hand, since its crate depends on no other. Mutation checked:
+    /// the spelling in `path@agent-skills@src/workflow_parse.rs` changed by one letter; caught.
+    #[test]
+    fn the_parse_test_reads_the_library_s_ci_variable() {
+        let source = include_str!("../../../crates/agent-skills/src/workflow_parse.rs");
+        let line = format!(
+            "const CI_VAR: &str = \"{}\";",
+            knowledge_architect_gates::CI_VAR
+        );
+        assert!(source.contains(&line), "no `{line}` in the parse test");
     }
 }

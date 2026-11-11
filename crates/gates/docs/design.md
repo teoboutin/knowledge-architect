@@ -33,9 +33,9 @@ Under `--ci`, every gate's child runs with `KNOWLEDGE_ARCHITECT_CI=1`, the libra
 the environment it inherits. A project's test that needs a tool a machine may lack, such as a
 JavaScript runtime, reads it: unset, the test skips where the tool is missing, so a machine without
 the tool can run the gates; set, it fails there, so CI, which passes the flag, never passes with the
-check unrun. It is one flag for every such requirement, so CI's command states the difference
-between CI and a local run, as `design@xtask@gates-list-primary-home` asks of this repository, and a
-second requirement adds no flag. Three shapes were weighed: a test reading the `CI` variable every
+check unrun. It is one flag for every such requirement: a project's CI command, which a reader
+copies to reproduce CI's verdict, states the difference between CI and a local run, and a second
+requirement adds no flag. Three shapes were weighed: a test reading the `CI` variable every
 CI system sets, which needs no flag and leaves CI's verdict out of the command a reader copies; one
 flag per requirement, which keeps the command whole and adds a flag at each requirement; and one
 flag setting one variable. The owner chose the last over both, which no goal ranks. The flag is the

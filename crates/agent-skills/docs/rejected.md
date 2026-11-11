@@ -479,7 +479,7 @@ thread closes, per `design@agent-skills@search-runs-once-the-shapes-settle` and
 reads the plan document once it is written, per `design@agent-skills@plan-read-against-the-record`,
 so a reader at the checkpoint would read the same shapes against the same record a third time. A
 doubt remains that a search at grounding misses what bears on a thread opened later, which
-`tripwire@agent-skills@record-search-misses` watches; this is the candidate if it fires.
+`issue@agent-skills@a-record-search-misses-what-is-added-after-it` records, as a fired tripwire's question; this is its candidate.
 
 ### A listing command of design entries, cut into groups of 60 rows `##design-listing-cut-in-groups-of-sixty`
 
@@ -598,7 +598,7 @@ skill and run the discussion on work the owner judges bounded would make it a ca
 `live`. A searcher gives `brings-back` against a shape, and a question gives it none, where the
 retrospective intake and the design audit send theirs a shape. It is kept because a doubt remains:
 a work statement holding the shapes may leave an entry that bears on the problem outside them graded
-`unrelated`, which `tripwire@agent-skills@record-search-misses` watches.
+`unrelated`, which `issue@agent-skills@a-record-search-misses-what-is-added-after-it` records.
 
 ### The owner ruling on each acceptance criterion, at the premortem or when a later criterion is proposed `##owner-rules-each-criterion`
 

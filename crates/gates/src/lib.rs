@@ -46,5 +46,5 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod gates;
 pub mod process;
 
-pub use gates::{run, rust_project, Checker, Distiller, Gate, GatesArgs};
+pub use gates::{run, rust_project, Checker, Distiller, Gate, GatesArgs, CI_VAR};
 pub use process::project_root;

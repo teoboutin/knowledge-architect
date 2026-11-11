@@ -136,7 +136,8 @@ pub struct WorklistArgs {
     /// `agents.txt`, `work.txt` and `shown.md` of the directory that holds it. It writes and
     /// removes no file and judges no other report, so an agent runs it on its own report before
     /// it returns, while the other agents still fill theirs. Exit 0 when the report passes, 1 with
-    /// its findings when it fails, 2 when it cannot read the work list or the report.
+    /// its findings when it fails, 2 when AGENT_DIR names no agent of the work list, or the work list
+    /// or the report cannot be read.
     #[arg(
         long,
         value_name = "AGENT_DIR",
