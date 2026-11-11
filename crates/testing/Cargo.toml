@@ -27,3 +27,6 @@ knowledge-architect-model = { path = "../model" }
 knowledge-architect-gates = { path = "../gates" }
 clap = { version = "4", features = ["derive"] }
 toml = "1.1.4"
+
+[lints]
+workspace = true

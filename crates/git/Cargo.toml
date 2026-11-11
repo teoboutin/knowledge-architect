@@ -10,3 +10,6 @@ keywords.workspace = true
 # What the published package ships, as a whitelist: a new directory is shipped only once it is
 # listed here.
 include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[lints]
+workspace = true

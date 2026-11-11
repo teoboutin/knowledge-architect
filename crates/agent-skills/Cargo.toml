@@ -9,3 +9,6 @@ repository.workspace = true
 keywords.workspace = true
 # What the published package ships, as a whitelist.
 include = ["/src/**", "/build.rs", "/content/**", "/snippets/**", "/fragments/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[lints]
+workspace = true

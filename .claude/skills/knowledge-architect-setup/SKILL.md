@@ -382,6 +382,9 @@ clap = { version = "4", features = ["derive"] }
 knowledge-architect = "=<version>"
 knowledge-architect-gates = "=<version>"
 knowledge-architect-mutate = "=<version>"
+
+[lints.rust]
+unsafe_code = "forbid"
 ```
 
 **The aliases**, in `<workspace-root>/.cargo/config.toml`: `cargo x` runs the crate's own commands, and
@@ -527,6 +530,12 @@ turns into failures: `missing_docs` in its `Cargo.toml`'s `[lints.rust]` table, 
 `missing_errors_doc` and `missing_panics_doc` in its `[lints.clippy]` table, each at `"warn"`. They
 apply to every target of the crate: a binary, an example or an integration test then needs its own
 crate-level documentation too.
+
+**Every crate of the project forbids `unsafe` code**, with `unsafe_code = "forbid"` in its
+`[lints.rust]` table, so the clippy gate refuses it. A crate that needs `unsafe` sets the lint to
+`"deny"` instead, allows it at each site with a `// SAFETY:` comment stating why the block is
+sound, and warns on `undocumented_unsafe_blocks` in its `[lints.clippy]` table, which refuses a
+block with no such comment.
 
 **A project with an extension** depends on the crate that holds its extension instead of the
 checker alone, and its `klarch` command registers the extension, as that crate's documentation

@@ -14,3 +14,6 @@ include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APA
 # The modes' flags derive clap's `Subcommand` and `Args`, so a project's maintenance binary carries
 # them under a command of its own.
 clap = { version = "4", features = ["derive"] }
+
+[lints]
+workspace = true

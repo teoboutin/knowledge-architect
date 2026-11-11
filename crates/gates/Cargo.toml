@@ -13,3 +13,6 @@ include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APA
 [dependencies]
 # The gates' flags derive clap's `Args`, so a project's own binary flattens them into its command.
 clap = { version = "4", features = ["derive"] }
+
+[lints]
+workspace = true

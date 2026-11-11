@@ -20,6 +20,11 @@ members = [
     "tools/xtask",
 ]
 
+# Every crate forbids `unsafe` code, as the setup asks of every target project, per
+# `design@agent-skills@no-security-axis`; each crate's `[lints]` takes this table.
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
 # One version for every crate, so the installed skills always match the checker that installed
 # them, per `design@knowledge-architect@version-lockstep`.
 [workspace.package]
