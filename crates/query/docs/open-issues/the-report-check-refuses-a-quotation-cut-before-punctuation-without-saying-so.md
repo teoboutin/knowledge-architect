@@ -34,6 +34,13 @@ or began so. Each repaired its report by extending the quotation by one characte
 how many of the 625 findings were of this kind, the check's output giving one message for every
 cause.
 
+A second misreading of the same message: "never from its first line" names the line
+`cargo klarch show` prints above an entry, which `own_body` in `path@query@src/worklist.rs` drops,
+and the check accepts a quotation of the entry's heading. Searchers read "its first line" as the
+heading. In the record search of the design discussion that made the primer's import line the
+root CLAUDE.md's first line, 2026-11-11, five of 18 searchers reported lines quoting a heading
+that they expected a later run to refuse, and one asked the dispatching session to rule on it.
+
 Ruled out: that the quotations crossed a line break of the body. The check accepts any whitespace
 between two words, as its unit test shows.
 
@@ -48,4 +55,5 @@ already made.
 
 One of two changes, with a test of it: the message names the first word of the quotation that
 matches no whole word of the body, with the body's word it is part of; or the comparison ignores
-the punctuation at the two ends of the quotation.
+the punctuation at the two ends of the quotation. And the message says which line a quotation may
+not come from in words a searcher reads as `own_body` does, with a test of the heading case.
