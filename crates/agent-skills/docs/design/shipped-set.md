@@ -162,8 +162,9 @@ workflow's own upstream repository, where a retrospective's findings on the work
 only against the tree it stands in, and no tree but this one holds this repository's entries. A path
 or a home that every conforming project holds may be written as a reference: `path@*@README.md`
 names each Component's own copy of a required document, per
-`design@model@components-carry-the-same-documents`; `register@goal` names each Component's own
-goals home, in whichever shape it has, per `design@model@register-home-reference`; and
+`design@model@components-carry-the-same-documents`; `register@goal` names the root's goals home,
+in whichever shape it has, in every installing project, since the root alone carries the register
+and its home is named with no anchor, per `design@model@root-register-reference-has-no-anchor`; and
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
 whose path the checker fixes, per `design@model@plans-dir-fixed`. Each is true in every installing
 project, and it shows the syntax the checker enforces there. Writing a per-Component path in that

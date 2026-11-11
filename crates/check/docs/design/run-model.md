@@ -16,8 +16,10 @@ code that checks the real tree.
 
 Five things are compiled in, and none of them describes a project:
 
-- **What the word _component_ means**: the documents a component carries and the five built-in
-  component registers, per `design@model@components-carry-the-same-documents`, and the starting text
+- **What the word _component_ means**: the documents a component carries, the four built-in
+  component registers and the register `goal` the root alone carries, per
+  `design@model@components-carry-the-same-documents` and `design@model@registers-are-declared`, and
+  the starting text
   `init` and `new-component` write in each document and home: a title and a line on what it
   holds, or that it holds no entry yet, with no entry, no reference and no link, so it passes every check in any project, and no
   goal, which is the owner's to state, per `design@agent-skills@goals-change-through-goal-setting`;

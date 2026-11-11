@@ -154,9 +154,10 @@ reads, or in the installer's namespace, whose files every install deletes, is re
 `new-component` and by `init --component` alike. It writes the Component's required
 documents and the home of every register it carries, through the code `init` uses, and ends as
 `init` ends. A register declared `opt-in` is not guessed: the user names the Component in its
-`components`, and the check reports the home. What a Component owes beyond its files, its purpose, its goals and
-the record a split moves into it, is no command's to write: `skill@knowledge-architect-component-creation`
-states it.
+`components`, and the check reports the home. It writes no goals home, since the root alone
+carries the register `goal`, per `design@model@registers-are-declared`. What a Component owes
+beyond its files, its purpose and the record a split moves into it, is no command's to write:
+`skill@knowledge-architect-component-creation` states it.
 
 ### The manifest is edited with a format-preserving editor, and parsed before it is written `##component-manifest-edit`
 

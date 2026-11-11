@@ -87,9 +87,8 @@ a defined id written outside its reference form: a reference-shaped token outsid
 `design@check@plain-word-lint`. An id several entries define gets one finding listing each
 reference, and a quotation, between double quotes or on a blockquote line, is read by none of the
 three, per `design@check@quotation-read-by-no-id-lint`.
-In a goals home, its goals and its head alike, `references` refuses every reference that is not a
-goal or a register's home of the home's own anchor, a Component or a location, or of a Component
-that encloses it, per
+In the goals home, which the root alone carries, its goals and its head alike, `references`
+refuses every reference that is not a goal or a register's home of the root, per
 `design@check@goals-home-cites-upward-only`.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
@@ -148,8 +147,10 @@ or touches git or a hand-written file, and stays the reader's.
 
 ## Registers
 
-**Eleven registers are compiled in.** `design`, `goal`, `tripwire`, `rejected` and `issue` are
-what the word component means to this tool. `rejected` holds the designs a Component did not keep,
+**Eleven registers are compiled in.** `design`, `tripwire`, `rejected` and `issue` are what the
+word component means to this tool. `goal` is the root's alone: a goals home in any other Component,
+and a location that declares it, is refused, and a goal is cited `goal@<id>`, its home
+`register@goal`, with no anchor. `rejected` holds the designs a Component did not keep,
 per `design@check@rejected-register`, each cited by the design entries whose argument covers it, and an entry no design entry cites is a
 finding, per `design@check@orphan-rejected-entry`. `spec` and `milestone` are the plan documents, and `thread`,
 `argument`, `criterion` and `acceptance` their items, described under "Plan documents" below. A project declares further ones in its

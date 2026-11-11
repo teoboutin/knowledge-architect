@@ -9,19 +9,29 @@
 `design@model@declarable-directory-register`, and for an `opt-in` register the `components` that
 carry it, per `design@model@a-component-carries-what-a-project-attaches`; `[locations.<name>]`
 declares a directory and the registers it carries.
-Eleven registers are compiled in — `design`, `goal`, `tripwire`, `rejected`, `issue`, carried
-by every component; `spec` and `milestone`, carried by the anchor `plans`, `spec` also by each milestone
-anchor, per `design@model@plan-register`; and the four item registers, carried by the plan
-anchors, per `design@model@item-registers-built-in`. A declaration for one of the first five accepts `kinds` on `issue`
-and nothing else, because their storage is what the word component means. A table for a plan
-register or an item register is refused whole, and so is any of their names in a location's
-`registers` list, and a
+Eleven registers are compiled in — `design`, `tripwire`, `rejected`, `issue`, carried by every
+component; `goal`, carried by the project's root alone; `spec` and `milestone`, carried by the
+anchor `plans`, `spec` also by each milestone anchor, per `design@model@plan-register`; and the four
+item registers, carried by the plan anchors, per `design@model@item-registers-built-in`. A
+declaration for one of the first five accepts `kinds` on `issue` and nothing else, because the
+storage of the first four is what the word component means, and the goals home's is what the root
+holds for the whole project. A table for a plan register or an item register is refused whole, and
+so is any of their names in a location's `registers` list, as is `goal` there, and a
 component register whose home at the root would be the plans directory: the plans layout is the
 tool's, and a declaration that changes it changes nothing a project can rely on. A declared
 register named `path`, `planned`, `register` or a harness kind is refused too: a reference whose
 kind segment is that word never reaches the register. Setting `scope`, `shape`, `dir`, `level`,
 `sections`, `metadata`, `carries` or `components` on a built-in is a finding, and the compiled
 value stands.
+
+**The register `goal` is the root's alone, by a scope compiled in that no declaration gives or
+changes.** A goal is what the project is for, so it names no part of the project, and which
+Components exist is a design choice that a goal would otherwise follow, per
+`design@agent-skills@goals-home-at-the-root-only`. A goals home in a Component other than the root
+is refused in phase 2, with the repair of its case: deleted where it holds no goal; each goal moved
+to the root's home, or turned into a design head, where it holds one. Since the tool fixes the
+register's one carrier, a goal is cited with no anchor, per
+`design@model@root-register-reference-has-no-anchor`.
 
 **Declarations go in the manifest because its header promises that what is checked is said in one
 place.** Its bulk is comments, which is what a declaration owes a reader.

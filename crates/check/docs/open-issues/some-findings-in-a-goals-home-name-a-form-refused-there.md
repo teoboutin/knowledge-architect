@@ -8,9 +8,8 @@ kind: defect
 `design@check@goals-home-cites-upward-only` says that every finding of the reference check that
 would name a reference form in a goals home names the goals-home repair instead,
 `GOALS_HOME_REPAIR` in `path@check@src/check/references.rs`. The code does so for five findings
-only. Four other findings still name a form the citation check refuses in a goals home, a fifth
-case treats every file of a location as its goals home when the goals home is declared at the
-location's own path, and the id lint's plain-word repair asks to rename a goal.
+only. Four other findings still name a form the citation check refuses in a goals home, and the
+id lint's plain-word repair asks to rename a goal.
 
 ## Details
 
@@ -49,15 +48,9 @@ These findings of the same check ignore `goals_of`, and still name a refused for
    refused in a goals home. The citation finding also fires on such a reference, so the document
    receives two repairs that disagree.
 
-Two related cases:
+A related case:
 
-5. **A goals home declared at its carrier's path.** For a register declared with `dir = "."`,
-   `Anchor::home_of` in `path@model@src/entity.rs` gives the home's `file` and `dir` both as the
-   anchor's own directory. `goals_home_owner` tests
-   `rel == home.file || rel.starts_with(&home.dir)`, so every document the location owns is judged as part of its goals home, its issue entries
-   included. Established by reading the code; not established by a run, and no mock project
-   declares a `goal` register at `dir = "."`.
-6. **The id lint's plain-word repair for a goal.** `id_finding` names, for an id written as a plain
+5. **The id lint's plain-word repair for a goal.** `id_finding` names, for an id written as a plain
    word that no design entry defines, "rename what it names so that its slug is not an ordinary
    word". In a goals home the admitted form is a goal, and a goal is renamed only through the
    goal-setting skill, which the repair does not say.
@@ -71,7 +64,7 @@ and `git add -A` run in it: add to a subdocument of its goals home, under
 built from this repository over the copy:
 
 - a markdown link to `README.md`;
-- a backticked span of the `goal` kind with two segments, the project's name `dirhome` after the
+- a backticked span of the `design` kind with two segments, the project's name `dirhome` after the
   `@`;
 - a backticked `register` reference whose anchor is `dirhome` and whose id is `thread`.
 
@@ -95,7 +88,6 @@ that rewrites a goal sends an agent to change a goal on its own.
 ### What would close it
 
 Each of the four findings above names `GOALS_HOME_REPAIR` in a goals home, or a form the citation
-check admits; `goals_home_owner` judges a home declared at its carrier's path by the documents the
-home holds, not by every file under the anchor; the id lint's repair for a goal names its
+check admits; the id lint's repair for a goal names its
 rewording through goal-setting; a unit test per case, each shown to discriminate with
 `cargo x mutate`; and the head's sentence on which findings name the repair rewritten to the code.

@@ -8,7 +8,9 @@ The rule is the premise the workflow relies on to be useful: an entry is referen
 load-bearing, so the checker lists what a reversal, a closure or a firing touches, and the scope of
 reversing a decision is assessed from that list, per
 `goal@records-reach-their-reader`. Every citeable thing has one
-reference form, `<kind>@<anchor>@<id>`, and two mechanisms of the
+reference form, `<kind>@<anchor>@<id>`, the anchor left out only where the tool fixes it, per
+`design@model@root-register-reference-has-no-anchor` and
+`design@model@harness-kinds-cited-without-anchor`, and two mechanisms of the
 checker give a reference its value. `cargo klarch show <ref>` prints every reference to an entry,
 so what depends on an entry is computed from the tree and never written by hand. An entry that is
 deleted or renamed dangles every reference to it, and `cargo klarch check` reports each one, per

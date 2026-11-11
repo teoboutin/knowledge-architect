@@ -55,7 +55,8 @@ hash sign before it stays silent under `design@check@retired-slug-reference-repo
 
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per
-  `design@model@reserved-anchors`. An entry or a spec anchor is no anchor of the form: an entry's
+  `design@model@reserved-anchors`. The home of a register the root alone carries names no anchor,
+  `register@<register>`, as `register@goal`, per `design@model@root-register-reference-has-no-anchor`. An entry or a spec anchor is no anchor of the form: an entry's
   homes are its own directory, which the entry's reference already names, as
   `milestone@plans@<id>` names a milestone's, and one document has one name, per
   `design@model@plan-document-kinds` and `design@model@declarable-directory-register`.
@@ -97,7 +98,9 @@ whose repair names the entry's reference, `<register>@<parent>@<id>`, per
 
 - The finding is raised for a named anchor after the refusals of a refused shape and of a plan
   document cited by its path, on the target resolved to the anchor that keeps the home, and in
-  place of the deeper-anchor finding: its repair names `register@<that anchor>@<register>`. Under
+  place of the deeper-anchor finding: its repair names `register@<that anchor>@<register>`, or
+  `register@<register>` for the home of a register the root alone carries, per
+  `design@model@root-register-reference-has-no-anchor`. Under
   `*`, it is raised before the required set and any kind claim are judged, and names
   `register@*@<register>`.
 - The kind claim and the existence of the target are not judged: the manifest decides whether a

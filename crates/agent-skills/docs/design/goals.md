@@ -84,9 +84,8 @@ layers and as a direction, and holds eight numbered rules, each argued in a head
 - rules 4 and 6 and the layers, `design@agent-skills@requires-admits-rules-out`;
 - rule 5, `design@agent-skills@goal-holds-one-intent`;
 - rule 7, `design@agent-skills@what-shows-a-goal-met-is-design`;
-- rule 8, `design@agent-skills@no-goal-refines-another`, with the rule that a goals home cites only
-  goals and registers of its own or an enclosing Component, per
-  `design@check@goals-home-cites-upward-only`;
+- rule 8, `design@agent-skills@no-goal-refines-another`, with the rule that the goals home cites
+  only goals and the root's homes of registers, per `design@check@goals-home-cites-upward-only`;
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 Each rule's case, read in the goal histories of rootpoint, thaum and this repository, is a `%%`
@@ -613,7 +612,7 @@ beside uncommitted drafts, and it lets the record's commit cite a drafted goal b
 resolves there. The nearest rival, the drafts left uncommitted and read in the live tree by a
 draft-mode reviewer, which writes nothing, keeps the tree dirty for the whole review, and leaves the
 record no form of a drafted goal that both its commit and the tree accept. The drafts written in the
-record rather than in the goals homes lose the checker's rules on a goals home over them, per
+record rather than in the goals home lose the checker's rules on a goals home over them, per
 `design@check@goals-home-cites-upward-only`. A committed draft the owner has not ruled on is not yet
 a goal: the goals axis of the review before the merge reports each goal edit of the range whose
 ruling no commit message records, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
