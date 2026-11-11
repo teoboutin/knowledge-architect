@@ -65,10 +65,8 @@ A session opens at the first chain line of a top-level `.jsonl` file, at a chain
 `sessionId` differs from the previous one's, and at a chain line whose `parentUuid` is null or absent that
 is no `compact_boundary` line. A compaction and a resumed process stay in their session. A subagent
 file, under the parent file's directory `subagents/`, is attached to the session of its `sessionId`,
-and where that id holds several, to the one holding the `tool_use` its `meta.json` names. A
-session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session
-whose handle those characters already give, of the same id or of another sharing them, so every
-handle `list` prints names one session that `show` resolves. A line whose `uuid` was already read in the session is printed once and counted.
+and where that id holds several, to the one holding the `tool_use` its `meta.json` names. A line
+whose `uuid` was already read in the session is printed once and counted.
 
 The rule turns on how the harness writes, measured over every transcript of the machine it was
 designed on, Claude Code 2.1.306 to 2.1.310, on 2026-10-25: a compaction writes a boundary with a
@@ -81,6 +79,18 @@ Re-take it with `klarch transcript list --all-projects --json`, whose rows name 
 session per file, agrees with every file measured; the rule is kept because the format is
 internal, per `design@transcript@transcript-format-tolerated-and-reported`, and a file holding two
 sessions would read as one with nothing reporting it.
+
+### A session's handle is its `sessionId`'s first 8 characters, numbered from `#2` so that every handle names one session `##one-handle-per-session`
+
+A session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session
+whose handle those characters already give, of the same id or of another sharing them, and a number
+already given, as by a `sessionId` that holds `#`, is passed over. The count runs over every file
+the run reads, so every handle `list` prints names one session, which `show` resolves, and the
+review skill and the transcript reviewer name sessions by what `list` prints, per
+`design@agent-skills@transcript-found-by-listing`. The nearest rival, numbering per `sessionId`,
+gives two ids sharing their first 8 characters one handle; a refusal of that handle naming both ids
+leaves a session no argument reaches where one of the ids holds a second session, since its id then
+names two sessions.
 
 ### Every kept line of a transcript is labelled by its fields, and a line no field places by a whole text or a leading tag the harness writes, never by a substring of its text `##transcript-labels-in-code`
 
@@ -170,10 +180,21 @@ keys and none removed or renamed one the labels use; each line type, with the ve
 it and its keys, is listed by `cargo x transcript-kinds`, over every project's files the reader
 reads, the subagent files included, where a metadata line, which carries no `version`, shows
 `versions none`, and the header of `klarch transcript list --all-projects` names any value outside
-the sets. A value is classed on that measurement, which the reader takes, never a pipeline over the
-files, which no test runs. A strict reader
+the sets, and a value is classed on that measurement, per
+`design@transcript@format-classed-on-the-inventory`. A strict reader
 would fail on each release that adds a type, `rejected@transcript@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@model@a-failed-parse-is-loud`.
+
+### A value of the transcripts' format is classed on the inventory the reader's own files take, never on a pipeline written for the occasion `##format-classed-on-the-inventory`
+
+Before a value outside the known sets is classed, its line kind is measured with
+`cargo x transcript-kinds`: per place and kind, its count, its harness versions and each key with
+its count, over every project's files the reader reads, labelled by the reader's own rows. The
+nearest rival, a `find` and `jq` pipeline written for the occasion, is code no test runs: one kept
+in this home as its measurement read 42 of 963 files, the subagent files missed, until a reviewer
+found it. The inventory is the maintenance tool's, per
+`design@xtask@a-local-task-is-the-maintenance-tool-s`, and `path@transcript@CLAUDE.md` states the
+instruction.
 
 ### A text the harness cut before writing it is named in every header, with the file the harness names as holding it whole, which the reader does not read `##cut-text-reported`
 
