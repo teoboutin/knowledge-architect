@@ -46,7 +46,7 @@ an empty subsection is omitted.
   that register, a finding; a manifest that names it there stops being accepted as it was. A project
   removes `goal` from the row and moves the location's goals to the root's goals home.
 - `checks`, minor: a goal is cited `goal@<id>` and the root's goals home `register@goal`, with no
-  anchor. `goal@<anchor>@<id>`, `register@<anchor>@goal` and the same home with `*` as its anchor are malformed, each
+  anchor. `goal@<anchor>@<id>`, `register@<anchor>@goal` and `register@*@goal` are malformed, each
   finding naming the form with no anchor. A project respells its goal references, in its documents,
   its Rust comments and its mock projects, for instance with
   `perl -pi -e 's/\bgoal\@[A-Za-z0-9*_-]+\@/goal\@/g; s/\bregister\@[A-Za-z0-9*_-]+\@goal\b/register\@goal/g'`
@@ -90,7 +90,7 @@ an empty subsection is omitted.
   `skill@knowledge-architect-goal-setting@whole-set-review`: each goal of a Component moved to the
   root's goals home or recorded as a design head, the two goals the setup skill proposed for a
   maintenance tool among them; each measure, "It is met while", and each line stating that a goal
-  refines another, removed; each Component's goals home deleted, as the next entry says; each Component's
+  refines another, removed; each Component's goals home deleted, as the `checks` entry on goals homes above says; each Component's
   purpose recorded as the statement of the head that argues its existence; and each reference to a
   goal that moved or left re-pointed.
 - `agent-skills`, patch: a design head that derives a constraint from a goal states that constraint
@@ -706,7 +706,7 @@ an empty subsection is omitted.
 - `checks`, minor: a `path` reference whose target is a register's home is reported: a heading
   register's file, its directory or that directory's `README.md`, a file register's directory, and
   the plans directory's `specs/` and `milestones/`. A project writes it as
-  `register@<anchor>@<register>`, as `register@goal` for every Component's goals home; this holds
+  `register@<anchor>@<register>`, as `register@*@goal` for every Component's goals home; this holds
   for mock projects too. The finding's repair names the form, and no `check --fix` writes it. A
   file-or-directory pair in one sentence becomes one span, a span with a line number or a fragment
   is repaired by hand, and a project's root CLAUDE.md that restates a home is among the sites. This
