@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-9 entries
+10 entries
 
 | kind | title |
 | --- | --- |
+| defect | [A record searcher cannot check its own report before it returns](a-searcher-cannot-check-its-own-report.md) |
 | defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
 | defect | [The check of a searcher's report refuses a quotation cut before a word's punctuation, with a message that does not say so](the-report-check-refuses-a-quotation-cut-before-punctuation-without-saying-so.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
