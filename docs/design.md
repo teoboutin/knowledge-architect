@@ -475,9 +475,11 @@ pruned at any time. A released section's content never changes; its structure ma
 
 **No check reads the changelog**, so no finding asks to change a released section: the root
 CHANGELOG.md is a row of `[walk] skip-files`, as the copies each crate ships are, per
-`design@knowledge-architect@the-changelog-ships-in-every-crate`. The changelog faces outward, as a
-crate's page does, per `design@knowledge-architect@crates-io-page-file`: a span in it is a name or
-a syntax example, never a pointer the checker judges, on the owner's argument. A check that read it
+`design@knowledge-architect@the-changelog-ships-in-every-crate`. It is kept out on the owner's
+argument that the changelog faces outward, as a crate's page does, per
+`design@knowledge-architect@crates-io-page-file`, and should hold no reference to real content, a
+span shaped like one being read as a name or a syntax example; the entries do not meet that yet, per
+`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`. A check that read it
 would ask a released section to follow every later change of the grammar, which is a change of its
 content. The cost: a span of the `Next release` section that names a renamed or deleted entry is
 reported by no check; the release's review of its changelog reads each entry.

@@ -136,8 +136,10 @@ amendment.
   one.** No check reads a reference in an installed copy, per
   `design@check@installed-files-outside-the-walk`, so the test is a shipped-set test of
   `path@model@src/shipped_set.rs`, per `design@knowledge-architect@shipped-set-tests-in-the-model`:
-  every register and goal reference of the shipped set resolves against a mock project whose name
-  is not this one's. Shown to fail: the form of today kept at one site.
+  every register and goal reference of the shipped set is well formed against a mock project whose
+  name is not this one's, and every register reference with no placeholder resolves there; a goal
+  reference is checked for its shape alone, since the shipped text writes a goal with a placeholder
+  id. Shown to fail: the form of today kept at one site.
 
 Each mutation is run with `cargo x mutate`, as `skill@knowledge-architect-development` asks.
 

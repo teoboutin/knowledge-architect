@@ -204,8 +204,10 @@ fn shipped_register_and_goal_violations(copies: &[(PathBuf, String)]) -> Vec<Str
     out
 }
 
-/// The claim: every `register` and `goal` form the shipped set writes resolves in a project other
-/// than this one, the root's goals home in the form with no anchor among them. Mutation checked:
+/// The claim: every `register` and `goal` form the shipped set writes is well formed in a project
+/// other than this one, and every `register` form with no placeholder resolves there, the root's
+/// goals home in the form with no anchor among them. A `goal` form is checked for its shape alone:
+/// the shipped text cites no entry, so it writes a goal with a placeholder id. Mutation checked:
 /// `register@goal` written back with `*` as its anchor at one shipped line, caught as malformed.
 #[test]
 fn the_shipped_set_writes_register_and_goal_forms_every_project_resolves() {
