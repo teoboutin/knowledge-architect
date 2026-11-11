@@ -35,7 +35,7 @@ published to nobody. The rival, a local task as a command of `klarch`,
 puts in the command line of every adopting project's checker a command that serves this repository
 alone, as `design@xtask@source-view-in-the-tool` argues of the source view against
 `rejected@xtask@source-view-in-the-checker`, and as the inventory of the transcripts' line kinds,
-which this repository's transcript heads alone ask for, takes against
+which only this repository's instructions ask for, in `path@transcript@CLAUDE.md`, takes against
 `rejected@xtask@line-kinds-a-verb-of-transcript`. The line stops where a task is the installed text's: as
 a command of this tool it would leave a project that adopts the workflow, such as thaum, with no
 copy, as `design@transcript@transcript-command-reads-any-project` argues of the transcripts.
@@ -103,7 +103,7 @@ comments. Reading it is a task local to this repository, so it is this tool's, p
 project's checker a command that either finds no source there or ships this repository's in every
 binary.
 
-### A command of this tool reaches a published crate's internals by including their file with `#[path]`, and the crate exports nothing for it `##view-included-not-exported`
+### A command of this tool reaches a published crate's internals by including their file with `#[path]`, and the crate exports nothing for it `##internals-included-not-exported`
 
 `path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
 `path@agent-skills@build.rs` does, so the view calls the readers of
@@ -112,9 +112,10 @@ declares the file for its own tests alone. `path@xtask@src/main.rs` includes
 `path@transcript@src/reader.rs` and `path@transcript@src/kinds.rs` the same way, so
 `transcript-kinds` reads and labels the transcripts as every verb of `klarch transcript` does, and
 the transcript library declares `kinds.rs` for its own tests alone. The rival, the function
-exported from the library, `rejected@xtask@source-view-exported-from-the-library`, would add to the
-API of a published crate a function no consumer calls. The owner expects the split of the crate into a bundling utility that
-publishes the bundling method and the skills themselves,
+exported from the library, `rejected@xtask@helper-exported-from-a-published-library`, would add to the
+API of a published crate a function no consumer calls. The owner expects the split of the
+agent-skills crate into a bundling utility that publishes the bundling method and the skills
+themselves,
 `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, to change
 how the view reaches the passes.
 

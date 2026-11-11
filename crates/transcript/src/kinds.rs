@@ -4,7 +4,7 @@
 //!
 //! The maintenance tool includes this file and `crate::reader` with `#[path]`, and the library
 //! declares it for its own tests alone, so the published API gains no function no consumer calls,
-//! per `design@xtask@view-included-not-exported`.
+//! per `design@xtask@internals-included-not-exported`.
 
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 
@@ -142,6 +142,8 @@ mod tests {
             r#"{"type":"last-prompt","sessionId":"s"}"#,
             r#"{"type":"user","uuid":"f","parentUuid":"e","sessionId":"s","interruptedMessageId":"m","message":{"content":"[Request interrupted by user]"}}"#,
             r#"{"type":"user","uuid":"g","parentUuid":"f","sessionId":"s","message":{"content":"[Request interrupted by user]"}}"#,
+            r#"{"type":"user","uuid":"h","parentUuid":"g","sessionId":"s","isMeta":true,"message":{"content":"a reminder"}}"#,
+            r#"{"type":"user","uuid":"i","parentUuid":"h","sessionId":"s","isCompactSummary":true,"message":{"content":"a summary"}}"#,
         ]);
         lines.lines.push(Raw::Malformed);
         let corpus = Corpus::of_files(&PathBuf::from("."), vec![lines]);
@@ -159,6 +161,8 @@ mod tests {
                 ("top", "last-prompt", 1),
                 ("top", "system turn_duration", 1),
                 ("top", "user (no entry)", 1),
+                ("top", "user injected compact-summary", 1),
+                ("top", "user injected meta", 1),
                 ("top", "user owner", 2),
                 ("top", "user owner-interrupt", 1),
                 ("top", "user owner-interrupt (no field)", 1),

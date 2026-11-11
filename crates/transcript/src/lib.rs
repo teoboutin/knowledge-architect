@@ -32,7 +32,7 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
 mod command;
 // Declared for its own tests alone: the maintenance tool includes it, per
-// `design@xtask@view-included-not-exported`.
+// `design@xtask@internals-included-not-exported`.
 #[cfg(test)]
 mod kinds;
 mod output;

@@ -768,6 +768,8 @@ pub(crate) struct Corpus {
     /// handle's `#n` counts across files and across `sessionId`s, so every handle names one
     /// session.
     ids: HashMap<String, usize>,
+    /// Every handle given so far, over every file read.
+    handles: HashSet<String>,
 }
 
 impl Corpus {
@@ -794,6 +796,7 @@ impl Corpus {
             inventory: Inventory::default(),
             unattached: Vec::new(),
             ids: HashMap::new(),
+            handles: HashSet::new(),
         };
         for file in files {
             let name = corpus.name(&file.path);
@@ -840,13 +843,20 @@ impl Corpus {
         for (ordinal, (session_id, lines)) in runs.into_iter().enumerate() {
             let short: String = session_id.chars().take(8).collect();
             // Counted per handle, so two `sessionId`s sharing their first 8 characters give two
-            // handles, per `design@transcript@transcript-session-split`.
+            // handles, and a number already taken, as by a `sessionId` that holds `#`, is passed
+            // over, so every handle names one session, per
+            // `design@transcript@transcript-session-split`.
             let n = self.ids.entry(short.clone()).or_insert(0);
-            *n += 1;
-            let handle = if *n == 1 {
-                short
-            } else {
-                format!("{short}#{n}")
+            let handle = loop {
+                *n += 1;
+                let handle = if *n == 1 {
+                    short.clone()
+                } else {
+                    format!("{short}#{n}")
+                };
+                if self.handles.insert(handle.clone()) {
+                    break handle;
+                }
             };
             let mut ctx = Labelling {
                 file,
@@ -1322,8 +1332,9 @@ impl Labelling<'_> {
         }
         for e in &entries {
             // A line its fields label injected or tool, per `design@transcript@cut-text-reported`:
-            // the output of a command the owner ran, which a text row places, holds what the owner's
-            // command printed, a cut marker among it included, and no cut of the harness.
+            // the output of a command the owner ran, a shell command's or one a command tag names,
+            // holds what the owner's command printed, a cut marker among it included, and no cut of
+            // the harness.
             let placed_by_fields = match &e.label {
                 Label::Tool(_) => true,
                 Label::Injected(kind) => kind != "shell-output" && kind != "command-output",
@@ -1805,6 +1816,10 @@ mod tests {
             result,
             shell,
             printed,
+            RESTART,
+            RESTARTED
+                .replace("Successfully updated", "x\\n... (truncated 4 chars)")
+                .as_str(),
             COMPACT,
             COMPACTED
                 .replace("Compacted ", "x\\n... (truncated 5 chars)")
@@ -1851,6 +1866,12 @@ mod tests {
         let corpus = Corpus::of_files(Path::new("."), vec![first, second]);
         let handles: Vec<&str> = corpus.sessions.iter().map(|s| s.handle.as_str()).collect();
         assert_eq!(handles, ["9a9a9a9a", "9a9a9a9a#2", "9a9a9a9a#3"]);
+        // A `sessionId` that holds `#` takes a handle another would be numbered to.
+        let hashed = file(&[&line("c1", "null", "ab#2")]);
+        let plain = file(&[&line("d1", "null", "ab"), &line("d2", "null", "ab")]);
+        let corpus = Corpus::of_files(Path::new("."), vec![hashed, plain]);
+        let handles: Vec<&str> = corpus.sessions.iter().map(|s| s.handle.as_str()).collect();
+        assert_eq!(handles, ["ab#2", "ab", "ab#3"]);
     }
 
     /// The values a labelling of `lines` reports, in a top-level file or a subagent file.

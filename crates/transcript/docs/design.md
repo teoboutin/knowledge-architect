@@ -56,7 +56,8 @@ line the owner did not type, such as the agent's after a merge, at the number `s
 nearest rival, one verb that prints a whole extraction, leaves those two lists and every survey to a
 script each session writes again. The inventory of the transcripts' line kinds, the measurement taken before a value of the
 format is classed, is no list for a survey of past sessions: it serves the reader's maintainers
-alone, so it is `cargo x transcript-kinds`, per `design@xtask@a-local-task-is-the-maintenance-tool-s`.
+alone, so it is `cargo x transcript-kinds`, per `design@xtask@a-local-task-is-the-maintenance-tool-s`,
+and not a verb, `rejected@xtask@line-kinds-a-verb-of-transcript`.
 
 ### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens, and a session carries the subagent files it dispatched `##transcript-session-split`
 
@@ -140,9 +141,10 @@ other interrupt carries the id. Measured on 2026-11-11 over the same transcripts
 2.1.321, `/compact` writes a field-less `user` line opening with `<command-name>` and its
 `<local-command-stdout>` child, and `/restart` writes the same two as `local_command` lines, none
 of them carrying `commandRun` nor named by a line that does; every other `<command-name>` line is an
-echo a `commandRun` line names; the script that took it is in the message of "[transcript] A
-command the harness writes with no `commandRun` is the owner's, named by its leading
-`<command-name>` tag". The keys of the `user` lines, one row per place and label they take, the
+echo a `commandRun` line names. The `local_command` half is re-taken with the script in the message
+of "[transcript] A command the harness writes with no `commandRun` is the owner's, named by its
+leading `<command-name>` tag", and the `user` half with the rows `top user owner-command (no field)`
+and `top user injected command-output (no field)` of `cargo x transcript-kinds`. The keys of the `user` lines, one row per place and label they take, the
 lines that carry no field the mapping reads in rows of their own, are re-taken with
 `cargo x transcript-kinds`, whose rows count each key over the lines of their row.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
@@ -188,8 +190,8 @@ each carries the path, in a task notification or a tool result: the header of
 `klarch transcript list --all-projects` lists them, and the script that took their versions is in the
 message of "[transcript] The reader names a cut text, refuses or reports the inputs it read as
 answers, starts `show` at a line number, and counts its line kinds for the maintenance tool". The
-output of a command the owner ran, which a text row places, is no line its fields label, so a marker
-in it is none of the harness's cuts.
+output of a command the owner ran, a shell command's or one a command tag names, holds what the
+owner's command printed, so a marker in it is none of the harness's cuts.
 
 It serves the transcript reviewer, which reads a cut report as whole where nothing says it is cut,
 against `design@transcript@transcript-format-tolerated-and-reported`, which has every run report

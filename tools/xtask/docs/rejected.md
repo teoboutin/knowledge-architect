@@ -11,12 +11,13 @@ the view reads is this repository's alone. Such a command would either read the 
 checkout, and find none in any other project, or embed every source with its `%%` comments, which
 cite entries no other project holds, in every published binary.
 
-### The source view exported from the agent-skills library `##source-view-exported-from-the-library`
+### A function only this tool calls, exported from a published crate's library `##helper-exported-from-a-published-library`
 
 `live`. An export joins the library API of a published crate, a surface whose every change
 `design@knowledge-architect@versioning-policy` classes and
 `design@knowledge-architect@changelog-entries` announces to consumers, for a function no consumer
-calls.
+calls: the source view from the agent-skills library, and the inventory of the transcripts' line
+kinds from the transcript library.
 
 ### The inventory of the transcripts' line kinds as a verb of `klarch transcript` `##line-kinds-a-verb-of-transcript`
 
