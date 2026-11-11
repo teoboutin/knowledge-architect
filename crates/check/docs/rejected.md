@@ -89,7 +89,8 @@ the prefix carries none of them.
 
 `live`. It was the repair a defect proposed: relocating thaum's nine game-driving suites moved every
 backticked Rust path across five of its knowledge documents, and the checker reported none of them,
-because no suffix in the set covered them; the sweep had to be grep-driven. It loses because `design@check@every-path-names-its-anchor` retires the form that carried the set: a path reference names its kind and its anchor and is
+because no suffix in the set covered them; the sweep had to be grep-driven. It loses because the
+form that carried the set is retired: a path reference names its kind and its anchor and is
 checked whatever its suffix, so no set is left to widen and no suffix can be missing from one.
 
 ### `cargo klarch index` prints the diff it would apply, and `--write` applies it `##index-diff-with-write-flag`
@@ -216,10 +217,12 @@ its own rule; a third would argue for this one again.
 
 `live`. It let no backticked pointer pass unregistered, a pointer written after its target's
 directory left the tree included, and it needed no read of the tree. It loses on a census of a
-project new to the tool, in the commit that rewrote `design@check@every-path-names-its-anchor`: nearly all its findings there
+project new to the tool, in the commit found with
+`git log --grep='only where it names something of this project'`: nearly all its findings there
 were another tool's notation (fixture paths of tests, paths on the user's machine, example paths in
 a changelog), each to be rewritten or anchored at `elsewhere` before the project passed, and the one
-real pointer, a stale one, is reported under `design@check@every-path-names-its-anchor` too.
+real pointer, a stale one, is reported too when only a span whose first segment names something of
+this tree is reported.
 
 ### The ignore rules asked whether an unanchored path's first segment is ignored, and an ignored one reported `##ignored-first-segment-reported`
 

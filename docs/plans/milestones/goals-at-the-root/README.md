@@ -180,7 +180,7 @@ design audit of the slice named runs it, since the list changes with every commi
 | `design@agent-skills@searcher-grades-goals` | rewritten: the session reads the root's goals home alone | 1 |
 | `design@agent-skills@shipped-text-cites-no-entry` | rewritten: the form that names a goals home in the shipped text names the root's | 2 |
 | `design@agent-skills@standing-argument-in-head` | rewritten: a head states, beside its reference to a goal, the constraint it derives from it, with the head-ground fragment | 1 |
-| `design@check@every-path-names-its-anchor` | rewritten: its exception for a goals home leaves; the head is split, per `issue@check@core-heads-bundle-decisions-with-many-citing-sites` | 2 |
+| `design@check@every-path-names-its-anchor` | rewritten: its exception for a goals home leaves, from the paragraph now `design@check@deepest-anchor-wins`; the head is split, per `issue@check@core-heads-bundle-decisions-with-many-citing-sites` | 2 |
 | `design@check@goals-home-cites-upward-only` | rewritten: one goals home remains, and no goal refines another | 2 |
 | `design@check@nothing-of-a-project-is-compiled-in` | rewritten: the count of registers every Component carries, and the starting text of a goals home | 2 |
 | `design@create@component-command` | rewritten: a new Component is written no goals home | 2 |

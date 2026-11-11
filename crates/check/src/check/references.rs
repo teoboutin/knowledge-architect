@@ -7,7 +7,7 @@
 //!
 //! **Nothing that points into this project passes unregistered.** A span with no `@` that is
 //! shaped like a path, and whose first segment names a file or a directory of this tree, is
-//! reported as unanchored, per `design@check@every-path-names-its-anchor`. The slug reference
+//! reported as unanchored, per `design@check@unanchored-path-first-segment-here`. The slug reference
 //! the grammar retired, `` `<word>#<word>` ``, is reported as what it was when its id is an entry
 //! of this project or its word is an anchor or a kind, so a pointer the migration missed or
 //! copied out of the commit history is a finding rather than silence.
@@ -1757,11 +1757,11 @@ mod tests {
         );
     }
 
-    /// The claim, per `design@model@reserved-anchors`: the escape's target is read from every place
+    /// The claim, per `design@model@escape-anchor-elsewhere`: the escape's target is read from every place
     /// the unanchored lint reads a path from, the document's own directory included, so a file
     /// named relative to its document is no silence under the escape; and the finding names the
     /// form at the deepest anchor that holds the target, per
-    /// `design@check@every-path-names-its-anchor`, never the root a path written from it reaches
+    /// `design@check@deepest-anchor-wins`, never the root a path written from it reaches
     /// first.
     #[test]
     fn an_escape_resolving_here_names_the_form_at_the_deepest_anchor() {
@@ -1864,7 +1864,7 @@ mod tests {
     #[test]
     fn a_path_only_a_location_carries_resolves_in_no_component() {
         // The generic form claims every component's own copy, per
-        // `design@model@reserved-anchors`, so a copy a declared location alone holds does not
+        // `design@model@generic-anchor-names-every-component-copy`, so a copy a declared location alone holds does not
         // satisfy it. Mutation checked: with the filter back to `constructed.is_none()`, the
         // location's copy satisfies the reference and nothing is reported.
         let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = [\"parts/a-part\"]\n\n\

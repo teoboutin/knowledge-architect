@@ -882,7 +882,7 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
                 Some(form) => form,
                 None => {
                     // The deepest anchor that holds the target and carries the `path` kind,
-                    // per `design@check@every-path-names-its-anchor`: a plan anchor carries
+                    // per `design@check@deepest-anchor-wins` and `design@check@every-path-names-its-anchor`: a plan anchor carries
                     // none, and an anchor's own directory is named from the anchor above it.
                     let mut owner = anchors.owning(&target);
                     while owner.is_plan()
@@ -942,7 +942,7 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
             // state, and a verdict may not depend on the checking machine's. Presence and
             // kind are asked apart, so a path some component carries under the other kind
             // gets the kind-claim repair rather than "repair the path".
-            // Components only, per `design@model@reserved-anchors`: the generic form claims
+            // Components only, per `design@model@generic-anchor-names-every-component-copy`: the generic form claims
             // every component's own copy, so a copy a declared location alone holds makes the
             // claim false for every component. The anchors the tool constructs are no
             // components either: they hold plan documents, which are cited by their kind, per

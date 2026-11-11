@@ -64,7 +64,7 @@ It strains `design@check@the-facade-publishes-what-a-consumer-needs`, whose memb
 questions with. `goal@projects-add-their-own-checks` has a project add its checks "with what knowledge-architect provides, and with no change to knowledge-architect".
 An extension that has to guess membership from paths
 quietly breaks where the manifest says something else. For a project that runs one, a relocation that
-`design@check@every-path-names-its-anchor` makes one line of the manifest then also needs an edit of the extension.
+`design@check@deepest-anchor-wins` makes one line of the manifest then also needs an edit of the extension.
 
 ### What would close it
 

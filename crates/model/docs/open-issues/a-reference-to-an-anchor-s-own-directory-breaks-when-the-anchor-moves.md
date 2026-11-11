@@ -5,7 +5,7 @@ kind: question
 
 ## Summary
 
-`design@check@every-path-names-its-anchor` has a relocation of an anchor edit its one line of the manifest and no
+`design@check@deepest-anchor-wins` has a relocation of an anchor edit its one line of the manifest and no
 document. The same head gives an anchor's own directory
 no spelling under its own name, so it is named from an ancestor, as `path@<parent-anchor>@<dir>/`,
 and `primer@where-knowledge-goes` tells every session to write it so. Such a reference names the
@@ -25,7 +25,7 @@ old location after a move, and must be repaired by hand.
 ### Why it matters
 
 A session moving an anchor meets a broken reference that the rest of the grammar spares it, and no goal ranks the
-exception against the cost of a new spelling. It strains `design@check@every-path-names-its-anchor`.
+exception against the cost of a new spelling. It strains `design@check@deepest-anchor-wins`.
 
 ### What would close it
 

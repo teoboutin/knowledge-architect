@@ -4503,7 +4503,7 @@ fn a_root_missing_a_required_document_is_told_only_to_create_it() {
     assert!(!repair.contains("stop listing"), "{repair}");
 }
 
-/// The claim, per `design@model@reserved-anchors`: an escape whose target is a plan document is told
+/// The claim, per `design@model@escape-anchor-elsewhere`: an escape whose target is a plan document is told
 /// the plan document's own form, never a `path` the next run refuses; and a path opening with `..`
 /// is read from its document first, so the form names the file its writer meant.
 #[test]

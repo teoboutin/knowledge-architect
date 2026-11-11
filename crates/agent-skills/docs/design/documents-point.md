@@ -88,7 +88,7 @@ never free. `cargo klarch show` on the entry lists every site, and closing it, o
 ships and the sites are converted, dangles each one, so the conversion list is computed. Plain text
 justified in a commit message alone lost: nothing finds the site again, and nothing revisits it
 when the form ships. A generic checked opt-out marker lost too: one marker fits every finding, so
-it becomes the cheap silence `design@model@reserved-anchors` refuses, while a gap concrete enough to
+it becomes the cheap silence `design@model@escape-anchor-elsewhere` refuses, while a gap concrete enough to
 name is closed by shipping its own form.
 
 The scope is the checker's syntax, the owner's proposal: the rule was meant for plain text that
@@ -159,7 +159,7 @@ The argument: an unchecked form that clears a finding clears it for good, so a h
 empties the check while every run still passes, against
 `goal@documentation-stays-consistent`. Two narrower stances of the checker
 make the same argument: `design@check@the-regime-has-no-opt-out`, where no declaration exempts a
-document from a rule, and `design@model@reserved-anchors`, where the escape anchor is refused on a
+document from a rule, and `design@model@escape-anchor-elsewhere`, where the escape anchor is refused on a
 path this tree holds, since it would otherwise silence the finding on a real path.
 
 A name beside a checked pointer is not such a form. A plan item named outside its plan as #<id>

@@ -21,7 +21,7 @@ The texts are those that entry lists as its instances, among them `path@check@do
 
 A design head that states what a relocation costs binds sessions as a presumption, per
 `primer@intent-and-claims`, and its measure cannot be judged while the bound it states is unargued. It strains
-`design@check@every-path-names-its-anchor`.
+`design@check@deepest-anchor-wins`.
 
 ### What would close it
 

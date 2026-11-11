@@ -55,7 +55,7 @@ What a command may not rewrite, per the record:
 - `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` records one
   form that a move breaks beyond a mechanical edit.
 
-Under `design@check@every-path-names-its-anchor`, one fixed-string search per anchor lists every
+Under `design@check@deepest-anchor-wins`, one fixed-string search per anchor lists every
 reference to it, so a Component is renamed by one search and replace over its references. The bare
 paths and the prose names are outside what the check judges, so no strain of that head is shown.
 

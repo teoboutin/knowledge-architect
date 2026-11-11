@@ -665,7 +665,7 @@ impl Anchors {
     /// The compiled-in document set, and a file register's README and generated index, which are
     /// files inside a home rather than the home. A register's home itself is no `path` target at
     /// all: [`Anchors::generic_home_target`] answers for it first, and the reference names it by
-    /// the `register` kind, per `design@model@reserved-anchors`.
+    /// the `register` kind, per `design@model@generic-anchor-names-every-component-copy`.
     pub(crate) fn required_kind(&self, path: &str) -> Option<bool> {
         if COMPONENT_DOCUMENTS.contains(&path) {
             return Some(false);
