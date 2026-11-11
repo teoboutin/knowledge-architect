@@ -40,6 +40,15 @@ add one to the library.
 mirrors them live, and holds the best-effort output helpers every print goes through. The gates use
 it, and a project's own commands may: a new command calls it and never edits it.
 
+**The contracts on a child hold only where it is started there.** Its one `Command::new` is where
+every child loses `RUSTC_BOOTSTRAP`, per `design@gates@gates-scrub-rustc-bootstrap`, gets a null
+stdin, and has both streams drained concurrently, per `design@gates@streams-through-two-pipes`.
+The nearest rival, each gate or each command of a project spawning its child by its own code,
+repeats each of those at every site, and a site that misses the scrub passes nightly-gated code
+that CI rejects, the false green the gates exist to exclude. A gate with a need the helper does
+not meet is met by extending the helper, so every child keeps the contracts. The command
+`grep -rn 'Command::new' crates/gates/src` finds the one site.
+
 ### A child's stdout and stderr are read concurrently through two pipes `##streams-through-two-pipes`
 
 The spawn helper, `design@gates@one-spawn-helper`, reads a child's stdout and stderr concurrently
