@@ -262,8 +262,15 @@ git merge-base --is-ancestor origin/main HEAD    # if false, rebase
 ```
 
 A rebase that stops on a conflict in a generated `index.md` is resolved by regenerating it:
-`cargo klarch index`, then `git add` on the file and `git rebase --continue`. Its content is
-computed, so no hand merge is needed and none is lost.
+`cargo klarch index`, then `git add` on the file. Its content is computed, so no hand merge is
+needed and none is lost.
+
+**A stopped commit is finished with its own message, kept verbatim**: once the tree resolves the
+conflict and is staged, `git commit -q --cleanup=verbatim -C REBASE_HEAD`, then
+`git rebase --continue`. A plain `--continue` passes the message through the editor's cleanup,
+which deletes every line opening with `#`, a `## ` heading of the message included, and
+`cargo klarch commits` sees nothing wrong with the shortened message. The range-diff's
+`@@ Commit message` hunks then show no change for any commit the rebase carried.
 
 4. **Work is reviewed before any merge to main.**
 
