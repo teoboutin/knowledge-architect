@@ -2551,7 +2551,11 @@ slice 3 and ruled the released 0.7.0 line rewritten, as slice 2's spec records w
 words; on D6, the owner then dropped that slice.
 
 - **D5**, ruled: "D5 the goal is for tasks that are repeated. A one shot migration is not in
-  scope." The default stands, on the owner's reading of the goal's scope. From the record search of slice 2's audit, on
+  scope." The default stands, on the owner's word that the goal reaches tasks that repeat. The
+  transcript review before slice 2's merge found it recorded as a reading of the goal, whose words
+  name no repetition; put to the owner as Q1, the owner answered: "q1 this is a general limit of the
+  goal, but I do not want to draft thegoal today. Keep an issue about this." The limit is held by
+  `issue@knowledge-architect@the-tool-goal-states-no-limit-to-repeated-tasks`. From the record search of slice 2's audit, on
   `goal@tasks-a-tool-does-better-are-the-tool-s`: the respelling of a
   consumer's references to the forms with no anchor follows with no judgement from what the project
   holds, so a tool could do it, and that goal provides one only once the owner takes the task in.
