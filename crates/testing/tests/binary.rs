@@ -2348,6 +2348,36 @@ fn a_lint_both_trees_raise_is_reported_once() {
     }
 }
 
+/// The claim: a span repeated on one line of a message is one finding per occurrence, whichever
+/// tree holds what it names: the commit's own, both, or the parent's alone, as the commit that
+/// deletes the file has it. Mutation checked: the union of the two trees' lints made a set again
+/// collapses the parent's two occurrences into one.
+#[test]
+fn a_lint_repeated_on_a_line_is_one_finding_per_occurrence_in_either_tree() {
+    let history = History::new("commit-lint-repeated");
+    tiny_project(&history, false);
+    history.write(
+        "scratch/notes.md",
+        "# Notes\n\nA file the next commit deletes.\n",
+    );
+    let base = history.commit("The project is created\n");
+    history.remove("scratch/notes.md");
+    let sha = history.commit(
+        "The notes leave\n\nIt deletes `scratch/notes.md` and `scratch/notes.md`.\n\
+         It keeps `docs/design.md` and `docs/design.md`.\n",
+    );
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for line in [3, 4] {
+        let site = format!("commit {sha}:{line} ");
+        assert_eq!(
+            stdout.lines().filter(|l| l.contains(&site)).count(),
+            2,
+            "line {line}: {stdout}"
+        );
+    }
+}
+
 /// The claim: in a message, a retired slug reference is a finding when its id is an entry of
 /// the project, and silent when it names nothing here.
 #[test]

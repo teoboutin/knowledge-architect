@@ -34,9 +34,6 @@ the first run of the design-record axis counted 20, 23, 26 and 31 for the four h
     own tree alone;
   - "`check` reads no range of history", against `check` judging the branch's messages.
 
-  `issue@check@a-message-lint-is-deduplicated-in-one-tree-only` cites the head for the fourth
-  decision.
-
 `design@check@phases-gate-the-report`, found by the review of the branch that renamed the Component, holds beside its
 phases "A writer refuses over an incomplete model", against writing over the model anyway, and "An extension prepares
 its tree when the last phase is reached", against preparing before the gate, and `cargo klarch show` lists 39 sites citing it, 28 of them outside the plan documents. That branch split out the selection of checks, and left these.

@@ -162,14 +162,16 @@ fn judge_message(
                 &other.inputs(),
                 Part::Lints,
             );
-            // A set, not a search of `lints`: a message holds as many lints as it has lines,
-            // and a search per lint made judging one quadratic in its length.
-            let mut seen: HashSet<Finding> = lints.iter().cloned().collect();
-            for f in their_lints {
-                if seen.insert(f.clone()) {
-                    lints.push(f);
-                }
-            }
+            // **One finding per occurrence, as one tree reports it.** Each tree's lints hold one
+            // finding per occurrence of a span, two equal findings for a span repeated on a line.
+            // Both trees judge the same text, so a finding equal to one of the commit's own tree
+            // comes as many times from each: the parent's copies are dropped whole, and a lint
+            // only the parent raises keeps all its occurrences. Inserting the parent's lints into
+            // the set as they were pushed collapsed those to one. A set, not a search of `lints`:
+            // a message holds as many lints as it has lines, and a search per lint made judging
+            // one quadratic in its length.
+            let own_lints: HashSet<Finding> = lints.iter().cloned().collect();
+            lints.extend(their_lints.into_iter().filter(|f| !own_lints.contains(f)));
             // **A finding survives where both trees refuse the same span on the same line,
             // whatever each says about it.** Two trees can refuse one reference for different
             // reasons — one because the anchor is unknown, the other because the id is not

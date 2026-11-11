@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-30 entries
+29 entries
 
 | kind | title |
 | --- | --- |
@@ -23,7 +23,6 @@
 | design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
 | design | [No head argues that a project can run the checker from its git pre-commit hook](no-head-argues-that-the-checker-runs-from-a-pre-commit-hook.md) |
 | design | [No head argues that a relocation of a project's documents must cost mechanical edits alone, nor defines a relocation](the-cost-of-a-relocation-is-bounded-by-no-argued-head.md) |
-| observation | [A lint written twice on one line of a message is reported once or twice, by which tree holds it](a-message-lint-is-deduplicated-in-one-tree-only.md) |
 | question | [A project's own saved workflow can declare the name of an installed one, and nothing reports it](a-project-workflow-can-declare-an-installed-workflow-s-name.md) |
 | question | [An empty list of agent harnesses serves a project that uses the checker alone, which no longer follows an ask](an-empty-harness-list-serves-a-state-that-follows-no-ask.md) |
 | question | [An extension reads its manifest table as a `toml::Value`, so `check`'s toml version is part of the public API](manifest-table-exposes-the-toml-crate.md) |
