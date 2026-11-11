@@ -31,8 +31,10 @@ concurrency:
 
 jobs:
   check:
-    # A draft is not checked. A job skipped by `if:` reports `skipped`, which GitHub counts as
-    # passing, so the merge predicate reads the draft flag itself and asks for a successful run.
+    # A draft is not checked, per `design@knowledge-architect@ci-skips-a-draft`. A job skipped by
+    # `if:` reports `skipped`, which GitHub counts as passing, so the merge predicate reads the
+    # draft flag itself and asks for a successful run, per
+    # `design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head`.
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     # A hung job runs up to the default 360 minutes, so the limit stays explicit.

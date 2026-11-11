@@ -7,7 +7,7 @@ kind: design
 
 `design@knowledge-architect@git-flow` holds, as bullets, several statements that each answer
 another question and lose to a nearest rival of their own, and carries no standing argument for
-them and cites no goal. Splitting it in the branch that triaged the issue record moved out four
+them and cites no goal. Splitting it in the branch that triaged the issue record moved out three
 decisions; the decision-record review of that branch found the rest.
 
 ## Details
