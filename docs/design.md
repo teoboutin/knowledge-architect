@@ -625,28 +625,44 @@ a re-run cannot change.
   `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
-  folded where appending leaves an earlier commit failing the per-commit rule below. Where every
-  repair was folded, no repair commit is left to carry the record of the review, and a commit of
-  its own would change no file, which the rebase merge drops, per
-  `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`; the record goes into
-  the message of the branch's last commit, by a reword with a clean tree. The owner's reason the
-  fold applies here is that this repository keeps rewriting its checker, so a repair that changes
-  what it judges is no rare case.
+  folded where appending leaves an earlier commit failing the per-commit rule below; the record of a
+  review whose repairs were all folded lands as
+  `design@knowledge-architect@a-folded-review-s-record-rides-the-last-commit` decides.
 - **Every commit of a branch passes the check under the branch tip's checker**, as
   `design@check@a-commit-message-is-a-document` decides. So work whose intermediate trees cannot
   pass lands as one commit, squashed before review.
-- main accepts no direct push. A GitHub ruleset on main, with no bypass, the owner included,
-  requires a pull request, the status check of CI on a branch up to date with main, and a linear
-  history, and blocks force pushes and deletion. The pull request is merged with GitHub's rebase
-  merge, the only method enabled. The rules are checked by GitHub, not by a session's discipline,
-  with one gap: a job skipped while the pull request was a draft counts as passing, so right after
-  it is marked ready the skipped run can be the only one on its head. The merge waits for a run on
-  the head whose conclusion is success.
-  A fast-forward pushed from a checkout is a direct push, which the ruleset refuses, and GitHub
-  offers no fast-forward merge method. main's history is never rewritten.
-- The strict check makes the tree CI judged the tree main receives, which is what matters. On the
-  owner's word, the ruleset is preferred to a rebase-and-merge button alone, which leaves CI
-  meaningless where the history was not already linear.
+- main accepts no direct push, per `design@knowledge-architect@main-is-guarded-by-a-ruleset`, and a
+  pull request reaches it by a rebase merge, per `design@knowledge-architect@rebase-merge-alone`.
+  main's history is never rewritten.
+
+### The record of a review whose repairs were all folded goes into the branch's last commit message `##a-folded-review-s-record-rides-the-last-commit`
+
+Where every repair of a review was folded, no repair commit is left to carry the record of the
+review, and a commit of its own would change no file, which the rebase merge drops, per
+`design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`. So the record goes
+into the message of the branch's last commit, by a reword with a clean tree. The fold applies here,
+on the owner's reason, because this repository keeps rewriting its checker, so a repair that
+changes what it judges is no rare case.
+
+### A GitHub ruleset with no bypass guards main `##main-is-guarded-by-a-ruleset`
+
+A GitHub ruleset on main, with no bypass, the owner included, requires a pull request, the status
+check of CI on a branch up to date with main, and a linear history, and blocks force pushes and
+deletion. The rules are checked by GitHub, not by a session's discipline, with one gap: a job
+skipped while the pull request was a draft counts as passing, so right after it is marked ready
+the skipped run can be the only one on its head. The merge waits for a run on the head whose
+conclusion is success. The strict check makes the tree CI judged the tree main receives, which is
+what matters; a rebase-and-merge button alone, with no ruleset, leaves CI meaningless where the
+history was not already linear.
+
+### A pull request reaches main by GitHub's rebase merge, the only method enabled `##rebase-merge-alone`
+
+The rebase merge gives main the branch's commits with the same trees and messages, so each commit
+the per-commit check judged, and its message, a document of the project, reach main as they were.
+A squash folds them into one, and a merge commit breaks the linear history the ruleset of
+`design@knowledge-architect@main-is-guarded-by-a-ruleset` requires. A fast-forward pushed from a
+checkout is a direct push, which that ruleset refuses, and GitHub offers no fast-forward merge
+method.
 
 ### CI does not check a draft pull request `##ci-skips-a-draft`
 
@@ -667,11 +683,31 @@ removes uncommitted content from the working tree, which no commit holds, and a 
 drops a commit no other reference holds. With a clean tree, editing the branch's own history is an
 ordinary move, bounded by verifying that nothing was lost. The one exception is finishing a rebase
 whose conflicts the tree now resolves, by `git rebase --continue` or by a commit of the staged
-resolution before it: it resumes a history edit begun with a clean tree, and the uncommitted
+resolution before it, per `design@knowledge-architect@a-stopped-rebase-keeps-its-message`: it resumes a history edit begun with a clean tree, and the uncommitted
 content it meets is the resolution, which the replayed commit records.
 
 The rule binds a checkout that holds work, and a scratch worktree is outside it, per
 `design@knowledge-architect@scratch-worktree-outside-git-rules`.
+
+### A rebase stopped on a conflict finishes its commit with that commit's own message, kept verbatim `##a-stopped-rebase-keeps-its-message`
+
+Once the tree resolves the conflict and the resolution is staged, the stopped commit is made with
+`git commit -q --cleanup=verbatim -C REBASE_HEAD`, then `git rebase --continue` goes on. Measured
+with git 2.53.0, a commit whose message holds a line opening with `## `, rebased over a conflicting
+change of the same file:
+
+- a plain `git rebase --continue` passes the message through the editor's cleanup, which deletes
+  every line opening with `#`;
+- `git -c core.commentChar=';' rebase --continue` keeps the line and appends git's conflict notes;
+- `git -c commit.cleanup=verbatim rebase --continue` keeps the line and appends the notes and the
+  whole editor template;
+- the form above keeps the message byte for byte.
+
+A commit message is a document, per `design@check@a-commit-message-is-a-document`, and
+`cargo klarch commits` sees nothing wrong with a shortened one, so only the form keeps the
+deliberation it may carry. The script that takes the measurement again is in the message of the
+commit "[review] Second decision-record repairs: the git flow head split, a head for the stopped
+rebase, and two questions to the owner".
 
 ### A scratch worktree made only for temporary testing is outside every Git rule `##scratch-worktree-outside-git-rules`
 

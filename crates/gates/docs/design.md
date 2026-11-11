@@ -82,7 +82,7 @@ start: a refusal before any gate ran, such as a pipe on stdout or a log director
 and, in a caller that finds the project first, as a maintenance crate does, no project. A parse
 failure clap refuses already exits 2. So a caller tells "the gates never ran" from "a gate
 failed", as the checker's commands let it, per `design@cli@exit-code-ladder`, and as the hand
-mutation exits for a run that never started. The nearest rival, one failure code for both, would
+mutation exits for a run that never started, per `design@mutate@report-not-gate`. The nearest rival, one failure code for both, would
 keep 1 for a refusal and 2 for a mistyped flag of the same run, a split no argument supports.
 
 ### Outside GitHub Actions, a gates run refuses a pipe on stdout `##gates-refuse-a-pipe`
