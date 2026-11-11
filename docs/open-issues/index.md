@@ -1,13 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-26 entries
+25 entries
 
 | kind | title |
 | --- | --- |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [No head argues what becomes an ask of every target project, nor the asks that no goal states](no-head-argues-what-becomes-an-ask.md) |
 | design | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
-| design | [The rule that a released changelog section's content never changes has no recorded argument](the-released-changelog-section-rule-has-no-argument.md) |
 | design | [No head argues the rule that every tool of knowledge-architect is a command of one program](the-rule-of-one-program-for-the-tools-is-argued-by-no-head.md) |
 | question | [A new crate's first publish by hand needs the versions it pins on crates.io first](a-crate-s-first-publish-needs-the-crates-it-pins-on-crates-io.md) |
 | question | [A measurement taken in another project that a head leans on has two homes in the knowledge table](a-measurement-from-another-project-has-two-homes.md) |
