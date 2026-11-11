@@ -402,7 +402,7 @@ fn check_working(
 ///
 /// **No check writes; every write happens before the model the checks read is built.** The order:
 /// a manifest that holds refused declarations writes nothing, and the check reports them; the
-/// repairs of the installed set, exactly what the installed-file check reports, judged from git's
+/// repairs of the installed set, only what the installed-file check reports, judged from git's
 /// listing; the writer gate of phases 1 to 3 over a model rebuilt
 /// from the tree as the install left it, which stops the run and writes nothing more; the refusal
 /// of a partial commit's mismatch, where the index differs from HEAD and the staged tree needs
