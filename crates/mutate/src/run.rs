@@ -150,6 +150,28 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
     // Every verdict below is an exit code of the caller's command, so over a base that already
     // fails, each mutation reads as caught, whatever command the caller chose.
     if baseline {
+        // **The probe builds the unmutated tree before its baseline.** A command that builds
+        // nothing, such as a script calling a built binary, would otherwise run on whatever
+        // build the target directory holds, a previous run's mutant included, and the baseline
+        // would answer for code that is not the tree's.
+        if let Some(b) = build.as_deref() {
+            say!("baseline: build probe: {b}");
+            match run_command(root, &build_parts(b)) {
+                Some(true) => {}
+                Some(false) => {
+                    complain!(
+                        "the build probe already fails over the unmutated tree, so no mutant could \
+                         be told from it. Fix the build first."
+                    );
+                    let _ = record.clear();
+                    return ExitCode::from(2);
+                }
+                None => {
+                    let _ = record.clear();
+                    return ExitCode::from(2);
+                }
+            }
+        }
         say!("baseline: running the command over the unmutated tree");
         match run_command(root, &command) {
             Some(true) => {}
