@@ -45,9 +45,8 @@ Read in the agents' own reports:
   differently, and their authors reported lines they believed would fail a later run.
 
 Ruled out: that the findings were mostly lines left ungraded. Every finding of the first run named a
-quotation. The cause of most of them, a quotation cut before a word's punctuation, is
-`issue@query@the-report-check-refuses-a-quotation-cut-before-punctuation-without-saying-so`. That
-entry is about the message. This one is about who can run the check, and it holds whatever the
+quotation. The cause of most of them was a quotation cut before a word's punctuation, which the
+check's message now names. This entry is about who can run the check, and it holds whatever the
 check's rule is.
 
 ### Why it matters
