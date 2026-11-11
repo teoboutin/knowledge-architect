@@ -103,3 +103,15 @@ fn the_inventory_of_no_line_exits_one() {
     assert_eq!(code, 1, "{stdout}");
     assert_eq!(stdout, "# files read: 0; harness versions: none\n");
 }
+
+/// The claim: transcripts that cannot be read exit 2, the command could not run, never 1.
+#[test]
+fn the_inventory_of_no_transcript_directory_exits_two() {
+    let missing = std::env::temp_dir().join(format!(
+        "xtask-transcript-kinds-missing-{}",
+        std::process::id()
+    ));
+    let _ = std::fs::remove_dir_all(&missing);
+    let (stdout, code) = run(&missing, &[]);
+    assert_eq!(code, 2, "{stdout}");
+}

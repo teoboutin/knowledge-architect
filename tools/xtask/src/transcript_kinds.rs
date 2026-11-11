@@ -6,7 +6,7 @@
 //! rather than a verb of `klarch transcript`, per `design@xtask@a-local-task-is-the-maintenance-tool-s`.
 //! It reads through the published reader's own files, which `main.rs` includes with `#[path]`, so
 //! its rows hold what every verb reads and labels, and the reader's library exports nothing for it,
-//! per `design@xtask@view-included-not-exported`.
+//! per `design@xtask@internals-included-not-exported`.
 
 use crate::kinds::line_kinds;
 use crate::reader::{project_files, transcript_dir, Corpus};

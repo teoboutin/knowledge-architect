@@ -11,7 +11,7 @@ mod skill;
 mod transcript_kinds;
 
 // The transcript reader's own files, so `transcript-kinds` reads and labels as every verb does, per
-// `design@xtask@view-included-not-exported`. `kinds.rs` names the reader as `crate::reader`, so both
+// `design@xtask@internals-included-not-exported`. `kinds.rs` names the reader as `crate::reader`, so both
 // sit at this crate's root. Each serves part of its file here, so each allows dead code.
 #[path = "../../../crates/transcript/src/kinds.rs"]
 #[allow(dead_code)]
