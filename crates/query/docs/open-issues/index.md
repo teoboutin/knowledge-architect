@@ -1,10 +1,9 @@
 **Generated — do not edit.** `cargo klarch index`
 
-10 entries
+9 entries
 
 | kind | title |
 | --- | --- |
-| defect | [A record searcher cannot check its own report before it returns](a-searcher-cannot-check-its-own-report.md) |
 | defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [No command counts a tripwire's horizon](no-command-counts-a-tripwire-s-horizon.md) |

@@ -39,7 +39,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@installed-text-assumes-pull-requests-and-ci`
 - `issue@agent-skills@the-upstream-set-omits-the-published-libraries`
 - `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer`
-- `issue@agent-skills@no-reviewer-writes-its-own-report-file`
 - `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`
 - `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`
 - `issue@agent-skills@the-retrospective-counts-no-review-cost`
@@ -51,7 +50,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`
 - `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 - `issue@mutate@a-mutation-of-several-files`
-- `issue@query@a-searcher-cannot-check-its-own-report`
 - `issue@testing@a-test-run-leaves-directories-in-the-temporary-directory`
 - `issue@knowledge-architect@path-quickfixes-read-against-the-renamed-checker`
 - `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up`

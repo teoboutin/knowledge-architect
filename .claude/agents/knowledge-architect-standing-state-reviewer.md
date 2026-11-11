@@ -1,7 +1,7 @@
 ---
 name: knowledge-architect-standing-state-reviewer
 description: The standing-state axis of a dispatched review. Re-reads, for every change, what no other step is sure to re-read before the merge: every tripwire in every tripwires home, every deferred issue's trigger, the acceptance criteria of a landing plan document, and every issue entry the change opens or closes.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 ---
 
 # Standing-state review
@@ -22,8 +22,10 @@ disagreement between the brief and the tree is itself a finding.
 **Reproduce anything you assert.** Run the command, read the file, quote the output. Drop what you
 cannot reproduce.
 
-**You do not use `Write` or `Edit`.** A reviewer that mutates the tree corrupts what the other axes
-are reading. If a check seems to need one, say so as a finding rather than working around it.
+**You edit nothing in the project's tree.** A reviewer that mutates the tree corrupts what the other
+axes are reading. If a check seems to need an edit, say so as a finding rather than working around
+it. You write working files and your report in the scratch directory the brief names, and nowhere
+else.
 Where this text says a file is created, deleted, split, restated, absorbed or moved, that is the
 repair you report
 for the dispatcher to make.

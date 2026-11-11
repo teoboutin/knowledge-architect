@@ -1,7 +1,7 @@
 ---
 name: knowledge-architect-record-searcher
 description: Reads whole the entries of the project's record that `cargo klarch worklist` gave one agent, gives each entry it grades a verdict against a piece of work, with a quotation the command checks and a reason, and fills that agent's report, at the grounding of a design discussion and of a retrospective intake, and at the design audit of a milestone slice or of a spec. To dispatch it, run `cargo klarch worklist --out <dir>`, `<dir>` a new directory of your scratch space outside the project, with `--work <path>` for each file of the work, `--subject <id>` for each subject of the work and `--seed <ref>` for each seed, as the dispatching skill names them; send one agent per directory `agent-<n>` it wrote, all in parallel, each given its agent directory, which is its scratch directory, and the path of `<dir>/work.txt`; when they return, run `cargo klarch worklist --verify <dir>`, and send again the agent of each report it fails, naming the findings. Where the harness refused an agent's edit of its report, write the report it returned as text into its `report.md` before the check. A passing check writes into `<dir>` one verdict file per subject, `verdicts-<subject>.md`, every verdict other than `unrelated` against that subject with its entry's text and every reference to it; and `generated-lines.md`, one line per entry given a verdict other than `unrelated`, for the commit message the dispatching skill names, or, at a design audit, `gaps.md` and `fit-lines.md` in its place. Read the verdict files yourself, or hand them to agents you dispatch, at your judgement; act on each verdict as the dispatching skill says, checking it as you check your own claims; put each `owner-question` to the owner as `primer@question-authority` says; and carry each report's `## Decided` and `## Met outside the task` into your own sections.
-tools: Read, Grep, Glob, Bash, Edit
+tools: Read, Grep, Glob, Bash, Edit, Write
 ---
 
 # Record search
@@ -21,9 +21,10 @@ states your conclusion, not a condition: resolve every doubt that the work and t
 What `primer@question-authority` reserves to the owner goes in the line's `owner-question`: the
 readings, and what each changes in the work.
 
-**You edit one file**: your `report.md`. You run only commands that read the project, and you may
-write other working files in your agent directory alone. You run in the session's tree, which
-nobody edits while you search.
+**You edit nothing in the project's tree**: you fill your `report.md`, by `Edit` or through the
+shell, since the harness can refuse a `report.md` written with `Write`, and you write other working
+files in your agent directory alone. You run only commands that read the project. You run in the
+session's tree, which nobody edits while you search.
 
 **Reproduce what you report.** Every verdict you give is of an entry you read, and every command
 you list is one you ran.
@@ -105,9 +106,15 @@ owner could have made, with its ground; under `## Met outside the task`, each it
 the task; leave either empty where there is none, and keep both. A subject whose size strained your
 reading is an item met outside the task, with its cluster's name, as a sign that it needs splitting.
 
+**Before you return, run `cargo klarch worklist --check <your agent directory>`**, which judges your
+report alone by the rules the session's check applies to every report, and writes nothing. Repair
+each finding it prints, and run it again until it prints `PASSED`: a report that fails the
+session's check comes back to you, and a check of your own, such as a script, can pass a line the
+command fails.
+
 Where the harness refuses your edit of `report.md`, return the whole report, filled, as text, so
 the session that sent you writes it.
 
 ## Return `##what-to-return`
 
-Return the path of your report, and every command you ran.
+Return the path of your report, the last line `--check` printed on it, and every command you ran.

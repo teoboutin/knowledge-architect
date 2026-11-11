@@ -113,7 +113,7 @@ pub struct WorklistArgs {
         long,
         value_name = "DIR",
         conflicts_with = "verify",
-        required_unless_present = "verify"
+        required_unless_present_any = ["verify", "check"]
     )]
     pub out: Option<std::path::PathBuf>,
     /// Check the reports the agents filled in DIR, a directory `--out` wrote. It first removes
@@ -131,6 +131,20 @@ pub struct WorklistArgs {
     /// of `generated-lines.md`.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
+    /// Check the report of one agent, AGENT_DIR, a directory `agent-<n>` that `--out` wrote, by
+    /// the rules `--verify` judges each report by, with the same findings, against the
+    /// `agents.txt`, `work.txt` and `shown.md` of the directory that holds it. It writes and
+    /// removes no file and judges no other report, so an agent runs it on its own report before
+    /// it returns, while the other agents still fill theirs. Exit 0 when the report passes, 1 with
+    /// its findings when it fails.
+    #[arg(
+        long,
+        value_name = "AGENT_DIR",
+        conflicts_with_all = [
+            "out", "verify", "bound", "seeds", "work", "subjects", "since", "seeds_from"
+        ]
+    )]
+    pub check: Option<std::path::PathBuf>,
     /// The words one agent is given at most, the work's words included; a group above what the
     /// work leaves goes to an agent alone.
     #[arg(
@@ -384,8 +398,23 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
     for subject in &args.subjects {
         subject_id(subject)?;
     }
-    match (&args.out, &args.verify) {
-        (Some(dir), None) => Ok(WorklistMode::Write {
+    match (&args.out, &args.verify, &args.check) {
+        (None, None, Some(agent_dir))
+            if args.seeds.is_empty()
+                && args.bound == DEFAULT_WORKLIST_BOUND
+                && args.work.is_empty()
+                && args.subjects.is_empty()
+                && args.since.is_none()
+                && args.seeds_from.is_none() =>
+        {
+            Ok(WorklistMode::Check {
+                agent_dir: agent_dir.clone(),
+            })
+        }
+        (None, None, Some(_)) => Err("`--check` takes none of `--bound`, `--seed`, `--work`, \
+             `--subject`, `--since` and `--seeds-from`"
+            .to_string()),
+        (Some(dir), None, None) => Ok(WorklistMode::Write {
             dir: dir.clone(),
             bound: args.bound,
             seeds: args.seeds.clone(),
@@ -394,7 +423,7 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
             since: args.since.clone(),
             seeds_from: args.seeds_from.clone(),
         }),
-        (None, Some(dir))
+        (None, Some(dir), None)
             if args.seeds.is_empty()
                 && args.bound == DEFAULT_WORKLIST_BOUND
                 && args.work.is_empty()
@@ -404,10 +433,10 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
         {
             Ok(WorklistMode::Verify { dir: dir.clone() })
         }
-        (None, Some(_)) => Err("`--verify` takes none of `--bound`, `--seed`, `--work`, \
+        (None, Some(_), None) => Err("`--verify` takes none of `--bound`, `--seed`, `--work`, \
              `--subject`, `--since` and `--seeds-from`"
             .to_string()),
-        _ => Err("give exactly one of `--out` and `--verify`".to_string()),
+        _ => Err("give exactly one of `--out`, `--verify` and `--check`".to_string()),
     }
 }
 
@@ -457,6 +486,7 @@ mod tests {
         WorklistArgs {
             out: None,
             verify: None,
+            check: None,
             bound: DEFAULT_WORKLIST_BOUND,
             seeds: Vec::new(),
             work: Vec::new(),
@@ -638,5 +668,51 @@ mod tests {
             worklist_mode(&verify),
             Ok(WorklistMode::Verify { .. })
         ));
+    }
+
+    /// The claim: the mode holds `--check` alone as the check of one agent's report.
+    #[test]
+    fn check_alone_is_the_check_of_one_report() {
+        let check = WorklistArgs {
+            check: a_dir(),
+            ..worklist_args()
+        };
+        assert!(matches!(
+            worklist_mode(&check),
+            Ok(WorklistMode::Check { .. })
+        ));
+    }
+
+    /// The claim: `run` refuses `--check` beside `--verify` or `--out`, which clap refuses while
+    /// parsing.
+    #[test]
+    fn run_refuses_a_worklist_value_with_check_beside_another_mode() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            check: a_dir(),
+            verify: a_dir(),
+            ..worklist_args()
+        }));
+        refused_by_run(Command::Worklist(WorklistArgs {
+            check: a_dir(),
+            out: a_dir(),
+            ..worklist_args()
+        }));
+    }
+
+    /// The claim: `run` refuses a value of `--out` beside `--check`, a seed and a bound among them.
+    /// Mutation checked: the test of `seeds` removed from the guard of `worklist_mode`'s `--check`
+    /// arm.
+    #[test]
+    fn run_refuses_a_worklist_value_with_a_seed_or_a_bound_beside_check() {
+        refused_by_run(Command::Worklist(WorklistArgs {
+            check: a_dir(),
+            seeds: vec!["a".to_string()],
+            ..worklist_args()
+        }));
+        refused_by_run(Command::Worklist(WorklistArgs {
+            check: a_dir(),
+            bound: 1,
+            ..worklist_args()
+        }));
     }
 }

@@ -1,7 +1,7 @@
 ---
 name: knowledge-architect-transcript-reviewer
 description: The transcript axis of a dispatched review. Reads the transcripts of the sessions that produced a piece of work, and checks that everything those sessions established that must outlive them has a durable outcome in the tree or in the history of the work, and that no ruling of the owner is recorded reversed, relaxed, turned from its direction or attributed where the owner did not rule.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 ---
 
 # Transcript review
@@ -26,8 +26,8 @@ owner's.
 **Reproduce anything you assert.** Every finding quotes the transcript verbatim, and names where you
 looked for the outcome, with the command you ran. Drop what you cannot quote.
 
-**You do not use `Write` or `Edit`.** You may write the extraction the command prints to a scratch
-directory the brief names, through the shell, and nowhere else.
+**You edit nothing in the project's tree.** You write the extraction the command prints, other
+working files and your report in the scratch directory the brief names, and nowhere else.
 
 ## Extract the transcripts `##extract-transcripts`
 

@@ -103,11 +103,13 @@ message where the work begins as one the owner typed.
   disk. Point at the file; do not paraphrase what it says. Where the file changed on disk after
   the session started, tell the subagent to read it from disk and to follow the disk where its
   copy differs.
-- **Every brief asks the reviewer to end its report with one line asking the dispatcher to save the
-  report whole**, as `skill@knowledge-architect-review@what-review-leaves` asks: the report is the
-  one text that reaches the dispatcher when the save is due, often after a compaction. A
-  general-purpose subagent returns its report as text, since the harness refuses its write of a
-  report file.
+%% The report file: `design@agent-skills@reviewer-writes-its-report`.
+- **Every brief names a path for the reviewer's report, in its scratch directory, and asks the
+  reviewer to write the report whole there with a shell redirect, `cat > <path> <<'EOF'`, and to
+  return the same report whole as text.** The harness can refuse a report file a subagent writes
+  with its file tool, and lets a shell redirect write it; the file is the copy the record of the
+  review is built from, since a compaction of the conversation keeps no report, and the text
+  returned keeps the findings in the transcript the transcript reviewer reads.
 - **The dispatcher does not defend the work.** Findings arrive as claims to check, not as attacks to
   answer. Verify each against the tree before relaying or acting on it; a reviewer can be wrong, and
   saying so requires the same reproduction the reviewer owed.
@@ -158,9 +160,10 @@ lost unless a later review finds it.
 reviewer's axis, an observation it declined to call a finding, a remark that a defect predates the
 change. Each is a claim about the work like any finding. So is a repair the dispatcher promised the
 owner while answering a review. The record of the review lists each item with its outcome. The
-dispatcher saves each report in a file outside the project, such as a scratch directory, as it
-arrives, and builds the record from those files: a compaction of the conversation keeps neither
-the reports nor their items.
+dispatcher builds the record from the report files the reviewers wrote, and restates none: a
+compaction of the conversation keeps neither the reports nor their items. Where a reviewer's write
+was refused, the dispatcher writes the report it returned as text into the file the brief named,
+before acting on any of its items.
 
 %% The trigger is a heading whose slug appears or disappears, so a split, which writes a new heading,
 %% is reviewed again: `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.

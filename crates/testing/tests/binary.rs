@@ -7161,6 +7161,116 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
     }
 }
 
+/// Every file under `dir` with its bytes, by its path relative to `dir`.
+fn tree_of(dir: &Path) -> std::collections::BTreeMap<PathBuf, Vec<u8>> {
+    let mut files = std::collections::BTreeMap::new();
+    let mut stack = vec![dir.to_path_buf()];
+    while let Some(at) = stack.pop() {
+        for entry in std::fs::read_dir(&at).expect("a directory").flatten() {
+            let path = entry.path();
+            if path.is_dir() {
+                stack.push(path);
+            } else {
+                let rel = path.strip_prefix(dir).expect("under dir").to_path_buf();
+                files.insert(rel, std::fs::read(&path).expect("a file"));
+            }
+        }
+    }
+    files
+}
+
+/// `worklist --check <agent-dir>` judges one agent's report by `--verify`'s rules: on a passing
+/// report it exits 0 with its `PASSED` line, and on a failing one 1, printing exactly the findings
+/// `--verify` prints for that report and none of another agent's, though that one fails too. In
+/// both cases it writes and removes no file of the work list, the outputs of an earlier `--verify`
+/// included. An agent `agents.txt` does not name is refused, exit 2. Mutations checked, in
+/// `path@query@src/worklist.rs`: in `judge_reports`, `if only.is_some_and(|o| o != agent) {` made
+/// `if false {`, which prints the other agent's findings; and in `check`,
+/// `if !list.agents.contains_key(&agent) {` made `if false {`, which passes an unknown agent; each
+/// caught.
+#[test]
+fn worklist_check_judges_one_report_and_writes_nothing() {
+    let (sandbox, out, _) = worklist_out("worklist-check", &["--bound", "120"]);
+    let out_text = out.to_string_lossy().into_owned();
+    fill_unrelated(&out);
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+
+    let target = "design@core-mock@first-head";
+    let (report, passing) = report_with(&out, target);
+    let agent_dir = report.parent().expect("its agent directory").to_path_buf();
+    let agent = agent_dir
+        .file_name()
+        .expect("a name")
+        .to_string_lossy()
+        .into_owned();
+    let agent_text = agent_dir.to_string_lossy().into_owned();
+    let before = tree_of(&out);
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--check", &agent_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&format!("PASSED: the report of {agent}")),
+        "{stdout}"
+    );
+    assert_eq!(
+        tree_of(&out),
+        before,
+        "a passing check changed the work list"
+    );
+
+    // The target's line removed, and a line of another agent's report removed too.
+    let line = report_line(&passing, target);
+    std::fs::write(&report, passing.replace(&format!("{line}\n"), "")).expect("a failing report");
+    let other = std::fs::read_dir(&out)
+        .expect("the work list")
+        .flatten()
+        .map(|e| e.path().join("report.md"))
+        .find(|r| r.exists() && r != &report)
+        .expect("a second agent");
+    let other_text = std::fs::read_to_string(&other).expect("its report");
+    let other_line = other_text
+        .lines()
+        .find(|l| l.starts_with("- ") && l.contains(" | verdict: "))
+        .expect("a verdict line")
+        .to_string();
+    std::fs::write(&other, other_text.replace(&format!("{other_line}\n"), ""))
+        .expect("a second failing report");
+    let before = tree_of(&out);
+    let (checked, stderr, code) = sandbox.run(&["worklist", "--check", &agent_text]);
+    assert_eq!(code, 1, "{checked}{stderr}");
+    assert_eq!(
+        tree_of(&out),
+        before,
+        "a failing check changed the work list"
+    );
+    let (verified, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 1, "{verified}{stderr}");
+    let findings = |text: &str, prefix: &str| -> Vec<String> {
+        text.lines()
+            .filter(|l| l.starts_with(prefix))
+            .map(str::to_string)
+            .collect()
+    };
+    let own = format!("{agent}/");
+    assert!(!findings(&verified, &own).is_empty(), "{verified}");
+    assert_eq!(findings(&checked, &own), findings(&verified, &own));
+    assert_eq!(
+        findings(&checked, "agent-").len(),
+        findings(&checked, &own).len(),
+        "the check printed another agent's findings: {checked}"
+    );
+    assert!(
+        findings(&verified, "agent-").len() > findings(&verified, &own).len(),
+        "the second agent's report does not fail: {verified}"
+    );
+
+    let unknown = out.join("agent-999").to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--check", &unknown]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(stderr.contains("names no agent `agent-999`"), "{stderr}");
+    let _ = std::fs::remove_dir_all(&out);
+}
+
 /// The outputs are the snapshot's text, not the tree's: an entry edited after `--out` is written
 /// as `--out` saw it, since `--verify` reads no model; and a passing run prints the count of each
 /// subject's verdicts and of the generated lines. A snapshot that lacks an entry `agents.txt`

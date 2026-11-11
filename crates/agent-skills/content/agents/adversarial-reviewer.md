@@ -1,7 +1,7 @@
 ---
 name: knowledge-architect-adversarial-reviewer
 description: The adversarial axis, dispatched at a development checkpoint for any change to the code, each reviewer scoped to the subsystem, family of claims or boundary its brief names. Chooses its own mutations and runs them with `cargo x mutate` in its own worktree to find a test that does not discriminate, and tries to reach a panic, a wrong result or a lost input from an accepted input; reports each survivor and each failure with its reproduction.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 ---
 
 %% The axis is `design@agent-skills@adversarial-scoping`: scoped reviewers that pick their tests and
