@@ -44,8 +44,8 @@ it is a directory. For each Component on the list, read whole:
 - its design home, `register@*@design`, every subdocument included where it is a directory;
 - its `register@*@rejected`.
 
-Run `{{command}} show <kind>@<anchor>@<id>` on every goal and every design entry the document cites,
-to read the entry and every text that references it.
+Run `{{command}} show goal@<id>` on every goal and `{{command}} show <kind>@<anchor>@<id>` on
+every design entry the document cites, to read the entry and every text that references it.
 
 %% The verdicts read beside the record, and the axis owed at a merge: `design@agent-skills@verdicts-reach-the-conformance-review`.
 %% The verdict files are read only where the brief names their directory: a search's directory is

@@ -85,7 +85,7 @@ layers and as a direction, and holds eight numbered rules, each argued in a head
 - rule 5, `design@agent-skills@goal-holds-one-intent`;
 - rule 7, `design@agent-skills@what-shows-a-goal-met-is-design`;
 - rule 8, `design@agent-skills@no-goal-refines-another`, with the rule that the goals home cites
-  only goals and the root's homes of registers, per `design@check@goals-home-cites-upward-only`;
+  only goals and the root's homes of registers, per `design@check@goals-home-cites-only-goals-and-root-homes`;
 - a goal expected to be unmet, `design@agent-skills@goal-drafted-to-move-the-tree`.
 
 Each rule's case, read in the goal histories of rootpoint, thaum and this repository, is a `%%`
@@ -366,9 +366,9 @@ for, and a wording narrowed without the owner's word states what the owner did n
 `agent@knowledge-architect-goal-reviewer` is read-only and hosts the goal standard. In draft mode,
 goal-setting dispatches it before every ruling of the owner, on the whole batch of new and reworded
 goals, every relevant statement of the owner verbatim whether or not the drafter drew on it, and
-every goals home the project declares, a goal outside the root's being a finding, and again on each
+the root's goals home, `register@goal`, a goal written outside it being a finding, and again on each
 repaired or reworded version, so the version shown is a version reviewed. In whole-set mode it reads
-every goals home and gives every goal's boundary block material, on which the owner judges rule 4. In merge mode it is the goals axis of the review before
+the root's goals home and gives every goal's boundary block material, on which the owner judges rule 4. In merge mode it is the goals axis of the review before
 a merge, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`. Each mode's own checks
 fire only on the input its brief carries, so one fragment serves three modes. How it grades is
 `design@agent-skills@goal-finding-grades`, and when its reviews stop
@@ -613,7 +613,7 @@ resolves there. The nearest rival, the drafts left uncommitted and read in the l
 draft-mode reviewer, which writes nothing, keeps the tree dirty for the whole review, and leaves the
 record no form of a drafted goal that both its commit and the tree accept. The drafts written in the
 record rather than in the goals home lose the checker's rules on a goals home over them, per
-`design@check@goals-home-cites-upward-only`. A committed draft the owner has not ruled on is not yet
+`design@check@goals-home-cites-only-goals-and-root-homes`. A committed draft the owner has not ruled on is not yet
 a goal: the goals axis of the review before the merge reports each goal edit of the range whose
 ruling no commit message records, per `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
 so no unruled draft reaches the main branch unreported. Committed drafts leave a session a move

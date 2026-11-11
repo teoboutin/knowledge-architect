@@ -13,7 +13,7 @@ agent harness (per `design@check@agents-table`), and the home of every `componen
 — `design`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
 scope. No document of the compiled list lies under `docs/`, where those homes are. The root
 carries besides the goals home, of the register the root alone carries, per
-`design@model@registers-are-declared`, and holds the plans directory, which is not a component's document but the anchor `plans`, per
+`design@model@goal-register-carried-by-the-root-alone`, and holds the plans directory, which is not a component's document but the anchor `plans`, per
 `design@model@plan-register`. A component that does not carry one it owes is a finding, raised by
 `path@model@src/tree.rs`.
 
@@ -51,7 +51,8 @@ directory gives every entry in it a reference and makes relocating it one manife
 is `rejected@model@additional-trackers-file-list`.
 
 **A location declares no register the tool gives an anchor**: a plan register is the plan
-anchors', and `goal` the root's, per `design@model@registers-are-declared`, so a location naming
+anchors', per `design@model@registers-are-declared`, and `goal` the root's, per
+`design@model@goal-register-carried-by-the-root-alone`, so a location naming
 either is refused that register.
 
 **A location's own registers are the only ones it carries**, and a skill or an agent of the
@@ -157,7 +158,7 @@ owner's word that such a project is still supposed, in most cases, to have peopl
 workflow, without which the checker has little use. Which registers can be attached is the
 session's argued limit within that intent: a register the project declares, since a built-in
 component register is carried by every Component already, `goal` by the root alone, per
-`design@model@registers-are-declared`, and a plan register belongs to the plans layout, per
+`design@model@goal-register-carried-by-the-root-alone`, and a plan register belongs to the plans layout, per
 `design@model@plan-register`. A register attached adds obligations and removes none, per
 `design@check@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
 per `design@model@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and

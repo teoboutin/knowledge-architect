@@ -58,7 +58,7 @@ is cited by its kind.
 
 The design this decision did not keep: `rejected@model@component-placeholder-anchor`.
 
-### A register's home is cited by its own kind, `register@<anchor>@<register>`, which names the home in whichever shape it has `##register-home-reference`
+### A register's home is cited by its own kind, `register@<anchor>@<register>`, but for a register the root alone carries, and the reference names the home in whichever shape it has `##register-home-reference`
 
 `register@<anchor>@<register>` names the home that the anchor keeps the register in. The check
 resolves it against the anchors, which the table's module holds, and asks nothing of the tree,

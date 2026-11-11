@@ -86,16 +86,16 @@ one grammar, the same in every project, with a global namespace naming no anchor
 
 The design this decision did not keep: `rejected@model@section-kind`.
 
-### A register that the project's root alone carries is cited with no anchor, and every anchored form of it is malformed `##root-register-reference-has-no-anchor`
+### A register that the project's root alone carries is cited with no anchor `##root-register-reference-has-no-anchor`
 
 A register the project's root alone carries, by a rule compiled into the tool that no declaration
 changes, is cited `<kind>@<id>` for an entry and `register@<register>` for its home: today the
-register `goal`, as `goal@<id>` and `register@goal`, per `design@model@registers-are-declared`.
-The reference is read at the root's anchor. The same reference written with an anchor,
-`<kind>@<anchor>@<id>`, `register@<anchor>@<register>` or `register@*@<register>`, is malformed,
-its one repair the form with no anchor. The candidate rule reads the arity from the kind and the
-register, never from the segment count alone, so a declared register, a component-scoped one and
-every other kind keep `<kind>@<anchor>@<id>`.
+register `goal`, as `goal@<id>` and `register@goal`, per
+`design@model@goal-register-carried-by-the-root-alone`. The reference is read at the root's
+anchor. The candidate rule reads the arity from the kind and the register, never from the segment
+count alone, so a declared register, a component-scoped one and every other kind keep
+`<kind>@<anchor>@<id>`. What becomes of the same reference written with an anchor is
+`design@model@anchored-root-register-reference-is-malformed`.
 
 - **No anchor, because the tool fixes the register's one carrier**:
   `rejected@model@register-reference-without-anchor` lost on two reasons. Its first, that the tool
@@ -104,19 +104,30 @@ every other kind keep `<kind>@<anchor>@<id>`.
   the resolver, is the cost this form accepts, as `design@model@harness-kinds-cited-without-anchor`
   accepts it for the harness kinds. A declared register keeps its anchor because a manifest edit
   changes its carriers, not because the tool cannot read them.
-- **The anchored forms are malformed, not a second spelling**: two spellings of one entry would put
-  two shapes on one meaning, the reason `rejected@check@at-prefix-root-relative-path` gives. Since
-  the root's name differs in each project, the anchored form would also be the one installed text
-  could not write.
 - **The choice is the owner's at a fork**: the owner chose this form over `*` read as every anchor
   that carries the register, `rejected@model@star-names-every-carrier-of-a-register`, a new
   reserved anchor word for the root, `rejected@model@reserved-word-for-the-root`, and the root's
   goals home named in words with no reference, which no goal ranks. The plan registers keep their
-  anchor, `rejected@model@plan-register-cited-without-anchor`.
+  anchor, `rejected@model@plan-register-references-have-no-anchor`.
 
 It serves `goal@documentation-has-a-structure-and-a-model`: a reference is written the same in
 every project, with one reading, and a goal named by its id alone is written so in every project
 that installs the workflow.
+
+### Each anchored form of a reference to a register the root alone carries is malformed, never a second spelling `##anchored-root-register-reference-is-malformed`
+
+A reference to a register the root alone carries, per
+`design@model@root-register-reference-has-no-anchor`, written with an anchor,
+`<kind>@<anchor>@<id>`, `register@<anchor>@<register>` or `register@*@<register>`, is malformed,
+its one repair the form with no anchor.
+
+- **One shape per meaning**: two spellings of one entry would put two shapes on one meaning, the
+  reason `rejected@check@at-prefix-root-relative-path` gives. The anchored goal form kept resolving
+  beside the form with no anchor is `rejected@model@anchored-goal-form-as-a-second-spelling`.
+- **Installed text could not write the anchored form**: the root's name differs in each project.
+
+It serves `goal@documentation-has-a-structure-and-a-model`: each entry has one reference, with one
+reading.
 
 ### Every level-two heading of a section home of the harness is a section, and owes a slug `##section-homes-carry-slugs`
 

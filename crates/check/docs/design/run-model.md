@@ -18,7 +18,8 @@ Five things are compiled in, and none of them describes a project:
 
 - **What the word _component_ means**: the documents a component carries, the four built-in
   component registers and the register `goal` the root alone carries, per
-  `design@model@components-carry-the-same-documents` and `design@model@registers-are-declared`, and
+  `design@model@components-carry-the-same-documents`, `design@model@registers-are-declared` and
+  `design@model@goal-register-carried-by-the-root-alone`, and
   the starting text
   `init` and `new-component` write in each document and home: a title and a line on what it
   holds, or that it holds no entry yet, with no entry, no reference and no link, so it passes every check in any project, and no
@@ -92,7 +93,7 @@ the last is `check`'s:
 | phase | produced by | what it reports |
 | ----- | ----------- | --------------- |
 | 1 | `Manifest::parse`, and each extension's resolution of its tables | a declaration the tool refused, which is then absent from the configuration |
-| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, a root CLAUDE.md a walk row or an extension's generated list keeps out, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks` |
+| 2 | `tree` of `path@model@src/tree.rs`, over `check`'s declared paths, the paths each extension declares and every document's parse | a file the walk could not read or refused, a tracked-and-ignored file, an anchor or a register home that is not there, a declared path that does not exist, a home a walk row keeps out, a root CLAUDE.md a walk row or an extension's generated list keeps out, a heading markdown reads and the checker does not, per `design@model@headings-open-with-hash-marks`, a home, in a Component other than the root, of a register the root alone carries, per `design@model@goal-register-carried-by-the-root-alone` |
 | 3 | `Entities::build` | a slug or an entry id where none may sit, or defined twice; a level-two heading of a section home with no slug; a skill's or an agent's name a reference cannot spell, or that its frontmatter contradicts |
 | 4 | every check, `check`'s and each extension's | everything computed over a complete model, an installed agent file missing, differing or unshipped and a root CLAUDE.md that does not import a shipped primer included: no check reads those, the installed bytes come from the survey, and the model is right about the tree over a stale copy and over a missing one |
 

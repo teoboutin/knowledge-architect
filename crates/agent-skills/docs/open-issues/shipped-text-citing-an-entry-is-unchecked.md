@@ -17,8 +17,9 @@ judge it.
 
 A mechanical check that the shipped text, as it ships, holds no reference to an entry. A path every
 conforming project holds, `path@*@<path>` or `path@plans@<path>`, a register's home every
-conforming project holds, `register@*@<register>` or `register@plans@<register>`, a reference to the shipped
-set's own skills, agents, primer and sections, and a placeholder in angle brackets stay allowed,
+conforming project holds, `register@*@<register>`, `register@plans@<register>` or `register@goal`, a
+reference to the shipped set's own skills, agents, primer and sections, and a placeholder in angle
+brackets, the goal form `goal@<id>` included, stay allowed,
 per `design@agent-skills@shipped-text-cites-no-entry`. The shipped set's own references are
 already judged, by a test of the checker that requires each to resolve within the set; what stays
 unchecked is a reference to an entry of a register, and a `path` reference naming an anchor of this

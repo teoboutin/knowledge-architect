@@ -187,7 +187,7 @@ per `design@query@clusters-packed-under-a-word-bound`.
 ### Goals reach a cluster agent as their title lines, and goal agents grade every goal whole, once `##goal-context-once`
 
 A cluster agent is given, read only, the title line of each goal, all of them the root's, since the
-root alone carries the register `goal`, per `design@model@registers-are-declared`: the goal's
+root alone carries the register `goal`, per `design@model@goal-register-carried-by-the-root-alone`: the goal's
 heading statement without its slug, with its reference. A goal brings in nothing: an issue or a
 tripwire that cites only goals is no member of a cluster through them. The goals are graded apart,
 grouped by goals file, each group with its file's text above its first goal, and packed into goal agents by the

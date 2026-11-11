@@ -277,7 +277,7 @@ The design this decision did not keep: `rejected@agent-skills@repair-defects-lef
 
 ### Each repair of agent-facing text is read against the goals, the design heads and the rejected alternatives it touches before the owner rules on it `##repairs-read-against-the-record`
 
-The record check reads every goals home, the design heads that the checker's `show` and a search of
+The record check reads the root's goals home, `register@goal`, the design heads that the checker's `show` and a search of
 the design homes return for the behaviour the edited text describes, the rejected alternatives
 of each Component that owns an edited text, and the scoped `CLAUDE.md` files and code comments that
 `skill@knowledge-architect-decision-recording@reversal-check` searches. It names each head the repair would reverse, each rejected

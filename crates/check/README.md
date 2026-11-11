@@ -89,7 +89,7 @@ reference, and a quotation, between double quotes or on a blockquote line, is re
 three, per `design@check@quotation-read-by-no-id-lint`.
 In the goals home, which the root alone carries, its goals and its head alike, `references`
 refuses every reference that is not a goal or a register's home of the root, per
-`design@check@goals-home-cites-upward-only`.
+`design@check@goals-home-cites-only-goals-and-root-homes`.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@check@deepest-anchor-wins`. An illustration of a form writes its id as a placeholder

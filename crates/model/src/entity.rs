@@ -706,11 +706,13 @@ impl Anchors {
     /// anchor `*`, by the shapes [`Anchors::home_target`] reads.
     pub(crate) fn generic_home_target(&self, path: &str) -> Option<&Register> {
         // A register attached to some Components keeps its home at the same place in each, so
-        // its home under `*` is a home target too.
+        // its home under `*` is a home target too; so is the home of a register the root alone
+        // carries, whose `*` copy is the root's, so that a path to it is reported as a home and
+        // named by the `register` form, per `design@model@path-to-a-home-is-reported`.
         self.registers
             .all()
             .iter()
-            .filter(|r| r.scope == crate::manifest::Scope::Component || !r.components.is_empty())
+            .filter(|r| r.scope != crate::manifest::Scope::OptIn || !r.components.is_empty())
             .find(|r| {
                 let dir = &r.dir;
                 path == format!("docs/{dir}")
@@ -991,9 +993,11 @@ pub enum Candidate<'a> {
 }
 
 /// The reference that names the entry `id` of `kind` at `anchor`, as a document writes it:
-/// `<kind>@<id>` for a harness kind, whose `anchor` is empty, and for a register the project's
-/// root alone carries, under its own kind or as its home under `register`; `<kind>@<anchor>@<id>`
-/// for every other.
+/// `<kind>@<id>` where `anchor` is empty, as a whole skill's or agent's or a section of the primer
+/// or the root instructions, and for a register the project's root alone carries, under its own
+/// kind or as its home under `register`; `<kind>@<anchor>@<id>` for every other, a harness
+/// section keyed by its skill's or agent's name included. Which registers the root alone carries
+/// is read from the name, by `Registers::is_root_register_name`, so it needs no manifest.
 pub fn spelled(kind: &str, anchor: &str, id: &str) -> String {
     let root_register = crate::manifest::Registers::is_root_register_name;
     if anchor.is_empty() || root_register(kind) || (kind == REGISTER_KIND && root_register(id)) {
@@ -1015,7 +1019,8 @@ pub fn spelled(kind: &str, anchor: &str, id: &str) -> String {
 /// An empty segment is malformed in either shape. A register the project's root alone carries,
 /// and its home under `register`, take two segments and name no anchor: the reference is read at
 /// the root's anchor, and the same reference written with an anchor is malformed, its repair the
-/// form with none, per `design@model@root-register-reference-has-no-anchor`. The
+/// form with none, per `design@model@root-register-reference-has-no-anchor` and
+/// `design@model@anchored-root-register-reference-is-malformed`. The
 /// arity is read from the kind and the register, never from the segment count alone.
 pub fn candidate<'a>(span: &'a str, anchors: &'a Anchors) -> Candidate<'a> {
     let Some((head, rest)) = span.split_once('@') else {
@@ -2723,6 +2728,80 @@ mod tests {
         assert!(found[0].contains("defines nothing"), "{found:#?}");
     }
 
+    /// The claim: a register the root alone carries is read with no anchor, at the root's anchor,
+    /// and its home under `register` too; each anchored spelling of either, and an empty id, is
+    /// malformed, its repair the form with no anchor. Mutations checked, each caught: in
+    /// `candidate`, the root-scoped arm made `if false {`; the `register` arm's no-anchor guard made
+    /// `None if false`, and its anchored guard `Some((_, id)) if false`; in
+    /// `root_register_candidate`, the empty-id arm made `if false {`, and the anchored arm
+    /// `if false {`.
+    #[test]
+    fn a_root_register_is_read_with_no_anchor_and_its_anchored_forms_are_malformed() {
+        let a = anchors();
+        assert_eq!(
+            candidate("goal@be-fast", &a),
+            Candidate::Reference {
+                kind: Kind::new("goal"),
+                anchor: "a-project",
+                id: "be-fast"
+            }
+        );
+        assert_eq!(
+            candidate("register@goal", &a),
+            Candidate::Reference {
+                kind: Kind::register(),
+                anchor: "a-project",
+                id: "goal"
+            }
+        );
+        for span in [
+            "goal@a-project@be-fast",
+            "goal@a-part@be-fast",
+            "goal@*@be-fast",
+            "register@a-project@goal",
+            "register@*@goal",
+        ] {
+            let Candidate::Malformed { repair, .. } = candidate(span, &a) else {
+                panic!("{span} is not malformed: {:?}", candidate(span, &a));
+            };
+            assert!(repair.contains("with no anchor"), "{span}: {repair}");
+        }
+        let Candidate::Malformed { why, .. } = candidate("goal@", &a) else {
+            panic!("an empty id is not malformed");
+        };
+        assert_eq!(why, "the id segment is empty");
+        // Every other register keeps its anchor.
+        assert!(matches!(
+            candidate("design@a-project", &a),
+            Candidate::Malformed { .. }
+        ));
+        assert!(matches!(
+            candidate("register@design", &a),
+            Candidate::Malformed { .. }
+        ));
+    }
+
+    /// The claim: `spelled` writes a register the root alone carries, and its home, with no
+    /// anchor, and every other reference as the table keys it. Mutations checked, each caught:
+    /// `root_register(kind) ||` removed, and `|| (kind == REGISTER_KIND && root_register(id))`
+    /// removed.
+    #[test]
+    fn spelled_writes_the_root_s_register_with_no_anchor() {
+        assert_eq!(spelled("goal", "a-project", "be-fast"), "goal@be-fast");
+        assert_eq!(spelled("register", "a-project", "goal"), "register@goal");
+        assert_eq!(spelled("register", "*", "goal"), "register@goal");
+        assert_eq!(
+            spelled("register", "a-project", "design"),
+            "register@a-project@design"
+        );
+        assert_eq!(spelled("design", "a-part", "x-y"), "design@a-part@x-y");
+        assert_eq!(spelled("skill", "", "a-skill"), "skill@a-skill");
+        assert_eq!(
+            spelled("skill", "a-skill", "a-slug"),
+            "skill@a-skill@a-slug"
+        );
+    }
+
     #[test]
     fn the_candidate_rule_admits_a_kind_or_an_anchor_at_the_head_and_nothing_else() {
         let a = anchors();
@@ -2917,9 +2996,13 @@ mod tests {
             assert_eq!(a.required_kind(home), None, "{home}");
             assert!(a.generic_home_target(home).is_some(), "{home}");
         }
-        // The root alone carries the goals home, so `*`, every component's home, names none of it.
+        // The root alone carries the goals home, and its `*` copy is the root's, so a path to it is
+        // a home target under `*` as every component's home is. Mutation checked: the filter of
+        // `generic_home_target`, `r.scope != Scope::OptIn ||` made `r.scope == Scope::Component ||`,
+        // which leaves the goals home out.
         for home in ["docs/goals.md", "docs/goals", "docs/goals/README.md"] {
-            assert!(a.generic_home_target(home).is_none(), "{home}");
+            assert_eq!(a.required_kind(home), None, "{home}");
+            assert!(a.generic_home_target(home).is_some(), "{home}");
         }
         // A file register has no single-file shape, and a subdocument is no home.
         assert_eq!(a.required_kind("docs/open-issues.md"), None);

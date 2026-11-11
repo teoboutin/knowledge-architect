@@ -10,7 +10,8 @@
 carry it, per `design@model@a-component-carries-what-a-project-attaches`; `[locations.<name>]`
 declares a directory and the registers it carries.
 Eleven registers are compiled in — `design`, `tripwire`, `rejected`, `issue`, carried by every
-component; `goal`, carried by the project's root alone; `spec` and `milestone`, carried by the
+component; `goal`, carried by the project's root alone, per
+`design@model@goal-register-carried-by-the-root-alone`; `spec` and `milestone`, carried by the
 anchor `plans`, `spec` also by each milestone anchor, per `design@model@plan-register`; and the four
 item registers, carried by the plan anchors, per `design@model@item-registers-built-in`. A
 declaration for one of the first five accepts `kinds` on `issue` and nothing else, because the
@@ -24,17 +25,18 @@ kind segment is that word never reaches the register. Setting `scope`, `shape`, 
 `sections`, `metadata`, `carries` or `components` on a built-in is a finding, and the compiled
 value stands.
 
-**The register `goal` is the root's alone, by a scope compiled in that no declaration gives or
-changes.** A goal is what the project is for, so it names no part of the project, and which
+**Declarations go in the manifest because its header promises that what is checked is said in one
+place.** Its bulk is comments, which is what a declaration owes a reader.
+
+### The register `goal` is carried by the project's root alone, by a scope compiled in that no declaration gives or changes `##goal-register-carried-by-the-root-alone`
+
+A goal is what the project is for, so it names no part of the project, and which
 Components exist is a design choice that a goal would otherwise follow, per
 `design@agent-skills@goals-home-at-the-root-only`. A goals home in a Component other than the root
 is refused in phase 2, with the repair of its case: deleted where it holds no goal; each goal moved
 to the root's home, or turned into a design head, where it holds one. Since the tool fixes the
 register's one carrier, a goal is cited with no anchor, per
 `design@model@root-register-reference-has-no-anchor`.
-
-**Declarations go in the manifest because its header promises that what is checked is said in one
-place.** Its bulk is comments, which is what a declaration owes a reader.
 
 ### An `opt-in` register declared with `dir = "."` keeps its home at its carrier's own directory, and that carrier carries no other register `##home-at-the-carrier-path`
 

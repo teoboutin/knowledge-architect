@@ -328,7 +328,7 @@ fn goals_home_owner<'a>(rel: &Path, anchors: &'a Anchors) -> Option<&'a table::A
 }
 
 /// The finding on a reference written in the goals home that is not a goal or a register's home
-/// of the root, per `design@check@goals-home-cites-upward-only`.
+/// of the root, per `design@check@goals-home-cites-only-goals-and-root-homes`.
 ///
 /// `target` is the reference's kind and the anchor it names, and `None` for a harness reference,
 /// which names no anchor and is refused whatever it names. The project's root alone carries the
@@ -421,7 +421,7 @@ pub(crate) fn judge_ids(docs: &[crate::model::Document], tables: &[IdTable]) -> 
 fn id_lint(rel: &Path, line: u32, what: &Observation, tables: &[IdTable]) -> Option<Finding> {
     // In a goals home only the forms the citation check admits there are offered, and where none
     // is, the finding names the citation check's repair, per
-    // `design@check@goals-home-cites-upward-only`.
+    // `design@check@goals-home-cites-only-goals-and-root-homes`.
     // A commit message, the one document judged against two tables, is in no goals home, so the
     // first table's anchors decide for every document that can be.
     let goals_home = tables
@@ -2918,6 +2918,40 @@ mod tests {
         }
     }
 
+    /// The claim: a path to the root's goals home, under `*` or at the root's anchor, and a
+    /// planned path that now exists as it, is a finding whose repair names the home with no anchor,
+    /// `register@goal`. Mutations checked, each caught: in `generic_home_target` of
+    /// `path@model@src/entity.rs`, `r.scope != Scope::OptIn ||` made `r.scope == Scope::Component ||`,
+    /// which leaves the span under `*` with no finding; and in `converted` of
+    /// `path@model@src/resolver.rs`, the `spelled` call made a `format!` with the anchor.
+    #[test]
+    fn a_path_to_the_root_s_goals_home_names_it_with_no_anchor() {
+        let (_, anchors) = register_project();
+        for span in [
+            "path@*@docs/goals.md",
+            "path@*@docs/goals/",
+            "path@a-project@docs/goals.md",
+        ] {
+            let found = register_checked(&format!("See `{span}`.\n"));
+            assert_eq!(found.len(), 1, "{span}: {found:#?}");
+            assert!(
+                found[0].contains("write `register@goal`"),
+                "{span}: {found:#?}"
+            );
+        }
+        let present: Vec<String> = ["docs/goals.md"].iter().map(|p| p.to_string()).collect();
+        let (found, _) = checked_under(
+            vec![(
+                "docs/plans/specs/t.md",
+                "Creates `planned@a-project@docs/goals.md`.\n",
+            )],
+            &present,
+            &anchors,
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("write `register@goal`"), "{found:#?}");
+    }
+
     /// The claim: a repair that converts a reference to an existing home names the `register`
     /// form, so following it raises no second finding: a planned path that now exists, one that
     /// points into an existing home, and the escape on a home this tree holds.
@@ -2979,10 +3013,10 @@ mod tests {
         assert!(found[0].contains("`milestone@plans@m-one`"), "{found:#?}");
     }
 
-    // --- citations in a goals home, per `design@check@goals-home-cites-upward-only` ----------
+    // --- citations in a goals home, per `design@check@goals-home-cites-only-goals-and-root-homes` ----------
 
     /// A manifest with the root and one Component beside it.
-    fn nested_manifest() -> Manifest {
+    fn root_and_part_manifest() -> Manifest {
         let text = "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\n\
              components = [\"parts/a-part\"]\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
@@ -3012,7 +3046,7 @@ mod tests {
             .collect();
         all.extend(docs.into_iter().map(|(p, t)| (p, t.to_string())));
         let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
-        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
         found
             .into_iter()
             .filter(|f| f.contains("is cited in the goals home"))
@@ -3138,7 +3172,7 @@ mod tests {
             "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `a-decision`.\n".to_string(),
         ));
         let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
-        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
         let lint: Vec<&String> = found
             .iter()
             .filter(|f| f.contains("`a-decision`"))
@@ -3187,7 +3221,7 @@ mod tests {
                 .to_string(),
         ));
         let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
-        let (found, _) = checked_docs(&nested_manifest(), borrowed, &[]);
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
         let lint: Vec<&String> = found.iter().filter(|f| f.contains("`shared-id`")).collect();
         assert_eq!(lint.len(), 1, "{found:#?}");
         assert!(lint[0].contains("`goal@shared-id`"), "{lint:#?}");
@@ -3225,7 +3259,7 @@ mod tests {
                 "docs/design.md".to_string(),
                 "docs/goals.md".to_string(),
             ];
-            checked_docs(&nested_manifest(), borrowed, &present).0
+            checked_docs(&root_and_part_manifest(), borrowed, &present).0
         };
         let in_home: Vec<&String> = found
             .iter()

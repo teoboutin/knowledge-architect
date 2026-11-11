@@ -77,7 +77,7 @@ the document to cite whole: the spec, the milestone, or the slice spec that defi
 the item named beside it as `#<id>`, the name `skill@knowledge-architect-planning@spec-contents`
 gives an item outside its plan. A
 whole plan may be cited from anywhere but a goals home, per
-`design@check@goals-home-cites-upward-only`, so a dependency between plans is carried by the document,
+`design@check@goals-home-cites-only-goals-and-root-homes`, so a dependency between plans is carried by the document,
 and retiring a plan asks no other plan to be redesigned item by item. The premise is that a
 whole-document citation carries every dependency between plans that matters while few plans are
 open at once.

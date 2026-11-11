@@ -37,7 +37,7 @@ The statements nobody has argued, each with what it bound:
   to repair by judgement.
 
 The instances seen, each a text that states what a relocation costs with no argument for why it must cost that:
-`design@check@deepest-anchor-wins`, `design@check@goals-home-cites-upward-only`,
+`design@check@deepest-anchor-wins`, `design@check@goals-home-cites-only-goals-and-root-homes`,
 `design@model@anchors-are-components-and-locations`, `design@model@register-home-reference`,
 `design@model@path-to-a-home-is-reported`, `design@model@harness-kinds-cited-without-anchor` and
 `design@model@declarable-directory-register`.
