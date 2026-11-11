@@ -397,6 +397,68 @@ mod tests {
         let _ = std::fs::remove_dir_all(&root);
     }
 
+    /// The claim, per `design@check@fix-scope`: a shipped copy git lists as deleted is written
+    /// again; a shipped copy git does not list is written only where the disk does not already hold
+    /// the shipped text; a directory in a shipped file's place is left alone; an unshipped binary
+    /// file git lists is deleted, and an unshipped path the working tree does not hold as a file is
+    /// not. Mutations checked: `Outside::Binary` dropped from the deletion's match keeps the binary
+    /// stray; `if !current` made `if true` rewrites the current ignored copy; the `Directory` arm
+    /// made a write writes over the directory; the `Missing` state left unwritten keeps the deleted
+    /// copy missing.
+    #[test]
+    fn the_repairs_restore_a_deleted_copy_and_leave_a_current_one_and_a_directory() {
+        let root = std::env::temp_dir().join(format!("ka-repairs-states-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        std::fs::create_dir_all(root.join(".claude/agents")).unwrap();
+        let ignored_current = ".claude/agents/knowledge-architect-ignored-current.md";
+        let ignored_stale = ".claude/agents/knowledge-architect-ignored-stale.md";
+        std::fs::write(root.join(ignored_current), "current\r\n").unwrap();
+        std::fs::write(root.join(ignored_stale), "stale\n").unwrap();
+        let shipped: Vec<(PathBuf, String)> = [
+            (".claude/agents/knowledge-architect-deleted.md", "deleted\n"),
+            (".claude/agents/knowledge-architect-directory.md", "dir\n"),
+            (ignored_current, "current\n"),
+            (ignored_stale, "fresh\n"),
+        ]
+        .iter()
+        .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+        .collect();
+        let installed = vec![
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-deleted.md"),
+                Outside::Missing,
+            ),
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-directory.md"),
+                Outside::Directory,
+            ),
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-blob.bin"),
+                Outside::Binary,
+            ),
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-gone.md"),
+                Outside::Missing,
+            ),
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-nested"),
+                Outside::Directory,
+            ),
+        ];
+        let found = repairs(&root, &shipped, &installed);
+        assert_eq!(
+            found,
+            Repairs {
+                write: vec![
+                    PathBuf::from(".claude/agents/knowledge-architect-deleted.md"),
+                    PathBuf::from(ignored_stale),
+                ],
+                delete: vec![PathBuf::from(".claude/agents/knowledge-architect-blob.bin")],
+            }
+        );
+        let _ = std::fs::remove_dir_all(&root);
+    }
+
     /// The claim: an install writes a shipped workflow and removes a prefixed one the version does
     /// not ship from .claude/workflows/, and leaves the project's own workflows there. Mutation: the
     /// workflows directory left out of `owned_on_disk` keeps the old workflow.

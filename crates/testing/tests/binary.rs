@@ -4610,6 +4610,71 @@ fn check_staged_compares_the_staged_installed_files_and_names_the_checker_source
     assert_eq!(line_of(&staged, "checker source:"), checker, "{staged}");
 }
 
+/// The claim, per `design@check@staged-check-semantics`: `check --staged` compares every staged
+/// installed file, a workflow script that a walk row skips included, as `check` compares it on
+/// disk. Mutation checked: `read_tree` reading under the index only the installed files whose
+/// name ends in `.md` reports each shipped workflow as differing.
+#[test]
+fn check_staged_compares_an_installed_file_a_walk_row_skips() {
+    let sandbox = harnessed("staged-skipped-installed");
+    let manifest =
+        std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replace(
+            "skip-dirs = [\"build\"]",
+            "skip-dirs = [\"build\", \".claude/workflows\"]",
+        ),
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let (workflow, shipped) = knowledge_architect_agent_skills::FILES
+        .iter()
+        .find(|(path, _)| path.starts_with(".claude/workflows/"))
+        .expect("this version ships a workflow");
+    sandbox.write(workflow, &format!("{shipped}\n// an edit\n"));
+    sandbox.git(&["add", workflow]);
+    let (out, err, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(out.contains("FAILED: 1 finding above"), "{out}");
+    assert!(
+        out.contains(&format!("{workflow}  this installed file differs")),
+        "{out}"
+    );
+}
+
+/// The claim: a symbolic link in the installer's namespace that a `skip-files` row keeps is
+/// still judged by the installed-file check, which reads the namespace whatever the walk rows
+/// say: the row silences the link's own finding and no other. Mutation checked: `from_listing`
+/// leaving a link out of `installed` before the owned test makes the stray pass.
+#[test]
+fn a_link_in_the_installers_namespace_a_skip_row_keeps_is_still_judged() {
+    let sandbox = harnessed("owned-link");
+    let link = ".claude/agents/knowledge-architect-linked.md";
+    std::os::unix::fs::symlink("../../notes/a.md", sandbox.path(link)).expect("a symlink");
+    let manifest =
+        std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replace(
+            "skip-files = [\"notes/generated.md\"]",
+            &format!("skip-files = [\"{link}\", \"notes/generated.md\"]"),
+        ),
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(!out.contains("is a symlink"), "{out}");
+    assert!(out.contains("FAILED: 1 finding above"), "{out}");
+    assert!(
+        out.contains(&format!(
+            "{link}  this file sits in the installer's namespace"
+        )),
+        "{out}"
+    );
+}
+
 /// The claim: an index holding an unmerged path is refused with exit 2, naming the path once.
 #[test]
 fn check_staged_refuses_an_unmerged_index() {
