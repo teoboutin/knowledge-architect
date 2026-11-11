@@ -71,6 +71,30 @@ which `design@model@harness-kinds-cited-without-anchor` cites with no anchor, no
 tool gives to the root alone, which `design@model@root-register-reference-has-no-anchor` cites with
 no anchor; the second stands as the cost both heads accept.
 
+### `*` read under `register` as every anchor that carries the register, so that the goals home with `*` as its anchor names the root's `##star-names-every-carrier-of-a-register`
+
+`live`. It keeps the form the shipped text wrote and the released changelog's line resolving, and
+adds no reserved word. It loses at the owner's fork to the form with no anchor, which no goal
+ranks: `*` would then read as every Component under `path` and as every carrier under `register`,
+two readings of one word, while a goal is still cited with an anchor that each project spells with
+its own name.
+
+### A reserved anchor word for the project's root, so that `register@<word>@goal` and `goal@<word>@<id>` resolve in every project `##reserved-word-for-the-root`
+
+`live`. It names the root in every project and would give a root path a checked form too. It loses
+at the owner's fork to the form with no anchor, and on a measured cost besides: `is_anchor_word` of
+`path@model@src/entity.rs` covers every reserved word, so every backticked span of that word
+before an `@`, as a login `root@<host>`, would be a finding in every project; and a Component or a
+project named by the word would be refused.
+
+### The plan registers cited with no anchor, a milestone by its kind and its id alone, and the home of `spec` or `milestone` by the register alone `##plan-register-cited-without-anchor`
+
+`live`. It extends the form with no anchor to the registers of the anchor `plans`. It loses on the
+carriers: `spec` is carried by `plans` and by each milestone, so a spec cited by its id alone beside
+`spec@<milestone>@<slice>` would read the anchor from the segment count within one kind, the special
+case the form with no anchor refuses; and the owner chose to keep `milestone`'s anchor too, over a
+form for it alone, which no goal ranks.
+
 ### An anchor the tool constructs for the agent configuration, so that a skill, an agent and their sections keep three segments, as `skill@<cfg>@<name>` `##agent-configuration-anchor`
 
 `live`. It keeps one arity for every kind. It loses because the anchor carries no information, one
