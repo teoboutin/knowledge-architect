@@ -220,6 +220,64 @@ fn a_red_baseline_refuses_before_anything_is_written() {
     assert!(!s.record().exists());
 }
 
+/// The claim, per `design@mutate@baseline-runs-by-default`: with `--build`, the baseline runs the
+/// probe over the unmutated tree before the command, so a command that builds nothing takes its
+/// baseline on the unmutated build, not on a previous run's mutant left in place. The build here
+/// copies the file to `built`, and the command reads `built` alone. Mutation checked: the probe
+/// before the baseline removed makes the baseline read the stale mutant and refuse the run.
+#[test]
+fn the_baseline_runs_the_build_probe_over_the_unmutated_tree() {
+    let s = Sandbox::new("baseline-build");
+    s.write(FILE, BODY);
+    s.write("built", "a previous run's mutant, MUT\n");
+    let (ok, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--replace",
+        "SITE",
+        "--with",
+        "MUT",
+        "--build",
+        &format!("cp {FILE} built"),
+        "--",
+        "grep",
+        "-q",
+        "SITE",
+        "built",
+    ]);
+    assert!(ok, "{code}: {out}");
+    assert!(out.contains("baseline: build probe:"), "{out}");
+    assert!(out.contains(": caught"), "{out}");
+    assert_eq!(s.read(FILE), BODY);
+}
+
+/// The claim: a build probe that fails over the unmutated tree refuses the run before the target
+/// is written, exit 2, as a red baseline does. Mutation checked: the refusal's arm made a no-op
+/// runs the mutation.
+#[test]
+fn a_build_probe_failing_over_the_unmutated_tree_refuses_the_run() {
+    let s = Sandbox::new("baseline-build-red");
+    s.write(FILE, BODY);
+    let (_, out, code) = s.run_coded(&[
+        "run",
+        "--file",
+        FILE,
+        "--replace",
+        "SITE",
+        "--with",
+        "MUT",
+        "--build",
+        "false",
+        "--",
+        "true",
+    ]);
+    assert_eq!(code, 2, "{out}");
+    assert!(!out.contains("mutation applied"), "{out}");
+    assert_eq!(s.read(FILE), BODY);
+    assert!(!s.record().exists());
+}
+
 #[test]
 fn a_failing_build_probe_reports_unmutatable_rather_than_caught() {
     // The verdict this separates: a command that failed because a test noticed, from one that

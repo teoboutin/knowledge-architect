@@ -33,6 +33,7 @@ $ cargo x mutate run --file crates/mutate/src/harness.rs \
     --replace '0 => Err(PlanError::NotFound),' --with '0 => Ok(source.to_string()),' \
     --build 'cargo test -p knowledge-architect-mutate --no-run --quiet' \
     -- cargo test -p knowledge-architect-mutate --quiet
+baseline: build probe: cargo test -p knowledge-architect-mutate --no-run --quiet
 baseline: running the command over the unmutated tree
 mutation applied to crates/mutate/src/harness.rs, first changed line 65
 build probe: cargo test -p knowledge-architect-mutate --no-run --quiet
@@ -58,7 +59,10 @@ crates/mutate/src/harness.rs: caught
   command; a build of several packages names them all with `-p`. A probe that cannot be spawned
   gives no verdict, and an empty one is refused.
 - **The baseline runs by default.** The command runs once over the unmutated tree first, and a
-  failure there refuses the run, since over a red base every mutation reads as `caught`.
+  failure there refuses the run, since over a red base every mutation reads as `caught`. With
+  `--build`, the probe runs before it, so a command that builds nothing, such as a script calling
+  a built binary, takes its baseline on the unmutated build; a probe that fails there refuses the
+  run too.
   `--no-baseline` skips it when the failure is expected and understood. A change saved to the file
   while the baseline runs refuses the run, which writes nothing.
 - **A run over uncommitted work is safe.** The restore writes the pre-image only when the file is
