@@ -86,7 +86,8 @@ next commit, per `design@check@staged-check-semantics`. A commit's tree is judge
 
 ### The root CLAUDE.md delivers the primer by an import line, which the project writes `##primer-import-line`
 
-The install does not edit the root CLAUDE.md, which belongs to the project: it says the import line is
+The install does not edit the root CLAUDE.md, which belongs to the project, per
+`design@check@owned-namespace-check`: it says the import line is
 not where `design@check@import-on-first-line` puts it, and the family `agents` reports a root CLAUDE.md
 that does not import the shipped primer there, with the line as its repair. The import line is an at
 sign followed by .claude/knowledge-architect/PRIMER.md. The rival delivery is
@@ -108,18 +109,25 @@ saving of that rival, no line moved by a project that placed it elsewhere, is a 
 cost per `design@knowledge-architect@capability-cost-before-migration`, and no goal asks for another
 place.
 
-It relies on the `claude` harness evaluating an import placed on the first line, which a fresh
-session started in this repository's root, whose CLAUDE.md begins with the import line, answers YES
-to, using no tool:
+It relies on the `claude` harness evaluating an import placed on the first line. That is taken
+again in a scratch project holding the installed primer at its install path and a root CLAUDE.md
+that begins with the import line, by asking a fresh session there for a sentence of the primer that
+the question does not hold:
 
 ```sh
-claude -p "Answer with one word, YES or NO, without using any tool: does your context contain the text of a document whose first heading is '# The knowledge-architect workflow' and which has a section headed 'Goals bind; decisions bind as a presumption'?" < /dev/null
+git init -q && claude -p "Without using any tool: if your context holds a section headed 'Goals bind; decisions bind as a presumption', quote verbatim the first bold sentence of that section; otherwise answer ABSENT." < /dev/null
 ```
+
+The session quotes the sentence, "The goals are the only statements assumed to come from the
+owner."; over a root CLAUDE.md with no import line it answers ABSENT.
 
 ### The first line is compared with the import line byte for byte `##import-line-exact-bytes`
 
 A byte-order mark before the line and the line ending after it, LF or CRLF, are not part of it, and
 nothing else is stripped: a first line with a space before or after the import line does not count,
-for `design@check@import-on-first-line`. A leading space is refused because four of them make an indented
-code block, where the harness evaluates no import. A trailing one is harmless to the harness, and
-refusing it keeps one byte string the only accepted shape, which the finding's repair states.
+for `design@check@import-on-first-line`. The two shapes accepted are those an editor writes without
+being asked, and the measurement of that head, taken again over a root CLAUDE.md that begins with a
+byte-order mark and over one with CRLF line endings, quotes the primer's sentence in both. A space is
+refused, before or after, so that one byte string is the only accepted line, which the finding's
+repair states and which needs no reading of how the harness treats spaces: four leading ones make an
+indented code block in CommonMark, and the harness's parser is not documented as CommonMark.
