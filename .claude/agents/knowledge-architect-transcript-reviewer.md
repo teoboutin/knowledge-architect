@@ -43,8 +43,8 @@ identifier in its paths.
 Extract each session, in the order the brief gives, with
 `cargo klarch transcript show <session> --from "<opening words>" --full`, or with
 `--from-line <number>` in place of `--from` where the brief names a line number, written to a file
-of your scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
-prints its first 5. The command keeps the lines in order, and labels each by what the harness
+of your scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's
+report, prints its first 5. The command keeps the lines in order, and labels each by what the harness
 recorded of it: its fields, or, on a line no field places, a text or a tag the harness writes.
 
 - **Only the lines labelled `owner`, `owner-queued`, `owner-answer`, `owner-command`,

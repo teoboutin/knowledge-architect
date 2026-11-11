@@ -8916,20 +8916,20 @@ fn transcript_a_file_with_no_cwd_is_reported_where_it_is_left_out() {
     assert!(!stdout.contains("no cwd"), "{stdout}");
 }
 
-/// The claim: a handle two sessions carry names both, so `show` refuses it with each `sessionId`,
-/// exit 1, after the header; a session it cannot name is refused after the header too.
+/// The claim: two `sessionId`s sharing their first 8 characters give two handles, each of which
+/// `show` resolves; a session it cannot name is refused after the header.
 #[test]
-fn transcript_show_refuses_a_handle_two_sessions_carry_after_its_header() {
-    let (stdout, _, code) = transcript("gaps", "gaps-twohandles", &["show", "9a9a9a9a"]);
-    assert_eq!(code, 1, "{stdout}");
+fn transcript_two_session_ids_sharing_a_prefix_give_two_handles() {
+    let (stdout, _, code) = transcript("gaps", "gaps-twohandles", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("\n9a9a9a9a  "), "{stdout}");
+    assert!(stdout.contains("\n9a9a9a9a#2  "), "{stdout}");
+    let (stdout, _, code) = transcript("gaps", "gaps-secondhandle", &["show", "9a9a9a9a#2"]);
+    assert_eq!(code, 0, "{stdout}");
     assert!(
-        stdout.contains(
-            "\"9a9a9a9a\" names 2 sessions: 9a9a9a9a-0000-0000-0000-000000000020, \
-             9a9a9a9a-0000-0000-0000-000000000021"
-        ),
+        stdout.contains("a second id with the same first characters"),
         "{stdout}"
     );
-    assert!(stdout.starts_with("# files read: 2;"), "{stdout}");
     let (stdout, _, code) = transcript("gaps", "gaps-unknown", &["show", "zzzzzzzz"]);
     assert_eq!(code, 1, "{stdout}");
     assert!(stdout.starts_with("# files read: 2;"), "{stdout}");

@@ -4,9 +4,10 @@ Workflow automation for this repository. One subcommand per workflow: `changelog
 copies of the root changelog the published crates ship, per
 `design@knowledge-architect@the-changelog-ships-in-every-crate`; `skill`, which prints the source
 of one shipped text with its fragments and snippets inlined and its comments kept; `mutate`, which
-runs the published hand mutation, per `design@knowledge-architect@mutation-command-host`; and `gates`,
-which runs this repository's gate list through the published gates library,
-`register@gates@design`. A workflow belongs here when it is a repository operation a session runs
+runs the published hand mutation, per `design@knowledge-architect@mutation-command-host`;
+`transcript-kinds`, which counts the line kinds of Claude Code's transcripts before a value of their
+format is classed; and `gates`, which runs this repository's gate list through the published gates
+library, `register@gates@design`. A workflow belongs here when it is a repository operation a session runs
 often and gets wrong by hand.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
@@ -33,7 +34,9 @@ task of the installed text that the owner has taken in is therefore published, a
 published to nobody. The rival, a local task as a command of `klarch`,
 puts in the command line of every adopting project's checker a command that serves this repository
 alone, as `design@xtask@source-view-in-the-tool` argues of the source view against
-`rejected@xtask@source-view-in-the-checker`. The line stops where a task is the installed text's: as
+`rejected@xtask@source-view-in-the-checker`, and as the inventory of the transcripts' line kinds,
+which this repository's transcript heads alone ask for, takes against
+`rejected@xtask@line-kinds-a-verb-of-transcript`. The line stops where a task is the installed text's: as
 a command of this tool it would leave a project that adopts the workflow, such as thaum, with no
 copy, as `design@transcript@transcript-command-reads-any-project` argues of the transcripts.
 
@@ -100,18 +103,21 @@ comments. Reading it is a task local to this repository, so it is this tool's, p
 project's checker a command that either finds no source there or ships this repository's in every
 binary.
 
-### The source view reaches the build's readers by including their file with `#[path]`, and the agent-skills library exports no view `##view-included-not-exported`
+### A command of this tool reaches a published crate's internals by including their file with `#[path]`, and the crate exports nothing for it `##view-included-not-exported`
 
 `path@xtask@src/skill.rs` includes `path@agent-skills@src/render.rs` with `#[path]`, as
 `path@agent-skills@build.rs` does, so the view calls the readers of
 `design@agent-skills@one-placeholder-reader-per-kind`. The library of the agent-skills crate
-declares the file for its own tests alone. The rival, the view exported from that library,
-`rejected@xtask@source-view-exported-from-the-library`, would add to the API of a published crate a
-function no consumer calls. The owner expects the split of the crate into a bundling utility that
+declares the file for its own tests alone. `path@xtask@src/main.rs` includes
+`path@transcript@src/reader.rs` and `path@transcript@src/kinds.rs` the same way, so
+`transcript-kinds` reads and labels the transcripts as every verb of `klarch transcript` does, and
+the transcript library declares `kinds.rs` for its own tests alone. The rival, the function
+exported from the library, `rejected@xtask@source-view-exported-from-the-library`, would add to the
+API of a published crate a function no consumer calls. The owner expects the split of the crate into a bundling utility that
 publishes the bundling method and the skills themselves,
 `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`, to change
 how the view reaches the passes.
 
-The costs: the file's tests also run in this tool's test binary, and each include allows dead code,
-since each uses part of the file. The crate's own test build allows none, so an item that no unit
+The costs: each file's tests also run in this tool's test binary, and each include allows dead
+code, since each uses part of the file. The crate's own test build allows none, so an item that no unit
 uses still warns there.

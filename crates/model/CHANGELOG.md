@@ -168,6 +168,18 @@ an empty subsection is omitted.
 - `cli`, minor: `worklist --check <dir>/agent-<n>` judges one agent's report by the rules of
   `--verify`, with the same findings, and writes and removes no file, so a record searcher checks
   its own report while the other agents still fill theirs.
+- `cli`, minor: `transcript show --from-line <n>` starts at the first kept line numbered `n` or above, such as the
+  agent's line where a piece of work begins; it excludes `--from`.
+- `cli`, minor: the header of every `transcript` verb names each text the harness cut before writing it, with its
+  file and line, the count of characters left out, and the file the harness names as holding it whole; the output
+  of a command the owner ran is read for none.
+- `cli`, patch: `transcript search --role tool` keeps the tool lines, where it kept none; two `sessionId`s
+  sharing their first 8 characters take two handles, `#2` on the later, where they took one and `show` named the
+  first; `transcript show` prints the header before a session it cannot name; the header names, as a gap, each file a run over one project leaves out because its first
+  chain line holds no `cwd`.
+- `cli`, patch: `transcript` labels a command the harness writes with no `commandRun`, as `/compact` and `/restart` do,
+  `owner-command`, named by its `<command-name>` tag, and its output `injected command-output`, where it labelled the
+  `user` lines `unlabelled` and reported the `local_command` lines as a gap.
 - `library`, minor: the gates' flag `--ci` sets `KNOWLEDGE_ARCHITECT_CI=1`, `CI_VAR`, in every gate's
   environment, so a project's test that needs a tool a machine may lack skips without it locally and
   fails without it on CI, which passes the flag.
@@ -196,20 +208,6 @@ an empty subsection is omitted.
   applies one mutation the caller writes, runs a command against it and restores the file, over
   uncommitted work, and `restore` unwinds a run that was killed. A maintenance crate carries it as
   `cargo x mutate`.
-
-- `cli`, minor: `transcript show --from-line <n>` starts at the first kept line numbered `n` or above, such as the
-  agent's line where a piece of work begins; it excludes `--from`.
-- `cli`, minor: the header of every `transcript` verb names each text the harness cut before writing it, with its
-  file and line, the count of characters left out, and the file the harness names as holding it whole.
-- `cli`, patch: `transcript search --role tool` keeps the tool lines, where it kept none; `transcript show` refuses a
-  handle two sessions carry, naming each `sessionId`, where it showed the first, and prints the header before a
-  session it cannot name; the header names, as a gap, each file a run over one project leaves out because its first
-  chain line holds no `cwd`.
-- `cli`, patch: `transcript` labels a command the harness writes with no `commandRun`, as `/compact` and `/restart` do,
-  `owner-command`, named by its `<command-name>` tag, and its output `injected command-output`, where it labelled the
-  `user` lines `unlabelled` and reported the `local_command` lines as a gap.
-- `library`, minor: `kinds` and `KindsOptions` of `knowledge-architect-transcript` print the inventory of the
-  transcripts' line kinds, with their harness versions and keys.
 
 ### Workflow
 

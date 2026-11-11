@@ -22,7 +22,7 @@ The repository is a virtual workspace with Components:
 | `testing` | crates/testing | package `knowledge-architect-testing`: what an extension's tests need to run the checks over a mock project, and this repository's mock projects with the tests over them |
 | `gates` | crates/gates | package `knowledge-architect-gates`: the library that runs a project's merge gates |
 | `mutate` | crates/mutate | package `knowledge-architect-mutate`: the library of the hand mutation, `cargo x mutate` |
-| `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog`, `cargo x skill` and `cargo x mutate`; never published |
+| `xtask` | tools/xtask | the maintenance tool, `cargo x gates`, `cargo x changelog`, `cargo x skill`, `cargo x mutate` and `cargo x transcript-kinds`; never published |
 
 ## Language, tone and style `##language-and-style`
 

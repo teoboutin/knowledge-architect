@@ -278,7 +278,7 @@ publish order, after the gates library and before `cli`, per `design@knowledge-a
 
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
 the tasks this repository's own instructions require, or whose procedure they fix, per
-`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill` and `gates`, whose list and flags are
+`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds` and `gates`, whose list and flags are
 this repository's while the published library runs them, per `design@knowledge-architect@gates-crate`.
 It also hosts `mutate`, whose logic a published crate ships, per
 `design@knowledge-architect@mutation-command-host`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per

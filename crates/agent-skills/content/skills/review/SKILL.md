@@ -74,7 +74,7 @@ their reports reach the session as messages of its transcript.
 **Find each session with `{{command}} transcript list`, never by a session identifier**: after
 `/clear`, the harness keeps the earlier session's identifier in its paths. `--branch <branch>` lists
 the sessions that worked on the branch, and `--containing "<opening words>"` the session holding the
-message where the work begins as one the owner typed.
+message of the owner the brief names.
 
 ## The invariants {{slug:review-invariants}}
 

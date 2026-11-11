@@ -557,7 +557,7 @@ dependencies = [
  "knowledge-architect",
  "knowledge-architect-gates",
  "knowledge-architect-mutate",
- "knowledge-architect-transcript",
+ "regex",
  "serde_json",
  "toml",
 ]

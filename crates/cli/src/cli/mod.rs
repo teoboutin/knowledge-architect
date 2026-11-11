@@ -325,6 +325,11 @@ pub fn run(
     match &command {
         Command::Check(args) => drop(check_mode(args)?),
         Command::Worklist(args) => drop(worklist_mode(args)?),
+        Command::Transcript(TranscriptArgs {
+            verb: TranscriptVerb::Show(args),
+        }) if args.from.is_some() && args.from_line.is_some() => {
+            return Err("`--from` and `--from-line` exclude each other".to_string())
+        }
         _ => {}
     }
     // Every command reads the manifest as its extensions resolved it: the files they generate
@@ -573,6 +578,27 @@ mod tests {
             fix: true,
             staged: true,
         }));
+    }
+
+    /// The claim: `run` refuses a `TranscriptShowArgs` holding both starts, which clap refuses while
+    /// parsing, rather than drop one in the conversion.
+    #[test]
+    fn run_refuses_a_transcript_show_value_with_both_starts() {
+        refused_by_run_saying(
+            Command::Transcript(TranscriptArgs {
+                verb: TranscriptVerb::Show(TranscriptShowArgs {
+                    session: "s".to_string(),
+                    from: Some("words".to_string()),
+                    from_line: Some(3),
+                    subagents: false,
+                    tools: false,
+                    full: false,
+                    all_projects: false,
+                    json: false,
+                }),
+            }),
+            "`--from` and `--from-line` exclude each other",
+        );
     }
 
     /// The claim: `run` refuses a `WorklistArgs` naming both directories.
