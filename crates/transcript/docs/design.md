@@ -59,14 +59,11 @@ format is classed, is no list for a survey of past sessions: it serves the reade
 alone, so it is `cargo x transcript-kinds`, per `design@xtask@a-local-task-is-the-maintenance-tool-s`,
 and not a verb, `rejected@xtask@line-kinds-a-verb-of-transcript`.
 
-### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens, and a session carries the subagent files it dispatched `##transcript-session-split`
+### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens `##transcript-session-split`
 
 A session opens at the first chain line of a top-level `.jsonl` file, at a chain line whose
 `sessionId` differs from the previous one's, and at a chain line whose `parentUuid` is null or absent that
-is no `compact_boundary` line. A compaction and a resumed process stay in their session. A subagent
-file, under the parent file's directory `subagents/`, is attached to the session of its `sessionId`,
-and where that id holds several, to the one holding the `tool_use` its `meta.json` names. A line
-whose `uuid` was already read in the session is printed once and counted.
+is no `compact_boundary` line. A compaction and a resumed process stay in their session.
 
 The rule turns on how the harness writes, measured over every transcript of the machine it was
 designed on, Claude Code 2.1.306 to 2.1.310, on 2026-10-25: a compaction writes a boundary with a
@@ -80,6 +77,21 @@ session per file, agrees with every file measured; the rule is kept because the 
 internal, per `design@transcript@transcript-format-tolerated-and-reported`, and a file holding two
 sessions would read as one with nothing reporting it.
 
+### A subagent file belongs to the session that dispatched it, found by its `sessionId` and the call its `meta.json` names `##subagent-file-attached-to-its-dispatcher`
+
+A subagent file, under the parent file's directory `subagents/`, is attached to the session of its
+parent file whose `sessionId` its lines carry, and where that id holds several sessions, to the one
+holding the `tool_use` its `meta.json` names as `toolUseId`, searched through the top-level file and
+the other subagent files, and otherwise to the last of them, or to the file's last session; a
+subagent file whose top-level file holds no session is still read and counted. Measured over every
+subagent file of the owner's machine on 2026-11-12, 2573 files, with the script in the message of
+"[review] Repairs of the fourth round: the subagent attachment takes a head of its own, and the
+rivals and measurements the heads omitted": the lines of each carry the `sessionId` its parent file
+is named by, and the `meta.json` of 2058 names a `toolUseId`, of 515 none, which the fallback
+serves. The nearest rival, the subagent files read apart from every session, leaves `show --subagents` unable to
+print a session's subagents after its lines, and the transcript reviewer to read what a session
+dispatched.
+
 ### A session's handle is its `sessionId`'s first 8 characters, numbered from `#2` so that every handle names one session `##one-handle-per-session`
 
 A session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session
@@ -90,7 +102,8 @@ review skill and the transcript reviewer name sessions by what `list` prints, pe
 `design@agent-skills@transcript-found-by-listing`. The nearest rival, numbering per `sessionId`,
 gives two ids sharing their first 8 characters one handle; a refusal of that handle naming both ids
 leaves a session no argument reaches where one of the ids holds a second session, since its id then
-names two sessions.
+names two sessions, and a refusal naming a form that resolves needs an argument form of its own for
+what a handle already is.
 
 ### Every kept line of a transcript is labelled by its fields, and a line no field places by a whole text or a leading tag the harness writes, never by a substring of its text `##transcript-labels-in-code`
 
@@ -190,9 +203,10 @@ tolerant one hides a renamed field, against `design@model@a-failed-parse-is-loud
 Before a value outside the known sets is classed, its line kind is measured with
 `cargo x transcript-kinds`: per place and kind, its count, its harness versions and each key with
 its count, over every project's files the reader reads, labelled by the reader's own rows. The
-nearest rival, a `find` and `jq` pipeline written for the occasion, is code no test runs: one kept
-in this home as its measurement read 42 of 963 files, the subagent files missed, until a reviewer
-found it. The inventory is the maintenance tool's, per
+nearest rival, a `find` and `jq` pipeline written for the occasion, is code no test runs: the one
+the format head once kept as its measurement read 42 of 963 files, the subagent files missed, until
+a reviewer found it, as the message of "[core] The line-type command of the transcript format head
+reads the subagent files too" measured. The inventory is the maintenance tool's, per
 `design@xtask@a-local-task-is-the-maintenance-tool-s`, and `path@transcript@CLAUDE.md` states the
 instruction.
 
