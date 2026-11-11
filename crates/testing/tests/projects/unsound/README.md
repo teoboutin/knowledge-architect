@@ -1,4 +1,4 @@
-# dirhome
+# unsound
 
-A mock project whose design home is a directory. It leans on `design@dirhome@dir-anchor` and
-aims at `goal@dir-goal`.
+A mock project whose run stops at phase 2. The head comment of its `knowledge-architect.toml` lists
+the defects it plants.
