@@ -24,9 +24,8 @@ six slices of a milestone in one branch: a built default narrowed a head while i
 and the owner wants to change the condition "A default awaiting the owner is built as written … and
 enters a design head once the owner rules on it". The analysis read the case against the planning
 skill's sentence that "A scope change listed there does not start before its ruling", which the
-session had not applied, and against
-`issue@agent-skills@the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on`, whose
-question the case answers in real use.
+session had not applied, and against the primer's divergence paragraph, `primer@intent-and-claims`,
+on which work goes on while a head waits for its answer.
 
 The work that opened this entry answered the intake's first case: an approval of the
 session's default at a fork is recorded as the session's choice, per
