@@ -27,8 +27,8 @@ not sit in another crate with a copy of them.
 **Suspected mechanism**: the statement was a clause of what showed a goal met, written when the
 goal was ruled, and no review axis was given the duty.
 
-**The re-entry point**: the discussion that reopens the parked thread on whether a review axis
-judges work against the goals, which `milestone@plans@goals-at-the-root` records, or the first
+**The re-entry point**: the discussion of whether a review axis or an audit axis judges work against
+the goals, which `issue@agent-skills@audit-axes-beyond-the-design-record` holds, or the first
 review that finds such a test placed outside this Component.
 
 ### Why it matters

@@ -81,8 +81,8 @@ owner".
 An instance of another kind, from the slice that put `cli` on top, 2026-11-06: the owner asked for
 an issue entry holding the owner's words verbatim on what a goal is for, as input to a later design
 discussion, and the session followed the owner and said in the commit that it departs from the
-rule. That entry quoted the owner on the owner's request; its words are now in
-`milestone@plans@goals-at-the-root`. It is a request
+rule. That entry quoted the owner on the owner's request; its words moved to the document of the
+milestone that moved the goals to the project's root, now in the history. It is a request
 of the owner for the verbatim regime in an issue entry that records a view for a discussion, not a
 decision: a case where the owner wants verbatim words outside a plan document. Its analysis is W3
 of 2026-11-06-knowledge-architect-cli-on-top-klarch-workflow, in the same commit.

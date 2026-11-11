@@ -14,7 +14,7 @@ or of the gates is not established.
 
 ### What
 
-On 2026-11-10, on the branch that adds `milestone@plans@goals-at-the-root`, whose diff holds
+On 2026-11-10, on the branch that added the milestone that moved the goals to the project's root, whose diff held
 documents only, `cargo x gates` exited 1: the gates `fmt`, `check`, `commits` and `clippy` passed,
 and `test` failed on this one test, at its assertion that the run of the gates over its fake
 project succeeds:
