@@ -120,6 +120,9 @@ pub fn announce(name: &str) {
 
 /// The project root: the nearest ancestor of `start` holding a file named `marker`, such as the
 /// checker's manifest. `None` when no ancestor holds one.
+// The marker is the caller's, so this library depends on nothing of the checker: a gate that runs
+// the checker starts it as a command of the project's list. No decision holds the independence; a
+// dependency on the checker would reverse no recorded argument.
 pub fn project_root(start: &Path, marker: &str) -> Option<PathBuf> {
     start
         .ancestors()

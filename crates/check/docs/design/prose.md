@@ -116,8 +116,8 @@ calls no version refusal: no manifest exists to read a pin from, and the one it 
 driven in-process needs a key but no confirmed one. A binary that links the library and dispatches no command of the checker, such as a
 maintenance crate that uses it only to find the project's root through `MANIFEST_NAME`, does not
 call it: nothing it runs reads the documents by the checker's rules, and where it runs the checker,
-as a gate does, it starts a binary that makes the call, since the gates library depends on nothing
-of the checker, per `design@gates@a-project-holds-its-gate-list`.
+as a gate does, it starts the project's declared checker command as a child, a binary that makes
+the call.
 
 **Why the manifest, and why required.** Without a pin the binary reads, a binary older than the
 skills a project installed reports each installed file as differing, with the repair "run

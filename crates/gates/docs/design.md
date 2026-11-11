@@ -18,8 +18,7 @@ the recommended list of a Rust project that uses the checker, in cost order: the
 its flag, formatting, the document check, the commit messages of the branch, clippy, and the tests.
 It takes how the project runs its checker, a package and the arguments before the checker's command,
 and the main branch as git names it. A project adds, removes or reorders gates in the list it
-receives, so a Rust project's list is the recommended one with its own edits. The library depends on nothing of the checker: the root finder takes
-the marker file's name from the caller.
+receives, so a Rust project's list is the recommended one with its own edits.
 
 ### The library owns the gates' flags `##the-library-owns-the-flags`
 
