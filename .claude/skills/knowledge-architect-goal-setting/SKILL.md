@@ -212,8 +212,8 @@ passes the check.
 4. **Keep the review's record** in one file, `docs/goal-reviews/<YYYY-MM-DD>-<subject>.md` at the
    project's root: for each round, the findings counted per reviewer, rule, grade, route tag and old
    or new wording, each finding's
-   outcome, each default with its ground, each question put to the owner with the owner's answer
-   verbatim, and each goal's boundary block, from the round's reviewers; and the list of questions
+   outcome, each default with its ground, each question put to the owner, labelled `G<n>`, with the
+   owner's answer verbatim, and each goal's boundary block, from the round's reviewers; and the list of questions
    still open. Commit it at each round, with the round's drafts.
 5. **Run the next round** from step 2, over the goals and the record as step 3 left them.
 6. **Stop** by the rule of step 4 of

@@ -23,6 +23,7 @@ listed here, and an edit that adds one checks it against the list:
 | `W` | the findings on the installed workflow: a retrospective's, and a project audit's sent upstream | the workflow's file of the retrospective, whose shape an audit's upstream file takes |
 | `C`, `P` | a retrospective's other findings | the retrospective's files |
 | `F` | a project audit's findings put to the owner | the audit report file of the pass |
+| `G` | the questions of a goal-setting batch or of a review of the whole goal set put to the owner | the record of the batch under docs/goal-reviews/ |
 | `Q` | every label that stays in the conversation | none |
 
 The owner asked for it, from a premortem message that mixed causes, tripwires and findings: the

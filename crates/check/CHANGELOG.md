@@ -178,6 +178,8 @@ an empty subsection is omitted.
 
 ### Workflow
 
+- `agent-skills`, patch: each question a goal-setting batch's record or a review of the whole goal
+  set puts to the owner is labelled `G<n>`, numbered within that record.
 - `agent-skills`, patch: the goal reviewer grades each finding `blocks`, `asks` or `minor` beside its
   route, and puts a goal's reach to the owner instead of proposing a narrower wording; it reports as
   `blocks` a goal that is no purpose, scope or ranking, a goal outside the root's goals home and a
