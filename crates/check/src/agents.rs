@@ -397,16 +397,16 @@ mod tests {
         let _ = std::fs::remove_dir_all(&root);
     }
 
-    /// The claim, per `design@check@fix-scope`: a shipped copy git lists as deleted is written
-    /// again; a shipped copy git does not list is written only where the disk does not already hold
+    /// The claim, per `design@check@fix-scope`: a shipped copy git lists as deleted or as binary
+    /// is written again; a shipped copy git does not list is written only where the disk does not already hold
     /// the shipped text; a directory in a shipped file's place is left alone; an unshipped binary
     /// file git lists is deleted, and an unshipped path the working tree does not hold as a file is
     /// not. Mutations checked: `Outside::Binary` dropped from the deletion's match keeps the binary
     /// stray; `if !current` made `if true` rewrites the current ignored copy; the `Directory` arm
     /// made a write writes over the directory; the `Missing` state left unwritten keeps the deleted
-    /// copy missing.
+    /// copy missing; a `Binary` arm that writes nothing keeps the binary copy.
     #[test]
-    fn the_repairs_restore_a_deleted_copy_and_leave_a_current_one_and_a_directory() {
+    fn the_repairs_restore_a_deleted_or_binary_copy_and_leave_a_current_one_and_a_directory() {
         let root = std::env::temp_dir().join(format!("ka-repairs-states-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(root.join(".claude/agents")).unwrap();
@@ -415,6 +415,7 @@ mod tests {
         std::fs::write(root.join(ignored_current), "current\r\n").unwrap();
         std::fs::write(root.join(ignored_stale), "stale\n").unwrap();
         let shipped: Vec<(PathBuf, String)> = [
+            (".claude/agents/knowledge-architect-binary.md", "text\n"),
             (".claude/agents/knowledge-architect-deleted.md", "deleted\n"),
             (".claude/agents/knowledge-architect-directory.md", "dir\n"),
             (ignored_current, "current\n"),
@@ -424,6 +425,10 @@ mod tests {
         .map(|(p, t)| (PathBuf::from(p), t.to_string()))
         .collect();
         let installed = vec![
+            (
+                PathBuf::from(".claude/agents/knowledge-architect-binary.md"),
+                Outside::Binary,
+            ),
             (
                 PathBuf::from(".claude/agents/knowledge-architect-deleted.md"),
                 Outside::Missing,
@@ -450,6 +455,7 @@ mod tests {
             found,
             Repairs {
                 write: vec![
+                    PathBuf::from(".claude/agents/knowledge-architect-binary.md"),
                     PathBuf::from(".claude/agents/knowledge-architect-deleted.md"),
                     PathBuf::from(ignored_stale),
                 ],
