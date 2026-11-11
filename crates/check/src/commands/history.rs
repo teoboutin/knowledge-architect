@@ -119,6 +119,7 @@ fn judge_message(
     primary: &Assembly,
     primary_entities: &Entities,
     parent: Option<(&Assembly, &Entities)>,
+    message_ignored: &HashSet<String>,
 ) -> Vec<Finding> {
     use check::references::{judge_ids, judge_part, IdTable, Part};
     let model = Model::from_documents(vec![(message_rel(), text.to_string())]);
@@ -130,36 +131,48 @@ fn judge_message(
     }
 
     let anchors = primary.anchors();
+    // **A message's path spans are asked of git too.** Each tree's ignore answers cover the spans
+    // of its own documents, so a span only the message holds would be asserted where an ignore
+    // rule exempts it, as `check` never asserts one in a file, per
+    // `design@model@ignored-targets-are-not-asserted`.
+    let primary_ignored: HashSet<String> =
+        primary.ignored.union(message_ignored).cloned().collect();
+    let mut primary_inputs = primary.inputs();
+    primary_inputs.ignored = &primary_ignored;
     let (mine, _) = judge_part(
         model.documents(),
         primary_entities,
         &anchors,
-        &primary.inputs(),
+        &primary_inputs,
         Part::References,
     );
     let (mut lints, _) = judge_part(
         model.documents(),
         primary_entities,
         &anchors,
-        &primary.inputs(),
+        &primary_inputs,
         Part::Lints,
     );
     let references = match parent {
         None => mine,
         Some((other, other_entities)) => {
             let other_anchors = other.anchors();
+            let other_ignored: HashSet<String> =
+                other.ignored.union(message_ignored).cloned().collect();
+            let mut other_inputs = other.inputs();
+            other_inputs.ignored = &other_ignored;
             let (theirs, _) = judge_part(
                 model.documents(),
                 other_entities,
                 &other_anchors,
-                &other.inputs(),
+                &other_inputs,
                 Part::References,
             );
             let (their_lints, _) = judge_part(
                 model.documents(),
                 other_entities,
                 &other_anchors,
-                &other.inputs(),
+                &other_inputs,
                 Part::Lints,
             );
             // **One finding per occurrence, as one tree reports it.** Each tree's lints hold one
@@ -196,6 +209,29 @@ fn judge_message(
     out.extend(judge_ids(model.documents(), &tables));
     out.sort_by_key(|f| f.line);
     out
+}
+
+/// git's ignore answers for the path spans of a message, against the anchors of its commit's
+/// tree and of its first parent's: the trees' own batches ask only of their documents' spans.
+/// Asked of the working tree's rules, as every ignore question of `commits` is.
+fn message_ignored(
+    root: &Path,
+    text: &str,
+    primary: &Assembly,
+    parent: Option<&Assembly>,
+) -> Result<HashSet<String>, String> {
+    let model = Model::from_documents(vec![(message_rel(), text.to_string())]);
+    let mut queries = crate::model::resolve::ignore_queries(&model, &primary.anchors());
+    if let Some(other) = parent {
+        queries.extend(crate::model::resolve::ignore_queries(
+            &model,
+            &other.anchors(),
+        ));
+    }
+    queries.sort();
+    queries.dedup();
+    crate::git::ignored(root, &queries)
+        .map_err(|e| format!("the ignore rules could not be asked about a message: {e}"))
 }
 
 /// What a reference finding is about: the line, and the span it opens with.
@@ -1043,7 +1079,8 @@ pub fn commits(
         // a second pass over it would take bytes of a commit out of the regime.
         let message = crate::git::commit_message(root, sha).map_err(|e| e.to_string())?;
         let entities = Entities::build(&tree.model, &tree.anchors());
-        let found = judge_message(&message, &tree, &entities, parent);
+        let ignored = message_ignored(root, &message, &tree, parent.map(|(a, _)| a))?;
+        let found = judge_message(&message, &tree, &entities, parent, &ignored);
         if !found.is_empty() {
             causes.push(format!("its message carries {} finding(s)", found.len()));
         }
