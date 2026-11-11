@@ -8492,7 +8492,9 @@ fn transcript_from_a_subdirectory_reads_the_sessions_of_the_project() {
 
 /// The kinds of line harness versions 2.1.310 to 2.1.316 added, each classed: an interrupt placed by
 /// its `interruptedMessageId`, a refusal shown, the `/remote-control` echo and the metadata, status
-/// and reminder lines ignored, so the header names none of them and asks for no report.
+/// and reminder lines ignored, so the header names none of them and asks for no report. The
+/// fixture's last line is of the metadata type `session-owner`. Mutation checked: that type
+/// removed from `KNOWN_METADATA_TYPES` names it in the header.
 #[test]
 fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     let (stdout, stderr, code) =
