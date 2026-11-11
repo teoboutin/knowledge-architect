@@ -125,8 +125,8 @@ pub fn index(
 ///
 /// Exit 0 when the installed set is the shipped one afterwards, or the project declares no harness and
 /// nothing is installed. `Err` over a manifest holding refused declarations, nothing installed, and
-/// when the filesystem refused a write, the earlier writes left in place. It edits nothing outside the installer's namespace: a missing primer import line is
-/// said, not written, because the root CLAUDE.md belongs to the project.
+/// when the filesystem refused a write, the earlier writes left in place. It edits nothing outside the installer's namespace: a primer import line missing from
+/// its first line is said, not written, because the root CLAUDE.md belongs to the project.
 pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     if !manifest.complaints().is_empty() {
         return Err(format!(
@@ -152,13 +152,14 @@ pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     }
     let primer = std::path::Path::new(crate::agents::PRIMER);
     if shipped.iter().any(|(p, _)| p == primer) {
-        let claude =
-            std::fs::read_to_string(manifest.root().join(crate::model::declared::AGENT_DOCUMENT))
-                .unwrap_or_default();
-        if !crate::agents::imports_primer(&claude) {
+        // A root CLAUDE.md that is missing or cannot be read as text is the check's to report,
+        // with its own cause: the import line is said only of a file whose first line is read.
+        let read =
+            std::fs::read_to_string(manifest.root().join(crate::model::declared::AGENT_DOCUMENT));
+        if read.is_ok_and(|claude| !crate::agents::imports_primer(&claude)) {
             outln!(
                 "the root CLAUDE.md does not import the primer on its first line: make that \
-                 line exactly `{}`",
+                 line exactly `{}`, and remove it wherever else it stands",
                 crate::agents::IMPORT_LINE
             );
         }

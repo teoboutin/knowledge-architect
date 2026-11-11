@@ -17,7 +17,8 @@ const PLACEHOLDER: &str = "{{command}}";
 /// The install path of the primer, which the project's root CLAUDE.md imports.
 pub(crate) const PRIMER: &str = ".claude/knowledge-architect/PRIMER.md";
 
-/// The first line of the root CLAUDE.md, which imports the primer.
+/// The line that imports the primer, with no line ending: the root CLAUDE.md's first line, per
+/// `design@check@import-on-first-line`, followed by `\n` or `\r\n` unless it is the whole file.
 pub const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
 
 /// A shipped template with the project's command filled in, with LF line endings.
@@ -52,16 +53,12 @@ pub(crate) fn shipped_from(
 }
 
 /// Whether a root CLAUDE.md's first line is exactly the primer's import line, per
-/// `design@check@primer-import-line` and `design@check@import-line-exact-bytes`.
+/// `design@check@import-on-first-line` and `design@check@import-line-exact-bytes`.
 ///
 /// A byte-order mark before the line and the line ending after it, `\n` or `\r\n`, are not part
 /// of it; nothing else is stripped. The import line anywhere else, or with a space before or
 /// after it, does not count.
 pub(crate) fn imports_primer(text: &str) -> bool {
-    // Nothing comes before the first line, so no fence, comment or other block can enclose it:
-    // this is the one position where whether the harness evaluates the import is known without
-    // modelling the harness's markdown parser. A leading space is refused because four of them
-    // make an indented code block.
     let text = text.strip_prefix('\u{feff}').unwrap_or(text);
     text.lines().next() == Some(IMPORT_LINE)
 }
@@ -592,7 +589,8 @@ mod shipped_text_tests {
     /// first three cases are shapes the harness evaluates no import in, which a scanner of fences
     /// and comments let pass, per `rejected@check@import-in-prose-by-parser`. Mutations: comparing
     /// any line fails the cases whose import line is lower; trimming the first line fails the
-    /// cases with spaces.
+    /// cases with spaces; stripping every byte-order mark fails the case with two; stripping a
+    /// carriage return fails the case whose line ends with one alone.
     #[test]
     fn the_import_line_counts_nowhere_else_and_only_exactly() {
         for text in [
@@ -606,6 +604,8 @@ mod shipped_text_tests {
             "@.claude/knowledge-architect/PRIMER.md \n",
             "@.claude/knowledge-architect/PRIMER.md.bak\n",
             "see @.claude/knowledge-architect/PRIMER.md\n",
+            "\u{feff}\u{feff}@.claude/knowledge-architect/PRIMER.md\n",
+            "@.claude/knowledge-architect/PRIMER.md\r",
             "",
         ] {
             assert!(!imports_primer(text), "{text:?}");

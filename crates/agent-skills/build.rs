@@ -59,7 +59,7 @@ const PREFIX: &str = "knowledge-architect-";
 /// convoluted, as documented exceptions where the checker is avoided on purpose for the delivery of
 /// the installed text.
 const SUBSTITUTIONS: &[(&str, &str)] = &[
-    // The primer's import line, which the root CLAUDE.md of a project holds alone on its line. Its
+    // The primer's import line, which the root CLAUDE.md of a project holds as its first line. Its
     // span has an empty head before the first `@`, which the checker reports as a malformed
     // reference, per `issue@model@a-span-with-an-empty-head-is-malformed-against-its-head`; the setup
     // skill shows it inside a sentence, and an agent copies it exactly. The

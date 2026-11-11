@@ -3974,6 +3974,37 @@ fn tiny_project_serving_claude(history: &History) {
     assert_eq!(code, 0, "{out}{err}");
 }
 
+/// The claim, per `design@check@import-on-first-line`: `install-agent-skills` says the primer is
+/// not imported exactly when the root CLAUDE.md's first line, read as it is on disk, is not the
+/// import line; not over a file that cannot be read as text, which `check` reports with its own
+/// cause. Mutations: the condition made `if false` fails the second and third cases; the text
+/// trimmed at its start fails the third; a failed read taken as an empty file fails the last.
+#[test]
+fn the_install_names_an_import_line_off_the_first_line_and_nothing_else() {
+    let history = History::new("install-import-line");
+    tiny_project_serving_claude(&history);
+    let said = "does not import the primer on its first line";
+    let (out, err, code) = history.run(&["install-agent-skills"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(!out.contains(said), "{out}");
+    for text in [
+        "# tiny\n\n@.claude/knowledge-architect/PRIMER.md\n",
+        "    @.claude/knowledge-architect/PRIMER.md\n\n# tiny\n",
+    ] {
+        history.write("CLAUDE.md", text);
+        let (out, err, code) = history.run(&["install-agent-skills"]);
+        assert_eq!(code, 0, "{out}{err}");
+        assert!(out.contains(said), "{text:?}: {out}");
+    }
+    history.write_bytes(
+        "CLAUDE.md",
+        b"@.claude/knowledge-architect/PRIMER.md\n\n# tiny\n\ncaf\xe9\n",
+    );
+    let (out, err, code) = history.run(&["install-agent-skills"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(!out.contains(said), "{out}");
+}
+
 /// The claim, per `design@model@installed-entities-from-the-tree`: commit 1 cites a
 /// section of an installed skill; commit 2 renames the section in the installed copy and repairs
 /// the citation. `commits` judges each commit against its own installed copies, so both pass.
