@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+24 entries
 
 | kind | title |
 | --- | --- |
@@ -9,7 +9,6 @@
 | design | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
 | design | [No head argues the rule that every tool of knowledge-architect is a command of one program](the-rule-of-one-program-for-the-tools-is-argued-by-no-head.md) |
 | question | [A new crate's first publish by hand needs the versions it pins on crates.io first](a-crate-s-first-publish-needs-the-crates-it-pins-on-crates-io.md) |
-| question | [A measurement taken in another project that a head leans on has two homes in the knowledge table](a-measurement-from-another-project-has-two-homes.md) |
 | question | [CI does not run on a draft pull request, and no record says why](ci-does-not-run-on-a-draft-and-no-record-says-why.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
