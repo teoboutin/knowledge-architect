@@ -109,12 +109,10 @@ every other kind keep `<kind>@<anchor>@<id>`.
   the root's name differs in each project, the anchored form would also be the one installed text
   could not write.
 - **The choice is the owner's at a fork**: the owner chose this form over `*` read as every anchor
-  that carries the register, a new reserved anchor word for the root, and the root's goals home
-  named in words with no reference, which no goal ranks. A reserved word for the root costs besides
-  a finding on every backticked `root@<host>` span, since the candidate rule reads a reserved word
-  at the head of a span as an anchor in the kind position. The plan registers keep their anchor:
-  `spec` has the anchor `plans` and each milestone as carriers, and the owner chose to leave
-  `milestone` as it is too.
+  that carries the register, `rejected@model@star-names-every-carrier-of-a-register`, a new
+  reserved anchor word for the root, `rejected@model@reserved-word-for-the-root`, and the root's
+  goals home named in words with no reference, which no goal ranks. The plan registers keep their
+  anchor, `rejected@model@plan-register-cited-without-anchor`.
 
 It serves `goal@documentation-has-a-structure-and-a-model`: a reference is written the same in
 every project, with one reading, and a goal named by its id alone is written so in every project
