@@ -177,12 +177,17 @@ pub(crate) fn repairs(
             Some(Outside::Text(text)) if lf(text) == lf(expected) => {}
             // A directory in the file's place is reported, and replacing it is no safe fix.
             Some(Outside::Directory) => {}
-            // Not listed: missing, or an ignore rule covers it. An ignored copy that already holds
-            // the shipped text gains nothing from a write; the check keeps reporting it.
+            // Not listed: missing, an ignore rule covers it, or an untracked directory stands in
+            // its place. The directory is left alone as the listed one above is. An ignored copy
+            // that already holds the shipped text gains nothing from a write; the check keeps
+            // reporting it. A symbolic link is no directory here: it goes to the write, which
+            // `apply` refuses.
             None => {
-                let current = std::fs::read_to_string(root.join(rel))
+                let path = root.join(rel);
+                let directory = std::fs::symlink_metadata(&path).is_ok_and(|m| m.is_dir());
+                let current = std::fs::read_to_string(&path)
                     .is_ok_and(|on_disk| lf(&on_disk) == lf(expected));
-                if !current {
+                if !directory && !current {
                     out.write.push(rel.clone());
                 }
             }
@@ -399,12 +404,14 @@ mod tests {
 
     /// The claim, per `design@check@fix-scope`: a shipped copy git lists as deleted or as binary
     /// is written again; a shipped copy git does not list is written only where the disk does not already hold
-    /// the shipped text; a directory in a shipped file's place is left alone; an unshipped binary
+    /// the shipped text; a directory in a shipped file's place is left alone, listed by git or
+    /// not; an unshipped binary
     /// file git lists is deleted, and an unshipped path the working tree does not hold as a file is
     /// not. Mutations checked: `Outside::Binary` dropped from the deletion's match keeps the binary
     /// stray; `if !current` made `if true` rewrites the current ignored copy; the `Directory` arm
     /// made a write writes over the directory; the `Missing` state left unwritten keeps the deleted
-    /// copy missing; a `Binary` arm that writes nothing keeps the binary copy.
+    /// copy missing; a `Binary` arm that writes nothing keeps the binary copy; `!directory &&`
+    /// dropped from the unlisted arm writes over the untracked directory.
     #[test]
     fn the_repairs_restore_a_deleted_or_binary_copy_and_leave_a_current_one_and_a_directory() {
         let root = std::env::temp_dir().join(format!("ka-repairs-states-{}", std::process::id()));
@@ -414,12 +421,15 @@ mod tests {
         let ignored_stale = ".claude/agents/knowledge-architect-ignored-stale.md";
         std::fs::write(root.join(ignored_current), "current\r\n").unwrap();
         std::fs::write(root.join(ignored_stale), "stale\n").unwrap();
+        let untracked_directory = ".claude/agents/knowledge-architect-untracked-directory.md";
+        std::fs::create_dir_all(root.join(untracked_directory)).unwrap();
         let shipped: Vec<(PathBuf, String)> = [
             (".claude/agents/knowledge-architect-binary.md", "text\n"),
             (".claude/agents/knowledge-architect-deleted.md", "deleted\n"),
             (".claude/agents/knowledge-architect-directory.md", "dir\n"),
             (ignored_current, "current\n"),
             (ignored_stale, "fresh\n"),
+            (untracked_directory, "dir\n"),
         ]
         .iter()
         .map(|(p, t)| (PathBuf::from(p), t.to_string()))

@@ -40,9 +40,22 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
                 rel,
                 format!(
                     "{shipper} ships this file, and git lists no installed copy: it is \
-                     missing, or an ignore rule covers it"
+                     missing, an ignore rule covers it, or an untracked directory stands in its \
+                     place"
                 ),
-                format!("{install}, and commit the file; an installed file is never ignored"),
+                format!(
+                    "remove a directory that stands in its place, then {install}, and commit the \
+                     file; an installed file is never ignored"
+                ),
+            )),
+            // The install and `check --fix` never replace a directory, so its repair is named.
+            Some(Outside::Directory) => out.push(Finding::in_file(
+                rel,
+                format!(
+                    "{shipper} ships this file, and the working tree holds a directory where \
+                     git lists it"
+                ),
+                format!("remove the directory, then {install}"),
             )),
             Some(Outside::Text(text)) if lf(text) == *expected => {}
             Some(_) => out.push(Finding::in_file(

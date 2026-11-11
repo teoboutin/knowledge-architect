@@ -3676,8 +3676,9 @@ fn check_fix_removes_an_unshipped_file_and_writes_the_generated_files_in_that_ru
 }
 
 /// The claim: when a write fails after another file was written, `check --fix` lists what it
-/// wrote and exits 1, since 2 would promise an untouched tree. Mutations checked: exiting 2
-/// whatever was written, or dropping the error, each fail it.
+/// wrote and exits 1, since 2 would promise an untouched tree. The write fails because a file
+/// stands where the last shipped file's directory goes. Mutations checked: exiting 2 whatever was
+/// written, or dropping the error, each fail it.
 #[test]
 fn check_fix_exits_one_when_a_write_fails_after_a_write() {
     let sandbox = Sandbox::new("fix-partway", "minimal");
@@ -3685,12 +3686,47 @@ fn check_fix_exits_one_when_a_write_fails_after_a_write() {
     let (last, _) = knowledge_architect_agent_skills::FILES
         .last()
         .expect("this version ships a file");
-    std::fs::create_dir_all(sandbox.path(last)).expect("a directory where the last file goes");
+    let parent = Path::new(last)
+        .parent()
+        .and_then(Path::to_str)
+        .expect("the last shipped file sits in a directory");
+    sandbox.write(parent, "a file where a directory goes\n");
     sandbox.stage();
     let (out, err, code) = sandbox.run(&["check", "--fix"]);
     assert_eq!(code, 1, "{out}{err}");
     assert!(out.contains("fixed: wrote"), "{out}");
-    assert!(err.contains(last), "{err}");
+    assert!(err.contains(parent), "{err}");
+}
+
+/// The claim: a directory at the path of a shipped file is left alone by `check --fix` and named
+/// with its repair, whether git lists the path or not: the run exits 1, writes nothing over it, and
+/// the finding says a directory stands there. Mutations checked: the unlisted arm of `repairs`
+/// writing over a directory exits 2 with an OS error; the listed-directory arm of the check
+/// reporting the file as differing loses the directory from the message.
+#[test]
+fn check_fix_leaves_a_directory_at_a_shipped_path_and_names_it() {
+    let (rel, _) = knowledge_architect_agent_skills::FILES
+        .first()
+        .expect("this version ships a file");
+    for listed in [false, true] {
+        let sandbox = harnessed(if listed {
+            "fix-dir-listed"
+        } else {
+            "fix-dir-unlisted"
+        });
+        if listed {
+            std::fs::remove_file(sandbox.path(rel)).expect("the installed file");
+        } else {
+            sandbox.git(&["rm", "-q", "--cached", rel]);
+            std::fs::remove_file(sandbox.path(rel)).expect("the installed file");
+        }
+        std::fs::create_dir_all(sandbox.path(rel)).expect("a directory in the file's place");
+        let (out, err, code) = sandbox.run(&["check", "--fix"]);
+        assert_eq!(code, 1, "listed {listed}: {out}{err}");
+        assert!(!out.contains(&format!("fixed: wrote {rel}")), "{out}");
+        assert!(out.contains("directory"), "listed {listed}: {out}");
+        assert!(sandbox.path(rel).is_dir());
+    }
 }
 
 /// The claim: a generated destination that is a symlink is refused before anything is written,
