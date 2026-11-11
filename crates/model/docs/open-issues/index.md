@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-18 entries
+17 entries
 
 | kind | title |
 | --- | --- |
@@ -9,7 +9,6 @@
 | defect | [A reference whose id carries a line suffix or a fragment is told to define its entry or repair its pointer, not to drop the suffix](a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair.md) |
 | defect | [A backticked span whose head shortens a kind's name, as `arg@<plan>@<id>` for `argument`, passes the check silent](a-span-whose-head-shortens-a-kind-passes-the-check-silent.md) |
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
-| defect | [An escape path that spells nothing is reported as resolving to an unrelated directory](an-empty-escape-path-resolves-to-a-directory.md) |
 | defect | [An ignored directory cited with no trailing slash gets a verdict that depends on what is on disk](an-ignored-path-with-no-slash-passes-by-build-state.md) |
 | design | [A Rust item named in prose has no checked form](a-rust-item-named-in-prose-has-no-checked-form.md) |
 | design | [A slug in the definition form inside a quotation is reported as a misplaced definition](a-slug-in-a-quotation-is-reported-as-a-misplaced-definition.md) |
