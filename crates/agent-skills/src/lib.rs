@@ -29,6 +29,9 @@ pub const PACKAGE: &str = env!("CARGO_PKG_NAME");
 mod render;
 
 #[cfg(test)]
+mod workflow_parse;
+
+#[cfg(test)]
 mod tests {
     use super::FILES;
 
