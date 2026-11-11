@@ -40,9 +40,11 @@ pub fn run(args: &GatesArgs) -> ExitCode {
     knowledge_architect_gates::run(&root, &gates(), args)
 }
 
+/// A run that could not start exits 2, as the library's own refusals do, per
+/// `design@gates@verdict-from-exit-codes`.
 fn abort(message: &str) -> ExitCode {
     complain(&format!("xtask: {message}"));
-    ExitCode::FAILURE
+    ExitCode::from(2)
 }
 
 #[cfg(test)]

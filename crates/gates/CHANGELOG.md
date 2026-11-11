@@ -123,6 +123,12 @@ an empty subsection is omitted.
   CLAUDE.md does not import the installed primer on its first line. A project moves the line to the
   top of the file, above its title. This holds for every project the consumer's tests build, mock
   projects included. `init` writes the import line first, then the title.
+- `gates`, patch: a gates run that could not start, refused before any gate ran, such as by a pipe
+  on stdout, exits 2 rather than 1; a gate that ran and failed still exits 1. The setup's
+  maintenance crate main, `skill@knowledge-architect-setup@rust-project`, exits 2 too when the
+  gates are run outside the project. A script that reads 1 as the gates' refusal reads 2, and a
+  project's main copied from the setup changes its `Gates` arm's `ExitCode::FAILURE` to
+  `ExitCode::from(2)` to match.
 
 ### New features
 

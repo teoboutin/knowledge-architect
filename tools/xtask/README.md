@@ -55,7 +55,8 @@ itself, and each gate is wrapped in `::group::` and, when it fails, one `::error
   When the distilled view is not enough, read the log; nothing is ever only on stdout.
 - **A slow-tests line** whenever libtest warned that a test ran over 60 seconds, naming the
   tests.
-- **Exit code**: 0 exactly when every gate ran and passed. Output handling never changes it,
+- **Exit code**: 0 exactly when every gate ran and passed, 1 when a gate failed, and 2 when the
+  run could not start, refused before any gate ran. Output handling never changes it,
   per `design@gates@verdict-from-exit-codes` — so scripts and sessions can trust the code without
   reading anything.
 

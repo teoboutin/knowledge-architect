@@ -17,7 +17,8 @@ installs; the library's interface is at <https://docs.rs/knowledge-architect-gat
   replaces the exit code, and a filter drops lines. Redirect to a file when the text is wanted.
 - **`target/gates/<gate>.log`**: the gate's complete output, both streams, always written.
 - **A slow-tests line** whenever libtest warned that a test ran over 60 seconds.
-- **Exit code**: 0 exactly when every gate ran and passed. Output handling never changes it.
+- **Exit code**: 0 exactly when every gate ran and passed, 1 when a gate failed, and 2 when the
+  run could not start, refused before any gate ran. Output handling never changes it.
 
 Under GitHub Actions, each gate is wrapped in a `::group::`, and a failed gate adds one `::error`
 line naming it.
