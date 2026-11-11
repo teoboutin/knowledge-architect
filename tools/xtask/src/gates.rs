@@ -41,7 +41,7 @@ pub fn run(args: &GatesArgs) -> ExitCode {
 }
 
 /// A run that could not start exits 2, as the library's own refusals do, per
-/// `design@gates@verdict-from-exit-codes`.
+/// `design@gates@a-refusal-exits-two`.
 fn abort(message: &str) -> ExitCode {
     complain(&format!("xtask: {message}"));
     ExitCode::from(2)

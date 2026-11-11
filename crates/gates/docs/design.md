@@ -69,15 +69,21 @@ is the flag CI or an impatient session opts into. The accepted cost: on a broken
 
 ### The verdict comes from child exit codes alone `##verdict-from-exit-codes`
 
-The run exits 0 exactly when every gate ran and passed, 1 when a gate ran and failed or could not
-be started, and 2 when the run could not start: a refusal before any gate ran, such as a pipe on
-stdout or no project, as clap's parse failure already exits. So a caller tells "the gates never
-ran" from "a gate failed", as the checker's commands let it, per `design@cli@exit-code-ladder`. No
-distiller, no log writing, no
+The run exits 0 exactly when every gate ran and passed. No distiller, no log writing, no
 slow-test extraction sits between a child's exit status and the run's own: a bug in output
 handling can degrade what is printed, never flip a verdict. Printing itself is inside the
 contract: every stdout and stderr write is best-effort, so a write error truncates the report
 and never the run, the logs or the exit code.
+
+### A run that could not start exits 2, and a gate that failed exits 1 `##a-refusal-exits-two`
+
+The run exits 1 when a gate ran and failed or could not be started, and 2 when the run could not
+start: a refusal before any gate ran, such as a pipe on stdout or a log directory it cannot create,
+and, in a caller that finds the project first, as a maintenance crate does, no project. A parse
+failure clap refuses already exits 2. So a caller tells "the gates never ran" from "a gate
+failed", as the checker's commands let it, per `design@cli@exit-code-ladder`, and as the hand
+mutation exits for a run that never started. The nearest rival, one failure code for both, would
+keep 1 for a refusal and 2 for a mistyped flag of the same run, a split no argument supports.
 
 ### Outside GitHub Actions, a gates run refuses a pipe on stdout `##gates-refuse-a-pipe`
 

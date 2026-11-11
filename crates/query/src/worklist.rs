@@ -2104,7 +2104,8 @@ mod tests {
     /// substring match of before, `body.join(" ").contains(&quote.join(" "))`, which finds the
     /// fragments; and `if fields.reason.is_empty() {` made `if false {`; each caught. In
     /// `quotation_miss`: `!body.contains(w)` made `body.contains(w)`, and the arm naming the body
-    /// word holding a cut word made the arm of a word not in the text, each caught.
+    /// word holding a cut word made the arm of a word not in the text, and the search for the
+    /// missing word made to start from the end, each caught.
     #[test]
     fn judge_owes_a_quotation_of_the_body_and_a_reason_on_every_line() {
         let with =
@@ -2130,6 +2131,11 @@ mod tests {
         assert!(
             with("A head `##a-head` It serves the work of the world", "r")[0]
                 .contains("its word `world` is not in the text")
+        );
+        // Two words missing: the first is named.
+        assert!(
+            with("A head `##a-head` It serves the earth of the world", "r")[0]
+                .contains("its word `earth` is not in the text")
         );
         assert!(with("head A `##a-head` It serves the work of the", "r")[0]
             .contains("each of its words is in the text, but not in this order"));

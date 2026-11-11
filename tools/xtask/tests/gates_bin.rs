@@ -94,7 +94,7 @@ fn with_history(project: &Path, origin_at: &str) {
     git(&["update-ref", "refs/remotes/origin/main", &target]);
 }
 
-// The claim, per `design@gates@verdict-from-exit-codes`: outside a project the gates never start,
+// The claim, per `design@gates@a-refusal-exits-two`: outside a project the gates never start,
 // and the run exits 2, not the 1 of a failed gate. Mutation check: `ExitCode::from(2)` in xtask's
 // `abort` made `ExitCode::FAILURE` fails it.
 #[test]
@@ -310,9 +310,6 @@ fn annotations_appear_under_actions_alone() {
     let _ = std::fs::remove_dir_all(&project);
 }
 
-/// One `gates` run with stdout redirected to a file, as a caller who wants the text does it:
-/// the subcommand refuses a pipe on stdout, so a harness reads it back from a regular file.
-/// Returns the exit status, stdout's text and stderr's text.
 /// Every gate log a run left in the fake project, each under its file name, for a failure's message.
 fn gate_logs(project: &Path) -> String {
     let mut logs: Vec<_> = std::fs::read_dir(project.join("target/gates"))
@@ -327,6 +324,9 @@ fn gate_logs(project: &Path) -> String {
         .collect()
 }
 
+/// One `gates` run with stdout redirected to a file, as a caller who wants the text does it:
+/// the subcommand refuses a pipe on stdout, so a harness reads it back from a regular file.
+/// Returns the exit status, stdout's text and stderr's text.
 fn gates_output(project: &Path, fail_on: &str) -> (std::process::ExitStatus, String, String) {
     gates_output_with(project, fail_on, &[], &[])
 }
