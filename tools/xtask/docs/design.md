@@ -58,7 +58,10 @@ local run pass what CI fails, or the reverse. The job UI names the failing gate 
 `design@gates@annotations-under-actions`, and the logs reach the reader as the workflow's
 `gate-logs` artifact, uploaded when the job fails.
 
-**Where CI and a local run differ, the difference is a flag.** `--locked`: locally a
+**Where CI and a local run differ in what they run, the difference is a flag.** How the run reports
+differs with no flag: under Actions the library accepts a pipe on stdout and wraps each gate in
+workflow commands, per `design@gates@gates-refuse-a-pipe` and
+`design@gates@annotations-under-actions`, which change no gate and no verdict. `--locked`: locally a
 legitimately updated `Cargo.lock` must not fail a gate, while in CI lock drift is exactly what
 must fail. The tool's flag reaches its children alone: the `x` alias resolves the workspace
 before the tool starts and rewrites a drifted lock, so CI also passes cargo's own `--locked`
