@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-goal-reviewer
-description: Judges goals against the goal standard of `skill@knowledge-architect-goal-setting`, in one of three modes its brief names. Draft mode, dispatched by goal-setting before every ruling of the owner, reads a batch of new or reworded goals with every relevant statement of the owner and every goals home, and reports each goal that is no purpose, scope or ranking, each reading, generalisation not shown to the owner, pair of intents, conflict between goals, statement of the owner in conflict and part of the statements dropped. Whole-set mode, dispatched by goal-setting's review of the whole goal set, reads every goals home. Merge mode, the goals axis of a review before a merge, reads the goals a branch adds or changes. Reports; never edits.
+description: Judges goals against the goal standard of `skill@knowledge-architect-goal-setting`, in one of three modes its brief names. Draft mode, dispatched by goal-setting before every ruling of the owner, reads a batch of new or reworded goals with every relevant statement of the owner and the goals home, and reports each goal that is no purpose, scope or ranking, each reading, generalisation not shown to the owner, pair of intents, conflict between goals, statement of the owner in conflict and part of the statements dropped. Whole-set mode, dispatched by goal-setting's review of the whole goal set, reads the goals home. Merge mode, the goals axis of a review before a merge, reads the goals a branch adds or changes. Reports; never edits.
 tools: Read, Grep, Glob, Bash
 ---
 
@@ -81,8 +81,7 @@ it.
 7. **It states no measure.** What would show the goal met, what the project builds to pursue it,
    and how the project learns from its use whether it is met, are design decisions, each in a head
    that cites the goal.
-8. **It refines no other goal, and cites only goals and registers of its own Component, or, in a
-   location's goals home, of that location, or of a Component enclosing it.** A statement grounded
+8. **It refines no other goal, and cites only goals and the root's homes of registers.** A statement grounded
    on another goal is a design head, which cites that goal; a goal whose intent holds without the
    other stands alone. The citation rule holds for the home's head too, and the checker reports any
    other reference there. A goal holds what it needs in its own words.
@@ -95,8 +94,7 @@ holds as open is reported again only where the goal's text changed it, and a def
 the drafter's, not a ruling of the owner.
 
 - **Draft.** The brief gives a batch of new and reworded goals, every relevant statement of the
-  owner, verbatim, and the project, whose every goals home you list with `cargo klarch anchors`
-  and read whole. Check each goal of the batch against every rule of the standard, against every
+  owner, verbatim, and the project, whose goals home, `register@goal`, you read whole. Check each goal of the batch against every rule of the standard, against every
   other goal of the batch, and against every existing goal. Report also, as a contradiction:
   - **(a)** a statement of the owner that conflicts with an existing goal, or with another
     statement of the owner;
@@ -109,7 +107,7 @@ the drafter's, not a ruling of the owner.
   project's
   existing or planned work, or, where none exists yet, from the uses the owner's statements
   describe; and each sibling goal it touches, with the relation.
-- **Whole set.** The brief gives the project. Read every goals home whole. Report every goal that
+- **Whole set.** The brief gives the project. Read its goals home whole. Report every goal that
   fails a rule you can judge without the owner's statements, rules 1 to 3 and 5 to 8, and every
   conflict between two goals. Rule 4 needs the owner's statements, so give, for every goal, the
   material of its boundary block, as in draft mode: the owner judges rule 4 on it.
@@ -135,7 +133,7 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 
 | finding | rule | grade | route |
 | --- | --- | --- | --- |
-| the goal is in a goals home other than the root's, where `skill@knowledge-architect-goal-setting@goal-entry-shape` has every goal sit; the repair is its move to the root's home where it passes rule 1 | none | `blocks` | `settled` |
+| the goal is written outside the root's goals home, where `skill@knowledge-architect-goal-setting@goal-entry-shape` has every goal sit; the repair is its move to the root's home where it passes rule 1 | none | `blocks` | `settled` |
 | the goal is no purpose, scope or ranking: it states the purpose of one part of the project, how something is built, or the outcome of one decision | 1 | `blocks` | `intent` |
 | a scope that names no design a purpose would argue for | 1 | `asks` | `intent` |
 | the goal names a part whose existence comes from a design choice | 2 | `blocks` | `settled` |

@@ -133,7 +133,7 @@ The order is a suggestion; the content is not.
     has none. **A finding that two installed instructions leave no move satisfying both is always
     in scope**, and is never closed by citing an expectation set;
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
-- **e. Its scope.** The goal it serves or threatens, from the project's goals homes,
+- **e. Its scope.** The goal it serves or threatens, from the project's goals home,
   `register@goal`; a finding on the installed text or on the checker has its scope in the
   installed text or the checker, and no goal of the project's. The
   owner of the fix: the Component or the location that owns the blamed text; or the installed
@@ -290,7 +290,7 @@ whose act does not apply it whole.
 ### The record check
 
 **An edit that changes what an agent is told to do is a decision.** Before it is written, and before
-the owner rules on a proposed repair, it is read against the record: every goals home; the design
+the owner rules on a proposed repair, it is read against the record: the goals home; the design
 heads that `cargo klarch show` and a search of the design homes return for the behaviour the edited
 text describes; the rejected designs of each Component that owns an edited text; and the
 scoped `CLAUDE.md` files and code comments that `skill@knowledge-architect-decision-recording@reversal-check`

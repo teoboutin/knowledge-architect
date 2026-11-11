@@ -167,3 +167,56 @@ fn the_primer_s_model_section_names_every_kind_and_reserved_word() {
         );
     }
 }
+
+/// Each `register` and `goal` reference the shipped set writes, read in a project other than this
+/// one, is well formed, and each `register` reference whose anchor is no placeholder resolves
+/// there: a form that names this repository's anchors, or the goals home with an anchor, would
+/// pass this repository's own check and dangle in every installing project.
+fn shipped_register_and_goal_violations(copies: &[(PathBuf, String)]) -> Vec<String> {
+    use crate::entity::{candidate, Anchors, Candidate, REGISTER_KIND};
+    let m = manifest("");
+    let model = crate::model::Model::from_documents(copies.to_vec());
+    let anchors = Anchors::declared(&m);
+    let mut out = Vec::new();
+    for doc in model.documents() {
+        for l in &doc.observations {
+            let crate::scan::Observation::Span(span) = &l.what else {
+                continue;
+            };
+            let head = span.split('@').next().unwrap_or_default();
+            if head != REGISTER_KIND && head != crate::manifest::GOAL_REGISTER {
+                continue;
+            }
+            let at = format!("{}:{} writes `{span}`", doc.rel.display(), l.line);
+            match candidate(span, &anchors) {
+                Candidate::Malformed { why, .. } => out.push(format!("{at}, malformed: {why}")),
+                Candidate::Reference { kind, anchor, id }
+                    if kind.is_register() && !anchor.starts_with('<') && !id.starts_with('<') =>
+                {
+                    if let Err(cause) = crate::resolver::register(anchor, id, &anchors) {
+                        out.push(format!("{at}, which resolves to nothing: {cause:?}"));
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+    out
+}
+
+/// The claim: every `register` and `goal` form the shipped set writes resolves in a project other
+/// than this one, the root's goals home in the form with no anchor among them. Mutation checked:
+/// `register@goal` written back with `*` as its anchor at one shipped line, caught as malformed.
+#[test]
+fn the_shipped_set_writes_register_and_goal_forms_every_project_resolves() {
+    let found = shipped_register_and_goal_violations(&shipped());
+    assert!(found.is_empty(), "{found:#?}");
+    let planted = vec![(
+        PathBuf::from(".claude/skills/x/SKILL.md"),
+        "# X\n\n## A section {{slug:a-section}}\n\nRead `register@*@goal` and \
+         `register@knowledge-architect@design`.\n"
+            .replace("{{slug:a-section}}", "`##a-section`"),
+    )];
+    let found = shipped_register_and_goal_violations(&planted);
+    assert_eq!(found.len(), 2, "{found:#?}");
+}

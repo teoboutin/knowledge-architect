@@ -142,7 +142,7 @@ as every finding on installed text of an audit is.
 ### The record check
 
 **An edit that changes what an agent is told to do is a decision.** Before it is written, and before
-the owner rules on a proposed repair, it is read against the record: every goals home; the design
+the owner rules on a proposed repair, it is read against the record: the goals home; the design
 heads that `cargo klarch show` and a search of the design homes return for the behaviour the edited
 text describes; the rejected designs of each Component that owns an edited text; and the
 scoped `CLAUDE.md` files and code comments that `skill@knowledge-architect-decision-recording@reversal-check`
@@ -290,7 +290,7 @@ corpus. Read the corpus as for drafting, then read the proposal's text after its
 
 - through L1 and L3, as `agent@knowledge-architect-workflow-auditor@the-lenses` gives them, for a
   contradiction or two readings that the new text creates with the rest of the corpus;
-- against the record, as `agent@knowledge-architect-workflow-auditor@admission-rules` says: for this you read the design homes, the goals homes and the rejected designs beside the corpus, which
+- against the record, as `agent@knowledge-architect-workflow-auditor@admission-rules` says: for this you read the design homes, the goals home and the rejected designs beside the corpus, which
   hold no instruction and stay outside it, and run `cargo klarch show`.
 
 Write `check.md` in your directory: each defect the new text creates, each head the repair would

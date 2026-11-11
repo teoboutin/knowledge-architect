@@ -38,9 +38,9 @@ Component too and its goals bind every other; every anchor the document's refere
 every Component whose files its work changes. The manifest at the project's root declares the
 Components and their directories.
 
-For each Component on the list, read whole:
+Read whole the goals home of the project's root, `register@goal`, every subdocument included where
+it is a directory. For each Component on the list, read whole:
 
-- its goals home, `register@goal`, every subdocument included where it is a directory;
 - its design home, `register@*@design`, every subdocument included where it is a directory;
 - its `register@*@rejected`.
 

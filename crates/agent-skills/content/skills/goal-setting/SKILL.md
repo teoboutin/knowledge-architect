@@ -50,8 +50,8 @@ home holds is prose under the level-one title, never a level-two section.
 %% whose existence comes from a design choice, so a redesign of the split would move goals only the
 %% owner may change.
 **Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
-Components serve it. No other Component and no location states a goal: the goals home each
-Component carries, `register@goal`, holds no entry outside the root. The root's home may be a
+Components serve it. No other Component and no location states a goal: the root alone carries the
+goals home, `register@goal`, and the checker refuses one anywhere else. The root's home may be a
 directory behind a `README.md` that links each of its files, the form `primer@checker-model` gives a
 heading register.
 

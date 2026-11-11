@@ -280,7 +280,8 @@ milestone, the home of each register it carries.
 **An anchor** is a named place that carries registers. A **Component** is a directory the manifest
 declares, named by its basename, or the project's root, named by the manifest's project name; it
 carries the required documents,
-every component register, and each `opt-in` register whose `components` names it. A **location** carries only the registers it declares, their homes
+every component register, and each `opt-in` register whose `components` names it; the root alone
+carries the register `goal`, which no declaration gives another anchor. A **location** carries only the registers it declares, their homes
 directly under its path, or at its path for a register declared with `dir = "."`. The checker
 constructs the anchor `plans` at docs/plans/ and one anchor per spec file, and, under the home of
 every directory register, wherever that home sits, one anchor per entry directory, each milestone
@@ -288,8 +289,9 @@ included. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
-`claude` harness, and the home of each component register: `register@goal`,
-`register@*@design`, `register@*@rejected`, `register@*@tripwire` and `register@*@issue`.
+`claude` harness, and the home of each component register: `register@*@design`,
+`register@*@rejected`, `register@*@tripwire` and `register@*@issue`. The root carries besides the
+goals home, `register@goal`.
 
 %% `design@agent-skills@enclosing-design-read-at-grounding`.
 **A Component is bound by the design of the root and of every intermediate Component that encloses
@@ -316,7 +318,9 @@ includes the design homes of the intermediate Components enclosing it.
 
 An id matches `[a-z0-9]+(-[a-z0-9]+)+`: two segments or more.
 
-**A reference** is one backticked span, `<kind>@<anchor>@<id>`. The kind is a register's name, a built-in
+**A reference** is one backticked span, `<kind>@<anchor>@<id>`, but a goal's, which names no anchor
+since the root alone carries the register: `goal@<id>`, and its home `register@goal`; the same
+reference written with an anchor is malformed. The kind is a register's name, a built-in
 one or one the manifest declares, and the reference names one entry of it; or `register`, which names a register's home; or `path`, which
 names a file or a directory under the anchor; or `planned`, which names, in a plan document, a
 path its work will create. The harness kinds take no anchor: `skill@<name>` and `agent@<name>`,
@@ -402,8 +406,8 @@ the head of the decision it supports, the issue entry it characterises, the trip
 threshold it is, or else the commit message that took it.
 
 **A reference is written wherever the text would have to be revisited if the entry it names
-changed**, but in a goals home, which cites only goals and registers of its own Component, or, in a
-location's goals home, of that location, or of a Component enclosing it, per rule 8 of
+changed**, but in the goals home, which cites only goals and the root's homes of registers, per
+rule 8 of
 `skill@knowledge-architect-goal-setting@goal-or-not`,
 a goal stating in its own words what it needs: a design head names the goal it derives from, a decision of another Component it
 depends on, and the `rejected` entries its argument covers; an issue names the decision it strains and the goal it threatens, when it does
