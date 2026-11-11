@@ -57,7 +57,9 @@ round trip of the dispatching session: here 16 re-dispatches, two rounds of wait
 three runs of the check. Each searcher meanwhile builds an approximation of the check, which can
 pass a line the command fails. It strains `design@query@worklist-writes-and-verifies-the-reports`,
 whose argument is that the rule is kept "by a command, not by a reader", and
-`goal@tasks-a-tool-does-better-are-the-tool-s`.
+`goal@tasks-a-tool-does-better-are-the-tool-s`. The fix changes
+`design@agent-skills@one-record-searcher`, whose dispatcher checks every report and sends back a
+report that fails.
 
 ### What would close it
 

@@ -194,8 +194,9 @@ version does not ship: a skill directory, an agent file or a saved workflow file
 .claude/workflows/ whose name starts with `knowledge-architect-`, and the directory
 .claude/knowledge-architect/. A project's own skill
 takes a name of its own, and the command never touches it. It never edits the root CLAUDE.md
-either: when the primer is shipped and the root CLAUDE.md does not import it, it says so, and the
-line to add is one holding exactly an at sign followed by .claude/knowledge-architect/PRIMER.md.
+either: when the primer is shipped and the root CLAUDE.md's first line does not import it, it says
+so. That first line is exactly an at sign followed by .claude/knowledge-architect/PRIMER.md, with no
+space before or after it, and the import line anywhere else does not count.
 
 Commit what it writes. `check` compares each installed file with what the version ships, byte for
 byte, and fails in its last phase on a missing, differing or unshipped file, so a project that moves
@@ -271,8 +272,8 @@ klarch init my-project --rust       # also the maintenance crate, its workspace 
   three phases find nothing, and runs the check, whose verdict is its exit code. Under `--vcs none`
   outside a worktree it installs the agent files and stops before the indexes, and says so.
 - **The documents hold no entry.** Each opens with a title and a line on what it holds, or that
-  it holds no entry yet. No goal is written: the goals are stated with the owner. The root CLAUDE.md is its title and the
-  primer's import line.
+  it holds no entry yet. No goal is written: the goals are stated with the owner. The root CLAUDE.md is the
+  primer's import line, on its first line, then its title.
 - **`--rust`** writes the blocks the setup skill shows: a virtual workspace, the maintenance crate
   `xtask/`, pinned to this version, and the cargo aliases, declares `cargo klarch` as the command,
   and makes `.gitignore` ignore `/target`, appending to an existing one unless git already ignores

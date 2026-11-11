@@ -2,10 +2,10 @@
 //!
 //! Under the `claude` harness, each shipped file must be present at its install path with the
 //! bytes of its template rendered for the project; no file of the installer's namespace may be
-//! one this version does not ship; and the root CLAUDE.md must import the primer when the primer
-//! is shipped. The decisions are `design@check@installed-files-compared-by-bytes`,
-//! `design@check@primer-import-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
-//! install; a deletion awaiting staging and a missing import line each name their own.
+//! one this version does not ship; and the root CLAUDE.md's first line must import the primer when
+//! the primer is shipped. The decisions are `design@check@installed-files-compared-by-bytes`,
+//! `design@check@primer-import-line`, `design@check@import-on-first-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
+//! install; a deletion awaiting staging and an import line not on the first line each name their own.
 //!
 //! **The last phase, since nothing else reads these findings and the model is complete without
 //! them.** The installed bytes are read from the survey and the model holds the copies for
@@ -219,6 +219,26 @@ mod tests {
                 f.what.contains(&format!("version {}", CHECKER_VERSION)),
                 "{f:?}"
             );
+        }
+    }
+
+    /// The claim: a root CLAUDE.md whose import line is not exactly its first line is one finding
+    /// on that file, the text handed to the check as it was read. Mutation: trimming the text's
+    /// start at the call site loses the first two findings.
+    #[test]
+    fn an_import_line_off_the_first_line_is_one_finding() {
+        let m = manifest("");
+        let shipped = [(PRIMER, "primer")];
+        let installed = [(PRIMER, Outside::Text("primer".into()))];
+        for text in [
+            "    @.claude/knowledge-architect/PRIMER.md\n",
+            "\n@.claude/knowledge-architect/PRIMER.md\n",
+            "# P\n\n@.claude/knowledge-architect/PRIMER.md\n",
+        ] {
+            let found = run(&m, text, &installed, &shipped);
+            assert_eq!(found.len(), 1, "{text:?}: {found:?}");
+            assert_eq!(found[0].file, Path::new("CLAUDE.md"), "{text:?}");
+            assert!(found[0].what.contains("on its first line"), "{found:?}");
         }
     }
 

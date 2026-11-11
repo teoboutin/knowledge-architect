@@ -212,8 +212,8 @@ The project's root `CLAUDE.md` holds, besides what the project already keeps the
 
 %% The import line is filled by a delivery substitution of the build, since the checker reads its
 %% span as a malformed reference; the reason is the comment of its row in
-%% `path@agent-skills@build.rs`. The first line is the one place no fence or comment can enclose,
-%% per `design@check@primer-import-line` and `design@check@import-line-exact-bytes`.
+%% `path@agent-skills@build.rs`. Why the first line, exactly: `design@check@import-on-first-line`
+%% and `design@check@import-line-exact-bytes`.
 - **the primer's import line**, as the file's first line, with no space before or after it:
   `{{primer-import}}`. The install never writes it, because the root
   `CLAUDE.md` belongs to the project; the check reports it until it is there;

@@ -514,7 +514,7 @@ fn write_documents(
 
 /// The starting text of a Component's README.md or CLAUDE.md, per
 /// `design@check@nothing-of-a-project-is-compiled-in`. The root's CLAUDE.md is the primer's
-/// import line, on its first line per `design@check@primer-import-line`, then its title, and
+/// import line, on its first line per `design@check@import-on-first-line`, then its title, and
 /// nothing else, since what every root would say alike is the primer's, per
 /// `design@agent-skills@primer-limit`.
 fn component_document(document: &str, name: &str, root: bool) -> String {
