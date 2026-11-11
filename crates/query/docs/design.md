@@ -186,11 +186,11 @@ per `design@query@clusters-packed-under-a-word-bound`.
 
 ### Goals reach a cluster agent as their title lines, and goal agents grade every goal whole, once `##goal-context-once`
 
-A cluster agent is given, read only, the title line of each goal of the root, of each Component
-enclosing a search unit it holds, and of those search units: the goal's heading statement without its
-slug, with its reference. A goal brings in nothing: an issue or a tripwire that cites only goals is no
-member of a cluster through them. The goals are graded apart, grouped by goals file inside each
-search unit, each group with its file's text above its first goal, and packed into goal agents by the
+A cluster agent is given, read only, the title line of each goal, all of them the root's, since the
+root alone carries the register `goal`, per `design@model@registers-are-declared`: the goal's
+heading statement without its slug, with its reference. A goal brings in nothing: an issue or a
+tripwire that cites only goals is no member of a cluster through them. The goals are graded apart,
+grouped by goals file, each group with its file's text above its first goal, and packed into goal agents by the
 rules of the cluster agents, per `design@query@search-unit-above-half-the-bound-alone`; so each goal
 is graded once, by an agent that reads it whole.
 
@@ -199,8 +199,8 @@ the distinct entries of the record, not with how many clusters cite a goal. A ti
 and the searcher reads a goal whole before a verdict rests on it, per
 `design@agent-skills@searcher-grades-goals`. The nearest rival, every goal a cluster's entries cite
 copied into that cluster with the goals they refine: `rejected@query@goals-copied-into-every-cluster`.
-One goal agent for every goals home loses to a goals home that can exceed the bound, as the owner
-judged. Goals that bring in their citers: `rejected@query@goals-pull-their-citers`.
+One goal agent for the whole goals home loses to a goals home that can exceed the bound, as the
+owner judged. Goals that bring in their citers: `rejected@query@goals-pull-their-citers`.
 
 ### Every entry no cluster holds, goals apart, is in the remainder of its search unit `##residual-grouped-by-search-unit`
 

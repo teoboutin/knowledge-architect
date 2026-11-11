@@ -4,7 +4,7 @@ A checker for a project's design record, and the agent workflow that writes it. 
 projects developed mostly by AI agents.
 
 - **The checker, klarch.** A project declares in a manifest what it records and where: its
-  components, their design decisions, goals, open issues and tripwires. The checker verifies that
+  components, their design decisions, open issues and tripwires, and the project's goals. The checker verifies that
   every reference between those records resolves, that every record has the shape its register
   declares, and that the generated listings are current.
 - **The agent workflow.** The checker installs a set of agent skills, subagent definitions and a

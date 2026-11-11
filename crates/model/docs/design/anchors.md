@@ -10,15 +10,17 @@ every other project-relative directory, named by the basename of its path. Nothi
 directory that is not a component is not that kind of document: nothing counts it and nothing
 reports it. A component carries `README.md`, `CLAUDE.md` while the project serves the `claude`
 agent harness (per `design@check@agents-table`), and the home of every `component`-scoped register
-— `design`, `goal`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
-scope. No document of the compiled list lies under `docs/`, where those homes are. The root also
-holds the plans directory, which is not a component's document but the anchor `plans`, per
+— `design`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
+scope. No document of the compiled list lies under `docs/`, where those homes are. The root
+carries besides the goals home, of the register the root alone carries, per
+`design@model@registers-are-declared`, and holds the plans directory, which is not a component's document but the anchor `plans`, per
 `design@model@plan-register`. A component that does not carry one it owes is a finding, raised by
 `path@model@src/tree.rs`.
 
 **Which components exist is declared, and what every component carries at least is compiled in.**
 That is not an exception to `design@check@nothing-of-a-project-is-compiled-in`: the document list and
-the five built-in component registers in `manifest.rs` belong to no project, they are what the word
+the four built-in component registers and the root's register `goal` in `manifest.rs` belong to
+no project, they are what the word
 _component_ means here. A project adds to that set, per
 `design@model@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
 document, below: a project free to declare its own set would be conformant with whatever it
@@ -37,7 +39,8 @@ Both carry registers. Every anchor is a named directory and a path anchor under
 `design@check@every-path-names-its-anchor`, except the plan anchors the tool constructs, below: a
 spec anchor is a file, and no plan anchor carries the `path` kind. What separates them is what they owe. A **component**
 owes the compiled documents, every `component`-scoped register and every `opt-in` register the
-project attaches to it, with its homes under `<component>/docs/`. A **location** owes the homes of the registers its `[locations.<name>]`
+project attaches to it, with its homes under `<component>/docs/`, and the root the goals home
+besides. A **location** owes the homes of the registers its `[locations.<name>]`
 row declares and nothing else, with its homes directly under its own path, or at it for a register
 declared there, per `design@model@home-at-the-carrier-path` — a location's directory is already
 documentation, where a component's is source code.
@@ -46,6 +49,10 @@ documentation, where a component's is source code.
 directory gives every entry in it a reference and makes relocating it one manifest edit, the property
 `design@check@every-path-names-its-anchor` buys everywhere else. What a location is instead of
 is `rejected@model@additional-trackers-file-list`.
+
+**A location declares no register the tool gives an anchor**: a plan register is the plan
+anchors', and `goal` the root's, per `design@model@registers-are-declared`, so a location naming
+either is refused that register.
 
 **A location's own registers are the only ones it carries**, and a skill or an agent of the
 project's own under one, such as this repository's under `agent-config`, is a section home of a
@@ -149,8 +156,9 @@ included. The floor holds for every project, one that installs no agent harness 
 owner's word that such a project is still supposed, in most cases, to have people working by the
 workflow, without which the checker has little use. Which registers can be attached is the
 session's argued limit within that intent: a register the project declares, since a built-in
-component register is carried by every Component already and a plan register belongs to the plans
-layout, per `design@model@plan-register`. A register attached adds obligations and removes none, per
+component register is carried by every Component already, `goal` by the root alone, per
+`design@model@registers-are-declared`, and a plan register belongs to the plans layout, per
+`design@model@plan-register`. A register attached adds obligations and removes none, per
 `design@check@the-regime-has-no-opt-out`. Against a location carrying the register at its own path,
 per `design@model@home-at-the-carrier-path`, attaching costs one key, invents no anchor name, and
 cites what the register holds under the Component's name. The rival, a Component's register list

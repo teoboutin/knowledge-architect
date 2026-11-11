@@ -164,7 +164,7 @@ block that markdown does not render as a heading is still read as one, per
   every heading findable by a search for lines opening with `#`.
 - **A Rust comment holds no section**, so a comment line underlined with dashes is not reported.
 
-### An entity of a register belongs to its anchor and is unique inside one register instance, and a reference to it names all three: `` `<kind>@<anchor>@<id>` `` `##an-entity-belongs-to-its-anchor`
+### An entity of a register belongs to its anchor and is unique inside one register instance, and a reference to it names all three, `` `<kind>@<anchor>@<id>` ``, but where the tool fixes the anchor `##an-entity-belongs-to-its-anchor`
 
 A definition is owned by where its document sits — the deepest anchor whose path holds it, and
 the register whose home holds it — rather than by anything the line says, so moving a document
@@ -173,8 +173,11 @@ word, and two registers of one anchor may too, which is what naming the kind and
 reference buys. The id of a heading-register entity is called a slug.
 
 **A harness kind names no anchor**, per `design@model@harness-kinds-cited-without-anchor`: its entities live
-where the harness puts them, one namespace per kind, so an anchor would carry no information. The
-refusal of a reference that names no anchor holds for every other kind.
+where the harness puts them, one namespace per kind, so an anchor would carry no information.
+**Nor does a register the project's root alone carries**, per
+`design@model@root-register-reference-has-no-anchor`: its entities belong to the root's anchor,
+which the tool fixes, and the reference is read there. The refusal of a reference that names no
+anchor holds for every other kind.
 
 The designs this decision did not keep: `rejected@model@project-wide-unique-slug`,
 `rejected@model@implicit-own-component-reference`, `rejected@model@hash-reference-separator`,

@@ -10,9 +10,11 @@ The resolver reads the head — the text before the first `@` — and decides: a
 segmented and resolved; a declared anchor or a reserved anchor in that position is the old form
 and is reported with the repair "prefix the kind"; anything else is not a reference and reports
 nothing, so an email address or a git remote in backticks is silent unless the project declares
-an anchor by that word. Every kind but `path`, `planned` and the harness kinds takes exactly three
-non-empty segments; `path` and `planned` take an anchor and then everything after the second `@`;
-a harness kind takes the arities of `design@model@harness-kinds-cited-without-anchor`.
+an anchor by that word. Every kind but `path`, `planned`, the harness kinds and a register the
+root alone carries takes exactly three non-empty segments; `path` and `planned` take an anchor and
+then everything after the second `@`; a harness kind takes the arities of
+`design@model@harness-kinds-cited-without-anchor`; and a register the root alone carries, with its
+home under `register`, takes two, per `design@model@root-register-reference-has-no-anchor`.
 
 **The silence is bounded and named.** A typo inside the kind, `desing@<anchor>@<id>`, is silent under this
 rule, because widening it to "any span with two `@`" would report every email address with a

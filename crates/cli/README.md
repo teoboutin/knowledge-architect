@@ -324,7 +324,7 @@ search unit's **remainder**; its goals are grouped by goals file.
 An agent that grades a cluster's entries is also given, read only, its **context entries**, each
 head, `rejected` entry or entry of a declared register that an entry it grades cites and another
 agent grades, and the **title lines**
-of the goals of the root, of each Component enclosing its search units and of those search units.
+of the goals, which the root alone carries.
 Goal agents grade the goals, each goals file after its text above its first goal. A search unit
 whose load, its entries, context entries and title lines in words, exceeds half the bound left gets
 agents of its own, its groups spread under the bound where it does not fit one; the others are
