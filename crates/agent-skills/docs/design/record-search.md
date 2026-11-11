@@ -54,7 +54,7 @@ and each verdict names the subjects of the work it is against, so a goal that co
 named with that thread. A cluster agent holds the goals that bind its entries by their title lines,
 and reads a goal whole before a verdict rests on it. The session still reads the goals itself: at
 the design skill's grounding, the root's goals home, and at the intake, the goal each finding serves or threatens. The decision is the owner's: the owner saw
-design sessions miss a goal twice, although the goals homes are small enough to be read whole, and
+design sessions miss a goal twice, although the goals homes were small enough to be read whole, and
 ruled that both readings stay. How a session misses a goal it is told to read is not established;
 the owner did not know. The nearest rival, the session's reading alone, is the reading those
 sessions had. The cost is the goal agents' reading, each goal once, and a title line per goal in
