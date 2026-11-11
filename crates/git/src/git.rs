@@ -800,7 +800,9 @@ pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// takes its lock once, and a held lock fails the call with the index as it was. A refused run can
 /// leave the blobs it wrote in the object store, unreachable, which `git gc` removes.
 ///
-/// An entry the index holds keeps its mode; a new one is a regular file. `--index-info` reads a
+/// An entry the index holds keeps its mode and its skip-worktree bit; a new one is a regular file.
+/// The bit is set again by a second write, so a failure between the two leaves it cleared.
+/// `--index-info` reads a
 /// path from the repository's root, not from the working directory, so each project-relative
 /// path is prefixed with the project's place in the repository.
 ///
@@ -864,10 +866,32 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
         info.extend_from_slice(path_bytes(rel).as_ref());
         info.push(0);
     }
+    // `--index-info` writes each entry with no flags, so an entry a sparse checkout marked
+    // skip-worktree, outside its cone, would come back reported deleted from the working tree.
+    // The bit is read before the write and set again after it, a second write: a failure between
+    // the two leaves the bit cleared, as a run did before it was kept.
+    let mut asked: Vec<OsString> = vec!["--literal-pathspecs".into(), "ls-files".into()];
+    asked.extend(["-v", "-z", "--"].map(OsString::from));
+    asked.extend(files.iter().map(|(rel, _)| rel.as_os_str().to_os_string()));
+    let tagged = git(root).args(asked).output()?;
+    let mut skipped = Vec::new();
+    for line in nul_separated(&tagged) {
+        // `S` is skip-worktree, and `s` skip-worktree with assume-unchanged beside it.
+        if let [b'S' | b's', b' ', path @ ..] = line {
+            skipped.extend_from_slice(path);
+            skipped.push(0);
+        }
+    }
     git(root)
         .args(["update-index", "-z", "--index-info"])
         .stdin(info)
         .output()?;
+    if !skipped.is_empty() {
+        git(root)
+            .args(["update-index", "--skip-worktree", "-z", "--stdin"])
+            .stdin(skipped)
+            .output()?;
+    }
     Ok(())
 }
 
@@ -1565,6 +1589,41 @@ mod tests {
             read.get(Path::new("keep.md")).map(String::as_str),
             Some("# Keep\n")
         );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// The claim: staging a generated file keeps the skip-worktree bit of an entry that carries
+    /// it, from a project in a subdirectory of its repository, and sets it on no other entry.
+    /// git 2.53.0 clears the bit on `update-index --index-info`. Mutation checked: the second write
+    /// that sets the bit again made `if false`, which tags the entry `H`.
+    #[test]
+    fn staging_a_generated_file_keeps_its_skip_worktree_bit() {
+        let repo = scratch_repository("stage-skip-worktree");
+        let project = repo.join("proj");
+        write(&project, "docs/g.md", "# Old\n");
+        write(&project, "docs/h.md", "# Old\n");
+        git(&repo).args(["add", "-A"]).output().expect("staged");
+        git(&repo)
+            .args(["update-index", "--skip-worktree", "proj/docs/g.md"])
+            .output()
+            .expect("a skip-worktree entry");
+        stage_generated(
+            &project,
+            &[
+                (PathBuf::from("docs/g.md"), "# New\n".to_string()),
+                (PathBuf::from("docs/h.md"), "# New\n".to_string()),
+            ],
+        )
+        .expect("staged");
+        let tagged = String::from_utf8(
+            git(&repo)
+                .args(["ls-files", "-v"])
+                .output()
+                .expect("a listing"),
+        )
+        .expect("text");
+        assert!(tagged.lines().any(|l| l == "S proj/docs/g.md"), "{tagged}");
+        assert!(tagged.lines().any(|l| l == "H proj/docs/h.md"), "{tagged}");
         let _ = std::fs::remove_dir_all(&repo);
     }
 
