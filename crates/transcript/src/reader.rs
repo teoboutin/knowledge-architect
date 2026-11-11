@@ -845,7 +845,7 @@ impl Corpus {
             // Counted per handle, so two `sessionId`s sharing their first 8 characters give two
             // handles, and a number already taken, as by a `sessionId` that holds `#`, is passed
             // over, so every handle names one session, per
-            // `design@transcript@transcript-session-split`.
+            // `design@transcript@one-handle-per-session`.
             let n = self.ids.entry(short.clone()).or_insert(0);
             let handle = loop {
                 *n += 1;

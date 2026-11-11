@@ -10,7 +10,7 @@ main worktree's path. It depends on nothing of `model` or of the checks.
 `design@transcript@transcript-format-tolerated-and-reported`, and a line is labelled by what the harness recorded of it, never by a
 substring of its text, per `design@transcript@transcript-labels-in-code`. **A value is classed on the inventory `cargo x transcript-kinds`
 prints**, its rows of each kind with their versions and keys, never on a pipeline written for the
-occasion, per `design@transcript@transcript-format-tolerated-and-reported`.
+occasion, per `design@transcript@format-classed-on-the-inventory`.
 
 **`path@transcript@src/output.rs` is a copy of the writer**, per `design@knowledge-architect@a-copy-of-the-writer-per-crate`: every write to stdout goes through it, and a closed stdout ends the command
 with exit 2, per `design@cli@exit-code-ladder`. 
