@@ -75,15 +75,20 @@ A mutant that does not compile makes the command fail for a reason that is no te
 `caught` with the words that it cannot tell the two apart. On the owner's word, a verdict tells two
 causes apart from a catch, this one and a base on which the command already fails, which is
 `design@mutate@baseline-runs-by-default`. The probe is the caller's, because the
-command is: the tool cannot know which build a command implies. The probe is not run over the
-unmutated tree, so a probe that always fails reads every mutant as unbuildable, which the printed
-verdict shows the caller.
+command is: the tool cannot know which build a command implies. Where the baseline runs, the probe
+runs over the unmutated tree first, per `design@mutate@baseline-runs-by-default`, so a probe that
+always fails, or cannot start, refuses the run before the target is written. Under
+`--no-baseline` it is not run there, and a probe that always fails reads every mutant as
+unbuildable, which the printed verdict shows the caller.
 
 ### The command runs over the unmutated tree first, and a failure there refuses the run, unless the caller skips it `##baseline-runs-by-default`
 
 Over a base on which the command already fails, every mutation reads as caught, so the baseline is
 the default and `--no-baseline` the caller's word that the failure is expected and understood. An
-opt-in baseline would leave the default run open to that false catch.
+opt-in baseline would leave the default run open to that false catch. With `--build`, the baseline
+runs the probe before the command, so a command that builds nothing, such as a script calling a
+built binary, takes its baseline on the unmutated build and not on whatever the target directory
+holds, a previous run's mutant included.
 
 ### The caller's command runs in the caller's environment `##caller-environment-kept`
 
@@ -137,11 +142,16 @@ The run starts the caller's command with `std::process` and waits on it, and the
 share its fate: a `SIGKILL` of the run leaves the command running, with nothing waiting on it. The
 tree is unaffected, since the record is whole before the target is touched, per
 `design@mutate@record-survives-the-run`, so `restore` puts the file back whether or not the command
-still runs. What is left is a stray process. Stopping it would take what `std::process` does not
-offer: a `SIGKILL` runs no handler, so only `prctl(PR_SET_PDEATHSIG)` through `libc` reaches the
-child, on Linux alone, and a process group of the command's own reaches it on the signals a handler
-can catch, never on `SIGKILL`. The session chose the stray process over a dependency on `libc`
-and code for one platform, which no goal ranks; the owner approved it.
+still runs. What is left is a stray process, and, where the command writes to its target, one that
+can write into a file a later run has claimed. That later run then loses nothing either: its restore
+writes only over the mutant it wrote, per `design@mutate@restore-by-comparison`, so a file the stray
+command changed is left as it is and reported. Whether a command a session passes writes to its own
+target is not established. Stopping the command would take what `std::process` does not offer: a
+`SIGKILL` runs no handler, so only `prctl(PR_SET_PDEATHSIG)` through `libc` reaches the child, a
+call the prctl(2) manual page marks Linux-specific, and a process group of the command's own
+reaches it on the signals a handler can catch, never on `SIGKILL`. The session chose the stray
+process over a dependency on `libc` and code for one platform, which no goal ranks; the owner
+approved it.
 
 ### The recovery record lives in the git directory `##record-lives-in-the-git-directory`
 

@@ -252,30 +252,33 @@ fn the_baseline_runs_the_build_probe_over_the_unmutated_tree() {
     assert_eq!(s.read(FILE), BODY);
 }
 
-/// The claim: a build probe that fails over the unmutated tree refuses the run before the target
-/// is written, exit 2, as a red baseline does. Mutation checked: the refusal's arm made a no-op
-/// runs the mutation.
+/// The claim: a build probe that fails, or cannot be spawned, over the unmutated tree refuses the
+/// run before the target is written, exit 2, as a red baseline does. Mutations checked: the
+/// refusal's arm of a failing probe made a no-op, and that of a probe that cannot start made a
+/// no-op, each runs the mutation.
 #[test]
 fn a_build_probe_failing_over_the_unmutated_tree_refuses_the_run() {
-    let s = Sandbox::new("baseline-build-red");
-    s.write(FILE, BODY);
-    let (_, out, code) = s.run_coded(&[
-        "run",
-        "--file",
-        FILE,
-        "--replace",
-        "SITE",
-        "--with",
-        "MUT",
-        "--build",
-        "false",
-        "--",
-        "true",
-    ]);
-    assert_eq!(code, 2, "{out}");
-    assert!(!out.contains("mutation applied"), "{out}");
-    assert_eq!(s.read(FILE), BODY);
-    assert!(!s.record().exists());
+    for probe in ["false", "no-such-program-of-this-test"] {
+        let s = Sandbox::new("baseline-build-red");
+        s.write(FILE, BODY);
+        let (_, out, code) = s.run_coded(&[
+            "run",
+            "--file",
+            FILE,
+            "--replace",
+            "SITE",
+            "--with",
+            "MUT",
+            "--build",
+            probe,
+            "--",
+            "true",
+        ]);
+        assert_eq!(code, 2, "{probe}: {out}");
+        assert!(!out.contains("mutation applied"), "{probe}: {out}");
+        assert_eq!(s.read(FILE), BODY);
+        assert!(!s.record().exists());
+    }
 }
 
 #[test]
