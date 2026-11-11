@@ -816,6 +816,14 @@ pub fn refused(path: &str) -> Option<&'static str> {
 fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, tree: &TreeInputs) -> Option<PathBuf> {
     let (bare, _) = without_suffix(path);
     let segments: Vec<&str> = bare.split('/').filter(|s| !s.is_empty()).collect();
+    // **A path whose last segment names nothing resolves nowhere.** With no segment, as in `:12`,
+    // `#x`, `/` or `//`, or ending in `.` or `..`, as in `.` or `d/..`, the walk stops on a base
+    // directory or one it climbed back to, which the writer did not name: a repair naming it
+    // would write a pointer nobody meant.
+    match segments.iter().rev().find(|s| **s != ".") {
+        Some(&"..") | None => return None,
+        Some(_) => {}
+    }
     // A path opening with `.` or `..` is read from its document first, as a relative markdown
     // path is, so the form names the file its writer meant, where another anchor's directory
     // would reach another one.
@@ -1422,6 +1430,32 @@ mod tests {
             path_over("*", "README.md", &[], &[], &[]),
             Ok(Target::Required)
         );
+    }
+
+    /// The claim: an escape path whose last segment names nothing resolves to nothing here, though
+    /// its walk stops on a directory the listing holds: a bare line suffix, a bare fragment, `/`,
+    /// `//`, `.` and `d/..`. A path naming a file the listing holds still resolves, and is
+    /// refused. Mutation checked: the early return on a path naming nothing removed gives each
+    /// spelling a repair naming a directory.
+    #[test]
+    fn an_escape_path_naming_nothing_resolves_to_nothing_here() {
+        let files = ["README.md", "crates/one/src/a.rs"];
+        let directories = ["crates", "crates/one", "crates/one/src", "d"];
+        for spelling in [":12", "#x", "/", "//", ".", "d/.."] {
+            assert_eq!(
+                path_over("elsewhere", spelling, &files, &directories, &[]),
+                Ok(Target::Elsewhere),
+                "{spelling}"
+            );
+        }
+        assert!(path_over(
+            "elsewhere",
+            "crates/one/src/a.rs",
+            &files,
+            &directories,
+            &[]
+        )
+        .is_err());
     }
 
     /// The claim: an anchor that carries no such register resolves to the cause naming the anchors
