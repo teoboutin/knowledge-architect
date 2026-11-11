@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-61 entries
+60 entries
 
 | kind | title |
 | --- | --- |
@@ -61,7 +61,6 @@
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
 | todo | [The installed text has the main session carry work it could dispatch, and says nothing of how a dispatch is judged](the-installed-text-has-the-main-session-carry-work-it-could-dispatch.md) |
-| todo | [The head on labelled items lists no prefix for the items of a goal-review record](the-labels-head-lists-no-prefix-for-a-goal-review-record.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
 | todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
