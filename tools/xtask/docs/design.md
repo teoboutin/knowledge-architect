@@ -27,8 +27,8 @@ shipped so that it serves each target project that carries out the task. Until t
 command stays.
 
 `goal@tasks-a-tool-does-better-are-the-tool-s` has knowledge-architect provide
-a tool for a task that a tool does at a lower cost or better, once knowledge-architect's owner has
-taken the task in, so that each session of a target project gets the same result: a tool for a
+a tool for a task that recurs and that a tool does at a lower cost or better, once
+knowledge-architect's owner has taken the task in, so that each session of a target project gets the same result: a tool for a
 task of the installed text that the owner has taken in is therefore published, and this tool is
 published to nobody. The rival, a local task as a command of `klarch`,
 puts in the command line of every adopting project's checker a command that serves this repository
