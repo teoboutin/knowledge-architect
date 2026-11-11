@@ -24,3 +24,6 @@ knowledge-architect-mutate = { path = "../../crates/mutate" }
 serde_json = "1"
 # The cargo configuration, whose `[env]` entry the checkout test reads.
 toml = "1"
+
+[lints]
+workspace = true
