@@ -908,7 +908,8 @@ impl Corpus {
     /// A subagent file goes to a session of its parent file whose `sessionId` its lines carry:
     /// where that id holds one session, to it; where several, to the one holding the `tool_use`
     /// item its `meta.json` names, searched through the top-level file and the other subagent
-    /// files; otherwise to the last; and where its file holds no session, to `unattached`, per
+    /// files; otherwise to the last such session, or to the file's last session where no session
+    /// carries its `sessionId`; and where its file holds no session, to `unattached`, per
     /// `design@transcript@subagent-file-attached-to-its-dispatcher`.
     fn attach_subagents(&mut self) -> Result<(), String> {
         for index in 0..self.files.len() {
@@ -1163,8 +1164,11 @@ impl Labelling<'_> {
         for &i in lines {
             let value = self.file.json(i).expect("a chain line is JSON");
             if let Some(uuid) = str_field(value, "uuid") {
-                // A line whose `uuid` was already read in the run is printed once and counted, so
-                // a line the harness writes twice reads as one line, and the header says so.
+                // A line whose `uuid` was already read in the run is printed once and counted, so a
+                // line written twice would read as one line, and the header says so. That the
+                // harness writes a line twice is an assumption no measurement of its transcripts
+                // shows: the guard costs one set, and a release that did would otherwise print a
+                // turn twice.
                 if !seen.insert(uuid.to_string()) {
                     self.inventory.repeated_uuids += 1;
                     continue;

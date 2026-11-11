@@ -87,8 +87,13 @@ subagent file whose top-level file holds no session is still read and counted. M
 subagent file of the owner's machine on 2026-11-12, 2573 files, with the script in the message of
 "[review] Repairs of the fourth round: the subagent attachment takes a head of its own, and the
 rivals and measurements the heads omitted": the lines of each carry the `sessionId` its parent file
-is named by, and the `meta.json` of 2058 names a `toolUseId`, of 515 none, which the fallback
-serves. The nearest rival, the subagent files read apart from every session, leaves `show --subagents` unable to
+is named by, the `meta.json` of 2058 names a `toolUseId` and of 515 none, and the `sessionId` of
+each holds one session of its parent file, so no file measured needs the call or the fallbacks. The
+rule keeps the call because the cut of `design@transcript@transcript-session-split` can give one
+`sessionId` several sessions, and the call `meta.json` names is then the one record of which
+session dispatched the file; its rival, the last of those sessions, would read the file as
+dispatched by a session that did not dispatch it, with nothing reporting it. The rival of the whole
+rule, the subagent files read apart from every session, leaves `show --subagents` unable to
 print a session's subagents after its lines, and the transcript reviewer to read what a session
 dispatched.
 
@@ -203,10 +208,10 @@ tolerant one hides a renamed field, against `design@model@a-failed-parse-is-loud
 Before a value outside the known sets is classed, its line kind is measured with
 `cargo x transcript-kinds`: per place and kind, its count, its harness versions and each key with
 its count, over every project's files the reader reads, labelled by the reader's own rows. The
-nearest rival, a `find` and `jq` pipeline written for the occasion, is code no test runs: the one
-the format head once kept as its measurement read 42 of 963 files, the subagent files missed, until
-a reviewer found it, as the message of "[core] The line-type command of the transcript format head
-reads the subagent files too" measured. The inventory is the maintenance tool's, per
+nearest rival, a `find` and `jq` pipeline written for the occasion, is code no test runs: a `find`
+with global depth options reads 42 of the 963 files the reader reads, the subagent files missed, as
+the message of "[core] The line-type command of the transcript format head reads the subagent files
+too" measured on the owner's machine on 2026-10-31. The inventory is the maintenance tool's, per
 `design@xtask@a-local-task-is-the-maintenance-tool-s`, and `path@transcript@CLAUDE.md` states the
 instruction.
 
