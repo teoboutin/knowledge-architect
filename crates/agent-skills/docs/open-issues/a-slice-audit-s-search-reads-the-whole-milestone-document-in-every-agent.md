@@ -14,7 +14,8 @@ bound, and the search needs about three times the agents its entries alone would
 
 ### What
 
-At the design audit of the second slice of `milestone@plans@goals-at-the-root`, the work held
+At the design audit of the second slice of the milestone that moved the goals to the project's
+root, the work held
 26,222 words by `wc -w`: the milestone document 24,977 and the slice's spec 1,245. `cargo klarch
 worklist` counts the work against each agent's bound of 40,000 words, so it left 13,778 words of
 entries per agent, and the record went to 44 agents. The entries given, context included, were

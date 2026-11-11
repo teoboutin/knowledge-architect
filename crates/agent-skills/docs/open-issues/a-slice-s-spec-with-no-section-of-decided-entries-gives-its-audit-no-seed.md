@@ -14,7 +14,8 @@ already decided", and the search then has no seed.
 
 ### What
 
-At the design audit of the first slice of `milestone@plans@goals-at-the-root`, the slice's spec
+At the design audit of the first slice of the milestone that moved the goals to the project's root,
+the slice's spec
 held no such section: the milestone document holds the decided entries of both slices in one
 table, each row naming its slice. The session seeded the search from the milestone document, the
 shape `rejected@agent-skills@slice-audit-seeded-by-the-milestone` refuses, since an entry citing a

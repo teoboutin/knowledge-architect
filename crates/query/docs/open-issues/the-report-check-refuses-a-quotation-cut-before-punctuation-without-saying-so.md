@@ -26,8 +26,8 @@ Reproduction: in a report of a work list, give an entry a quotation of eight or 
 from one line of its body, ending on a word that the body follows with a comma, the comma left
 out. `cargo klarch worklist --verify <dir>` reports the line with the message above.
 
-The instance: the first record search of the discussion planned by
-`milestone@plans@goals-at-the-root`, on 2026-11-10. The check reported 625 findings over 11 of the
+The instance: the first record search of the discussion that planned the milestone moving the
+goals to the project's root, on 2026-11-10. The check reported 625 findings over 11 of the
 17 reports. Two of those reports held lines never graded. For the nine others, the agents sent to
 repair them each reported the same cause: the quotation ended on a word cut from its punctuation,
 or began so. Each repaired its report by extending the quotation by one character. Not counted:
