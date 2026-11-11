@@ -158,8 +158,15 @@ fn a_failing_gate_fails_the_run_and_the_rest_still_log() {
 #[test]
 fn gate_children_never_inherit_a_caller_exported_bootstrap() {
     let project = fake_project("scrubbed");
-    let (status, _, _) = gates_output(&project, "");
-    assert!(status.success());
+    let (status, stdout, stderr) = gates_output(&project, "");
+    // The run failed once in a full gates run and never on demand, per
+    // `issue@xtask@a-test-of-the-gates-binary-failed-once-in-a-full-gates-run`: a failure prints
+    // what the run said and every gate log it left, so the next one can be read.
+    assert!(
+        status.success(),
+        "{status:?}\nstdout:\n{stdout}\nstderr:\n{stderr}\nlogs:\n{}",
+        gate_logs(&project)
+    );
     let log = std::fs::read_to_string(project.join("target/gates/test.log"))
         .expect("the test gate log was written");
     assert!(
@@ -306,6 +313,20 @@ fn annotations_appear_under_actions_alone() {
 /// One `gates` run with stdout redirected to a file, as a caller who wants the text does it:
 /// the subcommand refuses a pipe on stdout, so a harness reads it back from a regular file.
 /// Returns the exit status, stdout's text and stderr's text.
+/// Every gate log a run left in the fake project, each under its file name, for a failure's message.
+fn gate_logs(project: &Path) -> String {
+    let mut logs: Vec<_> = std::fs::read_dir(project.join("target/gates"))
+        .map(|dir| dir.filter_map(Result::ok).map(|e| e.path()).collect())
+        .unwrap_or_default();
+    logs.sort();
+    logs.iter()
+        .map(|path| {
+            let text = std::fs::read_to_string(path).unwrap_or_else(|e| format!("unreadable: {e}"));
+            format!("== {}\n{text}", path.display())
+        })
+        .collect()
+}
+
 fn gates_output(project: &Path, fail_on: &str) -> (std::process::ExitStatus, String, String) {
     gates_output_with(project, fail_on, &[], &[])
 }
