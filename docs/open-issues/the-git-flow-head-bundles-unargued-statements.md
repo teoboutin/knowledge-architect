@@ -38,7 +38,9 @@ or the next change that edits the head.
 
 ### Why it matters
 
-`primer@design-heads` asks a head for one decision and its standing argument. A session that weighs
+`primer@design-heads` asks a head for one decision and its standing argument, and
+`goal@design-is-recorded-with-its-arguments` has each decision the project records carry its
+argument. A session that weighs
 a change to one of these rules finds no argument to defeat, and a reference to the head cannot say
 which statement it depends on; the root `CLAUDE.md`'s `## Git` section takes the head as its home.
 
