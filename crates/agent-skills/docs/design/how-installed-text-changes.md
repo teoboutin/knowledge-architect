@@ -40,7 +40,12 @@ produced the need. An unprompted behaviour shows the gap, not the wording that f
 of a review or of an audit originates an edit only where its defect is provable by reading: a
 contradiction, a broken trigger, a factual error, an instruction whose words allow two acts, a
 provable gap, divergent verdicts that a review standard and an audit standard give over one text
-of the project, or a statement that fails the need test of `design@agent-skills@statement-names-an-act`. A
+of the project, or a statement that fails the need test of `design@agent-skills@statement-names-an-act`.
+**A text that fails a goal is no class of its own.** A goal states a direction and leaves when, how
+much and by what means to the design, so a reading that finds a text failing a goal finds one of
+those classes, such as a contradiction with the goal's words, or predicts how an agent would behave,
+the case the rule holds to evidence: read widely, the class would admit every instruction a session
+derives from a goal. A
 provable gap predicts no behaviour: it is an input that an act needs, that no text
 supplies and that judgement cannot derive, since it is a fact fixed elsewhere, such as a format the
 checker enforces, a name or a path. So a reading admits its fill, and the fact the gap names
