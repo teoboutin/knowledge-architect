@@ -23,6 +23,10 @@ cargo x skill <name>              # print a shipped skill, agent, saved workflow
 cargo x mutate run --file <F> --replace <OLD> --with <NEW> -- <command>
                                   # apply one mutation, run the command, restore the file
 cargo x mutate restore            # unwind a run that was killed
+cargo x transcript-kinds [--all-projects] [--json]
+                                  # count the line kinds of Claude Code's transcripts, their
+                                  # harness versions and keys, the measurement before a value of
+                                  # the format is classed
 ```
 
 `skill` takes the installed name, with or without the `knowledge-architect-` prefix, and reads the

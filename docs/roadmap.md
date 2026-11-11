@@ -15,7 +15,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 
 - `issue@git@the-git-library-s-failure-contracts-on-one-branch`
 - `issue@mutate@the-mutation-run-s-false-verdicts-on-one-branch`
-- `issue@transcript@the-transcript-reader-s-gaps-on-one-branch`
 - `issue@knowledge-architect@three-suites-mutation-survivors-on-one-branch`
 - `issue@check@the-repairs-finding-texts-name-on-one-branch`
 - `issue@check@the-installer-s-comparisons-on-one-branch`

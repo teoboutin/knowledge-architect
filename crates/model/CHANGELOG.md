@@ -68,6 +68,9 @@ an empty subsection is omitted.
   arm.
 - `library`, major: the struct `GatesArgs` of `knowledge-architect-gates` gains the field `ci`, the
   flag `--ci`, so a value built with every field named adds it, or takes `..Default::default()`.
+- `library`, major: the field `from` of `ShowOptions` of `knowledge-architect-transcript` holds a
+  `ShowFrom`, `Text` for a text the owner typed or `Line` for a line number, in place of a string. A
+  program that sets it writes `Some(ShowFrom::Text(text))`.
 - `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
   scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
   `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
@@ -193,6 +196,17 @@ an empty subsection is omitted.
   applies one mutation the caller writes, runs a command against it and restores the file, over
   uncommitted work, and `restore` unwinds a run that was killed. A maintenance crate carries it as
   `cargo x mutate`.
+
+- `cli`, minor: `transcript show --from-line <n>` starts at the first kept line numbered `n` or above, such as the
+  agent's line where a piece of work begins; it excludes `--from`.
+- `cli`, minor: the header of every `transcript` verb names each text the harness cut before writing it, with its
+  file and line, the count of characters left out, and the file the harness names as holding it whole.
+- `cli`, patch: `transcript search --role tool` keeps the tool lines, where it kept none; `transcript show` refuses a
+  handle two sessions carry, naming each `sessionId`, where it showed the first, and prints the header before a
+  session it cannot name; the header names, as a gap, each file a run over one project leaves out because its first
+  chain line holds no `cwd`.
+- `library`, minor: `kinds` and `KindsOptions` of `knowledge-architect-transcript` print the inventory of the
+  transcripts' line kinds, with their harness versions and keys.
 
 ### Workflow
 
@@ -341,6 +355,9 @@ an empty subsection is omitted.
   shell, and returns it whole as text; the dispatcher builds the record of the review from the
   files and no longer saves each report by hand. The report steps of the saved audit workflows write
   their report through the shell too.
+- `agent-skills`, patch: where a branch's work begins at a line the owner did not type, the brief of
+  the transcript reviewer names the owner's last message before it and that line's number, and the
+  reviewer extracts the session from that line with `transcript show --from-line`.
 
 ## 0.9.0
 

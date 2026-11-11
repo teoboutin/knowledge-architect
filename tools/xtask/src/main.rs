@@ -8,6 +8,7 @@ mod changelog;
 mod gates;
 mod mutate;
 mod skill;
+mod transcript_kinds;
 
 use clap::{Parser, Subcommand};
 use knowledge_architect_gates::GatesArgs;
@@ -42,6 +43,15 @@ enum Command {
         #[command(subcommand)]
         command: knowledge_architect_mutate::MutateCommand,
     },
+    /// Count the line kinds of Claude Code's transcripts, with their harness versions and keys.
+    TranscriptKinds {
+        /// Count the files of every project, not only this one's.
+        #[arg(long)]
+        all_projects: bool,
+        /// One JSON object per line, the header first.
+        #[arg(long)]
+        json: bool,
+    },
 }
 
 fn main() -> ExitCode {
@@ -50,6 +60,12 @@ fn main() -> ExitCode {
         Command::Changelog => changelog::run(),
         Command::Skill { name } => skill::run(&name),
         Command::Mutate { command } => mutate::run(&command),
+        Command::TranscriptKinds { all_projects, json } => {
+            transcript_kinds::run(&knowledge_architect_transcript::KindsOptions {
+                all_projects,
+                json,
+            })
+        }
     }
 }
 

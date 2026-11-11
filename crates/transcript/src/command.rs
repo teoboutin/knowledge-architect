@@ -10,7 +10,9 @@ use std::process::ExitCode;
 use serde_json::json;
 
 use crate::output::outln;
-use crate::reader::{project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session};
+use crate::reader::{
+    line_kinds, project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session,
+};
 
 /// The roles a kept line can carry, which `SearchOptions::roles` takes.
 pub const ROLES: [&str; 11] = [
@@ -58,8 +60,8 @@ pub struct ListOptions {
 pub struct ShowOptions {
     /// A session's handle, as `list` prints it, or a prefix of a `sessionId` that names one session.
     pub session: String,
-    /// Start at the first line the owner typed whose text contains this.
-    pub from: Option<String>,
+    /// Where the session starts printing; from its first line where `None`.
+    pub from: Option<ShowFrom>,
     /// Print each attached subagent file after the session.
     pub subagents: bool,
     /// Keep tool calls and tool results.
@@ -72,13 +74,34 @@ pub struct ShowOptions {
     pub json: bool,
 }
 
+/// Where `transcript show` starts: one value, so a start by text and a start by line number cannot
+/// both be asked for.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum ShowFrom {
+    /// The first line the owner typed whose text contains this.
+    Text(String),
+    /// The first kept line of the session's file whose number, as `show` and `search` print it, is
+    /// this or above: a start at a line the owner did not type, such as the agent's.
+    Line(usize),
+}
+
+/// What [`kinds`] counts.
+#[derive(Clone, Debug, Default)]
+pub struct KindsOptions {
+    /// Count the files of every project, not only this one's.
+    pub all_projects: bool,
+    /// One JSON object per line, the header first. No contract.
+    pub json: bool,
+}
+
 /// What `transcript search` searches.
 #[derive(Clone, Debug, Default)]
 pub struct SearchOptions {
     /// A regular expression, in the syntax of the `regex` crate.
     pub pattern: String,
     /// Keep lines of these roles, each one of [`ROLES`]; another is refused, since it would keep
-    /// nothing and read as an answer about the project.
+    /// nothing and read as an answer about the project. The role `tool` keeps the tool lines, as
+    /// `tools` does.
     pub roles: Vec<String>,
     /// Keep the calls of this tool and their results.
     pub tool: Option<String>,
@@ -127,6 +150,27 @@ fn root_filter(root: &Path, all_projects: bool) -> Option<Vec<std::path::PathBuf
     Some(roots)
 }
 
+/// The corpus of the project's files, or of every project's, with each file left out for want of a
+/// `cwd` counted in its header.
+fn read_project(
+    root: &Path,
+    dir: &Path,
+    all_projects: bool,
+    subagents: bool,
+) -> Result<Corpus, String> {
+    let found = project_files(dir, root_filter(root, all_projects).as_deref())?;
+    let mut corpus = Corpus::read(dir, &found.files, subagents)?;
+    note_no_cwd(&mut corpus, &found.no_cwd);
+    Ok(corpus)
+}
+
+fn note_no_cwd(corpus: &mut Corpus, no_cwd: &[(std::path::PathBuf, usize)]) {
+    for (path, line) in no_cwd {
+        let name = corpus.name(path);
+        corpus.inventory.note_no_cwd(&name, *line);
+    }
+}
+
 fn check_date(date: &Option<String>) -> Result<(), String> {
     if let Some(date) = date {
         let bytes = date.as_bytes();
@@ -155,8 +199,7 @@ fn session_kept(session: &Session, branch: &Option<String>, since: &Option<Strin
 
 fn list(root: &Path, dir: &Path, args: &ListOptions) -> Result<ExitCode, String> {
     check_date(&args.since)?;
-    let files = project_files(dir, root_filter(root, args.all_projects).as_deref())?;
-    let corpus = Corpus::read(dir, &files, true)?;
+    let corpus = read_project(root, dir, args.all_projects, true)?;
     let mut sessions: Vec<&Session> = corpus
         .sessions
         .iter()
@@ -217,13 +260,17 @@ fn list(root: &Path, dir: &Path, args: &ListOptions) -> Result<ExitCode, String>
 }
 
 fn show(root: &Path, dir: &Path, args: &ShowOptions) -> Result<ExitCode, String> {
-    let files = project_files(dir, root_filter(root, args.all_projects).as_deref())?;
     // Resolution reads the files the handle may name; the header counts only the session's own
-    // file, and its subagent files under `--subagents`.
-    let index = Corpus::read(dir, &files, false)?;
+    // file, and its subagent files under `--subagents`, beside the files left out of the project.
+    let found = project_files(dir, root_filter(root, args.all_projects).as_deref())?;
+    let mut index = Corpus::read(dir, &found.files, false)?;
+    note_no_cwd(&mut index, &found.no_cwd);
     let chosen = match resolve(&index.sessions, &args.session) {
         Ok(s) => s,
         Err(message) => {
+            // The header first, as every run prints it, so what the reading did not know is
+            // reported beside the refusal.
+            header(&index.inventory, args.json);
             if args.json {
                 outln!("{}", json!({ "result": "no-session", "message": message }));
             } else {
@@ -237,7 +284,8 @@ fn show(root: &Path, dir: &Path, args: &ShowOptions) -> Result<ExitCode, String>
     let ordinal = index.sessions[chosen].ordinal;
     // Cut again from its file alone, the session is found by its place in the file: its handle's
     // `#n` counts over every file read, which this second read does not see.
-    let corpus = Corpus::read(dir, &[file], args.subagents)?;
+    let mut corpus = Corpus::read(dir, &[file], args.subagents)?;
+    note_no_cwd(&mut corpus, &found.no_cwd);
     let session = corpus
         .sessions
         .iter()
@@ -248,15 +296,25 @@ fn show(root: &Path, dir: &Path, args: &ShowOptions) -> Result<ExitCode, String>
         .iter()
         .filter(|e| args.tools || !matches!(e.label, Label::Tool(_)))
         .collect();
-    if let Some(text) = &args.from {
-        match entries
-            .iter()
-            .position(|e| e.label.owner_typed() && contains_words(&e.text, text))
-        {
+    if let Some(from) = &args.from {
+        let start = match from {
+            ShowFrom::Text(text) => entries
+                .iter()
+                .position(|e| e.label.owner_typed() && contains_words(&e.text, text)),
+            ShowFrom::Line(line) => entries.iter().position(|e| e.line >= *line),
+        };
+        match start {
             Some(start) => entries.drain(..start).for_each(drop),
             None => {
                 header(&corpus.inventory, args.json);
-                let message = format!("no line the owner typed in {handle} contains {text:?}");
+                let message = match from {
+                    ShowFrom::Text(text) => {
+                        format!("no line the owner typed in {handle} contains {text:?}")
+                    }
+                    ShowFrom::Line(line) => {
+                        format!("no line {handle} keeps is at L{line} or after it")
+                    }
+                };
                 if args.json {
                     outln!("{}", json!({ "result": "no-line", "message": message }));
                 } else {
@@ -326,8 +384,7 @@ fn search(root: &Path, dir: &Path, args: &SearchOptions) -> Result<ExitCode, Str
     check_date(&args.since)?;
     let pattern = regex::Regex::new(&args.pattern)
         .map_err(|e| format!("the regular expression does not parse: {e}"))?;
-    let files = project_files(dir, root_filter(root, args.all_projects).as_deref())?;
-    let corpus = Corpus::read(dir, &files, args.subagents)?;
+    let corpus = read_project(root, dir, args.all_projects, args.subagents)?;
     header(&corpus.inventory, args.json);
     let mut hits = 0;
     for s in corpus
@@ -354,7 +411,9 @@ fn search(root: &Path, dir: &Path, args: &SearchOptions) -> Result<ExitCode, Str
                             // `crate::reader`'s labelling, so one test keeps both.
                             matches!(&e.label, Label::Tool(n) if n == name)
                         }
-                        None => args.tools,
+                        // `--role tool` names exactly these lines, so it keeps them, rather than
+                        // keep nothing and read as an answer about the project.
+                        None => args.tools || args.roles.iter().any(|r| r == "tool"),
                     };
                     if !kept {
                         continue;
@@ -405,10 +464,74 @@ fn search(root: &Path, dir: &Path, args: &SearchOptions) -> Result<ExitCode, Str
     })
 }
 
+/// Print the inventory of the line kinds of the project's transcripts, or of every project's: one
+/// row per place, `top` or `subagent`, and kind, with its count of lines, its harness versions and
+/// each top-level key with the count of lines carrying it, the header first. It reads every file the
+/// verbs read, the subagent files included.
+///
+/// The measurement this repository's transcript heads take before a value of the format is classed,
+/// per `design@transcript@transcript-format-tolerated-and-reported`; `cargo x transcript-kinds` runs
+/// it, and no verb of `transcript` does, per `design@xtask@a-local-task-is-the-maintenance-tool-s`.
+/// Exit 1 when no line is read; `Err` as [`transcript`].
+pub fn kinds(root: &Path, args: &KindsOptions) -> Result<ExitCode, String> {
+    let dir = transcript_dir()?;
+    let corpus = read_project(root, &dir, args.all_projects, true)?;
+    header(&corpus.inventory, args.json);
+    let rows = line_kinds(&corpus);
+    for ((place, kind), row) in &rows {
+        let versions: Vec<&str> = row.versions.iter().map(String::as_str).collect();
+        if args.json {
+            outln!(
+                "{}",
+                json!({
+                    "place": place,
+                    "kind": kind,
+                    "lines": row.count,
+                    "versions": versions,
+                    "keys": row.keys,
+                })
+            );
+        } else {
+            let keys: Vec<String> = row.keys.iter().map(|(k, n)| format!("{k} {n}")).collect();
+            outln!(
+                "{place} {kind}: {} lines; versions {}; keys {}",
+                row.count,
+                if versions.is_empty() {
+                    "none".to_string()
+                } else {
+                    versions.join(", ")
+                },
+                keys.join(", ")
+            );
+        }
+    }
+    Ok(if rows.is_empty() {
+        ExitCode::from(1)
+    } else {
+        ExitCode::SUCCESS
+    })
+}
+
 /// The session `arg` names: a handle exactly, or a prefix of a `sessionId` that names one session.
 fn resolve(sessions: &[Session], arg: &str) -> Result<usize, String> {
-    if let Some(i) = sessions.iter().position(|s| s.handle == arg) {
-        return Ok(i);
+    // Two `sessionId`s that share their first 8 characters give one handle, so a handle can name
+    // several sessions; each is then named by its `sessionId`, which a prefix resolves.
+    let named: Vec<usize> = (0..sessions.len())
+        .filter(|&i| sessions[i].handle == arg)
+        .collect();
+    match named.as_slice() {
+        [one] => return Ok(*one),
+        [] => {}
+        many => {
+            return Err(format!(
+                "{arg:?} names {} sessions: {}",
+                many.len(),
+                many.iter()
+                    .map(|&i| sessions[i].session_id.as_str())
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ))
+        }
     }
     let candidates: Vec<usize> = (0..sessions.len())
         .filter(|&i| sessions[i].session_id.starts_with(arg))
@@ -467,6 +590,21 @@ fn header(inventory: &Inventory, json: bool) {
                 "# lines skipped for a repeated uuid: {}",
                 inventory.repeated_uuids
             ),
+        ));
+    }
+    for cut in &inventory.cuts {
+        lines.push((
+            json!({"header": "cut", "at": cut.at, "chars": cut.chars, "whole_in": cut.whole_in}),
+            match &cut.whole_in {
+                Some(path) => format!(
+                    "# cut by the harness: {}, {} chars not in the transcript, the whole in {path}",
+                    cut.at, cut.chars
+                ),
+                None => format!(
+                    "# cut by the harness: {}, {} chars not in the transcript, and no file named",
+                    cut.at, cut.chars
+                ),
+            },
         ));
     }
     if inventory.has_gap() {

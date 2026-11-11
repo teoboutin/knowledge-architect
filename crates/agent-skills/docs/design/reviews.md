@@ -323,7 +323,8 @@ The design this decision did not keep:
 
 ### A session is extracted with the checker's `transcript show`, and no installed text holds an extraction rule of its own `##transcript-extraction-is-the-checker-s`
 
-The transcript reviewer extracts each session with `klarch transcript show --from --full`, and the
+The transcript reviewer extracts each session with `klarch transcript show --from --full`, or with
+`--from-line` where the work begins at a line the owner did not type, and the
 subagent that assembles a plan document extracts as the reviewer's section says; the command labels
 every line by what the harness recorded of it, per `design@transcript@transcript-labels-in-code`, so the installed texts state
 what the labels mean and no rule for which lines to keep or whose they are. A rule held in the
@@ -335,7 +336,8 @@ fragment the build copies would still leave each session to write the script. It
 ### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
 
 The review skill, the planning skill and the transcript reviewer name a session by the opening words
-of the message where its work begins, and find it with `klarch transcript list`: `--branch` lists
+of the message where its work begins, or of the owner's last message before a line the owner did not
+type where the work begins there, and find it with `klarch transcript list`: `--branch` lists
 the sessions that worked on a branch, `--containing` the session holding those words in a message
 the owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
 process keeps the earlier identifier in its paths while the harness writes a new file, as

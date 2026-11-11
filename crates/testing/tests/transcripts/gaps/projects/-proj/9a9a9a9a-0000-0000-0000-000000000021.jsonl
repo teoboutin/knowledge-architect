@@ -1,0 +1,1 @@
+{"type": "user", "uuid": "h1", "parentUuid": null, "sessionId": "9a9a9a9a-0000-0000-0000-000000000021", "timestamp": "2026-02-01T10:00:00.000Z", "cwd": "{{root}}", "gitBranch": "main", "version": "2.1.316", "isSidechain": false, "message": {"role": "user", "content": "a second id with the same first characters"}, "origin": {"kind": "human"}}

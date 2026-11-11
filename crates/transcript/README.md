@@ -24,7 +24,8 @@ conditions, or where an ask is not followed.
 ## What a program does with it
 
 Call `transcript` with the project's root and a verb, `List`, `Show` or `Search`. It prints as it works and returns its exit
-code. It reads the directory of Claude Code's transcripts, and from a linked worktree it also reads the sessions of the same
+code. `kinds` prints the inventory of the transcripts' line kinds, with their harness versions and keys, which
+knowledge-architect's maintenance tool runs before a value of the format is classed. It reads the directory of Claude Code's transcripts, and from a linked worktree it also reads the sessions of the same
 path in the main checkout.
 
 Why it is shaped this way is `register@transcript@design`.

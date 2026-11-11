@@ -33,8 +33,8 @@ The review of the slice that moved the commands out of the checker found more, e
 - `path@query@src/worklist.rs`: the `..` arm of `absolute`, the trim of a seed's backticks, and either half of its refusal of a directory inside the project.
 - `path@query@src/show.rs`: the order of `cited_at`, and the exit of the `no anchor is named` arm.
 - `path@query@src/anchors.rs`: two tests of what a home holds.
-- `path@transcript@src/command.rs`: `--from` kept to the owner's lines, the bounds of a search's line, the shape of `--since`, and subagent tool lines under `--tools`.
-- `path@transcript@src/reader.rs`: three labels in `never_cut`, canonicalisation of a `cwd` and of a root, the directory walk's tolerance, an empty `CLAUDE_CONFIG_DIR` or `HOME`, a subagent no session of its file holds, and known values no fixture holds.
+- `path@transcript@src/command.rs`: the bounds of a search's line, the shape of `--since`, and subagent tool lines under `--tools`.
+- `path@transcript@src/reader.rs`: three labels in `never_cut`, canonicalisation of a root, the directory walk's tolerance, an empty `CLAUDE_CONFIG_DIR` or `HOME`, a subagent no session of its file holds, and known values no fixture holds.
 - `path@create@src/command.rs`: `with_component`'s `\r\n` inside the array, `append`'s line for an element on the closing bracket's line, shipped destinations in the overlap list, and the output lines `created  a git repository`, `kept     .gitignore` and the enclosing project's note. `append`'s comment that "a reason never reads as the new element's" is false of `components = ["a", "b", # why b\n]`.
 - `path@create@src/command.rs`, `lexical`: `init link/../x` folds `..` without the filesystem, where `cargo init` follows the link, against `design@create@init-follows-cargo-init`.
 
