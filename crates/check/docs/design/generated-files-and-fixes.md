@@ -140,9 +140,9 @@ source of defects where the project may never have meant to cover some repairs.
 `--fix` applies two kinds of repair today: an installed file missing, differing or no longer
 shipped, and a stale or missing generated file. Every other repair touches git, such as staging a
 deletion, or a hand-written file, such as the root CLAUDE.md's primer import, or is a choice. The
-installed set is repaired exactly where the installed-file check reports it, judged from
+installed set is repaired only where the installed-file check reports it, judged from
 git's listing after normalising line endings: a file git does not list, such as an ignored file in
-the namespace, is never touched. The generated files alone, the rival, lost: repairing the installed set costs little, and it removes the
+the namespace, is never removed, since git holds no copy of it. The generated files alone, the rival, lost: repairing the installed set costs little, and it removes the
 install-then-index sequence from an upgrade.
 
 The design this decision did not keep: `rejected@check@fix-converting-old-entries`.
