@@ -27,9 +27,10 @@ The standing-state reviewer, in
 `agent@knowledge-architect-standing-state-reviewer@reread-standing-entries`, runs `{{command}} issues --kind deferred` and reads
 each entry's `### Trigger`. The issue-tracking skill asks a `design` entry for "the re-entry point:
 the discussion at which it is raised again", with no fixed subsection name. In this repository,
-`grep -rln '^### Re-entry'` over the issue directories finds two entries carrying one: the entry
-above, and `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`,
-whose re-entry is a discussion raised on the owner's word.
+`grep -rln '^### Re-entry'` over the issue directories finds seven entries carrying one on
+2026-11-11, among them
+`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`, whose
+re-entry is a discussion raised on the owner's word.
 
 The search agent, at the grounding of a discussion and of a retrospective intake and at the audit of a slice or of a spec, reads every issue whole,
 so a design issue's re-entry point is read before designed or planned work, and before bounded work
