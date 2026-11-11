@@ -74,10 +74,12 @@ pub struct RunArgs {
     #[arg(long, value_name = "PATCH", conflicts_with = "with")]
     pub patch: Option<PathBuf>,
     /// Probe that the mutant builds, split on whitespace and run with no shell; without it a
-    /// compile failure reads as caught.
+    /// compile failure reads as caught. Unless `--no-baseline`, it also runs over the unmutated
+    /// tree before the baseline, and a probe that fails or cannot start there refuses the run.
     #[arg(long, value_name = "COMMAND")]
     pub build: Option<String>,
-    /// Skip the check that the command passes over the unmutated tree.
+    /// Skip the check that the command passes over the unmutated tree, and the build probe's run
+    /// before it.
     #[arg(long)]
     pub no_baseline: bool,
     /// The command whose exit code is the verdict, run from the project's root. Everything after

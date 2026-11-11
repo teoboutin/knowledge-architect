@@ -57,12 +57,12 @@ crates/mutate/src/harness.rs: caught
   With a probe the verdict is `unmutatable here` instead. The probe runs with no shell: it is
   split on whitespace, so `&&`, a pipe or a quote reaches the program as an argument. Give one
   command; a build of several packages names them all with `-p`. A probe that cannot be spawned
-  gives no verdict, and an empty one is refused.
+  over the mutant gives no verdict, and an empty one is refused.
 - **The baseline runs by default.** The command runs once over the unmutated tree first, and a
   failure there refuses the run, since over a red base every mutation reads as `caught`. With
   `--build`, the probe runs before it, so a command that builds nothing, such as a script calling
-  a built binary, takes its baseline on the unmutated build; a probe that fails there refuses the
-  run too.
+  a built binary, takes its baseline on the unmutated build; a probe that fails or cannot be
+  spawned there refuses the run too.
   `--no-baseline` skips it when the failure is expected and understood. A change saved to the file
   while the baseline runs refuses the run, which writes nothing.
 - **A run over uncommitted work is safe.** The restore writes the pre-image only when the file is
