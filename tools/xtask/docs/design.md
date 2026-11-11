@@ -7,8 +7,8 @@ of one shipped text with its fragments and snippets inlined and its comments kep
 runs the published hand mutation, per `design@knowledge-architect@mutation-command-host`;
 `transcript-kinds`, which counts the line kinds of Claude Code's transcripts before a value of their
 format is classed; and `gates`, which runs this repository's gate list through the published gates
-library, `register@gates@design`. A workflow belongs here when it is a repository operation a session runs
-often and gets wrong by hand.
+library, `register@gates@design`. Which workflows belong here is
+`design@xtask@a-local-task-is-the-maintenance-tool-s`.
 
 How its arguments parse is not a decision of this tool's: it parses through clap and tests its
 declaration, as `design@cli@arguments-parse-through-clap` argues for the checker's binaries.
