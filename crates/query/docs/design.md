@@ -216,7 +216,7 @@ ed9dd60 and 55 in thaum at edd2cb5d, counted while the remainder still held the 
 serves. The design this decision did not keep:
 `rejected@query@one-residual-group`.
 
-### `worklist --out` writes the agents' entries, the report skeletons and the work into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`
+### `worklist --out` writes the agents' entries, the report skeletons and the work into a directory outside the project, `worklist --verify` judges the filled reports against the list it wrote, and `worklist --check` judges one of them and writes nothing `##worklist-writes-and-verifies-the-reports`
 
 `klarch worklist --out <dir>` writes `agents.txt`, one line per agent and entry with its role, its
 seed mark and its `changed-since` mark; `work.txt`, the files of the work, the subjects of the work,
@@ -238,11 +238,18 @@ does not find as a run of whole words of the entry's own text, or shorter than t
 asks, a missing reason, an entry that is or cites a seed given `unrelated`, and a report missing its
 closing sections; a line it cannot parse stops it. The verdicts and their actions are
 `design@agent-skills@verdict-report`'s. When every report passes, it writes the files of
-`design@query@occasion-shaped-output`.
+`design@query@occasion-shaped-output`. `klarch worklist --check <dir>/agent-<n>` judges that one
+agent's report by the same function, with the same findings, and writes and removes no file, so a
+searcher runs it on its own report while the other agents of the list still fill theirs, and
+`--verify` stays the one run that writes the outputs. Its nearest rival, the searcher running
+`--verify`, loses since `--verify` first removes, then writes, the outputs of the directory every
+agent of the list shares; `--verify <dir> --agent <n>`, the other rival, judges the same and makes
+the agent build two arguments from the one path it holds.
 
 It serves `goal@records-reach-their-reader` and `goal@tasks-a-tool-does-better-are-the-tool-s`:
 an instruction to give every entry one verdict, with a quotation of its text, is kept by a command,
-not by a reader. Each skeleton line names the verdicts its register admits, since a searcher reads
+not by a reader, and a searcher that cannot run the command on its own report returns one no command
+has judged, which costs a round trip of the dispatching session per failing report. Each skeleton line names the verdicts its register admits, since a searcher reads
 the table once and applies it from memory: over three searches whose skeleton named none, 13 of 45
 searchers wrote a relation their entry's role did not admit, as the issue on that skeleton recorded
 until it was deleted; `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it. The nearest rival, each searcher deriving its group from the listings and writing

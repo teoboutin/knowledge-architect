@@ -120,6 +120,15 @@ pub enum WorklistMode {
         /// The directory the work list was written into.
         dir: std::path::PathBuf,
     },
+    /// Check the report of one agent, `agent_dir`, a directory `agent-<n>` that `Write` wrote,
+    /// against the `agents.txt`, `work.txt` and `shown.md` of the directory that holds it, by the
+    /// rules `Verify` judges each report by, with the same findings. It writes and removes no
+    /// file, and judges no other agent's report, so an agent runs it on its own report while the
+    /// others still fill theirs. Exit 0 when the report passes, 1 with its findings when it fails.
+    Check {
+        /// The agent's directory, `<dir>/agent-<n>`.
+        agent_dir: std::path::PathBuf,
+    },
 }
 
 /// Write the work list of a search of the whole record, or check the reports its agents filled, per
@@ -139,7 +148,10 @@ pub enum WorklistMode {
 ///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
 ///   file and no generated line is left, unless a removal fails: removing the outputs of a
 ///   previous run stops at the first that cannot be removed, and after a failed write a file of
-///   this run that cannot be removed is left with no report.
+///   this run that cannot be removed is left with no report;
+/// - under `WorklistMode::Check`, a path with no last component, an agent `agents.txt` does not
+///   name, and what `Verify` refuses on reading the three files of the work list, the agent's own
+///   report or a line of it; nothing is written in any case.
 ///
 /// Exit 1 is a finding on a report. Under `Write`, it checks neither the form of a subject nor
 /// that a file of the work holds anything: a subject is listed as given, each once, and an empty
@@ -172,6 +184,7 @@ pub fn worklist(
             checker,
         ),
         WorklistMode::Verify { dir } => verify(dir),
+        WorklistMode::Check { agent_dir } => check(agent_dir),
     }
 }
 
@@ -908,12 +921,102 @@ fn actions(role: Role, verdict: &str) -> &'static [&'static str] {
 /// leaves none a session could take for this one's, unless a removal fails, as `worklist` says.
 fn verify(dir: &Path) -> Result<ExitCode, String> {
     remove_outputs(dir)?;
+    let list = read_list(dir)?;
+    let (findings, given) = judge_reports(dir, &list, None)?;
+    for finding in &findings {
+        outln!("{finding}");
+    }
+    if findings.is_empty() {
+        let List {
+            agents,
+            order,
+            work,
+            snapshot,
+        } = &list;
+        let out = outputs(order, agents, &given, snapshot, work);
+        write_all(dir, &out.files)?;
+        for (subject, count) in &out.counts {
+            outln!(
+                "{count} verdicts against {subject} in {}",
+                dir.join(verdicts_file(subject)).display()
+            );
+        }
+        let lines_file = match out.gaps {
+            Some(gaps) => {
+                outln!("{gaps} gaps in {}", dir.join(GAPS_FILE).display());
+                FIT_LINES_FILE
+            }
+            None => GENERATED_LINES_FILE,
+        };
+        outln!("{} lines in {}", out.lines, dir.join(lines_file).display());
+        outln!("PASSED: every report gives every entry it was given one verdict");
+        Ok(ExitCode::SUCCESS)
+    } else {
+        outln!("FAILED: {} findings above", findings.len());
+        Ok(ExitCode::FAILURE)
+    }
+}
+
+/// Judge the one report of `agent_dir`, an `agent-<n>` directory of a work list, against the
+/// `agents.txt`, `work.txt` and snapshot of the directory that holds it, and print its findings.
+///
+/// It judges by the same function as `verify`, so a report it passes passes `verify`'s judgement
+/// of that report and a report it fails gives the same findings there, per
+/// `design@query@worklist-writes-and-verifies-the-reports`: one judgement, which a searcher runs
+/// on its own report before it returns while the other agents of the list still fill theirs. So
+/// it writes and removes no file, the outputs of an earlier `verify` included, and judges no
+/// other agent's report.
+fn check(agent_dir: &Path) -> Result<ExitCode, String> {
+    let agent = agent_dir
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .ok_or_else(|| {
+            format!(
+                "{}: not an agent directory `agent-<n>` of a work list",
+                agent_dir.display()
+            )
+        })?;
+    let dir = agent_dir.parent().unwrap_or(Path::new(""));
+    let list = read_list(dir)?;
+    if !list.agents.contains_key(&agent) {
+        return Err(format!(
+            "{}: {} names no agent `{agent}`: give an agent directory `--out` wrote. Nothing was \
+             judged.",
+            agent_dir.display(),
+            dir.join(AGENTS_FILE).display()
+        ));
+    }
+    let (findings, _) = judge_reports(dir, &list, Some(&agent))?;
+    for finding in &findings {
+        outln!("{finding}");
+    }
+    if findings.is_empty() {
+        outln!("PASSED: the report of {agent} gives every entry it was given one verdict");
+        Ok(ExitCode::SUCCESS)
+    } else {
+        outln!("FAILED: {} findings above", findings.len());
+        Ok(ExitCode::FAILURE)
+    }
+}
+
+/// What `--out` wrote into a work list's directory, read back: the entries each agent was given,
+/// in the order of `agents.txt`, the work, and the snapshot of every entry's text.
+struct List {
+    agents: BTreeMap<String, BTreeMap<String, Listed>>,
+    // The order of `agents.txt`, which the outputs keep: the map above sorts `agent-10`
+    // before `agent-2`.
+    order: Vec<(String, String)>,
+    work: Work,
+    snapshot: BTreeMap<String, Shown>,
+}
+
+/// Read `agents.txt`, `work.txt` and `shown.md` of `dir`, or `Err` naming the first file it cannot
+/// read or parse, and a snapshot that lacks an entry `agents.txt` lists.
+fn read_list(dir: &Path) -> Result<List, String> {
     let list_path = dir.join(AGENTS_FILE);
     let text =
         std::fs::read_to_string(&list_path).map_err(|e| format!("{}: {e}", list_path.display()))?;
     let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
-    // The order of `agents.txt`, which the outputs keep: the map above sorts `agent-10`
-    // before `agent-2`.
     let mut order: Vec<(String, String)> = Vec::new();
     for (n, line) in text.lines().enumerate() {
         let parts: Vec<&str> = line.split(' ').collect();
@@ -971,10 +1074,32 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             missing.join(", ")
         ));
     }
+    Ok(List {
+        agents,
+        order,
+        work,
+        snapshot,
+    })
+}
 
+/// Every finding of the reports judged, and each verdict by its agent and its entry's reference.
+type Judged = (Vec<String>, BTreeMap<(String, String), Verdict>);
+
+/// Judge the report of every agent of `list`, or of `only` alone, or `Err` for a report it cannot
+/// read or a line it cannot parse.
+fn judge_reports(dir: &Path, list: &List, only: Option<&str>) -> Result<Judged, String> {
+    let List {
+        agents,
+        work,
+        snapshot,
+        ..
+    } = list;
     let mut findings: Vec<String> = Vec::new();
     let mut given: BTreeMap<(String, String), Verdict> = BTreeMap::new();
-    for (agent, listed) in &agents {
+    for (agent, listed) in agents {
+        if only.is_some_and(|o| o != agent) {
+            continue;
+        }
         let rel = PathBuf::from(agent).join(REPORT_FILE);
         let path = dir.join(&rel);
         let report =
@@ -985,7 +1110,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             &report,
             listed,
             &work.subjects,
-            &snapshot,
+            snapshot,
         )
         .map_err(|at| {
             format!(
@@ -1001,32 +1126,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             given.insert((agent.clone(), reference), verdict);
         }
     }
-    for finding in &findings {
-        outln!("{finding}");
-    }
-    if findings.is_empty() {
-        let out = outputs(&order, &agents, &given, &snapshot, &work);
-        write_all(dir, &out.files)?;
-        for (subject, count) in &out.counts {
-            outln!(
-                "{count} verdicts against {subject} in {}",
-                dir.join(verdicts_file(subject)).display()
-            );
-        }
-        let lines_file = match out.gaps {
-            Some(gaps) => {
-                outln!("{gaps} gaps in {}", dir.join(GAPS_FILE).display());
-                FIT_LINES_FILE
-            }
-            None => GENERATED_LINES_FILE,
-        };
-        outln!("{} lines in {}", out.lines, dir.join(lines_file).display());
-        outln!("PASSED: every report gives every entry it was given one verdict");
-        Ok(ExitCode::SUCCESS)
-    } else {
-        outln!("FAILED: {} findings above", findings.len());
-        Ok(ExitCode::FAILURE)
-    }
+    Ok((findings, given))
 }
 
 /// Judge one agent's report, `report`, the agent named `agent` and its file `rel`, against the

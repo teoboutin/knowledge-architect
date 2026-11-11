@@ -146,15 +146,17 @@ plan document of that work holds the measurement, and
 The designs this decision did not keep: `rejected@agent-skills@three-runs-per-pass` and
 `rejected@agent-skills@session-rereads-every-draft`.
 
-### A report step of an audit workflow returns its report as text only where the harness refuses its write `##refused-report-returned-as-text`
+### A report step of an audit workflow writes its report through the shell, and returns it as text only where the harness refuses that write `##refused-report-returned-as-text`
 
 The five report steps of the three saved workflows, the pass's report in each and the report of the
 judgement of an application in the design-record and tripwire workflows, write their report to a
-file of the run's scratch directory and return its path. Where the harness refuses that write, the
-step returns the report whole in its `text` field, with its path empty, and the run's result carries
-it as `reportText`, with `report` null. Whether a dispatched agent may write is the harness
-configuration's, which no installed text sets, so a pass delivers its report under a configuration
-that refuses the write.
+file of the run's scratch directory with a shell redirect and return its path. Where the harness
+refuses that write, the step returns the report whole in its `text` field, with its path empty, and
+the run's result carries it as `reportText`, with `report` null. The harness refuses a subagent's
+file tool on a report file by its name and lets a shell redirect write it, as
+`design@agent-skills@reviewer-writes-its-report` measured, and whether a dispatched agent may write
+at all is the harness configuration's, which no installed text sets, so a pass delivers its report
+under a configuration that refuses the write.
 
 The argument turns on the harness's behaviour. In a tripwire audit of thaum, the harness refused the
 report agent the write of its report file, and the report survived only in that agent's transcript.

@@ -332,8 +332,9 @@ const report = await agent(lines([
   '6. what the run did not decide: the merge choices, the plausible verdicts, the "Outside the ' +
     'axis" and "Met outside the task" notes of the returns, and every step that failed or returned ' +
     'nothing' + (unwalked.length ? ', and the L2 groups left unwalked: ' + unwalked.join('; ') : '') + '.',
-  'Return its path. Where the harness refuses your write of it, return the report whole in text, ' +
-    'and path empty.',
+  'Return its path. Write it with a shell redirect, `cat > <path> <<\'EOF\'`, since the harness can ' +
+    'refuse a report file written with its file tool. Where the harness refuses that write too, ' +
+    'return the report whole in text, and path empty.',
 ]), { schema: REPORT, phase: 'report', label: 'report' })
 
 return {

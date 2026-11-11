@@ -156,6 +156,9 @@ an empty subsection is omitted.
   the bound getting agents of its own, gives an agent the heads, the entries of declared registers
   and the `rejected` entries its entries cite and another agent grades, read only, and the goals as title lines, the goals graded by goal agents,
   under a default bound of 40,000 words, where it was 25,000.
+- `cli`, minor: `worklist --check <dir>/agent-<n>` judges one agent's report by the rules of
+  `--verify`, with the same findings, and writes and removes no file, so a record searcher checks
+  its own report while the other agents still fill theirs.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
   `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.
@@ -321,6 +324,14 @@ an empty subsection is omitted.
   one, deletes it.
 - `agent-skills`, patch: the primer asks that a number measured in another project name that
   project, beside the machine it was taken on.
+- `agent-skills`, patch: the record searcher runs `worklist --check` on its own report, and repairs
+  each finding, before it returns.
+- `agent-skills`, patch: every installed agent holds `Write`, and states that it edits nothing in
+  the project's tree and writes only in the scratch directory its brief names.
+- `agent-skills`, patch: a reviewer writes its report to the path its brief names, through the
+  shell, and returns it whole as text; the dispatcher builds the record of the review from the
+  files and no longer saves each report by hand. The report steps of the saved audit workflows write
+  their report through the shell too.
 
 ## 0.9.0
 

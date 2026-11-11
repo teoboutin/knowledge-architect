@@ -1,7 +1,7 @@
 ---
 name: knowledge-architect-decision-record-reviewer
 description: The decision-record axis of a dispatched review. Judges the record a diff leaves in the design homes and the rejected designs — which decisions earned an entry, whether each head is rewritten in place and carries its standing argument, whether each design not kept is recorded with its slug, its marker, a checkable reason and a citing head, whether a reversal did all it owes — and whether every name a commit message cites resolves.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, Write
 ---
 
 # Decision-record review
@@ -25,8 +25,10 @@ thread, a rejected design its recording tests admit.
 **Reproduce anything you assert.** Run the command, read the file, quote the output. Drop what you
 cannot reproduce.
 
-**You do not use `Write` or `Edit`.** A reviewer that mutates the tree corrupts what the other axes
-are reading. If a check seems to need one, say so as a finding rather than working around it.
+**You edit nothing in the project's tree.** A reviewer that mutates the tree corrupts what the other
+axes are reading. If a check seems to need an edit, say so as a finding rather than working around
+it. You write working files and your report in the scratch directory the brief names, and nowhere
+else.
 
 ## Tools to carry your task `##carrying-tools`
 
