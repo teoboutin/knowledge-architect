@@ -86,20 +86,25 @@ Each kept line takes the label of the first row of the mapping it meets, over `t
 `attachment.origin.kind`, the `system` subtypes, and whether the line sits in a subagent file. The
 owner's words are the lines labelled `owner`, `owner-queued`, `owner-answer` (an answer to a
 question tool) and `owner-command` (a command such as `/clear`, read from its `local_command`
-line's `commandRun`); `owner-interrupt` is the owner's interrupt of a turn and `owner-shell` a
+line's `commandRun`, or, where the harness writes none, from the leading `<command-name>` tag of its
+line); `owner-interrupt` is the owner's interrupt of a turn and `owner-shell` a
 command the owner ran with the `!` prefix, acts of the owner and no words; `injected` carries the
 kind of what the harness or another agent delivered, a model's refusal of a turn, a shell command's
-output and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
+or a command's output and a fork's inherited context included; `agent` is the session's text; `dispatch` is a
 field-less `user` line of a subagent file that no row above it places, the text its dispatcher or
 its workflow wrote; `tool` is a tool call or its result; a line no row places is `unlabelled`,
 printed and counted, in a file none of whose `user` lines carries a field as in any other.
 
 A field-less `user` line, one that carries none of `isMeta`, `isCompactSummary` and `origin`, is
-read by its text in three rows, each before the `dispatch` row: its whole text equal to one of the
+read by its text in five rows, each before the `dispatch` row: its whole text equal to one of the
 interrupt texts the harness writes is `owner-interrupt`, where `interruptedMessageId` is absent; and,
 in a top-level file, a text that opens with the harness's `<bash-input>` tag is `owner-shell`, and one
-that opens with `<bash-stdout>`, on the child of such a line, is `injected shell-output`, so a
-message that opens with a pasted tag, and that no field places, stays unlabelled. A forked subagent's file opens with a
+that opens with `<bash-stdout>`, on the child of such a line, is `injected shell-output`; a text
+that opens with `<command-name>` is `owner-command`, and one that opens with
+`<local-command-stdout>`, on the child of such a line, is `injected command-output`, so a
+message that opens with a pasted output tag, and that no field places, stays unlabelled. A
+`<command-name>` line that a line carrying `commandRun` names as its parent is that command's
+echo, printed once by the `commandRun` line. A forked subagent's file opens with a
 `fork-context-ref` line, outside the chain, which is shown as `injected fork-context` with the line of
 the parent's file, found by its `parentLastUuid`, up to which the fork inherits its context; the
 copy of the parent's dispatching call and of its result that the fork's file holds next is not
@@ -114,8 +119,10 @@ would otherwise be unlabelled or read as `dispatch`, so a text row moves no line
 label, and in a subagent file a shell tag places nothing, since no owner types there. What is
 excluded, labelling a line the owner typed by a phrase in its text, reaches a test that reads what
 a line means in the discussion, and not a tag the harness writes around the owner's command, on the
-owner's word. The one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
-injected: it chooses a kind, never a side. The header reads the marker of a cut text, inside a line
+owner's word. The texts the field rows read are the prefix that names a skill's body, inside a line
+its fields already mark injected, and the leading `<command-name>` and `<local-command-stdout>` tags
+of a `local_command` line that carries no `commandRun`, which its subtype already places as a
+command: each chooses a kind or a command, never a side. The header reads the marker of a cut text, inside a line
 its fields already label injected or tool, per `design@transcript@cut-text-reported`: it chooses no
 label. The command holds the rule, per
 `design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
@@ -126,7 +133,11 @@ The text rows exist because no field places those lines,
 machine, Claude Code 2.1.306 to 2.1.316, on 2026-11-07: an interrupt with no
 `interruptedMessageId`, at top level or in a subagent file, a `<bash-input>` line, and a subagent
 file's dispatcher lines carry the same key beyond those of every chain line, `promptId`, and every
-other interrupt carries the id. The keys of the `user` lines, one row per label they take, the
+other interrupt carries the id. Measured on 2026-11-11 over the same transcripts: at Claude Code
+2.1.321, `/compact` writes a field-less `user` line opening with `<command-name>` and its
+`<local-command-stdout>` child, and `/restart` writes the same two as `local_command` lines, none
+of them carrying `commandRun` nor named by a line that does; every other `<command-name>` line is an
+echo a `commandRun` line names. The keys of the `user` lines, one row per label they take, the
 lines no field places included, are re-taken with `cargo x transcript-kinds --all-projects`, whose
 rows count each key over the lines of their place and label.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt

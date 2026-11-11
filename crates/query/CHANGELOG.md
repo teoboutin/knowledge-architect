@@ -205,6 +205,9 @@ an empty subsection is omitted.
   handle two sessions carry, naming each `sessionId`, where it showed the first, and prints the header before a
   session it cannot name; the header names, as a gap, each file a run over one project leaves out because its first
   chain line holds no `cwd`.
+- `cli`, patch: `transcript` labels a command the harness writes with no `commandRun`, as `/compact` and `/restart` do,
+  `owner-command`, named by its `<command-name>` tag, and its output `injected command-output`, where it labelled the
+  `user` lines `unlabelled` and reported the `local_command` lines as a gap.
 - `library`, minor: `kinds` and `KindsOptions` of `knowledge-architect-transcript` print the inventory of the
   transcripts' line kinds, with their harness versions and keys.
 

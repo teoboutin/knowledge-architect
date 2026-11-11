@@ -8299,8 +8299,9 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     has("injected meta 2026-02-01 10:00]\na queued meta text");
     has("injected unknown 2026-02-01 10:00]\nan origin with no kind");
     has("# unrecognised attachment.origin.kind \"(none)\": 1");
-    // A `local_command` line with no `commandRun` consumes nothing, and is reported.
-    has("unlabelled 2026-02-01 10:00]\n<command-name>/foo</command-name>");
+    // A `local_command` line with no `commandRun` consumes nothing, and is reported where no tag
+    // names a command: the `user` line before it is a command the harness wrote with no run.
+    has("owner-command 2026-02-01 10:00]\n/foo\n");
     has("# unrecognised system local_command shape \"no commandRun\": 1");
     // A `local_command` whose parent is the agent's line drops no line.
     has("agent 2026-02-01 10:00]\nthe agent before a model switch");
@@ -8774,12 +8775,12 @@ fn transcript_the_kinds_of_later_harness_versions_are_classed() {
     assert!(!stdout.contains("# unlabelled"), "{stdout}");
 
     // A `local_command` line with no `commandRun` is an echo only where a line that carries one
-    // names it as its parent: two in a row are both reported.
+    // names it as its parent: two in a row are both commands, named by their tags.
     let (stdout, _, _) = transcript("kinds", "kinds-echoes", &["show", "abcdef02"]);
-    assert!(
-        stdout.contains("# unrecognised system local_command shape \"no commandRun\": 2"),
-        "{stdout}"
-    );
+    assert!(stdout.contains("[L2 owner-command "), "{stdout}");
+    assert!(stdout.contains("]\n/a\n"), "{stdout}");
+    assert!(stdout.contains("]\n/b\n"), "{stdout}");
+    assert!(!stdout.contains("no commandRun"), "{stdout}");
 }
 
 /// `list` previews the words inside a pasted-content tag, never the tag.

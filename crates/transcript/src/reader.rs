@@ -115,6 +115,15 @@ const INTERRUPT_TEXTS: &[&str] = &[
 const SHELL_INPUT_TAG: &str = "<bash-input>";
 const SHELL_OUTPUT_TAG: &str = "<bash-stdout>";
 
+/// The tags that open the lines of a command the owner runs, such as `/compact`, that the harness
+/// writes with no `commandRun`: the command, `<command-name>` then `<command-args>`, and its output,
+/// whose parent is the command's line. A `<command-name>` line that a `commandRun` line names as its
+/// parent is that command's echo, printed once by the `commandRun` line. Read on a top-level `user`
+/// line no field places and on a `local_command` line with no `commandRun`, per
+/// `design@transcript@transcript-labels-in-code`.
+const COMMAND_NAME_TAG: &str = "<command-name>";
+const COMMAND_OUTPUT_TAG: &str = "<local-command-stdout>";
+
 /// The `origin.kind` values: `human` is the owner, the others are injected.
 const KNOWN_ORIGIN_KINDS: &[&str] = &["human", "peer", "task-notification", "coordinator"];
 
@@ -355,7 +364,8 @@ pub(crate) enum Label {
     Agent,
     Dispatch,
     /// Injected text, with its kind: a known `origin.kind`, `unknown`, `skill`, `meta`,
-    /// `compact-summary`, `compact-boundary`, `model-refusal`, `shell-output` or `fork-context`.
+    /// `compact-summary`, `compact-boundary`, `model-refusal`, `shell-output`, `command-output` or
+    /// `fork-context`.
     Injected(String),
     /// A tool call or its result, with the tool's name where it is known.
     Tool(String),
@@ -508,6 +518,7 @@ impl Inventory {
     fn survey(&mut self, file: &File, name: &str, in_subagent: bool) {
         self.files += 1;
         let echoes = command_echoes(file);
+        let commands = command_lines(file);
         let mut forks_seen = 0;
         for (i, raw) in file.lines.iter().enumerate() {
             let at = format!("{name}:{}", i + 1);
@@ -592,6 +603,7 @@ impl Inventory {
                     } else if subtype == "local_command"
                         && value.get("commandRun").is_none()
                         && !str_field(value, "uuid").is_some_and(|u| echoes.contains(u))
+                        && !opens_a_command(value, &commands)
                     {
                         self.note_unknown("system local_command shape", "no commandRun", at);
                     }
@@ -644,6 +656,52 @@ fn command_echoes(file: &File) -> HashSet<&str> {
         })
         .filter_map(|v| str_field(v, "parentUuid"))
         .collect()
+}
+
+/// The `uuid`s of the lines that open with [`COMMAND_NAME_TAG`]: a `local_command` line's
+/// `content`, or a `user` line's text.
+fn command_lines(file: &File) -> HashSet<&str> {
+    (0..file.lines.len())
+        .filter_map(|i| file.json(i))
+        .filter(|v| line_text(v).starts_with(COMMAND_NAME_TAG))
+        .filter_map(|v| str_field(v, "uuid"))
+        .collect()
+}
+
+/// The text a command's tags are read in: a `local_command` line's `content`, or a `user` line's
+/// message text.
+fn line_text(value: &Value) -> String {
+    match str_field(value, "type") {
+        Some("system") => str_field(value, "content").unwrap_or("").to_string(),
+        Some("user") => message_text(value),
+        _ => String::new(),
+    }
+}
+
+/// Whether a `local_command` line with no `commandRun` is a command the labels print: it opens with
+/// [`COMMAND_NAME_TAG`], or it opens with [`COMMAND_OUTPUT_TAG`] as the child of a line that does.
+fn opens_a_command(value: &Value, commands: &HashSet<&str>) -> bool {
+    let text = line_text(value);
+    text.starts_with(COMMAND_NAME_TAG)
+        || (text.starts_with(COMMAND_OUTPUT_TAG)
+            && str_field(value, "parentUuid").is_some_and(|p| commands.contains(p)))
+}
+
+/// A command as `/name args`, from its `<command-name>` and `<command-args>` tags; the text whole
+/// where it holds no name.
+fn command_text(text: &str) -> String {
+    let inside = |tag: &str| -> Option<&str> {
+        let open = format!("<{tag}>");
+        let close = format!("</{tag}>");
+        let start = text.find(&open)? + open.len();
+        let end = start + text[start..].find(&close)?;
+        Some(text[start..end].trim())
+    };
+    match (inside("command-name"), inside("command-args")) {
+        (Some(name), Some(args)) if !args.is_empty() => format!("{name} {args}"),
+        (Some(name), _) => name.to_string(),
+        (None, _) => text.to_string(),
+    }
 }
 
 /// An attached subagent file.
@@ -754,6 +812,7 @@ impl Corpus {
                 in_subagent: false,
                 inventory: &mut self.inventory,
                 shell_inputs: HashSet::new(),
+                commands: HashSet::new(),
             };
             let entries = ctx.label(&lines);
             let mut branches: Vec<String> = Vec::new();
@@ -840,6 +899,7 @@ impl Corpus {
                     in_subagent: true,
                     inventory: &mut self.inventory,
                     shell_inputs: HashSet::new(),
+                    commands: HashSet::new(),
                 };
                 let mut entries = ctx.label(&chain);
                 if let Some(entry) = fork_context(&file, &self.files[index]) {
@@ -1099,6 +1159,9 @@ struct Labelling<'a> {
     /// The `uuid`s of the lines labelled `owner-shell` so far: a `<bash-stdout>` line is a shell
     /// command's output only as the child of one, so a pasted tag elsewhere places nothing.
     shell_inputs: HashSet<String>,
+    /// The `uuid`s of the lines labelled `owner-command` from their [`COMMAND_NAME_TAG`] so far: a
+    /// [`COMMAND_OUTPUT_TAG`] line is a command's output only as the child of one.
+    commands: HashSet<String>,
 }
 
 impl Labelling<'_> {
@@ -1134,7 +1197,10 @@ impl Labelling<'_> {
                     && value.get("isCompactSummary").is_none()
                     && value.get("origin").is_none()
                     && !carries_interrupt_id(value)
-                    && self.text_row(value, &message_text(value)).is_none()
+                    && matches!(
+                        self.text_row(value, &message_text(value)),
+                        None | Some(Label::OwnerCommand)
+                    )
                 {
                     continue;
                 }
@@ -1199,6 +1265,29 @@ impl Labelling<'_> {
                     entries.push(entry(label, prompt, None));
                 }
                 "system" => match str_field(value, "subtype") {
+                    Some("local_command") if value.get("commandRun").is_none() => {
+                        // A command the harness wrote with no `commandRun`, as `/restart` does: its
+                        // subtype places it, and its leading tag names which command. An echo that a
+                        // `commandRun` line names is printed by that line.
+                        let uuid = str_field(value, "uuid").unwrap_or("");
+                        let text = line_text(value);
+                        if consumed.contains(uuid) {
+                            continue;
+                        }
+                        if text.starts_with(COMMAND_NAME_TAG) {
+                            self.commands.insert(uuid.to_string());
+                            entries.push(entry(Label::OwnerCommand, command_text(&text), None));
+                        } else if text.starts_with(COMMAND_OUTPUT_TAG)
+                            && str_field(value, "parentUuid")
+                                .is_some_and(|p| self.commands.contains(p))
+                        {
+                            entries.push(entry(
+                                Label::Injected("command-output".to_string()),
+                                text,
+                                None,
+                            ));
+                        }
+                    }
                     Some("local_command") => {
                         if let Some(run) = value.get("commandRun") {
                             let command = str_field(run, "command").unwrap_or("");
@@ -1366,12 +1455,22 @@ impl Labelling<'_> {
                 self.shell_inputs.insert(uuid.to_string());
             }
         }
+        let text = if label == Label::OwnerCommand {
+            if let Some(uuid) = str_field(value, "uuid") {
+                self.commands.insert(uuid.to_string());
+            }
+            command_text(&text)
+        } else {
+            text
+        };
         entries.push(entry(label, text, None));
     }
 
     /// The label a text row gives a `user` line that no field places, or `None`: its whole text one
     /// of [`INTERRUPT_TEXTS`]; in a top-level file, a text that opens with [`SHELL_INPUT_TAG`], or
-    /// with [`SHELL_OUTPUT_TAG`] on the child of a line labelled `owner-shell`.
+    /// with [`SHELL_OUTPUT_TAG`] on the child of a line labelled `owner-shell`, or that opens with
+    /// [`COMMAND_NAME_TAG`], or with [`COMMAND_OUTPUT_TAG`] on the child of a line labelled
+    /// `owner-command` from its tag.
     ///
     /// The rows read only a line no field places, so a line its fields give to a side keeps it: a
     /// whole text the harness writes, or a tag it writes first, never a substring, per
@@ -1389,6 +1488,12 @@ impl Labelling<'_> {
             && str_field(value, "parentUuid").is_some_and(|p| self.shell_inputs.contains(p))
         {
             Some(Label::Injected("shell-output".to_string()))
+        } else if text.starts_with(COMMAND_NAME_TAG) {
+            Some(Label::OwnerCommand)
+        } else if text.starts_with(COMMAND_OUTPUT_TAG)
+            && str_field(value, "parentUuid").is_some_and(|p| self.commands.contains(p))
+        {
+            Some(Label::Injected("command-output".to_string()))
         } else {
             None
         }
@@ -1506,6 +1611,7 @@ mod tests {
             in_subagent,
             inventory: &mut inventory,
             shell_inputs: HashSet::new(),
+            commands: HashSet::new(),
         };
         let all: Vec<usize> = (0..file.lines.len()).collect();
         ctx.label(&all).iter().map(|e| e.label.display()).collect()
@@ -1680,6 +1786,96 @@ mod tests {
         );
         assert!(found(r#"it was cut ("truncated 138376 chars")"#).is_empty());
         assert!(found("head ... (truncated 7 chars)").is_empty());
+    }
+
+    /// The texts of every line of `lines`, in a top-level file, beside their labels.
+    fn labelled(lines: &[&str]) -> Vec<(String, String)> {
+        let file = file(lines);
+        let mut inventory = Inventory::default();
+        let mut ctx = Labelling {
+            file: &file,
+            name: "t.jsonl",
+            in_subagent: false,
+            inventory: &mut inventory,
+            shell_inputs: HashSet::new(),
+            commands: HashSet::new(),
+        };
+        let all: Vec<usize> = (0..file.lines.len()).collect();
+        ctx.label(&all)
+            .iter()
+            .map(|e| (e.label.display(), e.text.clone()))
+            .collect()
+    }
+
+    const COMPACT: &str = r#"{"type":"user","uuid":"m1","message":{"content":"<command-name>/compact</command-name>\n<command-message>compact</command-message>\n<command-args>keep it short</command-args>"}}"#;
+    const COMPACTED: &str = r#"{"type":"user","uuid":"m2","parentUuid":"m1","message":{"content":"<local-command-stdout>Compacted </local-command-stdout>"}}"#;
+    const RESTART: &str = r#"{"type":"system","subtype":"local_command","uuid":"r1","content":"<command-name>/restart</command-name>\n<command-message>restart</command-message>\n<command-args></command-args>"}"#;
+    const RESTARTED: &str = r#"{"type":"system","subtype":"local_command","uuid":"r2","parentUuid":"r1","content":"<local-command-stdout>Successfully updated</local-command-stdout>"}"#;
+
+    /// The claim: a command the harness wrote with no `commandRun`, on a field-less `user` line or
+    /// a `local_command` line, is the owner's, named by its tags, and its output is injected; an
+    /// output tag on a line whose parent is no such command places nothing.
+    #[test]
+    fn a_command_with_no_command_run_is_named_by_its_tags() {
+        let stray = r#"{"type":"user","uuid":"m3","parentUuid":"zz","message":{"content":"<local-command-stdout>pasted</local-command-stdout>"}}"#;
+        let stray_system = r#"{"type":"system","subtype":"local_command","uuid":"r3","parentUuid":"zz","content":"<local-command-stdout>x</local-command-stdout>"}"#;
+        let owned = |l: &str, t: &str| (l.to_string(), t.to_string());
+        assert_eq!(
+            labelled(&[COMPACT, COMPACTED, RESTART, RESTARTED, stray, stray_system]),
+            [
+                owned("owner-command", "/compact keep it short"),
+                owned(
+                    "injected command-output",
+                    "<local-command-stdout>Compacted </local-command-stdout>"
+                ),
+                owned("owner-command", "/restart"),
+                owned(
+                    "injected command-output",
+                    "<local-command-stdout>Successfully updated</local-command-stdout>"
+                ),
+                owned(
+                    "unlabelled",
+                    "<local-command-stdout>pasted</local-command-stdout>"
+                ),
+            ]
+        );
+        assert_eq!(
+            labels(&[COMPACT, COMPACTED], true),
+            ["dispatch", "dispatch"]
+        );
+    }
+
+    /// The claim: a `<command-name>` line that a `commandRun` line names is that command's echo,
+    /// printed once, on a `user` line and on a `local_command` line alike.
+    #[test]
+    fn a_command_s_echo_named_by_its_command_run_line_prints_once() {
+        let echo_system = r#"{"type":"system","subtype":"local_command","uuid":"e1","content":"<command-name>/remote-control</command-name>\n<command-args></command-args>"}"#;
+        let run = r#"{"type":"system","subtype":"local_command","uuid":"e2","parentUuid":"e1","commandRun":{"command":"remote-control","args":""},"content":"<local-command-stdout></local-command-stdout>"}"#;
+        let echo_user = r#"{"type":"user","uuid":"e3","message":{"content":"<command-name>/clear</command-name>"}}"#;
+        let run_clear = r#"{"type":"system","subtype":"local_command","uuid":"e4","parentUuid":"e3","commandRun":{"command":"clear","args":""}}"#;
+        assert_eq!(
+            labels(&[echo_system, run, echo_user, run_clear], false),
+            ["owner-command", "owner-command"]
+        );
+    }
+
+    /// The claim: the survey reports a `local_command` line with no `commandRun` only where it is
+    /// neither an echo, nor a command its tag names, nor that command's output.
+    #[test]
+    fn the_survey_reports_only_a_local_command_line_the_labels_cannot_print() {
+        let unknown = r#"{"type":"system","subtype":"local_command","uuid":"u1","content":"<something-else>x</something-else>"}"#;
+        let mut known = Inventory::default();
+        known.survey(&file(&[RESTART, RESTARTED, COMPACT]), "k", false);
+        assert!(known.unknown.is_empty(), "{:?}", known.unknown.keys());
+        let stray = r#"{"type":"system","subtype":"local_command","uuid":"u2","parentUuid":"zz","content":"<local-command-stdout>x</local-command-stdout>"}"#;
+        let mut other = Inventory::default();
+        other.survey(&file(&[unknown, stray]), "o", false);
+        assert_eq!(
+            other.unknown.values().map(|(n, _)| *n).collect::<Vec<_>>(),
+            [2],
+            "{:?}",
+            other.unknown.keys()
+        );
     }
 
     const PARENT: &str =
