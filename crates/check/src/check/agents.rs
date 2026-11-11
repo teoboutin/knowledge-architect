@@ -36,7 +36,16 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
     let installed = |rel: &Path| inputs.installed.iter().find(|(p, _)| p == rel);
     for (rel, expected) in inputs.shipped {
         match installed(rel).map(|(_, state)| state) {
-            None | Some(Outside::Missing) => out.push(Finding::in_file(
+            // Listed and gone from the working tree: deleted by hand, with the deletion unstaged.
+            Some(Outside::Missing) => out.push(Finding::in_file(
+                rel,
+                format!(
+                    "{shipper} ships this file, and git lists it while the working tree does not \
+                     hold it"
+                ),
+                format!("{install}, which writes it again"),
+            )),
+            None => out.push(Finding::in_file(
                 rel,
                 format!(
                     "{shipper} ships this file, and git lists no installed copy: it is \
@@ -314,8 +323,7 @@ mod tests {
         );
     }
 
-    /// The claim: a shipped file git lists and the working tree does not hold is reported as not
-    /// installed, a binary or unreadable file of the namespace is reported as unshipped, and CRLF
+    /// The claim: a shipped file git lists and the working tree does not hold is reported as such, a binary or unreadable file of the namespace is reported as unshipped, and CRLF
     /// line endings in an installed copy do not make it differ. Mutations: passing a `Missing`
     /// state silently, skipping a non-text stray, or comparing without normalising line endings
     /// each fail one case.
@@ -324,7 +332,10 @@ mod tests {
         let m = manifest("");
         let found = run(&m, "# P\n", &[(SKILL, Outside::Missing)], &[(SKILL, "x\n")]);
         assert_eq!(found.len(), 1, "{found:?}");
-        assert!(found[0].what.contains("no installed copy"), "{found:?}");
+        assert!(
+            found[0].what.contains("the working tree does not hold it"),
+            "{found:?}"
+        );
         let stray = ".claude/agents/knowledge-architect-blob.md";
         let found = run(&m, "# P\n", &[(stray, Outside::Binary)], &[]);
         assert_eq!(found.len(), 1, "{found:?}");

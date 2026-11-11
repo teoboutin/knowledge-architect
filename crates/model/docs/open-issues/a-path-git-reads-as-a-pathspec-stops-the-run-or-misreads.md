@@ -34,7 +34,9 @@ to the binary's version, with one line appended to its README, then `git init` a
   not exist, exit 1. git echoes the spelling back as ignored, judged against the repository's top.
 
 Each failure stops every command that reads the ignore answers: `index`, `index --staged`, `check --fix` and `check --staged`
-exit 2, and `commits` reports that the commit's tree does not load under the tip checker.
+exit 2, and `commits` reports that the commit's tree does not load under the tip checker. A
+commit message's span asks git in a batch of its own, which fails its commit alone, the message
+then judged with no ignore answer.
 
 Ruled out: the three shapes `refused` refuses. The span arm and the link arm of `ignore_queries` ask git nothing about them, and
 `a_refused_path_shape_is_one_finding_and_the_run_goes_on` in `path@testing@tests/binary.rs` shows a leading slash and an upward
