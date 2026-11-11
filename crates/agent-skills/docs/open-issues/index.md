@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-64 entries
+63 entries
 
 | kind | title |
 | --- | --- |
@@ -43,7 +43,6 @@
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
-| question | [The primer and its head name a guard's issue under two conditions](the-primer-and-its-head-name-a-guard-s-issue-under-two-conditions.md) |
 | question | [The primer's paragraph on a divergence between a head and the code reads two ways on the work that goes on meanwhile](the-primer-s-divergence-paragraph-reads-two-ways-on-work-that-goes-on.md) |
 | question | [The set of what a finding sends upstream names the installed text and the checker, and no published library](the-upstream-set-omits-the-published-libraries.md) |
 | question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |

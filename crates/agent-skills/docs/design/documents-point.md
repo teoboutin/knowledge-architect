@@ -28,7 +28,7 @@ reference is owed, or the change reaches nobody. What follows from the test, by 
 | a design head | the goal its argument derives a constraint from | `show` on the goal lists what abandoning it reopens |
 | a design head | a decision of another component it depends on | a reversal reaches it |
 | an issue entry | the decision it strains, and the goal it threatens when it does directly | `show` on a decision lists what is outstanding against it before it is reopened, and on a goal what stands between the project and it |
-| a guard, a workaround, a stub or a test that pins behaviour an open entry describes | the issue it exists because of, in the comment at the site | closing the entry dangles the comment, so the site is revisited and the workaround removed |
+| a guard, a workaround, a stub or a test that exists because of an open entry | the issue it exists because of, in the comment at the site | closing the entry dangles the comment, so the site is revisited and the workaround removed |
 | a tripwire | the decision it guards | a reversal dangles its tripwires |
 | a design head | the `rejected` entries its argument covers | a session reading the head meets the designs it did not keep, and an entry that goes `void`, is reopened or is renamed reaches the head |
 | a commit message | every entry it opens, closes, reverses or argues from | the commits gate judges it against the tree it was written against |
