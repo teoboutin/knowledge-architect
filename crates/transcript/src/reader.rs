@@ -10,7 +10,7 @@
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
-use serde_json::Value;
+use serde_json::{json, Value};
 
 /// The top-level types of a chain line: they carry `uuid`, `parentUuid`, `sessionId` and the rest.
 const CHAIN_TYPES: &[&str] = &["user", "assistant", "attachment", "system"];
@@ -238,7 +238,7 @@ fn origin_kind(origin: Option<&Value>) -> Option<&str> {
     origin.map(|o| str_field(o, "kind").unwrap_or("(none)"))
 }
 
-fn str_field<'a>(value: &'a Value, key: &str) -> Option<&'a str> {
+pub(crate) fn str_field<'a>(value: &'a Value, key: &str) -> Option<&'a str> {
     value.get(key).and_then(Value::as_str)
 }
 
@@ -508,6 +508,75 @@ impl Inventory {
         }
     }
 
+    /// The header's lines, each as the JSON object `--json` prints and the text otherwise: what was
+    /// read, each value not recognised, each text the harness cut, and, where any gap is named,
+    /// the request to report it.
+    pub(crate) fn header_lines(&self) -> Vec<(Value, String)> {
+        let versions: Vec<&str> = self.versions.iter().map(String::as_str).collect();
+        let mut lines: Vec<(serde_json::Value, String)> = vec![(
+            json!({"header": "read", "files": self.files, "versions": versions}),
+            format!(
+                "# files read: {}; harness versions: {}",
+                self.files,
+                if versions.is_empty() {
+                    "none".to_string()
+                } else {
+                    versions.join(", ")
+                }
+            ),
+        )];
+        for ((category, value), (count, at)) in &self.unknown {
+            lines.push((
+            json!({"header": "unrecognised", "category": category, "value": value, "count": count, "first": at}),
+            format!("# unrecognised {category} {value:?}: {count}, first at {at}"),
+        ));
+        }
+        if self.unlabelled > 0 {
+            lines.push((
+                json!({"header": "unlabelled", "count": self.unlabelled}),
+                format!("# unlabelled lines: {}", self.unlabelled),
+            ));
+        }
+        for at in &self.malformed {
+            lines.push((
+                json!({"header": "not-json", "at": at}),
+                format!("# not JSON: {at}"),
+            ));
+        }
+        if self.repeated_uuids > 0 {
+            lines.push((
+                json!({"header": "repeated-uuid", "count": self.repeated_uuids}),
+                format!(
+                    "# lines skipped for a repeated uuid: {}",
+                    self.repeated_uuids
+                ),
+            ));
+        }
+        for cut in &self.cuts {
+            lines.push((
+            json!({"header": "cut", "at": cut.at, "chars": cut.chars, "whole_in": cut.whole_in}),
+            match &cut.whole_in {
+                Some(path) => format!(
+                    "# cut by the harness: {}, {} chars not in the transcript, the whole in {path}",
+                    cut.at, cut.chars
+                ),
+                None => format!(
+                    "# cut by the harness: {}, {} chars not in the transcript, and no file named",
+                    cut.at, cut.chars
+                ),
+            },
+        ));
+        }
+        if self.has_gap() {
+            // The repeated uuids above are no gap, so the request names what it covers.
+            let gap =
+                "each unrecognised value, unlabelled line and line that is no JSON above is a gap \
+                   of this command: report it as a finding on the checker in the retrospective";
+            lines.push((json!({"header": "gap", "text": gap}), format!("# {gap}")));
+        }
+        lines
+    }
+
     /// Whether the header ends with the line asking for the gap to be reported.
     pub(crate) fn has_gap(&self) -> bool {
         !self.unknown.is_empty() || self.unlabelled > 0 || !self.malformed.is_empty()
@@ -517,8 +586,6 @@ impl Inventory {
     /// value outside a set is reported whatever session it sits in.
     fn survey(&mut self, file: &File, name: &str, in_subagent: bool) {
         self.files += 1;
-        let echoes = command_echoes(file);
-        let commands = command_lines(file);
         let mut forks_seen = 0;
         for (i, raw) in file.lines.iter().enumerate() {
             let at = format!("{name}:{}", i + 1);
@@ -600,12 +667,6 @@ impl Inventory {
                     let subtype = str_field(value, "subtype").unwrap_or("(none)");
                     if !KNOWN_SYSTEM_SUBTYPES.contains(&subtype) {
                         self.note_unknown("system subtype", subtype, at.clone());
-                    } else if subtype == "local_command"
-                        && value.get("commandRun").is_none()
-                        && !str_field(value, "uuid").is_some_and(|u| echoes.contains(u))
-                        && !opens_a_command(value, &commands)
-                    {
-                        self.note_unknown("system local_command shape", "no commandRun", at);
                     }
                 }
                 FORK_CONTEXT_TYPE => {
@@ -641,33 +702,6 @@ impl Inventory {
     }
 }
 
-/// The `uuid`s of the `local_command` lines a command line with `commandRun` names as its parent.
-///
-/// A command such as `/remote-control`, at harness versions 2.1.310 and 2.1.314, writes its echo as
-/// a `local_command` line with no `commandRun`, then the line that carries it, whose `parentUuid` is
-/// the echo's: the second prints the command, so the echo is ignored on purpose. A `local_command`
-/// line with no `commandRun` that no such line names is still reported, since a release that
-/// dropped the field would print no command at all.
-fn command_echoes(file: &File) -> HashSet<&str> {
-    (0..file.lines.len())
-        .filter_map(|i| file.json(i))
-        .filter(|v| {
-            str_field(v, "subtype") == Some("local_command") && v.get("commandRun").is_some()
-        })
-        .filter_map(|v| str_field(v, "parentUuid"))
-        .collect()
-}
-
-/// The `uuid`s of the lines that open with [`COMMAND_NAME_TAG`]: a `local_command` line's
-/// `content`, or a `user` line's text.
-fn command_lines(file: &File) -> HashSet<&str> {
-    (0..file.lines.len())
-        .filter_map(|i| file.json(i))
-        .filter(|v| line_text(v).starts_with(COMMAND_NAME_TAG))
-        .filter_map(|v| str_field(v, "uuid"))
-        .collect()
-}
-
 /// The text a command's tags are read in: a `local_command` line's `content`, or a `user` line's
 /// message text.
 fn line_text(value: &Value) -> String {
@@ -676,15 +710,6 @@ fn line_text(value: &Value) -> String {
         Some("user") => message_text(value),
         _ => String::new(),
     }
-}
-
-/// Whether a `local_command` line with no `commandRun` is a command the labels print: it opens with
-/// [`COMMAND_NAME_TAG`], or it opens with [`COMMAND_OUTPUT_TAG`] as the child of a line that does.
-fn opens_a_command(value: &Value, commands: &HashSet<&str>) -> bool {
-    let text = line_text(value);
-    text.starts_with(COMMAND_NAME_TAG)
-        || (text.starts_with(COMMAND_OUTPUT_TAG)
-            && str_field(value, "parentUuid").is_some_and(|p| commands.contains(p)))
 }
 
 /// A command as `/name args`, from its `<command-name>` and `<command-args>` tags; the text whole
@@ -736,33 +761,48 @@ pub(crate) struct Corpus {
     pub(crate) files: Vec<File>,
     pub(crate) sessions: Vec<Session>,
     pub(crate) inventory: Inventory,
-    /// How many sessions of each `sessionId` were cut so far, over every file read: a handle's
-    /// `#n` counts across files, so one id in two files still gives two handles.
+    /// The subagent files read whose top-level file holds no session to attach them to: surveyed
+    /// and labelled, and held here so the line-kind inventory counts them.
+    pub(crate) unattached: Vec<Subagent>,
+    /// How many sessions of each handle's 8 characters were cut so far, over every file read: a
+    /// handle's `#n` counts across files and across `sessionId`s, so every handle names one
+    /// session.
     ids: HashMap<String, usize>,
 }
 
 impl Corpus {
     /// Read `paths`, top-level files under `dir`, and their subagent files when `subagents`.
     pub(crate) fn read(dir: &Path, paths: &[PathBuf], subagents: bool) -> Result<Corpus, String> {
+        let files = paths
+            .iter()
+            .map(|p| File::read(p))
+            .collect::<Result<Vec<_>, _>>()?;
+        let mut corpus = Corpus::of_files(dir, files);
+        if subagents {
+            corpus.attach_subagents()?;
+        }
+        Ok(corpus)
+    }
+
+    /// The corpus of top-level files already read, under `dir`, each surveyed and cut into
+    /// sessions in order, and no subagent file attached.
+    pub(crate) fn of_files(dir: &Path, files: Vec<File>) -> Corpus {
         let mut corpus = Corpus {
             dir: dir.to_path_buf(),
             files: Vec::new(),
             sessions: Vec::new(),
             inventory: Inventory::default(),
+            unattached: Vec::new(),
             ids: HashMap::new(),
         };
-        for path in paths {
-            let file = File::read(path)?;
-            let name = corpus.name(path);
+        for file in files {
+            let name = corpus.name(&file.path);
             corpus.inventory.survey(&file, &name, false);
             let index = corpus.files.len();
             corpus.files.push(file);
             corpus.cut(index);
         }
-        if subagents {
-            corpus.attach_subagents()?;
-        }
-        Ok(corpus)
+        corpus
     }
 
     /// A path relative to the transcript directory, as the header names a location.
@@ -798,9 +838,11 @@ impl Corpus {
             previous = Some(session_id);
         }
         for (ordinal, (session_id, lines)) in runs.into_iter().enumerate() {
-            let n = self.ids.entry(session_id.clone()).or_insert(0);
-            *n += 1;
             let short: String = session_id.chars().take(8).collect();
+            // Counted per handle, so two `sessionId`s sharing their first 8 characters give two
+            // handles, per `design@transcript@transcript-session-split`.
+            let n = self.ids.entry(short.clone()).or_insert(0);
+            *n += 1;
             let handle = if *n == 1 {
                 short
             } else {
@@ -989,8 +1031,9 @@ impl Corpus {
                         .rev()
                         .find(|&s| self.sessions[s].file == index)
                 });
-                if let Some(s) = last {
-                    placed.push((s, agent));
+                match last {
+                    Some(s) => placed.push((s, agent)),
+                    None => self.unattached.push(agent),
                 }
             }
             for (s, agent) in placed {
@@ -999,83 +1042,6 @@ impl Corpus {
         }
         Ok(())
     }
-}
-
-/// One row of `transcript kinds`: the lines of one kind in one place.
-#[derive(Default)]
-pub(crate) struct KindRow {
-    pub(crate) count: usize,
-    pub(crate) versions: BTreeSet<String>,
-    /// Each top-level key, with the count of the row's lines that carry it.
-    pub(crate) keys: BTreeMap<String, usize>,
-}
-
-/// The inventory of every line of the files a corpus read, top-level and attached subagent files
-/// alike, by place, `top` or `subagent`, and kind.
-///
-/// A line's kind is its `type`, with its subtype for `system` and its `attachment.type` for
-/// `attachment`; a `user` line's adds the label the reader gave it, its first entry's, `tool` for a
-/// tool result whatever its tool, or `(no entry)` for a line the labels print nothing of, such as a
-/// command's echo or a repeated uuid. So the lines no field places are rows of their own, which
-/// `design@transcript@transcript-labels-in-code` measures, and a line that is no JSON is the row
-/// `(not JSON)`.
-pub(crate) fn line_kinds(corpus: &Corpus) -> BTreeMap<(&'static str, String), KindRow> {
-    let mut rows: BTreeMap<(&'static str, String), KindRow> = BTreeMap::new();
-    let mut count = |place: &'static str, file: &File, entries: &[&Entry]| {
-        let mut labels: HashMap<usize, &Label> = HashMap::new();
-        for e in entries {
-            labels.entry(e.line).or_insert(&e.label);
-        }
-        for (i, raw) in file.lines.iter().enumerate() {
-            let value = match raw {
-                Raw::Blank => continue,
-                Raw::Malformed => {
-                    rows.entry((place, "(not JSON)".to_string()))
-                        .or_default()
-                        .count += 1;
-                    continue;
-                }
-                Raw::Json(value) => value,
-            };
-            let kind = match str_field(value, "type") {
-                None => "(no type)".to_string(),
-                Some("system") => {
-                    format!("system {}", str_field(value, "subtype").unwrap_or("(none)"))
-                }
-                Some("attachment") => format!(
-                    "attachment {}",
-                    value
-                        .get("attachment")
-                        .and_then(|a| str_field(a, "type"))
-                        .unwrap_or("(none)")
-                ),
-                Some("user") => match labels.get(&(i + 1)) {
-                    None => "user (no entry)".to_string(),
-                    Some(Label::Tool(_)) => "user tool".to_string(),
-                    Some(label) => format!("user {}", label.display()),
-                },
-                Some(other) => other.to_string(),
-            };
-            let row = rows.entry((place, kind)).or_default();
-            row.count += 1;
-            if let Some(version) = str_field(value, "version") {
-                row.versions.insert(version.to_string());
-            }
-            for key in value.as_object().into_iter().flat_map(|o| o.keys()) {
-                *row.keys.entry(key.clone()).or_default() += 1;
-            }
-        }
-    };
-    for (index, file) in corpus.files.iter().enumerate() {
-        let sessions: Vec<&Session> = corpus.sessions.iter().filter(|s| s.file == index).collect();
-        let entries: Vec<&Entry> = sessions.iter().flat_map(|s| &s.entries).collect();
-        count("top", file, &entries);
-        for agent in sessions.iter().flat_map(|s| &s.subagents) {
-            let entries: Vec<&Entry> = agent.entries.iter().collect();
-            count("subagent", &agent.file, &entries);
-        }
-    }
-    rows
 }
 
 fn collect_agent_files(dir: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
@@ -1168,11 +1134,11 @@ impl Labelling<'_> {
     /// The entries of `lines`, in file order: the first row whose condition a line meets gives its
     /// label, the rows being this function's and `Labelling::user`'s branches, in order.
     fn label(&mut self, lines: &[usize]) -> Vec<Entry> {
-        // The parents of the `local_command` lines, by `uuid` over the run: the command's own
-        // `user` line is printed as the `owner-command` line that follows it. Only a `user` line
-        // that neither a field nor a text row places is consumed, so a parent that is a message,
-        // the owner's or the agent's, or an act a row places, such as an interrupt, is never
-        // dropped.
+        // The parents of the `local_command` lines that carry `commandRun`, by `uuid` over the
+        // run: each is that command's echo, printed as the `owner-command` line that follows it. A
+        // `local_command` echo is skipped; a `user` echo is consumed only where no field and no text
+        // row but the command tag's places it, so a parent that is a message, the owner's or the
+        // agent's, or an act a row places, such as an interrupt, is never dropped.
         let consumed: HashSet<&str> = lines
             .iter()
             .filter_map(|&i| self.file.json(i))
@@ -1267,17 +1233,21 @@ impl Labelling<'_> {
                 "system" => match str_field(value, "subtype") {
                     Some("local_command") if value.get("commandRun").is_none() => {
                         // A command the harness wrote with no `commandRun`, as `/restart` does: its
-                        // subtype places it, and its leading tag names which command. An echo that a
-                        // `commandRun` line names is printed by that line.
+                        // subtype places it, and its leading tag names which command, in a top-level
+                        // file, where the owner types. An echo that a `commandRun` line names is
+                        // printed by that line. Any other such line prints nothing, so it is
+                        // reported here, where the decision that it prints nothing is made: a release
+                        // that dropped `commandRun` would otherwise lose the command in silence.
                         let uuid = str_field(value, "uuid").unwrap_or("");
                         let text = line_text(value);
                         if consumed.contains(uuid) {
                             continue;
                         }
-                        if text.starts_with(COMMAND_NAME_TAG) {
+                        if !self.in_subagent && text.starts_with(COMMAND_NAME_TAG) {
                             self.commands.insert(uuid.to_string());
                             entries.push(entry(Label::OwnerCommand, command_text(&text), None));
-                        } else if text.starts_with(COMMAND_OUTPUT_TAG)
+                        } else if !self.in_subagent
+                            && text.starts_with(COMMAND_OUTPUT_TAG)
                             && str_field(value, "parentUuid")
                                 .is_some_and(|p| self.commands.contains(p))
                         {
@@ -1286,6 +1256,12 @@ impl Labelling<'_> {
                                 text,
                                 None,
                             ));
+                        } else {
+                            self.inventory.note_unknown(
+                                "system local_command shape",
+                                "no commandRun",
+                                format!("{}:{line}", self.name),
+                            );
                         }
                     }
                     Some("local_command") => {
@@ -1345,7 +1321,15 @@ impl Labelling<'_> {
             }
         }
         for e in &entries {
-            if !matches!(e.label, Label::Injected(_) | Label::Tool(_)) {
+            // A line its fields label injected or tool, per `design@transcript@cut-text-reported`:
+            // the output of a command the owner ran, which a text row places, holds what the owner's
+            // command printed, a cut marker among it included, and no cut of the harness.
+            let placed_by_fields = match &e.label {
+                Label::Tool(_) => true,
+                Label::Injected(kind) => kind != "shell-output" && kind != "command-output",
+                _ => false,
+            };
+            if !placed_by_fields {
                 continue;
             }
             for found in CUT_MARKER.captures_iter(&e.text) {
@@ -1508,7 +1492,7 @@ impl Labelling<'_> {
 
 /// Whether a line carries a string `interruptedMessageId`: a null value is no id, since the harness
 /// writes null for a field it leaves empty.
-fn carries_interrupt_id(value: &Value) -> bool {
+pub(crate) fn carries_interrupt_id(value: &Value) -> bool {
     value
         .get("interruptedMessageId")
         .and_then(Value::as_str)
@@ -1680,7 +1664,7 @@ mod tests {
     }
 
     #[test]
-    fn a_command_s_parent_is_consumed_only_where_no_row_places_it() {
+    fn a_command_s_parent_is_consumed_only_where_no_row_but_the_command_tag_places_it() {
         let command = |uuid: &str, parent: &str| {
             format!(
                 r#"{{"type":"system","subtype":"local_command","uuid":"{uuid}","parentUuid":"{parent}","commandRun":{{"command":"clear","args":""}}}}"#
@@ -1712,58 +1696,6 @@ mod tests {
                 "owner-command"
             ]
         );
-    }
-
-    /// The claim: a line's kind is its type, its subtype or attachment type, and for a `user` line
-    /// the label it takes, `tool` for any tool result and `(no entry)` where it prints nothing; each
-    /// key is counted over the lines of its row, and a line that is no JSON is a row of its own.
-    #[test]
-    fn a_line_s_kind_names_its_label_and_its_keys_are_counted() {
-        let mut lines = file(&[
-            r#"{"type":"user","uuid":"a","sessionId":"s","version":"1","origin":{"kind":"human"},"message":{"content":"hi"}}"#,
-            r#"{"type":"user","uuid":"a2","parentUuid":"a","sessionId":"s","origin":{"kind":"human"},"message":{"content":"again hi"}}"#,
-            r#"{"type":"assistant","uuid":"a3","parentUuid":"a2","sessionId":"s","message":{"content":[{"type":"tool_use","id":"t","name":"Bash","input":{}}]}}"#,
-            r#"{"type":"user","uuid":"b","parentUuid":"a3","sessionId":"s","promptId":"p","message":{"content":"stray"}}"#,
-            r#"{"type":"user","uuid":"c","parentUuid":"b","sessionId":"s","message":{"content":[{"type":"tool_result","tool_use_id":"t","content":"r"}]}}"#,
-            r#"{"type":"user","uuid":"c","parentUuid":"b","sessionId":"s","message":{"content":"again"}}"#,
-            r#"{"type":"system","subtype":"turn_duration","uuid":"d","parentUuid":"c","sessionId":"s"}"#,
-            r#"{"type":"attachment","uuid":"e","parentUuid":"d","sessionId":"s","attachment":{"type":"date"}}"#,
-            r#"{"type":"last-prompt","sessionId":"s"}"#,
-        ]);
-        lines.lines.push(Raw::Malformed);
-        let mut corpus = Corpus {
-            dir: PathBuf::from("."),
-            files: vec![lines],
-            sessions: Vec::new(),
-            inventory: Inventory::default(),
-            ids: HashMap::new(),
-        };
-        corpus.cut(0);
-        let rows = line_kinds(&corpus);
-        let kinds: Vec<(&str, &str, usize)> = rows
-            .iter()
-            .map(|((place, kind), row)| (*place, kind.as_str(), row.count))
-            .collect();
-        assert_eq!(
-            kinds,
-            [
-                ("top", "(not JSON)", 1),
-                ("top", "assistant", 1),
-                ("top", "attachment date", 1),
-                ("top", "last-prompt", 1),
-                ("top", "system turn_duration", 1),
-                ("top", "user (no entry)", 1),
-                ("top", "user owner", 2),
-                ("top", "user tool", 1),
-                ("top", "user unlabelled", 1),
-            ]
-        );
-        let unlabelled = &rows[&("top", "user unlabelled".to_string())];
-        assert_eq!(unlabelled.keys.get("promptId"), Some(&1));
-        assert!(!unlabelled.keys.contains_key("origin"));
-        let owner = &rows[&("top", "user owner".to_string())];
-        assert_eq!(owner.versions.iter().collect::<Vec<_>>(), ["1"]);
-        assert_eq!(owner.keys.get("origin"), Some(&2));
     }
 
     /// The claim: the cut marker counts only on its own line, with or without the pointer, and
@@ -1859,23 +1791,111 @@ mod tests {
         );
     }
 
-    /// The claim: the survey reports a `local_command` line with no `commandRun` only where it is
-    /// neither an echo, nor a command its tag names, nor that command's output.
+    /// The claim: a cut is read in a line its fields label injected or tool, with its file and line,
+    /// its count and its pointer, and never in the output of a command the owner ran, which a text
+    /// row places.
     #[test]
-    fn the_survey_reports_only_a_local_command_line_the_labels_cannot_print() {
-        let unknown = r#"{"type":"system","subtype":"local_command","uuid":"u1","content":"<something-else>x</something-else>"}"#;
-        let mut known = Inventory::default();
-        known.survey(&file(&[RESTART, RESTARTED, COMPACT]), "k", false);
-        assert!(known.unknown.is_empty(), "{:?}", known.unknown.keys());
-        let stray = r#"{"type":"system","subtype":"local_command","uuid":"u2","parentUuid":"zz","content":"<local-command-stdout>x</local-command-stdout>"}"#;
-        let mut other = Inventory::default();
-        other.survey(&file(&[unknown, stray]), "o", false);
+    fn a_cut_is_read_only_in_a_line_its_fields_label_injected_or_tool() {
+        let notice = r#"{"type":"user","uuid":"n1","origin":{"kind":"task-notification"},"message":{"content":"report\n... (truncated 12 chars, full result in /t/w.output)"}}"#;
+        let result = r#"{"type":"user","uuid":"n2","parentUuid":"n1","message":{"content":[{"type":"tool_result","tool_use_id":"t","content":"r\n... (truncated 7 chars)"}]}}"#;
+        let shell = r#"{"type":"user","uuid":"n3","parentUuid":"n2","message":{"content":"<bash-input>cat x</bash-input>"}}"#;
+        let printed = r#"{"type":"user","uuid":"n4","parentUuid":"n3","message":{"content":"<bash-stdout>head\n... (truncated 9 chars)</bash-stdout>"}}"#;
+        let file = file(&[
+            notice,
+            result,
+            shell,
+            printed,
+            COMPACT,
+            COMPACTED
+                .replace("Compacted ", "x\\n... (truncated 5 chars)")
+                .as_str(),
+        ]);
+        let mut inventory = Inventory::default();
+        let mut ctx = Labelling {
+            file: &file,
+            name: "t.jsonl",
+            in_subagent: false,
+            inventory: &mut inventory,
+            shell_inputs: HashSet::new(),
+            commands: HashSet::new(),
+        };
+        let all: Vec<usize> = (0..file.lines.len()).collect();
+        ctx.label(&all);
+        let cuts: Vec<(&str, &str, Option<&str>)> = inventory
+            .cuts
+            .iter()
+            .map(|c| (c.at.as_str(), c.chars.as_str(), c.whole_in.as_deref()))
+            .collect();
         assert_eq!(
-            other.unknown.values().map(|(n, _)| *n).collect::<Vec<_>>(),
-            [2],
-            "{:?}",
-            other.unknown.keys()
+            cuts,
+            [
+                ("t.jsonl:1", "12", Some("/t/w.output")),
+                ("t.jsonl:2", "7", None)
+            ]
         );
+    }
+
+    /// The claim: a handle names one session, so two `sessionId`s sharing their first 8 characters,
+    /// one of them cut twice, give three handles.
+    #[test]
+    fn two_session_ids_sharing_a_prefix_give_distinct_handles() {
+        let line = |uuid: &str, parent: &str, id: &str| {
+            format!(
+                r#"{{"type":"user","uuid":"{uuid}","parentUuid":{parent},"sessionId":"{id}","origin":{{"kind":"human"}},"message":{{"content":"hi"}}}}"#
+            )
+        };
+        let a = "9a9a9a9a-0000-0000-0000-000000000020";
+        let b = "9a9a9a9a-0000-0000-0000-000000000021";
+        let first = file(&[&line("a1", "null", a), &line("a2", "null", a)]);
+        let second = file(&[&line("b1", "null", b)]);
+        let corpus = Corpus::of_files(Path::new("."), vec![first, second]);
+        let handles: Vec<&str> = corpus.sessions.iter().map(|s| s.handle.as_str()).collect();
+        assert_eq!(handles, ["9a9a9a9a", "9a9a9a9a#2", "9a9a9a9a#3"]);
+    }
+
+    /// The values a labelling of `lines` reports, in a top-level file or a subagent file.
+    fn reported(lines: &[&str], in_subagent: bool) -> Vec<(String, String)> {
+        let file = file(lines);
+        let mut inventory = Inventory::default();
+        let mut ctx = Labelling {
+            file: &file,
+            name: "t.jsonl",
+            in_subagent,
+            inventory: &mut inventory,
+            shell_inputs: HashSet::new(),
+            commands: HashSet::new(),
+        };
+        let all: Vec<usize> = (0..file.lines.len()).collect();
+        ctx.label(&all);
+        inventory.unknown.keys().cloned().collect()
+    }
+
+    /// The claim: a `local_command` line with no `commandRun` that prints nothing is reported, and
+    /// one that prints, a command named by its tag or its output, or an echo, is not: the output of
+    /// an echo, of a line the owner typed, or of a subagent's command, and a subagent's command
+    /// itself, are each reported.
+    #[test]
+    fn a_local_command_line_that_prints_nothing_is_reported() {
+        let gap = vec![(
+            "system local_command shape".to_string(),
+            "no commandRun".to_string(),
+        )];
+        assert!(reported(&[RESTART, RESTARTED, COMPACT, COMPACTED], false).is_empty());
+        let unknown = r#"{"type":"system","subtype":"local_command","uuid":"u1","content":"<something-else>x</something-else>"}"#;
+        let stray = r#"{"type":"system","subtype":"local_command","uuid":"u2","parentUuid":"zz","content":"<local-command-stdout>x</local-command-stdout>"}"#;
+        assert_eq!(reported(&[unknown], false), gap);
+        assert_eq!(reported(&[stray], false), gap);
+        let echo = r#"{"type":"user","uuid":"e3","message":{"content":"<command-name>/clear</command-name>"}}"#;
+        let run = r#"{"type":"system","subtype":"local_command","uuid":"e4","parentUuid":"e3","commandRun":{"command":"clear","args":""}}"#;
+        let of_echo = r#"{"type":"system","subtype":"local_command","uuid":"e5","parentUuid":"e3","content":"<local-command-stdout>OUT</local-command-stdout>"}"#;
+        assert!(reported(&[echo, run], false).is_empty());
+        assert_eq!(reported(&[echo, run, of_echo], false), gap);
+        let typed = r#"{"type":"user","uuid":"t1","origin":{"kind":"human"},"message":{"content":"<command-name>/y</command-name>"}}"#;
+        let of_typed = r#"{"type":"system","subtype":"local_command","uuid":"t2","parentUuid":"t1","content":"<local-command-stdout>OUT</local-command-stdout>"}"#;
+        assert_eq!(reported(&[typed, of_typed], false), gap);
+        let of_dispatch = r#"{"type":"system","subtype":"local_command","uuid":"m9","parentUuid":"m1","content":"<local-command-stdout>OUT</local-command-stdout>"}"#;
+        assert_eq!(reported(&[COMPACT, of_dispatch], true), gap);
+        assert_eq!(reported(&[RESTART], true), gap);
     }
 
     const PARENT: &str =

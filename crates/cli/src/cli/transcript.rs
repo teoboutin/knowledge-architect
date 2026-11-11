@@ -53,7 +53,8 @@ pub struct TranscriptShowArgs {
     /// Start at the first line the owner typed whose text contains TEXT.
     #[arg(long, value_name = "TEXT", conflicts_with = "from_line")]
     pub from: Option<String>,
-    /// Start at the first kept line whose number, as `show` and `search` print it, is N or above.
+    /// Start at the first kept line of the session's own file whose number, as `show` and `search`
+    /// print it, is N or above; a subagent's lines are numbered in their own file.
     #[arg(long, value_name = "N", value_parser = clap::value_parser!(usize))]
     pub from_line: Option<usize>,
     /// Print each attached subagent file after the session.
@@ -80,7 +81,8 @@ pub struct TranscriptSearchArgs {
     #[arg(value_name = "REGEX")]
     pub pattern: String,
     /// Keep lines of this role, repeatable: owner, owner-answer, owner-queued, owner-command,
-    /// owner-interrupt, owner-shell, agent, dispatch, injected, tool, unlabelled.
+    /// owner-interrupt, owner-shell, agent, dispatch, injected, tool, unlabelled; `tool` keeps the
+    /// tool lines without `--tools`.
     #[arg(
         long = "role",
         value_name = "ROLE",
@@ -122,7 +124,8 @@ impl From<TranscriptVerb> for knowledge_architect_transcript::TranscriptVerb {
             }),
             TranscriptVerb::Show(a) => Self::Show(ShowOptions {
                 session: a.session,
-                // The declaration refuses the two together, so at most one is set.
+                // The declaration refuses the two together, and `cli::run` a value built without
+                // it, so at most one is set.
                 from: match (a.from, a.from_line) {
                     (Some(text), _) => Some(ShowFrom::Text(text)),
                     (None, Some(line)) => Some(ShowFrom::Line(line)),

@@ -10,9 +10,7 @@ use std::process::ExitCode;
 use serde_json::json;
 
 use crate::output::outln;
-use crate::reader::{
-    line_kinds, project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session,
-};
+use crate::reader::{project_files, transcript_dir, Corpus, Entry, Inventory, Label, Session};
 
 /// The roles a kept line can carry, which `SearchOptions::roles` takes.
 pub const ROLES: [&str; 11] = [
@@ -83,15 +81,6 @@ pub enum ShowFrom {
     /// The first kept line of the session's file whose number, as `show` and `search` print it, is
     /// this or above: a start at a line the owner did not type, such as the agent's.
     Line(usize),
-}
-
-/// What [`kinds`] counts.
-#[derive(Clone, Debug, Default)]
-pub struct KindsOptions {
-    /// Count the files of every project, not only this one's.
-    pub all_projects: bool,
-    /// One JSON object per line, the header first. No contract.
-    pub json: bool,
 }
 
 /// What `transcript search` searches.
@@ -260,8 +249,9 @@ fn list(root: &Path, dir: &Path, args: &ListOptions) -> Result<ExitCode, String>
 }
 
 fn show(root: &Path, dir: &Path, args: &ShowOptions) -> Result<ExitCode, String> {
-    // Resolution reads the files the handle may name; the header counts only the session's own
-    // file, and its subagent files under `--subagents`, beside the files left out of the project.
+    // Resolution reads the files the handle may name, and a refusal of it prints their header; the
+    // header of a session shown counts only the session's own file, and its subagent files under
+    // `--subagents`, beside the files left out of the project.
     let found = project_files(dir, root_filter(root, args.all_projects).as_deref())?;
     let mut index = Corpus::read(dir, &found.files, false)?;
     note_no_cwd(&mut index, &found.no_cwd);
@@ -297,13 +287,7 @@ fn show(root: &Path, dir: &Path, args: &ShowOptions) -> Result<ExitCode, String>
         .filter(|e| args.tools || !matches!(e.label, Label::Tool(_)))
         .collect();
     if let Some(from) = &args.from {
-        let start = match from {
-            ShowFrom::Text(text) => entries
-                .iter()
-                .position(|e| e.label.owner_typed() && contains_words(&e.text, text)),
-            ShowFrom::Line(line) => entries.iter().position(|e| e.line >= *line),
-        };
-        match start {
+        match start(&entries, from) {
             Some(start) => entries.drain(..start).for_each(drop),
             None => {
                 header(&corpus.inventory, args.json);
@@ -464,74 +448,21 @@ fn search(root: &Path, dir: &Path, args: &SearchOptions) -> Result<ExitCode, Str
     })
 }
 
-/// Print the inventory of the line kinds of the project's transcripts, or of every project's: one
-/// row per place, `top` or `subagent`, and kind, with its count of lines, its harness versions and
-/// each top-level key with the count of lines carrying it, the header first. It reads every file the
-/// verbs read, the subagent files included.
-///
-/// The measurement this repository's transcript heads take before a value of the format is classed,
-/// per `design@transcript@transcript-format-tolerated-and-reported`; `cargo x transcript-kinds` runs
-/// it, and no verb of `transcript` does, per `design@xtask@a-local-task-is-the-maintenance-tool-s`.
-/// Exit 1 when no line is read; `Err` as [`transcript`].
-pub fn kinds(root: &Path, args: &KindsOptions) -> Result<ExitCode, String> {
-    let dir = transcript_dir()?;
-    let corpus = read_project(root, &dir, args.all_projects, true)?;
-    header(&corpus.inventory, args.json);
-    let rows = line_kinds(&corpus);
-    for ((place, kind), row) in &rows {
-        let versions: Vec<&str> = row.versions.iter().map(String::as_str).collect();
-        if args.json {
-            outln!(
-                "{}",
-                json!({
-                    "place": place,
-                    "kind": kind,
-                    "lines": row.count,
-                    "versions": versions,
-                    "keys": row.keys,
-                })
-            );
-        } else {
-            let keys: Vec<String> = row.keys.iter().map(|(k, n)| format!("{k} {n}")).collect();
-            outln!(
-                "{place} {kind}: {} lines; versions {}; keys {}",
-                row.count,
-                if versions.is_empty() {
-                    "none".to_string()
-                } else {
-                    versions.join(", ")
-                },
-                keys.join(", ")
-            );
-        }
+/// The index of the entry `show` starts at: the first line the owner typed holding the text, or the
+/// first kept line at the line number or after it; `None` where none is.
+fn start(entries: &[&Entry], from: &ShowFrom) -> Option<usize> {
+    match from {
+        ShowFrom::Text(text) => entries
+            .iter()
+            .position(|e| e.label.owner_typed() && contains_words(&e.text, text)),
+        ShowFrom::Line(line) => entries.iter().position(|e| e.line >= *line),
     }
-    Ok(if rows.is_empty() {
-        ExitCode::from(1)
-    } else {
-        ExitCode::SUCCESS
-    })
 }
 
 /// The session `arg` names: a handle exactly, or a prefix of a `sessionId` that names one session.
 fn resolve(sessions: &[Session], arg: &str) -> Result<usize, String> {
-    // Two `sessionId`s that share their first 8 characters give one handle, so a handle can name
-    // several sessions; each is then named by its `sessionId`, which a prefix resolves.
-    let named: Vec<usize> = (0..sessions.len())
-        .filter(|&i| sessions[i].handle == arg)
-        .collect();
-    match named.as_slice() {
-        [one] => return Ok(*one),
-        [] => {}
-        many => {
-            return Err(format!(
-                "{arg:?} names {} sessions: {}",
-                many.len(),
-                many.iter()
-                    .map(|&i| sessions[i].session_id.as_str())
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            ))
-        }
+    if let Some(i) = sessions.iter().position(|s| s.handle == arg) {
+        return Ok(i);
     }
     let candidates: Vec<usize> = (0..sessions.len())
         .filter(|&i| sessions[i].session_id.starts_with(arg))
@@ -552,69 +483,7 @@ fn resolve(sessions: &[Session], arg: &str) -> Result<usize, String> {
 
 /// The header: what was read, and what was not recognised.
 fn header(inventory: &Inventory, json: bool) {
-    let versions: Vec<&str> = inventory.versions.iter().map(String::as_str).collect();
-    let mut lines: Vec<(serde_json::Value, String)> = vec![(
-        json!({"header": "read", "files": inventory.files, "versions": versions}),
-        format!(
-            "# files read: {}; harness versions: {}",
-            inventory.files,
-            if versions.is_empty() {
-                "none".to_string()
-            } else {
-                versions.join(", ")
-            }
-        ),
-    )];
-    for ((category, value), (count, at)) in &inventory.unknown {
-        lines.push((
-            json!({"header": "unrecognised", "category": category, "value": value, "count": count, "first": at}),
-            format!("# unrecognised {category} {value:?}: {count}, first at {at}"),
-        ));
-    }
-    if inventory.unlabelled > 0 {
-        lines.push((
-            json!({"header": "unlabelled", "count": inventory.unlabelled}),
-            format!("# unlabelled lines: {}", inventory.unlabelled),
-        ));
-    }
-    for at in &inventory.malformed {
-        lines.push((
-            json!({"header": "not-json", "at": at}),
-            format!("# not JSON: {at}"),
-        ));
-    }
-    if inventory.repeated_uuids > 0 {
-        lines.push((
-            json!({"header": "repeated-uuid", "count": inventory.repeated_uuids}),
-            format!(
-                "# lines skipped for a repeated uuid: {}",
-                inventory.repeated_uuids
-            ),
-        ));
-    }
-    for cut in &inventory.cuts {
-        lines.push((
-            json!({"header": "cut", "at": cut.at, "chars": cut.chars, "whole_in": cut.whole_in}),
-            match &cut.whole_in {
-                Some(path) => format!(
-                    "# cut by the harness: {}, {} chars not in the transcript, the whole in {path}",
-                    cut.at, cut.chars
-                ),
-                None => format!(
-                    "# cut by the harness: {}, {} chars not in the transcript, and no file named",
-                    cut.at, cut.chars
-                ),
-            },
-        ));
-    }
-    if inventory.has_gap() {
-        // The repeated uuids above are no gap, so the request names what it covers.
-        let gap =
-            "each unrecognised value, unlabelled line and line that is no JSON above is a gap \
-                   of this command: report it as a finding on the checker in the retrospective";
-        lines.push((json!({"header": "gap", "text": gap}), format!("# {gap}")));
-    }
-    for (object, text) in lines {
+    for (object, text) in inventory.header_lines() {
         if json {
             outln!("{object}");
         } else {
@@ -741,6 +610,36 @@ mod tests {
     }
 
     use super::*;
+
+    fn kept(line: usize, label: Label, text: &str) -> Entry {
+        Entry {
+            line,
+            label,
+            timestamp: String::new(),
+            text: text.to_string(),
+            tool_use_id: None,
+        }
+    }
+
+    /// The claim: a start by text takes the first line the owner typed holding it, never the
+    /// agent's; a start by line number takes the first kept line at that number or after it.
+    #[test]
+    fn show_starts_at_the_owner_s_words_or_at_a_line_number() {
+        let lines = [
+            kept(2, Label::Agent, "the words"),
+            kept(5, Label::Owner, "the words again"),
+            kept(9, Label::Agent, "after"),
+        ];
+        let entries: Vec<&Entry> = lines.iter().collect();
+        let text = |t: &str| start(&entries, &ShowFrom::Text(t.to_string()));
+        assert_eq!(text("the words"), Some(1));
+        assert_eq!(text("after"), None);
+        let line = |n| start(&entries, &ShowFrom::Line(n));
+        assert_eq!(
+            (line(5), line(6), line(9), line(10)),
+            (Some(1), Some(2), Some(2), None)
+        );
+    }
 
     #[test]
     fn a_paste_on_one_line_previews_its_words_alone() {

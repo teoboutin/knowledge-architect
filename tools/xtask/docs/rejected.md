@@ -17,3 +17,9 @@ cite entries no other project holds, in every published binary.
 `design@knowledge-architect@versioning-policy` classes and
 `design@knowledge-architect@changelog-entries` announces to consumers, for a function no consumer
 calls.
+
+### The inventory of the transcripts' line kinds as a verb of `klarch transcript` `##line-kinds-a-verb-of-transcript`
+
+`live`. The inventory is the measurement this repository's transcript heads take before a value of
+the format is classed, and no installed text asks a target project for it, so as a verb it would
+put in every adopting project's command line a command that serves this repository alone.

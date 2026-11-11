@@ -10,6 +10,16 @@ mod mutate;
 mod skill;
 mod transcript_kinds;
 
+// The transcript reader's own files, so `transcript-kinds` reads and labels as every verb does, per
+// `design@xtask@view-included-not-exported`. `kinds.rs` names the reader as `crate::reader`, so both
+// sit at this crate's root. Each serves part of its file here, so each allows dead code.
+#[path = "../../../crates/transcript/src/kinds.rs"]
+#[allow(dead_code)]
+mod kinds;
+#[path = "../../../crates/transcript/src/reader.rs"]
+#[allow(dead_code)]
+mod reader;
+
 use clap::{Parser, Subcommand};
 use knowledge_architect_gates::GatesArgs;
 use std::process::ExitCode;
@@ -43,11 +53,9 @@ enum Command {
         #[command(subcommand)]
         command: knowledge_architect_mutate::MutateCommand,
     },
-    /// Count the line kinds of Claude Code's transcripts, with their harness versions and keys.
+    /// Count the line kinds of every project's Claude Code transcripts, with their harness versions
+    /// and keys.
     TranscriptKinds {
-        /// Count the files of every project, not only this one's.
-        #[arg(long)]
-        all_projects: bool,
         /// One JSON object per line, the header first.
         #[arg(long)]
         json: bool,
@@ -60,12 +68,7 @@ fn main() -> ExitCode {
         Command::Changelog => changelog::run(),
         Command::Skill { name } => skill::run(&name),
         Command::Mutate { command } => mutate::run(&command),
-        Command::TranscriptKinds { all_projects, json } => {
-            transcript_kinds::run(&knowledge_architect_transcript::KindsOptions {
-                all_projects,
-                json,
-            })
-        }
+        Command::TranscriptKinds { json } => transcript_kinds::run(json),
     }
 }
 

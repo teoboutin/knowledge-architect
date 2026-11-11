@@ -45,8 +45,7 @@ does. Each prints a header first, a refusal of `show` included, per
 or line instead. The output, text and JSON alike, is for a reader and no contract, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`. The exit codes are
 `design@cli@exit-code-ladder`'s: 1 when a verb finds nothing to print, or `show`'s argument names
-no session or more than one, as a handle two `sessionId`s sharing their first 8 characters carry,
-or `--from` or `--from-line` reaches no line; 2 when the transcript directory, a file,
+no session or more than one, or `--from` or `--from-line` reaches no line; 2 when the transcript directory, a file,
 a regular expression or a date cannot be read.
 
 `list --branch` computes the sessions that worked on a branch from the `gitBranch` field every chain
@@ -55,7 +54,9 @@ the message where a piece of work begins. `show --from-line` starts where that w
 line the owner did not type, such as the agent's after a merge, at the number `search` prints: a
 `--from` that matched any line's text would start at an earlier line quoting the same words. The
 nearest rival, one verb that prints a whole extraction, leaves those two lists and every survey to a
-script each session writes again.
+script each session writes again. The inventory of the transcripts' line kinds, the measurement taken before a value of the
+format is classed, is no list for a survey of past sessions: it serves the reader's maintainers
+alone, so it is `cargo x transcript-kinds`, per `design@xtask@a-local-task-is-the-maintenance-tool-s`.
 
 ### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens, and a session carries the subagent files it dispatched `##transcript-session-split`
 
@@ -64,8 +65,9 @@ A session opens at the first chain line of a top-level `.jsonl` file, at a chain
 is no `compact_boundary` line. A compaction and a resumed process stay in their session. A subagent
 file, under the parent file's directory `subagents/`, is attached to the session of its `sessionId`,
 and where that id holds several, to the one holding the `tool_use` its `meta.json` names. A
-session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session of
-the same id. A line whose `uuid` was already read in the session is printed once and counted.
+session's handle is its `sessionId`'s first 8 characters, with `#2` and on for a later session
+whose handle those characters already give, of the same id or of another sharing them, so every
+handle `list` prints names one session that `show` resolves. A line whose `uuid` was already read in the session is printed once and counted.
 
 The rule turns on how the harness writes, measured over every transcript of the machine it was
 designed on, Claude Code 2.1.306 to 2.1.310, on 2026-10-25: a compaction writes a boundary with a
@@ -116,13 +118,14 @@ to any tag test. So no text row reads a line its fields place: an owner's typed 
 `origin.kind` `human`, and keeps its label whatever its text; and a row reads a whole text or a
 leading tag the harness writes, never a substring. The lines they read are those no field places, which
 would otherwise be unlabelled or read as `dispatch`, so a text row moves no line out of an owner's
-label, and in a subagent file a shell tag places nothing, since no owner types there. What is
+label, and in a subagent file a shell tag or a command tag places nothing, since no owner types
+there. What is
 excluded, labelling a line the owner typed by a phrase in its text, reaches a test that reads what
 a line means in the discussion, and not a tag the harness writes around the owner's command, on the
 owner's word. The texts the field rows read are the prefix that names a skill's body, inside a line
 its fields already mark injected, and the leading `<command-name>` and `<local-command-stdout>` tags
-of a `local_command` line that carries no `commandRun`, which its subtype already places as a
-command: each chooses a kind or a command, never a side. The header reads the marker of a cut text, inside a line
+of a `local_command` line that carries no `commandRun`, in a top-level file, which its subtype
+already places as a command: each chooses a kind or a command, never a side. The header reads the marker of a cut text, inside a line
 its fields already label injected or tool, per `design@transcript@cut-text-reported`: it chooses no
 label. The command holds the rule, per
 `design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
@@ -137,9 +140,11 @@ other interrupt carries the id. Measured on 2026-11-11 over the same transcripts
 2.1.321, `/compact` writes a field-less `user` line opening with `<command-name>` and its
 `<local-command-stdout>` child, and `/restart` writes the same two as `local_command` lines, none
 of them carrying `commandRun` nor named by a line that does; every other `<command-name>` line is an
-echo a `commandRun` line names. The keys of the `user` lines, one row per label they take, the
-lines no field places included, are re-taken with `cargo x transcript-kinds --all-projects`, whose
-rows count each key over the lines of their place and label.
+echo a `commandRun` line names; the script that took it is in the message of "[transcript] A
+command the harness writes with no `commandRun` is the owner's, named by its leading
+`<command-name>` tag". The keys of the `user` lines, one row per place and label they take, the
+lines that carry no field the mapping reads in rows of their own, are re-taken with
+`cargo x transcript-kinds`, whose rows count each key over the lines of their row.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
 carries `turnOrigin` `sdk` where a typed message carries `human`, and no field names who called
 `claude -p`, a person or a script, so its prompt is unlabelled and reported rather than given to the
@@ -160,7 +165,7 @@ The harness documents the format as internal: "The entry format is internal to C
 changes between versions, so scripts that parse these files directly can break on any release", at
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
 keys and none removed or renamed one the labels use; each line type, with the versions that wrote
-it and its keys, is listed by `cargo x transcript-kinds --all-projects`, over the files the reader
+it and its keys, is listed by `cargo x transcript-kinds`, over every project's files the reader
 reads, the subagent files included, where a metadata line, which carries no `version`, shows
 `versions none`, and the header of `klarch transcript list --all-projects` names any value outside
 the sets. A value is classed on that measurement, which the reader takes, never a pipeline over the
@@ -179,9 +184,12 @@ raises no request to report one. The marker is read only in a line its fields al
 chooses no label, per `design@transcript@transcript-labels-in-code`; the line break before it keeps
 out an agent's quotation of the marker, which sits inside a sentence. Measured over every transcript
 of the owner's machine, on 2026-11-11, the markers sit in lines of Claude Code 2.1.316 and 2.1.321,
-each carries the path,
-in a task notification or a tool result, and the header of
-`klarch transcript list --all-projects` lists them.
+each carries the path, in a task notification or a tool result: the header of
+`klarch transcript list --all-projects` lists them, and the script that took their versions is in the
+message of "[transcript] The reader names a cut text, refuses or reports the inputs it read as
+answers, starts `show` at a line number, and counts its line kinds for the maintenance tool". The
+output of a command the owner ran, which a text row places, is no line its fields label, so a marker
+in it is none of the harness's cuts.
 
 It serves the transcript reviewer, which reads a cut report as whole where nothing says it is cut,
 against `design@transcript@transcript-format-tolerated-and-reported`, which has every run report

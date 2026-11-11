@@ -336,8 +336,9 @@ fragment the build copies would still leave each session to write the script. It
 ### A transcript is found by the transcript command's listing, never by a session identifier `##transcript-found-by-listing`
 
 The review skill, the planning skill and the transcript reviewer name a session by the opening words
-of the message where its work begins, or of the owner's last message before a line the owner did not
-type where the work begins there, and find it with `klarch transcript list`: `--branch` lists
+of the message where its work begins, and find it with `klarch transcript list`; where the work
+begins at a line the owner did not type, the review skill and the transcript reviewer name the
+owner's last message before that line, with its number: `--branch` lists
 the sessions that worked on a branch, `--containing` the session holding those words in a message
 the owner typed. No installed text finds a transcript by a session identifier. After `/clear`, the
 process keeps the earlier identifier in its paths while the harness writes a new file, as
