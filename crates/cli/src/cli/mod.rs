@@ -578,81 +578,102 @@ mod tests {
     /// The claim: `run` refuses a `WorklistArgs` naming both directories.
     #[test]
     fn run_refuses_a_worklist_value_with_both_directories() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            out: a_dir(),
-            verify: a_dir(),
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                out: a_dir(),
+                verify: a_dir(),
+                ..worklist_args()
+            }),
+            "give exactly one of",
+        );
     }
 
     /// The claim: `run` refuses a `WorklistArgs` naming neither directory.
     #[test]
     fn run_refuses_a_worklist_value_with_neither_directory() {
-        refused_by_run(Command::Worklist(worklist_args()));
+        refused_by_run_saying(Command::Worklist(worklist_args()), "give exactly one of");
     }
 
     /// The claim: `run` refuses a bound beside `--verify`.
     #[test]
     fn run_refuses_a_worklist_value_with_a_bound_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            bound: 1,
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                bound: 1,
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a seed beside `--verify`.
     #[test]
     fn run_refuses_a_worklist_value_with_a_seed_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            seeds: vec!["a".to_string()],
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                seeds: vec!["a".to_string()],
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a file of the work beside `--verify`. Mutation checked: the test of
     /// `work` removed from the guard of `worklist_mode`'s `--verify` arm.
     #[test]
     fn run_refuses_a_worklist_value_with_a_work_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            work: vec![std::path::PathBuf::from("w.md")],
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                work: vec![std::path::PathBuf::from("w.md")],
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a subject beside `--verify`. Mutation checked: the test of
     /// `subjects` removed from the guard of `worklist_mode`'s `--verify` arm.
     #[test]
     fn run_refuses_a_worklist_value_with_a_subject_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            subjects: vec!["a-subject".to_string()],
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                subjects: vec!["a-subject".to_string()],
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a commit of `--since` beside `--verify`. Mutation checked: the
     /// test of `since` removed from the guard of `worklist_mode`'s `--verify` arm.
     #[test]
     fn run_refuses_a_worklist_value_with_a_since_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            since: Some("HEAD".to_string()),
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                since: Some("HEAD".to_string()),
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a plan document of `--seeds-from` beside `--verify`. Mutation
     /// checked: the test of `seeds_from` removed from the guard of `worklist_mode`'s `--verify` arm.
     #[test]
     fn run_refuses_a_worklist_value_with_a_seeds_from_beside_verify() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            verify: a_dir(),
-            seeds_from: Some(std::path::PathBuf::from("s.md")),
-            ..worklist_args()
-        }));
+        refused_by_run_saying(
+            Command::Worklist(WorklistArgs {
+                verify: a_dir(),
+                seeds_from: Some(std::path::PathBuf::from("s.md")),
+                ..worklist_args()
+            }),
+            "`--verify` takes none of",
+        );
     }
 
     /// The claim: `run` refuses a subject that is no id, which clap refuses while parsing.
