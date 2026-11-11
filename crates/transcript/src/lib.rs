@@ -8,6 +8,8 @@
 //! Its caller gives it the project's root; from a linked worktree, it also reads the sessions of the
 //! same path in the main checkout. Every line is labelled by what the harness recorded of it, never by
 //! a substring of its text, and every line or value the reader does not know is counted and reported, never a failure.
+//! [`kinds`] prints the inventory of the line kinds those files hold, with their harness versions and keys: the
+//! measurement knowledge-architect's maintenance tool takes before a value of the format is classed.
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary offers the
 //! command. A Rust program that reads transcripts depends on it directly.
@@ -34,7 +36,10 @@ mod command;
 mod output;
 mod reader;
 
-pub use command::{transcript, ListOptions, SearchOptions, ShowOptions, TranscriptVerb, ROLES};
+pub use command::{
+    kinds, transcript, KindsOptions, ListOptions, SearchOptions, ShowFrom, ShowOptions,
+    TranscriptVerb, ROLES,
+};
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at
 /// build time.

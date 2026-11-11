@@ -18,6 +18,8 @@ knowledge-architect-gates = { path = "../../crates/gates" }
 # The hand mutation, `cargo x mutate`, which this repository publishes for other projects and uses
 # itself.
 knowledge-architect-mutate = { path = "../../crates/mutate" }
+# The transcript reader, whose line-kind inventory `cargo x transcript-kinds` prints.
+knowledge-architect-transcript = { path = "../../crates/transcript" }
 
 [dev-dependencies]
 # `cargo metadata`'s output, which the checkout test reads for the workspace's targets.

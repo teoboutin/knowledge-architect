@@ -31,7 +31,9 @@ working files and your report in the scratch directory the brief names, and nowh
 
 ## Extract the transcripts {{slug:extract-transcripts}}
 
-The brief names each session by the opening words of the message where the work begins in it.
+The brief names each session by the opening words of the message where the work begins in it, or,
+where the work begins at a line the owner did not type, by the opening words of the owner's last
+message before it, with the number of the line where the work begins.
 Confirm each with `{{command}} transcript list --containing "<opening words>"`, which
 lists, with its handle, each session holding those words in a message the owner typed: **a session the brief names
 that does not hold that message is reported at once, and not read**: it is another session's. Never
@@ -39,8 +41,9 @@ find a session by a session identifier: after `/clear`, the harness keeps the ea
 identifier in its paths.
 
 Extract each session, in the order the brief gives, with
-`{{command}} transcript show <session> --from "<opening words>" --full`, written to a file of your
-scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
+`{{command}} transcript show <session> --from "<opening words>" --full`, or with
+`--from-line <number>` in place of `--from` where the brief names a line number, written to a file
+of your scratch directory: without `--full`, an injected text beyond 40 lines, such as a reviewer's report,
 prints its first 5. The command keeps the lines in order, and labels each by what the harness
 recorded of it: its fields, or, on a line no field places, a text or a tag the harness writes.
 

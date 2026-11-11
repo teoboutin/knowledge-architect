@@ -233,23 +233,36 @@ fn str_field<'a>(value: &'a Value, key: &str) -> Option<&'a str> {
     value.get(key).and_then(Value::as_str)
 }
 
+/// What the first chain line of a file says of the directory its session ran in.
+enum FirstCwd {
+    /// The file holds no chain line, so no session: leaving it out drops nothing.
+    NoChain,
+    /// The `cwd` of the first chain line.
+    Cwd(String),
+    /// The first chain line, at this line number from 1, holds no `cwd`.
+    Missing(usize),
+}
+
 /// The `cwd` of the first chain line of a file, read without parsing the rest.
-fn first_cwd(path: &Path) -> Result<Option<String>, String> {
+fn first_cwd(path: &Path) -> Result<FirstCwd, String> {
     use std::io::BufRead;
     let file =
         std::fs::File::open(path).map_err(|e| format!("cannot read {}: {e}", path.display()))?;
     // Read as bytes and decoded lossily, as `File::read` does, so a line of bytes that are no
     // UTF-8 is a line that is no JSON in this mode too, not a file that cannot be read.
-    for line in std::io::BufReader::new(file).split(b'\n') {
+    for (i, line) in std::io::BufReader::new(file).split(b'\n').enumerate() {
         let line = line.map_err(|e| format!("cannot read {}: {e}", path.display()))?;
         let line = String::from_utf8_lossy(&line);
         if let Ok(value) = serde_json::from_str::<Value>(&line) {
             if is_chain(&value) {
-                return Ok(str_field(&value, "cwd").map(str::to_string));
+                return Ok(match str_field(&value, "cwd") {
+                    Some(cwd) => FirstCwd::Cwd(cwd.to_string()),
+                    None => FirstCwd::Missing(i + 1),
+                });
             }
         }
     }
-    Ok(None)
+    Ok(FirstCwd::NoChain)
 }
 
 /// The top-level `.jsonl` files of every project directory under `dir`, sorted.
@@ -277,6 +290,14 @@ fn top_level_files(dir: &Path) -> Result<Vec<PathBuf>, String> {
     Ok(files)
 }
 
+/// The top-level files a verb reads, and those it left out for want of a `cwd`.
+pub(crate) struct ProjectFiles {
+    pub(crate) files: Vec<PathBuf>,
+    /// Each top-level file whose first chain line holds no `cwd`, with that line's number: no
+    /// project can be told for it, so a run over one project leaves it out, and its header says so.
+    pub(crate) no_cwd: Vec<(PathBuf, usize)>,
+}
+
 /// The top-level files whose first chain line's `cwd` is one of `roots` or a path under one, or
 /// every top-level file when `roots` is `None`.
 ///
@@ -284,24 +305,34 @@ fn top_level_files(dir: &Path) -> Result<Vec<PathBuf>, String> {
 /// longer exists is compared as written. Only the first chain line is read: a session that later
 /// works in a worktree changes its `cwd` mid-file, and the directory it started in is what names its
 /// project.
-pub(crate) fn project_files(dir: &Path, roots: Option<&[PathBuf]>) -> Result<Vec<PathBuf>, String> {
+pub(crate) fn project_files(dir: &Path, roots: Option<&[PathBuf]>) -> Result<ProjectFiles, String> {
     let files = top_level_files(dir)?;
     let Some(roots) = roots else {
-        return Ok(files);
+        return Ok(ProjectFiles {
+            files,
+            no_cwd: Vec::new(),
+        });
     };
     let roots: Vec<PathBuf> = roots
         .iter()
         .map(|r| r.canonicalize().unwrap_or_else(|_| r.clone()))
         .collect();
-    let mut kept = Vec::new();
+    let mut kept = ProjectFiles {
+        files: Vec::new(),
+        no_cwd: Vec::new(),
+    };
     for path in files {
-        let Some(cwd) = first_cwd(&path)? else {
-            continue;
+        let cwd = match first_cwd(&path)? {
+            FirstCwd::NoChain => continue,
+            FirstCwd::Missing(line) => {
+                kept.no_cwd.push((path, line));
+                continue;
+            }
+            FirstCwd::Cwd(cwd) => PathBuf::from(cwd),
         };
-        let cwd = PathBuf::from(&cwd);
         let cwd = cwd.canonicalize().unwrap_or(cwd);
         if roots.iter().any(|root| cwd.starts_with(root)) {
-            kept.push(path);
+            kept.files.push(path);
         }
     }
     Ok(kept)
@@ -411,9 +442,37 @@ pub(crate) struct Inventory {
     pub(crate) unlabelled: usize,
     pub(crate) malformed: Vec<String>,
     pub(crate) repeated_uuids: usize,
+    /// Each text the harness cut before writing it, in reading order.
+    pub(crate) cuts: Vec<Cut>,
 }
 
+/// A text the harness cut before writing it into the transcript, found by the marker it writes at
+/// the cut: the location of its line, `file:line`, the count of characters left out, and the file
+/// the marker names as holding the whole, where it names one.
+pub(crate) struct Cut {
+    pub(crate) at: String,
+    pub(crate) chars: String,
+    pub(crate) whole_in: Option<String>,
+}
+
+/// The marker the harness writes where it cuts a long result of a subagent or a workflow, on a line
+/// of its own: `... (truncated <N> chars)`, or with `, full result in <path>` before the parenthesis
+/// closes, per `design@transcript@cut-text-reported`. It is read only in a text whose fields already
+/// label it `injected` or `tool`, and it chooses no label, per
+/// `design@transcript@transcript-labels-in-code`; the line break and the three dots before it keep
+/// out a quotation of the marker, which an agent writes inside a sentence.
+static CUT_MARKER: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(r"\n\.\.\. \(truncated (\d+) chars(?:, full result in ([^)\n]+))?\)")
+        .expect("the pattern parses")
+});
+
 impl Inventory {
+    /// Count a top-level file that a run over one project leaves out, since its first chain line,
+    /// at `line`, holds no `cwd`: a value the reader does not know, so a gap.
+    pub(crate) fn note_no_cwd(&mut self, name: &str, line: usize) {
+        self.note_unknown("first chain line", "no cwd", format!("{name}:{line}"));
+    }
+
     fn note_unknown(&mut self, category: &str, value: &str, at: String) {
         let slot = self
             .unknown
@@ -658,6 +717,7 @@ impl Corpus {
 
     /// Cut a top-level file into sessions, label them, and count what the labels could not place.
     fn cut(&mut self, index: usize) {
+        let name = self.name(&self.files[index].path);
         let file = &self.files[index];
         let chain = file.chain();
         let mut runs: Vec<(String, Vec<usize>)> = Vec::new();
@@ -690,6 +750,7 @@ impl Corpus {
             };
             let mut ctx = Labelling {
                 file,
+                name: &name,
                 in_subagent: false,
                 inventory: &mut self.inventory,
                 shell_inputs: HashSet::new(),
@@ -775,6 +836,7 @@ impl Corpus {
                     .to_string();
                 let mut ctx = Labelling {
                     file: &file,
+                    name: &name,
                     in_subagent: true,
                     inventory: &mut self.inventory,
                     shell_inputs: HashSet::new(),
@@ -879,6 +941,83 @@ impl Corpus {
     }
 }
 
+/// One row of `transcript kinds`: the lines of one kind in one place.
+#[derive(Default)]
+pub(crate) struct KindRow {
+    pub(crate) count: usize,
+    pub(crate) versions: BTreeSet<String>,
+    /// Each top-level key, with the count of the row's lines that carry it.
+    pub(crate) keys: BTreeMap<String, usize>,
+}
+
+/// The inventory of every line of the files a corpus read, top-level and attached subagent files
+/// alike, by place, `top` or `subagent`, and kind.
+///
+/// A line's kind is its `type`, with its subtype for `system` and its `attachment.type` for
+/// `attachment`; a `user` line's adds the label the reader gave it, its first entry's, `tool` for a
+/// tool result whatever its tool, or `(no entry)` for a line the labels print nothing of, such as a
+/// command's echo or a repeated uuid. So the lines no field places are rows of their own, which
+/// `design@transcript@transcript-labels-in-code` measures, and a line that is no JSON is the row
+/// `(not JSON)`.
+pub(crate) fn line_kinds(corpus: &Corpus) -> BTreeMap<(&'static str, String), KindRow> {
+    let mut rows: BTreeMap<(&'static str, String), KindRow> = BTreeMap::new();
+    let mut count = |place: &'static str, file: &File, entries: &[&Entry]| {
+        let mut labels: HashMap<usize, &Label> = HashMap::new();
+        for e in entries {
+            labels.entry(e.line).or_insert(&e.label);
+        }
+        for (i, raw) in file.lines.iter().enumerate() {
+            let value = match raw {
+                Raw::Blank => continue,
+                Raw::Malformed => {
+                    rows.entry((place, "(not JSON)".to_string()))
+                        .or_default()
+                        .count += 1;
+                    continue;
+                }
+                Raw::Json(value) => value,
+            };
+            let kind = match str_field(value, "type") {
+                None => "(no type)".to_string(),
+                Some("system") => {
+                    format!("system {}", str_field(value, "subtype").unwrap_or("(none)"))
+                }
+                Some("attachment") => format!(
+                    "attachment {}",
+                    value
+                        .get("attachment")
+                        .and_then(|a| str_field(a, "type"))
+                        .unwrap_or("(none)")
+                ),
+                Some("user") => match labels.get(&(i + 1)) {
+                    None => "user (no entry)".to_string(),
+                    Some(Label::Tool(_)) => "user tool".to_string(),
+                    Some(label) => format!("user {}", label.display()),
+                },
+                Some(other) => other.to_string(),
+            };
+            let row = rows.entry((place, kind)).or_default();
+            row.count += 1;
+            if let Some(version) = str_field(value, "version") {
+                row.versions.insert(version.to_string());
+            }
+            for key in value.as_object().into_iter().flat_map(|o| o.keys()) {
+                *row.keys.entry(key.clone()).or_default() += 1;
+            }
+        }
+    };
+    for (index, file) in corpus.files.iter().enumerate() {
+        let sessions: Vec<&Session> = corpus.sessions.iter().filter(|s| s.file == index).collect();
+        let entries: Vec<&Entry> = sessions.iter().flat_map(|s| &s.entries).collect();
+        count("top", file, &entries);
+        for agent in sessions.iter().flat_map(|s| &s.subagents) {
+            let entries: Vec<&Entry> = agent.entries.iter().collect();
+            count("subagent", &agent.file, &entries);
+        }
+    }
+    rows
+}
+
 fn collect_agent_files(dir: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
     let entries = match std::fs::read_dir(dir) {
         Ok(entries) => entries,
@@ -953,6 +1092,8 @@ fn parent_last_uuid(value: &Value) -> Option<&str> {
 /// The labelling of one file's chain lines.
 struct Labelling<'a> {
     file: &'a File,
+    /// The file's name, as the header names a location.
+    name: &'a str,
     in_subagent: bool,
     inventory: &'a mut Inventory,
     /// The `uuid`s of the lines labelled `owner-shell` so far: a `<bash-stdout>` line is a shell
@@ -1112,6 +1253,18 @@ impl Labelling<'_> {
                         *name = called.clone();
                     }
                 }
+            }
+        }
+        for e in &entries {
+            if !matches!(e.label, Label::Injected(_) | Label::Tool(_)) {
+                continue;
+            }
+            for found in CUT_MARKER.captures_iter(&e.text) {
+                self.inventory.cuts.push(Cut {
+                    at: format!("{}:{}", self.name, e.line),
+                    chars: found[1].to_string(),
+                    whole_in: found.get(2).map(|m| m.as_str().to_string()),
+                });
             }
         }
         entries
@@ -1349,6 +1502,7 @@ mod tests {
         let mut inventory = Inventory::default();
         let mut ctx = Labelling {
             file: &file,
+            name: "t.jsonl",
             in_subagent,
             inventory: &mut inventory,
             shell_inputs: HashSet::new(),
@@ -1452,6 +1606,80 @@ mod tests {
                 "owner-command"
             ]
         );
+    }
+
+    /// The claim: a line's kind is its type, its subtype or attachment type, and for a `user` line
+    /// the label it takes, `tool` for any tool result and `(no entry)` where it prints nothing; each
+    /// key is counted over the lines of its row, and a line that is no JSON is a row of its own.
+    #[test]
+    fn a_line_s_kind_names_its_label_and_its_keys_are_counted() {
+        let mut lines = file(&[
+            r#"{"type":"user","uuid":"a","sessionId":"s","version":"1","origin":{"kind":"human"},"message":{"content":"hi"}}"#,
+            r#"{"type":"user","uuid":"a2","parentUuid":"a","sessionId":"s","origin":{"kind":"human"},"message":{"content":"again hi"}}"#,
+            r#"{"type":"assistant","uuid":"a3","parentUuid":"a2","sessionId":"s","message":{"content":[{"type":"tool_use","id":"t","name":"Bash","input":{}}]}}"#,
+            r#"{"type":"user","uuid":"b","parentUuid":"a3","sessionId":"s","promptId":"p","message":{"content":"stray"}}"#,
+            r#"{"type":"user","uuid":"c","parentUuid":"b","sessionId":"s","message":{"content":[{"type":"tool_result","tool_use_id":"t","content":"r"}]}}"#,
+            r#"{"type":"user","uuid":"c","parentUuid":"b","sessionId":"s","message":{"content":"again"}}"#,
+            r#"{"type":"system","subtype":"turn_duration","uuid":"d","parentUuid":"c","sessionId":"s"}"#,
+            r#"{"type":"attachment","uuid":"e","parentUuid":"d","sessionId":"s","attachment":{"type":"date"}}"#,
+            r#"{"type":"last-prompt","sessionId":"s"}"#,
+        ]);
+        lines.lines.push(Raw::Malformed);
+        let mut corpus = Corpus {
+            dir: PathBuf::from("."),
+            files: vec![lines],
+            sessions: Vec::new(),
+            inventory: Inventory::default(),
+            ids: HashMap::new(),
+        };
+        corpus.cut(0);
+        let rows = line_kinds(&corpus);
+        let kinds: Vec<(&str, &str, usize)> = rows
+            .iter()
+            .map(|((place, kind), row)| (*place, kind.as_str(), row.count))
+            .collect();
+        assert_eq!(
+            kinds,
+            [
+                ("top", "(not JSON)", 1),
+                ("top", "assistant", 1),
+                ("top", "attachment date", 1),
+                ("top", "last-prompt", 1),
+                ("top", "system turn_duration", 1),
+                ("top", "user (no entry)", 1),
+                ("top", "user owner", 2),
+                ("top", "user tool", 1),
+                ("top", "user unlabelled", 1),
+            ]
+        );
+        let unlabelled = &rows[&("top", "user unlabelled".to_string())];
+        assert_eq!(unlabelled.keys.get("promptId"), Some(&1));
+        assert!(!unlabelled.keys.contains_key("origin"));
+        let owner = &rows[&("top", "user owner".to_string())];
+        assert_eq!(owner.versions.iter().collect::<Vec<_>>(), ["1"]);
+        assert_eq!(owner.keys.get("origin"), Some(&2));
+    }
+
+    /// The claim: the cut marker counts only on its own line, with or without the pointer, and
+    /// never inside a sentence that quotes it.
+    #[test]
+    fn the_cut_marker_is_read_on_its_own_line_only() {
+        let found = |text: &str| -> Vec<(String, Option<String>)> {
+            CUT_MARKER
+                .captures_iter(text)
+                .map(|c| (c[1].to_string(), c.get(2).map(|m| m.as_str().to_string())))
+                .collect()
+        };
+        assert_eq!(
+            found("head\n... (truncated 12 chars, full result in /a/b.output)</result>"),
+            [("12".to_string(), Some("/a/b.output".to_string()))]
+        );
+        assert_eq!(
+            found("head\n... (truncated 7 chars)"),
+            [("7".to_string(), None)]
+        );
+        assert!(found(r#"it was cut ("truncated 138376 chars")"#).is_empty());
+        assert!(found("head ... (truncated 7 chars)").is_empty());
     }
 
     const PARENT: &str =

@@ -63,7 +63,9 @@ after every other axis has run, its repairs are committed and every item of thei
 outcome under `skill@knowledge-architect-review@what-review-leaves`, since an answer of the owner
 given after its extraction reads to it as missing. Its range is the whole branch,
 `<main branch>..<head>`, and its brief names the transcripts of every session that worked on the
-branch, with the message where the branch's work begins in each. It is the one axis that can see whether the findings of the others were acted on, since
+branch, with the message where the branch's work begins in each. Where that work begins at a line
+the owner did not type, such as the agent's after a merge, the brief names the owner's last message
+before it and the number of that line, which `cargo klarch transcript search` prints. It is the one axis that can see whether the findings of the others were acted on, since
 their reports reach the session as messages of its transcript.
 
 **Find each session with `cargo klarch transcript list`, never by a session identifier**: after

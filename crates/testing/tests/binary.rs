@@ -8848,6 +8848,213 @@ fn transcript_the_gap_request_names_what_it_covers() {
     assert!(stdout.contains("is a gap of this command"), "{stdout}");
 }
 
+/// The session of the case `gaps` that holds the cut texts, named by a prefix of its `sessionId`:
+/// its handle is one the case's other session carries too.
+const GAPS_SESSION: &str = "9a9a9a9a-0000-0000-0000-000000000020";
+
+/// The claim: each text the harness cut, in a line its fields label injected or tool, is named in
+/// the header with its line, its count and its pointer, or with no file named where the marker
+/// names none; a marker in the agent's text, and a quotation of one, are no cut; and a cut is no
+/// gap of the command.
+#[test]
+fn transcript_a_text_the_harness_cut_is_named_in_the_header() {
+    let (stdout, _, code) = transcript("gaps", "gaps-cuts", &["show", GAPS_SESSION]);
+    assert_eq!(code, 0, "{stdout}");
+    let file = "-proj/9a9a9a9a-0000-0000-0000-000000000020.jsonl";
+    assert!(
+        stdout.contains(&format!(
+            "# cut by the harness: {file}:3, 31934 chars not in the transcript, the whole in \
+             /cache/tasks/w1.output\n"
+        )),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains(&format!(
+            "# cut by the harness: {file}:6, 742 chars not in the transcript, and no file named\n"
+        )),
+        "{stdout}"
+    );
+    assert!(!stdout.contains(&format!("{file}:7,")), "{stdout}");
+    assert_eq!(
+        stdout.matches("# cut by the harness").count(),
+        2,
+        "{stdout}"
+    );
+    let (stdout, _, _) = transcript(
+        "gaps",
+        "gaps-cuts-sub",
+        &["show", GAPS_SESSION, "--subagents", "--json"],
+    );
+    assert!(
+        stdout.contains(r#""at":"-proj/9a9a9a9a-0000-0000-0000-000000000020/subagents/agent-c0ffee000001.jsonl:3""#),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains(r#""whole_in":"/cache/tasks/w2.output""#),
+        "{stdout}"
+    );
+}
+
+/// The claim: a file whose first chain line holds no `cwd` is left out of a run over one project,
+/// and the header names it as a gap; a run over every project reads it.
+#[test]
+fn transcript_a_file_with_no_cwd_is_reported_where_it_is_left_out() {
+    let (stdout, _, code) = transcript("gaps", "gaps-nocwd", &["list"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(
+        stdout.contains(
+            "# unrecognised first chain line \"no cwd\": 1, first at \
+             -proj/7b7b7b7b-0000-0000-0000-000000000022.jsonl:2\n"
+        ),
+        "{stdout}"
+    );
+    assert!(stdout.contains("is a gap of this command"), "{stdout}");
+    assert!(!stdout.contains("7b7b7b7b "), "{stdout}");
+    let (stdout, _, _) = transcript("gaps", "gaps-nocwd-all", &["list", "--all-projects"]);
+    assert!(stdout.contains("7b7b7b7b "), "{stdout}");
+    assert!(!stdout.contains("no cwd"), "{stdout}");
+}
+
+/// The claim: a handle two sessions carry names both, so `show` refuses it with each `sessionId`,
+/// exit 1, after the header; a session it cannot name is refused after the header too.
+#[test]
+fn transcript_show_refuses_a_handle_two_sessions_carry_after_its_header() {
+    let (stdout, _, code) = transcript("gaps", "gaps-twohandles", &["show", "9a9a9a9a"]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(
+        stdout.contains(
+            "\"9a9a9a9a\" names 2 sessions: 9a9a9a9a-0000-0000-0000-000000000020, \
+             9a9a9a9a-0000-0000-0000-000000000021"
+        ),
+        "{stdout}"
+    );
+    assert!(stdout.starts_with("# files read: 2;"), "{stdout}");
+    let (stdout, _, code) = transcript("gaps", "gaps-unknown", &["show", "zzzzzzzz"]);
+    assert_eq!(code, 1, "{stdout}");
+    assert!(stdout.starts_with("# files read: 2;"), "{stdout}");
+    assert!(
+        stdout.contains("no session is named \"zzzzzzzz\""),
+        "{stdout}"
+    );
+}
+
+/// The claim: `--role tool` keeps the tool lines, as `--tools` does, rather than keep nothing.
+#[test]
+fn transcript_search_role_tool_keeps_the_tool_lines() {
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-roletool",
+        &["search", "--role", "tool", "subagent's report"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(
+        stdout.contains("L6 tool Agent  the subagent's report"),
+        "{stdout}"
+    );
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-roleowner",
+        &["search", "--role", "owner", "subagent's report"],
+    );
+    assert_eq!(code, 1, "{stdout}");
+}
+
+/// The claim: `--from-line` starts at the first kept line at that number or after it, the agent's
+/// included; past the last kept line it prints the header and exits 1; with `--from` it is refused.
+#[test]
+fn transcript_show_starts_at_a_line_number() {
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-fromline",
+        &["show", GAPS_SESSION, "--from-line", "4"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    let body = &stdout[stdout.find("# session").expect("the session's title")..];
+    assert!(
+        body.lines()
+            .nth(1)
+            .is_some_and(|l| l.starts_with("[L4 agent ")),
+        "{stdout}"
+    );
+    assert!(!body.contains("[L3 "), "{stdout}");
+    assert!(body.contains("[L8 owner "), "{stdout}");
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-fromline-gap",
+        &["show", GAPS_SESSION, "--from-line", "5"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    let body = &stdout[stdout.find("# session").expect("the session's title")..];
+    assert!(
+        body.lines()
+            .nth(1)
+            .is_some_and(|l| l.starts_with("[L7 agent ")),
+        "a tool line is not kept without --tools, so L7 is the first:\n{stdout}"
+    );
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-fromline-past",
+        &["show", GAPS_SESSION, "--from-line", "9"],
+    );
+    assert_eq!(code, 1, "{stdout}");
+    assert!(stdout.starts_with("# files read"), "{stdout}");
+    assert!(stdout.contains("is at L9 or after it"), "{stdout}");
+    let (_, stderr, code) = transcript(
+        "gaps",
+        "gaps-fromline-both",
+        &["show", GAPS_SESSION, "--from-line", "4", "--from", "start"],
+    );
+    assert_eq!(code, 2, "{stderr}");
+}
+
+/// The claim: `--from` matches only a line the owner typed, so words the agent wrote start nothing.
+#[test]
+fn transcript_from_matches_no_line_the_agent_wrote() {
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "gaps-from-agent",
+        &[
+            "show",
+            GAPS_SESSION,
+            "--from",
+            "the work of the second branch",
+        ],
+    );
+    assert_eq!(code, 1, "{stdout}");
+    assert!(stdout.contains("no line the owner typed in"), "{stdout}");
+}
+
+/// The claim: a file whose `cwd` reaches the project's root through a symbolic link is the
+/// project's, since both sides are canonicalised before they are compared.
+#[test]
+fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
+    let root = project("core").canonicalize().expect("the mock exists");
+    let config =
+        std::env::temp_dir().join(format!("klarch-transcript-symlink-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&config);
+    let projects = config.join("projects/-linked");
+    std::fs::create_dir_all(&projects).expect("a transcript directory");
+    let link = config.join("link");
+    std::os::unix::fs::symlink(&root, &link).expect("a symlink");
+    let line = format!(
+        r#"{{"type":"user","uuid":"l1","parentUuid":null,"sessionId":"5e5e5e5e-0000-0000-0000-000000000030","timestamp":"2026-02-01T10:00:00.000Z","cwd":"{}","version":"2.1.316","message":{{"role":"user","content":"through the link"}},"origin":{{"kind":"human"}}}}"#,
+        link.display()
+    );
+    std::fs::write(
+        projects.join("5e5e5e5e-0000-0000-0000-000000000030.jsonl"),
+        line + "\n",
+    )
+    .expect("a transcript");
+    let (stdout, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "list"],
+        &[("CLAUDE_CONFIG_DIR", &config)],
+    );
+    let _ = std::fs::remove_dir_all(&config);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(stdout.contains("5e5e5e5e "), "{stdout}");
+}
+
 /// The claim: `klarch` lists the checker's library among those it links, so a copy of it at another
 /// path than the binary's is refused, and the refusal names its package.
 #[test]

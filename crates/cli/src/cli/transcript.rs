@@ -3,7 +3,7 @@
 
 use clap::{Args, Subcommand};
 
-use knowledge_architect_transcript::{ListOptions, SearchOptions, ShowOptions};
+use knowledge_architect_transcript::{ListOptions, SearchOptions, ShowFrom, ShowOptions};
 
 /// The arguments of `transcript`.
 #[derive(Args)]
@@ -51,8 +51,11 @@ pub struct TranscriptShowArgs {
     #[arg(value_name = "SESSION")]
     pub session: String,
     /// Start at the first line the owner typed whose text contains TEXT.
-    #[arg(long, value_name = "TEXT")]
+    #[arg(long, value_name = "TEXT", conflicts_with = "from_line")]
     pub from: Option<String>,
+    /// Start at the first kept line whose number, as `show` and `search` print it, is N or above.
+    #[arg(long, value_name = "N", value_parser = clap::value_parser!(usize))]
+    pub from_line: Option<usize>,
     /// Print each attached subagent file after the session.
     #[arg(long)]
     pub subagents: bool,
@@ -119,7 +122,12 @@ impl From<TranscriptVerb> for knowledge_architect_transcript::TranscriptVerb {
             }),
             TranscriptVerb::Show(a) => Self::Show(ShowOptions {
                 session: a.session,
-                from: a.from,
+                // The declaration refuses the two together, so at most one is set.
+                from: match (a.from, a.from_line) {
+                    (Some(text), _) => Some(ShowFrom::Text(text)),
+                    (None, Some(line)) => Some(ShowFrom::Line(line)),
+                    (None, None) => None,
+                },
                 subagents: a.subagents,
                 tools: a.tools,
                 full: a.full,
@@ -152,6 +160,7 @@ mod tests {
         let args = TranscriptShowArgs {
             session: "s".to_string(),
             from: Some("f".to_string()),
+            from_line: None,
             subagents: true,
             tools: true,
             full: true,
@@ -161,8 +170,28 @@ mod tests {
         let Typed::Show(o) = TranscriptVerb::Show(args).into() else {
             panic!("another verb")
         };
-        assert_eq!((o.session.as_str(), o.from.as_deref()), ("s", Some("f")));
+        assert_eq!(o.session, "s");
+        assert_eq!(o.from, Some(ShowFrom::Text("f".to_string())));
         assert!(o.subagents && o.tools && o.full && o.all_projects && o.json);
+    }
+
+    /// The claim: `--from-line` reaches the typed function as a start by line number.
+    #[test]
+    fn show_converts_a_start_by_line_number() {
+        let args = TranscriptShowArgs {
+            session: "s".to_string(),
+            from: None,
+            from_line: Some(12),
+            subagents: false,
+            tools: false,
+            full: false,
+            all_projects: false,
+            json: false,
+        };
+        let Typed::Show(o) = TranscriptVerb::Show(args).into() else {
+            panic!("another verb")
+        };
+        assert_eq!(o.from, Some(ShowFrom::Line(12)));
     }
 
     /// The claim: each field of `transcript search` reaches the typed function.

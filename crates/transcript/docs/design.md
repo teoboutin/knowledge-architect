@@ -37,19 +37,25 @@ Three verbs are built. `list` prints one row per session of the project, oldest 
 time, its git branches, its count of lines the owner typed, of compactions and of subagents, and its
 first message from the owner; `--branch`, `--containing` and `--since` filter. `show` prints one
 session's kept lines in file order, each with its line number and its label, from `--from` a text
-the owner typed, with `--subagents`, `--tools` and `--full`. `search` prints each kept line whose
-text matches a regular expression, with `--role`, `--tool` and `--tools`. Each prints a header
-first, per `design@transcript@transcript-format-tolerated-and-reported`, and `--json` prints one object
-per row or line instead. The output, text and JSON alike, is for a reader and no contract, per
+the owner typed or from `--from-line` a line number it prints, which excludes `--from`, with
+`--subagents`, `--tools` and `--full`. `search` prints each kept line whose text matches a regular
+expression, with `--role`, `--tool` and `--tools`; the role `tool` keeps the tool lines, as `--tools`
+does. Each prints a header first, a refusal of `show` included, per
+`design@transcript@transcript-format-tolerated-and-reported`, and `--json` prints one object per row
+or line instead. The output, text and JSON alike, is for a reader and no contract, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`. The exit codes are
 `design@cli@exit-code-ladder`'s: 1 when a verb finds nothing to print, or `show`'s argument names
-no session or more than one, or `--from` matches no line; 2 when the transcript directory, a file,
+no session or more than one, as a handle two `sessionId`s sharing their first 8 characters carry,
+or `--from` or `--from-line` reaches no line; 2 when the transcript directory, a file,
 a regular expression or a date cannot be read.
 
 `list --branch` computes the sessions that worked on a branch from the `gitBranch` field every chain
 line carries, which the review before a merge needs, and `list --containing` the session holding
-the message where a piece of work begins. The nearest rival, one verb that prints a whole
-extraction, leaves those two lists and every survey to a script each session writes again.
+the message where a piece of work begins. `show --from-line` starts where that work begins at a
+line the owner did not type, such as the agent's after a merge, at the number `search` prints: a
+`--from` that matched any line's text would start at an earlier line quoting the same words. The
+nearest rival, one verb that prints a whole extraction, leaves those two lists and every survey to a
+script each session writes again.
 
 ### A transcript file is cut into sessions where the `sessionId` changes and where a root that is no compaction opens, and a session carries the subagent files it dispatched `##transcript-session-split`
 
@@ -109,7 +115,9 @@ label, and in a subagent file a shell tag places nothing, since no owner types t
 excluded, labelling a line the owner typed by a phrase in its text, reaches a test that reads what
 a line means in the discussion, and not a tag the harness writes around the owner's command, on the
 owner's word. The one text the field rows read is the prefix that names a skill's body, inside a line its fields already mark
-injected: it chooses a kind, never a side. The command holds the rule, per
+injected: it chooses a kind, never a side. The header reads the marker of a cut text, inside a line
+its fields already label injected or tool, per `design@transcript@cut-text-reported`: it chooses no
+label. The command holds the rule, per
 `design@agent-skills@transcript-extraction-is-the-checker-s`, with a test over a fixture of each
 row.
 
@@ -118,9 +126,9 @@ The text rows exist because no field places those lines,
 machine, Claude Code 2.1.306 to 2.1.316, on 2026-11-07: an interrupt with no
 `interruptedMessageId`, at top level or in a subagent file, a `<bash-input>` line, and a subagent
 file's dispatcher lines carry the same key beyond those of every chain line, `promptId`, and every
-other interrupt carries the id. The key sets of the `user` lines no field
-places are re-taken with
-`{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -c 'select(.type=="user" and .isMeta==null and .origin==null and .isCompactSummary==null) | select((.message.content|type)=="string" or ([.message.content[]? | select(.type=="tool_result")] | length) == 0) | (.message.content | if type=="string" then . else ([.[]? | select(.type=="text") | .text] | join(" ")) end) as $t | {sub:(input_filename|test("subagents")), keys:([keys[]|select(. as $k | ["parentUuid","isSidechain","type","uuid","timestamp","userType","entrypoint","cwd","sessionId","version","gitBranch","message","slug","agentId","requestId"]|index($k)|not)]|join(",")), t:($t|.[:22])}' | sort | uniq -c`.
+other interrupt carries the id. The keys of the `user` lines, one row per label they take, the
+lines no field places included, are re-taken with `cargo x transcript-kinds --all-projects`, whose
+rows count each key over the lines of their place and label.
 A file with no field is a session run with `claude -p`, or a log older than the fields: its prompt
 carries `turnOrigin` `sdk` where a typed message carries `human`, and no field names who called
 `claude -p`, a person or a script, so its prompt is unlabelled and reported rather than given to the
@@ -132,7 +140,8 @@ The reader knows, and marks as used or ignored on purpose, the top-level types, 
 subtypes, the `attachment.type` values, the content item types and the `origin.kind` values the
 harness writes, as measured. A value outside them is counted, never a failure:
 every verb's header names each with its count and its first file and line, with the count of
-`unlabelled` lines and each line that is no JSON, and ends, where any of them is non-zero, with the line asking for it to be reported as a finding
+`unlabelled` lines, each line that is no JSON and each file a run over one project leaves out
+because its first chain line holds no `cwd`, and ends, where any of them is non-zero, with the line asking for it to be reported as a finding
 on the checker in the retrospective. It serves `goal@the-workflow-improves-through-real-use`
 by that route, per `design@agent-skills@unrecognised-entries-reach-upstream`.
 
@@ -140,11 +149,35 @@ The harness documents the format as internal: "The entry format is internal to C
 changes between versions, so scripts that parse these files directly can break on any release", at
 https://code.claude.com/docs/en/sessions. Over the window measured, each version added types or
 keys and none removed or renamed one the labels use; each line type, with the versions that wrote
-it, is listed by
-`{ find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl'; find ~/.claude/projects -path '*/subagents/*' -name 'agent-*.jsonl'; } | xargs -d '\n' jq -r '"\(.type) \(.attachment.type // .subtype // "") \(.version // "-")"' | sort -u`,
-over the files the reader reads, where a metadata line, which carries no `version`, shows `-`, and the header of `klarch transcript list --all-projects` names any value outside the sets. A strict reader
+it and its keys, is listed by `cargo x transcript-kinds --all-projects`, over the files the reader
+reads, the subagent files included, where a metadata line, which carries no `version`, shows
+`versions none`, and the header of `klarch transcript list --all-projects` names any value outside
+the sets. A value is classed on that measurement, which the reader takes, never a pipeline over the
+files, which no test runs. A strict reader
 would fail on each release that adds a type, `rejected@transcript@strict-transcript-reader`; a silent
 tolerant one hides a renamed field, against `design@model@a-failed-parse-is-loud`.
+
+### A text the harness cut before writing it is named in every header, with the file the harness names as holding it whole, which the reader does not read `##cut-text-reported`
+
+The harness cuts a long result of a subagent or a workflow before writing it into the transcript,
+and writes at the cut, on a line of its own, `... (truncated <N> chars)`, with
+`, full result in <path>` before the parenthesis closes. Every verb's header prints one line per
+such marker in a kept line its fields label injected or tool: its file and line, the count of
+characters left out, and the path, or that it names none. The cut is no gap of the command, so it
+raises no request to report one. The marker is read only in a line its fields already place, and
+chooses no label, per `design@transcript@transcript-labels-in-code`; the line break before it keeps
+out an agent's quotation of the marker, which sits inside a sentence. Measured over every transcript
+of the owner's machine, on 2026-11-11, the markers sit in lines of Claude Code 2.1.316 and 2.1.321,
+each carries the path,
+in a task notification or a tool result, and the header of
+`klarch transcript list --all-projects` lists them.
+
+It serves the transcript reviewer, which reads a cut report as whole where nothing says it is cut,
+against `design@transcript@transcript-format-tolerated-and-reported`, which has every run report
+what it holds less of. The nearest rival, `show` printing the file the path names, reads outside the
+transcript directory `design@transcript@transcript-directory-resolution` resolves, in the harness's
+temporary task directory, where the file may be gone when the reviewer reads; told of the cut and
+the path, the reviewer reads the file where it exists.
 
 ### A project's transcripts are the files whose first line ran in the project's root or under it `##transcript-directory-resolution`
 
