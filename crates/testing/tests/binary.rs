@@ -4619,6 +4619,13 @@ fn check_staged_compares_an_installed_file_a_walk_row_skips() {
     let sandbox = harnessed("staged-skipped-installed");
     let manifest =
         std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
+    // Asserted, since a row missed by the replacement leaves this test the existing staged one,
+    // which the mutation survives.
+    assert_eq!(
+        manifest.matches("skip-dirs = [\"build\"]").count(),
+        1,
+        "{manifest}"
+    );
     sandbox.write(
         "knowledge-architect.toml",
         &manifest.replace(
@@ -4647,7 +4654,7 @@ fn check_staged_compares_an_installed_file_a_walk_row_skips() {
 /// The claim: a symbolic link in the installer's namespace that a `skip-files` row keeps is
 /// still judged by the installed-file check, which reads the namespace whatever the walk rows
 /// say: the row silences the link's own finding and no other. Mutation checked: `from_listing`
-/// leaving a link out of `installed` before the owned test makes the stray pass.
+/// leaving a link out of `installed` at the owned test makes the stray pass.
 #[test]
 fn a_link_in_the_installers_namespace_a_skip_row_keeps_is_still_judged() {
     let sandbox = harnessed("owned-link");
@@ -4673,6 +4680,44 @@ fn a_link_in_the_installers_namespace_a_skip_row_keeps_is_still_judged() {
         )),
         "{out}"
     );
+}
+
+/// The claim: `check --fix` removes the skill directory its deletion of an unshipped skill left
+/// empty, as the install does. Mutation checked: `apply` not calling `remove_empty_owned_dirs`
+/// leaves the directory.
+#[test]
+fn check_fix_removes_the_skill_directory_its_deletion_empties() {
+    let sandbox = harnessed("fix-empty-skill");
+    let stray = ".claude/skills/knowledge-architect-retired/SKILL.md";
+    sandbox.write(stray, "a skill an older version shipped\n");
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check", "--fix"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains(&format!("fixed: removed {stray} (installed)")),
+        "{out}"
+    );
+    assert!(!sandbox
+        .path(".claude/skills/knowledge-architect-retired")
+        .exists());
+}
+
+/// The claim: `check --staged` reads a staged file outside the walk whose bytes are not UTF-8 as
+/// `check` reads it on disk, binary, and so judges it no differently. Mutation checked: `read_tree`
+/// keeping no state for a blob that does not decode reports the file as unreadable.
+#[test]
+fn check_staged_reads_a_staged_binary_file_as_check_does() {
+    let sandbox = Sandbox::new("staged-binary", "minimal");
+    std::fs::write(
+        sandbox.path("notes/img.png"),
+        b"\x89PNG\r\n\x1a\n\0\0\xff\xfe",
+    )
+    .expect("a binary file");
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let (out, err, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 0, "{out}{err}");
 }
 
 /// The claim: an index holding an unmerged path is refused with exit 2, naming the path once.

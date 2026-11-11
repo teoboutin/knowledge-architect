@@ -337,7 +337,8 @@ fn outside_a_worktree_a_removed_namespace_file_is_listed() {
 }
 
 /// The claim: outside every worktree, an install that fails after a write is exit 1, since exit 2 promises
-/// an untouched tree, per `design@create@init-asks-no-confirmation`. Mutation checked: exit 0 from that arm.
+/// an untouched tree, per `design@create@init-asks-no-confirmation`, and what it wrote is still listed.
+/// Mutations checked: exit 0 from that arm; returning on the install's error before the listing.
 #[test]
 fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
     let scratch = Scratch::new("no-vcs-link");
@@ -351,6 +352,11 @@ fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
     let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", "p", "--vcs", "none"]);
     assert_eq!(code, 1, "{out}{err}");
     assert!(err.contains("symbolic link"), "{err}");
+    // What the install wrote before the refusal is listed all the same, since no git holds it.
+    assert!(
+        out.contains("fixed: wrote .claude/knowledge-architect/PRIMER.md (installed)"),
+        "{out}"
+    );
     assert_eq!(
         std::fs::read_to_string(scratch.path("target.md")).unwrap(),
         "elsewhere\n"
