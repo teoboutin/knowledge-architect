@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-59 entries
+58 entries
 
 | kind | title |
 | --- | --- |
@@ -43,7 +43,6 @@
 | question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
 | question | [The set of what a finding sends upstream names the installed text and the checker, and no published library](the-upstream-set-omits-the-published-libraries.md) |
-| question | [Whether a census of a project's own text under a planned instruction is real use, or a run the workflow refuses](whether-a-census-of-real-text-under-a-planned-instruction-is-real-use.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
 | todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
