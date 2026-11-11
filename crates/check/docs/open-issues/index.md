@@ -1,10 +1,9 @@
 **Generated — do not edit.** `cargo klarch index`
 
-31 entries
+30 entries
 
 | kind | title |
 | --- | --- |
-| defect | [A directory at a shipped path that git does not list stops `check --fix` with an OS error](a-directory-at-a-shipped-path-git-does-not-list-stops-check-fix.md) |
 | defect | [A finding on a slug written in a retired or a misplaced form names a repair blind to what the slug resolves to](a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |
