@@ -641,12 +641,22 @@ a re-run cannot change.
 
 A GitHub ruleset on main, with no bypass, the owner included, requires a pull request, the status
 check of CI on a branch up to date with main, and a linear history, and blocks force pushes and
-deletion. The linear history is on the owner's word. The rules are checked by GitHub, not by a
-session's discipline, with one gap: a job skipped while the pull request was a draft counts as
-passing, so right after it is marked ready the skipped run can be the only one on its head, which
-the merge predicate of `instructions@git-workflow` answers. The strict check makes the tree CI judged the tree main receives, which is
+deletion. The linear history is a condition of `goal@serves-one-kind-of-project`: a target
+project's main branch has a linear history, with no merge commit, and this repository is one. The
+rules are checked by GitHub, not by a session's discipline, with one gap: a job skipped while the
+pull request was a draft counts as passing, which
+`design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head` answers. The strict
+check makes the tree CI judged the tree main receives, which is
 what matters; a rebase-and-merge button alone, with no ruleset, leaves CI meaningless where the
 history was not already linear.
+
+### The merge waits for a successful run of CI on the head, not for the exit code of `gh pr checks` `##the-merge-waits-for-a-successful-run-on-the-head`
+
+A job that `if:` skips on a draft reports `skipped`, which GitHub counts as passing. So right after
+a pull request is marked ready, the only run on its head can be the one skipped while it was a
+draft, and `gh pr checks` then exits 0. The merge reads the draft flag itself and asks
+`gh run list` for a run on the head whose conclusion is success, as the merge predicate of
+`instructions@git-workflow` does.
 
 ### A pull request reaches main by GitHub's rebase merge, the only method enabled `##rebase-merge-alone`
 

@@ -182,7 +182,7 @@ design home of the checker, and here the checker's rules are decided in that hom
 
 ## Git `##git-workflow`
 
-Linear history, no merge commits, and no direct push to main, per
+Linear history, no merge commits, and no direct push to main, per `goal@serves-one-kind-of-project`,
 `design@knowledge-architect@main-is-guarded-by-a-ruleset` and
 `design@knowledge-architect@rebase-merge-alone`. This section is a restatement. Its home is
 `design@knowledge-architect@git-flow`, except where a point or one of its bullets names another; the
@@ -309,10 +309,9 @@ gh pr merge <branch> --rebase --delete-branch
 git checkout main && git pull --ff-only
 ```
 
-- The draft flag is read here because a job skipped on a draft reports `skipped`, which GitHub
-  counts as passing. For the same reason the predicate asks for a successful run on the head
-  rather than the exit code of `gh pr checks`: right after `gh pr ready`, the only run on the head
-  can be the one skipped while it was a draft, and `gh pr checks` then exits 0.
+- The draft flag is read here, and a successful run on the head asked for rather than the exit
+  code of `gh pr checks`, per `design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head`:
+  a job skipped on a draft counts as passing.
 - GitHub's rebase merge gives main the branch's commits with the same trees and messages, and new
   SHAs, **except a commit that changes no file, which it drops**:
   a record carried by a message alone rides on a commit that changes a file. So **neither a commit message nor a document cites the
