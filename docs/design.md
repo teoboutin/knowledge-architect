@@ -473,20 +473,14 @@ CHANGELOG.md has one section per version, and one working section above them, `N
 which the release renames to its version. The working section may be reworded, restructured or
 pruned at any time. A released section's content never changes; its structure may.
 
-**A skill's or an agent's name in a released section is structure.** Writing a bare name there as
-its reference, `skill@<name>` or `agent@<name>`, changes no statement of the section, in the owner's
-view; older sections allow structural changes, on the owner's word. So does writing it back as the
-bare name once the skill or the agent is deleted, since the reference then names nothing and the
-section's content cannot change. Why the bare name is no evasion is
-`design@agent-skills@plain-text-is-no-repair`, and the lint that reports a bare name
-`design@check@backticked-bare-id`.
-
-**So is a defined id written alone or as a word, or a reference written without its backticks.**
-Writing it as its reference is the same structural change, so the lints on ids,
-`design@check@backticked-bare-id`, `design@check@plain-word-lint` and
-`design@check@reference-shape-outside-span`, read a released section as any other, past or future.
-Each finding they give in a released section is ruled by the owner case by case, on the owner's
-word.
+**No check reads the changelog**, so no finding asks to change a released section: the root
+CHANGELOG.md is a row of `[walk] skip-files`, as the copies each crate ships are, per
+`design@knowledge-architect@the-changelog-ships-in-every-crate`. The changelog faces outward, as a
+crate's page does, per `design@knowledge-architect@crates-io-page-file`: a span in it is a name or
+a syntax example, never a pointer the checker judges, on the owner's argument. A check that read it
+would ask a released section to follow every later change of the grammar, which is a change of its
+content. The cost: a span of the `Next release` section that names a renamed or deleted entry is
+reported by no check; the release's review of its changelog reads each entry.
 
 ### The branch that makes a change writes its changelog entries `##the-branch-writes-its-changelog-entries`
 

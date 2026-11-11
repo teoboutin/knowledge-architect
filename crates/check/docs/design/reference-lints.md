@@ -107,10 +107,6 @@ hand-written file is among the fixes `design@check@fix-scope` admits, per
 `design@check@safe-fix-definition`. Respelling a span into its reference is the subject of
 `spec@plans@path-quickfixes`. The rule holds for the three lints on ids.
 
-**In a released section of CHANGELOG.md the id is written as its reference too**, a structural
-change, and a skill's or an agent's name as the bare name again once it is deleted, per
-`design@knowledge-architect@changelog-section-fixed-at-release`. That bare name names nothing in
-the table, so the lint leaves it silent.
 
 ### A plain word that is exactly a defined id is a finding `##plain-word-lint`
 
@@ -139,8 +135,8 @@ was a pointer written in words. A listing would leave those pointers unchecked: 
 that a term's mentions read as its pointers, is not the intended use of the workflow, in the
 owner's view, and `show` lists every citation of an entry.
 
-**A released section of CHANGELOG.md is linted** as any other prose; how a finding there is ruled
-is `design@knowledge-architect@changelog-section-fixed-at-release`.
+**CHANGELOG.md is read by none of the lints**: it is outside the walk, per
+`design@knowledge-architect@changelog-section-fixed-at-release`.
 
 **The lints cost little time.** Re-take it with `klarch check` over this repository, release
 build, median of five runs on one machine, against the same commit built with the lints' arms and
