@@ -95,7 +95,7 @@ to judge is never room to act against an instruction.
   and it still prevails over the code until the divergence closes. It closes when
   the code changes to meet the head, or when the head is reversed under
   `skill@knowledge-architect-decision-recording`; it never closes by following the code. Work on
-  that point that goes on meanwhile builds on the head.
+  that point that does not rest on the answer goes on meanwhile, and builds on the head.
 - **A reason recorded at the code** (an inline comment saying why the code is shaped so, or the
   message of the commit that argued it) is intent at the scale of that code. It binds as a
   presumption, below the design home: a change that defeats it argues against that reason in its
