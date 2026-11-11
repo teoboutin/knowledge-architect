@@ -2,26 +2,47 @@
 
 ## Paths and homes
 
-### The escape for a path this tree does not hold, under `path`, and `*` for every component's own copy, under `path` and `register`, are reserved anchor words `##reserved-anchors`
+### `elsewhere` and `*` are reserved anchor words, each naming something only under the kinds it serves: the escape under `path`, and every component's own copy under `path` and `register` `##reserved-anchors`
+
+The word elsewhere in anchor position is the escape for a path this tree does not hold, per
+`design@model@escape-anchor-elsewhere`, and serves `path` alone. The word `*` names every
+component's own copy, per `design@model@generic-anchor-names-every-component-copy`, and serves
+`path` and `register`.
+
+**Under any other kind the escape names nothing, and `*` names nothing but under `register`.** A
+`design@*@<id>` is reported as an unknown anchor, and the finding says which kinds each word
+serves. The `planned` kind refuses them
+with a finding of its own, per `design@model@planned-path-form`. The manifest's resolution
+refuses a declared anchor wearing either word, and it is no anchor: every pointer at it
+would read as the reserved meaning.
+
+The design this decision did not keep: `rejected@model@at-prefix-escape`.
+
+### A path this tree does not hold is written at the escape anchor, `path@elsewhere@<path>`, a registered pointer exempt from the existence, kind and shape assertions and refused where its target resolves here `##escape-anchor-elsewhere`
 
 **The escape anchor** — the word elsewhere in anchor position, `path@elsewhere@<path>` — marks a
 path deliberately not resolvable here: a surveyed engine's layout, a deleted file a tracker
 entry discusses, a hypothetical location. It is scanned and counted like any reference, so a
-typo'd escape is still a registered pointer; it is exempt from the existence, kind and shape
+typo'd escape is still a registered pointer, which `rejected@model@at-prefix-escape` lacks; it is
+exempt from the existence, kind and shape
 assertions, because a foreign layout may spell anything. One assertion runs against it: a
 target that DOES resolve here, read from every place the unanchored finding reads a path from, the
 root, an anchor's directory or the document's own, is a finding — without it, the escape is the
 cheap way to silence the unanchored finding on a real path. The finding names the form at the
-deepest anchor that holds the target, per `design@check@every-path-names-its-anchor`.
+deepest anchor that holds the target, per `design@check@deepest-anchor-wins`.
+
+### A file of another project is written at the escape anchor with that project's name as its first segment, `path@elsewhere@<project>/<path>` `##foreign-file-names-its-project`
 
 **A file of another project is written with that project's name as its first segment**, as
 `path@elsewhere@<project>/<path>`, and the refusal's repair names that form. A foreign file often
 shares its relative path with a file here, such as a dependency's src/lib.rs, and without the
-prefix the assertion above refuses it. A repair that names only the local anchor leaves the writer
+prefix the assertion of `design@model@escape-anchor-elsewhere` refuses it. A repair that names only the local anchor leaves the writer
 of a foreign pointer no checked form, and prose follows. The prefix is no cheap silence: it is false of
 every file in this tree, so writing it before a local path is a deliberate misstatement, which costs
 what removing the backticks costs, and that move is refused as a repair by
 `design@agent-skills@plain-text-is-no-repair`.
+
+### The generic anchor `*` names every component's own copy, of a path under `path` and of a register's home under `register` `##generic-anchor-names-every-component-copy`
 
 **The generic anchor `*`**, `path@*@<path>`, marks each component's own copy of a path, as in
 `path@*@README.md`. It is accepted when the path is a required document name
@@ -35,15 +56,7 @@ of a component-scoped register, in whichever shape each holds, per
 dangling one. The anchors the tool constructs hold no copy the generic form names: what they hold
 is cited by its kind.
 
-**Under any other kind the escape names nothing, and `*` names nothing but under `register`.** A
-`design@*@<id>` is reported as an unknown anchor, and the finding says which kinds each word
-serves. The `planned` kind refuses them
-with a finding of its own, per `design@model@planned-path-form`. The manifest's resolution
-refuses a declared anchor wearing either word, and it is no anchor: every pointer at it
-would read as the reserved meaning.
-
-The designs this decision did not keep: `rejected@model@at-prefix-escape` and
-`rejected@model@component-placeholder-anchor`.
+The design this decision did not keep: `rejected@model@component-placeholder-anchor`.
 
 ### A register's home is cited by its own kind, `register@<anchor>@<register>`, which names the home in whichever shape it has `##register-home-reference`
 
@@ -55,7 +68,7 @@ hash sign before it stays silent under `design@check@retired-slug-reference-repo
 
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per
-  `design@model@reserved-anchors`. The home of a register the root alone carries names no anchor,
+  `design@model@generic-anchor-names-every-component-copy`. The home of a register the root alone carries names no anchor,
   `register@<register>`, as `register@goal`, per `design@model@root-register-reference-has-no-anchor`. An entry or a spec anchor is no anchor of the form: an entry's
   homes are its own directory, which the entry's reference already names, as
   `milestone@plans@<id>` names a milestone's, and one document has one name, per

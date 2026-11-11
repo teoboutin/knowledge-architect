@@ -2,7 +2,7 @@
 
 ## Paths, homes and links
 
-### Every path reference names its kind and its anchor, `` `path@<anchor>@<path>` ``, and the deepest anchor wins `##every-path-names-its-anchor`
+### Every path reference names its kind and its anchor, `` `path@<anchor>@<path>` `` `##every-path-names-its-anchor`
 
 A checked path reference is one backticked span in the one grammar of
 `design@model@an-entity-belongs-to-its-anchor`, with `path` as its kind and the path under the named
@@ -10,8 +10,37 @@ anchor's directory as its id. The root is a component like any other, named by `
 The kind prefix costs five characters at every path reference and buys one grammar: the scanner
 has one tokenizer, the old two-segment form `<anchor>@<path>` is reported as an anchor in kind
 position by `design@model@at-span-candidate-rule`, and the unanchored lint is left with
-one job. There is no unanchored form for a path of this tree: a backticked span of path characters
-with two or more segments and no `@` is a finding naming the grammar when its first segment names a
+one job, per `design@check@unanchored-path-first-segment-here`. There is no unanchored form for a
+path of this tree.
+
+**The path is plain**: `..`, a `.` segment and a leading `/` are refused. An upward path is
+anchored at the wrong place by definition, and it is the shape that breaks when the referencing
+file moves. The id is everything after the second `@`, so a path may itself hold an `@`. Which
+anchor a path names is `design@check@deepest-anchor-wins`.
+
+**A plan document is cited by its kind, never by its path**, per
+`design@model@plan-document-kinds`. A
+`path` citation of a spec, of a milestone directory or of a file inside one is refused from every
+anchor, and the finding names the form that resolves: `spec@plans@<id>`, `milestone@plans@<id>`
+or `spec@<milestone>@<slice>`. It is judged by where the target sits, before the deepest-anchor
+rule and whether or not it exists, so a citation of a deleted plan gets the same repair. This
+overrides the ancestor's spelling of an anchor's own directory for a milestone. A plan anchor, a
+milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a citation written as a path
+is one `show spec@…` would not list. The README of the plans directory, and the README and index
+of each of its two homes, are not plan documents, and are cited `path@plans@<file>`.
+
+**A fenced path reference is live**, as every reference is, per
+`design@model@a-reference-is-live-in-every-prose`: a sketch names its paths on purpose, and an
+illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder.
+
+The designs this decision did not keep: `rejected@check@bare-root-relative-path`,
+`rejected@check@path-without-kind-prefix`, `rejected@check@at-prefix-root-relative-path` and
+`rejected@check@retired-form-rs-suffix`.
+
+### A backticked path-shaped span with no `@` is a finding only when its first segment names something this tree's listing holds `##unanchored-path-first-segment-here`
+
+A backticked span of path characters with two or more segments and no `@` is a finding naming the
+grammar of `design@check@every-path-names-its-anchor` when its first segment names a
 file or a directory this tree's listing holds. One segment is a name rather
 than a path, though the exact name of a skill or an agent is reported, per
 `design@check@backticked-bare-id`, and a span holding a space, an angle bracket, or a colon anywhere but in a line
@@ -38,7 +67,7 @@ segment stood was reported then. **What it buys** is the silence of another tool
 is nearly every path-shaped span of a project new to the tool. Re-take it with `cargo klarch check`
 over a foreign project carrying the required structure, counting the findings under each rule; a
 census in which the silence hides a real pointer of this tree reopens it. The census that decided
-it is in the commit that rewrote this head, found with
+it is in the commit found with
 `git log --grep='only where it names something of this project'`. Reporting every path-shaped span
 is `rejected@check@every-path-shaped-span-reported`. This serves `goal@every-target-project-can-adopt-it`
 and `goal@adoption-is-easy`.
@@ -64,9 +93,9 @@ Each widening would be measured the way the two-segment clause was: a census of 
 reports in a tree that is conformant. The census that kept these four outside is in the commit
 that recorded them, found with `git log -G'outside the lint on purpose'`.
 
-**The path is plain**: `..`, a `.` segment and a leading `/` are refused. An upward path is
-anchored at the wrong place by definition, and it is the shape that breaks when the referencing
-file moves. The id is everything after the second `@`, so a path may itself hold an `@`.
+The design this decision did not keep: `rejected@check@ignored-first-segment-reported`.
+
+### A path reference names the deepest anchor that holds its target, inside meaning a proper descendant `##deepest-anchor-wins`
 
 **The deepest anchor wins, and inside means a proper descendant.** A reference whose target
 sits inside another anchor is refused with the right anchor named. What this buys is the
@@ -76,25 +105,6 @@ fixed-string grep per anchor is an
 anchor's complete inbound-reference list. An anchor's own directory is the one target with no
 spelling under its own name, so it is named from an ancestor — a reference that names a
 location, which a move is expected to break.
-
-**A plan document is cited by its kind, never by its path**, per
-`design@model@plan-document-kinds`. A
-`path` citation of a spec, of a milestone directory or of a file inside one is refused from every
-anchor, and the finding names the form that resolves: `spec@plans@<id>`, `milestone@plans@<id>`
-or `spec@<milestone>@<slice>`. It is judged by where the target sits, before the deepest-anchor
-rule and whether or not it exists, so a citation of a deleted plan gets the same repair. This
-overrides the ancestor's spelling of an anchor's own directory for a milestone. A plan anchor, a
-milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a citation written as a path
-is one `show spec@…` would not list. The README of the plans directory, and the README and index
-of each of its two homes, are not plan documents, and are cited `path@plans@<file>`.
-
-**A fenced path reference is live**, as every reference is, per
-`design@model@a-reference-is-live-in-every-prose`: a sketch names its paths on purpose, and an
-illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder.
-
-The designs this decision did not keep: `rejected@check@bare-root-relative-path`,
-`rejected@check@path-without-kind-prefix`, `rejected@check@at-prefix-root-relative-path`,
-`rejected@check@retired-form-rs-suffix` and `rejected@check@ignored-first-segment-reported`.
 
 ### A relative markdown link is a navigation row, and README.md and index.md files are the navigation homes `##links-are-navigation-rows`
 

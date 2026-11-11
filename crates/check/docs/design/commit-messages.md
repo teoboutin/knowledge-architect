@@ -66,7 +66,7 @@ building each commit's own checker, costs one release build per commit on every 
 stand where either tree holds what they name.** A commit that closes an issue deletes the entry
 and names it in the message, and against its own tree alone every such message would dangle. A
 reference finding therefore survives where both trees refuse the reference. The unanchored path
-and the retired slug reference, per `design@check@every-path-names-its-anchor` and
+and the retired slug reference, per `design@check@unanchored-path-first-segment-here` and
 `design@check@retired-slug-reference-reported`, fire where their span names something of the
 project, so a finding of either stands where either tree holds what it names: a message naming,
 by a bare path, the file its commit deletes still points at it. The parent's model is the previous commit's wherever

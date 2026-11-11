@@ -122,7 +122,7 @@ design split by subject: one subject per directory, several files each, every en
 `<kind>@<subject>@<id>`, which `goal@every-target-project-can-adopt-it` asks the manifest
 to express without anything of the project compiled in. Adding a subject is creating a directory,
 not a manifest edit, and moving the home is one manifest edit, the property
-`design@check@every-path-names-its-anchor` buys for every anchor. A location declared per subject costs a manifest row
+`design@check@deepest-anchor-wins` buys for every anchor. A location declared per subject costs a manifest row
 per subject. The rival that makes each subdirectory of a location an anchor, with no Directory
 register, is `rejected@model@subdirectory-anchors-location`.
 

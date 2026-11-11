@@ -6,7 +6,7 @@ kind: design
 ## Summary
 
 Two heads hold the mechanism by which a relocation of part of a project's documents edits one line of the manifest:
-`design@check@every-path-names-its-anchor` and `design@model@register-home-reference`. No head argues the premise
+`design@check@deepest-anchor-wins` and `design@model@register-home-reference`. No head argues the premise
 they serve, that a relocation must cost no manual work beyond mechanical edits. No head defines a relocation, exempts
 an adoption from it, or says when a project relocates.
 
@@ -18,7 +18,7 @@ The statements nobody has argued, each with what it bound:
 
 - "A project relocates part of its documents when it moves a Component, or another directory that holds its entries,
   moves the place where a kind of entry lives, or turns that place from one file into a directory." It defined a
-  relocation. `design@check@every-path-names-its-anchor` speaks of relocating an anchor, and
+  relocation. `design@check@deepest-anchor-wins` speaks of relocating an anchor, and
   `design@model@register-home-reference` of a home that outgrows one file; no head holds a move of the place where a
   kind of entry lives.
 - "A project relocates only on a change of purpose of the part it moves, which the goals carry and which justifies
@@ -37,7 +37,7 @@ The statements nobody has argued, each with what it bound:
   to repair by judgement.
 
 The instances seen, each a text that states what a relocation costs with no argument for why it must cost that:
-`design@check@every-path-names-its-anchor`, `design@check@goals-home-cites-upward-only`,
+`design@check@deepest-anchor-wins`, `design@check@goals-home-cites-upward-only`,
 `design@model@anchors-are-components-and-locations`, `design@model@register-home-reference`,
 `design@model@path-to-a-home-is-reported`, `design@model@harness-kinds-cited-without-anchor` and
 `design@model@declarable-directory-register`.
@@ -55,7 +55,7 @@ weighs a count of edits, which no goal ranks.
 
 A session that weighs a change against the mechanism, such as a spelling that a move breaks, has no argued bound to
 weigh it with: `issue@model@a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves` is such a case.
-It strains `design@check@every-path-names-its-anchor` and `design@model@register-home-reference`, whose rivals lose
+It strains `design@check@deepest-anchor-wins` and `design@model@register-home-reference`, whose rivals lose
 on a cost that nothing ranks.
 
 ### What would close it

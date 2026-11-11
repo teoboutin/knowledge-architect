@@ -1176,7 +1176,7 @@ impl Candidate {
 /// No two anchors give one path two meanings, and every anchor is one a reference can name.
 ///
 /// An anchor is a directory, and its register homes sit under it. The deepest anchor owns
-/// every document under its path, per `design@check@every-path-names-its-anchor`, so an
+/// every document under its path, per `design@check@deepest-anchor-wins`, so an
 /// anchor inside another's directory is the ordinary case — thaum's two locations
 /// both sit inside the root component. What that rule cannot absorb is refused here, per
 /// `design@model@anchor-collisions-refused`, and **the refused anchor is not an

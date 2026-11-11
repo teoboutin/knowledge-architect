@@ -165,7 +165,12 @@ audit found it makes false, so that a later audit of this slice's work seeds fro
   `design@model@an-entity-belongs-to-its-anchor`, `design@model@one-entity-table`,
   `design@model@an-unresolved-reference-is-reported`, `design@model@path-to-a-home-is-reported`,
   `design@model@at-span-candidate-rule`, `design@agent-skills@a-reference-claims-a-revisit`, and
-  `rejected@model@register-reference-without-anchor`, which comes back on a new argument.
+  `rejected@model@register-reference-without-anchor`, which comes back on a new argument;
+- split out of `design@check@every-path-names-its-anchor` and `design@model@reserved-anchors`, per
+  `issue@check@core-heads-bundle-decisions-with-many-citing-sites`:
+  `design@check@unanchored-path-first-segment-here`, `design@check@deepest-anchor-wins`,
+  `design@model@escape-anchor-elsewhere`, `design@model@foreign-file-names-its-project` and
+  `design@model@generic-anchor-names-every-component-copy`.
 
 ## Audit subjects
 

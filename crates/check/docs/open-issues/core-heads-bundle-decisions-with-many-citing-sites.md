@@ -1,12 +1,12 @@
 ---
 kind: design
 ---
-# `check` heads bundle decisions that lose to different rivals, and each has many citing sites
+# Heads of `check` and `create` bundle decisions that lose to different rivals, and each has many citing sites
 
 ## Summary
 
-Five heads, four of `register@check@design` and one of `register@model@design`, each hold two or more decisions whose nearest rivals
-differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record axis on this repository found them, and a branch's review two more, and one more has since been split with every citing site re-pointed; each listed one was left unsplit because
+Three heads, two of `register@check@design` and one of `register@create@design`, each hold two or more decisions whose nearest rivals
+differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record axis on this repository and a branch's review found them among others, which have since been split with every citing site re-pointed; each listed one was left unsplit because
 a split must first read every site that cites the head, 7 to 33 sites per head, to re-point each
 one to the part it cites.
 
@@ -20,17 +20,6 @@ less the lines of this entry, taken again on the working tree of the branch of t
 agentic-workflow audit of this repository, at its review. The counts grow as text cites the heads:
 the first run of the design-record axis counted 20, 23, 26 and 31 for the four heads it found.
 
-- `design@check@every-path-names-its-anchor`, 25 citing sites, 8 of them in
-  `spec@plans@path-quickfixes`. Its title is joined by "and" over two decisions, and its body holds
-  a third:
-  - the path grammar, `path@<anchor>@<path>`, against the rejected designs "A bare
-    root-relative path form, with a targeted check on the collision cases", `rejected@check@bare-root-relative-path`, and "Paths without the kind prefix", `rejected@check@path-without-kind-prefix`;
-  - the unanchored path lint and its scope, the paragraphs from "A span whose first segment names
-    nothing here is another tool's notation, and is silent" through "Four shapes are outside the
-    lint on purpose", against reporting every path-shaped span, with a census of its own;
-  - the paragraph "The deepest anchor wins, and inside means a proper descendant", against naming
-    a target from any ancestor anchor. Its argument, that relocating an anchor edits one manifest
-    line, is not the grammar's.
 - `design@check@a-commit-message-is-a-document`, 28 citing sites, 8 of them in
   `path@check@src/commands/history.rs`. Its title states the first of five decisions:
   - a message is judged against its own commit's tree, against the working tree;
@@ -56,13 +45,9 @@ The second pass of that run reworded a sentence of `design@check@a-commit-messag
 into the present tense and left its bundle, so that head is a change's touched head left short of
 `design@agent-skills@existing-heads-on-touch`. A head the run found bundled has since been split, with every site that cited it re-pointed.
 
-Two more, found by the decision-record reviewer of the review before the merge of the branch
-`pre-release-fixes`, which touched both and left both bundled; counts taken on that branch:
+One more, found by the decision-record reviewer of the review before the merge of the branch
+`pre-release-fixes`, which touched it and left it bundled; count taken on that branch:
 
-- `design@model@reserved-anchors`, 10 citing sites. Its title is joined by "and" over the escape
-  anchor and the generic anchor `*`, whose arguments share no premise, and its body holds a third
-  statement with a rival of its own: a file of another project written with that project's name
-  as its first segment, against a repair that names the local anchor alone.
 - `design@create@init-runs-git-init`, 7 citing sites. Its title states where `init` creates a
   repository; its body also holds the restriction of `--vcs` to `git` and `none`, against cargo's
   five values, and the rule that git is asked about PATH before the first write, each with a rival
@@ -71,7 +56,7 @@ Two more, found by the decision-record reviewer of the review before the merge o
 **Suspected mechanism**: each head grew by appending a bold paragraph for a decision argued later
 in the same subject, and a citing site then cited the head for whichever paragraph it needed.
 
-**The re-entry point**: the next change that touches one of the five heads, in a branch other than
+**The re-entry point**: the next change that touches one of the three heads, in a branch other than
 the one that opened this entry, which `design@agent-skills@existing-heads-on-touch` brings to the
 rules on heads; or the next run of the design-record axis of
 `skill@knowledge-architect-project-audit`.

@@ -28,7 +28,7 @@ paragraph; re-take it with `git grep -n --untracked '＠' -- '*.md'`, and a span
 reference reopens the silence.
 
 **A span with no `@` is read by three lints, and by nothing else**: a path-shaped span, per
-`design@check@every-path-names-its-anchor`, the retired slug reference, per
+`design@check@unanchored-path-first-segment-here`, the retired slug reference, per
 `design@check@retired-slug-reference-reported`, and a defined id written alone, per
 `design@check@backticked-bare-id`.
 
@@ -66,7 +66,7 @@ section belongs to a skill or to an agent.
   directory or a file of the harness's layout, unique by name, and a project has one primer and
   one root CLAUDE.md. An anchor would carry no information, the argument
   `design@model@plans-is-a-reserved-anchor` makes for `plans`. A reference to a harness kind loses nothing of what
-  `design@check@every-path-names-its-anchor` buys, a relocation that edits one line of the manifest
+  `design@check@deepest-anchor-wins` buys, a relocation that edits one line of the manifest
   and no document: nothing a harness kind names moves with a manifest edit.
 - **The rejected design "A register reference with no anchor"**,
   `rejected@model@register-reference-without-anchor`, lost on two reasons. Its first, that the tool cannot

@@ -47,7 +47,7 @@ documentation, where a component's is source code.
 
 **A location exists so that a directory outside every component can be cited.** Naming the
 directory gives every entry in it a reference and makes relocating it one manifest edit, the property
-`design@check@every-path-names-its-anchor` buys everywhere else. What a location is instead of
+`design@check@deepest-anchor-wins` buys everywhere else. What a location is instead of
 is `rejected@model@additional-trackers-file-list`.
 
 **A location declares no register the tool gives an anchor**: a plan register is the plan

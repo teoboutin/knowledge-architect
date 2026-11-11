@@ -92,7 +92,7 @@ refuses every reference that is not a goal or a register's home of the root, per
 `design@check@goals-home-cites-upward-only`.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
-`design@check@every-path-names-its-anchor`. An illustration of a form writes its id as a placeholder
+`design@check@deepest-anchor-wins`. An illustration of a form writes its id as a placeholder
 in angle brackets, as `path@*@<path>`, per `design@model@a-reference-is-live-in-every-prose`: a span
 with an empty id is malformed.
 `registers` judges the shape of what each anchor carries: a file

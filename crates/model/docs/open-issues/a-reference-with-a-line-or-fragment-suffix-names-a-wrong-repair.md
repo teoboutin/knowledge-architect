@@ -86,7 +86,7 @@ the finding is what a consumer reads first.
 A finding on an anchored reference whose id, or whose path after the anchor, holds a `:` followed
 by digits or a `#`, names the repair the unanchored form names: drop the suffix, and name the
 function or the heading in prose. The exact suffix shapes follow the boundary that
-`design@check@every-path-names-its-anchor` sets for the unanchored form, settled under
+`design@check@unanchored-path-first-segment-here` sets for the unanchored form, settled under
 `skill@klarch-development`. A test per resolution path (a register kind, a harness kind with each
 of its three repairs, `path`) over a mock project where the entry or the file exists and only the
 suffix fails.
