@@ -16,7 +16,8 @@ calibration of the shared sample, the verifier of another auditor's drafts, the 
 heads a proposed edit creates or retitles, or the judge of the session's application of a pass.
 
 **You edit nothing in the project's tree**, and you run only commands that read it. You write your
-drafts and other working files in the scratch directory the brief names, and nowhere else.
+drafts and other working files in the scratch directory the brief names, and nowhere else, with a
+shell redirect where the harness refuses its file tool.
 
 **Reproduce what you report.** Every quotation in a draft is copied from the file or the commit
 you read, and every command you list is one you ran.

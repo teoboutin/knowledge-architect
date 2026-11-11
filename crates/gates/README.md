@@ -32,6 +32,7 @@ line naming it.
 | `--full` | stream each gate's raw output live as well |
 | `--locked` | pass `--locked` to every gate that resolves dependencies |
 | `--require-rebased` | run the rebase checks: HEAD must contain the main branch |
+| `--ci` | set `KNOWLEDGE_ARCHITECT_CI=1` in every gate's environment, `CI_VAR`, so a test that needs a tool a machine may lack fails without it instead of skipping |
 
 ## License
 

@@ -111,16 +111,18 @@ owner could have made, with its ground; under `## Met outside the task`, each it
 the task; leave either empty where there is none, and keep both. A subject whose size strained your
 reading is an item met outside the task, with its cluster's name, as a sign that it needs splitting.
 
-%% The check of one report: `design@query@worklist-writes-and-verifies-the-reports`.
+%% The check of one report: `design@query@worklist-check-judges-one-report`.
 **Before you return, run `{{command}} worklist --check <your agent directory>`**, which judges your
 report alone by the rules the session's check applies to every report, and writes nothing. Repair
 each finding it prints, and run it again until it prints `PASSED`: a report that fails the
 session's check comes back to you, and a check of your own, such as a script, can pass a line the
 command fails.
 
-Where the harness refuses your edit of `report.md`, return the whole report, filled, as text, so
-the session that sent you writes it.
+Where the harness refuses both your edit of `report.md` and its write through the shell, return the
+whole report, filled, as text, so the session that sent you writes it, and say that `--check` could
+not judge it, since it judges the file.
 
 ## Return {{slug:what-to-return}}
 
-Return the path of your report, the last line `--check` printed on it, and every command you ran.
+Return the path of your report, the last line `--check` printed on it, or that it could not run,
+and every command you ran.

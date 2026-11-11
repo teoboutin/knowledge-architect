@@ -147,12 +147,12 @@ The rival that keeps every agent from writing files lost: the searcher's own tas
 report, and searchers told to write nothing wrote files all the same, so the instruction could not
 be obeyed together with the task.
 
-### Every installed agent holds the file tools, and its body, never its tool list, keeps it from editing the project tree `##agents-write-in-scratch`
+### Every installed agent holds `Write`, and its body, never its tool list, keeps it from editing the project tree `##agents-write-in-scratch`
 
 Every installed agent's tools include `Write`, and the record searcher's `Edit` as well. Each
 agent's body states that it edits nothing in the project tree and writes only in the scratch
 directory its brief names, beside its rule that it runs only commands that read the project, where
-it has one. The reason a reviewer or an auditor edits nothing is that one that mutates the tree
+it has one; the adversarial reviewer's mutations go in its own worktree alone. The reason a reviewer or an auditor edits nothing is that one that mutates the tree
 corrupts what the other axes read, and a tool list cannot hold it: every installed agent holds
 `Bash`, which writes anywhere. The nearest rival, a tool list without `Write`, prevents no write the
 shell allows, and leaves an agent without the tool its own text asks it to use, as the design-record
@@ -160,17 +160,33 @@ auditor's instruction to write files in its scratch directory stood beside a too
 `Write`. The owner argued that a restriction that prevents no action only surprises the agent it
 applies to.
 
-### A reviewer writes its report whole to the path its brief names, through the shell, and returns it whole as text `##reviewer-writes-its-report`
+### A reviewer writes its report whole to the path its brief names, and the dispatcher builds the record of the review from the files `##reviewer-writes-its-report`
 
 A reviewer the installed review skill dispatches, an installed agent or a general-purpose one,
 writes its report to the path its brief names in its scratch directory, distinct for each reviewer
-dispatched together, with a shell redirect, and returns the same report whole as text; the goal
-reviewer does so wherever its brief names a path, as the review skill's briefs do. The dispatcher builds the record of the review from the files and restates no
-report; where a write was refused, the text returned is the only copy, and the dispatcher writes it
-into the file before acting on it. A dispatcher that saved each report as it arrived, from the
-message alone, saved condensed copies, or none, against the instruction to save it whole, in five of the
-twelve sessions the deleted issue on it recorded, which
-`git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists.
+dispatched together; the goal reviewer does so wherever its brief names a path, as the review
+skill's briefs do. The dispatcher builds the record of the review from the files and restates no
+report; where a write was refused, the text the reviewer returned is the only copy, and the
+dispatcher writes it into the file before acting on it.
+
+A dispatcher that saved each report as it arrived, from the message alone, saved condensed copies,
+or none, against the instruction to save it whole, in seven of the twelve sessions the deleted issue
+on it recorded, which `git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/`
+lists. Two other rivals that issue named lost. A script of the dispatcher over the harness's files,
+the task output files, a saved workflow's journal or the subagents' transcripts, failed twice in
+the five sessions that used it, two reports coming out empty and one file giving the wrong text,
+and a saved workflow's completion notice cut the joined reports short. A verb of the checker's
+`transcript` command that writes a subagent's last message to a file, as
+`design@agent-skills@transcript-extraction-is-the-checker-s` would place it, reads that message
+back from a transcript format the harness owns, a step per report after the reviewer has gone;
+the reviewer already holds its report and a tool that writes it.
+
+### A subagent writes a report file with a shell redirect, since the harness refuses its file tool on a report file by its name `##report-written-through-the-shell`
+
+A reviewer, a record searcher filling its `report.md`, an auditor, and the report step of an audit's
+saved workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
+searcher, by `Edit` of the skeleton, never by `Write`, and fall back to returning the report as text
+where the harness refuses the write.
 
 The argument turns on the harness's behaviour. Claude Code refuses a subagent's `Write` of a new
 `report.md`, of a new `findings.md` and over an existing `report.md`, with "Subagents should return
@@ -178,15 +194,22 @@ findings as text, not write report files. Include this content in your final res
 and lets the same subagent `Write` a `review.md`, a `scratch.md` or a `report.txt`, `Edit` an
 existing `report.md`, and write a `report.md` with a shell redirect. One general-purpose agent sent
 to make each of these calls in a scratch directory takes the measurement again; it was taken in the
-auto permission mode, and the default mode is not established. Three rivals lost. A file name the
+auto permission mode, and the default mode is not established. Two rivals lost. A file name the
 harness does not refuse depends on a pattern no documentation states, which a release of the
 harness can change with no signal. A skeleton the dispatcher creates and the reviewer fills by
 `Edit` costs a dispatcher step per reviewer; it and the shell both write past the refusal's intent,
-and the owner chose the shell, which no goal ranks. A reviewer that returns only the path keeps its
-findings out of the transcript, which the transcript reviewer reads, per
-`design@agent-skills@transcript-review-last-before-merge`. No head argues the reliance on a
-mechanism of the harness against its own refusal, per
+and the owner chose the shell, which no goal ranks. No head argues the reliance on a mechanism of
+the harness against its own refusal, per
 `issue@agent-skills@no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness`.
+
+### A reviewer that writes its report file also returns the report whole as text `##reviewer-returns-its-report-whole`
+
+The report file is the copy the dispatcher builds the record from, and the text returned is the copy
+the session's transcript holds. The transcript reviewer finds the other axes' findings as messages
+of that transcript, per `design@agent-skills@transcript-review-last-before-merge`, and its
+extraction drops a tool result, such as the dispatcher's reading of a file, unless asked for it. The
+nearest rival, a reviewer that returns only the path, keeps its findings out of the transcript the
+last review reads.
 
 ### A review or an audit judges a text by the criteria that bind its writer at the time of the review, and by no other `##reviews-judge-by-the-writer-s-criteria`
 

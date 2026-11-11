@@ -363,7 +363,8 @@ for, and a wording narrowed without the owner's word states what the owner did n
 
 ### A fresh goal reviewer reads every version of a goal draft before the owner rules, in a draft, a whole-set and a merge mode `##goal-reviewer-agent`
 
-`agent@knowledge-architect-goal-reviewer` is read-only and hosts the goal standard. In draft mode,
+`agent@knowledge-architect-goal-reviewer` edits nothing in the project's tree and hosts the goal
+standard. In draft mode,
 goal-setting dispatches it before every ruling of the owner, on the whole batch of new and reworded
 goals, every relevant statement of the owner verbatim whether or not the drafter drew on it, and
 the root's goals home, `register@goal`, a goal written outside it being a finding, and again on each
@@ -610,7 +611,7 @@ subagent that does gets a worktree detached at a commit, never the live tree, pe
 drafts. A commit also keeps the tree clean between rounds, so no git operation of the review runs
 beside uncommitted drafts, and it lets the record's commit cite a drafted goal by a reference that
 resolves there. The nearest rival, the drafts left uncommitted and read in the live tree by a
-draft-mode reviewer, which writes nothing, keeps the tree dirty for the whole review, and leaves the
+draft-mode reviewer, which edits nothing in the tree, keeps the tree dirty for the whole review, and leaves the
 record no form of a drafted goal that both its commit and the tree accept. The drafts written in the
 record rather than in the goals home lose the checker's rules on a goals home over them, per
 `design@check@goals-home-cites-only-goals-and-root-homes`. A committed draft the owner has not ruled on is not yet

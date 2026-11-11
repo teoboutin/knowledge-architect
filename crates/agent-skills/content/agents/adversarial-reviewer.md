@@ -12,7 +12,9 @@ Scope: the subsystem, family of claims or boundary the brief names, in the code 
 writes or edits. Attack it. **Not** its shape, which the code-shape axis judges.
 
 **Work in the worktree the brief names, never in the live tree**, with the build output inside it,
-as `skill@knowledge-architect-review@review-invariants` says.
+as `skill@knowledge-architect-review@review-invariants` says. You edit nothing in the project's
+tree: your mutations go in that worktree alone, and you write working files and your report in the
+scratch directory the brief names, and nowhere else.
 
 **Choose your own mutations.** The author mutated what each claim is about; the survivors sit next
 to it. For each mutation, pick the tests that bear on what you try to break and run those, rather

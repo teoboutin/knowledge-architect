@@ -36,10 +36,11 @@ list the workflow.
 
 A constraint on the first closing shape below, reported by the agent-facing-text reviewer of the
 review before the merge of the branch `pre-release-fixes`, read in the text and not run: a `%%`
-line in a saved workflow's source is no JavaScript, so the source no longer passes the parse check
-`path@agent-skills@CLAUDE.md` asks for, `node --check` on the body wrapped in an async function.
-That shape then needs the check run on the installed copy, which the build has stripped, or the
-`%%` lines kept where the parser reads a comment, such as inside a `/* */` block.
+line in a saved workflow's source is no JavaScript, so the source does not pass the parse check of
+`path@agent-skills@src/workflow_parse.rs`, `node --check` on the body wrapped in an async function,
+which runs on the installed copy, which the build has stripped. That shape then keeps the check on
+the installed copy, or keeps the `%%` lines where the parser reads a comment, such as inside a
+`/* */` block.
 
 ### Why it matters
 

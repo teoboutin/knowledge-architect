@@ -27,6 +27,21 @@ binary flattens them into its own command and every project's gates take the sam
 are gate logic, of which a project writes none, per `design@gates@a-project-holds-its-gate-list`.
 clap's major version is therefore part of the library's interface, as it is of `cli`'s.
 
+### `--ci` sets one variable in every gate's environment, which every test that needs a tool a machine may lack reads `##ci-flag-for-ci-only-requirements`
+
+Under `--ci`, every gate's child runs with `KNOWLEDGE_ARCHITECT_CI=1`, the library's `CI_VAR`, beside
+the environment it inherits. A project's test that needs a tool a machine may lack, such as a
+JavaScript runtime, reads it: unset, the test skips where the tool is missing, so a machine without
+the tool can run the gates; set, it fails there, so CI, which passes the flag, never passes with the
+check unrun. It is one flag for every such requirement, so CI's command states the difference
+between CI and a local run, as `design@xtask@gates-list-primary-home` asks of this repository, and a
+second requirement adds no flag. Three shapes were weighed: a test reading the `CI` variable every
+CI system sets, which needs no flag and leaves CI's verdict out of the command a reader copies; one
+flag per requirement, which keeps the command whole and adds a flag at each requirement; and one
+flag setting one variable. The owner chose the last over both, which no goal ranks. The flag is the
+library's, per `design@gates@the-library-owns-the-flags`: a requirement a project's tests read is
+met by the same flag in every project.
+
 ### The distillers are a closed set the library holds `##distillers-are-a-closed-set`
 
 The distillers are a closed set, `Distiller`: a project chooses one for each gate and cannot add

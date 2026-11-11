@@ -154,7 +154,7 @@ file of the run's scratch directory with a shell redirect and return its path. W
 refuses that write, the step returns the report whole in its `text` field, with its path empty, and
 the run's result carries it as `reportText`, with `report` null. The harness refuses a subagent's
 file tool on a report file by its name and lets a shell redirect write it, as
-`design@agent-skills@reviewer-writes-its-report` measured, and whether a dispatched agent may write
+`design@agent-skills@report-written-through-the-shell` measured, and whether a dispatched agent may write
 at all is the harness configuration's, which no installed text sets, so a pass delivers its report
 under a configuration that refuses the write.
 

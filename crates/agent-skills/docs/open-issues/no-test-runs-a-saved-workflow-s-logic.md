@@ -60,9 +60,9 @@ received retrospective files.
   result, and it says it is no project of Anthropic. Its cost: the stubs are a second statement of
   the harness's API, which a change of the harness leaves stale until a real run shows it.
 - **Pure functions the script's body calls**, which a test calls with fixed returns, the shape the
-  analysis that opened this entry named, change each script and need no stub of the harness.
-- Either runs on `node`, which the parse test already requires under `CI` and skips without
-  locally.
+  code-shape finding above named, change each script and need no stub of the harness.
+- Either runs on `node`, which the parse test already requires where `cargo x gates --ci` runs
+  and skips without elsewhere, per `design@gates@ci-flag-for-ci-only-requirements`.
 
 ### Why it matters
 

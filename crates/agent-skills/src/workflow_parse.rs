@@ -8,9 +8,23 @@
 //! Its domain of validity: a syntax error, which node reports for that wrapped text. It runs no
 //! part of the script and judges none of its logic, and it checks nothing the harness checks of
 //! `meta` beyond its parse.
+//!
+//! Why `node` and not a JavaScript parser compiled into the test: a parser crate would run on every
+//! machine, but it adds a large dev-dependency to every build of the suite, and it parses only,
+//! where testing what the audit workflows compute needs an engine that runs the script. The cost
+//! taken instead: a machine without `node` skips the check, and `cargo x gates --ci`, which CI
+//! runs, fails it there, per `design@gates@ci-flag-for-ci-only-requirements`.
 
 use std::io::Write;
 use std::process::{Command, Stdio};
+
+/// The variable the gates library's `--ci` sets in every gate's environment, spelled here as the
+/// library spells it, per `design@gates@ci-flag-for-ci-only-requirements`: this crate depends on
+/// no other.
+const CI_VAR: &str = "KNOWLEDGE_ARCHITECT_CI";
+
+/// The program the check runs.
+const NODE: &str = "node";
 
 /// The text `node --check` reads for one installed workflow.
 fn wrapped(text: &str) -> String {
@@ -21,10 +35,10 @@ fn wrapped(text: &str) -> String {
     format!("async function body() {{\n{}\n}}\n", body.join("\n"))
 }
 
-/// What `node --check` says of `text` once wrapped: `Ok` when it parses, `Err` with node's
-/// message when it does not, and `None` when no `node` can be started.
-fn node_check(text: &str) -> Option<Result<(), String>> {
-    let mut child = Command::new("node")
+/// What `<program> --check` says of `text` once wrapped: `Ok` when it parses, `Err` with its
+/// message when it does not, and `None` when `program` cannot be started.
+fn node_check(program: &str, text: &str) -> Option<Result<(), String>> {
+    let mut child = Command::new(program)
         .args(["--check", "-"])
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
@@ -45,21 +59,26 @@ fn node_check(text: &str) -> Option<Result<(), String>> {
     })
 }
 
-/// The variable `cargo x gates --ci` sets, which CI passes, per
-/// `design@xtask@gates-list-primary-home`: the one switch of every requirement CI holds and a local
-/// run does not.
-const CI_VAR: &str = "KNOWLEDGE_ARCHITECT_CI";
+/// Whether this run requires `node`: the variable `--ci` sets. Read in this one place, the side
+/// effect of the decision `checked` takes as an argument.
+fn required() -> bool {
+    std::env::var_os(CI_VAR).is_some()
+}
 
-/// Where no `node` can be started: a skip a local run reports, and a failure where the run requires
-/// `node`, so a CI runner without it fails the gate instead of passing it with nothing parsed.
-fn without_node(required: bool) -> Result<&'static str, &'static str> {
-    if required {
-        Err(
+/// The outcome of a check that needed `node`: `Ok(Some(_))` when it ran, `Ok(None)` when no
+/// `node` could be started and the run does not require it, and `Err` when the run requires it,
+/// so a CI runner without `node` fails the gate instead of passing it with nothing parsed.
+fn checked<T>(outcome: Option<T>, required: bool) -> Result<Option<T>, &'static str> {
+    match outcome {
+        Some(result) => Ok(Some(result)),
+        None if required => Err(
             "no `node` can be started, and `KNOWLEDGE_ARCHITECT_CI` is set, as `cargo x gates --ci` \
              sets it: the saved workflows must be parsed",
-        )
-    } else {
-        Ok("skipped: no `node` can be started, so no saved workflow was parsed")
+        ),
+        None => {
+            eprintln!("skipped: no `node` can be started, so no saved workflow was parsed");
+            Ok(None)
+        }
     }
 }
 
@@ -73,49 +92,61 @@ fn workflows() -> Vec<(&'static str, &'static str)> {
 }
 
 /// The claim: every saved workflow the installer writes parses, as the harness runs it. Without
-/// `node`, a local run is skipped with a notice, and a run under `cargo x gates --ci`
-/// fails, by `without_node`.
-/// Mutation checked: in `wrapped`, `.map(|l| l.strip_prefix("export ").unwrap_or(l))` made
-/// `.map(|l| l)`, which leaves `export` inside the function; caught.
+/// `node`, a run is skipped with a notice, and a run under `cargo x gates --ci` fails, by
+/// `checked`.
 #[test]
 fn every_installed_saved_workflow_parses() {
     let all = workflows();
     assert!(!all.is_empty(), "no saved workflow is installed");
     for (path, text) in all {
-        match node_check(text) {
-            None => match without_node(std::env::var_os(CI_VAR).is_some()) {
-                Ok(notice) => {
-                    eprintln!("{notice}");
-                    return;
-                }
-                Err(failure) => panic!("{failure}"),
-            },
-            Some(Ok(())) => {}
-            Some(Err(message)) => panic!("{path} does not parse:\n{message}"),
+        match checked(node_check(NODE, text), required()) {
+            Err(failure) => panic!("{failure}"),
+            Ok(None) => return,
+            Ok(Some(Ok(()))) => {}
+            Ok(Some(Err(message))) => panic!("{path} does not parse:\n{message}"),
         }
     }
 }
 
-/// The claim: the check discriminates. An installed workflow with one stray `)` planted on a
+/// The claim: the check discriminates. Each installed workflow with one stray `)` planted on a
 /// line fails it, and the same text with a top-level `return`, legal in the harness, passes.
 /// Mutation checked: in `node_check`, `Some(if out.status.success() {` made `Some(if true {`;
 /// caught.
 #[test]
 fn the_parse_check_fails_on_a_planted_syntax_error() {
-    let (_, text) = workflows().into_iter().next().expect("a saved workflow");
-    let Some(passing) = node_check(&format!("{text}\nreturn 1\n")) else {
-        eprintln!("{}", without_node(false).expect("a local notice"));
-        return;
-    };
-    assert_eq!(passing, Ok(()));
-    let planted = text.replacen('\n', "\n)\n", 1);
-    assert!(node_check(&planted).expect("node ran").is_err());
+    for (path, text) in workflows() {
+        let passing = match checked(node_check(NODE, &format!("{text}\nreturn 1\n")), required()) {
+            Err(failure) => panic!("{failure}"),
+            Ok(None) => return,
+            Ok(Some(result)) => result,
+        };
+        assert_eq!(passing, Ok(()), "{path}");
+        let planted = text.replacen('\n', "\n)\n", 1);
+        assert!(
+            node_check(NODE, &planted).expect("node ran").is_err(),
+            "{path}"
+        );
+    }
 }
 
-/// The claim: without `node`, a run that requires it fails and any other is skipped. Mutation
-/// checked: in `without_node`, `if required {` made `if false {`; caught.
+/// The claim: where the program cannot be started, a run that requires it fails and any other is
+/// skipped, and a program that ran gives its result through. Mutation checked: in `checked`,
+/// `None if required =>` made `None if false =>`; caught.
 #[test]
 fn a_missing_node_fails_where_required_and_skips_otherwise() {
-    assert!(without_node(true).is_err());
-    assert!(without_node(false).is_ok());
+    let absent = "knowledge-architect-no-such-program";
+    assert!(checked(node_check(absent, "x"), true).is_err());
+    assert_eq!(checked(node_check(absent, "x"), false), Ok(None));
+    assert_eq!(checked(Some(1), true), Ok(Some(1)));
+}
+
+/// The claim: the wrapping removes `export` at the start of a line only, and puts the text inside
+/// an async function. Mutation checked: `.map(|l| l.strip_prefix("export ").unwrap_or(l))` made
+/// `.map(|l| l)`; caught.
+#[test]
+fn the_wrapping_drops_export_and_encloses_the_body() {
+    assert_eq!(
+        wrapped("export const meta = 1\nconst exported = 'export x'"),
+        "async function body() {\nconst meta = 1\nconst exported = 'export x'\n}\n"
+    );
 }
