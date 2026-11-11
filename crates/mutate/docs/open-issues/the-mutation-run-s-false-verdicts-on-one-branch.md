@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-A cluster of the issue record: two entries on states `path@mutate@src/run.rs` and its record read
+A cluster of the issue record: two entries on states the hand mutation's run and its record read
 wrongly, which one branch closes together. Each member's own entry holds its observation, its reason
 and its closing work; this entry holds only that they go together.
 
@@ -18,7 +18,9 @@ The members:
 - `issue@mutate@a-reused-pid-reads-as-a-live-run`
 - `issue@mutate@an-environment-failure-reads-as-caught`
 
-They go on one branch because both are fixes of one run's verdict path, tested through
+They go on one branch because both misjudge a state the hand mutation reads, a run's verdict in
+`path@mutate@src/run.rs` and the liveness of a run's owner in `path@mutate@src/harness.rs`, tested
+through
 `path@mutate@tests/modes.rs`. Found by a triage of the whole issue record on 2026-11-11, which read
 every entry against the tree and sized it: each member was judged to have a clear path to closing,
 and to be more work than a fix of a few dozen lines.

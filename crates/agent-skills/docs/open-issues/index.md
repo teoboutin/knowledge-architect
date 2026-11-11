@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-63 entries
+64 entries
 
 | kind | title |
 | --- | --- |
@@ -31,6 +31,7 @@
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
+| design | [The labels head and the primer give two answers for a label that reaches a branch's commit messages](the-labels-head-and-the-primer-differ-on-a-label-in-a-branch-s-messages.md) |
 | design | [The installed review names neither of two questions of meaning that a passing check leaves open](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |

@@ -19,8 +19,9 @@ The members:
 - `issue@check@a-staged-installed-finding-can-name-a-repair-that-does-nothing`
 - `issue@check@the-self-pin-is-accepted-over-a-tracked-copy-of-the-checker`
 
-They go on one branch because each sits in `path@check@src/agents.rs` or the pin refusal beside it
-in `path@check@src/commands/mod.rs`, with binary tests in `path@testing@tests/binary.rs`. Found by a
+They go on one branch because each sits in the install and the installed-file check,
+`path@check@src/agents.rs` and `path@check@src/check/agents.rs`, or the pin refusal in
+`path@check@src/commands/mod.rs`, with binary tests in `path@testing@tests/binary.rs`. Found by a
 triage of the whole issue record on 2026-11-11, which read every entry against the tree and sized
 it: each member was judged to have a clear path to closing, and to be more work than a fix of a few
 dozen lines.

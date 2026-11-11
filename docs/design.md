@@ -475,12 +475,14 @@ pruned at any time. A released section's content never changes; its structure ma
 
 **A released section is already published, unchangeable.** Every published crate ships a copy of
 the root changelog, per `design@knowledge-architect@the-changelog-ships-in-every-crate`, and a
-version once on crates.io cannot be replaced, so the section a consumer reads at the version it
+version once on crates.io cannot be replaced: the Cargo Book's page on publishing says a publish is
+permanent and its version can never be overwritten, so the section a consumer reads at the version it
 pins is fixed there. A correction of a released section's content in the root would make the
 changelog say two things of one version, and a consumer that planned its move from the copy it
 fetched would never see the correction. The nearest rival, a released section corrected after its
-release, loses on that fact. A change of structure, a heading or the form of a reference, changes
-nothing a consumer plans from, so it is allowed.
+release, loses on that fact. A change of structure, such as a heading, changes nothing a consumer
+plans from, so it is allowed; whether respelling a released section's span as a reference is one is
+`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`'s question.
 
 No check reads the changelog, per `design@knowledge-architect@the-changelog-is-outside-the-walk`,
 so no finding asks to change a released section.
@@ -618,12 +620,9 @@ a re-run cannot change.
 ### All work goes through a branch, a review and a pull request merged up to date with main `##git-flow`
 
 - All work happens on a branch. Once it holds a first commit, it is pushed and a draft pull
-  request is opened. CI does not run on a draft: the job runs `--require-rebased`, so it fails a
-  draft each time main moves until the branch's last rebase, and the gates it runs are the ones a
-  session runs before each push. What is given up is a failure only CI's machine shows, found after
-  the review rather than during it. The session chose that cost over a run per draft push, which no
-  goal ranks; the owner approved it. A scratch worktree made only for temporary testing
-  holds no work in this sense, per `design@knowledge-architect@scratch-worktree-outside-git-rules`.
+  request is opened, which CI does not check, per `design@knowledge-architect@ci-skips-a-draft`. A
+  scratch worktree made only for temporary testing holds no work in this sense, per
+  `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
   folded where appending leaves an earlier commit failing the per-commit rule below. Where every
@@ -645,19 +644,31 @@ a re-run cannot change.
   the head whose conclusion is success.
   A fast-forward pushed from a checkout is a direct push, which the ruleset refuses, and GitHub
   offers no fast-forward merge method. main's history is never rewritten.
-- The strict check makes the tree CI judged the tree main receives, which is what matters. The
-  owner, on the ruleset: "This is much cleaner than a "rebase and merge" button, which makes CI
-  meaningless if history was not already linear."
+- The strict check makes the tree CI judged the tree main receives, which is what matters. On the
+  owner's word, the ruleset is preferred to a rebase-and-merge button alone, which leaves CI
+  meaningless where the history was not already linear.
+
+### CI does not check a draft pull request `##ci-skips-a-draft`
+
+The CI job runs only on a pull request marked ready. A session runs every gate of
+`design@xtask@gates-list-primary-home` before the merge, `cargo x gates --require-rebased`, so the
+gates themselves are not given up; what is given up is a failure only CI's machine shows, found
+after the review rather than during it. The nearest rival, CI on every push of a draft, run
+without `--require-rebased` since that gate fails a draft each time main moves until the branch's
+last rebase, finds such a failure during the review, at the cost of a run per draft push and a change of
+the CI file, of the gate-list head and of the procedures of `instructions@git-workflow` that read
+the draft flag. The session chose to keep drafts unchecked over that rival, which no goal ranks;
+the owner approved it.
 
 ### No operation can lose content in a checkout that holds work, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
 
 No operation can lose content, committed or not. Content is lost in two forms: an operation that
 removes uncommitted content from the working tree, which no commit holds, and a history edit that
 drops a commit no other reference holds. With a clean tree, editing the branch's own history is an
-ordinary move, bounded by verifying that nothing was lost. The one exception is
-`git rebase --continue` on a rebase whose conflicts the tree now resolves: it resumes a history
-edit begun with a clean tree, and the uncommitted content it meets is the resolution, which the
-replayed commit records.
+ordinary move, bounded by verifying that nothing was lost. The one exception is finishing a rebase
+whose conflicts the tree now resolves, by `git rebase --continue` or by a commit of the staged
+resolution before it: it resumes a history edit begun with a clean tree, and the uncommitted
+content it meets is the resolution, which the replayed commit records.
 
 The rule binds a checkout that holds work, and a scratch worktree is outside it, per
 `design@knowledge-architect@scratch-worktree-outside-git-rules`.

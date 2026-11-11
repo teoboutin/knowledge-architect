@@ -380,8 +380,6 @@ consequential findings showed the gap; that the documentation exists is the lint
 
 No installed agent reviews security as an axis of its own. The adversarial reviewer already tries to
 reach a panic, a wrong result or a lost input from an accepted input, and code marked `unsafe` is a
-lint gate's to refuse, not a reviewer's to judge. The setup asks every crate of a target project to
-forbid `unsafe_code`, and a crate that needs `unsafe` to deny it, allow it at each site with a
-`// SAFETY:` comment and warn on `clippy::undocumented_unsafe_blocks`, so the clippy gate refuses
-an `unsafe` block nobody argued. The owner ruled that the lint ships, since it adds to what the
-setup asks.
+lint gate's to refuse, not a reviewer's to judge. The setup asks every crate of a target project
+for a lint on `unsafe` code, in `skill@knowledge-architect-setup@rust-project`, so the clippy gate
+refuses an `unsafe` block nobody argued. The session proposed the lint and the owner approved it.

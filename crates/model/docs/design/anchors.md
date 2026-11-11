@@ -121,8 +121,8 @@ written with it would be misread. Every kind's name, the harness kinds' whatever
 every declared register's included, is refused for a Component, a location, the project, a
 plan and an entry of a directory register, per `design@model@a-placed-name-reads-as-nothing-else`
 for the last two. The decision stands on that shadowing, which reaches every kind. On the owner's
-word, the refusal covers every kind's name and every name that can be an anchor, a Component's and
-a location's among them, decided at once rather than kind by kind.
+word, every kind's name is refused for every name that can be an anchor, a Component's and a
+location's among them, and the decision was taken early.
 
 ### No two anchors the manifest resolves share a name `##anchor-names-unique`
 
