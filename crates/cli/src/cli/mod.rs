@@ -136,7 +136,7 @@ pub struct WorklistArgs {
     /// `agents.txt`, `work.txt` and `shown.md` of the directory that holds it. It writes and
     /// removes no file and judges no other report, so an agent runs it on its own report before
     /// it returns, while the other agents still fill theirs. Exit 0 when the report passes, 1 with
-    /// its findings when it fails.
+    /// its findings when it fails, 2 when it cannot read the work list or the report.
     #[arg(
         long,
         value_name = "AGENT_DIR",
@@ -553,6 +553,14 @@ mod tests {
         assert!(run(command, &a_project(), &[], &mut extensions).is_err());
     }
 
+    /// `run` refuses `command` with a message holding `expected`, so a refusal is told from a
+    /// failure of the command it would have run, which is an `Err` too.
+    fn refused_by_run_saying(command: Command, expected: &str) {
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(NoHookRuns)];
+        let refusal = run(command, &a_project(), &[], &mut extensions).expect_err("a refusal");
+        assert!(refusal.contains(expected), "{refusal}");
+    }
+
     fn a_dir() -> Option<std::path::PathBuf> {
         Some(std::path::PathBuf::from("d"))
     }
@@ -670,7 +678,9 @@ mod tests {
         ));
     }
 
-    /// The claim: the mode holds `--check` alone as the check of one agent's report.
+    /// The claim: the mode holds `--check` alone as the check of one agent's report. Mutation
+    /// checked: `Ok(WorklistMode::Check {` in `worklist_mode` made to build
+    /// `Ok(WorklistMode::Verify { dir: agent_dir.clone() })`; caught.
     #[test]
     fn check_alone_is_the_check_of_one_report() {
         let check = WorklistArgs {
@@ -684,35 +694,65 @@ mod tests {
     }
 
     /// The claim: `run` refuses `--check` beside `--verify` or `--out`, which clap refuses while
-    /// parsing.
+    /// parsing. Mutation checked: the arm `(None, None, Some(agent_dir))` made
+    /// `(_, _, Some(agent_dir))`, which takes `--check` beside either; caught.
     #[test]
     fn run_refuses_a_worklist_value_with_check_beside_another_mode() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            check: a_dir(),
-            verify: a_dir(),
-            ..worklist_args()
-        }));
-        refused_by_run(Command::Worklist(WorklistArgs {
-            check: a_dir(),
-            out: a_dir(),
-            ..worklist_args()
-        }));
+        for other in [
+            WorklistArgs {
+                check: a_dir(),
+                verify: a_dir(),
+                ..worklist_args()
+            },
+            WorklistArgs {
+                check: a_dir(),
+                out: a_dir(),
+                ..worklist_args()
+            },
+        ] {
+            refused_by_run_saying(Command::Worklist(other), "give exactly one of");
+        }
     }
 
-    /// The claim: `run` refuses a value of `--out` beside `--check`, a seed and a bound among them.
-    /// Mutation checked: the test of `seeds` removed from the guard of `worklist_mode`'s `--check`
-    /// arm.
+    /// The claim: `run` refuses every value of `--out` beside `--check`. Mutation checked: each
+    /// test of the guard of `worklist_mode`'s `--check` arm removed in turn, `seeds`, `bound`,
+    /// `work`, `subjects`, `since` and `seeds_from`; each caught.
     #[test]
-    fn run_refuses_a_worklist_value_with_a_seed_or_a_bound_beside_check() {
-        refused_by_run(Command::Worklist(WorklistArgs {
-            check: a_dir(),
-            seeds: vec!["a".to_string()],
-            ..worklist_args()
-        }));
-        refused_by_run(Command::Worklist(WorklistArgs {
-            check: a_dir(),
-            bound: 1,
-            ..worklist_args()
-        }));
+    fn run_refuses_a_worklist_value_of_out_beside_check() {
+        let cases = [
+            WorklistArgs {
+                seeds: vec!["a".to_string()],
+                ..worklist_args()
+            },
+            WorklistArgs {
+                bound: 1,
+                ..worklist_args()
+            },
+            WorklistArgs {
+                work: vec![std::path::PathBuf::from("w.md")],
+                ..worklist_args()
+            },
+            WorklistArgs {
+                subjects: vec!["a-subject".to_string()],
+                ..worklist_args()
+            },
+            WorklistArgs {
+                since: Some("HEAD".to_string()),
+                ..worklist_args()
+            },
+            WorklistArgs {
+                seeds_from: Some(std::path::PathBuf::from("s.md")),
+                ..worklist_args()
+            },
+        ];
+        for case in cases {
+            refused_by_run_saying(
+                Command::Worklist(WorklistArgs {
+                    check: a_dir(),
+                    ..case
+                }),
+                "`--check` takes none of",
+            );
+        }
     }
 }

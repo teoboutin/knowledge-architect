@@ -7,9 +7,9 @@
 `agent@knowledge-architect-record-searcher` takes the path of `work.txt` and one agent directory that
 `klarch worklist --out` wrote, per `design@query@worklist-writes-and-verifies-the-reports`. It reads
 every file of the work whole, then its entries whole, leaning to recall, with their context entries
-and its goal title lines, edits its report in place, or returns it as text where the harness
-refuses the edit, and runs `klarch worklist --check` on its own report, repairing each finding,
-before it returns. The same agent grades the clusters of a cluster agent and the goals of a goal agent,
+and its goal title lines, edits its report in place and runs `klarch worklist --check` on it,
+repairing each finding, before it returns, or returns it as text where the harness refuses every
+write of it. The same agent grades the clusters of a cluster agent and the goals of a goal agent,
 per `design@query@goal-context-once`. Its description carries the dispatch, since a dispatcher reads
 an agent's description and never its body: the work list written with the work, the subjects and the
 seeds, one agent per directory in parallel, the check of every report by `--verify`, a report that

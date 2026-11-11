@@ -10,6 +10,7 @@ mod mutate;
 mod skill;
 
 use clap::{Parser, Subcommand};
+use knowledge_architect_gates::GatesArgs;
 use std::process::ExitCode;
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per
@@ -27,7 +28,7 @@ struct Cli {
 #[derive(Subcommand)]
 enum Command {
     /// Run the CI gates, keep full logs, print what needs acting.
-    Gates(gates::Args),
+    Gates(GatesArgs),
     /// Write the root CHANGELOG.md into every published crate.
     Changelog,
     /// Print the source of a shipped skill, agent, saved workflow or the primer, its fragments
@@ -72,32 +73,17 @@ mod tests {
         let Command::Gates(defaults) = Cli::parse_from(["xtask", "gates"]).command else {
             panic!("`gates` parses as the gates command");
         };
-        assert!(!defaults.gates.fail_fast);
-        assert!(!defaults.gates.full);
+        assert!(!defaults.fail_fast);
+        assert!(!defaults.full);
 
         let Command::Gates(both) =
             Cli::parse_from(["xtask", "gates", "--fail-fast", "--full"]).command
         else {
             panic!("`gates` parses as the gates command");
         };
-        assert!(both.gates.fail_fast);
-        assert!(both.gates.full);
+        assert!(both.fail_fast);
+        assert!(both.full);
 
         assert!(Cli::try_parse_from(["xtask", "gates", "--no-such-flag"]).is_err());
-    }
-
-    // The claim: `--ci`, this repository's own flag, parses beside the library's and
-    // defaults to off.
-    #[test]
-    fn gates_ci_parses_and_defaults_off() {
-        let Command::Gates(defaults) = Cli::parse_from(["xtask", "gates"]).command else {
-            panic!("`gates` parses as the gates command");
-        };
-        assert!(!defaults.ci);
-        let Command::Gates(set) = Cli::parse_from(["xtask", "gates", "--locked", "--ci"]).command
-        else {
-            panic!("`gates` parses as the gates command");
-        };
-        assert!(set.ci && set.gates.locked);
     }
 }

@@ -48,6 +48,6 @@ kept on a ground that still holds, or reversed; each `rejected` entry kept on a 
 
 ### Re-entry
 
-The next design discussion that changes what an audit's saved workflow does, or one that changes
-how the shipped fragments are delivered, or a design-record audit pass, whichever comes first. A
-test of the saved workflows that changes none of them is no such discussion.
+The next design discussion that changes one of the heads or `rejected` entries this entry lists, or
+a design-record audit pass, whichever comes first: each is an occasion whose work reads those
+entries' ground.

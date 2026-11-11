@@ -28,7 +28,18 @@ pub struct GatesArgs {
     /// Run the gates marked as rebase checks: fail unless HEAD contains the main branch.
     #[arg(long)]
     pub require_rebased: bool,
+
+    /// Hold the requirements CI holds on the tools a gate needs: set [`CI_VAR`] in every gate's
+    /// environment, so a test that needs a tool a machine may lack fails without it instead of
+    /// skipping, per `design@gates@ci-flag-for-ci-only-requirements`.
+    #[arg(long)]
+    pub ci: bool,
 }
+
+/// The variable `--ci` sets to `1` in every gate's environment. A project's test that needs a tool
+/// a machine may lack, such as a JavaScript runtime, reads it: set, the test fails without the tool;
+/// unset, it skips.
+pub const CI_VAR: &str = "KNOWLEDGE_ARCHITECT_CI";
 
 /// What a failed gate shows on stdout, chosen from its full output. The log always holds every
 /// byte, per `design@gates@distill-over-full-logs`.
@@ -259,11 +270,14 @@ pub fn run(root: &Path, gates: &[Gate], args: &GatesArgs) -> ExitCode {
                 announce(&gate.name);
             }
             let gate_args = gate_args(gate, args.locked);
-            let envs: Vec<(&str, &str)> = gate
+            let mut envs: Vec<(&str, &str)> = gate
                 .envs
                 .iter()
                 .map(|(k, v)| (k.as_str(), v.as_str()))
                 .collect();
+            if args.ci {
+                envs.push((CI_VAR, "1"));
+            }
             run_captured(
                 &Spec {
                     program: &gate.program,

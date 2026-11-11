@@ -63,13 +63,19 @@ an empty subsection is omitted.
   changes. A program that names the type `[&str; 10]` changes it.
 - `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
   installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
+- `library`, major: the enum `WorklistMode` of `knowledge-architect-query` gains the variant
+  `Check`, the mode of `worklist --check`, so a `match` over it that names every variant adds that
+  arm.
+- `library`, major: the struct `GatesArgs` of `knowledge-architect-gates` gains the field `ci`, the
+  flag `--ci`, so a value built with every field named adds it, or takes `..Default::default()`.
 - `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
   scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
   `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
   program that holds the result past the `Anchors` it passed keeps them alive as long.
-- `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since` and
-  `seeds_from`, and `cli::run` refuses a value that sets any of them beside `verify`. A program that
-  builds the struct by a literal adds them, empty or `None` for the run it made before.
+- `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since`,
+  `seeds_from` and `check`, and `cli::run` refuses a value that sets any of the first four beside
+  `verify` or `check`, or `check` beside `out` or `verify`. A program that builds the struct by a
+  literal adds them, empty or `None` for the run it made before.
 - `agent-skills`, patch: a goal is a purpose of the project as a whole, a scope that bounds whom or
   what the purposes serve and names the design it excludes, or a ranking between two purposes that
   holds across decisions. Any other statement is design, a Component's purpose included: it is the
@@ -159,6 +165,9 @@ an empty subsection is omitted.
 - `cli`, minor: `worklist --check <dir>/agent-<n>` judges one agent's report by the rules of
   `--verify`, with the same findings, and writes and removes no file, so a record searcher checks
   its own report while the other agents still fill theirs.
+- `library`, minor: the gates' flag `--ci` sets `KNOWLEDGE_ARCHITECT_CI=1`, `CI_VAR`, in every gate's
+  environment, so a project's test that needs a tool a machine may lack skips without it locally and
+  fails without it on CI, which passes the flag.
 - `library`, minor: the package `knowledge-architect-check` holds the checks and the logic of the commands that run them
   or install the workflow as typed functions, with no clap in them, in its module `commands`. A project keeps naming
   `knowledge-architect`, whose every public path stays, and which still holds the binary `klarch`.

@@ -103,7 +103,9 @@ message where the work begins as one the owner typed.
   disk. Point at the file; do not paraphrase what it says. Where the file changed on disk after
   the session started, tell the subagent to read it from disk and to follow the disk where its
   copy differs.
-%% The report file: `design@agent-skills@reviewer-writes-its-report`.
+%% The report file: `design@agent-skills@reviewer-writes-its-report`, its shell write
+%% `design@agent-skills@report-written-through-the-shell`, and its return as text
+%% `design@agent-skills@reviewer-returns-its-report-whole`.
 - **Every brief names a path for the reviewer's report, in its scratch directory, and asks the
   reviewer to write the report whole there with a shell redirect, `cat > <path> <<'EOF'`, and to
   return the same report whole as text.** The harness can refuse a report file a subagent writes

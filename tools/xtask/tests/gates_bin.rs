@@ -220,8 +220,8 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
 
 // The claim: `--ci` sets `KNOWLEDGE_ARCHITECT_CI` in every gate's environment, the test gate's
 // among them, which the parse test of the saved workflows reads, and without the flag no gate has
-// it. Mutation check: in `run` of `path@xtask@src/gates.rs`, `if args.ci {` made `if false {`
-// fails the first assertion.
+// it. Mutation check: in `run` of `path@gates@src/gates.rs`, `if args.ci {` made `if false {`
+// fails the assertion on `ci=[1]` in the loop over the gates.
 #[test]
 fn ci_reaches_every_gate() {
     let project = fake_project("ci");
@@ -236,7 +236,9 @@ fn ci_reaches_every_gate() {
     }
     let (status, stdout, _) = gates_output_with(&project, "", &[], &[]);
     assert!(status.success(), "{stdout}");
-    assert!(log("test").contains("ci=[]"), "{}", log("test"));
+    for gate in ["fmt", "check", "commits", "clippy", "test"] {
+        assert!(log(gate).contains("ci=[]"), "{}", log(gate));
+    }
     let _ = std::fs::remove_dir_all(&project);
 }
 

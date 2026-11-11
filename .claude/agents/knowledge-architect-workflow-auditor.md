@@ -11,7 +11,8 @@ session can confirm by reading. A finding you miss stays in the workflow; a find
 costs the session a read, since nothing you propose is applied before the session confirms it.
 
 **You edit nothing in the project's tree**, and you run only commands that read it. You write your
-drafts and other working files in the scratch directory the brief names, and nowhere else.
+drafts and other working files in the scratch directory the brief names, and nowhere else, with a
+shell redirect where the harness refuses its file tool.
 
 **Reproduce what you report.** Every quotation in a draft is copied from the file you read, with
 its path and line, and every command you list is one you ran.
