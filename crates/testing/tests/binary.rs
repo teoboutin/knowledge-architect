@@ -2364,6 +2364,71 @@ fn a_message_citing_an_ignored_target_no_document_cites_passes() {
     assert_eq!(code, 0, "{stdout}{stderr}");
 }
 
+/// The claim: each tree judges a message's span with the message's own ignore answers, asked
+/// against its own anchors: in a commit that renames the project, a span to an ignored path at
+/// the old root's name, which only the parent's anchors hold, and one at the new name, which only
+/// the commit's own hold, both pass. Mutations checked: the commit's tree, or the parent's, judged
+/// with its own answers alone, and the parent's anchors left out of the message's batch, each
+/// reports a span.
+#[test]
+fn a_message_s_ignored_spans_are_judged_in_each_tree_with_its_own_anchors() {
+    let history = History::new("commit-message-ignored-rename");
+    tiny_project(&history, false);
+    history.write(".gitignore", "build/\n");
+    let base = history.commit("The project is created\n");
+    for rel in ["knowledge-architect.toml", "docs/tripwires.md"] {
+        let text = std::fs::read_to_string(history.dir.join(rel)).expect("a file of the project");
+        history.write(
+            rel,
+            &text
+                .replace("name = \"tiny\"", "name = \"small\"")
+                .replace("design@tiny@", "design@small@"),
+        );
+    }
+    // The old name alone is the case where only the parent's anchors give the question: both
+    // names are the root's, so a span at the new name asks git the same path.
+    for message in [
+        "The project is renamed\n\nIts old build output was `path@tiny@build/out.txt`.\n\
+         Its new one is `path@small@build/out.txt`.\n",
+        "The project is renamed\n\nIts old build output was `path@tiny@build/out.txt`.\n",
+    ] {
+        history.commit(message);
+        let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+        assert_eq!(code, 0, "{message}: {stdout}{stderr}");
+        history.git(&["reset", "-q", "--hard", &base]);
+        for rel in ["knowledge-architect.toml", "docs/tripwires.md"] {
+            let text =
+                std::fs::read_to_string(history.dir.join(rel)).expect("a file of the project");
+            history.write(
+                rel,
+                &text
+                    .replace("name = \"tiny\"", "name = \"small\"")
+                    .replace("design@tiny@", "design@small@"),
+            );
+        }
+    }
+}
+
+/// The claim: a message's span that git refuses to be asked about, one beyond a symbolic link,
+/// fails its commit alone, naming git's reason, and the run judges the range rather than stopping.
+/// Mutation checked: the refusal propagated with `?` again exits 2 with no commit judged.
+#[cfg(unix)]
+#[test]
+fn a_message_span_git_refuses_to_ask_about_fails_its_commit_alone() {
+    let history = History::new("commit-message-beyond-link");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    history.commit("A subject line\n\nIt is not `path@tiny@link/design.md`.\n");
+    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(stdout.contains("1 commit, 0 passed, 1 failed"), "{stdout}");
+    assert!(
+        stdout.contains("the ignore rules could not be asked about its message"),
+        "{stdout}"
+    );
+}
+
 /// The claim: a span repeated on one line of a message is one finding per occurrence, whichever
 /// tree holds what it names: the commit's own, both, or the parent's alone, as the commit that
 /// deletes the file has it. Mutation checked: the union of the two trees' lints made a set again

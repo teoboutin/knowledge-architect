@@ -136,8 +136,9 @@ pub fn install_into(
     Ok(())
 }
 
-/// What `check --fix` repairs in the installed set: exactly what the installed-file check
-/// reports and the install would repair, and nothing else.
+/// What `check --fix` repairs in the installed set: what the installed-file check reports and the
+/// install would repair, and nothing else. A directory in a shipped file's place is reported and
+/// never replaced, and an ignored copy that already holds the shipped text is never rewritten.
 #[derive(Debug, Default, PartialEq, Eq)]
 pub(crate) struct Repairs {
     /// Shipped files missing from git's listing, or listed and differing from the shipped text
@@ -411,7 +412,9 @@ mod tests {
     /// stray; `if !current` made `if true` rewrites the current ignored copy; the `Directory` arm
     /// made a write writes over the directory; the `Missing` state left unwritten keeps the deleted
     /// copy missing; a `Binary` arm that writes nothing keeps the binary copy; `!directory &&`
-    /// dropped from the unlisted arm writes over the untracked directory.
+    /// dropped from the unlisted arm writes over the untracked directory; and, the symlink to a
+    /// directory at a shipped path left to the write, `symlink_metadata` made `metadata` takes it
+    /// for a directory and leaves it out.
     #[test]
     fn the_repairs_restore_a_deleted_or_binary_copy_and_leave_a_current_one_and_a_directory() {
         let root = std::env::temp_dir().join(format!("ka-repairs-states-{}", std::process::id()));
@@ -423,6 +426,11 @@ mod tests {
         std::fs::write(root.join(ignored_stale), "stale\n").unwrap();
         let untracked_directory = ".claude/agents/knowledge-architect-untracked-directory.md";
         std::fs::create_dir_all(root.join(untracked_directory)).unwrap();
+        // A link is no directory here: it goes to the write, which `apply` refuses.
+        let linked_directory = ".claude/agents/knowledge-architect-linked-directory.md";
+        std::fs::create_dir_all(root.join("elsewhere")).unwrap();
+        #[cfg(unix)]
+        std::os::unix::fs::symlink(root.join("elsewhere"), root.join(linked_directory)).unwrap();
         let shipped: Vec<(PathBuf, String)> = [
             (".claude/agents/knowledge-architect-binary.md", "text\n"),
             (".claude/agents/knowledge-architect-deleted.md", "deleted\n"),
@@ -430,6 +438,7 @@ mod tests {
             (ignored_current, "current\n"),
             (ignored_stale, "fresh\n"),
             (untracked_directory, "dir\n"),
+            (linked_directory, "link\n"),
         ]
         .iter()
         .map(|(p, t)| (PathBuf::from(p), t.to_string()))
@@ -468,6 +477,7 @@ mod tests {
                     PathBuf::from(".claude/agents/knowledge-architect-binary.md"),
                     PathBuf::from(".claude/agents/knowledge-architect-deleted.md"),
                     PathBuf::from(ignored_stale),
+                    PathBuf::from(linked_directory),
                 ],
                 delete: vec![PathBuf::from(".claude/agents/knowledge-architect-blob.bin")],
             }

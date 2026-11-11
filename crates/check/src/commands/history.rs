@@ -231,7 +231,7 @@ fn message_ignored(
     queries.sort();
     queries.dedup();
     crate::git::ignored(root, &queries)
-        .map_err(|e| format!("the ignore rules could not be asked about a message: {e}"))
+        .map_err(|e| format!("the ignore rules could not be asked about its message: {e}"))
 }
 
 /// What a reference finding is about: the line, and the span it opens with.
@@ -1079,7 +1079,18 @@ pub fn commits(
         // a second pass over it would take bytes of a commit out of the regime.
         let message = crate::git::commit_message(root, sha).map_err(|e| e.to_string())?;
         let entities = Entities::build(&tree.model, &tree.anchors());
-        let ignored = message_ignored(root, &message, &tree, parent.map(|(a, _)| a))?;
+        // A batch git refuses, as a span beyond a symbolic link makes it, fails this commit
+        // alone, with git's reason, and its message is judged with no ignore answer: one span
+        // must not stop the judgement of every commit of the range, as
+        // `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads` records of a
+        // tree's own batch.
+        let ignored = match message_ignored(root, &message, &tree, parent.map(|(a, _)| a)) {
+            Ok(ignored) => ignored,
+            Err(why) => {
+                causes.push(why);
+                HashSet::new()
+            }
+        };
         let found = judge_message(&message, &tree, &entities, parent, &ignored);
         if !found.is_empty() {
             causes.push(format!("its message carries {} finding(s)", found.len()));

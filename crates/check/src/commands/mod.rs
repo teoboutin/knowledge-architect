@@ -207,6 +207,9 @@ pub fn refuse_another_version(manifest: &Manifest, checker_dirs: &[&Path]) -> Re
         &crate::component_dir(),
         crate::CHECKER_VERSION,
         checker_dirs,
+        // No test reaches this line: a closure that answers yes here survives the suite, since a
+        // binary test's sandbox lies outside this checkout and never holds the compiled-in
+        // directory, so the `"self"` arm is not taken there. `git_tracks` is tested on its own.
         &|rel: &Path| git_tracks(&root, rel),
     )
 }

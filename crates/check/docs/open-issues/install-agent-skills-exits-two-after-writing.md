@@ -7,7 +7,10 @@ kind: defect
 
 A symbolic link at an owned path the version does not ship, or a file it cannot rewrite, stops the install
 after it has rewritten other files. It exits 2 and prints no `wrote` line, though exit 2 promises an untouched
-tree elsewhere. The doc comment of `install_into` states the behaviour and cites this entry.
+tree elsewhere, and the doc comment of `install` says a link on an owned path is refused before anything
+is touched. The doc comment of `install_into` states the behaviour and cites this entry. The same
+holds of a directory at a shipped path: the install fails on it with `Is a directory`, possibly after
+earlier writes.
 
 ## Details
 
