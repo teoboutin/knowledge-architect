@@ -618,7 +618,11 @@ a re-run cannot change.
 ### All work goes through a branch, a review and a pull request merged up to date with main `##git-flow`
 
 - All work happens on a branch. Once it holds a first commit, it is pushed and a draft pull
-  request is opened. CI does not run on a draft. A scratch worktree made only for temporary testing
+  request is opened. CI does not run on a draft: the job runs `--require-rebased`, so it fails a
+  draft each time main moves until the branch's last rebase, and the gates it runs are the ones a
+  session runs before each push. What is given up is a failure only CI's machine shows, found after
+  the review rather than during it. The session chose that cost over a run per draft push, which no
+  goal ranks; the owner approved it. A scratch worktree made only for temporary testing
   holds no work in this sense, per `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
