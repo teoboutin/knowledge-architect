@@ -144,7 +144,7 @@ whose act does not apply it whole.
 ### The record check
 
 **An edit that changes what an agent is told to do is a decision.** Before it is written, and before
-the owner rules on a proposed repair, it is read against the record: every goals home; the design
+the owner rules on a proposed repair, it is read against the record: the goals home; the design
 heads that `cargo klarch show` and a search of the design homes return for the behaviour the edited
 text describes; the rejected designs of each Component that owns an edited text; and the
 scoped `CLAUDE.md` files and code comments that `skill@knowledge-architect-decision-recording@reversal-check`

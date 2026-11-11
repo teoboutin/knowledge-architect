@@ -98,8 +98,7 @@ it.
 %% `design@agent-skills@no-goal-refines-another`. Case: 24 of knowledge-architect's 54 goals stated
 %% that they refined another goal, 10 of them the widest goal of the root. The citation rule is
 %% `design@check@goals-home-cites-upward-only`, which the checker enforces.
-8. **It refines no other goal, and cites only goals and registers of its own Component, or, in a
-   location's goals home, of that location, or of a Component enclosing it.** A statement grounded
+8. **It refines no other goal, and cites only goals and the root's homes of registers.** A statement grounded
    on another goal is a design head, which cites that goal; a goal whose intent holds without the
    other stands alone. The citation rule holds for the home's head too, and the checker reports any
    other reference there. A goal holds what it needs in its own words.

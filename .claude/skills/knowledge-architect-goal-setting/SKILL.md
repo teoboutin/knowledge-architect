@@ -78,8 +78,7 @@ it.
 7. **It states no measure.** What would show the goal met, what the project builds to pursue it,
    and how the project learns from its use whether it is met, are design decisions, each in a head
    that cites the goal.
-8. **It refines no other goal, and cites only goals and registers of its own Component, or, in a
-   location's goals home, of that location, or of a Component enclosing it.** A statement grounded
+8. **It refines no other goal, and cites only goals and the root's homes of registers.** A statement grounded
    on another goal is a design head, which cites that goal; a goal whose intent holds without the
    other stands alone. The citation rule holds for the home's head too, and the checker reports any
    other reference there. A goal holds what it needs in its own words.
@@ -104,8 +103,8 @@ home holds is prose under the level-one title, never a level-two section.
 ```
 
 **Where the goals sit.** Every goal is written in the goals home of the project's root, whichever
-Components serve it. No other Component and no location states a goal: the goals home each
-Component carries, `register@goal`, holds no entry outside the root. The root's home may be a
+Components serve it. No other Component and no location states a goal: the root alone carries the
+goals home, `register@goal`, and the checker refuses one anywhere else. The root's home may be a
 directory behind a `README.md` that links each of its files, the form `primer@checker-model` gives a
 heading register.
 
