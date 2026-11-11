@@ -21,8 +21,9 @@ The members:
 - `issue@model@a-heading-line-markdown-renders-as-no-heading-defines-an-entry`
 - `issue@model@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`
 
-They go on one branch because each changes the scan or the candidate rule of
-`path@model@src/entity.rs` and the source readers, and their unit tests. Found by a triage of the
+They go on one branch because each changes how a span or a heading is read, in the scan, the
+candidate rule of `path@model@src/entity.rs`, or the repairs of `path@model@src/resolver.rs` and
+`path@check@src/check/references.rs`, and their unit tests. Found by a triage of the
 whole issue record on 2026-11-11, which read every entry against the tree and sized it: each member
 was judged to have a clear path to closing, and to be more work than a fix of a few dozen lines.
 

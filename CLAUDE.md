@@ -59,7 +59,7 @@ This repository's own rows, each refining or adding to the primer's, per
 | how a user can use a published crate, beyond the primer's README row | its `path@*@README.md`; its crates.io page is a short `CRATES-IO.md` in the crate, named by `readme` in its Cargo.toml, which points to the README and to docs.rs, per `design@knowledge-architect@crates-io-page-file` | the contract changes |
 | the description of a crate's library API | the crate-level documentation of its lib.rs, which docs.rs renders | its contract changes |
 | what a consumer must change, can start using, or will see agents do differently, per release | CHANGELOG.md at the root: one section per version, and the `Next release` section | a released section's content never changes; its structure may, and the `Next release` section may change at any time, per `design@knowledge-architect@changelog-section-fixed-at-release` |
-| a finding read outside this project, in another project's source or documentation or in a specification, that a decision here leans on; a figure measured in another project goes to what it serves, per the primer's routing of a measurement | `docs/grounding/<subject>.md` in the Component the decision belongs to | the source is superseded, or a better one lands |
+| a finding read outside this project, in another project's source or documentation or in a specification, that a decision here leans on; a figure measured in another project goes to what it serves, per `primer@where-knowledge-goes` | `docs/grounding/<subject>.md` in the Component the decision belongs to | the source is superseded, or a better one lands |
 | a Component that maintains the repository rather than shipping in it | `tools/<name>/`, one directory per tool | the tool is retired |
 | the analysis of a workflow file or an audit file this repository receives, or of its own retrospective project file, the outcome of each finding, and the owner's ruling on each one the owner holds, refining the primer's row for a project's retrospective file | one file per received file in `path@knowledge-architect@docs/retrospective-reports/`, per `design@knowledge-architect@committed-findings-analysis`, written under `skill@knowledge-architect-retrospective-intake` with what `skill@klarch-retrospective-intake` adds | the commit that carries out its last outcome, or a later commit of the same branch, deletes it |
 
@@ -218,8 +218,8 @@ adversarial reviewer runs mutations in, per
 - **While uncommitted changes exist in the tree, run no operation that touches history, restores
   files, or removes a file that holds uncommitted content.** Examples (non-exhaustive):
   `reset --hard`, `checkout -- <path>`, `restore`, `clean`, `stash`, `commit --amend`, `rebase`,
-  `rm -f`. The one exception is `git rebase --continue` on a rebase whose conflicts the tree now
-  resolves, as point 3 does.
+  `rm -f`. The one exception is finishing a rebase whose conflicts the tree now resolves, as point 3
+  does.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
   depend on a restore: the revert undoes the edit, and `git diff -- <path>` showing no difference
   with the staged copy confirms it.
@@ -269,7 +269,9 @@ needed and none is lost.
 conflict and is staged, `git commit -q --cleanup=verbatim -C REBASE_HEAD`, then
 `git rebase --continue`. A plain `--continue` passes the message through the editor's cleanup,
 which deletes every line opening with `#`, a `## ` heading of the message included, and
-`cargo klarch commits` sees nothing wrong with the shortened message. The range-diff's
+`cargo klarch commits` sees nothing wrong with the shortened message. `--continue` under
+`core.commentChar` set to another character, or under `commit.cleanup=verbatim`, keeps the line and
+appends git's conflict notes or its editor template to the message, measured with git 2.53.0. The range-diff's
 `@@ Commit message` hunks then show no change for any commit the rebase carried.
 
 4. **Work is reviewed before any merge to main.**
