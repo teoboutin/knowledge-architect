@@ -8,7 +8,7 @@ kind: design
 The installed primer asks that a failing staged check be repaired before the commit, and this
 repository's root asks that a push follow a passing `commits` check. Sessions keep joining the
 check and the commit or the push in one command whose separator runs the second whatever the check
-found: seven instances in five sessions of this repository, one in thaum. Each is a lapse of a
+found: nine instances in six sessions of this repository, one in thaum. Each is a lapse of a
 clear instruction; the recurrence is the argument for moving where it is delivered.
 
 ## Details
@@ -42,9 +42,13 @@ them, each called a lapse by its file:
 - the slice that put `cli` on top, 2026-11-06: twice, a semicolon between the staged check, or a
   failing edit script, and `git commit`;
 - the slice that moved the consumers out, 2026-11-06: one commit, in its standing answers;
-- a session of thaum's design-record audit, 2026-11-01, in its standing answers.
+- a session of thaum's design-record audit, 2026-11-01, in its standing answers;
+- the branch that triaged the issue record, 2026-11-11: one command ran `check --fix` with its
+  last line read by `tail`, then `git commit`, the `commits` check and `git push`, joined with
+  semicolons; both checks failed on a dangling reference, and the commit and its push went out.
+  Reported by its session, not by a retrospective file.
 
-That is one push and six commits in this repository, from 2026-11-01 to 2026-11-06, and one in
+That is two pushes and seven commits in this repository, from 2026-11-01 to 2026-11-11, and one in
 thaum. A further lapse of the push rule, of another shape, in the slice that moved the consumers
 out: after a `git rebase --onto` that detached HEAD, the session ran `commits` on the detached
 commits and pushed the branch's name, which still held the commit that had failed.

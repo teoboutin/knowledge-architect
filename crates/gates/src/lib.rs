@@ -27,7 +27,10 @@
 //! fn main() -> ExitCode {
 //!     let Command::Gates(args) = Cli::parse().command;
 //!     let cwd = std::env::current_dir().expect("a working directory");
-//!     let root = project_root(&cwd, "knowledge-architect.toml").expect("inside the project");
+//!     let Some(root) = project_root(&cwd, "knowledge-architect.toml") else {
+//!         eprintln!("not inside the project");
+//!         return ExitCode::from(2);
+//!     };
 //!     let checker = Checker { package: "xtask", prefix: &["klarch"] };
 //!     run(&root, &rust_project(checker, "origin/main"), &args)
 //! }

@@ -117,7 +117,8 @@ driven in-process needs a key but no confirmed one. A binary that links the libr
 maintenance crate that uses it only to find the project's root through `MANIFEST_NAME`, does not
 call it: nothing it runs reads the documents by the checker's rules, and where it runs the checker,
 as a gate does, it starts the project's declared checker command as a child, a binary that makes
-the call.
+the call, as `design@gates@a-project-holds-its-gate-list` has the gates library take how the
+project runs its checker.
 
 **Why the manifest, and why required.** Without a pin the binary reads, a binary older than the
 skills a project installed reports each installed file as differing, with the repair "run
