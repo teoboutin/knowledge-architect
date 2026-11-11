@@ -26,16 +26,19 @@ change to knowledge-architect. They run and report with the checker's own.
 The documents of each target project render as one site of that project, in which each reference
 is a link to what it names, so a reader follows a reference by a link. A project can host that site when it releases.
 
-## A task that a tool does at a lower cost, or with a better result, is done by a tool knowledge-architect provides, once knowledge-architect's owner has taken the task in `##tasks-a-tool-does-better-are-the-tool-s`
+## A task that recurs, and that a tool does at a lower cost or with a better result, is done by a tool knowledge-architect provides, once knowledge-architect's owner has taken the task in `##tasks-a-tool-does-better-are-the-tool-s`
 
-The agents of a target project carry out tasks, those the workflow asks among them. Where a tool does such a task at a lower
-cost to the agent than the agent's own means, or reaches a better result, and knowledge-architect's
-owner has taken the task in, knowledge-architect provides a tool that does it. So each session gets
-the same result, and none builds its own means again.
+The agents of a target project carry out tasks, those the workflow asks among them. Where such a
+task recurs, the same work coming back to the sessions of one project, whether or not it has come
+back yet, and a tool does it at a lower cost to the agent than the agent's own means, or reaches a
+better result, and knowledge-architect's owner has taken the task in, knowledge-architect provides
+a tool that does it. So each session gets the same result, and none builds its own means again.
 
 This reaches a task whose result follows with no judgement from what the project holds, the
 workflow's rules and what the session gives it. It also reaches searching, updating and verifying
 what a project holds, its documents, its recorded items, its history and what its past sessions
-said, where the judgement stays the agent's.
+said, where the judgement stays the agent's. A task each target project does once, such as the
+edits one version of knowledge-architect asks of its own files, is out of its reach, however many
+target projects do it.
 
 A task is taken in by a decision of knowledge-architect's owner, never because the workflow asks it.
