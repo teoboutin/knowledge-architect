@@ -99,6 +99,12 @@ one does would take the repeated runs this rule refuses.
   yet installed, such as a record search that grounds a real design discussion with its searchers
   briefed in a proposed report form: the run is done for the work, not built to produce evidence,
   which this head's argument refuses.
+- **Admitted as a lead, never as evidence:** a census of a project's own real text under a planned
+  instruction, agents listing the statements the instruction would touch. Its listing names
+  statements a session then reads and judges; no count of it, nor the agreement of two of its
+  agents, chooses a shape or refines the instruction, since a count reads an agent's silence on a
+  statement as a verdict on it. The owner chose this reading of the goal, over admitting the census
+  as real use and over refusing it outright.
 
 The rule derives from `goal@the-workflow-improves-through-real-use`, under
 which real use is the test of how an agent behaves under the workflow: a run built to observe an
