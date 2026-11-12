@@ -39,6 +39,32 @@ an empty subsection is omitted.
   `perl -pi -e 's/\bgoal\@[A-Za-z0-9*_-]+\@/goal\@/g; s/\bregister\@[A-Za-z0-9*_-]+\@goal\b/register\@goal/g'`
   over its tracked Markdown and Rust files, its installed agent files apart, which the install
   rewrites.
+- `checks`, minor: a reference whose id, or whose path after its anchor, ends in a line number or a
+  fragment, as `:<line>`, `:<a>-<b>` or `#<heading>`, is judged again without it: where that form
+  resolves, the finding names it and asks to drop the suffix, and where it does not, the finding
+  is the one that form meets, its repair saying to drop the suffix too. Spans that passed are now
+  findings: a suffixed reference that resolved as written, such as a path under a directory git
+  ignores; a `planned` path in a plan document whose path before the suffix does not exist; and a
+  suffix with no path before it, such as `planned@<anchor>@:12`. A project drops each suffix and
+  names the point inside the target in prose.
+- `checks`, minor: `commits` reports a commit whose message's ignore batch git refuses, as for a
+  span naming a path beyond a symbolic link of the working tree, as a finding naming that commit;
+  the run exits 1, where it printed the commit failed above `PASSED: no findings` and exited 0. A
+  project rewords the span, as the finding says.
+- `checks`, minor: a register's `register.toml` whose bytes are not UTF-8 is one finding, under
+  `check`, `check --staged` and `commits`, where it was read as absent; its group directories are no
+  longer reported as undeclared, and an instance with none, which got no finding, gets this one. A
+  project re-encodes the file as UTF-8.
+- `checks`, patch: a backticked `#<id>` or `<word>#<id>` is read by no lint, where it was reported
+  as the slug form the `@` grammar replaced wherever its id was an entry or its word an anchor or a
+  kind. The dump of `Model::canonical_with` loses its `retired-slug-ref` rows. A consumer's test
+  that pins that finding or those rows changes.
+- `checks`, patch: a register's `register.toml` that does not parse is one finding, and its group
+  directories are no longer each reported as undeclared. A consumer's test that pins those
+  findings changes.
+- `checks`, patch: a directory at a register instance's `README.md` or `index.md` path is no longer
+  also reported as an undeclared group; the finding on the missing file names its removal. A
+  consumer's test that pins the group finding changes.
 - `cli`, major: `show` refuses a goal or the root's goals home written with an anchor, exit 2, as
   malformed; `id`, `show` and `worklist` print a goal as `goal@<id>`; and `worklist` gives every
   agent the root's goals as title lines, and no other.
@@ -82,6 +108,12 @@ an empty subsection is omitted.
   `seeds_from` and `check`, and `cli::run` refuses a value that sets any of the first four beside
   `verify` or `check`, or `check` beside `out` or `verify`. A program that builds the struct by a
   literal adds them, empty or `None` for the run it made before.
+- `library`, major: `RetiredForm` and the variant `Observation::Retired` leave the `document`
+  module of `knowledge-architect`, since no scanner rule reads the form they carried. A program
+  that names either drops it.
+- `library`, major: `Parsed::trouble` holds an `Option<Trouble>`, where it held an
+  `Option<String>`. `Trouble`, exported by the `document` module, holds the statement, `what`, and
+  its repair, `action`. A program that read the string reads `what`, and `action` for the repair.
 - `agent-skills`, patch: a goal is a purpose of the project as a whole, a scope that bounds whom or
   what the purposes serve and names the design it excludes, or a ranking between two purposes that
   holds across decisions. Any other statement is design, a Component's purpose included: it is the
@@ -150,6 +182,47 @@ an empty subsection is omitted.
 
 ### New features
 
+- `checks`, patch: a finding names the repair its cause needs, and each case with its repair where
+  the causes need different ones, in every family below; under `check --staged`, a missing or
+  out-of-date register index names `index --staged`.
+- `checks`, patch: the reference findings: a suffixed `path@*@<file>:<line>` names the form without
+  the suffix; a `planned` path outside the plans directory whose target exists names its `path`
+  form; a target that does not resolve is told "repair the pointer, or delete it"; a link target
+  refused for a `..`, a `.` or a leading `/` names the plain link where the target lies under the
+  file's directory and a `path` reference otherwise; an unanchored path that reaches an existing
+  file through a `..` or a leading `/` is no longer offered the `planned` form; the plain-word
+  lint's repair for a design entry names the rename alone.
+- `checks`, patch: a slug defined twice names, beside keeping one definition, the new id two
+  distinct entries that share it need; a slug written where it defines nothing names the
+  reference form of what it resolves to; a slug inside a plan's item sections is told its site.
+- `checks`, patch: the manifest's complaints name the edit each needs: a register's `dir` outside
+  the id grammar, an opt-in register's `components` row, each complaint on a register's
+  declaration, and an anchor name refused, as reserved, as a kind's name, as shared or as one no
+  reference can spell, each renamed where that name is declared, and a `[project] components` row
+  that spells the root deleted.
+- `checks`, patch: phase 2 names the repair of each cause: a document whose parse cannot be
+  trusted, by its cause, a deletion not staged, a directory in its place, bytes that are not UTF-8,
+  an HTML comment that never closes, a Rust source the parser cannot read; a blob git's object store
+  lacks; a README.md that is a directory; a line of `-` or `=` under a paragraph meant as no
+  heading; a root CLAUDE.md kept out of the walk, by a walk row, an extension's table, or
+  `harness = []`; a symlink at a generated path, removed so the file is generated in its place.
+- `checks`, patch: the `agents` findings name the step before the install: a shipped file git does
+  not list, by a directory in its place or an ignore rule; an unshipped file of the namespace that
+  is the project's own, renamed out of it first.
+- `checks`, patch: the `generated` and `registers` findings: a generated file that cannot be read
+  as UTF-8, or a directory at its path, is named as such; a missing index names one repair in both
+  families; a file of another suffix in an instance names a rename; a declared group with no
+  directory names its first entry; a frontmatter block that does not parse, a missing block, an
+  undeclared key and a misplaced owed subsection name the repairs their register admits; a
+  `register.toml` that does not parse names its one valid shape.
+- `cli`, patch: the refusals name the repair of each cause: a commit's tree that does not load
+  under `commits`, by a range reaching before the manifest, a git read or an extension; the
+  staged tree's under `check --staged`, `index --staged` and `check --fix`, on the line under the
+  reason; a range that does not resolve, fetching or correcting each revision it names; a citation
+  of a range commit by SHA, writing enough digits; a binary of another version, or one refused a
+  `"fixture"` or `"self"` pin; a missing or symlinked destination of a generated file; a staging of
+  the generated files git refuses; an extension that cannot prepare, under `check`, `index` and
+  `check --fix` too; the note on untracked files names the findings' own repairs.
 - `cli`, patch: `init` outside every git worktree names each file of the installer's namespace it removes, as
   `fixed: removed <path> (installed)`, since no git holds a copy of it.
 - `cli`, patch: the `checker source:` line of `check` and the `cargo clean` of the refusal of a foreign build name `query`,
