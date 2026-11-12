@@ -27,10 +27,12 @@ punctuation inside the tokenizer, and a census of walked markdown finds no such 
 paragraph; re-take it with `git grep -n --untracked '＠' -- '*.md'`, and a span meant as a
 reference reopens the silence.
 
-**A span with no `@` is read by two lints, and by nothing else**: a path-shaped span, per
-`design@check@unanchored-path-first-segment-here`, and a defined id written alone, per
-`design@check@backticked-bare-id`. A slug with a hash sign, `<word>#<id>`, is read by neither, per
-`design@check@hash-slug-span-read-by-no-lint`.
+**A span with no `@` is read by two lints and as a definition, and by nothing else**: a
+path-shaped span, per `design@check@unanchored-path-first-segment-here`, and a defined id written
+alone, per `design@check@backticked-bare-id`; and a slug, `##<id>`, which defines an entry at its
+register's heading and is reported as a misplaced definition anywhere else, per
+`design@model@a-slug-elsewhere-defines-nothing`. A slug with one hash sign, `#<id>` or
+`<word>#<id>`, is read by none of them, per `design@check@hash-slug-span-read-by-no-lint`.
 
 ### A backticked span that opens on one line and closes on the next is a finding where its halves join into a pointer `##a-span-is-one-line`
 
