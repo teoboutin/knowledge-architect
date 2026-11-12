@@ -98,7 +98,7 @@ back, `design@agent-skills@work-divided-by-judgement` and
 `design@agent-skills@at-least-one-independent-verification`, since every session that can dispatch
 meets the question in every activity, subagents included, and no skill loads at that moment.
 
-### The primer states the checker's model a reader needs, and the rarer checker rules reach a session through their findings `##checker-model-in-primer`
+### The primer states the checker's model a reader needs `##checker-model-in-primer`
 
 `primer@checker-model` states the manifest, the anchors, the documents every Component carries,
 the registers and how an entry is defined, every reference kind and what it names, how an entry is
@@ -114,24 +114,37 @@ only if it thinks of running it. Drift between the primer and the checker is bou
 `the_primer_s_model_section_names_every_kind_and_reserved_word`, which fails when a reference kind,
 a built-in register or a reserved anchor word is missing from the section.
 
-The section states no rarer rule: the candidate rule, the retired forms, ignored targets, the path
-to anchor, a register's home cited by its path, a plan item's scope, a slug outside a definition
-site. Each reaches a session through its finding, which names its repair, but one retired form, the
-slug written with a hash sign, which no lint reads, per `design@check@hash-slug-span-read-by-no-lint`.
-That delivery stands on the owner's rulings in three passes of the first agentic-workflow audit:
-the rarer checker rules are delivered by their finding messages rather than by the installed text,
-and an unstated checker rule is a finding only where its finding message does not name its repair. One rule stands in the section on the owner's
+The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.
+
+### The rarer checker rules reach a session through their findings, not through the primer `##rarer-checker-rules-by-findings`
+
+The section `primer@checker-model` states no rarer rule: the candidate rule, the retired forms,
+ignored targets, the path to anchor, a register's home cited by its path, a plan item's scope, a
+slug outside a definition site. Each reaches a session through its finding, which names its repair,
+but one retired form, the slug written with a hash sign, which no lint reads, per
+`design@check@hash-slug-span-read-by-no-lint`. One rule stands in the section on the owner's
 word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
 it names, which sessions of an adopting project routed around in real use. The owner accepted its
-placement in this section, over that ruling. The rulings are F23 of the first pass and F69 of the
-second, each in the message of its pass's commit, "[audit] Pass 1 of the agentic-workflow axis: 54
-findings confirmed, 26 applied, 27 ruled by the owner, 1 issue" and "[audit] Pass 2 of the
-agentic-workflow axis: 70 findings confirmed, 37 applied, 30 ruled by the owner, 3 issues", and
-F121 of the sixth, in that pass's report file, which the commit "[audit] Pass 6 of the
-agentic-workflow axis applied by cause; the audit stops" removed. A rule a writer of
+placement in this section, over the audit rulings named below. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
-The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.
+A rarer rule is needed only by a session that writes a reference of an uncommon shape, and the
+checker's finding then names the repair, while the model is needed by every session before it
+writes anything, per `design@agent-skills@checker-model-in-primer`. The nearest rival, the primer
+stating the rarer rules too, saves such a session one run of the checker, and costs every session
+that loads the primer a statement its act does not apply, which is the size cost
+`design@agent-skills@context-cost-of-agent-text` counts. The decision stands on the premise that
+the finding names the repair: a rarer rule whose finding does not name it reopens the decision for
+that rule.
+
+The deliberation is in the plan document that the commit "[harvest] The primer's new sections and
+the anchors command enter the design record, and their spec leaves" removed, with the owner's
+rulings of the first agentic-workflow audit it cites: F23, on which reference rules the primer
+states, in the message of "[audit] Pass 1 of the agentic-workflow axis: 54 findings confirmed, 26
+applied, 27 ruled by the owner, 1 issue"; F69, an approved default, in the message of "[audit]
+Passes 2 and 3 of the agentic-workflow axis repaired by cause: 14 causes, 16 instructions added, 58
+removed"; and F121, an approved default, in the report file of pass 6, which the commit "[audit]
+Pass 6 of the agentic-workflow axis applied by cause; the audit stops" removed.
 
 ### The primer states the rules for verifying a claim before relying on it or writing it, and a skill keeps only the narrower rule its own moment needs `##verification-in-primer`
 
