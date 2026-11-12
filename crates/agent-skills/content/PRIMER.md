@@ -270,6 +270,65 @@ reading is taken. Where no argument ranks two readings that move the work in dif
 nothing is decided: the question goes to the owner, as a contradiction does, per
 `primer@question-authority`.
 
+## Dispatching work {{slug:dispatching-work}}
+
+%% A judgement, not a threshold of size or kind: a threshold is a rule per interaction, per
+%% `design@agent-skills@capabilities-not-structure`. The primer is its home since every activity
+%% meets the question and no skill loads at that moment, per `design@agent-skills@primer-limit`.
+%% The harness's Agent tool description tells a session to do the work itself when in doubt; the
+%% section is a weighing beside that default, not a precedence over it. The purpose the judgement
+%% weighs toward serves `goal@session-orchestrates-the-work`.
+**A session that can dispatch agents judges how the work is divided between itself and the agents
+it dispatches.** The main session dispatches so that its context stays for what only it can do,
+the design, the decisions and the exchange with the owner, while agents carry the rest; an agent
+that dispatches in turn weighs the same way for its own piece. No instruction fixes a size or a kind of work for this; a dispatch that a skill or
+an agent fixes at a step is made as that text says, and is not judged here. The session or the
+agent that carries a piece of the work is its carrier.
+
+- **One carrier** takes two pieces that reason over the same details, so that no carrier reads
+  again what another read: verifying findings and repairing them, or writing a change and its
+  commit.
+- **Separate carriers** take two pieces when one judges the other, as a review or an independent
+  verification judges what it reads, even where the two reason over the same details; or when
+  neither needs what the other reads, and splitting them saves context.
+- **The session dispatches** a piece when a brief can carry what the piece needs of the session's
+  context and the session needs only its result, not the reading and the trials behind it: an
+  investigation, a survey, a search for another shape, a mechanical change.
+%% A fresh agent's fixed start was measured at about 36,000 tokens over 40 record searchers'
+%% transcripts, per `rejected@query@one-search-agent-per-anchor`.
+- **The session carries** a piece when it will reason later over the details the piece reads, or
+  when the brief would cost about as much as the work: a fresh agent first reloads its
+  instructions.
+%% The Messages API is stateless: each request carries, and is billed for, the whole
+%% conversation, cached or not.
+- **Between the two**, as for implementing a design, the session weighs what the brief leaves out
+  against the context that carrying the piece spends. The main session's context holds the
+  exchange with the owner, which no brief rebuilds, while an agent's is rebuilt by dispatching it
+  again; and every later turn costs more as the context grows. A plan document carries most of
+  what an implementer needs.
+
+%% Read at the size of one step, the "carries" bullet, and the harness's "Do the work yourself when
+%% it is a handful of tool calls", would have the session take over a dispatched agent's commit;
+%% the paragraph fixes the unit at the brief's piece. A brief that tells its agents not to commit
+%% leaves the commit outside their pieces. The scratch directories:
+%% `design@agent-skills@a-scratch-directory-per-subagent`.
+**A dispatched piece is what its brief gives the agent, and the agent carries all of it**: the
+session does not take over a part of it while it is dispatched, such as its commit because that
+part alone is small. What an agent returns unfinished is a new piece, which the session judges. An
+agent reports what it acted on and what it did not, with why. Agents dispatched together each get
+a scratch directory of their own.
+
+%% A session's verification of its own claims lapses often, so a claim the work acts on gets a
+%% verification by another session; one is a minimum, which forbids no further verification a skill
+%% asks for. Its place in the primer: `design@agent-skills@verification-in-primer`.
+**A conclusion that comes back gets an independent verification before the session acts on it**:
+a session other than the one that reported it, the dispatching session or an agent it dispatches,
+verifies its claims against the evidence the report carries. A command that checks a report's form
+is no independent verification. One independent verification is enough: it stands for the
+dispatching session's own verification of that conclusion, per `primer@verify-before-relying`. A
+verifier's verdict on a claim is no new conclusion; the claims a verifier adds of its own, such as
+a repairer's account of what it repaired and what it did not, are.
+
 ## The project's documents and how they are checked {{slug:checker-model}}
 
 **The manifest**, knowledge-architect.toml at the project's root, declares the Components, the

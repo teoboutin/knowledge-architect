@@ -509,7 +509,9 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    commits name each claim of the spec with its test and its outcome, how the test was shown to fail
    against a wrong implementation, and of any claim whose test cannot yet do so, why not. A claim
    that holds over every site of a corpus is tested by reading the corpus: a phrase search is a lead,
-   which misses a phrase split over a line break and a site written in other words.
+   which misses a phrase split over a line break and a site written in other words. Who carries
+   the implementation, the session or an agent it dispatches, is judged as
+   `primer@dispatching-work` says.
 4. **Review of the work**, per `skill@knowledge-architect-review`. A repair lands as
    `skill@knowledge-architect-review@what-review-leaves` says.
 5. **The report** on each acceptance criterion judged at this slice, as

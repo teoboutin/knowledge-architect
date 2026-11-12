@@ -373,7 +373,7 @@ the table's where the table names the entry, and otherwise that the decided desi
 - `design@knowledge-architect@git-flow`: constrains, respect. The issue the work opens on who commits and how parallel agents' parts merge must keep each commit of the branch passing the tip checker, and every part landing on a branch with main's history linear.
 - `design@knowledge-architect@no-operation-loses-content`: constrains, respect. A dispatched agent that carries its own commit, or parallel agents sharing one tree, act in a checkout holding another author's uncommitted work, where an amend, rebase or restore by one loses the other's content; the opened partition issue and the carried-whole rule must keep that out.
 - `design@knowledge-architect@scratch-worktree-outside-git-rules`: constrains, respect. A worktree per agent that holds the agent's durable part of the work is no scratch worktree, so the parked partition design cannot place parallel agents' work under this exception.
-- `design@model@section-homes-carry-slugs`: constrains, respect. The new primer section Dispatching work is a level-two heading of a section home, so it owes a slug (the draft names dispatching-work), and the slug becomes an interface consumers may cite.
+- `design@model@section-homes-carry-slugs`: constrains, respect. The new primer section Dispatching work is a level-two heading of a section home, so it owes a slug (the draft names `primer@dispatching-work`), and the slug becomes an interface consumers may cite.
 - `design@model@installed-entities-from-the-tree`: constrains, respect. The new primer section is written in content/PRIMER.md, so its slug is the build placeholder {{slug:dispatching-work}} (as every primer heading there is, measured with grep), and the section is defined only once the installed copy is reinstalled.
 - `goal@serves-one-kind-of-project`: constrains, respect. The primer section is argued on the claude harness default against dispatching; the text serves that harness and adds no mode for another.
 - `goal@every-target-project-can-adopt-it`: constrains, respect. The primer text and the retrospective question must hold nothing particular to this project, which is one ground for keeping the owner's 300k figure out of the primer.
@@ -887,7 +887,7 @@ Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-prim
 ## New names, in one place
 
 ```text
-dispatching-work                                 the primer section's slug, content/PRIMER.md
+`primer@dispatching-work`                        the primer section, content/PRIMER.md
 work-divided-by-judgement                        a design head, the agent-skills design home
 one-independent-verification-suffices                     a design head, the agent-skills design home
 dispatched-agents-write-their-report-as-they-work   a deferred issue, crates/agent-skills/docs/open-issues/
@@ -1033,7 +1033,7 @@ nothing more of them.
 One sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`, an illustration:
 "Who carries the implementation, the session or agents it dispatches, is judged as the primer's
 section on dispatching work says." Step 1 writes the pointer as the primer reference of the new
-section, whose slug is `dispatching-work`, once the install defines it.
+section, `primer@dispatching-work`, once the install defines it.
 
 ## Mapping tables
 
@@ -1119,7 +1119,7 @@ commit that writes the heads, since a reference to a head no tree holds fails th
 
 ### Step 1: the primer section, the pointer and the admission sentence
 
-Builds the section `dispatching-work` in the primer, after `primer@decided-section`; the pointer
+Builds the section `primer@dispatching-work` in the primer, after `primer@decided-section`; the pointer
 sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`; the sentence of the
 admission standard; `%%` lines at each site that states a verification rule, naming the verification head
 once it exists: the review skill's "Verify each against the tree before relaying or acting on it",

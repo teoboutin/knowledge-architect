@@ -98,6 +98,13 @@ finding gets one id in each file, each naming the other, since the two files may
   strict to follow, or get followed against the project's interest? For each: the rule, the code or
   the split, and what following it cost. Each is a finding on the installed text, in the workflow's
   file.
+- Did this session carry work an agent could have carried, spending context that its design or its
+  exchange with the owner needed? For each: the work, and what carrying it cost.
+- Did a dispatched agent return without finishing its piece, or with a report the session could
+  not act on without redoing the work? For each: the brief, and what was missing.
+- Did this session act on a returned conclusion that proved wrong after its independent
+  verification, or verify a conclusion again where no skill asked for it? For each: the
+  conclusion, and who verified it.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
 not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,

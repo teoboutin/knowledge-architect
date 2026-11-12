@@ -364,6 +364,17 @@ an empty subsection is omitted.
 - `agent-skills`, patch: where a branch's work begins at a line the owner did not type, the brief of
   the transcript reviewer names the owner's last message before it and that line's number, and the
   reviewer extracts the session from that line with `transcript show --from-line`.
+- `agent-skills`, patch: a primer section, `primer@dispatching-work`, has a session judge how the
+  work is divided between itself and the agents it dispatches, by the relations between the pieces,
+  with no threshold of size or kind; a dispatched agent carries the whole piece its brief gives it;
+  and a conclusion that comes back gets one independent verification, by a session other than its
+  author, before the session acts on it. Point 3 of
+  `skill@knowledge-architect-planning@working-a-slice` points to the section where implementation
+  starts; the admission standard admits a dispatch an instruction fixes only on a property of the
+  step that holds whatever the task's size; and the retrospective asks three more standing
+  questions, on work the session carried that an agent could have carried, on an agent that came
+  back unfinished or with a report the session could not act on, and on a returned conclusion that
+  proved wrong after its independent verification or was verified again where no skill asked.
 
 ## 0.9.0
 

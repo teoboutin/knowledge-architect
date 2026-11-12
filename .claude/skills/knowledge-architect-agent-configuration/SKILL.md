@@ -102,7 +102,10 @@ default behaviour is systematically wrong. A structure imposed on what an agent 
 judgement, a fixed sequence, count or mapping between a unit of the work and a unit of what the work
 produces, only where the work cannot be carried out as intended without it, or no other instruction
 needs to vary it; a
-contradiction a structure causes is answered by removing structure. For an installed skill, a
+contradiction a structure causes is answered by removing structure. An instruction fixes a dispatch
+of an agent at a step only on a property of the step that holds whatever the task's size: a point
+of view apart from the session's, an output verified before it is used, or an occasion most work
+meets; any other dispatch is the session's to judge, as `primer@dispatching-work` says. For an installed skill, a
 finding about the owner's behaviour outside the skill's expectation set,
 `skill@knowledge-architect-retrospective@expectation-sets`, is no gap; a finding that two installed
 instructions leave no move satisfying both is always in scope. An installed agent has no expectation set, since it never works with the owner.
