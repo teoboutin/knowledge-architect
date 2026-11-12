@@ -58,6 +58,11 @@ an empty subsection is omitted.
   `check`, `check --staged` and `commits`, where it was read as absent; its group directories are no
   longer reported as undeclared, and an instance with none, which got no finding, gets this one. A
   project re-encodes the file as UTF-8.
+- `checks`, minor: the primer's import line counts only as the root CLAUDE.md's first line, exactly,
+  with no space before or after it; anywhere else, the check `agents` reports that the root
+  CLAUDE.md does not import the installed primer on its first line. A project moves the line to the
+  top of the file, above its title. This holds for every project the consumer's tests build, mock
+  projects included. `init` writes the import line first, then the title.
 - `checks`, patch: a backticked `#<id>` or `<word>#<id>` is read by no lint, where it was reported
   as the slug form the `@` grammar replaced wherever its id was an entry or its word an anchor or a
   kind. The dump of `Model::canonical_with` loses its `retired-slug-ref` rows. A consumer's test
@@ -68,6 +73,12 @@ an empty subsection is omitted.
 - `checks`, patch: a directory at a register instance's `README.md` or `index.md` path is no longer
   also reported as an undeclared group; the finding on the missing file names moving out what the
   directory holds, then its removal. A consumer's test that pins the group finding changes.
+- `checks`, patch: a `path@elsewhere@<path>` whose last segment, `.` apart, is `..` or absent, as
+  `.`, `<dir>/..`, `/`, `:12` or `#x`, is no longer reported as resolving in this tree, as a
+  directory of that tree. A consumer's test that pins that finding changes.
+- `checks`, patch: `commits` no longer reports a message's `path` reference to a target git ignores
+  as not existing where no document of the commit's tree cites that target, as `check` already
+  exempted such a reference in a file. A consumer's test that pins that finding changes.
 - `cli`, major: `show` refuses a goal or the root's goals home written with an anchor, exit 2, as
   malformed; `id`, `show` and `worklist` print a goal as `goal@<id>`; and `worklist` gives every
   agent the root's goals as title lines, and no other.
@@ -91,26 +102,17 @@ an empty subsection is omitted.
 - `library`, major: the module `knowledge_architect::testing` leaves. An extension's tests add the package
   `knowledge-architect-testing` to their dev-dependencies, at the exact version of `knowledge-architect`, and import
   `foundation`, `run_with`, `Phase`, `Report`, `Stop`, `Structure` and `CHECKS` from `knowledge_architect_testing`.
-- `library`, major: `ROLES` of `knowledge-architect-transcript` holds eleven names, `owner-shell` added, so its array type
-  changes. A program that names the type `[&str; 10]` changes it.
 - `library`, major: `CHECKS` holds four names, so its array type changes, and `foundation` no longer stops on the
   installed files. A consumer's test over the installed set asserts it in the report of `run_with`.
-- `library`, major: the enum `WorklistMode` of `knowledge-architect-query` gains the variant
-  `Check`, the mode of `worklist --check`, so a `match` over it that names every variant adds that
-  arm.
 - `library`, major: the struct `GatesArgs` of `knowledge-architect-gates` gains the field `ci`, the
   flag `--ci`, so a value built with every field named adds it, or takes `..Default::default()`.
-- `library`, major: the field `from` of `ShowOptions` of `knowledge-architect-transcript` holds a
-  `ShowFrom`, `Text` for a text the owner typed or `Line` for a line number, in place of a string. A
-  program that sets it writes `Some(ShowFrom::Text(text))`.
-- `library`, major: the enum `Scope` of `knowledge-architect-model` gains the variant `Root`, the
-  scope of the register `goal`, so a `match` over it that names every variant adds that arm; and
-  `candidate` borrows the reference it returns from its `Anchors` as long as from its span. A
-  program that holds the result past the `Anchors` it passed keeps them alive as long.
 - `library`, major: `cli::WorklistArgs` gains the public fields `work`, `subjects`, `since`,
   `seeds_from` and `check`, and `cli::run` refuses a value that sets any of the first four beside
   `verify` or `check`, or `check` beside `out` or `verify`. A program that builds the struct by a
   literal adds them, empty or `None` for the run it made before.
+- `library`, major: `cli::TranscriptShowArgs` gains the public field `from_line`, the flag
+  `--from-line`, so a program that builds the struct by a literal adds it, `None` for the run it
+  made before.
 - `library`, major: `RetiredForm` and the variant `Observation::Retired` leave the `document`
   module of `knowledge-architect`, since no scanner rule reads the form they carried. A program
   that names either drops it.
@@ -165,11 +167,6 @@ an empty subsection is omitted.
   depend on another belongs in that Component's. A head of the root's design home that only rules
   out a dependency of one Component is a head in the wrong Component, which
   `skill@knowledge-architect-project-audit@design-record-axis` finds.
-- `checks`, minor: the primer's import line counts only as the root CLAUDE.md's first line, exactly,
-  with no space before or after it; anywhere else, the check `agents` reports that the root
-  CLAUDE.md does not import the installed primer on its first line. A project moves the line to the
-  top of the file, above its title. This holds for every project the consumer's tests build, mock
-  projects included. `init` writes the import line first, then the title.
 - `agent-skills`, patch: the setup asks every crate to forbid `unsafe` code, `unsafe_code = "forbid"`
   in its `[lints.rust]` table, which the clippy gate turns into a refusal; a crate that needs
   `unsafe` denies the lint instead, allows it at each site with a `// SAFETY:` comment, and warns on
