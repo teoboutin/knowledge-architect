@@ -137,10 +137,20 @@ pub fn parse(text: &str, literals: Literals) -> Parsed {
     fenced.dedup();
     names.sort();
     names.dedup();
+    // A file that compiles can still fail here, since the grammar is not the compiler's, and a
+    // file kept unparsable on purpose is one too: skip-files is the declared way to keep either.
     let trouble = if too_deep {
-        Some("the source nests deeper than the parser walks, so part of it was not read".into())
+        Some(super::Trouble::new(
+            "the source nests deeper than the parser walks, so part of it was not read",
+            "nest it less deeply, such as by moving an inner expression into a function of its \
+             own; or name it in [walk] skip-files to keep it unchecked",
+        ))
     } else if root.has_error() {
-        Some("the Rust grammar could not parse this file, so what it cites may be unread".into())
+        Some(super::Trouble::new(
+            "the Rust grammar could not parse this file, so what it cites may be unread",
+            "correct the syntax the compiler reports; where the file compiles, or is meant not \
+             to, name it in [walk] skip-files to keep it unchecked",
+        ))
     } else {
         None
     };
@@ -843,7 +853,12 @@ mod tests {
     fn a_file_the_grammar_cannot_parse_says_so() {
         assert!(parse("fn f() {}\n").trouble.is_none());
         const BROKEN: &str = "fn f( {{{ unclosed\n";
-        assert!(parse(BROKEN).trouble.is_some());
+        let trouble = parse(BROKEN).trouble.expect("a trouble");
+        // The repair is the syntax's, and the nesting's repair is not offered for it.
+        assert!(
+            trouble.action.starts_with("correct the syntax"),
+            "{trouble:?}"
+        );
     }
 
     #[test]
@@ -854,7 +869,11 @@ mod tests {
             "(".repeat(20_000),
             ")".repeat(20_000)
         );
-        assert!(parse(&deep).trouble.is_some());
+        let trouble = parse(&deep).trouble.expect("a trouble");
+        assert!(
+            trouble.action.starts_with("nest it less deeply"),
+            "{trouble:?}"
+        );
     }
 
     #[test]

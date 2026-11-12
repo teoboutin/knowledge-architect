@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 
 use crate::manifest::Manifest;
 use crate::scan::{self, Located, Observation};
-use crate::source::{self, Literals, Parsed};
+use crate::source::{self, Literals, Parsed, Trouble};
 use crate::walk;
 
 /// One live document and everything that was observed in it.
@@ -198,18 +198,11 @@ impl Model {
                     // than being dropped: dropping it would take a live document out of every
                     // check on the strength of a working-tree state, and the whole point of
                     // reading the listing from git is that nothing does that silently.
-                    let trouble = if e.kind() == std::io::ErrorKind::NotFound {
-                        "git lists this file and the working tree does not hold it: stage the \
-                         deletion, or restore the file"
-                            .to_string()
-                    } else {
-                        format!("this file could not be read as text: {e}")
-                    };
                     docs.push(Document {
                         rel: rel_for_error,
                         text: String::new(),
                         parsed: Parsed {
-                            trouble: Some(trouble),
+                            trouble: Some(unread(&e)),
                             ..Parsed::default()
                         },
                         observations: Vec::new(),
@@ -378,8 +371,22 @@ impl Model {
     ///
     /// The way `build` keeps an unreadable file: in the model, so that `tree` reports
     /// it and the run stops there, rather than absent, which is the silence the walk exists
-    /// against. `commits` uses it for a tree entry whose blob is not text.
-    pub fn push_unreadable(&mut self, rel: PathBuf, trouble: String) {
+    /// against. `commits` uses it for a tree entry that git's object store does not hold. `what`
+    /// says what is wrong and `action` its repair, the two lines of the finding `tree` reports.
+    pub fn push_unreadable(&mut self, rel: PathBuf, what: String, action: String) {
+        self.push_trouble(rel, Trouble::new(what, action));
+    }
+
+    /// The same, for a file whose bytes are not UTF-8: the finding `build` reports for such a
+    /// file in the working tree, so a commit's blob and a checkout's file are told one repair.
+    pub fn push_not_utf8(&mut self, rel: PathBuf) {
+        self.push_trouble(
+            rel,
+            Trouble::not_utf8("this file's bytes are not UTF-8, so no check reads it"),
+        );
+    }
+
+    fn push_trouble(&mut self, rel: PathBuf, trouble: Trouble) {
         self.docs.push(Document {
             rel,
             text: String::new(),
@@ -440,6 +447,35 @@ impl Model {
     }
 }
 
+/// Why a walked file could not be read off the working tree, and the repair of that cause.
+///
+/// Each cause needs its own repair, per `design@check@finding-names-the-repair`. A path git lists
+/// and the working tree does not hold is a tracked file deleted and not yet staged; one the working
+/// tree holds as a directory is a tracked file replaced by one; bytes that are not UTF-8 are
+/// re-encoded or kept out of the walk; any other refusal, such as a permission, is the reading
+/// user's to lift.
+fn unread(e: &std::io::Error) -> Trouble {
+    use std::io::ErrorKind;
+    match e.kind() {
+        ErrorKind::NotFound => Trouble::new(
+            "git lists this file and the working tree does not hold it",
+            "stage the deletion, or restore the file",
+        ),
+        ErrorKind::IsADirectory => Trouble::new(
+            "git lists this file and the working tree holds a directory in its place",
+            "stage the change, or restore the file",
+        ),
+        ErrorKind::InvalidData => {
+            Trouble::not_utf8(format!("this file could not be read as text: {e}"))
+        }
+        _ => Trouble::new(
+            format!("this file could not be read: {e}"),
+            "make it readable to the user running the check, or name it in [walk] skip-files \
+             to keep it unchecked",
+        ),
+    }
+}
+
 /// One row an extension adds to the canonical dump: the document by its index in the model,
 /// the line, the kind and the value.
 pub struct DumpRow {
@@ -492,6 +528,37 @@ fn describe(what: &Observation) -> (&'static str, String) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: a walked file the working tree will not give as text is told the repair of its
+    /// own cause, and its statement names none: a deletion not staged, a directory in its place,
+    /// bytes that are not UTF-8, and any other refusal each name a different repair. Mutation
+    /// checked: each arm of `unread` folded into the last.
+    #[test]
+    fn a_file_the_working_tree_will_not_give_is_told_the_repair_of_its_cause() {
+        use std::io::{Error, ErrorKind};
+        let cases = [
+            (
+                ErrorKind::NotFound,
+                "stage the deletion, or restore the file",
+            ),
+            (
+                ErrorKind::IsADirectory,
+                "stage the change, or restore the file",
+            ),
+            (ErrorKind::InvalidData, "re-encode it as UTF-8"),
+            (
+                ErrorKind::PermissionDenied,
+                "make it readable to the user running the check",
+            ),
+        ];
+        for (kind, repair) in cases {
+            let trouble = unread(&Error::from(kind));
+            assert!(trouble.action.starts_with(repair), "{kind:?}: {trouble:?}");
+            for word in ["stage", "restore", "re-encode", "make it"] {
+                assert!(!trouble.what.contains(word), "{kind:?}: {trouble:?}");
+            }
+        }
+    }
 
     // Every fixture is written as the bytes it means: the checker reads no string literal of
     // its own source, per `design@check@checker-source-literals-are-data`.

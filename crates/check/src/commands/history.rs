@@ -288,10 +288,14 @@ struct Unloadable {
 }
 
 /// Why a listed file has no bytes where its blob was asked for and git answered nothing: git's
-/// object store lacks the blob, as in a repository an object was lost from, and the repair is
-/// git's, whatever the walk would make of the file.
-const NO_BLOB: &str = "git's object store holds no blob for this tree entry: restore the \
-     missing object, which `git fsck` names, from a remote or another clone that holds it";
+/// object store lacks the blob, as in a repository an object was lost from, and the repair,
+/// `NO_BLOB_REPAIR`, is git's, whatever the walk would make of the file.
+const NO_BLOB: &str = "git's object store holds no blob for this tree entry";
+
+/// The repair of [`NO_BLOB`]. A file outside the walk carries the statement alone, and `tree`
+/// names this repair beside the one of a file the working tree refuses.
+const NO_BLOB_REPAIR: &str = "restore the missing object, which `git fsck` names, from a remote \
+     or another clone that holds it";
 
 /// The repair of a git read that fails: git's reason names what failed, a missing object, a
 /// lock, a corrupt index or a git too old, and nothing in the project is the cause.
@@ -631,13 +635,11 @@ fn commit_tree(
     // are not UTF-8 are a file to re-encode or to keep out of the walk, and an absent object is
     // the repository's to restore.
     for rel in missing {
-        let trouble = if read.not_text.contains_key(&rel) {
-            "this file's bytes are not UTF-8, so no check reads it: re-encode a text file as \
-             UTF-8, and name a binary one in [walk] skip-files"
+        if read.not_text.contains_key(&rel) {
+            model.push_not_utf8(rel);
         } else {
-            NO_BLOB
-        };
-        model.push_unreadable(rel, trouble.to_string());
+            model.push_unreadable(rel, NO_BLOB.to_string(), NO_BLOB_REPAIR.to_string());
+        }
     }
 
     let judging = depth != Depth::References;

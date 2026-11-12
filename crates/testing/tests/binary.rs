@@ -2965,7 +2965,9 @@ fn a_commit_holding_a_blob_that_is_not_text_fails_its_tree() {
         "{stdout}"
     );
     assert!(
-        stdout.contains("this file's bytes are not UTF-8, so no check reads it: re-encode"),
+        stdout.contains(
+            "this file's bytes are not UTF-8, so no check reads it\n    → re-encode it as UTF-8"
+        ),
         "{stdout}"
     );
 }
@@ -3002,10 +3004,64 @@ fn a_commit_whose_walked_blob_is_missing_names_the_object_store() {
         "{stdout}"
     );
     assert!(
-        stdout.contains("git's object store holds no blob for this tree entry"),
+        stdout.contains(
+            "git's object store holds no blob for this tree entry\n    → restore the missing object"
+        ),
         "{stdout}"
     );
     assert!(!stdout.contains("not UTF-8"), "{stdout}");
+}
+
+/// The claim: a tree entry outside the walk whose blob git's object store does not hold is a
+/// finding of its tree whose repair names restoring the object, beside the repair of a file the
+/// working tree refuses, and not that one alone. Mutation checked: the outside arm's action in
+/// `tree` reduced to its first case.
+#[test]
+fn a_commit_whose_unwalked_blob_is_missing_is_told_to_restore_it() {
+    let history = History::new("commit-outside-blob-missing");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    history.write("notes/gone.txt", "A note whose object is lost.\n");
+    let sha = history.commit("A note is added\n");
+    let out = Command::new("git")
+        .args(["rev-parse", "HEAD:notes/gone.txt"])
+        .current_dir(&history.repo)
+        .output()
+        .expect("git runs");
+    let blob = String::from_utf8_lossy(&out.stdout).trim().to_string();
+    std::fs::remove_file(
+        history
+            .repo
+            .join(".git/objects")
+            .join(&blob[..2])
+            .join(&blob[2..]),
+    )
+    .expect("the loose object of the note");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&format!("{sha} failed: its tree stops at phase 2")),
+        "{stdout}"
+    );
+    let finding = stdout
+        .split("notes/gone.txt  ")
+        .nth(1)
+        .unwrap_or_else(|| panic!("no finding on the note: {stdout}"));
+    let repair = finding
+        .lines()
+        .nth(1)
+        .unwrap_or_else(|| panic!("no repair line: {stdout}"));
+    assert!(
+        finding.starts_with("this file is outside the walk and could not be read")
+            && finding.lines().next().is_some_and(
+                |l| l.ends_with("git's object store holds no blob for this tree entry")
+            ),
+        "{stdout}"
+    );
+    assert!(
+        repair.contains("restore the missing object, which `git fsck` names"),
+        "{stdout}"
+    );
 }
 
 /// The claim: a last commit whose tree stops before the last phase fails the run like any other

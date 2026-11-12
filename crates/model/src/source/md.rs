@@ -45,7 +45,13 @@ pub fn parse(text: &str) -> Parsed {
         fenced.dedup();
     }
     let trouble = a.unterminated.map(|line| {
-        format!("an HTML comment opens at line {line} and never closes, so the rest of this file is parked")
+        super::Trouble::new(
+            format!(
+                "an HTML comment opens at line {line} and never closes, so the rest of this file \
+                 is parked"
+            ),
+            "close the comment with `-->` where the text it parks ends",
+        )
     });
     prose.code = a.code;
     Parsed {
@@ -317,6 +323,19 @@ mod tests {
                 _ => None,
             })
             .collect()
+    }
+
+    /// The claim: an HTML comment that never closes is a trouble naming the line it opens at,
+    /// and its repair closes it; one that closes is none. Mutations checked: the closer's test
+    /// replaced by `false`, which reads every comment as unclosed; the repair's text replaced.
+    #[test]
+    fn an_html_comment_that_never_closes_is_told_to_close() {
+        assert_eq!(parse("# T\n\n<!-- parked -->\n\ntext\n").trouble, None);
+        let trouble = parse("# T\n\n<!-- parked\n\ntext\n")
+            .trouble
+            .expect("a trouble");
+        assert!(trouble.what.contains("opens at line 3"), "{trouble:?}");
+        assert!(trouble.action.contains("`-->`"), "{trouble:?}");
     }
 
     #[test]

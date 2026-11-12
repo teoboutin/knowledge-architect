@@ -223,7 +223,38 @@ pub struct Parsed {
     /// from the walk and the run still reports success — which is indistinguishable from a
     /// clean file and is the failure this tool exists to prevent. It is also the guard the
     /// premortem named for a grammar that changes under an upgrade.
-    pub trouble: Option<String>,
+    pub trouble: Option<Trouble>,
+}
+
+/// Why a parse cannot be trusted, and the repair of that cause.
+///
+/// The repair travels with the statement because only the code that met the cause knows which
+/// cause it is, and each needs its own repair, per `design@check@finding-names-the-repair`: the
+/// phase that reports it reads both and decides neither.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct Trouble {
+    /// What is wrong, naming no repair.
+    pub what: String,
+    /// The repair, naming no cause.
+    pub action: String,
+}
+
+impl Trouble {
+    pub fn new(what: impl Into<String>, action: impl Into<String>) -> Self {
+        Trouble {
+            what: what.into(),
+            action: action.into(),
+        }
+    }
+
+    /// A file whose bytes are not UTF-8, which no check reads, with `what` saying so: the
+    /// repair is one wherever the bytes were read, the working tree or a git object.
+    pub(crate) fn not_utf8(what: impl Into<String>) -> Self {
+        Trouble::new(
+            what,
+            "re-encode it as UTF-8; where it is not text, name it in [walk] skip-files",
+        )
+    }
 }
 
 impl Parsed {
