@@ -72,8 +72,8 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
             out.push(Finding::at(
                 &doc.rel,
                 1,
-                trouble.clone(),
-                "nothing here is verified; fix the source, or what it says is checked by nothing",
+                trouble.what.clone(),
+                trouble.action.clone(),
             ));
         }
         // A heading markdown shows and the scanner does not read opens a section no check
@@ -783,8 +783,13 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
                     "this file is outside the walk and could not be read, so no check judged \
                      what it says: {why}"
                 ),
-                "make it readable to the user running the check, or name it in [walk] \
-                 skip-files if it is deliberately unchecked",
+                // Two causes, two repairs, per `design@check@finding-names-the-repair`: the
+                // working tree refuses the file, as a permission does, or, in a snapshot, git's
+                // object store lacks its blob, which only git can restore. The reason says which.
+                "where the working tree refuses the file, make it readable to the user running \
+                 the check, or name it in [walk] skip-files to keep it unchecked; where git's \
+                 object store holds no blob for it, restore the missing object, which `git fsck` \
+                 names, from a remote or another clone that holds it",
             ),
         };
         out.push(Finding::in_file(path, what, action));
@@ -1304,6 +1309,63 @@ mod plans_tests {
             assert_eq!(finding.to_string().lines().count(), 2, "{finding}");
             assert!(finding.to_string().starts_with(head), "{finding}");
         }
+    }
+
+    /// The claim: a document whose parse cannot be trusted is reported with the repair its own
+    /// cause carries, a file outside the walk whose bytes cannot be had names the repair of
+    /// each of its two causes, and neither statement holds a repair. Mutations: the trouble's
+    /// action replaced by one text for every cause; the outside arm's second case dropped.
+    #[test]
+    fn an_unread_file_is_told_the_repair_of_its_cause() {
+        let manifest = declaring("");
+        let present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let mut model = Model::from_documents(Vec::new());
+        model.push_unreadable(
+            PathBuf::from("docs/a.md"),
+            "the statement".to_string(),
+            "the repair".to_string(),
+        );
+        model.push_not_utf8(PathBuf::from("docs/b.md"));
+        let outside = [(
+            PathBuf::from("notes/c.txt"),
+            crate::survey::Outside::Unreadable("git's reason".to_string()),
+        )];
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &outside,
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+        };
+        let found = check(&model, &manifest, &inputs);
+        let at = |rel: &str| {
+            found
+                .iter()
+                .find(|f| f.file == std::path::Path::new(rel))
+                .unwrap_or_else(|| panic!("no finding at {rel}: {found:#?}"))
+        };
+        assert_eq!(at("docs/a.md").what, "the statement");
+        assert_eq!(at("docs/a.md").action, "the repair");
+        assert_eq!(
+            at("docs/b.md").what,
+            "this file's bytes are not UTF-8, so no check reads it"
+        );
+        assert!(
+            at("docs/b.md").action.starts_with("re-encode it as UTF-8"),
+            "{found:#?}"
+        );
+        let outside = at("notes/c.txt");
+        assert!(outside.what.ends_with(": git's reason"), "{outside:#?}");
+        assert!(
+            outside
+                .action
+                .contains("make it readable to the user running the check")
+                && outside.action.contains("restore the missing object"),
+            "{outside:#?}"
+        );
     }
 
     /// The tree findings at one path, as `what  → action`.
