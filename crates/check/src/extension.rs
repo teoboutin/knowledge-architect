@@ -352,6 +352,7 @@ mod tests {
             let inputs = Inputs {
                 committed: &HashMap::new(),
                 configs: &HashMap::new(),
+                configs_not_text: &std::collections::HashSet::new(),
                 present: &HashSet::new(),
                 directories: &HashSet::new(),
                 outside: &[],
