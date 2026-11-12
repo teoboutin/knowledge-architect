@@ -51,10 +51,13 @@ pub enum Vcs {
     None,
 }
 
-/// Refuse a project name that begins with the installer's namespace, `knowledge-architect-`, as
-/// [`init`] refuses it, whether given in [`InitOptions::name`] or taken from the basename of the
-/// path; `Err` names the name. A binary's declaration of `--name` calls it while parsing, per
-/// `design@cli@command-parsing-home`. The name `knowledge-architect` itself is accepted.
+/// Refuse a project name by its form alone, as [`init`] refuses it, whether given in
+/// [`InitOptions::name`] or taken from the basename of the path: a name that begins with the
+/// installer's namespace, `knowledge-architect-`, a name a reference cannot spell as an anchor, and
+/// a word the tool reserves. `Err` names the name. A binary's declaration of `--name` calls it
+/// while parsing, per `design@cli@command-parsing-home`. The name `knowledge-architect` itself is
+/// accepted. A name that is the name of a kind passes here and is refused by [`init`], by the parse
+/// of the manifest it would write, since the kinds are the manifest's registers.
 pub fn check_name(name: &str) -> Result<(), String> {
     // Per `design@create@init-refuses-the-installer-s-prefix`: a project's own skills take its
     // name and a hyphen as their prefix by default, per
@@ -67,6 +70,19 @@ pub fn check_name(name: &str) -> Result<(), String> {
             "the project name `{name}` begins with `{OWNED_PREFIX}`, the installer's \
              namespace: the project's own skills, named after it, would be deleted by every \
              install. Pass another --name"
+        ));
+    }
+    // The project's name is its root's anchor, so the manifest's parse refuses the two names
+    // below, with the same rules; they are asked here so that the declaration can refuse them.
+    if !crate::model::table::is_anchor_name(name) {
+        return Err(format!(
+            "the project name `{name}` cannot be spelled in a reference: name it in letters, \
+             digits, `.`, `-` and `_`. Pass another --name"
+        ));
+    }
+    if crate::model::table::is_reserved_anchor(name) {
+        return Err(format!(
+            "the project name `{name}` is a word the tool reserves. Pass another --name"
         ));
     }
     Ok(())
@@ -1021,6 +1037,31 @@ mod tests {
         assert!(under_target("target/sub"));
         assert!(!under_target("targets"));
         assert!(!under_target("sub/target"));
+    }
+
+    /// The claim: a name is refused by its form alone when it begins with the installer's
+    /// namespace, when a reference cannot spell it, or when the tool reserves it; the namespace
+    /// without its hyphen, a name of a kind and an ordinary name pass. Mutations checked in
+    /// `check_name`: each of its three tests negated, `is_reserved_anchor` asked for `"plans"` in
+    /// place of the name, and the prefix test narrowed to a name longer than the prefix; each
+    /// caught.
+    #[test]
+    fn a_name_is_refused_by_its_form() {
+        for name in ["knowledge-architect", "design", "my-project", "a.b_c"] {
+            assert_eq!(check_name(name), Ok(()), "{name}");
+        }
+        for name in [
+            "knowledge-architect-",
+            "knowledge-architect-x",
+            "*",
+            "Bad Name",
+            "a/b",
+            "",
+            "plans",
+            "elsewhere",
+        ] {
+            assert!(check_name(name).is_err(), "{name}");
+        }
     }
 
     /// The claim: `.` and `..` fold away without the filesystem.
