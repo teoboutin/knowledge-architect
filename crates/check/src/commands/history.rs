@@ -230,9 +230,19 @@ fn message_ignored(
     }
     queries.sort();
     queries.dedup();
-    crate::git::ignored(root, &queries)
-        .map_err(|e| format!("the ignore rules could not be asked about its message: {e}"))
+    crate::git::ignored(root, &queries).map_err(|e| e.to_string())
 }
+
+/// The repair of an ignore batch git refuses, for a span of a document or of a message alike.
+///
+/// git reads each question as a pathspec, and refuses the whole batch over one path that goes
+/// through a symbolic link or into a submodule of the working tree, or that opens with pathspec
+/// magic, per `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads`: the span
+/// that names it is what can change, since the working tree is the tip's. Any other refusal is
+/// git's own, and its reason names it.
+const IGNORE_REPAIR: &str = "where git's reason names a path beyond a symbolic link or in a \
+     submodule, or a pathspec magic, reword the span that names that path, so that git reads it as \
+     the path it is; otherwise repair what git's reason names, and run again";
 
 /// What a reference finding is about: the line, and the span it opens with.
 ///
@@ -1083,11 +1093,21 @@ pub fn commits(
         // alone, with git's reason, and its message is judged with no ignore answer: one span
         // must not stop the judgement of every commit of the range, as
         // `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads` records of a
-        // tree's own batch.
+        // tree's own batch. **The refusal is a finding**, as every other cause of a failed
+        // commit is: the verdict and the exit code count findings alone, so a cause with none
+        // would print a failed commit above a pass.
         let ignored = match message_ignored(root, &message, &tree, parent.map(|(a, _)| a)) {
             Ok(ignored) => ignored,
             Err(why) => {
-                causes.push(why);
+                causes.push("git refused the ignore question of its message".to_string());
+                findings.push(Finding::in_file(
+                    format!("commit {short}"),
+                    format!(
+                        "git refused to say whether the paths this commit's message names are \
+                         ignored, so its message was judged with no ignore answer: {why}"
+                    ),
+                    IGNORE_REPAIR,
+                ));
                 HashSet::new()
             }
         };
