@@ -92,7 +92,11 @@ every intermediate Component enclosing it, `design@agent-skills@enclosing-design
 reading of a design home, in any activity, meets it; the paragraph that opens the list of installed
 skills, on loading each skill whole at its moment, whose second sentence is
 `design@agent-skills@installed-skill-takes-precedence`; and the terms the primer uses, each restated with
-its pointer, `design@agent-skills@term-defined-at-first-load`.
+its pointer, `design@agent-skills@term-defined-at-first-load`; and the division of the work
+between a session and the agents it dispatches, with the independent verification of what comes
+back, `design@agent-skills@work-divided-by-judgement` and
+`design@agent-skills@one-independent-verification-suffices`, since every session that can dispatch
+meets the question in every activity, subagents included, and no skill loads at that moment.
 
 ### The primer states the checker's model a reader needs, and the rarer checker rules reach a session through their findings `##checker-model-in-primer`
 
@@ -132,7 +136,10 @@ is reported with the conclusion, a conclusion is re-verified before acting, a tr
 property; a checkable claim is checked before it is written, a commit message's claims are listed
 and checked before the commit, and the same holds for an answer to the owner; what is already
 recorded is checked before diagnosing; the record of code is read before changing it, per
-`design@agent-skills@code-change-reads-its-record`; precedent is not authority. The design skill's grounding
+`design@agent-skills@code-change-reads-its-record`; precedent is not authority. The verification of a conclusion that comes back to a session, an
+independent verification that stands for the dispatching session's own, is in
+`primer@dispatching-work`, per `design@agent-skills@one-independent-verification-suffices`, since
+every session that dispatches meets it. The design skill's grounding
 reads the section again, and its steps and the planning skill point to it. Each skill's and agent's narrower rule,
 such as a reviewer's "establish the state of the tree yourself", stays where its moment needs it.
 

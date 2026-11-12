@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-64 entries
+66 entries
 
 | kind | title |
 | --- | --- |
@@ -11,6 +11,8 @@
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
 | deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
+| deferred | [A dispatched agent writes its report once, at the end, where a file written as it works and annotated by its verifier could fill the gaps](dispatched-agents-write-their-report-as-they-work.md) |
+| deferred | [How parallel work is partitioned among agents, who commits and how the parts are merged, is not designed](how-parallel-work-is-partitioned-among-agents.md) |
 | deferred | [No mechanical check reads that a change to a declared performance path records its figures](no-mechanical-check-reads-a-declared-path-s-figures.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |

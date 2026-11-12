@@ -35,7 +35,8 @@ count and L2's groups of activities, so the session writes no entry per agent. A
 one group of activities, and two walkers are duplicates only when they share one. A finding two
 agents report is merged. There is no calibration sample: the agents give no verdict per entry, the
 duplicates of a lens add coverage, a verifier and the session read every finding, and the re-check
-reads again.
+reads again: more than the one independent verification of
+`design@agent-skills@one-independent-verification-suffices`, which that minimum admits.
 
 The shape is the owner's: the owner judged that the workflow functions as a whole, that none of
 its files can be judged alone, and that a main aim is finding contradictions across files, and
@@ -263,7 +264,9 @@ contradiction or two readings that the new text creates with the rest, and write
 the proposal. The cross-check and the report read the checks, and the report gives each beside its
 proposal. The run does not revise a proposal: the session's verification corrects it, or sends it
 back to a repair agent of its cause briefed with the script's repair prompt and with the check, so
-a repair is checked before it lands.
+a repair is checked before it lands. The check is the proposal's independent verification, and the
+session's verification the further one its responsibility for the owner list asks, per
+`design@agent-skills@one-independent-verification-suffices`.
 
 Each pass's repairs write new text, and the next pass finds defects in it, per
 `design@agent-skills@convergence-count-scope`: of the fifth pass's 38 findings, 16 sat on text that the

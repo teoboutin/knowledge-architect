@@ -17,6 +17,7 @@ followed stays as it is. Where the lapse recurs at one point of delivery, becaus
 is read at one moment and needed at another, the fix moves where it is delivered, and the
 recurrence is its evidence.
 
+%% The rule on fixed dispatches: `design@agent-skills@work-divided-by-judgement`.
 **The kind of a gap weighs it.** A missing capability, a move the agent does not have, is worth
 text. A conformance rule, for a move the agent has and might not make, is worth text only where the
 default behaviour is systematically wrong. A structure imposed on what an agent decides by its

@@ -202,7 +202,9 @@ search the registers again. Each returns, per finding: the quotation,
 its file and line, and its verdict. The session itself establishes d to h, and re-checks every
 verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
 behaviour.
-%% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`.
+%% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`. The
+%% session's re-check of a verdict is its independent verification, per
+%% `design@agent-skills@one-independent-verification-suffices`.
 
 ## The analysis file and who holds each outcome {{slug:analysis-and-ruling}}
 

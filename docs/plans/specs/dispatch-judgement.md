@@ -448,7 +448,7 @@ relations (`argument@dispatch-judgement@arg-79`, `argument@dispatch-judgement@ar
 text, lost to the owner's report and the harness's default; guidance in each skill lost to
 `argument@dispatch-judgement@arg-7`. Final state: approved. The owner, round 8: "Good, I have
 nothing more to add or contest." Shape: "Decided design", the section. Harvest: the head
-`work-divided-by-judgement` in the agent-skills design home.
+`design@agent-skills@work-divided-by-judgement` in the agent-skills design home.
 
 ### An installed text fixes a dispatch only for a step that needs a separate point of view, whose output is verified before it is used, or at an occasion most work meets `##absolute-dispatch-conditions`
 
@@ -462,7 +462,7 @@ of round 8. Reopened at the review of this spec by a material finding:
 home, the admission standard, which defeats the placement "in a head, not the admission
 standard"; closed again argued, the rule in the admission standard, which binds a project's own
 skills too. Shape: "Decided design", the admission sentence. Harvest: inside the head
-`work-divided-by-judgement`, the exception staying with its rule.
+`design@agent-skills@work-divided-by-judgement`, the exception staying with its rule.
 
 ### A dispatched piece is what its brief gives the agent, and the agent carries all of it while it is dispatched `##dispatched-piece-carried-whole`
 
@@ -488,7 +488,7 @@ none.
 
 Proposed by the session, round 1 (`argument@dispatch-judgement@arg-11`), on the measured nested
 dispatch and the primer's list of installed skills (`argument@dispatch-judgement@arg-52`). Final
-state: argued, round 4. Harvest: inside `work-divided-by-judgement`, as the rival "guidance in each
+state: argued, round 4. Harvest: inside `design@agent-skills@work-divided-by-judgement`, as the rival "guidance in each
 activity's skill", the development skill's included.
 
 ### One independent verification, by a session other than the claim's author, against the evidence its report carries, is sufficient for a claim the work acts on `##dispatch-report-standard`
@@ -508,7 +508,7 @@ the owner as a fork (`argument@dispatch-judgement@arg-72`); the owner, round 7: 
 matters most when the claims is acted on." and "Both cases are pretty much the same here actually."
 (`argument@dispatch-judgement@arg-76`, `argument@dispatch-judgement@arg-78`). Final state: approved,
 round 8; the boundary is the session's choice at a fork, which no goal ranks, approved by the
-owner. Shape: the section's verification paragraph. Harvest: the head `one-independent-verification-suffices`, with
+owner. Shape: the section's verification paragraph. Harvest: the head `design@agent-skills@one-independent-verification-suffices`, with
 the instances that cite it, as the owner asked, round 6: "with individual instances citing it".
 
 ### No token bound goes in the primer; a piece too large is asked about in the retrospective `##dispatch-size-hint`
@@ -532,7 +532,7 @@ spec found its first reason wrong. Shape: "Decided design", the questions. Harve
 Proposed by the owner, round 2 (`argument@dispatch-judgement@arg-24`); the session found it predicts
 a behaviour (`argument@dispatch-judgement@arg-33`). Final state: parked. Cause: a real session whose
 returned report could not be acted on without redoing the work. Re-entry: the trigger of the
-`deferred` issue `dispatched-agents-write-their-report-as-they-work`, a retrospective answer to the
+`deferred` issue `issue@agent-skills@dispatched-agents-write-their-report-as-they-work`, a retrospective answer to the
 second dispatch question naming such a report (`argument@dispatch-judgement@arg-53`).
 
 ### How parallel work is partitioned among agents is decided at design and planning, in a later discussion `##parallel-work-partition`
@@ -541,7 +541,7 @@ Proposed by the owner, round 3 (`argument@dispatch-judgement@arg-35`,
 `argument@dispatch-judgement@arg-36`). The owner, round 3: "We can probably keep the guidelines such
 as in the draft for now, and keep that idea for a later design discussion." Final state: parked.
 Cause: a piece of work whose plan wants parallel agents. Re-entry: the trigger of the `deferred`
-issue `how-parallel-work-is-partitioned-among-agents`, which carries the facts of
+issue `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`, which carries the facts of
 `argument@dispatch-judgement@arg-38`, `argument@dispatch-judgement@arg-39` and
 `argument@dispatch-judgement@arg-54`.
 
@@ -888,10 +888,10 @@ Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-prim
 
 ```text
 `primer@dispatching-work`                        the primer section, content/PRIMER.md
-work-divided-by-judgement                        a design head, the agent-skills design home
-one-independent-verification-suffices                     a design head, the agent-skills design home
-dispatched-agents-write-their-report-as-they-work   a deferred issue, crates/agent-skills/docs/open-issues/
-how-parallel-work-is-partitioned-among-agents    a deferred issue, crates/agent-skills/docs/open-issues/
+`design@agent-skills@work-divided-by-judgement` a design head, the agent-skills design home
+`design@agent-skills@one-independent-verification-suffices` a design head, the agent-skills design home
+`issue@agent-skills@dispatched-agents-write-their-report-as-they-work` a deferred issue, crates/agent-skills/docs/open-issues/
+`issue@agent-skills@how-parallel-work-is-partitioned-among-agents` a deferred issue, crates/agent-skills/docs/open-issues/
 dispatching.md                                   a subdocument of the agent-skills design home, holding the two heads
 ```
 
@@ -1022,9 +1022,9 @@ their shape:
 
 Each watches a decision whose failure shows in real sessions first, per
 `design@agent-skills@premortem-as-watch-points`: the first and the second watch
-`work-divided-by-judgement`, the second also bringing the evidence the issue
-`dispatched-agents-write-their-report-as-they-work` waits for; the third watches
-`one-independent-verification-suffices`. The questions are watches that head argues, not instructions on
+`design@agent-skills@work-divided-by-judgement`, the second also bringing the evidence the issue
+`issue@agent-skills@dispatched-agents-write-their-report-as-they-work` waits for; the third watches
+`design@agent-skills@one-independent-verification-suffices`. The questions are watches that head argues, not instructions on
 how a working session behaves, so `design@agent-skills@behaviour-additions-need-real-use` asks
 nothing more of them.
 
@@ -1087,10 +1087,10 @@ The work reads no external specification. It reads the behaviour of external too
 
 - Claude Code 2.1.322's Agent tool description, "Do the work yourself when it is a handful of tool
   calls … When in doubt, don't spawn.", read in this session's tool list; recorded in
-  `work-divided-by-judgement`, with the version;
+  `design@agent-skills@work-divided-by-judgement`, with the version;
 - in Claude Code 2.1.322, a general-purpose subagent holds `Agent` and no `Workflow`, and the primer
   reaches a nested agent: measured once each in this session; recorded in
-  `work-divided-by-judgement`, with the probe that takes each again: one general-purpose agent asked
+  `design@agent-skills@work-divided-by-judgement`, with the probe that takes each again: one general-purpose agent asked
   to list its tools and to dispatch one nested agent that quotes a sentence of the primer from its
   initial context;
 - the Messages API is stateless, each request carrying the whole conversation: the ground of "every
@@ -1104,7 +1104,7 @@ The work reads no external specification. It reads the behaviour of external too
 | sessions dispatch lookups, each paying about 36,000 tokens to reload | `thread@dispatch-judgement@dispatch-judgement-in-primer` | dropped: only the owner sees usage, which fails condition 2 of the tripwire standard, `skill@knowledge-architect-planning@acceptance-criteria`, and the owner would see the failure |
 | a verifier refutes a true finding, and one verification lets it pass unseen | `thread@dispatch-judgement@dispatch-report-standard` | in the audit, guarded by `tripwire@agent-skills@verifier-refutes-a-true-finding`; elsewhere, no session learns of it, so condition 2 fails; named for the harvest to judge, likely dropped |
 | an agent returns its piece unfinished, and "does not take over a part of it" is read as forbidding the session to finish it | `thread@dispatch-judgement@dispatched-piece-carried-whole` | converted into a clause: "What an agent returns unfinished is a new piece." |
-| agents dispatched together edit one tree and lose each other's uncommitted work | `thread@dispatch-judgement@dispatched-piece-carried-whole`, `thread@dispatch-judgement@parallel-work-partition` | carried into the issue `how-parallel-work-is-partitioned-among-agents` |
+| agents dispatched together edit one tree and lose each other's uncommitted work | `thread@dispatch-judgement@dispatched-piece-carried-whole`, `thread@dispatch-judgement@parallel-work-partition` | carried into the issue `issue@agent-skills@how-parallel-work-is-partitioned-among-agents` |
 
 ## Acceptance criteria
 
@@ -1155,7 +1155,7 @@ Writes every row of the Harvest below, then the `%%` lines of step 1 that cite t
 Claims:
 
 - each head cites what its argument stands on, and each instance named in the Harvest cites
-  `one-independent-verification-suffices`: tested by `cargo klarch show` of the head, which lists every
+  `design@agent-skills@one-independent-verification-suffices`: tested by `cargo klarch show` of the head, which lists every
   reference to it;
 - `cargo klarch check` passes;
 - the message of the harvest's commit states every cause of the premortem with its outcome, and
@@ -1178,18 +1178,18 @@ Claims:
 
 | what | where | when |
 | --- | --- | --- |
-| the head `work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `work-divided-by-judgement`): its title states the rule, the work divided by a judgement on the relations of its pieces, an installed text fixing a dispatch only on a property of the step that holds whatever the task's size; its body names the three properties of today, the readings with the Claude Code version, and the rivals no text, thresholds, and guidance in each skill; test 3 on the harness's default, test 2 on the fixed dispatches at several sites | a new subdocument, `planned@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
-| the head `one-independent-verification-suffices` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `one-independent-verification-suffices`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
-| the instances cite `one-independent-verification-suffices`: `design@agent-skills@session-acts-on-the-verdicts`, its verification rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its verification | their homes | step 3 |
+| the head `design@agent-skills@work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `design@agent-skills@work-divided-by-judgement`): its title states the rule, the work divided by a judgement on the relations of its pieces, an installed text fixing a dispatch only on a property of the step that holds whatever the task's size; its body names the three properties of today, the readings with the Claude Code version, and the rivals no text, thresholds, and guidance in each skill; test 3 on the harness's default, test 2 on the fixed dispatches at several sites | a new subdocument, `path@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
+| the head `design@agent-skills@one-independent-verification-suffices` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `design@agent-skills@one-independent-verification-suffices`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
+| the instances cite `design@agent-skills@one-independent-verification-suffices`: `design@agent-skills@session-acts-on-the-verdicts`, its verification rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its verification | their homes | step 3 |
 | `design@agent-skills@verification-in-primer` gains the section as the place where a returned conclusion's independent verification lives; `design@agent-skills@primer-limit` gains the section as a member, with where the judgement lives; `design@agent-skills@premortem-as-watch-points` gains the three questions, each with what it watches; `design@agent-skills@a-scratch-directory-per-subagent` names the primer section among the texts that state its rule; `design@agent-skills@admission-rules-home` names the admission sentence on fixed dispatches | their homes | step 3 |
 | the losing alternatives, each judged by `skill@knowledge-architect-decision-recording` for a `rejected` entry | `register@agent-skills@rejected` | step 3 |
 | the premortem's third cause, judged by the tripwire standard | `register@agent-skills@tripwire`, or dropped with its reason in the harvest's commit | step 3 |
-| the issue `dispatched-agents-write-their-report-as-they-work`, kind `deferred`, trigger: a retrospective answer to the second dispatch question naming a report the session could not act on. Its body: the owner's proposal of report files an agent writes as it works and a verifier annotates, to fill the gap of reports written in one shot at the end; why it waits, no real session having shown the gap; how it differs from `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript` and `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`, which it cites; that the harness refuses a subagent's `Write` of a `report.md`, per `design@agent-skills@report-written-through-the-shell` and `design@agent-skills@refused-report-returned-as-text`; and how the shape answers `rejected@agent-skills@ledger-written-during-discussion`, a file an agent writes for its own piece rather than the discussion's ledger | `register@agent-skills@issue` | step 3 |
-| the issue `how-parallel-work-is-partitioned-among-agents`, kind `deferred`, trigger: a plan document whose work wants parallel agents. Its body: the owner's report of the thaum split, agents in parallel per Component, no commits during the work, the session committing each part after; the owner's motive, time more than context; the shape the owner named, parts carried in worktrees of their own, committed, then rebase-merged; and the facts: the cold build of a fresh worktree (`rejected@mutate@worktree-holds-the-mutation`), parallel target directories filling a shared tmpfs (`issue@mutate@an-environment-failure-reads-as-caught`), the content-loss risk of a shared tree (`design@knowledge-architect@no-operation-loses-content`), that a durable per-agent worktree is not a scratch one (`design@knowledge-architect@scratch-worktree-outside-git-rules`), that `skill@knowledge-architect-review@review-invariants` gives a worktree to a subagent that judges a commit and runs the checker, a test, a mutation or a built program, the ambiguity `design@agent-skills@step-is-no-commit` meets under a partition, and `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`; it cites `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand` | `register@agent-skills@issue` | step 3 |
+| the issue `issue@agent-skills@dispatched-agents-write-their-report-as-they-work`, kind `deferred`, trigger: a retrospective answer to the second dispatch question naming a report the session could not act on. Its body: the owner's proposal of report files an agent writes as it works and a verifier annotates, to fill the gap of reports written in one shot at the end; why it waits, no real session having shown the gap; how it differs from `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript` and `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`, which it cites; that the harness refuses a subagent's `Write` of a `report.md`, per `design@agent-skills@report-written-through-the-shell` and `design@agent-skills@refused-report-returned-as-text`; and how the shape answers `rejected@agent-skills@ledger-written-during-discussion`, a file an agent writes for its own piece rather than the discussion's ledger | `register@agent-skills@issue` | step 3 |
+| the issue `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`, kind `deferred`, trigger: a plan document whose work wants parallel agents. Its body: the owner's report of the thaum split, agents in parallel per Component, no commits during the work, the session committing each part after; the owner's motive, time more than context; the shape the owner named, parts carried in worktrees of their own, committed, then rebase-merged; and the facts: the cold build of a fresh worktree (`rejected@mutate@worktree-holds-the-mutation`), parallel target directories filling a shared tmpfs (`issue@mutate@an-environment-failure-reads-as-caught`), the content-loss risk of a shared tree (`design@knowledge-architect@no-operation-loses-content`), that a durable per-agent worktree is not a scratch one (`design@knowledge-architect@scratch-worktree-outside-git-rules`), that `skill@knowledge-architect-review@review-invariants` gives a worktree to a subagent that judges a commit and runs the checker, a test, a mutation or a built program, the ambiguity `design@agent-skills@step-is-no-commit` meets under a partition, and `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`; it cites `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand` | `register@agent-skills@issue` | step 3 |
 | a Workflow entry, a patch, in `Next release`, then `cargo x changelog` | CHANGELOG.md | step 3 |
 
 ## Later consequences
 
 - The later discussion on partitioning parallel work starts from
-  `how-parallel-work-is-partitioned-among-agents`.
+  `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`.
 - The alignment of the owner's user-level instructions, per D1.

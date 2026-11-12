@@ -109,9 +109,10 @@ finding gets one id in each file, each naming the other, since the two files may
   strict to follow, or get followed against the project's interest? For each: the rule, the code or
   the split, and what following it cost. Each is a finding on the installed text, in the workflow's
   file.
-%% The three questions are `design@agent-skills@premortem-as-watch-points`'s watches on
-%% `primer@dispatching-work`, whose failures show in real sessions first; a subagent's transcript
-%% is read with `{{command}} transcript show --subagents` where an answer needs it.
+%% The three questions are `design@agent-skills@premortem-as-watch-points`'s watches, the first two
+%% on `design@agent-skills@work-divided-by-judgement`, the third on
+%% `design@agent-skills@one-independent-verification-suffices`; a subagent's transcript is read with
+%% `{{command}} transcript show --subagents` where an answer needs it.
 - Did this session carry work an agent could have carried, spending context that its design or its
   exchange with the owner needed? For each: the work, and what carrying it cost.
 - Did a dispatched agent return without finishing its piece, or with a report the session could
