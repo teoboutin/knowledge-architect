@@ -3205,9 +3205,9 @@ fn commits_reads_every_checker_directory_as_data_in_each_commits_tree() {
 }
 
 /// The claim: a commit whose manifest fails phase 1 is read no further and serves as no
-/// parent, per `design@check@a-commit-message-is-a-document`. The next commit's message then
-/// resolves against its own tree alone, so naming an entry that only the failed tree held
-/// dangles.
+/// parent, per `design@check@message-references-resolve-in-either-tree`. The next commit's
+/// message then resolves against its own tree alone, so naming an entry that only the failed
+/// tree held dangles.
 #[test]
 fn a_tree_whose_phase_one_fails_serves_as_no_parent() {
     let history = History::new("commit-phase-one-parent");
