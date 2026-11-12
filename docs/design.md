@@ -570,11 +570,12 @@ published on crates.io can be yanked and never deleted, so the irreversible step
 review and CI have judged exactly what it publishes. The cost: main states the new version from the
 merge until the publish, and a declined approval or a failed publish leaves that statement false
 until a repair lands. A new crate's placeholder, `design@knowledge-architect@new-crate-placeholder`,
-holds none of the project's code, so it is published by hand, and between the merge and the tag:
-crates.io deletes no version alone, and undoes a placeholder only by deleting its crate, within 72
-hours of its publication or while it is barely used, per
+holds none of the project's code, so it is published by hand, after the merge of the branch that
+adds its crate, per `design@knowledge-architect@placeholder-at-the-merge-of-its-crate`: crates.io
+deletes no version alone, and undoes a placeholder only by deleting its crate, within 72 hours of
+its publication or while it is barely used, per
 `path@knowledge-architect@docs/grounding/crates-io-publishing.md`, so it too comes after the review
-and the merge, and it pins nothing, so it can come before the tag. The procedure is
+and the merge, and it pins nothing, so it can come before any tag. The procedure is
 `skill@klarch-release`.
 
 ### The owner's word to publish through the release workflow is the approval of its deployment `##owner-word-mechanism`
@@ -613,10 +614,11 @@ release workflow.
 
 ### A new crate's name is taken by a placeholder version, so the release workflow publishes every real version `##new-crate-placeholder`
 
-For a crate that crates.io does not hold yet, the owner publishes by hand, between the merge and the
-tag, per `design@knowledge-architect@publish-after-merge`, with an API token, a version 0.0.0 whose library is empty and
-whose manifest names this repository, made from the template `skill@klarch-release` states, in a
-directory outside every repository. The owner then gives the crate its trusted publisher and turns on
+For a crate that crates.io does not hold yet, the owner publishes by hand, after the merge of the
+branch that adds the crate, per `design@knowledge-architect@placeholder-at-the-merge-of-its-crate`,
+with an API token, a version 0.0.0 whose library is empty and whose README names the crate's
+directory in this repository, made from the template `skill@klarch-release` states, in a directory
+outside every repository. The owner then gives the crate its trusted publisher and turns on
 "Require trusted publishing for all new versions", per `design@knowledge-architect@publish-credential`,
 and the release workflow publishes the crate's real version with every other crate's, in one run the
 owner approves, per `design@knowledge-architect@owner-word-mechanism`.
@@ -653,21 +655,34 @@ every later new crate. Lifting "Require trusted publishing" on an existing crate
 loses to `design@knowledge-architect@publish-credential`, under which no stored credential can
 publish a version of these crates.
 
-### A placeholder is published only in the release that publishes its crate's real version `##placeholder-only-in-its-release`
+### A new crate's placeholder is published at the merge of the branch that adds the crate, and names its development `##placeholder-at-the-merge-of-its-crate`
 
-No crate name is taken ahead of the release that publishes the crate's code, such as for a crate a
-later release is planned to add. crates.io's usage policy forbids a package that "exists only to
-reserve a name for a prolonged period of time (often called "name squatting") without having any
-genuine functionality, purpose, or significant development activity on the corresponding
-repository", and its team may delete such a crate, per
-`path@knowledge-architect@docs/grounding/crates-io-publishing.md`; a placeholder whose real version
-follows in the same release is no such package. The policy leaves "prolonged" unbounded, and a
-planned crate whose code is under way in this repository may meet its last clause. The rival, taking
-a planned crate's name once its work starts, so no other publisher takes it first under crates.io's
-first-come rule read in the same file, keeps the name at the cost of resting on that reading of the
-policy, while this rule costs a rename where another publisher takes the name first. The session
-chose this rule over that rival, which no goal ranks, and the owner approved it with the
-placeholder's shape.
+The placeholder of a new crate is published after the merge of the branch that adds the crate to
+main, and its README names the crate's directory there and says that the next release of the project
+publishes its first real version. A crate removed from main while its only version is its
+placeholder has that crate deleted on crates.io. A release that finds a new crate without its
+placeholder publishes it before its tag.
+
+crates.io's usage policy forbids a package that "exists only to reserve a name for a prolonged
+period of time (often called "name squatting") without having any genuine functionality, purpose,
+or significant development activity on the corresponding repository", per
+`path@knowledge-architect@docs/grounding/crates-io-publishing.md`. A placeholder whose README states
+its purpose and points to its crate's code on main has a purpose and development activity on its
+repository, so it is not such a package; and the README's statement holds by construction, since a
+crate on main is published by the next release, per `design@knowledge-architect@version-lockstep`.
+A crate removed from main would leave its placeholder with neither, so its crate is deleted, which
+crates.io allows while it has one owner, few downloads and no dependents, per the same file. The
+merge, not the start of the crate's work, is the moment: the review fixes the crate's name, so no
+placeholder is left by a rename, and the README points to a directory main holds; the placeholder
+then comes after the review, as `design@knowledge-architect@publish-after-merge` orders what cannot
+be undone.
+
+The rival, a placeholder published only in the release that publishes the crate's real version,
+keeps the placeholder clear of any reading of the policy, and leaves the name open to another
+publisher, under crates.io's first-come rule read in the same file, until that release. The owner
+chose the placeholder at the merge over it, which no goal ranks, on the argument that the README
+shows the development under way; the moment, the merge rather than the start of the crate's work,
+is the session's choice, which no goal ranks, and the owner approved it.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
