@@ -214,17 +214,21 @@ all, as it would be with no suffix: a path the ignore rules cover, per
 `design@model@ignored-targets-are-not-asserted`, a planned path whose target does not exist, per
 `design@model@planned-path-form`, and a file whose name holds what reads as a suffix. A planned
 path whose target exists once the suffix is dropped points into it, which the planned form cannot,
-and is told the form that target is cited by, whatever its written form gives. The two conditions the
-lint puts on a suffix, an extension before it and a letter opening a fragment, are not asked: they
-tell another tool's notation from a pointer, and a span with an anchor is a pointer whatever
-follows its id. An escaped path that names nothing here resolves as written, so it is not judged
-again.
+and is told the form that target is cited by, whatever its written form gives. The two
+conditions the lint puts on a suffix, an extension before it and a letter opening a fragment, are
+not asked: they tell another tool's notation from a pointer, and a span with an anchor is a pointer
+whatever follows its id. An escaped path that names nothing here resolves as written, so it is not
+judged again.
 
-**A reference that resolves to nothing is recorded and reported, never dropped.** The scanner could
-require a resolvable shape and see nothing without one, which needs no finding and no migration. It
-would also mean every pointer written in an older form with an `@`, as `<anchor>@<path>`, stops
-being checked with nothing saying so; the older form with no `@`, a slug with a hash sign, is read
-by no check, per `design@check@hash-slug-span-read-by-no-lint`. A
-silent false negative passes a tree that does not conform, against
-`goal@documentation-stays-consistent`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
-`design@model@at-span-candidate-rule`.
+### A span read as a reference is recorded and reported when it resolves to nothing, never dropped `##an-unresolved-reference-is-never-dropped`
+
+A span the candidate rule reads as a reference stays in the model whatever it resolves to, and one
+that resolves to nothing is a finding, whose repair is
+`design@model@an-unresolved-reference-is-reported`'s. The scanner could require a resolvable shape
+and see nothing without one, which needs no finding and no migration. It would also mean every
+pointer written in an older form with an `@`, as `<anchor>@<path>`, stops being checked with
+nothing saying so; the older form with no `@`, a slug with a hash sign, is read by no check, per
+`design@check@hash-slug-span-read-by-no-lint`. A silent false negative passes a tree that does not
+conform, against `goal@documentation-stays-consistent`: a tree that passes the checker conforms to
+the reference grammar in the texts the checker reads, save what a declaration switches off. The
+candidate rule that bounds this is `design@model@at-span-candidate-rule`.
