@@ -1,4 +1,4 @@
-# The primer states how a session divides the work between itself and the agents it dispatches, as a judgement, and one check by another session is sufficient verification of a claim the work acts on
+# The primer states how a session divides the work between itself and the agents it dispatches, as a judgement, and one independent verification is sufficient for a claim the work acts on
 
 ## Status and audience
 
@@ -15,8 +15,8 @@ leaves the repository in a commit of its own, after its harvest and the review b
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- One default awaits the owner, D1, under "Defaults awaiting the owner"; it waits as
-  `skill@knowledge-architect-planning@working-a-slice` says.
+- One default was put to the owner, D1, under "Defaults awaiting the owner", and the owner has
+  ruled on it.
 - The spec and its work go on one branch: the work changes no rule of the checker, and
   `cargo klarch commits` compares no installed file, so no earlier commit can fail under the
   branch tip's checker and the spec need not merge first, per
@@ -44,9 +44,11 @@ discussion converged and no other commit has landed on main since this spec was 
   and "the main session" the one the owner exchanges with.
 - **a carrier**: the session or an agent that carries a piece of work.
 - **a piece**: what a brief gives one agent, or what the session keeps for itself.
-- **a check**: the verification of a claim by a session other than the one that wrote it, against
-  the evidence its report carries. A command that checks a report's form, such as
-  `worklist --verify`, is no check in this sense.
+- **an independent verification**: the verification of a claim by a session other than the one
+  that wrote it, against the evidence its report carries. A command that checks a report's form,
+  such as `worklist --verify`, is none. The word "check" alone is not used for it: it names the
+  checker's commands and many acts of the installed text, and "verification" alone names the
+  writer's own verification as well, as in `primer@verify-before-relying`.
 - **the thaum process**: the owner's report, round 3, of a project of the owner's, thaum, whose
   code modules were split into smaller units across the whole project by agents dispatched in
   parallel, one per Component, which made no commits; the main session committed each part after
@@ -128,11 +130,11 @@ The recorded decisions the work rewrites, each with the texts that `cargo klarch
 referencing it, judged at the harvest (step 3):
 
 - `design@agent-skills@session-acts-on-the-verdicts`: its rule on checking a verdict becomes an
-  instance of the new check head, which it cites instead of stating the rule; its title and its
+  instance of the new verification head, which it cites instead of stating the rule; its title and its
   other clauses stand. Referenced by `path@agent-skills@docs/design/record-search.md`,
   `path@agent-skills@docs/design/reviews.md` and
   `issue@agent-skills@a-lighter-pass-for-untouched-components`, each for a clause that stands; the
-  installed searcher's description restates the rule and gains a `%%` line citing the check head.
+  installed searcher's description restates the rule and gains a `%%` line citing the verification head.
 - `design@agent-skills@verification-in-primer`: gains the new section as the place where the check
   of a returned conclusion lives. Referenced by `path@agent-skills@docs/design/project-configuration.md`
   alone.
@@ -150,7 +152,7 @@ referencing it, judged at the harvest (step 3):
 - `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`,
   `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and
   `design@agent-skills@verdicts-reach-the-conformance-review`: each gains a citation of the check
-  head where it states its check; its rule stands.
+  head where it states its verification; its rule stands.
 
 Step 3 reads each referencing text named above and updates any that restates a changed part.
 
@@ -161,8 +163,8 @@ it:
 
 | entry | verdict, action | outcome |
 | --- | --- | --- |
-| `design@agent-skills@verification-in-primer` | conflicts, check-reversal | answered: the check paragraph says one check stands for the dispatching session's own verification, which resolves the two acts "Re-verify a conclusion before acting on it" gives on a verifier's report; the head is not reversed, and gains the section as the place of that rule |
-| `design@agent-skills@session-acts-on-the-verdicts` | conflicts, check-reversal | rewritten at the harvest to cite the check head |
+| `design@agent-skills@verification-in-primer` | conflicts, check-reversal | answered: the verification paragraph says one independent verification stands for the dispatching session's own verification, which resolves the two acts "Re-verify a conclusion before acting on it" gives on a verifier's report; the head is not reversed, and gains the section as the place of that rule |
+| `design@agent-skills@session-acts-on-the-verdicts` | conflicts, check-reversal | rewritten at the harvest to cite the verification head |
 | `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited`, `design@agent-skills@verdicts-reach-the-conformance-review` | conflicts, check-reversal | answered: the check is a minimum, "one check is enough", which forbids no second check a skill asks for; none is reversed |
 | `rejected@agent-skills@repair-check-left-to-session`, `rejected@agent-skills@repair-defects-left-to-next-pass` | brings-back, new-argument-needed | answered: the minimum drops no check step, so neither comes back |
 | `design@agent-skills@premortem-as-watch-points` | conflicts, check-reversal | the questions widen its list within its argument: each names what it watches; the compaction question is dropped, on the argument under "Losing alternatives" |
@@ -170,8 +172,8 @@ it:
 | `rejected@agent-skills@head-rules-whole-in-primer` | constrains, respect | the primer "can dilute in a long one", a long session: answered by the pointer sentence at point 3 of the planning skill's procedure, where implementation starts |
 | `design@agent-skills@a-goal-reading-is-reported` | constrains, respect | the reading of `goal@session-orchestrates-the-work` is named under "Decided" (`thread@dispatch-judgement@dispatch-judgement-in-primer`) |
 | `design@agent-skills@one-decision-per-head`, `rejected@agent-skills@head-split-by-independent-reversal` | constrains, respect | the harvest writes one head per decision; the exception of `thread@dispatch-judgement@absolute-dispatch-conditions` stays in the judgement's head |
-| `design@agent-skills@extension-follows-the-ground`, `design@agent-skills@new-or-reshaped-head-needs-design` | constrains, respect | the widening of the check rule was argued in this discussion, rounds 4 to 7 |
-| `design@agent-skills@no-two-installed-instructions-contradict` | constrains, respect | the minimum form leaves every named check chain standing |
+| `design@agent-skills@extension-follows-the-ground`, `design@agent-skills@new-or-reshaped-head-needs-design` | constrains, respect | the widening of the verification rule was argued in this discussion, rounds 4 to 7 |
+| `design@agent-skills@no-two-installed-instructions-contradict` | constrains, respect | the minimum form leaves every named chain of verifications standing |
 | `issue@agent-skills@no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness` | touches, respect | the judgement head states the section as a weighing beside the harness's default, not a precedence over it, so it does not depend on that issue |
 | `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies` | touches, respect | the judgement head states where a fixed dispatch is admitted; the issue stays open |
 | `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` | touches | the two parked threads take `deferred` issues with a trigger |
@@ -409,18 +411,18 @@ brief.
 ### A behaviour addition rests on real-use evidence, or repairs a defect provable by reading `##real-use-evidence`
 
 Binding, from `design@agent-skills@behaviour-additions-need-real-use`. Met: the owner's report
-(round 2) for the judgement; a reading that allows two acts for the carried-whole and the check
+(round 2) for the judgement; a reading that allows two acts for the carried-whole and the verification
 paragraphs (round 5).
 
 ### Every statement names an act it changes `##every-statement-an-act`
 
 Binding, from `design@agent-skills@statement-names-an-act`. Met: each sentence changes a dispatch, a
-carry, a check or an answer.
+carry, a verification or an answer.
 
-### Checking dispatched work does not raise the total cost much `##check-cost-weighed`
+### Verifying dispatched work does not raise the total cost much `##check-cost-weighed`
 
-Weighed, a lead of the source issue. Met: one check is enough, and no rule of the primer asks for
-a second.
+Weighed, a lead of the source issue. Met: one independent verification is enough, and no rule of the
+primer asks for a second.
 
 ## Threads
 
@@ -448,7 +450,7 @@ text, lost to the owner's report and the harness's default; guidance in each ski
 nothing more to add or contest." Shape: "Decided design", the section. Harvest: the head
 `work-divided-by-judgement` in the agent-skills design home.
 
-### An installed text fixes a dispatch only for a step that needs a separate point of view, whose output a check verifies, or at an occasion most work meets `##absolute-dispatch-conditions`
+### An installed text fixes a dispatch only for a step that needs a separate point of view, whose output is verified before it is used, or at an occasion most work meets `##absolute-dispatch-conditions`
 
 Proposed by the owner, round 1 (`argument@dispatch-judgement@arg-3`,
 `argument@dispatch-judgement@arg-4`), sharpened by the session into a test on the step's property
@@ -489,11 +491,11 @@ dispatch and the primer's list of installed skills (`argument@dispatch-judgement
 state: argued, round 4. Harvest: inside `work-divided-by-judgement`, as the rival "guidance in each
 activity's skill", the development skill's included.
 
-### One check, by a session other than the claim's author, against the evidence its report carries, is sufficient verification of a claim the work acts on `##dispatch-report-standard`
+### One independent verification, by a session other than the claim's author, against the evidence its report carries, is sufficient for a claim the work acts on `##dispatch-report-standard`
 
 Proposed by the session, round 1, as a sentence on the dispatcher's side
 (`argument@dispatch-judgement@arg-12`); the owner gave its principle, round 2: equal trust, one
-check is enough (`argument@dispatch-judgement@arg-23`). The record search found the wording "a
+verification is enough (`argument@dispatch-judgement@arg-23`). The record search found the wording "a
 check is not checked again" in conflict with the named check chains
 (`argument@dispatch-judgement@arg-42`, `argument@dispatch-judgement@arg-43`). The owner, round 5,
 asked for a definition instead of a workaround (`argument@dispatch-judgement@arg-57`); the session
@@ -506,7 +508,7 @@ the owner as a fork (`argument@dispatch-judgement@arg-72`); the owner, round 7: 
 matters most when the claims is acted on." and "Both cases are pretty much the same here actually."
 (`argument@dispatch-judgement@arg-76`, `argument@dispatch-judgement@arg-78`). Final state: approved,
 round 8; the boundary is the session's choice at a fork, which no goal ranks, approved by the
-owner. Shape: the section's check paragraph. Harvest: the head `one-check-by-another-session`, with
+owner. Shape: the section's verification paragraph. Harvest: the head `one-independent-verification-suffices`, with
 the instances that cite it, as the owner asked, round 6: "with individual instances citing it".
 
 ### No token bound goes in the primer; a piece too large is asked about in the retrospective `##dispatch-size-hint`
@@ -518,7 +520,7 @@ search's ground, not a dispatch guideline (`argument@dispatch-judgement@arg-50`)
 superseded by `thread@dispatch-judgement@retrospective-dispatch-questions`, round 4. Harvest: a
 `rejected` entry if `skill@knowledge-architect-decision-recording` admits it.
 
-### The retrospective asks whether the session carried work an agent could have carried, whether an agent came back unfinished or with an unusable report, and whether a returned conclusion proved wrong after its check or was checked again where no skill asked `##retrospective-dispatch-questions`
+### The retrospective asks whether the session carried work an agent could have carried, whether an agent came back unfinished or with an unusable report, and whether a returned conclusion proved wrong after its independent verification or was verified again where no skill asked `##retrospective-dispatch-questions`
 
 Proposed by the session, round 1 (`argument@dispatch-judgement@arg-14`); reshaped after the search,
 each question naming what it watches, answerable from the session's side, and met by most sessions
@@ -887,7 +889,7 @@ Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-prim
 ```text
 dispatching-work                                 the primer section's slug, content/PRIMER.md
 work-divided-by-judgement                        a design head, the agent-skills design home
-one-check-by-another-session                     a design head, the agent-skills design home
+one-independent-verification-suffices                     a design head, the agent-skills design home
 dispatched-agents-write-their-report-as-they-work   a deferred issue, crates/agent-skills/docs/open-issues/
 how-parallel-work-is-partitioned-among-agents    a deferred issue, crates/agent-skills/docs/open-issues/
 dispatching.md                                   a subdocument of the agent-skills design home, holding the two heads
@@ -910,9 +912,9 @@ installed text names.
 - **One carrier**, the session or one agent, takes two pieces that reason over the same details, so
   that none reads again what another read: verifying findings and repairing them, or writing a
   change and its commit.
-- **Separate carriers** take two pieces when one judges the other, as a review or a check judges
-  what it reads, even where the two reason over the same details; or when they are independent and
-  splitting them saves context.
+- **Separate carriers** take two pieces when one judges the other, as a review or an independent
+  verification judges what it reads, even where the two reason over the same details; or when
+  neither needs what the other reads, and splitting them saves context.
 - **The session dispatches** a piece when a brief can carry what it needs of the session's context
   and the session needs only its result, not the reading and the trials behind it, as an
   investigation, a survey or a mechanical change.
@@ -931,12 +933,13 @@ part alone is small. What an agent returns unfinished is a new piece. An agent r
 on and what it did not, with why. Agents dispatched together each get a scratch directory of their
 own.
 
-**A conclusion that comes back is checked before the session acts on it**: a session other than the
-one that reported it, the dispatching session or one it dispatches, verifies its claims against the
-evidence the report carries; a command that checks a report's form is no such check. One check is
-enough: it stands for the dispatching session's own verification of that conclusion, per
-`primer@verify-before-relying`. A check's verdict on a claim is no new conclusion; the claims a
-checker adds of its own, such as a repairer's account of what it did and did not repair, are.
+**A conclusion that comes back gets an independent verification before the session acts on it**:
+a session other than the one that reported it, the dispatching session or one it dispatches,
+verifies its claims against the evidence the report carries; a command that checks a report's form
+is none. One independent verification is enough: it stands for the dispatching session's own
+verification of that conclusion, per `primer@verify-before-relying`. A verifier's verdict on a claim
+is no new conclusion; the claims a verifier adds of its own, such as a repairer's account of what it
+did and did not repair, are.
 ```
 
 The words: in this section, as in the primer, a **session** is the main session or any agent; "the
@@ -963,7 +966,7 @@ The argument, by part:
   judgement in each and reaches only the sessions that load it.
 - **The dispatches an installed text fixes.** An installed text fixes a dispatch only on a property
   of the step that holds whatever the task's size, today one of three: a separate point of view
-  (the reviews, the goal reviewer), an output whose form a command verifies and whose claims a check
+  (the reviews, the goal reviewer), an output whose form a command verifies and whose claims a session
   then verifies (the record search, through `worklist --verify` and the session's reading of the
   verdicts; the audits, through their verifiers; the transcript extraction, through the transcript
   reviewer), or an occasion most work meets (a merge, a development checkpoint). Any other "always
@@ -975,30 +978,30 @@ The argument, by part:
   session carries a commit alone; the harness's "Do the work yourself when it is a handful of tool
   calls" says the same. The paragraph fixes the unit at the brief's piece. It does not rule out the
   thaum process, defined under Names: its briefs said not to commit, so the commit was never part of
-  an agent's piece, and the bullets are a judgement the independence of the parts weighs in.
-- **The check.** The primer asks every session to verify its own claims before writing them, and
+  an agent's piece, and the bullets are a judgement in which parts that need none of each other's details weigh.
+- **The independent verification.** The primer asks every session to verify its own claims before writing them, and
   the instruction lapses often: of the 18 record searchers of this discussion, each told to quote
   verbatim, 16 reported that their first `worklist --check` failed on their quotations, and agent-4
   and agent-8 re-ran theirs after repairs, a first failure inferred. The failures are of exact
   quotation, not of a claim's truth, and an agent may have leaned on the cheap check on purpose;
   the figure is kept in the message of the commit that adds this spec. Dispatchers saved condensed
   copies of reports, or none, in 7 of 12 sessions, per `design@agent-skills@reviewer-writes-its-report`.
-  So a claim the work acts on gets one check by a session other than its author. One check is a
-  minimum, not a ceiling: it forbids no second check a skill asks for, such as the audit's sample of
+  So a claim the work acts on gets one independent verification. One is a minimum, not a
+  ceiling: it forbids no second verification a skill asks for, such as the audit's sample of
   a verifier's refutations. A claim whose effect is that nothing is done, a refuted finding, may be
-  sampled where a skill says so: the session chose this boundary over a check of every refutation,
-  which no goal ranks, and the owner approved it, adding that the check "matters most when the
+  sampled where a skill says so: the session chose this boundary over verifying every refutation,
+  which no goal ranks, and the owner approved it, adding that it "matters most when the
   claims is acted on", and that a finding judged real and not worth acting on "maybe that deserves
   verification. Or maybe not." Such a finding is a decision, which `primer@decided-section` brings
-  to the owner. Each claim gets its one check, a verdict is no new claim, and the main session's own
-  claims are checked by the review before the merge, so no chain is open.
+  to the owner. Each claim gets its one independent verification, a verdict is no new claim, and the
+  main session's own claims are verified by the review before the merge, so no chain is open.
 
 ### `thread@dispatch-judgement@absolute-dispatch-conditions`
 
 One sentence in the admission standard,
 `skill@knowledge-architect-agent-configuration@admission-standard`, an illustration of its shape:
 "An instruction fixes a dispatch only on a property of the step that holds whatever the task's
-size, such as a point of view apart from the session's, an output a check verifies, or an occasion
+size, such as a point of view apart from the session's, an output verified before it is used, or an occasion
 most work meets; any other fixed dispatch is judged by the primer's section on dispatching work."
 It binds a project's own skills as it binds the installed text.
 
@@ -1012,15 +1015,16 @@ their shape:
   exchange with the owner needed? For each: the work, and what it cost.
 - Did a dispatched agent return without finishing its piece, or with a report the session could not
   act on without redoing the work? For each: the brief, and what was missing.
-- Did this session act on a returned conclusion that proved wrong after its check, or check a
-  conclusion again where no skill asked for it? For each: the conclusion, and who checked it.
+- Did this session act on a returned conclusion that proved wrong after its independent
+  verification, or verify a conclusion again where no skill asked for it? For each: the conclusion,
+  and who verified it.
 ```
 
 Each watches a decision whose failure shows in real sessions first, per
 `design@agent-skills@premortem-as-watch-points`: the first and the second watch
 `work-divided-by-judgement`, the second also bringing the evidence the issue
 `dispatched-agents-write-their-report-as-they-work` waits for; the third watches
-`one-check-by-another-session`. The questions are watches that head argues, not instructions on
+`one-independent-verification-suffices`. The questions are watches that head argues, not instructions on
 how a working session behaves, so `design@agent-skills@behaviour-additions-need-real-use` asks
 nothing more of them.
 
@@ -1058,7 +1062,7 @@ The work needs none.
 - **"A check is not checked again", scoped to dispatches no skill names**, the wording of rounds 2
   and 4 of `thread@dispatch-judgement@dispatch-report-standard`, lost to the minimum: as a ceiling
   it collided with seven heads and needed an exemption.
-- **Every refutation checked**, lost at a fork to the boundary of
+- **Every refutation verified**, lost at a fork to the boundary of
   `thread@dispatch-judgement@dispatch-report-standard`: the session chose the boundary, which no
   goal ranks, and the owner approved it. A wrong refutation loses a finding nothing applies, which
   the audit's next pass and `tripwire@agent-skills@verifier-refutes-a-true-finding` watch, where a
@@ -1073,7 +1077,7 @@ The work needs none.
   wrong: `design@agent-skills@premortem-as-watch-points` adds "unless it reads the subagent's
   transcript".
 - **A question on whether checking raised the total cost**, the source issue's lead, refused: no
-  session holds the cost the work would have had without the check, so no session can answer it.
+  session holds the cost the work would have had without the verification, so no session can answer it.
   The counts a session can take of a review's cost are
   `issue@agent-skills@the-retrospective-counts-no-review-cost`'s.
 
@@ -1098,7 +1102,7 @@ The work reads no external specification. It reads the behaviour of external too
 | --- | --- | --- |
 | sessions still carry the implementation themselves: the primer dilutes, and the harness's default wins | `thread@dispatch-judgement@dispatch-judgement-in-primer` | converted: the pointer sentence at point 3 of the planning skill's procedure; and watched by the first of the new retrospective questions |
 | sessions dispatch lookups, each paying about 36,000 tokens to reload | `thread@dispatch-judgement@dispatch-judgement-in-primer` | dropped: only the owner sees usage, which fails condition 2 of the tripwire standard, `skill@knowledge-architect-planning@acceptance-criteria`, and the owner would see the failure |
-| a verifier refutes a true finding, and one check lets it pass unseen | `thread@dispatch-judgement@dispatch-report-standard` | in the audit, guarded by `tripwire@agent-skills@verifier-refutes-a-true-finding`; elsewhere, no session learns of it, so condition 2 fails; named for the harvest to judge, likely dropped |
+| a verifier refutes a true finding, and one verification lets it pass unseen | `thread@dispatch-judgement@dispatch-report-standard` | in the audit, guarded by `tripwire@agent-skills@verifier-refutes-a-true-finding`; elsewhere, no session learns of it, so condition 2 fails; named for the harvest to judge, likely dropped |
 | an agent returns its piece unfinished, and "does not take over a part of it" is read as forbidding the session to finish it | `thread@dispatch-judgement@dispatched-piece-carried-whole` | converted into a clause: "What an agent returns unfinished is a new piece." |
 | agents dispatched together edit one tree and lose each other's uncommitted work | `thread@dispatch-judgement@dispatched-piece-carried-whole`, `thread@dispatch-judgement@parallel-work-partition` | carried into the issue `how-parallel-work-is-partitioned-among-agents` |
 
@@ -1117,7 +1121,7 @@ commit that writes the heads, since a reference to a head no tree holds fails th
 
 Builds the section `dispatching-work` in the primer, after `primer@decided-section`; the pointer
 sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`; the sentence of the
-admission standard; `%%` lines at each check site that state a check rule, naming the check head
+admission standard; `%%` lines at each site that states a verification rule, naming the verification head
 once it exists: the review skill's "Verify each against the tree before relaying or acting on it",
 the planning skill's "Check each finding against the tree, or against the transcript", the record
 searcher's "You check your conclusions as the session that sent you checks its own claims", and the
@@ -1131,8 +1135,8 @@ by naming the site it would fail on had the text been left as it was:
 - every fixed dispatch the installed text states fits a property of the step that holds whatever the
   task's size: tested by reading every installed skill and agent for a fixed dispatch;
 - no installed instruction and the section leave a session without a move that obeys both: tested
-  by reading each check site named above, the audit's verify-then-sample of
-  `design@agent-skills@one-run-pass` included, against the check paragraph;
+  by reading each verification site named above, the audit's verify-then-sample of
+  `design@agent-skills@one-run-pass` included, against the verification paragraph;
 - `cargo klarch check` passes on the installed copies.
 
 ### Step 2: the retrospective questions
@@ -1151,7 +1155,7 @@ Writes every row of the Harvest below, then the `%%` lines of step 1 that cite t
 Claims:
 
 - each head cites what its argument stands on, and each instance named in the Harvest cites
-  `one-check-by-another-session`: tested by `cargo klarch show` of the head, which lists every
+  `one-independent-verification-suffices`: tested by `cargo klarch show` of the head, which lists every
   reference to it;
 - `cargo klarch check` passes;
 - the message of the harvest's commit states every cause of the premortem with its outcome, and
@@ -1164,19 +1168,20 @@ Claims:
 
 ## Defaults awaiting the owner
 
-- **D1**, on `thread@dispatch-judgement@user-level-alignment`: the session aligns the owner's
+- **D1**, on `thread@dispatch-judgement@user-level-alignment`, ruled: the owner, after the review of
+  this spec: "D1 agreed". The session aligns the owner's
   user-level instructions, `~/.claude/CLAUDE.md`, section "Using subagents", with the primer
   section, after step 3, reading `~/.utils/README.md` first since the file is a tracked dotfile, and
-  puts the diff to the owner before committing it there. Awaiting the owner's word.
+  puts the diff to the owner before committing it there.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
 | the head `work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `work-divided-by-judgement`): its title states the rule, the work divided by a judgement on the relations of its pieces, an installed text fixing a dispatch only on a property of the step that holds whatever the task's size; its body names the three properties of today, the readings with the Claude Code version, and the rivals no text, thresholds, and guidance in each skill; test 3 on the harness's default, test 2 on the fixed dispatches at several sites | a new subdocument, `planned@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
-| the head `one-check-by-another-session` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `one-check-by-another-session`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
-| the instances cite `one-check-by-another-session`: `design@agent-skills@session-acts-on-the-verdicts`, its check rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its check | their homes | step 3 |
-| `design@agent-skills@verification-in-primer` gains the section as the place where a returned conclusion's check lives; `design@agent-skills@primer-limit` gains the section as a member, with where the judgement lives; `design@agent-skills@premortem-as-watch-points` gains the three questions, each with what it watches; `design@agent-skills@a-scratch-directory-per-subagent` names the primer section among the texts that state its rule; `design@agent-skills@admission-rules-home` names the admission sentence on fixed dispatches | their homes | step 3 |
+| the head `one-independent-verification-suffices` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `one-independent-verification-suffices`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
+| the instances cite `one-independent-verification-suffices`: `design@agent-skills@session-acts-on-the-verdicts`, its verification rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its verification | their homes | step 3 |
+| `design@agent-skills@verification-in-primer` gains the section as the place where a returned conclusion's independent verification lives; `design@agent-skills@primer-limit` gains the section as a member, with where the judgement lives; `design@agent-skills@premortem-as-watch-points` gains the three questions, each with what it watches; `design@agent-skills@a-scratch-directory-per-subagent` names the primer section among the texts that state its rule; `design@agent-skills@admission-rules-home` names the admission sentence on fixed dispatches | their homes | step 3 |
 | the losing alternatives, each judged by `skill@knowledge-architect-decision-recording` for a `rejected` entry | `register@agent-skills@rejected` | step 3 |
 | the premortem's third cause, judged by the tripwire standard | `register@agent-skills@tripwire`, or dropped with its reason in the harvest's commit | step 3 |
 | the issue `dispatched-agents-write-their-report-as-they-work`, kind `deferred`, trigger: a retrospective answer to the second dispatch question naming a report the session could not act on. Its body: the owner's proposal of report files an agent writes as it works and a verifier annotates, to fill the gap of reports written in one shot at the end; why it waits, no real session having shown the gap; how it differs from `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript` and `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`, which it cites; that the harness refuses a subagent's `Write` of a `report.md`, per `design@agent-skills@report-written-through-the-shell` and `design@agent-skills@refused-report-returned-as-text`; and how the shape answers `rejected@agent-skills@ledger-written-during-discussion`, a file an agent writes for its own piece rather than the discussion's ledger | `register@agent-skills@issue` | step 3 |
