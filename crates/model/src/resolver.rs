@@ -8,8 +8,9 @@
 //! `design@model@register-home-reference`. A table reference that resolves to nothing has a cause:
 //! the anchor is unknown, the anchor does not carry that register, an item of a plan is cited from
 //! outside it, or the id is not defined there; the kinds resolved outside the table have refusals of
-//! their own. A reference of any kind whose id, or whose path, ends in a line suffix or a fragment
-//! is judged again without it, and its cause says to drop it. A span whose kind position holds an
+//! their own. A reference of any kind whose id, or whose path, ends in a line suffix or a fragment,
+//! and that resolves to nothing as written, is judged again without it, and its cause says to drop
+//! it. A span whose kind position holds an
 //! anchor is no reference, and the caller reports it. The argument is
 //! `design@model@an-unresolved-reference-is-reported`.
 //!
@@ -203,7 +204,8 @@ pub enum Cause {
     PlannedAtReserved {
         anchor: String,
     },
-    /// `form` is the `path` form of the target where it exists.
+    /// `form` is the form an existing target is cited by: the `register` form where it is a
+    /// register's home, the `path` form otherwise. `None` where nothing exists at the target.
     PlannedOutsidePlans {
         form: Option<String>,
     },
@@ -583,19 +585,19 @@ pub fn reference(
 }
 
 /// The outcome of a reference resolved as `written`, judged again with the line suffix or the
-/// fragment after its id dropped, per `design@model@an-unresolved-reference-is-reported`.
+/// fragment after its id dropped where it fails, per `design@model@an-unresolved-reference-is-reported`.
 ///
 /// An id holds neither `:` nor `#`, and a path's suffix is no part of the file, so the cause of
-/// the written form names a repair nobody can carry out: defining an entry whose id holds the
-/// suffix, or repairing a path whose file exists. The reference is resolved again without the
+/// a written form that fails names a repair nobody can carry out: defining an entry whose id holds
+/// the suffix, or repairing a path whose file exists. The reference is resolved again without the
 /// suffix. Where that resolves, the repair is to drop the suffix; where it does not, the cause is
 /// the one the form without the suffix meets, and its repair says to drop the suffix too.
 ///
-/// **The form without the suffix decides, whatever the written form gives.** A path the ignore
-/// rules cover resolves as written, suffix and all, when an ignored directory holds it; only the
-/// form without the suffix tells it from a file whose name holds what reads as a suffix, which
-/// resolves as written and not without it. An escaped path names nothing here, so nothing is
-/// judged again; a suffix with nothing before it names no target, and keeps the written outcome.
+/// **A written form that resolves is kept**, suffix and all: a path the ignore rules cover, which
+/// is accepted with no existence assertion per `design@model@ignored-targets-are-not-asserted`, and
+/// a file whose name holds what reads as a suffix. An escaped path that names nothing here resolves
+/// as written, so it is never judged again; a suffix with nothing before it names no target, and
+/// keeps the written outcome.
 fn located(
     written: Outcome,
     kind: &str,
@@ -604,15 +606,14 @@ fn located(
     again: impl FnOnce(&str) -> Outcome,
 ) -> Outcome {
     let (bare, suffix) = without_suffix(id);
-    if !suffix || bare.trim_end_matches('/').is_empty() || written == Ok(Target::Elsewhere) {
+    if written.is_ok() || !suffix || bare.trim_end_matches('/').is_empty() {
         return written;
     }
-    match (written, again(bare)) {
-        (_, Ok(_)) => Err(Cause::Located {
+    match again(bare) {
+        Ok(_) => Err(Cause::Located {
             form: entity::spelled(kind, anchor, bare),
         }),
-        (Ok(target), Err(_)) => Ok(target),
-        (Err(_), Err(inner)) => Err(Cause::Suffixed(Box::new(inner))),
+        Err(inner) => Err(Cause::Suffixed(Box::new(inner))),
     }
 }
 
@@ -1226,24 +1227,37 @@ pub fn planned(
 
 /// A `planned` reference judged as a plan document writes it.
 ///
-/// A line suffix or a fragment is asked for before the target: the target of a planned path does
-/// not exist, so a path holding the suffix as written would resolve, as a file nobody plans.
-/// Without the suffix, a target that exists is pointed into, which the planned form cannot be,
-/// and a target that does not is named without it.
+/// A line suffix or a fragment is asked about first: a target that exists without it is pointed
+/// into, which the planned form cannot be, whatever the written form gives. Otherwise the written
+/// form decides, suffix and all, as [`located`] does for the other kinds: one that resolves, a
+/// path nothing exists at or one the ignore rules cover, is kept, per
+/// `design@model@planned-path-form`, and so is one whose file exists as written, whose repair
+/// names that file. Any other refusal is judged again without the suffix.
 fn planned_in_plans(anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
     let (bare, suffix) = without_suffix(path);
     if suffix && !bare.trim_end_matches('/').is_empty() {
-        return Err(match planned_in_plans(anchor, bare, anchors, tree) {
-            Ok(_) => Cause::Located {
-                form: entity::spelled(entity::PLANNED_KIND, anchor, bare),
-            },
-            Err(Cause::NowExists { form, .. }) => Cause::PointsIntoExisting {
+        let again = planned_written(anchor, bare, anchors, tree);
+        if let Err(Cause::NowExists { form, .. }) = again {
+            return Err(Cause::PointsIntoExisting {
                 file: bare.to_string(),
                 form,
-            },
-            Err(inner) => Cause::Suffixed(Box::new(inner)),
-        });
+            });
+        }
+        return match planned_written(anchor, path, anchors, tree) {
+            written @ (Ok(_) | Err(Cause::NowExists { .. })) => written,
+            Err(_) => Err(match again {
+                Ok(_) => Cause::Located {
+                    form: entity::spelled(entity::PLANNED_KIND, anchor, bare),
+                },
+                Err(inner) => Cause::Suffixed(Box::new(inner)),
+            }),
+        };
     }
+    planned_written(anchor, path, anchors, tree)
+}
+
+/// A `planned` reference as a plan document writes it, its suffix taken as part of the path.
+fn planned_written(anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
     let claims_dir = path.ends_with('/');
     let target = planned_target(anchor, path, anchors)?;
     if tree
@@ -1973,13 +1987,14 @@ mod tests {
         }
     }
 
-    /// The claim: a suffixed path whose file the ignore rules cover is told to drop the suffix,
-    /// since the collector asks git about the spelling without it too, and even where the rules
-    /// cover the written spelling as well, as an ignored directory's do. Mutations checked, each
-    /// caught: `ignore_queries` asking about the written spelling alone; `located` keeping a
-    /// written outcome that resolves.
+    /// The claim: a suffixed path whose written spelling fails, and whose spelling without the
+    /// suffix the ignore rules cover, is told to drop the suffix, since the collector asks git
+    /// about the spelling without it too; one whose written spelling the rules cover, as an ignored
+    /// directory's do, resolves as written, per `design@model@ignored-targets-are-not-asserted`.
+    /// Mutations checked, each caught: `ignore_queries` asking about the written spelling alone;
+    /// `located`'s test of a written form that resolves removed.
     #[test]
-    fn a_suffixed_path_to_an_ignored_file_is_asked_about_without_its_suffix() {
+    fn a_suffixed_path_to_an_ignored_file_is_judged_without_its_suffix_where_it_fails() {
         let m = manifest();
         let anchors = Anchors::of(&m, &[] as &[PathBuf]);
         let model = Model::from_documents(vec![(
@@ -1988,34 +2003,67 @@ mod tests {
         )]);
         let query = crate::git::ignore_query(Path::new("crates/one/target/gen.rs"), false);
         assert!(ignore_queries(&model, &anchors).contains(&query));
+        assert_eq!(
+            path_over(
+                "one",
+                "target/gen.rs:3",
+                &[],
+                &[],
+                std::slice::from_ref(&query)
+            ),
+            located("path@one@target/gen.rs")
+        );
         let written = crate::git::ignore_query(Path::new("crates/one/target/gen.rs:3"), false);
-        for ignored in [vec![query.clone()], vec![query, written]] {
-            assert_eq!(
-                path_over("one", "target/gen.rs:3", &[], &[], &ignored),
-                located("path@one@target/gen.rs")
-            );
-        }
+        assert_eq!(
+            path_over("one", "target/gen.rs:3", &[], &[], &[query, written]),
+            Ok(Target::Path(PathBuf::from("crates/one/target/gen.rs:3")))
+        );
     }
 
-    /// The claim: a planned path with a line suffix or a fragment names the form without it: the
-    /// planned form where nothing exists yet, the `path` form of what exists, a directory with
-    /// its slash, and a plan document by its kind, a slice spec's `.md` read without the suffix. A
-    /// suffix alone is refused. Mutations checked, each caught: the suffix test of
-    /// `planned_in_plans` made `if false`; its `NowExists` arm removed.
+    /// The claim: a planned path with a line suffix or a fragment whose target exists without it
+    /// names the `path` form of what exists, a directory with its slash. One whose written form
+    /// resolves, as a path nothing exists at, is kept, per `design@model@planned-path-form`, and so
+    /// is one whose file exists as written. One whose written form fails names the form without
+    /// the suffix: the planned form where that resolves, and a plan document by its kind, a slice
+    /// spec's `.md` read without the suffix. A suffix alone is refused. Mutations checked, each
+    /// caught: the suffix test of `planned_in_plans` made `if false && ...`; its test of a target
+    /// that exists without the suffix made never to match; its arm keeping a written form made to
+    /// keep `NowExists` alone, and made to keep `Ok` alone.
     #[test]
     fn a_suffixed_planned_path_names_the_form_without_its_suffix() {
         let m = manifest();
         let anchors = Anchors::of(&m, &[] as &[PathBuf]);
-        let present: HashSet<PathBuf> = ["crates/one/src/a.rs", "crates/one/src"]
-            .iter()
-            .map(PathBuf::from)
-            .collect();
+        let present: HashSet<PathBuf> = [
+            "crates/one/src/a.rs",
+            "crates/one/src",
+            "crates/one/src/b.rs:3",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
         let directories: HashSet<PathBuf> = [PathBuf::from("crates/one/src")].into();
         let ignored = HashSet::new();
         let tree = tree_of(&present, &directories, &ignored);
         let plans = Path::new("docs/plans/README.md");
         for (anchor, id, outcome) in [
-            ("one", "src/new.rs:3", located("planned@one@src/new.rs")),
+            (
+                "one",
+                "src/new.rs:3",
+                Ok(Target::Planned(PathBuf::from("crates/one/src/new.rs:3"))),
+            ),
+            (
+                "one",
+                "src/b.rs:3",
+                Err(Cause::NowExists {
+                    target: PathBuf::from("crates/one/src/b.rs:3"),
+                    form: "path@one@src/b.rs:3".to_string(),
+                }),
+            ),
+            (
+                "a-project",
+                "crates/one/:3",
+                located("planned@a-project@crates/one/"),
+            ),
             (
                 "one",
                 "src/a.rs#a-head",
@@ -2056,7 +2104,8 @@ mod tests {
     }
 
     /// The claim: a `path` reference to a slice spec with a line suffix is told to cite the slice
-    /// spec, not its milestone: the `.md` is read with the suffix dropped.
+    /// spec, not its milestone: the `.md` is read with the suffix dropped. Mutation checked, and
+    /// caught: `located` judging again the id as written, `again(id)`, in place of `again(bare)`.
     #[test]
     fn a_suffixed_slice_spec_is_cited_as_the_slice() {
         assert_eq!(
