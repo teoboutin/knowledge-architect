@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-A cluster of the issue record: three entries on the text of a finding of the checker, its cause or
-its repair, which one branch closes together. Each member's own entry holds its observation, its
+A cluster of the issue record: entries on the text of a finding of the checker, its cause or its
+repair, which one branch closes together. Each member's own entry holds its observation, its
 reason and its closing work; this entry holds only that they go together.
 
 ## Details
@@ -16,7 +16,6 @@ reason and its closing work; this entry holds only that they go together.
 The members:
 
 - `issue@check@finding-texts-are-not-audited-for-a-needless-cause`
-- `issue@check@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`
 
 They go on one branch because each applies `design@check@finding-names-the-repair` to a family of
 findings, so one reading of that head and of the findings' texts serves every member. Found by a triage

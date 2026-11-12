@@ -63,8 +63,8 @@ The design this decision did not keep: `rejected@model@component-placeholder-anc
 `register@<anchor>@<register>` names the home that the anchor keeps the register in. The check
 resolves it against the anchors, which the table's module holds, and asks nothing of the tree,
 since a missing home is the tree check's finding; `show` reads the tree's listing to print the
-home it holds. No register's name becomes an entity id, so a register's name in backticks with a
-hash sign before it stays silent under `design@check@retired-slug-reference-reported`.
+home it holds. No register's name becomes an entity id, so a register's name in backticks alone
+stays silent under `design@check@backticked-bare-id`.
 
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per

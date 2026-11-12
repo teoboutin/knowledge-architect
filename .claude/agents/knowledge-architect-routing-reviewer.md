@@ -43,7 +43,7 @@ reverse is a family of pointers about to dangle.
 | --- | --- |
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
 | `names` … `which is no anchor of this project`, or `which carries no` … `register` | the wrong segment of the reference: an anchor nobody declares, or one that does not carry that register. The finding lists the anchors that would resolve. |
-| `opens with` … `an anchor, where the kind goes`; `is the retired slug reference form` | a pointer in a retired grammar. It resolves to nothing until it is rewritten as `<kind>@<anchor>@<id>`. |
+| `opens with` … `an anchor, where the kind goes` | a pointer in a retired grammar. It resolves to nothing until it is rewritten as `<kind>@<anchor>@<id>`. |
 | `is cited by no design entry` | a `rejected` entry that no design head cites: a design session reading the heads never meets it. Cite it from the head whose argument covers it, or from a head of absence. |
 | `is shaped like a path and names no anchor` | an unanchored path in prose, checked by nothing until it is anchored. |
 | `does not exist, at`; `claims a directory and names a file`; `claims a file and names a directory` | a path reference whose target moved, or whose trailing slash claims the wrong kind. |
@@ -59,9 +59,8 @@ reverse is a family of pointers about to dangle.
 prose, a heading or a section title quoted from another document, a misspelt kind. A path-shaped
 span whose first
 segment the tree does not hold is silent too: a typo in that segment, a pointer into an ignored
-directory, a pointer written after its directory left. So is a `<word>#<id>` form whose id is no
-entry and whose word is neither an anchor nor a kind, such as a copied slug whose entry has
-left. A reference in a file or a part of a file the checker does not read, per
+directory, a pointer written after its directory left. So is every `#<id>` or `<word>#<id>` span,
+whatever it names. A reference in a file or a part of a file the checker does not read, per
 `primer@where-knowledge-goes`, is read by nobody but you. Those are yours to resolve by reading.
 
 ## The predicates `##routing-predicates`

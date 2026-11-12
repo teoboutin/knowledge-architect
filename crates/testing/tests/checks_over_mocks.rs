@@ -177,8 +177,7 @@ mod planted {
     /// or an entry id where none may sit is phase 3, and both are `unsound`'s.
     const PLANTED: [(&str, usize, &str); 3] = [
         // One reference of each shape the resolver tells apart — dangling, unknown anchor,
-        // two and four segments, an anchor and a reserved anchor in kind position, the two
-        // retired slug shapes — and the path shapes: a dangling one, the unanchored bare form,
+        // two and four segments, an anchor and a reserved anchor in kind position — and the path shapes: a dangling one, the unanchored bare form,
         // a wrong kind claim, an escape that resolves here, a root pointer reaching inside the
         // component, a generic pointer nothing carries, a dangling tripwire reference, a link
         // outside a navigation home, and the retired `@` escape with its empty head. Then the
@@ -191,7 +190,7 @@ mod planted {
         // docs/goals.md, a design head cited from a goals home, which resolves and is refused
         // there, per `design@check@goals-home-cites-only-goals-and-root-homes`. And, in this copy that holds no
         // generated file, the three READMEs' links to an index that is not there.
-        ("references", 31, "is referenced"),
+        ("references", 29, "is referenced"),
         // One defect per shape assertion over what is there: an undeclared kind, a missing owed
         // subsection, an undeclared group, a file of another suffix, and frontmatter that does not
         // parse; and, in this copy that holds no generated file, a missing index for each of the
@@ -421,20 +420,16 @@ mod planted {
         assert!(reserved.starts_with("notes/structure.md:15"), "{reserved}");
     }
 
+    /// The claim: a backticked `#<id>` naming an entry, qualified or not, and a bare entry
+    /// number, are read by no check. Observed failing before the lint was removed: lines 17
+    /// and 19 were each reported as the retired slug reference form.
     #[test]
-    fn the_retired_slug_form_is_reported_as_what_it_was_and_a_bare_entry_number_is_not() {
-        let qualified = one("`planted#twice-defined` is the retired slug reference form");
-        assert!(
-            qualified.starts_with("notes/structure.md:17"),
-            "{qualified}"
-        );
-        let bare = one("`#twice-defined` is the retired slug reference form");
-        assert!(bare.starts_with("notes/structure.md:19"), "{bare}");
+    fn a_hash_slug_span_and_a_bare_entry_number_are_read_by_no_check() {
         let all = findings();
-        assert!(
-            !all.iter().any(|f| f.starts_with("notes/structure.md:21")),
-            "{all:#?}"
-        );
+        for line in [17, 19, 21] {
+            let at = format!("notes/structure.md:{line} ");
+            assert!(!all.iter().any(|f| f.starts_with(&at)), "{line}: {all:#?}");
+        }
     }
 
     /// The claim: each lint on a defined id reports its planted defect, a reference-shaped

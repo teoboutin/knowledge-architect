@@ -79,9 +79,8 @@ and a root CLAUDE.md that does not import a shipped primer. `references` judges
 every `` `<kind>@<anchor>@<id>` `` reference against the entity table — a register kind against the
 entries its home defines, the `path` kind against the tree, the `planned` kind against its absence
 from the tree, the `register` kind against the anchors that carry the register, and, under the `claude` harness, a skill, an agent, the primer and the root
-CLAUDE.md, cited with no anchor as `skill@<name>@<slug>` — and reports the retired slug
-reference form and the unanchored path shape where either names something of this project, and
-a defined id written outside its reference form: a reference-shaped token outside backticks, per
+CLAUDE.md, cited with no anchor as `skill@<name>@<slug>` — and reports the unanchored path shape
+where its first segment names something of this project, and a defined id written outside its reference form: a reference-shaped token outside backticks, per
 `design@check@reference-shape-outside-span`, an id written in backticks alone, per
 `design@check@backticked-bare-id`, and an id written as a plain word, per
 `design@check@plain-word-lint`. An id several entries define gets one finding listing each

@@ -2113,17 +2113,6 @@ impl Entities {
             .unwrap_or_default()
     }
 
-    /// Whether any register of any anchor defines an entry with this id.
-    ///
-    /// A harness kind is no register, so its names and slugs are not counted: the retired slug
-    /// reference this answers for named a register's entry, and a `#<id>` naming a section, such
-    /// as a link to a heading of another tool, is that tool's notation.
-    pub fn defines_id(&self, id: &str) -> bool {
-        self.defined
-            .keys()
-            .any(|(kind, _, defined)| defined == id && !kind.is_harness())
-    }
-
     /// Every id the table defines, with each kind and anchor that defines it: the owner of a
     /// harness kind's section, and an empty anchor for a skill, an agent, the primer and the root
     /// instructions.

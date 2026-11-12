@@ -13,7 +13,7 @@
 
 use std::path::{Path, PathBuf};
 
-use km::document::{Observation, RetiredForm};
+use km::document::Observation;
 use km::{Manifest, Model};
 use knowledge_architect_model as km;
 
@@ -213,8 +213,7 @@ fn a_location_outside_every_component_is_read_by_the_listings() {
 fn a_fenced_illustration_is_neither_a_definition_nor_a_reference_in_a_real_file() {
     // The fenced block in that document holds a heading-shaped definition and a placeholder
     // reference, which is what a document explaining the convention holds. Neither is an
-    // observation; the real definitions and pointers elsewhere in the project are, and
-    // nothing in this project is written in a retired form.
+    // observation; the real definitions and pointers elsewhere in the project are.
     let model = model("minimal");
     let observed = |f: fn(&Observation) -> Option<String>| -> Vec<String> {
         let mut out: Vec<String> = model
@@ -256,11 +255,6 @@ fn a_fenced_illustration_is_neither_a_definition_nor_a_reference_in_a_real_file(
             "tripwire@minimal@mock-tripwire".to_string(),
         ]
     );
-    let retired = observed(|o| match o {
-        Observation::Retired(RetiredForm::SlugRef(s)) => Some(s.clone()),
-        _ => None,
-    });
-    assert_eq!(retired, Vec::<String>::new());
 }
 
 /// Every committed file-register index is what the generator writes, in the mocks that are meant to be current.

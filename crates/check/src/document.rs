@@ -7,6 +7,5 @@
 //! [`Document`]: crate::Document
 
 pub use crate::model::document::{
-    md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, RetiredForm, Scope,
-    ScopeKind, SlugSite,
+    md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, Scope, ScopeKind, SlugSite,
 };
