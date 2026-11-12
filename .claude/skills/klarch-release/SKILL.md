@@ -1,14 +1,15 @@
 ---
 name: klarch-release
-description: MUST use when the owner asks to publish a version of knowledge-architect to crates.io. Covers choosing the version, the changelog section, the checks of the shipped text before publishing, the package lists, the dry run, the review and merge that come before publishing, the owner's word to publish, the tag and the publish, and what to do when a publish fails part-way.
+description: MUST use when the owner asks to publish a version of knowledge-architect to crates.io. Covers choosing the version, the changelog section, the checks of the shipped text before publishing, the package lists, the dry run, the review and merge that come before publishing, the owner's word to publish, the tag and the publish, and what to do when a publish fails part-way; and the placeholder a new crate takes after the merge of the branch that adds it, or that leaves with a crate removed before its first release.
 ---
 
 # Release
 
-Scope: publishing one version of the published crates, from main: every crate under crates/, whose
-package names
+Scope: publishing one version of the published crates, from main: every crate under crates/,
+whose package names
 `cargo metadata --no-deps --format-version 1 | jq -r '.packages[] | select(.publish != []) | .name'`
-prints. xtask, under tools/, is never published. The versioning policy is
+prints. Also the placeholder that takes a new crate's name after the merge of the branch that adds
+the crate, `skill@klarch-release@new-crate-placeholder`. xtask, under tools/, is never published. The versioning policy is
 `design@knowledge-architect@versioning-policy`, and every published crate shares one version, per
 `design@knowledge-architect@version-lockstep`.
 
@@ -88,28 +89,10 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
 
    The first answers 404 whenever the version is absent; the second answers 404 only for a new
    crate, and otherwise lists the crate, whose owners `https://crates.io/api/v1/crates/<crate>/owners`
-   lists. A new crate takes a placeholder version, per
-   `design@knowledge-architect@new-crate-placeholder`: tell the owner which crates, and carry the
-   release on to its merge. After the merge of step 10 and before the tag of step 11, the owner,
-   never the agent, publishes each placeholder with an API token, from a scratch directory outside
-   every repository:
-
-   ```sh
-   cargo new --lib --vcs none <crate> && cd <crate>
-   : > src/lib.rs
-   # In Cargo.toml: version = "0.0.0", license = "MIT OR Apache-2.0", and
-   # description = "Placeholder: the first version is published by the release workflow of https://github.com/teoboutin/knowledge-architect"
-   cargo publish
-   ```
-
-   then, in the crate's settings on crates.io, adds its trusted publisher, this repository, the
-   workflow file release.yml and the environment `release`, and turns on "Require trusted
-   publishing for all new versions". crates.io limits how many new crates one account publishes in a
-   short time, per `path@knowledge-architect@docs/grounding/crates-io-publishing.md`: a publish it
-   refuses answers HTTP 429 with the time to retry, after which the owner publishes that placeholder
-   again. A placeholder is published only in the release that publishes its crate's real version,
-   per `design@knowledge-architect@placeholder-only-in-its-release`. The workflow's `publish` job
-   then publishes the real version of every crate.
+   lists. A crate the second answers 404 for has no placeholder, which the merge of the branch that
+   added it should have published: tell the owner, who publishes it as
+   `skill@klarch-release@new-crate-placeholder` says before the tag of step 11. The workflow's
+   `publish` job then publishes the real version of every crate.
 7. **The package lists.** `cargo package --list -p <crate>` for each crate. Each lists its sources,
    its Cargo.toml, its README, its CRATES-IO.md, its licence files and its CHANGELOG.md, and agent-skills also its
    build script, content/, snippets/ and fragments/, beside the three files Cargo generates for every package,
@@ -151,10 +134,40 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
     `design@knowledge-architect@owner-word-mechanism`. Give the owner the run's address,
     `gh run list --workflow release.yml --branch v<version> --limit 1 --json url,databaseId`. Only
     the owner approves: never approve a deployment, though the agent's `gh` can. Then follow the
-    run with `gh run watch <run id> --exit-status`, and once it passes, check step 6's address for
+    run with `gh run watch <run id> --exit-status`, and once it passes, check step 6's first address, the version's, for
     each crate: the version must now be present. The publish credential is a token crates.io issues
     to the run, per `design@knowledge-architect@publish-credential`, so nobody logs in to crates.io
     to publish a real version.
+
+## A new crate's placeholder `##new-crate-placeholder`
+
+A crate crates.io does not hold yet takes a placeholder version, which holds its name until the
+release workflow publishes its real version, per `design@knowledge-architect@new-crate-placeholder`
+and `design@knowledge-architect@placeholder-at-the-merge-of-its-crate`. After the merge of the branch
+that adds a published crate, the owner, never the agent, publishes its placeholder with an API token,
+from a scratch directory outside every repository, `<directory>` being the crate's directory under
+crates/:
+
+```sh
+cargo new --lib --vcs none <crate> && cd <crate>
+: > src/lib.rs
+printf '%s\n' "# <crate>" "" "A placeholder that holds this name for the crate developed in https://github.com/teoboutin/knowledge-architect/tree/main/crates/<directory>. Its first real version is published by the next release of knowledge-architect." > README.md
+# In Cargo.toml: version = "0.0.0", license = "MIT OR Apache-2.0", readme = "README.md",
+# repository = "https://github.com/teoboutin/knowledge-architect", and
+# description = "Placeholder of a crate of knowledge-architect, published at its next release"
+cargo publish
+```
+
+Then, in the crate's settings on crates.io, the owner adds its trusted publisher, this repository,
+the workflow file release.yml and the environment `release`, and turns on "Require trusted
+publishing for all new versions". crates.io limits how many new crates one account publishes in a
+short time, per `path@knowledge-architect@docs/grounding/crates-io-publishing.md`: a publish it
+refuses answers HTTP 429 with the time to retry, after which the owner publishes that placeholder
+again.
+
+After the merge of a branch that removes a crate whose only version on crates.io is its placeholder,
+the owner deletes that crate on crates.io, which crates.io allows while the crate has one owner, few
+downloads and no dependents, per the same file.
 
 ## When the publish fails `##failed-publish`
 
@@ -172,11 +185,5 @@ already holds. A crate it uploaded stays published.
   code, the uploaded crates keep the version, and the next release is the next patch version for
   every published crate, per `design@knowledge-architect@version-lockstep`; the uploaded version is yanked only
   if it is broken.
-- **The release is abandoned after step 6's placeholders were published**: the owner deletes each
-  placeholder's crate on crates.io, which crates.io allows within 72 hours of its publication, per
-  `path@knowledge-architect@docs/grounding/crates-io-publishing.md`, since a placeholder outlives
-  no release that publishes its crate, per
-  `design@knowledge-architect@placeholder-only-in-its-release`. A release of the same version again
-  keeps them.
 - **In either case**, main's README status line is wrong until a repair lands, through a branch and a
   pull request like any other change.

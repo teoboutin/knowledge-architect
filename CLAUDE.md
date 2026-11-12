@@ -324,6 +324,9 @@ git checkout main && git pull --ff-only
   with `git branch -D <branch>`: its commits are not ancestors of main, since their SHAs differ.
 - A merge to main publishes nothing. A release is a separate procedure, per
   `design@knowledge-architect@publish-after-merge`.
+- **A merge that adds a published crate, or removes one whose only version on crates.io is its
+  placeholder, is followed by the owner's publish, or deletion, of that placeholder**, as
+  `skill@klarch-release@new-crate-placeholder` says: tell the owner once the merge has landed.
 
 ## Release status `##release-status`
 
