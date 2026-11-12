@@ -347,23 +347,44 @@ impl Unloadable {
     }
 }
 
-/// The repair of a manifest a snapshot lacks, or holds in a form the tip checker refuses.
+/// What is wrong with a snapshot's manifest, as far as its repair depends on it.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ManifestFault {
+    /// The snapshot holds no entry at the manifest's path, or only an intent-to-add one.
+    Absent,
+    /// The snapshot holds a symbolic link or a gitlink at the manifest's path, which is read as
+    /// no document: the file is there on disk, so staging it is no repair.
+    Linked,
+    /// The manifest is there and the tip checker refuses it.
+    Refused,
+}
+
+/// The repair of a manifest a snapshot lacks, holds as a link, or holds in a form the tip checker
+/// refuses.
 ///
-/// The index's is staged or corrected. A commit's is a history edit, per
-/// `design@check@every-commit-judged-by-the-tip-checker`, unless the range reaches back before the
-/// commit that gave the manifest its present form, where the range is what is wrong.
-fn manifest_repair(source: Source, absent: bool) -> &'static str {
-    match (source, absent) {
-        (Source::Index, true) => "stage knowledge-architect.toml",
-        (Source::Index, false) => {
+/// The index's is staged, replaced by the file itself, or corrected. A commit's is a history edit,
+/// per `design@check@every-commit-judged-by-the-tip-checker`, unless the range reaches back before
+/// the commit that gave the manifest its present form, where the range is what is wrong.
+fn manifest_repair(source: Source, fault: ManifestFault) -> &'static str {
+    match (source, fault) {
+        (Source::Index, ManifestFault::Absent) => "stage knowledge-architect.toml",
+        (Source::Index, ManifestFault::Linked) => {
+            "replace the link with the manifest file itself, and stage it"
+        }
+        (Source::Index, ManifestFault::Refused) => {
             "correct knowledge-architect.toml as the reason says, and stage it"
         }
-        (Source::Commit(_), true) => {
+        (Source::Commit(_), ManifestFault::Absent) => {
             "where the range reaches back before the commit that adds the manifest, start it \
              after that commit; otherwise put the manifest in the branch's first commit, or \
              squash the branch"
         }
-        (Source::Commit(_), false) => {
+        (Source::Commit(_), ManifestFault::Linked) => {
+            "where the range reaches back before the commit that replaces the link with the \
+             manifest file itself, start it after that commit; otherwise put that replacement in \
+             the branch's first commit, or squash the branch"
+        }
+        (Source::Commit(_), ManifestFault::Refused) => {
             "where the range reaches back before the commit that gives the manifest a form the \
              tip checker reads, start it after that commit; otherwise put that change in the \
              branch's first commit, or squash the branch"
@@ -434,12 +455,24 @@ fn read_tree(
         .map(|e| e.rel)
         .collect();
     let manifest_rel = PathBuf::from(MANIFEST_NAME);
+    // A manifest held as a link is told apart from an absent one: the file is on disk, and on the
+    // working tree `check` follows the link, so "stage it" would name a repair already done.
+    if let Some(link) = links.iter().find(|e| e.rel == manifest_rel) {
+        let what = match link.kind {
+            crate::git::EntryKind::Gitlink => "a submodule",
+            _ => "a symbolic link",
+        };
+        return Err(Unloadable {
+            why: format!("its tree holds {MANIFEST_NAME} as {what}"),
+            repair: manifest_repair(source, ManifestFault::Linked),
+        });
+    }
     // Asked of the listing first: git names a blob for a path the snapshot does not hold, the
     // empty blob for an intent-to-add entry, and a manifest read from it would be an empty one.
     if !files.contains(&manifest_rel) {
         return Err(Unloadable {
             why: format!("its tree holds no {MANIFEST_NAME}"),
-            repair: manifest_repair(source, true),
+            repair: manifest_repair(source, ManifestFault::Absent),
         });
     }
     let declaration = crate::git::blobs(root, source, std::slice::from_ref(&manifest_rel))
@@ -447,12 +480,12 @@ fn read_tree(
     let Some(text) = declaration.get(&manifest_rel) else {
         return Err(Unloadable {
             why: format!("its tree holds no {MANIFEST_NAME}"),
-            repair: manifest_repair(source, true),
+            repair: manifest_repair(source, ManifestFault::Absent),
         });
     };
     let mut manifest = Manifest::parse(root, text).map_err(|e| Unloadable {
         why: format!("its {MANIFEST_NAME} does not parse: {e}"),
-        repair: manifest_repair(source, false),
+        repair: manifest_repair(source, ManifestFault::Refused),
     })?;
     // Configured against this commit's own manifest, so the files its extensions generate
     // are left out of its walk and read as committed, and a table it refuses is its phase 1.
@@ -1458,6 +1491,84 @@ mod tests {
             .expect("no manifest is staged");
         assert_eq!(refused.why, format!("its tree holds no {MANIFEST_NAME}"));
         assert_eq!(refused.repair, "stage knowledge-architect.toml");
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// A repository under the temporary directory, configured to commit, with nothing in it.
+    fn empty_repository(tag: &str) -> PathBuf {
+        let repo = std::env::temp_dir().join(format!(
+            "knowledge-history-{tag}-{}-{:?}",
+            std::process::id(),
+            std::thread::current().id()
+        ));
+        let _ = std::fs::remove_dir_all(&repo);
+        std::fs::create_dir_all(&repo).expect("a repository directory");
+        for args in [
+            &["init", "-q"][..],
+            &["config", "user.name", "fixture"],
+            &["config", "user.email", "fixture@example.invalid"],
+        ] {
+            crate::git::git(&repo).args(args).output().expect("git");
+        }
+        repo
+    }
+
+    /// The claim: a manifest the snapshot holds as a symbolic link or as a gitlink is told apart
+    /// from an absent one, by its kind, and names replacing it with the file itself, in the index
+    /// or by a history edit, never staging a file the index already lists. Mutations checked: the
+    /// lookup of the link made to find nothing gives the index the absent arm's "stage
+    /// knowledge-architect.toml"; the gitlink's arm named "a symbolic link" fails the last case.
+    #[cfg(unix)]
+    #[test]
+    fn a_manifest_held_as_a_link_names_its_replacement_by_the_file() {
+        let repo = empty_repository("linked-manifest");
+        let run = |args: &[&str]| {
+            crate::git::git(&repo).args(args).output().expect("git");
+        };
+        std::fs::create_dir_all(repo.join("conf")).expect("a directory");
+        std::fs::write(repo.join("conf").join(MANIFEST_NAME), "[project]\n").expect("a manifest");
+        std::os::unix::fs::symlink(
+            Path::new("conf").join(MANIFEST_NAME),
+            repo.join(MANIFEST_NAME),
+        )
+        .expect("a symbolic link");
+        run(&["add", "-A"]);
+        run(&["commit", "-qm", "base"]);
+        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+
+        let staged = read_tree(&repo, Source::Index, &[], &mut [])
+            .err()
+            .expect("a linked manifest is refused");
+        assert_eq!(
+            staged.why,
+            format!("its tree holds {MANIFEST_NAME} as a symbolic link")
+        );
+        assert_eq!(
+            staged.repair,
+            "replace the link with the manifest file itself, and stage it"
+        );
+        let committed = read_tree(&repo, Source::Commit(&head), &[], &mut [])
+            .err()
+            .expect("a linked manifest is refused");
+        assert!(
+            committed.repair.starts_with(
+                "where the range reaches back before the commit that replaces the link with the \
+                 manifest file itself"
+            ),
+            "{}",
+            committed.repair
+        );
+
+        run(&["rm", "-q", "--cached", MANIFEST_NAME]);
+        let gitlink = format!("160000,{head},{MANIFEST_NAME}");
+        run(&["update-index", "--add", "--cacheinfo", &gitlink]);
+        let submodule = read_tree(&repo, Source::Index, &[], &mut [])
+            .err()
+            .expect("a gitlink manifest is refused");
+        assert_eq!(
+            submodule.why,
+            format!("its tree holds {MANIFEST_NAME} as a submodule")
+        );
         let _ = std::fs::remove_dir_all(&repo);
     }
 
