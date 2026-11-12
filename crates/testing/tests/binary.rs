@@ -847,6 +847,46 @@ fn a_symlink_is_a_phase_two_finding_in_both_readers_and_a_skip_row_keeps_it() {
     assert!(!stdout.contains("link.md"), "{stdout}");
 }
 
+/// The claim: a symlink at a generated path is told to leave and the file to be generated in its
+/// place, not to be replaced by its target or kept by a walk row, in both readers; and the
+/// repair it names makes each reader pass.
+#[test]
+fn a_symlink_at_a_generated_path_is_told_to_make_way_for_the_generated_file() {
+    let sandbox = Sandbox::new("symlink-generated", "dirhome");
+    commit_all(&sandbox, "the base");
+    let index = sandbox.path("docs/open-issues/index.md");
+    std::fs::remove_file(&index).expect("the index removed");
+    std::os::unix::fs::symlink("README.md", &index).expect("a symlink");
+    sandbox.stage();
+    for args in [&["check"][..], &["check", "--staged"][..]] {
+        let (out, _, code) = sandbox.run(args);
+        assert_eq!(code, 1, "{args:?}: {out}");
+        assert!(
+            out.contains("`docs/open-issues/index.md` is a symlink where a generated file belongs"),
+            "{args:?}: {out}"
+        );
+        assert!(
+            out.contains(
+                "→ remove the link, from the index too where it is staged, then write the \
+                 generated file in its place"
+            ),
+            "{args:?}: {out}"
+        );
+        assert!(!out.contains("skip-files"), "{args:?}: {out}");
+    }
+
+    // `-f`, since the link is staged over the committed file.
+    sandbox.git(&["rm", "-q", "-f", "docs/open-issues/index.md"]);
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, _, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 0, "{out}");
+    let (out, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, _, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 0, "{out}");
+}
+
 /// The claim: a submodule's gitlink is a phase-2 finding naming it, and an `exclude` row is
 /// the declared silence. The entry is written straight into the index, since a submodule
 /// needs no checkout to be one.
