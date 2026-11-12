@@ -1430,7 +1430,10 @@ fn resolve_anchors(
                     "{} gives the anchor the reserved name `{}`",
                     candidate.declared_at, candidate.name
                 ),
-                "rename it; this word is reserved by the tool",
+                &format!(
+                    "rename {}; this word is reserved by the tool",
+                    renamed(&candidate)
+                ),
             );
             continue;
         }
@@ -1442,8 +1445,11 @@ fn resolve_anchors(
                     "{} gives the anchor the name `{}`, which is the name of a kind",
                     candidate.declared_at, candidate.name
                 ),
-                "rename it; a reference's first segment is read as a kind before an anchor, so an \
-                 anchor of this name could not be told apart from the kind",
+                &format!(
+                    "rename {}; a reference's first segment is read as a kind before an anchor, \
+                     so an anchor of this name could not be told apart from the kind",
+                    renamed(&candidate)
+                ),
             );
             continue;
         }
@@ -1455,8 +1461,12 @@ fn resolve_anchors(
                     place(other),
                     place(&candidate)
                 ),
-                "rename or move one; a reference names its anchor by that one word, so two \
-                 of them cannot share it",
+                &format!(
+                    "rename {} or {}; a reference names its anchor by that one word, so two of \
+                     them cannot share it",
+                    renamed(other),
+                    renamed(&candidate)
+                ),
             );
             continue;
         }
@@ -1498,6 +1508,23 @@ fn place(candidate: &Candidate) -> String {
         "the project root".to_string()
     } else {
         format!("`{}`", candidate.path.display())
+    }
+}
+
+/// What a complaint tells the project to rename so that an anchor takes another name: the name
+/// comes from the project's name, a Component's directory, whose last segment it is, or a
+/// location's table key, so each is renamed where it is declared. The anchor `plans` the tool
+/// constructs is never refused by its name, so it is never passed here.
+fn renamed(candidate: &Candidate) -> String {
+    if candidate.is_root {
+        "the project in [project] name".to_string()
+    } else if candidate.is_component {
+        format!(
+            "the directory `{}` and its row in [project] components",
+            candidate.path.display()
+        )
+    } else {
+        format!("the table {}", candidate.declared_at)
     }
 }
 
@@ -3170,6 +3197,94 @@ pub(crate) mod tests {
             found[0].1,
             "rename the project in [project] name, in letters, digits, `.`, `-` and `_`"
         );
+    }
+
+    /// The claim: an anchor refused for a reserved word, a kind's name or a name another anchor
+    /// already wears is renamed where its name is declared, the project's name, a Component's
+    /// directory and its row, or a location's table, and a shared name names the rename of each
+    /// of the two anchors.
+    #[test]
+    fn a_refused_anchor_name_is_renamed_where_it_is_declared() {
+        let actions = |name: &str, components: &str, extra: &str| -> Vec<(String, String)> {
+            Manifest::parse(
+                Path::new("/nowhere"),
+                &format!(
+                    "[project]\nchecker-version = \"fixture\"\nname = \"{name}\"\n\
+                     components = [{components}]\n\n{extra}\
+                     [walk]\nskip-dirs = []\nskip-files = []\n"
+                ),
+            )
+            .expect("a declaration")
+            .complaints()
+            .iter()
+            .map(|f| (f.what.clone(), f.action.clone()))
+            .collect()
+        };
+        let reserved = "this word is reserved by the tool";
+        let kind = "a reference's first segment is read as a kind before an anchor, so an anchor \
+                    of this name could not be told apart from the kind";
+        let cases = [
+            (
+                actions("elsewhere", "", ""),
+                format!("rename the project in [project] name; {reserved}"),
+            ),
+            (
+                actions("a-project", "\"parts/elsewhere\"", ""),
+                format!(
+                    "rename the directory `parts/elsewhere` and its row in [project] components; \
+                     {reserved}"
+                ),
+            ),
+            (
+                actions(
+                    "a-project",
+                    "",
+                    "[locations.elsewhere]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+                ),
+                format!("rename the table [locations.elsewhere]; {reserved}"),
+            ),
+            (
+                actions("design", "", ""),
+                format!("rename the project in [project] name; {kind}"),
+            ),
+            (
+                actions("a-project", "\"parts/design\"", ""),
+                format!(
+                    "rename the directory `parts/design` and its row in [project] components; \
+                     {kind}"
+                ),
+            ),
+            (
+                actions(
+                    "a-project",
+                    "",
+                    "[locations.design]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+                ),
+                format!("rename the table [locations.design]; {kind}"),
+            ),
+            (
+                actions("widget", "\"parts/widget\"", ""),
+                "rename the project in [project] name or the directory `parts/widget` and its \
+                 row in [project] components; a reference names its anchor by that one word, so \
+                 two of them cannot share it"
+                    .to_string(),
+            ),
+            (
+                actions(
+                    "a-project",
+                    "\"parts/widget\"",
+                    "[locations.widget]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+                ),
+                "rename the table [locations.widget] or the directory `parts/widget` and its row \
+                 in [project] components; a reference names its anchor by that one word, so two \
+                 of them cannot share it"
+                    .to_string(),
+            ),
+        ];
+        for (found, action) in cases {
+            assert_eq!(found.len(), 1, "{found:#?}");
+            assert_eq!(found[0].1, action, "{}", found[0].0);
+        }
     }
 
     /// The claim: an `opt-in` register names the Components that carry it, each at its own
