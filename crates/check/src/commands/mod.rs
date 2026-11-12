@@ -238,16 +238,12 @@ fn refuse_another_version_built_at(
     use crate::model::declared::Pin;
     let repair = "set [project] checker-version to the version of the checker the project runs";
     let Some(pin) = manifest.pin() else {
+        // `Manifest::parse` sets no pin only where it records the key's complaint, and nothing
+        // removes a complaint.
         let complaint = manifest
             .pin_complaint()
-            .map(|f| (f.what.clone(), f.action.clone()));
-        let (what, action) = complaint.unwrap_or_else(|| {
-            (
-                "[project] checker-version is absent".to_string(),
-                repair.to_string(),
-            )
-        });
-        return Err(format!("{what}\n       {action}"));
+            .expect("a manifest with no pin holds the complaint about its key");
+        return Err(format!("{}\n       {}", complaint.what, complaint.action));
     };
     let root = manifest.root();
     match pin {
@@ -379,6 +375,16 @@ pub fn model(
 ///
 /// An extension prepares its tree here rather than inside a check: preparing may read the
 /// archive or reach the network, and a check may do neither.
+/// The repair of an extension that cannot prepare over a tree: its reason is its own, and names
+/// what it needs.
+const EXTENSION_REPAIR: &str = "repair what the extension's reason names, and run again";
+
+/// The error of a command whose extension could not prepare over the working tree: the
+/// extension's reason, and the repair under it, indented under the `error: ` its caller prints.
+fn extension_refusal(why: String) -> String {
+    format!("{why}\n       {EXTENSION_REPAIR}")
+}
+
 fn check_working(
     manifest: &Manifest,
     checker: &[&Path],
@@ -399,12 +405,14 @@ fn check_working(
     // before: a run that stopped earlier resolved and fetched nothing.
     let mut prepared: Vec<(&'static [&'static str], Box<dyn Prepared>)> = Vec::new();
     for extension in extensions.iter_mut() {
-        let p = extension.prepare(
-            manifest,
-            &model,
-            Tree::Checkout(manifest.root()),
-            Purpose::Check,
-        )?;
+        let p = extension
+            .prepare(
+                manifest,
+                &model,
+                Tree::Checkout(manifest.root()),
+                Purpose::Check,
+            )
+            .map_err(extension_refusal)?;
         prepared.push((extension.checks(), p));
     }
     let with: Vec<(&[&'static str], &dyn Prepared)> =
@@ -515,7 +523,7 @@ fn fix_then_check(
         extensions,
     ) {
         Ok(generated) => generated,
-        Err(e) => return failed(written, e),
+        Err(e) => return failed(written, extension_refusal(e)),
     };
     // **A partial commit's mismatch is refused before any generated file is written**, per
     // `design@check@fix-before-the-checks`: where the index differs from HEAD, the files written
@@ -700,7 +708,8 @@ fn index_working(
         &gathered.inputs(),
         Tree::Checkout(manifest.root()),
         extensions,
-    )?;
+    )
+    .map_err(extension_refusal)?;
     check_destinations(manifest, &generated)
         .map_err(|(what, repair)| format!("{what} Nothing was written.\n       {repair}"))?;
 
@@ -788,14 +797,12 @@ fn differing_paths(
 /// calls this.
 ///
 /// Every destination is checked before any is written, so a run that wrote one index cannot then
-/// fail on the next and exit 2 having changed the tree, per `design@cli@exit-code-ladder`. A missing directory here is the
-/// manifest declaring one the tree does not have; creating it would paper over that, and the
-/// registers check is what reports it.
+/// fail on the next and exit 2 having changed the tree, per `design@cli@exit-code-ladder`.
 ///
-/// **The missing-directory arm is reached by an extension's generated file** whose directory
-/// the tree does not hold: the extension names the path before the walk, and nothing creates its
-/// directory. A file-register index cannot reach it, since one is generated only for an instance
-/// whose directory the survey found.
+/// **The missing-directory arm is reached only by an extension's generated file** whose
+/// directory the tree does not hold: the extension names the path before the walk, and nothing
+/// creates its directory. A file-register index cannot reach it, since one is generated only for
+/// an instance whose directory the survey found.
 fn check_destinations(
     manifest: &Manifest,
     generated: &[(std::path::PathBuf, String)],

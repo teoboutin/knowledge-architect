@@ -301,10 +301,6 @@ const NO_BLOB_REPAIR: &str = "restore the missing object, which `git fsck` names
 /// lock, a corrupt index or a git too old, and nothing in the project is the cause.
 const GIT_REPAIR: &str = "repair what git's reason names, and run again";
 
-/// The repair of an extension that cannot prepare over a tree: its reason is its own, and names
-/// what it needs.
-const EXTENSION_REPAIR: &str = "repair what the extension's reason names, and run again";
-
 impl Unloadable {
     fn git(why: String) -> Self {
         Unloadable {
@@ -740,7 +736,7 @@ fn commit_tree(
                     )
                     .map_err(|why| Unloadable {
                         why,
-                        repair: EXTENSION_REPAIR,
+                        repair: super::EXTENSION_REPAIR,
                     })?;
                 assembly.prepared.push((extension.checks(), prepared));
             }
@@ -857,20 +853,15 @@ pub(super) fn index_staged(
     .map_err(|why| {
         Unloadable {
             why,
-            repair: EXTENSION_REPAIR,
+            repair: super::EXTENSION_REPAIR,
         }
         .refusal("the staged tree's generated files cannot be computed")
     })?;
+    // A generated path the index holds as a symlink or a gitlink needs no refusal here: phase 2
+    // reports every such entry no walk row keeps, so the gate above has stopped, and one a row
+    // keeps is refused by `git::stage_generated`, which asks the index itself.
     for (rel, _) in &generated {
         let dir = rel.parent().unwrap_or(Path::new(""));
-        if assembly.survey.links.iter().any(|e| e.rel == *rel) {
-            return Err(format!(
-                "{}: the index holds this generated path as a symlink or a gitlink. Nothing \
-                 was written.\n       remove the entry from the index, with `git rm --cached`, \
-                 and run again",
-                rel.display()
-            ));
-        }
         if !dir.as_os_str().is_empty() && !assembly.survey.directories.contains(dir) {
             return Err(format!(
                 "{}: the directory this file is generated into is not in the staged tree. \
@@ -978,7 +969,7 @@ pub(super) fn staged_generated(
     .map_err(|why| {
         Unloadable {
             why,
-            repair: EXTENSION_REPAIR,
+            repair: super::EXTENSION_REPAIR,
         }
         .refusal("the staged tree's generated files cannot be computed")
     })
