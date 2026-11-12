@@ -28,20 +28,39 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
     // that, only declaring no harness does. A missing one is the required-documents finding below.
     // This stands until
     // `issue@model@the-walk-may-exclude-a-file-the-model-requires` replaces it.
+    // Each of the two causes names its own repair: a walk row is the project's to remove, and an
+    // extension's generated list is the extension's, computed from the table the project gives
+    // it, so the project acts on that table. Declaring no harness is the repair of a project
+    // that runs no agent under `claude` and keeps the default, whichever cause holds.
     let root_document = std::path::Path::new(crate::manifest::AGENT_DOCUMENT);
+    let by_row = crate::walk::kept_out(root_document, manifest.walk());
+    let by_extension = manifest
+        .extension_generated()
+        .iter()
+        .any(|g| g == root_document);
     if manifest.serves_claude()
         && inputs.present.contains(root_document)
-        && (crate::walk::kept_out(root_document, manifest.walk())
-            || manifest
-                .extension_generated()
-                .iter()
-                .any(|g| g == root_document))
+        && (by_row || by_extension)
     {
+        let mut repairs = Vec::new();
+        if by_row {
+            repairs.push("remove the row of [walk] that keeps it out");
+        }
+        if by_extension {
+            repairs.push(
+                "change the table of the extension that generates it, so that it generates \
+                 another file",
+            );
+        }
         out.push(Finding::in_file(
             root_document,
             "the root CLAUDE.md is outside the walk, so the model lacks what it defines and its \
              import of the installed primer cannot be read",
-            "remove the row of [walk] or the extension's generated file that keeps it out",
+            format!(
+                "{}; or, where the project runs no agent under the `claude` harness, declare \
+                 `harness = []` in [agents]",
+                repairs.join(", and ")
+            ),
         ));
     }
 
@@ -67,7 +86,8 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 line,
                 "markdown reads a heading here that the checker does not read",
                 "write it as a line that opens with `#` marks and holds text, with no list or \
-                 block-quote marker before them",
+                 block-quote marker before them; where a line of `-` or `=` under it is meant \
+                 as no heading, put a blank line above that line",
             ));
         }
     }
@@ -151,12 +171,23 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
         }
         if anchor.constructed == Some(Constructed::Plans) {
             let readme = anchor.path.join("README.md");
-            if !inputs.present.contains(&readme) || inputs.directories.contains(&readme) {
+            if !inputs.present.contains(&readme) {
                 out.push(Finding::in_file(
                     &readme,
                     "the plans directory has no README.md".to_string(),
                     "create it; it says what the plans directory holds, and keeps it in git \
                      while no plan document is open",
+                ));
+            } else if inputs.directories.contains(&readme) {
+                // The file cannot be created while the directory holds its name.
+                out.push(Finding::in_file(
+                    &readme,
+                    format!(
+                        "the plans directory has no README.md: `{}` is a directory",
+                        readme.display()
+                    ),
+                    "move the directory aside and create the file; it says what the plans \
+                     directory holds",
                 ));
             }
         }
@@ -517,7 +548,7 @@ fn heading_home(
             // Without a head nothing can list the subdocuments, so the per-subdocument
             // findings would bury the one repair that fixes them all. A directory wearing
             // the README's name is no head either: the walk never reads a directory.
-            if !inputs.present.contains(&home.readme) || inputs.directories.contains(&home.readme) {
+            if !inputs.present.contains(&home.readme) {
                 out.push(Finding::in_file(
                     &home.readme,
                     format!(
@@ -527,6 +558,20 @@ fn heading_home(
                     ),
                     "create it; the README is the directory home's head — an introduction, \
                      and a bullet list of markdown links naming every subdocument",
+                ));
+            } else if inputs.directories.contains(&home.readme) {
+                // The file cannot be created while the directory holds its name.
+                out.push(Finding::in_file(
+                    &home.readme,
+                    format!(
+                        "the {} directory `{}` has no README.md: `{}` is a directory",
+                        register.name,
+                        home.dir.display(),
+                        home.readme.display()
+                    ),
+                    "move the directory aside and create the file; the README is the directory \
+                     home's head — an introduction, and a bullet list of markdown links naming \
+                     every subdocument",
                 ));
             }
         }
@@ -1259,5 +1304,139 @@ mod plans_tests {
             assert_eq!(finding.to_string().lines().count(), 2, "{finding}");
             assert!(finding.to_string().starts_with(head), "{finding}");
         }
+    }
+
+    /// The tree findings at one path, as `what  → action`.
+    fn findings_at(manifest: &Manifest, present: &[String], at: &str) -> Vec<String> {
+        tree_findings(manifest, present)
+            .into_iter()
+            .filter_map(|f| f.strip_prefix(&format!("{at}  ")).map(str::to_string))
+            .collect()
+    }
+
+    /// The claim: a README.md that is missing is created, and a directory that wears its name is
+    /// moved aside first, since no file can be created at its path; each case names its own
+    /// repair, for the plans directory's README and a heading register's directory home alike.
+    /// Mutation checked: the directory arm of `heading_home` folded back into the missing arm.
+    #[test]
+    fn a_readme_that_is_a_directory_is_moved_aside_before_it_is_created() {
+        let manifest = declaring("");
+        let goals_as_dir = |readme: &[&str]| {
+            let mut present = all_of("");
+            present.retain(|p| p != "docs/goals.md");
+            present.push("docs/goals".to_string());
+            present.push("docs/goals/aims.md".to_string());
+            present.extend(readme.iter().map(|p| p.to_string()));
+            present
+        };
+        for (present, at, finding) in [
+            (
+                {
+                    let mut p = all_of("");
+                    p.retain(|p| p != "docs/plans/README.md");
+                    p
+                },
+                "docs/plans/README.md",
+                "the plans directory has no README.md  → create it; it says what the plans \
+                 directory holds, and keeps it in git while no plan document is open",
+            ),
+            (
+                {
+                    let mut p = all_of("");
+                    p.push("docs/plans/README.md/inner.md".to_string());
+                    p
+                },
+                "docs/plans/README.md",
+                "the plans directory has no README.md: `docs/plans/README.md` is a directory  \
+                 → move the directory aside and create the file; it says what the plans \
+                 directory holds",
+            ),
+            (
+                goals_as_dir(&[]),
+                "docs/goals/README.md",
+                "the goal directory `docs/goals` has no README.md  → create it; the README is \
+                 the directory home's head — an introduction, and a bullet list of markdown \
+                 links naming every subdocument",
+            ),
+            (
+                goals_as_dir(&["docs/goals/README.md", "docs/goals/README.md/inner.md"]),
+                "docs/goals/README.md",
+                "the goal directory `docs/goals` has no README.md: `docs/goals/README.md` is a \
+                 directory  → move the directory aside and create the file; the README is the \
+                 directory home's head — an introduction, and a bullet list of markdown links \
+                 naming every subdocument",
+            ),
+        ] {
+            assert_eq!(findings_at(&manifest, &present, at), [finding], "{at}");
+        }
+    }
+
+    /// The claim: a root CLAUDE.md kept out of the walk names the repair of each cause that holds,
+    /// a walk row's removal and a change to the generating extension's table, and the waiver of a
+    /// project that runs no agent under `claude`. Mutation checked: the extension's repair pushed
+    /// for a walk row too.
+    #[test]
+    fn a_root_claude_md_outside_the_walk_names_the_repair_of_its_cause() {
+        let waiver = "; or, where the project runs no agent under the `claude` harness, declare \
+                      `harness = []` in [agents]";
+        let what = "the root CLAUDE.md is outside the walk, so the model lacks what it defines \
+                    and its import of the installed primer cannot be read";
+        let row = "remove the row of [walk] that keeps it out";
+        let extension = "change the table of the extension that generates it, so that it \
+                         generates another file";
+        let generating = |mut manifest: Manifest| {
+            manifest.record_extensions(Vec::new(), Vec::new(), vec![PathBuf::from("CLAUDE.md")]);
+            manifest
+        };
+        for (manifest, repair) in [
+            (
+                declaring_full("", "", "[]", "[\"CLAUDE.md\"]", "[]", "[]"),
+                row.to_string(),
+            ),
+            (generating(declaring("")), extension.to_string()),
+            (
+                generating(declaring_full("", "", "[]", "[\"CLAUDE.md\"]", "[]", "[]")),
+                format!("{row}, and {extension}"),
+            ),
+        ] {
+            assert_eq!(
+                findings_at(&manifest, &all_of(""), "CLAUDE.md"),
+                [format!("{what}  → {repair}{waiver}")],
+            );
+        }
+    }
+
+    /// The claim: a heading markdown reads and the checker does not names the repair for a line
+    /// meant as a heading and for a line of `-` or `=` meant as none. A regression guard on the
+    /// text: no logic chooses between the two.
+    #[test]
+    fn an_unread_heading_names_the_repair_for_an_underline_meant_as_none() {
+        let manifest = declaring("");
+        let present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+        };
+        let model = Model::from_documents(vec![(
+            PathBuf::from("notes.md"),
+            "# Notes\n\nA paragraph\n---\n".to_string(),
+        )]);
+        let found: Vec<String> = check(&model, &manifest, &inputs)
+            .iter()
+            .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
+            .collect();
+        assert_eq!(
+            found,
+            ["notes.md:3  markdown reads a heading here that the checker does not read  → write \
+              it as a line that opens with `#` marks and holds text, with no list or block-quote \
+              marker before them; where a line of `-` or `=` under it is meant as no heading, put \
+              a blank line above that line"]
+        );
     }
 }
