@@ -82,6 +82,7 @@ impl Gathered {
             tracked_and_ignored: tree.tracked_and_ignored,
             refused: tree.refused,
             links: tree.links,
+            judged: crate::check::Judged::WorkingTree,
         }
     }
 }

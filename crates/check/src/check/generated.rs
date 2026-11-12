@@ -15,7 +15,7 @@ use crate::model::Finding;
 use crate::model::Manifest;
 use crate::model::Model;
 
-use super::Inputs;
+use super::{Inputs, Judged};
 
 /// Compare each generated file with what it would be generated as now: every file an
 /// extension generates, then one index per file-register instance.
@@ -41,7 +41,7 @@ pub(crate) fn check(
             &rel,
             &expected,
             inputs,
-            &index_action(manifest),
+            &index_action(manifest, inputs.judged),
             &mut findings,
         );
     }
@@ -53,9 +53,15 @@ pub(crate) fn check(
 ///
 /// It names the repair and no cause, per `design@check@finding-names-the-repair`: a hand edit,
 /// an upgrade of the checker and a branch that changes the generator all leave an index out of
-/// date, and the repair is the same for each.
-pub(crate) fn index_action(manifest: &Manifest) -> String {
-    format!("run `{} index`", manifest.command())
+/// date, and the repair is the same for each. The tree the run judges decides the command:
+/// `index` writes the working tree and leaves the index as it was, so under `check --staged` it
+/// would leave the finding standing, and `index --staged` is the repair there. A commit's file
+/// is repaired by a history edit, whose step is `index`.
+pub(crate) fn index_action(manifest: &Manifest, judged: Judged) -> String {
+    match judged {
+        Judged::WorkingTree | Judged::Commit => format!("run `{} index`", manifest.command()),
+        Judged::Index => format!("run `{} index --staged`", manifest.command()),
+    }
 }
 
 /// The repair of a generated file whose path holds a directory: no writer of a generated file
@@ -146,6 +152,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         let found: Vec<String> = check(&model, &manifest, &inputs, &[])
             .iter()
@@ -185,6 +192,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         check(&model, &manifest, &inputs, &[])
     }

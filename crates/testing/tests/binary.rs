@@ -5288,6 +5288,66 @@ fn index_staged_stages_the_generated_files_and_touches_no_working_file() {
     );
 }
 
+/// The repair each finding on a missing index names, under each tree a run judges.
+fn index_repairs(out: &str) -> Vec<&str> {
+    out.lines()
+        .skip_while(|l| !l.starts_with("docs/open-issues/index.md"))
+        .filter(|l| l.trim_start().starts_with('→'))
+        .take(2)
+        .collect()
+}
+
+/// The claim, per `design@check@finding-names-the-repair`: the two findings on a missing
+/// generated index, the `generated` family's and the `registers` family's, name the one command
+/// that writes it into the tree the run judges: `index --staged` under `check --staged`, which
+/// then passes, and `index` under `check` and under `commits`, whose repair is a history edit
+/// running it.
+#[test]
+fn a_missing_index_names_the_command_that_writes_the_tree_judged() {
+    let sandbox = Sandbox::new("index-repair-per-tree", "dirhome");
+    commit_all(&sandbox, "the base");
+
+    sandbox.git(&["rm", "-q", "--cached", "docs/open-issues/index.md"]);
+    let (out, _, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{out}");
+    let repairs = index_repairs(&out);
+    assert_eq!(repairs.len(), 2, "{out}");
+    for repair in &repairs {
+        assert!(repair.ends_with(" index --staged`"), "{out}");
+    }
+    let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, _, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(
+        code, 0,
+        "the repair it named repairs the staged tree: {out}"
+    );
+
+    // Gone from both trees, since a file git lists and the working tree lacks is another finding.
+    sandbox.git(&["rm", "-q", "docs/open-issues/index.md"]);
+    let (out, _, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}");
+    let repairs = index_repairs(&out);
+    assert_eq!(repairs.len(), 2, "{out}");
+    for repair in &repairs {
+        assert!(repair.ends_with(" index`"), "{out}");
+    }
+
+    commit_all(&sandbox, "the index leaves");
+    let (out, _, code) = sandbox.run(&["commits", "HEAD~1..HEAD"]);
+    assert_eq!(code, 1, "{out}");
+    let repairs: Vec<&str> = out
+        .lines()
+        .skip_while(|l| !l.contains("docs/open-issues/index.md"))
+        .filter(|l| l.trim_start().starts_with('→'))
+        .take(2)
+        .collect();
+    assert_eq!(repairs.len(), 2, "{out}");
+    for repair in &repairs {
+        assert!(repair.ends_with(" index`"), "{out}");
+    }
+}
+
 /// `design@check@index-staged-write`: `index --staged` writes nothing, exit 2, when phases 1 to 3 of the staged tree find
 /// anything, and when git's index lock is held.
 #[test]

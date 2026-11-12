@@ -882,6 +882,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         let (found, counts) = check_under(&model, &inputs, anchors);
         (found.iter().map(|f| f.to_string()).collect(), counts)
@@ -2686,6 +2687,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         let (found, counts) = check_under(
             &model,
