@@ -8,4 +8,5 @@
 
 pub use crate::model::document::{
     md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, Scope, ScopeKind, SlugSite,
+    Trouble,
 };

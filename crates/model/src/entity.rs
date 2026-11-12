@@ -1011,7 +1011,8 @@ pub fn spelled(kind: &str, anchor: &str, id: &str) -> String {
 ///
 /// **Which spans are candidates.** The head — the text before the first `@` — is a known kind,
 /// a declared anchor or a reserved anchor; anything else is not a reference and is silent, so
-/// an email address or a git remote in backticks reports nothing. A typo inside the kind is
+/// an email address or a git remote in backticks reports nothing unless the word before its first
+/// `@` is a kind, a declared anchor or a reserved anchor. A typo inside the kind is
 /// silent for the same reason, which `register@check@tripwire` guards.
 ///
 /// **Segmentation.** Every kind but `path` and `planned` takes exactly three segments; those two

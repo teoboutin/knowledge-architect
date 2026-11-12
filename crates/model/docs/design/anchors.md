@@ -130,7 +130,7 @@ the manifest, `resolve_anchors` in `path@model@src/manifest.rs`, refuses the lat
 `design@model@anchor-collisions-refused`, of two candidates that share a name, whatever their
 kinds: the project, a Component or a location. A declared anchor named `plans` is refused before
 this check, per `design@model@plans-is-a-reserved-anchor`. The refused anchor is no anchor, per `design@model@a-wrong-declaration-is-a-finding`, and the
-finding's repair is to rename or move one. Supporting two of one name, by qualifying the word with a
+finding's repair is to rename one where its name is declared. Supporting two of one name, by qualifying the word with a
 path, is refused on the owner's argument that two Components of one basename are either one Component
 or not named specifically enough, which the owner judged bad practice; the session concludes that
 the support would serve no project the workflow leads to. The
