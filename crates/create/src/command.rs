@@ -51,6 +51,27 @@ pub enum Vcs {
     None,
 }
 
+/// Refuse a project name that begins with the installer's namespace, `knowledge-architect-`, as
+/// [`init`] refuses it, whether given in [`InitOptions::name`] or taken from the basename of the
+/// path; `Err` names the name. A binary's declaration of `--name` calls it while parsing, per
+/// `design@cli@command-parsing-home`. The name `knowledge-architect` itself is accepted.
+pub fn check_name(name: &str) -> Result<(), String> {
+    // Per `design@create@init-refuses-the-installer-s-prefix`: a project's own skills take its
+    // name and a hyphen as their prefix by default, per
+    // `design@agent-skills@project-name-prefix`; under a name that begins with the installer's
+    // namespace, that default lies inside it, and the install deletes such files as unshipped.
+    // A name equal to the namespace without its hyphen is accepted: its project takes another
+    // prefix, as the setup skill says.
+    if name.starts_with(OWNED_PREFIX) {
+        return Err(format!(
+            "the project name `{name}` begins with `{OWNED_PREFIX}`, the installer's \
+             namespace: the project's own skills, named after it, would be deleted by every \
+             install. Pass another --name"
+        ));
+    }
+    Ok(())
+}
+
 /// Create a knowledge-architect project at `args.path`, as `klarch init` does.
 ///
 /// A binary calls this before it locates a project, with the same `libraries` and `packages` it
@@ -114,19 +135,7 @@ pub fn init(
             root.display()
         ));
     }
-    // Per `design@create@init-refuses-the-installer-s-prefix`: a project's own skills take its
-    // name and a hyphen as their prefix by default, per
-    // `design@agent-skills@project-name-prefix`; under a name that begins with the installer's
-    // namespace, that default lies inside it, and the install deletes such files as unshipped.
-    // A name equal to the namespace without its hyphen is accepted: its project takes another
-    // prefix, as the setup skill says.
-    if name.starts_with(OWNED_PREFIX) {
-        return Err(format!(
-            "the project name `{name}` begins with `{OWNED_PREFIX}`, the installer's \
-             namespace: the project's own skills, named after it, would be deleted by every \
-             install. Pass another --name"
-        ));
-    }
+    check_name(&name)?;
     let mut components = args
         .components
         .iter()

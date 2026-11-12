@@ -8236,6 +8236,32 @@ fn transcript_exit_codes_follow_the_ladder() {
     assert_eq!(code, 2, "{stderr}");
 }
 
+/// The claim: a `--since` date that is no day of the calendar and a pattern that does not parse are
+/// refused while parsing, per `design@cli@command-parsing-home`: exit 2 with clap's refusal of the
+/// value, before the transcript directory is looked for, which would refuse with its own reason.
+/// Mutation checked: each `value_parser` removed from the declaration in `path@cli@src/cli/transcript.rs`;
+/// each caught.
+#[test]
+fn transcript_refuses_a_date_or_a_pattern_while_parsing() {
+    for args in [
+        &["transcript", "list", "--since", "2026-13-45"][..],
+        &["transcript", "search", "x", "--since", "2026-02-30"],
+        &["transcript", "search", "("],
+    ] {
+        let (stdout, stderr, code) = run_with_env(
+            &project("core"),
+            args,
+            &[("CLAUDE_CONFIG_DIR", Path::new("/nonexistent/klarch-config"))],
+        );
+        assert_eq!(code, 2, "{args:?}: {stdout}{stderr}");
+        assert!(
+            stderr.starts_with("error: invalid value"),
+            "{args:?}: {stderr}"
+        );
+        assert!(stdout.is_empty(), "{args:?}: {stdout}");
+    }
+}
+
 /// `search` keeps lines by role and by tool, and a tool's results with its calls.
 #[test]
 fn transcript_search_selects_by_role_and_by_tool() {

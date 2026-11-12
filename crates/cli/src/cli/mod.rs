@@ -201,6 +201,11 @@ fn subject_id(value: &str) -> Result<String, String> {
     }
 }
 
+/// The name `init` gives a project, checked by the create crate's rule while parsing.
+fn project_name(value: &str) -> Result<String, String> {
+    knowledge_architect_create::check_name(value).map(|()| value.to_string())
+}
+
 #[derive(Args)]
 pub struct NewComponentArgs {
     /// The Component's directory, relative to the working directory and inside the project.
@@ -213,8 +218,9 @@ pub struct InitArgs {
     /// The project's directory, created when it does not exist.
     #[arg(value_name = "PATH", default_value = ".")]
     pub path: std::path::PathBuf,
-    /// The project's name. The default is the basename of PATH.
-    #[arg(long, value_name = "NAME")]
+    /// The project's name. The default is the basename of PATH. A name that begins with
+    /// `knowledge-architect-`, the installer's namespace, is refused.
+    #[arg(long, value_name = "NAME", value_parser = project_name)]
     pub name: Option<String>,
     /// A Component to add, as `new-component` adds one; repeatable. DIR is relative to PATH.
     #[arg(long = "component", value_name = "DIR")]

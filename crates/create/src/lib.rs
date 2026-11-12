@@ -11,6 +11,8 @@
 //! process with exit 2. [`new_component`] takes a manifest as its caller's extensions have configured
 //! it, which nothing enforces, per
 //! `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
+//! [`check_name`] is the rule [`init`] applies to a project's name, for a binary's declaration of
+//! the name to call while parsing.
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary offers these
 //! commands, and whose documentation names the library entry an extension's binary calls.
@@ -31,7 +33,7 @@ use knowledge_architect_model as model;
 mod command;
 mod output;
 
-pub use command::{init, new_component, InitOptions, Vcs};
+pub use command::{check_name, init, new_component, InitOptions, Vcs};
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at
 /// build time.

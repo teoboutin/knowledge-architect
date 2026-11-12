@@ -50,6 +50,9 @@ an empty subsection is omitted.
   writes `bears.md` and `may-bear.md`. A project whose own skill, agent or script names those two
   files, or the grades `bears` and `may-bear`, rewrites it to the verdict files and the verdicts, as
   `agent@knowledge-architect-record-searcher` describes them.
+- `cli`, major: `transcript list` and `transcript search` refuse a `--since` date that is no day of the
+  calendar, such as `2026-13-45` or `2026-02-30`, exit 2, where they took it as text and answered. A
+  script that passes such a date passes a real one.
 - `manifest`, major: a location that declares the register `goal` in its `registers` list is refused
   that register, a finding; a manifest that names it there stops being accepted as it was. A project
   removes `goal` from the row and moves the location's goals to the root's goals home.
@@ -189,10 +192,12 @@ an empty subsection is omitted.
 - `library`, minor: the package `knowledge-architect-query` holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and
   `worklist` as typed functions, and depends on nothing of the checks, for a program that consults a record.
 - `library`, minor: the package `knowledge-architect-transcript` holds the reader of Claude Code's session transcripts and the
-  logic of `transcript`, as a typed function that takes the project's root.
+  logic of `transcript`, as a typed function that takes the project's root, and the rules on its date and its pattern,
+  `check_since` and `check_pattern`, which a declaration calls while parsing.
 - `library`, minor: the package `knowledge-architect-testing` holds what an extension's tests need to run the checks over a
   mock project, and `Entities::definition_findings` of `knowledge-architect-model` reads phase 3's findings.
-- `library`, minor: the package `knowledge-architect-create` holds the logic of `init` and `new-component` as typed functions.
+- `library`, minor: the package `knowledge-architect-create` holds the logic of `init` and `new-component` as typed functions,
+  and the rule on a project's name, `check_name`, which a declaration calls while parsing.
 - `library`, minor: the package `knowledge-architect-model` holds what knowledge-architect reads of
   a project, the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver, for a
   tool that needs them and no check. Every public path of `knowledge-architect` stays. `Model` and
