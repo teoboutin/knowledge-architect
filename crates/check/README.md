@@ -333,10 +333,11 @@ cargo klarch commits origin/main..HEAD   # the branch's own commits
 
 `commits` reads everything from each commit's own tree through git objects — the manifest, the
 documents, the generated indexes, every file an extension reads — so a message is judged against the tree it
-was written against, byte for byte and cleaned of nothing. **A commit whose tree does not load or
-carries findings fails the run**, the range's last commit included, with its tree's findings
-named by the commit and the file, and its message is still judged where its tree reached the last
-phase. The summary block counts the commits, how many passed and how many failed, and a commit
+was written against, byte for byte and cleaned of nothing, per
+`design@check@message-judged-byte-for-byte`. **A commit whose tree does not load or carries findings
+fails the run**, the range's last commit included, with its tree's findings named by the commit and
+the file, and its message is still judged where its tree reached the last phase, per
+`design@check@every-commit-judged-by-the-tip-checker`. The summary block counts the commits, how many passed and how many failed, and a commit
 fails on any finding of its tree, of its message or of a citation by SHA:
 
 ```
@@ -354,11 +355,13 @@ last commit's file alone:
 ```
 
 The checker that judges every commit is the one built from the working tree, so a branch
-that makes it stricter puts that change in its first commit or is squashed before review. A
-message's references resolve against its commit's tree **or its first parent's**, which is what
-lets a commit that closes an issue name it; a parent whose manifest fails phase 1 is not read, and
-serves as no parent. No hook judges a message before the commit exists:
-the range is run after each commit, and a finding in the newest commit is repaired by an amend.
+that makes it stricter puts that change in its first commit or is squashed before review, per
+`design@check@every-commit-judged-by-the-tip-checker`. A message's references resolve against its
+commit's tree **or its first parent's**, which is what lets a commit that closes an issue name it; a
+parent whose manifest fails phase 1 is not read, and serves as no parent, per
+`design@check@message-references-resolve-in-either-tree`. No hook judges a message before the
+commit exists: the range is run after each commit, and a finding in the newest commit is repaired
+by an amend, per `design@check@one-command-judges-messages-after-the-commit`.
 
 **A project whose merges rewrite SHAs refuses citations of its branch's own commits.** Under
 `[commits] refuse-branch-shas = true`, `commits` reports every run of 7 to 64 lowercase hex digits
@@ -371,7 +374,8 @@ over `HEAD~1..HEAD`, a citation of an earlier commit of the branch passes, per
 `issue@check@branch-sha-citations-are-judged-within-the-range-only`. The argument is
 `design@check@branch-shas-are-refused`.
 
-`check` reads no range of history, and the range is always explicit. `cargo x gates` runs
+`check` reads no range of history, and the range is always explicit, per
+`design@check@check-reads-no-range-of-history`. `cargo x gates` runs
 `commits origin/main..HEAD` as a gate.
 
 **The range need not end at the checkout.** Any range `git rev-list` resolves is judged, commit by
@@ -388,8 +392,9 @@ commit, and where HEAD sits changes nothing. The uses a range serves:
 
 `<base>` is the branch the work merges into, as the remote holds it.
 
-Two things are still read from the working tree, whatever the range: the binary that judges, and
-git's ignore rules, which `git check-ignore` answers for the files on disk only.
+Two things are still read from the working tree, whatever the range: the binary that judges, per
+`design@check@every-commit-judged-by-the-tip-checker`, and git's ignore rules, which `git check-ignore` answers for the files on disk only, per
+`design@check@a-commit-message-is-a-document`.
 
 ## What to respect
 
