@@ -252,8 +252,6 @@ Open entries that bear on the work, read again at the audit:
 - `issue@check@configuration-for-several-agent-providers`: the citation check assumes the `claude`
   harness's layout. Judged: it reads the entity table's sites, not a layout, so a second harness
   that defines skills and agents in the table is judged the same way.
-- `issue@check@finding-texts-are-not-audited-for-a-needless-cause`: the new repair text of a raw
-  path is written to `design@check@finding-names-the-repair`.
 
 ## Criteria
 
@@ -493,7 +491,7 @@ for sessions that do not pass the flag, and agents would learn to pass it."
 ### The repair text changes a command's output `##arg-13`
 
 The reply to round 1 and the reply to round 2. Bears on `thread@path-quickfixes@raw-path-inference`. "the finding text
-changes, which touches `issue@check@finding-texts-are-not-audited-for-a-needless-cause` and
+changes, which touches [the rule `design@check@finding-names-the-repair`] and
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`." / "I would class it as a
 patch with a changelog entry, as the `commits` summary change was classed."
 

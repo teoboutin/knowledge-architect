@@ -122,8 +122,9 @@ finding messages rather than by the installed text, and an unstated checker rule
 where its finding message does not name its repair. One rule stands in the section on the owner's
 word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
 it names, which sessions of an adopting project routed around in real use. The owner accepted its
-placement in this section, over that ruling. The rulings are recorded in
-`issue@model@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`. A rule a writer of
+placement in this section, over that ruling. The rulings are recorded in the report files of that
+audit's passes, in the history, the last removed by the commit "[audit] Pass 6 of the
+agentic-workflow axis applied by cause; the audit stops". A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
 The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.

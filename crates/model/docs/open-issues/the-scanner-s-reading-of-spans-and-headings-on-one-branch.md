@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-A cluster of the issue record: five entries on how the scan of a document reads a backticked span or
+A cluster of the issue record: four entries on how the scan of a document reads a backticked span or
 a heading line, which one branch closes together. Each member's own entry holds its observation, its
 reason and its closing work; this entry holds only that they go together.
 
@@ -19,7 +19,6 @@ The members:
 - `issue@model@a-span-whose-head-shortens-a-kind-passes-the-check-silent`
 - `issue@model@a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`
 - `issue@model@a-heading-line-markdown-renders-as-no-heading-defines-an-entry`
-- `issue@model@a-reference-with-a-line-or-fragment-suffix-names-a-wrong-repair`
 
 They go on one branch because each changes how a span or a heading is read, in the scan, the
 candidate rule of `path@model@src/entity.rs`, or the repairs of `path@model@src/resolver.rs` and

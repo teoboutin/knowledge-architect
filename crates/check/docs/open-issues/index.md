@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -27,8 +27,6 @@
 | question | [Does the `"self"` pin hold where a project commits a copy of the checker's crate and builds from it](the-self-pin-is-accepted-over-a-tracked-copy-of-the-checker.md) |
 | todo | [An extension cannot see which register, anchor or entry a document belongs to](an-extension-cannot-see-which-register-a-document-belongs-to.md) |
 | todo | [`commits` sees a citation of a branch commit by SHA only when the cited commit is in the range it judges](branch-sha-citations-are-judged-within-the-range-only.md) |
-| todo | [The findings' texts are not audited against the rule that a cause is named only where the repair depends on it](finding-texts-are-not-audited-for-a-needless-cause.md) |
 | todo | [Texts that state what a relocation costs are read again once its bound is argued](texts-citing-the-relocation-goal-state-its-old-measure.md) |
 | todo | [The install's and the installed-file check's comparisons that misjudge a state, fixed on one branch](the-installer-s-comparisons-on-one-branch.md) |
-| todo | [The repairs some findings name, brought to what the repair needs, on one branch](the-repairs-finding-texts-name-on-one-branch.md) |
 | todo | [The checker does not read the structure of a project's own skills](tooling-for-project-skills.md) |
