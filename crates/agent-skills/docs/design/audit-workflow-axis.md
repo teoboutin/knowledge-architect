@@ -180,7 +180,9 @@ intended without and that another instruction needs to vary; a restatement that 
 written for one interaction, a narrow rule where judgement already decides. A finding that fits none
 is a cause of its own. Each kind has its repair: the homes merged into one and the others pointing
 to it, the structure removed, the restatement brought back to a pointer, the narrow rule deleted and
-the case left to judgement. A repair adds an instruction only where none of these closes the cause,
+the case left to judgement. An instruction needed only at some moments may instead be moved to the
+text loaded at those moments, weighed as
+`design@agent-skills@one-session-cost-weighed-before-removal` says. A repair adds an instruction only where none of these closes the cause,
 and says why. One repair is proposed per cause, never one per finding, and each finding takes the
 outcome of its cause's repair. Outside the project that publishes the workflow, a cause whose
 findings are on both sides, the installed text and the project's own, is repaired in two parts: its
@@ -223,6 +225,24 @@ sort dropped a finding and left a ruling of the owner off the next pass's kept l
 
 The designs this decision did not keep: `rejected@agent-skills@one-repair-per-finding` and
 `rejected@agent-skills@workflow-repair-steps-reused`.
+
+### A cost one session met is weighed against every other occasion an instruction serves before the instruction is removed or narrowed `##one-session-cost-weighed-before-removal`
+
+The shape of a repair, which every actor that judges agent-facing text applies, per
+`design@agent-skills@admission-rules-home`, weighs a cost one session met in one task against the
+instruction's stated reason and every moment it applies to, before the instruction is removed or
+narrowed, and prefers moving an instruction needed only at some moments to the text loaded at those
+moments over removing it, where the move closes the cause. A finding drawn from one session, a
+needless item of `design@agent-skills@needless-instruction` above all, shows the cost at one task
+and one moment, while the instruction may serve other tasks at other moments that the session never
+met. `goal@agents-get-a-complete-workflow` asks that an agent carry each activity out with what
+the workflow and its project provide, so an instruction one session did not need still serves the
+sessions that meet its other moments. The nearest rival, a removal on the finding alone, lets one
+session's report take from every other session an instruction it needs, and no procedure reports
+the loss until a later session lacks it, which
+`tripwire@agent-skills@needless-removal-found-missing` watches. The weighing is the owner's
+argument, recorded on its merits, and the move a repair the owner named; preferring it to a removal
+where it closes the cause is the session's reading of that argument.
 
 ### A set of repairs that adds more instructions than it removes is reported to the owner with its net count, and an audit's pass waits for the owner's word on that growth `##audit-net-growth`
 

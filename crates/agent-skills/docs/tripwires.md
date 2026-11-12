@@ -408,7 +408,7 @@ the standing-state review.
 `path@knowledge-architect@docs/audit-reports/` on the main branch, counted from the commit that
 writes this line.
 
-## Guarding `design@agent-skills@needless-instruction`: an instruction removed or narrowed on one session's needless finding is needed by other sessions `##needless-removal-found-missing`
+## Guarding `design@agent-skills@one-session-cost-weighed-before-removal`: an instruction removed or narrowed on one session's needless finding is needed by other sessions `##needless-removal-found-missing`
 
 A needless finding reports one task at one moment. An intake that removes or narrows the
 instruction on it passes every procedure: the removal is a repair, and the sessions that needed the
@@ -418,8 +418,10 @@ instruction at other moments show the gap only later.
 `path@knowledge-architect@docs/retrospective-reports/`, or an audit report of the agentic-workflow
 axis, reports a session that lacked an instruction which an earlier intake removed or narrowed on a
 needless finding.
-**Response:** reopen `design@agent-skills@needless-instruction` on how a needless finding is
-weighed before a removal, with the instance.
+**Response:** reopen `design@agent-skills@one-session-cost-weighed-before-removal` on how a cost one
+session met is weighed before a removal, with the instance.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
 the standing-state review.
-**Watches until:** three release tags pushed after the commit that writes this line.
+**Watches until:** three commits on the main branch that add an analysis under
+`path@knowledge-architect@docs/retrospective-reports/`, counted from the commit that writes this
+line.

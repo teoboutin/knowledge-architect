@@ -32,7 +32,7 @@ The retrospective is offered once per session, at the first of the moments
 `design@agent-skills@retro-trigger` names, and not again at a later one. Offering it once keeps it
 from interrupting work.
 
-### A retrospective asks standing questions, each on the decision or the goal it watches `##premortem-as-watch-points`
+### A retrospective asks a standing question to watch a decision or a goal whose failure only real use shows `##premortem-as-watch-points`
 
 Every retrospective asks whether the session needed to change an installed skill or agent, whether the
 session or one of its subagents acted as if a rule of the primer were absent, whether a project
@@ -71,8 +71,8 @@ behind, watched by the question on a missed entry under `goal@records-reach-thei
 asks that a recorded item reach the work it bears on. In a consuming project a missed entry is
 caught by that project's review and stays there, so the question is the one channel by which a miss
 reaches this repository; its three causes tell a searcher's judgement from an entry or a part of the
-work that came after the search, which
-`issue@agent-skills@a-record-search-misses-what-is-added-after-it` records. The question on a
+work that came after the search, the last of which
+`issue@agent-skills@a-record-search-misses-what-is-added-after-it` records instances of. The question on a
 mechanical task watches `goal@tasks-a-tool-does-better-are-the-tool-s`, which asks that a task
 recurring in a project's sessions be done by a tool. Each is answered from the session's side: its own transcript, the briefs
 it sent and the reports it received, and a subagent's transcript where an answer needs it. The question
@@ -106,53 +106,52 @@ rival loses on the route it lacks: the project's file goes to the project's own 
 fix of the installed text or of the checker leaves it, per
 `design@agent-skills@installed-fix-goes-upstream`, which a tool to ship is not; a review axis at the
 merge leaves its findings in the project; a primer instruction to report a tool when it is set up
-has no file to write into before the retrospective runs. The cost is that of
+has no file to write into before the retrospective runs. A project's improvement of a shipped tool
+reaches the same file, per `design@agent-skills@upstream-tool-loop`. The cost is that of
 `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`: every retrospective loads the
 question, though most sessions set up no tool. That design lost because a route costing nothing
 existed, the command's header; no such route exists for a tool set up in a project, so the load is
 accepted. A report is lost when no retrospective runs, the loss
 `design@agent-skills@installed-fix-goes-upstream` accepts for an item met outside the task.
 
-### A retrospective counts the reviewers, the review repairs and the corrections of drift of each branch merged in its session `##review-cost-counts`
+### A retrospective counts what each branch merged in its session cost in review and in correction `##review-cost-counts`
 
-For each branch merged in its session before it runs, the retrospective asks for three counts: the
-reviewers dispatched on it before its merge, the commits that repaired a review's findings, a repair
+For each branch merged in its session before it runs, the retrospective counts what the workflow
+would have spared had it worked better. `goal@agents-get-a-complete-workflow` asks the workflow to
+raise the efficiency of the agents' work, and a review round, a repair or a correction is efficiency
+lost; no other instrument counts them. The counts are three today: the review rounds, each dispatch
+of one or more reviewers counted once, the commits that repaired a review's findings, a repair
 folded into an earlier commit counted as one, and the times the owner corrected work that departed
-from a recorded decision. `goal@agents-get-a-complete-workflow` asks the workflow to raise the
-efficiency of the agents' work, and a review round, a repair or a correction the workflow would
-have spared is efficiency lost; no other instrument counts them, and
-`design@agent-skills@review-cadence` names these counts as the measure of whether its dispatches
-are too many. They are counted per merged branch, never per pull request or CI run, since the
+from a recorded decision. A round is counted, not a reviewer, since the series carried from before
+the question counts rounds, and a count in another unit would not compare with it. `design@agent-skills@review-cadence` names these counts as the measure of
+whether its dispatches are too many; a round counts a review whatever its number of axes, so that
+measure reads the rounds beside the axes each report names. They are counted per merged branch, never per pull request or CI run, since the
 installed text requires neither, per `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`.
 A repair is counted whether appended or folded, since `skill@knowledge-architect-review@what-review-leaves`
 folds a repair that would leave an earlier commit failing, and a count of commits alone misses it.
 The counts are answers in the workflow's file, so the series reaches this repository, where
 `issue@agent-skills@the-review-cost-counts-are-not-compared-yet` holds it.
 
-### A retrospective reports an instruction followed at a cost no result needed, and a repair weighs that cost against every occasion the instruction serves `##needless-instruction`
+### A retrospective reports an instruction followed at a cost that neither the result nor its reason needed `##needless-instruction`
 
 An item of a retrospective is **needless** when following an instruction cost work that neither the
 session's result nor the instruction's stated reason needed, a fourth kind beside unclear, missing
 and wrong, in the fragment the retrospective and the intake host, per
 `design@agent-skills@shared-text-fragment`. `goal@only-needed-instructions` asks that the workflow
-state only what an agent needs, and the three other kinds lead only to added instructions, so real
-use, the test of `goal@the-workflow-improves-through-real-use`, otherwise reports nothing against
-that goal. The nearest rival, the agentic-workflow axis of the audit, finds statements no act needs
+state only what an agent needs, and none of the three other kinds reports an instruction whose cost
+no result needed, so real use, the test of `goal@the-workflow-improves-through-real-use`, otherwise
+reports nothing of that kind against that goal. The nearest rival, the agentic-workflow axis of the audit, finds statements no act needs
 by reading the text, and cannot see what following one cost in use.
 
-A needless item is the evidence of one task at one moment, where other tasks may need the
-instruction. So the shape of a repair, which every actor that judges agent-facing text applies, per
-`design@agent-skills@admission-rules-home`, weighs a cost one session met against every other
-occasion the instruction serves before the instruction is removed or narrowed, and moves an
-instruction needed only at some moments to the text loaded at those moments rather than remove it.
-The removal itself takes the causes of a repair that already exist, a structure the work did not
-need or a rule written for one interaction; an instruction agents perform passes the need test of
+A needless item is the evidence of one task at one moment, so its repair is weighed as
+`design@agent-skills@one-session-cost-weighed-before-removal` says. The removal itself takes the
+causes of a repair that already exist, of `design@agent-skills@root-cause-repair`, a structure the
+work did not need or a rule written for one interaction; an instruction agents perform passes the
+need test of
 `design@agent-skills@statement-names-an-act`, so a needless finding is never routed as an
 instruction no agent performs. A cost that a rule about code, tests or the split into Components
 imposes on purpose is reported under the standing question on those rules of
-`design@agent-skills@premortem-as-watch-points`, where its cost is weighed against its reason. The
-risk the owner named, an instruction removed on one session's report and needed by others, is
-watched by `tripwire@agent-skills@needless-removal-found-missing`.
+`design@agent-skills@premortem-as-watch-points`, where its cost is weighed against its reason.
 
 ### A retrospective's files go where the owner directs, and nothing of them leaves the machine before the owner's reading and word `##retrospective-destination`
 
@@ -245,12 +244,11 @@ route is stated in the primer because the primer is the one text every session h
 such an item, where the retrospective, the intake and the audit reach only a session that runs one
 of them; the owner saw sessions spend time and effort deciding where such an item goes, and some
 open it as an issue entry of the project. The route for such an item is the owner's: the owner
-chose the retrospective's workflow file as its destination, and accepted for now that the item
-is lost when no retrospective follows: the retrospective is run, and its files leave the machine, only on
-the owner's word, per `design@agent-skills@retro-trigger` and
-`design@agent-skills@retrospective-destination`, so that no consuming project is made to report on
-its sessions, and the owner saw no shape that writes the item down before a retrospective runs that
-keeps that choice. A report of `design@agent-skills@tool-report-moment` carries the same loss. The
+chose the retrospective's workflow file as its destination, and chose for now to accept that the
+item is lost when no retrospective follows over a shape that writes it down before a retrospective
+runs, which no goal ranks: the owner holds the retrospective optional, run only on the owner's
+word, per `design@agent-skills@retro-trigger`, and sent only on it, so that it is imposed on no consuming project, and had no better shape in view. A
+report of `design@agent-skills@tool-report-moment` carries the same loss. The
 issue entry that `primer@where-knowledge-goes` asks for beside a pointer no checked
 form expresses is still opened in the project, since that pointer must sit beside a reference the
 project's checker resolves; the gap it records goes upstream all the same. The route is a

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-65 entries
+66 entries
 
 | kind | title |
 | --- | --- |
@@ -41,6 +41,7 @@
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
 | question | [Does a head carry the magnitude of the measurement it rests on?](a-head-s-measurement-says-nothing-of-its-magnitude.md) |
 | question | [A pending audit report or retrospective analysis is outstanding work that no installed search of what is already known reads](a-pending-ruled-file-is-reached-by-no-installed-search.md) |
+| question | [A retrospective that runs may miss an item a session kept for its workflow file](a-retrospective-that-runs-may-miss-an-item-kept-for-it.md) |
 | question | [An issue's re-entry point is read by no review, for a design issue or any kind that carries one](an-issue-s-re-entry-point-is-read-by-no-review.md) |
 | question | [After a version upgrade, nothing re-reads a project's restatements of installed directives, a project skill whose activity an installed skill now covers, or the session's own copy of the new text, nor the agent types it adds](an-upgrade-re-reads-no-root-restatement.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |

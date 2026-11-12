@@ -5,8 +5,8 @@ description: MUST use once per session, at the first of these moments (deferred 
 
 # Retrospective
 
-Scope: looking back at one session's use of the workflow, and turning what was unclear, missing or
-wrong into findings the owner can act on.
+Scope: looking back at one session's use of the workflow, and turning what was unclear, missing,
+wrong or needless into findings the owner can act on.
 
 Not covered here: **analysing the project's file and ruling on its findings**,
 `skill@knowledge-architect-retrospective-intake`; **opening an issue entry in the project**,
@@ -111,11 +111,11 @@ finding gets one id in each file, each naming the other, since the two files may
   verification, or verify a conclusion again where no skill asked for it? For each: the
   conclusion, and who verified it.
 - Did a review, the owner or a later step find an entry of the project's registers that bore on the
-  session's work, which the record search of its grounding had not returned? For each: the entry,
-  the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
+  session's work, which the record search of its grounding had not returned? For each, in words: the
+  entry, the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
   recorded after the search ran, or it bore on a part of the work added after the search.
-- For each branch merged in this session before the retrospective: the reviewers dispatched on it
-  before its merge, the commits that repaired a review's findings, a repair folded into an earlier
+- For each branch merged in this session before the retrospective: the review rounds it went
+  through before its merge, each dispatch of one or more reviewers counted once, the commits that repaired a review's findings, a repair folded into an earlier
   commit counted as one, and the times the owner corrected work that departed from a recorded
   decision, apart from ruling on a decision.
 - Did this session, or one of its subagents, set up or change a tool or a procedure that makes the
@@ -157,15 +157,16 @@ finding adds a rule, and added rules interact at the next pass. A cause is one o
 - **a rule written for one interaction**: a narrow rule where judgement already decides.
 
 A finding that fits none is a cause of its own, with no kind. A repair is the homes merged into one
-and the others pointing to it, the structure removed, the restatement brought back to a pointer, or
-the narrow rule deleted and the case left to judgement. It adds an instruction only where none of
-these closes the cause. **A cost one session met in one task is weighed against every other
-occasion the instruction serves**, its stated reason and the moments it applies to, before the
-instruction is removed or narrowed: an instruction needed only at moments some sessions never meet
-is moved to the text loaded at those moments, rather than removed. **An instruction** is a sentence that tells an agent to do, or not to do,
-an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
-whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
-rival to itself and the fact that decides between them. **When the repairs applied together add
+and the others pointing to it, the structure removed, the restatement brought back to a pointer,
+the narrow rule deleted and the case left to judgement, or an instruction needed only at moments
+some sessions never meet moved to the text loaded at those moments. It adds an instruction only
+where none of these closes the cause. **An instruction** is a sentence that tells an agent to do, or
+not to do, an act at a moment; a rewording that makes an existing instruction's intent clearer adds
+none, whatever its length.
+**A cost one session met in one task is weighed against every other occasion the instruction
+serves**, its stated reason and the moments it applies to, before the instruction is removed or
+narrowed, and the move above is preferred to a removal where it closes the cause. Each repair
+counts the instructions it adds and removes, and names the nearest rival to itself and the fact that decides between them. **When the repairs applied together add
 more instructions than they remove, the owner is told the net figure**, and the record that applies
 them states it.
 

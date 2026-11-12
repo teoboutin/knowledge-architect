@@ -39,7 +39,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer`
 - `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`
 - `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`
-- `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`
 - `issue@check@manifest-table-exposes-the-toml-crate`
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`
 - `issue@check@an-empty-harness-list-serves-a-state-that-follows-no-ask`
