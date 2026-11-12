@@ -1,12 +1,13 @@
 **Generated — do not edit.** `cargo klarch index`
 
-27 entries
+28 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A declared command holding a quote or a backslash installs saved workflows that do not parse](a-declared-command-with-a-quote-breaks-the-installed-workflows.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |
+| defect | [An extension's generated file names one repair whatever tree the run judges, so under `check --staged` it cannot name `index --staged`](an-extension-s-generated-file-names-one-repair-whatever-tree-is-judged.md) |
 | defect | [`install-agent-skills` can exit 2 after it has written files, and lists none of them](install-agent-skills-exits-two-after-writing.md) |
 | defect | [The tests of `check`, `cli` and `testing` read the machine's git configuration, so a machine setting can fail a correct tree](the-tests-read-the-machine-s-git-configuration.md) |
 | deferred | [Developer contracts sit in scoped CLAUDE.md files, which reach agents unreliably and are not required without a harness](a-home-for-developer-contracts-outside-agent-configuration.md) |
