@@ -292,8 +292,8 @@ fn navigation(
 }
 
 /// The declared groups of one instance, and the verdicts on the file that declares them, per
-/// `design@check@groups-are-subdirectories`. `None` where the file's bytes are not UTF-8, so
-/// what it declares is unknown.
+/// `design@check@groups-are-subdirectories`. `None` where the file's bytes are not UTF-8 or
+/// its text does not parse, so what it declares is unknown.
 fn config(
     out: &mut Vec<Finding>,
     register: &Register,
@@ -321,10 +321,12 @@ fn config(
             out.push(Finding::in_file(
                 &home.config,
                 format!("the {} register's options do not parse: {e}", register.name),
-                "a register.toml declares `groups` and nothing else; a file that does not \
-                 parse declares a grouping nobody checks",
+                // One repair fits every cause the parser reports, a key other than `groups`, a
+                // value of another type or the key missing: the file's one valid shape.
+                "rewrite it as the one key `groups = [\"<group>\", ...]`, naming each group \
+                 directory of the instance",
             ));
-            Some(BTreeSet::new())
+            None
         }
     }
 }
@@ -1032,11 +1034,16 @@ mod tests {
         );
     }
 
+    /// The claims: a register.toml that does not parse is one finding, whose action names the
+    /// file's one valid shape, whatever the parser's cause; and a group directory beside it gets
+    /// no finding of its own, since whether it is declared is unknown.
     #[test]
     fn a_register_options_file_that_does_not_parse_is_reported_rather_than_ignored() {
         let manifest = declaring("");
         let mut present = all_of("");
         present.push("docs/open-issues/register.toml".to_string());
+        present.push("docs/open-issues/a-group".to_string());
+        present.push("docs/open-issues/a-group/an-entry.md".to_string());
         for text in ["theme = [\"x\"]\n", "groups = 3\n", "\n"] {
             let found = findings_over(
                 &manifest,
@@ -1046,6 +1053,10 @@ mod tests {
             );
             assert_eq!(found.len(), 1, "{text:?}: {found:#?}");
             assert!(found[0].contains("do not parse"), "{text:?}: {found:#?}");
+            assert!(
+                found[0].contains("→ rewrite it as the one key `groups = [\"<group>\", ...]`"),
+                "{text:?}: {found:#?}"
+            );
         }
     }
 
