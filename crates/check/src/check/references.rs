@@ -122,8 +122,8 @@ pub(crate) fn judge(
 
 /// Which findings a judgement writes.
 ///
-/// A commit message is judged against two trees, and the two families combine differently
-/// there, per `design@check@a-commit-message-is-a-document`: a reference finding survives where
+/// A commit message is judged against two trees, and the two families combine differently there,
+/// per `design@check@message-references-resolve-in-either-tree`: a reference finding survives where
 /// both trees refuse it, a lint finding where either tree holds what its span names.
 /// `commands::history` asks for each family apart.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -470,10 +470,10 @@ impl<'a> IdTable<'a> {
     }
 }
 
-/// The lints on ids over documents judged against several trees at once: a commit message
-/// against its commit's tree and its first parent's, per
-/// `design@check@a-commit-message-is-a-document`. An id the two trees define under different
-/// kinds or anchors gets one finding listing every candidate, as in one tree.
+/// The lints on ids over documents judged against several trees at once: a commit message against
+/// its commit's tree and its first parent's, per
+/// `design@check@message-references-resolve-in-either-tree`. An id the two trees define under
+/// different kinds or anchors gets one finding listing every candidate, as in one tree.
 pub(crate) fn judge_ids(docs: &[crate::model::Document], tables: &[IdTable]) -> Vec<Finding> {
     let mut out = Vec::new();
     for doc in docs {

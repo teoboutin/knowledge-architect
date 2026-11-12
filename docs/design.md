@@ -709,7 +709,7 @@ a re-run cannot change.
   here is that this repository keeps rewriting its checker, so a repair that changes what it judges
   is no rare case.
 - **Every commit of a branch passes the check under the branch tip's checker**, as
-  `design@check@a-commit-message-is-a-document` decides. So work whose intermediate trees cannot
+  `design@check@every-commit-judged-by-the-tip-checker` decides. So work whose intermediate trees cannot
   pass lands as one commit, squashed before review.
 - main accepts no direct push, per `design@knowledge-architect@main-is-guarded-by-a-ruleset`, and a
   pull request reaches it by a rebase merge, per `design@knowledge-architect@rebase-merge-alone`.

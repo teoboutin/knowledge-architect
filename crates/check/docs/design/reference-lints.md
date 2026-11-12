@@ -85,7 +85,7 @@ register's id is: the census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, found 34 plain hits on 10
 section slugs in this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
 kind, per `design@model@harness-kinds`, so their names and slugs are silent. A commit message is
-judged as every lint is, per `design@check@a-commit-message-is-a-document`, so a span naming an
+judged as every lint is, per `design@check@message-references-resolve-in-either-tree`, so a span naming an
 entry the commit deletes is reported against its first parent's tree, and the candidates of both
 trees are listed in one finding.
 
