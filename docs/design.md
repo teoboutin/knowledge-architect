@@ -554,7 +554,7 @@ converged. A consumer that pins a version pays a migration only when it moves it
 migration is a present cost, which `design@knowledge-architect@capability-cost-before-migration`
 ranks as the lowest.
 
-### A version is published from main, after its merge, on the owner's word `##publish-after-merge`
+### A version of the project's code is published from main, after its merge, on the owner's word `##publish-after-merge`
 
 A merge to main publishes nothing, and any number of merges land between two releases. A release
 is a branch like any other: reviewed, and merged once CI passes on its head. Then the version's tag
@@ -569,7 +569,9 @@ main is repaired by a later commit, and a tag that no version follows is deleted
 published on crates.io can be yanked and never deleted, so the irreversible step comes last, after
 review and CI have judged exactly what it publishes. The cost: main states the new version from the
 merge until the publish, and a declined approval or a failed publish leaves that statement false
-until a repair lands. The procedure is `skill@klarch-release`.
+until a repair lands. A new crate's placeholder, which holds none of the project's code, is published
+by hand between the merge and the tag, per `design@knowledge-architect@new-crate-placeholder`. The
+procedure is `skill@klarch-release`.
 
 ### The owner's word to publish through the release workflow is the approval of its deployment `##owner-word-mechanism`
 
@@ -601,45 +603,46 @@ of these crates. The nearest rival, an API token held in a repository secret, ru
 a credential that lives until it is revoked or expires, readable by any workflow of the repository
 that names the secret. Trusted Publishing covers every publish such a token covers, except the first
 version of a crate: crates.io's documentation states that the initial publish requires an API token.
-A crate's first version is therefore a placeholder the owner publishes by hand, per
+A new crate's first version is therefore a placeholder the owner publishes by hand, per
 `design@knowledge-architect@new-crate-placeholder`, and every version after it goes through the
 release workflow.
 
-### A new crate's name is taken by a placeholder version during the release that publishes its real version, so the release workflow publishes every real version `##new-crate-placeholder`
+### A new crate's name is taken by a placeholder version between the merge and the tag, so the release workflow publishes every real version `##new-crate-placeholder`
 
 For a crate that crates.io does not hold yet, after the release branch merges and before the tag is
-pushed, the owner publishes by hand, with an API token, a version 0.0.0 that holds no code and names
-this repository, made from a template no tree holds. The owner then gives the crate its trusted
-publisher and turns on "Require trusted publishing for all new versions", per
-`design@knowledge-architect@publish-credential`, and the release workflow publishes the crate's real
-version with every other crate's, in one run the owner approves, per
-`design@knowledge-architect@owner-word-mechanism`. The procedure is `skill@klarch-release`.
+pushed, the owner publishes by hand, with an API token, a version 0.0.0 whose library is empty and
+whose manifest names this repository, made from the template `skill@klarch-release` states, in a
+directory outside every repository. The owner then gives the crate its trusted publisher and turns on
+"Require trusted publishing for all new versions", per `design@knowledge-architect@publish-credential`,
+and the release workflow publishes the crate's real version with every other crate's, in one run the
+owner approves, per `design@knowledge-architect@owner-word-mechanism`.
 
 The argument:
 
-- **A real first version cannot go before the tag.** A new crate pins the crates it depends on at the
-  release's version, per `design@knowledge-architect@version-lockstep`, and cargo refuses to publish a
-  crate whose dependency crates.io does not hold: under cargo 1.98.0, with the workspace at 0.9.0,
-  `cargo publish --dry-run --no-verify -p knowledge-architect-check` stops with "no matching package
-  named `knowledge-architect-git` found", "location searched: crates.io index", exit 101. The new
-  version of an existing crate reaches crates.io only through the release workflow, after the tag,
-  per `design@knowledge-architect@publish-credential`. So a first version published by hand before
-  the tag fails for every new crate that pins an existing crate, as
+- **A real first version that pins an existing crate cannot go before the tag.** A new crate pins
+  the crates it depends on at the release's version, per `design@knowledge-architect@version-lockstep`,
+  and the new version of an existing crate reaches crates.io only through the release workflow,
+  after the tag, per `design@knowledge-architect@publish-credential`. cargo refuses to publish a crate
+  that pins a version crates.io does not hold: under cargo 1.98.0, a crate whose manifest holds
+  `knowledge-architect-agent-skills = "=0.99.0"`, packaged with `cargo publish --dry-run --no-verify`
+  in a directory outside every repository, stops with "failed to select a version for the
+  requirement `knowledge-architect-agent-skills = "=0.99.0"`", "candidate versions found which didn't
+  match: 0.9.0, 0.8.0, 0.7.0, ...", exit 101, as
   `rejected@knowledge-architect@first-versions-by-hand-before-the-tag` records.
 - **A placeholder pins nothing**, so it can go before the tag; once crates.io holds the name, the
   workflow publishes the real version like any other.
-- **After the merge, before the tag.** A version on crates.io can be yanked and never deleted, so the
-  placeholder comes after the review and the merge, per
-  `design@knowledge-architect@publish-after-merge`.
-- **Only during the release that publishes the real version.** crates.io's usage policy forbids a
-  crate that exists only to reserve a name for a prolonged period, per
-  `path@knowledge-architect@docs/grounding/crates-io-publishing.md`, so no name is taken ahead of
-  the release that uses it.
+- **After the merge, before the tag.** crates.io deletes no version alone, and deletes a crate only
+  within 72 hours of its publication or while it is barely used, per
+  `path@knowledge-architect@docs/grounding/crates-io-publishing.md`, so the placeholder comes after
+  the review and the merge, as `design@knowledge-architect@publish-after-merge` orders what cannot be
+  undone; what it publishes is the template the reviewed skill states, and none of the project's
+  code.
 - **The rate limit on new crates is met before the tag.** crates.io limits how many new crates one
-  account publishes in a short time, per the same file. A placeholder it refuses waits for the time
-  the refusal names, while no version of the release is published yet.
+  account publishes in a short time with an API token, per the same file. A placeholder it refuses waits
+  for the time the refusal names, while no version of the release is published yet.
 - **The lockstep of versions holds.** The reason of `design@knowledge-architect@version-lockstep` is
-  that a checker's installed skills are those of its own version; the placeholder holds no checker, and every real version is the workspace's.
+  that a checker's installed skills are those of its own version; the placeholder holds no checker,
+  and every real version is the workspace's.
 
 The rival, the real first versions published by hand between runs of the release workflow, each once
 the crates it pins are on crates.io, keeps crates.io free of any version that holds no code, and
@@ -649,6 +652,17 @@ the placeholder over it, which no goal ranks, weighing that the placeholder is t
 every later new crate. Lifting "Require trusted publishing" on an existing crate for one release
 loses to `design@knowledge-architect@publish-credential`, under which no stored credential can
 publish a version of these crates.
+
+### A placeholder is published only in the release that publishes its crate's real version `##placeholder-only-in-its-release`
+
+No crate name is taken ahead of the release that publishes the crate's code, such as for a crate a
+later release is planned to add. crates.io's usage policy forbids a package that "exists only to
+reserve a name for a prolonged period of time", and its team may delete such a crate, per
+`path@knowledge-architect@docs/grounding/crates-io-publishing.md`; a placeholder whose real version
+follows in the same release is no such package. The rival, taking a planned crate's name early so no
+other publisher takes it first, under crates.io's first-come rule read in the same file, loses to
+that policy. The cost accepted: a name may be taken by another publisher before the release that
+needs it, and the crate is then renamed.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
