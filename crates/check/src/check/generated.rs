@@ -89,14 +89,13 @@ pub(crate) fn is_generated_finding(finding: &Finding) -> bool {
 fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut Vec<Finding>) {
     let committed = inputs.committed.get(path).map(String::as_str);
     match committed {
-        // The caller reads the file as UTF-8 text and holds no copy where the read failed, so the
-        // listing tells the three cases apart: a listed directory, a listed file that would not
-        // read, which includes one git lists and the working tree no longer holds, and a path
-        // nothing is listed at.
+        // The caller reads the file as UTF-8 text and holds no copy where the read failed: a
+        // listed directory, a file the caller found and could not read, and otherwise a file
+        // that is absent, git listing it or not.
         None if inputs.directories.contains(path) => {
             out.push(Finding::in_file(path, DIRECTORY, directory_action(action)))
         }
-        None if inputs.present.contains(path) => {
+        None if inputs.generated_unreadable.contains(path) => {
             out.push(Finding::in_file(path, UNREADABLE, action))
         }
         None => out.push(Finding::in_file(path, MISSING, action)),
@@ -148,6 +147,7 @@ mod tests {
             committed: &committed,
             configs: &configs,
             configs_not_text: &std::collections::HashSet::new(),
+            generated_unreadable: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &[],
@@ -168,8 +168,8 @@ mod tests {
     }
 
     /// The findings on an issue instance's index, over a listing of `present` with the issue
-    /// directory, and no generated file read.
-    fn on_the_index(present: &[&str]) -> Vec<Finding> {
+    /// directory, no generated file read, and the files of `unreadable` found and not read.
+    fn on_the_index(present: &[&str], unreadable: &[&str]) -> Vec<Finding> {
         use crate::model::Manifest;
         use std::collections::{HashMap, HashSet};
         use std::path::PathBuf;
@@ -185,10 +185,12 @@ mod tests {
         let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
         let mut directories = crate::check::testing::implied_directories(&present);
         directories.insert(PathBuf::from("docs/open-issues"));
+        let unreadable: HashSet<PathBuf> = unreadable.iter().map(PathBuf::from).collect();
         let inputs = Inputs {
             committed: &committed,
             configs: &configs,
             configs_not_text: &std::collections::HashSet::new(),
+            generated_unreadable: &unreadable,
             present: &present,
             directories: &directories,
             outside: &[],
@@ -203,25 +205,30 @@ mod tests {
         check(&model, &manifest, &inputs, &[])
     }
 
-    /// The claim: a generated file the caller could not read is told apart by the listing: a
-    /// path nothing is listed at is missing, a listed file is unreadable, and a listed directory
-    /// is named as one, with its removal before the regeneration, since no writer replaces a
-    /// directory. Each statement counts as this family's. Mutations: dropping the directory arm
-    /// or the listed-file arm each fail one case.
+    /// The claim: a generated file the caller holds no text for is told apart by the listing and
+    /// by the caller's read: a listed directory is named as one, with its removal before the
+    /// regeneration, since no writer replaces a directory; a file the caller found and could not
+    /// read is unreadable; and any other is missing, whether git lists it or not, as git lists a
+    /// file deleted from the working tree until the deletion is staged. Each statement counts as
+    /// this family's. Mutations: dropping the directory arm or the unreadable arm each fail one
+    /// case, and the unreadable arm keyed on `inputs.present` in place of
+    /// `inputs.generated_unreadable` fails the listed absent file's.
     #[test]
     fn a_generated_file_not_read_is_named_by_what_the_listing_holds() {
         let index = "docs/open-issues/index.md";
         let cases = [
-            (vec![], MISSING, "run `klarch index`"),
-            (vec![index], UNREADABLE, "run `klarch index`"),
+            (vec![], vec![], MISSING, "run `klarch index`"),
+            (vec![index], vec![], MISSING, "run `klarch index`"),
+            (vec![index], vec![index], UNREADABLE, "run `klarch index`"),
             (
                 vec![index, "docs/open-issues/index.md/a.md"],
+                vec![],
                 DIRECTORY,
                 "move out what the directory holds, then remove it, then run `klarch index`",
             ),
         ];
-        for (present, what, action) in cases {
-            let found = on_the_index(&present);
+        for (present, unreadable, what, action) in cases {
+            let found = on_the_index(&present, &unreadable);
             assert_eq!(found.len(), 1, "{present:?}: {found:?}");
             assert_eq!(found[0].file, Path::new(index), "{found:?}");
             assert_eq!(found[0].what, what, "{present:?}");

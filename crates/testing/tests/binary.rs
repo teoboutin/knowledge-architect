@@ -5442,6 +5442,23 @@ fn a_missing_index_names_the_command_that_writes_the_tree_judged() {
     }
 }
 
+/// The claim: an index deleted from the working tree alone, which git still lists, is reported
+/// as missing, not as a file that cannot be read as UTF-8 text: the working tree's read tells an
+/// absent file from one that does not decode, since the listing holds both.
+#[test]
+fn an_index_deleted_from_the_working_tree_alone_is_missing() {
+    let sandbox = Sandbox::new("index-deleted-unstaged", "dirhome");
+    commit_all(&sandbox, "the base");
+    std::fs::remove_file(sandbox.path("docs/open-issues/index.md")).expect("the index removed");
+    let (out, _, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(
+        out.contains("docs/open-issues/index.md  the generated file is missing"),
+        "{out}"
+    );
+    assert!(!out.contains("cannot be read as UTF-8 text"), "{out}");
+}
+
 /// Whether `out` reports exactly one finding, the one on a register's options that are not
 /// UTF-8, naming the re-encoding as its repair.
 fn only_the_options_not_utf8(out: &str) -> bool {

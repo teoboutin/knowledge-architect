@@ -116,6 +116,9 @@ pub struct Inputs<'a> {
     /// The `register.toml` files beside a register instance whose bytes are not UTF-8, which
     /// `configs` holds no text for.
     pub(crate) configs_not_text: &'a HashSet<PathBuf>,
+    /// The generated files that exist in the tree judged and that `committed` holds no text for,
+    /// since their bytes are not UTF-8 or the read failed. A generated path in neither is absent.
+    pub(crate) generated_unreadable: &'a HashSet<PathBuf>,
     /// Every path that exists in the project, files and directories, project-relative. One
     /// listing by the caller answers every question a check has about what is there. It is the
     /// listing of the tree being judged: the working tree under `check`, and a snapshot's

@@ -54,6 +54,8 @@ struct Assembly {
     configs: HashMap<PathBuf, String>,
     /// The `register.toml` files whose bytes are not UTF-8.
     configs_not_text: HashSet<PathBuf>,
+    /// The generated files whose blobs are not UTF-8.
+    generated_unreadable: HashSet<PathBuf>,
     survey: Survey,
     ignored: HashSet<String>,
     tracked_and_ignored: Vec<PathBuf>,
@@ -89,6 +91,7 @@ impl Assembly {
             committed: &self.committed,
             configs: &self.configs,
             configs_not_text: &self.configs_not_text,
+            generated_unreadable: &self.generated_unreadable,
             present: &self.survey.present,
             directories: &self.survey.directories,
             outside: &self.survey.outside,
@@ -620,6 +623,7 @@ fn commit_tree(
             committed: HashMap::new(),
             configs: HashMap::new(),
             configs_not_text: HashSet::new(),
+            generated_unreadable: HashSet::new(),
             survey,
             ignored: HashSet::new(),
             tracked_and_ignored: Vec::new(),
@@ -723,9 +727,12 @@ fn commit_tree(
     let judging = depth != Depth::References;
 
     let mut committed = HashMap::new();
+    let mut generated_unreadable = HashSet::new();
     for rel in extra_generated(&generated) {
         if let Some(text) = blobs.get(&rel) {
             committed.insert(rel, text.clone());
+        } else if not_text.contains_key(&rel) {
+            generated_unreadable.insert(rel);
         }
     }
     let mut configs = HashMap::new();
@@ -784,6 +791,7 @@ fn commit_tree(
         committed,
         configs,
         configs_not_text,
+        generated_unreadable,
         survey,
         ignored,
         tracked_and_ignored,
@@ -1765,7 +1773,8 @@ mod tests {
 
     /// The claim, a regression guard: an extension's generated file outside the walk whose
     /// committed bytes are not UTF-8 is reported as a file that cannot be read, not as a missing
-    /// one, though `committed` holds only the blobs that decode: the listing tells the two apart.
+    /// one, though `committed` holds only the blobs that decode: `commit_tree` puts it in
+    /// `generated_unreadable`, which tells the two apart.
     #[test]
     fn a_committed_generated_file_that_is_not_utf8_is_unreadable_and_not_missing() {
         let (repo, _, mut manifest) = committed_project("generated-not-utf8");
