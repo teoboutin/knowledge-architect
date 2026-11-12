@@ -5416,7 +5416,8 @@ fn a_missing_index_names_the_command_that_writes_the_tree_judged() {
         "the repair it named repairs the staged tree: {out}"
     );
 
-    // Gone from both trees, since a file git lists and the working tree lacks is another finding.
+    // Gone from both trees: the `registers` family reads git's listing, so it reports no missing
+    // index while git still lists the file, and the two findings read below need both families.
     sandbox.git(&["rm", "-q", "docs/open-issues/index.md"]);
     let (out, _, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{out}");
