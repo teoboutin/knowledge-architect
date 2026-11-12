@@ -243,7 +243,10 @@ one copied out of a commit history that holds the form, would be checked by noth
 because no released checker read the form as a reference: the `@` grammar landed before the first
 release, so only the histories written before it hold the form, this repository's and thaum's, the
 latter at least 500 commits back on the owner's report; the owner judged a copy from there unlikely,
-and a slip of the same shape very likely caught by review.
+and a slip of the same shape very likely caught by review. thaum's history holds the form in 63 of
+the 500 messages before its commit e95c4210, "[knowledge] Record the core and family split: three
+new heads, five rewritten in place", as this command counts, run in thaum:
+`git rev-list -500 e95c4210^ | while read c; do git log -1 --format=%B $c | grep -qP '\x60(\.?[A-Za-z0-9][A-Za-z0-9._-]*)?#[a-z0-9][a-z0-9-]{2,}\x60' && echo; done | wc -l`.
 
 ### The retired slug reference reported whatever it names `##retired-slug-reference-always-reported`
 

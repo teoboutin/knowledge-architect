@@ -12,11 +12,10 @@ nothing, and goes stale unseen when its entry moves or leaves.
 It was the slug reference before the `<kind>@<anchor>@<id>` grammar, and no released checker read it
 as a reference: the grammar landed in the commit "[knowledge] The entity table and the
 `<kind>@<anchor>@<id>` grammar: one resolver over design, goal, tripwire and path; slugs and paths
-become the references family", which the tag `v0.1.0` contains, as
-`git tag --contains $(git log --format=%h -F --grep='The entity table and the')` lists. So no
-project that adopts a released checker ever wrote the form as a pointer, and the histories that hold
-it are this repository's, before that commit, and thaum's, at least 500 commits back on the owner's
-report. A target project that never used the form loses nothing by the silence, so
+become the references family", which the tag `v0.1.0` contains, as `git tag --contains 5d2ae499`
+lists. So no project that adopts a released checker ever wrote the form as a pointer, and the
+histories that hold it are this repository's, before that commit, and thaum's, at least 500 commits
+back on the owner's report. A target project that never used the form loses nothing by the silence, so
 `goal@serves-one-kind-of-project`, which forbids removing coverage because a current target project
 does not need it, does not rule against it: the reading taken is that the histories holding the form
 are a closed set, fixed before the first release, rather than a need of the projects that exist
@@ -24,10 +23,12 @@ today.
 
 The owner judged a span copied from that far back unlikely, and a slip of the same shape, such as a
 thread's name written as a backticked `#<slug>` in a plan document, very likely caught by review,
-and chose to stop linting the form over keeping the lint, which no goal ranks. The lint not kept,
-which reported the span wherever it named something of this project, is
+and chose to read the form by no lint over a lint that reports it, which no goal ranks. The lint
+not kept, which reported the span wherever it named something of this project, is
 `rejected@check@retired-slug-reference-reported`; one reporting every such span, another tool's
-notation included, is `rejected@check@retired-slug-reference-always-reported`. A span of
+notation included, is `rejected@check@retired-slug-reference-always-reported`. Another tool's
+notation stays silent so that a project that never used the form does not rewrite its own notation
+to pass, which serves `goal@every-target-project-can-adopt-it`. A span of
 this form that reaches the main branch past a review, naming a live entry, defeats the owner's
 premise and reopens the choice.
 
