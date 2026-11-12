@@ -569,13 +569,8 @@ main is repaired by a later commit, and a tag that no version follows is deleted
 published on crates.io can be yanked and never deleted, so the irreversible step comes last, after
 review and CI have judged exactly what it publishes. The cost: main states the new version from the
 merge until the publish, and a declined approval or a failed publish leaves that statement false
-until a repair lands. A new crate's placeholder, `design@knowledge-architect@new-crate-placeholder`,
-holds none of the project's code, so it is published by hand, after the merge of the branch that
-adds its crate, per `design@knowledge-architect@placeholder-at-the-merge-of-its-crate`: crates.io
-deletes no version alone, and undoes a placeholder only by deleting its crate, within 72 hours of
-its publication or while it is barely used, per
-`path@knowledge-architect@docs/grounding/crates-io-publishing.md`, so it too comes after the review
-and the merge, and it pins nothing, so it can come before any tag. The procedure is
+until a repair lands. A new crate's placeholder holds none of the project's code, and its moment is
+`design@knowledge-architect@placeholder-at-the-merge-of-its-crate`. The procedure is
 `skill@klarch-release`.
 
 ### The owner's word to publish through the release workflow is the approval of its deployment `##owner-word-mechanism`
@@ -673,16 +668,19 @@ crate on main is published by the next release, per `design@knowledge-architect@
 A crate removed from main would leave its placeholder with neither, so its crate is deleted, which
 crates.io allows while it has one owner, few downloads and no dependents, per the same file. The
 merge, not the start of the crate's work, is the moment: the review fixes the crate's name, so no
-placeholder is left by a rename, and the README points to a directory main holds; the placeholder
-then comes after the review, as `design@knowledge-architect@publish-after-merge` orders what cannot
-be undone.
+placeholder is left by a rename, and the README points to a directory main holds. The placeholder
+also comes after the review, as `design@knowledge-architect@publish-after-merge` orders what cannot
+be undone: crates.io deletes no version alone, and undoes a placeholder only by deleting its crate,
+within 72 hours of its publication or while it is barely used, per the same file. It pins nothing,
+so it can come before any tag.
 
 The rival, a placeholder published only in the release that publishes the crate's real version,
 keeps the placeholder clear of any reading of the policy, and leaves the name open to another
 publisher, under crates.io's first-come rule read in the same file, until that release. The owner
-chose the placeholder at the merge over it, which no goal ranks, on the argument that the README
-shows the development under way; the moment, the merge rather than the start of the crate's work,
-is the session's choice, which no goal ranks, and the owner approved it.
+chose a placeholder taken once the crate's work is under way over it, which no goal ranks, on the
+argument that a README naming the crate's development shows that development under way; the moment,
+the merge rather than the start of the crate's work, is the session's choice, which no goal ranks,
+and the owner approved it.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
