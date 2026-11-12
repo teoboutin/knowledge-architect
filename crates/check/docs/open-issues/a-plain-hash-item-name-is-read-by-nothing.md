@@ -75,6 +75,10 @@ session met that finding three times on one branch and named the item in words t
 its retrospective reports, analysed at the intake of 2026-10-24. The repair now advises the one form
 the checker never reads; the discussion this entry asks for weighs that.
 
+A candidate shape the owner raised, while the lint on a backticked `#<id>` was removed: changing
+the notation a design discussion names a thread with, to one that a check reads or that no writer
+takes for a reference. The discussion this entry asks for weighs it beside the forms above.
+
 ### Why it matters
 
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
