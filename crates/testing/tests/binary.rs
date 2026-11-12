@@ -2015,7 +2015,9 @@ fn tiny_project_refusing_branch_shas(history: &History) {
 
 /// The claim: under `refuse-branch-shas`, a message citing a commit of the range by its SHA
 /// fails, naming the commit and the line, and the citing commit is counted as failed, its line
-/// naming the citations and how many. Mutation checked: the count off by one.
+/// naming the citations and how many; the repair names the subject, and how a SHA outside the
+/// range that shares the digits is written. Mutations checked: the count off by one; the repair's
+/// "write enough of its digits that no commit" made "cite it freely that no commit".
 #[test]
 fn a_message_citing_a_commit_of_the_range_by_sha_fails_under_refuse_branch_shas() {
     let history = History::new("commit-branch-sha");
@@ -2044,7 +2046,11 @@ fn a_message_citing_a_commit_of_the_range_by_sha_fails_under_refuse_branch_shas(
     );
     assert!(stdout.contains(&format!("{first} passed")), "{stdout}");
     assert!(
-        stdout.contains("where the word cites a commit outside the range whose first digits are"),
+        stdout.contains(
+            "→ name that commit by its subject; where the word cites a commit outside the range \
+             whose first digits are the same, write enough of its digits that no commit of the \
+             range starts with them\n"
+        ),
         "the repair of a SHA outside the range that shares the digits is named: {stdout}"
     );
 }

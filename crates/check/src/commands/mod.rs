@@ -1108,7 +1108,9 @@ mod tests {
     }
 
     /// The claim: a pin equal to the binary's version passes; a version older or newer than the
-    /// binary's refuses, naming which side is older and the repair that moves toward the pin;
+    /// binary's refuses, naming which side is older and the repair that moves toward the pin, with,
+    /// for a pin newer than the binary, the repair of a pin no release carries; `"self"` outside
+    /// its own build names tracking the crate's Cargo.toml;
     /// `"fixture"` and `"self"` pass where their predicate holds and refuse elsewhere; and a key
     /// absent or in none of the three forms refuses with its complaint's own text.
     #[test]
@@ -1129,7 +1131,11 @@ mod tests {
             "this binary runs knowledge-architect 0.2.0, older than the 0.3.0 the manifest pins"
         ));
         assert!(
-            older.contains("run or build knowledge-architect 0.3.0"),
+            older.contains(
+                "run or build knowledge-architect 0.3.0, the version the manifest pins; where no \
+                 release carries 0.3.0, set [project] checker-version to the version the project \
+                 runs"
+            ),
             "{older}"
         );
         let newer = err(refuse(&tree, "0.1.9", &registry));
@@ -1158,7 +1164,10 @@ mod tests {
         let own = err(refuse(&tree, "self", &registry));
         assert!(own.starts_with("\"self\" is only valid where the checker is built from this tree"));
         assert!(
-            own.contains("run the checker built from this tree; in any other project"),
+            own.contains(
+                "in the tree the checker is built from: track the `check` crate's Cargo.toml, and \
+                 run the checker built from this tree; in any other project"
+            ),
             "{own}"
         );
         assert!(
@@ -1189,6 +1198,44 @@ mod tests {
             &always
         ))
         .starts_with("[project] checker-version is absent"));
+    }
+
+    /// The claim: a generated destination whose directory the tree lacks names creating it or
+    /// moving the file, and one that is a symlink names removing the symlink; each repair is the
+    /// one of its arm. Mutations checked: the symlink's repair cut to "run again: the run writes a
+    /// regular file in its place", and the directory's arm given the symlink's repair, each fail.
+    #[cfg(unix)]
+    #[test]
+    fn a_refused_destination_names_the_repair_of_its_cause() {
+        let scratch = Scratch::new("destinations");
+        let tree = scratch.dir("tree");
+        let manifest = pinned_at(&tree, "0.2.0");
+        let file = |rel: &str| (PathBuf::from(rel), String::new());
+
+        let (what, repair) = super::check_destinations(&manifest, &[file("nowhere/listing.md")])
+            .expect_err("a missing directory is refused");
+        assert!(
+            what.ends_with("the directory this file is generated into is not there."),
+            "{what}"
+        );
+        assert_eq!(
+            repair,
+            "create that directory, or configure the extension that generates this file to \
+             write it into a directory the tree holds"
+        );
+
+        std::fs::write(tree.join("target.md"), "kept\n").expect("a file");
+        std::os::unix::fs::symlink("target.md", tree.join("listing.md")).expect("a symlink");
+        let (what, repair) = super::check_destinations(&manifest, &[file("listing.md")])
+            .expect_err("a symlink is refused");
+        assert!(
+            what.ends_with("this generated file is a symlink, and writing would follow it."),
+            "{what}"
+        );
+        assert_eq!(
+            repair,
+            "remove the symlink, and run again: the run writes a regular file in its place"
+        );
     }
 
     /// The claim: a binary whose own version is not three integers still refuses another pin,
