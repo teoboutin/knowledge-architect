@@ -38,7 +38,7 @@ pub enum Purpose {
     /// state has none there, and is listed as not run.
     Check,
     /// One commit's tree under `commits`, over [`Tree::Snapshot`]. A check whose subject is filesystem state has no
-    /// subject here, per `design@check@every-commit-judged-by-the-tip-checker`, and a release the
+    /// subject here, per `design@check@extension-leaves-out-checks-not-about-the-tree`, and a release the
     /// tree cannot supply is a finding of the tree rather than a could-not-run.
     Commit,
     /// `index`: what the extension generates, and nothing fetched over the network. Over
