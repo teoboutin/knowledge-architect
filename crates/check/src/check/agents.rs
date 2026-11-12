@@ -5,9 +5,10 @@
 //! one this version does not ship; and the root CLAUDE.md's first line must import the primer when
 //! the primer is shipped. The decisions are `design@check@installed-files-compared-by-bytes`,
 //! `design@check@primer-import-line`, `design@check@import-on-first-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
-//! install, after the step a cause needs first: removing a directory or an ignore rule in a
-//! missing file's way, or renaming a project's own file out of the namespace. A deletion awaiting
-//! staging and an import line not on the first line each name their own.
+//! install, after the step a cause needs first: moving out what a directory in an installed
+//! file's way holds and removing it, removing an ignore rule over a missing one, or renaming a
+//! project's own file out of the namespace. A deletion awaiting staging and an import line not on
+//! the first line each name their own.
 //!
 //! **The last phase, since nothing else reads these findings and the model is complete without
 //! them.** The installed bytes are read from the survey and the model holds the copies for
@@ -58,18 +59,21 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
                 // first: it writes no file over a directory, and a file it writes under an
                 // ignore rule stays out of git's listing, so the finding stays.
                 format!(
-                    "if an untracked directory stands in its place, remove it; if an ignore rule \
-                     covers it, remove the rule; then {install}, and commit the file"
+                    "if an untracked directory stands in its place, move out what it holds, then \
+                     remove it; if an ignore rule covers it, remove the rule; then {install}, and \
+                     commit the file"
                 ),
             )),
-            // The install and `check --fix` never replace a directory, so its repair is named.
+            // The install and `check --fix` never replace a directory, so its repair is named:
+            // the one a directory at a generated file's path takes, since removing the directory
+            // alone would delete what it holds.
             Some(Outside::Directory) => out.push(Finding::in_file(
                 rel,
                 format!(
                     "{shipper} ships this file, and the working tree holds a directory where \
                      git lists it"
                 ),
-                format!("remove the directory, then {install}"),
+                super::generated::directory_action(&install),
             )),
             Some(Outside::Text(text)) if lf(text) == *expected => {}
             Some(_) => out.push(Finding::in_file(
@@ -333,6 +337,34 @@ mod tests {
                 .unwrap_or_else(|| panic!("{step}: {action}"));
             assert!(at < install, "{step} comes before the install: {action}");
         }
+    }
+
+    /// The claim: a directory where git lists an installed file, and an untracked directory in
+    /// a shipped file's place, are each repaired by moving out what the directory holds before
+    /// its removal and the install, so the repair deletes nothing the project wrote. Mutations:
+    /// the listed file's action made "remove the directory, then <install>", and the unlisted
+    /// file's clause cut to "remove it", each fail.
+    #[test]
+    fn a_directory_in_an_installed_file_s_place_is_emptied_before_its_removal() {
+        let found = run(
+            &manifest(""),
+            IMPORTING,
+            &[(SKILL, Outside::Directory)],
+            &[(SKILL, "x")],
+        );
+        assert_eq!(found.len(), 1, "{found:?}");
+        assert_eq!(
+            found[0].action,
+            "move out what the directory holds, then remove it, then run \
+             `klarch install-agent-skills`"
+        );
+        let found = run(&manifest(""), IMPORTING, &[], &[(SKILL, "x")]);
+        assert!(
+            found[0]
+                .action
+                .contains("stands in its place, move out what it holds, then remove it;"),
+            "{found:?}"
+        );
     }
 
     /// The claim: an unshipped file of the namespace names the rename of a project's own file
