@@ -601,8 +601,54 @@ of these crates. The nearest rival, an API token held in a repository secret, ru
 a credential that lives until it is revoked or expires, readable by any workflow of the repository
 that names the secret. Trusted Publishing covers every publish such a token covers, except the first
 version of a crate: crates.io's documentation states that the initial publish requires an API token.
-A new crate's first version is therefore outside what the release workflow can publish, and the
-release skill stops a release that would need it.
+A crate's first version is therefore a placeholder the owner publishes by hand, per
+`design@knowledge-architect@new-crate-placeholder`, and every version after it goes through the
+release workflow.
+
+### A new crate's name is taken by a placeholder version during the release that publishes its real version, so the release workflow publishes every real version `##new-crate-placeholder`
+
+For a crate that crates.io does not hold yet, after the release branch merges and before the tag is
+pushed, the owner publishes by hand, with an API token, a version 0.0.0 that holds no code and names
+this repository, made from a template no tree holds. The owner then gives the crate its trusted
+publisher and turns on "Require trusted publishing for all new versions", per
+`design@knowledge-architect@publish-credential`, and the release workflow publishes the crate's real
+version with every other crate's, in one run the owner approves, per
+`design@knowledge-architect@owner-word-mechanism`. The procedure is `skill@klarch-release`.
+
+The argument:
+
+- **A real first version cannot go before the tag.** A new crate pins the crates it depends on at the
+  release's version, per `design@knowledge-architect@version-lockstep`, and cargo refuses to publish a
+  crate whose dependency crates.io does not hold: under cargo 1.98.0, with the workspace at 0.9.0,
+  `cargo publish --dry-run --no-verify -p knowledge-architect-check` stops with "no matching package
+  named `knowledge-architect-git` found", "location searched: crates.io index", exit 101. The new
+  version of an existing crate reaches crates.io only through the release workflow, after the tag,
+  per `design@knowledge-architect@publish-credential`. So a first version published by hand before
+  the tag fails for every new crate that pins an existing crate, as
+  `rejected@knowledge-architect@first-versions-by-hand-before-the-tag` records.
+- **A placeholder pins nothing**, so it can go before the tag; once crates.io holds the name, the
+  workflow publishes the real version like any other.
+- **After the merge, before the tag.** A version on crates.io can be yanked and never deleted, so the
+  placeholder comes after the review and the merge, per
+  `design@knowledge-architect@publish-after-merge`.
+- **Only during the release that publishes the real version.** crates.io's usage policy forbids a
+  crate that exists only to reserve a name for a prolonged period, per
+  `path@knowledge-architect@docs/grounding/crates-io-publishing.md`, so no name is taken ahead of
+  the release that uses it.
+- **The rate limit on new crates is met before the tag.** crates.io limits how many new crates one
+  account publishes in a short time, per the same file. A placeholder it refuses waits for the time
+  the refusal names, while no version of the release is published yet.
+- **The lockstep of versions holds.** The reason of `design@knowledge-architect@version-lockstep` is
+  that a checker's installed skills are those of its own version; the placeholder holds no checker, and every real version is the workspace's.
+
+The rival, the real first versions published by hand between runs of the release workflow, each once
+the crates it pins are on crates.io, keeps crates.io free of any version that holds no code, and
+costs, at each release that adds a crate pinning an existing one, real versions published outside an
+approved run and a stop of the workflow with a re-run for each layer of new crates. The owner chose
+the placeholder over it, which no goal ranks, weighing that the placeholder is the same step for
+every later new crate. Lifting "Require trusted publishing" on an existing crate for one release
+loses to `design@knowledge-architect@publish-credential`, under which no stored credential can
+publish a version of these crates.
 
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 

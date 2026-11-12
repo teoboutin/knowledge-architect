@@ -78,18 +78,35 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    (`content/agents/<name>.md`) or a shipped saved workflow (`content/workflows/<name>.js`), each
    installed as `knowledge-architect-<name>`, or one of the published crates. Every document the shipped text relies on in a project, such as the knowledge
    table, is written by an installed skill.
-6. **crates.io.** For each crate, the API answers 404 for a first release, or shows the crate owned
-   by the owner's account; in both cases the version itself must be absent. A 404 means a crate's
-   first version, which the release workflow cannot publish, per
-   `design@knowledge-architect@publish-credential`: tell the owner, and carry the release on to
-   its merge. After the merge and before the tag of step 11, the owner publishes that crate's
-   version by hand from main with an API token, on the owner's word, then turns on its trusted
-   publisher and "Require trusted publishing for all new versions"; the workflow's `publish` job
-   then skips it as already published, and uploads the rest. The check of each crate:
+6. **crates.io.** For each crate, the API answers 404 for a crate crates.io does not hold yet, or
+   shows the crate owned by the owner's account; in both cases the version itself must be absent.
+   The check of each crate:
 
    ```sh
    curl -s -A 'knowledge-architect release check' https://crates.io/api/v1/crates/<crate>/<version>
    ```
+
+   A 404 names a new crate, which takes a placeholder version, per
+   `design@knowledge-architect@new-crate-placeholder`: tell the owner which crates, and carry the
+   release on to its merge. After the merge of step 10 and before the tag of step 11, the owner,
+   never the agent, publishes each placeholder with an API token, from a scratch directory outside
+   every repository:
+
+   ```sh
+   cargo new --lib --vcs none <crate> && cd <crate>
+   # In Cargo.toml: version = "0.0.0", license = "MIT OR Apache-2.0", and
+   # description = "Placeholder: the first version is published by the release workflow of https://github.com/teoboutin/knowledge-architect"
+   cargo publish
+   ```
+
+   then, in the crate's settings on crates.io, adds its trusted publisher, this repository, the
+   workflow file release.yml and the environment `release`, and turns on "Require trusted
+   publishing for all new versions". crates.io limits how many new crates one account publishes in a
+   short time, per `path@knowledge-architect@docs/grounding/crates-io-publishing.md`: a publish it
+   refuses answers HTTP 429 with the time to retry, after which the owner publishes that placeholder
+   again. A placeholder is published only in the release that publishes its crate's real version,
+   since crates.io's usage policy forbids a crate that only reserves a name for a prolonged period.
+   The workflow's `publish` job then publishes the real version of every crate.
 7. **The package lists.** `cargo package --list -p <crate>` for each crate. Each lists its sources,
    its Cargo.toml, its README, its CRATES-IO.md, its licence files and its CHANGELOG.md, and agent-skills also its
    build script, content/, snippets/ and fragments/, beside the three files Cargo generates for every package,
@@ -115,7 +132,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
     outlive the command that set it: the merge deletes every ref that names it, and step 11
     compares with it. From the merge until the publish, main's
     README status line names a version that is not yet on crates.io.
-11. **Tag**, with a clean tree on main. The tag push starts
+11. **Tag**, with a clean tree on main, once every new crate of step 6 has its placeholder and its
+    trusted publisher. The tag push starts
     `path@knowledge-architect@.github/workflows/release.yml`:
 
     ```sh

@@ -25,7 +25,7 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@the-intake-analysis-s-sections-on-one-branch`
 - `issue@agent-skills@the-slice-audit-s-search-on-one-branch`
 - `issue@agent-skills@agent-skills-heads-owing-an-argument-on-one-branch`
-- `issue@knowledge-architect@the-publish-steps-on-one-branch`
+- `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`
 - `issue@knowledge-architect@the-documentation-lints-on-one-branch`
 - `issue@knowledge-architect@saved-workflows-under-the-harness-on-one-branch`
 - `issue@agent-skills@a-comment-line-may-copy-the-argument-of-the-head-it-cites`
