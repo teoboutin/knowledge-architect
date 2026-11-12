@@ -380,7 +380,7 @@ an empty subsection is omitted.
   project better, with the part the session finds generic and whether the version used ships it;
   whether a review, the owner or a later step found a register entry bearing on the work that the
   record search had not returned, and why the search missed it; and, for each branch merged in the
-  session, the reviewers dispatched, the commits that repaired a review's findings and the owner's
+  session, the review rounds, the commits that repaired a review's findings and the owner's
   corrections of drift.
 - `agent-skills`, patch: the retrospective and its intake know a fourth kind of defect, **needless**:
   an instruction whose cost neither the session's result nor its stated reason needed. The shape of

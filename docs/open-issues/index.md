@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -27,5 +27,6 @@
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |
+| todo | [This repository's own skills, agents and commands are not checked for a generic part to ship](this-repository-s-own-tools-are-not-checked-for-a-generic-part.md) |
 | todo | [This repository's published crates warn on none of the documentation lints the setup asks for](this-repository-warns-on-none-of-the-documentation-lints.md) |
 | todo | [Mutation survivors left in three suites, caught on one branch](three-suites-mutation-survivors-on-one-branch.md) |

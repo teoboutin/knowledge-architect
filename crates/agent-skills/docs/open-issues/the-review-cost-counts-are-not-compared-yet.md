@@ -5,10 +5,10 @@ kind: deferred
 
 ## Summary
 
-The retrospective asks, for each branch merged in its session, for three counts: the reviewers
-dispatched, the commits that repaired a review's findings, and the owner's corrections of drift,
-per `design@agent-skills@review-cost-counts`. This entry holds the series as received workflow files
-report it, until a comparison across branches shows whether the workflow lowers the cost of a
+The retrospective asks, for each branch merged in its session, for three counts: the review
+rounds, the commits that repaired a review's findings, and the owner's corrections of drift, per
+`design@agent-skills@review-cost-counts`. This entry holds the series, the figures taken before the
+question included, until a comparison across branches shows whether the workflow lowers the cost of a
 change.
 
 ## Details
@@ -16,14 +16,14 @@ change.
 ### What
 
 The counts reach this repository in the answers of received workflow files, and
-`skill@klarch-retrospective-intake` adds each branch's counts below. No comparison has been made, so
+`skill@klarch-retrospective-intake` adds each branch's counts to the series below. No comparison has been made, so
 whether the workflow lowers the cost of a change, which `goal@agents-get-a-complete-workflow` asks,
 and whether the dispatches of `design@agent-skills@review-cadence` are too many, has no
 measurement.
 
 The series, with the figures and the reports that preceded the question:
 
-The evaluation that raised it measured, over this repository's history since the checker was
+The evaluation of the project's direction that first asked for the counts measured, over this repository's history since the checker was
 split from thaum, that a third of the commits were `[review]` commits and that the project's
 record about itself took more churn than its Rust. Those figures are in no file, and the window
 was four days, so they separate no bootstrap from a steady state; that is what the counts are
@@ -73,11 +73,10 @@ owner":
 
 ### Why it matters
 
-Without the counts, no session sees the review rounds, the arguments derived again and the reversals
-by accident that lower the efficiency `goal@agents-get-a-complete-workflow` is there to
-raise,
-and a proposal to add or cut workflow text, which `design@agent-skills@capabilities-not-structure`
-weighs, is argued from intuition. The counts are also the evidence
+Until the counts are compared across branches, whether the workflow lowers the review rounds, the
+repairs and the corrections that cost the efficiency `goal@agents-get-a-complete-workflow` is there
+to raise is not known, and a proposal to add or cut workflow text, which `design@agent-skills@capabilities-not-structure`
+weighs, is argued from intuition. The compared counts are also the evidence
 `goal@the-workflow-improves-through-real-use` names: real sessions as the test
 of the workflow. The count of drift corrections would also measure the supervision
 `goal@agents-work-without-drift` saves.
@@ -85,5 +84,5 @@ of the workflow. The count of drift corrections would also measure the supervisi
 ### Trigger
 
 A proposal to add or cut workflow text, or to change when a review runs, that argues from review
-cost; or the owner's request for the comparison. The comparison then reads the series below, and
+cost; or the owner's request for the comparison. The comparison then reads the series above, and
 this entry closes with it.

@@ -9,7 +9,9 @@ kind: design
 the work does not need. A goal held four further statements on that rule, which the goal no longer
 holds. Three of them no head argues: where the rule applies, where it does not, and the repair of
 an instruction for a case judgement handles. The fourth, a question for the retrospective on such
-an instruction, is argued by `design@agent-skills@needless-instruction`.
+an instruction, is argued by `design@agent-skills@needless-instruction` for an instruction whose
+cost no result needed; for one that costs nothing in use and covers a case judgement handles, it is
+not argued, and stays here as statement 4 below.
 
 ## Details
 
@@ -29,6 +31,10 @@ The statements, verbatim from the goal on the instructions the workflow needs as
 3. "A review that finds an instruction for a case judgement handles [...] it is answered by removing
    that instruction". It bound the repair. `design@agent-skills@capabilities-not-structure` holds
    the repair of a contradiction a structure causes, not this one.
+4. "The retrospective asks whether an installed instruction its session met covered a case the
+   session's judgement handles well enough, or imposed such a structure." Its cost half is argued by
+   `design@agent-skills@needless-instruction`; an instruction that costs nothing in use is not
+   reported by that kind.
 
 Suspected mechanism: the statements were held as goal text, which no argument had to defend, so no
 head gave any of them a rival and a fact.
@@ -45,5 +51,7 @@ what an agent proposes, each on its own reading.
 
 ### What would close it
 
-`design@agent-skills@capabilities-not-structure` argues the three statements, each against its
-rival, or drops it with the reason, through `skill@knowledge-architect-design`.
+`design@agent-skills@capabilities-not-structure` argues the first three statements, each against
+its rival, or drops it with the reason, through `skill@knowledge-architect-design`; the half of the
+fourth that costs nothing in use is argued as a question of the retrospective under
+`design@agent-skills@behaviour-additions-need-real-use`, or dropped.

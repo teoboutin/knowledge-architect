@@ -5,8 +5,8 @@ description: MUST use once per session, at the first of these moments (deferred 
 
 # Retrospective
 
-Scope: looking back at one session's use of the workflow, and turning what was unclear, missing or
-wrong into findings the owner can act on.
+Scope: looking back at one session's use of the workflow, and turning what was unclear, missing,
+wrong or needless into findings the owner can act on.
 
 Not covered here: **analysing the project's file and ruling on its findings**,
 `skill@knowledge-architect-retrospective-intake`; **opening an issue entry in the project**,
@@ -63,8 +63,8 @@ subjects below, list what was unclear, missing, wrong or needless:
 Each item quotes the instruction, says what happened when it was followed, and what was done
 instead.
 %% A needless item names one task at one moment, and its repair weighs every other occasion the
-%% instruction serves, per `design@agent-skills@needless-instruction`. A cost imposed by a rule about
-%% code goes to the standing question on those rules, which
+%% instruction serves, per `design@agent-skills@one-session-cost-weighed-before-removal`. A cost
+%% imposed by a rule about code goes to the standing question on those rules, which
 %% `tripwire@agent-skills@shape-findings-fragment-code` reads.
 A needless item names the task and the moment it was met. A cost that a rule about code, tests or
 the split into Components imposed is answered under the standing question on those rules below, not
@@ -129,12 +129,12 @@ finding gets one id in each file, each naming the other, since the two files may
   conclusion, and who verified it.
 %% The question is `design@agent-skills@premortem-as-watch-points`'s watch on the record search.
 - Did a review, the owner or a later step find an entry of the project's registers that bore on the
-  session's work, which the record search of its grounding had not returned? For each: the entry,
-  the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
+  session's work, which the record search of its grounding had not returned? For each, in words: the
+  entry, the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
   recorded after the search ran, or it bore on a part of the work added after the search.
 %% `design@agent-skills@review-cost-counts`.
-- For each branch merged in this session before the retrospective: the reviewers dispatched on it
-  before its merge, the commits that repaired a review's findings, a repair folded into an earlier
+- For each branch merged in this session before the retrospective: the review rounds it went
+  through before its merge, each dispatch of one or more reviewers counted once, the commits that repaired a review's findings, a repair folded into an earlier
   commit counted as one, and the times the owner corrected work that departed from a recorded
   decision, apart from ruling on a decision.
 %% `design@agent-skills@tool-report-moment`.
