@@ -3,7 +3,7 @@
 ## Status and audience
 
 This spec is the plan of the work that answers
-`the-installed-text-has-the-main-session-carry-work-it-could-dispatch`, an issue of agent-skills that the commit adding this spec closes,. It adds
+`the-installed-text-has-the-main-session-carry-work-it-could-dispatch`, an issue of agent-skills that the commit adding this spec closes. It adds
 to the primer a section on dividing work between a session and the agents it dispatches, a pointer
 to it where implementation starts, three standing questions of the retrospective, and the design heads
 that argue them, and it opens two `deferred` issues for what the discussion parked.
@@ -15,10 +15,11 @@ leaves the repository in a commit of its own, after its harvest and the review b
   not list as reversed or rewritten, the design home wins, and the disagreement is a defect of this
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
-- No default awaits the owner. Where a later finding puts one to the owner, it waits as
+- One default awaits the owner, D1, under "Defaults awaiting the owner"; it waits as
   `skill@knowledge-architect-planning@working-a-slice` says.
-- The spec and its work go on one branch: the work's first commit changes nothing the per-commit
-  gate checks, so the spec need not merge first, per
+- The spec and its work go on one branch: the work changes no rule of the checker, and
+  `cargo klarch commits` compares no installed file, so no earlier commit can fail under the
+  branch tip's checker and the spec need not merge first, per
   `skill@knowledge-architect-planning@plan-reviews`.
 - It was assembled from one transcript. The discussion begins at the owner's message that opens "I
   want to discuss the goal and issue of having the main session focus on design", and ends at the
@@ -39,10 +40,26 @@ discussion converged and no other commit has landed on main since this spec was 
 - **the planning skill**, **the retrospective skill**: the sources
   `path@agent-skills@content/skills/planning/SKILL.md` and
   `path@agent-skills@content/skills/retrospective/SKILL.md`.
+- **a session**: the main session or any agent; "the session" alone is the one that dispatches,
+  and "the main session" the one the owner exchanges with.
 - **a carrier**: the session or an agent that carries a piece of work.
 - **a piece**: what a brief gives one agent, or what the session keeps for itself.
 - **a check**: the verification of a claim by a session other than the one that wrote it, against
-  the evidence its report carries.
+  the evidence its report carries. A command that checks a report's form, such as
+  `worklist --verify`, is no check in this sense.
+- **the thaum process**: the owner's report, round 3, of a project of the owner's, thaum, whose
+  code modules were split into smaller units across the whole project by agents dispatched in
+  parallel, one per Component, which made no commits; the main session committed each part after
+  the agents returned.
+- **the bullets**: the five bullets of the proposed section, named by their bold words, as
+  "Decided design" says.
+- **the source issue**: `the-installed-text-has-the-main-session-carry-work-it-could-dispatch`,
+  which the commit adding this spec closes; read it with `git log --diff-filter=D --name-only --
+  crates/agent-skills/docs/open-issues/` and `git show <commit>^:<path>`.
+- **the tripwire standard**: the four conditions a cause meets to become a tripwire, held by
+  `skill@knowledge-architect-planning@acceptance-criteria`.
+- **L<n>**, in an argument's key words: the number of a line of the transcript extraction made by
+  `cargo klarch transcript show`, from the message where the discussion begins.
 - **the harness's default**: the Agent tool description of Claude Code, read in this session: "Do
   the work yourself when it is a handful of tool calls … When in doubt, don't spawn."
 - **install**: `cargo klarch install-agent-skills`, which writes the installed copies under .claude.
@@ -65,7 +82,10 @@ Today:
   verdicts "checked as it checks its own claims", per
   `design@agent-skills@session-acts-on-the-verdicts`, and the audit's verifiers with the session's
   verification after them, per `design@agent-skills@one-run-pass` and
-  `design@agent-skills@verifier-in-the-run`.
+  `design@agent-skills@verifier-in-the-run`; the record searcher's own "You check your conclusions
+  as the session that sent you checks its own claims"
+  (`path@agent-skills@content/agents/record-searcher.md`); and the intake, whose session
+  "re-checks every verdict a proposal rests on" (`skill@knowledge-architect-retrospective-intake@intake-subagents`).
 - The retrospective skill's standing questions ask nothing about dispatch.
 - The owner's real-use report (round 2): the main session nearly never dispatched where it would
   have helped, and spent context the design discussion needed; in the session that drafted the goal,
@@ -84,7 +104,13 @@ Outside the work:
   work opens, since no real session has shown the gap;
 - the owner's user-level instructions, outside the project, which the owner aligns with this
   section after the work (round 2);
-- the cost a review adds, which `issue@agent-skills@the-retrospective-counts-no-review-cost` holds.
+- the cost a review adds, which `issue@agent-skills@the-retrospective-counts-no-review-cost` holds;
+  the source issue's lead on whether checking raised the total cost is refused, under "Losing
+  alternatives";
+- how often the work is reviewed, which the source issue's leads leave to judgement where no
+  absolute criterion applies: the development skill's checkpoints and the review before a merge
+  already state it, per `design@agent-skills@review-cadence`, and the section's judgement covers
+  the rest.
 
 ## What is already decided
 
@@ -96,30 +122,52 @@ The decisions the design rests on and does not argue again:
   `design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@primer-limit`,
   `design@agent-skills@verification-in-primer`, `design@agent-skills@a-scratch-directory-per-subagent`,
   `design@agent-skills@step-is-no-commit`, `design@agent-skills@plan-written-in-the-converging-session`,
-  `design@agent-skills@restatement-size-test`, `design@agent-skills@premortem-as-watch-points`.
+  `design@agent-skills@restatement-size-test`.
 
 The recorded decisions the work rewrites, each with the texts that `cargo klarch show` lists as
 referencing it, judged at the harvest (step 3):
 
 - `design@agent-skills@session-acts-on-the-verdicts`: its rule on checking a verdict becomes an
-  instance of the new check head, which it cites instead of stating the rule. Its other clauses stand.
-- `design@agent-skills@primer-limit`: gains the new section as a member.
+  instance of the new check head, which it cites instead of stating the rule; its title and its
+  other clauses stand. Referenced by `path@agent-skills@docs/design/record-search.md`,
+  `path@agent-skills@docs/design/reviews.md` and
+  `issue@agent-skills@a-lighter-pass-for-untouched-components`, each for a clause that stands; the
+  installed searcher's description restates the rule and gains a `%%` line citing the check head.
+- `design@agent-skills@verification-in-primer`: gains the new section as the place where the check
+  of a returned conclusion lives. Referenced by `path@agent-skills@docs/design/project-configuration.md`
+  alone.
+- `design@agent-skills@primer-limit`: gains the new section as a member. Referenced by ten files,
+  which `cargo klarch show` lists, each for the head's rule, which stands.
 - `design@agent-skills@premortem-as-watch-points`: its list of the standing questions gains the three
-  new questions, each naming what it watches.
+  new questions, each naming what it watches. Referenced by seven files, the retrospective skill's
+  `%%` line among them, each for the rule, which stands.
+- `design@agent-skills@a-scratch-directory-per-subagent`: names the primer section among the texts
+  that state its rule. Referenced by
+  `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`, for the
+  rule, which stands.
+- `design@agent-skills@admission-rules-home`: its one section gains the sentence on fixed dispatches.
+  Referenced by fourteen files, each for the rule that the section is the one home, which stands.
+- `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`,
+  `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and
+  `design@agent-skills@verdicts-reach-the-conformance-review`: each gains a citation of the check
+  head where it states its check; its rule stands.
+
+Step 3 reads each referencing text named above and updates any that restates a changed part.
 
 The record search ran on the draft of this spec, 18 agents, every report passing
-`cargo klarch worklist --verify`. Each verdict other than `unrelated` and `constrains` with action
-`none`, by its outcome:
+`cargo klarch worklist --verify`. The verdicts that shaped the design, by outcome, in the table;
+every verdict other than `unrelated`, with the searcher's reason and its outcome, in the list after
+it:
 
 | entry | verdict, action | outcome |
 | --- | --- | --- |
-| `design@agent-skills@verification-in-primer` | conflicts, check-reversal | answered: the check paragraph says one check stands for the session's own verification, which resolves the two acts "Re-verify a conclusion before acting on it" gives on a verifier's report; the head is not reversed |
+| `design@agent-skills@verification-in-primer` | conflicts, check-reversal | answered: the check paragraph says one check stands for the dispatching session's own verification, which resolves the two acts "Re-verify a conclusion before acting on it" gives on a verifier's report; the head is not reversed, and gains the section as the place of that rule |
 | `design@agent-skills@session-acts-on-the-verdicts` | conflicts, check-reversal | rewritten at the harvest to cite the check head |
 | `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited`, `design@agent-skills@verdicts-reach-the-conformance-review` | conflicts, check-reversal | answered: the check is a minimum, "one check is enough", which forbids no second check a skill asks for; none is reversed |
 | `rejected@agent-skills@repair-check-left-to-session`, `rejected@agent-skills@repair-defects-left-to-next-pass` | brings-back, new-argument-needed | answered: the minimum drops no check step, so neither comes back |
-| `design@agent-skills@premortem-as-watch-points` | conflicts, check-reversal | the questions widen its list within its argument: each names what it watches; the compaction question is dropped, since a session sees an agent's brief and report, not its context |
-| `the-installed-text-has-the-main-session-carry-work-it-could-dispatch` | closes, close-with-the-work | closed by the commit that adds this spec: each departure is built or refused on its argument |
-| `rejected@agent-skills@head-rules-whole-in-primer` | constrains, respect | the primer "can dilute in a long session": answered by the pointer sentence at point 3 of the planning skill's procedure, where implementation starts |
+| `design@agent-skills@premortem-as-watch-points` | conflicts, check-reversal | the questions widen its list within its argument: each names what it watches; the compaction question is dropped, on the argument under "Losing alternatives" |
+| `the-installed-text-has-the-main-session-carry-work-it-could-dispatch` | closes, close-with-the-work | closed by the commit that adds this spec: each departure is built or refused on its argument, the cost lead refused under "Losing alternatives" |
+| `rejected@agent-skills@head-rules-whole-in-primer` | constrains, respect | the primer "can dilute in a long one", a long session: answered by the pointer sentence at point 3 of the planning skill's procedure, where implementation starts |
 | `design@agent-skills@a-goal-reading-is-reported` | constrains, respect | the reading of `goal@session-orchestrates-the-work` is named under "Decided" (`thread@dispatch-judgement@dispatch-judgement-in-primer`) |
 | `design@agent-skills@one-decision-per-head`, `rejected@agent-skills@head-split-by-independent-reversal` | constrains, respect | the harvest writes one head per decision; the exception of `thread@dispatch-judgement@absolute-dispatch-conditions` stays in the judgement's head |
 | `design@agent-skills@extension-follows-the-ground`, `design@agent-skills@new-or-reshaped-head-needs-design` | constrains, respect | the widening of the check rule was argued in this discussion, rounds 4 to 7 |
@@ -128,7 +176,7 @@ The record search ran on the draft of this spec, 18 agents, every report passing
 | `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies` | touches, respect | the judgement head states where a fixed dispatch is admitted; the issue stays open |
 | `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` | touches | the two parked threads take `deferred` issues with a trigger |
 | `issue@agent-skills@the-retrospective-counts-no-review-cost` | touches | the cost question is left to it |
-| `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up` | touches | it plans a question in the same section; the two are written to fit |
+| `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up` | touches | it leaves to a design discussion a question the owner's consideration places in the retrospective; the new questions take none of its subject, so either can land first |
 | `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`, `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand` | touches | cited by the partition issue |
 | `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript`, `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own` | touches | cited by the report-file issue |
 | `issue@agent-skills@agent-skills-heads-owing-an-argument-on-one-branch` | touches, respect | through its member on the harness, answered as above |
@@ -139,10 +187,205 @@ The record search ran on the draft of this spec, 18 agents, every report passing
 | `design@agent-skills@shipped-text-cites-no-entry`, `design@agent-skills@shipped-text-line-comments`, `design@agent-skills@installed-text-works-with-what-an-installing-project-holds` | constrains, respect | the reasons go in `%%` lines; the shipped text cites no entry |
 | `design@check@orphan-rejected-entry` | constrains, respect | each `rejected` entry the harvest writes is cited by its head |
 | `rejected@mutate@worktree-holds-the-mutation`, `design@knowledge-architect@no-operation-loses-content`, `design@knowledge-architect@scratch-worktree-outside-git-rules`, `design@knowledge-architect@git-flow` | constrains, respect | carried into the partition issue |
-| `rejected@agent-skills@ledger-written-during-discussion`, `design@agent-skills@refused-report-returned-as-text` | constrains, respect | answered in the report-file issue |
+| `rejected@agent-skills@ledger-written-during-discussion`, `design@agent-skills@refused-report-returned-as-text` | constrains, respect | answered in the report-file issue, as its harvest row says |
+| `design@agent-skills@admission-rules-home`, `rejected@agent-skills@admission-standard-in-primer` | constrains, respect | the rule on fixed dispatches goes in the admission standard, its one home; the primer holds no rule on what enters agent-facing text |
+| `design@agent-skills@term-defined-at-first-load` | constrains, respect | "carrier" is defined in the section itself, so it takes no line in `primer@coined-terms` |
+| `design@query@worklist-writes-and-verifies-the-reports`, `design@query@worklist-check-judges-one-report` | constrains, respect | the record search's fixed dispatch rests on an output whose form a command verifies and whose claims the session checks; a command is no check of a claim |
+| `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` | touches, respect | each member the harvest adds is within its head's argument, as the rows say |
+| `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see` | touches, respect | the causes on how sessions dispatch are watched by the retrospective questions, not by tripwires |
 
 The 188 lines of `generated-lines.md` that the search wrote are carried in the message of the commit
-that adds this spec.
+that adds this spec. Every verdict other than `unrelated`, as the searcher graded it; its outcome is
+the table's where the table names the entry, and otherwise that the decided design respects it:
+
+- `design@query@worklist-writes-and-verifies-the-reports`: constrains, respect. The work admits an absolute dispatch only for a step needing a separate point of view or whose output a check verifies; the record search's absolute dispatch qualifies through this check, so the condition's wording must keep reading `--verify` (coverage, sets, quotations) as such a check, and the agent-skills head may cite this decision as an instance.
+- `design@query@worklist-check-judges-one-report`: constrains, respect. The draft rule says a returned conclusion is checked once and a check is not checked again, while here the searcher runs `--check` on its report and the session then runs `--verify` over the same report; the rule's wording must confine itself to the session's judgement of conclusions, or exempt a command's mechanical check, so it does not read as forbidding this pair.
+- `design@query@occasion-shaped-output`: constrains, none. It serves the goal the work serves by giving a session one verdict file per subject to put in an agent's brief; handing a subject to an agent falls under the work's dispatch judgement, and nothing in the work limits or changes this output.
+- `design@query@clusters-packed-under-a-word-bound`: constrains, respect. The work rejects a size threshold for the session's dispatch judgement, while this head fixes a word bound per search agent by command; the losing alternative's argument (size varies without bound, a threshold per interaction) must stay scoped to the session's judgement and the named dispatches, so it does not read as an argument against this bound.
+- `design@query@worklist-bound-is-40000-words`: constrains, respect. This records the owner's earlier report that reliability holds to 200,000 to 250,000 tokens and token use grows from about 250,000, the measure being cost, with a re-take command over each subagent's transcript; the work's hint of about 300k per agent differs from it, so any figure or question the retrospective carries on a piece too large must agree with this report or say why it departs, and can reuse its measurement command.
+- `rejected@query@one-search-agent-per-anchor`: constrains, respect. Its measurement, an agent's fixed start of about 36,000 tokens over 40 searchers' transcripts, is the ground of the work's carry clause that a brief can cost about as much as the work since a fresh agent first reloads its instructions; the work does not bring back one agent per anchor, and its head can cite this measurement rather than assert the cost.
+- `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`: touches, respect. Its subject is how a dispatched agent writes its report file, which the parked issue on report files written as the agent works also covers, so that new issue must state how it differs from this one or cite it; and its instances show a session writing a part of a dispatched piece, the report, when the harness refuses the agent's edit, which the rule that the session takes over no part once dispatched must admit or name as the agent's failure to carry it.
+- `design@transcript@subagent-file-attached-to-its-dispatcher`: constrains, none. The work leads to more dispatches, nested ones included (a dispatched developer sends its checkpoint axes itself); the rule already attaches a subagent file by the call found in the top-level file or another subagent file, so nothing in the work is limited by it.
+- `rejected@mutate@worktree-holds-the-mutation`: constrains, respect. The issue the work opens on partitioning parallel work names worktrees per agent as a shape; this measured cold-build cost of a fresh worktree limits that shape, and the issue should carry it, without bringing back a worktree for a mutation.
+- `design@agent-skills@primer-limit`: constrains, respect. Is a seed; the new primer section is a member the head must admit: the draft argues that every session that can dispatch meets the judgement (subagents included, measured to hold `Agent`) and no skill loads at that moment, and the head's member list gains it.
+- `design@agent-skills@verification-in-primer`: conflicts, check-reversal. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@primer-limit`; the work's "a check is not checked again" lets the session act on a second agent's check of a returned conclusion with no verification it observed, which narrows the primer's re-verification and "establish it from the implementation, or from a run you observe" for a dispatched check, so the draft must argue that narrowing against this head.
+- `design@agent-skills@code-change-reads-its-record`: constrains, respect. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@primer-limit`; a dispatched developer proposes and makes code changes, so it reads the record of that code itself, the brief defining the piece and never replacing that reading.
+- `design@agent-skills@owner-word-holds-as-far-as-its-premise`: constrains, none. Cites seed: `design@agent-skills@primer-limit`; nothing in the work acts on a ruling of the owner past its premise or on an answer about a reading.
+- `design@agent-skills@met-outside-the-task-outcomes`: constrains, respect. The new section on dispatch must keep this route: a dispatched agent reports what it met outside its piece, and an agent that carries a whole piece and edits, as a dispatched developer, routes its items by the primer's table itself.
+- `design@agent-skills@decisions-reported-to-the-owner`: constrains, respect. A returned conclusion checked once under the work still carries the subagent's Decided lines into the session's own, and the check of a conclusion leaves that carrying in place.
+- `design@agent-skills@a-goal-reading-is-reported`: constrains, respect. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`; `goal@session-orchestrates-the-work` says it does not fix when a dispatch happens nor for which kind or size of work, and the work closes that question by judgement with no threshold, so its Decided line names that reading and the rival threshold it defeats.
+- `design@agent-skills@one-home-for-head-rules`: constrains, respect. Cites seed: `design@agent-skills@primer-limit`; the work delivers the dispatch judgement by the primer alone, met at many moments of long sessions, so the draft's argument against guidance per skill must answer this mechanism, which this head measured for another primer rule.
+- `design@agent-skills@restatement-size-test`: constrains, respect. The primer's "checked once, as the session checks its own claims" generalises the rule that the record search and the review texts state; each such skill keeps at most one sentence of it with its pointer, and the primer's mention of the skills' named dispatches restates none of them.
+- `design@agent-skills@context-cost-of-agent-text`: constrains, respect. Cites seed: `design@agent-skills@primer-limit`; the new primer section and the retrospective questions are weighed by this rule: the section costs only a session that never weighs a dispatch, and a pointer from a skill would cost the lookup the rule counts.
+- `design@agent-skills@no-routing-table`: constrains, none. Cites seed: `design@agent-skills@capabilities-not-structure`; the work adds no table mapping skills, nor a mapping of kinds of work to dispatches.
+- `design@agent-skills@installed-skill-takes-precedence`: constrains, none. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`; the work weighs the harness's Agent tool default, not a skill from outside the installed set, and changes no skill loading.
+- `design@agent-skills@staged-check-before-each-commit`: constrains, none. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`, `design@agent-skills@primer-limit`; a dispatched agent that commits holds the primer and this rule as the session does, and nothing in the work changes it.
+- `design@agent-skills@staged-forms-for-a-partial-commit`: constrains, none. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`; the work changes neither the issue-tracking nor the planning skill's commands.
+- `rejected@agent-skills@head-rules-whole-in-primer`: constrains, respect. The work puts the dispatch judgement whole in the primer, applied at moments deep in long sessions; it does not bring back this design about heads, but its reason limits a primer-only delivery, which the draft argues against per-skill guidance without answering.
+- `design@agent-skills@audit-method`: constrains, respect. The primer's check-once rule will reach the audit's dispatches too, and must keep this rule that the session reads what an agent proposes before it is applied.
+- `design@agent-skills@one-run-pass`: conflicts, check-reversal. The session's verification checks findings the run's verifiers already checked, and samples their refuted drafts, so it checks a check; the draft primer sentence "a check is not checked again" contradicts it unless its scope excludes the dispatches a skill names, which the draft limits only for size and kind.
+- `design@agent-skills@refused-report-returned-as-text`: constrains, respect. The issue the work opens on report files written as an agent works must reckon with the harness's refusal of a subagent's report file, and with the fallback to text this head and the record searcher take.
+- `design@agent-skills@apply-stays-with-the-session`: constrains, respect. This is a built case of agents applying parts on disjoint files with the session reading the diff before each commit; the carried-whole rule must not forbid it (the draft's losing alternative already keeps it) and the parallel-partition issue starts from it.
+- `design@agent-skills@audit-axis-runs-a-workflow`: constrains, respect. An audit axis dispatches absolutely through its saved workflow; the absolute-dispatch condition, a point of view apart or an output a check verifies, must keep admitting these dispatches, and the work's measurement that a subagent holds no Workflow means only the main session runs them.
+- `design@agent-skills@audit-outcomes`: constrains, none. Cites seed `design@agent-skills@behaviour-additions-need-real-use`; it routes an audit's findings, and the work is no audit, so nothing in the work meets it.
+- `design@agent-skills@verifier-in-the-run`: conflicts, check-reversal. A verifier's check of each draft is followed by the session's own verification, a second check of a checked conclusion, which the draft's "a check is not checked again" contradicts unless the sentence leaves out a skill's named dispatches; its three tripwires watch exactly that second check.
+- `design@agent-skills@audit-triggers`: constrains, none. Cites seed `design@agent-skills@behaviour-additions-need-real-use`; it fixes the occasions of an audit, and the work adds no audit occasion.
+- `design@agent-skills@audit-agent-per-axis`: constrains, respect. Its argument, a standard behind a read the brief must ask for comes out uneven, bears on a dispatched developer that is to load the development skill; the shape holds only where the primer's skill list, which reaches every subagent, triggers the load and not the brief alone.
+- `rejected@agent-skills@session-rereads-every-draft`: constrains, respect. The check-once rule must not lead the session to read again every conclusion one checker already judged; the work does not bring this design back, and its reason supports the draft's single check.
+- `rejected@agent-skills@three-runs-per-pass`: constrains, respect. Its measurement is the context cost the dispatch judgement weighs; a guideline that has the main session read a dispatched step's intermediate outputs brings back the cost this entry measured.
+- `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`: constrains, none. Cites seed `design@agent-skills@behaviour-additions-need-real-use`; it keeps intermediate Components out of the installed text, which the work does not touch.
+- `design@agent-skills@enclosing-design-read-at-grounding`: constrains, respect. Cites seed `design@agent-skills@primer-limit`; it is the argument a primer member owes against a clause in each skill, the same rival the work's losing alternative "guidance in each activity's skill" names, and the new section joins the members `design@agent-skills@primer-limit` lists.
+- `design@agent-skills@settled-means-recorded`: constrains, none. Cites seed `design@agent-skills@primer-limit`; the work, the owner's proposal of dispatch guidance, already goes through the design skill's grounding and record search, so nothing in it meets the trigger's exceptions.
+- `design@agent-skills@structure-the-flow`: constrains, none. Cites seed `design@agent-skills@capabilities-not-structure`; the head bounds the design skill's discussion flow, which the work does not edit; its token-bound hint is per dispatched agent, not on a discussion's size.
+- `design@agent-skills@new-or-reshaped-head-needs-design`: constrains, respect. The work creates an agent-skills head and generalises `design@agent-skills@session-acts-on-the-verdicts` to every returned conclusion, a member beyond that head's argument; both must be argued in this discussion, not recorded directly at the harvest, and the added retrospective question is routed by `design@agent-skills@premortem-as-watch-points`' ground.
+- `design@agent-skills@title-states-the-rule`: constrains, respect. The new head's title must state the rule (absolute dispatch only for a separate point of view, a checked output or an anticipable occasion), not the list of today's named dispatches, and no wider than its argument.
+- `design@agent-skills@one-decision-per-head`: constrains, respect. The draft plans one head for the dispatch judgement, the absolute-dispatch condition, the piece carried whole and the single check, which lose to different rivals listed in Losing alternatives (no text, thresholds, split authorship, a chain of verifiers): each part passing an entry test takes a head of its own, the exception of absolute dispatches staying with its rule.
+- `design@agent-skills@extension-follows-the-ground`: constrains, respect. The work adds a member to `design@agent-skills@primer-limit`'s list, a standing question to `design@agent-skills@premortem-as-watch-points`, and widens `design@agent-skills@session-acts-on-the-verdicts` to every returned conclusion; each is routed by its head's ground, and the widening, beyond that head's record-search argument, is a change argued here.
+- `design@agent-skills@existing-heads-on-touch`: constrains, respect. The work's harvest edits `design@agent-skills@primer-limit`, `design@agent-skills@premortem-as-watch-points` and `design@agent-skills@session-acts-on-the-verdicts`, so each touched head is brought to the rules on heads in the same change.
+- `design@agent-skills@design-home-write-loads-recording`: constrains, respect. The work writes a new agent-skills head and edits the primer and the retrospective skill, texts heads describe, so the decision-recording skill is loaded before those writes.
+- `rejected@agent-skills@head-split-by-independent-reversal`: constrains, respect. When the dispatch head is split per `design@agent-skills@one-decision-per-head`, the absolute-dispatch exception stays with the `spec@plans@dispatch-judgement` rule; splitting by independent reversal would separate them.
+- `rejected@agent-skills@title-states-built-instance`: constrains, respect. The absolute-dispatch head must not title itself with today's dispatches (record search, review axes, development checkpoint, audit, goal reviewer, transcript extraction) but with the property that admits them.
+- `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument`: touches, respect. The work adds members to `design@agent-skills@primer-limit` and `design@agent-skills@premortem-as-watch-points` and widens `design@agent-skills@session-acts-on-the-verdicts`; each addition is the act this issue records going wrong, so each is checked against its head's argument and the widening argued, not recorded directly.
+- `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`: touches, respect. Whether sessions dispatch as the new primer section asks is agent behaviour seen only in sessions; the work's retrospective standing questions are the channel this issue names, so the premortem's behaviour causes go there, not into tripwires whose evidence no reading occasion holds.
+- `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`: touches, respect. The work opens two issues, `thread@dispatch-judgement@dispatch-report-file` pending real-use evidence and `thread@dispatch-judgement@parallel-work-partition` for a later discussion; one waiting on evidence takes kind deferred with a Trigger the standing-state reviewer reads, since a re-entry point on another kind is read by no review.
+- `issue@agent-skills@the-retrospective-counts-no-review-cost`: touches, respect. Cites seed design@agent-skills@capabilities-not-structure; the work adds to the same retrospective a question whether checking returned conclusions raised the total cost, which the issue's counts of review rounds would measure, so the two questions are written to fit together, without closing the issue.
+- `design@agent-skills@a-head-is-owed-by-an-entry-test`: constrains, respect. Each decision the work records (primer dispatch judgement, absolute-dispatch condition, piece carried whole, single check) needs its entry test named: test 3 on the harness's Agent-tool default, or test 2 for a rule several installed texts respect; one that passes none stays a %% comment at the primer line.
+- `design@agent-skills@losing-alternatives-filter`: constrains, respect. Of the six losing alternatives, only those refuted by costly evidence or with a remaining doubt earn rejected entries; the primer token bound, carried by the owner's hint, is the likeliest candidate on a doubt, the rest refuted by reasoning stay in the spec.
+- `design@agent-skills@losing-shape-test`: constrains, respect. The superseded `thread@dispatch-judgement@design-investigation-dispatch` thread is judged by the filter only if its distinct shape (guidance in the design skill) lost on an argument; the parked `thread@dispatch-judgement@dispatch-report-file` and `thread@dispatch-judgement@parallel-work-partition` shapes stay in the spec, their questions going to issues.
+- `design@agent-skills@rejected-citation-direction`: constrains, respect. Any rejected entry the work records (a primer token bound, a chain of verifiers, guidance per skill) is cited by the new head whose argument covers it, and the checker's orphan check fails one cited by none.
+- `design@agent-skills@thread-slug-is-entry-id`: constrains, respect. Each head the work records takes its thread's slug, checked for a collision first, unless the slug misdescribes the approved decision, and in discussion prose a thread is written with a hash sign.
+- `rejected@agent-skills@entry-names-the-decision-it-lost-to`: constrains, respect. A rejected entry the work writes for a losing alternative states its reason and names no head it lost to, as the draft's phrasing lost to the real-use report could invite.
+- `rejected@agent-skills@every-losing-thread-recorded`: constrains, respect. The draft lists six losing alternatives; recording each as a rejected entry would bring this back, so only those the filter admits are recorded.
+- `design@agent-skills@development-skill`: constrains, respect. A dispatched developer loads this skill and carries its whole span, the commit and the checkpoint review axes included, which is why `thread@dispatch-judgement@development-dispatch` edits no text and why the session takes over no part of the piece.
+- `design@agent-skills@goal-one-meaning-any-breadth`: constrains, respect. Goal@session-orchestrates-the-work says neither when nor for which work a dispatch happens; the work closes that open question in a design head of agent-skills, so the head must argue it against its rivals (no text, per-skill guidance, thresholds) and not by narrowing the goal.
+- `design@agent-skills@what-shows-a-goal-met-is-design`: constrains, respect. The retrospective dispatch questions are the old measure of `goal@session-orchestrates-the-work` this head names; the work states them in the retrospective skill and in the agent-skills head citing the goal, never back in the goal.
+- `design@agent-skills@goal-reviewer-agent`: constrains, respect. An absolute dispatch an installed skill names before every ruling; the work's condition for absolute dispatches (a point of view apart from the session's) must keep admitting it, and it does.
+- `design@agent-skills@whole-set-rounds`: constrains, respect. An absolute dispatch of fresh reviewers per set that the work's absolute-dispatch condition must keep covering; and it cuts work for focus, not by a size bound, which the work's refusal of a token number keeps.
+- `rejected@agent-skills@goal-measure-in-what-the-project-builds`: constrains, respect. The retrospective questions were part of the goal's old measure; the work places them in a skill and a head, which does not bring this back, and its reason keeps them out of the goal.
+- `rejected@agent-skills@goal-measured-by-evidence-from-use`: constrains, respect. The retrospective questions are evidence from use of whether the dispatch judgement serves the goal; the work states them in a head and the retrospective skill, which this entry admits, not as a measure in the goal.
+- `rejected@agent-skills@ledger-written-during-discussion`: constrains, respect. The parked report file written as an agent works is an artifact updated as it goes; it is no discussion ledger, so it does not bring this back, but the issue the work opens must answer this reason: the verifier's annotation is the outside corroboration the entry names.
+- `issue@agent-skills@no-review-compares-the-readings-heads-take-of-one-goal`: constrains, none. Cites seed: design@agent-skills@behaviour-additions-need-real-use; nothing in the work meets it: the work adds one head reading goal@session-orchestrates-the-work and builds no comparison of readings.
+- `rejected@agent-skills@one-agent-reads-every-standing-entry`: constrains, respect. The work's retrospective question on a piece too large for an agent asks this doubt in use; its reason limits the primer's guidance to pieces an agent's context holds, with no number.
+- `rejected@agent-skills@subject-groups-bounded-at-sixty`: constrains, respect. The work drops the owner's 300k token hint from the primer and defines the piece by its brief, not by a size; a number in the primer that cut a coherent piece would bring this back.
+- `issue@agent-skills@agent-skills-heads-owing-an-argument-on-one-branch`: touches, respect. Its member issue@agent-skills@no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness covers the precedence of an installed instruction over a harness instruction and reliance on harness mechanisms; the work argues the primer section against the Agent tool's "When in doubt, don't spawn" default and relies on dispatch, a harness mechanism, so its head must state that ground or cite the member.
+- `the-installed-text-has-the-main-session-carry-work-it-could-dispatch`: closes, close-with-the-work. The work builds the dispatch judgement in the primer, the report standard and the retrospective questions, and refuses on argument the dispatch of implementation in the development skill and design-skill text (the primer judgement covers both); parallel partition and the report file go to new issues.
+- `design@agent-skills@design-record-axis-dispatch`: constrains, respect. An installed dispatch with a size bound per agent; the draft primer text exempts only "the dispatches an installed skill names", and this bound sits in a saved workflow the audit skill names, so the wording must keep it covered and the size refusal must not reach it.
+- `design@agent-skills@calibration-in-the-run`: constrains, respect. The calibration agent's proposed reading is a returned conclusion the session checks once, as the work's report standard says; the standard's "a check is not checked again" must not read the session's confirmation as a forbidden second check.
+- `design@agent-skills@created-heads-checked-in-the-run`: constrains, respect. An absolute dispatch inside the audit run whose output the session verifies; the work's condition (a checked output or a separate point of view) admits it.
+- `design@agent-skills@application-judged-by-diff`: constrains, respect. An absolute dispatch that judges the session's own application, a point of view apart; its argument on one context's reach is the same the work's primer guidance gives, and the work's condition must keep admitting it.
+- `design@agent-skills@one-record-searcher`: constrains, respect. The record search is an absolute dispatch the new rule must keep admitting (its output is checked by `worklist --check`), and its rule that the dispatcher never repairs a failed report is an instance the "carried whole" thread must stay consistent with; cites the seed `design@agent-skills@session-acts-on-the-verdicts`.
+- `design@agent-skills@verdict-report`: constrains, respect. The primer's "conclusion checked once" rule generalises the acting on returned conclusions; checking once without redoing the work rests on a report carrying its evidence, which this head argues and the new rule must not undercut; cites the seed `design@agent-skills@session-acts-on-the-verdicts`.
+- `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`: constrains, none. Cites the seed `design@agent-skills@session-acts-on-the-verdicts`; the work changes neither seeds nor generated lines, so nothing in it meets this head.
+- `design@agent-skills@verdict-states-a-conclusion`: constrains, respect. The generalised rule on returned conclusions covers the searcher's; it must keep a dispatched conclusion unconditional with owner-reserved questions carried back, the parity argument that also underlies checking a conclusion once.
+- `design@agent-skills@session-acts-on-the-verdicts`: conflicts, check-reversal. The draft generalises this rule to every returned conclusion in the primer and adds that the check is made once, by the session or one agent whose brief carries the original brief, which narrows this head's "hands them to agents it dispatches, at its judgement"; the head is rewritten to cite or match the primer rule, not left as a second statement.
+- `design@agent-skills@record-searched-before-the-work`: constrains, respect. The same argument bounds the new primer section: it must stay a judgement (capability form), not a primer line sending every session to dispatch, and its real-use evidence must meet `design@agent-skills@behaviour-additions-need-real-use`; the search's dispatch at design occasions is an absolute dispatch the new condition must still admit.
+- `rejected@agent-skills@search-work-carries-the-deliberation`: constrains, respect. The dispatch rule's "a brief can carry what it needs of the session's context" must not be read as passing the discussion's transcript, which this entry rejected on cost; and the record already holds a per-searcher bound of 250,000 tokens that the size-hint thread (about 300k) meets.
+- `issue@agent-skills@a-lighter-pass-for-untouched-components`: constrains, none. Cites the seed `design@agent-skills@session-acts-on-the-verdicts`; the work changes no clustering, packing or writing of the search, so its re-entry is not met.
+- `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session`: touches, respect. The primer's dispatch judgement reaches the intake session's choice to hand reading to agents, and the issue the work opens on partitioning parallel work overlaps this one's "partitions its work among agents"; the new issue cites or is scoped apart from it.
+- `design@agent-skills@shipped-text-line-comments`: constrains, respect. The reasons of the new primer section and retrospective questions (harness default, owner's report) and the citation of the new head go in `%%` lines beside them, never in the installed text.
+- `design@agent-skills@shipped-text-cites-no-entry`: constrains, respect. The new primer section and retrospective questions are shipped text: they cite only installed skills, agents and primer sections, no entry and no harness or repository particular.
+- `design@agent-skills@installed-text-works-with-what-an-installing-project-holds`: constrains, respect. The dispatch judgement is followed in every installing project, so its criteria must read complete without this repository's owner report or the harness quotation that argue it here.
+- `design@agent-skills@one-skill-per-activity`: constrains, respect. A dispatched developer carries development out from the development skill, loaded whole, with no edit; and the judgement met in every activity goes in the primer rather than in each activity's skill, as the losing alternative states.
+- `design@agent-skills@a-reference-claims-a-revisit`: constrains, respect. The new design head names the goals it derives from and the `rejected` entries its argument covers, and the two issues the work opens name the decision they strain and the goal they threaten.
+- `design@agent-skills@plain-text-is-no-repair`: constrains, respect. The plan document and commit messages name the two issues the work is still to open by their bare slugs in backticks, not as unbacked references.
+- `design@agent-skills@standing-state-review-before-every-merge`: constrains, respect. An absolute dispatch at a merge; the work's rule on absolute dispatches must keep admitting it, and the draft's "an occasion most work meets (a merge...)" does.
+- `design@agent-skills@plan-read-against-the-record`: constrains, respect. An absolute dispatch at a plan document's review moments, outside a merge or a checkpoint; the work's conditions admit it only through "a point of view apart from the session's", which the wording must keep.
+- `design@agent-skills@verdicts-reach-the-conformance-review`: conflicts, check-reversal. The head (and its seed `design@agent-skills@session-acts-on-the-verdicts`) has a searcher's verdicts, already checked by the session, read again by the conformance reviewer; the draft's "checked once ... a check is not checked again", generalised to every returned conclusion, contradicts that second reading unless worded to leave a review of the work outside it.
+- `design@agent-skills@transcript-review-last-before-merge`: constrains, respect. An absolute merge-time dispatch the conditions must admit, and a reader of whether the other axes' findings were acted on, which the "checked once" rule must not read as a forbidden second check.
+- `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`: constrains, respect. The work's "a check is not checked again" must stay compatible with the review's re-review of a head-changing repair, which reviews new work, not a returned conclusion.
+- `design@agent-skills@a-scratch-directory-per-subagent`: constrains, respect. The head's rule is stated only in the review skill's invariants; the primer's general dispatch of agents together, and the parked partition design, must keep it, by a pointer or in the primer.
+- `design@agent-skills@reviewer-writes-its-report`: constrains, respect. A seed; the work's report standard and the parked report-file issue build on a reviewer's report written whole to a named path, which they must not contradict.
+- `design@agent-skills@report-written-through-the-shell`: constrains, respect. The parked issue on report files written as an agent works must state the harness's refusal of a report file written with `Write`, and the shell write this head relies on.
+- `design@agent-skills@reviewer-returns-its-report-whole`: constrains, respect. A returned conclusion the work's standard checks must still reach the transcript as text; a report-file design that returns only a path would contradict this head.
+- `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: constrains, none. Cites the seed `design@agent-skills@behaviour-additions-need-real-use`; nothing in the work changes the criteria a review judges by.
+- `design@agent-skills@review-judges-additions`: constrains, none. The work's primer section and retrospective questions are agent-facing text, so this axis is owed at its review; it limits no shape of the work.
+- `design@agent-skills@goals-axis-in-the-review-before-a-merge`: constrains, respect. A conditional absolute dispatch at a merge, which the work's conditions must keep admitting, as the merge occasion does.
+- `design@agent-skills@code-shape-axis`: constrains, respect. An absolute dispatch argued on a reader apart from the writing session, the first condition the work names; its wording must keep admitting it.
+- `design@agent-skills@spec-first-axis`: constrains, respect. A checkpoint dispatch the conditions admit by the development-checkpoint occasion, and which a dispatched developer sends itself under the `thread@dispatch-judgement@development-dispatch` thread.
+- `design@agent-skills@adversarial-scoping`: constrains, respect. Under `thread@dispatch-judgement@development-dispatch` the dispatcher of the adversarial reviewers becomes the dispatched developer, which then owes their scoping; the head leaves to a retrospective whether scoped reviewers run unbounded, which the new question on a piece too large must not turn into a cap.
+- `design@agent-skills@review-cadence`: constrains, respect. Fixes which axes run at each checkpoint and which once per branch; the work's checkpoint occasion and the developer sending its own checkpoint axes must keep this cadence.
+- `design@agent-skills@code-axes-rows-home`: constrains, respect. The checkpoint axes live in the development skill, which is why a dispatched developer that loads it sends them itself with no edit to that skill, as `thread@dispatch-judgement@development-dispatch` assumes.
+- `rejected@agent-skills@one-generic-auditor-agent`: constrains, respect. The work's checking agent, briefed with the original brief, is a general-purpose agent whose brief is its only standard; the reason limits it to ad hoc checks, never a step with a fixed standard, which keeps an installed agent.
+- `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript`: touches, respect. The work states how a returned conclusion is checked and parks report files; a conclusion returned through a workflow reaches the transcript only as the script's return, which the parked issue should cite.
+- `design@agent-skills@workflow-axis-corpus`: constrains, respect. The head already names the evidence of a piece too large for one agent; the retrospective question on a piece too large, absorbing the size hint, must not put a bound in its place.
+- `design@agent-skills@workflow-axis-lenses`: conflicts, check-reversal. An auditor's finding is checked by its verifier, then by the session; the draft's "checked once ... a check is not checked again", stated for every returned conclusion, contradicts that chain unless the named dispatches of an installed skill stay outside it, as the draft's first paragraph exempts them from the size rule only.
+- `design@agent-skills@workflow-axis-finding-standard`: constrains, none. Cites the seed `design@agent-skills@behaviour-additions-need-real-use`; the work changes no finding standard of the audit.
+- `design@agent-skills@workflow-auditor-agent`: constrains, respect. The audit's verify and check briefs and the session's decision are a named sequence the work's "checked once" must leave standing.
+- `design@agent-skills@root-cause-repair`: constrains, respect. The audit's cluster, merge and repair agents are named dispatches whose output the session verifies; the work's conditions must keep admitting them through "an output a check verifies".
+- `design@agent-skills@repair-proposals-audited`: conflicts, check-reversal. A repair proposal is checked by a check agent, then by the session's verification; the draft's "a check is not checked again" contradicts this sequence unless it is worded to exempt a skill's named steps.
+- `design@agent-skills@repairs-read-against-the-record`: constrains, none. The record check binds every writer of agent-facing text, and this record search meets it for the work's primer and retrospective text; it limits no shape of the work.
+- `rejected@agent-skills@one-repair-per-finding`: constrains, none. Cites the seed `design@agent-skills@capabilities-not-structure`; the work proposes no repair method.
+- `rejected@agent-skills@repair-check-left-to-session`: brings-back, new-argument-needed. "checked once, by the session or by one agent", applied to an audit's repair proposals, lets the session drop the check step and check at application, the design this entry rejects.
+- `rejected@agent-skills@repair-defects-left-to-next-pass`: brings-back, new-argument-needed. If "a check is not checked again" removes the check step before the session's verification, the defects of a repair's text are left to the next pass, which cost a whole pass each.
+- `rejected@agent-skills@two-readings-left-to-judgement`: constrains, none. Cites the seed `design@agent-skills@capabilities-not-structure`; the work leaves nothing read two ways to judgement.
+- `rejected@agent-skills@workflow-corpus-shared-out`: constrains, respect. Limits a partition of a reading among agents: a piece whose question spans its parts is not split, which the parked partition design and the primer's guidance on cutting pieces must respect.
+- `design@agent-skills@instruction-record-is-minimal`: constrains, respect. The work records a design head on installed text; it must pass an entry test (the harness's default, external behaviour; absolute dispatches as a reason at several skills), and the wording of the primer section's sentences takes %% comments, not the head.
+- `design@agent-skills@behaviour-additions-need-real-use`: constrains, respect. Is a seed; the owner's report and the harness-default mechanism ground the dispatch judgement, but the draft names no real-use instance for the carried-whole and checked-once paragraphs nor for the retrospective questions beyond the first.
+- `design@agent-skills@no-size-budget`: constrains, none. The retrospective skill gains questions, which no size budget limits; the edit is judged on the behaviour it changes, which the work already argues.
+- `design@agent-skills@synthetic-evidence-not-built`: constrains, respect. The draft's one run (a subagent holds Agent, not Workflow) is admitted harness mechanics; no run may be built to see whether sessions dispatch more under the new section or to set the token bound, so that evidence comes from retrospectives, as the work plans.
+- `design@agent-skills@capabilities-not-structure`: constrains, respect. Is a seed; the section gives a capability and its judgement with no size or kind threshold, absolute dispatches limited to named needs, and the carried-whole rule kept narrower than a fixed mapping so a partition into non-committing agents stays possible.
+- `design@agent-skills@expectation-set-bounds-scope`: constrains, none. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`; the dispatch questions bear on the session's behaviour, not the owner's, so no expectation set scopes them.
+- `design@agent-skills@no-two-installed-instructions-contradict`: constrains, respect. Cites seed: `design@agent-skills@capabilities-not-structure`; the section's exception sentence covers the skills' named dispatches, but 'a check is not checked again' meets the audit axis where a verifier and then the session read every finding and a re-check reads again (`design@agent-skills@workflow-axis-lenses`): the section needs a stated precedence there too.
+- `design@agent-skills@statement-names-an-act`: constrains, respect. Cites seed: `design@agent-skills@capabilities-not-structure`; each sentence of the new primer section and each retrospective question must name an act that differs without it, a reason only where the act needs it.
+- `design@agent-skills@term-defined-at-first-load`: constrains, respect. The section uses 'brief' and 'piece', and 'dispatch'; a term coined elsewhere that the primer now uses gets a `primer@coined-terms` line, one the section coins is defined in it.
+- `design@agent-skills@admission-rules-home`: constrains, respect. The condition on when an installed text states an absolute dispatch is a rule on what enters agent-facing text; if it binds a project's own skills it goes in the admission standard, if the installed text's maintainer alone, in the new head and a %% line, not as a writing rule in the primer.
+- `rejected@agent-skills@admission-standard-in-primer`: constrains, respect. Cites seed: `design@agent-skills@primer-limit`; the primer section's dispatch judgement is every session's act, but a rule to writers of installed text on absolute dispatches placed in the primer would bring part of this design back.
+- `issue@agent-skills@a-pending-ruled-file-is-reached-by-no-installed-search`: constrains, none. Cites seed: design@agent-skills@behaviour-additions-need-real-use; the work changes neither the record search's scope nor the pending-file directories.
+- `issue@agent-skills@expectation-sets-for-the-installed-skills`: constrains, none. Cites seed: design@agent-skills@behaviour-additions-need-real-use; the retrospective questions on dispatch concern the session's behaviour and add no expectation set.
+- `issue@agent-skills@no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness`: touches, respect. Cites seed: design@agent-skills@behaviour-additions-need-real-use; the section relies on the harness's Agent mechanism and is argued against the harness's own instruction 'When in doubt, don't spawn', the two statements this issue says no head argues: the new head must state its relation to that instruction (a weighing it adds, not a precedence) or argue the precedence.
+- `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`: touches, respect. Cites seeds: design@agent-skills@behaviour-additions-need-real-use and design@agent-skills@capabilities-not-structure; the work states where a fixed dispatch is admitted, a case of where the structure rule applies, and adds retrospective questions of the kind statement 4 names; its head must not contradict what that issue's closing discussion would argue.
+- `tripwire@agent-skills@agent-text-written-without-the-standard`: constrains, none. Cites seed: `design@agent-skills@behaviour-additions-need-real-use`; the work is designed under the design skill and its text written with the agent-configuration skill, and no such addition is reported.
+- `design@agent-skills@ruled-items-labelled`: constrains, none. Cites seed: `design@agent-skills@capabilities-not-structure`; the draft puts no labelled item to the owner and changes no prefix.
+- `design@agent-skills@design-home-is-built-intent`: constrains, respect. The new agent-skills head lands with the primer section and retrospective questions; until then the plan document is its only home.
+- `design@agent-skills@head-prevails-over-diverging-code`: constrains, respect. The new head limits absolute dispatches to three grounds; each existing one (record search, review axes, development checkpoint, audit, goal reviewer, transcript extraction at a plan's assembly) is checked against them in the work, else the head lands diverging from the installed text.
+- `design@agent-skills@local-intent-binds`: constrains, respect. Re-judging an existing absolute dispatch under the new conditions reads its %% comment and introducing commit first, whose reason binds as a presumption.
+- `design@agent-skills@standing-argument-in-head`: constrains, respect. The new head carries its premises: the goal and its constraint, the harness's tool description read (with how it is re-read), the owner's real-use report, and the fact defeating each rival.
+- `design@agent-skills@heads-stand-on-argument`: constrains, respect. The owner's real-use report lands as an attributed premise, the owner's proposal is recorded on its argument, and the owner's token hint is a fact or a threshold, not a ground by itself.
+- `design@agent-skills@attribution-replaces-quotation`: constrains, respect. The head and the commit attribute the owner's real-use report and size hint with their hedges ('nearly never', 'occasionally, not reliably', 'about'), never quote them.
+- `design@agent-skills@unargued-approval-is-argued`: constrains, respect. The retrospective questions are listed with no argument or rival each; an approval of them in a batch is argued before any record states them.
+- `design@agent-skills@owner-rules-at-a-fork`: constrains, respect. The threads, the owner's proposal and size hint included, close only after this search, on their argument or as a fork.
+- `rejected@agent-skills@head-cites-every-owner-ruling`: constrains, respect. The draft marks the primer thread as the owner's proposal; the head grounds on the argument and the owner's real-use report, not on the owner's ruling, which does not bring this design back.
+- `rejected@agent-skills@owner-words-quoted-in-head`: constrains, respect. The head records the owner's real-use report by attribution; quoting it would bring this design back, while quoting the harness's tool description is a source, not the owner.
+- `issue@agent-skills@a-head-s-measurement-says-nothing-of-its-magnitude`: constrains, none. Cites seed: design@agent-skills@primer-limit; the work writes no measured magnitude into a head nor the head-ground fragment, the token figure staying out of the primer.
+- `design@agent-skills@document-vocabulary`: constrains, none. Cites seed `design@agent-skills@step-is-no-commit`; its subject is the plan documents' words (spec, milestone, slice, step), and the work coins no plan-document word, so nothing in it is limited.
+- `design@agent-skills@step-is-no-commit`: constrains, respect. Is a seed; the thread that a dispatched piece is carried whole, its commit included, must not turn into a mapping of a dispatched piece or step to a commit count, which this head leaves to the implementing session's judgement.
+- `design@agent-skills@no-untested-snippet-is-authority`: constrains, respect. The spec will carry the primer section's text as a block, which must stay labelled an illustration of a shape, as the draft does; and a dispatched implementer given the plan is the reader this head guards against taking snippets as absolute truth.
+- `design@agent-skills@plan-written-in-the-converging-session`: constrains, respect. The primer's carry-or-dispatch guidance must not let a session hand the writing of a plan document to a later session; it agrees with the draft's sentence that the main session's context holds the exchange with the owner, which no brief rebuilds.
+- `design@agent-skills@ledger-from-transcript`: constrains, respect. The planning skill's subagent assembly is one of the absolute dispatches the work lists: it fits the condition of an output a check verifies, and the rule that a returned conclusion is checked once must count the transcript reviewer's check as that one check, or state how the two relate, so the assembly is not checked twice.
+- `design@agent-skills@undesigned-work-is-an-issue`: constrains, respect. The two parked threads, the partition of parallel work and report files written as an agent works, are known undesigned work, so each lands as an issue entry in the owning anchor, agent-skills, with its leads, as the draft says.
+- `rejected@agent-skills@spec-plus-detailed-plan`: constrains, respect. The primer's guidance on dispatching implementation, its brief weighed against what it leaves out, must not lead a session to write a dispatched developer a second, detailed step-by-step plan with code; the draft's sentence that a plan document carries most of what an implementer needs keeps clear of it.
+- `design@agent-skills@unrecognised-entries-reach-upstream`: constrains, respect. A standing question costs every retrospective its loading, so each dispatch question must watch an occasion most sessions meet; the work argues every session judges dispatch, which meets it, and a question on a check or a piece too large must not be one most sessions never meet.
+- `design@agent-skills@premortem-as-watch-points`: conflicts, check-reversal. The work adds standing questions to the list this head enumerates, so it widens the head: each must name the decision or goal it watches (the new dispatch head, `goal@session-orchestrates-the-work`) and the head's body gains them; and the head records that a session sees a subagent's brief and report, not its context, so the question whether a dispatched agent's context compacted is answerable only through its transcript.
+- `design@agent-skills@intake-shares-the-admission-standard`: constrains, none. Cites seed `design@agent-skills@behaviour-additions-need-real-use`; it governs how the intake judges a fix, and the work changes no intake step, so nothing in it is limited.
+- `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`: constrains, respect. The work proposes no question on unrecognised lines, so it brings nothing back; its reason, the cost of a standing question in every retrospective, limits the dispatch questions to ones most sessions can answer.
+- `design@check@nothing-of-a-project-is-compiled-in`: constrains, none. Cites seed: `design@agent-skills@primer-limit`; the work adds a primer member but changes nothing init writes or the tool compiles in, so nothing in the work is limited by it.
+- `design@check@installed-files-committed`: constrains, none. The work edits the shipped primer and retrospective skill, so its installed copies are reinstalled and committed in the same change; this limits no shape of the work.
+- `design@check@installed-files-compared-by-bytes`: constrains, none. The edited content/PRIMER.md and retrospective SKILL.md make the installed copies differ until reinstalled; a procedure the change follows, limiting no shape of the work.
+- `design@check@primer-import-line`: constrains, none. Dispatch-judgement-in-primer places the guidance in the primer because this import delivers it to every session; the work rests on the delivery and changes nothing of it.
+- `design@check@orphan-rejected-entry`: constrains, respect. The work records a design head in agent-skills with losing alternatives; any of them it records as a rejected entry must be cited from inside that head's section, or the check fails.
+- `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up`: touches, none. The work adds dispatch standing questions to the retrospective skill, the document this issue's owner consideration names as the moment for its own question; both edit that skill's standing questions, and neither limits the other.
+- `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`: touches, none. The issue the work opens on partitioning parallel work (a shared tree or worktrees per agent) bears on the per-agent worktrees and scratch directories this issue would give a command; the opened issue can cite it.
+- `design@knowledge-architect@versioning-policy`: constrains, respect. The work changes only installed text, the primer and the retrospective skill, so its changelog entry is classed patch by this table.
+- `design@knowledge-architect@changelog-entries`: constrains, respect. A primer section that makes sessions dispatch where they carried, and new retrospective questions put to the owner, are observable changes, so the branch owes a Workflow entry with surface agent-skills.
+- `design@knowledge-architect@the-branch-writes-its-changelog-entries`: constrains, respect. The branch implementing the primer section and the retrospective questions writes its own Workflow entry in Next release.
+- `design@knowledge-architect@git-flow`: constrains, respect. The issue the work opens on who commits and how parallel agents' parts merge must keep each commit of the branch passing the tip checker, and every part landing on a branch with main's history linear.
+- `design@knowledge-architect@no-operation-loses-content`: constrains, respect. A dispatched agent that carries its own commit, or parallel agents sharing one tree, act in a checkout holding another author's uncommitted work, where an amend, rebase or restore by one loses the other's content; the opened partition issue and the carried-whole rule must keep that out.
+- `design@knowledge-architect@scratch-worktree-outside-git-rules`: constrains, respect. A worktree per agent that holds the agent's durable part of the work is no scratch worktree, so the parked partition design cannot place parallel agents' work under this exception.
+- `design@model@section-homes-carry-slugs`: constrains, respect. The new primer section Dispatching work is a level-two heading of a section home, so it owes a slug (the draft names dispatching-work), and the slug becomes an interface consumers may cite.
+- `design@model@installed-entities-from-the-tree`: constrains, respect. The new primer section is written in content/PRIMER.md, so its slug is the build placeholder {{slug:dispatching-work}} (as every primer heading there is, measured with grep), and the section is defined only once the installed copy is reinstalled.
+- `goal@serves-one-kind-of-project`: constrains, respect. The primer section is argued on the claude harness default against dispatching; the text serves that harness and adds no mode for another.
+- `goal@every-target-project-can-adopt-it`: constrains, respect. The primer text and the retrospective question must hold nothing particular to this project, which is one ground for keeping the owner's 300k figure out of the primer.
+- `goal@design-is-recorded-with-its-arguments`: constrains, respect. The work records a new agent-skills design head for the dispatch judgement and the absolute-dispatch rule, which must carry its argument and the losing alternatives the draft lists.
+- `goal@records-reach-their-reader`: constrains, respect. The work opens issues for the parallel partition and the report files, and a head, each to cite the entries it bears on (the dispatch issue and the goal) so later sessions meet them.
+- `goal@the-owner-decides`: constrains, respect. A dispatched developer or other agent that decides something must have its decision reach the owner through the session; the report standard and the carried-whole rule must keep that path.
+- `goal@the-owner-s-word-is-verified`: constrains, respect. The owner's token hint and real-use report are words the work acts on; the draft checks the hint (window sizes differ, meaning unestablished) before absorbing it into a retrospective question.
+- `goal@design-with-agents-as-counterparts`: constrains, respect. The dispatch judgement argues that the main session's context holds the exchange with the owner; dispatched grounding must still reach the owner established before the owner rules.
+- `goal@agents-work-without-drift`: constrains, respect. Dispatched agents build too: the dispatched developer loads the development skill and sends its checkpoint axes, and a returned conclusion is checked once, so dispatched work stays within the record.
+- `goal@generic-tools-and-procedures-are-shipped`: constrains, respect. The dispatch judgement, today in the owner's user-level instructions, is taken into the shipped primer on the owner's proposal; only the generic part ships.
+- `goal@agents-get-a-complete-workflow`: constrains, respect. Dispatch guidance now lives in the owner's user-level instructions, outside the workflow; the primer section brings it inside so the workflow is complete without them.
+- `goal@only-needed-instructions`: constrains, respect. The primer section is admitted only because the real-use report shows judgement does not handle dispatch well enough; each retrospective question and the parked report file must pass the same test, and the token bound stays out.
+- `goal@the-workflow-improves-through-real-use`: constrains, respect. The primer section rests on the owner's real-use report, the retrospective questions gather further real-use evidence, and the report file waits for it.
+- `goal@session-orchestrates-the-work`: constrains, respect. The work is the workflow serving this goal; it leaves when to dispatch to judgement with no size or kind threshold, as the goal leaves open, and keeps the main session on the design.
 
 ## Criteria
 
@@ -176,7 +419,8 @@ carry, a check or an answer.
 
 ### Checking dispatched work does not raise the total cost much `##check-cost-weighed`
 
-Weighed, a lead of the source issue. Met: one check is enough, and no rule asks for a second.
+Weighed, a lead of the source issue. Met: one check is enough, and no rule of the primer asks for
+a second.
 
 ## Threads
 
@@ -211,8 +455,12 @@ Proposed by the owner, round 1 (`argument@dispatch-judgement@arg-3`,
 (`argument@dispatch-judgement@arg-13`). Every existing absolute dispatch fits a ground, and the rule
 lives in a head, not in the admission standard, since it binds what the installed text states
 (`argument@dispatch-judgement@arg-49`). Final state: argued, round 4; confirmed in the owner's word
-of round 8. Shape: the section's first paragraph. Harvest: inside the head `work-divided-by-judgement`,
-the exception staying with its rule.
+of round 8. Reopened at the review of this spec by a material finding:
+`design@agent-skills@admission-rules-home` gives every rule on what enters agent-facing text one
+home, the admission standard, which defeats the placement "in a head, not the admission
+standard"; closed again argued, the rule in the admission standard, which binds a project's own
+skills too. Shape: "Decided design", the admission sentence. Harvest: inside the head
+`work-divided-by-judgement`, the exception staying with its rule.
 
 ### A dispatched piece is what its brief gives the agent, and the agent carries all of it while it is dispatched `##dispatched-piece-carried-whole`
 
@@ -238,7 +486,8 @@ none.
 
 Proposed by the session, round 1 (`argument@dispatch-judgement@arg-11`), on the measured nested
 dispatch and the primer's list of installed skills (`argument@dispatch-judgement@arg-52`). Final
-state: argued, round 4. Harvest: none.
+state: argued, round 4. Harvest: inside `work-divided-by-judgement`, as the rival "guidance in each
+activity's skill", the development skill's included.
 
 ### One check, by a session other than the claim's author, against the evidence its report carries, is sufficient verification of a claim the work acts on `##dispatch-report-standard`
 
@@ -256,8 +505,9 @@ session (`argument@dispatch-judgement@arg-70`). The boundary on a claim nothing 
 the owner as a fork (`argument@dispatch-judgement@arg-72`); the owner, round 7: "2. Agreed. This
 matters most when the claims is acted on." and "Both cases are pretty much the same here actually."
 (`argument@dispatch-judgement@arg-76`, `argument@dispatch-judgement@arg-78`). Final state: approved,
-round 8. Shape: the section's check paragraph. Harvest: the head `one-check-by-another-session`;
-`design@agent-skills@session-acts-on-the-verdicts` rewritten to cite it.
+round 8; the boundary is the session's choice at a fork, which no goal ranks, approved by the
+owner. Shape: the section's check paragraph. Harvest: the head `one-check-by-another-session`, with
+the instances that cite it, as the owner asked, round 6: "with individual instances citing it".
 
 ### No token bound goes in the primer; a piece too large is asked about in the retrospective `##dispatch-size-hint`
 
@@ -268,12 +518,12 @@ search's ground, not a dispatch guideline (`argument@dispatch-judgement@arg-50`)
 superseded by `thread@dispatch-judgement@retrospective-dispatch-questions`, round 4. Harvest: a
 `rejected` entry if `skill@knowledge-architect-decision-recording` admits it.
 
-### The retrospective asks whether the session carried work an agent could have carried, whether an agent came back unfinished or with an unusable report, and whether a returned conclusion proved wrong or was checked twice `##retrospective-dispatch-questions`
+### The retrospective asks whether the session carried work an agent could have carried, whether an agent came back unfinished or with an unusable report, and whether a returned conclusion proved wrong after its check or was checked again where no skill asked `##retrospective-dispatch-questions`
 
 Proposed by the session, round 1 (`argument@dispatch-judgement@arg-14`); reshaped after the search,
 each question naming what it watches, answerable from the session's side, and met by most sessions
-(`argument@dispatch-judgement@arg-51`). Final state: approved, round 8. Shape: "Decided design",
-the questions. Harvest: the three questions in `design@agent-skills@premortem-as-watch-points`.
+(`argument@dispatch-judgement@arg-51`). Final state: approved, round 8; the compaction question's drop is re-argued after the review of this
+spec found its first reason wrong. Shape: "Decided design", the questions. Harvest: the three questions in `design@agent-skills@premortem-as-watch-points`.
 
 ### Report files written as an agent works, annotated by a verifier, wait for evidence `##dispatch-report-file`
 
@@ -296,8 +546,8 @@ issue `how-parallel-work-is-partitioned-among-agents`, which carries the facts o
 ### The owner's user-level instructions are aligned with the section after the work `##user-level-alignment`
 
 Proposed by the owner, round 2 (`argument@dispatch-judgement@arg-20`). Final state: approved, round
-8. Outside the project: no harvest. Done after the work, in the owner's dotfiles, under the owner's
-own instructions for them.
+8, as "brought into line" after the spec, with no actor named. Who does it and when is the owner's:
+D1. Outside the project: no harvest.
 
 ## Arguments
 
@@ -361,7 +611,7 @@ Round 1, session. Bears on `thread@dispatch-judgement@retrospective-dispatch-que
 
 Round 2, owner. Bears on `thread@dispatch-judgement@dispatch-judgement-in-primer`. Key words: "I nearly never saw the main session dispatch subagents for tasks where I believe it could have been useful, especially for saving context that was not well spent and should probably have been kept for design discussions."
 
-### A session with a large context costs more usage than one with a small context `##arg-16`
+### As far as the owner knows, a session with a large context costs more usage than one with a small context `##arg-16`
 
 Round 2, owner. Bears on `thread@dispatch-judgement@dispatch-judgement-in-primer`. Key words: "There is also the cost of a session whose context gets high, which costs more usage quota than a session with nearly empty context AFAIK. This was discussed at the last redesign of the record search."
 
@@ -373,7 +623,7 @@ Round 2, owner. Bears on `thread@dispatch-judgement@dispatch-size-hint`. Key wor
 
 Round 2, owner. Bears on `thread@dispatch-judgement@dispatch-judgement-in-primer`. Key words: "In the session that drafted the orchestration goal and wrote the issue, the session applied my leads, and from my observation it went very well, with the main session ending the task with enough spare context"; "In sessions since that, I have seen that happen occasionally, I guess due to sessions reading the orchestration goal, but definitely not reliable."
 
-### The harness keeps dispatching opt in because early users want to watch the work `##arg-19`
+### As far as the owner knows, the harness keeps dispatching opt in because users might not like it, early users preferring to watch the work `##arg-19`
 
 Round 2, owner. Bears on `thread@dispatch-judgement@dispatch-judgement-in-primer`. Key words: "the claude code harness tries to discourage dispatch by default, keeping that feature opt in, because users might not like it (especially at the beginning, where trusting agents is harder, and early users prefer keeping a close watch on agent work)."
 
@@ -580,7 +830,9 @@ Round 6, session. Bears on `thread@dispatch-judgement@dispatch-report-standard`.
 ### The lapse rate of self-verification is measured in this session `##arg-70`
 
 Round 6, session. Bears on `thread@dispatch-judgement@dispatch-report-standard`. Key words: "Every one of the 18 reported that its first `--check` failed"; "Two limits on this evidence: the failures are about exact quotation, not about the truth of a claim, and an agent may have relied on the cheap check on purpose rather than lapsed."; "dispatchers saved condensed copies, or none, in 7 of 12 sessions against an explicit instruction"; the transcript reviewer "exists to catch that expected rate".
- Corrected at assembly: 16 reports state that the first check failed; for agent-4 and agent-8 a first failure is inferred from their re-runs.
+
+Corrected at assembly: 16 reports state that the first check failed; for agent-4 and agent-8 a first failure is inferred from their re-runs.
+
 ### The chain ends: each claim gets one check, and the main session's claims are checked at the merge `##arg-71`
 
 Round 6, session. Bears on `thread@dispatch-judgement@dispatch-report-standard`. Key words: "**The chain still ends.** Each claim gets one check by a session other than its author. A repairer's report holds *new* claims"; "That is not a check of a check. The main session's own claims are checked by the review before the merge."
@@ -629,6 +881,7 @@ Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-prim
 
 Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-primer`. Key words: "**The section is built on a relation, not a list of cases.** So a pairing nobody anticipated, such as an investigation and the fix it leads to, is judged by the same two bullets with no new text. That is `goal@only-needed-instructions`."
 
+
 ## New names, in one place
 
 ```text
@@ -642,7 +895,7 @@ dispatching.md                                   a subdocument of the agent-skil
 
 ## Decided design
 
-### `thread@dispatch-judgement@dispatch-judgement-in-primer`, with `thread@dispatch-judgement@absolute-dispatch-conditions`, `thread@dispatch-judgement@dispatched-piece-carried-whole` and `thread@dispatch-judgement@dispatch-report-standard`
+### `thread@dispatch-judgement@dispatch-judgement-in-primer`, with `thread@dispatch-judgement@dispatched-piece-carried-whole` and `thread@dispatch-judgement@dispatch-report-standard`
 
 A new primer section, placed after `primer@decided-section`. An illustration of its shape, its
 wording the step's own; the `%%` lines carry the reasons:
@@ -652,14 +905,14 @@ wording the step's own; the `%%` lines carry the reasons:
 
 **A session that can dispatch agents judges how the work is divided between itself and the agents
 it dispatches.** No instruction fixes a size or a kind of work for this, except the dispatches an
-installed skill names, each for a step that needs a point of view apart from the session's, an
-output a check verifies, or an occasion most work meets.
+installed text names.
 
 - **One carrier**, the session or one agent, takes two pieces that reason over the same details, so
   that none reads again what another read: verifying findings and repairing them, or writing a
   change and its commit.
 - **Separate carriers** take two pieces when one judges the other, as a review or a check judges
-  what it reads; or when they are independent and splitting them saves context.
+  what it reads, even where the two reason over the same details; or when they are independent and
+  splitting them saves context.
 - **The session dispatches** a piece when a brief can carry what it needs of the session's context
   and the session needs only its result, not the reading and the trials behind it, as an
   investigation, a survey or a mechanical change.
@@ -676,13 +929,20 @@ output a check verifies, or an occasion most work meets.
 session does not take over a part of it while it is dispatched, such as its commit because that
 part alone is small. What an agent returns unfinished is a new piece. An agent reports what it acted
 on and what it did not, with why. Agents dispatched together each get a scratch directory of their
-own, as `skill@knowledge-architect-review@review-invariants` says.
+own.
 
-**A conclusion that comes back is checked before the session acts on it**: an agent other than the
-one that reported it, the session or one it dispatches, verifies its claims against the evidence
-the report carries; a command that checks a report's form is no such check. One check is enough:
-it stands for the session's own verification of that conclusion, per `primer@verify-before-relying`.
+**A conclusion that comes back is checked before the session acts on it**: a session other than the
+one that reported it, the dispatching session or one it dispatches, verifies its claims against the
+evidence the report carries; a command that checks a report's form is no such check. One check is
+enough: it stands for the dispatching session's own verification of that conclusion, per
+`primer@verify-before-relying`. A check's verdict on a claim is no new conclusion; the claims a
+checker adds of its own, such as a repairer's account of what it did and did not repair, are.
 ```
+
+The words: in this section, as in the primer, a **session** is the main session or any agent; "the
+session" alone is the one that dispatches. The bullets are named here by their bold words: the
+**One carrier**, **Separate carriers**, **The session dispatches**, **The session carries** and
+**Between the two** bullets.
 
 The argument, by part:
 
@@ -692,36 +952,55 @@ The argument, by part:
   pieces, not a list of cases, judges a pairing nobody anticipated. The nearest rival, no text and
   `primer@room-to-judge` alone, lost to the owner's real-use report and to the harness's default,
   which leans against dispatching; the section is a weighing beside that default, not a precedence
-  over it.
+  over it. "Every later turn costs more as the context grows" rests on the Messages API being
+  stateless: each request carries, and is billed for, the whole conversation, cached or not.
 - **The primer as its home.** A session meets the question in every activity, and no skill loads at
-  that moment, per `design@agent-skills@primer-limit`. The primer "can dilute in a long session",
-  per `rejected@agent-skills@head-rules-whole-in-primer`: the case the owner saw fail,
-  implementation, starts at point 3 of the planning skill's procedure, which gets one sentence and
-  its pointer to the section, per `design@agent-skills@restatement-size-test`. The rival, guidance
-  in each activity's skill, restates the judgement in each and reaches only the sessions that load
-  it.
-- **The absolute dispatches.** An installed text fixes a dispatch only on a property of the step that
-  holds whatever the task's size: a separate point of view (the reviews, the goal reviewer), a
-  checked output (the record search through `worklist --verify`, the audits through their
-  verifiers, the transcript extraction through the transcript reviewer), or an occasion most work
-  meets (a merge, a development checkpoint). Any other "always dispatch X" is a size claim in
-  disguise. The rule binds what the installed text states, so it lives in a head and its `%%`
-  lines, not in the admission standard.
-- **Carried whole.** The Carry bullet, read at the size of one step, says the session carries a
-  commit alone; the harness's "Do the work yourself when it is a handful of tool calls" says the
-  same. The paragraph fixes the unit at the brief's piece, which admits the thaum process, where the
-  briefs said not to commit and the session committed the parts after.
+  that moment, per `design@agent-skills@primer-limit`. The primer "can dilute in a long one", a
+  long session, per `rejected@agent-skills@head-rules-whole-in-primer`: the case the owner saw
+  fail, implementation, starts at point 3 of the planning skill's procedure, which gets one
+  sentence and its pointer to the section, per `design@agent-skills@restatement-size-test`. The
+  rival, guidance in each activity's skill, the development skill's included, restates the
+  judgement in each and reaches only the sessions that load it.
+- **The dispatches an installed text fixes.** An installed text fixes a dispatch only on a property
+  of the step that holds whatever the task's size, today one of three: a separate point of view
+  (the reviews, the goal reviewer), an output whose form a command verifies and whose claims a check
+  then verifies (the record search, through `worklist --verify` and the session's reading of the
+  verdicts; the audits, through their verifiers; the transcript extraction, through the transcript
+  reviewer), or an occasion most work meets (a merge, a development checkpoint). Any other "always
+  dispatch X" is a size claim in disguise. The rule binds what enters installed text, so its home
+  is the admission standard, `skill@knowledge-architect-agent-configuration@admission-standard`, per
+  `design@agent-skills@admission-rules-home`; the primer says only that the dispatches an installed
+  text names are not judged.
+- **Carried whole.** The **The session carries** bullet, read at the size of one step, says the
+  session carries a commit alone; the harness's "Do the work yourself when it is a handful of tool
+  calls" says the same. The paragraph fixes the unit at the brief's piece. It does not rule out the
+  thaum process, defined under Names: its briefs said not to commit, so the commit was never part of
+  an agent's piece, and the bullets are a judgement the independence of the parts weighs in.
 - **The check.** The primer asks every session to verify its own claims before writing them, and
   the instruction lapses often: of the 18 record searchers of this discussion, each told to quote
   verbatim, 16 reported that their first `worklist --check` failed on their quotations, and agent-4
-  and agent-8 re-ran theirs after repairs, a first failure inferred; dispatchers saved condensed
+  and agent-8 re-ran theirs after repairs, a first failure inferred. The failures are of exact
+  quotation, not of a claim's truth, and an agent may have leaned on the cheap check on purpose;
+  the figure is kept in the message of the commit that adds this spec. Dispatchers saved condensed
   copies of reports, or none, in 7 of 12 sessions, per `design@agent-skills@reviewer-writes-its-report`.
   So a claim the work acts on gets one check by a session other than its author. One check is a
   minimum, not a ceiling: it forbids no second check a skill asks for, such as the audit's sample of
   a verifier's refutations. A claim whose effect is that nothing is done, a refuted finding, may be
-  sampled where a skill says so; a finding judged real and not worth acting on is a decision, which
-  `primer@decided-section` brings to the owner. Each claim gets its one check, and the main
-  session's own are checked by the review before the merge, so no chain is open.
+  sampled where a skill says so: the session chose this boundary over a check of every refutation,
+  which no goal ranks, and the owner approved it, adding that the check "matters most when the
+  claims is acted on", and that a finding judged real and not worth acting on "maybe that deserves
+  verification. Or maybe not." Such a finding is a decision, which `primer@decided-section` brings
+  to the owner. Each claim gets its one check, a verdict is no new claim, and the main session's own
+  claims are checked by the review before the merge, so no chain is open.
+
+### `thread@dispatch-judgement@absolute-dispatch-conditions`
+
+One sentence in the admission standard,
+`skill@knowledge-architect-agent-configuration@admission-standard`, an illustration of its shape:
+"An instruction fixes a dispatch only on a property of the step that holds whatever the task's
+size, such as a point of view apart from the session's, an output a check verifies, or an occasion
+most work meets; any other fixed dispatch is judged by the primer's section on dispatching work."
+It binds a project's own skills as it binds the installed text.
 
 ### `thread@dispatch-judgement@retrospective-dispatch-questions`
 
@@ -733,21 +1012,24 @@ their shape:
   exchange with the owner needed? For each: the work, and what it cost.
 - Did a dispatched agent return without finishing its piece, or with a report the session could not
   act on without redoing the work? For each: the brief, and what was missing.
-- Did this session act on a returned conclusion that proved wrong, or check one conclusion more than
-  once? For each: the conclusion, and who checked it.
+- Did this session act on a returned conclusion that proved wrong after its check, or check a
+  conclusion again where no skill asked for it? For each: the conclusion, and who checked it.
 ```
 
 Each watches a decision whose failure shows in real sessions first, per
-`design@agent-skills@premortem-as-watch-points`: the first `work-divided-by-judgement`, the second
-the division of pieces and the evidence `dispatched-agents-write-their-report-as-they-work` waits
-for, the third `one-check-by-another-session`. A session sees an agent's brief and report, not its
-context, so no question asks about an agent's context.
+`design@agent-skills@premortem-as-watch-points`: the first and the second watch
+`work-divided-by-judgement`, the second also bringing the evidence the issue
+`dispatched-agents-write-their-report-as-they-work` waits for; the third watches
+`one-check-by-another-session`. The questions are watches that head argues, not instructions on
+how a working session behaves, so `design@agent-skills@behaviour-additions-need-real-use` asks
+nothing more of them.
 
 ### The pointer at implementation's start
 
 One sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`, an illustration:
-"Who carries the implementation, the session or agents it dispatches, is judged as the
-primer's section on dispatching work says."
+"Who carries the implementation, the session or agents it dispatches, is judged as the primer's
+section on dispatching work says." Step 1 writes the pointer as the primer reference of the new
+section, whose slug is `dispatching-work`, once the install defines it.
 
 ## Mapping tables
 
@@ -758,10 +1040,14 @@ The work needs none.
 - **No text, relying on `primer@room-to-judge`**, lost to `thread@dispatch-judgement@dispatch-judgement-in-primer`:
   the owner's real-use report shows the judgement failing, and the harness's default leans against
   dispatching.
-- **Guidance in each activity's skill**, lost to the same thread: the judgement is met in every
-  activity, and no skill loads at that moment.
+- **Guidance in each activity's skill**, the development skill's included, lost to the same thread:
+  the judgement is met in every activity, and no skill loads at that moment.
 - **Absolute thresholds of size or kind**, lost to the same thread: size varies without bound, per
   `design@agent-skills@capabilities-not-structure`.
+- **The rule on fixed dispatches in a head and `%%` lines alone**, the session's first placement in
+  `thread@dispatch-judgement@absolute-dispatch-conditions`, lost to
+  `design@agent-skills@admission-rules-home`, found by the review of this spec: every rule on what
+  enters agent-facing text has one home.
 - **A token bound in the primer**, from `thread@dispatch-judgement@dispatch-size-hint`, lost to
   `thread@dispatch-judgement@retrospective-dispatch-questions`: the figure a session sees per agent
   has an unestablished meaning, context windows differ by model, and the lesson serves the next
@@ -771,34 +1057,48 @@ The work needs none.
   thaum process.
 - **"A check is not checked again", scoped to dispatches no skill names**, the wording of rounds 2
   and 4 of `thread@dispatch-judgement@dispatch-report-standard`, lost to the minimum: as a ceiling
-  it collided with six heads and needed an exemption.
-- **Every refutation checked**, lost to the boundary of `thread@dispatch-judgement@dispatch-report-standard`:
-  a wrong refutation loses a finding nothing applies, which the audit's next pass and
-  `tripwire@agent-skills@verifier-refutes-a-true-finding` watch, where a wrong confirmation lands an
-  edit.
+  it collided with seven heads and needed an exemption.
+- **Every refutation checked**, lost at a fork to the boundary of
+  `thread@dispatch-judgement@dispatch-report-standard`: the session chose the boundary, which no
+  goal ranks, and the owner approved it. A wrong refutation loses a finding nothing applies, which
+  the audit's next pass and `tripwire@agent-skills@verifier-refutes-a-true-finding` watch, where a
+  wrong confirmation lands an edit.
 - **A capability sentence in the design skill**, `thread@dispatch-judgement@design-investigation-dispatch`,
-  superseded: the section's dispatch bullet covers it.
-- **A compaction question in the retrospective**, lost: a session cannot observe an agent's context,
-  per `design@agent-skills@premortem-as-watch-points`.
+  superseded: the section's **The session dispatches** bullet covers it.
+- **A compaction question in the retrospective**, lost: a compaction that harmed the work shows in
+  the second question, as a piece returned unfinished or a report the session could not act on, and
+  one that did not harm it is no failure; asking it would have every retrospective read every
+  subagent's transcript, which `klarch transcript show --subagents` prints, for an event that is no
+  failure on its own. The first reason given, that a session cannot see an agent's context, was
+  wrong: `design@agent-skills@premortem-as-watch-points` adds "unless it reads the subagent's
+  transcript".
+- **A question on whether checking raised the total cost**, the source issue's lead, refused: no
+  session holds the cost the work would have had without the check, so no session can answer it.
+  The counts a session can take of a review's cost are
+  `issue@agent-skills@the-retrospective-counts-no-review-cost`'s.
 
 ## Readings
 
-The work reads no external specification. It reads the behaviour of an external tool, Claude Code:
+The work reads no external specification. It reads the behaviour of external tools:
 
-- its Agent tool description, "Do the work yourself when it is a handful of tool calls … When in
-  doubt, don't spawn.", read in this session's tool list; recorded in `work-divided-by-judgement`;
-- a general-purpose subagent holds `Agent` and no `Workflow`, and the primer reaches a nested agent:
-  measured once each in this session; recorded in `work-divided-by-judgement`, with the probe that
-  takes each again: one general-purpose agent asked to list its tools and to dispatch one nested
-  agent that quotes a sentence of the primer from its initial context.
+- Claude Code 2.1.322's Agent tool description, "Do the work yourself when it is a handful of tool
+  calls … When in doubt, don't spawn.", read in this session's tool list; recorded in
+  `work-divided-by-judgement`, with the version;
+- in Claude Code 2.1.322, a general-purpose subagent holds `Agent` and no `Workflow`, and the primer
+  reaches a nested agent: measured once each in this session; recorded in
+  `work-divided-by-judgement`, with the probe that takes each again: one general-purpose agent asked
+  to list its tools and to dispatch one nested agent that quotes a sentence of the primer from its
+  initial context;
+- the Messages API is stateless, each request carrying the whole conversation: the ground of "every
+  later turn costs more as the context grows".
 
 ## Premortem
 
 | cause | thread it stresses | verdict |
 | --- | --- | --- |
-| sessions still carry the implementation themselves: the primer dilutes, and the harness's default wins | `thread@dispatch-judgement@dispatch-judgement-in-primer` | converted: the pointer sentence at point 3 of the planning skill's procedure; and watched by the first retrospective question |
-| sessions dispatch lookups, each paying about 36,000 tokens to reload | `thread@dispatch-judgement@dispatch-judgement-in-primer` | dropped: only the owner sees usage, which fails condition 2 of the standard, and the owner would see the failure |
-| a verifier refutes a true finding, and one check lets it pass unseen | `thread@dispatch-judgement@dispatch-report-standard` | in the audit, guarded by `tripwire@agent-skills@verifier-refutes-a-true-finding`; elsewhere, named as a cause for the harvest to judge, watched by the third retrospective question |
+| sessions still carry the implementation themselves: the primer dilutes, and the harness's default wins | `thread@dispatch-judgement@dispatch-judgement-in-primer` | converted: the pointer sentence at point 3 of the planning skill's procedure; and watched by the first of the new retrospective questions |
+| sessions dispatch lookups, each paying about 36,000 tokens to reload | `thread@dispatch-judgement@dispatch-judgement-in-primer` | dropped: only the owner sees usage, which fails condition 2 of the tripwire standard, `skill@knowledge-architect-planning@acceptance-criteria`, and the owner would see the failure |
+| a verifier refutes a true finding, and one check lets it pass unseen | `thread@dispatch-judgement@dispatch-report-standard` | in the audit, guarded by `tripwire@agent-skills@verifier-refutes-a-true-finding`; elsewhere, no session learns of it, so condition 2 fails; named for the harvest to judge, likely dropped |
 | an agent returns its piece unfinished, and "does not take over a part of it" is read as forbidding the session to finish it | `thread@dispatch-judgement@dispatched-piece-carried-whole` | converted into a clause: "What an agent returns unfinished is a new piece." |
 | agents dispatched together edit one tree and lose each other's uncommitted work | `thread@dispatch-judgement@dispatched-piece-carried-whole`, `thread@dispatch-judgement@parallel-work-partition` | carried into the issue `how-parallel-work-is-partitioned-among-agents` |
 
@@ -809,34 +1109,53 @@ wrong.
 
 ## Implementation sequence
 
-### Step 1: the primer section and the pointer
+The three steps land in one commit or in several, the implementing session's to judge, per
+`design@agent-skills@step-is-no-commit`; the `%%` lines that cite the new heads are written in the
+commit that writes the heads, since a reference to a head no tree holds fails the check.
 
-Builds the section `dispatching-work` in the primer, after `primer@decided-section`, with its `%%`
-lines; the pointer sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`; the
-install; a line for the coined term "carrier" in `primer@coined-terms` if the section uses it as a
-term other installed texts use, per `design@agent-skills@term-defined-at-first-load`.
+### Step 1: the primer section, the pointer and the admission sentence
 
-Claims:
+Builds the section `dispatching-work` in the primer, after `primer@decided-section`; the pointer
+sentence at point 3 of `skill@knowledge-architect-planning@working-a-slice`; the sentence of the
+admission standard; `%%` lines at each check site that state a check rule, naming the check head
+once it exists: the review skill's "Verify each against the tree before relaying or acting on it",
+the planning skill's "Check each finding against the tree, or against the transcript", the record
+searcher's "You check your conclusions as the session that sent you checks its own claims", and the
+intake's "re-checks every verdict a proposal rests on"; the install. "Carrier" gets no line in
+`primer@coined-terms`: the primer's section defines it, per
+`design@agent-skills@term-defined-at-first-load`.
 
-- every absolute dispatch the installed text states fits one of the three grounds: tested by reading
-  every installed skill and agent for a fixed dispatch, a phrase search being a lead only;
-- no installed instruction and the section leave a session without a move that obeys both, the
-  audit's verify-then-sample and the review's "Verify each against the tree" included: tested by
-  reading each check site the section "What the work is" lists against the check paragraph;
+Claims, each tested by reading, a phrase search being a lead only; a test is shown to discriminate
+by naming the site it would fail on had the text been left as it was:
+
+- every fixed dispatch the installed text states fits a property of the step that holds whatever the
+  task's size: tested by reading every installed skill and agent for a fixed dispatch;
+- no installed instruction and the section leave a session without a move that obeys both: tested
+  by reading each check site named above, the audit's verify-then-sample of
+  `design@agent-skills@one-run-pass` included, against the check paragraph;
 - `cargo klarch check` passes on the installed copies.
 
 ### Step 2: the retrospective questions
 
-Builds the three standing questions in the retrospective skill, after the existing ones, with a
-`%%` line naming what each watches; the install.
+Builds the three standing questions in the retrospective skill, after the existing ones; the
+install.
 
-Claims: each question is answerable from what a session holds, its own transcript, the briefs it
-sent and the reports it received: tested by reading each against
-`design@agent-skills@premortem-as-watch-points`.
+Claims: each question is answerable from what a session holds, its own transcript and its
+subagents' through `klarch transcript show --subagents`, the briefs it sent and the reports it
+received: tested by reading each against `design@agent-skills@premortem-as-watch-points`.
 
 ### Step 3: the harvest
 
-Per the row below.
+Writes every row of the Harvest below, then the `%%` lines of step 1 that cite the new heads.
+
+Claims:
+
+- each head cites what its argument stands on, and each instance named in the Harvest cites
+  `one-check-by-another-session`: tested by `cargo klarch show` of the head, which lists every
+  reference to it;
+- `cargo klarch check` passes;
+- the message of the harvest's commit states every cause of the premortem with its outcome, and
+  the report on the acceptance criteria, none.
 
 ## Order rationale
 
@@ -845,23 +1164,27 @@ Per the row below.
 
 ## Defaults awaiting the owner
 
-None.
+- **D1**, on `thread@dispatch-judgement@user-level-alignment`: the session aligns the owner's
+  user-level instructions, `~/.claude/CLAUDE.md`, section "Using subagents", with the primer
+  section, after step 3, reading `~/.utils/README.md` first since the file is a tracked dotfile, and
+  puts the diff to the owner before committing it there. Awaiting the owner's word.
 
 ## Harvest
 
 | what | where | when |
 | --- | --- | --- |
-| the head `work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `work-divided-by-judgement`), test 3 on the harness's default, test 2 on the absolute dispatches at several sites | a new subdocument, `planned@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
-| the head `one-check-by-another-session` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `one-check-by-another-session`), test 2: the review, the planning skill's findings, the record search, the audit and the primer check claims | the same subdocument | step 3 |
-| `design@agent-skills@session-acts-on-the-verdicts` rewritten to cite `one-check-by-another-session`; `design@agent-skills@primer-limit` gains the section as a member; `design@agent-skills@premortem-as-watch-points` gains the three questions | their homes | step 3 |
+| the head `work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `work-divided-by-judgement`): its title states the rule, the work divided by a judgement on the relations of its pieces, an installed text fixing a dispatch only on a property of the step that holds whatever the task's size; its body names the three properties of today, the readings with the Claude Code version, and the rivals no text, thresholds, and guidance in each skill; test 3 on the harness's default, test 2 on the fixed dispatches at several sites | a new subdocument, `planned@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
+| the head `one-check-by-another-session` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `one-check-by-another-session`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
+| the instances cite `one-check-by-another-session`: `design@agent-skills@session-acts-on-the-verdicts`, its check rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its check | their homes | step 3 |
+| `design@agent-skills@verification-in-primer` gains the section as the place where a returned conclusion's check lives; `design@agent-skills@primer-limit` gains the section as a member, with where the judgement lives; `design@agent-skills@premortem-as-watch-points` gains the three questions, each with what it watches; `design@agent-skills@a-scratch-directory-per-subagent` names the primer section among the texts that state its rule; `design@agent-skills@admission-rules-home` names the admission sentence on fixed dispatches | their homes | step 3 |
 | the losing alternatives, each judged by `skill@knowledge-architect-decision-recording` for a `rejected` entry | `register@agent-skills@rejected` | step 3 |
-| the premortem's third cause, judged by the tripwire standard | `register@agent-skills@tripwire`, or dropped with its reason | step 3 |
-| the issue `dispatched-agents-write-their-report-as-they-work`, kind `deferred`, trigger: a retrospective answer to the second dispatch question naming a report the session could not act on; it cites `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript` and `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`, and answers `rejected@agent-skills@ledger-written-during-discussion` and `design@agent-skills@refused-report-returned-as-text` | `register@agent-skills@issue` | step 3 |
-| the issue `how-parallel-work-is-partitioned-among-agents`, kind `deferred`, trigger: a plan document whose work wants parallel agents; it carries the cold build of a fresh worktree (`rejected@mutate@worktree-holds-the-mutation`), parallel target directories filling a shared tmpfs (`issue@mutate@an-environment-failure-reads-as-caught`), the content-loss risk of a shared tree (`design@knowledge-architect@no-operation-loses-content`), that a durable per-agent worktree is not a scratch one (`design@knowledge-architect@scratch-worktree-outside-git-rules`), that `skill@knowledge-architect-review@review-invariants` gives a worktree only to a subagent that judges a commit, the ambiguity `design@agent-skills@step-is-no-commit` meets under a partition, and `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`; it cites `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand` | `register@agent-skills@issue` | step 3 |
+| the premortem's third cause, judged by the tripwire standard | `register@agent-skills@tripwire`, or dropped with its reason in the harvest's commit | step 3 |
+| the issue `dispatched-agents-write-their-report-as-they-work`, kind `deferred`, trigger: a retrospective answer to the second dispatch question naming a report the session could not act on. Its body: the owner's proposal of report files an agent writes as it works and a verifier annotates, to fill the gap of reports written in one shot at the end; why it waits, no real session having shown the gap; how it differs from `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript` and `issue@query@a-searcher-fills-its-report-by-a-script-of-its-own`, which it cites; that the harness refuses a subagent's `Write` of a `report.md`, per `design@agent-skills@report-written-through-the-shell` and `design@agent-skills@refused-report-returned-as-text`; and how the shape answers `rejected@agent-skills@ledger-written-during-discussion`, a file an agent writes for its own piece rather than the discussion's ledger | `register@agent-skills@issue` | step 3 |
+| the issue `how-parallel-work-is-partitioned-among-agents`, kind `deferred`, trigger: a plan document whose work wants parallel agents. Its body: the owner's report of the thaum split, agents in parallel per Component, no commits during the work, the session committing each part after; the owner's motive, time more than context; the shape the owner named, parts carried in worktrees of their own, committed, then rebase-merged; and the facts: the cold build of a fresh worktree (`rejected@mutate@worktree-holds-the-mutation`), parallel target directories filling a shared tmpfs (`issue@mutate@an-environment-failure-reads-as-caught`), the content-loss risk of a shared tree (`design@knowledge-architect@no-operation-loses-content`), that a durable per-agent worktree is not a scratch one (`design@knowledge-architect@scratch-worktree-outside-git-rules`), that `skill@knowledge-architect-review@review-invariants` gives a worktree to a subagent that judges a commit and runs the checker, a test, a mutation or a built program, the ambiguity `design@agent-skills@step-is-no-commit` meets under a partition, and `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`; it cites `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand` | `register@agent-skills@issue` | step 3 |
 | a Workflow entry, a patch, in `Next release`, then `cargo x changelog` | CHANGELOG.md | step 3 |
 
 ## Later consequences
 
 - The later discussion on partitioning parallel work starts from
   `how-parallel-work-is-partitioned-among-agents`.
-- The owner aligns the user-level instructions on subagents with the section, outside the project.
+- The alignment of the owner's user-level instructions, per D1.
