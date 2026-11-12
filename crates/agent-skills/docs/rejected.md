@@ -828,3 +828,25 @@ above the 250,000 tokens of `design@query@worklist-bound-is-40000-words`, by the
 discussion's own searchers, or more agents at a lower bound; and a raw transcript holds positions
 the discussion later dropped, which a searcher would have to tell apart. The owner judged the cost
 somewhat too high, and doubted that it is worth it.
+
+### A token bound per dispatched agent in the primer, as a hint that pieces are cut too coarse `##dispatch-size-hint`
+
+`live`. The one figure a session sees per agent, the harness's count of a subagent's tokens, has a
+meaning no measurement has established; context windows differ by model, so one bound fits none of
+them alike; and the act a bound would change is cutting pieces finer the next time, a lesson from a
+finished session, whose occasion is the retrospective, not the moment of dispatch. A number in the
+primer that cut a coherent piece would also bring back `rejected@agent-skills@subject-groups-bounded-at-sixty`.
+It is kept here because a doubt remains whether a session notices a piece too large for its agent
+without a figure: the retrospective's question on an agent that came back unfinished is where that
+shows.
+
+### "A check is not checked again", a ceiling on the verification of a returned conclusion `##a-check-is-not-checked-again`
+
+`live`. As a ceiling, it contradicts every chain of verification a skill builds on purpose: the
+record search of the discussion that weighed it, 18 agents, graded seven heads as in conflict with
+it, among them the audit's verifiers followed by the session's own verification, the check step
+before the session reads a repair proposal, and the design-conformance reviewer reading verdicts
+the session already acted on; it would also bring back `rejected@agent-skills@repair-check-left-to-session`
+and `rejected@agent-skills@repair-defects-left-to-next-pass`. Scoping it to dispatches no skill
+names needed an exemption for each chain. A minimum, one independent verification, ends an
+open-ended chain without forbidding any of them.

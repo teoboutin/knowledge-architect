@@ -21,6 +21,8 @@ designed further or built, and reads an entry you give `unrelated` only by your 
 miss is met only at a later review, after the work exists, where it costs rework instead of a
 ruling; a `rejected` entry you miss comes back as a proposal.
 
+%% The session's verification of the verdicts, which the description states, is their independent
+%% verification, per `design@agent-skills@one-independent-verification-suffices`.
 **You check your conclusions as the session that sent you checks its own claims**, and each verdict
 states your conclusion, not a condition: resolve every doubt that the work and the record answer.
 What `primer@question-authority` reserves to the owner goes in the line's `owner-question`: the

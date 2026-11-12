@@ -118,7 +118,8 @@ verdicts, its edit before and after, its check and a proposed outcome, the overl
 the owner list, and what the run did not decide.
 
 After the run the session verifies the report, as the axis's section of the audit skill says, since
-the owner list goes out under its responsibility: the report whole, every finding the report marks
+the owner list goes out under its responsibility, a verification beyond the verifiers' independent
+one, which the minimum of `design@agent-skills@one-independent-verification-suffices` admits: the report whole, every finding the report marks
 as plausible or as bearing on a ruling of the owner or on a tripwire, against its draft, and a
 sample of the refuted drafts, with what the axis adds: every repair proposal in full for the
 agentic-workflow axis; the calibration's readings, every check and a sample of the conforming drafts
@@ -381,8 +382,10 @@ so the drafts that share a wrong draft's class are read by the same agent, again
 corpus, in one verify step. The nearest rival, one verifier per draft, reads the whole corpus once
 per draft: at the fourth pass of the agentic-workflow axis on this repository, 63 drafts against 16
 auditors. The plan document of that work holds the measurement, and
-`git log --diff-filter=D --name-only -- docs/plans/` finds it. Nothing a verifier passes is applied
-before the session's verification, per `design@agent-skills@one-run-pass`.
+`git log --diff-filter=D --name-only -- docs/plans/` finds it.
+A verifier's verdict is the independent verification of each draft, per
+`design@agent-skills@one-independent-verification-suffices`, and nothing a verifier passes is
+applied before the session's verification, per `design@agent-skills@one-run-pass`.
 
 ### An audit runs on an occasion whose own work needs the record read under the rules, never on a period `##audit-triggers`
 

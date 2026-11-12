@@ -114,6 +114,7 @@ message of the owner the brief names.
   with its file tool, and lets a shell redirect write it; the file is the copy the record of the
   review is built from, since a compaction of the conversation keeps no report, and the text
   returned keeps the findings in the transcript the transcript reviewer reads.
+%% One independent verification of a finding: `design@agent-skills@one-independent-verification-suffices`.
 - **The dispatcher does not defend the work.** Findings arrive as claims to check, not as attacks to
   answer. Verify each against the tree before relaying or acting on it; a reviewer can be wrong, and
   saying so requires the same reproduction the reviewer owed.

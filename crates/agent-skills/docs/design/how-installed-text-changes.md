@@ -283,7 +283,8 @@ lists, run in the agent configuration's directory.
 ### Every rule on what enters agent-facing text and how a change to it is shaped lives in one section of the agent-configuration skill `##admission-rules-home`
 
 `skill@knowledge-architect-agent-configuration@admission-standard` holds the need test of
-`design@agent-skills@statement-names-an-act`, the evidence an addition needs, the lapse rule, the kind of a gap,
+`design@agent-skills@statement-names-an-act`, the evidence an addition needs, the lapse rule, the kind of a gap
+with the rule on a dispatch an instruction fixes, per `design@agent-skills@work-divided-by-judgement`,
 the shape of a repair with its instruction count and net growth, the record check, and the outcomes
 of a need-test failure. Every actor that writes or judges agent-facing text applies it at the moment it judges: a
 session writing such text, a skill that moves text into it, the review axis on agent-facing text,

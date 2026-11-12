@@ -40,7 +40,10 @@ skill's addition was missed, whether the session needed to write a reference or 
 backticks because no checked form expresses it, whether the session or a subagent wrote a script
 or carried by hand over several steps a mechanical task the installed workflow asks of it, and
 whether an installed rule about code or about splitting into Components proved too hard or too
-strict, or was followed against the work's interest. Real use
+strict, or was followed against the work's interest, whether the session carried work an agent
+could have carried, whether a dispatched agent came back unfinished or with a report the session
+could not act on without redoing the work, and whether a returned conclusion proved wrong after its
+independent verification or was verified again where no skill asked. Real use
 is the test of the workflow, per
 `goal@the-workflow-improves-through-real-use`, and each question watches a
 decision or a goal whose failure would be seen in real sessions before any check could see it:
@@ -55,7 +58,13 @@ too strict or was followed against the work's interest,
 criteria are learned from use, per `design@agent-skills@default-code-shape` and
 `design@agent-skills@component-skill-delivery`; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
-question, which no goal ranks, and the owner approved it. The question
+question, which no goal ranks, and the owner approved it; and, for the questions on dispatch,
+`design@agent-skills@work-divided-by-judgement`, watched by the question on work an agent could
+have carried and by the question on an agent that came back unfinished or with an unusable report,
+which also brings the evidence `issue@agent-skills@dispatched-agents-write-their-report-as-they-work`
+waits for, and `design@agent-skills@one-independent-verification-suffices`, watched by the question
+on a returned conclusion. Each is answered from the session's side: its own transcript, the briefs
+it sent and the reports it received, and a subagent's transcript where an answer needs it. The question
 on a mechanical task is asked of every session, since every session follows the workflow's procedures, where the question that lost in
 `rejected@agent-skills@retrospective-asks-for-unrecognised-lines` met a command most sessions never
 run; its evidence is real use, the owner's report that each design session wrote a loop to check a

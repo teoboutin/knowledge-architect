@@ -70,7 +70,9 @@ unanswered, and reads as declared departures the heads the diff rewrites and tho
 as reversed.
 
 The session acts on each verdict without reading the entry by rule, per
-`design@agent-skills@session-acts-on-the-verdicts`, and this reviewer already reads the record
+`design@agent-skills@session-acts-on-the-verdicts`, after the verdict's one independent
+verification, per `design@agent-skills@one-independent-verification-suffices`; this reviewer's
+reading is a review of the work, which that minimum admits, and this reviewer already reads the record
 against the work, so on the full path the verdict files add reading and no dispatch. The rival, the
 verdicts recorded and read by no reviewer, leaves a verdict the session misjudged to surface only
 after the work, the rework the search before the work exists to prevent, per
@@ -135,7 +137,8 @@ against the owner's rulings.
 A dispatcher that sends several subagents together names in each brief a scratch directory distinct
 from the others', as it names a distinct worktree for a reviewer that builds, and an agent that
 writes working files writes them there only. The installed review skill states it among the
-invariants of a dispatch, and the record searcher's description, which carries its dispatch rule,
+invariants of a dispatch, `primer@dispatching-work` states it for every dispatch of agents together,
+and the record searcher's description, which carries its dispatch rule,
 makes each agent directory that `klarch worklist` writes its searcher's scratch directory.
 Subagents sharing one scratch directory overwrite one another's files: parallel searchers in one
 session did, and one repeated its work, and reviewers in another could not tell whether files of the

@@ -277,13 +277,15 @@ nothing is decided: the question goes to the owner, as a contradiction does, per
 %% meets the question and no skill loads at that moment, per `design@agent-skills@primer-limit`.
 %% The harness's Agent tool description tells a session to do the work itself when in doubt; the
 %% section is a weighing beside that default, not a precedence over it. The purpose the judgement
-%% weighs toward serves `goal@session-orchestrates-the-work`.
+%% weighs toward serves `goal@session-orchestrates-the-work`. The decision:
+%% `design@agent-skills@work-divided-by-judgement`.
 **A session that can dispatch agents judges how the work is divided between itself and the agents
 it dispatches.** The main session dispatches so that its context stays for what only it can do,
 the design, the decisions and the exchange with the owner, while agents carry the rest; an agent
-that dispatches in turn weighs the same way for its own piece. No instruction fixes a size or a kind of work for this; a dispatch that a skill or
-an agent fixes at a step is made as that text says, and is not judged here. The session or the
-agent that carries a piece of the work is its carrier.
+that dispatches in turn weighs the same way for its own piece. No instruction fixes a size or a
+kind of work for this; a dispatch that a skill or an agent fixes at a step is made as that text
+says, and is not judged here. The session or the agent that carries a piece of the work is its
+carrier.
 
 - **One carrier** takes two pieces that reason over the same details, so that no carrier reads
   again what another read: verifying findings and repairing them, or writing a change and its
@@ -320,7 +322,8 @@ a scratch directory of their own.
 
 %% A session's verification of its own claims lapses often, so a claim the work acts on gets a
 %% verification by another session; one is a minimum, which forbids no further verification a skill
-%% asks for. Its place in the primer: `design@agent-skills@verification-in-primer`.
+%% asks for, per `design@agent-skills@one-independent-verification-suffices`. Its place in the
+%% primer: `design@agent-skills@verification-in-primer`.
 **A conclusion that comes back gets an independent verification before the session acts on it**:
 a session other than the one that reported it, the dispatching session or an agent it dispatches,
 verifies its claims against the evidence the report carries. A command that checks a report's form

@@ -162,8 +162,9 @@ not hold of the searcher's judgement is a question of `issue@agent-skills@a-reco
 ### The session acts on each verdict by its action, checked as it checks its own claims, and reads an entry whole only where it reasons over it `##session-acts-on-the-verdicts`
 
 Once `klarch worklist --verify` passes, the session reads the verdict files, or hands them to agents
-it dispatches, at its judgement; acts on each verdict other than `unrelated` by its action, checking
-it as it checks its own claims, per `primer@verify-before-relying`; reads whole, with `show`, an
+it dispatches, at its judgement; acts on each verdict other than `unrelated` by its action, after
+the verdict's independent verification, per `design@agent-skills@one-independent-verification-suffices`,
+which the session makes as it checks its own claims or hands to an agent it dispatches; reads whole, with `show`, an
 entry it must reason over itself, such as one a proposal would reverse; puts each `owner-question`
 to the owner as `primer@question-authority` says; and carries each report's `## Decided` and
 `## Met outside the task` into its own sections. The searcher's description states these acts, and
@@ -181,8 +182,7 @@ Where the occasion's record goes:
   entry given a verdict against it.
 
 It serves `goal@session-orchestrates-the-work`: the main session keeps the design and
-the decisions and hands the reading to agents, and checks a dispatched conclusion as it checks its
-own claims, no more and no less. A verdict carries its quotation, which the command checks, so the evidence an act rests on
+the decisions and hands the reading to agents. A verdict carries its quotation, which the command checks, so the evidence an act rests on
 is in the line; the session reads an entry whole where it must reason over the entry itself, since
 there the line does not carry what it needs. The nearest rival, the session reading whole the
 entries graded as bearing, lost to the size of that reading:
