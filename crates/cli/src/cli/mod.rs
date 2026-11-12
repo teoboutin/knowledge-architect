@@ -219,7 +219,8 @@ pub struct InitArgs {
     #[arg(value_name = "PATH", default_value = ".")]
     pub path: std::path::PathBuf,
     /// The project's name. The default is the basename of PATH. A name that begins with
-    /// `knowledge-architect-`, the installer's namespace, is refused.
+    /// `knowledge-architect-`, the installer's namespace, a name a reference cannot spell, a word
+    /// the tool reserves and the name of a kind are refused.
     #[arg(long, value_name = "NAME", value_parser = project_name)]
     pub name: Option<String>,
     /// A Component to add, as `new-component` adds one; repeatable. DIR is relative to PATH.

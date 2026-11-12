@@ -107,7 +107,8 @@ fn the_manifest_is_named_after_path_and_pinned_to_this_version() {
 }
 
 /// The claim: `--command` is written as `[project] command`, and `--name` overrides the
-/// basename.
+/// basename and is written as given, its case kept. Mutation checked: `project_name` of
+/// `path@cli@src/cli/mod.rs` returning the value lowercased; caught.
 #[test]
 fn name_and_command_are_written_as_given() {
     let scratch = Scratch::new("named");
@@ -117,7 +118,7 @@ fn name_and_command_are_written_as_given() {
             "init",
             "dir",
             "--name",
-            "other-name",
+            "Other-Name",
             "--command",
             "tools/bin/klarch",
         ],
@@ -126,7 +127,7 @@ fn name_and_command_are_written_as_given() {
     let manifest =
         std::fs::read_to_string(scratch.path("dir/knowledge-architect.toml")).expect("written");
     let value: toml::Table = toml::from_str(&manifest).expect("the manifest parses");
-    assert_eq!(value["project"]["name"].as_str(), Some("other-name"));
+    assert_eq!(value["project"]["name"].as_str(), Some("Other-Name"));
     assert_eq!(
         value["project"]["command"].as_str(),
         Some("tools/bin/klarch")
@@ -161,8 +162,9 @@ fn a_manifest_at_path_refuses_and_one_above_does_not() {
 }
 
 /// The claim: a name the manifest refuses, or one inside the installer's namespace, refuses the
-/// run, exit 2, and PATH is not even created. The installer's namespace without its hyphen is
-/// accepted.
+/// run, exit 2, and PATH is not even created, whether given by `--name` or taken from PATH. The
+/// installer's namespace without its hyphen is accepted. Mutation checked: the call of
+/// `check_name` in `init` of `path@create@src/command.rs` removed; caught.
 #[test]
 fn a_refused_name_writes_nothing() {
     let scratch = Scratch::new("names");
@@ -171,6 +173,12 @@ fn a_refused_name_writes_nothing() {
         assert_eq!(code, 2, "{name}: {out}{err}");
         assert!(!scratch.path("p").exists(), "{name}: PATH was created");
     }
+    // A name taken from PATH reaches no declaration, so `init` refuses it itself.
+    for path in ["knowledge-architect-x", "plans"] {
+        let (out, err, code) = klarch(&scratch.dir, &["init", path]);
+        assert_eq!(code, 2, "{path}: {out}{err}");
+        assert!(!scratch.path(path).exists(), "{path}: PATH was created");
+    }
     let (out, err, code) = klarch(
         &scratch.dir,
         &["init", "p", "--name", "knowledge-architect"],
@@ -178,21 +186,21 @@ fn a_refused_name_writes_nothing() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim: a `--name` inside the installer's namespace is refused while parsing, per
-/// `design@cli@command-parsing-home`: exit 2 with clap's refusal of the value, where a check after
-/// parsing would first refuse the manifest PATH already holds, and nothing is written.
+/// The claim: a `--name` refused by its form, inside the installer's namespace, unspellable in a
+/// reference or a reserved word, is refused while parsing, per `design@cli@command-parsing-home`:
+/// exit 2 with clap's refusal of the value, where a check after parsing would first refuse the
+/// manifest PATH already holds, and nothing is written.
 /// Mutation checked: the `value_parser` of `--name` removed from `InitArgs` in `path@cli@src/cli/mod.rs`; caught.
 #[test]
-fn a_name_in_the_installer_s_namespace_is_refused_while_parsing() {
+fn a_name_refused_by_its_form_is_refused_while_parsing() {
     let scratch = Scratch::new("name-parse");
     scratch.write("knowledge-architect.toml", "held\n");
     let before = listing(&scratch.dir);
-    let (out, err, code) = klarch(
-        &scratch.dir,
-        &["init", ".", "--name", "knowledge-architect-x"],
-    );
-    assert_eq!(code, 2, "{out}{err}");
-    assert!(err.starts_with("error: invalid value"), "{err}");
+    for name in ["knowledge-architect-x", "*", "plans"] {
+        let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", name]);
+        assert_eq!(code, 2, "{name}: {out}{err}");
+        assert!(err.starts_with("error: invalid value"), "{name}: {err}");
+    }
     assert_eq!(listing(&scratch.dir), before);
     assert_eq!(
         std::fs::read_to_string(scratch.path("knowledge-architect.toml")).expect("kept"),

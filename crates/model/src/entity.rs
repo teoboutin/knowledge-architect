@@ -150,7 +150,7 @@ pub(crate) const PLANS_ANCHOR: &str = "plans";
 
 /// Whether a word is reserved by the tool, so no declared anchor and no plan may wear it: the
 /// two words of the `path` kind, and the plans anchor's name.
-pub(crate) fn is_reserved_anchor(word: &str) -> bool {
+pub fn is_reserved_anchor(word: &str) -> bool {
     word == ESCAPE_ANCHOR || word == EVERY_ANCHOR || word == PLANS_ANCHOR
 }
 

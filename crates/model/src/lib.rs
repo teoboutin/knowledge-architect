@@ -112,8 +112,9 @@ pub mod listing {
 /// The entity table, the anchors, and the records over them.
 pub mod table {
     pub use crate::entity::{
-        candidate, is_anchor_name, is_entity_id, is_entry_id, spelled, Anchor, Anchors, Candidate,
-        Constructed, Entities, EntryOf, Home, Kind, Resolution, Site, EVERY_ANCHOR, REGISTER_KIND,
+        candidate, is_anchor_name, is_entity_id, is_entry_id, is_reserved_anchor, spelled, Anchor,
+        Anchors, Candidate, Constructed, Entities, EntryOf, Home, Kind, Resolution, Site,
+        EVERY_ANCHOR, REGISTER_KIND,
     };
     pub use crate::model::DumpRow;
     pub use crate::records::{cited_within, edges, records, EntryKey, Inbound, Record};

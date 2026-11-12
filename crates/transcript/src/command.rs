@@ -45,7 +45,8 @@ pub struct ListOptions {
     pub branch: Option<String>,
     /// Keep a session holding a line the owner typed whose text contains this.
     pub containing: Option<String>,
-    /// Keep a session whose last line is on or after this date, `YYYY-MM-DD`, in UTC.
+    /// Keep a session whose last line is on or after this date, `YYYY-MM-DD`, in UTC; a value that
+    /// is no day of the calendar is refused, per [`check_since`].
     pub since: Option<String>,
     /// Read the sessions of every project, not only this one's.
     pub all_projects: bool,
@@ -98,7 +99,8 @@ pub struct SearchOptions {
     pub tools: bool,
     /// Search only the sessions one of whose lines carries this git branch.
     pub branch: Option<String>,
-    /// Search only the sessions whose last line is on or after this date, `YYYY-MM-DD`, in UTC.
+    /// Search only the sessions whose last line is on or after this date, `YYYY-MM-DD`, in UTC; a
+    /// value that is no day of the calendar is refused, per [`check_since`].
     pub since: Option<String>,
     /// Search the sessions of every project, not only this one's.
     pub all_projects: bool,
@@ -648,21 +650,53 @@ mod tests {
 
     use super::*;
 
+    /// The claim: `list` and `search` refuse a `since` that is no date before reading anything,
+    /// since an options value can be built without the declaration that refuses it while parsing.
+    /// Mutation checked: each call of `check_date` removed, in `list` and in `search`; each caught.
+    #[test]
+    fn list_and_search_refuse_a_since_that_is_no_date() {
+        let nowhere = std::path::Path::new("/nowhere");
+        let since = Some("2026-02-30".to_string());
+        let err = list(
+            nowhere,
+            nowhere,
+            &ListOptions {
+                since: since.clone(),
+                ..Default::default()
+            },
+        )
+        .expect_err("refused");
+        assert!(err.starts_with("--since: "), "{err}");
+        let err = search(
+            nowhere,
+            nowhere,
+            &SearchOptions {
+                pattern: ".".to_string(),
+                since,
+                ..Default::default()
+            },
+        )
+        .expect_err("refused");
+        assert!(err.starts_with("--since: "), "{err}");
+    }
+
     /// The claim: a date is refused unless it is a day of the calendar written `YYYY-MM-DD`: its
     /// shape, its month, its day within the month, and February's 29th in a leap year alone.
     /// Mutations checked in `check_since`: the length test `== 10` as `>= 10`, the hyphen test as
     /// `true`, `shaped && {` as `shaped || {`, the leap rule cut to `year % 4 == 0` and to
     /// `year % 4 == 0 && year % 100 != 0`, `2 if leap => 29` as `2 => 29`, April's 30 days as 31,
-    /// and the day range `1..=days` as `0..=days`; each caught.
+    /// and the day range `1..=days` as `0..=days`; each caught. Every month is tested on its last
+    /// day and on the day after it, so a month moved between the arms of the table fails.
     #[test]
     fn since_takes_a_day_of_the_calendar() {
-        for date in [
-            "2026-01-31",
-            "2024-02-29",
-            "2000-02-29",
-            "2026-12-01",
-            "2026-04-30",
-        ] {
+        let last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        for (month, days) in (1..).zip(last) {
+            let date = format!("2026-{month:02}-{days:02}");
+            assert_eq!(check_since(&date), Ok(()), "{date}");
+            let past = format!("2026-{month:02}-{:02}", days + 1);
+            assert!(check_since(&past).is_err(), "{past}");
+        }
+        for date in ["2026-12-01", "2024-02-29", "2000-02-29"] {
             assert_eq!(check_since(date), Ok(()), "{date}");
         }
         for date in [
@@ -673,9 +707,6 @@ mod tests {
             "2026-13-01",
             "2026-00-10",
             "2026-01-00",
-            "2026-01-32",
-            "2026-04-31",
-            "2026-02-29",
             "1900-02-29",
             "2026-+1-01",
         ] {
