@@ -1308,6 +1308,24 @@ pub struct Entities {
     defined: BTreeMap<(Kind, String, String), Vec<Site>>,
     /// Misplaced, malformed and duplicate definitions, found while building.
     findings: Vec<Finding>,
+    /// The misplaced slugs among `findings`, whose repair names the reference forms of what the
+    /// slug resolves to once the table is whole.
+    misplaced: Vec<Misplaced>,
+}
+
+/// A slug written where it defines nothing, by the index of its finding.
+///
+/// Its writer meant a definition or a pointer, and the finding cannot tell which, so its repair
+/// names both: the move, and the reference form of each entity the slug resolves to. The table is
+/// whole only once every definition is read, a later document's and the harness's included, so
+/// the forms are added at the end of `Entities::build`.
+#[derive(Debug)]
+struct Misplaced {
+    index: usize,
+    id: String,
+    /// The plan whose document holds the slug: its items are cited only from inside it, so they
+    /// are offered there and nowhere else.
+    plan: Option<String>,
 }
 
 impl Entities {
@@ -1327,6 +1345,7 @@ impl Entities {
         if anchors.serves_harness() {
             out.harness_definitions(model);
         }
+        out.name_pointer_forms(anchors);
         out.report_duplicates(model);
         out
     }
@@ -1348,7 +1367,7 @@ impl Entities {
             }
             if owner.is_plan() && doc.is_markdown() {
                 self.item_definitions(doc, owner, anchors);
-                self.findings[first..].sort_by_key(|f| f.line);
+                self.sort_from(first);
                 continue;
             }
             let home = register_of(anchors, owner, &doc.rel);
@@ -1375,17 +1394,17 @@ impl Entities {
                 let level = match site {
                     SlugSite::Heading(level) => *level,
                     SlugSite::Cell => {
-                        self.findings.push(misplaced("in a table cell".to_string()));
+                        self.push_misplaced(misplaced("in a table cell".to_string()), id, None);
                         continue;
                     }
                     SlugSite::LineHead => {
-                        self.findings
-                            .push(misplaced("at the head of a plain line".to_string()));
+                        let f = misplaced("at the head of a plain line".to_string());
+                        self.push_misplaced(f, id, None);
                         continue;
                     }
                     SlugSite::Inline => {
-                        self.findings
-                            .push(misplaced("in the middle of a line".to_string()));
+                        let f = misplaced("in the middle of a line".to_string());
+                        self.push_misplaced(f, id, None);
                         continue;
                     }
                 };
@@ -1400,21 +1419,28 @@ impl Entities {
                                 line: l.line,
                             })
                     }
-                    Some(Ok(_)) => self
-                        .findings
-                        .push(misplaced(format!("at a level-{level} heading"))),
-                    Some(Err(dir)) => self.findings.push(misplaced(format!(
-                        "in the README of the `{}` directory home",
-                        dir.display()
-                    ))),
-                    None => self.findings.push(misplaced(format!(
-                        "in `{}`, which is no heading register home of `{}`",
-                        doc.rel.display(),
-                        owner.name
-                    ))),
+                    Some(Ok(_)) => {
+                        let f = misplaced(format!("at a level-{level} heading"));
+                        self.push_misplaced(f, id, None)
+                    }
+                    Some(Err(dir)) => {
+                        let f = misplaced(format!(
+                            "in the README of the `{}` directory home",
+                            dir.display()
+                        ));
+                        self.push_misplaced(f, id, None)
+                    }
+                    None => {
+                        let f = misplaced(format!(
+                            "in `{}`, which is no heading register home of `{}`",
+                            doc.rel.display(),
+                            owner.name
+                        ));
+                        self.push_misplaced(f, id, None)
+                    }
                 }
             }
-            self.findings[first..].sort_by_key(|f| f.line);
+            self.sort_from(first);
         }
     }
 
@@ -1502,7 +1528,7 @@ impl Entities {
             if let (None, SlugSite::Heading(level), Some(section)) =
                 (register, site, section_at(l.line))
             {
-                self.findings.push(Finding::at(
+                let f = Finding::at(
                     &doc.rel,
                     l.line,
                     format!(
@@ -1512,7 +1538,8 @@ impl Entities {
                     ),
                     "an item is defined at the end of a level-3 heading under its section; move \
                      it to one, or delete it",
-                ));
+                );
+                self.push_misplaced(f, id, Some(&owner.name));
                 continue;
             }
             match register {
@@ -1526,20 +1553,30 @@ impl Entities {
                             line: l.line,
                         })
                 }
-                None => self.findings.push(Finding::at(
-                    &doc.rel,
-                    l.line,
-                    format!(
-                        "`##{id}` is written outside the item sections of the plan `{}` and \
-                         defines nothing",
-                        owner.name
-                    ),
-                    format!(
-                        "an item of a plan is defined at the end of a level-3 heading under one \
-                         of its sections {}; move it there, or delete it",
-                        sections.join(", ")
-                    ),
-                )),
+                None => {
+                    // A slug off a heading is misplaced for its site, wherever it stands: inside
+                    // an item section as well as outside one.
+                    let at = match site {
+                        SlugSite::Heading(_) => "outside the item sections",
+                        SlugSite::Cell => "in a table cell",
+                        SlugSite::LineHead => "at the head of a plain line",
+                        SlugSite::Inline => "in the middle of a line",
+                    };
+                    let f = Finding::at(
+                        &doc.rel,
+                        l.line,
+                        format!(
+                            "`##{id}` is written {at} of the plan `{}` and defines nothing",
+                            owner.name
+                        ),
+                        format!(
+                            "an item of a plan is defined at the end of a level-3 heading under \
+                             one of its sections {}; move it there, or delete it",
+                            sections.join(", ")
+                        ),
+                    );
+                    self.push_misplaced(f, id, Some(&owner.name));
+                }
             }
         }
     }
@@ -1590,7 +1627,7 @@ impl Entities {
             };
             let first = self.findings.len();
             self.section_home(doc, &home, true);
-            self.findings[first..].sort_by_key(|f| f.line);
+            self.sort_from(first);
         }
         for doc in model.installed() {
             if let Some(home) = SectionHome::of(&doc.rel, &doc.text) {
@@ -1602,6 +1639,8 @@ impl Entities {
     fn section_home(&mut self, doc: &crate::model::Document, home: &SectionHome, report: bool) {
         let kind = home.kind();
         let mut findings = Vec::new();
+        // The misplaced slugs among `findings`, by their index there.
+        let mut misplaced: Vec<(usize, String)> = Vec::new();
         let owner = match home {
             SectionHome::Skill(name) | SectionHome::Agent(name) => {
                 let what = if kind.name() == SKILL_KIND {
@@ -1713,6 +1752,7 @@ impl Entities {
                                 line: l.line,
                             });
                     } else {
+                        misplaced.push((findings.len(), id.clone()));
                         findings.push(Finding::at(
                             &doc.rel,
                             l.line,
@@ -1729,7 +1769,82 @@ impl Entities {
             }
         }
         if report {
+            let base = self.findings.len();
+            self.misplaced
+                .extend(misplaced.into_iter().map(|(index, id)| Misplaced {
+                    index: base + index,
+                    id,
+                    plan: None,
+                }));
             self.findings.extend(findings);
+        }
+    }
+
+    /// Push the finding on a slug written where it defines nothing, recorded for
+    /// `Entities::name_pointer_forms` to complete.
+    fn push_misplaced(&mut self, finding: Finding, id: &str, plan: Option<&str>) {
+        self.misplaced.push(Misplaced {
+            index: self.findings.len(),
+            id: id.to_string(),
+            plan: plan.map(str::to_string),
+        });
+        self.findings.push(finding);
+    }
+
+    /// Put the findings from `first` on in line order, the recorded index of each misplaced slug
+    /// among them following its finding. A stable sort, so two findings on one line keep the
+    /// order they were found in.
+    fn sort_from(&mut self, first: usize) {
+        let mut tail: Vec<(usize, Finding)> = self
+            .findings
+            .drain(first..)
+            .enumerate()
+            .map(|(i, f)| (first + i, f))
+            .collect();
+        tail.sort_by_key(|(_, f)| f.line);
+        let moved: std::collections::HashMap<usize, usize> = tail
+            .iter()
+            .enumerate()
+            .map(|(to, (from, _))| (*from, first + to))
+            .collect();
+        for m in &mut self.misplaced {
+            if let Some(to) = moved.get(&m.index) {
+                m.index = *to;
+            }
+        }
+        self.findings.extend(tail.into_iter().map(|(_, f)| f));
+    }
+
+    /// Add to the repair of each misplaced slug the reference form of every entity its id names,
+    /// since its writer may have meant a pointer, per `design@check@finding-names-the-repair`.
+    ///
+    /// Every kind the table holds counts, a harness kind's included, but an item of a plan, which
+    /// is cited only from inside its own plan, counts only for a slug written in that plan. A
+    /// slug that names nothing keeps its repair as it is.
+    fn name_pointer_forms(&mut self, anchors: &Anchors) {
+        for m in &self.misplaced {
+            let forms: Vec<String> = self
+                .defined
+                .keys()
+                .filter(|(_, _, id)| *id == m.id)
+                .filter(|(kind, anchor, _)| {
+                    let item = anchors
+                        .registers()
+                        .by_name(kind.name())
+                        .is_some_and(|r| r.shape == Shape::Section);
+                    !item || m.plan.as_deref() == Some(anchor.as_str())
+                })
+                .map(|(kind, anchor, id)| format!("`{}`", spelled(kind.name(), anchor, id)))
+                .collect();
+            let action = &mut self.findings[m.index].action;
+            match forms.as_slice() {
+                [] => {}
+                [one] => action.push_str(&format!(", or, to point at it, write {one}")),
+                several => action.push_str(&format!(
+                    ", or, to point at the entity it names, write one of {}",
+                    several.join(", ")
+                )),
+            }
         }
     }
 
