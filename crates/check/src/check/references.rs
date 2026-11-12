@@ -578,9 +578,7 @@ fn render_forms(id: &str, pairs: Vec<(String, String)>) -> Vec<String> {
 }
 
 /// The kind and the anchor of each entity that defines `id` and that a reference from `rel` would
-/// resolve to.
-/// The reference of every entity the tables define with this id that `rel` may cite: an item of
-/// a plan only from inside that plan, as its reference resolves, per
+/// resolve to: an item of a plan only from inside that plan, as its reference resolves, per
 /// `design@model@plan-item-scope`.
 fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, String)> {
     tables
