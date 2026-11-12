@@ -451,9 +451,9 @@ impl Model {
 ///
 /// Each cause needs its own repair, per `design@check@finding-names-the-repair`. A path git lists
 /// and the working tree does not hold is a tracked file deleted and not yet staged; one the working
-/// tree holds as a directory is a tracked file replaced by one; bytes that are not UTF-8 are
-/// re-encoded or kept out of the walk; any other refusal, such as a permission, is the reading
-/// user's to lift.
+/// tree holds as a directory is a tracked file replaced by one, which is moved aside; bytes that
+/// are not UTF-8 are re-encoded or kept out of the walk; any other refusal, such as a permission,
+/// is the reading user's to lift.
 fn unread(e: &std::io::Error) -> Trouble {
     use std::io::ErrorKind;
     match e.kind() {
@@ -461,9 +461,12 @@ fn unread(e: &std::io::Error) -> Trouble {
             "git lists this file and the working tree does not hold it",
             "stage the deletion, or restore the file",
         ),
+        // The directory is moved aside first in both repairs: restoring the file over it drops
+        // what it holds, and staging the deletion leaves an empty directory, which git does not
+        // list, holding the name of a file a later repair may have to create.
         ErrorKind::IsADirectory => Trouble::new(
             "git lists this file and the working tree holds a directory in its place",
-            "stage the change, or restore the file",
+            "move the directory aside, then restore the file or stage its deletion",
         ),
         ErrorKind::InvalidData => {
             Trouble::not_utf8(format!("this file could not be read as text: {e}"))
@@ -543,7 +546,7 @@ mod tests {
             ),
             (
                 ErrorKind::IsADirectory,
-                "stage the change, or restore the file",
+                "move the directory aside, then restore the file or stage its deletion",
             ),
             (ErrorKind::InvalidData, "re-encode it as UTF-8"),
             (
