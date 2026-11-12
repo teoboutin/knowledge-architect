@@ -14,11 +14,6 @@ message's claims are fixed the moment it lands: a pointer that stops resolving i
 repaired where it stands, and the same pointer in a message can only be read wrong. That is why
 the regime matters most on messages.
 
-**A message is judged byte for byte, as the commit holds it.** `commits` reads the message
-with `%B` and cleans nothing: git applied its own cleanup before the commit existed, and a
-second pass would take bytes of a commit out of the regime — under `-m` a `#` line is committed
-verbatim.
-
 **Everything a commit is judged against is read from that commit's tree.** The manifest, the
 `[walk]` rules, the documents, the generated indexes, the per-instance options and every file an
 extension reads all come through git objects, and the model is assembled in memory. Reading them from the
@@ -32,6 +27,12 @@ asserted where that commit's own rules exempted it — a finding rather than a s
 failing tree fails the range, a branch that changes its ignore rules orders its commits for it
 as a branch that makes the checker stricter does, per
 `design@check@every-commit-judged-by-the-tip-checker`: the change first, or a squash.
+
+### A message is judged byte for byte, as the commit holds it `##message-judged-byte-for-byte`
+
+`commits` reads the message with `%B` and cleans nothing: git applied its own cleanup before the
+commit existed, and a second pass would take bytes of a commit out of the regime of
+`design@check@a-commit-message-is-a-document` — under `-m` a `#` line is committed verbatim.
 
 ### One command judges messages, after the commit exists `##one-command-judges-messages-after-the-commit`
 
@@ -75,12 +76,14 @@ is squashed to one commit before its review. Checker changes are rare and land o
 their own, so this costs a history edit on those branches alone; the alternative that avoids it,
 building each commit's own checker, costs one release build per commit on every branch.
 
-**A historical tree's `[project] checker-version` is read, not compared.** Its absence stops the
-tree in phase 1; its value is never compared with the tip checker's version, so moving the pin
-fails no earlier commit, per `design@check@installed-binary-version-check`.
+### A historical tree's `[project] checker-version` is read, not compared `##historical-pin-read-not-compared`
 
-**An extension leaves out, over a commit's tree, a check whose subject is not the tree.** A
-check of filesystem state has no subject there, and one that would read every archived input at
+Its absence stops the tree in phase 1; its value is never compared with the tip checker's version,
+so moving the pin fails no earlier commit, per `design@check@installed-binary-version-check`.
+
+### An extension leaves out, over a commit's tree, a check whose subject is not the tree `##extension-leaves-out-checks-not-about-the-tree`
+
+A check of filesystem state has no subject there, and one that would read every archived input at
 every step of the range decides nothing about whether a message's references resolve, which is
 the question the per-commit model exists to answer; `check` is what judges a checkout against
 it.
