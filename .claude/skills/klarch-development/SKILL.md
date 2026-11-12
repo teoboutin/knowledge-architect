@@ -53,7 +53,9 @@ field by field, so in a worktree nested in the main tree the main tree's
 survives a test that would catch it.
 
 A mutation of `path@mutate@src/` with `cargo x mutate` rebuilds xtask at each run, since xtask links
-the mutation library: `path@mutate@CLAUDE.md` says what that costs.
+the mutation library: `path@mutate@CLAUDE.md` says what that costs. So does a mutation of
+`path@transcript@src/reader.rs` or `path@transcript@src/kinds.rs`, which xtask compiles with
+`#[path]`.
 
 ## A shipped tool found insufficient here `##shipped-tool-here`
 
