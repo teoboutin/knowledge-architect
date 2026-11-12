@@ -8,8 +8,8 @@ kind: deferred
 `design@agent-skills@work-divided-by-judgement` lets a session split independent pieces of the work
 among agents and leaves the partition to each brief. How a plan document partitions work among
 agents dispatched in parallel, in a shared tree or in a worktree each, who commits, and how the
-parts are merged, is decided by no text. The owner placed the question at design and planning, in a
-later discussion.
+parts are merged, is decided by no text. The owner suggested that the question could be left to design and
+planning, in a later discussion.
 
 ## Details
 
@@ -18,10 +18,10 @@ later discussion.
 The owner's report: in another project of the owner's, the code modules were split into smaller
 units across the whole project by agents dispatched in parallel, one per Component, which made no
 commits; the main session committed each part after the agents returned. The owner's motive was
-time more than context. The shape the owner named for a later design: parts carried in worktrees of
+to save time as well as context. The shape the owner named for a later design: parts carried in worktrees of
 their own, committed there, then rebase-merged. The owner judged that such procedures are decisions
-about how the work is carried, hard to make while carrying a task, so they belong to the design and
-planning steps.
+about how the work is carried, hard to make while carrying a task, so they could be left to the
+design and planning steps.
 
 The facts a design starts from:
 

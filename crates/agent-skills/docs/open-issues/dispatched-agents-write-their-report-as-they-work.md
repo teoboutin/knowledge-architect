@@ -8,8 +8,9 @@ kind: deferred
 A dispatched agent's report is written in one pass, in its last messages, and the session that
 dispatched it acts on that report after an independent verification, per
 `design@agent-skills@at-least-one-independent-verification`. The owner proposed report files that
-an agent writes as it works and that a verifier annotates, finding by finding, so that what the
-agent established reaches the report whole. The proposal waits for a real session whose returned
+agents write and that a verifier can edit, which might reduce that gap; the session refined it
+into a file written as the agent works and annotated by the verifier finding by finding, rather
+than rewritten. The proposal waits for a real session whose returned
 report could not be acted on without redoing the work.
 
 ## Details
@@ -19,7 +20,8 @@ report could not be acted on without redoing the work.
 The owner's report: the weak point of dispatched work is less the judgement of the agent or of its
 verifier than the completeness of the report, since it is often written in one pass at the end; a
 session that verifies the report itself has a good chance to fill a gap in it, and a report file
-the agent writes as it goes, which a verifier can edit, might narrow that gap. The shape proposed:
+an agent writes, which a verifier can edit, might narrow that gap. The owner has not read such
+reports and cannot say for sure. The shape the session refined from it:
 
 - the agent writes its report file as it works, not once at the end;
 - a verifier annotates each finding in that file, rather than rewriting the report;

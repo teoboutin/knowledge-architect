@@ -43,14 +43,16 @@ The standing argument:
   a rule per interaction, which `design@agent-skills@capabilities-not-structure` argues against. A
   relation between pieces, not a list of cases, judges a pairing nobody anticipated, as
   `goal@only-needed-instructions` asks: a case that judgement handles gets no instruction.
-- **The harness's default, in doubt, is not to dispatch.** Claude Code 2.1.322's Agent tool
-  description weighs both sides: "Reach for this when you have independent work to run in parallel,
+- **The harness's default, in doubt, is not to dispatch.** Claude Code's Agent tool description
+  weighs both sides, read in the tool list of a session running 2.1.321 and found again in the
+  2.1.322 binary: "Reach for this when you have independent work to run in parallel,
   when the user asks for a side quest that shouldn't block your main thread, or when answering would
   mean reading across several files", and "Do the work yourself when it is a handful of tool calls …
-  When in doubt, don't spawn.", read in a session's tool list; `claude --version` names the version a
+  When in doubt, don't spawn."; `claude --version` names the version a
   session runs. No installed text weighed toward dispatching. The section is a weighing beside that
-  default, not a precedence over it. The owner reports that the main session nearly never dispatched where it would have helped,
-  and spent context the design discussion needed; that in the session that drafted the goal, the
+  default, not a precedence over it. The owner reports that the main session nearly never dispatched where the owner believes it
+  could have been useful, and spent context that should probably have been kept for the design
+  discussion; that in the session that drafted the goal, the
   owner's leads were applied and the session ended with context to spare; and that since, dispatch
   happens occasionally, not reliably. That report is the evidence of real use
   `design@agent-skills@behaviour-additions-need-real-use` asks. The nearest rival, no text and
@@ -84,7 +86,7 @@ The standing argument:
 - **The rule on fixed dispatches tests a property of the step.** Without the test, the fixed
   dispatches are a list, which a later writer extends by analogy, and the threshold comes back.
   Every fixed dispatch of the installed text fits one of the three properties above.
-- **The facts on the harness** are measured in Claude Code 2.1.322, once each: a general-purpose
+- **The facts on the harness** are measured in Claude Code 2.1.321, once each: a general-purpose
   subagent holds `Agent` and can dispatch a nested agent, and holds no `Workflow`, so a saved
   workflow stays with the main session; and the primer reaches a nested agent. The probe that takes
   each again: one general-purpose agent asked to list its tools and to dispatch one nested agent
