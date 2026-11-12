@@ -18,6 +18,7 @@ pub struct Gathered {
     committed: HashMap<PathBuf, String>,
     configs: HashMap<PathBuf, String>,
     configs_not_text: HashSet<PathBuf>,
+    generated_unreadable: HashSet<PathBuf>,
     shipped: Vec<(PathBuf, String)>,
     tree: foundation::Gathered,
 }
@@ -46,9 +47,19 @@ impl Gathered {
         // citations. The set includes the extensions' files once `extension::configure` has
         // run over the manifest.
         let mut committed = HashMap::new();
+        let mut generated_unreadable = HashSet::new();
         for rel in crate::model::generated::generated_paths(manifest, model.listing()) {
-            if let Ok(text) = std::fs::read_to_string(manifest.root().join(&rel)) {
-                committed.insert(rel, text);
+            // Git lists a file the working tree no longer holds until its deletion is staged, so
+            // the listing cannot tell an absent file from one that would not read: the read
+            // tells them apart, and an absent one is left out of both.
+            match std::fs::read_to_string(manifest.root().join(&rel)) {
+                Ok(text) => {
+                    committed.insert(rel, text);
+                }
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+                Err(_) => {
+                    generated_unreadable.insert(rel);
+                }
             }
         }
         // A register instance's options sit beside it and are not markdown, so the walk never
@@ -74,6 +85,7 @@ impl Gathered {
             committed,
             configs,
             configs_not_text,
+            generated_unreadable,
             shipped: crate::agents::shipped(manifest),
             tree,
         }
@@ -88,6 +100,7 @@ impl Gathered {
             committed: &self.committed,
             configs: &self.configs,
             configs_not_text: &self.configs_not_text,
+            generated_unreadable: &self.generated_unreadable,
             present: tree.present,
             directories: tree.directories,
             outside: tree.outside,

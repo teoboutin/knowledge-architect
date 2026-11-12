@@ -353,6 +353,7 @@ mod tests {
                 committed: &HashMap::new(),
                 configs: &HashMap::new(),
                 configs_not_text: &std::collections::HashSet::new(),
+                generated_unreadable: &std::collections::HashSet::new(),
                 present: &HashSet::new(),
                 directories: &HashSet::new(),
                 outside: &[],
