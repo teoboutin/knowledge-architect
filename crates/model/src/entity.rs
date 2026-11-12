@@ -1888,7 +1888,11 @@ impl Entities {
                     &site.file,
                     site.line,
                     format!("`{named}` is also defined at {}", others.join(", ")),
-                    "keep one definition; a reference resolves to exactly one entity",
+                    // Two copies of one entry and two entries that share an id leave the same
+                    // finding, and only the second needs its references sorted out.
+                    "where both define one entry, keep one definition; where they are two \
+                     entries, give one a new id, and the references meant for it too; a \
+                     reference resolves to exactly one entity",
                 ));
             }
         }
@@ -2714,6 +2718,19 @@ mod tests {
                 .iter()
                 .all(|f| f.contains("`design@a-project@twice-defined`")),
             "the finding names the entity in the grammar: {found:#?}"
+        );
+        // The repair names both causes, since two copies of one entry and two entries sharing
+        // an id are repaired apart. Mutation checked: the repair that keeps one definition alone.
+        let e = table(vec![(
+            "docs/design.md",
+            "### One `##twice-defined`\n\n### Two `##twice-defined`\n",
+        )]);
+        assert!(
+            e.definition_findings().iter().all(|f| f.action.contains(
+                "where they are two entries, give one a new id, and the references meant for it"
+            )),
+            "{:#?}",
+            e.definition_findings()
         );
     }
 
