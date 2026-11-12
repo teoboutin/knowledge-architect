@@ -129,13 +129,14 @@ finding gets one id in each file, each naming the other, since the two files may
   conclusion, and who verified it.
 %% The question is `design@agent-skills@premortem-as-watch-points`'s watch on the record search.
 - Did a review, the owner or a later step find an entry of the project's registers that bore on the
-  session's work, which the record search of its grounding had not returned? For each, in words: the
-  entry, the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
-  recorded after the search ran, or it bore on a part of the work added after the search.
+  session's work, which the record search of its grounding had not returned? For each, in words:
+  the entry, the work, what found it, and why the search missed it: a searcher graded it
+  `unrelated`, it was recorded after the search ran, or it bore on a part of the work added after
+  the search.
 %% `design@agent-skills@review-cost-counts`.
 - For each branch merged in this session before the retrospective: the review rounds it went
-  through before its merge, each dispatch of one or more reviewers counted once, the commits that repaired a review's findings, a repair folded into an earlier
-  commit counted as one, and the times the owner corrected work that departed from a recorded
+  through before its merge, each dispatch of one or more reviewers counted once, the commits that
+  repaired a review's findings, a repair folded into an earlier commit counted as one, and the times the owner corrected work that departed from a recorded
   decision, apart from ruling on a decision.
 %% `design@agent-skills@tool-report-moment`.
 - Did this session, or one of its subagents, set up or change a tool or a procedure that makes the

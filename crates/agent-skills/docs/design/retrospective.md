@@ -112,7 +112,9 @@ reaches the same file, per `design@agent-skills@upstream-tool-loop`. The cost is
 question, though most sessions set up no tool. That design lost because a route costing nothing
 existed, the command's header; no such route exists for a tool set up in a project, so the load is
 accepted. A report is lost when no retrospective runs, the loss
-`design@agent-skills@installed-fix-goes-upstream` accepts for an item met outside the task.
+`design@agent-skills@installed-fix-goes-upstream` accepts for an item met outside the task, and so
+is a tool set up after the retrospective of its session ran, since a retrospective is offered once
+per session, per `design@agent-skills@retro-offered-once`.
 
 ### A retrospective counts what each branch merged in its session cost in review and in correction `##review-cost-counts`
 

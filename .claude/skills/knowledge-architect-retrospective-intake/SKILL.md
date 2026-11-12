@@ -283,8 +283,9 @@ none, whatever its length.
 **A cost one session met in one task is weighed against every other occasion the instruction
 serves**, its stated reason and the moments it applies to, before the instruction is removed or
 narrowed, and the move above is preferred to a removal where it closes the cause. Each repair
-counts the instructions it adds and removes, and names the nearest rival to itself and the fact that decides between them. **When the repairs applied together add
-more instructions than they remove, the owner is told the net figure**, and the record that applies
+counts the instructions it adds and removes, and names the nearest rival to itself and the fact
+that decides between them. **When the repairs applied together add more instructions than they
+remove, the owner is told the net figure**, and the record that applies
 them states it.
 
 **The size cost of agent-facing text is counted in the context of the sessions that load it, never

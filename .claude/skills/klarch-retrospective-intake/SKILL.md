@@ -59,7 +59,9 @@ The committed analysis of these files is `design@knowledge-architect@committed-f
 **A standing answer of a workflow file gets a section of its own**, ending with its `Default` and
 `Outcome` lines, as a finding's does. The review-cost counts of an answer are added to
 `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`, one line per branch with the
-file's stem, in the commit that writes the analysis.
+file's stem, in the commit that writes the analysis. A missed entry an answer reports as bearing
+on a part of the work added after the record search is added, in the same commit, as an instance of
+`issue@agent-skills@a-record-search-misses-what-is-added-after-it`.
 
 **Name nothing of the other project in detail**: none of its paths, none of its design heads, none
 of its internals, which tell a reader of this repository nothing. Say it in words where the finding

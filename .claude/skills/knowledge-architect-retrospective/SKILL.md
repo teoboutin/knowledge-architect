@@ -111,12 +111,13 @@ finding gets one id in each file, each naming the other, since the two files may
   verification, or verify a conclusion again where no skill asked for it? For each: the
   conclusion, and who verified it.
 - Did a review, the owner or a later step find an entry of the project's registers that bore on the
-  session's work, which the record search of its grounding had not returned? For each, in words: the
-  entry, the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
-  recorded after the search ran, or it bore on a part of the work added after the search.
+  session's work, which the record search of its grounding had not returned? For each, in words:
+  the entry, the work, what found it, and why the search missed it: a searcher graded it
+  `unrelated`, it was recorded after the search ran, or it bore on a part of the work added after
+  the search.
 - For each branch merged in this session before the retrospective: the review rounds it went
-  through before its merge, each dispatch of one or more reviewers counted once, the commits that repaired a review's findings, a repair folded into an earlier
-  commit counted as one, and the times the owner corrected work that departed from a recorded
+  through before its merge, each dispatch of one or more reviewers counted once, the commits that
+  repaired a review's findings, a repair folded into an earlier commit counted as one, and the times the owner corrected work that departed from a recorded
   decision, apart from ruling on a decision.
 - Did this session, or one of its subagents, set up or change a tool or a procedure that makes the
   project's development more efficient or the project better, such as a gate, a maintenance
@@ -166,8 +167,9 @@ none, whatever its length.
 **A cost one session met in one task is weighed against every other occasion the instruction
 serves**, its stated reason and the moments it applies to, before the instruction is removed or
 narrowed, and the move above is preferred to a removal where it closes the cause. Each repair
-counts the instructions it adds and removes, and names the nearest rival to itself and the fact that decides between them. **When the repairs applied together add
-more instructions than they remove, the owner is told the net figure**, and the record that applies
+counts the instructions it adds and removes, and names the nearest rival to itself and the fact
+that decides between them. **When the repairs applied together add more instructions than they
+remove, the owner is told the net figure**, and the record that applies
 them states it.
 
 **The size cost of agent-facing text is counted in the context of the sessions that load it, never
