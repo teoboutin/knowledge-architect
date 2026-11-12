@@ -116,15 +116,19 @@ a built-in register or a reserved anchor word is missing from the section.
 
 The section states no rarer rule: the candidate rule, the retired forms, ignored targets, the path
 to anchor, a register's home cited by its path, a plan item's scope, a slug outside a definition
-site. Each reaches a session through its finding, which names its repair, on the owner's rulings in
-three passes of the first agentic-workflow audit: the rarer checker rules are delivered by their
-finding messages rather than by the installed text, and an unstated checker rule is a finding only
-where its finding message does not name its repair. One rule stands in the section on the owner's
+site. Each reaches a session through its finding, which names its repair, but one retired form, the
+slug written with a hash sign, which no lint reads, per `design@check@hash-slug-span-read-by-no-lint`.
+That delivery stands on the owner's rulings in three passes of the first agentic-workflow audit:
+the rarer checker rules are delivered by their finding messages rather than by the installed text,
+and an unstated checker rule is a finding only where its finding message does not name its repair. One rule stands in the section on the owner's
 word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
 it names, which sessions of an adopting project routed around in real use. The owner accepted its
-placement in this section, over that ruling. The rulings are recorded in the report files of that
-audit's passes, in the history, the last removed by the commit "[audit] Pass 6 of the
-agentic-workflow axis applied by cause; the audit stops". A rule a writer of
+placement in this section, over that ruling. The rulings are F23 of the first pass and F69 of the
+second, each in the message of its pass's commit, "[audit] Pass 1 of the agentic-workflow axis: 54
+findings confirmed, 26 applied, 27 ruled by the owner, 1 issue" and "[audit] Pass 2 of the
+agentic-workflow axis: 70 findings confirmed, 37 applied, 30 ruled by the owner, 3 issues", and
+F121 of the sixth, in that pass's report file, which the commit "[audit] Pass 6 of the
+agentic-workflow axis applied by cause; the audit stops" removed. A rule a writer of
 every `path` reference needs stays in `primer@where-knowledge-goes`.
 
 The design this decision did not keep: `rejected@agent-skills@checker-model-printed-by-binary`.
