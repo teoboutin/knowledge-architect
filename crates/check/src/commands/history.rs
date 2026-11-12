@@ -1641,21 +1641,20 @@ mod tests {
         (repo, head, manifest)
     }
 
-    /// An extension that declares one generated file, `nowhere/listing.md`, and prepares over a
-    /// tree only where `prepares` says so.
-    struct Nowhere {
+    /// An extension that declares one generated file, `rel`, and prepares over a tree only where
+    /// `prepares` says so.
+    struct Generating {
+        rel: &'static str,
         prepares: bool,
     }
 
-    impl Extension for Nowhere {
+    impl Extension for Generating {
         fn tables(&self) -> &'static [&'static str] {
             &[]
         }
         fn resolve(&mut self, _: &Manifest) -> crate::extension::Resolution {
             let mut resolution = crate::extension::Resolution::default();
-            resolution
-                .generated
-                .push(PathBuf::from("nowhere/listing.md"));
+            resolution.generated.push(PathBuf::from(self.rel));
             resolution
         }
         fn checks(&self) -> &'static [&'static str] {
@@ -1672,16 +1671,16 @@ mod tests {
             _: Purpose,
         ) -> Result<Box<dyn Prepared>, String> {
             if self.prepares {
-                Ok(Box::new(NowherePrepared))
+                Ok(Box::new(GeneratingPrepared(self.rel)))
             } else {
                 Err("the extension's own reason".to_string())
             }
         }
     }
 
-    struct NowherePrepared;
+    struct GeneratingPrepared(&'static str);
 
-    impl Prepared for NowherePrepared {
+    impl Prepared for GeneratingPrepared {
         fn check(
             &self,
             _: &crate::Model,
@@ -1695,7 +1694,7 @@ mod tests {
         }
         fn generated(&self, _: &crate::Model, _: &Manifest) -> Vec<crate::extension::Generated> {
             vec![crate::extension::Generated {
-                rel: PathBuf::from("nowhere/listing.md"),
+                rel: PathBuf::from(self.0),
                 text: "listing\n".to_string(),
                 action: "regenerate it",
             }]
@@ -1703,8 +1702,12 @@ mod tests {
     }
 
     /// The extensions of one run, configured against `manifest` as a command configures them.
-    fn configured(manifest: &mut Manifest, prepares: bool) -> Vec<Box<dyn Extension>> {
-        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Nowhere { prepares })];
+    fn configured(
+        manifest: &mut Manifest,
+        rel: &'static str,
+        prepares: bool,
+    ) -> Vec<Box<dyn Extension>> {
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Generating { rel, prepares })];
         crate::extension::configure(manifest, &mut extensions);
         extensions
     }
@@ -1725,26 +1728,26 @@ mod tests {
             "repair what the extension's reason names, and run again"
         );
 
-        let mut extensions = configured(&mut manifest, false);
+        let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         assert_eq!(
             check_staged(&manifest, &[], &mut extensions),
             Err(format!("the staged tree cannot be judged: {reason}"))
         );
-        let mut extensions = configured(&mut manifest, false);
+        let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         assert_eq!(
             index_staged(&manifest, &[], &mut extensions),
             Err(format!(
                 "the staged tree's generated files cannot be computed: {reason}"
             ))
         );
-        let mut extensions = configured(&mut manifest, false);
+        let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         assert_eq!(
             staged_generated(&repo, &[], &mut extensions),
             Err(format!(
                 "the staged tree's generated files cannot be computed: {reason}"
             ))
         );
-        let mut extensions = configured(&mut manifest, false);
+        let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         let refused = commit_tree(
             &repo,
             Source::Commit(&head),
@@ -1760,6 +1763,38 @@ mod tests {
         let _ = std::fs::remove_dir_all(&repo);
     }
 
+    /// The claim, a regression guard: an extension's generated file outside the walk whose
+    /// committed bytes are not UTF-8 is reported as a file that cannot be read, not as a missing
+    /// one, though `committed` holds only the blobs that decode: the listing tells the two apart.
+    #[test]
+    fn a_committed_generated_file_that_is_not_utf8_is_unreadable_and_not_missing() {
+        let (repo, _, mut manifest) = committed_project("generated-not-utf8");
+        std::fs::write(repo.join("listing.md"), b"caf\xe9\n").expect("a file");
+        for args in [&["add", "listing.md"][..], &["commit", "-qm", "listing"]] {
+            crate::git::git(&repo).args(args).output().expect("git");
+        }
+        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+        let mut extensions = configured(&mut manifest, "listing.md", true);
+        let tree = commit_tree(
+            &repo,
+            Source::Commit(&head),
+            &[],
+            &mut extensions,
+            Depth::Judged,
+            Purpose::Commit,
+        )
+        .ok()
+        .expect("the commit's tree loads");
+        let on: Vec<&str> = tree
+            .trouble
+            .iter()
+            .filter(|f| f.file == Path::new("listing.md"))
+            .map(|f| f.what.as_str())
+            .collect();
+        assert_eq!(on, vec!["the generated file cannot be read as UTF-8 text"]);
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
     /// The claim: `index --staged` refuses a generated file whose directory the staged tree does
     /// not hold, naming both repairs: staging a file under that directory, or configuring the
     /// extension to write elsewhere. The refusal itself is tested by
@@ -1769,7 +1804,7 @@ mod tests {
     #[test]
     fn index_staged_names_the_repair_of_a_destination_whose_directory_is_not_staged() {
         let (repo, _, mut manifest) = committed_project("nowhere-staged");
-        let mut extensions = configured(&mut manifest, true);
+        let mut extensions = configured(&mut manifest, "nowhere/listing.md", true);
         assert_eq!(
             index_staged(&manifest, &[], &mut extensions),
             Err(
