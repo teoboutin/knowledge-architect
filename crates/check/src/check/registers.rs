@@ -76,6 +76,7 @@ pub(crate) fn check_under(
         locations: manifest.locations().len(),
         ..Counts::default()
     };
+    let index = super::generated::index_action(manifest);
 
     // Whether an anchor and its homes EXIST is phase 2's question, judged before this
     // phase runs; what is asserted here is the shape of what is there.
@@ -91,12 +92,13 @@ pub(crate) fn check_under(
                     heading_home(&mut out, anchor, register, &home, model, anchors, inputs)
                 }
                 Shape::File => {
-                    counts.entries +=
-                        file_home(&mut out, anchor, register, &home, model, anchors, inputs);
+                    counts.entries += file_home(
+                        &mut out, anchor, register, &home, model, anchors, inputs, &index,
+                    );
                 }
                 Shape::Directory => {
                     counts.entries +=
-                        directory_home(&mut out, register, &home, model, anchors, inputs);
+                        directory_home(&mut out, register, &home, model, anchors, inputs, &index);
                 }
                 // An item is a heading of a plan document, judged where it is defined, in the
                 // entity table; its home is the plan's documents, which the File and Directory
@@ -178,7 +180,8 @@ fn heading_home(
 
 /// A file register: the directory, its two navigation files, its groups, and every entry.
 ///
-/// Returns how many entries were judged.
+/// Returns how many entries were judged. `index` is the repair of a missing index.
+#[allow(clippy::too_many_arguments)]
 fn file_home(
     out: &mut Vec<Finding>,
     anchor: &Anchor,
@@ -187,12 +190,13 @@ fn file_home(
     model: &Model,
     anchors: &Anchors,
     inputs: &Inputs,
+    index: &str,
 ) -> usize {
     // A missing directory is phase 2's finding; there is no shape to assert in one.
     if !inputs.directories.contains(&home.dir) {
         return 0;
     }
-    navigation(out, register, home, inputs);
+    navigation(out, register, home, inputs, index);
 
     let groups = config(out, register, home, inputs);
     // What sits under an anchor nested inside this home is that anchor's, as the heading
@@ -219,7 +223,7 @@ fn file_home(
 /// Its entries are the entry anchors directly under its home. What else the home holds, and
 /// which directories are entries, is phase 2's, in phase 2; what is asserted here
 /// is the same shape a File home owes, over the README of each entry. Returns how many entries
-/// were judged.
+/// were judged. `index` is the repair of a missing index.
 fn directory_home(
     out: &mut Vec<Finding>,
     register: &Register,
@@ -227,11 +231,12 @@ fn directory_home(
     model: &Model,
     anchors: &Anchors,
     inputs: &Inputs,
+    index: &str,
 ) -> usize {
     if !inputs.directories.contains(&home.dir) {
         return 0;
     }
-    navigation(out, register, home, inputs);
+    navigation(out, register, home, inputs, index);
     let mut judged = 0;
     for entry in anchors.all() {
         if !entry.is_entry_in(&register.name, &home.dir) {
@@ -246,28 +251,41 @@ fn directory_home(
     judged
 }
 
-/// A home's hand-written README and generated index are both there, as files.
-fn navigation(out: &mut Vec<Finding>, register: &Register, home: &Home, inputs: &Inputs) {
-    for (path, what) in [
-        (&home.readme, "README.md"),
-        // That the index is THERE is a fact about the register's shape, and it is
-        // mandatory. What it holds is `check::generated`'s question, which compares the
-        // committed bytes against a regeneration; this presence check reports the missing
-        // file under the shape, and `generated` names the command that writes it.
-        (&home.index, "index.md"),
+/// A home's hand-written README and generated index are both there, as files. `index` is the
+/// repair of a missing index.
+fn navigation(
+    out: &mut Vec<Finding>,
+    register: &Register,
+    home: &Home,
+    inputs: &Inputs,
+    index: &str,
+) {
+    // That the index is THERE is a fact about the register's shape, and it is mandatory. What it
+    // holds is `check::generated`'s question, which compares the committed bytes against a
+    // regeneration and reports the same missing index or directory: this finding names the
+    // repair that one names, so the two findings on one file never disagree.
+    let readme = "write it by hand: the README is the register's hand-written head, which the \
+                  generated index does not replace";
+    for (path, what, repair) in [
+        (&home.readme, "README.md", readme),
+        (&home.index, "index.md", index),
     ] {
-        if !inputs.present.contains(path) || inputs.directories.contains(path) {
-            out.push(Finding::in_file(
-                path,
-                format!(
-                    "the {} directory `{}` has no {what}",
-                    register.name,
-                    home.dir.display()
-                ),
-                "create it; the README is the hand-written head and the index is the \
-                 generated listing, and neither stands in for the other",
-            ));
-        }
+        let action = if inputs.directories.contains(path) {
+            super::generated::directory_action(repair)
+        } else if !inputs.present.contains(path) {
+            repair.to_string()
+        } else {
+            continue;
+        };
+        out.push(Finding::in_file(
+            path,
+            format!(
+                "the {} directory `{}` has no {what}",
+                register.name,
+                home.dir.display()
+            ),
+            action,
+        ));
     }
 }
 
@@ -325,6 +343,12 @@ fn directory_contents(
             .to_string_lossy()
             .to_string();
         if inputs.directories.contains(path) {
+            // A directory at the README's or the index's path is `navigation`'s finding, with
+            // its removal as the repair; read as a group, it would get a second repair that
+            // contradicts the first.
+            if *path == home.readme || *path == home.index {
+                continue;
+            }
             if depth == 1 {
                 present.insert(name.clone());
                 if !groups.contains(&name) {
@@ -356,8 +380,11 @@ fn directory_contents(
                     path.display(),
                     register.name
                 ),
-                "an instance holds one markdown file per entry, its README, its index and \
-                 its register.toml; move anything else out",
+                // An entry written with another extension is read as no entry, so its repair
+                // is a rename, where any other file's is a move.
+                "if it is an entry, rename it to end in `.md`; otherwise move it out, since an \
+                 instance holds one markdown file per entry, its README, its index and its \
+                 register.toml",
             ));
         }
     }
@@ -369,8 +396,13 @@ fn directory_contents(
                     "the {} register declares the group `{group}` and there is no directory",
                     register.name
                 ),
-                "create it, or remove the group from the instance's register.toml; the \
-                 declaration is the grouping, so changing it is its own decision",
+                // Git lists no empty directory, so the group's first entry is what creates it.
+                format!(
+                    "move or write the group's first entry under `{}/`, or remove the group from \
+                     the instance's register.toml; the declaration is the grouping, so changing \
+                     it is its own decision",
+                    home.dir.join(group).display()
+                ),
             ));
         }
     }
@@ -391,15 +423,41 @@ fn is_entry(rel: &Path, home: &Home) -> bool {
 fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: &Document) {
     let declared: Vec<&str> = register.metadata.iter().map(|(k, _)| k.as_str()).collect();
     let mut values: BTreeMap<&str, &str> = BTreeMap::new();
+    // A built-in register's metadata is compiled in, and a declaration of it is refused, per
+    // `design@model@registers-are-declared`: only a declared register can be given a key.
+    let declare = |what: &str| {
+        if register.built_in {
+            String::new()
+        } else {
+            format!(
+                ", or declare {what} in {MANIFEST_NAME} under [registers.{}.metadata]",
+                register.name
+            )
+        }
+    };
+    let subset = "a block opened and closed by a line holding only `---`, at the very top of the \
+                  file, of `key: value` lines with scalar values, each key once";
     match (&doc.parsed.frontmatter, declared.is_empty()) {
-        (Some(Err(why)), _) => out.push(Finding::in_file(
+        // Where the register declares no key, a block that parses is still refused, below, so
+        // the repair that clears both is the deletion, or the declaration of its keys.
+        (Some(Err(why)), true) => out.push(Finding::in_file(
             &doc.rel,
             format!(
                 "the frontmatter of this {} entry does not parse: {why}",
                 register.name
             ),
-            "the accepted subset is a block opened and closed by a line holding only `---`, \
-             at the very top of the file, holding `key: value` lines with scalar values",
+            match declare("its keys").as_str() {
+                "" => "delete the block".to_string(),
+                or_declare => format!("delete the block{or_declare}, and rewrite it as {subset}"),
+            },
+        )),
+        (Some(Err(why)), false) => out.push(Finding::in_file(
+            &doc.rel,
+            format!(
+                "the frontmatter of this {} entry does not parse: {why}",
+                register.name
+            ),
+            format!("rewrite it as {subset}"),
         )),
         (Some(Ok(_)), true) => out.push(Finding::in_file(
             &doc.rel,
@@ -407,11 +465,10 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
                 "this {} entry carries frontmatter and the register declares none",
                 register.name
             ),
-            format!(
-                "delete the block, or declare the keys in {MANIFEST_NAME} under \
-                 [registers.<name>.metadata]"
-            ),
+            format!("delete the block{}", declare("its keys")),
         )),
+        // The parser reads a block with a blank line in it, or with no closing line, as none: its
+        // opening `---` is a thematic break. So the repair names the shape that is read.
         (None, false) => out.push(Finding::in_file(
             &doc.rel,
             format!(
@@ -419,7 +476,9 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
                 register.name,
                 declared.join(", ")
             ),
-            "open the file with a `---` block carrying each declared key",
+            "open the file with a block: a first line `---`, one `key: value` line per declared \
+             key with no blank line between them, and a closing `---`; a block with a blank line \
+             or no closing line is read as none",
         )),
         (None, true) => {}
         (Some(Ok(keys)), false) => {
@@ -427,13 +486,28 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
                 match register.metadata.iter().find(|(k, _)| k == key) {
                     None => out.push(Finding::in_file(
                         &doc.rel,
-                        format!("`{key}` is no frontmatter key of the {} register", register.name),
-                        format!("the declared keys are {}; a key nobody declared is a typo that would otherwise pass as an absent optional", declared.join(", ")),
+                        format!(
+                            "`{key}` is no frontmatter key of the {} register",
+                            register.name
+                        ),
+                        match declare("it").as_str() {
+                            "" => format!(
+                                "rename it to a declared key ({}), or delete it",
+                                declared.join(", ")
+                            ),
+                            or_declare => format!(
+                                "rename it to a declared key ({}), delete it{or_declare}",
+                                declared.join(", ")
+                            ),
+                        },
                     )),
                     Some((_, accepted)) if !accepted.iter().any(|v| v == value) => {
                         out.push(Finding::in_file(
                             &doc.rel,
-                            format!("`{key}: {value}` is no accepted value of the {} register", register.name),
+                            format!(
+                                "`{key}: {value}` is no accepted value of the {} register",
+                                register.name
+                            ),
                             format!("the accepted values are {}", accepted.join(", ")),
                         ))
                     }
@@ -480,7 +554,7 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
         2,
         &sections.iter().map(String::as_str).collect::<Vec<_>>(),
         &headings,
-        "level-two section",
+        None,
     );
     // The subsections an issue owes sit under its last declared section, which is `Details`.
     // Only the issue register owes any, and the list its kind takes is the compiled one.
@@ -500,7 +574,7 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
             3,
             owed,
             under_last_section(register, &headings),
-            "level-three subsection",
+            register.sections.last().map(String::as_str),
         );
     }
 }
@@ -525,7 +599,9 @@ fn under_last_section<'a>(
     &rest[..to]
 }
 
-/// Every owed heading of one level is present, in the declared order.
+/// Every owed heading of one level, two or three, is present in the declared order, among
+/// `headings`; `under` names the section that holds them, where the caller passed only its
+/// headings.
 fn in_order(
     out: &mut Vec<Finding>,
     doc: &Document,
@@ -533,8 +609,16 @@ fn in_order(
     level: u8,
     owed: &[&str],
     headings: &[(u8, &str)],
-    what: &str,
+    under: Option<&str>,
 ) {
+    let what = if level == 2 {
+        "level-two section"
+    } else {
+        "level-three subsection"
+    };
+    // A heading found under another section is reported as absent, since `headings` holds only
+    // those under `under`, so the repair names where they go.
+    let place = under.map_or(String::new(), |section| format!(", under `## {section}`"));
     let present: Vec<&str> = headings
         .iter()
         .filter(|(l, _)| *l == level)
@@ -550,7 +634,10 @@ fn in_order(
                     "this {} entry carries no {what} `{name}` after the ones before it",
                     register.name
                 ),
-                format!("the owed {what}s, in this order: {}", owed.join(", ")),
+                format!(
+                    "the owed {what}s, in this order{place}: {}",
+                    owed.join(", ")
+                ),
             )),
         }
     }
@@ -1110,6 +1197,232 @@ mod tests {
         let found = findings_over(&manifest, &present, model, &[]);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("declares none"), "{found:#?}");
+    }
+
+    /// The findings of the shapes and of the generated files together, as a run raises them,
+    /// over the issue instance with `drop` left out of the listing and `add` put in.
+    fn shapes_and_generated(drop: &str, add: &[&str]) -> Vec<Finding> {
+        let manifest = declaring("");
+        let mut present: HashSet<PathBuf> = all_of("")
+            .iter()
+            .filter(|p| *p != drop)
+            .map(PathBuf::from)
+            .collect();
+        present.extend(add.iter().map(PathBuf::from));
+        let directories = crate::check::testing::implied_directories(&present);
+        // Every generated index read as current but the one dropped, so the generated family
+        // speaks of that one alone.
+        let model = Model::from_documents(Vec::new());
+        let generated = crate::model::generated::file_register_indexes(
+            &model,
+            &manifest,
+            &present,
+            &directories,
+        );
+        let committed: HashMap<PathBuf, String> = generated
+            .into_iter()
+            .filter(|(rel, _)| rel != Path::new(drop))
+            .collect();
+        let configs = HashMap::new();
+        let inputs = Inputs {
+            committed: &committed,
+            configs: &configs,
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        let mut found = check(&model, &manifest, &inputs).0;
+        found.extend(crate::check::generated::check(
+            &model,
+            &manifest,
+            &inputs,
+            &[],
+        ));
+        found
+    }
+
+    /// The claim: a missing index, and a directory standing at its path, each raise a finding of
+    /// the shapes and one of the generated files, and the two name one repair: the regeneration,
+    /// after the directory's removal where one stands there. A missing README names a hand-written
+    /// file, after the same removal. Mutations: the shapes' finding naming a repair of its own for
+    /// the index, or the directory's removal dropped from it, each fail a case.
+    #[test]
+    fn a_missing_index_raises_two_findings_that_name_one_repair() {
+        let index = "docs/open-issues/index.md";
+        let cases = [
+            (vec![], "run `klarch index`"),
+            (
+                vec![index, "docs/open-issues/index.md/a.md"],
+                "remove the directory, then run `klarch index`",
+            ),
+        ];
+        for (add, action) in cases {
+            let found = shapes_and_generated(index, &add);
+            let on: Vec<&Finding> = found
+                .iter()
+                .filter(|f| f.file == Path::new(index))
+                .collect();
+            // The shapes' finding and the generated file's, and no third reading the directory
+            // as a group.
+            assert_eq!(on.len(), 2, "{add:?}: {found:#?}");
+            assert!(on.iter().all(|f| f.action == action), "{add:?}: {on:#?}");
+        }
+        let readme = "docs/open-issues/README.md";
+        let found = shapes_and_generated(readme, &[]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].action.starts_with("write it by hand"),
+            "{found:#?}"
+        );
+        let found = shapes_and_generated(readme, &[readme, "docs/open-issues/README.md/a.md"]);
+        assert!(
+            found.iter().any(|f| f.file == Path::new(readme)
+                && f.action
+                    .starts_with("remove the directory, then write it by hand")),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a file of another suffix in an instance names the rename of an entry beside
+    /// the move of anything else, and a declared group with no directory names its first entry,
+    /// since git lists no empty directory. Mutations: either action without its case fails.
+    #[test]
+    fn a_stray_file_and_an_absent_group_name_the_repair_git_can_record() {
+        let manifest = declaring("");
+        let mut present = all_of("");
+        present.push("docs/open-issues/register.toml".to_string());
+        present.push("docs/open-issues/an-entry.markdown".to_string());
+        let found = findings_over(
+            &manifest,
+            &present,
+            Model::from_documents(Vec::new()),
+            &[("docs/open-issues/register.toml", "groups = [\"gone\"]\n")],
+        );
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(
+            found.iter().any(|f| f.contains("is not an entry")
+                && f.contains(
+                    "→ if it is an entry, rename it to end in `.md`; otherwise move it out"
+                )),
+            "{found:#?}"
+        );
+        assert!(
+            found.iter().any(|f| f.contains("`gone`")
+                && f.contains("first entry under `docs/open-issues/gone/`")),
+            "{found:#?}"
+        );
+    }
+
+    /// A manifest declaring the location `notes` with the register `reading`, declaring the
+    /// metadata `extra`, and the listing of its one entry.
+    fn a_reading(extra: &str) -> (Manifest, Vec<String>) {
+        let manifest = declaring_full(
+            "",
+            &format!(
+                "[locations.notes]\npath = \"notes\"\nregisters = [\"reading\"]\n\n\
+                 [registers.reading]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"readings\"\n\
+                 {extra}\n"
+            ),
+            "[]",
+            "[]",
+            "[]",
+            "[]",
+        );
+        let mut present = all_of("");
+        for p in [
+            "notes",
+            "notes/readings",
+            "notes/readings/README.md",
+            "notes/readings/index.md",
+            "notes/readings/a-reading.md",
+        ] {
+            present.push(p.to_string());
+        }
+        (manifest, present)
+    }
+
+    fn reading_findings(extra: &str, body: &str) -> Vec<String> {
+        let (manifest, present) = a_reading(extra);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("notes/readings/a-reading.md"),
+            body.to_string(),
+        )]);
+        findings_over(&manifest, &present, model, &[])
+    }
+
+    /// The claims: a block that does not parse, in a register declaring no key, names the
+    /// deletion that the finding on a parsed block would name next; an undeclared key names its
+    /// rename, its deletion, and its declaration where the register is declared, and no
+    /// declaration in a built-in register, whose metadata a declaration cannot change. Mutations:
+    /// the first arm's old rule text, and the declaration offered whatever the register, each
+    /// fail a case.
+    #[test]
+    fn a_frontmatter_finding_names_the_repairs_its_register_admits() {
+        let found = reading_findings("", "---\nstatus:\n  nested: 1\n---\n# A reading\n");
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("does not parse")
+                && found[0].contains("→ delete the block, or declare its keys in")
+                && found[0].contains("[registers.reading.metadata]"),
+            "{found:#?}"
+        );
+        let found = reading_findings(
+            "metadata.status.values = [\"open\"]\n",
+            "---\nstatus: open\ntheme: x\n---\n# A reading\n",
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].ends_with(
+                "→ rename it to a declared key (status), delete it, or declare it in \
+                 knowledge-architect.toml under [registers.reading.metadata]"
+            ),
+            "{found:#?}"
+        );
+        let found = entry_findings(&ENTRY.replace("kind: defect", "kind: defect\ntheme: x"));
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].ends_with("→ rename it to a declared key (kind), or delete it"),
+            "{found:#?}"
+        );
+        let found = entry_findings(&ENTRY.replace("kind: defect", "kind:\n  nested: 1"));
+        assert!(
+            found
+                .iter()
+                .any(|f| f.contains("does not parse") && f.contains("→ rewrite it as")),
+            "{found:#?}"
+        );
+    }
+
+    /// The claims: an entry whose block holds a blank line is read as carrying none, and the
+    /// repair names the shape that is read; owed subsections found under another section name
+    /// the section they go under. Mutations: the old action of each fails its case.
+    #[test]
+    fn a_misshapen_block_and_misplaced_subsections_name_where_the_shape_fails() {
+        let found = entry_findings(&ENTRY.replace("kind: defect", "\nkind: defect"));
+        assert!(
+            found
+                .iter()
+                .any(|f| f.contains("carries no frontmatter") && f.contains("no blank line")),
+            "{found:#?}"
+        );
+        let misplaced = "---\nkind: defect\n---\n# The title\n\n## Summary\n\n\
+                         ### What\n\nOne.\n\n### Why it matters\n\nTwo.\n\n\
+                         ### What would close it\n\nThree.\n\n## Details\n\nNothing here.\n";
+        let found = entry_findings(misplaced);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        assert!(
+            found.iter().all(|f| f.contains(
+                "→ the owed level-three subsections, in this order, under `## Details`: What, \
+                 Why it matters, What would close it"
+            )),
+            "{found:#?}"
+        );
     }
 
     #[test]
