@@ -782,11 +782,16 @@ fn link(
         let beside = followed(dir, file_part)
             .and_then(|t| t.strip_prefix(dir).ok().map(Path::to_path_buf))
             .filter(|t| !t.as_os_str().is_empty());
+        // A target ending in `.` or `..` names a directory as surely as one ending in `/`, and
+        // the plain spelling keeps that claim, or it is the finding a directory claimed as a file
+        // raises.
+        let names_a_directory =
+            file_part.ends_with('/') || matches!(file_part.rsplit('/').next(), Some("." | ".."));
         let repair = match beside {
             Some(plain) => format!(
                 "link as `{}{}{}`, the same target written relative to this file",
                 plain.to_string_lossy(),
-                if file_part.ends_with('/') { "/" } else { "" },
+                if names_a_directory { "/" } else { "" },
                 target.find('#').map_or("", |at| &target[at..])
             ),
             None if in_goals_home => GOALS_HOME_REPAIR.to_string(),
@@ -2601,14 +2606,17 @@ mod tests {
     }
 
     /// The claim: a refused link target is repaired as where it lands: under its file's
-    /// directory, the same target written plain, its trailing slash and its fragment kept; outside
+    /// directory, the same target written plain, its fragment kept and its trailing slash kept or
+    /// added where its last segment is `.` or `..`, both of which name a directory; outside
     /// it, a backticked `path` reference, since a link reaches nothing there; in a goals home, the
     /// goals home's repair, since a `path` reference is refused there. Mutations checked, each
     /// caught: `.filter(|t| !t.as_os_str().is_empty())` in `link` dropped, which offers an empty
     /// link for `./`; the `None if in_goals_home` arm dropped; the `Some(plain)` arm's format
     /// given the old text, "link with a plain path relative to this file"; its trailing slash and
-    /// its fragment each replaced by `""`; and `followed` reading a leading `/` from the base,
-    /// `if path.starts_with('/') {` replaced by `if false {`.
+    /// its fragment each replaced by `""`; `followed` reading a leading `/` from the base,
+    /// `if path.starts_with('/') {` replaced by `if false {`; and the slash kept for a trailing
+    /// `/` alone, `names_a_directory` given `file_part.ends_with('/')`, which offers `sub` for
+    /// `./sub/.` and `sub/x/..`.
     #[test]
     fn a_refused_link_is_repaired_as_where_its_target_lands() {
         let m = root_and_part_manifest();
@@ -2623,7 +2631,7 @@ mod tests {
             &m,
             "notes/README.md",
             "[a](sub/../a.md)\n\n[b](/notes/a.md#top)\n\n[c](./sub/)\n\n[d](../docs/design.md)\n\n\
-             [e](./)\n",
+             [e](./)\n\n[f](./sub/.)\n\n[g](sub/x/..#top)\n",
             &present,
         );
         let action = |target: &str| {
@@ -2644,6 +2652,14 @@ mod tests {
         assert_eq!(
             action("./sub/"),
             "link as `sub/`, the same target written relative to this file"
+        );
+        assert_eq!(
+            action("./sub/."),
+            "link as `sub/`, the same target written relative to this file"
+        );
+        assert_eq!(
+            action("sub/x/..#top"),
+            "link as `sub/#top`, the same target written relative to this file"
         );
         for outside in ["../docs/design.md", "./"] {
             assert!(
