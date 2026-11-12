@@ -78,9 +78,11 @@ the checker never reads; the discussion this entry asks for weighs that.
 ### Why it matters
 
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
-against `goal@design-is-recorded-with-its-arguments`, and
-`tripwire@model@candidate-rule-silence` watches the same family of silence for backticked spans. A
-finding on a plain `#<id>` changes `design@check@hash-slug-span-read-by-no-lint`.
+against `goal@design-is-recorded-with-its-arguments`. No tripwire watches it:
+`tripwire@model@candidate-rule-silence` watches the silence of a backticked span meant as a
+reference, and leaves out the backticked `#<id>`, whose silence
+`design@check@hash-slug-span-read-by-no-lint` decides. A finding on a plain `#<id>` changes that
+head.
 
 ### What would close it
 

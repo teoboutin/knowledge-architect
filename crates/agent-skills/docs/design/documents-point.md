@@ -14,7 +14,7 @@ reference form, `<kind>@<anchor>@<id>`, the anchor left out only where the tool 
 checker give a reference its value. `cargo klarch show <ref>` prints every reference to an entry,
 so what depends on an entry is computed from the tree and never written by hand. An entry that is
 deleted or renamed dangles every reference to it, and `cargo klarch check` reports each one, per
-`design@model@an-unresolved-reference-is-reported`, so the repair list a change produces is the
+`design@model@an-unresolved-reference-is-never-dropped`, so the repair list a change produces is the
 list of texts that depended on what changed. A reference is
 therefore a claim of dependence: this text is to be revisited when that entry is reversed, closed,
 fired, abandoned or renamed.

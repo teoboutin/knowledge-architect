@@ -131,8 +131,9 @@ the forgotten pin it exists for. This serves `goal@every-target-project-can-adop
 a project pins the version it uses, and moves when it chooses.
 
 **The working tree only.** `commits` reads a historical tree's key, so a tree without it stops in
-phase 1, and compares no historical value, so moving the pin fails no earlier commit. A branch that
-introduces the key therefore opens with the commit that gives every manifest the key, per
+phase 1, and compares no historical value, so moving the pin fails no earlier commit, per
+`design@check@historical-pin-read-not-compared`. A branch that introduces the key therefore opens
+with the commit that gives every manifest the key, per
 `design@check@every-commit-judged-by-the-tip-checker`.
 
 **A binary released before the key** refuses a manifest carrying it at parse, as an unknown field,

@@ -577,7 +577,7 @@ enum Depth {
 /// whose subject is filesystem state has no subject in a snapshot, and one that would read the
 /// whole archive at every step of the range decides nothing about whether a message's
 /// references resolve, which is the question a commit's assembly exists to answer; the
-/// extension leaves both out, per `design@check@every-commit-judged-by-the-tip-checker`.
+/// extension leaves both out, per `design@check@extension-leaves-out-checks-not-about-the-tree`.
 ///
 /// **The index's snapshot is judged as `check` would judge a clean checkout of it**: its
 /// installed files are compared against the running binary's shipped set, and the files git
