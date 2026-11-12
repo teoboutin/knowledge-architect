@@ -1827,7 +1827,8 @@ mod tests {
     /// suffix or a fragment is told to drop it, naming the form without it, where that form
     /// resolves; where it does not, the cause is the one the form without the suffix meets, so the
     /// statement names the id a writer can define. Mutations checked, each caught: `located`'s
-    /// call in `reference` made `resolve(id)`; its suffix test made `if true`.
+    /// call in `table` made `resolve(id)`, and its call in `register`; its suffix test made
+    /// `if true`.
     #[test]
     fn a_suffixed_table_reference_is_told_to_drop_its_suffix() {
         let m = manifest();
