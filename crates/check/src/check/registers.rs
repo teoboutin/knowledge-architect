@@ -1227,9 +1227,19 @@ mod tests {
         assert!(found[0].contains("declares none"), "{found:#?}");
     }
 
-    /// The findings of the shapes and of the generated files together, as a run raises them,
-    /// over the issue instance with `drop` left out of the listing and `add` put in.
+    /// The findings of the shapes and of the generated files together, as a run over the working
+    /// tree raises them, over the issue instance with `drop` left out of the listing and `add`
+    /// put in.
     fn shapes_and_generated(drop: &str, add: &[&str]) -> Vec<Finding> {
+        shapes_and_generated_in(drop, add, crate::check::Judged::WorkingTree)
+    }
+
+    /// The same, as a run judging the tree `judged` raises them.
+    fn shapes_and_generated_in(
+        drop: &str,
+        add: &[&str],
+        judged: crate::check::Judged,
+    ) -> Vec<Finding> {
         let manifest = declaring("");
         let mut present: HashSet<PathBuf> = all_of("")
             .iter()
@@ -1265,7 +1275,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
-            judged: crate::check::Judged::WorkingTree,
+            judged,
         };
         let mut found = check(&model, &manifest, &inputs).0;
         found.extend(crate::check::generated::check(
@@ -1280,8 +1290,12 @@ mod tests {
     /// The claim: a missing index, and a directory standing at its path, each raise a finding of
     /// the shapes and one of the generated files, and the two name one repair: the regeneration,
     /// after the directory's removal where one stands there. A missing README names a hand-written
-    /// file, after the same removal. Mutations: the shapes' finding naming a repair of its own for
-    /// the index, or the directory's removal dropped from it, each fail a case.
+    /// file, after the same removal, and no finding reads either directory as a group. Mutations:
+    /// the shapes' finding naming a repair of its own for the index, or the directory's removal
+    /// dropped from it, each fail a case; and `directory_contents`'s skip
+    /// `if *path == home.readme || *path == home.index {` given `if *path == home.index {`,
+    /// which reads the README's directory as an undeclared group, is caught by the README's
+    /// count.
     #[test]
     fn a_missing_index_raises_two_findings_that_name_one_repair() {
         let index = "docs/open-issues/index.md";
@@ -1311,13 +1325,103 @@ mod tests {
             "{found:#?}"
         );
         let found = shapes_and_generated(readme, &[readme, "docs/open-issues/README.md/a.md"]);
+        let on: Vec<&Finding> = found
+            .iter()
+            .filter(|f| f.file == Path::new(readme))
+            .collect();
+        // The shapes' finding alone, and no second one reading the directory as a group.
+        assert_eq!(on.len(), 1, "{found:#?}");
         assert!(
-            found.iter().any(|f| f.file == Path::new(readme)
-                && f.action.starts_with(
-                    "move out what the directory holds, then remove it, then write it by hand"
-                )),
+            on[0].action.starts_with(
+                "move out what the directory holds, then remove it, then write it by hand"
+            ),
             "{found:#?}"
         );
+    }
+
+    /// The claim: the repair both families name for a missing index, and for a directory at its
+    /// path, is the command that writes the tree the run judges: `index --staged` under
+    /// `check --staged`, and `index` over the working tree and under `commits`, where a history
+    /// edit runs it. Mutations, each caught: `index_action`'s `Judged::Index` arm given
+    /// `index`; and `check_under` passing `crate::check::Judged::WorkingTree` to `index_action`
+    /// in place of `inputs.judged`, which leaves the generated family's finding alone naming
+    /// `index --staged`.
+    #[test]
+    fn the_index_repair_names_the_command_that_writes_the_tree_judged() {
+        use crate::check::Judged;
+        let index = "docs/open-issues/index.md";
+        for (judged, command) in [
+            (Judged::WorkingTree, "run `klarch index`"),
+            (Judged::Index, "run `klarch index --staged`"),
+            (Judged::Commit, "run `klarch index`"),
+        ] {
+            for (add, action) in [
+                (vec![], command.to_string()),
+                (
+                    vec![index, "docs/open-issues/index.md/a.md"],
+                    format!("move out what the directory holds, then remove it, then {command}"),
+                ),
+            ] {
+                let found = shapes_and_generated_in(index, &add, judged);
+                let on: Vec<&Finding> = found
+                    .iter()
+                    .filter(|f| f.file == Path::new(index))
+                    .collect();
+                assert_eq!(on.len(), 2, "{judged:?} {add:?}: {found:#?}");
+                assert!(
+                    on.iter().all(|f| f.action == action),
+                    "{judged:?} {add:?}: {on:#?}"
+                );
+            }
+        }
+    }
+
+    /// The claim: a register's options whose bytes are not UTF-8 are one finding, naming their
+    /// re-encoding, and the groups they would declare are unknown, so no subdirectory of the
+    /// instance is reported as an undeclared group. Mutations,
+    /// each caught: `config`'s test `if inputs.configs_not_text.contains(&home.config) {` given
+    /// `if false {`, which reads the options as absent and reports the subdirectory; and its
+    /// `return None;` given `return Some(BTreeSet::new());`, which reports it too.
+    #[test]
+    fn options_that_are_not_utf8_are_one_finding_and_declare_no_group_read() {
+        let manifest = declaring("");
+        let config = "docs/open-issues/register.toml";
+        let mut present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
+        present.extend(
+            [
+                config,
+                "docs/open-issues/a-group",
+                "docs/open-issues/a-group/an-entry.md",
+            ]
+            .iter()
+            .map(PathBuf::from),
+        );
+        let directories = crate::check::testing::implied_directories(&present);
+        let not_text: HashSet<PathBuf> = [PathBuf::from(config)].into();
+        let inputs = Inputs {
+            committed: &HashMap::new(),
+            configs: &HashMap::new(),
+            configs_not_text: &not_text,
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
+        };
+        let found = check(&Model::from_documents(Vec::new()), &manifest, &inputs).0;
+        let under: Vec<&Finding> = found
+            .iter()
+            .filter(|f| f.file.starts_with("docs/open-issues"))
+            .collect();
+        assert_eq!(under.len(), 1, "{found:#?}");
+        assert_eq!(under[0].file, Path::new(config), "{found:#?}");
+        assert!(under[0].what.contains("are not UTF-8 text"), "{found:#?}");
+        assert_eq!(under[0].action, "re-encode the file as UTF-8", "{found:#?}");
     }
 
     /// The claim: a file of another suffix in an instance names the rename of an entry beside
@@ -1428,6 +1532,34 @@ mod tests {
                 .any(|f| f.contains("does not parse") && f.contains("→ rewrite it as")),
             "{found:#?}"
         );
+    }
+
+    /// The claim: a block that does not parse, in a built-in register that declares no key, names
+    /// the deletion alone: a built-in register's metadata is compiled in, so no declaration is
+    /// offered, and the deletion is what the finding on a parsed block would name next. A spec is
+    /// such an entry. Mutation: the arm's `"" => "delete the block".to_string(),` given
+    /// `"" => "rewrite the block".to_string(),`, caught.
+    #[test]
+    fn a_frontmatter_that_does_not_parse_in_a_built_in_register_names_its_deletion() {
+        let table = Anchors::of(&declaring(""), &[]);
+        let spec = table.registers().by_name("spec").expect("built in");
+        assert!(spec.metadata.is_empty(), "{:?}", spec.metadata);
+        let sections: Vec<&str> = spec.sections.iter().map(String::as_str).collect();
+        let at = "docs/plans/specs/a-spec.md";
+        let text = format!(
+            "---\nstatus:\n  nested: 1\n---\n{}",
+            with_sections("A spec", &sections)
+        );
+        let mut present = all_of("");
+        present.push(at.to_string());
+        let model = Model::from_documents(vec![(PathBuf::from(at), text)]);
+        let found: Vec<String> = findings_over(&declaring(""), &present, model, &[])
+            .into_iter()
+            .filter(|f| f.starts_with(at))
+            .collect();
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("does not parse"), "{found:#?}");
+        assert!(found[0].ends_with("→ delete the block"), "{found:#?}");
     }
 
     /// The claims: an entry whose block holds a blank line is read as carrying none, and the

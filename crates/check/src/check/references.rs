@@ -993,7 +993,9 @@ mod tests {
     /// per `goal@the-owner-decides`. Mutations: the decision branch given whatever the kind
     /// fails the issue entry's case; `all` read as `any` fails the mixed case; the goal clause's
     /// test `forms.iter().any(|f| f.starts_with("goal@"))` replaced by `false` fails the goal's
-    /// case, and by `true` the issue entry's.
+    /// case, and by `true` the issue entry's; and the bare form given the goal clause,
+    /// `IdForm::Bare => String::new(),` replaced by `IdForm::Bare => goal.to_string(),`, fails
+    /// the bare goal's case, since the clause answers a plain word alone.
     #[test]
     fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
         let (found, _) = checked_docs(
@@ -1010,7 +1012,7 @@ mod tests {
                 (
                     "docs/notes.md",
                     "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n\nThe a-mixed-slug word.\n\n\
-                     The a-plain-goal word.\n",
+                     The a-plain-goal word.\n\nThe bare `a-plain-goal`.\n",
                 ),
             ],
             &[],
@@ -1035,6 +1037,13 @@ mod tests {
         );
         assert!(!issue.contains("state its decision"), "{issue}");
         assert!(!issue.contains("goal-setting"), "{issue}");
+        // A bare id's repair is its reference form alone: the renaming, and a goal's clause with
+        // it, answer a word meant as an ordinary term, which a span in backticks is not.
+        let bare = found
+            .iter()
+            .find(|f| f.contains("`a-plain-goal` is written in backticks without its kind"))
+            .unwrap_or_else(|| panic!("{found:#?}"));
+        assert!(bare.ends_with("→ write `goal@a-plain-goal`"), "{bare}");
         let goal = plain("a-plain-goal");
         assert!(
             goal.contains(
@@ -2679,6 +2688,30 @@ mod tests {
         let refused: Vec<&String> = found.iter().filter(|f| f.contains("is refused")).collect();
         assert_eq!(refused.len(), 1, "{found:#?}");
         assert!(refused[0].ends_with(GOALS_HOME_REPAIR), "{refused:#?}");
+    }
+
+    /// The claim: a refused link whose `..` climbs past the project's root names no target a link
+    /// can reach, so its repair is the backticked `path` reference, never a plain link built from
+    /// what follows the climb. Mutation: `followed`'s `if !at.pop() { return None; }` given
+    /// `at.pop();`, which climbs nowhere from the root and offers `notes/a.md`, caught.
+    #[test]
+    fn a_refused_link_climbing_past_the_root_names_the_path_reference() {
+        let present = vec!["notes".to_string(), "notes/a.md".to_string()];
+        let (found, _) = checked_in(
+            &root_and_part_manifest(),
+            "README.md",
+            "[a](../notes/a.md)\n",
+            &present,
+        );
+        let refused: Vec<&String> = found.iter().filter(|f| f.contains("is refused")).collect();
+        assert_eq!(refused.len(), 1, "{found:#?}");
+        assert!(
+            refused[0].ends_with(
+                "→ a link reaches only a target under this file's directory: point to this one \
+                 with a backticked `path@<anchor>@<path>` reference"
+            ),
+            "{found:#?}"
+        );
     }
 
     /// The harness kinds' references, against walked documents and installed copies.
