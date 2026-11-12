@@ -33,7 +33,7 @@ pub struct TranscriptListArgs {
     #[arg(long, value_name = "TEXT")]
     pub containing: Option<String>,
     /// Keep a session whose last line is on or after DATE, `YYYY-MM-DD`, in UTC.
-    #[arg(long, value_name = "DATE")]
+    #[arg(long, value_name = "DATE", value_parser = since)]
     pub since: Option<String>,
     /// Read the sessions of every project, not only this one's.
     #[arg(long)]
@@ -78,7 +78,7 @@ pub struct TranscriptShowArgs {
 #[derive(Args)]
 pub struct TranscriptSearchArgs {
     /// A regular expression, in the syntax of the `regex` crate.
-    #[arg(value_name = "REGEX")]
+    #[arg(value_name = "REGEX", value_parser = pattern)]
     pub pattern: String,
     /// Keep lines of this role, repeatable: owner, owner-answer, owner-queued, owner-command,
     /// owner-interrupt, owner-shell, agent, dispatch, injected, tool, unlabelled; `tool` keeps the
@@ -99,7 +99,7 @@ pub struct TranscriptSearchArgs {
     #[arg(long, value_name = "BRANCH")]
     pub branch: Option<String>,
     /// Search only the sessions whose last line is on or after DATE, `YYYY-MM-DD`, in UTC.
-    #[arg(long, value_name = "DATE")]
+    #[arg(long, value_name = "DATE", value_parser = since)]
     pub since: Option<String>,
     /// Search the sessions of every project, not only this one's.
     #[arg(long)]
@@ -110,6 +110,18 @@ pub struct TranscriptSearchArgs {
     /// One JSON object per line, the header first. No contract.
     #[arg(long)]
     pub json: bool,
+}
+
+/// A date of `--since`, checked by the transcript crate's rule while parsing, per
+/// `design@cli@command-parsing-home`.
+fn since(value: &str) -> Result<String, String> {
+    knowledge_architect_transcript::check_since(value).map(|()| value.to_string())
+}
+
+/// The pattern of `search`, checked by the transcript crate's rule while parsing, per
+/// `design@cli@command-parsing-home`.
+fn pattern(value: &str) -> Result<String, String> {
+    knowledge_architect_transcript::check_pattern(value).map(|()| value.to_string())
 }
 
 impl From<TranscriptVerb> for knowledge_architect_transcript::TranscriptVerb {

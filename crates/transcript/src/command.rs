@@ -160,19 +160,57 @@ fn note_no_cwd(corpus: &mut Corpus, no_cwd: &[(std::path::PathBuf, usize)]) {
     }
 }
 
-fn check_date(date: &Option<String>) -> Result<(), String> {
-    if let Some(date) = date {
-        let bytes = date.as_bytes();
-        let shaped = bytes.len() == 10
-            && bytes.iter().enumerate().all(|(i, b)| match i {
-                4 | 7 => *b == b'-',
-                _ => b.is_ascii_digit(),
-            });
-        if !shaped {
-            return Err(format!("--since takes a date as YYYY-MM-DD, not {date:?}"));
-        }
+/// Refuse a value of `since` that is no day of the calendar written `YYYY-MM-DD`, as
+/// [`ListOptions`] and [`SearchOptions`] take it; `Err` names the value. A binary's declaration of
+/// `--since` calls it while parsing, per `design@cli@command-parsing-home`, and [`transcript`] calls
+/// it again, since an options value can be built without the declaration.
+pub fn check_since(date: &str) -> Result<(), String> {
+    let bytes = date.as_bytes();
+    let shaped = bytes.len() == 10
+        && bytes.iter().enumerate().all(|(i, b)| match i {
+            4 | 7 => *b == b'-',
+            _ => b.is_ascii_digit(),
+        });
+    // The shape holds digits alone at these positions, so each parse succeeds.
+    let number = |range: std::ops::Range<usize>| date[range].parse::<u32>().unwrap_or(0);
+    let on_the_calendar = shaped && {
+        let (year, month, day) = (number(0..4), number(5..7), number(8..10));
+        let leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+        let days = match month {
+            1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+            4 | 6 | 9 | 11 => 30,
+            2 if leap => 29,
+            2 => 28,
+            _ => 0,
+        };
+        (1..=days).contains(&day)
+    };
+    if on_the_calendar {
+        Ok(())
+    } else {
+        Err(format!(
+            "a date is a day of the calendar written YYYY-MM-DD, not {date:?}"
+        ))
     }
-    Ok(())
+}
+
+/// Refuse a value of [`SearchOptions::pattern`] that is no regular expression in the syntax of the
+/// `regex` crate; `Err` gives the parser's reason. A binary's declaration of the pattern calls it
+/// while parsing, per `design@cli@command-parsing-home`, and [`transcript`] parses the pattern again,
+/// since an options value can be built without the declaration.
+pub fn check_pattern(pattern: &str) -> Result<(), String> {
+    parse_pattern(pattern).map(|_| ())
+}
+
+fn parse_pattern(pattern: &str) -> Result<regex::Regex, String> {
+    regex::Regex::new(pattern).map_err(|e| format!("the regular expression does not parse: {e}"))
+}
+
+fn check_date(date: &Option<String>) -> Result<(), String> {
+    match date {
+        Some(date) => check_since(date).map_err(|e| format!("--since: {e}")),
+        None => Ok(()),
+    }
 }
 
 /// Whether a session passes `--branch` and `--since`. A timestamp is ISO 8601 in UTC, so its
@@ -366,8 +404,7 @@ fn search(root: &Path, dir: &Path, args: &SearchOptions) -> Result<ExitCode, Str
         ));
     }
     check_date(&args.since)?;
-    let pattern = regex::Regex::new(&args.pattern)
-        .map_err(|e| format!("the regular expression does not parse: {e}"))?;
+    let pattern = parse_pattern(&args.pattern)?;
     let corpus = read_project(root, dir, args.all_projects, args.subagents)?;
     header(&corpus.inventory, args.json);
     let mut hits = 0;
@@ -610,6 +647,41 @@ mod tests {
     }
 
     use super::*;
+
+    /// The claim: a date is refused unless it is a day of the calendar written `YYYY-MM-DD`: its
+    /// shape, its month, its day within the month, and February's 29th in a leap year alone.
+    /// Mutations checked in `check_since`: the length test `== 10` as `>= 10`, the hyphen test as
+    /// `true`, `shaped && {` as `shaped || {`, the leap rule cut to `year % 4 == 0` and to
+    /// `year % 4 == 0 && year % 100 != 0`, `2 if leap => 29` as `2 => 29`, April's 30 days as 31,
+    /// and the day range `1..=days` as `0..=days`; each caught.
+    #[test]
+    fn since_takes_a_day_of_the_calendar() {
+        for date in [
+            "2026-01-31",
+            "2024-02-29",
+            "2000-02-29",
+            "2026-12-01",
+            "2026-04-30",
+        ] {
+            assert_eq!(check_since(date), Ok(()), "{date}");
+        }
+        for date in [
+            "yesterday",
+            "2026-1-01",
+            "2026/01/01",
+            "2026-01-011",
+            "2026-13-01",
+            "2026-00-10",
+            "2026-01-00",
+            "2026-01-32",
+            "2026-04-31",
+            "2026-02-29",
+            "1900-02-29",
+            "2026-+1-01",
+        ] {
+            assert!(check_since(date).is_err(), "{date}");
+        }
+    }
 
     fn kept(line: usize, label: Label, text: &str) -> Entry {
         Entry {

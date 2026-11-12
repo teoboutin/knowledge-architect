@@ -8,6 +8,8 @@
 //! Its caller gives it the project's root; from a linked worktree, it also reads the sessions of the
 //! same path in the main checkout. Every line is labelled by what the harness recorded of it, never by
 //! a substring of its text, and every line or value the reader does not know is counted and reported, never a failure.
+//! [`check_since`] and [`check_pattern`] are the rules [`transcript`] applies to a date and to a
+//! pattern, for a binary's declaration of those arguments to call while parsing.
 //!
 //! **A project does not name this package**: it pins `knowledge-architect`, whose binary offers the
 //! command. A Rust program that reads transcripts depends on it directly.
@@ -39,7 +41,8 @@ mod output;
 mod reader;
 
 pub use command::{
-    transcript, ListOptions, SearchOptions, ShowFrom, ShowOptions, TranscriptVerb, ROLES,
+    check_pattern, check_since, transcript, ListOptions, SearchOptions, ShowFrom, ShowOptions,
+    TranscriptVerb, ROLES,
 };
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at

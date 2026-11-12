@@ -178,6 +178,28 @@ fn a_refused_name_writes_nothing() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
+/// The claim: a `--name` inside the installer's namespace is refused while parsing, per
+/// `design@cli@command-parsing-home`: exit 2 with clap's refusal of the value, where a check after
+/// parsing would first refuse the manifest PATH already holds, and nothing is written.
+/// Mutation checked: the `value_parser` of `--name` removed from `InitArgs` in `path@cli@src/cli/mod.rs`; caught.
+#[test]
+fn a_name_in_the_installer_s_namespace_is_refused_while_parsing() {
+    let scratch = Scratch::new("name-parse");
+    scratch.write("knowledge-architect.toml", "held\n");
+    let before = listing(&scratch.dir);
+    let (out, err, code) = klarch(
+        &scratch.dir,
+        &["init", ".", "--name", "knowledge-architect-x"],
+    );
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(err.starts_with("error: invalid value"), "{err}");
+    assert_eq!(listing(&scratch.dir), before);
+    assert_eq!(
+        std::fs::read_to_string(scratch.path("knowledge-architect.toml")).expect("kept"),
+        "held\n"
+    );
+}
+
 /// The claim: each row of the table of `design@create@init-runs-git-init`, outside a worktree and
 /// inside one.
 #[test]
