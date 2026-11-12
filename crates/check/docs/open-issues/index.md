@@ -1,10 +1,11 @@
 **Generated — do not edit.** `cargo klarch index`
 
-26 entries
+27 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A declared command holding a quote or a backslash installs saved workflows that do not parse](a-declared-command-with-a-quote-breaks-the-installed-workflows.md) |
+| defect | [`commits` reads a parent tree it cannot assemble as no parent, in silence, so a message's reference into that tree dangles](a-parent-tree-that-cannot-be-assembled-serves-as-no-parent.md) |
 | defect | [In a project that builds the checker from its own tree, `check --staged` compares the staged installed files with unstaged shipped text](a-staged-check-compares-installed-files-with-unstaged-shipped-text.md) |
 | defect | [Under `check --staged` a finding on an installed file can name a repair that does nothing](a-staged-installed-finding-can-name-a-repair-that-does-nothing.md) |
 | defect | [An extension's generated file names one repair whatever tree the run judges, so under `check --staged` it cannot name `index --staged`](an-extension-s-generated-file-names-one-repair-whatever-tree-is-judged.md) |
