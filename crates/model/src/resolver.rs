@@ -849,7 +849,7 @@ fn register_written(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
 /// with neither of its two conditions, an extension before the suffix and a letter opening the
 /// fragment: those tell another tool's notation from a pointer, and a span with an anchor is a
 /// pointer whatever follows its id.
-fn without_suffix(path: &str) -> (&str, bool) {
+pub(crate) fn without_suffix(path: &str) -> (&str, bool) {
     // A fragment is a heading anchor, which may open on a digit, as `#1-intro`; a line suffix is a
     // number or a closed range. Each is stripped once, the fragment first and again last, so a span
     // that carries both, in either order, loses both. An empty or open suffix is no suffix.
@@ -2023,6 +2023,28 @@ mod tests {
             path_over("one", "target/gen.rs:3", &[], &[], &[query, written]),
             Ok(Target::Path(PathBuf::from("crates/one/target/gen.rs:3")))
         );
+    }
+
+    /// The claim: the home of a register the root alone carries, written with a line suffix or a
+    /// fragment, is a reference, told to drop the suffix and to write the form with no anchor;
+    /// written with no suffix it resolves. Mutation checked, and caught: in `entity::candidate`,
+    /// the root-register arm testing `rest` as written in place of `named`.
+    #[test]
+    fn a_suffixed_root_register_home_is_told_to_drop_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        for (span, outcome) in [
+            ("register@goal:3", located("register@goal")),
+            ("register@goal#x", located("register@goal")),
+            ("register@goal", Ok(Target::Home)),
+        ] {
+            let Candidate::Reference { kind, anchor, id } = entity::candidate(span, &anchors)
+            else {
+                panic!("{span} is no reference");
+            };
+            assert!(kind.is_register(), "{span}");
+            assert_eq!(register(anchor, id, &anchors), outcome, "{span}");
+        }
     }
 
     /// The claim: a suffixed path whose spelling without the suffix `refused` refuses asks git

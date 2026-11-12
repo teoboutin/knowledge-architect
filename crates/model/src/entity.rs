@@ -1049,8 +1049,11 @@ pub fn candidate<'a>(span: &'a str, anchors: &'a Anchors) -> Candidate<'a> {
         return root_register_candidate(kind, rest, anchors);
     }
     if kind.is_register() {
+        // A line suffix or a fragment after the register's name is the resolver's to judge, which
+        // tells the writer to drop it: tested as written, the span would read as two segments.
+        let named = crate::resolver::without_suffix(rest).0;
         match rest.split_once('@') {
-            None if anchors.registers.is_root_register(rest) => {
+            None if anchors.registers.is_root_register(named) => {
                 return Candidate::Reference {
                     kind,
                     anchor: anchors.root_name(),
