@@ -902,9 +902,10 @@ pub fn normalise_one(list: &str, path: &mut PathBuf, complaints: &mut Vec<Findin
 ///
 /// A register's name is what a reference spells in kind position, so a name outside the id
 /// grammar is a register nothing can point at, and `path` and `planned` are names the resolver
-/// answers before it ever reaches the register list. Its home is `<home base>/<dir>`, so a `dir`
-/// that is neither one plain segment nor [`CARRIER_DIR`] puts the home somewhere the anchor does
-/// not reach, [`CARRIER_DIR`] on a component register puts it at every component's `docs/`, and a `dir`
+/// answers before it ever reaches the register list. Its home is `<home base>/<dir>`, and a `dir`
+/// other than [`CARRIER_DIR`] takes the grammar a register's name takes, which holds no `/` and no
+/// `..` that would put the home somewhere the anchor does not reach; [`CARRIER_DIR`] on a component
+/// register puts the home at every component's `docs/`, and a `dir`
 /// that makes the root's home the plans directory gives one directory two meanings. Each is a
 /// complaint, and the register is not declared. The built-in ones are named and placed by
 /// this tool and are never refused here.
@@ -961,11 +962,11 @@ fn resolve_registers(registers: &mut Registers, complaints: &mut Vec<Finding>) {
         } else if register.dir != CARRIER_DIR && !crate::entity::is_entity_id(&register.dir) {
             Some((
                 format!(
-                    "the {} register's directory `{}` is not one plain segment",
+                    "the {} register's directory `{}` is not one plain segment of lower-case \
+                     letters and digits, in words joined by hyphens",
                     register.name, register.dir
                 ),
-                "name it in lower-case words joined by hyphens; a `/` or a `..` puts the \
-                 home outside the anchor, and the real one is then read by nothing",
+                "rename it in lower-case letters and digits, as words joined by hyphens",
             ))
         } else if register.scope == Scope::Component
             && Path::new("docs").join(&register.dir) == Path::new(PLANS_DIR)
@@ -1120,31 +1121,51 @@ fn resolve_components(
         let dir = register.dir.clone();
         let mut kept = Vec::new();
         for component in std::mem::take(&mut register.components) {
-            let why = if !names.contains(&component) {
-                Some("which is no component of this project".to_string())
+            // Each refusal carries the repair its own cause needs: an unknown name is a
+            // misspelling or a row to drop, and the other three keep the component and move the
+            // home.
+            let why: Option<(String, String)> = if !names.contains(&component) {
+                Some((
+                    "which is no component of this project".to_string(),
+                    format!(
+                        "name a component as a reference does, `{root}` or the last segment of \
+                         a row of [project] components, or remove the name"
+                    ),
+                ))
             } else if dir == CARRIER_DIR {
-                Some(format!(
-                    "whose home would be the component's docs/ itself, with `dir = \"{CARRIER_DIR}\"`"
+                Some((
+                    format!(
+                        "whose home would be the component's docs/ itself, with `dir = \"{CARRIER_DIR}\"`"
+                    ),
+                    "give the register a directory of its own, or remove the name and carry the \
+                     register by a location, which keeps it at the location's own path"
+                        .to_string(),
                 ))
             } else if component == root && Path::new("docs").join(&dir) == Path::new(PLANS_DIR) {
-                Some(format!(
-                    "whose home would be the plans directory {PLANS_DIR}/"
+                Some((
+                    format!("whose home would be the plans directory {PLANS_DIR}/"),
+                    "give the register another directory; the tool constructs the anchor `plans` \
+                     at that one"
+                        .to_string(),
                 ))
             } else if let Some((_, _, other)) =
                 taken.iter().find(|(c, d, _)| *c == component && *d == dir)
             {
-                Some(format!(
-                    "which keeps the {other} register at docs/{dir}/ already"
+                Some((
+                    format!("which keeps the {other} register at docs/{dir}/ already"),
+                    format!(
+                        "give the {name} register another directory; one directory answers for \
+                         one register"
+                    ),
                 ))
             } else {
                 None
             };
             match why {
-                Some(why) => complaints.push(Finding::in_file(
+                Some((why, action)) => complaints.push(Finding::in_file(
                     MANIFEST_NAME,
                     format!("[registers.{name}] names the component `{component}`, {why}"),
-                    "name a declared component, and give the register a directory of its own \
-                     under that component's docs/; one directory answers for one register",
+                    action,
                 )),
                 None => {
                     taken.push((component.clone(), dir.clone(), name.clone()));
@@ -1167,6 +1188,8 @@ struct Candidate {
     declared_at: String,
     /// Whether this is the anchor `plans`, which the tool constructs rather than a row declares.
     tool_built: bool,
+    /// Whether this is the project's root, named by `[project] name` rather than by a row.
+    is_root: bool,
 }
 
 impl Candidate {
@@ -1233,6 +1256,7 @@ fn resolve_anchors(
         homes: component_homes(&declared.project.name, Path::new("")),
         declared_at: "[project] name".to_string(),
         tool_built: false,
+        is_root: true,
     }];
     // Pushed right after the root, so the stable sort below puts it first among the anchors
     // of its depth: a declared anchor at the plans directory is then the one refused, and the
@@ -1249,6 +1273,7 @@ fn resolve_anchors(
         is_component: false,
         declared_at: format!("the anchor `plans` the tool constructs at {PLANS_DIR}/"),
         tool_built: true,
+        is_root: false,
     });
     for path in &declared.project.components {
         let name = path
@@ -1262,6 +1287,7 @@ fn resolve_anchors(
             is_component: true,
             declared_at: format!("[project] components row `{}`", path.display()),
             tool_built: false,
+            is_root: false,
         });
     }
     for (name, decl) in &mut declared.locations {
@@ -1358,6 +1384,7 @@ fn resolve_anchors(
                 .collect(),
             declared_at: format!("[locations.{name}]"),
             tool_built: false,
+            is_root: false,
         });
     }
     // Stable, so among equals the order the candidates were pushed in decides: `plans` first,
@@ -1371,13 +1398,26 @@ fn resolve_anchors(
             complaints.push(Finding::in_file(MANIFEST_NAME, what, action));
         };
         if !crate::entity::is_anchor_name(&candidate.name) {
+            // Where the name comes from decides what is edited: the project's name is a key, a
+            // component's is its directory's last segment, and a location's is its table's key.
+            // A component row with no last segment, `.` or an empty string once normalised,
+            // spells the root's path, and the root is a component already.
+            let action = if candidate.is_root {
+                "rename the project in [project] name, in letters, digits, `.`, `-` and `_`"
+            } else if candidate.is_component && candidate.name.is_empty() {
+                "delete the row; it spells the project's root, which is a component already"
+            } else if candidate.is_component {
+                "rename the directory and its row, its last segment in letters, digits, `.`, \
+                 `-` and `_`"
+            } else {
+                "rename the table, in letters, digits, `.`, `-` and `_`"
+            };
             refuse(
                 format!(
                     "{} gives the anchor the name `{}`, which cannot be spelled in a reference",
                     candidate.declared_at, candidate.name
                 ),
-                "name it in letters, digits, `.`, `-` and `_`; an anchor nothing can point \
-                 at is one every pointer misses in silence",
+                action,
             );
             continue;
         }
@@ -1587,37 +1627,56 @@ fn build_registers(
                 wrong.push("components");
             }
             if !wrong.is_empty() {
-                complaints.push(format!(
-                    "[registers.{name}] sets {} on a built-in register",
-                    wrong.join(", ")
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] sets {} on a built-in register",
+                        wrong.join(", ")
+                    ),
+                    format!(
+                        "remove {} from the table; a built-in register's storage is fixed, and a \
+                         register stored otherwise is declared under a name of its own",
+                        wrong.join(", ")
+                    ),
+                );
             }
             match &decl.kinds {
                 Some(kinds) if *name == ISSUE_REGISTER => {
                     out[at].kinds = kinds.clone();
                     out[at].metadata = vec![("kind".to_string(), kinds.clone())];
                 }
-                Some(_) => complaints.push(format!(
-                    "[registers.{name}] sets kinds, which only [registers.{ISSUE_REGISTER}] takes"
-                )),
+                Some(_) => complaints.push(
+                    format!(
+                        "[registers.{name}] sets kinds, which only [registers.{ISSUE_REGISTER}] \
+                         takes"
+                    ),
+                    "remove kinds from the table".to_string(),
+                ),
                 None => {}
             }
             continue;
         }
         if decl.kinds.is_some() {
-            complaints.push(format!(
-                "[registers.{name}] sets kinds, which only [registers.{ISSUE_REGISTER}] takes"
-            ));
+            complaints.push(
+                format!(
+                    "[registers.{name}] sets kinds, which only [registers.{ISSUE_REGISTER}] takes"
+                ),
+                "remove kinds from the table".to_string(),
+            );
         }
         let scope = match decl.scope.as_deref() {
             Some("component") => Scope::Component,
             Some("opt-in") => Scope::OptIn,
             other => {
-                complaints.push(format!(
-                    "[registers.{name}] declares scope {}; a declared register takes \
-                     `component` or `opt-in`",
-                    other.unwrap_or("nothing")
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares scope {}; a declared register takes \
+                         `component` or `opt-in`",
+                        other.unwrap_or("nothing")
+                    ),
+                    "set scope to `component`, carried by every component, or to `opt-in`, \
+                     carried by the components it names and the locations that name it"
+                        .to_string(),
+                );
                 Scope::OptIn
             }
         };
@@ -1626,25 +1685,36 @@ fn build_registers(
             Some("file") => Shape::File,
             Some("directory") => Shape::Directory,
             other => {
-                complaints.push(format!(
-                    "[registers.{name}] declares shape {}; a declared register takes \
-                     `heading`, `file` or `directory`",
-                    other.unwrap_or("nothing")
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares shape {}; a declared register takes \
+                         `heading`, `file` or `directory`",
+                        other.unwrap_or("nothing")
+                    ),
+                    "set shape to `heading`, `file` or `directory`".to_string(),
+                );
                 Shape::File
             }
         };
         if shape == Shape::Heading && (!decl.sections.is_empty() || !decl.metadata.is_empty()) {
-            complaints.push(format!(
-                "[registers.{name}] declares sections or metadata on a heading register, \
-                 which has neither"
-            ));
+            complaints.push(
+                format!(
+                    "[registers.{name}] declares sections or metadata on a heading register, \
+                     which has neither"
+                ),
+                "remove sections and metadata, or set shape to `file`, whose entries take them"
+                    .to_string(),
+            );
         }
         if shape == Shape::Directory && (!decl.sections.is_empty() || !decl.metadata.is_empty()) {
-            complaints.push(format!(
-                "[registers.{name}] declares sections or metadata on a directory register, \
-                 whose entries are directories"
-            ));
+            complaints.push(
+                format!(
+                    "[registers.{name}] declares sections or metadata on a directory register, \
+                     whose entries are directories"
+                ),
+                "remove sections and metadata, or set shape to `file`, whose entries take them"
+                    .to_string(),
+            );
         }
         // What each entry of a Directory register carries is what makes the entry an anchor
         // worth naming; which names are acceptable is `resolve_carries`' question, once every
@@ -1652,22 +1722,28 @@ fn build_registers(
         let carries = match (shape, &decl.carries) {
             (Shape::Directory, Some(carried)) if !carried.is_empty() => carried.clone(),
             (Shape::Directory, _) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares no carries; a directory register names the \
-                     registers each of its entries carries"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares no carries; a directory register names the \
+                         registers each of its entries carries"
+                    ),
+                    "set carries to the registers each entry carries".to_string(),
+                );
                 Vec::new()
             }
             (_, Some(_)) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares carries on a {} register; only a directory \
-                     register's entries carry registers",
-                    if shape == Shape::Heading {
-                        "heading"
-                    } else {
-                        "file"
-                    }
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares carries on a {} register; only a directory \
+                         register's entries carry registers",
+                        if shape == Shape::Heading {
+                            "heading"
+                        } else {
+                            "file"
+                        }
+                    ),
+                    "remove carries, or set shape to `directory`".to_string(),
+                );
                 Vec::new()
             }
             (_, None) => Vec::new(),
@@ -1676,10 +1752,15 @@ fn build_registers(
         // them would change nothing; which names are Components is `resolve_components`' question.
         let components = match (scope, &decl.components) {
             (Scope::Component, Some(_)) => {
-                complaints.push(format!(
-                    "[registers.{name}] names components, and its scope `component` makes every \
-                     component carry it"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] names components, and its scope `component` makes \
+                         every component carry it"
+                    ),
+                    "remove components, or set scope to `opt-in` to have only the components it \
+                     names carry it"
+                        .to_string(),
+                );
                 Vec::new()
             }
             (_, Some(named)) => named.clone(),
@@ -1689,33 +1770,45 @@ fn build_registers(
             // Level one is the document's title, so no register's entries sit there.
             (Shape::Heading, Some(level @ 2..=6)) => Some(level as u8),
             (Shape::Heading, Some(level)) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares level {level}; a heading register's entries \
-                     sit at a heading level from 2 to 6"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares level {level}; a heading register's entries \
+                         sit at a heading level from 2 to 6"
+                    ),
+                    "set level to the heading level of the entries, from 2 to 6".to_string(),
+                );
                 None
             }
             (Shape::Heading, None) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares no level; a heading register declares the \
-                     heading level its entries sit at, from 2 to 6"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares no level; a heading register declares the \
+                         heading level its entries sit at, from 2 to 6"
+                    ),
+                    "set level to the heading level of the entries, from 2 to 6".to_string(),
+                );
                 None
             }
             (Shape::Directory, Some(_)) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares a level on a directory register, whose entries \
-                     are directories"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares a level on a directory register, whose \
+                         entries are directories"
+                    ),
+                    "remove level, or set shape to `heading`".to_string(),
+                );
                 None
             }
             // A declared shape is `heading`, `file` or `directory`; `Section` is the item
             // registers'.
             (Shape::File | Shape::Section, Some(_)) => {
-                complaints.push(format!(
-                    "[registers.{name}] declares a level on a file register, whose entries \
-                     are files"
-                ));
+                complaints.push(
+                    format!(
+                        "[registers.{name}] declares a level on a file register, whose entries \
+                         are files"
+                    ),
+                    "remove level, or set shape to `heading`".to_string(),
+                );
                 None
             }
             (Shape::File | Shape::Directory | Shape::Section, None) => None,
@@ -1742,17 +1835,12 @@ fn build_registers(
     Registers(out)
 }
 
-/// The register complaints, each carrying the one action every one of them shares.
+/// The register complaints, each a finding on the manifest.
 struct Complaints<'a>(&'a mut Vec<Finding>);
 
 impl Complaints<'_> {
-    fn push(&mut self, what: String) {
-        self.0.push(Finding::in_file(
-            MANIFEST_NAME,
-            what,
-            "a declared register states its scope and its shape; a built-in register's \
-             storage is what the word component means and is not declared",
-        ));
+    fn push(&mut self, what: String, action: String) {
+        self.0.push(Finding::in_file(MANIFEST_NAME, what, action));
     }
 }
 
@@ -2906,18 +2994,182 @@ pub(crate) mod tests {
         );
         assert!(m.registers().by_name("subject").is_none());
 
-        for bad in ["./x", "..", "a/b"] {
+        // One repair fits every directory outside the grammar, a `/` or a `..` and an upper-case
+        // letter alike, so the action names no cause.
+        for bad in ["./x", "..", "a/b", "Notes"] {
             let m = with_registers(&format!(
                 "[registers.subject]\nscope = \"opt-in\"\nshape = \"file\"\ndir = \"{bad}\"\n"
             ));
-            assert!(
-                whats(&m)
-                    .iter()
-                    .any(|c| c.contains("is not one plain segment")),
-                "{bad}: {:?}",
-                whats(&m)
+            let found: Vec<&Finding> = m
+                .complaints()
+                .iter()
+                .filter(|f| f.what.contains("is not one plain segment"))
+                .collect();
+            assert_eq!(found.len(), 1, "{bad}: {:?}", whats(&m));
+            assert_eq!(
+                found[0].action,
+                "rename it in lower-case letters and digits, as words joined by hyphens",
+                "{bad}"
             );
         }
+    }
+
+    /// The claim: a declared register's complaint names the repair its own cause needs, never
+    /// one shared by every complaint, per `design@check@finding-names-the-repair`. Mutation
+    /// checked: `Complaints::push` giving every complaint the one action it gave before.
+    #[test]
+    fn each_register_complaint_names_its_own_repair() {
+        let note = "[registers.note]\nscope = \"opt-in\"\n";
+        for (body, complaint, repair) in [
+            (
+                "[registers.issue]\nscope = \"opt-in\"\ndir = \"issues\"\n".to_string(),
+                "sets scope, dir on a built-in register",
+                "remove scope, dir from the table; a built-in register's storage is fixed, and \
+                 a register stored otherwise is declared under a name of its own",
+            ),
+            (
+                "[registers.design]\nkinds = [\"a\"]\n".to_string(),
+                "[registers.design] sets kinds",
+                "remove kinds from the table",
+            ),
+            (
+                format!("{note}shape = \"file\"\nkinds = [\"a\"]\n"),
+                "[registers.note] sets kinds",
+                "remove kinds from the table",
+            ),
+            (
+                "[registers.note]\nshape = \"file\"\n".to_string(),
+                "declares scope nothing",
+                "set scope to `component`, carried by every component, or to `opt-in`, carried \
+                 by the components it names and the locations that name it",
+            ),
+            (
+                format!("{note}shape = \"list\"\n"),
+                "declares shape list",
+                "set shape to `heading`, `file` or `directory`",
+            ),
+            (
+                format!("{note}shape = \"heading\"\nlevel = 3\nsections = [\"A\"]\n"),
+                "sections or metadata on a heading register",
+                "remove sections and metadata, or set shape to `file`, whose entries take them",
+            ),
+            (
+                format!("{note}shape = \"directory\"\ncarries = [\"issue\"]\nsections = [\"A\"]\n"),
+                "sections or metadata on a directory register",
+                "remove sections and metadata, or set shape to `file`, whose entries take them",
+            ),
+            (
+                format!("{note}shape = \"directory\"\n"),
+                "declares no carries",
+                "set carries to the registers each entry carries",
+            ),
+            (
+                format!("{note}shape = \"file\"\ncarries = [\"issue\"]\n"),
+                "carries on a file register",
+                "remove carries, or set shape to `directory`",
+            ),
+            (
+                "[registers.note]\nscope = \"component\"\nshape = \"file\"\n\
+                 components = [\"a-project\"]\n"
+                    .to_string(),
+                "names components, and its scope `component`",
+                "remove components, or set scope to `opt-in` to have only the components it \
+                 names carry it",
+            ),
+            (
+                format!("{note}shape = \"heading\"\nlevel = 7\n"),
+                "declares level 7",
+                "set level to the heading level of the entries, from 2 to 6",
+            ),
+            (
+                format!("{note}shape = \"heading\"\n"),
+                "declares no level",
+                "set level to the heading level of the entries, from 2 to 6",
+            ),
+            (
+                format!("{note}shape = \"directory\"\ncarries = [\"issue\"]\nlevel = 3\n"),
+                "a level on a directory register",
+                "remove level, or set shape to `heading`",
+            ),
+            (
+                format!("{note}shape = \"file\"\nlevel = 3\n"),
+                "a level on a file register",
+                "remove level, or set shape to `heading`",
+            ),
+        ] {
+            let m = with_registers(&body);
+            let found: Vec<&Finding> = m
+                .complaints()
+                .iter()
+                .filter(|f| f.what.contains(complaint))
+                .collect();
+            assert_eq!(found.len(), 1, "{complaint}: {:?}", whats(&m));
+            assert_eq!(found[0].action, repair, "{complaint}");
+        }
+    }
+
+    /// The claim: an anchor name no reference can spell is repaired where the name comes from:
+    /// the project's name, a component's directory, a location's table; and a component row that
+    /// spells the root, `.` or an empty string, is deleted, since its name is empty and no rename
+    /// of it is possible. Mutation checked: the empty-name arm removed, so the row `.` is told to
+    /// rename its directory.
+    #[test]
+    fn an_anchor_name_no_reference_can_spell_is_repaired_where_it_is_declared() {
+        let parse = |name: &str, components: &str, extra: &str| {
+            Manifest::parse(
+                Path::new("/nowhere"),
+                &format!(
+                    "[project]\nchecker-version = \"fixture\"\nname = \"{name}\"\n\
+                     components = [{components}]\n\n{extra}\
+                     [walk]\nskip-dirs = []\nskip-files = []\n"
+                ),
+            )
+            .expect("a declaration")
+        };
+        let spelled = |m: &Manifest| -> Vec<(String, String)> {
+            m.complaints()
+                .iter()
+                .filter(|f| f.what.contains("which cannot be spelled in a reference"))
+                .map(|f| (f.what.clone(), f.action.clone()))
+                .collect()
+        };
+        for row in ["\".\"", "\"\""] {
+            let found = spelled(&parse("a-project", row, ""));
+            assert_eq!(
+                found,
+                [(
+                    "[project] components row `` gives the anchor the name ``, which cannot be \
+                     spelled in a reference"
+                        .to_string(),
+                    "delete the row; it spells the project's root, which is a component already"
+                        .to_string()
+                )],
+                "{row}"
+            );
+        }
+        let found = spelled(&parse("a-project", "\"crates/my engine\"", ""));
+        assert_eq!(found.len(), 1, "{found:?}");
+        assert_eq!(
+            found[0].1,
+            "rename the directory and its row, its last segment in letters, digits, `.`, `-` \
+             and `_`"
+        );
+        let found = spelled(&parse(
+            "a-project",
+            "",
+            "[locations.\"side notes\"]\npath = \"notes\"\nregisters = [\"issue\"]\n\n",
+        ));
+        assert_eq!(found.len(), 1, "{found:?}");
+        assert_eq!(
+            found[0].1,
+            "rename the table, in letters, digits, `.`, `-` and `_`"
+        );
+        let found = spelled(&parse("a project", "", ""));
+        assert_eq!(found.len(), 1, "{found:?}");
+        assert_eq!(
+            found[0].1,
+            "rename the project in [project] name, in letters, digits, `.`, `-` and `_`"
+        );
     }
 
     /// The claim: an `opt-in` register names the Components that carry it, each at its own
@@ -2954,25 +3206,34 @@ pub(crate) mod tests {
             "{carried:?}"
         );
 
-        for (body, complaint, left) in [
+        // Each cause carries its own repair: an unknown name is fixed in the name, the other
+        // three in the register's directory, so no action names a repair its cause does not need.
+        for (body, complaint, repair, left) in [
             (
                 "components = [\"game\", \"nowhere\"]\n",
                 "names the component `nowhere`, which is no component of this project",
+                "name a component as a reference does, `game` or the last segment of a row of \
+                 [project] components, or remove the name",
                 vec!["game"],
             ),
             (
                 "dir = \".\"\ncomponents = [\"engine\"]\n",
                 "whose home would be the component's docs/ itself",
+                "give the register a directory of its own, or remove the name and carry the \
+                 register by a location, which keeps it at the location's own path",
                 vec![],
             ),
             (
                 "dir = \"plans\"\ncomponents = [\"game\", \"engine\"]\n",
                 "names the component `game`, whose home would be the plans directory",
+                "give the register another directory; the tool constructs the anchor `plans` at \
+                 that one",
                 vec!["engine"],
             ),
             (
                 "dir = \"design\"\ncomponents = [\"engine\"]\n",
                 "which keeps the design register at docs/design/ already",
+                "give the lore register another directory; one directory answers for one register",
                 vec![],
             ),
         ] {
@@ -2984,6 +3245,12 @@ pub(crate) mod tests {
                 w.iter().any(|c| c.contains(complaint)),
                 "{complaint}: {w:?}"
             );
+            let found = m
+                .complaints()
+                .iter()
+                .find(|f| f.what.contains(complaint))
+                .expect("the complaint");
+            assert_eq!(found.action, repair, "{complaint}");
             assert_eq!(
                 m.registers().by_name("lore").expect("lore").components,
                 left
