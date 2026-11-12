@@ -25,7 +25,8 @@ planning steps.
 
 The facts a design starts from:
 
-- A fresh worktree costs a cold build, measured in `rejected@mutate@worktree-holds-the-mutation`.
+- A fresh worktree carries no `target/` directory, measured in
+  `rejected@mutate@worktree-holds-the-mutation`, so the first build in it is a cold build.
 - Parallel target directories filled a shared tmpfs, per
   `issue@mutate@an-environment-failure-reads-as-caught`.
 - Agents sharing one tree are safe only while their parts touch disjoint files: an amend, a rebase
@@ -55,5 +56,6 @@ above, against `goal@session-orchestrates-the-work`.
 
 ### Trigger
 
-A plan document whose work wants agents dispatched in parallel: its design discussion decides the
-partition, and this entry gives it the facts.
+A plan document whose work wants agents dispatched in parallel: its design discussion designs the
+partition, who commits and how the parts are merged, from the facts this entry gives, and records it
+as a design head of agent-skills, which closes this entry.

@@ -134,7 +134,8 @@ referencing it, judged at the harvest (step 3):
   other clauses stand. Referenced by `path@agent-skills@docs/design/record-search.md`,
   `path@agent-skills@docs/design/reviews.md` and
   `issue@agent-skills@a-lighter-pass-for-untouched-components`, each for a clause that stands; the
-  installed searcher's description restates the rule and gains a `%%` line citing the verification head.
+  installed searcher's description restates the rule, and its body gains a `%%` line citing the
+  verification head.
 - `design@agent-skills@verification-in-primer`: gains the new section as the place where the check
   of a returned conclusion lives. Referenced by `path@agent-skills@docs/design/project-configuration.md`
   alone.
@@ -148,7 +149,8 @@ referencing it, judged at the harvest (step 3):
   `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`, for the
   rule, which stands.
 - `design@agent-skills@admission-rules-home`: its one section gains the sentence on fixed dispatches.
-  Referenced by fourteen files, each for the rule that the section is the one home, which stands.
+  Referenced by thirteen files, its own home included, each for the rule that the section is the one
+  home, which stands.
 - `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`,
   `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and
   `design@agent-skills@verdicts-reach-the-conformance-review`: each gains a citation of the check
@@ -508,7 +510,7 @@ the owner as a fork (`argument@dispatch-judgement@arg-72`); the owner, round 7: 
 matters most when the claims is acted on." and "Both cases are pretty much the same here actually."
 (`argument@dispatch-judgement@arg-76`, `argument@dispatch-judgement@arg-78`). Final state: approved,
 round 8; the boundary is the session's choice at a fork, which no goal ranks, approved by the
-owner. Shape: the section's verification paragraph. Harvest: the head `design@agent-skills@one-independent-verification-suffices`, with
+owner. Shape: the section's verification paragraph. Harvest: the head `design@agent-skills@at-least-one-independent-verification`, with
 the instances that cite it, as the owner asked, round 6: "with individual instances citing it".
 
 ### No token bound goes in the primer; a piece too large is asked about in the retrospective `##dispatch-size-hint`
@@ -889,7 +891,7 @@ Round 7, session. Bears on `thread@dispatch-judgement@dispatch-judgement-in-prim
 ```text
 `primer@dispatching-work`                        the primer section, content/PRIMER.md
 `design@agent-skills@work-divided-by-judgement` a design head, the agent-skills design home
-`design@agent-skills@one-independent-verification-suffices` a design head, the agent-skills design home
+`design@agent-skills@at-least-one-independent-verification` a design head, the agent-skills design home
 `issue@agent-skills@dispatched-agents-write-their-report-as-they-work` a deferred issue, crates/agent-skills/docs/open-issues/
 `issue@agent-skills@how-parallel-work-is-partitioned-among-agents` a deferred issue, crates/agent-skills/docs/open-issues/
 dispatching.md                                   a subdocument of the agent-skills design home, holding the two heads
@@ -1024,7 +1026,7 @@ Each watches a decision whose failure shows in real sessions first, per
 `design@agent-skills@premortem-as-watch-points`: the first and the second watch
 `design@agent-skills@work-divided-by-judgement`, the second also bringing the evidence the issue
 `issue@agent-skills@dispatched-agents-write-their-report-as-they-work` waits for; the third watches
-`design@agent-skills@one-independent-verification-suffices`. The questions are watches that head argues, not instructions on
+`design@agent-skills@at-least-one-independent-verification`. The questions are watches that head argues, not instructions on
 how a working session behaves, so `design@agent-skills@behaviour-additions-need-real-use` asks
 nothing more of them.
 
@@ -1155,7 +1157,7 @@ Writes every row of the Harvest below, then the `%%` lines of step 1 that cite t
 Claims:
 
 - each head cites what its argument stands on, and each instance named in the Harvest cites
-  `design@agent-skills@one-independent-verification-suffices`: tested by `cargo klarch show` of the head, which lists every
+  `design@agent-skills@at-least-one-independent-verification`: tested by `cargo klarch show` of the head, which lists every
   reference to it;
 - `cargo klarch check` passes;
 - the message of the harvest's commit states every cause of the premortem with its outcome, and
@@ -1179,8 +1181,8 @@ Claims:
 | what | where | when |
 | --- | --- | --- |
 | the head `design@agent-skills@work-divided-by-judgement` (pair: `thread@dispatch-judgement@dispatch-judgement-in-primer` with `thread@dispatch-judgement@absolute-dispatch-conditions` → `design@agent-skills@work-divided-by-judgement`): its title states the rule, the work divided by a judgement on the relations of its pieces, an installed text fixing a dispatch only on a property of the step that holds whatever the task's size; its body names the three properties of today, the readings with the Claude Code version, and the rivals no text, thresholds, and guidance in each skill; test 3 on the harness's default, test 2 on the fixed dispatches at several sites | a new subdocument, `path@agent-skills@docs/design/dispatching.md`, linked from the README of `register@agent-skills@design` | step 3 |
-| the head `design@agent-skills@one-independent-verification-suffices` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `design@agent-skills@one-independent-verification-suffices`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
-| the instances cite `design@agent-skills@one-independent-verification-suffices`: `design@agent-skills@session-acts-on-the-verdicts`, its verification rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its verification | their homes | step 3 |
+| the head `design@agent-skills@at-least-one-independent-verification` (pair: `thread@dispatch-judgement@dispatch-report-standard` → `design@agent-skills@at-least-one-independent-verification`), test 2: its body names the self-check measurement, kept in the message of the commit that adds this spec, which it names by its subject; the boundary in the weak form, the session's choice approved by the owner, the owner's hedge kept; and it cites `design@agent-skills@verification-in-primer` | the same subdocument | step 3 |
+| the instances cite `design@agent-skills@at-least-one-independent-verification`: `design@agent-skills@session-acts-on-the-verdicts`, its verification rule rewritten to cite it and its title kept; `design@agent-skills@one-run-pass`, `design@agent-skills@verifier-in-the-run`, `design@agent-skills@workflow-axis-lenses`, `design@agent-skills@repair-proposals-audited` and `design@agent-skills@verdicts-reach-the-conformance-review`, each gaining a citation where it states its verification | their homes | step 3 |
 | `design@agent-skills@verification-in-primer` gains the section as the place where a returned conclusion's independent verification lives; `design@agent-skills@primer-limit` gains the section as a member, with where the judgement lives; `design@agent-skills@premortem-as-watch-points` gains the three questions, each with what it watches; `design@agent-skills@a-scratch-directory-per-subagent` names the primer section among the texts that state its rule; `design@agent-skills@admission-rules-home` names the admission sentence on fixed dispatches | their homes | step 3 |
 | the losing alternatives, each judged by `skill@knowledge-architect-decision-recording` for a `rejected` entry | `register@agent-skills@rejected` | step 3 |
 | the premortem's third cause, judged by the tripwire standard | `register@agent-skills@tripwire`, or dropped with its reason in the harvest's commit | step 3 |

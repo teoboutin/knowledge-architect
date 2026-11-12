@@ -111,7 +111,7 @@ finding gets one id in each file, each naming the other, since the two files may
   file.
 %% The three questions are `design@agent-skills@premortem-as-watch-points`'s watches, the first two
 %% on `design@agent-skills@work-divided-by-judgement`, the third on
-%% `design@agent-skills@one-independent-verification-suffices`; a subagent's transcript is read with
+%% `design@agent-skills@at-least-one-independent-verification`; a subagent's transcript is read with
 %% `{{command}} transcript show --subagents` where an answer needs it.
 - Did this session carry work an agent could have carried, spending context that its design or its
   exchange with the owner needed? For each: the work, and what carrying it cost.

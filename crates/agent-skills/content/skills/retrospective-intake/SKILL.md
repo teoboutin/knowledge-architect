@@ -204,7 +204,7 @@ verdict a proposal rests on. No subagent replays the reported session or builds 
 behaviour.
 %% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`. The
 %% session's re-check of a verdict is its independent verification, per
-%% `design@agent-skills@one-independent-verification-suffices`.
+%% `design@agent-skills@at-least-one-independent-verification`.
 
 ## The analysis file and who holds each outcome {{slug:analysis-and-ruling}}
 

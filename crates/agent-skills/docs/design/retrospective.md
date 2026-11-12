@@ -62,7 +62,7 @@ question, which no goal ranks, and the owner approved it; and, for the questions
 `design@agent-skills@work-divided-by-judgement`, watched by the question on work an agent could
 have carried and by the question on an agent that came back unfinished or with an unusable report,
 which also brings the evidence `issue@agent-skills@dispatched-agents-write-their-report-as-they-work`
-waits for, and `design@agent-skills@one-independent-verification-suffices`, watched by the question
+waits for, and `design@agent-skills@at-least-one-independent-verification`, watched by the question
 on a returned conclusion. Each is answered from the session's side: its own transcript, the briefs
 it sent and the reports it received, and a subagent's transcript where an answer needs it. The question
 on a mechanical task is asked of every session, since every session follows the workflow's procedures, where the question that lost in
