@@ -258,8 +258,9 @@ pub(crate) fn judge_part(
                     let exists = anchors
                         .all()
                         .iter()
-                        .map(|a| a.path.join(file))
-                        .chain(doc.rel.parent().map(|d| d.join(file)))
+                        .map(|a| a.path.as_path())
+                        .chain(doc.rel.parent())
+                        .filter_map(|base| followed(base, file))
                         .any(|t| inputs.present.contains(&t));
                     let planned = if !exists && in_plans_directory(&doc.rel, anchors) {
                         ", or `planned@<anchor>@<path>` for a path the plan's work will create"
@@ -439,6 +440,28 @@ fn names_a_goal_form(span: &str, anchors: &Anchors) -> bool {
                 .is_some_and(|(_, id)| root_register(id)))
 }
 
+/// The path `path` names read from the directory `base`, a `.` passed over and a `..` climbing
+/// from it, a leading `/` read from the root; `None` where a `..` climbs past the root.
+fn followed(base: &Path, path: &str) -> Option<std::path::PathBuf> {
+    let mut at = if path.starts_with('/') {
+        std::path::PathBuf::new()
+    } else {
+        base.to_path_buf()
+    };
+    for segment in path.split('/').filter(|s| !s.is_empty()) {
+        match segment {
+            "." => {}
+            ".." => {
+                if !at.pop() {
+                    return None;
+                }
+            }
+            name => at.push(name),
+        }
+    }
+    Some(at)
+}
+
 /// How an id was written outside its reference form.
 #[derive(Clone, Copy)]
 enum IdForm {
@@ -605,8 +628,8 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
         IdForm::Bare => ("in backticks without its kind", ""),
         IdForm::Plain if designs == forms.len() => (
             "as a plain word",
-            "; where the word is meant as an ordinary term, the entry's slug names a subject: \
-             rename the entry to state its decision",
+            "; where the word is meant as an ordinary term, rename the entry so that its slug \
+             states its decision",
         ),
         IdForm::Plain if designs == 0 => (
             "as a plain word",
@@ -616,7 +639,8 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
         IdForm::Plain => (
             "as a plain word",
             "; where the word is meant as an ordinary term, rename what it names: a design entry \
-             to state its decision, anything else so that its slug is not an ordinary word",
+             so that its slug states its decision, anything else so that its slug is not an \
+             ordinary word",
         ),
     };
     let word = match how {
@@ -776,16 +800,35 @@ fn link(
         ));
         return;
     }
+    let dir = doc.rel.parent().unwrap_or(Path::new(""));
     if let Some(why) = refused(file_part) {
+        // A link reaches a target under its file's directory alone, per
+        // `primer@where-knowledge-goes`, so the repair depends on where the refused spelling
+        // lands: under that directory, the same target written plain; anywhere else, or past the
+        // root, no link can name it.
+        let beside = followed(dir, file_part)
+            .and_then(|t| t.strip_prefix(dir).ok().map(Path::to_path_buf))
+            .filter(|t| !t.as_os_str().is_empty());
+        let repair = match beside {
+            Some(plain) => format!(
+                "link as `{}{}{}`, the same target written relative to this file",
+                plain.to_string_lossy(),
+                if file_part.ends_with('/') { "/" } else { "" },
+                target.find('#').map_or("", |at| &target[at..])
+            ),
+            None if in_goals_home => GOALS_HOME_REPAIR.to_string(),
+            None => "a link reaches only a target under this file's directory: point to this \
+                     one with a backticked `path@<anchor>@<path>` reference"
+                .to_string(),
+        };
         out.push(Finding::at(
             &doc.rel,
             line,
             format!("the link `{target}` is refused: {why}"),
-            "link with a plain path relative to this file",
+            repair,
         ));
         return;
     }
-    let dir = doc.rel.parent().unwrap_or(Path::new(""));
     let resolved = dir.join(file_part.trim_end_matches('/'));
     if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
         out.push(reported(&cause, &doc.rel, line, target));
@@ -964,8 +1007,8 @@ mod tests {
     }
 
     /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
-    /// design head to be renamed to state its decision, anything else to be renamed so its slug
-    /// is not an ordinary word, and gives both where the forms mix kinds, per
+    /// design head to be renamed so that its slug states its decision, anything else to be
+    /// renamed so its slug is not an ordinary word, and gives both where the forms mix kinds, per
     /// `design@check@plain-word-lint`; a goal's renaming is the owner's, through goal-setting,
     /// per `goal@the-owner-decides`. Mutations: the decision branch given whatever the kind
     /// fails the issue entry's case; `all` read as `any` fails the mixed case; the goal clause's
@@ -1001,9 +1044,10 @@ mod tests {
         };
         let design = plain("a-decision");
         assert!(
-            design.contains("rename the entry to state its decision"),
+            design.contains("rename the entry so that its slug states its decision"),
             "{design}"
         );
+        assert!(!design.contains("names a subject"), "{design}");
         let issue = plain("an-issue");
         assert!(
             issue.contains("rename what it names so that its slug is not an ordinary word"),
@@ -1021,7 +1065,9 @@ mod tests {
         );
         let mixed = plain("a-mixed-slug");
         assert!(
-            mixed.contains("a design entry to state its decision, anything else so that its slug"),
+            mixed.contains(
+                "a design entry so that its slug states its decision, anything else so that its slug"
+            ),
             "both branches where the forms mix kinds: {mixed}"
         );
     }
@@ -2324,6 +2370,25 @@ mod tests {
         assert!(!found[0].contains("planned@"), "{found:#?}");
     }
 
+    /// The claim: an unanchored path that reaches an existing file through a `..` or from a
+    /// leading `/` is not offered the planned form, its target followed as `names_this_tree`
+    /// follows it. Mutation checked: `.filter_map(|base| followed(base, file))` in the unanchored
+    /// arm of `judge_part` replaced by `.map(|base| base.join(file))`, the join that read both
+    /// spellings as absent, caught.
+    #[test]
+    fn a_path_reaching_an_existing_file_through_a_climb_or_from_the_root_is_not_planned() {
+        let m = manifest();
+        for span in [
+            "../../../parts/a-part/notes/real/a.md",
+            "/parts/a-part/notes/real/a.md",
+        ] {
+            let text = format!("It edits `{span}`.\n");
+            let (found, _) = checked_in(&m, IN_PLANS, &text, &tree());
+            assert_eq!(found.len(), 1, "{found:#?}");
+            assert!(!found[0].contains("planned@"), "{span}: {found:#?}");
+        }
+    }
+
     #[test]
     fn an_unanchored_path_in_a_plan_document_is_offered_the_planned_form() {
         let m = manifest();
@@ -2597,6 +2662,71 @@ mod tests {
         let (found, _) = checked_in(&m, at, "[a](../real/a.md)\n", &present);
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(found[0].contains("is refused"), "{found:#?}");
+    }
+
+    /// The claim: a refused link target is repaired as where it lands: under its file's
+    /// directory, the same target written plain, its trailing slash and its fragment kept; outside
+    /// it, a backticked `path` reference, since a link reaches nothing there; in a goals home, the
+    /// goals home's repair, since a `path` reference is refused there. Mutations checked, each
+    /// caught: `.filter(|t| !t.as_os_str().is_empty())` in `link` dropped, which offers an empty
+    /// link for `./`; the `None if in_goals_home` arm dropped; the `Some(plain)` arm's format
+    /// given the old text, "link with a plain path relative to this file"; its trailing slash and
+    /// its fragment each replaced by `""`; and `followed` reading a leading `/` from the base,
+    /// `if path.starts_with('/') {` replaced by `if false {`.
+    #[test]
+    fn a_refused_link_is_repaired_as_where_its_target_lands() {
+        let m = root_and_part_manifest();
+        let present = vec![
+            "notes".to_string(),
+            "notes/a.md".to_string(),
+            "notes/sub".to_string(),
+            "docs".to_string(),
+            "docs/design.md".to_string(),
+        ];
+        let (found, _) = checked_in(
+            &m,
+            "notes/README.md",
+            "[a](sub/../a.md)\n\n[b](/notes/a.md#top)\n\n[c](./sub/)\n\n[d](../docs/design.md)\n\n\
+             [e](./)\n",
+            &present,
+        );
+        let action = |target: &str| {
+            found
+                .iter()
+                .find(|f| f.contains(&format!("the link `{target}` is refused")))
+                .and_then(|f| f.split_once("\n    → ").map(|(_, a)| a.to_string()))
+                .unwrap_or_else(|| panic!("{target}: {found:#?}"))
+        };
+        assert_eq!(
+            action("sub/../a.md"),
+            "link as `a.md`, the same target written relative to this file"
+        );
+        assert_eq!(
+            action("/notes/a.md#top"),
+            "link as `a.md#top`, the same target written relative to this file"
+        );
+        assert_eq!(
+            action("./sub/"),
+            "link as `sub/`, the same target written relative to this file"
+        );
+        for outside in ["../docs/design.md", "./"] {
+            assert!(
+                action(outside).contains("a backticked `path@<anchor>@<path>` reference"),
+                "{outside}: {found:#?}"
+            );
+        }
+        let (found, _) = checked_docs(
+            &m,
+            vec![
+                ("docs/goals.md", ""),
+                ("docs/goals/README.md", "# Goals\n\n[d](../design.md)\n"),
+                ("docs/design.md", "# Design\n"),
+            ],
+            &present,
+        );
+        let refused: Vec<&String> = found.iter().filter(|f| f.contains("is refused")).collect();
+        assert_eq!(refused.len(), 1, "{found:#?}");
+        assert!(refused[0].ends_with(GOALS_HOME_REPAIR), "{refused:#?}");
     }
 
     /// The harness kinds' references, against walked documents and installed copies.
