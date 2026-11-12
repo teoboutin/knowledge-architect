@@ -1450,9 +1450,14 @@ pub fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
                         continue;
                     }
                     // A reference with a line suffix or a fragment is judged again without it,
-                    // by `located` and `planned`, so both spellings ask.
+                    // by `located` and `planned`, so both spellings ask; the spelling without it
+                    // passes the same test of `refused`, since `..#a` is no upward segment and
+                    // `..` is.
                     let (bare, suffix) = without_suffix(id);
-                    let spellings: &[&str] = if suffix && !bare.trim_end_matches('/').is_empty() {
+                    let spellings: &[&str] = if suffix
+                        && !bare.trim_end_matches('/').is_empty()
+                        && refused(bare).is_none()
+                    {
                         &[id, bare]
                     } else {
                         &[id]
@@ -2018,6 +2023,29 @@ mod tests {
             path_over("one", "target/gen.rs:3", &[], &[], &[query, written]),
             Ok(Target::Path(PathBuf::from("crates/one/target/gen.rs:3")))
         );
+    }
+
+    /// The claim: a suffixed path whose spelling without the suffix `refused` refuses asks git
+    /// about the written spelling alone, under a named anchor, under `*` and as a planned path, so
+    /// no query climbs out of the repository and fails the batch. Mutation checked, and caught: the
+    /// test of `refused` on the spelling without the suffix removed from `ignore_queries`.
+    #[test]
+    fn a_suffixed_upward_segment_asks_git_nothing_without_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("docs/plans/README.md"),
+            "# Plans\n\n`path@a-project@..#a`, `path@*@..:3`, `planned@a-project@..#x`.\n"
+                .to_string(),
+        )]);
+        let queries = ignore_queries(&model, &anchors);
+        assert!(!queries.is_empty());
+        for query in &queries {
+            assert!(
+                !query.split('/').any(|segment| segment == ".."),
+                "{queries:?}"
+            );
+        }
     }
 
     /// The claim: a planned path with a line suffix or a fragment whose target exists without it

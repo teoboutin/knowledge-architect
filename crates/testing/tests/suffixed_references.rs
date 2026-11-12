@@ -173,3 +173,24 @@ fn a_suffixed_reference_whose_written_form_resolves_passes() {
         "{found:#?}"
     );
 }
+
+/// The claim: a suffixed path whose spelling without the suffix climbs out of the root, as `..#a`,
+/// is a finding of the run, which gathers its ignore batch from git without an error. Mutation
+/// checked: in
+/// `ignore_queries` of `path@model@src/resolver.rs`, `&& refused(bare).is_none()` removed, which
+/// makes the gathering fail with git's `outside repository`.
+#[test]
+fn a_suffixed_upward_segment_is_a_finding_and_no_failed_run() {
+    let m = project(
+        "upward",
+        &[(
+            "notes.md",
+            "# Notes\n\nSee `path@core-mock@..#a`.\nSee `path@*@..:3`.\n",
+        )],
+    );
+    let found = findings_in(&m, "notes.md");
+    assert_eq!(found.len(), 2, "{found:#?}");
+    for (what, _) in &found {
+        assert!(what.contains("is refused"), "{found:#?}");
+    }
+}
