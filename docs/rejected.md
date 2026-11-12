@@ -101,11 +101,11 @@ faces outward and should hold no reference to real content, a span shaped like o
 name or a syntax example, and on its cost to a released section: each later change of the grammar
 gives a finding there, whose repair would change the section's content.
 
-### A new crate's real first version published by hand before the tag `##first-versions-by-hand-before-the-tag`
+### A new crate's real first version, pinning a new version of an existing crate, published by hand before the tag `##first-versions-by-hand-before-the-tag`
 
-`live`. Refuted by a run: a new crate pins the crates it depends on at the release's version, and
-cargo refuses to publish a crate whose dependency crates.io does not hold. With the workspace at
-0.9.0, under cargo 1.98.0, `cargo publish --dry-run --no-verify -p knowledge-architect-check` stops
-with "no matching package named `knowledge-architect-git` found", exit 101. The existing crates
-accept trusted publishing alone, so their new version reaches crates.io only through the release
-workflow, after the tag, and a new crate that pins one of them cannot be published before it.
+`live`. Refuted by a run: the new version of an existing crate reaches crates.io only through the
+release workflow, after the tag, since the existing crates accept trusted publishing alone, and
+cargo refuses to publish a crate that pins a version crates.io does not hold. Under cargo 1.98.0, a
+crate whose manifest holds `knowledge-architect-agent-skills = "=0.99.0"`, packaged with
+`cargo publish --dry-run --no-verify` in a directory outside every repository, stops with "failed to
+select a version for the requirement `knowledge-architect-agent-skills = "=0.99.0"`", exit 101.
