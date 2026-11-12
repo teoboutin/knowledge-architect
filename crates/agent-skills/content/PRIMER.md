@@ -282,10 +282,10 @@ nothing is decided: the question goes to the owner, as a contradiction does, per
 **A session that can dispatch agents judges how the work is divided between itself and the agents
 it dispatches.** The main session dispatches so that its context stays for what only it can do,
 the design, the decisions and the exchange with the owner, while agents carry the rest; an agent
-that dispatches in turn weighs the same way for its own piece. No instruction fixes a size or a
-kind of work for this; a dispatch that a skill or an agent fixes at a step is made as that text
-says, and is not judged here. The session or the agent that carries a piece of the work is its
-carrier.
+that dispatches in turn weighs the same way for its own piece. No instruction of this workflow
+fixes a size or a kind of work for this; a dispatch that a skill or an agent fixes at a step is made
+as that text says, and is not judged here. The session or the agent that carries a piece of the
+work is its carrier.
 
 - **One carrier** takes two pieces that reason over the same details, so that no carrier reads
   again what another read: verifying findings and repairing them, or writing a change and its
@@ -296,23 +296,21 @@ carrier.
 - **The session dispatches** a piece when a brief can carry what the piece needs of the session's
   context and the session needs only its result, not the reading and the trials behind it: an
   investigation, a survey, a search for another shape, a mechanical change.
-%% A fresh agent's fixed start was measured at about 36,000 tokens over 40 record searchers'
-%% transcripts, per `rejected@query@one-search-agent-per-anchor`.
+%% The cost of a fresh agent's reload: the bullet "The two contexts are not worth the same" of
+%% `design@agent-skills@work-divided-by-judgement`.
 - **The session carries** a piece when it will reason later over the details the piece reads, or
   when the brief would cost about as much as the work: a fresh agent first reloads its
   instructions.
-%% The Messages API is stateless: each request carries, and is billed for, the whole
-%% conversation, cached or not.
+%% Why every later turn costs more: the same bullet of
+%% `design@agent-skills@work-divided-by-judgement`.
 - **Between the two**, as for implementing a design, the session weighs what the brief leaves out
   against the context that carrying the piece spends. The main session's context holds the
   exchange with the owner, which no brief rebuilds, while an agent's is rebuilt by dispatching it
   again; and every later turn costs more as the context grows. A plan document carries most of
   what an implementer needs.
 
-%% Read at the size of one step, the "carries" bullet, and the harness's "Do the work yourself when
-%% it is a handful of tool calls", would have the session take over a dispatched agent's commit;
-%% the paragraph fixes the unit at the brief's piece. A brief that tells its agents not to commit
-%% leaves the commit outside their pieces. The scratch directories:
+%% Why the unit is the brief's piece: the bullet "A dispatched piece is carried whole" of
+%% `design@agent-skills@work-divided-by-judgement`. The scratch directories:
 %% `design@agent-skills@a-scratch-directory-per-subagent`.
 **A dispatched piece is what its brief gives the agent, and the agent carries all of it**: the
 session does not take over a part of it while it is dispatched, such as its commit because that
@@ -322,7 +320,7 @@ a scratch directory of their own.
 
 %% A session's verification of its own claims lapses often, so a claim the work acts on gets a
 %% verification by another session; one is a minimum, which forbids no further verification a skill
-%% asks for, per `design@agent-skills@one-independent-verification-suffices`. Its place in the
+%% asks for, per `design@agent-skills@at-least-one-independent-verification`. Its place in the
 %% primer: `design@agent-skills@verification-in-primer`.
 **A conclusion that comes back gets an independent verification before the session acts on it**:
 a session other than the one that reported it, the dispatching session or an agent it dispatches,

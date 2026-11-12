@@ -71,7 +71,7 @@ as reversed.
 
 The session acts on each verdict without reading the entry by rule, per
 `design@agent-skills@session-acts-on-the-verdicts`, after the verdict's one independent
-verification, per `design@agent-skills@one-independent-verification-suffices`; this reviewer's
+verification, per `design@agent-skills@at-least-one-independent-verification`; this reviewer's
 reading is a review of the work, which that minimum admits, and this reviewer already reads the record
 against the work, so on the full path the verdict files add reading and no dispatch. The rival, the
 verdicts recorded and read by no reviewer, leaves a verdict the session misjudged to surface only

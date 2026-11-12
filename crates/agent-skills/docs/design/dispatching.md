@@ -23,29 +23,33 @@ task's size. The admission standard,
 `skill@knowledge-architect-agent-configuration@admission-standard`, states the rule, per
 `design@agent-skills@admission-rules-home`, so it binds a project's own skills as it binds the
 installed text, and the primer says only that a dispatch a skill or an agent fixes is made as that
-text says. The properties it admits today are three: a point of view apart from the session's (the
-reviews, the goal reviewer); an output verified before it is used, its form by a command and its
-claims by a session other than its author (the record search, through `klarch worklist --verify`
-and the session's reading of the verdicts; the audits, through their verifiers; the transcript
-extraction at a plan's assembly, through the transcript reviewer); and an occasion most work meets
-(a merge, a development checkpoint). Any other "always dispatch X" is a size claim in disguise.
+text says. The rule's list of properties is open, each one a property of the step whatever the
+task's size; the properties the installed text uses today are three: a point of view apart from the
+session's (the reviews, the goal reviewer, the audits, whose agents judge the project by a standard
+and are judged again by their verifiers); an output whose form a command checks (the record search,
+through `klarch worklist --verify`; the transcript extraction at a plan's assembly, whose lines a
+command, `klarch transcript show`, writes, which fixes their form); and an occasion most work meets (a merge, a development
+checkpoint). An output verified by a session other than its author is no such property: under
+`design@agent-skills@at-least-one-independent-verification` every returned conclusion is, so it
+would admit any dispatch. Any other "always dispatch X" is a size claim in disguise.
 
 The standing argument:
 
 - **It serves `goal@session-orchestrates-the-work`**, under which the main session orchestrates
   agents that carry the work. The goal fixes no when, no kind and no size for a dispatch; this head
   reads it as settled by a judgement with named exceptions, against a threshold. The section states
-  the purpose, on the owner's ruling, since a session judges a division better knowing what it
-  serves.
+  the purpose, since a session judges a division better knowing what it serves.
 - **A judgement, not a threshold of size or kind.** Size varies without bound, and a threshold is
   a rule per interaction, which `design@agent-skills@capabilities-not-structure` argues against. A
   relation between pieces, not a list of cases, judges a pairing nobody anticipated, as
   `goal@only-needed-instructions` asks: a case that judgement handles gets no instruction.
-- **The harness's default leans against dispatching.** Claude Code 2.1.322's Agent tool description
-  says "Do the work yourself when it is a handful of tool calls … When in doubt, don't spawn.", read
-  in a session's tool list; `claude --version` names the version a session runs. No installed text
-  weighed on the other side. The section is a weighing beside that default, not a precedence over
-  it. The owner reports that the main session nearly never dispatched where it would have helped,
+- **The harness's default, in doubt, is not to dispatch.** Claude Code 2.1.322's Agent tool
+  description weighs both sides: "Reach for this when you have independent work to run in parallel,
+  when the user asks for a side quest that shouldn't block your main thread, or when answering would
+  mean reading across several files", and "Do the work yourself when it is a handful of tool calls …
+  When in doubt, don't spawn.", read in a session's tool list; `claude --version` names the version a
+  session runs. No installed text weighed toward dispatching. The section is a weighing beside that
+  default, not a precedence over it. The owner reports that the main session nearly never dispatched where it would have helped,
   and spent context the design discussion needed; that in the session that drafted the goal, the
   owner's leads were applied and the session ended with context to spare; and that since, dispatch
   happens occasionally, not reliably. That report is the evidence of real use
@@ -62,7 +66,12 @@ The standing argument:
 - **The two contexts are not worth the same.** The main session's context holds the exchange with
   the owner, which no brief rebuilds, while an agent's is rebuilt by dispatching it again. Every
   later turn costs more as the context grows: the Messages API is stateless, and each request
-  carries, and is billed for, the whole conversation, cached or not. A fresh agent first reloads its
+  carries, and is billed for, the whole conversation, cached or not. The readings:
+  https://platform.claude.com/docs/en/build-with-claude/working-with-messages says "The Messages API
+  is stateless, which means that you always send the full conversational history to the API.",
+  beside message threads, a beta in which the API keeps the conversation; and
+  https://platform.claude.com/docs/en/build-with-claude/prompt-caching prices a cache read at "10
+  percent of base input token price", with per-model exceptions. A fresh agent first reloads its
   instructions, measured at about 36,000 tokens over 40 searchers' transcripts in
   `rejected@query@one-search-agent-per-anchor`, which grounds the clause on a brief that costs as
   much as the work.
@@ -86,7 +95,7 @@ The retrospective watches this decision with two of its standing questions, per
 carried, and an agent that came back unfinished or with a report the session could not act on.
 A token bound per agent in the primer lost: `rejected@agent-skills@dispatch-size-hint`.
 
-### A claim the work acts on is verified sufficiently by one independent verification, by a session other than its author, against the evidence its report carries `##one-independent-verification-suffices`
+### A claim the work acts on gets at least one independent verification before it is acted on, by a session other than its author, against the evidence its report carries, and one is enough `##at-least-one-independent-verification`
 
 An independent verification is the verification of a claim by a session other than the one that
 wrote it: the dispatching session, or an agent it dispatches. It stands for the dispatching
@@ -118,15 +127,10 @@ own claims are verified by the review before the merge, so no chain is left open
 The standing argument:
 
 - **Self-verification lapses often.** The primer asks every session to verify its own claims
-  before writing them, and the owner judges it the kind of instruction whose lapse is common, which
-  is why a session other than the claim's author verifies it. One measurement agrees: of the 18
-  record searchers of one search, each told to quote verbatim, 16 reported that their first
-  `klarch worklist --check` failed on their quotations, and 2 re-ran it after repairs, a first
-  failure inferred. The failures are of exact quotation, not of a claim's truth, and an agent may
-  have leaned on the cheap check on purpose. The figure is kept in the message of the commit
-  "[plans] The spec of the dispatch judgement in the primer, and of one check by another session as
-  sufficient verification". Dispatchers saved condensed copies of reports, or none, in 7 of 12
-  sessions, per `design@agent-skills@reviewer-writes-its-report`.
+  before writing them. The owner reports that it is the kind of instruction whose lapse is common,
+  which is why a session other than the claim's author verifies it. A measurement of how often
+  another instruction lapsed in real sessions agrees: dispatchers saved condensed copies of reports,
+  or none, in 7 of 12 sessions, per `design@agent-skills@reviewer-writes-its-report`.
 - **One verification weighs the same whoever makes it.** The owner holds that no more trust is due
   to the main session than to a subagent, so one verification by a session other than the author is
   enough. A verification may therefore be dispatched; where its reading serves the repair, as for

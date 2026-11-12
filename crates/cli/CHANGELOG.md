@@ -367,8 +367,8 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a primer section, `primer@dispatching-work`, has a session judge how the
   work is divided between itself and the agents it dispatches, by the relations between the pieces,
   with no threshold of size or kind; a dispatched agent carries the whole piece its brief gives it;
-  and a conclusion that comes back gets one independent verification, by a session other than its
-  author, before the session acts on it. Point 3 of
+  and a conclusion that comes back gets an independent verification, by a session other than its
+  author, before the session acts on it, and one is enough. Point 3 of
   `skill@knowledge-architect-planning@working-a-slice` points to the section where implementation
   starts; the admission standard admits a dispatch an instruction fixes only on a property of the
   step that holds whatever the task's size; and the retrospective asks three more standing

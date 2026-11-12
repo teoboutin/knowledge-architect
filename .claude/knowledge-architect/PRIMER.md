@@ -270,10 +270,10 @@ nothing is decided: the question goes to the owner, as a contradiction does, per
 **A session that can dispatch agents judges how the work is divided between itself and the agents
 it dispatches.** The main session dispatches so that its context stays for what only it can do,
 the design, the decisions and the exchange with the owner, while agents carry the rest; an agent
-that dispatches in turn weighs the same way for its own piece. No instruction fixes a size or a
-kind of work for this; a dispatch that a skill or an agent fixes at a step is made as that text
-says, and is not judged here. The session or the agent that carries a piece of the work is its
-carrier.
+that dispatches in turn weighs the same way for its own piece. No instruction of this workflow
+fixes a size or a kind of work for this; a dispatch that a skill or an agent fixes at a step is made
+as that text says, and is not judged here. The session or the agent that carries a piece of the
+work is its carrier.
 
 - **One carrier** takes two pieces that reason over the same details, so that no carrier reads
   again what another read: verifying findings and repairing them, or writing a change and its

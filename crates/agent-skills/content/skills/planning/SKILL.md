@@ -557,7 +557,7 @@ these four:
   assembly read, with the message where the discussion begins in each.
 
 %% The `D` label of a default: `design@agent-skills@ruled-items-labelled`. The verification of a
-%% finding: `design@agent-skills@one-independent-verification-suffices`.
+%% finding: `design@agent-skills@at-least-one-independent-verification`.
 **What their findings become.** Check each finding against the tree, or against the transcript,
 before acting on it. A material finding is answered as
 `skill@knowledge-architect-design@decision-authority` says, read whole, and the answer is written

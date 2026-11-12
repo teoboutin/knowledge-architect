@@ -7,7 +7,7 @@ kind: deferred
 
 A dispatched agent's report is written in one pass, in its last messages, and the session that
 dispatched it acts on that report after an independent verification, per
-`design@agent-skills@one-independent-verification-suffices`. The owner proposed report files that
+`design@agent-skills@at-least-one-independent-verification`. The owner proposed report files that
 an agent writes as it works and that a verifier annotates, finding by finding, so that what the
 agent established reaches the report whole. The proposal waits for a real session whose returned
 report could not be acted on without redoing the work.
@@ -46,8 +46,9 @@ How it differs from the two entries on reports:
 The shape does not bring back `rejected@agent-skills@ledger-written-during-discussion`: that entry
 refused a file of the whole discussion's state, which an agent must update every round and whose
 only corroborant is the conversation. A report file here is written by one agent for its own piece,
-and the verifier's annotation is the corroboration from outside the writing agent that the entry
-found every working state file to have.
+and the verifier's annotation corroborates it from outside the writing agent. That is less than the
+entry's survey found in the agent systems it read, a state corroborated against something outside
+the model, such as git: a verifier is another instance of the model.
 
 ### Why it matters
 
