@@ -274,12 +274,71 @@ fn relabelled(findings: Vec<Finding>, label: &str) -> Vec<Finding> {
 // One commit's tree
 // ---------------------------------------------------------------------------------------
 
-/// Why a commit's tree could not be assembled at all.
+/// Why a commit's tree could not be assembled at all, and the repair that fits that cause.
 ///
 /// Distinct from a tree that assembled and failed its checks: the first is reported as
 /// `its tree does not load`, which is what a commit whose manifest the tip checker refuses
-/// produces, and the second names its finding count.
-struct Unloadable(String);
+/// produces, and the second names its finding count. **The repair is chosen where the cause is
+/// known**, since the causes need different ones, per `design@check@finding-names-the-repair`: a
+/// manifest the index lacks is staged, one a commit lacks is a history edit, and a git read
+/// that fails is repaired as git's reason says.
+struct Unloadable {
+    why: String,
+    repair: &'static str,
+}
+
+/// Why a listed file has no bytes where its blob was asked for and git answered nothing: git's
+/// object store lacks the blob, as in a repository an object was lost from, and the repair is
+/// git's, whatever the walk would make of the file.
+const NO_BLOB: &str = "git's object store holds no blob for this tree entry: restore the \
+     missing object, which `git fsck` names, from a remote or another clone that holds it";
+
+/// The repair of a git read that fails: git's reason names what failed, a missing object, a
+/// lock, a corrupt index or a git too old, and nothing in the project is the cause.
+const GIT_REPAIR: &str = "repair what git's reason names, and run again";
+
+/// The repair of an extension that cannot prepare over a tree: its reason is its own, and names
+/// what it needs.
+const EXTENSION_REPAIR: &str = "repair what the extension's reason names, and run again";
+
+impl Unloadable {
+    fn git(why: String) -> Self {
+        Unloadable {
+            why,
+            repair: GIT_REPAIR,
+        }
+    }
+
+    /// The error of a command that cannot run over the staged tree: the statement on the
+    /// first line, the repair under it, indented under the `error: ` its caller prints.
+    fn refusal(&self, lead: &str) -> String {
+        format!("{lead}: {}\n       {}", self.why, self.repair)
+    }
+}
+
+/// The repair of a manifest a snapshot lacks, or holds in a form the tip checker refuses.
+///
+/// The index's is staged or corrected. A commit's is a history edit, per
+/// `design@check@a-commit-message-is-a-document`, unless the range reaches back before the
+/// commit that gave the manifest its present form, where the range is what is wrong.
+fn manifest_repair(source: Source, absent: bool) -> &'static str {
+    match (source, absent) {
+        (Source::Index, true) => "stage knowledge-architect.toml",
+        (Source::Index, false) => {
+            "correct knowledge-architect.toml as the reason says, and stage it"
+        }
+        (Source::Commit(_), true) => {
+            "where the range reaches back before the commit that adds the manifest, start it \
+             after that commit; otherwise put the manifest in the branch's first commit, or \
+             squash the branch"
+        }
+        (Source::Commit(_), false) => {
+            "where the range reaches back before the commit that gives the manifest a form the \
+             tip checker reads, start it after that commit; otherwise put that change in the \
+             branch's first commit, or squash the branch"
+        }
+    }
+}
 
 /// Everything read from one snapshot, before the checks run over it.
 struct FromTree {
@@ -314,20 +373,21 @@ fn read_tree(
     // `U` rows and name only the first.
     if source == Source::Index {
         let unmerged = crate::git::unmerged(root)
-            .map_err(|e| Unloadable(format!("its unmerged paths could not be listed: {e}")))?;
+            .map_err(|e| Unloadable::git(format!("its unmerged paths could not be listed: {e}")))?;
         if !unmerged.is_empty() {
             let names: Vec<String> = unmerged
                 .iter()
                 .map(|p| crate::model::escaped(&p.display().to_string()))
                 .collect();
-            return Err(Unloadable(format!(
-                "the index holds unmerged paths: {}",
-                names.join(", ")
-            )));
+            return Err(Unloadable {
+                why: format!("the index holds unmerged paths: {}", names.join(", ")),
+                repair: "resolve each conflict and stage the result, or abort the merge or the \
+                         rebase that left them",
+            });
         }
     }
     let entries: Vec<crate::git::Entry> = crate::git::snapshot_entries(root, source)
-        .map_err(|e| Unloadable(format!("its tree could not be listed: {e}")))?
+        .map_err(|e| Unloadable::git(format!("its tree could not be listed: {e}")))?
         .iter()
         .map(crate::git::SnapshotEntry::entry)
         .collect();
@@ -346,14 +406,23 @@ fn read_tree(
     // Asked of the listing first: git names a blob for a path the snapshot does not hold, the
     // empty blob for an intent-to-add entry, and a manifest read from it would be an empty one.
     if !files.contains(&manifest_rel) {
-        return Err(Unloadable(format!("its tree holds no {MANIFEST_NAME}")));
+        return Err(Unloadable {
+            why: format!("its tree holds no {MANIFEST_NAME}"),
+            repair: manifest_repair(source, true),
+        });
     }
     let declaration = crate::git::blobs(root, source, std::slice::from_ref(&manifest_rel))
-        .map_err(|e| Unloadable(format!("its {MANIFEST_NAME} could not be read: {e}")))?;
+        .map_err(|e| Unloadable::git(format!("its {MANIFEST_NAME} could not be read: {e}")))?;
     let Some(text) = declaration.get(&manifest_rel) else {
-        return Err(Unloadable(format!("its tree holds no {MANIFEST_NAME}")));
+        return Err(Unloadable {
+            why: format!("its tree holds no {MANIFEST_NAME}"),
+            repair: manifest_repair(source, true),
+        });
     };
-    let mut manifest = Manifest::parse(root, text).map_err(Unloadable)?;
+    let mut manifest = Manifest::parse(root, text).map_err(|e| Unloadable {
+        why: format!("its {MANIFEST_NAME} does not parse: {e}"),
+        repair: manifest_repair(source, false),
+    })?;
     // Configured against this commit's own manifest, so the files its extensions generate
     // are left out of its walk and read as committed, and a table it refuses is its phase 1.
     crate::extension::configure(&mut manifest, extensions);
@@ -395,7 +464,7 @@ fn read_tree(
     let mut blobs = std::collections::BTreeMap::new();
     let mut not_text = std::collections::BTreeMap::new();
     for (rel, bytes) in crate::git::blob_bytes(root, source, &wanted)
-        .map_err(|e| Unloadable(format!("its blobs could not be read: {e}")))?
+        .map_err(|e| Unloadable::git(format!("its blobs could not be read: {e}")))?
     {
         match String::from_utf8(bytes) {
             Ok(text) => {
@@ -532,7 +601,7 @@ fn commit_tree(
     extra.retain(|rel| read.listing.contains(rel) && !blobs.contains_key(rel));
     if !extra.is_empty() {
         let more = crate::git::blobs(root, source, &extra)
-            .map_err(|e| Unloadable(format!("its generated files could not be read: {e}")))?;
+            .map_err(|e| Unloadable::git(format!("its generated files could not be read: {e}")))?;
         blobs.extend(more);
     }
 
@@ -541,9 +610,10 @@ fn commit_tree(
     for rel in &walked {
         match blobs.get(rel) {
             Some(text) => docs.push((rel.clone(), text.clone())),
-            // A tree entry the batch answered nothing for is a blob whose bytes are not text.
-            // It is kept as an empty document carrying the reason, the way `Model::build`
-            // keeps an unreadable file, so it is reported rather than silently absent.
+            // A tree entry the batch answered nothing for is a blob whose bytes are not UTF-8,
+            // or one git's object store does not hold. It is kept as an empty document carrying
+            // the reason, the way `Model::build` keeps an unreadable file, so it is reported
+            // rather than silently absent.
             None => missing.push(rel.clone()),
         }
     }
@@ -557,14 +627,17 @@ fn commit_tree(
             .filter_map(|rel| blobs.get(rel).map(|text| (rel.clone(), text.clone())))
             .collect(),
     );
+    // The two causes need two repairs, per `design@check@finding-names-the-repair`: bytes that
+    // are not UTF-8 are a file to re-encode or to keep out of the walk, and an absent object is
+    // the repository's to restore.
     for rel in missing {
-        model.push_unreadable(
-            rel,
-            "this tree entry holds no text the tool can read; the walk reads it as a \
-             document, so a binary blob at this path leaves a live document out of every \
-             check"
-                .to_string(),
-        );
+        let trouble = if read.not_text.contains_key(&rel) {
+            "this file's bytes are not UTF-8, so no check reads it: re-encode a text file as \
+             UTF-8, and name a binary one in [walk] skip-files"
+        } else {
+            NO_BLOB
+        };
+        model.push_unreadable(rel, trouble.to_string());
     }
 
     let judging = depth != Depth::References;
@@ -588,9 +661,7 @@ fn commit_tree(
                 // that decoded may still be binary.
                 Some(text) => crate::model::listing::Outside::from_bytes(text.as_bytes()),
                 None => read.not_text.get(rel).cloned().unwrap_or_else(|| {
-                    crate::model::listing::Outside::Unreadable(
-                        "the tree holds no blob for it".to_string(),
-                    )
+                    crate::model::listing::Outside::Unreadable(NO_BLOB.to_string())
                 }),
             }
         });
@@ -601,14 +672,16 @@ fn commit_tree(
     // rather than a silence, which fails the range; a branch that changes its ignore rules
     // orders its commits for it, per `design@check@a-commit-message-is-a-document`.
     let queries = crate::model::resolve::ignore_queries(&model, &anchors);
-    let ignored = crate::git::ignored(root, &queries)
-        .map_err(|e| Unloadable(format!("its ignore rules could not be asked: {e}")))?;
+    let ignored = crate::git::ignored(root, &queries).map_err(|e| Unloadable {
+        why: format!("its ignore rules could not be asked: {e}"),
+        repair: IGNORE_REPAIR,
+    })?;
     let staged = source == Source::Index;
     // A commit holds no index, so nothing is both tracked and ignored in a tree; the index's
     // snapshot is the index, and the question is asked of it as `check` asks it.
     let tracked_and_ignored = if staged {
         crate::git::tracked_and_ignored(root).map_err(|e| {
-            Unloadable(format!(
+            Unloadable::git(format!(
                 "its tracked and ignored files could not be listed: {e}"
             ))
         })?
@@ -663,7 +736,10 @@ fn commit_tree(
                         Tree::Snapshot(&snapshot),
                         purpose,
                     )
-                    .map_err(Unloadable)?;
+                    .map_err(|why| Unloadable {
+                        why,
+                        repair: EXTENSION_REPAIR,
+                    })?;
                 assembly.prepared.push((extension.checks(), prepared));
             }
             assembly.snapshot = Some(snapshot);
@@ -706,7 +782,7 @@ pub(super) fn check_staged(
         Depth::Judged,
         Purpose::Check,
     )
-    .map_err(|Unloadable(why)| format!("the staged tree cannot be judged: {why}"))?;
+    .map_err(|e| e.refusal("the staged tree cannot be judged"))?;
     let mut report = assembly
         .report
         .expect("a tree assembled at `Depth::Judged` carries its report");
@@ -752,7 +828,7 @@ pub(super) fn index_staged(
         Depth::Gated,
         Purpose::Index,
     )
-    .map_err(|Unloadable(why)| format!("the staged tree cannot be read: {why}"))?;
+    .map_err(|e| e.refusal("the staged tree cannot be read"))?;
     if let Some(report) = assembly
         .report
         .as_ref()
@@ -775,20 +851,30 @@ pub(super) fn index_staged(
         &assembly.inputs(),
         Tree::Snapshot(snapshot),
         extensions,
-    )?;
+    )
+    .map_err(|why| {
+        Unloadable {
+            why,
+            repair: EXTENSION_REPAIR,
+        }
+        .refusal("the staged tree's generated files cannot be computed")
+    })?;
     for (rel, _) in &generated {
         let dir = rel.parent().unwrap_or(Path::new(""));
         if assembly.survey.links.iter().any(|e| e.rel == *rel) {
             return Err(format!(
                 "{}: the index holds this generated path as a symlink or a gitlink. Nothing \
-                 was written.",
+                 was written.\n       remove the entry from the index, with `git rm --cached`, \
+                 and run again",
                 rel.display()
             ));
         }
         if !dir.as_os_str().is_empty() && !assembly.survey.directories.contains(dir) {
             return Err(format!(
                 "{}: the directory this file is generated into is not in the staged tree. \
-                 Nothing was written.",
+                 Nothing was written.\n       stage a file under that directory, or configure \
+                 the extension that generates this file to write it into a directory the staged \
+                 tree holds",
                 dir.display()
             ));
         }
@@ -840,15 +926,20 @@ pub(super) fn staged_generated(
     checker: &[&Path],
     extensions: &mut [Box<dyn Extension>],
 ) -> Result<Option<Vec<(PathBuf, String)>>, String> {
-    let unmerged = crate::git::unmerged(root).map_err(|e| e.to_string())?;
+    let unmerged = crate::git::unmerged(root).map_err(|e| {
+        Unloadable::git(format!("its unmerged paths could not be listed: {e}"))
+            .refusal("the staged tree cannot be read")
+    })?;
     if !unmerged.is_empty() {
         return Ok(None);
     }
     // A staged tree holding no manifest is no project: phase 1 has nothing to read, and a commit
     // of it carries no generated file to get wrong. `init` over a repository with staged changes
     // meets it, as does a manifest written and not yet staged.
-    let listed = crate::git::snapshot_entries(root, crate::git::Source::Index)
-        .map_err(|e| format!("the staged tree could not be listed: {e}"))?;
+    let listed = crate::git::snapshot_entries(root, crate::git::Source::Index).map_err(|e| {
+        Unloadable::git(format!("its tree could not be listed: {e}"))
+            .refusal("the staged tree cannot be read")
+    })?;
     if !listed.iter().any(|e| {
         let entry = e.entry();
         entry.kind == crate::git::EntryKind::File && entry.rel == Path::new(MANIFEST_NAME)
@@ -866,7 +957,7 @@ pub(super) fn staged_generated(
         Depth::Gated,
         Purpose::Index,
     )
-    .map_err(|Unloadable(why)| format!("the staged tree cannot be read: {why}"))?;
+    .map_err(|e| e.refusal("the staged tree cannot be read"))?;
     if assembly.stopped.is_some() {
         return Ok(None);
     }
@@ -882,6 +973,13 @@ pub(super) fn staged_generated(
         extensions,
     )
     .map(Some)
+    .map_err(|why| {
+        Unloadable {
+            why,
+            repair: EXTENSION_REPAIR,
+        }
+        .refusal("the staged tree's generated files cannot be computed")
+    })
 }
 
 /// Every generated file whose committed bytes a check compares against: each file an
@@ -936,7 +1034,10 @@ pub fn commits(
 ) -> Result<ExitCode, String> {
     let root = manifest.root();
     let shas = crate::git::rev_list(root, range).map_err(|e| {
-        format!("{range} does not resolve to a range of commits: {e}\n       a shallow clone resolves no range until it fetches full depth")
+        format!(
+            "{range} does not resolve to a range of commits: {e}\n       fetch each revision \
+             the range names, or correct the name git's reason gives"
+        )
     })?;
     if shas.is_empty() {
         outln!("\ncommits: no commit is in range {range}");
@@ -969,15 +1070,15 @@ pub fn commits(
         );
         let tree = match assembled {
             Ok(tree) => tree,
-            Err(Unloadable(why)) => {
+            Err(Unloadable { why, repair }) => {
                 // **Every commit of the range must load under the tip checker.** A branch that
                 // changes the manifest format puts that change in its first commit, or is
-                // squashed, per `design@check@a-commit-message-is-a-document`.
+                // squashed, per `design@check@a-commit-message-is-a-document`; a git read that
+                // failed is no fault of the branch, and its repair is git's.
                 findings.push(Finding::in_file(
                     format!("commit {short}"),
                     format!("this commit's tree does not load under the tip checker: {why}"),
-                    "every commit of the range must load; put the change that needs it in the \
-                     branch's first commit, or squash the branch",
+                    repair,
                 ));
                 summary.push((
                     short.to_string(),
@@ -1231,7 +1332,9 @@ fn branch_sha_findings(
                  merge gives that commit a new SHA, and the citation then names nothing",
                 &sha[..7.min(sha.len())]
             ),
-            "name that commit by its subject; a SHA on the main branch may be cited",
+            "name that commit by its subject; where the word cites a commit outside the \
+             range whose first digits are the same, write enough of its digits that no commit \
+             of the range starts with them",
         )
     };
     let mut out: Vec<Finding> = branch_sha_citations(message, shas)
@@ -1286,7 +1389,7 @@ mod tests {
 
     /// The claim: a manifest the index holds only as intent-to-add is no manifest of the staged
     /// tree, since a commit would record none, and the refusal says so rather than reading the
-    /// empty blob git names for it.
+    /// empty blob git names for it, naming the staging as its repair.
     #[test]
     fn an_intent_to_add_manifest_is_no_manifest_of_the_staged_tree() {
         let repo = repository_with_an_intent_to_add_entry("ita-manifest");
@@ -1297,9 +1400,9 @@ mod tests {
         run(&["add", "-N", MANIFEST_NAME]);
         let refused = read_tree(&repo, Source::Index, &[], &mut [])
             .err()
-            .expect("no manifest is staged")
-            .0;
-        assert_eq!(refused, format!("its tree holds no {MANIFEST_NAME}"));
+            .expect("no manifest is staged");
+        assert_eq!(refused.why, format!("its tree holds no {MANIFEST_NAME}"));
+        assert_eq!(refused.repair, "stage knowledge-architect.toml");
         let _ = std::fs::remove_dir_all(&repo);
     }
 
@@ -1351,9 +1454,9 @@ mod tests {
         run(&["merge", "-q", "side"]);
         let refused = read_tree(&repo, Source::Index, &[], &mut [])
             .err()
-            .expect("an unmerged index is refused")
-            .0;
-        assert_eq!(refused, "the index holds unmerged paths: c.md, d.md");
+            .expect("an unmerged index is refused");
+        assert_eq!(refused.why, "the index holds unmerged paths: c.md, d.md");
+        assert!(refused.repair.starts_with("resolve each conflict"));
         let _ = std::fs::remove_dir_all(&repo);
     }
 

@@ -2003,6 +2003,10 @@ fn a_message_citing_a_commit_of_the_range_by_sha_fails_under_refuse_branch_shas(
         "{stdout}"
     );
     assert!(stdout.contains(&format!("{first} passed")), "{stdout}");
+    assert!(
+        stdout.contains("where the word cites a commit outside the range whose first digits are"),
+        "the repair of a SHA outside the range that shares the digits is named: {stdout}"
+    );
 }
 
 /// The claim: whether a commit is judged for branch SHAs is read from that commit's own
@@ -2814,8 +2818,68 @@ fn a_commit_whose_manifest_does_not_load_fails_the_run_and_the_next_one_is_judge
         stdout.contains(&format!("commit {old}  this commit's tree does not load")),
         "the finding names the commit: {stdout}"
     );
+    assert!(
+        stdout.contains("start it after that commit; otherwise put that change in the branch's"),
+        "a manifest the tip checker refuses is a history edit: {stdout}"
+    );
     let last = stdout.trim_end().lines().last().expect("a verdict line");
     assert!(last.starts_with("FAILED"), "{last}");
+}
+
+/// The claim: a commit of the range whose tree holds no manifest, as one from before the project
+/// adopted it, is a finding naming its repair: the range starts after the commit that adds the
+/// manifest, or the branch puts the manifest in its first commit. A manifest the tip checker
+/// refuses names the other repair, which the test above holds. Mutation checked: the two causes
+/// given one repair.
+#[test]
+fn a_commit_holding_no_manifest_names_the_range_or_the_first_commit_as_its_repair() {
+    let history = History::new("commit-before-adoption");
+    history.write("README.md", "# before\n");
+    let base = history.commit("A file before the manifest\n");
+    history.write("notes.txt", "still before\n");
+    let before = history.commit("Another file before the manifest\n");
+    tiny_project(&history, false);
+    history.commit("The project adopts the manifest\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    let lines: Vec<&str> = stdout.lines().collect();
+    let finding = lines
+        .iter()
+        .position(|l| {
+            l.starts_with(&format!(
+                "commit {before}  this commit's tree does not load"
+            ))
+        })
+        .expect("a finding naming the commit");
+    assert!(
+        lines[finding].ends_with("its tree holds no knowledge-architect.toml"),
+        "{stdout}"
+    );
+    assert!(
+        lines[finding + 1].contains(
+            "where the range reaches back before the commit that adds the manifest, start it"
+        ),
+        "{stdout}"
+    );
+}
+
+/// The claim: `check --staged` over an index that holds no manifest refuses with the cause and,
+/// on the line under it, the repair that fits it: staging the manifest.
+#[test]
+fn check_staged_names_the_repair_of_a_manifest_the_index_lacks() {
+    let history = History::new("staged-no-manifest");
+    tiny_project(&history, false);
+    history.commit("The project is created\n");
+    history.git(&["rm", "-q", "--cached", "knowledge-architect.toml"]);
+    let (stdout, stderr, code) = history.run(&["check", "--staged"]);
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(
+        stderr.contains(
+            "the staged tree cannot be judged: its tree holds no knowledge-architect.toml\n       \
+             stage knowledge-architect.toml"
+        ),
+        "{stderr}"
+    );
 }
 
 /// The claim: a commit whose tree carries a finding fails the run with that
@@ -2905,6 +2969,48 @@ fn a_commit_holding_a_blob_that_is_not_text_fails_its_tree() {
         )),
         "{stdout}"
     );
+    assert!(
+        stdout.contains("this file's bytes are not UTF-8, so no check reads it: re-encode"),
+        "{stdout}"
+    );
+}
+
+/// The claim: a walked tree entry whose blob git's object store does not hold is a finding of
+/// its tree naming that cause and its repair, restoring the object, and not the repair of bytes
+/// that are not UTF-8. Mutation checked: every entry with no text read as bytes that are not
+/// UTF-8.
+#[test]
+fn a_commit_whose_walked_blob_is_missing_names_the_object_store() {
+    let history = History::new("commit-blob-missing");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    history.write("docs/gone.md", "# Gone\n\nA note whose object is lost.\n");
+    let sha = history.commit("A note is added\n");
+    let out = Command::new("git")
+        .args(["rev-parse", "HEAD:docs/gone.md"])
+        .current_dir(&history.repo)
+        .output()
+        .expect("git runs");
+    let blob = String::from_utf8_lossy(&out.stdout).trim().to_string();
+    std::fs::remove_file(
+        history
+            .repo
+            .join(".git/objects")
+            .join(&blob[..2])
+            .join(&blob[2..]),
+    )
+    .expect("the loose object of the note");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&format!("{sha} failed: its tree stops at phase 2")),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains("git's object store holds no blob for this tree entry"),
+        "{stdout}"
+    );
+    assert!(!stdout.contains("not UTF-8"), "{stdout}");
 }
 
 /// The claim: a last commit whose tree stops before the last phase fails the run like any other
@@ -3166,6 +3272,10 @@ fn a_range_that_does_not_resolve_could_not_run() {
     let (stdout, stderr, code) = history.run(&["commits", "origin/nowhere..HEAD"]);
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(stderr.contains("does not resolve"), "{stderr}");
+    assert!(
+        stderr.contains("fetch each revision the range names, or correct the name"),
+        "{stderr}"
+    );
 }
 
 /// A reader that closes the pipe early ends the run quietly with exit 2, never with a panic
@@ -3928,7 +4038,9 @@ fn check_fix_over_a_refused_manifest_writes_nothing() {
 }
 
 /// The claim: a finding in a file git does not track is followed by one note naming the file
-/// as untracked, above the verdict; a finding in a tracked file brings no note.
+/// as untracked, above the verdict, and naming the findings' own repairs for a file that belongs
+/// to the project, since the walk reads it whether or not it is committed; a finding in a tracked
+/// file brings no note.
 #[test]
 fn a_finding_in_an_untracked_file_is_followed_by_a_note_naming_it() {
     // Each finding is an unanchored path into `docs/`, a directory the mock holds.
@@ -3953,7 +4065,7 @@ fn a_finding_in_an_untracked_file_is_followed_by_a_note_naming_it() {
         "{out}"
     );
     assert!(
-        lines[note + 1].contains("commit a file that belongs to the project"),
+        lines[note + 1].contains("repair a file that belongs to the project as its findings say"),
         "{out}"
     );
     assert!(
