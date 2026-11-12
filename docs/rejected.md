@@ -100,3 +100,12 @@ in the `Next release` section is reported. It loses on the owner's argument that
 faces outward and should hold no reference to real content, a span shaped like one being read as a
 name or a syntax example, and on its cost to a released section: each later change of the grammar
 gives a finding there, whose repair would change the section's content.
+
+### A new crate's real first version published by hand before the tag `##first-versions-by-hand-before-the-tag`
+
+`live`. Refuted by a run: a new crate pins the crates it depends on at the release's version, and
+cargo refuses to publish a crate whose dependency crates.io does not hold. With the workspace at
+0.9.0, under cargo 1.98.0, `cargo publish --dry-run --no-verify -p knowledge-architect-check` stops
+with "no matching package named `knowledge-architect-git` found", exit 101. The existing crates
+accept trusted publishing alone, so their new version reaches crates.io only through the release
+workflow, after the tag, and a new crate that pins one of them cannot be published before it.
