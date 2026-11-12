@@ -258,8 +258,16 @@ fn refuse_another_version_built_at(
                 (Some(_), Some(_)) => "newer than",
                 _ => "another version than",
             };
-            let fix = if side == "older than" {
-                format!("run or build knowledge-architect {pinned}, the version the manifest pins")
+            // Moving the pin to the binary's version is a repair only where that version is three
+            // integers, which the manifest accepts, and later than the pin, which the changelog
+            // can be read up to. A pin no release carries, a typo among them, is told by no
+            // comparison, so its repair is named beside the one that runs the pin.
+            let fix = if side != "newer than" {
+                format!(
+                    "run or build knowledge-architect {pinned}, the version the manifest pins; \
+                     where no release carries {pinned}, set [project] checker-version to the \
+                     version the project runs"
+                )
             } else {
                 format!(
                     "run knowledge-architect {pinned}, the version the manifest pins, or move the \
@@ -273,13 +281,24 @@ fn refuse_another_version_built_at(
             ))
         }
         Pin::Fixture if is_a_library_fixture(root, own, checker_dirs) => Ok(()),
+        // Two causes, two repairs: a mock project run by a binary that does not link its library,
+        // such as an installed binary run over this repository's mocks, needs the binary built
+        // with that library; a real project, or a mock copied out of its library, needs a version,
+        // per `design@check@checked-sentinel-values`.
         Pin::Fixture => Err(format!(
             "\"fixture\" is only valid for a mock project inside a library this binary links\n       \
-             {repair}"
+             in a mock project of a library: run a binary built with that library; in any other \
+             project, {repair}"
         )),
         Pin::OwnBuild if is_its_own_build(root, own, tracked) => Ok(()),
+        // The tree the checker is built from reaches this arm when the binary was built
+        // elsewhere, such as an installed one, which `refuse_a_foreign_build` does not refuse
+        // since a registry's directory is no trailing run of the tree, or when git does not track
+        // the crate's `Cargo.toml` yet. Any other project needs a version.
         Pin::OwnBuild => Err(format!(
-            "\"self\" is only valid where the checker is built from this tree\n       {repair}"
+            "\"self\" is only valid where the checker is built from this tree\n       in the \
+             tree the checker is built from: track the `check` crate's Cargo.toml, and run the \
+             checker built from this tree; in any other project, {repair}"
         )),
     }
 }
@@ -519,7 +538,7 @@ fn fix_then_check(
                     written,
                     format!(
                         "the generated files of the staged tree cannot be computed, so a partial \
-                         commit cannot be told apart: {e}. No generated file was written."
+                         commit cannot be told apart, and no generated file was written: {e}"
                     ),
                 )
             }
@@ -562,8 +581,8 @@ fn fix_then_check(
             }
         }
     }
-    if let Err(e) = check_destinations(manifest, &generated) {
-        return failed(written, e);
+    if let Err((what, repair)) = check_destinations(manifest, &generated) {
+        return failed(written, format!("{what}\n       {repair}"));
     }
     for (rel, text) in generated {
         let path = manifest.root().join(&rel);
@@ -639,8 +658,9 @@ fn untracked_note(
     };
     Some(format!(
         "{count} above {verb} untracked: {}\n    → the walk reads every file git does not ignore, \
-         tracked or not: commit a file that belongs to the project, and move out or ignore one \
-         that does not",
+         tracked or not, so committing one clears none of its findings: repair a file that \
+         belongs to the project as its findings say, and move out of the tree or ignore one that \
+         does not",
         names.join(", ")
     ))
 }
@@ -681,7 +701,8 @@ fn index_working(
         Tree::Checkout(manifest.root()),
         extensions,
     )?;
-    check_destinations(manifest, &generated).map_err(|e| format!("{e} Nothing was written."))?;
+    check_destinations(manifest, &generated)
+        .map_err(|(what, repair)| format!("{what} Nothing was written.\n       {repair}"))?;
 
     let mut written = 0usize;
     for (rel, text) in generated {
@@ -762,8 +783,9 @@ fn differing_paths(
 
 /// Refuse every destination that cannot be written safely, before any is written.
 ///
-/// The error names the path and says nothing of what was written: the caller knows that, and
-/// `check --fix` may already have installed files when it calls this.
+/// The error is the statement, naming the path, and the repair. It says nothing of what was
+/// written: the caller knows that, and `check --fix` may already have installed files when it
+/// calls this.
 ///
 /// Every destination is checked before any is written, so a run that wrote one index cannot then
 /// fail on the next and exit 2 having changed the tree, per `design@cli@exit-code-ladder`. A missing directory here is the
@@ -777,16 +799,23 @@ fn differing_paths(
 fn check_destinations(
     manifest: &Manifest,
     generated: &[(std::path::PathBuf, String)],
-) -> Result<(), String> {
+) -> Result<(), (String, &'static str)> {
     for (rel, _) in generated {
         let path = manifest.root().join(rel);
-        let dir = path
-            .parent()
-            .ok_or_else(|| format!("{} has no parent directory", path.display()))?;
+        let dir = path.parent().ok_or_else(|| {
+            (
+                format!("{} has no parent directory", path.display()),
+                "name the generated file by a path under the project's root",
+            )
+        })?;
         if !dir.is_dir() {
-            return Err(format!(
-                "{}: the directory this index is generated into is not there.",
-                dir.display()
+            return Err((
+                format!(
+                    "{}: the directory this file is generated into is not there.",
+                    dir.display()
+                ),
+                "create that directory, or configure the extension that generates this file to \
+                 write it into a directory the tree holds",
             ));
         }
         // `fs::write` follows a symlink and writes through it, so a generated path that is one
@@ -795,9 +824,12 @@ fn check_destinations(
         // needs to be false for its claim to hold. The sibling tool refuses one for the same
         // reason, in `target_is_mutable`.
         if std::fs::symlink_metadata(&path).is_ok_and(|m| m.file_type().is_symlink()) {
-            return Err(format!(
-                "{}: this index is a symlink, and writing would follow it.",
-                path.display()
+            return Err((
+                format!(
+                    "{}: this generated file is a symlink, and writing would follow it.",
+                    path.display()
+                ),
+                "remove the symlink, and run again: the run writes a regular file in its place",
             ));
         }
     }
@@ -1106,12 +1138,22 @@ mod tests {
             "compared as integers"
         );
         assert_eq!(refuse(&mock, "fixture", &own_inside), Ok(()));
-        assert!(err(refuse(&tree, "fixture", &registry)).starts_with(
+        let fixture = err(refuse(&tree, "fixture", &registry));
+        assert!(fixture.starts_with(
             "\"fixture\" is only valid for a mock project inside a library this binary links"
         ));
+        assert!(
+            fixture
+                .contains("in a mock project of a library: run a binary built with that library"),
+            "{fixture}"
+        );
         assert_eq!(refuse(&tree, "self", &own_inside), Ok(()));
-        assert!(err(refuse(&tree, "self", &registry))
-            .starts_with("\"self\" is only valid where the checker is built from this tree"));
+        let own = err(refuse(&tree, "self", &registry));
+        assert!(own.starts_with("\"self\" is only valid where the checker is built from this tree"));
+        assert!(
+            own.contains("run the checker built from this tree; in any other project"),
+            "{own}"
+        );
         assert!(
             err(refuse(&mock, "self", &own_inside)).starts_with("\"self\""),
             "a mock is no own build"
@@ -1143,7 +1185,9 @@ mod tests {
     }
 
     /// The claim: a binary whose own version is not three integers still refuses another pin,
-    /// with the neutral wording.
+    /// with the neutral wording, and names running the pinned version as the repair, never a move
+    /// of the pin to a version the manifest refuses. Mutation checked: the move named for every
+    /// side but "older than" again.
     #[test]
     fn a_binary_version_that_is_not_three_integers_refuses_with_the_neutral_wording() {
         let scratch = Scratch::new("neutral");
@@ -1156,9 +1200,16 @@ mod tests {
             &[],
             &always,
         );
-        assert!(r
-            .expect_err("a refusal")
-            .contains("another version than the 0.2.0"));
+        let refusal = r.expect_err("a refusal");
+        assert!(
+            refusal.contains("another version than the 0.2.0"),
+            "{refusal}"
+        );
+        assert!(
+            refusal.contains("run or build knowledge-architect 0.2.0"),
+            "{refusal}"
+        );
+        assert!(!refusal.contains("move the pin"), "{refusal}");
     }
 
     use super::{counts, Report};
