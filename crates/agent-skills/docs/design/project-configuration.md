@@ -122,11 +122,13 @@ The section `primer@checker-model` states no rarer rule: the candidate rule, the
 ignored targets, the path to anchor, a register's home cited by its path, a plan item's scope, a
 slug outside a definition site. Each reaches a session through its finding, which names its repair,
 but one retired form, the slug written with a hash sign, which no lint reads, per
-`design@check@hash-slug-span-read-by-no-lint`. One rule stands in the section on the owner's
-word, which asked for a short explanation in the primer: `check --fix`'s refusal and the two repairs
-it names, which sessions of an adopting project routed around in real use. The owner accepted its
-placement in this section, over the audit rulings named below. A rule a writer of
-every `path` reference needs stays in `primer@where-knowledge-goes`.
+`design@check@hash-slug-span-read-by-no-lint`, and which the primer leaves unstated too: the form
+is no pointer of the grammar, no project on a released checker wrote it as one, and a statement of
+it would teach every session a form none needs. One rule stands in the section: `check --fix`'s
+refusal and the two repairs it names. Sessions of an adopting project routed around that finding in
+real use, so the premise below failed for it, and the owner asked for a short explanation in the
+primer; its placement in this section was the session's proposal, which the owner approved. A rule
+a writer of every `path` reference needs stays in `primer@where-knowledge-goes`.
 
 A rarer rule is needed only by a session that writes a reference of an uncommon shape, and the
 checker's finding then names the repair, while the model is needed by every session before it
@@ -134,8 +136,8 @@ writes anything, per `design@agent-skills@checker-model-in-primer`. The nearest 
 stating the rarer rules too, saves such a session one run of the checker, and costs every session
 that loads the primer a statement its act does not apply, which is the size cost
 `design@agent-skills@context-cost-of-agent-text` counts. The decision stands on the premise that
-the finding names the repair: a rarer rule whose finding does not name it reopens the decision for
-that rule.
+a rule a lint reads has a finding that names its repair, per `design@check@finding-names-the-repair`:
+such a rule whose finding does not name it reopens the decision for that rule.
 
 The deliberation is in the plan document that the commit "[harvest] The primer's new sections and
 the anchors command enter the design record, and their spec leaves" removed, with the owner's
