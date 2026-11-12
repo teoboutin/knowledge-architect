@@ -145,7 +145,9 @@ a line whose marks are followed by any other character, a no-break space include
 heading markdown reads is reported in phase 2, at its first line, in every markdown document of
 the walk: a setext heading, a line underlined with `=` or `-`; a heading that follows a list
 marker or a block-quote marker on its line; and a heading with no text. The repair is to write it
-as a line that opens with `#` marks and holds text.
+as a line that opens with `#` marks and holds text, with no list or block-quote marker before
+them. Where a line of `-` or `=` under a paragraph is meant as no heading, as a thematic break or
+as text, the repair is a blank line above that line, after which markdown reads no heading there.
 
 The opposite direction does not hold yet: a heading-shaped line inside an HTML block or a metadata
 block that markdown does not render as a heading is still read as one, per
