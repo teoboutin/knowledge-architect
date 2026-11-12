@@ -316,6 +316,10 @@ const NO_BLOB_REPAIR: &str = "restore the missing object, which `git fsck` names
 /// lock, a corrupt index or a git too old, and nothing in the project is the cause.
 const GIT_REPAIR: &str = "repair what git's reason names, and run again";
 
+/// The repair of a refused staging of the generated files, whose reason is git's or names the
+/// change to the index that lifts it.
+const STAGE_REPAIR: &str = "repair what the reason names, and run again";
+
 impl Unloadable {
     fn git(why: String) -> Self {
         Unloadable {
@@ -918,7 +922,15 @@ pub(super) fn index_staged(
             stale.push((rel, text));
         }
     }
-    crate::git::stage_generated(root, &stale).map_err(|e| format!("{e}. Nothing was staged."))?;
+    // One repair for every cause: a refusal of an entry's kind names the change to the index
+    // that lifts it, and a failure of git carries git's reason, which names its own, as for a
+    // held index lock. Git's reason may end with a period of its own.
+    crate::git::stage_generated(root, &stale).map_err(|e| {
+        format!(
+            "{}. Nothing was staged.\n       {STAGE_REPAIR}",
+            e.to_string().trim_end().trim_end_matches('.')
+        )
+    })?;
     for (rel, _) in &stale {
         outln!("{:<40} staged", rel.display());
     }

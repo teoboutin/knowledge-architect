@@ -5453,7 +5453,14 @@ fn index_staged_refuses_with_the_index_unchanged() {
     let before = index_lines(&sandbox);
     let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
     assert_eq!(code, 2, "{out}{stderr}");
-    assert!(stderr.contains("Nothing was staged."), "{stderr}");
+    assert!(
+        stderr.contains("Nothing was staged.\n       repair what the reason names, and run again"),
+        "{stderr}"
+    );
+    assert!(
+        !stderr.contains(".."),
+        "one period after git's reason: {stderr}"
+    );
     std::fs::remove_file(&lock).expect("the lock released");
     assert_eq!(index_lines(&sandbox), before, "the index is as it was");
 
