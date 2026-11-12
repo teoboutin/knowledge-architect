@@ -21,7 +21,12 @@ excluding a file the model requires.
 - The one case reported today, in phase 2: "the root CLAUDE.md is outside the walk, so the model lacks what it defines and its import of the installed primer cannot be read", raised in `check` of `tree` when the root CLAUDE.md is
   present and the walk does not read it.
 - The rule the owner gave: a row of `[walk]` that keeps out a file the model requires is refused.
-  Under the `claude` harness the root CLAUDE.md is one such file. Which other files the model
+  Under the `claude` harness the root CLAUDE.md is one such file. The manifest,
+  knowledge-architect.toml, is another, under the same direction: a `skip-files` row may name it,
+  as the reproduction of
+  `issue@check@a-linked-manifest-splits-the-readers-and-every-symbolic-link-is-to-be-refused` does
+  to keep a linked manifest, and no finding names that row; what a row naming a manifest that is a
+  plain file changes is not established. Which other files the model
   requires, such as a Component's required documents and its register homes, which
   `design@model@components-carry-the-same-documents` lists and `tree` asserts, is not
   established: whether a row can keep one of them out today, and what is reported then.
