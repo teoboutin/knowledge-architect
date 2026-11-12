@@ -491,9 +491,11 @@ for sessions that do not pass the flag, and agents would learn to pass it."
 ### The repair text changes a command's output `##arg-13`
 
 The reply to round 1 and the reply to round 2. Bears on `thread@path-quickfixes@raw-path-inference`. "the finding text
-changes, which touches [the rule `design@check@finding-names-the-repair`] and
+changes, which touches `finding-texts-are-not-audited-for-a-needless-cause` and
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`." / "I would class it as a
-patch with a changelog entry, as the `commits` summary change was classed."
+patch with a changelog entry, as the `commits` summary change was classed." The first entry the
+reply names has closed; the rule it read the finding texts against is
+`design@check@finding-names-the-repair`.
 
 ### A question asserts no meaning `##arg-14`
 
