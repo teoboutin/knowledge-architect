@@ -55,7 +55,7 @@ tripwire in one of three ways, and none lives only in the tripwire. A ruling to 
 the question the standard ranks: the first pass of the tripwire axis on this repository removed
 entries the owner had ruled kept, with the owner's approval, as the commit "[audit] Pass 1 of the
 tripwire axis applied: every tripwire kept has a horizon, and 20 leave" lists. A ruling on the decision itself, such
-as the explanation of `check --fix`'s refusal that `design@agent-skills@checker-model-in-primer`
+as the explanation of `check --fix`'s refusal that `design@agent-skills@rarer-checker-rules-by-findings`
 keeps in the primer, lives in that head, and a narrowing of the tripwire that dropped it would make
 its clause fire on the decision working, which condition 3 excludes. A ruling on what fires one
 tripwire, such as a ruling that a rule a review finds and its own branch removes does not fire the
