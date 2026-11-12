@@ -169,15 +169,17 @@ pub(crate) fn judge_part(
                 Observation::Span(span) if references => match table::candidate(span, anchors) {
                     Candidate::Reference { kind, anchor, id } => {
                         counts.references += 1;
-                        if let Some(owner) = goals_of {
-                            out.extend(goals_home_citation(
+                        let citation = goals_of.and_then(|owner| {
+                            goals_home_citation(
                                 &doc.rel,
                                 l.line,
                                 span,
                                 owner,
                                 Some((&kind, anchor)),
-                            ));
-                        }
+                            )
+                        });
+                        let refused_here = citation.is_some();
+                        out.extend(citation);
                         if goals_of.is_some() && (kind.is_path() || kind.is_planned()) {
                             // Refused by the citation check above, whatever it names: its own
                             // repairs would send the writer to another form refused here.
@@ -190,7 +192,14 @@ pub(crate) fn judge_part(
                             entities,
                             &inputs.tree(),
                         ) {
-                            out.push(reported(&cause, &doc.rel, l.line, span));
+                            out.push(reported_in(
+                                &cause,
+                                &doc.rel,
+                                l.line,
+                                span,
+                                goals_of.is_some(),
+                                refused_here,
+                            ));
                         }
                     }
                     Candidate::Harness { kind, owner, id } => {
@@ -201,14 +210,22 @@ pub(crate) fn judge_part(
                             ));
                         }
                         if let Err(cause) = resolve::harness(&kind, owner, id, entities) {
-                            out.push(reported(&cause, &doc.rel, l.line, span));
+                            // A harness reference is refused in a goals home whatever it names.
+                            let in_home = goals_of.is_some();
+                            out.push(reported_in(
+                                &cause, &doc.rel, l.line, span, in_home, in_home,
+                            ));
                         }
                     }
                     Candidate::Malformed { why, repair } => out.push(Finding::at(
                         &doc.rel,
                         l.line,
                         format!("`{span}` is malformed: {why}"),
-                        repair,
+                        if goals_of.is_some() && !names_a_goal_form(span, anchors) {
+                            GOALS_HOME_REPAIR
+                        } else {
+                            repair
+                        },
                     )),
                     Candidate::AnchorInKindPosition { head } => out.push(Finding::at(
                         &doc.rel,
@@ -310,7 +327,8 @@ pub(crate) fn judge_part(
                 // mechanism, resolved by rustdoc against the crate namespace, and this
                 // check reading those as index rows would report every intra-doc link.
                 Observation::Link(target) if references && doc.is_markdown() => {
-                    link(&mut out, &mut counts, doc, l.line, target, nav, inputs);
+                    let in_home = goals_of.is_some();
+                    link(&mut out, &mut counts, doc, l.line, target, nav, in_home, inputs);
                 }
                 _ => {}
             }
@@ -370,6 +388,55 @@ const GOALS_HOME_REPAIR: &str = "cite a goal or a register's home of the root, o
 /// root's: a goal, which every goal is of the root, or a register's home of the root.
 fn admitted_in_goals_home(owner: &table::Anchor, kind: &str, anchor: &str) -> bool {
     kind == GOAL_REGISTER || (kind == table::REGISTER_KIND && anchor == owner.name)
+}
+
+/// The finding at a site for a reference the resolver refuses, as [`reported`] writes it, except
+/// in a goals home, where its repair is `GOALS_HOME_REPAIR` unless that would lose a repair the
+/// citation check admits there, per `design@check@goals-home-cites-only-goals-and-root-homes`.
+///
+/// `refused_here` is whether the citation check refuses the reference itself: any repair that
+/// keeps the reference then keeps a citation that check refuses. On an admitted one, a goal or a
+/// register's home of the root, two causes name no reference form, and keep their repair: an
+/// undefined goal, defined in the goals home, and a register name the project does not know,
+/// repaired by naming one it does. Every other cause an admitted reference can meet names a form
+/// the goals home refuses: a plan document for an item register, an entry for a register its
+/// entries carry, or another anchor for a register the root does not carry.
+fn reported_in(
+    cause: &resolve::Cause,
+    rel: &Path,
+    line: u32,
+    span: &str,
+    in_goals_home: bool,
+    refused_here: bool,
+) -> Finding {
+    let keeps = !in_goals_home
+        || (!refused_here
+            && matches!(
+                cause,
+                resolve::Cause::Undefined { .. } | resolve::Cause::NoRegister { .. }
+            ));
+    if keeps {
+        return reported(cause, rel, line, span);
+    }
+    let (what, _) = cause.texts(span);
+    Finding::at(rel, line, what, GOALS_HOME_REPAIR)
+}
+
+/// Whether a malformed span's own repair names a form the goals home admits: the span's kind is a
+/// register the project's root alone carries, or it is a `register` span naming such a register
+/// after an anchor. These are the two shapes `table::candidate` repairs with a form that names no
+/// anchor, `<kind>@<id>` and `register@<register>`; every other malformed span is repaired with a
+/// form that names an anchor or a harness kind, both refused in a goals home.
+fn names_a_goal_form(span: &str, anchors: &Anchors) -> bool {
+    let Some((head, rest)) = span.split_once('@') else {
+        return false;
+    };
+    let root_register = |name: &str| anchors.registers().is_root_register(name);
+    root_register(head)
+        || (head == table::REGISTER_KIND
+            && rest
+                .split_once('@')
+                .is_some_and(|(_, id)| root_register(id)))
 }
 
 /// How an id was written outside its reference form.
@@ -525,9 +592,16 @@ fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, Strin
 fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) -> Option<Finding> {
     // A design head's slug states its decision, so a word meant as an ordinary term shows it
     // names a subject; any other entry's slug has no reason to be a word a sentence uses, on the
-    // owner's word, per `design@check@plain-word-lint`.
+    // owner's word, per `design@check@plain-word-lint`. A goal changes only through the owner,
+    // per `goal@the-owner-decides`, so its renaming goes through goal-setting, as the goals
+    // home's repair says.
     let designs = forms.iter().filter(|f| f.starts_with("design@")).count();
-    let (written, word) = match how {
+    let goal = if forms.iter().any(|f| f.starts_with("goal@")) {
+        "; a goal is renamed by the owner, through its project's goal-setting"
+    } else {
+        ""
+    };
+    let (written, rename) = match how {
         IdForm::Bare => ("in backticks without its kind", ""),
         IdForm::Plain if designs == forms.len() => (
             "as a plain word",
@@ -544,6 +618,10 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
             "; where the word is meant as an ordinary term, rename what it names: a design entry \
              to state its decision, anything else so that its slug is not an ordinary word",
         ),
+    };
+    let word = match how {
+        IdForm::Bare => String::new(),
+        IdForm::Plain => format!("{rename}{goal}"),
     };
     let listed = |forms: &[String]| {
         forms
@@ -669,6 +747,7 @@ fn link(
     line: u32,
     target: &str,
     nav: bool,
+    in_goals_home: bool,
     inputs: &Inputs,
 ) {
     // A bare fragment stays on the page; on a file target a fragment rides along and is
@@ -688,8 +767,12 @@ fn link(
             &doc.rel,
             line,
             format!("`{target}` is linked from a file that is not a navigation home"),
-            "a relative link is an index row and lives in a README.md or an index.md; in \
-             prose, point with a backticked `path@<anchor>@<path>` reference",
+            if in_goals_home {
+                GOALS_HOME_REPAIR
+            } else {
+                "a relative link is an index row and lives in a README.md or an index.md; in \
+                 prose, point with a backticked `path@<anchor>@<path>` reference"
+            },
         ));
         return;
     }
@@ -883,8 +966,11 @@ mod tests {
     /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
     /// design head to be renamed to state its decision, anything else to be renamed so its slug
     /// is not an ordinary word, and gives both where the forms mix kinds, per
-    /// `design@check@plain-word-lint`. Mutations: the decision branch given whatever the kind
-    /// fails the issue entry's case; `all` read as `any` fails the mixed case.
+    /// `design@check@plain-word-lint`; a goal's renaming is the owner's, through goal-setting,
+    /// per `goal@the-owner-decides`. Mutations: the decision branch given whatever the kind
+    /// fails the issue entry's case; `all` read as `any` fails the mixed case; the goal clause's
+    /// test `forms.iter().any(|f| f.starts_with("goal@"))` replaced by `false` fails the goal's
+    /// case, and by `true` the issue entry's.
     #[test]
     fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
         let (found, _) = checked_docs(
@@ -897,9 +983,11 @@ mod tests {
                 ),
                 ("docs/open-issues/an-issue.md", "# An issue\n\nIt holds.\n"),
                 ("docs/open-issues/a-mixed-slug.md", "# Mixed\n\nIt holds.\n"),
+                ("docs/goals.md", "# Goals\n\n## A goal `##a-plain-goal`\n\nIt holds.\n"),
                 (
                     "docs/notes.md",
-                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n\nThe a-mixed-slug word.\n",
+                    "# Notes\n\nThe a-decision word.\n\nThe an-issue word.\n\nThe a-mixed-slug word.\n\n\
+                     The a-plain-goal word.\n",
                 ),
             ],
             &[],
@@ -922,6 +1010,15 @@ mod tests {
             "{issue}"
         );
         assert!(!issue.contains("state its decision"), "{issue}");
+        assert!(!issue.contains("goal-setting"), "{issue}");
+        let goal = plain("a-plain-goal");
+        assert!(
+            goal.contains(
+                "so that its slug is not an ordinary word; a goal is renamed by the \
+                 owner, through its project's goal-setting"
+            ),
+            "{goal}"
+        );
         let mixed = plain("a-mixed-slug");
         assert!(
             mixed.contains("a design entry to state its decision, anything else so that its slug"),
@@ -3228,17 +3325,26 @@ mod tests {
         assert!(!lint[0].contains("design@a-project@shared-id"), "{lint:#?}");
     }
 
-    /// In a goals home, every lint that would name a reference form names the citation check's
-    /// repair instead: an unanchored path, a retired slug form, a reference written without
-    /// backticks and an anchor in the kind position; and a `path` reference gets the citation
-    /// finding alone. Mutations checked, each caught: the goals-home arm of each lint made
+    /// In a goals home, every finding of the reference check that would name a reference form
+    /// names the citation check's repair instead: an unanchored path, a retired slug form, a
+    /// reference written without backticks, an anchor in the kind position, a markdown link from
+    /// a file that is no navigation home, a malformed span, a register whose home is a plan's
+    /// own documents, and the resolution finding of a refused reference, an undefined entry, an
+    /// unknown skill and a plan's item cited from outside it; and a `path` reference gets the
+    /// citation finding alone. Mutations checked, each caught: the goals-home arm of each made
     /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
     /// `let repair = if refused {`, the retired form's `if goals_of.is_some() {`, the anchor in
-    /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, and
+    /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, the
+    /// non-navigation link's `if in_goals_home {`, the malformed span's
+    /// `if goals_of.is_some() && !names_a_goal_form(span, anchors) {`, `names_a_goal_form`
+    /// reading the last segment, `rest.split_once('@').is_some_and(|(_, id)| root_register(id))`
+    /// replaced by `rest.rsplit('@').next().is_some_and(root_register)`, `reported_in`'s
+    /// `let keeps = !in_goals_home` made `let keeps = true`, its `!refused_here &&` dropped, and
     /// the skip of a `path` reference's resolution, `if goals_of.is_some() && (kind.is_path() ||
-    /// kind.is_planned()) {`.
+    /// kind.is_planned()) {`. The harness arm's `in_home, in_home` given `in_home, false`
+    /// survives as an equivalent mutant: no harness cause is one `reported_in` keeps.
     #[test]
-    fn no_lint_in_a_goals_home_names_a_form_the_citation_check_refuses() {
+    fn no_finding_in_a_goals_home_names_a_form_the_citation_check_refuses() {
         let found = {
             let mut all: Vec<(&str, String)> = defined()
                 .into_iter()
@@ -3250,23 +3356,40 @@ mod tests {
                  A retired form: `a-project#a-decision`.\n\n\
                  Unquoted: design@a-project@a-decision in prose.\n\n\
                  Anchor first: `a-project@docs/design.md`.\n\n\
-                 A path reference: `path@a-project@docs/goals.md`.\n"
+                 A path reference: `path@a-project@docs/goals.md`.\n\n\
+                 A link: [the design](design.md).\n\n\
+                 Malformed: `design@a-project`.\n\n\
+                 Malformed, a goal's register last: `register@a-project@x@goal`.\n\n\
+                 An item register: `register@a-project@thread`.\n\n\
+                 Undefined: `design@a-project@no-such-decision`.\n\n\
+                 A skill: `skill@no-such-skill`.\n\n\
+                 An item: `thread@m-one@in-readme`.\n"
                     .to_string(),
+            ));
+            all.push((
+                "docs/plans/milestones/m-one/README.md",
+                "# A milestone\n\n## Threads\n\n### In the README `##in-readme`\n".to_string(),
             ));
             let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
             let present = vec![
                 "docs".to_string(),
                 "docs/design.md".to_string(),
                 "docs/goals.md".to_string(),
+                "docs/plans/milestones/m-one/README.md".to_string(),
             ];
-            checked_docs(&root_and_part_manifest(), borrowed, &present).0
+            let tree: Vec<PathBuf> = present.iter().map(PathBuf::from).collect();
+            let anchors = Anchors::of(&root_and_part_manifest(), &tree);
+            checked_under(borrowed, &present, &anchors).0
         };
         let in_home: Vec<&String> = found
             .iter()
             .filter(|f| f.starts_with("docs/goals.md"))
             .collect();
-        assert_eq!(in_home.len(), 5, "{in_home:#?}");
+        // One finding per line, and two, the citation's and the resolution's, on each of the last
+        // three lines.
+        assert_eq!(in_home.len(), 15, "{in_home:#?}");
         for f in &in_home {
+            assert!(f.ends_with(GOALS_HOME_REPAIR), "{f}");
             assert!(
                 f.contains("rewrite the sentence so it names no entry"),
                 "{f}"
@@ -3277,5 +3400,47 @@ mod tests {
             assert!(!f.contains("prefix the kind"), "{f}");
             assert!(!f.contains("write it in backticks"), "{f}");
         }
+    }
+
+    /// In a goals home, a finding whose repair names no form refused there keeps it: an undefined
+    /// goal, a register name the project does not know, and a malformed goal or goals home
+    /// reference, each repaired with the form that names no anchor. Mutations checked, each
+    /// caught: `reported_in`'s `matches!` made `false`, which gives the undefined goal and the
+    /// unknown register the goals home's repair; and `names_a_goal_form` answering `false`, which
+    /// gives it to the two malformed spans.
+    #[test]
+    fn a_goals_home_finding_keeps_a_repair_the_citation_check_admits() {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| *p != "docs/goals.md")
+            .collect();
+        all.push((
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `goal@no-such-goal`, \
+             `register@a-project@no-such-register`, `goal@a-project@root-goal` and \
+             `register@a-project@goal`.\n"
+                .to_string(),
+        ));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
+        let in_home: Vec<&String> = found
+            .iter()
+            .filter(|f| f.starts_with("docs/goals.md"))
+            .collect();
+        assert_eq!(in_home.len(), 4, "{in_home:#?}");
+        for f in &in_home {
+            assert!(!f.ends_with(GOALS_HOME_REPAIR), "{f}");
+        }
+        let action = |span: &str| {
+            in_home
+                .iter()
+                .find(|f| f.contains(&format!("`{span}`")))
+                .unwrap_or_else(|| panic!("{span}: {in_home:#?}"))
+                .to_string()
+        };
+        assert!(action("goal@no-such-goal").contains("define it in the"));
+        assert!(action("register@a-project@no-such-register").contains("name one of"));
+        assert!(action("goal@a-project@root-goal").contains("with no anchor"));
+        assert!(action("register@a-project@goal").contains("with no anchor"));
     }
 }

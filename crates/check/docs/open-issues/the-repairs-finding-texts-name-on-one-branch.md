@@ -17,10 +17,9 @@ The members:
 
 - `issue@check@finding-texts-are-not-audited-for-a-needless-cause`
 - `issue@check@a-slug-finding-names-a-repair-blind-to-what-the-slug-resolves-to`
-- `issue@check@some-findings-in-a-goals-home-name-a-form-refused-there`
 
 They go on one branch because each applies `design@check@finding-names-the-repair` to a family of
-findings, so one reading of that head and of the findings' texts serves all three. Found by a triage
+findings, so one reading of that head and of the findings' texts serves every member. Found by a triage
 of the whole issue record on 2026-11-11, which read every entry against the tree and sized it: each
 member was judged to have a clear path to closing, and to be more work than a fix of a few dozen
 lines.
