@@ -99,6 +99,6 @@ The discussion picks a delivery at the commit, or rules that none is worth its c
 by `check --staged` on its verdict, which changes `design@check@phases-gate-the-report`'s summary; a
 sentence of the primer beside the staged check, read at the start as now; a line printed by
 `commits` above its verdict, after the commit, where an amend still repairs the message, which
-changes `design@check@a-commit-message-is-a-document`'s summary; a project's commit hook,
+changes `design@check@every-commit-judged-by-the-tip-checker`'s summary; a project's commit hook,
 which the installed text cannot rely on. Then the retrospectives of a release show whether the
 count falls.

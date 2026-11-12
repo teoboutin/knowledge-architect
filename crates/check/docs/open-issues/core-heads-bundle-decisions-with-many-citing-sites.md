@@ -5,7 +5,7 @@ kind: design
 
 ## Summary
 
-Three heads, two of `register@check@design` and one of `register@create@design`, each hold two or more decisions whose nearest rivals
+Two heads, one of `register@check@design` and one of `register@create@design`, each hold two or more decisions whose nearest rivals
 differ, against `design@agent-skills@one-decision-per-head`. The first run of the design-record axis on this repository and a branch's review found them among others, which have since been split with every citing site re-pointed; each listed one was left unsplit because
 a split must first read every site that cites the head, 6 to 39 sites per head, to re-point each
 one to the part it cites.
@@ -20,27 +20,9 @@ less the lines of this entry, taken again on the working tree of the branch `goa
 at its review. The counts grow as text cites the heads:
 the first run of the design-record axis counted 20, 23, 26 and 31 for the four heads it found.
 
-- `design@check@a-commit-message-is-a-document`, 27 citing sites, 8 of them in
-  `path@check@src/commands/history.rs`. Its title states the first of five decisions:
-  - a message is judged against its own commit's tree, against the working tree;
-  - "One command judges messages, after the commit exists", against the rejected alternatives "A
-    `commit-msg` hook judging each message before the commit exists" and "A `commit` subcommand
-    that runs the checks and then `git commit`", `rejected@check@commit-msg-hook` and `rejected@check@commit-subcommand`, both of which this head
-    cites;
-  - "Every commit of the range is judged by the tip checker, and a tree that fails is a finding",
-    with "A branch that makes the checker stricter orders its commits for it", against skipping a
-    commit whose tree fails and against building each commit's own checker;
-  - "A message's references resolve against its commit's tree or its first parent's", against its
-    own tree alone;
-  - "`check` reads no range of history", against `check` judging the branch's messages.
-
 `design@check@phases-gate-the-report`, found by the review of the branch that renamed the Component, holds beside its
 phases "A writer refuses over an incomplete model", against writing over the model anyway, and "An extension prepares
 its tree when the last phase is reached", against preparing before the gate, and `cargo klarch show` lists 39 sites citing it, 28 of them outside the plan documents. That branch split out the selection of checks, and left these.
-
-The second pass of that run reworded a sentence of `design@check@a-commit-message-is-a-document`
-into the present tense and left its bundle, so that head is a change's touched head left short of
-`design@agent-skills@existing-heads-on-touch`. A head the run found bundled has since been split, with every site that cited it re-pointed.
 
 One more, found by the decision-record reviewer of the review before the merge of the branch
 `pre-release-fixes`, which touched it and left it bundled:
@@ -53,7 +35,7 @@ One more, found by the decision-record reviewer of the review before the merge o
 **Suspected mechanism**: each head grew by appending a bold paragraph for a decision argued later
 in the same subject, and a citing site then cited the head for whichever paragraph it needed.
 
-**The re-entry point**: the next change that touches one of the three heads, in a branch other than
+**The re-entry point**: the next change that touches one of the two heads, in a branch other than
 the one that opened this entry, which `design@agent-skills@existing-heads-on-touch` brings to the
 rules on heads; or the next run of the design-record axis of
 `skill@knowledge-architect-project-audit`.

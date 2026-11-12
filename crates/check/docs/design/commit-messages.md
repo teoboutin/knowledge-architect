@@ -19,9 +19,24 @@ with `%B` and cleans nothing: git applied its own cleanup before the commit exis
 second pass would take bytes of a commit out of the regime — under `-m` a `#` line is committed
 verbatim.
 
-**One command judges messages, after the commit exists.** `commits <range>` judges every commit of
-the range against its own tree, with its first parent. It is run over `HEAD~1..HEAD` after each
-commit, or over the branch where `design@check@branch-shas-are-refused` is turned on, per
+**Everything a commit is judged against is read from that commit's tree.** The manifest, the
+`[walk]` rules, the documents, the generated indexes, the per-instance options and every file an
+extension reads all come through git objects, and the model is assembled in memory. Reading them from the
+working tree instead would judge a message written a hundred commits ago against decisions that
+did not exist then, and the finding list would be a list of things nobody could have known.
+
+**The ignore rules a per-commit run asks are the working tree's.** `git check-ignore` reads the
+`.gitignore` files on disk and has no form that asks a historical tree. A commit whose ignore
+rules differed from today's is therefore judged against today's, which can cost a path reference
+asserted where that commit's own rules exempted it — a finding rather than a silence. Since a
+failing tree fails the range, a branch that changes its ignore rules orders its commits for it
+as a branch that makes the checker stricter does, per
+`design@check@every-commit-judged-by-the-tip-checker`: the change first, or a squash.
+
+### One command judges messages, after the commit exists `##one-command-judges-messages-after-the-commit`
+
+`commits <range>` judges every commit of the range against its own tree, with its first parent. It
+is run over `HEAD~1..HEAD` after each commit, or over the branch where `design@check@branch-shas-are-refused` is turned on, per
 `issue@check@branch-sha-citations-are-judged-within-the-range-only`, so a finding in the newest
 commit's message is repaired by `git commit --amend`, and over the branch by the gates and by CI
 before any merge, which is where the guarantee lies: `main` is never rewritten, so what must not
@@ -31,13 +46,11 @@ its tree half, at every commit; it is per-clone state a session has to install a
 resolves a message against HEAD, which under an amend, a reword or a squash is the commit being
 replaced, so it refuses history edits the range check accepts.
 
-**Everything a commit is judged against is read from that commit's tree.** The manifest, the
-`[walk]` rules, the documents, the generated indexes, the per-instance options and every file an
-extension reads all come through git objects, and the model is assembled in memory. Reading them from the
-working tree instead would judge a message written a hundred commits ago against decisions that
-did not exist then, and the finding list would be a list of things nobody could have known.
+The designs this decision did not keep: `rejected@check@check-refusing-a-pipe`,
+`rejected@check@commit-subcommand` and `rejected@check@commit-msg-hook`.
 
-**Every commit of the range is judged by the tip checker, and a tree that fails is a finding.**
+### Every commit of the range is judged by the tip checker, and a tree that fails is a finding `##every-commit-judged-by-the-tip-checker`
+
 The tip checker is the binary built from the working tree, and it judges every commit's tree and
 every commit's message. **Every commit of the range is judged alike, the last one included, and
 wherever HEAD is.** A commit whose tree does not load, or carries findings, fails the run with
@@ -62,9 +75,19 @@ is squashed to one commit before its review. Checker changes are rare and land o
 their own, so this costs a history edit on those branches alone; the alternative that avoids it,
 building each commit's own checker, costs one release build per commit on every branch.
 
-**A message's references resolve against its commit's tree or its first parent's, and its lints
-stand where either tree holds what they name.** A commit that closes an issue deletes the entry
-and names it in the message, and against its own tree alone every such message would dangle. A
+**A historical tree's `[project] checker-version` is read, not compared.** Its absence stops the
+tree in phase 1; its value is never compared with the tip checker's version, so moving the pin
+fails no earlier commit, per `design@check@installed-binary-version-check`.
+
+**An extension leaves out, over a commit's tree, a check whose subject is not the tree.** A
+check of filesystem state has no subject there, and one that would read every archived input at
+every step of the range decides nothing about whether a message's references resolve, which is
+the question the per-commit model exists to answer; `check` is what judges a checkout against
+it.
+
+### A message's references resolve against its commit's tree or its first parent's, and its lints stand where either tree holds what they name `##message-references-resolve-in-either-tree`
+
+A commit that closes an issue deletes the entry and names it in the message, and against its own tree alone every such message would dangle. A
 reference finding therefore survives where both trees refuse the reference. The unanchored path,
 per `design@check@unanchored-path-first-segment-here`, fires where its span names something of the
 project, so its finding stands where either tree holds what it names: a message naming,
@@ -81,31 +104,12 @@ prepared for it and no check runs over it, because nobody reads its verdict. The
 because two trees can refuse one reference for different reasons and comparing the words whole
 would let a reference that resolves in neither pass.
 
-**A historical tree's `[project] checker-version` is read, not compared.** Its absence stops the
-tree in phase 1; its value is never compared with the tip checker's version, so moving the pin
-fails no earlier commit, per `design@check@installed-binary-version-check`.
+### `check` reads no range of history `##check-reads-no-range-of-history`
 
-**`check` reads no range of history.** A message is not a file of the tree, and a check whose
-verdict moved with the branch's history would be a check nobody could reproduce from a checkout:
+A message is not a file of the tree, and a check whose verdict moved with the branch's history would be a check nobody could reproduce from a checkout:
 `git stash` alone would move it. `check --staged` reads HEAD's tree and the index, one tree and no
 range, per `design@check@staged-tree-source`. The range is always explicit, and the gates pass the range from the
 remote `main` to `HEAD`, so what is judged is the branch's own commits and never `main`'s.
-
-**An extension leaves out, over a commit's tree, a check whose subject is not the tree.** A
-check of filesystem state has no subject there, and one that would read every archived input at
-every step of the range decides nothing about whether a message's references resolve, which is
-the question the per-commit model exists to answer; `check` is what judges a checkout against
-it.
-
-**The ignore rules a per-commit run asks are the working tree's.** `git check-ignore` reads the
-`.gitignore` files on disk and has no form that asks a historical tree. A commit whose ignore
-rules differed from today's is therefore judged against today's, which can cost a path reference
-asserted where that commit's own rules exempted it — a finding rather than a silence. Since a
-failing tree fails the range, a branch that changes its ignore rules orders its commits for it
-as a branch that makes the checker stricter does: the change first, or a squash.
-
-The designs this decision did not keep: `rejected@check@check-refusing-a-pipe`,
-`rejected@check@commit-subcommand` and `rejected@check@commit-msg-hook`.
 
 ### `commits` refuses a citation of a commit of its range by SHA, where the manifest turns it on `##branch-shas-are-refused`
 

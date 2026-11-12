@@ -18,7 +18,7 @@ further costs were measured. The test was `is_fifo` on stdout, and ksh93 builds 
 sockets, so `klarch check | tail` under ksh93 was not refused. And every caller that captures the
 output had to give the child a regular file: `cargo x gates` and the test helpers of thaum's two
 checker binaries; the runner's side, now the gates library's, is its own entry,
-`rejected@gates@streams-through-one-file`. The merge is guarded either way by the range check of `design@check@a-commit-message-is-a-document`.
+`rejected@gates@streams-through-one-file`. The merge is guarded either way by the range check of `design@check@one-command-judges-messages-after-the-commit`.
 
 ### A `commit` subcommand that runs the checks and then `git commit` `##commit-subcommand`
 

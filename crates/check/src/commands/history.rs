@@ -107,13 +107,13 @@ impl Assembly {
 
 /// Judge one message against a tree, and optionally against a second one.
 ///
-/// **A reference resolves against either tree, a lint stands where either tree holds what it
-/// names, and every other rule is judged against the first**, per
-/// `design@check@a-commit-message-is-a-document`. A commit that closes an issue deletes the entry
-/// file and names it in the message; against its own tree alone every such message would
-/// dangle, and the same message naming the file by a bare path points at what its commit
-/// deletes. An extension's rules have no such asymmetry: what a message says about its subject is
-/// judged against what the commit's own tree holds, and nothing about the parent bears on it.
+/// **A reference resolves against either tree, a lint stands where either tree holds what it names,
+/// and every other rule is judged against the first**, per
+/// `design@check@message-references-resolve-in-either-tree`. A commit that closes an issue deletes
+/// the entry file and names it in the message; against its own tree alone every such message would
+/// dangle, and the same message naming the file by a bare path points at what its commit deletes.
+/// An extension's rules have no such asymmetry: what a message says about its subject is judged
+/// against what the commit's own tree holds, and nothing about the parent bears on it.
 fn judge_message(
     text: &str,
     primary: &Assembly,
@@ -319,7 +319,7 @@ impl Unloadable {
 /// The repair of a manifest a snapshot lacks, or holds in a form the tip checker refuses.
 ///
 /// The index's is staged or corrected. A commit's is a history edit, per
-/// `design@check@a-commit-message-is-a-document`, unless the range reaches back before the
+/// `design@check@every-commit-judged-by-the-tip-checker`, unless the range reaches back before the
 /// commit that gave the manifest its present form, where the range is what is wrong.
 fn manifest_repair(source: Source, absent: bool) -> &'static str {
     match (source, absent) {
@@ -510,7 +510,7 @@ enum Depth {
 /// whose subject is filesystem state has no subject in a snapshot, and one that would read the
 /// whole archive at every step of the range decides nothing about whether a message's
 /// references resolve, which is the question a commit's assembly exists to answer; the
-/// extension leaves both out, per `design@check@a-commit-message-is-a-document`.
+/// extension leaves both out, per `design@check@every-commit-judged-by-the-tip-checker`.
 ///
 /// **The index's snapshot is judged as `check` would judge a clean checkout of it**: its
 /// installed files are compared against the running binary's shipped set, and the files git
@@ -528,8 +528,8 @@ fn commit_tree(
     if !manifest.complaints().is_empty() {
         // Phase 1 failed, so no blob was read and nothing is assembled: the tree is judged no
         // further, and it serves as no parent, per
-        // `design@check@a-commit-message-is-a-document`; the range walk keeps no parent for
-        // it. The early return in `read_tree` changes no verdict and is what saves reading the
+        // `design@check@message-references-resolve-in-either-tree`; the range walk keeps no parent
+        // for it. The early return in `read_tree` changes no verdict and is what saves reading the
         // blobs.
         let model = Model::from_documents(Vec::new());
         let survey = crate::model::listing::from_listing(&manifest, &model, &[], &[], |_| {
@@ -1017,8 +1017,8 @@ impl Outcome {
 ///
 /// **No commit of the range is judged apart**, the last one included: a tree that fails is a
 /// finding naming the commit, whichever commit it is, per
-/// `design@check@a-commit-message-is-a-document`. Exit 1 on a finding, `Err` on a range that does not
-/// resolve.
+/// `design@check@every-commit-judged-by-the-tip-checker`. Exit 1 on a finding, `Err` on a range
+/// that does not resolve.
 pub fn commits(
     manifest: &Manifest,
     range: &str,
@@ -1065,9 +1065,9 @@ pub fn commits(
             Ok(tree) => tree,
             Err(Unloadable { why, repair }) => {
                 // **Every commit of the range must load under the tip checker.** A branch that
-                // changes the manifest format puts that change in its first commit, or is
-                // squashed, per `design@check@a-commit-message-is-a-document`; a git read that
-                // failed is no fault of the branch, and its repair is git's.
+                // changes the manifest format puts that change in its first commit, or is squashed,
+                // per `design@check@every-commit-judged-by-the-tip-checker`; a git read that failed
+                // is no fault of the branch, and its repair is git's.
                 findings.push(Finding::in_file(
                     format!("commit {short}"),
                     format!("this commit's tree does not load under the tip checker: {why}"),

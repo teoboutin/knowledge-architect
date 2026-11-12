@@ -133,7 +133,7 @@ a project pins the version it uses, and moves when it chooses.
 **The working tree only.** `commits` reads a historical tree's key, so a tree without it stops in
 phase 1, and compares no historical value, so moving the pin fails no earlier commit. A branch that
 introduces the key therefore opens with the commit that gives every manifest the key, per
-`design@check@a-commit-message-is-a-document`.
+`design@check@every-commit-judged-by-the-tip-checker`.
 
 **A binary released before the key** refuses a manifest carrying it at parse, as an unknown field,
 since `[project]` denies unknown keys: it runs no command, so it cannot suggest a downgrade, but

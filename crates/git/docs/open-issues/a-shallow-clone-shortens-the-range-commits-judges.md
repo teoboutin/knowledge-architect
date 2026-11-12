@@ -50,7 +50,7 @@ Ruled out:
 ### Why it matters
 
 The range check before the merge is where the guarantee of
-`design@check@a-commit-message-is-a-document` lies: a message with a finding never reaches the
+`design@check@one-command-judges-messages-after-the-commit` lies: a message with a finding never reaches the
 main branch, since every commit of the branch is judged. A shorter range gives that guarantee for
 part of the branch and reports the verdict of the whole. It strains
 `design@git@failed-git-is-an-error`: an invocation a verdict depends on gives an incomplete answer,

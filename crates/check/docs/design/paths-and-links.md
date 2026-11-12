@@ -54,7 +54,7 @@ directory, and from the document's own directory, a `..` climbing from each; a l
 read from the root alone. A spec is an anchor and a file, so it is no place a path is read from.
 Only the first segment is asked, so a pointer whose first segment is here and whose rest is not is
 still a finding, and the anchored form it is rewritten in reports it dangling. A commit message is
-judged against two trees, per `design@check@a-commit-message-is-a-document`.
+judged against two trees, per `design@check@message-references-resolve-in-either-tree`.
 
 **The listing alone answers; the ignore rules are not asked.** A pointer into an ignored directory,
 such as a build output, is silent. Asking git costs one spelling per span and per place it is read
