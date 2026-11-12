@@ -9,8 +9,8 @@ angle bracket, as written; it has no manifest, so it cannot tell a kind from an 
 The resolver reads the head — the text before the first `@` — and decides: a known kind is
 segmented and resolved; a declared anchor or a reserved anchor in that position is the old form
 and is reported with the repair "prefix the kind"; anything else is not a reference and reports
-nothing, so an email address or a git remote in backticks is silent unless the project declares
-an anchor by that word. Every kind but `path`, `planned`, the harness kinds and a register the
+nothing, so an email address or a git remote in backticks is silent unless the word before its
+first `@` is a kind or an anchor. Every kind but `path`, `planned`, the harness kinds and a register the
 root alone carries takes exactly three non-empty segments; `path` and `planned` take an anchor and
 then everything after the second `@`; a harness kind takes the arities of
 `design@model@harness-kinds-cited-without-anchor`; and a register the root alone carries, with its
