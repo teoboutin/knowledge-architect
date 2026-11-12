@@ -1289,7 +1289,7 @@ mod tests {
             (vec![], "run `klarch index`"),
             (
                 vec![index, "docs/open-issues/index.md/a.md"],
-                "remove the directory, then run `klarch index`",
+                "move out what the directory holds, then remove it, then run `klarch index`",
             ),
         ];
         for (add, action) in cases {
@@ -1313,8 +1313,9 @@ mod tests {
         let found = shapes_and_generated(readme, &[readme, "docs/open-issues/README.md/a.md"]);
         assert!(
             found.iter().any(|f| f.file == Path::new(readme)
-                && f.action
-                    .starts_with("remove the directory, then write it by hand")),
+                && f.action.starts_with(
+                    "move out what the directory holds, then remove it, then write it by hand"
+                )),
             "{found:#?}"
         );
     }

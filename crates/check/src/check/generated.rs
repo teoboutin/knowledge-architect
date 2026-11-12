@@ -66,8 +66,12 @@ pub(crate) fn index_action(manifest: &Manifest, judged: Judged) -> String {
 
 /// The repair of a generated file whose path holds a directory: no writer of a generated file
 /// replaces a directory, so it is removed before `action`.
+///
+/// Git lists no empty directory, so the directory always holds a file, and the run may judge it,
+/// as an entry where it is markdown under a register's home. Its removal alone would delete what
+/// the same run asks to repair, so the repair moves out what it holds first.
 pub(crate) fn directory_action(action: &str) -> String {
-    format!("remove the directory, then {action}")
+    format!("move out what the directory holds, then remove it, then {action}")
 }
 
 /// What this family says of a generated file that differs from what it would be generated as.
@@ -213,7 +217,7 @@ mod tests {
             (
                 vec![index, "docs/open-issues/index.md/a.md"],
                 DIRECTORY,
-                "remove the directory, then run `klarch index`",
+                "move out what the directory holds, then remove it, then run `klarch index`",
             ),
         ];
         for (present, what, action) in cases {
