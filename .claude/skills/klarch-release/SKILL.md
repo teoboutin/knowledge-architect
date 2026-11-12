@@ -1,6 +1,6 @@
 ---
 name: klarch-release
-description: MUST use when the owner asks to publish a version of knowledge-architect to crates.io. Covers choosing the version, the changelog section, the checks of the shipped text before publishing, the package lists, the dry run, the review and merge that come before publishing, the owner's word to publish, the tag and the publish, and what to do when a publish fails part-way; and the placeholder a new crate takes after the merge of the branch that adds it, or that leaves with a crate removed before its first release.
+description: MUST use when the owner asks to publish a version of knowledge-architect to crates.io, and when a merge adds a published crate or removes one whose only version is its placeholder. Covers choosing the version, the changelog section, the checks of the shipped text before publishing, the package lists, the dry run, the review and merge that come before publishing, the owner's word to publish, the tag and the publish, and what to do when a publish fails part-way; and the placeholder a new crate takes after the merge of the branch that adds it, or that leaves with a crate removed before its first release.
 ---
 
 # Release
@@ -91,8 +91,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    crate, and otherwise lists the crate, whose owners `https://crates.io/api/v1/crates/<crate>/owners`
    lists. A crate the second answers 404 for has no placeholder, which the merge of the branch that
    added it should have published: tell the owner, who publishes it as
-   `skill@klarch-release@new-crate-placeholder` says before the tag of step 11. The workflow's
-   `publish` job then publishes the real version of every crate.
+   `skill@klarch-release@new-crate-placeholder` says before the tag of step 11.
 7. **The package lists.** `cargo package --list -p <crate>` for each crate. Each lists its sources,
    its Cargo.toml, its README, its CRATES-IO.md, its licence files and its CHANGELOG.md, and agent-skills also its
    build script, content/, snippets/ and fragments/, beside the three files Cargo generates for every package,
