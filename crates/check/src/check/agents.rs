@@ -5,7 +5,9 @@
 //! one this version does not ship; and the root CLAUDE.md's first line must import the primer when
 //! the primer is shipped. The decisions are `design@check@installed-files-compared-by-bytes`,
 //! `design@check@primer-import-line`, `design@check@import-on-first-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the
-//! install; a deletion awaiting staging and an import line not on the first line each name their own.
+//! install, after the step a cause needs first: removing a directory or an ignore rule in a
+//! missing file's way, or renaming a project's own file out of the namespace. A deletion awaiting
+//! staging and an import line not on the first line each name their own.
 //!
 //! **The last phase, since nothing else reads these findings and the model is complete without
 //! them.** The installed bytes are read from the survey and the model holds the copies for
@@ -16,7 +18,7 @@ use std::path::{Path, PathBuf};
 
 use super::Inputs;
 use crate::agents::{imports_primer, lf, IMPORT_LINE, PRIMER};
-use crate::model::declared::{Pin, AGENT_DOCUMENT};
+use crate::model::declared::{Pin, AGENT_DOCUMENT, OWNED_PREFIX};
 use crate::model::listing::Outside;
 use crate::model::{Finding, Manifest, Model};
 use crate::CHECKER_VERSION;
@@ -52,9 +54,12 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
                      missing, an ignore rule covers it, or an untracked directory stands in its \
                      place"
                 ),
+                // Each cause takes its own first step, since the install alone clears only the
+                // first: it writes no file over a directory, and a file it writes under an
+                // ignore rule stays out of git's listing, so the finding stays.
                 format!(
-                    "remove a directory that stands in its place, then {install}, and commit the \
-                     file; an installed file is never ignored"
+                    "if an untracked directory stands in its place, remove it; if an ignore rule \
+                     covers it, remove the rule; then {install}, and commit the file"
                 ),
             )),
             // The install and `check --fix` never replace a directory, so its repair is named.
@@ -100,7 +105,14 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
                 "this file sits in the installer's namespace, and {shipper} does \
                  not ship it"
             ),
-            format!("{install}, which removes it; a project's own file takes a name of its own"),
+            // The install removes every file of the namespace this version does not ship, so a
+            // project's own file is renamed before it, per `design@check@owned-namespace-check`.
+            format!(
+                "if the project wrote this file, rename it first to a name outside the \
+                 namespace, which is .claude/knowledge-architect/ and the names beginning with \
+                 `{OWNED_PREFIX}` under .claude/skills, .claude/agents and .claude/workflows; \
+                 otherwise {install}, which removes it"
+            ),
         ));
     }
     if inputs.shipped.iter().any(|(s, _)| s == Path::new(PRIMER)) {
@@ -300,6 +312,44 @@ mod tests {
                 .all(|f| f.action.contains("install-agent-skills")
                     || f.file == Path::new("CLAUDE.md"))
         );
+    }
+
+    /// The claim: a shipped file git does not list names the repair of each cause that needs a
+    /// step before the install, an untracked directory in its place and an ignore rule over it,
+    /// since the install alone clears neither. Mutation: the action without the ignore rule's
+    /// removal fails.
+    #[test]
+    fn an_unlisted_shipped_file_names_the_step_each_cause_needs() {
+        let found = run(&manifest(""), IMPORTING, &[], &[(SKILL, "x")]);
+        assert_eq!(found.len(), 1, "{found:?}");
+        let action = &found[0].action;
+        let install = action.find("install-agent-skills").expect("the install");
+        for step in ["remove it", "remove the rule"] {
+            let at = action
+                .find(step)
+                .unwrap_or_else(|| panic!("{step}: {action}"));
+            assert!(at < install, "{step} comes before the install: {action}");
+        }
+    }
+
+    /// The claim: an unshipped file of the namespace names the rename of a project's own file
+    /// before the install, which would remove it, and names the namespace. Mutation: the action
+    /// naming the install alone fails.
+    #[test]
+    fn an_unshipped_file_names_the_rename_before_the_install() {
+        let stray = ".claude/skills/knowledge-architect-mine/SKILL.md";
+        let found = run(
+            &manifest(""),
+            "# P\n",
+            &[(stray, Outside::Text("mine".into()))],
+            &[],
+        );
+        assert_eq!(found.len(), 1, "{found:?}");
+        let action = &found[0].action;
+        let rename = action.find("rename it").expect("the rename");
+        let install = action.find("install-agent-skills").expect("the install");
+        assert!(rename < install, "{action}");
+        assert!(action.contains("`knowledge-architect-`"), "{action}");
     }
 
     /// The claim: under `harness = []` nothing about the agent configuration is checked.
