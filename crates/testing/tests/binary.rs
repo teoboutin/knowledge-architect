@@ -2424,7 +2424,42 @@ fn a_message_span_git_refuses_to_ask_about_fails_its_commit_alone() {
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(stdout.contains("1 commit, 0 passed, 1 failed"), "{stdout}");
     assert!(
-        stdout.contains("the ignore rules could not be asked about its message"),
+        stdout.contains("failed: git refused the ignore question of its message"),
+        "{stdout}"
+    );
+}
+
+/// The claim: a message's ignore batch that git refuses fails the run, though nothing else is wrong
+/// with the commit: the refusal is a finding naming the commit, git's reason and the repair, the
+/// verdict counts it and the run exits 1. The commit's tree holds the target as a file under a
+/// directory, so the span resolves; the working tree then holds that directory as a symbolic
+/// link, which git refuses to be asked through.
+#[cfg(unix)]
+#[test]
+fn a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong() {
+    let history = History::new("commit-message-refused-alone");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    history.write("link/data.txt", "data\n");
+    let sha = history.commit("A subject line\n\nIt adds `path@tiny@link/data.txt`.\n");
+    std::fs::remove_dir_all(history.dir.join("link")).expect("the directory");
+    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(stdout.contains("1 commit, 0 passed, 1 failed"), "{stdout}");
+    let finding = stdout
+        .lines()
+        .position(|l| l.starts_with(&format!("commit {sha}  ")))
+        .expect("a finding naming the commit");
+    let lines: Vec<&str> = stdout.lines().collect();
+    assert!(
+        lines[finding].contains("beyond a symbolic link"),
+        "{stdout}"
+    );
+    assert!(lines[finding + 1].contains("reword"), "{stdout}");
+    assert_eq!(
+        stdout.trim_end().lines().last(),
+        Some("FAILED: 1 finding above"),
         "{stdout}"
     );
 }
