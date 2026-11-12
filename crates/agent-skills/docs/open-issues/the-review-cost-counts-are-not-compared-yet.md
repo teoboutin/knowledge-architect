@@ -1,32 +1,27 @@
 ---
-kind: todo
+kind: deferred
 ---
-# The retrospective records no count of what a merged branch cost in review
+# The review-cost counts that retrospectives report are not compared across branches yet
 
 ## Summary
 
-The owner approved that the retrospective records three numbers per merged branch: the review
-rounds, the repair commits, and the owner's corrections of drift. Nothing records them yet, so
-whether the workflow lowers the cost of a change has no measurement.
+The retrospective asks, for each branch merged in its session, for three counts: the reviewers
+dispatched, the commits that repaired a review's findings, and the owner's corrections of drift,
+per `design@agent-skills@review-cost-counts`. This entry holds the series as received workflow files
+report it, until a comparison across branches shows whether the workflow lowers the cost of a
+change.
 
 ## Details
 
 ### What
 
-`goal@agents-get-a-complete-workflow` is there to raise the efficiency
-of the agents' work, and a review round, an argument derived again, or a decision reversed by
-accident, that the workflow would have spared, is efficiency lost. No instrument counts any of them. The retrospective,
-`path@agent-skills@content/skills/retrospective/SKILL.md`, asks standing questions and writes two
-files, and none of its sections asks for a count.
+The counts reach this repository in the answers of received workflow files, and
+`skill@klarch-retrospective-intake` adds each branch's counts below. No comparison has been made, so
+whether the workflow lowers the cost of a change, which `goal@agents-get-a-complete-workflow` asks,
+and whether the dispatches of `design@agent-skills@review-cadence` are too many, has no
+measurement.
 
-The three numbers, as the owner approved them in an evaluation, keep or change, of the project's
-direction:
-
-- **review rounds**: the review dispatches the branch went through before its merge;
-- **repair commits**: the commits that repair a review's findings, `[review]` commits in this
-  repository included;
-- **drift corrections**: the times the owner corrected work that departed from a recorded
-  decision, as distinct from ruling on a decision.
+The series, with the figures and the reports that preceded the question:
 
 The evaluation that raised it measured, over this repository's history since the checker was
 split from thaum, that a third of the commits were `[review]` commits and that the project's
@@ -87,8 +82,8 @@ weighs, is argued from intuition. The counts are also the evidence
 of the workflow. The count of drift corrections would also measure the supervision
 `goal@agents-work-without-drift` saves.
 
-### What would close it
+### Trigger
 
-The retrospective skill asks for the three numbers of each branch merged in its session, and says
-where they are recorded so that they can be compared across sessions. The home of the series is a
-choice for that change: the retrospective skill writes its files outside the project.
+A proposal to add or cut workflow text, or to change when a review runs, that argues from review
+cost; or the owner's request for the comparison. The comparison then reads the series below, and
+this entry closes with it.

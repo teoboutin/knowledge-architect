@@ -119,7 +119,7 @@ The order is a suggestion; the content is not.
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**
-  - **a defect of the text**: unclear, missing or wrong, as `skill@knowledge-architect-retrospective-intake@report-format` defines the three;
+  - **a defect of the text**: unclear, missing, wrong or needless, as `skill@knowledge-architect-retrospective-intake@report-format` defines the four;
   - **a lapse of the session**: the instruction exists, is clear, and was not followed. What
     repairs it is the lapse rule of `skill@knowledge-architect-retrospective-intake@admission-rules`;
   - **about the owner's behaviour under an installed skill**: judged against that skill's

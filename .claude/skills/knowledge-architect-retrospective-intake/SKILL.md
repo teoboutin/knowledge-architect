@@ -53,7 +53,9 @@ written from its own side.
 
 An item is **unclear** when it could be read two ways, **missing** when the session could not
 follow the workflow, or could not produce a document the checker accepts, without an instruction
-that does not exist, and **wrong** when following it produced a defect or a correction. A decision
+that does not exist, **wrong** when following it produced a defect or a correction, and
+**needless** when following it cost work that neither the session's result nor the instruction's
+stated reason needed. A decision
 the session made by its own judgement where no instruction covers it is not missing: the installed
 text leaves that room on purpose, per `primer@room-to-judge`.
 
@@ -123,7 +125,7 @@ The order is a suggestion; the content is not.
   as argued and lost only when a recorded reason covers it, per the record test of
   `skill@knowledge-architect-design@threads-and-states`.
 - **d. Its kind.**
-  - **a defect of the text**: unclear, missing or wrong, as `skill@knowledge-architect-retrospective-intake@report-format` defines the three;
+  - **a defect of the text**: unclear, missing, wrong or needless, as `skill@knowledge-architect-retrospective-intake@report-format` defines the four;
   - **a lapse of the session**: the instruction exists, is clear, and was not followed. What
     repairs it is the lapse rule of `skill@knowledge-architect-retrospective-intake@admission-rules`;
   - **about the owner's behaviour under an installed skill**: judged against that skill's
@@ -274,7 +276,10 @@ finding adds a rule, and added rules interact at the next pass. A cause is one o
 A finding that fits none is a cause of its own, with no kind. A repair is the homes merged into one
 and the others pointing to it, the structure removed, the restatement brought back to a pointer, or
 the narrow rule deleted and the case left to judgement. It adds an instruction only where none of
-these closes the cause. **An instruction** is a sentence that tells an agent to do, or not to do,
+these closes the cause. **A cost one session met in one task is weighed against every other
+occasion the instruction serves**, its stated reason and the moments it applies to, before the
+instruction is removed or narrowed: an instruction needed only at moments some sessions never meet
+is moved to the text loaded at those moments, rather than removed. **An instruction** is a sentence that tells an agent to do, or not to do,
 an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
 whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
 rival to itself and the fact that decides between them. **When the repairs applied together add

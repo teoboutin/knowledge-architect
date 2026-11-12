@@ -427,7 +427,8 @@ review before the merge and before the transcript reviewer, per
 `design@agent-skills@transcript-review-last-before-merge`. Every axis at every checkpoint would
 multiply the dispatches, against the efficiency `goal@agents-get-a-complete-workflow`
 asks of the workflow; the instrument that would show whether two more per branch are too many is
-`issue@agent-skills@the-retrospective-counts-no-review-cost`.
+the retrospective's counts of `design@agent-skills@review-cost-counts`, whose series
+`issue@agent-skills@the-review-cost-counts-are-not-compared-yet` holds.
 
 ### A code axis dispatched once per branch is a row of the review skill's table, and one dispatched at checkpoints a row of the development skill's `##code-axes-rows-home`
 
