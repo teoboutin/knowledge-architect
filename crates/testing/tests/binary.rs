@@ -2477,7 +2477,8 @@ fn a_message_span_git_refuses_to_ask_about_fails_its_commit_alone() {
 /// with the commit: the refusal is a finding naming the commit, git's reason and the repair, the
 /// verdict counts it and the run exits 1. The commit's tree holds the target as a file under a
 /// directory, so the span resolves; the working tree then holds that directory as a symbolic
-/// link, which git refuses to be asked through.
+/// link, which git refuses to be asked through. The repair names the case of a correct span
+/// first, since the span is correct here.
 #[cfg(unix)]
 #[test]
 fn a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong() {
@@ -2500,12 +2501,58 @@ fn a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong() {
         lines[finding].contains("beyond a symbolic link"),
         "{stdout}"
     );
-    assert!(lines[finding + 1].contains("reword"), "{stdout}");
+    assert!(lines[finding + 1].contains(CORRECT_SPAN_REPAIR), "{stdout}");
     assert_eq!(
         stdout.trim_end().lines().last(),
         Some("FAILED: 1 finding above"),
         "{stdout}"
     );
+}
+
+/// The case of an ignore refusal over a span that its own tree holds, as its repair names it.
+const CORRECT_SPAN_REPAIR: &str = "where a tree the span is judged in holds the path git's \
+     reason names, the span is correct, and git, which answers about the working tree alone, \
+     refuses it because the working tree holds a symbolic link or a submodule in its place";
+
+/// The claim, per `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads`: a branch
+/// whose later commit replaces a directory by a symbolic link fails `commits` on the earlier
+/// commit whose message names a path under that directory, though the span is correct in its own
+/// tree and the tip passes `check`; the finding's repair names that case as a correct span, which
+/// no reword of the message repairs. Mutation checked: `IGNORE_REPAIR` given its former text,
+/// which named a reword of the span for a path beyond a symbolic link, fails the repair's assertion.
+#[cfg(unix)]
+#[test]
+fn a_span_correct_in_its_commit_and_refused_through_the_tip_s_link_names_no_reword() {
+    let history = History::new("commit-message-tip-link");
+    tiny_project(&history, false);
+    let base = history.commit("The project is created\n");
+    history.write("link/data.txt", "data\n");
+    let added = history.commit("A file is added\n\nIt adds `path@tiny@link/data.txt`.\n");
+    std::fs::remove_dir_all(history.dir.join("link")).expect("the directory");
+    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    let manifest = history.dir.join("knowledge-architect.toml");
+    let text = std::fs::read_to_string(&manifest).expect("the manifest");
+    std::fs::write(
+        &manifest,
+        text.replace("skip-files = []", "skip-files = [\"link\"]"),
+    )
+    .expect("the manifest is rewritten");
+    history.commit("The directory becomes a link\n");
+    let (stdout, stderr, code) = history.run(&["check"]);
+    assert_eq!(code, 0, "the tip passes: {stdout}{stderr}");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(stdout.contains("2 commits, 1 passed, 1 failed"), "{stdout}");
+    let lines: Vec<&str> = stdout.lines().collect();
+    let finding = lines
+        .iter()
+        .position(|l| l.starts_with(&format!("commit {added}  ")))
+        .expect("a finding naming the commit");
+    assert!(
+        lines[finding].contains("beyond a symbolic link"),
+        "{stdout}"
+    );
+    assert!(lines[finding + 1].contains(CORRECT_SPAN_REPAIR), "{stdout}");
 }
 
 /// The claim: a span repeated on one line of a message is one finding per occurrence, whichever
