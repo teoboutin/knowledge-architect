@@ -200,6 +200,17 @@ needs: `path` and `planned` against the tree, per `design@check@every-path-names
 `design@model@planned-path-form`, and `register` against the anchors, per
 `design@model@register-home-reference`.
 
+**A suffix after the id is a case beside these, in every kind: the reference is judged again
+without it.** An id or a path that ends in a line number or a fragment, the shapes the unanchored
+lint reads after a path in `design@check@unanchored-path-first-segment-here`, cannot be repaired by
+defining that id, since the id grammar refuses `:` and `#`, nor by repairing a path whose file
+exists. Where the form without the suffix resolves, the repair is to drop the suffix and name the
+point inside the target in prose; where it does not, the finding is the one that form meets, and
+its repair says to drop the suffix too. The two conditions the lint puts on a suffix, an extension
+before it and a letter opening a fragment, are not asked: they tell another tool's notation from a
+pointer, and a span with an anchor is a pointer whatever follows its id. An escaped path is not
+judged again, since it names nothing here.
+
 **A reference that resolves to nothing is recorded and reported, never dropped.** The scanner could
 require a resolvable shape and see nothing without one, which needs no finding and no migration. It
 would also mean every pointer written in an older form stops being checked with nothing saying so. A

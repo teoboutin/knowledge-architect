@@ -8,8 +8,9 @@
 //! `design@model@register-home-reference`. A table reference that resolves to nothing has a cause:
 //! the anchor is unknown, the anchor does not carry that register, an item of a plan is cited from
 //! outside it, or the id is not defined there; the kinds resolved outside the table have refusals of
-//! their own. A span whose kind position holds an anchor is no reference, and the caller reports
-//! it. The argument is
+//! their own. A reference of any kind whose id, or whose path, ends in a line suffix or a fragment
+//! is judged again without it, and its cause says to drop it. A span whose kind position holds an
+//! anchor is no reference, and the caller reports it. The argument is
 //! `design@model@an-unresolved-reference-is-reported`.
 //!
 //! **The function of each kind returns an [`Outcome`]**, per `design@model@resolver-outcome`. The words
@@ -161,7 +162,6 @@ pub enum Cause {
     HomeByPath {
         anchor: String,
         register: String,
-        suffix: bool,
     },
     ResolvesHere {
         form: String,
@@ -203,7 +203,10 @@ pub enum Cause {
     PlannedAtReserved {
         anchor: String,
     },
-    PlannedOutsidePlans,
+    /// `form` is the `path` form of the target where it exists.
+    PlannedOutsidePlans {
+        form: Option<String>,
+    },
     PointsIntoExisting {
         file: String,
         form: String,
@@ -215,7 +218,19 @@ pub enum Cause {
     Missing {
         target: PathBuf,
     },
+    /// The reference resolves once the line suffix or the fragment after its id is dropped, as
+    /// `form`.
+    Located {
+        form: String,
+    },
+    /// The reference carries a line suffix or a fragment after its id, and without it still
+    /// resolves to nothing, for the cause held.
+    Suffixed(Box<Cause>),
 }
+
+/// The sentence a repair ends with where the reference also carries a line suffix or a fragment.
+const DROP_THE_SUFFIX: &str = "A reference names its target whole: drop the line number or the \
+                               fragment, and name the point inside it in prose";
 
 impl Cause {
     /// What is wrong with the reference written `span`, and what repairs it: the two texts of a
@@ -387,11 +402,7 @@ impl Cause {
                      citation of it"
                 ),
             ),
-            HomeByPath {
-                anchor,
-                register,
-                suffix,
-            } => {
+            HomeByPath { anchor, register } => {
                 let whose = if anchor == entity::EVERY_ANCHOR {
                     "every component's".to_string()
                 } else {
@@ -401,14 +412,8 @@ impl Cause {
                     format!("`{span}` names {whose} home of the {register} register by its path"),
                     format!(
                         "write `{}`, which names the home in either of its shapes, so a home \
-                         that changes shape breaks no reference{}",
+                         that changes shape breaks no reference",
                         crate::entity::spelled(crate::entity::REGISTER_KIND, anchor, register),
-                        if *suffix {
-                            ". A reference names the home: drop the line number or the fragment, \
-                             and name the point inside it in prose"
-                        } else {
-                            ""
-                        }
                     ),
                 )
             }
@@ -510,10 +515,17 @@ impl Cause {
                      anchor, never `*` or `{ESCAPE_ANCHOR}`"
                 ),
             ),
-            PlannedOutsidePlans => (
+            PlannedOutsidePlans { form } => (
                 format!("`{span}` is a planned path outside the plans directory"),
-                "a planned path is cited from a plan document only; name the plan that creates it"
-                    .to_string(),
+                match form {
+                    Some(form) => format!(
+                        "write `{form}`, since the target exists; a planned path is cited from a \
+                         plan document only"
+                    ),
+                    None => "a planned path is cited from a plan document only; name the plan \
+                             that creates it"
+                        .to_string(),
+                },
             ),
             PointsIntoExisting { file, form } => (
                 format!("`{span}` points into `{file}`, which exists"),
@@ -525,9 +537,19 @@ impl Cause {
             ),
             Missing { target } => (
                 format!("`{span}` does not exist, at `{}`", target.display()),
-                "repair the pointer, or delete it; a path that does not resolve is a guess"
-                    .to_string(),
+                "repair the pointer, or delete it".to_string(),
             ),
+            Located { form } => (
+                format!("`{span}` points inside `{form}`"),
+                format!(
+                    "drop the line number or the fragment, as `{form}`, and name the point inside \
+                     it in prose"
+                ),
+            ),
+            Suffixed(cause) => {
+                let (what, action) = cause.texts(span);
+                (what, format!("{action}. {DROP_THE_SUFFIX}"))
+            }
         }
     }
 }
@@ -546,10 +568,11 @@ pub fn reference(
     entities: &Entities,
     tree: &TreeInputs,
 ) -> Outcome {
+    if kind.is_planned() {
+        return planned(rel, anchor, id, anchors, tree);
+    }
     if kind.is_path() {
         path(rel, anchor, id, anchors, tree)
-    } else if kind.is_planned() {
-        planned(rel, anchor, id, anchors, tree)
     } else if kind.is_register() {
         // Never through `table`: a register's home is no entity id of the table, and `*` resolves
         // under this kind, which `table` refuses.
@@ -559,8 +582,56 @@ pub fn reference(
     }
 }
 
-/// A reference to a table kind, resolved through the entity table.
+/// The outcome of a reference resolved as `written`, judged again with the line suffix or the
+/// fragment after its id dropped, per `design@model@an-unresolved-reference-is-reported`.
+///
+/// An id holds neither `:` nor `#`, and a path's suffix is no part of the file, so the cause of
+/// the written form names a repair nobody can carry out: defining an entry whose id holds the
+/// suffix, or repairing a path whose file exists. The reference is resolved again without the
+/// suffix. Where that resolves, the repair is to drop the suffix; where it does not, the cause is
+/// the one the form without the suffix meets, and its repair says to drop the suffix too.
+///
+/// **The form without the suffix decides, whatever the written form gives.** A path the ignore
+/// rules cover resolves as written, suffix and all, when an ignored directory holds it; only the
+/// form without the suffix tells it from a file whose name holds what reads as a suffix, which
+/// resolves as written and not without it. An escaped path names nothing here, so nothing is
+/// judged again; a suffix with nothing before it names no target, and keeps the written outcome.
+fn located(
+    written: Outcome,
+    kind: &str,
+    anchor: &str,
+    id: &str,
+    again: impl FnOnce(&str) -> Outcome,
+) -> Outcome {
+    let (bare, suffix) = without_suffix(id);
+    if !suffix || bare.trim_end_matches('/').is_empty() || written == Ok(Target::Elsewhere) {
+        return written;
+    }
+    match (written, again(bare)) {
+        (_, Ok(_)) => Err(Cause::Located {
+            form: entity::spelled(kind, anchor, bare),
+        }),
+        (Ok(target), Err(_)) => Ok(target),
+        (Err(_), Err(inner)) => Err(Cause::Suffixed(Box::new(inner))),
+    }
+}
+
+/// A reference to a table kind, resolved through the entity table, an id with a line suffix or
+/// a fragment judged again without it.
 pub fn table(
+    kind: &Kind,
+    anchor: &str,
+    id: &str,
+    rel: &Path,
+    anchors: &Anchors,
+    entities: &Entities,
+) -> Outcome {
+    let resolve = |id: &str| table_written(kind, anchor, id, rel, anchors, entities);
+    located(resolve(id), kind.name(), anchor, id, resolve)
+}
+
+/// A reference to a table kind as written, its suffix taken as part of the id.
+fn table_written(
     kind: &Kind,
     anchor: &str,
     id: &str,
@@ -619,6 +690,12 @@ pub fn table(
 /// A section of a skill or an agent that does not exist is reported as the missing skill or
 /// agent, not as the missing section: its repair is the name, whatever the slug says.
 pub fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outcome {
+    let resolve = |id: &str| harness_written(kind, owner, id, entities);
+    located(resolve(id), kind.name(), owner, id, resolve)
+}
+
+/// A reference of a harness kind as written, its suffix taken as part of the id.
+fn harness_written(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outcome {
     if entities.defines(kind, owner, id) {
         return Ok(Target::Entity);
     }
@@ -658,6 +735,12 @@ pub fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outco
 /// repair lists the anchors that carry the register, not every anchor as `table` does: an anchor
 /// that does not carry it is one more refusal for a writer who follows the repair.
 pub fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
+    let resolve = |id: &str| register_written(anchor, id, anchors);
+    located(resolve(id), entity::REGISTER_KIND, anchor, id, resolve)
+}
+
+/// A `register` reference as written, its suffix taken as part of the register's name.
+fn register_written(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
     let registers = anchors.registers();
     let Some(r) = registers.by_name(id) else {
         // An item register's home is a plan's own documents, so it has no home of its own to name,
@@ -758,8 +841,13 @@ pub fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
 }
 
 /// A path written with a suffix, a line number `:<n>` or a fragment `#<anchor>`, split into the
-/// path and whether a suffix was there. Only the home-target test reads it: a suffix on any other
-/// `path` reference keeps the finding of the target it does not name.
+/// path and whether a suffix was there. A reference is judged again without it by [`located`]
+/// and by [`planned`], and an escaped path is read without it by [`resolved_here`].
+///
+/// The shapes are the unanchored lint's, a line number or a closed range and a heading fragment,
+/// with neither of its two conditions, an extension before the suffix and a letter opening the
+/// fragment: those tell another tool's notation from a pointer, and a span with an anchor is a
+/// pointer whatever follows its id.
 fn without_suffix(path: &str) -> (&str, bool) {
     // A fragment is a heading anchor, which may open on a digit, as `#1-intro`; a line suffix is a
     // number or a closed range. Each is stripped once, the fragment first and again last, so a span
@@ -863,8 +951,21 @@ fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, tree: &TreeInputs) -
     })
 }
 
-/// A `path` reference, resolved against the survey under its anchor.
+/// A `path` reference, resolved against the survey under its anchor, a path with a line suffix or
+/// a fragment judged again without it.
 pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
+    let resolve = |path: &str| path_written(rel, anchor, path, anchors, tree);
+    located(resolve(path), entity::PATH_KIND, anchor, path, resolve)
+}
+
+/// A `path` reference as written, its suffix taken as part of the path.
+fn path_written(
+    rel: &Path,
+    anchor: &str,
+    path: &str,
+    anchors: &Anchors,
+    tree: &TreeInputs,
+) -> Outcome {
     // The trailing slash is the writer's claim about the target's kind; the lookup drops it.
     let claims_dir = path.ends_with('/');
     let trimmed = path.trim_end_matches('/');
@@ -884,7 +985,6 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
             };
             // A home is named by its own kind, so the repair names that form rather than
             // a `path` the next run would report.
-            let (_, suffix) = without_suffix(trimmed);
             if let Some(form) = entry_at(anchors, &target) {
                 return Err(Cause::EntryByPath { form });
             }
@@ -892,7 +992,6 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
                 return Err(Cause::HomeByPath {
                     anchor: keeper.name.to_string(),
                     register: r.name.to_string(),
-                    suffix,
                 });
             }
             // A plan document is cited by its kind, never by a path.
@@ -926,8 +1025,7 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
             // A register's home is named by its own kind, before any kind claim or presence is
             // judged: either shape of a home names the same register, and the manifest, not the
             // listing, says which paths are homes.
-            let (bare, suffix) = without_suffix(path);
-            if let Some(r) = anchors.generic_home_target(bare.trim_end_matches('/')) {
+            if let Some(r) = anchors.generic_home_target(trimmed) {
                 // A register attached to some Components has no `register` form under `*`: each
                 // of its homes is named under the Component that keeps it. The root's register is
                 // named with no anchor, which `HomeByPath` spells.
@@ -940,7 +1038,6 @@ pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &Tree
                     Cause::HomeByPath {
                         anchor: entity::EVERY_ANCHOR.to_string(),
                         register: r.name.to_string(),
-                        suffix,
                     }
                 });
             }
@@ -1051,6 +1148,14 @@ fn anchored_target(
     if let Some(why) = refused(path) {
         return Err(Cause::Refused { why });
     }
+    // A line suffix or a fragment with no path before it would resolve to the anchor's own
+    // directory in the same way, as a file whose name is the suffix.
+    let (bare, suffix) = without_suffix(path);
+    if suffix && bare.trim_end_matches('/').is_empty() {
+        return Err(Cause::Refused {
+            why: "a line number or a fragment alone names no path",
+        });
+    }
     let target = a.path.join(trimmed);
     // Per `design@model@plan-document-kinds`, before the deepest-anchor rule: a plan document cited by its path is
     // refused from every anchor, and the repair names the one form that resolves.
@@ -1062,20 +1167,17 @@ fn anchored_target(
     // `design@model@path-to-a-home-is-reported`; a file beside the README is a path target. A
     // `planned` path to an entry that now exists takes the same repair, which is the one form
     // that resolves.
-    let (bare, _) = without_suffix(trimmed);
-    if let Some(form) = entry_at(anchors, &a.path.join(bare.trim_end_matches('/'))) {
+    if let Some(form) = entry_at(anchors, &target) {
         return Err(Cause::EntryByPath { form });
     }
     // A register's home is named by its own kind, whichever anchor the path was written from:
     // the finding names the anchor that keeps the home, so it replaces the deeper-anchor finding
     // rather than following it. A `planned` path names no home: a home is a declared anchor's.
     if !planned {
-        let (bare, suffix) = without_suffix(trimmed);
-        if let Some((keeper, r)) = anchors.home_target(&a.path.join(bare.trim_end_matches('/'))) {
+        if let Some((keeper, r)) = anchors.home_target(&target) {
             return Err(Cause::HomeByPath {
                 anchor: keeper.name.to_string(),
                 register: r.name.to_string(),
-                suffix,
             });
         }
     }
@@ -1100,7 +1202,8 @@ fn anchored_target(
 /// reference, and asserts that its target does not exist. Once the target exists the cause
 /// names the `path` form and nothing else: the session that created the file converts the
 /// reference, and whether the plan still holds is that session's report to make, not the
-/// check's.
+/// check's. Outside the plans directory, a target that exists is named in the same form, since
+/// naming the plan that creates it would send the writer after a plan that has no work left.
 pub fn planned(
     rel: &Path,
     anchor: &str,
@@ -1108,23 +1211,41 @@ pub fn planned(
     anchors: &Anchors,
     tree: &TreeInputs,
 ) -> Outcome {
-    if !in_plans_directory(rel, anchors) {
-        return Err(Cause::PlannedOutsidePlans);
+    let inside = planned_in_plans(anchor, path, anchors, tree);
+    if in_plans_directory(rel, anchors) {
+        return inside;
+    }
+    Err(match inside {
+        Err(Cause::NowExists { form, .. }) => Cause::PlannedOutsidePlans { form: Some(form) },
+        Err(Cause::PointsIntoExisting { form, .. }) => {
+            Cause::Suffixed(Box::new(Cause::PlannedOutsidePlans { form: Some(form) }))
+        }
+        _ => Cause::PlannedOutsidePlans { form: None },
+    })
+}
+
+/// A `planned` reference judged as a plan document writes it.
+///
+/// A line suffix or a fragment is asked for before the target: the target of a planned path does
+/// not exist, so a path holding the suffix as written would resolve, as a file nobody plans.
+/// Without the suffix, a target that exists is pointed into, which the planned form cannot be,
+/// and a target that does not is named without it.
+fn planned_in_plans(anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
+    let (bare, suffix) = without_suffix(path);
+    if suffix && !bare.trim_end_matches('/').is_empty() {
+        return Err(match planned_in_plans(anchor, bare, anchors, tree) {
+            Ok(_) => Cause::Located {
+                form: entity::spelled(entity::PLANNED_KIND, anchor, bare),
+            },
+            Err(Cause::NowExists { form, .. }) => Cause::PointsIntoExisting {
+                file: bare.to_string(),
+                form,
+            },
+            Err(inner) => Cause::Suffixed(Box::new(inner)),
+        });
     }
     let claims_dir = path.ends_with('/');
     let target = planned_target(anchor, path, anchors)?;
-    // A line or a fragment names no file: `x.rs:12` of an existing `x.rs` is a pointer into it,
-    // which the planned form cannot be.
-    if let Some((file, _)) = path.split_once([':', '#']) {
-        if let Some(a) = anchors.by_name(anchor) {
-            if tree.present.contains(&a.path.join(file)) {
-                return Err(Cause::PointsIntoExisting {
-                    file: file.to_string(),
-                    form: converted(anchors, anchor, &a.path.join(file), file),
-                });
-            }
-        }
-    }
     if tree
         .ignored
         .contains(&crate::git::ignore_query(&target, claims_dir))
@@ -1314,24 +1435,34 @@ pub fn ignore_queries(model: &Model, anchors: &Anchors) -> Vec<String> {
                     if refused(id).is_some() {
                         continue;
                     }
-                    let claims_dir = id.ends_with('/');
-                    let trimmed = id.trim_end_matches('/');
-                    match anchor {
-                        ESCAPE_ANCHOR => {}
-                        entity::EVERY_ANCHOR => {
-                            for a in anchors.all() {
-                                out.push(crate::git::ignore_query(
-                                    &a.path.join(trimmed),
-                                    claims_dir,
-                                ));
+                    // A reference with a line suffix or a fragment is judged again without it,
+                    // by `located` and `planned`, so both spellings ask.
+                    let (bare, suffix) = without_suffix(id);
+                    let spellings: &[&str] = if suffix && !bare.trim_end_matches('/').is_empty() {
+                        &[id, bare]
+                    } else {
+                        &[id]
+                    };
+                    for id in spellings {
+                        let claims_dir = id.ends_with('/');
+                        let trimmed = id.trim_end_matches('/');
+                        match anchor {
+                            ESCAPE_ANCHOR => {}
+                            entity::EVERY_ANCHOR => {
+                                for a in anchors.all() {
+                                    out.push(crate::git::ignore_query(
+                                        &a.path.join(trimmed),
+                                        claims_dir,
+                                    ));
+                                }
                             }
-                        }
-                        name => {
-                            if let Some(a) = anchors.by_name(name) {
-                                out.push(crate::git::ignore_query(
-                                    &a.path.join(trimmed),
-                                    claims_dir,
-                                ));
+                            name => {
+                                if let Some(a) = anchors.by_name(name) {
+                                    out.push(crate::git::ignore_query(
+                                        &a.path.join(trimmed),
+                                        claims_dir,
+                                    ));
+                                }
                             }
                         }
                     }
@@ -1642,6 +1773,351 @@ mod tests {
         assert_eq!(
             path(rel, "*", "src", &anchors, &tree),
             Ok(Target::Carried(vec![other]))
+        );
+    }
+
+    /// A tree of the one-component manifest: the files and the directories given, nothing ignored
+    /// but `ignored`.
+    fn tree_of<'a>(
+        present: &'a HashSet<PathBuf>,
+        directories: &'a HashSet<PathBuf>,
+        ignored: &'a HashSet<String>,
+    ) -> TreeInputs<'a> {
+        TreeInputs {
+            present,
+            directories,
+            outside: &[],
+            ignored,
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+        }
+    }
+
+    fn located(form: &str) -> Outcome {
+        Err(Cause::Located {
+            form: form.to_string(),
+        })
+    }
+
+    fn suffixed(cause: Cause) -> Outcome {
+        Err(Cause::Suffixed(Box::new(cause)))
+    }
+
+    /// The claim: a reference to a table kind, or to a register's home, whose id carries a line
+    /// suffix or a fragment is told to drop it, naming the form without it, where that form
+    /// resolves; where it does not, the cause is the one the form without the suffix meets, so the
+    /// statement names the id a writer can define. Mutations checked, each caught: `located`'s
+    /// call in `reference` made `resolve(id)`; its suffix test made `if true`.
+    #[test]
+    fn a_suffixed_table_reference_is_told_to_drop_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("docs/design.md"),
+            "# Design\n\n### A decision `##a-decision`\n".to_string(),
+        )]);
+        let entities = Entities::build(&model, &anchors);
+        let (present, directories, ignored) = (HashSet::new(), HashSet::new(), HashSet::new());
+        let tree = tree_of(&present, &directories, &ignored);
+        let resolve = |kind: &str, id: &str| {
+            reference(
+                &Kind::new(kind),
+                "a-project",
+                id,
+                Path::new("r.md"),
+                &anchors,
+                &entities,
+                &tree,
+            )
+        };
+        for id in [
+            "a-decision#top",
+            "a-decision:12",
+            "a-decision:3-9",
+            "a-decision:3#a",
+        ] {
+            assert_eq!(
+                resolve("design", id),
+                located("design@a-project@a-decision"),
+                "{id}"
+            );
+        }
+        assert_eq!(
+            resolve("design", "no-decision#top"),
+            suffixed(Cause::Undefined {
+                anchor: "a-project".to_string(),
+                kind: "design".to_string(),
+                id: "no-decision".to_string(),
+                home: "design home".to_string(),
+            })
+        );
+        assert_eq!(
+            resolve("register", "issue#x"),
+            located("register@a-project@issue")
+        );
+        // An id with no suffix keeps the cause it meets as written.
+        assert!(matches!(
+            resolve("design", "no-decision"),
+            Err(Cause::Undefined { .. })
+        ));
+    }
+
+    /// The claim: a reference of a harness kind whose id carries a line suffix or a fragment is
+    /// told to drop it where the rest resolves, for each of the three repairs of `harness`: a
+    /// section of a skill, a whole skill, a section of the root instructions. Where the rest does
+    /// not resolve, each keeps its own cause, judged without the suffix. Mutation checked, and
+    /// caught: `located`'s call in `harness` made `resolve(id)`.
+    #[test]
+    fn a_suffixed_harness_reference_is_told_to_drop_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        assert!(anchors.serves_harness());
+        let model = Model::from_documents(vec![
+            (
+                PathBuf::from(".claude/skills/demo-x/SKILL.md"),
+                "---\nname: demo-x\ndescription: A demo.\n---\n\n# Demo\n\n## A part `##a-part`\n"
+                    .to_string(),
+            ),
+            (
+                PathBuf::from("CLAUDE.md"),
+                "# Rules\n\n## Some rules `##some-rules`\n".to_string(),
+            ),
+        ]);
+        let entities = Entities::build(&model, &anchors);
+        let skill = Kind::new("skill");
+        let instructions = Kind::new("instructions");
+        assert_eq!(
+            harness(&skill, "demo-x", "a-part:3", &entities),
+            located("skill@demo-x@a-part")
+        );
+        assert_eq!(
+            harness(&skill, "", "demo-x#top", &entities),
+            located("skill@demo-x")
+        );
+        assert_eq!(
+            harness(&instructions, "", "some-rules:3-4", &entities),
+            located("instructions@some-rules")
+        );
+        assert_eq!(
+            harness(&skill, "demo-x", "no-part#x", &entities),
+            suffixed(Cause::NoOwnerSection {
+                kind: "skill".to_string(),
+                owner: "demo-x".to_string(),
+                id: "no-part".to_string(),
+            })
+        );
+        assert_eq!(
+            harness(&skill, "", "no-skill:3", &entities),
+            suffixed(Cause::NoNamed {
+                kind: "skill".to_string(),
+                id: "no-skill".to_string(),
+            })
+        );
+        assert_eq!(
+            harness(&instructions, "", "no-rules#x", &entities),
+            suffixed(Cause::NoSection {
+                document: "the root CLAUDE.md",
+                id: "no-rules".to_string(),
+            })
+        );
+    }
+
+    /// The claim: a `path` reference whose path carries a line suffix or a fragment is told to
+    /// drop it where the file exists, under a named anchor and under `*`, a directory keeping its
+    /// slash and a required document resolving as one; where nothing is there, the cause names
+    /// the path without the suffix; a suffix alone is refused; and a file whose name holds what
+    /// reads as a suffix resolves as written. Mutations checked, each caught: the empty-path
+    /// refusal of `anchored_target` removed; `located`'s test of an empty path removed.
+    #[test]
+    fn a_suffixed_path_is_told_to_drop_its_suffix() {
+        let files = [
+            "crates/one/src/a.rs",
+            "crates/one/Cargo.toml",
+            "crates/one/b.md#x",
+        ];
+        let directories = ["crates", "crates/one", "crates/one/src"];
+        for (anchor, id, outcome) in [
+            ("one", "src/a.rs:12", located("path@one@src/a.rs")),
+            ("one", "src/a.rs#a-head", located("path@one@src/a.rs")),
+            ("one", "src/:3", located("path@one@src/")),
+            ("*", "Cargo.toml:3", located("path@*@Cargo.toml")),
+            ("*", "README.md:3", located("path@*@README.md")),
+            (
+                "one",
+                "src/z.rs:12",
+                suffixed(Cause::Missing {
+                    target: PathBuf::from("crates/one/src/z.rs"),
+                }),
+            ),
+            ("*", "z.rs:3", suffixed(Cause::InNoComponent)),
+            (
+                "one",
+                ":12",
+                Err(Cause::Refused {
+                    why: "a line number or a fragment alone names no path",
+                }),
+            ),
+            (
+                "one",
+                "b.md#x",
+                Ok(Target::Path(PathBuf::from("crates/one/b.md#x"))),
+            ),
+            ("elsewhere", "other/a.rs:12", Ok(Target::Elsewhere)),
+        ] {
+            assert_eq!(
+                path_over(anchor, id, &files, &directories, &[]),
+                outcome,
+                "{anchor} {id}"
+            );
+        }
+    }
+
+    /// The claim: a suffixed path whose file the ignore rules cover is told to drop the suffix,
+    /// since the collector asks git about the spelling without it too, and even where the rules
+    /// cover the written spelling as well, as an ignored directory's do. Mutations checked, each
+    /// caught: `ignore_queries` asking about the written spelling alone; `located` keeping a
+    /// written outcome that resolves.
+    #[test]
+    fn a_suffixed_path_to_an_ignored_file_is_asked_about_without_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("notes.md"),
+            "# Notes\n\nSee `path@one@target/gen.rs:3`.\n".to_string(),
+        )]);
+        let query = crate::git::ignore_query(Path::new("crates/one/target/gen.rs"), false);
+        assert!(ignore_queries(&model, &anchors).contains(&query));
+        let written = crate::git::ignore_query(Path::new("crates/one/target/gen.rs:3"), false);
+        for ignored in [vec![query.clone()], vec![query, written]] {
+            assert_eq!(
+                path_over("one", "target/gen.rs:3", &[], &[], &ignored),
+                located("path@one@target/gen.rs")
+            );
+        }
+    }
+
+    /// The claim: a planned path with a line suffix or a fragment names the form without it: the
+    /// planned form where nothing exists yet, the `path` form of what exists, a directory with
+    /// its slash, and a plan document by its kind, a slice spec's `.md` read without the suffix. A
+    /// suffix alone is refused. Mutations checked, each caught: the suffix test of
+    /// `planned_in_plans` made `if false`; its `NowExists` arm removed.
+    #[test]
+    fn a_suffixed_planned_path_names_the_form_without_its_suffix() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let present: HashSet<PathBuf> = ["crates/one/src/a.rs", "crates/one/src"]
+            .iter()
+            .map(PathBuf::from)
+            .collect();
+        let directories: HashSet<PathBuf> = [PathBuf::from("crates/one/src")].into();
+        let ignored = HashSet::new();
+        let tree = tree_of(&present, &directories, &ignored);
+        let plans = Path::new("docs/plans/README.md");
+        for (anchor, id, outcome) in [
+            ("one", "src/new.rs:3", located("planned@one@src/new.rs")),
+            (
+                "one",
+                "src/a.rs#a-head",
+                Err(Cause::PointsIntoExisting {
+                    file: "src/a.rs".to_string(),
+                    form: "path@one@src/a.rs".to_string(),
+                }),
+            ),
+            (
+                "one",
+                "src:3",
+                Err(Cause::PointsIntoExisting {
+                    file: "src".to_string(),
+                    form: "path@one@src/".to_string(),
+                }),
+            ),
+            (
+                "one",
+                ":12",
+                Err(Cause::Refused {
+                    why: "a line number or a fragment alone names no path",
+                }),
+            ),
+            (
+                "a-project",
+                "docs/plans/milestones/m-one/a-slice.md:3",
+                suffixed(Cause::PlanDocumentByPath {
+                    form: "spec@m-one@a-slice".to_string(),
+                }),
+            ),
+        ] {
+            assert_eq!(
+                planned(plans, anchor, id, &anchors, &tree),
+                outcome,
+                "{anchor} {id}"
+            );
+        }
+    }
+
+    /// The claim: a `path` reference to a slice spec with a line suffix is told to cite the slice
+    /// spec, not its milestone: the `.md` is read with the suffix dropped.
+    #[test]
+    fn a_suffixed_slice_spec_is_cited_as_the_slice() {
+        assert_eq!(
+            path_over(
+                "a-project",
+                "docs/plans/milestones/m-one/a-slice.md:3",
+                &[],
+                &[],
+                &[]
+            ),
+            suffixed(Cause::PlanDocumentByPath {
+                form: "spec@m-one@a-slice".to_string(),
+            })
+        );
+    }
+
+    /// The claim: a planned path outside the plans directory whose target exists is told to write
+    /// its `path` form, with the sentence on the suffix where it carries one; one whose target
+    /// does not exist is told to name the plan that creates it. Mutation checked, and caught: the
+    /// `NowExists` arm of `planned` made to give no form.
+    #[test]
+    fn a_planned_path_outside_the_plans_names_the_path_form_of_what_exists() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let present: HashSet<PathBuf> = [PathBuf::from("crates/one/src/a.rs")].into();
+        let (directories, ignored) = (HashSet::new(), HashSet::new());
+        let tree = tree_of(&present, &directories, &ignored);
+        let notes = Path::new("notes.md");
+        let form = Some("path@one@src/a.rs".to_string());
+        assert_eq!(
+            planned(notes, "one", "src/a.rs", &anchors, &tree),
+            Err(Cause::PlannedOutsidePlans { form: form.clone() })
+        );
+        assert_eq!(
+            planned(notes, "one", "src/a.rs:3", &anchors, &tree),
+            suffixed(Cause::PlannedOutsidePlans { form })
+        );
+        assert_eq!(
+            planned(notes, "one", "src/new.rs", &anchors, &tree),
+            Err(Cause::PlannedOutsidePlans { form: None })
+        );
+        let (_, action) = Cause::PlannedOutsidePlans {
+            form: Some("path@one@src/a.rs".to_string()),
+        }
+        .texts("planned@one@src/a.rs");
+        assert!(action.starts_with("write `path@one@src/a.rs`"), "{action}");
+    }
+
+    /// The claim: the repair of a missing target names the repair and no cause, and a suffixed
+    /// cause's repair ends with the sentence on the suffix.
+    #[test]
+    fn the_texts_of_a_missing_target_and_a_suffixed_cause() {
+        let missing = Cause::Missing {
+            target: PathBuf::from("crates/one/z.rs"),
+        };
+        assert_eq!(missing.texts("x").1, "repair the pointer, or delete it");
+        let (what, action) = Cause::Suffixed(Box::new(missing)).texts("x");
+        assert_eq!(what, "`x` does not exist, at `crates/one/z.rs`");
+        assert_eq!(
+            action,
+            format!("repair the pointer, or delete it. {DROP_THE_SUFFIX}")
         );
     }
 }
