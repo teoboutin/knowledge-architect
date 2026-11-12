@@ -1572,6 +1572,217 @@ mod tests {
         let _ = std::fs::remove_dir_all(&repo);
     }
 
+    /// The claim: a manifest the index holds that does not parse names its correction, not its
+    /// staging, which is done. Mutation checked: the index's arm of a refused manifest given the
+    /// absent arm's "stage knowledge-architect.toml".
+    #[test]
+    fn a_staged_manifest_that_does_not_parse_names_its_correction() {
+        let repo = empty_repository("refused-manifest");
+        std::fs::write(repo.join(MANIFEST_NAME), "[project\n").expect("a manifest");
+        crate::git::git(&repo)
+            .args(["add", MANIFEST_NAME])
+            .output()
+            .expect("git");
+        let refused = read_tree(&repo, Source::Index, &[], &mut [])
+            .err()
+            .expect("the manifest is refused");
+        assert!(
+            refused
+                .why
+                .starts_with(&format!("its {MANIFEST_NAME} does not parse: ")),
+            "{}",
+            refused.why
+        );
+        assert_eq!(
+            refused.repair,
+            "correct knowledge-architect.toml as the reason says, and stage it"
+        );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// A repository holding a project whose tree passes the first three phases, committed, with
+    /// HEAD's SHA and the loaded manifest.
+    fn committed_project(tag: &str) -> (PathBuf, String, Manifest) {
+        let repo = empty_repository(tag);
+        for (rel, text) in [
+            (
+                MANIFEST_NAME,
+                "[project]\nchecker-version = \"fixture\"\nname = \"tiny\"\ncomponents = []\n\n\
+                 [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n\n\
+                 [agents]\nharness = []\n",
+            ),
+            (
+                "README.md",
+                "# tiny\n\nA project of the tests of `commits`.\n",
+            ),
+            ("CLAUDE.md", "# tiny\n\nNothing holds of any code.\n"),
+            ("docs/design.md", "# tiny: design\n\nNo decision.\n"),
+            ("docs/goals.md", "# Goals: tiny\n\nNo goal.\n"),
+            ("docs/tripwires.md", "# Tripwires: tiny\n\nNone.\n"),
+            ("docs/rejected.md", "# tiny: rejected designs\n\nNone.\n"),
+            ("docs/open-issues/README.md", "# Open issues\n\nNone.\n"),
+            ("docs/plans/README.md", "# Plans\n\nNone.\n"),
+            ("docs/plans/specs/README.md", "# Specs\n\nNone.\n"),
+            ("docs/plans/milestones/README.md", "# Milestones\n\nNone.\n"),
+        ] {
+            let path = repo.join(rel);
+            std::fs::create_dir_all(path.parent().expect("a parent")).expect("a directory");
+            std::fs::write(&path, text).expect("a file");
+        }
+        for args in [&["add", "-A"][..], &["commit", "-qm", "base"]] {
+            crate::git::git(&repo).args(args).output().expect("git");
+        }
+        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+        let manifest = Manifest::parse(
+            &repo,
+            &std::fs::read_to_string(repo.join(MANIFEST_NAME)).expect("the manifest"),
+        )
+        .expect("a declaration");
+        (repo, head, manifest)
+    }
+
+    /// An extension that declares one generated file, `nowhere/listing.md`, and prepares over a
+    /// tree only where `prepares` says so.
+    struct Nowhere {
+        prepares: bool,
+    }
+
+    impl Extension for Nowhere {
+        fn tables(&self) -> &'static [&'static str] {
+            &[]
+        }
+        fn resolve(&mut self, _: &Manifest) -> crate::extension::Resolution {
+            let mut resolution = crate::extension::Resolution::default();
+            resolution
+                .generated
+                .push(PathBuf::from("nowhere/listing.md"));
+            resolution
+        }
+        fn checks(&self) -> &'static [&'static str] {
+            &[]
+        }
+        fn dump(&self, _: &crate::Model) -> Vec<crate::model::table::DumpRow> {
+            Vec::new()
+        }
+        fn prepare(
+            &mut self,
+            _: &Manifest,
+            _: &crate::Model,
+            _: Tree<'_>,
+            _: Purpose,
+        ) -> Result<Box<dyn Prepared>, String> {
+            if self.prepares {
+                Ok(Box::new(NowherePrepared))
+            } else {
+                Err("the extension's own reason".to_string())
+            }
+        }
+    }
+
+    struct NowherePrepared;
+
+    impl Prepared for NowherePrepared {
+        fn check(
+            &self,
+            _: &crate::Model,
+            _: &Manifest,
+            _: &crate::extension::Inputs,
+        ) -> crate::extension::ExtensionReport {
+            crate::extension::ExtensionReport::default()
+        }
+        fn check_message(&self, _: &crate::model::Document) -> Vec<Finding> {
+            Vec::new()
+        }
+        fn generated(&self, _: &crate::Model, _: &Manifest) -> Vec<crate::extension::Generated> {
+            vec![crate::extension::Generated {
+                rel: PathBuf::from("nowhere/listing.md"),
+                text: "listing\n".to_string(),
+                action: "regenerate it",
+            }]
+        }
+    }
+
+    /// The extensions of one run, configured against `manifest` as a command configures them.
+    fn configured(manifest: &mut Manifest, prepares: bool) -> Vec<Box<dyn Extension>> {
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Nowhere { prepares })];
+        crate::extension::configure(manifest, &mut extensions);
+        extensions
+    }
+
+    /// The claim: an extension that cannot prepare over a snapshot is refused with its reason and
+    /// the extension's repair, at each site that prepares one: `check --staged`, `index --staged`,
+    /// the staged side `check --fix` compares, and a commit of `commits`. Mutations checked: each
+    /// of the three sites' `super::EXTENSION_REPAIR` made `GIT_REPAIR` fails its case.
+    #[test]
+    fn an_extension_that_cannot_prepare_over_a_snapshot_names_its_repair() {
+        let (repo, head, mut manifest) = committed_project("unpreparable");
+        let reason = format!(
+            "the extension's own reason\n       {}",
+            super::super::EXTENSION_REPAIR
+        );
+        assert_eq!(
+            super::super::EXTENSION_REPAIR,
+            "repair what the extension's reason names, and run again"
+        );
+
+        let mut extensions = configured(&mut manifest, false);
+        assert_eq!(
+            check_staged(&manifest, &[], &mut extensions),
+            Err(format!("the staged tree cannot be judged: {reason}"))
+        );
+        let mut extensions = configured(&mut manifest, false);
+        assert_eq!(
+            index_staged(&manifest, &[], &mut extensions),
+            Err(format!(
+                "the staged tree's generated files cannot be computed: {reason}"
+            ))
+        );
+        let mut extensions = configured(&mut manifest, false);
+        assert_eq!(
+            staged_generated(&repo, &[], &mut extensions),
+            Err(format!(
+                "the staged tree's generated files cannot be computed: {reason}"
+            ))
+        );
+        let mut extensions = configured(&mut manifest, false);
+        let refused = commit_tree(
+            &repo,
+            Source::Commit(&head),
+            &[],
+            &mut extensions,
+            Depth::Judged,
+            Purpose::Commit,
+        )
+        .err()
+        .expect("the commit's tree does not load");
+        assert_eq!(refused.why, "the extension's own reason");
+        assert_eq!(refused.repair, super::super::EXTENSION_REPAIR);
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// The claim: `index --staged` refuses a generated file whose directory the staged tree does
+    /// not hold, naming both repairs: staging a file under that directory, or configuring the
+    /// extension to write elsewhere. The refusal itself is tested by
+    /// `index_staged_refuses_a_destination_whose_directory_is_not_staged` in
+    /// `path@testing@tests/extension_api.rs`, which reads its statement alone. Mutation checked:
+    /// "stage a file under that directory" made "create that directory".
+    #[test]
+    fn index_staged_names_the_repair_of_a_destination_whose_directory_is_not_staged() {
+        let (repo, _, mut manifest) = committed_project("nowhere-staged");
+        let mut extensions = configured(&mut manifest, true);
+        assert_eq!(
+            index_staged(&manifest, &[], &mut extensions),
+            Err(
+                "nowhere: the directory this file is generated into is not in the staged tree. \
+                 Nothing was written.\n       stage a file under that directory, or configure \
+                 the extension that generates this file to write it into a directory the staged \
+                 tree holds"
+                    .to_string()
+            )
+        );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
     /// The claim: a snapshot names a blob only for a path it holds; an intent-to-add entry, which
     /// git names with the empty blob, is not one.
     #[test]
