@@ -24,7 +24,7 @@ excluding a file the model requires.
   Under the `claude` harness the root CLAUDE.md is one such file. The manifest,
   knowledge-architect.toml, is another, under the same direction: a `skip-files` row may name it,
   as the reproduction of
-  `issue@check@a-linked-manifest-splits-the-readers-and-every-symbolic-link-is-to-be-refused` does
+  `issue@check@a-linked-manifest-splits-the-readers` does
   to keep a linked manifest, and no finding names that row; what a row naming a manifest that is a
   plain file changes is not established. Which other files the model
   requires, such as a Component's required documents and its register homes, which

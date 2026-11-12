@@ -1,7 +1,7 @@
 ---
 kind: defect
 ---
-# A manifest held as a symbolic link passes `check` and is refused by `check --staged` and `commits`; the direction is to refuse every symbolic link, early and with no row to silence it
+# A manifest held as a symbolic link passes `check` and is refused by `check --staged` and `commits`; the owner is inclined to refuse every symbolic link, early and with no row to silence it
 
 ## Summary
 
@@ -11,7 +11,7 @@ passes. `check --staged` and `commits` read a snapshot and refuse the tree, tell
 replace the link with the manifest file. The staged comparison of `check --fix` finds no manifest
 file in the index and skips itself in silence.
 
-The owner's direction for the fix: symbolic links are refused project-wide, early, before or at the
+The owner's inclination for the fix, to confirm in a design discussion: symbolic links are refused project-wide, early, before or at the
 walk, under every condition, with no `skip-files` or `exclude` row to silence one. This is work for
 a later branch, and it reverses part of `design@model@links-are-no-documents`.
 
@@ -47,15 +47,16 @@ Ruled out: the refusal's text is not the defect. It names the one repair that ma
 readers accept the tree, per `design@check@finding-names-the-repair`. The defect is that the
 readers disagree, and that the third skips its guard.
 
-**The owner's direction**, given while this entry was written: every symbolic link in the project
-is refused, before or at the walk, and no `skip-files` or `exclude` row silences one. The owner's
-grounds: a project has little reason to hold one, the owner's projects must build on Windows in
-every case, and the owner accepts that this becomes something every adopting project is asked to
-do.
+**The owner's inclination**, given while this entry was written and to be confirmed by the owner
+under discussion and argument when the work starts: every symbolic link in the project
+is refused, before or at the walk, and no `skip-files` or `exclude` row silences one. The reasons the
+owner gave: a project has little reason to hold one, and the owner wants the owner's projects to
+build on Windows in every case; the owner noted that this would become something every adopting
+project is asked to do.
 
 - **What it reverses**: the half of `design@model@links-are-no-documents` that keeps a symlink as a
   declared silence, a `skip-files` row. That reversal goes through `skill@knowledge-architect-design`
-  when the work is done. A gitlink is outside the direction: its `exclude` row stays.
+  when the work is done. A gitlink is outside the inclination: its `exclude` row stays.
 - **The cost to weigh there**: a project that keeps AGENTS.md or CLAUDE.md as a link to the other
   must replace it with a file to adopt the checker, against `goal@adoption-is-easy`.
 - **What it fixes**: the disagreement above between `check`, `check --staged` and `commits`; the
