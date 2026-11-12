@@ -76,7 +76,7 @@ pub(crate) fn check_under(
         locations: manifest.locations().len(),
         ..Counts::default()
     };
-    let index = super::generated::index_action(manifest);
+    let index = super::generated::index_action(manifest, inputs.judged);
 
     // Whether an anchor and its homes EXIST is phase 2's question, judged before this
     // phase runs; what is asserted here is the shape of what is there.
@@ -741,6 +741,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         // What the first phase that finds anything reports, then the shapes: a test here asserts
         // the shapes' own findings, and `model` holds the tests of the phases before them.
@@ -1236,6 +1237,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         let mut found = check(&model, &manifest, &inputs).0;
         found.extend(crate::check::generated::check(
@@ -1750,6 +1752,7 @@ mod tests {
             links: &[],
             installed: &[],
             shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
         };
         crate::check::foundation(&Model::from_documents(Vec::new()), manifest, &inputs).is_ok()
     }

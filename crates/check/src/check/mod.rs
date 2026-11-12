@@ -145,6 +145,23 @@ pub struct Inputs<'a> {
     /// What the installed set must be: every shipped file at its install path, rendered with
     /// the project's command. Empty when the project serves no agent harness.
     pub shipped: &'a [(PathBuf, String)],
+    /// The tree this run judges, which decides the command that repairs a generated file.
+    pub(crate) judged: Judged,
+}
+
+/// The tree a run judges.
+///
+/// Within one run it fixes the repair of a generated file, so a finding names that one repair,
+/// per `design@check@finding-names-the-repair`: the working tree's file is written by `index`,
+/// the index's by `index --staged`, and a commit's by a history edit that runs `index`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Judged {
+    /// `check`, `check --fix` and every command that reads the working tree.
+    WorkingTree,
+    /// `check --staged`: the tree git's index would commit.
+    Index,
+    /// One commit's tree, under `commits`.
+    Commit,
 }
 
 impl<'a> Inputs<'a> {

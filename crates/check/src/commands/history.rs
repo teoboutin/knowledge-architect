@@ -66,6 +66,9 @@ struct Assembly {
     compare_installed: bool,
     /// The agent files the running binary ships; empty where nothing is compared.
     shipped: Vec<(PathBuf, String)>,
+    /// The tree assembled: the index's under `check --staged` and `index --staged`, a commit's
+    /// under `commits`.
+    judged: check::Judged,
     /// The whole report of a judged tree, or of its stop, for a caller that prints it as `check`
     /// does; `None` for a tree assembled for its references alone.
     report: Option<check::Report>,
@@ -101,7 +104,16 @@ impl Assembly {
                 &[]
             },
             shipped: &self.shipped,
+            judged: self.judged,
         }
+    }
+}
+
+/// The tree a snapshot of `source` is, as a check names its repairs for it.
+fn judged_of(source: Source) -> check::Judged {
+    match source {
+        Source::Index => check::Judged::Index,
+        Source::Commit(_) => check::Judged::Commit,
     }
 }
 
@@ -562,6 +574,7 @@ fn commit_tree(
             stopped: Some(check::Phase::Resolution),
             compare_installed: false,
             shipped: Vec::new(),
+            judged: judged_of(source),
             report,
             snapshot: None,
         });
@@ -705,6 +718,7 @@ fn commit_tree(
         stopped: None,
         compare_installed: staged,
         shipped,
+        judged: judged_of(source),
         report: None,
         snapshot: None,
     };

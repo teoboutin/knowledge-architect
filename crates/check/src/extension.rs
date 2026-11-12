@@ -361,6 +361,7 @@ mod tests {
                 links: &[],
                 installed: &[],
                 shipped: &[],
+                judged: crate::check::Judged::WorkingTree,
             };
             foundation(&Model::from_documents(Vec::new()), &manifest, &inputs)
                 .expect_err("the run stops")

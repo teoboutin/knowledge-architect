@@ -178,6 +178,7 @@ mod tests {
             links: &[],
             installed: &installed,
             shipped: &shipped,
+            judged: crate::check::Judged::WorkingTree,
         };
         check(&model, manifest, &inputs)
     }
