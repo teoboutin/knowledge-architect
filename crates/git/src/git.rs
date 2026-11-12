@@ -809,7 +809,8 @@ pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// **It refuses, staging nothing, a path the index holds as anything but a regular file**: a
 /// symlink or a gitlink, whose mode the text would be put under, and a directory, whose entries
 /// `--index-info` would replace. It asks the index itself rather than a listing a walk row can
-/// filter.
+/// filter. Each refusal's message ends with the change to the index that lifts it; a failure of
+/// git carries git's own reason, which names its repair, as for a held index lock.
 pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<()> {
     if files.is_empty() {
         return Ok(());
@@ -838,7 +839,9 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
             .any(|staged| staged != rel && staged.starts_with(rel))
         {
             return Err(io::Error::other(format!(
-                "{} is a directory in the index, and staging a file there would replace its entries",
+                "{} is a directory in the index, and staging a file there would replace its \
+                 entries: move the entries under it to another path, or remove them from the \
+                 index with `git rm -r --cached`",
                 rel.display()
             )));
         }
@@ -848,7 +851,7 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
         {
             return Err(io::Error::other(format!(
                 "{} is staged as a symlink or a gitlink, mode {mode}, and a generated file's text \
-                 would be put under it",
+                 would be put under it: remove that entry from the index with `git rm --cached`",
                 rel.display()
             )));
         }
@@ -1589,6 +1592,45 @@ mod tests {
             read.get(Path::new("keep.md")).map(String::as_str),
             Some("# Keep\n")
         );
+        let _ = std::fs::remove_dir_all(&repo);
+    }
+
+    /// The claim: a path the index holds as a directory, or as a symlink, is refused with the
+    /// index unchanged, and each refusal names the change to the index that lifts it.
+    #[test]
+    fn a_path_staged_as_another_kind_is_refused_naming_its_repair() {
+        let repo = scratch_repository("stage-refused");
+        write(&repo, "dir/index.md/inner.md", "# Inner\n");
+        std::os::unix::fs::symlink("target.md", repo.join("link.md")).expect("a symlink");
+        git(&repo).args(["add", "-A"]).output().expect("staged");
+        let before = git(&repo)
+            .args(["ls-files", "-s"])
+            .output()
+            .expect("a listing");
+        let refusal = |rel: &str| {
+            stage_generated(&repo, &[(PathBuf::from(rel), "# New\n".to_string())])
+                .expect_err("refused")
+                .to_string()
+        };
+        let directory = refusal("dir/index.md");
+        assert!(
+            directory.ends_with(
+                ": move the entries under it to another path, or remove them from the index \
+                 with `git rm -r --cached`"
+            ),
+            "{directory}"
+        );
+        let link = refusal("link.md");
+        assert!(link.contains("mode 120000"), "{link}");
+        assert!(
+            link.ends_with(": remove that entry from the index with `git rm --cached`"),
+            "{link}"
+        );
+        let after = git(&repo)
+            .args(["ls-files", "-s"])
+            .output()
+            .expect("a listing");
+        assert_eq!(before, after, "the index is as it was");
         let _ = std::fs::remove_dir_all(&repo);
     }
 
