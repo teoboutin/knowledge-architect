@@ -113,6 +113,9 @@ pub struct Inputs<'a> {
     /// Read by the caller like the generated files, and for the same reason: a check may not
     /// touch the filesystem, and this one is outside the walk because it is not markdown.
     pub configs: &'a HashMap<PathBuf, String>,
+    /// The `register.toml` files beside a register instance whose bytes are not UTF-8, which
+    /// `configs` holds no text for.
+    pub(crate) configs_not_text: &'a HashSet<PathBuf>,
     /// Every path that exists in the project, files and directories, project-relative. One
     /// listing by the caller answers every question a check has about what is there. It is the
     /// listing of the tree being judged: the working tree under `check`, and a snapshot's

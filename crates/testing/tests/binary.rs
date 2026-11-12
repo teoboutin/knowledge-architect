@@ -5348,6 +5348,57 @@ fn a_missing_index_names_the_command_that_writes_the_tree_judged() {
     }
 }
 
+/// Whether `out` reports exactly one finding, the one on a register's options that are not
+/// UTF-8, naming the re-encoding as its repair.
+fn only_the_options_not_utf8(out: &str) -> bool {
+    out.contains("docs/open-issues/register.toml  the issue register's options are not UTF-8 text")
+        && out.contains("→ re-encode the file as UTF-8")
+        && out.contains("FAILED: 1 finding above")
+}
+
+/// The claim: a `register.toml` whose bytes are not UTF-8 is one finding naming the
+/// re-encoding, under `check`, `check --staged`, with the file skipped by a walk row so the
+/// snapshot reads it apart from the walk, and `commits`; its group directory is not reported as
+/// undeclared, since what the file declares is unknown.
+#[test]
+fn a_register_s_options_that_are_not_utf8_are_one_finding_in_every_reader() {
+    let sandbox = Sandbox::new("options-not-utf8", "dirhome");
+    commit_all(&sandbox, "the base");
+    std::fs::write(
+        sandbox.path("docs/open-issues/register.toml"),
+        b"# caf\xe9\ngroups = [\"housekeeping\"]\n",
+    )
+    .expect("the options written");
+    let (out, _, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(only_the_options_not_utf8(&out), "{out}");
+
+    sandbox.stage();
+    let (out, _, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(only_the_options_not_utf8(&out), "{out}");
+
+    let manifest =
+        std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replacen(
+            "skip-files = []",
+            "skip-files = [\"docs/open-issues/register.toml\"]",
+            1,
+        ),
+    );
+    sandbox.stage();
+    let (out, _, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(only_the_options_not_utf8(&out), "a skipped file: {out}");
+
+    commit_all(&sandbox, "the options are not UTF-8");
+    let (out, _, code) = sandbox.run(&["commits", "HEAD~1..HEAD"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(only_the_options_not_utf8(&out), "{out}");
+}
+
 /// `design@check@index-staged-write`: `index --staged` writes nothing, exit 2, when phases 1 to 3 of the staged tree find
 /// anything, and when git's index lock is held.
 #[test]

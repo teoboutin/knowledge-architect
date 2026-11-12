@@ -52,6 +52,8 @@ struct Assembly {
     prepared: Vec<(&'static [&'static str], Box<dyn Prepared>)>,
     committed: HashMap<PathBuf, String>,
     configs: HashMap<PathBuf, String>,
+    /// The `register.toml` files whose bytes are not UTF-8.
+    configs_not_text: HashSet<PathBuf>,
     survey: Survey,
     ignored: HashSet<String>,
     tracked_and_ignored: Vec<PathBuf>,
@@ -86,6 +88,7 @@ impl Assembly {
         Inputs {
             committed: &self.committed,
             configs: &self.configs,
+            configs_not_text: &self.configs_not_text,
             present: &self.survey.present,
             directories: &self.survey.directories,
             outside: &self.survey.outside,
@@ -567,6 +570,7 @@ fn commit_tree(
             prepared: Vec::new(),
             committed: HashMap::new(),
             configs: HashMap::new(),
+            configs_not_text: HashSet::new(),
             survey,
             ignored: HashSet::new(),
             tracked_and_ignored: Vec::new(),
@@ -611,11 +615,27 @@ fn commit_tree(
     for (_, _, home) in anchors.instances() {
         extra.push(home.config.clone());
     }
-    extra.retain(|rel| read.listing.contains(rel) && !blobs.contains_key(rel));
-    if !extra.is_empty() {
-        let more = crate::git::blobs(root, source, &extra)
-            .map_err(|e| Unloadable::git(format!("its generated files could not be read: {e}")))?;
-        blobs.extend(more);
+    let mut not_text = read.not_text;
+    extra.retain(|rel| {
+        read.listing.contains(rel) && !blobs.contains_key(rel) && !not_text.contains_key(rel)
+    });
+    // Read as bytes, so a file whose bytes are not UTF-8 is kept as such, as `read_tree` keeps
+    // one, rather than read as absent: a register's options read as absent would declare no
+    // group.
+    for (rel, bytes) in crate::git::blob_bytes(root, source, &extra)
+        .map_err(|e| Unloadable::git(format!("its generated files could not be read: {e}")))?
+    {
+        match String::from_utf8(bytes) {
+            Ok(text) => {
+                blobs.insert(rel, text);
+            }
+            Err(e) => {
+                not_text.insert(
+                    rel,
+                    crate::model::listing::Outside::from_bytes(e.as_bytes()),
+                );
+            }
+        }
     }
 
     let mut docs = Vec::new();
@@ -644,7 +664,7 @@ fn commit_tree(
     // are not UTF-8 are a file to re-encode or to keep out of the walk, and an absent object is
     // the repository's to restore.
     for rel in missing {
-        if read.not_text.contains_key(&rel) {
+        if not_text.contains_key(&rel) {
             model.push_not_utf8(rel);
         } else {
             model.push_unreadable(rel, NO_BLOB.to_string(), NO_BLOB_REPAIR.to_string());
@@ -660,9 +680,12 @@ fn commit_tree(
         }
     }
     let mut configs = HashMap::new();
+    let mut configs_not_text = HashSet::new();
     for (_, _, home) in anchors.instances() {
         if let Some(text) = blobs.get(&home.config) {
             configs.insert(home.config.clone(), text.clone());
+        } else if not_text.contains_key(&home.config) {
+            configs_not_text.insert(home.config.clone());
         }
     }
     let survey =
@@ -671,7 +694,7 @@ fn commit_tree(
                 // The same binary test `check` applies on disk: a NUL is valid UTF-8, so a blob
                 // that decoded may still be binary.
                 Some(text) => crate::model::listing::Outside::from_bytes(text.as_bytes()),
-                None => read.not_text.get(rel).cloned().unwrap_or_else(|| {
+                None => not_text.get(rel).cloned().unwrap_or_else(|| {
                     crate::model::listing::Outside::Unreadable(NO_BLOB.to_string())
                 }),
             }
@@ -711,6 +734,7 @@ fn commit_tree(
         prepared: Vec::new(),
         committed,
         configs,
+        configs_not_text,
         survey,
         ignored,
         tracked_and_ignored,

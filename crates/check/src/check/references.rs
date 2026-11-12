@@ -873,6 +873,7 @@ mod tests {
         let inputs = Inputs {
             committed: &committed,
             configs: &HashMap::new(),
+            configs_not_text: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &outside,
@@ -2678,6 +2679,7 @@ mod tests {
         let inputs = Inputs {
             committed: &committed,
             configs: &HashMap::new(),
+            configs_not_text: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &[],

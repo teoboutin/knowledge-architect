@@ -198,6 +198,8 @@ fn file_home(
     }
     navigation(out, register, home, inputs, index);
 
+    // `None` where the options could not be read: the declared groups are unknown, and a
+    // finding that follows only from them would name a repair the file may already hold.
     let groups = config(out, register, home, inputs);
     // What sits under an anchor nested inside this home is that anchor's, as the heading
     // shape reads it: the nesting is refused by the manifest, and reading the nested
@@ -205,7 +207,7 @@ fn file_home(
     // against the wrong register and the wrong anchor, nine times over. The one exception is a
     // spec file, which its own anchor owns and which stays an entry, per `Anchors::owns_entry`.
     let owned = |rel: &Path| anchors.owns_entry(anchor, rel);
-    directory_contents(out, register, home, &groups, inputs, &owned);
+    directory_contents(out, register, home, groups.as_ref(), inputs, &owned);
 
     let mut judged = 0;
     for doc in model.documents() {
@@ -290,18 +292,31 @@ fn navigation(
 }
 
 /// The declared groups of one instance, and the verdicts on the file that declares them, per
-/// `design@check@groups-are-subdirectories`.
+/// `design@check@groups-are-subdirectories`. `None` where the file's bytes are not UTF-8, so
+/// what it declares is unknown.
 fn config(
     out: &mut Vec<Finding>,
     register: &Register,
     home: &Home,
     inputs: &Inputs,
-) -> BTreeSet<String> {
+) -> Option<BTreeSet<String>> {
+    if inputs.configs_not_text.contains(&home.config) {
+        out.push(Finding::in_file(
+            &home.config,
+            format!(
+                "the {} register's options are not UTF-8 text, so the groups they declare are \
+                 read by no check",
+                register.name
+            ),
+            "re-encode the file as UTF-8",
+        ));
+        return None;
+    }
     let Some(text) = inputs.configs.get(&home.config) else {
-        return BTreeSet::new();
+        return Some(BTreeSet::new());
     };
     match toml::from_str::<RegisterConfig>(text) {
-        Ok(parsed) => parsed.groups.into_iter().collect(),
+        Ok(parsed) => Some(parsed.groups.into_iter().collect()),
         Err(e) => {
             out.push(Finding::in_file(
                 &home.config,
@@ -309,7 +324,7 @@ fn config(
                 "a register.toml declares `groups` and nothing else; a file that does not \
                  parse declares a grouping nobody checks",
             ));
-            BTreeSet::new()
+            Some(BTreeSet::new())
         }
     }
 }
@@ -323,7 +338,7 @@ fn directory_contents(
     out: &mut Vec<Finding>,
     register: &Register,
     home: &Home,
-    groups: &BTreeSet<String>,
+    groups: Option<&BTreeSet<String>>,
     inputs: &Inputs,
     owned: &dyn Fn(&Path) -> bool,
 ) {
@@ -351,7 +366,7 @@ fn directory_contents(
             }
             if depth == 1 {
                 present.insert(name.clone());
-                if !groups.contains(&name) {
+                if groups.is_some_and(|groups| !groups.contains(&name)) {
                     out.push(Finding::in_file(
                         path,
                         format!("`{name}` is a subdirectory of the {} register and is no declared group", register.name),
@@ -388,7 +403,7 @@ fn directory_contents(
             ));
         }
     }
-    for group in groups {
+    for group in groups.into_iter().flatten() {
         if !present.contains(group) {
             out.push(Finding::in_file(
                 home.dir.join(group),
@@ -732,6 +747,7 @@ mod tests {
         let inputs = Inputs {
             committed: &committed,
             configs: &configs,
+            configs_not_text: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &outside,
@@ -1228,6 +1244,7 @@ mod tests {
         let inputs = Inputs {
             committed: &committed,
             configs: &configs,
+            configs_not_text: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &[],
@@ -1743,6 +1760,7 @@ mod tests {
         let inputs = Inputs {
             committed: &HashMap::new(),
             configs: &HashMap::new(),
+            configs_not_text: &std::collections::HashSet::new(),
             present: &present,
             directories: &directories,
             outside: &[],

@@ -1,6 +1,6 @@
 //! What a run fetches before any check runs, gathered once for every caller.
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
 use crate::check::Inputs;
@@ -17,6 +17,7 @@ use crate::model::{foundation, Manifest, Model};
 pub struct Gathered {
     committed: HashMap<PathBuf, String>,
     configs: HashMap<PathBuf, String>,
+    configs_not_text: HashSet<PathBuf>,
     shipped: Vec<(PathBuf, String)>,
     tree: foundation::Gathered,
 }
@@ -54,14 +55,25 @@ impl Gathered {
         // reads them.
         let anchors = Anchors::of(manifest, model.listing());
         let mut configs = HashMap::new();
+        let mut configs_not_text = HashSet::new();
         for (_, _, home) in anchors.instances() {
-            if let Ok(text) = std::fs::read_to_string(manifest.root().join(&home.config)) {
-                configs.insert(home.config.clone(), text);
+            // A file that cannot be read at all is the tree's finding, in phase 2; one whose
+            // bytes are not UTF-8 reads there as text, so it is kept here as such.
+            if let Ok(bytes) = std::fs::read(manifest.root().join(&home.config)) {
+                match String::from_utf8(bytes) {
+                    Ok(text) => {
+                        configs.insert(home.config.clone(), text);
+                    }
+                    Err(_) => {
+                        configs_not_text.insert(home.config.clone());
+                    }
+                }
             }
         }
         Gathered {
             committed,
             configs,
+            configs_not_text,
             shipped: crate::agents::shipped(manifest),
             tree,
         }
@@ -75,6 +87,7 @@ impl Gathered {
             shipped: &self.shipped,
             committed: &self.committed,
             configs: &self.configs,
+            configs_not_text: &self.configs_not_text,
             present: tree.present,
             directories: tree.directories,
             outside: tree.outside,
