@@ -40,17 +40,20 @@ an empty subsection is omitted.
   over its tracked Markdown and Rust files, its installed agent files apart, which the install
   rewrites.
 - `checks`, minor: a reference whose id, or whose path after its anchor, ends in a line number or a
-  fragment, as `:<line>`, `:<a>-<b>` or `#<heading>`, is judged again without it: where that form
-  resolves, the finding names it and asks to drop the suffix, and where it does not, the finding
-  is the one that form meets, its repair saying to drop the suffix too. Spans that passed are now
-  findings: a suffixed reference that resolved as written, such as a path under a directory git
-  ignores; a `planned` path in a plan document whose path before the suffix does not exist; and a
-  suffix with no path before it, such as `planned@<anchor>@:12`. A project drops each suffix and
-  names the point inside the target in prose.
+  fragment, as `:<line>`, `:<a>-<b>` or `#<heading>`, and whose written form resolves to nothing,
+  is judged again without the suffix: where that form resolves, the finding names it and asks to
+  drop the suffix, and where it does not, the finding is the one that form meets, its repair saying
+  to drop the suffix too. A suffixed reference whose written form resolves still passes, and a
+  `planned` path whose path before the suffix exists is still told it points into it. One span
+  that passed is now a finding: a suffix with no path before it, such as `planned@<anchor>@:12` in
+  a plan document, which names no path. A project writes the path it means, and names the point
+  inside the target in prose.
 - `checks`, minor: `commits` reports a commit whose message's ignore batch git refuses, as for a
   span naming a path beyond a symbolic link of the working tree, as a finding naming that commit;
-  the run exits 1, where it printed the commit failed above `PASSED: no findings` and exited 0. A
-  project rewords the span, as the finding says.
+  the run exits 1, where it printed the commit failed above `PASSED: no findings` and exited 0.
+  Where a tree the span is judged in holds the path, the span is correct and the project runs
+  `commits` again from a working tree that holds the path as that tree does; otherwise it rewords
+  the span, as the finding says.
 - `checks`, minor: a register's `register.toml` whose bytes are not UTF-8 is one finding, under
   `check`, `check --staged` and `commits`, where it was read as absent; its group directories are no
   longer reported as undeclared, and an instance with none, which got no finding, gets this one. A
@@ -63,8 +66,8 @@ an empty subsection is omitted.
   directories are no longer each reported as undeclared. A consumer's test that pins those
   findings changes.
 - `checks`, patch: a directory at a register instance's `README.md` or `index.md` path is no longer
-  also reported as an undeclared group; the finding on the missing file names its removal. A
-  consumer's test that pins the group finding changes.
+  also reported as an undeclared group; the finding on the missing file names moving out what the
+  directory holds, then its removal. A consumer's test that pins the group finding changes.
 - `cli`, major: `show` refuses a goal or the root's goals home written with an anchor, exit 2, as
   malformed; `id`, `show` and `worklist` print a goal as `goal@<id>`; and `worklist` gives every
   agent the root's goals as title lines, and no other.
@@ -207,16 +210,19 @@ an empty subsection is omitted.
   heading; a root CLAUDE.md kept out of the walk, by a walk row, an extension's table, or
   `harness = []`; a symlink at a generated path, removed so the file is generated in its place.
 - `checks`, patch: the `agents` findings name the step before the install: a shipped file git does
-  not list, by a directory in its place or an ignore rule; an unshipped file of the namespace that
-  is the project's own, renamed out of it first.
+  not list, by a directory in its place or an ignore rule; a directory in an installed file's
+  place, whose content is moved out before its removal; an unshipped file of the namespace that is
+  the project's own, renamed out of it first.
 - `checks`, patch: the `generated` and `registers` findings: a generated file that cannot be read
-  as UTF-8, or a directory at its path, is named as such; a missing index names one repair in both
+  as UTF-8, or a directory at its path, is named as such, the directory's content moved out before
+  its removal; a missing index names one repair in both
   families; a file of another suffix in an instance names a rename; a declared group with no
   directory names its first entry; a frontmatter block that does not parse, a missing block, an
   undeclared key and a misplaced owed subsection name the repairs their register admits; a
   `register.toml` that does not parse names its one valid shape.
 - `cli`, patch: the refusals name the repair of each cause: a commit's tree that does not load
-  under `commits`, by a range reaching before the manifest, a git read or an extension; the
+  under `commits`, by a range reaching before the manifest, a git read or an extension; a manifest
+  the staged tree or a commit holds as a symbolic link or a submodule, replaced by the file; the
   staged tree's under `check --staged`, `index --staged` and `check --fix`, on the line under the
   reason; a range that does not resolve, fetching or correcting each revision it names; a citation
   of a range commit by SHA, writing enough digits; a binary of another version, or one refused a
