@@ -41,28 +41,54 @@ pub(crate) fn check(
             &rel,
             &expected,
             inputs,
-            // The action names the repair and no cause, per `design@check@finding-names-the-repair`:
-            // a hand edit, an upgrade of the checker and a branch that changes the generator all
-            // leave this finding, and the repair is the same for each.
-            &format!("run `{} index`", manifest.command()),
+            &index_action(manifest),
             &mut findings,
         );
     }
     findings
 }
 
+/// The repair of a file-register index that is missing or out of date, which the registers'
+/// finding on a missing index names too, so the two findings on one file name one repair.
+///
+/// It names the repair and no cause, per `design@check@finding-names-the-repair`: a hand edit,
+/// an upgrade of the checker and a branch that changes the generator all leave an index out of
+/// date, and the repair is the same for each.
+pub(crate) fn index_action(manifest: &Manifest) -> String {
+    format!("run `{} index`", manifest.command())
+}
+
+/// The repair of a generated file whose path holds a directory: no writer of a generated file
+/// replaces a directory, so it is removed before `action`.
+pub(crate) fn directory_action(action: &str) -> String {
+    format!("remove the directory, then {action}")
+}
+
 /// What this family says of a generated file that differs from what it would be generated as.
 const MISSING: &str = "the generated file is missing";
+const UNREADABLE: &str = "the generated file cannot be read as UTF-8 text";
+const DIRECTORY: &str = "a directory stands where the generated file belongs";
 const OUT_OF_DATE: &str = "the generated file is out of date";
 
-/// Whether `finding` is one this family raised on a generated file, missing or out of date.
+/// Whether `finding` is one this family raised on a generated file: missing, unreadable, a
+/// directory in its place, or out of date.
 pub(crate) fn is_generated_finding(finding: &Finding) -> bool {
-    finding.what == MISSING || finding.what == OUT_OF_DATE
+    [MISSING, UNREADABLE, DIRECTORY, OUT_OF_DATE].contains(&finding.what.as_str())
 }
 
 fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut Vec<Finding>) {
     let committed = inputs.committed.get(path).map(String::as_str);
     match committed {
+        // The caller reads the file as UTF-8 text and holds no copy where the read failed, so the
+        // listing tells the three cases apart: a listed directory, a listed file that would not
+        // read, which includes one git lists and the working tree no longer holds, and a path
+        // nothing is listed at.
+        None if inputs.directories.contains(path) => {
+            out.push(Finding::in_file(path, DIRECTORY, directory_action(action)))
+        }
+        None if inputs.present.contains(path) => {
+            out.push(Finding::in_file(path, UNREADABLE, action))
+        }
         None => out.push(Finding::in_file(path, MISSING, action)),
         Some(current) if current != expected => {
             let line = first_difference(current, expected);
@@ -127,6 +153,67 @@ mod tests {
             .collect();
         // The issue instance's index, and nothing an extension would have generated.
         assert_eq!(found, vec!["docs/open-issues/index.md".to_string()]);
+    }
+
+    /// The findings on an issue instance's index, over a listing of `present` with the issue
+    /// directory, and no generated file read.
+    fn on_the_index(present: &[&str]) -> Vec<Finding> {
+        use crate::model::Manifest;
+        use std::collections::{HashMap, HashSet};
+        use std::path::PathBuf;
+
+        let text =
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n\
+             ";
+        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
+        let model = Model::from_documents(Vec::new());
+        let committed = HashMap::new();
+        let configs = HashMap::new();
+        let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let mut directories = crate::check::testing::implied_directories(&present);
+        directories.insert(PathBuf::from("docs/open-issues"));
+        let inputs = Inputs {
+            committed: &committed,
+            configs: &configs,
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+        };
+        check(&model, &manifest, &inputs, &[])
+    }
+
+    /// The claim: a generated file the caller could not read is told apart by the listing: a
+    /// path nothing is listed at is missing, a listed file is unreadable, and a listed directory
+    /// is named as one, with its removal before the regeneration, since no writer replaces a
+    /// directory. Each statement counts as this family's. Mutations: dropping the directory arm
+    /// or the listed-file arm each fail one case.
+    #[test]
+    fn a_generated_file_not_read_is_named_by_what_the_listing_holds() {
+        let index = "docs/open-issues/index.md";
+        let cases = [
+            (vec![], MISSING, "run `klarch index`"),
+            (vec![index], UNREADABLE, "run `klarch index`"),
+            (
+                vec![index, "docs/open-issues/index.md/a.md"],
+                DIRECTORY,
+                "remove the directory, then run `klarch index`",
+            ),
+        ];
+        for (present, what, action) in cases {
+            let found = on_the_index(&present);
+            assert_eq!(found.len(), 1, "{present:?}: {found:?}");
+            assert_eq!(found[0].file, Path::new(index), "{found:?}");
+            assert_eq!(found[0].what, what, "{present:?}");
+            assert_eq!(found[0].action, action, "{present:?}");
+            assert!(is_generated_finding(&found[0]), "{found:?}");
+        }
     }
 
     #[test]
