@@ -56,12 +56,19 @@ nothing.
 %% the installed ones, per `goal@the-workflow-improves-through-real-use`.
 Then read back over the session: the instructions that were followed, where they were followed with
 difficulty, where they were not followed, and what the owner corrected. Then, for each of the four
-subjects below, list what was unclear, missing or wrong:
+subjects below, list what was unclear, missing, wrong or needless:
 
 {{fragment:retrospective-defect-kinds.md}}
 
 Each item quotes the instruction, says what happened when it was followed, and what was done
 instead.
+%% A needless item names one task at one moment, and its repair weighs every other occasion the
+%% instruction serves, per `design@agent-skills@needless-instruction`. A cost imposed by a rule about
+%% code goes to the standing question on those rules, which
+%% `tripwire@agent-skills@shape-findings-fragment-code` reads.
+A needless item names the task and the moment it was met. A cost that a rule about code, tests or
+the split into Components imposed is answered under the standing question on those rules below, not
+as a needless item.
 
 %% The owner rules on findings one by one, and an id lets a ruling, a fix or a commit cite one
 %% without restating it. An interaction finding has an id in each file because the workflow's file
@@ -120,6 +127,24 @@ finding gets one id in each file, each naming the other, since the two files may
 - Did this session act on a returned conclusion that proved wrong after its independent
   verification, or verify a conclusion again where no skill asked for it? For each: the
   conclusion, and who verified it.
+%% The question is `design@agent-skills@premortem-as-watch-points`'s watch on the record search.
+- Did a review, the owner or a later step find an entry of the project's registers that bore on the
+  session's work, which the record search of its grounding had not returned? For each: the entry,
+  the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
+  recorded after the search ran, or it bore on a part of the work added after the search.
+%% `design@agent-skills@review-cost-counts`.
+- For each branch merged in this session before the retrospective: the reviewers dispatched on it
+  before its merge, the commits that repaired a review's findings, a repair folded into an earlier
+  commit counted as one, and the times the owner corrected work that departed from a recorded
+  decision, apart from ruling on a decision.
+%% `design@agent-skills@tool-report-moment`.
+- Did this session, or one of its subagents, set up or change a tool or a procedure that makes the
+  project's development more efficient or the project better, such as a gate, a maintenance
+  command, a skill or an agent of the project's own, a kind of reviewer, an external survey, a
+  testing method or a publishing method? For each, whatever the session judges of its worth: what
+  it does, the part the session finds generic to every project that carries out the activity and,
+  in words, the part particular to this one, and whether the version of knowledge-architect the
+  session used already ships the generic part, wholly, in part or not.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
 not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,

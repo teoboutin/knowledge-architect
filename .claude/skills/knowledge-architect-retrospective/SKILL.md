@@ -49,16 +49,21 @@ nothing.
 
 Then read back over the session: the instructions that were followed, where they were followed with
 difficulty, where they were not followed, and what the owner corrected. Then, for each of the four
-subjects below, list what was unclear, missing or wrong:
+subjects below, list what was unclear, missing, wrong or needless:
 
 An item is **unclear** when it could be read two ways, **missing** when the session could not
 follow the workflow, or could not produce a document the checker accepts, without an instruction
-that does not exist, and **wrong** when following it produced a defect or a correction. A decision
+that does not exist, **wrong** when following it produced a defect or a correction, and
+**needless** when following it cost work that neither the session's result nor the instruction's
+stated reason needed. A decision
 the session made by its own judgement where no instruction covers it is not missing: the installed
 text leaves that room on purpose, per `primer@room-to-judge`.
 
 Each item quotes the instruction, says what happened when it was followed, and what was done
 instead.
+A needless item names the task and the moment it was met. A cost that a rule about code, tests or
+the split into Components imposed is answered under the standing question on those rules below, not
+as a needless item.
 
 **Each finding is named by a letter and a number**, so that a fix, an issue or a commit can cite it
 by its id and the stem of its file (`skill@knowledge-architect-retrospective@two-files`), as "W3 of <date>-<project>-<subject>-klarch-workflow":
@@ -105,6 +110,21 @@ finding gets one id in each file, each naming the other, since the two files may
 - Did this session act on a returned conclusion that proved wrong after its independent
   verification, or verify a conclusion again where no skill asked for it? For each: the
   conclusion, and who verified it.
+- Did a review, the owner or a later step find an entry of the project's registers that bore on the
+  session's work, which the record search of its grounding had not returned? For each: the entry,
+  the work, what found it, and why the search missed it: a searcher graded it `unrelated`, it was
+  recorded after the search ran, or it bore on a part of the work added after the search.
+- For each branch merged in this session before the retrospective: the reviewers dispatched on it
+  before its merge, the commits that repaired a review's findings, a repair folded into an earlier
+  commit counted as one, and the times the owner corrected work that departed from a recorded
+  decision, apart from ruling on a decision.
+- Did this session, or one of its subagents, set up or change a tool or a procedure that makes the
+  project's development more efficient or the project better, such as a gate, a maintenance
+  command, a skill or an agent of the project's own, a kind of reviewer, an external survey, a
+  testing method or a publishing method? For each, whatever the session judges of its worth: what
+  it does, the part the session finds generic to every project that carries out the activity and,
+  in words, the part particular to this one, and whether the version of knowledge-architect the
+  session used already ships the generic part, wholly, in part or not.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
 not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,
@@ -139,7 +159,10 @@ finding adds a rule, and added rules interact at the next pass. A cause is one o
 A finding that fits none is a cause of its own, with no kind. A repair is the homes merged into one
 and the others pointing to it, the structure removed, the restatement brought back to a pointer, or
 the narrow rule deleted and the case left to judgement. It adds an instruction only where none of
-these closes the cause. **An instruction** is a sentence that tells an agent to do, or not to do,
+these closes the cause. **A cost one session met in one task is weighed against every other
+occasion the instruction serves**, its stated reason and the moments it applies to, before the
+instruction is removed or narrowed: an instruction needed only at moments some sessions never meet
+is moved to the text loaded at those moments, rather than removed. **An instruction** is a sentence that tells an agent to do, or not to do,
 an act at a moment; a rewording that makes an existing instruction's intent clearer adds none,
 whatever its length. Each repair counts the instructions it adds and removes, and names the nearest
 rival to itself and the fact that decides between them. **When the repairs applied together add

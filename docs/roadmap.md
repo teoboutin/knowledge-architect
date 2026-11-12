@@ -39,7 +39,7 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer`
 - `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`
 - `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`
-- `issue@agent-skills@the-retrospective-counts-no-review-cost`
+- `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`
 - `issue@check@manifest-table-exposes-the-toml-crate`
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`
 - `issue@check@an-empty-harness-list-serves-a-state-that-follows-no-ask`
@@ -50,6 +50,5 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@mutate@a-mutation-of-several-files`
 - `issue@testing@a-test-run-leaves-directories-in-the-temporary-directory`
 - `issue@knowledge-architect@path-quickfixes-read-against-the-renamed-checker`
-- `issue@knowledge-architect@the-retrospective-asks-for-no-tool-a-session-set-up`
 - `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`
 - `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`

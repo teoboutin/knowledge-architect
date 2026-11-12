@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-66 entries
+65 entries
 
 | kind | title |
 | --- | --- |
@@ -14,6 +14,7 @@
 | deferred | [A dispatched agent writes its report once, at the end, where a file written as it works and annotated by its verifier could fill the gaps](dispatched-agents-write-their-report-as-they-work.md) |
 | deferred | [How parallel work is partitioned among agents, who commits and how the parts are merged, is not designed](how-parallel-work-is-partitioned-among-agents.md) |
 | deferred | [No mechanical check reads that a change to a declared performance path records its figures](no-mechanical-check-reads-a-declared-path-s-figures.md) |
+| deferred | [The review-cost counts that retrospectives report are not compared across branches yet](the-review-cost-counts-are-not-compared-yet.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
@@ -23,7 +24,6 @@
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
-| design | [An item met outside the task and kept for the retrospective's workflow file is lost when no retrospective follows](an-item-kept-for-the-retrospective-is-lost-when-no-retrospective-follows.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
 | design | [No design head argues that an installed instruction prevails over one the configuration adds, nor that the installed text may rely on the harness's own mechanisms](no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness.md) |
 | design | [No design head argues the expectation that a target project records little of its own about its agent-facing text](no-head-argues-that-a-target-project-records-little-about-its-agent-facing-text.md) |
@@ -66,7 +66,6 @@
 | todo | [The counts a project audit's passes are compared by, fixed on one branch](the-audit-s-convergence-checks-on-one-branch.md) |
 | todo | [The shape and the life of a retrospective intake's analysis, fixed on one branch](the-intake-analysis-s-sections-on-one-branch.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
-| todo | [The retrospective records no count of what a merged branch cost in review](the-retrospective-counts-no-review-cost.md) |
 | todo | [What the record search of a slice's design audit reads and seeds from, fixed on one branch](the-slice-audit-s-search-on-one-branch.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
 | todo | [What a project audit puts on the owner's list, narrowed to the closed list, on one branch](what-the-audit-sends-the-owner-on-one-branch.md) |

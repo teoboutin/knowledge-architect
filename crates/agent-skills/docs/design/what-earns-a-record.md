@@ -35,7 +35,7 @@ is. The nearest rival of keeping the recorded decisions few, a head for every de
 with the owner, records a mechanism carried at one site by its comments, whose intent, on the
 owner's word, local code comments carry easily.
 Whether the heads cost a session more than they save is not measured:
-`issue@agent-skills@the-retrospective-counts-no-review-cost`.
+`issue@agent-skills@the-review-cost-counts-are-not-compared-yet`.
 
 Test 2 is
 where the checker's reach ends: a reason that several sites must respect needs a home each site can

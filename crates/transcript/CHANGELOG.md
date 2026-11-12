@@ -375,6 +375,18 @@ an empty subsection is omitted.
   questions, on work the session carried that an agent could have carried, on an agent that came
   back unfinished or with a report the session could not act on, and on a returned conclusion that
   proved wrong after its independent verification or was verified again where no skill asked.
+- `agent-skills`, patch: the retrospective asks three more standing questions: whether the session
+  set up or changed a tool or a procedure that makes the project's development more efficient or the
+  project better, with the part the session finds generic and whether the version used ships it;
+  whether a review, the owner or a later step found a register entry bearing on the work that the
+  record search had not returned, and why the search missed it; and, for each branch merged in the
+  session, the reviewers dispatched, the commits that repaired a review's findings and the owner's
+  corrections of drift.
+- `agent-skills`, patch: the retrospective and its intake know a fourth kind of defect, **needless**:
+  an instruction whose cost neither the session's result nor its stated reason needed. The shape of
+  a repair weighs a cost one session met against every other occasion the instruction serves before
+  removing or narrowing it, and moves an instruction needed only at some moments to the text loaded
+  at those moments.
 
 ## 0.9.0
 

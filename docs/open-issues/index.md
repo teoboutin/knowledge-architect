@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-26 entries
+25 entries
 
 | kind | title |
 | --- | --- |
@@ -23,7 +23,6 @@
 | todo | [The documentation lints and a gate that builds the documentation, on one branch](the-documentation-lints-on-one-branch.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
-| todo | [Nothing has a session report the tools and procedures it set up or changed](the-retrospective-asks-for-no-tool-a-session-set-up.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
