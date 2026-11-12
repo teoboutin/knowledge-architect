@@ -1387,6 +1387,62 @@ mod plans_tests {
         );
     }
 
+    /// The claim: a symlink at a generated path, a register's index, is told to remove the link
+    /// and write the generated file in its place, naming the command of each tree, while a symlink
+    /// at any other path keeps the repair of a document read through a link. Mutation checked, and
+    /// caught: the guard of the generated arm in `check` made `if false && generated.contains(..)`.
+    #[test]
+    fn a_symlink_at_a_generated_path_is_told_to_make_way_for_the_generated_file() {
+        let manifest = declaring("");
+        let present: HashSet<PathBuf> = all_of("").iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let links = [
+            crate::git::Entry {
+                rel: PathBuf::from("docs/open-issues/index.md"),
+                kind: EntryKind::Symlink,
+            },
+            crate::git::Entry {
+                rel: PathBuf::from("docs/notes.md"),
+                kind: EntryKind::Symlink,
+            },
+        ];
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &links,
+        };
+        let found = check(&Model::from_documents(Vec::new()), &manifest, &inputs);
+        let at = |rel: &str| {
+            let hits: Vec<_> = found.iter().filter(|f| f.file == Path::new(rel)).collect();
+            assert_eq!(hits.len(), 1, "{rel}: {found:#?}");
+            hits[0].clone()
+        };
+        let generated = at("docs/open-issues/index.md");
+        assert_eq!(
+            generated.what,
+            "`docs/open-issues/index.md` is a symlink where a generated file belongs"
+        );
+        assert!(
+            generated.action.starts_with("remove the link")
+                && generated
+                    .action
+                    .contains(" index` writes it into the working tree")
+                && generated.action.contains(" index --staged` into the index"),
+            "{generated:#?}"
+        );
+        let other = at("docs/notes.md");
+        assert!(
+            other
+                .action
+                .starts_with("replace it with the file it points at"),
+            "{other:#?}"
+        );
+    }
+
     /// The tree findings at one path, as `what  → action`.
     fn findings_at(manifest: &Manifest, present: &[String], at: &str) -> Vec<String> {
         tree_findings(manifest, present)
