@@ -320,24 +320,6 @@ whose auditor reads the history of a head's ground.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 files, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@settled-means-recorded`: a proposal of the owner built with no grounding `##owner-proposal-built-ungrounded`
-
-The decision rests on the premise that a session sent by the condition loads the design skill
-before it builds a change the owner asks for or proposes, and takes as an exception only a record it
-can look at that states what the owner asks for or proposes.
-
-**Fires when:** a commit on the main branch builds a change its message attributes to the owner's
-request or proposal, which no plan document, outcome the owner ruled, design head or failing test
-states and which decides something, and neither its message nor a plan document records the design
-skill's grounding, with the lines its record search generated; in two separate pieces of work, or
-once with no review reporting it.
-**Response:** reopen `design@agent-skills@settled-means-recorded` on its exceptions and on how its
-condition reaches a session, with `rejected@agent-skills@design-load-unconditioned` among the
-candidates.
-**Re-entry:** the standing-state review before every merge: the commits and their messages are in
-the branch's history.
-**Watches until:** two release tags on the main branch, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@audit-net-growth`: an intake's repairs, held for no word of the owner, add instructions that interact `##intake-repairs-interact-unheld`
 
 The decision holds a set of repairs for the owner's word on its growth in a project audit only, on
