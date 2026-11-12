@@ -18,8 +18,10 @@ the file, which fails `check` on that reference.
 **Fires when:** a review, or a session reading a document, finds a backticked span that was
 meant as a reference and for which `cargo klarch check` reported nothing — a typo inside the
 kind, an unmigrated span whose head is neither a kind nor an anchor, or a shape the tokenizer
-does not record. `cargo klarch model` filtered on the file shows whether the span was recorded as
-a `span` observation at all.
+does not record. A slug with one hash sign, a backticked `#<id>` or `<word>#<id>`, does not fire
+it: its silence is decided by `design@check@hash-slug-span-read-by-no-lint`, which names the
+event that reopens it. `cargo klarch model` filtered on the file shows whether the span was
+recorded as a `span` observation at all.
 **Response:** reopen `design@model@at-span-candidate-rule` on the shape found, with the rule widened
 to it, under a false-positive census over the tree for the widened class, among the candidates; or,
 where the decision is not reopened in the same change, open a `defect` naming the span.
