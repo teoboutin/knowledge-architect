@@ -250,14 +250,26 @@ fn message_ignored(
 
 /// The repair of an ignore batch git refuses, for a span of a document or of a message alike.
 ///
-/// git reads each question as a pathspec, and refuses the whole batch over one path that goes
-/// through a symbolic link or into a submodule of the working tree, or that opens with pathspec
-/// magic, per `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads`: the span
-/// that names it is what can change, since the working tree is the tip's. Any other refusal is
-/// git's own, and its reason names it.
-const IGNORE_REPAIR: &str = "where git's reason names a path beyond a symbolic link or in a \
-     submodule, or a pathspec magic, reword the span that names that path, so that git reads it as \
-     the path it is; otherwise repair what git's reason names, and run again";
+/// git reads each question as a pathspec against the working tree, and refuses the whole batch
+/// over one path that goes through a symbolic link or into a submodule of the working tree, or
+/// that opens with pathspec magic, per
+/// `issue@model@a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads`. Two cases need
+/// different repairs. Where no tree the span is judged in holds the path, or the span opens with
+/// magic, the span is wrong in its own tree and is reworded. Where a tree the span is judged in
+/// holds the path, the span is correct: the working tree holds a symbolic link or a submodule in
+/// its place, as a later commit of the branch or an uncommitted change can leave it, and git has
+/// no form that asks a commit's tree. A reword of a correct span would work around the checker's
+/// limit, so it is not named; the refusal still fails the run, per
+/// `design@git@failed-git-is-an-error`, since a span nobody judged does not pass. Any other
+/// refusal is git's own, and its reason names it.
+const IGNORE_REPAIR: &str = "where a tree the span is judged in holds the path git's reason \
+     names, the span is correct, and git, which answers about the working tree alone, refuses it \
+     because the working tree holds a symbolic link or a submodule in its place: run again from a \
+     working tree that holds that path as that tree does, and where the branch's tip must hold the \
+     link, report the case to the checker's maintainers, since nothing in the span is wrong; where \
+     no tree the span is judged in holds that path, or git's reason names a pathspec magic, reword \
+     the span so that git reads it as the path it is; otherwise repair what git's reason names, \
+     and run again";
 
 /// What a reference finding is about: the line, and the span it opens with.
 ///

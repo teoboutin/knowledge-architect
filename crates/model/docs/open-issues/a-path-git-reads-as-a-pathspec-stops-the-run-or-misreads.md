@@ -38,6 +38,27 @@ exit 2, and `commits` reports that the commit's tree does not load under the tip
 commit message's span asks git in a batch of its own, which fails its commit alone, the message
 then judged with no ignore answer.
 
+**git answers about the working tree, so a span correct in its own commit is refused too**, and
+`commits` fails the gate on it: the refusal of a message's batch is a finding, which counts in the
+verdict and exits 1. Reproduced through the binary by
+`a_span_correct_in_its_commit_and_refused_through_the_tip_s_link_names_no_reword` in
+`path@testing@tests/binary.rs`, over the test's `tiny` project: a first commit adds
+`link/data.txt` and its message holds a path reference at the anchor `tiny` with the path
+`link/data.txt`, which its tree holds; a second
+replaces the directory `link` by a symbolic link to `docs` and adds `skip-files = ["link"]`. `check`
+at the tip passes, exit 0; `commits` over the two commits fails the first with ``fatal: pathspec
+'link/data.txt' is beyond a symbolic link``, exit 1. An uncommitted symbolic link in the working
+tree does the same, as `a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong`
+in the same file shows. A commit's own tree is asked against the working tree the same way, so a
+document span that the commit's tree holds as a file is refused when the working tree holds a link
+there: the same two commits over a copy of the `dirhome` mock of `path@testing@tests/projects/`,
+the span written in its README.md by the first and removed by the second, fail the first with
+`this commit's tree does not load under the tip checker`, exit 1, by hand with git 2.53.0. The
+finding's repair, `IGNORE_REPAIR` in `path@check@src/commands/history.rs`, names that
+case apart: the span is correct, so it names running again from a working tree that holds the path
+as the judged tree does and reporting the case where the tip must hold the link, and no reword. No
+repair inside the project makes such a branch pass but a reword of a correct message.
+
 Ruled out: the three shapes `refused` refuses. The span arm and the link arm of `ignore_queries` ask git nothing about them, and
 `a_refused_path_shape_is_one_finding_and_the_run_goes_on` in `path@testing@tests/binary.rs` shows a leading slash and an upward
 segment, at a named anchor and at `*`, as one finding each.
@@ -50,7 +71,9 @@ path the walk lists can take one of these shapes.
 It strains `design@check@finding-names-the-repair` and `design@check@phases-gate-the-report`: one prose span takes every check
 from a project, with a message that names no file, and the `:/` case passes a reference to nothing.
 `issue@check@a-submodule-is-a-project-of-its-own` names the `exclude` row as the declared silence, which such a span breaks.
-`model`'s `Gathered::over` fails the same way for any tool over the documents.
+`model`'s `Gathered::over` fails the same way for any tool over the documents. Under `commits`, a
+branch whose tip replaces a directory by a symbolic link fails the gate on every earlier commit
+whose message names a path under that directory, though each message is correct in its commit.
 
 ### What would close it
 
