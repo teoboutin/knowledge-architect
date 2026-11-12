@@ -371,10 +371,6 @@ pub fn model(
     Ok(ExitCode::SUCCESS)
 }
 
-/// Every check, over the working tree: `check`'s, then each extension's.
-///
-/// An extension prepares its tree here rather than inside a check: preparing may read the
-/// archive or reach the network, and a check may do neither.
 /// The repair of an extension that cannot prepare over a tree: its reason is its own, and names
 /// what it needs.
 const EXTENSION_REPAIR: &str = "repair what the extension's reason names, and run again";
@@ -385,6 +381,10 @@ fn extension_refusal(why: String) -> String {
     format!("{why}\n       {EXTENSION_REPAIR}")
 }
 
+/// Every check, over the working tree: `check`'s, then each extension's.
+///
+/// An extension prepares its tree here rather than inside a check: preparing may read the
+/// archive or reach the network, and a check may do neither.
 fn check_working(
     manifest: &Manifest,
     checker: &[&Path],
