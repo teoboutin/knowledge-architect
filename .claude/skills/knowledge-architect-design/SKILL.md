@@ -367,8 +367,10 @@ loses may become a `rejected` entry under its own name.
 `cargo klarch id <slug>...` lists, for every candidate in one call, each
 entity the project defines under it, and only a design or a `rejected`
 entry of that Component refuses the slug. In prose, write it plain with a
-`#` before it, as in #retention-window, never in backticks: a backticked
-span may be read by the checker as a reference. In the plan document the
+`#` before it, as in #retention-window, never in backticks: backticks
+mark a checked reference, and no check reads a backticked `#<slug>`, so it
+would look checked while nothing resolves it.
+In the plan document the
 thread becomes an item, which the plan document cites by its checked form,
 from inside its own plan only, per `skill@knowledge-architect-planning`;
 the plain form stays there only in the harvest row's pair of a thread and
