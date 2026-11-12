@@ -379,11 +379,10 @@ fn admitted_in_goals_home(owner: &table::Anchor, kind: &str, anchor: &str) -> bo
 ///
 /// `refused_here` is whether the citation check refuses the reference itself: any repair that
 /// keeps the reference then keeps a citation that check refuses. On an admitted one, a goal or a
-/// register's home of the root, two causes name no reference form, and keep their repair: an
-/// undefined goal, defined in the goals home, and a register name the project does not know,
-/// repaired by naming one it does. Every other cause an admitted reference can meet names a form
-/// the goals home refuses: a plan document for an item register, an entry for a register its
-/// entries carry, or another anchor for a register the root does not carry.
+/// register's home of the root, the causes [`names_an_admitted_form`] answers keep their repair.
+/// Every other cause an admitted reference can meet names a form the goals home refuses: a plan
+/// document for an item register, an entry for a register its entries carry, or another anchor
+/// for a register the root does not carry.
 fn reported_in(
     cause: &resolve::Cause,
     rel: &Path,
@@ -392,17 +391,27 @@ fn reported_in(
     in_goals_home: bool,
     refused_here: bool,
 ) -> Finding {
-    let keeps = !in_goals_home
-        || (!refused_here
-            && matches!(
-                cause,
-                resolve::Cause::Undefined { .. } | resolve::Cause::NoRegister { .. }
-            ));
-    if keeps {
+    if !in_goals_home || (!refused_here && names_an_admitted_form(cause)) {
         return reported(cause, rel, line, span);
     }
     let (what, _) = cause.texts(span);
     Finding::at(rel, line, what, GOALS_HOME_REPAIR)
+}
+
+/// Whether the repair of `cause`, met by a reference the goals home admits, names that reference
+/// or no form at all, so the goals home admits what it asks for: an undefined goal, defined in the
+/// goals home; a register name the project does not know, repaired by naming one it does; a
+/// reference that resolves once its line suffix or fragment is dropped, whose form keeps the
+/// written kind and anchor; and a suffixed reference whose form without the suffix meets one of
+/// the first two, whose repair adds the suffix's removal.
+fn names_an_admitted_form(cause: &resolve::Cause) -> bool {
+    match cause {
+        resolve::Cause::Undefined { .. }
+        | resolve::Cause::NoRegister { .. }
+        | resolve::Cause::Located { .. } => true,
+        resolve::Cause::Suffixed(inner) => names_an_admitted_form(inner),
+        _ => false,
+    }
 }
 
 /// Whether a malformed span's own repair names a form the goals home admits: the span's kind is a
@@ -3372,8 +3381,8 @@ mod tests {
     /// non-navigation link's `if in_goals_home {`, the malformed span's
     /// `if goals_of.is_some() && !names_a_goal_form(span, anchors) {`, `names_a_goal_form`
     /// reading the last segment, `rest.split_once('@').is_some_and(|(_, id)| root_register(id))`
-    /// replaced by `rest.rsplit('@').next().is_some_and(root_register)`, `reported_in`'s
-    /// `let keeps = !in_goals_home` made `let keeps = true`, its `!refused_here &&` dropped, and
+    /// replaced by `rest.rsplit('@').next().is_some_and(root_register)`, `reported_in`'s test
+    /// `if !in_goals_home || (...)` made `if true`, its `!refused_here &&` dropped, and
     /// the skip of a `path` reference's resolution, `if goals_of.is_some() && (kind.is_path() ||
     /// kind.is_planned()) {`. The harness arm's `in_home, in_home` given `in_home, false`
     /// survives as an equivalent mutant: no harness cause is one `reported_in` keeps.
@@ -3438,8 +3447,8 @@ mod tests {
     /// In a goals home, a finding whose repair names no form refused there keeps it: an undefined
     /// goal, a register name the project does not know, and a malformed goal or goals home
     /// reference, each repaired with the form that names no anchor. Mutations checked, each
-    /// caught: `reported_in`'s `matches!` made `false`, which gives the undefined goal and the
-    /// unknown register the goals home's repair; and `names_a_goal_form` answering `false`, which
+    /// caught: the first arm of `names_an_admitted_form` answering `false`, which gives the undefined
+    /// goal and the unknown register the goals home's repair; and `names_a_goal_form` answering `false`, which
     /// gives it to the two malformed spans.
     #[test]
     fn a_goals_home_finding_keeps_a_repair_the_citation_check_admits() {
@@ -3475,5 +3484,60 @@ mod tests {
         assert!(action("register@a-project@no-such-register").contains("name one of"));
         assert!(action("goal@a-project@root-goal").contains("with no anchor"));
         assert!(action("register@a-project@goal").contains("with no anchor"));
+    }
+
+    /// The claim: in a goals home, a suffixed reference the citation check admits keeps the
+    /// resolver's repair, as it does anywhere else: where the form without the suffix resolves,
+    /// the repair drops the suffix; where that form is an undefined goal or an unknown register,
+    /// the repair is that cause's with the suffix's removal added. A suffixed reference whose
+    /// form without the suffix meets a cause the goals home refuses, a plan's item register,
+    /// keeps the goals home's repair. Mutations checked, each caught: the `Located` arm of
+    /// `names_an_admitted_form` dropped, which gives the goal and the register's home the goals
+    /// home's repair; and its `Suffixed` arm answering `false`, which gives it to the undefined
+    /// goal and the unknown register.
+    #[test]
+    fn a_suffixed_reference_the_goals_home_admits_is_told_to_drop_its_suffix() {
+        let mut all: Vec<(&str, String)> = defined()
+            .into_iter()
+            .filter(|(p, _)| *p != "docs/goals.md")
+            .collect();
+        all.push((
+            "docs/goals.md",
+            "# Goals\n\n## The root goal `##root-goal`\n\nIt leans on `goal@root-goal:12`, \
+             `register@a-project@design#x`, `goal@no-such-goal:3`, \
+             `register@a-project@no-such-register:2` and `register@a-project@thread:4`.\n"
+                .to_string(),
+        ));
+        let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
+        let action = |span: &str| {
+            found
+                .iter()
+                .filter(|f| f.starts_with("docs/goals.md"))
+                .find(|f| f.contains(&format!("`{span}`")))
+                .and_then(|f| f.split_once("\n    → ").map(|(_, a)| a.to_string()))
+                .unwrap_or_else(|| panic!("{span}: {found:#?}"))
+        };
+        assert_eq!(
+            action("goal@root-goal:12"),
+            "drop the line number or the fragment, as `goal@root-goal`, and name the point \
+             inside it in prose"
+        );
+        assert!(
+            action("register@a-project@design#x").starts_with(
+                "drop the line number or the fragment, as `register@a-project@design`"
+            ),
+            "{found:#?}"
+        );
+        for (span, repair) in [
+            ("goal@no-such-goal:3", "define it in the"),
+            ("register@a-project@no-such-register:2", "name one of"),
+        ] {
+            let got = action(span);
+            assert!(got.contains(repair), "{span}: {got}");
+            assert!(got.contains("drop the line number"), "{span}: {got}");
+            assert!(!got.ends_with(GOALS_HOME_REPAIR), "{span}: {got}");
+        }
+        assert_eq!(action("register@a-project@thread:4"), GOALS_HOME_REPAIR);
     }
 }

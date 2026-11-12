@@ -18,8 +18,9 @@ names this repair instead: an unanchored path, an anchor in the kind position
 and a link from a file that is no navigation home name it always; a malformed span names it unless
 its own repair is the form of a goal or of the `goal` register's home, which name no anchor; the
 resolution finding of a refused reference names it, and that of an admitted one unless it is an
-undefined goal or a register name the project does not know, whose repairs name no other form; a
-link whose refused target lies outside its file's directory names it; an id written outside its
+undefined goal, a register name the project does not know, or a line suffix or a fragment after a
+form that resolves or meets one of those two causes, whose repairs name no form but the admitted
+reference's own; a link whose refused target lies outside its file's directory names it; an id written outside its
 reference form names it where no form the citation check admits there names the id, and otherwise
 offers that admitted form; a reference written without backticks names it where its form is refused
 there, and otherwise asks for the backticks. Every other document cites in whatever direction its
