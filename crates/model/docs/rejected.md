@@ -8,9 +8,8 @@ holds, and is marked `void` when it no longer does.
 
 `live`. An issue entry could then name the file its fix would create. It lost because an issue
 states what is missing rather than the shape of its fix, and a hypothetical file there is served by
-the escape anchor. It is recorded because a doubt remains:
-`tripwire@model@planned-path-outside-plans` watches for a file named as to be created outside the
-plans directory, and reopens the scope with this alternative as the candidate.
+the escape anchor. It is recorded because it would change the document grammar: the documents in
+which a `planned` reference is legal.
 
 ### A hand-rolled gitignore matcher reading the root file alone, with the walk pruning what it covered `##hand-rolled-gitignore-matcher`
 

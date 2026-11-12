@@ -3,16 +3,6 @@
 Evidence that would reopen a decision about what knowledge-architect reads of a project. Entry shape and
 the movement instruction are `skill@knowledge-architect-issue-tracking`.
 
-## Guarding `design@model@planned-path-form`'s scope: a planned file named outside the plans directory `##planned-path-outside-plans`
-
-**Fires when:** `check` reports a `path@elsewhere@<path>` reference outside the plans directory
-whose target now resolves, in a sentence that said the file was to be created.
-**Response:** reopen the scope of `design@model@planned-path-form`, with every document as the
-candidate.
-**Re-entry:** the standing-state review of every dispatched review, and the commit that creates
-the file, which fails `check` on that reference.
-**Watches until:** the next two release tags.
-
 ## Guarding `design@model@at-span-candidate-rule`: a span meant as a reference passes the check unreported `##candidate-rule-silence`
 
 **Fires when:** a review, or a session reading a document, finds a backticked span that was
