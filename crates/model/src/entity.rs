@@ -3649,4 +3649,136 @@ mod tests {
             "{found:#?}"
         );
     }
+
+    /// The definition findings of a project serving the `claude` harness, so the root CLAUDE.md
+    /// is a section home, over the documents given. The table reads the documents alone: no walk
+    /// and no file system, since a misplaced slug and the entity it names are both in the model.
+    fn misplaced(docs: Vec<(&str, &str)>) -> Vec<Finding> {
+        let (e, _) = plan_table(docs);
+        e.definition_findings().to_vec()
+    }
+
+    /// The one finding whose statement holds `what`.
+    fn one_finding(found: &[Finding], what: &str) -> Finding {
+        let hits: Vec<&Finding> = found.iter().filter(|f| f.what.contains(what)).collect();
+        assert_eq!(hits.len(), 1, "expected exactly one {what:?} in {found:#?}");
+        hits[0].clone()
+    }
+
+    /// The claim: a `##<slug>` in a plan document's prose naming a section of the root CLAUDE.md
+    /// is told the section's reference form beside the move, per
+    /// `design@check@finding-names-the-repair`. Mutation checked, and caught: in
+    /// `Entities::build`, `out.name_pointer_forms(anchors);` removed.
+    #[test]
+    fn a_slug_in_a_plan_naming_a_section_of_the_root_instructions_names_its_reference() {
+        let found = misplaced(vec![
+            (
+                "CLAUDE.md",
+                "# The project\n\n## Git `##git-workflow`\n\nAll work happens on a branch.\n",
+            ),
+            (
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\nThe branch follows `##git-workflow` of the root CLAUDE.md.\n",
+            ),
+        ]);
+        let f = one_finding(&found, "`##git-workflow` is written");
+        assert_eq!(f.file, Path::new("docs/plans/specs/a-spec.md"));
+        assert!(
+            f.action.ends_with(
+                "move it there, or delete it, or, to point at it, write `instructions@git-workflow`"
+            ),
+            "{f:#?}"
+        );
+    }
+
+    /// The claim: an item cited in prose in its definition form, inside an item section of its
+    /// own plan, is told where it stands, in the middle of a line rather than outside the item
+    /// sections, and is told the item's reference form. Mutations checked, each caught: in
+    /// `Entities::item_definitions`, `SlugSite::Inline => "in the middle of a line",` made
+    /// `SlugSite::Inline => "outside the item sections",`; in `Entities::sort_from`,
+    /// `m.index = *to;` made `let _ = to;`.
+    #[test]
+    fn an_item_cited_in_its_definition_form_names_the_item_s_reference() {
+        let spec = "# A spec\n\n## Arguments\n\n### The argument `##the-argument`\n\nBody.\n\n\
+                    ## Threads\n\n### A thread `##a-thread`\n\nIt rests on `##the-argument`.\n\n\
+                    ### A thread with no slug\n";
+        let found = misplaced(vec![("docs/plans/specs/a-spec.md", spec)]);
+        // The heading's finding is found first and put after the slug's in line order, so the
+        // form follows the slug's finding through that sort.
+        let heading = one_finding(&found, "\"A thread with no slug\"");
+        assert!(!heading.action.contains("to point at"), "{heading:#?}");
+        let f = one_finding(&found, "`##the-argument` is written");
+        assert_eq!(
+            f.what,
+            "`##the-argument` is written in the middle of a line of the plan `a-spec` and defines \
+             nothing"
+        );
+        assert!(
+            f.action
+                .ends_with("or, to point at it, write `argument@a-spec@the-argument`"),
+            "{f:#?}"
+        );
+    }
+
+    /// The claim: an item of another plan is not offered, since an item is cited only from inside
+    /// its own plan, and a slug that names nothing keeps its repair as it was. Mutation checked,
+    /// and caught: in `Entities::name_pointer_forms`,
+    /// `!item || m.plan.as_deref() == Some(anchor.as_str())` made `!item || !m.id.is_empty()`.
+    #[test]
+    fn an_item_of_another_plan_and_a_slug_naming_nothing_keep_the_move_alone() {
+        let found = misplaced(vec![
+            (
+                "docs/plans/specs/a-spec.md",
+                "# A spec\n\n## Arguments\n\n### The argument `##the-argument`\n",
+            ),
+            (
+                "docs/plans/specs/another-spec.md",
+                "# Another spec\n\nIt reads `##the-argument` and `##names-nothing`.\n",
+            ),
+        ]);
+        for slug in ["`##the-argument`", "`##names-nothing`"] {
+            let f = one_finding(&found, &format!("{slug} is written"));
+            assert_eq!(f.file, Path::new("docs/plans/specs/another-spec.md"));
+            assert!(f.action.ends_with("move it there, or delete it"), "{f:#?}");
+        }
+    }
+
+    /// The claim: outside a plan, a slug naming entries of several registers names every form,
+    /// and a slug in a section home of the harness names a section's. Mutations checked, each
+    /// caught: in `Entities::name_pointer_forms`, `.take(1)` added before the `.map` that spells
+    /// each form; in `Entities::section_home`, `misplaced.push((findings.len(), id.clone()));`
+    /// removed.
+    #[test]
+    fn a_slug_naming_several_entities_names_each_form() {
+        let found = misplaced(vec![
+            (
+                "CLAUDE.md",
+                "# The project\n\n## Git `##git-workflow`\n\nAs `##git-workflow` says.\n",
+            ),
+            (
+                "docs/design.md",
+                "# Design\n\n### A decision `##one-subject`\n\nSee `##one-subject` below.\n",
+            ),
+            (
+                "docs/open-issues/one-subject.md",
+                "---\nkind: defect\n---\n# The subject\n",
+            ),
+        ]);
+        let f = one_finding(&found, "`##one-subject` is written");
+        assert!(
+            f.action.ends_with(
+                "or, to point at the entity it names, write one of \
+                 `design@a-project@one-subject`, `issue@a-project@one-subject`"
+            ),
+            "{f:#?}"
+        );
+        let f = one_finding(&found, "`##git-workflow` is written in the root CLAUDE.md");
+        assert!(
+            f.action.ends_with(
+                "move the slug to one, or delete it, or, to point at it, write \
+                 `instructions@git-workflow`"
+            ),
+            "{f:#?}"
+        );
+    }
 }
