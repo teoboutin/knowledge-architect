@@ -14,7 +14,7 @@ harness reference, which names a skill, an agent or a section. The finding names
 or a register's home of the root, or the sentence rewritten so it names no entry,
 never the span with its backticks removed, per `design@agent-skills@plain-text-is-no-repair`. Every
 other finding of the reference check that would name a reference form refused in a goals home
-names this repair instead: an unanchored path, a retired slug form, an anchor in the kind position
+names this repair instead: an unanchored path, an anchor in the kind position
 and a link from a file that is no navigation home name it always; a malformed span names it unless
 its own repair is the form of a goal or of the `goal` register's home, which name no anchor; the
 resolution finding of a refused reference names it, and that of an admitted one unless it is an

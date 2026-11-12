@@ -234,12 +234,25 @@ giving a verdict; a whitelist `.gitignore`, `/*` then its exceptions, covers eve
 the places each is read from, which on a synthetic tree of 60 components and 20 000 distinct spans
 made the run take about nine seconds, against half a second when the listing alone answers.
 
+### The slug reference the `@` grammar replaced reported wherever it names something of this project `##retired-slug-reference-reported`
+
+`live`. It reported a backticked `<word>#<id>` or `#<id>` as the form it was, wherever its id was an
+entry some register defines or its word an anchor or a kind, and left silent a span that named
+nothing here. Its reason: without it, a slug reference the migration to the `@` grammar missed, or
+one copied out of a commit history that holds the form, would be checked by nothing. It loses
+because no released checker read the form as a reference: the `@` grammar landed before the first
+release, so only the histories written before it hold the form, this repository's and thaum's, the
+latter at least 500 commits back on the owner's report; the owner judged a copy from there unlikely,
+and a slip of the same shape very likely caught by review.
+
 ### The retired slug reference reported whatever it names `##retired-slug-reference-always-reported`
 
-`live`. It reported a copied form whose entry has left the tree and whose word is no anchor, which `design@check@retired-slug-reference-reported` leaves silent. It loses because the form was this grammar's alone: in a project that
-never used it, every match is that project's own notation, such as an issue number `#123` or a
-preprocessor directive `#include`, and in the census of the commit "Report an unanchored path or a retired slug form only where it
-names something of this project", its one finding was an issue number.
+`live`. It reported every backticked `<word>#<id>` and `#<id>`, a copied form whose entry has left
+the tree and whose word is no anchor included. It loses because the form was this grammar's alone:
+in a project that never used it, every match is that project's own notation, such as an issue
+number `#123` or a preprocessor directive `#include`, and in the census of the commit "Report an
+unanchored path or a retired slug form only where it names something of this project", its one
+finding was an issue number.
 
 ### The interpretation entry number kept as a retired form permanently, a bare `R` followed by digits reported wherever prose holds it `##permanent-interpretation-number-form`
 
@@ -248,8 +261,7 @@ it was read in every prose region, Rust comments included. It loses because the 
 finished, the tree holds no such span, and the number is thaum's own register's: kept, the lint
 would have had to move into thaum's extension when `check` was split from the rules half. The
 commit history holds the form in 65 of the 500 messages before that split, counted with the lint's
-own pattern; the slug reference, which stays a finding wherever its id is still an entry, is in 64
-of them, so exposure in history does not separate the two.
+own pattern.
 
 ### CLAUDE.md required in every component, whatever the project declares `##claude-md-in-every-component`
 

@@ -761,7 +761,6 @@ target the ignore rules cover is accepted by the check without existing, and is 
 - a path that climbs above the root;
 - the retired `<anchor>@<path>` whose target does not exist, or whose anchor is a reserved word;
 - a `planned` reference whose target exists;
-- a retired `#<id>`;
 - a span with a line suffix or a fragment;
 - a span wrapped onto two lines, a bare name wrapped at a hyphen included;
 - a name both a skill and an agent hold, `argument@path-quickfixes@arg-28`.
@@ -880,7 +879,6 @@ or a span with no `@`, and what `--fix` does with it after the work:
 | unknown kind, unknown anchor, the anchor carries no register of that kind, an undefined id | nothing: a choice |
 | a malformed span, the empty-id case included | nothing |
 | the retired `<anchor>@<path>` | respelled, when the anchor is declared and the target exists |
-| the retired `#<id>` | nothing |
 | a raw path | nothing; the repair asks |
 | a bare skill or agent name | respelled, under the conditions of "The respellings" |
 | a wrapped span | nothing |

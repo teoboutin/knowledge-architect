@@ -7,13 +7,10 @@
 //!
 //! **Nothing that points into this project passes unregistered.** A span with no `@` that is
 //! shaped like a path, and whose first segment names a file or a directory of this tree, is
-//! reported as unanchored, per `design@check@unanchored-path-first-segment-here`. The slug reference
-//! the grammar retired, `` `<word>#<word>` ``, is reported as what it was when its id is an entry
-//! of this project or its word is an anchor or a kind, so a pointer the migration missed or
-//! copied out of the commit history is a finding rather than silence.
-//! The candidate rule is `design@model@at-span-candidate-rule`, and the retired-form lint
-//! `design@check@retired-slug-reference-reported`. A span that names nothing here is another
-//! tool's notation, and is silent.
+//! reported as unanchored, per `design@check@unanchored-path-first-segment-here`; a span whose
+//! first segment names nothing here is another tool's notation, and is silent. The candidate rule
+//! is `design@model@at-span-candidate-rule`. A slug with a hash sign in backticks,
+//! `` `<word>#<word>` ``, is read by no lint, per `design@check@hash-slug-span-read-by-no-lint`.
 //!
 //! **A defined id is written as its reference, or it is a finding.** Three lints read what the
 //! reference form leaves out: a reference-shaped token outside backticks, per
@@ -33,7 +30,7 @@
 use crate::model::declared::{GOAL_REGISTER, REJECTED_REGISTER};
 use std::path::Path;
 
-use crate::model::document::{Observation, RetiredForm};
+use crate::model::document::Observation;
 use crate::model::table::{self, Anchors, Candidate, Entities, Kind};
 use crate::model::Finding;
 use crate::model::Manifest;
@@ -134,7 +131,7 @@ pub(crate) enum Part {
     All,
     /// The references, the links and the wrapped spans.
     References,
-    /// The unanchored path and the retired slug reference. The three lints on a defined id
+    /// The unanchored path. The three lints on a defined id
     /// written outside its reference form are not this part's: a judgement against two trees
     /// runs them once over both, through [`judge_ids`].
     Lints,
@@ -309,21 +306,6 @@ pub(crate) fn judge_part(
                     "keep the span on one line: a line break inside backticks is read as two \
                      halves, and a renderer shows it as a space",
                 )),
-                Observation::Retired(RetiredForm::SlugRef(span))
-                    if lints && names_this_project(span, anchors, entities) =>
-                {
-                    out.push(Finding::at(
-                        &doc.rel,
-                        l.line,
-                        format!("`{span}` is the retired slug reference form"),
-                        if goals_of.is_some() {
-                            GOALS_HOME_REPAIR
-                        } else {
-                            "write `design@<component>@<slug>`; the form with a `#` is no longer \
-                             read as a reference"
-                        },
-                    ))
-                }
                 // Markdown documents only: in Rust prose a markdown link is rustdoc's
                 // mechanism, resolved by rustdoc against the crate namespace, and this
                 // check reading those as index rows would report every intra-doc link.
@@ -743,24 +725,6 @@ fn names_this_tree(span: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -
         }
         false
     })
-}
-
-/// Whether a retired slug reference names something of this project: its id an entry some
-/// register defines, or its word an anchor or a kind.
-///
-/// The id is asked whatever the word, because a form copied out of the history may carry the
-/// name an anchor had before it was renamed. The form was this grammar's alone, so a span that
-/// names nothing here is another tool's notation: an issue number, a preprocessor directive, a
-/// crate's item.
-fn names_this_project(span: &str, anchors: &Anchors, entities: &Entities) -> bool {
-    match span.split_once('#') {
-        Some((word, id)) => {
-            entities.defines_id(id)
-                || (!word.is_empty()
-                    && (anchors.kind(word).is_some() || anchors.is_anchor_word(word)))
-        }
-        None => false,
-    }
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -1651,69 +1615,30 @@ mod tests {
         );
     }
 
+    /// The claim: a backticked `#<id>` or `<word>#<id>` is read by no lint and is no reference,
+    /// whatever it names: an entry of this project, under an anchor, a kind, an anchor's former
+    /// name or no word, and another tool's notation alike, per
+    /// `design@check@hash-slug-span-read-by-no-lint`. Observed failing before the lint was
+    /// removed: the four spans naming `a-decision` were each reported as the retired form.
     #[test]
-    fn the_retired_slug_form_is_a_finding_naming_what_it_was() {
-        // Each shape names something of this project: an anchor, a kind, or an entry the
-        // table defines.
+    fn a_hash_slug_span_is_read_by_no_lint_whatever_it_names() {
         let (found, counts) = checked_docs(
             &manifest(),
             vec![
                 ("docs/design.md", head()),
                 (
                     "notes/prose.md",
-                    "`a-project#a-decision`, `design#a-decision`, `#a-decision` and R15\n",
-                ),
-            ],
-            &[],
-        );
-        assert_eq!(found.len(), 3, "a bare R and digits is not one: {found:#?}");
-        assert_eq!(
-            found
-                .iter()
-                .filter(|f| f.contains("retired slug reference form"))
-                .count(),
-            3,
-            "{found:#?}"
-        );
-        assert_eq!(counts.references, 0, "a retired form is not a reference");
-    }
-
-    #[test]
-    fn a_retired_form_whose_id_is_an_entry_is_a_finding_whatever_its_word() {
-        // A form copied out of the history may carry an anchor's former name; its entry is
-        // still here, so the copy is still a pointer the migration missed.
-        let (found, _) = checked_docs(
-            &manifest(),
-            vec![
-                ("docs/design.md", head()),
-                ("notes/prose.md", "`knowledge#a-decision`\n"),
-            ],
-            &[],
-        );
-        assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(
-            found[0].contains("retired slug reference form"),
-            "{found:#?}"
-        );
-    }
-
-    #[test]
-    fn a_retired_shape_that_names_nothing_of_this_project_is_silent() {
-        // A head that is no anchor and no kind, and a bare id no register defines: an issue
-        // number, a preprocessor directive, another tool's notation. None was ever this
-        // grammar's, so none is a reference a migration missed.
-        let (found, _) = checked_docs(
-            &manifest(),
-            vec![
-                ("docs/design.md", head()),
-                (
-                    "notes/prose.md",
-                    "`serde#derive`, `rust#123`, `#include`, `#123` and `#a-decisions`\n",
+                    "`a-project#a-decision`, `design#a-decision`, `knowledge#a-decision`, \
+                     `#a-decision`, `serde#derive`, `#include`, `#123` and R15\n",
                 ),
             ],
             &[],
         );
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
+        assert_eq!(
+            counts.references, 0,
+            "a span with a hash sign is no reference"
+        );
     }
 
     #[test]
@@ -2890,27 +2815,6 @@ mod tests {
         );
     }
 
-    /// The claim: a `#<id>` whose id is only a harness entity's, a section slug or a skill's
-    /// name, is another tool's notation, not the retired slug reference. Mutation checked:
-    /// counting harness kinds in `Entities::defines_id` reports both spans.
-    #[test]
-    fn a_hash_naming_a_section_slug_is_no_retired_reference() {
-        let (found, _) = harness_checked(
-            vec![
-                (
-                    ".claude/skills/a/SKILL.md",
-                    "# A\n\n## How to report `##how-to-report`\n",
-                ),
-                (
-                    "notes/prose.md",
-                    "The anchor `#how-to-report` and `notes.md#a`.\n",
-                ),
-            ],
-            vec![],
-        );
-        assert_eq!(found, Vec::<String>::new(), "{found:#?}");
-    }
-
     // --- the register kind ------------------------------------------------------------
 
     /// The manifest of the register tests: the root, one component, a location carrying
@@ -2992,16 +2896,12 @@ mod tests {
     }
 
     /// The claim: a register's name stays out of the entity table's ids, so a register name
-    /// backticked with a hash sign before it is no retired-form finding, while the kind word with a
-    /// hash sign is one, as any kind word is. A regression guard: the kind resolves outside the table
-    /// by construction, so no mutation of this change reaches `defines_id`.
+    /// backticked alone is no finding of the bare-id lint. A regression guard: the kind resolves
+    /// outside the table by construction.
     #[test]
-    fn a_register_name_is_no_entity_id_and_the_kind_word_reads_as_a_kind() {
-        let found = register_checked("See `#design` and `#issue`.\n");
+    fn a_register_name_is_no_entity_id() {
+        let found = register_checked("See `design` and `issue`.\n");
         assert_eq!(found, Vec::<String>::new(), "{found:#?}");
-        let found = register_checked("See `register#design`.\n");
-        assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("retired slug reference"), "{found:#?}");
     }
 
     // --- the finding on a home target -----------------------------------------------------
@@ -3456,14 +3356,14 @@ mod tests {
     }
 
     /// In a goals home, every finding of the reference check that would name a reference form
-    /// names the citation check's repair instead: an unanchored path, a retired slug form, a
+    /// names the citation check's repair instead: an unanchored path, a
     /// reference written without backticks, an anchor in the kind position, a markdown link from
     /// a file that is no navigation home, a malformed span, a register whose home is a plan's
     /// own documents, and the resolution finding of a refused reference, an undefined entry, an
     /// unknown skill and a plan's item cited from outside it; and a `path` reference gets the
     /// citation finding alone. Mutations checked, each caught: the goals-home arm of each made
     /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
-    /// `let repair = if refused {`, the retired form's `if goals_of.is_some() {`, the anchor in
+    /// `let repair = if refused {`, the anchor in
     /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, the
     /// non-navigation link's `if in_goals_home {`, the malformed span's
     /// `if goals_of.is_some() && !names_a_goal_form(span, anchors) {`, `names_a_goal_form`
@@ -3483,7 +3383,6 @@ mod tests {
             all.push((
                 "docs/goals.md",
                 "# Goals\n\n## The root goal `##root-goal`\n\nA path: `docs/design.md`.\n\n\
-                 A retired form: `a-project#a-decision`.\n\n\
                  Unquoted: design@a-project@a-decision in prose.\n\n\
                  Anchor first: `a-project@docs/design.md`.\n\n\
                  A path reference: `path@a-project@docs/goals.md`.\n\n\
@@ -3517,7 +3416,7 @@ mod tests {
             .collect();
         // One finding per line, and two, the citation's and the resolution's, on each of the last
         // three lines.
-        assert_eq!(in_home.len(), 15, "{in_home:#?}");
+        assert_eq!(in_home.len(), 14, "{in_home:#?}");
         for f in &in_home {
             assert!(f.ends_with(GOALS_HOME_REPAIR), "{f}");
             assert!(

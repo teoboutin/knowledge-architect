@@ -14,9 +14,9 @@ An anchor where the kind goes, the old path form: `planted@notes/p.md`.
 
 A reserved anchor where the kind goes: `*@notes/p.md`.
 
-The retired slug form, qualified: `planted#twice-defined`.
+A slug with a hash sign in backticks, qualified, which nothing reads: `planted#twice-defined`.
 
-The retired slug form, unqualified, naming an entry this project defines: `#twice-defined`.
+The same, unqualified, naming an entry this project defines: `#twice-defined`.
 
 A bare entry number, which nothing reads any more: R99.
 

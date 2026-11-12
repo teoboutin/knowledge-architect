@@ -2498,23 +2498,18 @@ fn a_lint_repeated_on_a_line_is_one_finding_per_occurrence_in_either_tree() {
     }
 }
 
-/// The claim: in a message, a retired slug reference is a finding when its id is an entry of
-/// the project, and silent when it names nothing here.
+/// The claim: in a message, a backticked `#<id>` is read by no check, whether its id is an entry
+/// of the project or names nothing here. Observed failing before the lint was removed: the
+/// commit naming `#tiny-anchor` failed the range.
 #[test]
-fn a_message_holding_the_retired_slug_form_is_judged_by_what_it_names() {
-    let history = History::new("commit-retired");
+fn a_message_holding_a_hash_slug_span_passes() {
+    let history = History::new("commit-hash-slug");
     tiny_project(&history, false);
     let base = history.commit("The project is created\n");
-    let silent = history.commit("A subject line\n\nIt closes `#123` and keeps `#include`.\n");
-    let sha = history.commit("A subject line\n\nIt argues from `#tiny-anchor`.\n");
+    history.commit("A subject line\n\nIt closes `#123` and keeps `#include`.\n");
+    history.commit("A subject line\n\nIt argues from `#tiny-anchor`.\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
-    assert_eq!(code, 1, "{stdout}{stderr}");
-    assert!(
-        stdout.contains(&format!("commit {sha}:3"))
-            && stdout.contains("`#tiny-anchor` is the retired slug reference form"),
-        "{stdout}"
-    );
-    assert!(!stdout.contains(&format!("commit {silent}:")), "{stdout}");
+    assert_eq!(code, 0, "{stdout}{stderr}");
 }
 
 /// The claim: in a message, an unanchored path whose first segment only the commit's own tree

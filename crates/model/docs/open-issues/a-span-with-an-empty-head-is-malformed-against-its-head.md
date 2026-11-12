@@ -21,8 +21,8 @@ rest.contains('/')`. Its comment gives the reason: "An empty head in front of a 
 retired `@` escape, or a kind that was never typed; either way a pointer that would otherwise leave
 every check. A slashless `@word` is an annotation or a handle and stays silent."
 
-The head's title and body name two retired forms, `<anchor>@<path>` with no kind and a backticked
-`<word>#<id>` or `#<id>`, and no case of an empty head. The primer's import line,
+The head's body names one retired form, an anchor in the kind position, `<anchor>@<path>` with no
+kind, and no case of an empty head. The primer's import line,
 @.claude/knowledge-architect/PRIMER.md, written in backticks, is therefore silent by the head and
 malformed by the code.
 

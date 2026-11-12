@@ -468,9 +468,6 @@ fn describe(what: &Observation) -> (&'static str, String) {
         Observation::Span(span) => ("span", span.clone()),
         Observation::UnanchoredPath(span) => ("unanchored-path", span.clone()),
         Observation::WrappedSpan(span) => ("wrapped-span", span.clone()),
-        Observation::Retired(crate::scan::RetiredForm::SlugRef(span)) => {
-            ("retired-slug-ref", span.clone())
-        }
         Observation::Link(target) => ("link", target.clone()),
         // As written, and `beside-issue` after it where its paragraph holds a reference to an
         // issue entry, so a dumped row tells why the lint left it silent.
@@ -541,10 +538,10 @@ mod tests {
         assert!(written.contains(value), "the value greps in its source");
     }
 
-    /// A span parsing as no reference keeps its raw text and is a different kind, and so
-    /// does the retired slug form. A bare `R` and digits is no observation at all.
+    /// A span parsing as no reference keeps its raw text and is a different kind. A span with a
+    /// hash sign and a bare `R` and digits are no observation at all.
     #[test]
-    fn an_unanchored_path_and_a_retired_form_dump_as_their_own_kinds() {
+    fn an_unanchored_path_dumps_as_its_own_kind() {
         let model = Model::from_documents(vec![(
             PathBuf::from("src/b.rs"),
             "/// see `docs/design/a.md` and `a-component#a-slug` and R15\nfn f() {}\n".to_string(),
@@ -554,15 +551,8 @@ mod tests {
             dump.contains("src/b.rs\t1\tunanchored-path\tdocs/design/a.md\n"),
             "{dump}"
         );
-        assert!(
-            dump.contains("src/b.rs\t1\tretired-slug-ref\ta-component#a-slug\n"),
-            "{dump}"
-        );
+        assert!(!dump.contains("a-slug"), "{dump}");
         assert!(!dump.contains("R15"), "{dump}");
-        assert!(
-            !dump.contains("@a-slug"),
-            "no separator was invented: {dump}"
-        );
     }
 
     #[test]

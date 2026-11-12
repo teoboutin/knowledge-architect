@@ -39,12 +39,12 @@ locations, register instances and file entries. Report those counts as well as t
 defined count that grows while the reference count does not is an anchor nobody cites, and the
 reverse is a family of pointers about to dangle.
 
-%% The table below restates `design@model@an-unresolved-reference-is-reported`, `design@model@at-span-candidate-rule`, `design@check@retired-slug-reference-reported`, `design@check@every-path-names-its-anchor`, `design@check@unanchored-path-first-segment-here`, `design@check@deepest-anchor-wins`, `design@model@trailing-slash-claims-directory`, `design@model@a-slug-elsewhere-defines-nothing`, `design@model@an-entry-is-a-heading-at-the-register-level`, `design@model@an-entity-belongs-to-its-anchor`, `design@check@links-are-navigation-rows`, `design@check@orphan-rejected-entry`, `design@check@backticked-bare-id`, `design@check@plain-word-lint`, `design@check@reference-shape-outside-span` and `design@model@two-segment-ids`.
+%% The table below restates `design@model@an-unresolved-reference-is-reported`, `design@model@at-span-candidate-rule`, `design@check@every-path-names-its-anchor`, `design@check@unanchored-path-first-segment-here`, `design@check@deepest-anchor-wins`, `design@model@trailing-slash-claims-directory`, `design@model@a-slug-elsewhere-defines-nothing`, `design@model@an-entry-is-a-heading-at-the-register-level`, `design@model@an-entity-belongs-to-its-anchor`, `design@check@links-are-navigation-rows`, `design@check@orphan-rejected-entry`, `design@check@backticked-bare-id`, `design@check@plain-word-lint`, `design@check@reference-shape-outside-span` and `design@model@two-segment-ids`.
 | failure | what it actually means |
 | --- | --- |
 | `is referenced and` … `defines no` | a pointer into nothing: the anchor carries the register and no entry there has that id. Define it where the decision is made, or point at the entry that exists. |
 | `names` … `which is no anchor of this project`, or `which carries no` … `register` | the wrong segment of the reference: an anchor nobody declares, or one that does not carry that register. The finding lists the anchors that would resolve. |
-| `opens with` … `an anchor, where the kind goes`; `is the retired slug reference form` | a pointer in a retired grammar. It resolves to nothing until it is rewritten as `<kind>@<anchor>@<id>`. |
+| `opens with` … `an anchor, where the kind goes` | a pointer in a retired grammar. It resolves to nothing until it is rewritten as `<kind>@<anchor>@<id>`. |
 | `is cited by no design entry` | a `rejected` entry that no design head cites: a design session reading the heads never meets it. Cite it from the head whose argument covers it, or from a head of absence. |
 | `is shaped like a path and names no anchor` | an unanchored path in prose, checked by nothing until it is anchored. |
 | `does not exist, at`; `claims a directory and names a file`; `claims a file and names a directory` | a path reference whose target moved, or whose trailing slash claims the wrong kind. |
@@ -56,14 +56,13 @@ reverse is a family of pointers about to dangle.
 | `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug wrongly chosen: a design entry is renamed to state its decision, and anything else so that its slug is not an ordinary word. |
 | `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
-%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@check@retired-slug-reference-reported`, `design@check@unanchored-path-first-segment-here` and `design@model@ignored-targets-are-not-asserted`.
+%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@check@hash-slug-span-read-by-no-lint`, `design@check@unanchored-path-first-segment-here` and `design@model@ignored-targets-are-not-asserted`.
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in
 prose, a heading or a section title quoted from another document, a misspelt kind. A path-shaped
 span whose first
 segment the tree does not hold is silent too: a typo in that segment, a pointer into an ignored
-directory, a pointer written after its directory left. So is a `<word>#<id>` form whose id is no
-entry and whose word is neither an anchor nor a kind, such as a copied slug whose entry has
-left. A reference in a file or a part of a file the checker does not read, per
+directory, a pointer written after its directory left. So is every `#<id>` or `<word>#<id>` span,
+whatever it names. A reference in a file or a part of a file the checker does not read, per
 `primer@where-knowledge-goes`, is read by nobody but you. Those are yours to resolve by reading.
 
 ## The predicates {{slug:routing-predicates}}

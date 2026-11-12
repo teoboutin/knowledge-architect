@@ -13,8 +13,7 @@ use knowledge_architect::cli::{
     Vcs, WorklistArgs,
 };
 use knowledge_architect::document::{
-    md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, RetiredForm, Scope,
-    ScopeKind, SlugSite,
+    md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, Scope, ScopeKind, SlugSite,
 };
 use knowledge_architect::extension::{
     configure, label, normalise_list, normalise_one, rel_from, DumpRow, Entry, EntryKind,

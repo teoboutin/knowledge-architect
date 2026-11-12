@@ -6,8 +6,8 @@ kind: design
 ## Summary
 
 The planning skill prescribes a plain `#<id>` to name a plan item from outside its plan, and the
-design skill's discussion uses the same form. The retired-form check reads backticked spans only.
-So a plain `#<id>` is never checked: inside a plan document, where the checked item form exists, it
+design skill's discussion uses the same form. No check reads that form, plain or in backticks.
+So a `#<id>` is never checked: inside a plan document, where the checked item form exists, it
 leaves the item "referenced by nothing"; outside, a wrong slug passes every gate, and a name that
 should follow a thread to the head its harvest writes goes stale silently.
 
@@ -38,9 +38,9 @@ The forms and checks as they stand:
   sign". `design@agent-skills@plain-text-is-no-repair` admits it.
 - Inside its plan, an item is cited by its checked form, `<kind>@<plan>@<id>`, per
   `design@model@plan-item-scope`, which refuses that form from outside the plan.
-- A backticked `#<id>` naming a defined entry, plan items included, is reported as the retired form,
-  per `design@check@retired-slug-reference-reported`. A plain one is not read: the lints on ids read
-  no word with a hash sign before it, per `design@check@plain-word-lint`.
+- A backticked `#<id>` is read by no lint, whatever it names, per
+  `design@check@hash-slug-span-read-by-no-lint`. A plain one is not read either: the lints on ids
+  read no word with a hash sign before it, per `design@check@plain-word-lint`.
 - The design skill now says the plan document cites its own items by their checked form. One
   plain `#<thread>` inside a plan document is prescribed: `skill@knowledge-architect-decision-recording@head-shape` states the pair
   `#<thread> → <entry slug>` in the plan document's harvest row, so a check of the inside case
@@ -49,20 +49,25 @@ The forms and checks as they stand:
 The suspected mechanism, in one sentence: the one form the workflow prescribes for an item outside
 its plan is the one form the checker never reads, so its correctness rests on reviewers reading.
 
-Two rivals already lost, and a design must answer both:
+Two rivals already lost, and a decision bears on the question; a design must answer each:
 
 - "Citing an item of another plan", `rejected@model@cross-plan-item-citation`, not kept by
   `design@model@plan-item-scope`: item citations across
   plans "would force a design revisit of every citing plan, item by item, at the moment a plan is
   retired".
 - "The retired slug reference reported whatever it names",
-  `rejected@check@retired-slug-reference-always-reported`, not kept by
-  `design@check@retired-slug-reference-reported`: a backticked `#<id>` is often another project's
-  notation, such as an issue number. A check limited to a plan document's own item ids, inside that
-  document, does not meet that argument: its set of ids is the plan's own.
+  `rejected@check@retired-slug-reference-always-reported`: a backticked `#<id>` is often another
+  project's notation, such as an issue number. A check limited to a plan document's own item ids,
+  inside that document, does not meet that argument: its set of ids is the plan's own.
+- `design@check@hash-slug-span-read-by-no-lint`, by which no lint reads a backticked `#<id>`, on
+  the owner's choice: the owner judged a slip such as a thread's name written as a backticked
+  `#<slug>` in a plan document very likely caught by review. A design must say whether that
+  judgement also covers the inside case of this entry, or why it does not.
 
-Re-entry point: the next change to `design@check@retired-slug-reference-reported`, or the owner's
-word.
+Re-entry point: the next change to `design@check@hash-slug-span-read-by-no-lint`, or the owner's
+word. The re-entry point before it, the next change to the head that reported a backticked `#<id>`
+naming an entry, was met by the change that stopped reading that form, which left this entry open
+for the owner's ruling on the inside case.
 
 The earlier re-entry point, a change to `design@model@plan-item-scope`, was met by the change that gave the finding on an item cited from outside its
 plan a repair giving the name, "and name the item beside it in plain text as #<id>", after a thaum
@@ -75,7 +80,7 @@ the checker never reads; the discussion this entry asks for weighs that.
 A wrong or stale item name in a commit message or a design head is a pointer nobody revisits,
 against `goal@design-is-recorded-with-its-arguments`, and
 `tripwire@model@candidate-rule-silence` watches the same family of silence for backticked spans. A
-finding on a plain `#<id>` changes `design@check@retired-slug-reference-reported`.
+finding on a plain `#<id>` changes `design@check@hash-slug-span-read-by-no-lint`.
 
 ### What would close it
 

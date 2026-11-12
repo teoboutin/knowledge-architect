@@ -2,30 +2,40 @@
 
 ## Reference spans and their lints
 
-### The retired slug reference is a finding wherever it names something of this project, and a shape that names nothing here is silent `##retired-slug-reference-reported`
+### A slug written with a hash sign in backticks, `#<id>` or `<word>#<id>`, is read by no lint `##hash-slug-span-read-by-no-lint`
 
-A backticked `<word>#<id>` or a bare `#<id>` names the form it was when its id is an entry some
-register defines, a harness kind's names and slugs excluded, since that form never cited one and
-a link to a heading in another tool's notation spells its slug so, and a qualified one also when its word is an anchor or a kind. The id is asked
-whatever the word, because a form copied out of the history may carry the name an anchor had
-before a rename, such as `check`'s former name `knowledge`. It has no `@` and no two path
-segments, so without this clause a slug reference the migration missed would be silent, which is
-the founding failure class. The clause does not expire with the migration: the commit history is
-read by every session that runs `git log`, it holds the form, and a reference copied out of it
-would be checked by nothing.
+A backticked `#<id>` or `<word>#<id>` is text. It holds no `@`, so it is no reference, and no lint
+reads it, whatever its id and its word name: an entry of this project, an anchor, a kind, or
+another tool's notation such as an issue number `#123`. A pointer written in that form is checked by
+nothing, and goes stale unseen when its entry moves or leaves.
 
-**A shape that names nothing here is another tool's notation, and is silent**: an issue number
-`#123`, a preprocessor directive `#include`, a crate's item `serde#derive`. None was ever this
-grammar's, so none is a reference a migration missed, and a project that never used the form would
-otherwise have to rewrite its own notation to pass. What the silence costs is a copied form whose
-entry has since left the tree and whose word is no anchor: it names nothing here, so it is not
-reported. Re-take it as the path lint's census is re-taken, counting this lint's findings; a
-census in which the silence hides a pointer the migration missed reopens it. Reporting every such
-shape is `rejected@check@retired-slug-reference-always-reported`. This serves `goal@every-target-project-can-adopt-it`.
+It was the slug reference before the `<kind>@<anchor>@<id>` grammar, and no released checker read it
+as a reference: the grammar landed in the commit "[knowledge] The entity table and the
+`<kind>@<anchor>@<id>` grammar: one resolver over design, goal, tripwire and path; slugs and paths
+become the references family", which the tag `v0.1.0` contains, as
+`git tag --contains $(git log --format=%h -F --grep='The entity table and the')` lists. So no
+project that adopts a released checker ever wrote the form as a pointer, and the histories that hold
+it are this repository's, before that commit, and thaum's, at least 500 commits back on the owner's
+report. A target project that never used the form loses nothing by the silence, so
+`goal@serves-one-kind-of-project`, which forbids removing coverage because a current target project
+does not need it, does not rule against it: the reading taken is that the histories holding the form
+are a closed set, fixed before the first release, rather than a need of the projects that exist
+today.
 
-**The interpretation register's old entry numbers are not read.** They were thaum's own, and a
-lint naming them would belong to thaum's extension rather than to `check`. Keeping that lint permanently is
-`rejected@check@permanent-interpretation-number-form`.
+The owner judged a span copied from that far back unlikely, and a slip of the same shape, such as a
+thread's name written as a backticked `#<slug>` in a plan document, very likely caught by review,
+and chose to stop linting the form over keeping the lint, which no goal ranks. The lint not kept,
+which reported the span wherever it named something of this project, is
+`rejected@check@retired-slug-reference-reported`; one reporting every such span, another tool's
+notation included, is `rejected@check@retired-slug-reference-always-reported`. A span of
+this form that reaches the main branch past a review, naming a live entry, defeats the owner's
+premise and reopens the choice.
+
+### The interpretation register's old entry numbers are read by no lint `##interpretation-numbers-read-by-no-lint`
+
+A bare `R` followed by digits, the entry number of an interpretation register, is text. The numbers
+were thaum's own, and a lint naming them would belong to thaum's extension rather than to `check`.
+Keeping that lint permanently is `rejected@check@permanent-interpretation-number-form`.
 
 ### A reference-shaped token outside backticks is a finding in every prose region the checker reads `##reference-shape-outside-span`
 

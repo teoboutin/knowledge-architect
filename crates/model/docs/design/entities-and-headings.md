@@ -213,7 +213,9 @@ judged again, since it names nothing here.
 
 **A reference that resolves to nothing is recorded and reported, never dropped.** The scanner could
 require a resolvable shape and see nothing without one, which needs no finding and no migration. It
-would also mean every pointer written in an older form stops being checked with nothing saying so. A
+would also mean every pointer written in an older form with an `@`, as `<anchor>@<path>`, stops
+being checked with nothing saying so; the older form with no `@`, a slug with a hash sign, is read
+by no check, per `design@check@hash-slug-span-read-by-no-lint`. A
 silent false negative passes a tree that does not conform, against
 `goal@documentation-stays-consistent`: a tree that passes the checker conforms to the reference grammar in the texts the checker reads, save what a declaration switches off. The candidate rule that bounds this is
 `design@model@at-span-candidate-rule`.

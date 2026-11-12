@@ -88,7 +88,7 @@ pub mod declared {
 
 /// The parse of a document, per `design@check@an-extension-builds-its-own-model`.
 pub mod document {
-    pub use crate::scan::{Located, Observation, RetiredForm, SlugSite};
+    pub use crate::scan::{Located, Observation, SlugSite};
     pub use crate::source::{Frontmatter, Literals, Parsed, Prose, Scope, ScopeKind};
 
     /// The markdown grammar.

@@ -149,9 +149,11 @@ keeps it working. The delivery to a judge by a pointer loses to the fragment by
 A thread of a design discussion is named by a slug minted in the entry-id grammar and checked for
 a collision with the design entries and the `rejected` entries of the Component before it is used,
 since a thread that loses may become a `rejected` entry under its own name. In discussion prose it is written
-plain, with a hash sign before it, never as a backticked span, which the checker reports as the
-retired slug form once an entry carries that slug, per
-`design@check@retired-slug-reference-reported`. When
+plain, with a hash sign before it, never as a backticked span: backticks are the typography of a
+checked reference, and a backticked `#<slug>` is read by no check, per
+`design@check@hash-slug-span-read-by-no-lint`, so it would look checked while nothing resolves it,
+and once an entry carries the slug it would dangle unseen. A review reading the text is what
+catches one. When
 the thread is approved, or closed `argued`, and its decision earns an entry, the entry's heading ends with the same
 slug, except in the case below, so the spec, the commit messages and the design home name the decision with one identifier.
 In the plan document the thread is an item, a level-three heading ending with the same slug under

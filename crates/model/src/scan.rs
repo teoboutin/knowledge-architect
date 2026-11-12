@@ -15,8 +15,8 @@
 //! **The scanner tokenizes references and does not resolve them.** A backticked span holding
 //! an `@` is recorded as written; whether its head is a kind or an anchor is a fact about the
 //! project, which `entity::candidate` reads with the manifest in hand. What the scanner does
-//! decide on its own is shape: a slug definition and where it sits, the retired slug form,
-//! and the unanchored path lint, none of which needs the manifest.
+//! decide on its own is shape: a slug definition and where it sits, and the unanchored path
+//! lint, neither of which needs the manifest.
 
 use std::sync::LazyLock;
 
@@ -64,11 +64,6 @@ pub enum Observation {
     /// resolved by nothing. It is reported rather than resolved: a renderer shows the line
     /// break as a space inside the span.
     WrappedSpan(String),
-    /// A reference form the `@` grammar retired.
-    ///
-    /// Reported, never ignored: it has no `@`, so without this a pointer the migration
-    /// missed would be silent, which is the founding failure class.
-    Retired(RetiredForm),
     /// A backticked span that is one word in the grammar `[a-z0-9]+(-[a-z0-9]+)*`, with no
     /// `@` and no `/`, outside a quotation: the bare-id lint's input. Every defined id has that
     /// shape, so a span naming one with no kind is recorded, and the lint reports it where the
@@ -113,13 +108,6 @@ pub enum SlugSite {
     Inline,
 }
 
-/// A reference form the grammar retired.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum RetiredForm {
-    /// `` `<word>#<word>` ``, the slug reference before kinds existed. The span as written.
-    SlugRef(String),
-}
-
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Located {
     /// One-based, as an editor counts.
@@ -137,12 +125,6 @@ pub struct Located {
 /// heading. A trailing carriage return is no part of the text, so a CRLF file reads the same.
 static HEADING: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"^ {0,3}(#{1,6})[ \t]+(.+?)(?:[ \t]+#+)?[ \t\r]*$").unwrap());
-/// The retired slug reference, `` `<word>#<word>` ``: the word before the `#` is optional so
-/// that the older unqualified form is seen too. The first class cannot match a `#`, so a
-/// definition — which opens with `##` — is not read as a retired reference to itself.
-static RETIRED_SLUG_REF: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"`(\.?[A-Za-z0-9][A-Za-z0-9._-]*)?#([a-z0-9][a-z0-9-]{2,})`").unwrap()
-});
 /// The first slug in a heading of ANY level, or a slug at the head of a plain line. The id is
 /// `[a-z0-9]+(-[a-z0-9]+)*`, one segment or more, so that a slug of one segment is reported where
 /// it is defined, per `design@model@two-segment-ids`, rather than read as no slug.
@@ -674,12 +656,6 @@ pub(crate) fn scan(parsed: &Parsed) -> Vec<Located> {
                     push(Observation::Link(target.as_str().to_string()));
                 }
             }
-            for c in RETIRED_SLUG_REF.captures_iter(line) {
-                let whole = c.get(0).unwrap().as_str();
-                push(Observation::Retired(RetiredForm::SlugRef(
-                    whole.trim_matches('`').to_string(),
-                )));
-            }
             for c in AT_SPAN.captures_iter(line) {
                 push(Observation::Span(c[1].to_string()));
             }
@@ -949,17 +925,6 @@ mod tests {
             .collect()
     }
 
-    /// The retired forms a text yields.
-    fn retired(text: &str) -> Vec<RetiredForm> {
-        scan_md(text)
-            .into_iter()
-            .filter_map(|o| match o {
-                Observation::Retired(r) => Some(r),
-                _ => None,
-            })
-            .collect()
-    }
-
     /// The unanchored path-shaped spans a text yields.
     fn unanchored(text: &str) -> Vec<String> {
         scan_md(text)
@@ -1050,18 +1015,13 @@ mod tests {
     #[test]
     fn a_fence_suppresses_a_definition_and_leaves_every_reference_live() {
         // A fenced heading is an illustration, so a fenced slug defines nothing and is not
-        // misplaced either. A fenced REFERENCE is live for every kind, the retired slug form
-        // included: a sketch names what it names on purpose, and an illustration writes a
-        // placeholder in angle brackets. Mutation checked: dropping the `illustration` test
+        // misplaced either. A fenced REFERENCE is live for every kind: a sketch names what it
+        // names on purpose, and an illustration writes a placeholder in angle brackets. Mutation checked: dropping the `illustration` test
         // from the definition arm records the fenced heading as a definition.
         let fenced = "before\n```\n### A head `##a-slug`\n`design@a-component@a-slug` and \
                       `a-component#a-slug` and R15 and `docs/a.md`\n```\nafter\n";
         assert_eq!(defs(fenced), Vec::new(), "{:#?}", scan_md(fenced));
         assert_eq!(spans(fenced), vec!["design@a-component@a-slug".to_string()]);
-        assert_eq!(
-            retired(fenced),
-            vec![RetiredForm::SlugRef("a-component#a-slug".to_string())]
-        );
         assert_eq!(unanchored(fenced), vec!["docs/a.md".to_string()]);
         // The same heading outside the fence is a definition.
         assert_eq!(defs("### A head `##a-slug`\n").len(), 1);
@@ -1093,40 +1053,6 @@ mod tests {
             scan_rs(message).contains(&Observation::Span("design@a-component@a-slug".to_string())),
             "{:?}",
             scan_rs(message)
-        );
-    }
-
-    #[test]
-    fn the_retired_slug_form_is_recorded_with_and_without_its_word_and_a_definition_is_not() {
-        // The two shapes the retired pattern had, each reported so the migration is visible;
-        // a definition opens with a second `#` and matches neither.
-        assert_eq!(
-            retired("as `a-component#a-slug` and `#a-slug` record"),
-            vec![
-                RetiredForm::SlugRef("a-component#a-slug".to_string()),
-                RetiredForm::SlugRef("#a-slug".to_string()),
-            ]
-        );
-        for line in [
-            "### The statement `##a-slug`",
-            "| `##in-a-cell` | holds |",
-            "`##a-slug`  **The statement.**",
-        ] {
-            assert_eq!(retired(line), Vec::new(), "{line}");
-        }
-        // A placeholder in angle brackets is an illustration of the retired form too.
-        assert_eq!(retired("the shape `<word>#<word>` is retired"), Vec::new());
-    }
-
-    #[test]
-    fn a_bare_r_and_digits_is_not_a_retired_form_in_any_prose() {
-        // The interpretation register's old entry number is thaum's own, and its migration is
-        // finished; `check` reads it as nothing, in markdown, in a code span and in a comment.
-        assert_eq!(retired("R15 holds, and `R15` here"), Vec::new());
-        let comment = scan_rs("/// per R15\nfn f() {}\n");
-        assert!(
-            !comment.iter().any(|o| matches!(o, Observation::Retired(_))),
-            "{comment:?}"
         );
     }
 
