@@ -17,7 +17,7 @@ Why it exists, and what it aims for, is `register@goal`.
 
 ## Status
 
-The version is 0.9.0, published on crates.io. The project stays at
+The version is 0.10.0, published on crates.io. The project stays at
 0.x, with breaking changes allowed, until its owner asks to leave it, per
 `design@knowledge-architect@stays-at-zero-x`.
 
