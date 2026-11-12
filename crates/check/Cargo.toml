@@ -14,12 +14,12 @@ include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MI
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 toml = "1.1.4"
-knowledge-architect-agent-skills = { path = "../agent-skills", version = "=0.9.0" }
+knowledge-architect-agent-skills = { path = "../agent-skills", version = "=0.10.0" }
 # Every git invocation, per `design@knowledge-architect@checker-asks-git-through-the-crate`; pinned exactly, as
 # every crate of the workspace carries one version, per `design@knowledge-architect@version-lockstep`.
-knowledge-architect-git = { path = "../git", version = "=0.9.0" }
+knowledge-architect-git = { path = "../git", version = "=0.10.0" }
 # What phases 1 to 3 read and what they build; pinned exactly, for the same reason.
-knowledge-architect-model = { path = "../model", version = "=0.9.0" }
+knowledge-architect-model = { path = "../model", version = "=0.10.0" }
 
 [lints]
 workspace = true
