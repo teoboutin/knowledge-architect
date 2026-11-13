@@ -7,7 +7,6 @@
 | deferred | [Every published crate takes a new version at each release, whether its code changed or not](every-crate-takes-a-version-at-each-release.md) |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [No head argues what becomes an ask of every target project, nor the asks that no goal states](no-head-argues-what-becomes-an-ask.md) |
-| design | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
 | design | [The head on how work reaches main bundles statements that each lose to a rival of their own, with no argument](the-git-flow-head-bundles-unargued-statements.md) |
 | design | [No head argues the rule that every tool of knowledge-architect is a command of one program](the-rule-of-one-program-for-the-tools-is-argued-by-no-head.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
@@ -20,6 +19,7 @@
 | todo | [No gate builds the crates' documentation, so a broken link in it reaches no run](no-gate-builds-the-documentation.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [Two questions on how a saved workflow runs under the harness, answered on one branch](saved-workflows-under-the-harness-on-one-branch.md) |
+| todo | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
 | todo | [The documentation lints and a gate that builds the documentation, on one branch](the-documentation-lints-on-one-branch.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |

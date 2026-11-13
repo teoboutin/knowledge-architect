@@ -22,7 +22,7 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@the-audit-s-convergence-checks-on-one-branch`
 - `issue@agent-skills@what-the-audit-sends-the-owner-on-one-branch`
 - `issue@agent-skills@the-intake-analysis-s-sections-on-one-branch`
-- `issue@agent-skills@the-slice-audit-s-search-on-one-branch`
+- `milestone@plans@split-guidelines-and-plan-directories`
 - `issue@agent-skills@agent-skills-heads-owing-an-argument-on-one-branch`
 - `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`
 - `issue@knowledge-architect@the-documentation-lints-on-one-branch`

@@ -1,12 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-66 entries
+63 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
-| defect | [A slice audit's record search gives every agent the whole milestone document, whose discussion record multiplies the agents](a-slice-audit-s-search-reads-the-whole-milestone-document-in-every-agent.md) |
-| defect | [A slice's spec with no section "What is already decided" gives its design audit no seed](a-slice-s-spec-with-no-section-of-decided-entries-gives-its-audit-no-seed.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
@@ -18,6 +16,7 @@
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
+| design | [A deferred issue's trigger, or a re-entry point, brings unrelated work into a design's scope at a bad moment](a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A record search misses what bears on a part of the work added after it ran](a-record-search-misses-what-is-added-after-it.md) |
@@ -29,7 +28,6 @@
 | design | [No design head argues the expectation that a target project records little of its own about its agent-facing text](no-head-argues-that-a-target-project-records-little-about-its-agent-facing-text.md) |
 | design | [No design head argues where the rule against structure the work does not need applies, nor the repair of an instruction for a case judgement handles](no-head-argues-where-the-rule-against-unneeded-structure-applies.md) |
 | design | [No review compares the readings that several design heads take of one goal](no-review-compares-the-readings-heads-take-of-one-goal.md) |
-| design | [Plan documents keep the owner's words verbatim, where every other durable record attributes them, and sessions slip between the two](plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
@@ -67,6 +65,5 @@
 | todo | [The counts a project audit's passes are compared by, fixed on one branch](the-audit-s-convergence-checks-on-one-branch.md) |
 | todo | [The shape and the life of a retrospective intake's analysis, fixed on one branch](the-intake-analysis-s-sections-on-one-branch.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
-| todo | [What the record search of a slice's design audit reads and seeds from, fixed on one branch](the-slice-audit-s-search-on-one-branch.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
 | todo | [What a project audit puts on the owner's list, narrowed to the closed list, on one branch](what-the-audit-sends-the-owner-on-one-branch.md) |
