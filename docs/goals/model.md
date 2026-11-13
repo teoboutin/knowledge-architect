@@ -5,7 +5,8 @@ The goals on the structure of a target project's documentation, on the model of 
 ## A project's documentation has a defined structure, and a model of it that tools read `##documentation-has-a-structure-and-a-model`
 
 knowledge-architect defines a structure for a target project's documentation, and a project
-can declare kinds of entries of its own under it. Each recorded item
+can declare kinds of entries of its own under it, to record the knowledge of its own domain that
+the procedures of the workflow do not cover. Each recorded item
 takes a name. A reference is written in a
 readable form, the same in every project, in any text the checker reads, and it says what it
 names, with one reading.
