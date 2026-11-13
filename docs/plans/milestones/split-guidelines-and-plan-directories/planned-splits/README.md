@@ -16,7 +16,7 @@ and arguments in [its deliberation](deliberation.md).
   `agent@knowledge-architect-code-shape-reviewer` and the code-split scout: one new fragment and its
   host list. Worded with no language's terms. The fragment of the default code shape keeps its text
   and its hosts.
-- **The code-split scout**, a new installed agent, `knowledge-architect-code-split-scout`, whose
+- **The code-split scout**, a new installed agent, `agent@knowledge-architect-code-split-scout`, whose
   source is a new file of `path@agent-skills@content/agents/`, hosting the module guidelines'
   fragment and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q16 word. It reads a
   draft of a plan document and the code the draft touches, and reports, per module or Component, each
@@ -79,7 +79,7 @@ and arguments in [its deliberation](deliberation.md).
    pass, and state no number of lines; the assumption the session labelled in round 3, that this
    limit is a signal, is measured first: the Read tool's limit, by reading a file above it, with the
    measurement in the commit, or the sentence leaves.
-3. **The scout hosts what the owner ruled.** The installed `knowledge-architect-code-split-scout`
+3. **The scout hosts what the owner ruled.** The installed `agent@knowledge-architect-code-split-scout`
    holds the text of the module guidelines' fragment and of the fragment on when to split, and not
    that of the default code shape; the build's host lists name it for both:
    `cargo x skill knowledge-architect-code-split-scout` shows both placeholders.
