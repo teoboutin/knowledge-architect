@@ -21,9 +21,10 @@ These words hold in these senses for the goals of this home:
 - **the workflow**, or **the installed text**: the instructions knowledge-architect installs in a
   target project for its agents;
 - **the record** of a project is made of: its decisions with their arguments, the designs it did
-  not keep and why, what is outstanding, the evidence that would flip a recorded decision, and the
-  reasons recorded beside its code, its agent-facing text and in the messages of the commits that
-  made them. Its goals are no part of it, and neither is anything else;
+  not keep and why, what is outstanding, the evidence that would flip a recorded decision, the
+  entries of the kinds of entries the project declares, and the reasons recorded beside its code,
+  its agent-facing text and in the messages of the commits that made them. Its goals are no part of
+  it, and neither is anything else;
 - **a recorded item**: a goal, or an entry of a kind that keeps a home of its own, one the workflow
   gives or one a project declares, such as a decision, a design not kept, something outstanding, or
   a piece of evidence that would flip a decision. A reason recorded beside code or in a commit
