@@ -47,8 +47,7 @@ nine of this repository's ten begun after the restatement among them.
   thaum's, at least 54 instances, each caught before the merge. By where the false claim was
   written: commit messages in most files; answers to the owner, 4 instances in 4 files; heads, in
   3 files; issue entries, plan documents, a spec, code comments and a report file in the others.
-  Four of the instances are attributions of the owner, counted again in
-  `issue@agent-skills@plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them`.
+  Four of the instances are attributions of the owner.
   The two files with none are those of the 0.9.0 release and of the slice that put `cli` on top.
   The session of the intake of seventeen files made four of them: a count over the history in a
   shallow clone said to find nothing, written into two agents, an issue and an analysis; the

@@ -1,5 +1,5 @@
 ---
-kind: design
+kind: todo
 ---
 # The changelog holds references that no check reads, where it is meant to hold none
 
@@ -40,6 +40,9 @@ to that outcome, the installed text that keys on a Migration entry's citation wi
 `Next release` section is written so. Whether the released sections' spans are respelled is part of
 that discussion, since a released section's content never changes; the owner's earlier view, that
 writing a name as its reference in a released section is a change of structure, is weighed against
-the premise of `design@knowledge-architect@changelog-section-fixed-at-release`. Re-entry point: the next change
-that writes a Migration entry citing a section of the installed text, or earlier on the owner's
-word.
+the premise of `design@knowledge-architect@changelog-section-fixed-at-release`.
+
+On the owner's word, this work waits for no event: it is designed together with
+`issue@knowledge-architect@a-mechanical-changelog-check`, when a model of the changelog and checks of
+its structure are designed, which decide what an entry may cite and how. Until then, a Migration
+entry cites a section as `design@knowledge-architect@changelog-entries` says.
