@@ -72,11 +72,28 @@ pub const TRIPWIRE_REGISTER: &str = "tripwire";
 /// entries whose argument covers it, per `design@check@rejected-register`.
 pub const REJECTED_REGISTER: &str = "rejected";
 
-/// The built-in register of plan documents: a spec file, or a slice spec inside a milestone.
+/// The built-in register of plan documents: a spec's directory under specs/, or a slice's
+/// directory inside a milestone.
 pub const SPEC_REGISTER: &str = "spec";
 
 /// The built-in register of milestones, whose entries are directories.
 pub const MILESTONE_REGISTER: &str = "milestone";
+
+/// The file of a plan document's directory that holds its Threads and Arguments, beside its
+/// `README.md`, which the search reads.
+pub const DELIBERATION_FILE: &str = "deliberation.md";
+
+/// The directory of a plan document's directory that holds the generated lines of its searches,
+/// each a `.txt` file the walk never parses.
+pub(crate) const SEARCH_DIR: &str = "search";
+
+/// The trimmed transcript of the discussion a plan document was assembled from, a `.txt` file
+/// the walk never parses.
+pub(crate) const TRANSCRIPT_FILE: &str = "transcript.txt";
+
+/// The directory of a milestone that holds its harvested slices, the one frozen location: every
+/// file under it leaves the walk and is parsed for definitions only.
+pub(crate) const HARVESTED_DIR: &str = "harvested";
 
 /// Where the tool constructs the anchor `plans`, relative to the project root.
 ///
@@ -120,17 +137,16 @@ pub(crate) const ITEM_REGISTERS: [(&str, &str, &str); 4] = [
     ),
 ];
 
-/// The level-two sections a spec of specs/ and a milestone's README owe, in order: the plan
-/// document's sections, as the plans layout fixes them.
-pub(crate) const PLAN_SECTIONS: [&str; 20] = [
+/// The level-two sections the `README.md` of a spec of specs/ and of a milestone owe, in order:
+/// the plan document's sections, as the plans layout fixes them, but the Threads and the
+/// Arguments, which its `deliberation.md` holds.
+pub(crate) const PLAN_SECTIONS: [&str; 18] = [
     "Status and audience",
     "How the work is done",
     "Names",
     "What the work is",
     "What is already decided",
     "Criteria",
-    "Threads",
-    "Arguments",
     "New names, in one place",
     "Decided design",
     "Mapping tables",
@@ -145,9 +161,10 @@ pub(crate) const PLAN_SECTIONS: [&str; 20] = [
     "Later consequences",
 ];
 
-/// The level-two sections a slice spec owes, in order. A slice's fixtures are owed only where the
-/// Component drives its tests with authored content, which no check can read, so they are not
-/// checked.
+/// The level-two sections the `README.md` of a slice owes, in order. A slice's fixtures are owed
+/// only where the Component drives its tests with authored content, which no check can read, and
+/// its "What is already decided" only where it has entries to seed, which no check can tell, so
+/// neither is checked.
 pub(crate) const SLICE_SECTIONS: [&str; 5] = [
     "Builds",
     "Claims",
@@ -155,6 +172,10 @@ pub(crate) const SLICE_SECTIONS: [&str; 5] = [
     "Fails alone on",
     "Premises that expire",
 ];
+
+/// The level-two sections a plan document's `deliberation.md` owes, in order: the two sections
+/// whose items record the discussion.
+pub const DELIBERATION_SECTIONS: [&str; 2] = ["Threads", "Arguments"];
 
 /// The issue register's compiled kind list. Closed: an unknown kind is a finding naming it.
 pub(crate) const ISSUE_KINDS: [&str; 6] = [
@@ -187,6 +208,24 @@ pub enum Shape {
     /// Entries are level-three headings carrying a slug, under the level-two section the register
     /// names, in the documents of a plan anchor. Only the four item registers have it.
     Section,
+    /// Entries are plan documents, each a directory holding a `README.md` and the files the plans
+    /// layout admits beside it. Only `spec` and `milestone` have it: the plans layout is the
+    /// tool's, and no declaration can give a register this shape.
+    Plan(PlanKind),
+}
+
+/// The kind of a plan document's directory.
+///
+/// A spec and a milestone are the entries of the two plan registers; a slice is an entry of
+/// `spec` that a milestone carries, which owes its own sections and is cited through its milestone.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PlanKind {
+    /// A directory of specs/, or of a group of specs/, holding its `README.md`.
+    Spec,
+    /// A directory of milestones/ holding its `README.md`, its slices and its `harvested/`.
+    Milestone,
+    /// A directory of a milestone holding its `README.md`, live or under `harvested/`.
+    Slice,
 }
 
 /// Which anchors carry a register.
@@ -352,17 +391,28 @@ impl Registers {
             },
         ];
         // The plan registers are opt-in: the anchors the tool constructs name them, and no
-        // declared anchor may. A plan document owes the plan sections; a slice spec owes its own
-        // list, which `Anchor::sections_of` gives at a milestone anchor.
-        out.push(plan(SPEC_REGISTER, Shape::File, SPECS_HOME, None));
-        // A milestone is the built-in Directory register: each entry carries the slice specs
-        // and the four item registers, per `design@model@milestone-entries-are-directories`.
+        // declared anchor may. A plan document's README owes the plan sections; a slice's owes
+        // its own list, which `Anchor::sections_of` gives at a milestone anchor.
+        out.push(plan(
+            SPEC_REGISTER,
+            Shape::Plan(PlanKind::Spec),
+            SPECS_HOME,
+            None,
+        ));
+        // A milestone carries its slices and the four item registers, as a type of its own
+        // rather than as an entry of the Directory shape, which a declared register uses with one
+        // carried register.
         out.push(Register {
             carries: std::iter::once(SPEC_REGISTER)
                 .chain(ITEM_REGISTERS.iter().map(|(name, _, _)| *name))
                 .map(str::to_string)
                 .collect(),
-            ..plan(MILESTONE_REGISTER, Shape::Directory, MILESTONES_HOME, None)
+            ..plan(
+                MILESTONE_REGISTER,
+                Shape::Plan(PlanKind::Milestone),
+                MILESTONES_HOME,
+                None,
+            )
         });
         for (name, dir, section) in ITEM_REGISTERS {
             out.push(plan(name, Shape::Section, dir, Some(section)));
@@ -1827,8 +1877,8 @@ fn build_registers(
                 None
             }
             // A declared shape is `heading`, `file` or `directory`; `Section` is the item
-            // registers'.
-            (Shape::File | Shape::Section, Some(_)) => {
+            // registers', and `Plan` the plan registers'.
+            (Shape::File | Shape::Section | Shape::Plan(_), Some(_)) => {
                 complaints.push(
                     format!(
                         "[registers.{name}] declares a level on a file register, whose entries \
@@ -1838,7 +1888,7 @@ fn build_registers(
                 );
                 None
             }
-            (Shape::File | Shape::Directory | Shape::Section, None) => None,
+            (Shape::File | Shape::Directory | Shape::Section | Shape::Plan(_), None) => None,
         };
         out.push(Register {
             name: name.clone(),
@@ -2613,7 +2663,10 @@ pub(crate) mod tests {
         assert_eq!(thread.section.as_deref(), Some("Threads"));
         // The plan registers are carried by the plan anchors alone, so no component owes them.
         let spec = m.registers().by_name("spec").expect("the spec register");
-        assert_eq!((spec.shape, spec.scope), (Shape::File, Scope::OptIn));
+        assert_eq!(
+            (spec.shape, spec.scope),
+            (Shape::Plan(PlanKind::Spec), Scope::OptIn)
+        );
         assert_eq!(spec.dir, "specs");
         let milestone = m
             .registers()
@@ -2621,7 +2674,7 @@ pub(crate) mod tests {
             .expect("the milestone register");
         assert_eq!(
             (milestone.shape, milestone.scope),
-            (Shape::Directory, Scope::OptIn)
+            (Shape::Plan(PlanKind::Milestone), Scope::OptIn)
         );
         assert_eq!(milestone.dir, "milestones");
         assert!(m.plans());

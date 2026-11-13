@@ -64,13 +64,15 @@ pub(crate) fn guarded(registers: &Registers, kind: &str) -> bool {
 
 /// Every entry of one register kind, in `(anchor, id)` order.
 ///
-/// An entity whose definition site is in no walked document is skipped: the table holds it
-/// because something defined it, and a row with no body would say the register holds an entry
-/// nobody can read.
+/// An entity whose definition site is in no walked document and no frozen file is skipped: the
+/// table holds it because something defined it, and a row with no body would say the register
+/// holds an entry nobody can read. A frozen file's entry, a harvested slice or one of its items,
+/// is read whole like any other.
 pub fn records(model: &Model, anchors: &Anchors, entities: &Entities, kind: &Kind) -> Vec<Record> {
     let by_path: BTreeMap<&Path, &Document> = model
         .documents()
         .iter()
+        .chain(model.frozen())
         .map(|d| (d.rel.as_path(), d))
         .collect();
     let mut out = Vec::new();
@@ -87,8 +89,9 @@ pub fn records(model: &Model, anchors: &Anchors, entities: &Entities, kind: &Kin
             .map(|home| home.shape);
         let record = match shape {
             Some(Shape::File) => file_record(anchors, kind, anchor_name, id, site, doc),
-            // A Directory entry is its README, whole; the directory is the entry, not a group.
-            Some(Shape::Directory) => Record {
+            // A Directory entry and a plan document are their README, whole; the directory is
+            // the entry, not a group.
+            Some(Shape::Directory) | Some(Shape::Plan(_)) => Record {
                 group: None,
                 ..file_record(anchors, kind, anchor_name, id, site, doc)
             },
@@ -317,7 +320,7 @@ pub fn edges(
                 .and_then(|a| anchors.home(a, kind))
                 .map(|home| home.shape);
             let (from, to) = match shape {
-                Some(Shape::File) | Some(Shape::Directory) => (1, u32::MAX),
+                Some(Shape::File) | Some(Shape::Directory) | Some(Shape::Plan(_)) => (1, u32::MAX),
                 _ => section(doc, site.line),
             };
             let citing: EntryKey = (kind.clone(), anchor.to_string(), id.to_string());

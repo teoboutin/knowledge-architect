@@ -4,4 +4,4 @@
 
 | title |
 | --- |
-| [A spec the planted mock cites the wrong way](a-spec.md) |
+| [A spec the planted mock cites the wrong way](a-spec/README.md) |

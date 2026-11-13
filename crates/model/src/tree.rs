@@ -196,8 +196,8 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 continue;
             };
             let home = anchor.home_of(register);
-            // The plan documents are judged by the File and Directory homes that hold them, so
-            // an item register's home is not judged twice.
+            // The plan documents are judged by the plans layout that holds them, so an item
+            // register's home is not judged twice.
             if register.shape != Shape::Section {
                 outside_the_walk(&mut out, manifest, anchor, register, &home);
             }
@@ -206,8 +206,9 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 Shape::File => file_home(&mut out, anchor, register, &home, inputs),
                 Shape::Directory => directory_home(&mut out, anchor, register, &home, inputs),
                 // An item register's home is the plan's own documents, which exist when the
-                // plan anchor does.
+                // plan anchor does; a plan register's home is the plans layout's, below.
                 Shape::Section => {}
+                Shape::Plan(_) => plan_home(&mut out, anchor, register, &home, inputs),
             }
         }
     }
@@ -243,12 +244,38 @@ fn directory_home(
     }
 }
 
-/// What the plans directory and its milestones home hold, and the names of the plans.
+/// A plan register's home at the anchor `plans`, specs/ or milestones/, is a directory. What it
+/// holds is `plans_layout`'s question, and a milestone's own directory exists where the anchor does.
+fn plan_home(
+    out: &mut Vec<Finding>,
+    anchor: &Anchor,
+    register: &Register,
+    home: &Home,
+    inputs: &TreeInputs,
+) {
+    if anchor.constructed == Some(Constructed::Plans) && !inputs.directories.contains(&home.dir) {
+        out.push(Finding::in_file(
+            &home.dir,
+            format!(
+                "the anchor `{}` carries no {} directory",
+                anchor.name, register.name
+            ),
+            "create it with a README.md and an index.md; each plan document is a directory \
+             holding its README.md",
+        ));
+    }
+}
+
+/// What the plans directory and its two homes hold, and the names of the plans.
 ///
 /// - **The plans directory holds its README.md, specs/ and milestones/, and nothing else**, so
 ///   every plan document sits in a home.
+/// - **specs/ holds its README.md, its index.md, its register.toml, one directory per spec and
+///   its groups**, each group a directory holding no README.md and one directory per spec; a spec
+///   file is refused, its repair naming the spec's directory.
 /// - **milestones/ holds its README.md, its index.md and one directory per milestone**, by
 ///   `directory_layout`, which judges every Directory home alike.
+/// - **A plan document's directory holds what `plan_directory` admits.**
 /// - **A plan's name is no other anchor's and no reserved word**, per
 ///   `design@model@a-placed-name-reads-as-nothing-else`: a milestone
 ///   directory's name and a spec's id, compared with the components, the locations and each
@@ -281,23 +308,9 @@ fn plans_layout(
     };
     let specs = plans.home_of(spec);
     let milestones = plans.home_of(milestone);
-    let children = |dir: &Path| -> Vec<&PathBuf> {
-        let mut out: Vec<&PathBuf> = inputs
-            .present
-            .iter()
-            .filter(|p| p.parent() == Some(dir))
-            .collect();
-        out.sort();
-        out
-    };
 
-    for path in children(&plans.path) {
-        // The retired single file of `specs/` is `file_home`'s finding, named once.
-        if *path == plans.path.join("README.md")
-            || *path == specs.dir
-            || *path == milestones.dir
-            || *path == specs.file
-        {
+    for path in children(inputs, &plans.path) {
+        if *path == plans.path.join("README.md") || *path == specs.dir || *path == milestones.dir {
             continue;
         }
         out.push(Finding::in_file(
@@ -308,8 +321,9 @@ fn plans_layout(
                 path.display()
             ),
             format!(
-                "move a spec into {PLANS_DIR}/specs/ and a milestone into \
-                 {PLANS_DIR}/milestones/, and anything else out of the plans directory"
+                "move a spec into a directory of {PLANS_DIR}/specs/ and a milestone into a \
+                 directory of {PLANS_DIR}/milestones/, and anything else out of the plans \
+                 directory"
             ),
         ));
     }
@@ -317,39 +331,242 @@ fn plans_layout(
     let placed = entity::milestone_dirs(inputs.present.iter());
     let entries = entity::placed_entries(manifest, &inputs.present.iter().collect::<Vec<_>>());
     directory_layout(out, milestone, &milestones, &entries, inputs);
+    if inputs.directories.contains(&specs.dir) {
+        specs_layout(out, &specs, inputs);
+    }
 
-    // The same rule over the specs, per `design@model@a-placed-name-reads-as-nothing-else`: a spec's id is a name
-    // the next step of the plans layout makes an anchor, so it may be
-    // no kind's, component's, location's or reserved word, and no milestone's.
-    let mut ids: Vec<(String, &PathBuf)> = inputs
-        .present
-        .iter()
-        .filter(|p| !inputs.directories.contains(*p))
-        .filter_map(|p| entity::entry_id(p, &specs.dir).map(|id| (id, p)))
-        .collect();
-    ids.sort();
-    for (id, path) in ids {
-        let why = if entity::is_reserved_anchor(&id) {
+    // The same rule over the specs, per `design@model@a-placed-name-reads-as-nothing-else`: a
+    // spec's id is a name the next step of the plans layout makes an anchor, so it may be no
+    // kind's, component's, location's or reserved word, and no milestone's.
+    for dir in crate::plan::spec_dirs_all(inputs.present.iter()) {
+        let id = &dir.name;
+        let why = if entity::is_reserved_anchor(id) {
             Some("is a word the tool reserves")
-        } else if entity::is_kind_name(&id, manifest.registers()) {
+        } else if entity::is_kind_name(id, manifest.registers()) {
             Some("is the name of a kind")
-        } else if manifest.components().all().iter().any(|c| c.name == id) {
+        } else if manifest.components().all().iter().any(|c| c.name == *id) {
             Some("is the name of a component")
-        } else if manifest.locations().contains_key(&id) {
+        } else if manifest.locations().contains_key(id) {
             Some("is the name of a location")
-        } else if placed.contains_key(&id) {
+        } else if placed.contains_key(id) {
             Some("is also the name of a milestone")
         } else {
             None
         };
         if let Some(why) = why {
             out.push(Finding::in_file(
-                path,
+                dir.readme(),
                 format!("the spec `{id}`'s name {why}"),
-                "rename the file; a plan's name is cited in an anchor's place, so it must not \
-                 read as another anchor or another plan",
+                "rename the spec's directory; a plan's name is cited in an anchor's place, so it \
+                 must not read as another anchor or another plan",
             ));
         }
+    }
+}
+
+/// The paths directly under `dir`, files and directories, in path order.
+fn children<'a>(inputs: &'a TreeInputs, dir: &Path) -> Vec<&'a PathBuf> {
+    let mut out: Vec<&PathBuf> = inputs
+        .present
+        .iter()
+        .filter(|p| p.parent() == Some(dir))
+        .collect();
+    out.sort();
+    out
+}
+
+/// Whether `dir` holds a `README.md` that is a file: a plan document's directory, by the rule of
+/// `crate::plan`.
+fn headed(inputs: &TreeInputs, dir: &Path) -> bool {
+    let readme = dir.join(crate::plan::README);
+    inputs.present.contains(&readme) && !inputs.directories.contains(&readme)
+}
+
+/// What specs/ holds: its README.md, its index.md, its register.toml, a spec's directory, or a
+/// group holding specs' directories. A spec file is refused, its repair naming the directory; that
+/// a group is declared is phase 4's, which reads the register.toml.
+fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
+    let spec_file = |out: &mut Vec<Finding>, path: &Path| {
+        let dir = path.with_extension("");
+        out.push(Finding::in_file(
+            path,
+            format!(
+                "`{}` is a spec file, and a spec is a directory",
+                path.display()
+            ),
+            format!(
+                "move it to `{}/README.md`, and its Threads and Arguments sections into `{}/{}` \
+                 beside it; a spec's directory holds its README.md and the files of its \
+                 discussion",
+                dir.display(),
+                dir.display(),
+                crate::manifest::DELIBERATION_FILE
+            ),
+        ));
+    };
+    let other = |out: &mut Vec<Finding>, path: &Path, place: &str| {
+        out.push(Finding::in_file(
+            path,
+            format!(
+                "`{}` sits in {place}, which holds {}one directory per spec",
+                path.display(),
+                if place == "specs/" {
+                    "its README.md, its index.md, its register.toml, its groups and "
+                } else {
+                    ""
+                }
+            ),
+            "move it out; a spec is a directory holding its README.md",
+        ));
+    };
+    for path in children(inputs, &specs.dir) {
+        if *path == specs.readme || *path == specs.index || *path == specs.config {
+            continue;
+        }
+        if !inputs.directories.contains(path) {
+            if path.extension().is_some_and(|e| e == "md") {
+                spec_file(out, path);
+            } else {
+                other(out, path, "specs/");
+            }
+            continue;
+        }
+        if headed(inputs, path) {
+            plan_directory(out, path, crate::manifest::PlanKind::Spec, inputs);
+            continue;
+        }
+        // A group: a directory holding no README.md, whose own directories are specs.
+        for inner in children(inputs, path) {
+            if !inputs.directories.contains(inner) {
+                if inner.extension().is_some_and(|e| e == "md") {
+                    spec_file(out, inner);
+                } else {
+                    other(out, inner, "a group of specs/");
+                }
+            } else if headed(inputs, inner) {
+                plan_directory(out, inner, crate::manifest::PlanKind::Spec, inputs);
+            } else {
+                out.push(Finding::in_file(
+                    inner,
+                    format!(
+                        "`{}` holds no README.md, so it is no spec, and groups are one level deep",
+                        inner.display()
+                    ),
+                    "create its README.md, the spec document, or move its specs into a group \
+                     of their own beside this one",
+                ));
+            }
+        }
+    }
+}
+
+/// What one plan document's directory holds, per its kind: its README.md, its deliberation.md,
+/// its transcript.txt and its search/ of `.txt` files; a milestone besides its generated
+/// index.md, one directory per live slice, each held to the same rule, and its harvested/, one
+/// directory per harvested slice, whose contents are frozen and judged by no rule but the P3
+/// clause of `commits`.
+fn plan_directory(
+    out: &mut Vec<Finding>,
+    dir: &Path,
+    kind: crate::manifest::PlanKind,
+    inputs: &TreeInputs,
+) {
+    use crate::manifest::{PlanKind, HARVESTED_DIR, SEARCH_DIR};
+    let milestone = kind == PlanKind::Milestone;
+    let noun = match kind {
+        PlanKind::Spec => "spec",
+        PlanKind::Milestone => "milestone",
+        PlanKind::Slice => "slice",
+    };
+    let holds = if milestone {
+        "its README.md, its index.md, its deliberation.md, its search/, its transcript.txt, one \
+         directory per slice and its harvested/"
+    } else {
+        "its README.md, its deliberation.md, its search/ and its transcript.txt"
+    };
+    for path in children(inputs, dir) {
+        let name = path
+            .file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .into_owned();
+        let is_dir = inputs.directories.contains(path);
+        if !is_dir
+            && (name == crate::plan::README
+                || crate::plan::is_beside_readme(&name)
+                || (milestone && name == crate::plan::INDEX))
+        {
+            continue;
+        }
+        if is_dir && name == SEARCH_DIR {
+            for inner in children(inputs, path) {
+                if inputs.directories.contains(inner)
+                    || inner.extension().is_none_or(|e| e != "txt")
+                {
+                    out.push(Finding::in_file(
+                        inner,
+                        format!(
+                            "`{}` sits in a search/ directory, which holds `.txt` files alone",
+                            inner.display()
+                        ),
+                        "move it out; search/ holds the generated lines of a search, each a \
+                         `.txt` file named by its occasion, such as `discussion.txt` or \
+                         `design-audit.txt`",
+                    ));
+                }
+            }
+            continue;
+        }
+        if milestone && is_dir && name == HARVESTED_DIR {
+            for inner in children(inputs, path) {
+                if !inputs.directories.contains(inner) || !headed(inputs, inner) {
+                    out.push(Finding::in_file(
+                        inner,
+                        format!(
+                            "`{}` is no harvested slice: harvested/ holds one directory per \
+                             landed slice, each holding its README.md",
+                            inner.display()
+                        ),
+                        "move it out of harvested/; a landed slice's whole directory is moved \
+                         there, in a commit of its own",
+                    ));
+                }
+            }
+            continue;
+        }
+        if milestone && is_dir {
+            if headed(inputs, path) {
+                plan_directory(out, path, PlanKind::Slice, inputs);
+            } else {
+                out.push(Finding::in_file(
+                    path,
+                    format!("`{}` holds no README.md, so it is no slice", path.display()),
+                    "create its README.md, the slice's spec, or move the directory out of the \
+                     milestone",
+                ));
+            }
+            continue;
+        }
+        let slice_file = milestone && !is_dir && path.extension().is_some_and(|e| e == "md");
+        out.push(Finding::in_file(
+            path,
+            format!(
+                "`{}` sits in the {noun} directory `{}`, which holds {holds}, and nothing else",
+                path.display(),
+                dir.display()
+            ),
+            if slice_file {
+                format!(
+                    "a slice is a directory: move it to `{}/README.md`, and its Threads and \
+                     Arguments sections into `{}/{}` beside it",
+                    path.with_extension("").display(),
+                    path.with_extension("").display(),
+                    crate::manifest::DELIBERATION_FILE
+                )
+            } else {
+                "move it out, or into the file the plans layout names for it".to_string()
+            },
+        ));
     }
 }
 
@@ -438,6 +655,8 @@ fn directory_layout(
                                 )
                             },
                         ));
+                    } else if milestone {
+                        plan_directory(out, path, crate::manifest::PlanKind::Milestone, inputs);
                     } else {
                         // What an entry carries sits beside its README, so a subdirectory is no
                         // group there: the File shape would ask for a register.toml, which is
@@ -453,35 +672,29 @@ fn directory_layout(
                             out.push(Finding::in_file(
                                 inner,
                                 format!("`{}` is a subdirectory of a {noun}", inner.display()),
-                                if milestone {
-                                    "move its slice specs up beside the milestone's README; a \
-                                     milestone holds its README, its index and one file per slice"
-                                } else {
-                                    "move its files up beside the entry's README; an entry holds \
-                                     its README and the files of what it carries, ungrouped"
-                                },
+                                "move its files up beside the entry's README; an entry holds \
+                                 its README and the files of what it carries, ungrouped",
                             ));
                         }
                     }
                 }
             }
             let config = path.join("register.toml");
-            if inputs.present.contains(&config) {
+            // A milestone's directory is `plan_directory`'s, which names every file it refuses.
+            if !milestone && inputs.present.contains(&config) {
                 out.push(Finding::in_file(
                     &config,
                     format!("a {noun} directory holds no register.toml"),
-                    if milestone {
-                        "delete it; a milestone's slice specs sit beside its README, ungrouped"
-                    } else {
-                        "delete it; what an entry carries sits beside its README, ungrouped"
-                    },
+                    "delete it; what an entry carries sits beside its README, ungrouped",
                 ));
             }
             continue;
         }
         // The `<id>.md` beside an entry anchor is the single-file shape of what it carries, which
         // its home's own check names; beside a directory that is no anchor, nothing else names it.
-        let beside = path.extension().is_some_and(|e| e == "md")
+        // A milestone carries what it holds inside its own directory, so nothing beside it is its.
+        let beside = !milestone
+            && path.extension().is_some_and(|e| e == "md")
             && path.file_stem().is_some_and(|stem| {
                 placed(&stem.to_string_lossy()).is_some_and(|e| e.refusal.is_none())
             });
@@ -497,7 +710,7 @@ fn directory_layout(
             ),
             if milestone {
                 "a milestone is a directory holding its README.md; move a single-file plan into \
-                 specs/, and anything else out"
+                 a directory of specs/, and anything else out"
             } else {
                 "an entry is a directory holding its README.md; move anything else out"
             },
@@ -1058,11 +1271,14 @@ mod plans_tests {
     }
 
     /// The claims of the layout's odd shapes, each one finding in phase 2: a plans README that
-    /// is a directory, a milestone whose README is a directory (no anchor, so no milestone), the
-    /// retired single file of specs/ and of a milestone (named once, by the File rule), and a
-    /// milestone named like a location. Mutations checked, each failing this test: the
-    /// directory test dropped from the plans README check; `|| *path == specs.file` deleted;
-    /// `|| beside` deleted; the location arm of `milestone_refusal` deleted.
+    /// is a directory, a milestone whose README is a directory (no anchor, so no milestone), a
+    /// file beside specs/ and beside a milestone, a milestone named like a location, a spec file
+    /// whose repair names the spec's directory, a slice file whose repair names the slice's, a
+    /// file of a plan document's directory the layout does not admit, a search/ holding other
+    /// than `.txt`, a harvested/ holding other than headed slices, and a group nested in a group.
+    /// Mutations checked, each failing this test: the directory test dropped from the plans
+    /// README check; `!milestone &&` dropped from `beside`; the location arm of `milestone_refusal`
+    /// deleted; the `headed` arm of `specs_layout` that admits a spec's directory read as a group.
     #[test]
     fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
         let manifest = declaring_full(
@@ -1099,7 +1315,7 @@ mod plans_tests {
                 vec!["docs/plans/specs.md"],
                 vec![],
                 "docs/plans/specs.md",
-                "retired file shape of the spec register",
+                "sits in the plans directory",
             ),
             (
                 vec![
@@ -1108,7 +1324,57 @@ mod plans_tests {
                 ],
                 vec![],
                 "docs/plans/milestones/m-one.md",
-                "retired file shape of the spec register",
+                "one directory per milestone",
+            ),
+            (
+                vec!["docs/plans/specs/a-spec.md"],
+                vec![],
+                "docs/plans/specs/a-spec.md",
+                "is a spec file, and a spec is a directory  → move it to \
+                 `docs/plans/specs/a-spec/README.md`",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/a-slice.md",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/a-slice.md",
+                "a slice is a directory: move it to `docs/plans/milestones/m-one/a-slice/README.md`",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/notes.md",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/notes.md",
+                "sits in the spec directory `docs/plans/specs/a-spec`",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/a-slice/README.md",
+                    "docs/plans/milestones/m-one/a-slice/search/discussion.md",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/a-slice/search/discussion.md",
+                "holds `.txt` files alone",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/harvested/loose.md",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/harvested/loose.md",
+                "is no harvested slice",
+            ),
+            (
+                vec!["docs/plans/specs/group/inner/deep/README.md"],
+                vec![],
+                "docs/plans/specs/group/inner",
+                "groups are one level deep",
             ),
             (
                 vec!["docs/plans/milestones/side-notes/README.md"],
@@ -1135,7 +1401,23 @@ mod plans_tests {
                 ],
                 vec![],
                 "docs/plans/milestones/m-one/sub",
-                "one file per slice",
+                "holds no README.md, so it is no slice",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/deliberation.md",
+                    "docs/plans/milestones/m-one/transcript.txt",
+                    "docs/plans/milestones/m-one/search/discussion.txt",
+                    "docs/plans/milestones/m-one/a-slice/README.md",
+                    "docs/plans/milestones/m-one/a-slice/deliberation.md",
+                    "docs/plans/milestones/m-one/harvested/b-slice/README.md",
+                    "docs/plans/milestones/m-one/harvested/b-slice/notes.md",
+                    "docs/plans/milestones/m-one/stray.txt",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/stray.txt",
+                "sits in the milestone directory",
             ),
         ] {
             let mut present = base();
@@ -1172,7 +1454,8 @@ mod plans_tests {
         let manifest = declaring("");
         for name in ["skill", "design"] {
             let mut present = all_of("");
-            present.push(format!("docs/plans/specs/{name}.md"));
+            present.push(format!("docs/plans/specs/{name}/README.md"));
+            present.push(format!("docs/plans/specs/{name}"));
             let found = tree_findings(&manifest, &present);
             assert!(
                 found

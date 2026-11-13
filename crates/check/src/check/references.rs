@@ -1291,9 +1291,9 @@ mod tests {
     fn the_plan_kinds_resolve_each_in_its_own_anchor() {
         let m = manifest();
         let docs = vec![
-            ("docs/plans/specs/a-spec.md", "# A spec\n"),
+            ("docs/plans/specs/a-spec/README.md", "# A spec\n"),
             ("docs/plans/milestones/m-one/README.md", "# A milestone\n"),
-            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
+            ("docs/plans/milestones/m-one/a-slice/README.md", "# A slice\n"),
             (
                 "notes/prose.md",
                 "`spec@plans@a-spec`, `milestone@plans@m-one` and `spec@m-one@a-slice` resolve;\n\
@@ -1344,9 +1344,9 @@ mod tests {
     fn a_plan_document_reached_through_the_generic_form_or_out_of_the_walk_resolves_nothing() {
         let m = manifest();
         let tree: Vec<PathBuf> = [
-            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/a-spec/README.md",
             "docs/plans/milestones/m-one/README.md",
-            "docs/plans/milestones/m-one/a-slice.md",
+            "docs/plans/milestones/m-one/a-slice/README.md",
         ]
         .iter()
         .map(PathBuf::from)
@@ -1355,8 +1355,11 @@ mod tests {
         let present: Vec<String> = tree.iter().map(|p| p.display().to_string()).collect();
         // The milestone's README is in the tree and not in the walk.
         let docs = vec![
-            ("docs/plans/specs/a-spec.md", "# A spec\n"),
-            ("docs/plans/milestones/m-one/a-slice.md", "# A slice\n"),
+            ("docs/plans/specs/a-spec/README.md", "# A spec\n"),
+            (
+                "docs/plans/milestones/m-one/a-slice/README.md",
+                "# A slice\n",
+            ),
             (
                 "notes/prose.md",
                 "`path@*@specs/a-spec.md`, `path@*@a-slice.md` and `milestone@plans@m-one`.\n",
@@ -1387,7 +1390,7 @@ mod tests {
         let m = manifest();
         let docs = vec![
             (
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/README.md",
                 "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nIt cites `thread@a-spec@thread-one` and \
                  `thread@a-spec@no-such`.\n",
             ),
@@ -1427,7 +1430,7 @@ mod tests {
         let m = manifest();
         let docs = vec![
             (
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/README.md",
                 "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\nThe thread-one rule, \
                  and `thread-one`.\n",
             ),
@@ -1440,7 +1443,7 @@ mod tests {
         assert_eq!(found.len(), 2, "{found:#?}");
         assert!(found
             .iter()
-            .all(|f| f.starts_with("docs/plans/specs/a-spec.md:7")
+            .all(|f| f.starts_with("docs/plans/specs/a-spec/README.md:7")
                 && f.contains("names `thread@a-spec@thread-one`")));
     }
 
@@ -1493,7 +1496,7 @@ mod tests {
                 "# A milestone\n\n## Threads\n\n### In the README `##in-readme`\n",
             ),
             (
-                "docs/plans/milestones/m-one/a-slice.md",
+                "docs/plans/milestones/m-one/a-slice/README.md",
                 "# A slice\n\n## Threads\n\n### In the slice `##in-slice`\n",
             ),
             (
@@ -2133,8 +2136,8 @@ mod tests {
 
     // --- the planned kind, per `design@model@planned-path-form` ----------------------------
 
-    /// A spec file of the plans directory, where a planned path is legal.
-    const IN_PLANS: &str = "docs/plans/specs/a-spec.md";
+    /// A spec's README.md in the plans directory, where a planned path is legal.
+    const IN_PLANS: &str = "docs/plans/specs/a-spec/README.md";
 
     #[test]
     fn a_planned_path_whose_target_is_absent_is_silent() {
@@ -2328,7 +2331,7 @@ mod tests {
     fn a_path_reaching_an_existing_file_through_a_climb_or_from_the_root_is_not_planned() {
         let m = manifest();
         for span in [
-            "../../../parts/a-part/notes/real/a.md",
+            "../../../../parts/a-part/notes/real/a.md",
             "/parts/a-part/notes/real/a.md",
         ] {
             let text = format!("It edits `{span}`.\n");
@@ -2454,15 +2457,16 @@ mod tests {
 
     #[test]
     fn a_spec_anchor_is_no_place_a_path_is_read_from() {
-        // A spec is an anchor and a file. Read as a directory, `..` from it would land in the
-        // specs directory, and a span would be a finding only while some spec is open.
+        // A spec's directory is an anchor, and a document outside it reads a path from its own
+        // directory: the spec's anchor changes nothing of a span written elsewhere, so a span
+        // is no finding that depends on some spec being open.
         let m = manifest();
         let mut present = tree();
         for p in [
             "docs",
             "docs/plans",
             "docs/plans/specs",
-            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/a-spec/README.md",
             "docs/plans/specs/README.md",
         ] {
             present.push(p.to_string());
@@ -2473,7 +2477,7 @@ mod tests {
             anchors
                 .all()
                 .iter()
-                .any(|a| a.path == Path::new("docs/plans/specs/a-spec.md")),
+                .any(|a| a.path == Path::new("docs/plans/specs/a-spec")),
             "the spec is an anchor: {}",
             anchors.listed()
         );
@@ -2890,7 +2894,7 @@ mod tests {
             &m,
             &[
                 PathBuf::from("docs/plans/milestones/m-one/README.md"),
-                PathBuf::from("docs/plans/specs/a-spec.md"),
+                PathBuf::from("docs/plans/specs/a-spec/README.md"),
             ],
         );
         (m, anchors)
@@ -3131,7 +3135,7 @@ mod tests {
         let present: Vec<String> = ["docs/goals.md"].iter().map(|p| p.to_string()).collect();
         let (found, _) = checked_under(
             vec![(
-                "docs/plans/specs/t.md",
+                "docs/plans/specs/t/README.md",
                 "Creates `planned@a-project@docs/goals.md`.\n",
             )],
             &present,
@@ -3153,12 +3157,12 @@ mod tests {
             .collect();
         for (at, text, form) in [
             (
-                "docs/plans/specs/t.md",
+                "docs/plans/specs/t/README.md",
                 "Creates `planned@a-part@docs/rejected.md`.\n",
                 "`register@a-part@rejected`",
             ),
             (
-                "docs/plans/specs/t.md",
+                "docs/plans/specs/t/README.md",
                 "Edits `planned@a-part@docs/rejected.md:4`.\n",
                 "`register@a-part@rejected`",
             ),
@@ -3190,7 +3194,7 @@ mod tests {
         let (_, anchors) = register_project();
         let (found, _) = checked_under(
             vec![(
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/README.md",
                 "Creates `planned@a-part@docs/rejected.md`.\n",
             )],
             &[],

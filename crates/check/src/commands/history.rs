@@ -526,6 +526,16 @@ fn read_tree(
             })
             .cloned(),
     );
+    // So do the frozen files, as `Model::build` reads them whatever the walk rows say.
+    wanted.extend(
+        files
+            .iter()
+            .filter(|rel| {
+                crate::model::listing::frozen_file(&manifest, rel)
+                    && rel.extension().is_some_and(|e| e == "md")
+            })
+            .cloned(),
+    );
     wanted.sort();
     wanted.dedup();
     let mut blobs = std::collections::BTreeMap::new();
@@ -657,8 +667,16 @@ fn commit_tree(
         .filter(|f| manifest.owned(f))
         .cloned()
         .collect();
+    // A frozen file leaves the walk by construction too, and defines what it defines as an
+    // installed copy does, from the commit's own blobs.
+    let frozen: Vec<PathBuf> = files
+        .iter()
+        .filter(|f| crate::model::listing::frozen_file(&manifest, f))
+        .cloned()
+        .collect();
     let mut excluded = generated.clone();
     excluded.extend(installed.iter().cloned());
+    excluded.extend(frozen.iter().cloned());
     let walked =
         crate::model::listing::live_files(Path::new(""), manifest.walk(), &files, &excluded);
     let mut blobs = read.blobs;
@@ -708,6 +726,13 @@ fn commit_tree(
     // against the set it holds rather than the one the running binary ships.
     model.set_installed(
         installed
+            .iter()
+            .filter(|rel| rel.extension().is_some_and(|e| e == "md"))
+            .filter_map(|rel| blobs.get(rel).map(|text| (rel.clone(), text.clone())))
+            .collect(),
+    );
+    model.set_frozen(
+        frozen
             .iter()
             .filter(|rel| rel.extension().is_some_and(|e| e == "md"))
             .filter_map(|rel| blobs.get(rel).map(|text| (rel.clone(), text.clone())))
@@ -1188,6 +1213,17 @@ pub fn commits(
         };
         let trouble = tree.trouble.len();
         let mut causes = Vec::new();
+        // The first parent, whose tree the P3 clause and the message's references compare
+        // against; a root commit has none, and modifies nothing.
+        let first_parent = crate::git::rev_parse(root, &format!("{sha}^"));
+        let frozen = match &first_parent {
+            Some(parent) => frozen_file_findings(root, short, parent, sha, &tree.manifest)?,
+            None => Vec::new(),
+        };
+        if !frozen.is_empty() {
+            causes.push(format!("it modifies {} harvested file(s)", frozen.len()));
+        }
+        findings.extend(frozen);
         if trouble > 0 {
             for path in tree
                 .trouble
@@ -1228,6 +1264,9 @@ pub fn commits(
                     }
                     findings.extend(cited);
                 }
+                for cause in &causes {
+                    why.push_str(&format!("; {cause}"));
+                }
                 summary.push((short.to_string(), Outcome::Failed { why }));
                 if phase == check::Phase::Resolution {
                     // Phase 1 failed and nothing of the tree was read, so it serves as no
@@ -1253,7 +1292,6 @@ pub fn commits(
         // The parent model is the previous commit's where the walk followed the parent chain,
         // a failed commit's included, and is built once otherwise — at the range's first
         // commit, and wherever the previous commit is not this one's first parent.
-        let first_parent = crate::git::rev_parse(root, &format!("{sha}^"));
         let parent_owned = match (&previous, &first_parent) {
             (Some((seen, _, _)), Some(parent)) if seen == parent => None,
             (_, Some(parent)) => {
@@ -1367,6 +1405,40 @@ pub fn commits(
     } else {
         ExitCode::FAILURE
     })
+}
+
+/// The findings of the P3 clause over one commit: each file under a milestone's `harvested/`
+/// that the commit modifies against its first parent, named by the commit and by the file.
+///
+/// A harvested slice is frozen by its location, judged while it was live and read for its
+/// definitions alone once moved, so an edit of it is judged by no check and would let a session
+/// rewrite a frozen record against the tree of its day. Adding a file there, deleting one, and the
+/// move that freezes a slice, which adds every file of the slice there, change no file both trees
+/// hold, so none is a finding. It applies to every commit, on the branch that wrote the file as on
+/// any later one. `Err` carries git's reason where git could not compare the two trees.
+fn frozen_file_findings(
+    root: &Path,
+    short: &str,
+    parent: &str,
+    sha: &str,
+    manifest: &Manifest,
+) -> Result<Vec<Finding>, String> {
+    let modified = crate::git::modified_paths(root, parent, sha)
+        .map_err(|e| format!("git could not compare commit {short} with its parent: {e}"))?;
+    Ok(modified
+        .into_iter()
+        .filter(|rel| crate::model::listing::frozen_file(manifest, rel))
+        .map(|rel| {
+            Finding::in_file(
+                format!("commit {short}: {}", rel.display()),
+                "this commit modifies a file of a harvested slice, which is frozen under its \
+                 milestone's harvested/",
+                "leave the file as the move under harvested/ left it: take the edit out of this \
+                 commit, and make the change in a live document instead; a harvested slice \
+                 leaves only with its milestone",
+            )
+        })
+        .collect())
 }
 
 /// Every citation of a commit of the range in `text`: a run of 7 to 64 lowercase hex digits,

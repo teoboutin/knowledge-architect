@@ -101,9 +101,14 @@ pub(crate) fn check_under(
                         directory_home(&mut out, register, &home, model, anchors, inputs, &index);
                 }
                 // An item is a heading of a plan document, judged where it is defined, in the
-                // entity table; its home is the plan's documents, which the File and Directory
-                // homes that hold them judge.
+                // entity table; its home is the plan's documents, which the plan homes that hold
+                // them judge.
                 Shape::Section => {}
+                Shape::Plan(_) => {
+                    counts.entries += plan_home(
+                        &mut out, anchor, register, &home, model, anchors, inputs, &index,
+                    );
+                }
             }
         }
     }
@@ -204,8 +209,7 @@ fn file_home(
     // What sits under an anchor nested inside this home is that anchor's, as the heading
     // shape reads it: the nesting is refused by the manifest, and reading the nested
     // anchor's files as entries of this register would report the refusal's consequences
-    // against the wrong register and the wrong anchor, nine times over. The one exception is a
-    // spec file, which its own anchor owns and which stays an entry, per `Anchors::owns_entry`.
+    // against the wrong register and the wrong anchor, nine times over.
     let owned = |rel: &Path| anchors.owns_entry(anchor, rel);
     directory_contents(out, register, home, groups.as_ref(), inputs, &owned);
 
@@ -251,6 +255,148 @@ fn directory_home(
         }
     }
     judged
+}
+
+/// A plan register's home: specs/ and milestones/ at the anchor `plans`, and a milestone's slices
+/// at the milestone. Each home's two navigation files, specs/'s declared groups, and of each plan
+/// document the sections of its `README.md` and of its `deliberation.md`.
+///
+/// What the plans layout admits, and which directories are plan documents, is phase 2's; what is
+/// asserted here is the shape of what it left standing. A harvested slice is frozen and judged by
+/// nothing. Returns how many plan documents were judged. `index` is the repair of a missing index.
+#[allow(clippy::too_many_arguments)]
+fn plan_home(
+    out: &mut Vec<Finding>,
+    anchor: &Anchor,
+    register: &Register,
+    home: &Home,
+    model: &Model,
+    anchors: &Anchors,
+    inputs: &Inputs,
+    index: &str,
+) -> usize {
+    if !inputs.directories.contains(&home.dir) {
+        return 0;
+    }
+    navigation(out, register, home, inputs, index);
+    let headed = |dir: &Path| {
+        let readme = dir.join("README.md");
+        inputs.present.contains(&readme) && !inputs.directories.contains(&readme)
+    };
+    // The plan documents this home holds, by their directories.
+    let mut dirs: Vec<PathBuf> = Vec::new();
+    if anchor.is_milestone() {
+        for path in inputs
+            .present
+            .iter()
+            .filter(|p| p.parent() == Some(home.dir.as_path()))
+        {
+            let name = path.file_name().unwrap_or_default();
+            if inputs.directories.contains(path)
+                && name != "harvested"
+                && name != "search"
+                && headed(path)
+            {
+                dirs.push(path.clone());
+            }
+        }
+    } else if register.name == crate::model::declared::MILESTONE_REGISTER {
+        dirs.extend(
+            anchors
+                .all()
+                .iter()
+                .filter(|a| a.is_milestone() && a.path.parent() == Some(home.dir.as_path()))
+                .map(|a| a.path.clone()),
+        );
+    } else {
+        // A directory of specs/ holding no README.md is a group, per
+        // `design@check@groups-are-subdirectories`, and its headed directories are specs.
+        let groups = config(out, register, home, inputs);
+        let mut present: BTreeSet<String> = BTreeSet::new();
+        let mut top: Vec<&PathBuf> = inputs
+            .present
+            .iter()
+            .filter(|p| p.parent() == Some(home.dir.as_path()) && inputs.directories.contains(*p))
+            .collect();
+        top.sort();
+        for path in top {
+            if headed(path) {
+                dirs.push(path.clone());
+                continue;
+            }
+            let name = path
+                .file_name()
+                .unwrap_or_default()
+                .to_string_lossy()
+                .to_string();
+            present.insert(name.clone());
+            if groups
+                .as_ref()
+                .is_some_and(|groups| !groups.contains(&name))
+            {
+                out.push(Finding::in_file(
+                    path,
+                    format!(
+                        "`{name}` is a subdirectory of the {} register and is no declared group",
+                        register.name
+                    ),
+                    "declare it in the instance's register.toml, or move its specs up; a \
+                     grouping nobody announced is one nobody reviewed",
+                ));
+            }
+            dirs.extend(
+                inputs
+                    .present
+                    .iter()
+                    .filter(|p| p.parent() == Some(path.as_path()) && headed(p))
+                    .cloned(),
+            );
+        }
+        for group in groups.into_iter().flatten() {
+            if !present.contains(&group) {
+                out.push(Finding::in_file(
+                    home.dir.join(&group),
+                    format!(
+                        "the {} register declares the group `{group}` and there is no directory",
+                        register.name
+                    ),
+                    format!(
+                        "move or write the group's first spec under `{}/`, or remove the group \
+                         from the instance's register.toml; the declaration is the grouping, so \
+                         changing it is its own decision",
+                        home.dir.join(&group).display()
+                    ),
+                ));
+            }
+        }
+    }
+    dirs.sort();
+    let sections = anchor.sections_of(register);
+    let deliberation: Vec<&str> = crate::model::declared::DELIBERATION_SECTIONS.to_vec();
+    let mut judged = 0;
+    for dir in dirs {
+        let readme = dir.join("README.md");
+        if let Some(doc) = model.documents().iter().find(|d| d.rel == readme) {
+            judged += 1;
+            entry(out, register, &sections, doc);
+        }
+        let file = dir.join(crate::model::declared::DELIBERATION_FILE);
+        if let Some(doc) = model.documents().iter().find(|d| d.rel == file) {
+            in_order(out, doc, register, 2, &deliberation, &headings(doc), None);
+        }
+    }
+    judged
+}
+
+/// The headings of a document, by level and text, in order.
+fn headings(doc: &Document) -> Vec<(u8, &str)> {
+    doc.observations
+        .iter()
+        .filter_map(|l| match &l.what {
+            Observation::Heading { level, text } => Some((*level, text.as_str())),
+            _ => None,
+        })
+        .collect()
 }
 
 /// A home's hand-written README and generated index are both there, as files. `index` is the
@@ -1548,13 +1694,14 @@ mod tests {
         let spec = table.registers().by_name("spec").expect("built in");
         assert!(spec.metadata.is_empty(), "{:?}", spec.metadata);
         let sections: Vec<&str> = spec.sections.iter().map(String::as_str).collect();
-        let at = "docs/plans/specs/a-spec.md";
+        let at = "docs/plans/specs/a-spec/README.md";
         let text = format!(
             "---\nstatus:\n  nested: 1\n---\n{}",
             with_sections("A spec", &sections)
         );
         let mut present = all_of("");
         present.push(at.to_string());
+        present.push("docs/plans/specs/a-spec".to_string());
         let model = Model::from_documents(vec![(PathBuf::from(at), text)]);
         let found: Vec<String> = findings_over(&declaring(""), &present, model, &[])
             .into_iter()
@@ -1756,9 +1903,11 @@ mod tests {
         out
     }
 
-    /// The claim: a spec of specs/ and a milestone's README owe the plan sections in order, and
-    /// a slice spec owes the slice sections, each missing one a finding naming the list.
-    /// Mutation checked: a slice spec checked against the plan sections.
+    /// The claim: the README.md of a spec of specs/ and of a milestone owe the plan sections in
+    /// order, the Threads and the Arguments apart, the README.md of a slice owes the slice
+    /// sections, and a deliberation.md owes the Threads and the Arguments, each missing one a
+    /// finding naming the list. Mutations checked: a slice's README checked against the plan
+    /// sections; the `in_order` call over a deliberation.md dropped.
     #[test]
     fn a_plan_document_owes_the_sections_of_its_kind() {
         let table = Anchors::of(
@@ -1777,7 +1926,7 @@ mod tests {
         let docs = |spec_sections: &[&str], slice_sections: &[&str]| {
             vec![
                 (
-                    "docs/plans/specs/a-spec.md".to_string(),
+                    "docs/plans/specs/a-spec/README.md".to_string(),
                     with_sections("A spec", spec_sections),
                 ),
                 (
@@ -1785,7 +1934,7 @@ mod tests {
                     with_sections("A milestone", &plan_sections),
                 ),
                 (
-                    "docs/plans/milestones/m-one/a-slice.md".to_string(),
+                    "docs/plans/milestones/m-one/a-slice/README.md".to_string(),
                     with_sections("A slice", slice_sections),
                 ),
             ]
@@ -1796,7 +1945,9 @@ mod tests {
                 present.push(p.clone());
             }
             for p in [
+                "docs/plans/specs/a-spec",
                 "docs/plans/milestones/m-one",
+                "docs/plans/milestones/m-one/a-slice",
                 "docs/plans/milestones/m-one/index.md",
             ] {
                 present.push(p.to_string());
@@ -1811,7 +1962,8 @@ mod tests {
                 .filter(|f| !f.contains("generated"))
                 .collect::<Vec<String>>()
         };
-        assert!(run(docs(&plan_sections, &slice_sections)).is_empty());
+        let clean = run(docs(&plan_sections, &slice_sections));
+        assert!(clean.is_empty(), "{clean:#?}");
         let without_names: Vec<&str> = plan_sections
             .iter()
             .copied()
@@ -1820,7 +1972,7 @@ mod tests {
         let found = run(docs(&without_names, &slice_sections));
         assert_eq!(found.len(), 1, "{found:#?}");
         assert!(
-            found[0].starts_with("docs/plans/specs/a-spec.md")
+            found[0].starts_with("docs/plans/specs/a-spec/README.md")
                 && found[0].contains("level-two section `Names`"),
             "{found:#?}"
         );
@@ -1841,7 +1993,7 @@ mod tests {
             let found = run(docs(&renamed, &slice_sections));
             assert_eq!(found.len(), 1, "{written}: {found:#?}");
             assert!(
-                found[0].starts_with("docs/plans/specs/a-spec.md")
+                found[0].starts_with("docs/plans/specs/a-spec/README.md")
                     && found[0].contains("level-two section `How the work is done`"),
                 "{written}: {found:#?}"
             );
@@ -1851,7 +2003,35 @@ mod tests {
         assert_eq!(found.len(), slice_sections.len(), "{found:#?}");
         assert!(found
             .iter()
-            .all(|f| f.starts_with("docs/plans/milestones/m-one/a-slice.md")));
+            .all(|f| f.starts_with("docs/plans/milestones/m-one/a-slice/README.md")));
+        // A README no longer owes the Threads and the Arguments, which its deliberation.md
+        // holds, in a spec's directory and in a slice's alike; a deliberation.md missing one owes
+        // it there.
+        assert!(!plan_sections.contains(&"Threads") && !plan_sections.contains(&"Arguments"));
+        let with_deliberation = |threads: &str| {
+            let mut all = docs(&plan_sections, &slice_sections);
+            for dir in [
+                "docs/plans/specs/a-spec",
+                "docs/plans/milestones/m-one/a-slice",
+            ] {
+                all.push((
+                    format!("{dir}/deliberation.md"),
+                    format!(
+                        "# Its deliberation\n\n## {threads}\n\nNone.\n\n## Arguments\n\nNone.\n"
+                    ),
+                ));
+            }
+            all
+        };
+        let clean = run(with_deliberation("Threads"));
+        assert!(clean.is_empty(), "{clean:#?}");
+        let found = run(with_deliberation("Discussion"));
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(
+            found.iter().all(|f| f.contains("deliberation.md")
+                && f.contains("level-two section `Threads`")),
+            "{found:#?}"
+        );
     }
 
     /// The claim: the item registers are the tool's, so a declaration of one, or a location

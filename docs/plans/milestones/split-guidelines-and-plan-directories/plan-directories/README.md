@@ -15,10 +15,16 @@ work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and
   `thread@split-guidelines-and-plan-directories@plan-model-first-class`:
   - a spec is a directory of specs/, `docs/plans/specs/<id>/`, holding `README.md`, and an anchor of
     its own, cited `spec@plans@<id>`, its items `<kind>@<id>@<item>`; a spec file of specs/ is a
-    finding whose repair names the directory;
+    finding whose repair names the directory. specs/ keeps the groups the File shape gives it today
+    (`spec_files` in `path@model@src/entity.rs` reads `docs/plans/specs/<group>/<id>.md` as the
+    spec `<id>`): a subdirectory of specs/ or of a group that holds a `README.md` is a spec, any
+    other is a group, per `design@check@groups-are-subdirectories`;
   - a milestone is a directory of milestones/, holding `README.md` and one directory per slice,
     `<slice>/README.md`, cited `spec@<milestone>@<slice>`; its items, and those of every slice, are
-    cited `<kind>@<milestone>@<item>`, from inside the milestone's directory only;
+    cited `<kind>@<milestone>@<item>`, from inside the milestone's directory only. **A slice's
+    directory is no anchor**: the milestone is the anchor of every file under its directory, its
+    slices' included, so it owns their items, as today it owns the items of its slice files, per
+    `design@model@an-entity-belongs-to-its-anchor`;
   - in each plan document's directory, and in a milestone's directory, beside `README.md`:
     `deliberation.md`, live and item-bearing, holding the sections Threads and Arguments, whose
     level-three headings are items as today, owed where the document has a thread or an argument;
@@ -140,7 +146,8 @@ the installed copy.
    accepts a slice's directory or its `README.md` and seeds from that `README.md`'s section "What is
    already decided". In its text half, the planning skill, as installed, gives a slice audit's
    search `--work` the milestone's `README.md` and the slice's `README.md` and `--seeds-from` the
-   slice's `README.md`, and names no other file; AC1's observable, read at slice 2's audit, is the
+   slice's `README.md`, `--since` the commit that last changed the slice's `README.md`, and names
+   no other file; AC1's observable, read at slice 2's audit, is the
    test of record.
 9. **The P2 clause.** The installed planning skill states that every condition of a decided thread
    is in the decided design of a document the search reads, and that `deliberation.md` holds only
@@ -315,7 +322,8 @@ decided design; the slice's design audit checks each reading against the head re
 - `design@model@entry-anchor-carries` and `design@model@entry-anchor-path-kind`: each holds for a
   declared Directory register alone, the plan types no longer using that shape.
 - `design@model@anchors-are-components-and-locations`: the constructed anchors include each spec's
-  and each slice's directory.
+  directory, and each milestone's as a plan type rather than as an entry; a slice's directory is
+  none.
 - `design@model@an-entry-is-a-heading-at-the-register-level`: a plan's items have their home in its
   `README.md` and `deliberation.md`, where the head says "a milestone's README included".
 - `design@check@plan-document-sections-by-kind`: a spec's or a milestone's `README.md` owes today's
@@ -328,8 +336,8 @@ decided design; the slice's design audit checks each reading against the head re
   any other, where the second says today "A spec is an anchor and a file"; a file of a plan's
   directory has that plan's anchor as its deepest; a `README.md` reaches the files beside it by
   relative links, not by `path` references.
-- `design@query@anchors-listing-command`: `anchors` lists each spec's and each slice's directory
-  with its kind.
+- `design@query@anchors-listing-command`: `anchors` lists each spec's directory and each
+  milestone's with its kind; a slice's directory is no anchor.
 - `design@query@record-is-every-register-entry`: the record excludes the plan types and the frozen
   location, `harvested/`.
 - `design@query@seeds-from-the-plan-s-decided-section`: `--seeds-from` takes a plan's directory or
@@ -370,9 +378,12 @@ document's, `git grep -n landing -- '**/docs/tripwires.md' 'docs/tripwires.md'` 
 and `tripwire@check@fix-makes-a-choice`, which watches until "the commit on the main branch that
 deletes `spec@plans@path-quickfixes` at its landing"; the search is a lead, since a phrase split over
 two lines escapes it. The migration's moves read as deletions to the commands that count landings,
-`git log --diff-filter=D --name-only -- docs/plans/` among them: the move of
-`spec@plans@path-quickfixes` into its directory, and the move of each slice spec into its own,
-are no landings, and the harvest says so where those horizons count.
+`git log --diff-filter=D --name-only -- docs/plans/` among them, wherever git's rename detection
+does not pair the old path with the new one: a move whose content changes past the rename
+threshold, as a move that takes the Threads and Arguments out into `deliberation.md` can; a pure
+move shows as a rename (`R100`) and is not listed. The move of `spec@plans@path-quickfixes` into
+its directory, and the move of each slice spec into its own, are no landings, and the harvest says
+so where those horizons count.
 
 **Group B: the heads that state the regime of every reference, which gain one member, the frozen
 location of a milestone's directory, `harvested/`, out of the walk by construction.** Each is rewritten to admit that
@@ -467,7 +478,36 @@ that a SHA a transcript quotes is a quotation, not a citation. Its citing texts:
 
 **Bound, their decision unchanged**: `design@agent-skills@thread-slug-is-entry-id` and
 `design@agent-skills@arguments-as-items`, Group C, since `deliberation.md` keeps the items; the slice
-rewrites only the sentence of each that names the file holding the items, where it names one. Their
+rewrites only the sentence of each that names the file holding the items, where it names one, and
+the scope clause of the first, "cited from inside that document only", to the plan's directory, a
+milestone's slices included, per the rewritten `design@model@plan-item-scope`.
+
+**Found at the slice's design audit, rewritten by its harvest**, beside the groups above, each with
+the texts `cargo klarch show` lists at the harvest:
+
+- `design@agent-skills@design-home-is-built-intent`: a harvested slice is a plan document holding
+  built design, frozen and out of the walk, where the head says a plan document holds decided design
+  not built yet; its citation of `design@model@plan-register` is re-pointed with it.
+- `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`,
+  `design@agent-skills@session-acts-on-the-verdicts` and
+  `design@agent-skills@design-audit-checks-fit`: "What is already decided" keeps only the verdicts
+  whose outcome changed something, with a link to `search/discussion.txt` for the rest, and a
+  design audit's `fit-lines.md` is committed as `search/design-audit.txt` beside the commit message
+  that carries it.
+- `design@check@every-commit-judged-by-the-tip-checker`: the P3 clause is a further source of a
+  commit's failure, which the head's list of sources and its per-commit line gain.
+- `design@check@groups-are-subdirectories`: specs/ keeps its groups, a subdirectory holding a
+  `README.md` being a spec.
+- `design@model@an-entity-belongs-to-its-anchor`: unchanged in its rule, since a slice's directory
+  is no anchor; read by the harvest for any sentence naming a slice file.
+- `design@model@a-placed-name-reads-as-nothing-else`: a spec's directory, not a spec file, is the
+  anchor whose name is placed; a slice's name is placed by no anchor.
+- `design@model@an-unresolved-reference-is-reported`: a citation of a harvested slice or of an item
+  it defines from outside its milestone's directory is a further way, its repair naming the
+  milestone.
+- `design@model@a-file-register-index-is-rows`: the plan types leave the File and Directory shapes;
+  the indexes of specs/ and of a milestone take the form the plan model defines, a milestone's
+  index listing its harvested slices from the definitions read of their frozen `README.md`. Their
 citing texts: of the first, `path@agent-skills@content/skills/design/SKILL.md` and
 `register@query@design`; of the second, none outside this milestone.
 
@@ -521,113 +561,6 @@ whether that argument still stands, per `skill@knowledge-architect-decision-reco
 - Until this slice lands, a slice's spec is deleted at its landing, and the tripwires' horizons count
   that occasion; this slice ends it, and its harvest reads every horizon written on it.
 
-## Threads
-
-### Every plan document is a directory: a spec, a milestone, and each slice inside its milestone `##plan-document-directory`
-
-- Proposed by the owner in round 1, `argument@split-guidelines-and-plan-directories@arg-9` and
-  `argument@split-guidelines-and-plan-directories@arg-11`; shaped by the session in round 1,
-  `argument@split-guidelines-and-plan-directories@arg-27`, on the measurement of
-  `argument@split-guidelines-and-plan-directories@arg-20`.
-- Final state: `argued`.
-- Moved by `argument@split-guidelines-and-plan-directories@arg-45`: adopting projects migrate their
-  plan documents, and `init` writes the new layout; `new-component` writes no plan document.
-- Closed on `argument@split-guidelines-and-plan-directories@arg-53`: the rival, a spec as one file,
-  has no place for the artifacts. The owner's word on the checkpoint table, quoted in the milestone
-  document's Threads, left it standing.
-- Its shape: this spec's "Decided design", and the milestone document's "The plan document's
-  directory". Harvest: this slice's, into `design@model@spec-file-is-an-anchor`,
-  `design@model@milestone-entries-are-directories`, `design@agent-skills@milestone-is-a-directory`
-  and the other heads of Group A.
-
-### Plan documents get model types of their own in `model`, rather than riding on the generic Directory shape `##plan-model-first-class`
-
-- Proposed by the owner in round 1, `argument@split-guidelines-and-plan-directories@arg-14`; shaped by
-  the session in round 1, `argument@split-guidelines-and-plan-directories@arg-31`.
-- Final state: `argued`.
-- Moved by `argument@split-guidelines-and-plan-directories@arg-45`.
-- Closed on `argument@split-guidelines-and-plan-directories@arg-53`: the rival, extending the
-  Directory shape, collides with the owner's ruling that a declared Directory register carries one
-  register, `design@model@declarable-directory-register`. The owner's word on the checkpoint table
-  left it standing.
-- Its shape: this spec's "Decided design". Harvest: this slice's, into `design@model@plan-register`,
-  `design@model@plan-document-kinds`, `design@model@entry-anchor-carries` and the other model heads
-  of Group A, with `rejected@model@subdirectory-anchors-location` read again.
-
-### The first slice migrates the existing plan documents: `spec@plans@path-quickfixes` minimally, this milestone properly `##plan-migration-in-first-slice`
-
-- Proposed by the owner in round 2, `argument@split-guidelines-and-plan-directories@arg-36`, answering
-  Q3, whose default the session had put in round 1, `argument@split-guidelines-and-plan-directories@arg-33`.
-- Final state: `approved`.
-- The owner's words, round 2: "Q3 looks right for now. The first slice will also need to migrate the
-  existing plans, path-quickfixes, and also the milestone we will write in this session. The
-  path-quickfix migration should be kept minimal, the milestone one maybe not, because having it done
-  properly will also provide a first real test of the new structure." Closed by the owner's word on
-  the checkpoint table.
-- Its shape: this spec's "Builds", "This repository", and its mapping table. Harvest: none of its
-  own; the migration is work, and its decision is recorded by the heads of Group A.
-
-## Arguments
-
-### Plan documents as directories hold artifacts of their own `##arg-11`
-
-Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@plan-document-directory`.
-"I think that specs should be one directory, and not just one file. Because standalone specs tend to
-show the same defect, they become very large documents. That would allow them to hold separate data
-as artifacts too, such as the transcript."
-
-### Specs and milestones as first-class models, leaving the Directory shape as it is `##arg-14`
-
-Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@plan-model-first-class`.
-"Implementation wise, I think that we should consider giving plan documents (specs and milestones) and
-their directory structure their own arm of the model, not reusable. They diverge quite a bit from the
-others, with lots of additional items, and we are changing them again. I like the current Directory
-shape that is available for custom registers, so rather than changing it, I think that giving Specs
-and Milestones their own first class models in the model crate is a better direction."
-
-### A directory reopens the rival of `design@model@spec-file-is-an-anchor`, on artifacts with no other home `##arg-27`
-
-Round 1, the session. Bears on `thread@split-guidelines-and-plan-directories@plan-document-directory`.
-"Every plan document becomes a directory. This reopens the rival recorded in
-`design@model@spec-file-is-an-anchor` ("Making every spec a directory was the rival"). The new
-argument is that a plan document now has artifacts with no other home."
-
-### The milestone already departs from the declared Directory shape in three ways `##arg-31`
-
-Round 1, the session. Bears on `thread@split-guidelines-and-plan-directories@plan-model-first-class`.
-"The investigator mapped about 15 code sites across five crates that already special-case plans. The
-milestone already departs from the declared Directory shape in three ways: it carries five registers,
-where a declared Directory register carries one, "on the owner's ruling"; it has no `path` kind; its
-sections are compiled into the checker. Extending the generic shape instead would collide with that
-ruling. One consequence: `rejected@model@subdirectory-anchors-location` partly rests its argument on
-the milestone needing the Directory shape, so that argument has to be read again." The investigator
-was a subagent of round 1 whose report no file keeps; the milestone document's "What the work is"
-re-counts, with a command, the files that name the plan model's constants: 10 files of four crates.
-
-### One milestone, plans first, so the later slices are planned in the new shape `##arg-33`
-
-Round 1, the session, putting Q3. Bears on
-`thread@split-guidelines-and-plan-directories@plan-migration-in-first-slice`. "the default is one
-milestone, slices in this order: 1. plan documents: model, checker, planning skill; 2. split
-guidelines and the two scouts; 3. pre-harvest conformance; 4. the Component argument, and the goal.
-Plans go first so the later slices are planned in the new shape. The catch: this milestone's own
-README would be written in the old shape, so it would be about as large as the ones it fixes."
-
-### A proper migration of this milestone is the first real test of the new structure `##arg-36`
-
-Round 2, the owner. Bears on
-`thread@split-guidelines-and-plan-directories@plan-migration-in-first-slice`. "The first slice will
-also need to migrate the existing plans, path-quickfixes, and also the milestone we will write in this
-session. The path-quickfix migration should be kept minimal, the milestone one maybe not, because
-having it done properly will also provide a first real test of the new structure."
-
-### Adopting projects migrate their plan documents too `##arg-45`
-
-Round 3, the session. Bears on `thread@split-guidelines-and-plan-directories@plan-document-directory`
-and `thread@split-guidelines-and-plan-directories@plan-model-first-class`. "**Adopting projects must
-migrate their plan documents too.** Every pin crossing the release that makes plan documents
-directories gets a Migration entry, and `init` and `create` read the new plan model."
-
 ## New names, in one place
 
 The names this slice proposes for the model; the discussion fixed none of them, and the slice's
@@ -636,7 +569,7 @@ design audit may change any.
 ```
 PlanKind { Spec, Milestone, Slice }        crates/model/src/manifest.rs: the kind of a plan document's directory
 Shape::Plan(PlanKind)                      crates/model/src/manifest.rs: the shape of `spec` and `milestone` in Registers::built_in
-Constructed::Plan(PlanKind)                crates/model/src/entity.rs: the anchor of a spec's or a slice's directory, replacing Constructed::Spec and the milestone's use of Constructed::Entry
+Constructed::Plan(PlanKind)                crates/model/src/entity.rs: the anchor of a spec's or a milestone's directory, replacing Constructed::Spec and the milestone's use of Constructed::Entry; a slice's directory is no anchor
 DELIBERATION_FILE = "deliberation.md"      crates/model/src/manifest.rs
 SEARCH_DIR = "search"                      crates/model/src/manifest.rs: holding discussion.txt and design-audit.txt
 TRANSCRIPT_FILE = "transcript.txt"         crates/model/src/manifest.rs
@@ -694,6 +627,11 @@ first commit with the checker change, per `primer@branch-commits`.
   the verdicts whose outcome changed something.
 - The mock projects and unit tests that hold plan documents in today's layout move to the new one,
   in the same commit, since they fail the new checker until they move.
+- A migrated `README.md` names a file beside it, `deliberation.md`, `transcript.txt` or a file of
+  `search/`, by a relative navigation link, never as a backticked path: the lint of
+  `design@check@unanchored-path-first-segment-here` reads a first segment from the document's own
+  directory, and a `path` reference into a plan's directory is refused. A slice's `README.md`
+  reaches its milestone's `deliberation.md` through the item references alone.
 
 ## Mapping tables
 

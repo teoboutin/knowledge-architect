@@ -12,13 +12,13 @@
 //! `instructions`, is no register: no anchor carries it, and a reference to one names no anchor,
 //! since the harness fixes where each lives, per `design@model@harness-kinds`.
 //!
-//! **An anchor is a named directory, or a spec file, that carries registers.** A component carries every
+//! **An anchor is a named directory that carries registers.** A component carries every
 //! component-scoped register with its homes under `docs/`; a location carries the subset it
 //! declares, with its homes directly under its own path, or at it. Both are the same shape, which is why
 //! `Anchor` holds its register list and its home base as data. Three kinds of location are
 //! constructed by the tool rather than declared: `plans`, at the plans directory, one anchor per
-//! entry of a Directory register, a milestone included, and one per spec file, both read off the
-//! tree.
+//! entry of a declared Directory register, and one per plan document's directory, a spec's or a
+//! milestone's, each read off the tree, per `crate::plan`; a slice's directory is none.
 //!
 //! **The `path` kind is resolved against the tree, not the table.** Its ids are paths, its
 //! anchors are the same anchors but the plan anchors, plus two reserved words, and the check that
@@ -34,8 +34,8 @@ use regex::Regex;
 
 use crate::finding::Finding;
 use crate::manifest::{
-    Manifest, Register, Registers, Shape, CARRIER_DIR, COMPONENT_DOCUMENTS, ITEM_REGISTERS,
-    MILESTONES_HOME, MILESTONE_REGISTER, PLANS_DIR, SLICE_SECTIONS, SPECS_HOME, SPEC_REGISTER,
+    Manifest, PlanKind, Register, Registers, Shape, CARRIER_DIR, COMPONENT_DOCUMENTS,
+    ITEM_REGISTERS, MILESTONES_HOME, MILESTONE_REGISTER, PLANS_DIR, SLICE_SECTIONS, SPEC_REGISTER,
 };
 use crate::model::Model;
 use crate::scan::{Observation, SlugSite};
@@ -253,14 +253,14 @@ pub struct EntryOf {
 pub enum Constructed {
     /// The anchor `plans` at the plans directory. It owes a `README.md` beside its two homes.
     Plans,
-    /// One entry of a Directory register, a milestone among them: a directory under the
-    /// register's home holding a `README.md`. Each register it carries has its home at the
-    /// anchor's own path. A milestone carries the four item registers beside `spec`, and no
-    /// `path` kind, since a plan document is cited by its kind.
+    /// One entry of a declared Directory register: a directory under the register's home holding
+    /// a `README.md`. Each register it carries has its home at the anchor's own path.
     Entry,
-    /// One spec file of specs/. It owns its own file, which stays an entry of the `spec` register
-    /// of `plans` (`Anchors::owns_entry`), and carries the four item registers and no `path` kind.
-    Spec,
+    /// One plan document's directory: a spec of specs/, carrying the four item registers, or a
+    /// milestone, carrying its slices beside them. It carries no `path` kind, since a plan
+    /// document is cited by its kind. A slice's directory is no anchor: its milestone owns every
+    /// file under its own directory, so it owns the slices' items.
+    Plan(PlanKind),
 }
 
 /// The names of the four item registers, as an anchor lists them.
@@ -325,22 +325,36 @@ impl Anchor {
         }
     }
 
-    /// The anchor of one spec file, carrying the items.
+    /// The anchor of one spec's directory, carrying the items.
     pub(crate) fn spec(name: &str, path: &Path) -> Self {
         Self {
-            constructed: Some(Constructed::Spec),
+            constructed: Some(Constructed::Plan(PlanKind::Spec)),
+            entry_of: Some(EntryOf {
+                register: SPEC_REGISTER.to_string(),
+                parent: PLANS_ANCHOR.to_string(),
+            }),
             ..Self::location(name, path, item_registers().collect())
         }
     }
 
-    /// Whether this is a milestone anchor.
-    pub(crate) fn is_milestone(&self) -> bool {
-        self.entry_of
-            .as_ref()
-            .is_some_and(|e| e.register == MILESTONE_REGISTER)
+    /// The anchor of one milestone's directory, carrying its slices and the items.
+    pub(crate) fn milestone(name: &str, path: &Path, register: &Register) -> Self {
+        Self {
+            constructed: Some(Constructed::Plan(PlanKind::Milestone)),
+            entry_of: Some(EntryOf {
+                register: MILESTONE_REGISTER.to_string(),
+                parent: PLANS_ANCHOR.to_string(),
+            }),
+            ..Self::location(name, path, register.carries.clone())
+        }
     }
 
-    /// Whether this is the anchor of an entry of a Directory register, a milestone included.
+    /// Whether this is a milestone anchor.
+    pub fn is_milestone(&self) -> bool {
+        self.constructed == Some(Constructed::Plan(PlanKind::Milestone))
+    }
+
+    /// Whether this is the anchor of an entry of a declared Directory register.
     pub(crate) fn is_entry(&self) -> bool {
         self.constructed == Some(Constructed::Entry)
     }
@@ -356,7 +370,7 @@ impl Anchor {
     /// Whether this is a plan anchor, a milestone or a spec: it carries the item registers and
     /// no `path` kind.
     pub fn is_plan(&self) -> bool {
-        self.is_milestone() || self.constructed == Some(Constructed::Spec)
+        matches!(self.constructed, Some(Constructed::Plan(_)))
     }
 
     /// How a reference names this anchor as a whole, where it is an entry: a milestone as
@@ -367,9 +381,9 @@ impl Anchor {
             .map(|e| format!("{}@{}@{}", e.register, e.parent, self.name))
     }
 
-    /// The level-two sections an entry of `register` owes at this anchor: a slice spec, a `spec`
-    /// entry of a milestone, owes the slice sections, and every other entry its register's own.
-    /// One register owes a list per anchor here, as `home_of` gives its home.
+    /// The level-two sections the `README.md` of an entry of `register` owes at this anchor: a
+    /// slice, a `spec` entry of a milestone, owes the slice sections, and every other entry its
+    /// register's own. One register owes a list per anchor here, as `home_of` gives its home.
     pub fn sections_of(&self, register: &Register) -> Vec<String> {
         if self.is_milestone() && register.name == SPEC_REGISTER {
             return SLICE_SECTIONS.iter().map(|s| s.to_string()).collect();
@@ -395,11 +409,12 @@ impl Anchor {
     ///
     /// An entry keeps each register it carries at its own path, so a heading register's single
     /// file, and the File shape's retired one, is the `<id>.md` beside the entry directory; a
-    /// register declared at its carrier's path has its home at the anchor's own directory too. An
-    /// item register's home is the plan's own documents, which no check asserts: a spec anchor's
-    /// is its file, and a milestone's its directory.
+    /// register declared at its carrier's path has its home at the anchor's own directory too. A
+    /// plan anchor keeps what it carries in its own directory, which has no single-file shape: an
+    /// item register's home is the plan's own documents, which no check asserts, and a
+    /// milestone's slices are directories of its own.
     pub fn home_of(&self, register: &Register) -> Home {
-        let (dir, file) = if self.constructed == Some(Constructed::Spec) {
+        let (dir, file) = if self.is_plan() {
             (self.path.clone(), self.path.clone())
         } else if self.is_entry() {
             (self.path.clone(), self.path.with_extension("md"))
@@ -436,8 +451,9 @@ pub struct Anchors {
 
 impl Anchors {
     /// The anchors of one tree: the components and locations its manifest declares, then the
-    /// anchor `plans`, one anchor per entry directory of a Directory register, a milestone's
-    /// included, and one per spec file the tree holds.
+    /// anchor `plans`, one anchor per milestone's directory and per entry directory of a declared
+    /// Directory register, and one per spec's directory the tree holds. A slice's directory is
+    /// none.
     ///
     /// **`paths` is the tree's listing**, files and directories or files alone: the entry and
     /// spec anchors are read off it, so every caller that builds the anchors of a tree hands in
@@ -464,20 +480,19 @@ impl Anchors {
         let placed = placed_entries(manifest, &paths);
         for entry in placed.iter().filter(|e| e.refusal.is_none()) {
             if let Some(register) = registers.by_name(&entry.register) {
-                list.push(Anchor::entry(
-                    &entry.name,
-                    &entry.path,
-                    register,
-                    &entry.parent,
-                ));
+                list.push(if entry.register == MILESTONE_REGISTER {
+                    Anchor::milestone(&entry.name, &entry.path, register)
+                } else {
+                    Anchor::entry(&entry.name, &entry.path, register, &entry.parent)
+                });
             }
         }
         if manifest.plans() {
             // A spec whose name a milestone refusal would refuse, or that a milestone also
             // holds, is no anchor: one name gives one anchor, and the milestone keeps it. The
-            // collision is clause P2's finding, in phase 2.
+            // collision is a finding of phase 2.
             let milestones = milestone_dirs(paths.iter().copied());
-            for (name, path) in spec_files(paths.iter().copied()) {
+            for (name, path) in crate::plan::spec_dirs(paths.iter().copied()) {
                 if milestone_refusal(&name, manifest).is_none() && !milestones.contains_key(&name) {
                     list.push(Anchor::spec(&name, &path));
                 }
@@ -618,21 +633,12 @@ impl Anchors {
                 .is_some_and(|a| !a.is_plan() && !a.is_entry())
     }
 
-    /// Whether `rel` is an entry of `anchor`'s file register: a file the anchor owns, or a spec
-    /// file, which a spec anchor at exactly its own path owns and which stays an entry of the
-    /// `spec` register that holds it.
+    /// Whether `rel` is an entry of `anchor`'s file register: a file the anchor owns.
     ///
-    /// The one place that case is written: every filter that decides whether a file is an
-    /// entry of a File register asks this, so no later filter forgets a spec.
+    /// Every filter that decides whether a file is an entry of a File register asks this, so a
+    /// file an anchor nested in the home owns is never read as an entry of it.
     pub fn owns_entry(&self, anchor: &Anchor, rel: &Path) -> bool {
-        // A spec anchor owns its own file, by the rule that the deepest anchor owns a document, so
-        // ownership needs no exception and a spec and a milestone behave alike: the plan anchor
-        // owns the plan's documents, and items take one path. An anchor that owned nothing, with
-        // its item scope found apart from ownership, would give a document two notions of its
-        // anchor and items two code paths.
-        let owner = self.owning(rel);
-        owner.path == anchor.path
-            || (owner.constructed == Some(Constructed::Spec) && owner.path == rel)
+        self.owning(rel).path == anchor.path
     }
 
     /// The register home an anchor keeps one register in, or `None` where it carries none.
@@ -764,7 +770,7 @@ pub(crate) fn placed_entries(manifest: &Manifest, paths: &[&PathBuf]) -> Vec<Pla
     // declared entry; a spec that is no anchor, as `Anchors::of` judges it, holds no name.
     let mut specs: Vec<String> = Vec::new();
     if manifest.plans() {
-        for (name, _) in spec_files(paths.iter().copied()) {
+        for (name, _) in crate::plan::spec_dirs(paths.iter().copied()) {
             if milestone_refusal(&name, manifest).is_none() && !out.iter().any(|e| e.name == name) {
                 specs.push(name);
             }
@@ -863,46 +869,6 @@ pub(crate) fn directory_entries<'a>(
     }
     for name in not_files {
         out.remove(&name);
-    }
-    out
-}
-
-/// Whether a path holds a plan document by its position: an entry of specs/, or a file inside
-/// a directory of milestones/.
-fn is_plan_position(rel: &Path) -> bool {
-    let plans = Path::new(PLANS_DIR);
-    if entry_id(rel, &plans.join(SPECS_HOME)).is_some() {
-        return true;
-    }
-    rel.extension().is_some_and(|e| e == "md")
-        && rel
-            .strip_prefix(plans.join(MILESTONES_HOME))
-            .is_ok_and(|inside| inside.components().count() >= 2)
-}
-
-/// Each spec file of specs/, grouped or not, by id: the spec anchors a tree places, before
-/// their names are judged. A second file of one id is the duplicate entry finding, and the
-/// first in path order, which compares components, is the anchor.
-pub(crate) fn spec_files<'a>(
-    paths: impl IntoIterator<Item = &'a PathBuf>,
-) -> BTreeMap<String, PathBuf> {
-    let home = Path::new(PLANS_DIR).join(SPECS_HOME);
-    // A listing of files and directories holds a group directory named like an entry, and a
-    // listing of files alone does not, so a path under which another sits is no spec: every
-    // caller then builds the same anchors.
-    let all: Vec<&PathBuf> = paths.into_iter().collect();
-    let mut found: Vec<&PathBuf> = all
-        .iter()
-        .copied()
-        .filter(|p| entry_id(p, &home).is_some())
-        .filter(|p| !all.iter().any(|q| q != p && q.starts_with(p)))
-        .collect();
-    found.sort();
-    let mut out = BTreeMap::new();
-    for path in found {
-        if let Some(id) = entry_id(path, &home) {
-            out.entry(id).or_insert_with(|| path.clone());
-        }
     }
     out
 }
@@ -1304,6 +1270,11 @@ pub enum Resolution {
     OutsidePlan {
         form: String,
     },
+    /// A harvested slice cited from a file outside its milestone's directory; the milestone's
+    /// whole-document form, which may be cited instead.
+    Harvested {
+        form: String,
+    },
 }
 
 /// The table: every entity defined in the walk, keyed by kind, anchor and id.
@@ -1345,6 +1316,7 @@ impl Entities {
     pub fn build(model: &Model, anchors: &Anchors) -> Self {
         let mut out = Self::default();
         out.heading_definitions(model, anchors);
+        out.frozen_definitions(model, anchors);
         out.file_definitions(model, anchors);
         if anchors.serves_harness() {
             out.harness_definitions(model);
@@ -1365,7 +1337,9 @@ impl Entities {
             // bottom, so they are put in line order once both are done.
             let first = self.findings.len();
             let owner = anchors.owning(&doc.rel);
-            if owner.constructed == Some(Constructed::Plans) && is_plan_position(&doc.rel) {
+            if owner.constructed == Some(Constructed::Plans)
+                && crate::plan::is_plan_position(&doc.rel)
+            {
                 self.unanchored_plan(doc, owner);
                 continue;
             }
@@ -1445,6 +1419,23 @@ impl Entities {
                 }
             }
             self.sort_from(first);
+        }
+    }
+
+    /// The items the frozen files define, under the milestone that owns each, with no finding:
+    /// a frozen file is judged while it is live, and reports nothing once it is frozen, as an
+    /// installed copy reports nothing. A live item that reuses one of its ids is still the
+    /// duplicate finding, at the live site.
+    fn frozen_definitions(&mut self, model: &Model, anchors: &Anchors) {
+        for doc in model.frozen() {
+            let owner = anchors.owning(&doc.rel);
+            if !owner.is_plan() {
+                continue;
+            }
+            let (findings, misplaced) = (self.findings.len(), self.misplaced.len());
+            self.item_definitions(doc, owner, anchors);
+            self.findings.truncate(findings);
+            self.misplaced.truncate(misplaced);
         }
     }
 
@@ -1905,6 +1896,10 @@ impl Entities {
                 self.directory_definitions(model, anchors, anchor, register, &home);
                 continue;
             }
+            if let Shape::Plan(_) = register.shape {
+                self.plan_definitions(model, anchors, anchor, register);
+                continue;
+            }
             if register.shape != Shape::File {
                 continue;
             }
@@ -1915,7 +1910,6 @@ impl Entities {
                 // A document an anchor nested inside this home owns is that anchor's, not
                 // an entry here: the nesting is `manifest::collides`' finding, and reading the
                 // nested anchor's files as entries would report it against the wrong register.
-                // The one exception is a spec file, per `Anchors::owns_entry`.
                 if !anchors.owns_entry(anchor, &doc.rel) {
                     continue;
                 }
@@ -1945,6 +1939,76 @@ impl Entities {
                     .or_default()
                     .push(at);
             }
+        }
+    }
+
+    /// One entity per plan document of a plan register's home, defined at its `README.md`: a
+    /// spec of specs/ and a milestone of milestones/ at the anchor `plans`, and a slice at its
+    /// milestone, a harvested slice's frozen `README.md` included.
+    ///
+    /// A plan document whose `README.md` neither the walk nor the frozen files hold defines
+    /// nothing, as a File entry the walk leaves out defines nothing. Every spec of one id is
+    /// defined, so two are the duplicate entry finding.
+    fn plan_definitions(
+        &mut self,
+        model: &Model,
+        anchors: &Anchors,
+        anchor: &Anchor,
+        register: &Register,
+    ) {
+        let read: Vec<&PathBuf> = model
+            .documents()
+            .iter()
+            .chain(model.frozen())
+            .map(|d| &d.rel)
+            .collect();
+        let held = |rel: &Path| read.iter().any(|r| *r == rel);
+        let dirs: Vec<crate::plan::PlanDir> = match register.shape {
+            Shape::Plan(crate::manifest::PlanKind::Spec) if anchor.is_milestone() => {
+                crate::plan::slices(&anchor.path, read.iter().copied())
+            }
+            Shape::Plan(crate::manifest::PlanKind::Spec) => {
+                crate::plan::spec_dirs_all(read.iter().copied())
+            }
+            Shape::Plan(_) => anchors
+                .all()
+                .iter()
+                .filter(|a| a.is_milestone())
+                .map(|a| crate::plan::PlanDir {
+                    name: a.name.clone(),
+                    path: a.path.clone(),
+                    kind: crate::manifest::PlanKind::Milestone,
+                    harvested: false,
+                })
+                .collect(),
+            _ => Vec::new(),
+        };
+        for dir in dirs {
+            let readme = dir.readme();
+            if !held(&readme) {
+                continue;
+            }
+            if !is_entry_id(&dir.name) {
+                // A frozen file reports nothing, as an installed one does not.
+                if !dir.harvested {
+                    self.findings.push(Finding::in_file(
+                        &readme,
+                        format!(
+                            "`{}` cannot be an entry id of the {} register",
+                            dir.name, register.name
+                        ),
+                        "name the directory in two or more lower-case words joined by hyphens;                          an id no reference can spell is a plan document nothing points at",
+                    ));
+                }
+                continue;
+            }
+            self.defined
+                .entry((Kind::new(&register.name), anchor.name.clone(), dir.name))
+                .or_default()
+                .push(Site {
+                    file: readme,
+                    line: 1,
+                });
         }
     }
 
@@ -1989,7 +2053,12 @@ impl Entities {
         let mut found = Vec::new();
         // An installed copy reports nothing, as `harness_definitions` says, so a stale copy that
         // defines one slug twice leaves its repair to the family `agents` of the last phase.
-        let installed = |file: &Path| model.installed().iter().any(|d| d.rel == file);
+        // A frozen file reports nothing either, so a live item reusing a frozen id is reported at
+        // the live site alone.
+        let installed = |file: &Path| {
+            model.installed().iter().any(|d| d.rel == file)
+                || model.frozen().iter().any(|d| d.rel == file)
+        };
         for ((kind, anchor, id), sites) in &self.defined {
             if sites.len() < 2 {
                 continue;
@@ -2059,26 +2128,42 @@ impl Entities {
             .registers()
             .by_name(kind.name())
             .is_some_and(|r| r.shape == Shape::Section);
-        if let (true, true, Some(citing)) = (item, a.is_plan(), citing) {
-            if anchors.owning(citing).path != a.path {
-                // The whole document that defines the item: a slice spec, when one does, and the
-                // milestone otherwise; an undefined item names the milestone.
-                let slice = self
-                    .defined
-                    .get(&(kind.clone(), anchor.to_string(), id.to_string()))
-                    .and_then(|sites| sites.first())
-                    .filter(|site| site.file.file_name().is_some_and(|n| n != "README.md"))
-                    .and_then(|site| site.file.file_stem())
-                    .map(|stem| stem.to_string_lossy().into_owned());
-                let form = if let (true, Some(slice)) = (a.is_milestone(), slice) {
-                    format!("{SPEC_REGISTER}@{}@{slice}", a.name)
-                } else if a.is_milestone() {
-                    format!("{MILESTONE_REGISTER}@{PLANS_ANCHOR}@{}", a.name)
-                } else {
-                    format!("{SPEC_REGISTER}@{PLANS_ANCHOR}@{}", a.name)
-                };
-                return Resolution::OutsidePlan { form };
-            }
+        let sites = self
+            .defined
+            .get(&(kind.clone(), anchor.to_string(), id.to_string()));
+        let harvested = |site: &Site| crate::plan::is_frozen(&site.file);
+        let outside = citing.is_some_and(|c| anchors.owning(c).path != a.path);
+        let whole_milestone = format!("{MILESTONE_REGISTER}@{PLANS_ANCHOR}@{}", a.name);
+        if let (true, true, true) = (item, a.is_plan(), outside) {
+            // The whole document that defines the item: a live slice, when a file of its
+            // directory does, and the milestone otherwise, a harvested slice's item included, since a harvested slice is
+            // cited from inside its milestone only; an undefined item names the milestone.
+            let slice = sites
+                .and_then(|sites| sites.first())
+                .filter(|site| !harvested(site))
+                .filter(|site| site.file.parent() != Some(a.path.as_path()))
+                .and_then(|site| site.file.parent())
+                .and_then(|dir| dir.file_name())
+                .map(|stem| stem.to_string_lossy().into_owned());
+            let form = if let (true, Some(slice)) = (a.is_milestone(), slice) {
+                format!("{SPEC_REGISTER}@{}@{slice}", a.name)
+            } else if a.is_milestone() {
+                whole_milestone
+            } else {
+                format!("{SPEC_REGISTER}@{PLANS_ANCHOR}@{}", a.name)
+            };
+            return Resolution::OutsidePlan { form };
+        }
+        // A harvested slice is cited from inside its milestone only: from outside, its
+        // milestone is cited whole.
+        if a.is_milestone()
+            && outside
+            && kind.name() == SPEC_REGISTER
+            && sites.is_some_and(|sites| sites.iter().all(harvested))
+        {
+            return Resolution::Harvested {
+                form: whole_milestone,
+            };
         }
         if self
             .defined
@@ -2295,9 +2380,9 @@ mod tests {
         let readme = "# A milestone\n\n## Criteria\n\n### A criterion `##a-crit`\n";
         let step = "# A slice\n\n## Acceptance criteria\n\n### It holds `##it-holds`\n";
         let (e, found) = plan_table(vec![
-            ("docs/plans/specs/a-spec.md", spec),
+            ("docs/plans/specs/a-spec/README.md", spec),
             ("docs/plans/milestones/m-one/README.md", readme),
-            ("docs/plans/milestones/m-one/a-slice.md", step),
+            ("docs/plans/milestones/m-one/a-slice/README.md", step),
         ]);
         assert!(found.is_empty(), "{found:#?}");
         let a = |kind: &str, anchor: &str, id: &str| {
@@ -2309,7 +2394,7 @@ mod tests {
         assert!(!a("thread", "a-spec", "arg-1"));
         assert!(a("criterion", "m-one", "a-crit"));
         assert!(a("acceptance", "m-one", "it-holds"));
-        // The spec file is still an entry of the `spec` register of `plans`.
+        // The spec's directory is still an entry of the `spec` register of `plans`.
         assert!(a("spec", "plans", "a-spec"));
     }
 
@@ -2323,7 +2408,7 @@ mod tests {
             "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n\n#### A detail, no slug\n\n\
                     # Appendix\n\n### After the appendix `##a-stray`\n";
         let (e, found) = plan_table(vec![
-            ("docs/plans/specs/a-spec.md", spec),
+            ("docs/plans/specs/a-spec/README.md", spec),
             ("docs/plans/milestones/m-one/README.md", "# A milestone\n"),
             (
                 "docs/plans/milestones/m-one/tool.rs",
@@ -2354,35 +2439,46 @@ mod tests {
         assert!(!found.iter().any(|f| f.contains("A detail")), "{found:#?}");
     }
 
-    /// The claims found at the review: a group directory named like a spec is no spec, so a
+    /// The claims found at the review: a README.md that is a directory heads no spec, so a
     /// listing of files and directories gives the anchors a listing of files gives; the slugs of
     /// a plan that is no anchor name that cause; and a slug at another level inside an item
-    /// section is reported for its level. Mutations checked: the prefix test dropped from
-    /// `spec_files`; the cause-naming branch dropped; the level branch dropped.
+    /// section is reported for its level. Mutations checked: the `not_files` retain dropped from
+    /// `plan::headed`; the cause-naming branch dropped; the level branch dropped.
     #[test]
-    fn a_spec_anchor_is_a_file_and_an_unanchored_plan_says_so() {
-        let files: Vec<PathBuf> = ["docs/plans/specs/x.md/z.md", "docs/plans/specs/y/x.md"]
-            .iter()
-            .map(PathBuf::from)
-            .collect();
+    fn a_spec_anchor_is_a_directory_and_an_unanchored_plan_says_so() {
+        let files: Vec<PathBuf> = [
+            "docs/plans/specs/x/README.md/z.md",
+            "docs/plans/specs/y/x/README.md",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
         let mut with_dirs = files.clone();
-        for d in ["docs/plans/specs/x.md", "docs/plans/specs/y"] {
+        for d in [
+            "docs/plans/specs/x",
+            "docs/plans/specs/x/README.md",
+            "docs/plans/specs/y",
+            "docs/plans/specs/y/x",
+        ] {
             with_dirs.push(PathBuf::from(d));
         }
-        assert_eq!(spec_files(&files), spec_files(&with_dirs));
+        let spec_dirs = crate::plan::spec_dirs;
+        assert_eq!(spec_dirs(&files), spec_dirs(&with_dirs));
         assert_eq!(
-            spec_files(&with_dirs).get("x"),
-            Some(&PathBuf::from("docs/plans/specs/y/x.md"))
+            spec_dirs(&with_dirs).get("x"),
+            Some(&PathBuf::from("docs/plans/specs/y/x"))
         );
         let (_, found) = plan_table(vec![
             (
-                "docs/plans/specs/Bad_Name.md",
+                "docs/plans/specs/Bad_Name/deliberation.md",
                 "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n",
             ),
+            ("docs/plans/specs/Bad_Name/README.md", "# A spec\n"),
             (
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/deliberation.md",
                 "# A spec\n\n## Threads\n\n#### Too deep `##too-deep`\n",
             ),
+            ("docs/plans/specs/a-spec/README.md", "# A spec\n"),
         ]);
         assert!(
             found
@@ -2397,7 +2493,7 @@ mod tests {
         );
     }
 
-    /// The claims on which spec files are anchors: a spec named like a milestone leaves the
+    /// The claims on which specs are anchors: a spec named like a milestone leaves the
     /// name to the milestone, and one named like a component is no anchor; a plan's name is no
     /// anchor word. Mutations checked: each name test dropped from `Anchors::of`; plan names
     /// counted as anchor words.
@@ -2407,9 +2503,9 @@ mod tests {
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
         let tree: Vec<PathBuf> = [
-            "docs/plans/specs/m-one.md",
-            "docs/plans/specs/a-widget.md",
-            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/m-one/README.md",
+            "docs/plans/specs/a-widget/README.md",
+            "docs/plans/specs/a-spec/README.md",
             "docs/plans/milestones/m-one/README.md",
         ]
         .iter()
@@ -2434,7 +2530,7 @@ mod tests {
         let spec = "# A spec\n\n## Decided design\n\n### A subsection, no slug\n\n\
                     ### A subsection with one `##a-stray`\n\n\
                     ## Threads\n\n### A thread with none\n";
-        let (_, found) = plan_table(vec![("docs/plans/specs/a-spec.md", spec)]);
+        let (_, found) = plan_table(vec![("docs/plans/specs/a-spec/README.md", spec)]);
         assert_eq!(found.len(), 2, "{found:#?}");
         assert!(found
             .iter()
@@ -3677,12 +3773,12 @@ mod tests {
                 "# The project\n\n## Git `##git-workflow`\n\nAll work happens on a branch.\n",
             ),
             (
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/README.md",
                 "# A spec\n\nThe branch follows `##git-workflow` of the root CLAUDE.md.\n",
             ),
         ]);
         let f = one_finding(&found, "`##git-workflow` is written");
-        assert_eq!(f.file, Path::new("docs/plans/specs/a-spec.md"));
+        assert_eq!(f.file, Path::new("docs/plans/specs/a-spec/README.md"));
         assert!(
             f.action.ends_with(
                 "move it there, or delete it, or, to point at it, write `instructions@git-workflow`"
@@ -3702,7 +3798,7 @@ mod tests {
         let spec = "# A spec\n\n## Arguments\n\n### The argument `##the-argument`\n\nBody.\n\n\
                     ## Threads\n\n### A thread `##a-thread`\n\nIt rests on `##the-argument`.\n\n\
                     ### A thread with no slug\n";
-        let found = misplaced(vec![("docs/plans/specs/a-spec.md", spec)]);
+        let found = misplaced(vec![("docs/plans/specs/a-spec/README.md", spec)]);
         // The heading's finding is found first and put after the slug's in line order, so the
         // form follows the slug's finding through that sort.
         let heading = one_finding(&found, "\"A thread with no slug\"");
@@ -3728,17 +3824,17 @@ mod tests {
     fn an_item_of_another_plan_and_a_slug_naming_nothing_keep_the_move_alone() {
         let found = misplaced(vec![
             (
-                "docs/plans/specs/a-spec.md",
+                "docs/plans/specs/a-spec/README.md",
                 "# A spec\n\n## Arguments\n\n### The argument `##the-argument`\n",
             ),
             (
-                "docs/plans/specs/another-spec.md",
+                "docs/plans/specs/another-spec/README.md",
                 "# Another spec\n\nIt reads `##the-argument` and `##names-nothing`.\n",
             ),
         ]);
         for slug in ["`##the-argument`", "`##names-nothing`"] {
             let f = one_finding(&found, &format!("{slug} is written"));
-            assert_eq!(f.file, Path::new("docs/plans/specs/another-spec.md"));
+            assert_eq!(f.file, Path::new("docs/plans/specs/another-spec/README.md"));
             assert!(f.action.ends_with("move it there, or delete it"), "{f:#?}");
         }
     }

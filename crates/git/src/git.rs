@@ -545,6 +545,36 @@ pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>
     Ok(out)
 }
 
+/// The paths under `root` whose content or kind one commit changes against another, relative to
+/// `root`, sorted: a path both trees hold whose blob or mode differs. A path only one tree holds is
+/// no such path, so an addition, a deletion and a move, which is the deletion of one path and the
+/// addition of another, are none of them.
+///
+/// `from` and `to` are full object names of commits. A failure of git is an `Err` carrying git's
+/// reason, per `design@git@failed-git-is-an-error`, since a caller that judges what was modified
+/// reads an empty answer as nothing modified.
+pub fn modified_paths(root: &Path, from: &str, to: &str) -> io::Result<Vec<PathBuf>> {
+    // `--no-renames`, so a move is its two paths whatever a configuration says, and is neither
+    // `M` nor `T`; `--relative`, so a project in a subdirectory of its repository gets its own
+    // paths, relative to it; `-r`, so a path is a file's, never a tree's.
+    let mut out = git(root)
+        .args([
+            "diff-tree",
+            "-r",
+            "-z",
+            "--no-renames",
+            "--relative",
+            "--diff-filter=MT",
+            "--name-only",
+            from,
+            to,
+            "--",
+        ])
+        .paths()?;
+    out.sort();
+    Ok(out)
+}
+
 /// Where `root` sits in the repository's main working tree, when `root` lies in a linked worktree:
 /// the same path relative to the main working tree's top, or `None` in the main working tree, in a
 /// repository whose common directory is not a `.git` directory, or where git cannot say.

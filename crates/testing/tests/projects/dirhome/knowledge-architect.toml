@@ -1,8 +1,11 @@
 # WHAT THIS MOCK EXERCISES, for `klarch`: conformance. Every built-in check runs over it
 # and finds nothing, which is the assertion `planted` cannot make. It carries the directory
 # shape of a heading home — `docs/design/` and `docs/goals/`, each headed by a README linking
-# its subdocument — the only ISSUE instance in any mock that declares a group, and every
-# generated file committed and current. Plant no defect here: this is the project that shows the
+# its subdocument — the only ISSUE instance in any mock that declares a group, every
+# generated file committed and current, and the plans layout whole: a spec's directory, and a
+# milestone with one live slice and one under harvested/, each with its deliberation.md, its
+# search/discussion.txt and its transcript.txt. The .txt files and the harvested slice hold a
+# dangling reference that no check may report, since none of them is in the walk. Plant no defect here: this is the project that shows the
 # checks do not report over a tree that is right.
 
 [project]

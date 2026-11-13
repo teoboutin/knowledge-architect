@@ -1,7 +1,8 @@
 # A spec the mock plans
 
 It names its sibling milestone whole, `milestone@plans@a-milestone`, and that milestone's slice,
-`spec@a-milestone@a-step`.
+`spec@a-milestone@a-step`. Its discussion is [the deliberation](deliberation.md), its search
+[the generated lines](search/discussion.txt) and its source [the transcript](transcript.txt).
 
 ## Status and audience
 
@@ -28,18 +29,6 @@ None.
 ### The plan is checked like any other record `##plan-checked`
 
 Binding.
-
-## Threads
-
-### The mock plans one thing `##one-thing`
-
-Approved: it meets `criterion@a-spec@plan-checked`, argued by `argument@a-spec@arg-1`.
-
-## Arguments
-
-### One thing is enough for a mock `##arg-1`
-
-Bears on `thread@a-spec@one-thing`.
 
 ## New names, in one place
 
