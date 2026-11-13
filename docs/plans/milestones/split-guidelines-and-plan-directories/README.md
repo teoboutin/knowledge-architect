@@ -735,8 +735,12 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   asks and hands in; and slice 1's own search output fails it, since its `generated-lines.md`
   cites the issues the commit that adds this document deletes. D1 defines a frozen file by its
   location instead, and gives the harvested marker the form the discussion had left open. On D1
-  the owner chose to commit, of a search's output, the generated lines only, as a `.txt` file, so
-  that no rule of a frozen location is needed for them. The title above states D1 as ruled.
+  the session recommended committing, of a search's output, the generated lines only, as a `.txt`
+  file, so that no rule of a frozen location is needed for them; the owner approved it, ruling D1.
+  The owner said then that they had understood from the start that one artifact of the search was
+  meant, not its whole directory: the agreement on the shapes in round 4 rested, for `search/`, on
+  that misunderstanding, which the session's sketch, naming "the record search's verdict files"
+  without saying what they hold, had left open. The title above states D1 as ruled.
 - Its shape: "Decided design", "The regime of each file". Built by slice 1; harvest: slice 1's, into
   one head of the regime, which the 13 heads of Group B cite, and a head of its own for the P3
   clause unless the one-decision test of
@@ -1403,7 +1407,8 @@ docs/plans/milestones/<id>/
   its output in the session's scratch space, the whole output holds 8,193,395 bytes, the verdict
   files 1,922,848 holding 617 copied entry blocks for 301 entries, `shown.md` 2,051,313 and the 19
   reports 413,365, where `generated-lines.md` holds 22,581; and a report's quotations go stale as
-  the record changes. Lost to the owner's choice of the generated lines only.
+  the record changes. Lost to the session's recommendation of the generated lines only, which the
+  owner approved.
 - **How a `README.md` reaches the files beside it**: by relative navigation links, which the
   checker resolves in a `README.md`, to `deliberation.md`, `transcript.txt` and `search/`; and an
   item of `deliberation.md` by its item reference, as today.
@@ -1657,8 +1662,9 @@ line of each criterion. One default came from the review of this document:
   `design@check@installed-files-outside-the-walk` makes the installed files. The P3 clause
   becomes: `commits` reports a commit that modifies a file under `harvested/`, other than adding
   it, deleting it, or the move that freezes a slice. The regime is one head, which the 13 heads of
-  Group B cite. The owner replaced the part of the default on the search's output: the owner chose
-  to commit, of a search's output, only the generated lines, `generated-lines.md` of the
+  Group B cite. The part of the default on the search's output was replaced on the session's
+  recommendation, which the owner approved: a plan directory commits, of a search's output, only
+  the generated lines, `generated-lines.md` of the
   discussion's search and `fit-lines.md` of a design audit, each as `search/<occasion>.txt`, which
   the walk never parses, as it never parses `transcript.txt`, so neither needs the rule of a frozen
   location. What D1 changes from what the owner agreed to in round 4: "judged when written" becomes

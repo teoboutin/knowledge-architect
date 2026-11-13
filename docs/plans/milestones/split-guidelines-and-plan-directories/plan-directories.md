@@ -59,7 +59,8 @@ work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and
   filter it hands `owed_documents` admits the new Component alone, and is left unchanged.
 - **The shipped text**:
   - the planning skill: its terms, its layout, what a spec holds and in which file, the assembly
-    (the transcript ending at the message where the plan document is committed, the removal step,
+    (the transcript ending at the owner's last message before the branch that adds the plan
+    document merges, so that the rulings given at its review are in it, the removal step,
     which removes every path under a home directory, every e-mail address, every credential and
     token, and the pasted material the owner marks, then the transcript shown to the owner and
     pushed only on the owner's word for that transcript; the owner's words attributed, citing the
@@ -530,7 +531,7 @@ whether that argument still stands, per `skill@knowledge-architect-decision-reco
   `argument@split-guidelines-and-plan-directories@arg-20`.
 - Final state: `argued`.
 - Moved by `argument@split-guidelines-and-plan-directories@arg-45`: adopting projects migrate their
-  plan documents, and `init` and `new-component` write the new layout.
+  plan documents, and `init` writes the new layout; `new-component` writes no plan document.
 - Closed on `argument@split-guidelines-and-plan-directories@arg-53`: the rival, a spec as one file,
   has no place for the artifacts. The owner's word on the checkpoint table, quoted in the milestone
   document's Threads, left it standing.
