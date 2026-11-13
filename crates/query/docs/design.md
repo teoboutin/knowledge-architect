@@ -23,9 +23,11 @@ every gate, so a reader of this head is what catches it. A command that needs a 
 manifest and the tree's listing as every check builds them: its name, its kind and its path, and,
 under every anchor but a plan's, each register it carries with the home the tree holds,
 the file, the directory, both, or `missing`. An entry's kind is the Directory register it is an
-entry of. A milestone and a spec list no register: a plan
-anchor's registers keep their homes inside the plan itself, its sections, or a milestone's own
-directory for its slice specs. A home is judged held by the rule phase 2 of a run judges it by, over the
+entry of, and a plan anchor's kind is its plan type: each spec's directory is listed as a `spec`
+and each milestone's as a `milestone`, and a slice's directory, which is no anchor, is not listed.
+A milestone and a spec list no register: a plan
+anchor's registers keep their homes inside the plan itself, the sections of its `README.md` and its
+`deliberation.md`, or a milestone's own directory for its slices. A home is judged held by the rule phase 2 of a run judges it by, over the
 same listing, so the two agree on what a project carries. It exits 1 when a home is missing, a negative answer
 about the project, per `design@cli@exit-code-ladder`. Its output is for a reader and is not a
 contract, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
@@ -75,7 +77,10 @@ The record holds every entry of `goal`, `design`, `rejected`, `issue`, `tripwire
 register a project declares, in every anchor, a location's included. An edge is a reference written
 inside an entry's own text, the section of a heading entry or the file of a file entry, to another
 entry; a home's prose outside every entry yields none, and membership reads an edge either way. Plan
-documents and their items are no part of it: they are deliberation, and leave when their work lands.
+documents and their items are no part of it, a harvested slice's frozen files included: they are
+deliberation, or design whose head the harvest writes, and they leave the tree, a spec and a
+milestone when their work lands, a harvested slice with its milestone, per
+`design@model@a-harvested-slice-is-frozen`.
 Agent-facing text is no part of it either: a decision stated by one text of it earns no head under
 entry test 2 of `primer@design-heads`, its reader is the session that edits that text and reads it
 whole, and the installed text cites no entry, so in an adopting project it would add nodes with no
@@ -282,10 +287,13 @@ marked, since the record is the registers' entries, per `design@query@record-is-
 
 ### `worklist --seeds-from` seeds from a plan document's section "What is already decided", its decisions only `##seeds-from-the-plan-s-decided-section`
 
-`--seeds-from <plan>` takes a spec, a slice's spec or a milestone document, and adds as seeds the
-design entries and the declared-register entries its section "What is already decided" cites, no
-goal and no `rejected` entry; it combines with `--seed`, is refused where the path is no plan
-document, and writes the plan document into `work.txt`, which makes the run an audit for `--verify`.
+`--seeds-from <plan>` takes a spec's, a slice's or a milestone's directory, or its `README.md`, and
+adds as seeds the design entries and the declared-register entries the section "What is already
+decided" of that `README.md` cites, no goal and no `rejected` entry; a slice's `README.md` holds a
+section of its own, so a slice's audit is seeded from its own decisions. It combines with `--seed`,
+is refused where the path is no live plan document, a harvested slice's included, whose decisions
+its harvest has written, and writes the plan document's `README.md` into `work.txt`, which makes the
+run an audit for `--verify`.
 
 It serves `goal@tasks-a-tool-does-better-are-the-tool-s`: the design audit's seeds are
 read from the tree by a command, per `design@agent-skills@seeds-name-decisions`, which decides that a

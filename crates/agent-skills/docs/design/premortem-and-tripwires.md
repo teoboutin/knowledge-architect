@@ -111,8 +111,11 @@ where it admitted none of the 25 found anyway, which is the rule on slips' secon
 
 A tripwire carries a fourth line, `**Watches until:**`, naming the first occasions that exercise its
 decision, counted by a command over the history from the commit that wrote the line: commits that
-change a named path or the guarded head, release tags, audit reports of an axis, plan documents
-deleted at their landing, or one event the tree shows. A relocation, a commit whose added lines
+change a named path or the guarded head, release tags, audit reports of an axis, specs and
+milestones deleted at their landing, or one event the tree shows. A slice's spec moved under its
+milestone's `harvested/` is no such occasion, since it lands with no deletion, per
+`design@agent-skills@harvested-slice-kept`, and neither is the move of a plan document into a
+directory of its own, which lands no work. A relocation, a commit whose added lines
 are exactly the lines it removes, is no occasion: it exercises no decision, and a command counting
 changed paths or added headings would otherwise count it. A commit that only removes lines is no
 relocation, since a removal can exercise the decision. Its length is the writer's judgement;

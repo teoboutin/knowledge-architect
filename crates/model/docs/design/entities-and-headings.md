@@ -52,8 +52,8 @@ any heading register the project declares, each in either shape of
 `design@check@heading-register-two-shapes`: the single file, or a subdocument of the directory.
 The directory's `README.md` is the head: it defines nothing and owes no slug, for every register
 and not only design. A plan's items are the one register family read otherwise: their home is the
-plan's own documents, a milestone's README included, and the section a heading sits under gives
-its kind, per `design@model@items-as-section-registers`. Which anchor owns a definition is where its document sits, per
+`README.md` and the `deliberation.md` of each plan document of the plan's directory, and the section
+a heading sits under gives its kind, per `design@model@items-as-section-registers`. Which anchor owns a definition is where its document sits, per
 `design@model@an-entity-belongs-to-its-anchor`.
 
 **The section homes of the harness keep the same rule at level two**, a skill's, an agent's, the
@@ -188,16 +188,18 @@ The designs this decision did not keep: `rejected@model@project-wide-unique-slug
 
 ### A reference that resolves to nothing is reported, with the repair its failing segment needs `##an-unresolved-reference-is-reported`
 
-**A reference resolves to nothing in five ways, and each is reported as the repair it needs.**
+**A reference resolves to nothing in six ways, and each is reported as the repair it needs.**
 The kind position holds an anchor, the old form, and the repair names the kinds; the anchor is
 not declared, and the repair lists the anchors; the anchor is declared and carries no register of
 that kind, and the repair lists the anchors that do; an item of a plan is cited from outside that
-plan, and the repair names the whole document, per `design@model@plan-item-scope`; the anchor
-carries the register and does not define that id, and the reference is dangling. One finding for
-all five would send a reader to check the wrong segment of the pointer most of the time. The third
-way is reached by any anchor that does not carry the register: a location that does not declare
-it, or a component naming an opt-in register, as the `spec` register only the anchor `plans`
-carries. A kind resolved outside the table has ways of its own, each reported as the repair it
+plan, and the repair names the whole document, per `design@model@plan-item-scope`, the milestone
+for an item a harvested slice defines; a harvested slice is cited from outside its milestone's
+directory, and the repair names the milestone whole, per `design@model@a-harvested-slice-is-frozen`;
+the anchor carries the register and does not define that id, and the reference is dangling. One
+finding for all six would send a reader to check the wrong segment of the pointer most of the time.
+The third way is reached by any anchor that does not carry the register: a location that does not
+declare it, or a component naming an opt-in register, as the `spec` register only the anchor
+`plans` and the milestones carry. A kind resolved outside the table has ways of its own, each reported as the repair it
 needs: `path` and `planned` against the tree, per `design@check@every-path-names-its-anchor` and
 `design@model@planned-path-form`, and `register` against the anchors, per
 `design@model@register-home-reference`.
@@ -222,8 +224,8 @@ judged again.
 
 ### A span read as a reference is recorded and reported when it resolves to nothing, never dropped `##an-unresolved-reference-is-never-dropped`
 
-A span the candidate rule reads as a reference stays in the model whatever it resolves to, and one
-that resolves to nothing is a finding, whose repair is
+A span the candidate rule reads as a reference, in a file the walk reads, stays in the model
+whatever it resolves to, and one that resolves to nothing is a finding, whose repair is
 `design@model@an-unresolved-reference-is-reported`'s. The scanner could require a resolvable shape
 and see nothing without one, which needs no finding and no migration. It would also mean every
 pointer written in an older form with an `@`, as `<anchor>@<path>`, stops being checked with
@@ -231,4 +233,6 @@ nothing saying so; the older form with no `@`, a slug with a hash sign, is read 
 `design@check@hash-slug-span-read-by-no-lint`. A silent false negative passes a tree that does not
 conform, against `goal@documentation-stays-consistent`: a tree that passes the checker conforms to
 the reference grammar in the texts the checker reads, save what a declaration switches off. The
+frozen files of a harvested slice are none of those texts: they leave the walk, and are parsed for
+their definitions alone, per `design@model@a-harvested-slice-is-frozen`. The
 candidate rule that bounds this is `design@model@at-span-candidate-rule`.

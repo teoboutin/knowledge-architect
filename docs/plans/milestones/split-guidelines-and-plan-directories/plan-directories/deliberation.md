@@ -15,7 +15,7 @@
   has no place for the artifacts. The owner's word on the checkpoint table, attributed in the
   milestone's Threads, left it standing.
 - Its shape: this spec's "Decided design", and the milestone document's "The plan document's
-  directory". Harvest: this slice's, into `design@model@spec-file-is-an-anchor`,
+  directory". Harvest: this slice's, into `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`),
   `design@model@milestone-entries-are-directories`, `design@agent-skills@milestone-is-a-directory`
   and the other heads of Group A.
 
@@ -63,11 +63,11 @@ again. The owner liked the Directory shape available to a project's own register
 rather than changing it, giving specs and milestones first-class models of their own in the model
 crate is a better direction.
 
-### A directory reopens the rival of `design@model@spec-file-is-an-anchor`, on artifacts with no other home `##arg-27`
+### A directory reopens the rival of `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`), on artifacts with no other home `##arg-27`
 
 Round 1, the session. Bears on `thread@split-guidelines-and-plan-directories@plan-document-directory`.
 "Every plan document becomes a directory. This reopens the rival recorded in
-`design@model@spec-file-is-an-anchor` ("Making every spec a directory was the rival"). The new
+`spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`) ("Making every spec a directory was the rival"). The new
 argument is that a plan document now has artifacts with no other home."
 
 ### The milestone already departs from the declared Directory shape in three ways `##arg-31`

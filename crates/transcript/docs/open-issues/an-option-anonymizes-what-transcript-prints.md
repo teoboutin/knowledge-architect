@@ -20,8 +20,8 @@ in tool results, in agents' reports and in the session's own replies: of the 4,3
 `klarch transcript show --full` printed for the session of the discussion that designed that
 milestone, 148 hold the string `/home/`, by `grep -c` over the extraction. They also quote the SHAs of
 commits the conversation names, among them commits of the branch under way, which
-`design@knowledge-architect@no-branch-sha-is-cited` refuses as citations in a document; the
-milestone rewrites that head so a SHA a transcript quotes is no citation.
+`design@knowledge-architect@no-branch-sha-is-cited` refuses as citations in a document; per that
+head, a SHA a transcript quotes is a quotation, not a citation.
 
 The work: an option of `show`, its name and its exact replacements decided by a discussion, that
 prints the output with each path under the home directory written relative to it, and each SHA of a

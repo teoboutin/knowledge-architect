@@ -28,7 +28,9 @@ Five things are compiled in, and none of them describes a project:
   `design@check@import-on-first-line`, then its title, since what every root would say alike is the
   primer's, per `design@agent-skills@primer-limit`.
 - **Where plan documents live**: the anchor `plans` at docs/plans/ of the root and its two
-  registers, per `design@model@plans-dir-fixed`. It is the tool's convention for a kind of
+  plan types, per `design@model@plans-dir-fixed`, with the layout of a plan document's directory
+  and its one frozen location, a milestone's harvested/, which leaves the walk by construction,
+  per `design@model@a-harvested-slice-is-frozen`. It is the tool's convention for a kind of
   document every project has, not a fact about one project.
 - **The directory of each Component of the tool's own source**, so that its string literals are
   read as data, per `design@check@checker-source-literals-are-data`.
@@ -168,7 +170,7 @@ The rules over documents are compiled in and the manifest declares nothing about
 conformance of a document means the same thing in every tree this tool checks. There is no flag, no
 list and no severity: a rule either holds over a document or the run fails. The constraint derives
 from `goal@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
-`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has.
+`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which `commits` refuses an edit of them, per `design@check@a-frozen-file-is-never-modified`.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
@@ -183,6 +185,8 @@ document the project carries is checked exactly as under the default.
 
 **An exemption, where an extension offers one, names FILES rather than rules.** `check` offers
 none. A file named is one that is leaving the tree, so the exemption expires with its subject; a
-rule held back would have applied to every file and expired with nothing. That asymmetry is the
+rule held back would have applied to every file and expired with nothing. The files of a
+harvested slice, which no rule of `check` reads once the slice is frozen, leave the tree with their
+milestone, so the same asymmetry holds of them. That asymmetry is the
 whole of it — exempting a document that is about to be deleted costs the guarantee nothing, and
 exempting a rule costs it everywhere at once.

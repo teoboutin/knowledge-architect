@@ -213,7 +213,7 @@ rewritten by the slice, the planning skill among them, is judged by the step tha
   `path@check@src/check/references.rs` (2 sites), `path@model@docs/design/entities-and-headings.md`,
   `path@model@docs/design/plan-documents.md`.
 - `design@model@items-as-section-registers`: `path@model@docs/design/entities-and-headings.md`.
-- `design@model@spec-file-is-an-anchor`: `path@check@README.md`,
+- `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`): `path@check@README.md`,
   `path@model@docs/design/anchors.md`.
 - `design@model@milestone-entries-are-directories`: `path@model@docs/design/plan-documents.md`,
   `path@model@src/manifest.rs`.
@@ -319,7 +319,7 @@ decided design; the slice's design audit checks each reading against the head re
   harvested slice's items included.
 - `design@model@items-as-section-registers`: an item register's home is the `README.md` and the
   `deliberation.md` of a plan's directory, a frozen file counting for definitions only.
-- `design@model@spec-file-is-an-anchor`: a spec's directory is its anchor; the incumbent, a spec
+- `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`): a spec's directory is its anchor; the incumbent, a spec
   file as its anchor, becomes the rival that lost.
 - `design@model@milestone-entries-are-directories`: a milestone is a plan type of its own carrying
   one directory per slice and the four item registers, no longer an entry of the Directory shape.
@@ -598,11 +598,11 @@ milestone document's "The plan document's directory". What this slice adds to it
 - a spec of specs/ and a slice of a milestone take the same shape, `README.md` and the files beside
   it, so the planning skill states one shape of a plan document's directory;
 - the anchor of a spec is its directory, and its items are cited by its id, as today's
-  `design@model@spec-file-is-an-anchor` states for a spec file;
+  `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`) states for a spec file;
 - adopting projects move their plan documents into directories too, by the Migration entry of this
   slice's CHANGELOG.md; `klarch init` writes the new layout, and `klarch new-component` writes no
   plan document, per `argument@split-guidelines-and-plan-directories@arg-45`;
-- the nearest rival, a spec as one file, which `design@model@spec-file-is-an-anchor` chose, lost to the
+- the nearest rival, a spec as one file, which `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`) chose, lost to the
   artifacts a plan document now has, `deliberation.md`, `search/` and `transcript.txt`, which a file
   cannot hold beside it without a second home for each.
 
@@ -706,7 +706,7 @@ the slice starts; a plan document added later is mapped by the same rule.
 - **Losing alternatives**: those above and those of the milestone document's threads this slice
   builds, judged by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`.
   A lead from the review of the plan: a spec as one file, the incumbent of
-  `design@model@spec-file-is-an-anchor`, is a layout adopting projects write
+  `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`), is a layout adopting projects write
   (`argument@split-guidelines-and-plan-directories@arg-45`), so it may meet test 1 once reversed;
   and the owner's words verbatim in plan items, the incumbent of
   `design@agent-skills@plan-records-the-exchange`, rests on the slip counts of the closed issue,

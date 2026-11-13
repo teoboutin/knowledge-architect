@@ -145,9 +145,9 @@ docs/plans/
          └─ <slice>/       the spec of a landed slice, frozen
 ```
 
-%% The layout and the anchors: `design@agent-skills@milestone-is-a-directory`, and for the files
-%% beside a README the decided design of `milestone@plans@split-guidelines-and-plan-directories`,
-%% which slice 1's harvest writes into heads.
+%% The layout and the anchors: `design@agent-skills@milestone-is-a-directory`; the files beside a
+%% README: `design@agent-skills@discussion-record-apart`; the frozen files under `harvested/`:
+%% `design@model@a-harvested-slice-is-frozen`.
 %% A README holds the document because the checker resolves a relative link only there.
 **What each file of a plan document's directory holds**, a slice's directory included:
 
@@ -256,8 +256,7 @@ with every slice the milestone has.
 - A design session held at a slice's audit writes its design into that slice's spec, and what it
   decides for later slices into theirs.
 
-%% P2 of the premortem of `milestone@plans@split-guidelines-and-plan-directories`, converted into
-%% this clause; its head is written by that milestone's first harvest.
+%% The clause and its reason: `design@agent-skills@discussion-record-apart`.
 **Every condition of a decided thread is in the decided design of a document the search reads**,
 the `README.md` of the spec, of the milestone or of the slice; `deliberation.md` holds only the
 argument. A slice's design audit searches the record with the two `README.md` files as its work
@@ -287,7 +286,8 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 
 %% Arguments are never harvested as entries, so a content slug would cost a name for each of dozens
 %% of statements, for nothing; the numbers are assigned at assembly, and the discussion mints none.
-%% A milestone's README and its slice specs share one namespace, per `design@model@plan-items-by-section`.
+%% A milestone's documents and its slices', harvested ones included, share one namespace, per
+%% `design@model@plan-items-by-section`.
 - An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. A thread keeps the slug the discussion minted.
   An argument is numbered `arg-1`, `arg-2`, …, in order of appearance and never reused, in one sequence
   across the documents of a milestone's directory, its harvested slices included, which share one
@@ -327,9 +327,9 @@ its round. Where the harness keeps no
 transcript, assemble from the conversation, and say so, and why, in the commit that adds the
 document.
 
-%% The verbatim words in a committed transcript, and attributions in the items: the decided design
-%% of `milestone@plans@split-guidelines-and-plan-directories`, which reverses
-%% `design@agent-skills@plan-records-the-exchange` on that point at its first harvest.
+%% The verbatim words in a committed transcript, and attributions in the items:
+%% `design@agent-skills@committed-transcript` and `design@agent-skills@attribution-replaces-quotation`;
+%% the generated lines alone committed: `design@agent-skills@plan-commits-the-generated-lines`.
 - **The owner's words are attributed in the items**, as `primer@design-heads` says of a durable
   record, each citing its round; the verbatim words are in `transcript.txt`.
 - **The discussion's record search** leaves, of what `{{command}} worklist` writes, only
@@ -691,9 +691,8 @@ This list is their one home; the reviewer reads it here.
 
 ## When a plan document leaves {{slug:plan-document-leaves}}
 
-%% A slice harvested rather than deleted, and the milestone's directory leaving whole: the decided
-%% design of `milestone@plans@split-guidelines-and-plan-directories`, which rewrites
-%% `design@agent-skills@plan-document-leaves-at-landing` at its first harvest.
+%% A slice harvested rather than deleted: `design@agent-skills@harvested-slice-kept`; a spec and the
+%% milestone's directory leaving whole: `design@agent-skills@plan-document-leaves-at-landing`.
 **A spec or a milestone is deleted, its whole directory, in a commit of its own, once its last
 harvest is complete and the review before the merge has read the tip that holds it, and that
 commit's message cites it by its kind**, `spec@plans@<id>` or `milestone@plans@<id>`, which

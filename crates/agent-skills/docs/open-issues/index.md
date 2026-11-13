@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-63 entries
+64 entries
 
 | kind | title |
 | --- | --- |
@@ -8,6 +8,7 @@
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
+| deferred | [The attribution slips of the next release's retrospectives are not counted against the regime of committed transcripts](attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts.md) |
 | deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
 | deferred | [A dispatched agent writes its report once, at the end, where a file written as it works and annotated by its verifier could fill the gaps](dispatched-agents-write-their-report-as-they-work.md) |
 | deferred | [How parallel work is partitioned among agents, who commits and how the parts are merged, is not designed](how-parallel-work-is-partitioned-among-agents.md) |

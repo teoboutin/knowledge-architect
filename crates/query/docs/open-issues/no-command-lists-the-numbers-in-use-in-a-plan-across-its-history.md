@@ -1,13 +1,13 @@
 ---
 kind: todo
 ---
-# No command lists the item and label numbers in use in a plan, its deleted documents included
+# No command lists the item and label numbers in use in a plan
 
 ## Summary
 
 A plan's items and its labels take the next number of their prefix and never reuse one, across a
-milestone's documents, slice specs that have left included. A session finds the next free number
-by searching the plan's history by hand. No command lists the highest number in use per prefix.
+milestone's documents, its harvested slices included. A session finds the next free number by
+searching the plan's files by hand. No command lists the highest number in use per prefix.
 
 ## Details
 
@@ -19,22 +19,25 @@ by searching the plan's history by hand. No command lists the highest number in 
 - `skill@knowledge-architect-planning` numbers arguments "in one sequence across a milestone's README
   and its slice specs".
 - The checker's duplicate check, `design@model@plan-items-by-section`, sees the documents in the
-  tree only.
-- The instance: a session in rootpoint found the next argument number, the next criterion id and the
-  next numbers of five label prefixes by searching `git log -p` over the milestone's directory.
+  tree, a harvested slice's frozen files included, per `design@model@a-harvested-slice-is-frozen`:
+  a milestone keeps every slice's directory until it leaves, so an item number reused across its
+  slices is reported. No check reads a label's number.
+- The instance, from before slices were kept under harvested/: a session in rootpoint found the
+  next argument number, the next criterion id and the next numbers of five label prefixes by
+  searching `git log -p` over the milestone's directory.
   Reported in that session's retrospective, analysed at the intake of 2026-10-24. `cargo klarch
   --help` lists no such command.
 
 ### Why it matters
 
-A number reused across a deleted spec makes two items of one plan share a name in its history, which
-no check sees, against `goal@tasks-a-tool-does-better-are-the-tool-s`: finding the numbers in use is a task with no judgement the installed text asks. The search by hand over `git log -p` is a task of the kind
+A label number reused in a plan makes two items put to the owner share a name, which no check
+sees, against `goal@tasks-a-tool-does-better-are-the-tool-s`: finding the numbers in use is a task with no judgement the installed text asks. The search by hand over the plan's files is a task of the kind
 `goal@tasks-a-tool-does-better-are-the-tool-s` gives the published checker.
 
 ### What would close it
 
 A command, shaped under `design@check@one-question-one-command`, that prints per prefix the highest
-number in use in a plan and its deleted documents, tested over a mock milestone whose deleted slice
-spec holds the highest number; or `commits` checking the numbers unique across the plan's history,
+number in use in a plan, tested over a mock milestone whose harvested slice holds the highest
+number; or `check` reporting a label number reused in a plan,
 a rival that reports a reused number where the command lets a session avoid it; or the owner's
 ruling that the search by hand stays.

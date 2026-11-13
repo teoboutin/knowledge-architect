@@ -49,7 +49,8 @@ wrong finding and cannot lose a reference or a path it held.
 ### A reference is live wherever it is prose, fenced blocks included, for every kind `##a-reference-is-live-in-every-prose`
 
 In every file the walk reads: a sketch names what it names on purpose, and an illustration writes a placeholder in angle
-brackets, which the tokenizer does not record. Reading a fenced slug reference as an illustration is
+brackets, which the tokenizer does not record. The frozen files of a harvested slice leave the walk,
+and are parsed for their definitions alone, per `design@model@a-harvested-slice-is-frozen`. Reading a fenced slug reference as an illustration is
 `rejected@model@fenced-reference-as-illustration`. A string literal bound to a name in Rust yields no
 reference, per `design@model@grammars-not-prefixes`. Checking the literal parts of a placeholder
 span is `rejected@model@placeholder-literal-part-check`.

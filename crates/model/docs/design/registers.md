@@ -135,14 +135,18 @@ both the entry's document and the head of that home: it links every file of a ca
 register and defines no slug, per `design@check@heading-register-two-shapes`. The single-file shape
 would be `<id>.md` beside the entry directory, so a heading register at an entry would have two
 homes, which that head refuses: `<id>.md` beside an entry is a phase-2 finding. A file register an
-entry carries keeps its generated `index.md` in the entry, as a milestone's slice specs do.
+entry carries keeps its generated `index.md` in the entry. The rule is a declared Directory
+register's alone: a plan document is no entry of that shape, per
+`design@model@plan-model-first-class`.
 
 ### An entry of a declared Directory register carries `path`, and its directory and README are named by the entry's reference `##entry-anchor-path-kind`
 
 A file inside an entry, other than its README, is no entry of any register: it is a subdocument of
 the heading register the entry carries, so a `path` is its only name, `path@<entry>@<file>`. The
-rival is the plan anchors' rule, which carries no `path` kind because every plan document has a
-kind's name, per `design@model@plan-document-kinds`; a subject's file has none. The entry's directory
+rule is a declared Directory register's alone. The rival is the plan anchors' rule, which carries no
+`path` kind because every plan document has a kind's name, and the files beside it are reached from
+it by relative links, per `design@model@plan-document-kinds`; a subject's file has no kind's name,
+and texts outside its entry cite it. The entry's directory
 and its README are the entry itself, so a `path` or a `register` reference to either is a finding
 whose repair names `<register>@<parent>@<id>`, per `design@model@path-to-a-home-is-reported` and
 `design@model@register-home-reference`: one directory has one name, so `show` finds every citation.

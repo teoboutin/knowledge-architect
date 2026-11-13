@@ -50,7 +50,11 @@ document holds decided design that is not built yet, and each decision moves int
 the landing of the work that builds it, not when the spec is written. While the work is open, the
 spec or the milestone document, on the main branch or on the work's, is the only place the
 decision exists. A decision that no work implements, such as a policy, and that is not part of
-any spec, counts as built intent, since nothing waits to be built, and is recorded when it is made. The rival, a design home holding intent built or not, needs a
+any spec, counts as built intent, since nothing waits to be built, and is recorded when it is made.
+A slice's spec kept under its milestone's `harvested/` holds design that is built, and is no design
+home: it is frozen and out of the walk, per `design@model@a-harvested-slice-is-frozen`, its decisions
+are in the design homes since its harvest, and a design home wins over it where they disagree, as
+every plan document's status section says. The rival, a design home holding intent built or not, needs a
 marker on every entry to tell the two apart, and checking the code against an unbuilt entry reports
 a defect in code nobody has written. Unbuilt intent has a checked home because plan documents are a
 structure the checker reads, per `design@model@plan-register`. This serves
@@ -111,8 +115,8 @@ reopen it, which is the goal it derives a constraint from, as a reference with t
 stated in one sentence beside it, a decision of another Component it depends on, as a reference,
 the measurement it rests on, with the command that takes it again, and
 the fact that defeated its nearest rival. The deliberation, which is what was weighed, in which
-order, what evidence was built and who ruled what, stays in the spec while the spec exists, and in
-history after that. What the owner brought lands in the head by its kind, per
+order, what evidence was built and who ruled what, stays in the `deliberation.md` of the plan
+document while it exists, a slice's until its milestone leaves, and in history after that. What the owner brought lands in the head by its kind, per
 `design@agent-skills@heads-stand-on-argument`. A decision taken with no spec carries its deliberation in its commit
 message.
 
@@ -120,10 +124,12 @@ message.
 tell what a change costs without deriving the argument again, so the premises a reversal must
 defeat are in the head. The deliberation is not, because every session reads the design homes
 before it changes code, and a head that carried its whole deliberation would make that read cost
-the length of every discussion ever held. History serves the reader who needs it, because a spec leaves when its work lands, per
-`design@agent-skills@plan-document-leaves-at-landing`: a deleted spec is
-listed by `git log --diff-filter=D` on the plans directory, and its last state is one `git show`
-away.
+the length of every discussion ever held. History serves the reader who needs it, because a spec
+or a milestone leaves when its work lands, per
+`design@agent-skills@plan-document-leaves-at-landing`: a deleted plan document is listed by
+`git log --diff-filter=D` on the plans directory, and its last state is one `git show` away; a
+landed slice's spec stays under its milestone's `harvested/` until then, per
+`design@agent-skills@harvested-slice-kept`.
 
 The constraint is stated beside the reference to the goal because a goal states a direction and
 leaves a question of when, how much or by what means to design, per
@@ -218,13 +224,13 @@ The rival of its second half, an approval at a fork recorded as the owner's choi
 the owner a weighing the owner did not make.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
-### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document or a file that leaves `##attribution-replaces-quotation`
+### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document's committed transcript or a file that leaves `##attribution-replaces-quotation`
 
-`primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry
-and an issue entry state what the owner decided and how far the decision reaches, never the owner's words verbatim.
-The verbatim words stay where the deliberation is kept: a plan document's items, per
-`design@agent-skills@plan-records-the-exchange`, and a committed file that leaves once its outcomes
-are carried out, per `design@agent-skills@committed-audit-report`. An attribution is checked against
+`primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry,
+an issue entry and a plan document's items state what the owner decided and how far the decision
+reaches, never the owner's words verbatim. The verbatim words stay in a plan document's committed
+transcript, per `design@agent-skills@committed-transcript`, and in a committed file that leaves
+once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An attribution is checked against
 the question it answered, as a quotation is: by its writer, with the owner's words beside it, at
 the close of the decision-recording skill,
 `skill@knowledge-architect-decision-recording@before-you-finish`, and by the transcript reviewer,
@@ -249,7 +255,9 @@ repository, a paraphrase of the owner in `design@agent-skills@transcript-reviewe
 misstated the owner's request, and a quotation replaced it, in the commit "[review] The last
 transcript review of the small-fixes branch: no ruling misstated, three items given a durable
 outcome, one paraphrase replaced by the owner's words". The transcript reviewer reads the words
-against the record.
+against the record. In a plan document's items, the rival kept the verbatim words where the items
+are read, and lost on the owner's report and on the slips the intake counted where the two regimes
+met: `rejected@agent-skills@owner-words-verbatim-in-plan-items`.
 
 The design this decision did not keep: `rejected@agent-skills@owner-words-quoted-in-head`.
 

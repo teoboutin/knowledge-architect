@@ -63,7 +63,9 @@ available and nothing else clears the finding. **A quotation is read by none of 
 per `design@check@quotation-read-by-no-id-lint`.
 
 The token is the same defect in any prose, so the check reads every region the scanner reads,
-fenced blocks included, as `design@model@a-reference-is-live-in-every-prose` reads a fence. The
+fenced blocks included, as `design@model@a-reference-is-live-in-every-prose` reads a fence. A
+harvested slice's files are read by none of the lints on ids: they are read for their definitions
+alone, per `design@model@a-harvested-slice-is-frozen`. The
 nearest rival, the check limited to the `%%` comment lines of the shipped text, which a
 retrospective proposed, adds a rule with no reason behind it: a token written without its backticks
 in a design home dangles as silently as one in a comment line. The census taken in the design
@@ -81,7 +83,8 @@ a span wrapped across a line break at one of its hyphens joined, outside a quota
 reports such a span when the entity table defines its id: a register entry's id, a plan document's,
 a slice's, a skill's or an agent's name, a section slug of a skill, an agent, the primer or the
 root CLAUDE.md, and an item's id inside its own plan, the only place an item may be cited, per
-`design@model@plan-item-scope`. Its repair is the entry's reference. A section slug is in scope as a
+`design@model@plan-item-scope`. An id a harvested slice's frozen files define is defined like any
+other, per `design@model@a-harvested-slice-is-frozen`. Its repair is the entry's reference. A section slug is in scope as a
 register's id is: the census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, found 34 plain hits on 10
 section slugs in this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
@@ -123,8 +126,9 @@ hand-written file is among the fixes `design@check@fix-scope` admits, per
 
 A word outside every backtick span and every quotation, per
 `design@check@quotation-read-by-no-id-lint`, in every prose region the checker reads, that is exactly
-a defined id, as `design@check@backticked-bare-id` defines one, is a finding. A word
-is bounded as an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.`
+a defined id, as `design@check@backticked-bare-id` defines one, an id a harvested slice defines
+included, per `design@model@a-harvested-slice-is-frozen`, is a finding. A word is bounded
+as an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.`
 followed by a letter or a digit after it, so a file name, a path, a reference, a slug with its
 hashes and a template's placeholder holding an id are no word, and an id that ends a sentence is
 one. A URL and an HTML comment inside a line hold no word. The value of a frontmatter `name` line is

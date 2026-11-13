@@ -211,7 +211,7 @@ The questions, each with the default the session gave:
   `design@agent-skills@plan-records-the-exchange`, `design@agent-skills@ledger-from-transcript`,
   `design@agent-skills@plan-document-leaves-at-landing`: the plan document's shape, its assembly and
   its life;
-- `design@model@spec-file-is-an-anchor`, `design@model@milestone-entries-are-directories`,
+- `spec-file-is-an-anchor` (now `design@model@spec-directory-is-an-anchor`), `design@model@milestone-entries-are-directories`,
   `design@model@plans-split-dirs`, `design@model@declarable-directory-register`,
   `design@check@plan-document-sections-by-kind`: the plan model.
 

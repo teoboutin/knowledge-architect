@@ -15,8 +15,8 @@ new Component. The sentence stays when the first entry lands, and no check reads
 Seen in the work that created the git Component: the git Component's issue home,
 `path@git@docs/open-issues/README.md`, still said "One file per outstanding item of git. No entry
 yet." over four entries, until the review before its merge found it. The sentence is written for
-every register `home_text` knows: goal, design, rejected, tripwire, issue, spec, milestone and any
-other.
+every register `home_text` knows but the two plan types: goal, design, rejected, tripwire, issue
+and any other. The specs and milestones homes say what they hold, with no such sentence.
 
 The sentence is not `create`'s alone. The setup skill tells every adopting project "An empty
 register home says it holds no entry yet." (`skill@knowledge-architect-setup`, its source in

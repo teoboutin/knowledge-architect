@@ -36,8 +36,8 @@ target project that uses the checker alone and declares no harness, is `issue@ch
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
 Both carry registers. Every anchor is a named directory and a path anchor under
-`design@check@every-path-names-its-anchor`, except the plan anchors the tool constructs, below: a
-spec anchor is a file, and no plan anchor carries the `path` kind. What separates them is what they owe. A **component**
+`design@check@every-path-names-its-anchor`, except the plan anchors the tool constructs, below,
+none of which carries the `path` kind. What separates them is what they owe. A **component**
 owes the compiled documents, every `component`-scoped register and every `opt-in` register the
 project attaches to it, with its homes under `<component>/docs/`, and the root the goals home
 besides. A **location** owes the homes of the registers its `[locations.<name>]`
@@ -67,20 +67,22 @@ in every respect but the one its layout fixes:
   among the anchors of its depth, so a declaration that collides with it is the one refused and
   its complaint names a declaration the project can change. It owes a `README.md` beside its two
   homes.
-- **One anchor per entry of a Directory register**: each directory of a Directory register's
-  home holding a file `README.md`, named by its basename, per
+- **One anchor per entry of a declared Directory register**: each directory of a Directory
+  register's home holding a file `README.md`, named by its basename, per
   `design@model@declarable-directory-register`. Each register it carries has its home at the
   anchor's own path. A directory whose name `design@model@a-placed-name-reads-as-nothing-else`
-  refuses is no anchor. A milestone is one: its `spec` register's slice specs sit beside the
-  milestone document and are cited `spec@<milestone>@<slice>`, unique only inside the milestone,
-  per `design@model@plan-document-kinds`; it carries the four item registers, per
-  `design@model@plan-items-by-section`, and no `path` kind.
-- **One anchor per spec**: each spec file of specs/, grouped or not, named by its id, per
-  `design@model@spec-file-is-an-anchor`. It owns its own file, carries the four item registers,
-  and carries no `path` kind. A spec whose name is refused, or that a milestone holds, is no
-  anchor, and a directory is never a spec.
+  refuses is no anchor.
+- **One anchor per plan document of specs/ and milestones/**: each spec's directory, grouped or
+  not, and each milestone's directory, named by its basename, per
+  `design@model@spec-directory-is-an-anchor` and `design@model@milestone-entries-are-directories`.
+  Each carries the four item registers, per `design@model@plan-items-by-section`, and no `path`
+  kind, and a milestone carries `spec` besides, for its slices, cited `spec@<milestone>@<slice>`
+  and unique only inside the milestone, per `design@model@plan-document-kinds`. A slice's directory
+  is no anchor: the milestone is the anchor of every file under its directory, `harvested/`
+  included. A plan document whose name is refused, or a spec whose name a milestone holds, is no
+  anchor.
 
-**The entry and spec anchors are read off the tree, so every builder of the anchors is handed the
+**The entry and plan anchors are read off the tree, so every builder of the anchors is handed the
 tree's paths**: a check the survey's listing, a command git's listing, `commits` each commit's own
 listing. An entry is a directory a session creates, not a declaration, so asking the manifest
 alone would give a commit the working tree's entries and judge its message against anchors it
@@ -168,8 +170,9 @@ Components twice.
 
 ### A name the tree places as an anchor reads as no kind's name, no declared anchor's and no other placed anchor's `##a-placed-name-reads-as-nothing-else`
 
-An entry's name, a milestone's among them, and a spec's id sit in the anchor position of a
-reference, since each entry directory and each spec file is an anchor. So such a name that is a
+A milestone's name, a spec's id and the name of an entry of a declared Directory register sit in
+the anchor position of a reference, since each of their directories is an anchor; a slice's name is
+placed by no anchor, since a slice's directory is none. So such a name that is a
 kind's name, a component's name, a location's name or a reserved word is a phase-2 finding, and so
 is one another placed anchor already holds; a name so refused is no anchor. Otherwise a reference
 reads as the other anchor, and which one wins depends on the order the anchors were built in.

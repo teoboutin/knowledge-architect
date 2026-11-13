@@ -117,6 +117,8 @@ Its home is `<dir>/`. Every `.md` file under it is an entry named by its basenam
 and nothing else, groups nest one level, and a file of another suffix is a finding. An entry
 carries frontmatter with each declared metadata key, a level-one title, the declared level-two
 sections in order, and — for the issue register — the level-three subsections its kind owes.
+The rule holds for `issue` and for each register a project declares of the File shape; a plan type
+takes no File shape, its specs/ holding one directory per spec, per `design@model@plans-split-dirs`.
 
 **One file per entry, because a tool that edits a tracker edits the whole file.** Sessions editing
 a shared tracker with `sed` and a string replacement have replaced every occurrence in the file
@@ -135,12 +137,18 @@ rather than written by hand is `design@check@generated-files-are-pure`.
 The designs this decision did not keep: `rejected@check@index-introduction-in-manifest` and
 `rejected@check@optional-index`.
 
-### A file register's groups are subdirectories, declared beside the instance `##groups-are-subdirectories`
+### The groups of a file register and of specs/ are subdirectories, declared beside the instance `##groups-are-subdirectories`
 
 A subdirectory is visible to `ls` and to a listing without parsing anything, and the group is not
 part of an entry's id, so regrouping is a `git mv` that breaks no reference. The declared list is what keeps the naming from
 drifting, and it is checked in both directions. An entry may sit ungrouped at the top level, so a
 two-entry instance owes no directory.
+
+specs/ keeps its groups though a spec is a directory: a subdirectory of specs/, or of one of its
+groups, that holds a `README.md` is a spec, and any other is a group, so a `README.md` alone tells
+the two apart. Dropping the groups would take from an adopting project a capability that the plan
+documents' move into directories does not ask to take, which
+`design@knowledge-architect@capability-cost-before-migration` counts before any migration.
 
 The design this decision did not keep: `rejected@check@theme-metadata-key`.
 
