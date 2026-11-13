@@ -26,8 +26,9 @@ the discussion's record search in [search/discussion.txt](search/discussion.txt)
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. No default awaits the owner: D1, from the review of this document, on the regime of the
-  frozen files, is ruled; see "Defaults awaiting the owner".
+  waits. D1, from the review of this document, on the regime of the frozen files, is ruled; D2,
+  from the review of slice 1's work, on the P3 clause, awaits the owner; see "Defaults awaiting the
+  owner".
 
 **Its source.** It was assembled from one session's transcript, extracted with
 `cargo klarch transcript show`, and committed, trimmed of tool calls and after the removal step of
@@ -573,9 +574,10 @@ directory under `harvested/`, and leaves the walk by construction**, parsed for 
 - **Parsed for definitions only**: an item a frozen file defines resolves from inside its
   milestone, and a live item that reuses one of its ids is still reported, so the duplicate check
   sees every number; a frozen file raises no finding of its own.
-- **The P3 clause**: `cargo klarch commits` reports a commit that modifies a file under
-  `harvested/`, other than adding it, deleting it, or the move that freezes a slice. It applies to
-  every commit, on the branch that wrote the file as on any later one.
+- **The P3 clause**, as D2 builds it: `cargo klarch commits` reports a commit that modifies a file
+  under `harvested/`, or adds one other than by the move that freezes a slice, which adds each of
+  the slice's files with the content its live path held in the commit's first parent; a commit may
+  delete one. It applies to every commit, on the branch that wrote the file as on any later one.
 - **A citation of a harvested slice**, or of an item it defines, from outside its milestone's
   directory is refused, as `thread@split-guidelines-and-plan-directories@harvested-slice-kept`
   decided.
@@ -793,7 +795,7 @@ The order is the session's default at Q3, which the owner's word of round 2 appr
 
 ## Defaults awaiting the owner
 
-None awaits. Every default the discussion put to the owner was ruled by the owner's word on the
+D2 awaits the owner. Every default the discussion put to the owner was ruled by the owner's word on the
 checkpoint table, in the closing exchange, or by an answer to a labelled question. The defaults the
 session decided on the record are written where they apply, with their ground: the threads closed
 `argued`, each with the argument that closed it; the Premortem's verdicts; and the satisfaction
@@ -817,6 +819,19 @@ line of each criterion. One default came from the review of this document:
   phase can make and which slice 1's own search output fails; and the harvested marker takes a
   form the discussion had left open. Written into "The plan document's directory", "The regime of
   each file", "The life of a slice's spec", the Names, the Premortem's P3 and slice 1's spec.
+
+One default came from the review of slice 1's work:
+
+- **D2**, awaiting the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`:
+  the P3 clause that D1 states admits "adding" a file under `harvested/`. An adversarial reviewer
+  of slice 1's code reached three edits of the frozen record that pass under that wording: a
+  freezing move that also edits the slice, a rename inside `harvested/` that edits, and a frozen
+  file deleted in one commit and re-added with new content in the next. The last is the rewrite
+  of history the P3 cause names. The default, built as written: `commits` admits an addition under
+  `harvested/` only as the move that freezes a slice, each file added with the content its live
+  path held in the commit's first parent; a modification and a type change stay reported, and a
+  deletion stays admitted. The rival, D1's wording as written, keeps the three edits admitted.
+  Written into "The regime of each file" and slice 1's spec.
 
 ## Harvest
 

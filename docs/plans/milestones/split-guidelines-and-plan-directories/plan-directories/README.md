@@ -5,6 +5,9 @@ moved under its milestone's `harvested/` and stays there until the milestone lea
 it builds. The threads, arguments and decided design it shares with the other slices are in the
 milestone document; those only this slice uses are below.
 
+Its design audit's record, the audit's `fit-lines.md`, is
+[search/design-audit.txt](search/design-audit.txt).
+
 It grounds, per `skill@knowledge-architect-planning@working-a-slice` point 1, in the Components its
 work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and the root.
 
@@ -47,8 +50,9 @@ work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and
   sections of today's list but Threads and Arguments; `README.md` of a slice owes its entry's five
   sections and carries "What is already decided" when the slice has entries to seed; `deliberation.md`
   owes Threads and Arguments. The lints on ids and the reference checks read the new layout.
-  `cargo klarch commits` reports the P3 clause: a commit that modifies a file under `harvested/`,
-  other than adding it, deleting it, or the move that freezes a slice. The rule on branch SHAs
+  `cargo klarch commits` reports the P3 clause, as D2 of the milestone document builds it: a
+  commit that modifies a file under `harvested/`, or adds one other than by the move that freezes a
+  slice, unchanged. The rule on branch SHAs
   already skips every `.txt` file, `transcript.txt` and `search/` included, since
   `branch_sha_findings` in `path@check@src/commands/history.rs` reads only the walked documents,
   and under D1 it skips a harvested slice too: rewriting `design@knowledge-architect@no-branch-sha-is-cited`
@@ -332,8 +336,10 @@ decided design; the slice's design audit checks each reading against the head re
 - `design@check@a-file-register-is-a-directory-of-entries`: the plan types no longer take the File
   shape; the rule holds for `issue` and each declared file register.
 - `design@check@every-path-names-its-anchor`, `design@check@unanchored-path-first-segment-here` and
-  `design@check@deepest-anchor-wins`: a spec is a directory anchor, from which a path is read like
-  any other, where the second says today "A spec is an anchor and a file"; a file of a plan's
+  `design@check@deepest-anchor-wins`: a spec is a directory anchor; a plan's directory, and every
+  directory under it, is no place the lint of the second reads a first segment from, where it says
+  today "A spec is an anchor and a file, so it is no place", since a plan anchor carries no `path`
+  kind and the names of its layout recur in every text that describes it; a file of a plan's
   directory has that plan's anchor as its deepest; a `README.md` reaches the files beside it by
   relative links, not by `path` references.
 - `design@query@anchors-listing-command`: `anchors` lists each spec's directory and each
@@ -630,11 +636,11 @@ first commit with the checker change, per `primer@branch-commits`.
   the verdicts whose outcome changed something.
 - The mock projects and unit tests that hold plan documents in today's layout move to the new one,
   in the same commit, since they fail the new checker until they move.
-- A migrated `README.md` names a file beside it, `deliberation.md`, `transcript.txt` or a file of
-  `search/`, by a relative navigation link, never as a backticked path: the lint of
-  `design@check@unanchored-path-first-segment-here` reads a first segment from the document's own
-  directory, and a `path` reference into a plan's directory is refused. A slice's `README.md`
-  reaches its milestone's `deliberation.md` through the item references alone.
+- A migrated `README.md` points at a file beside it, `deliberation.md`, `transcript.txt` or a file
+  of `search/`, by a relative navigation link, since a `path` reference into a plan's directory is
+  refused; a backticked name of one is a name of the layout, which the lint of
+  `design@check@unanchored-path-first-segment-here` does not read in a plan's directory. A slice's
+  `README.md` reaches its milestone's `deliberation.md` through the item references alone.
 
 ## Mapping tables
 
