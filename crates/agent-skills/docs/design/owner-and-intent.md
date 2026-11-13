@@ -229,7 +229,12 @@ The design this decision did not keep: `rejected@agent-skills@fork-choice-revers
 an issue entry and a plan document's items state what the owner decided and how far the decision
 reaches, never the owner's words verbatim. The verbatim words stay in a plan document's committed
 transcript, per `design@agent-skills@committed-transcript`, and in a committed file that leaves
-once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An attribution is checked against
+once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An issue
+entry holds the owner's words verbatim only where the owner asks it to keep them, marked as quoted
+on the owner's request, as input to a later discussion and never as the ground of a ruling, the rest
+of the entry attributing: an issue entry leaves when it closes, as those files leave once their
+outcomes are carried out. The owner chose that exception over an issue entry that never quotes the
+owner, which no goal ranks. An attribution is checked against
 the question it answered, as a quotation is: by its writer, with the owner's words beside it, at
 the close of the decision-recording skill,
 `skill@knowledge-architect-decision-recording@before-you-finish`, and by the transcript reviewer,

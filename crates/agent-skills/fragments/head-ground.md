@@ -36,14 +36,17 @@ already holds reopens nothing: this guards a choice from reversals back and fort
 at a fork is a fork's choice in the weak form, an approval cited as a ground is no ground, and an
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
-%% Plan items attribute, the verbatim words in a committed transcript:
-%% `design@agent-skills@attribution-replaces-quotation`.
+%% Plan items attribute, the verbatim words in a committed transcript, and an issue entry quotes
+%% only on the owner's request: `design@agent-skills@attribution-replaces-quotation`.
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
 commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
 verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
-file that leaves once its outcomes are carried out. An attribution keeps the scope and the
-hedges of the owner's words, and is checked, like a quotation, against the question it answered.
+file that leaves once its outcomes are carried out. An issue entry holds them only where the owner
+asks it to keep them, marked as quoted on the owner's request, as input to a later discussion and
+never as the ground of a ruling; the rest of the entry attributes. An attribution keeps the scope
+and the hedges of the owner's words, and is checked, like a quotation, against the question it
+answered.
 
 **What the ground means to a later session.** A head that stands on its argument is reversed by a
 better argument, which the owner approves where the reversal is a fork, per
