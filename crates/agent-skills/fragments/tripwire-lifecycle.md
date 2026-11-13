@@ -23,7 +23,8 @@ A `standing` tripwire that fires is restated, naming the class rather than the i
 its failure stays silent after the repair, since the guarantee it watches is still owed after one
 instance is repaired; the instance is the issue. Where a fired tripwire's decision is reopened and
 reversed only at a plan document's harvest, the tripwire is narrowed instead of deleted, to except
-that plan document's work, citing it, so the citation dangles when the document leaves, and the
-commit that deletes the document deletes the entry. A firing whose only response
+that plan document's work, citing it, so the citation dangles when the document leaves, or, for a
+slice's spec, is refused once it is moved under its milestone's `harvested/`, and the commit that
+deletes or moves the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
 to name the event, or a bound with its basis, as condition 4 of that standard says.

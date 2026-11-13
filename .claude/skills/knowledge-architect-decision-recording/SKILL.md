@@ -198,19 +198,21 @@ owner as a tie. The owner's choice is then recorded in the weak form of a fork's
 | --- | --- | --- |
 | the current design, and its **standing argument** | the Component's design home | it is rewritten in place, so it cannot go stale |
 | a design not kept, and why | the Component's `register@*@rejected`, each entry cited by the heads whose argument covers it | a reader about to propose it must meet it without knowing to look, and a reader of the head meets its citation |
-| the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the spec or milestone document while it exists, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
+| the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the `deliberation.md` of the spec or the milestone while it exists, a slice's until its milestone leaves, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
 
 **The standing argument** is `primer@design-heads`, and what stays out of the head is `skill@knowledge-architect-decision-recording@head-shape`.
 
 **The deliberation is not copied into the head**, and, where a plan document carries it, not into
 the harvest's commit message either.
-A plan document is deleted when its work lands, per `skill@knowledge-architect-planning`, and the
-commit that deletes it cites it by its kind. A reader who needs the deliberation finds it there:
+A spec or a milestone is deleted when its work lands, and a slice's spec is moved under its
+milestone's `harvested/`, which leaves with the milestone, per `skill@knowledge-architect-planning`;
+the commit that deletes or moves it cites it by its kind. A reader who needs the deliberation finds
+it there:
 
 ```sh
-git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document, with its commit
+git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document's files, with their commit
 git log -G'<slug>'                                         # every commit whose diff touches the slug
-git show <commit>^:<path of the document>                  # the document as it stood before deletion
+git show <commit>^:<path of the file>                      # a file as it stood before deletion
 ```
 
 **`-G` matches any commit whose diff touches the slug. `-S` matches only a change in how many times
@@ -259,10 +261,10 @@ at a fork is a fork's choice in the weak form, an approval cited as a ground is 
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
-commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the
+commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay where the deliberation is kept: a plan document's items, and a
-committed file that leaves once its outcomes are carried out. An attribution keeps the scope and the
+verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
+file that leaves once its outcomes are carried out. An attribution keeps the scope and the
 hedges of the owner's words, and is checked, like a quotation, against the question it answered.
 
 **What the ground means to a later session.** A head that stands on its argument is reversed by a
@@ -564,8 +566,9 @@ naming the decision and the premise it watches, its slug last:
 
 **Watches until** names the first occasions that exercise the decision, so that a command over the
 history counts them from the commit that wrote the line: commits on the main branch that change a
-named path or the guarded head's text, release tags, audit reports of an axis, plan documents
-deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+named path or the guarded head's text, release tags, audit reports of an axis, specs and
+milestones deleted at their landing, a slice's spec moved under its milestone's `harvested/` being
+none, or one event the tree shows, such as the first issue a consumer of an
 interface opens; never an occasion that only a session's transcript holds. A relocation, a commit
 whose added lines are exactly the lines it removes, is no occasion, since it exercises no decision.
 Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
@@ -595,7 +598,7 @@ revisited when the entry changes, and an edit that keeps the slug dangles no ref
 reports a citing text it made false.
 
 Then, for each attribution of the owner the change writes, read the owner's words beside it, from
-the plan document or the transcript, and check that it keeps their scope and every hedge, as
+the plan document's committed transcript or the session's, and check that it keeps their scope and every hedge, as
 `skill@knowledge-architect-decision-recording@head-shape` asks.
 
 Then re-read what you wrote against the head you replaced: **rewriting argued text is where

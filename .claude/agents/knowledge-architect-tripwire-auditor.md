@@ -125,8 +125,9 @@ naming the decision and the premise it watches, its slug last:
 
 **Watches until** names the first occasions that exercise the decision, so that a command over the
 history counts them from the commit that wrote the line: commits on the main branch that change a
-named path or the guarded head's text, release tags, audit reports of an axis, plan documents
-deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+named path or the guarded head's text, release tags, audit reports of an axis, specs and
+milestones deleted at their landing, a slice's spec moved under its milestone's `harvested/` being
+none, or one event the tree shows, such as the first issue a consumer of an
 interface opens; never an occasion that only a session's transcript holds. A relocation, a commit
 whose added lines are exactly the lines it removes, is no occasion, since it exercises no decision.
 Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
@@ -158,8 +159,9 @@ A `standing` tripwire that fires is restated, naming the class rather than the i
 its failure stays silent after the repair, since the guarantee it watches is still owed after one
 instance is repaired; the instance is the issue. Where a fired tripwire's decision is reopened and
 reversed only at a plan document's harvest, the tripwire is narrowed instead of deleted, to except
-that plan document's work, citing it, so the citation dangles when the document leaves, and the
-commit that deletes the document deletes the entry. A firing whose only response
+that plan document's work, citing it, so the citation dangles when the document leaves, or, for a
+slice's spec, is refused once it is moved under its milestone's `harvested/`, and the commit that
+deletes or moves the document deletes the entry. A firing whose only response
 would be to change the tripwire's own bound shows that the bound had no basis: rewrite the clause
 to name the event, or a bound with its basis, as condition 4 of that standard says.
 

@@ -143,7 +143,7 @@ revisited when the entry changes, and an edit that keeps the slug dangles no ref
 reports a citing text it made false.
 
 Then, for each attribution of the owner the change writes, read the owner's words beside it, from
-the plan document or the transcript, and check that it keeps their scope and every hedge, as
+the plan document's committed transcript or the session's, and check that it keeps their scope and every hedge, as
 `skill@knowledge-architect-decision-recording@head-shape` asks.
 
 Then re-read what you wrote against the head you replaced: **rewriting argued text is where

@@ -320,10 +320,10 @@ at a fork is a fork's choice in the weak form, an approval cited as a ground is 
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
-commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the
+commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay where the deliberation is kept: a plan document's items, and a
-committed file that leaves once its outcomes are carried out. An attribution keeps the scope and the
+verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
+file that leaves once its outcomes are carried out. An attribution keeps the scope and the
 hedges of the owner's words, and is checked, like a quotation, against the question it answered.
 
 **What the ground means to a later session.** A head that stands on its argument is reversed by a
@@ -864,8 +864,9 @@ choices whose option space genuinely is closed and consequence-free.
 
    **Watches until** names the first occasions that exercise the decision, so that a command over the
    history counts them from the commit that wrote the line: commits on the main branch that change a
-   named path or the guarded head's text, release tags, audit reports of an axis, plan documents
-   deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+   named path or the guarded head's text, release tags, audit reports of an axis, specs and
+   milestones deleted at their landing, a slice's spec moved under its milestone's `harvested/` being
+   none, or one event the tree shows, such as the first issue a consumer of an
    interface opens; never an occasion that only a session's transcript holds. A relocation, a commit
    whose added lines are exactly the lines it removes, is no occasion, since it exercises no decision.
    Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
@@ -890,7 +891,8 @@ choices whose option space genuinely is closed and consequence-free.
 The plan document is the full account of the
 discussion, assembled from its transcript: every thread with its proposer
 and final state, the arguments on each side as items, the owner's
-rulings verbatim, the losing alternatives with their reasons, and the
+rulings attributed with their round, the verbatim words in its
+committed transcript, the losing alternatives with their reasons, and the
 causes the premortem named, each with its outcome once the work has judged it.
 The decision record is the durable harvest of that account, written when
 the work that implements each decision lands, under
