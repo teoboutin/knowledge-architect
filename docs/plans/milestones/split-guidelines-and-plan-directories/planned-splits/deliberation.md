@@ -15,6 +15,26 @@
   `design@agent-skills@default-code-shape` and the planning skill's text; no head of its own unless
   the entry tests give one.
 
+### The module guidelines are a fragment of their own, hosted by the development skill, the code-shape reviewer and the code-split scout `##module-guidelines-fragment`
+
+- Opened at this slice's design audit, by the searchers' verdicts on
+  `design@agent-skills@shared-text-fragment`: Q5, put in round 3 and agreed in round 4, had the
+  module guidelines inside the fragment of the default code shape and the scout host that fragment
+  whole, and was put as a host list alone, without that head's rule that a text is a host only where
+  its act applies the whole fragment. The fragment of the default code shape holds the test rules
+  too, which the scout, reporting split signals, applies none of. The premise was the session's.
+- Put to the owner as Q16, three shapes: (b), the session's default, the module guidelines a
+  fragment of their own hosted by the development skill, the code-shape reviewer and the scout, the
+  scout hosting it and the fragment on when to split, at the cost of one more fragment and of Q5's
+  first default; (a), the scout hosting the whole default shape and the host rule narrowed, at the
+  cost of the test rules loaded into every scout run and of a weaker host rule for every fragment;
+  (c), the scout reading the default shape by a pointer, which `design@agent-skills@shared-text-fragment`
+  already defeats.
+- Final state: `approved`, on the owner's word on Q16: shape (b). It replaces Q5's delivery.
+- Its shape: this spec's "Decided design", "The module guidelines". Harvest: this slice's, into
+  `design@agent-skills@default-code-shape` or a head of its own, and the host lists of
+  `design@agent-skills@shared-text-fragment`.
+
 ## Arguments
 
 ### A split within a crate needs no decision record `##arg-2`

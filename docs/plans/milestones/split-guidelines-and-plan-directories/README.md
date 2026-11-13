@@ -107,6 +107,7 @@ This repository adds:
 | P1 to P8 | the causes of the premortem, under "Premortem" |
 | Q1 to Q9 | the questions the session put to the owner during the discussion, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
 | Q10 to Q15 | the questions the session put to the owner at the review of this document: Q10 to Q13 on the goals home's definition of the record, ruled in the commit "[goals] The record of a project holds the entries of the kinds of entries it declares"; Q14 and Q15 on two attributions, D1's and that of `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`, approved as the review reworded them |
+| Q16 | the question the session put to the owner at slice 2's design audit, on the delivery of the module guidelines, ruled as `thread@split-guidelines-and-plan-directories@module-guidelines-fragment` records; it replaces Q5's delivery |
 | D1 to D4 | the defaults put to the owner, under "Defaults awaiting the owner": all ruled |
 | the Groups A to F | the six groups of the search's `conflicts` verdicts, under "What is already decided" |
 | thaum | a sibling project of the owner's, which also uses the workflow, read by the session in round 1 for its guidelines on splitting code |
@@ -126,7 +127,8 @@ The questions, each with the default the session gave:
 - **Q5**, round 3: the delivery, whose host lists are the owner's per
   `design@agent-skills@shared-text-fragment`. Default: the module guidelines inside the fragment
   of the default code shape, and the code-split scout a new agent hosting that fragment and the one
-  on when to split, two new host entries.
+  on when to split, two new host entries. Replaced at slice 2's design audit by Q16, which made the
+  module guidelines a fragment of their own.
 - **Q6**, round 3: is reopening `design@agent-skills@one-record-searcher` part of this milestone?
   Default: no.
 - **Q7**, round 4: is "from a variety of published shapes" an outcome the goal states, or a means
@@ -259,7 +261,7 @@ in the spec of the slice that rewrites it.
   property a dispatch fixed at a step needs, which the code-split scout and the scoped auditor meet
   as a point of view apart (`argument@split-guidelines-and-plan-directories@arg-41`); and
   `design@agent-skills@shared-text-fragment`, whose host lists are the owner's, ruled at Q5 in
-  round 4. Slice 2 writes the new hosts into the text that lists them.
+  round 4 and at Q16 in slice 2's design audit. Slice 2 writes the new hosts into the text that lists them.
 
 **`conflicts`, `goal-setting`: 2 goals.**
 
