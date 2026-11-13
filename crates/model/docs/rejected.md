@@ -331,7 +331,8 @@ plans layout held as conditions on their names. It loses because a milestone car
 where a declared Directory register carries one, on the owner's ruling that
 `design@model@declarable-directory-register` records, carries no `path` kind, and owes sections
 compiled in; admitting those in the shape a project declares breaks that ruling, or makes the shape
-change whenever the planning skill changes what a plan document holds.
+change whenever the planning skill changes what a plan document holds. It would change an interface
+others consume, the Directory shape a project declares in its manifest.
 
 ### A slice's directory as an anchor of its own `##slice-directory-as-an-anchor`
 

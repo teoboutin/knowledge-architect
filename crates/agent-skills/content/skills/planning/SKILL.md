@@ -37,7 +37,7 @@ reads, and it re-enters at each slice's audit and at each landing.
 | **slice** | a part of a milestone that is one branch and one PR, with its own spec, a directory inside the milestone's, cited `spec@<milestone>@<slice>` |
 | **milestone** | work across several PRs, with design sessions between them. Its plan documents are one directory: the **milestone document**, its `README.md` with the files beside it, and one spec directory per slice. Cited `milestone@plans@<id>` |
 | **harvested** | the state of a slice's spec once its slice has landed: its directory moved under its milestone's `harvested/`, frozen there, until the milestone's directory leaves (`skill@knowledge-architect-planning@plan-document-leaves`) |
-| **frozen** | no commit modifies the file: the move that harvests a slice adds it, unchanged, and a commit may delete it; every file under a milestone's `harvested/` is frozen |
+| **frozen** | no commit modifies the file |
 | **item** | a thread, an argument, a criterion or an acceptance criterion, defined in a plan document as a level-three heading ending with its slug, under the section of its kind (`skill@knowledge-architect-planning@spec-contents`) |
 | **roadmap** | docs/roadmap.md at the project's root, optional: the order in which the owner wants known work done (`skill@knowledge-architect-planning@spec-or-milestone`) |
 | **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction. A plan document's committed copy of it is its `transcript.txt` |
@@ -157,7 +157,7 @@ docs/plans/
 | `deliberation.md` | the sections Threads and Arguments, whose items record the argument of the discussion | where the document has a thread or an argument |
 | `search/discussion.txt` | the generated lines of the discussion's record search, as `skill@knowledge-architect-planning@spec-contents` says | where that search ran for this document |
 | `search/design-audit.txt` | the fit lines of its design audit, as `skill@knowledge-architect-planning@working-a-slice` says | where that audit ran |
-| `transcript.txt` | the trimmed transcript of the discussion, as `skill@knowledge-architect-planning@spec-contents` says | where the document was assembled from a transcript |
+| `transcript.txt` | the trimmed transcript of the discussion, as `skill@knowledge-architect-planning@spec-contents` says | where the document was assembled from a transcript and the owner approved it |
 
 - The checker refuses any other file or directory in a plan document's directory; a milestone's
   directory admits besides its generated `index.md`, its slice directories and `harvested/`. A
@@ -344,6 +344,7 @@ document.
   message where the discussion begins to the owner's last message before the branch that adds the
   plan document merges, so that the rulings given at its reviews are in it: it is committed after
   the review before that merge.
+%% The owner's word for each transcript: `design@agent-skills@transcript-pushed-on-the-owner-s-word`.
 - **Before that commit, read the transcript whole and remove** every path under a home directory,
   every e-mail address, every credential and token, and the pasted material the owner marks. Then
   show the owner the transcript, and push no commit that holds it before the owner's word for that
@@ -692,7 +693,7 @@ This list is their one home; the reviewer reads it here.
 ## When a plan document leaves {{slug:plan-document-leaves}}
 
 %% A slice harvested rather than deleted: `design@agent-skills@harvested-slice-kept`; a spec and the
-%% milestone's directory leaving whole: `design@agent-skills@plan-document-leaves-at-landing`.
+%% milestone's directory leaving whole: `design@agent-skills@spec-or-milestone-leaves-at-landing`.
 **A spec or a milestone is deleted, its whole directory, in a commit of its own, once its last
 harvest is complete and the review before the merge has read the tip that holds it, and that
 commit's message cites it by its kind**, `spec@plans@<id>` or `milestone@plans@<id>`, which

@@ -865,10 +865,12 @@ watches; this is the candidate if it fires.
 ### The deliberation kept inside the plan document the record search reads `##deliberation-in-the-searched-document`
 
 `live`. It kept a plan document whole in one file. It lost to a measurement over the plan documents
-this repository deleted, `git show <deleting-commit>^:<file> | wc -c`: the Threads, the Arguments
-and the copy of the search's outcomes made about 80% of the `goals-at-the-root` milestone's README,
-and a slice audit of that milestone took 44 search agents where the slice's spec alone needed about
-15, seven of its first 27 reports saying the agent could not read the document whole.
+this repository deleted: the Threads, the Arguments and the copy of the search's outcomes made
+about 80% of the bytes of the `goals-at-the-root` milestone's README in the parent of d687aa43,
+which deleted it, each section's share re-taken by the command that
+`design@agent-skills@discussion-record-apart` gives; and a slice audit of that milestone took 44
+search agents where the slice's spec alone needed about 15, seven of its first 27 reports saying the
+agent could not read the document whole, figures counted in the issue entry that 1beacf9d closed.
 
 ### The owner's words verbatim in a plan document's items `##owner-words-verbatim-in-plan-items`
 

@@ -3,7 +3,8 @@
 The second slice of `milestone@plans@split-guidelines-and-plan-directories`. When it lands, it is
 moved under its milestone's `harvested/` and stays there until the milestone leaves, under the rule
 slice 1 builds. The threads, arguments and decided design it shares with the other
-slices are in the milestone document; those only this slice uses are below.
+slices are in the milestone document; those only this slice uses are below, and its own threads
+and arguments in [its deliberation](deliberation.md).
 
 ## Builds
 

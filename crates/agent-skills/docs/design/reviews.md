@@ -62,7 +62,11 @@ implementing session is, which the two acceptance criteria above show the other 
 On the full path, the design-conformance reviewer reads the verdict files of the discussion's record
 search, in the directory its brief names, beside the goals, design and rejected homes, per
 `design@agent-skills@plan-read-against-the-record`, and reports a verdict the plan document leaves
-unanswered. On the in-change path and for bounded work, the commit message carries the generated
+unanswered. Since the verdict files sit in a scratch space that may be gone by the review, it also
+reads a plan document's committed `search/discussion.txt`, the search's generated lines, per
+`design@agent-skills@plan-commits-the-generated-lines`, and runs `show` on each entry a line gives a
+verdict other than `constrains` and `unrelated`, reporting such a verdict the work answers by a
+change that the document's "What is already decided" does not record with that outcome. On the in-change path and for bounded work, the commit message carries the generated
 lines of the grounding's search; at the review before the merge of a branch whose message carries
 one with a verdict other than `constrains` and `unrelated`, the axis is dispatched on that message
 and the branch's diff, runs `show` on each entry such a line names, reports a verdict the work leaves

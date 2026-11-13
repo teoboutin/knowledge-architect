@@ -194,7 +194,8 @@ not declared, and the repair lists the anchors; the anchor is declared and carri
 that kind, and the repair lists the anchors that do; an item of a plan is cited from outside that
 plan, and the repair names the whole document, per `design@model@plan-item-scope`, the milestone
 for an item a harvested slice defines; a harvested slice is cited from outside its milestone's
-directory, and the repair names the milestone whole, per `design@model@a-harvested-slice-is-frozen`;
+directory, and the repair names the milestone whole, per
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone`;
 the anchor carries the register and does not define that id, and the reference is dangling. One
 finding for all six would send a reader to check the wrong segment of the pointer most of the time.
 The third way is reached by any anchor that does not carry the register: a location that does not
