@@ -51,7 +51,9 @@ every design entry the document cites, to read the entry and every text that ref
 
 Then read the verdicts of the record search that grounded the document: the verdict files,
 `verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with
-its entry's text; and, at the review before a merge, `cargo klarch show` on each entry a generated
+its entry's text; for a plan document, its `search/discussion.txt`, the search's generated lines,
+and `cargo klarch show` on each entry a line gives a verdict other than `constrains` and
+`unrelated`; and, at the review before a merge, `cargo klarch show` on each entry a generated
 line of the commit message gives a verdict other than `constrains` and `unrelated`, a line
 ``- `<reference>`: <verdict>, <action>.``.
 
@@ -85,8 +87,8 @@ Report each of these:
   shape breaks, a
   head reversed or a goal changed without the procedure its action names, a rejected design
   proposed again without a new argument, or a firing, a trigger or a dependency it builds on that
-  nothing rules; and, in a plan document, a verdict that its "What is already decided" gives no
-  outcome.
+  nothing rules; and, in a plan document, a verdict the work answers by a change that its "What is
+  already decided" does not record with that outcome.
 
 A conflict you find in the record itself, two heads that disagree, is reported as such, beside the
 document's passage that meets it.

@@ -170,10 +170,10 @@ at a fork is a fork's choice in the weak form, an approval cited as a ground is 
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
-commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the
+commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay where the deliberation is kept: a plan document's items, and a
-committed file that leaves once its outcomes are carried out. An attribution keeps the scope and the
+verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
+file that leaves once its outcomes are carried out. An attribution keeps the scope and the
 hedges of the owner's words, and is checked, like a quotation, against the question it answered.
 
 **What the ground means to a later session.** A head that stands on its argument is reversed by a
@@ -418,19 +418,21 @@ meets it.
 | --- | --- | --- |
 | the current design, and its **standing argument** | the Component's design home | it is rewritten in place, so it cannot go stale |
 | a design not kept, and why | the Component's `register@*@rejected`, each entry cited by the heads whose argument covers it | a reader about to propose it must meet it without knowing to look, and a reader of the head meets its citation |
-| the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the spec or milestone document while it exists, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
+| the **deliberation**: what was weighed, in which order, what evidence was built, who ruled what | the `deliberation.md` of the spec or the milestone while it exists, a slice's until its milestone leaves, then history; the commit message when there was no spec | failing to find it costs a re-derivation, not a wrong decision |
 
 **The standing argument** is `primer@design-heads`, and what stays out of the head is `skill@knowledge-architect-decision-recording@head-shape`.
 
 **The deliberation is not copied into the head**, and, where a plan document carries it, not into
 the harvest's commit message either.
-A plan document is deleted when its work lands, per `skill@knowledge-architect-planning`, and the
-commit that deletes it cites it by its kind. A reader who needs the deliberation finds it there:
+A spec or a milestone is deleted when its work lands, and a slice's spec is moved under its
+milestone's `harvested/`, which leaves with the milestone, per `skill@knowledge-architect-planning`;
+the commit that deletes or moves it cites it by its kind. A reader who needs the deliberation finds
+it there:
 
 ```sh
-git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document, with its commit
+git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document's files, with their commit
 git log -G'<slug>'                                         # every commit whose diff touches the slug
-git show <commit>^:<path of the document>                  # the document as it stood before deletion
+git show <commit>^:<path of the file>                      # a file as it stood before deletion
 ```
 
 **`-G` matches any commit whose diff touches the slug. `-S` matches only a change in how many times

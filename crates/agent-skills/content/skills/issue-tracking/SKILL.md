@@ -132,8 +132,8 @@ the list. An entry fitting none of these is written under the nearest kind, with
 fields and whatever else a cold reader needs, and the fit is said in the entry. Adding a kind is a
 reviewed manifest change.
 
-**A plan document that leaves opens a `question`** on each other plan that cited it, a milestone's
-own documents being one plan: does the citing plan
+**A plan document that leaves opens a `question`** on each other plan that cited it, and so does
+a slice's spec moved under its milestone's `harvested/`, a milestone's own documents being one plan: does the citing plan
 still hold now that the leaving plan is built? Its `Why it matters` cites what the leaving plan
 harvested, and the entry cites the citing plan, so it cannot outlive it. When it is opened is
 `skill@knowledge-architect-planning@plan-document-leaves`.

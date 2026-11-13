@@ -320,9 +320,9 @@ carries the required documents,
 every component register, and each `opt-in` register whose `components` names it; the root alone
 carries the register `goal`, which no declaration gives another anchor. A **location** carries only the registers it declares, their homes
 directly under its path, or at its path for a register declared with `dir = "."`. The checker
-constructs the anchor `plans` at docs/plans/ and one anchor per spec file, and, under the home of
-every directory register, wherever that home sits, one anchor per entry directory, each milestone
-included. The anchor words `*` (every Component), `elsewhere` (a
+constructs the anchor `plans` at docs/plans/, one anchor per spec directory and one per milestone
+directory, a slice's directory being none, and, under the home of every directory register,
+wherever that home sits, one anchor per entry directory. The anchor words `*` (every Component), `elsewhere` (a
 path the tree does not hold) and `plans` are reserved.
 
 **Every Component carries** `path@*@README.md`, `path@*@CLAUDE.md` while the project serves the
@@ -344,13 +344,16 @@ includes the design homes of the intermediate Components enclosing it.
   `rejected`, level 2 for `goal` and `tripwire`;
 - a **file register**, such as `issue`, keeps its home in a directory: one file per entry, whose
   basename is the entry's id, beside a hand-written `README.md` and a generated `index.md`;
-- a **directory register**, such as `milestone`, keeps its home in a directory: one directory per
+- a **directory register**, which a project declares, keeps its home in a directory: one directory per
   entry, holding a `README.md`, beside a hand-written `README.md` and a generated `index.md`. Each
   entry is an anchor named by its basename, carrying at its own directory the register that a
   declared directory register's `carries` names, so an entry of it is cited `<kind>@<entry>@<id>`;
-- a **plan document** is an entry of `spec` or of `milestone`, and a plan's items, of `thread`,
+- a **plan document** is a directory, a spec of docs/plans/specs/ or a milestone of
+  docs/plans/milestones/ with one directory per slice, each holding a `README.md` and, beside it,
+  the files `skill@knowledge-architect-planning@plans-layout` lists; a plan's items, of `thread`,
   `argument`, `criterion` and `acceptance`, are level-three headings under the section of their
-  kind.
+  kind, in its `README.md` or its `deliberation.md`. A landed slice's directory, moved under its
+  milestone's `harvested/`, is frozen: out of the walk, read for the items it defines alone.
 
 An id matches `[a-z0-9]+(-[a-z0-9]+)+`: two segments or more.
 
@@ -436,7 +439,7 @@ whose act does not apply it whole.
 | directions about what to find where in a directory | a `README.md` in that directory | the directory's content changes |
 | what a caller must respect to use a type or a function | that item's doc comment | its contract changes |
 | why a piece of code is shaped the way it is, and where that holds | an inline comment at that code | that code changes |
-| work that is designed and not built: a spec or a milestone | the plans directory, docs/plans/ at the project's root: a spec in docs/plans/specs/, a milestone in docs/plans/milestones/ | the work lands |
+| work that is designed and not built: a spec or a milestone, with the deliberation, the record search's generated lines and the transcript of the discussion that produced it | the plans directory, docs/plans/ at the project's root: a spec's directory in docs/plans/specs/, a milestone's in docs/plans/milestones/, as `skill@knowledge-architect-planning@plans-layout` says | the work lands; a slice's spec, when its slice lands, moves under its milestone's `harvested/`, and leaves with the milestone |
 | the evidence of one pass of a project audit, and the owner's ruling on each of its items | one file per pass in docs/audit-reports/ at the project's root, as `skill@knowledge-architect-project-audit@record-of-an-audit` says | the commit that carries out its last outcome, or a later commit of the same branch, deletes it |
 | the record of a goal-setting batch of more than three goals, a review of the whole goal set included, and the owner's answers in it | one file per batch in docs/goal-reviews/ at the project's root, as `skill@knowledge-architect-goal-setting@drawing-out-intent` and `skill@knowledge-architect-goal-setting@whole-set-review` say | the commit that writes the goals the owner ruled last, or a later commit of the same branch, deletes it |
 | the analysis of a retrospective's project file, the outcome of each of its findings, and the owner's ruling on each one the owner holds | one file per analysed file in docs/retrospective-reports/ at the project's root, as `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` says | the commit that carries out its last outcome, or a later commit of the same branch, deletes it |
@@ -484,7 +487,7 @@ commit message, a path later work will create, a placeholder,
 or a rewritten sentence. A plan item or a slice named outside its plan document as a hash sign and
 its id, as #<id>, beside a citation of the whole document, is a name, not a pointer moved into plain
 text, since it names a part of the plan document its citation names, and an item reference is
-legal only inside its own plan document.
+legal only inside its own plan document's directory, a milestone's counting as one.
 A record of a deliberation (a plan document, a committed file that leaves
 once its outcomes are carried out, or a commit message) names by its bare slug in backticks an
 entry that the work it records removes, renames or is still to create, and by its bare name in
@@ -629,10 +632,10 @@ at a fork is a fork's choice in the weak form, an approval cited as a ground is 
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
-commit message, a tripwire, a `rejected` entry and an issue entry state what the owner decided and how far the
+commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay where the deliberation is kept: a plan document's items, and a
-committed file that leaves once its outcomes are carried out. An attribution keeps the scope and the
+verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
+file that leaves once its outcomes are carried out. An attribution keeps the scope and the
 hedges of the owner's words, and is checked, like a quotation, against the question it answered.
 
 **What the ground means to a later session.** A head that stands on its argument is reversed by a
@@ -708,7 +711,9 @@ that text.
   reserves to the owner, per `skill@knowledge-architect-planning@planning-terms`.
 - **spec, milestone, slice**: a spec is the plan document of work done in one branch and one pull
   request, and a milestone is work across several, each of its slices one branch and one pull
-  request with its own spec, per `skill@knowledge-architect-planning@planning-terms`.
+  request with its own spec, each a directory, per `skill@knowledge-architect-planning@planning-terms`.
+- **harvested, frozen**: a landed slice's spec, moved under its milestone's `harvested/`, which no
+  commit modifies, per `skill@knowledge-architect-planning@planning-terms`.
 - **bounded work**: a requested change whose main risk is over-building, which the design skill's
   grounding finds and builds on one proposal, per `skill@knowledge-architect-design@bounded-work`.
 - **in-change path, full path**: the design skill's two paths, the in-change path keeping the

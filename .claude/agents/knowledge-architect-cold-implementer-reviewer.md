@@ -26,8 +26,9 @@ else.
 ## Ground as the implementer would `##ground-as-implementer`
 
 Read, in this order: the root `CLAUDE.md`; the `CLAUDE.md` of the Component the document is about,
-which the brief names or the document's head does; the document in full, and for a milestone its
-`README.md` and the spec of the slice to implement; the skill that owns plan documents,
+which the brief names or the document's head does; the document's `README.md` in full, and for a
+milestone also the `README.md` of the slice to implement, with each item of a `deliberation.md`
+beside them that either cites; the skill that owns plan documents,
 `skill@knowledge-architect-planning`, and every other skill the document names; the design home, the
 rejected designs, the open issues and the tripwires of that Component. Then read the code the
 document points at, enough to know what exists.

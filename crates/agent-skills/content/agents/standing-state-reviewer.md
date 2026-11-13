@@ -105,8 +105,9 @@ When the diff lands a spec or a slice of a milestone, read the criteria that the
 that landing judges, and confirm that the messages of the range report on **every one, including
 the ones that did not fire**. A landing that does not report on them means they are being read as narrative.
 
-When the diff deletes a plan document, or the branch's plan document leaves after this review, in
-the commit of its own its planning skill gives it, confirm that every criterion still standing was reported on
+When the diff deletes a plan document or moves a slice's spec under its milestone's `harvested/`,
+or the branch's plan document leaves or is so moved after this review, in the commit of its own its
+planning skill gives it, confirm that every criterion still standing was reported on
 once more, and that each one that recurs at later work was judged as a cause, as
 `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and either written or deleted,
 with its outcome in the record of the work.

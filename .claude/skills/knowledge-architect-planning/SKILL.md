@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-planning
-description: MUST use when the shapes of a design discussion that expects its full path settle, before its record search, to write the draft the search reads, and when a design discussion has converged and its work needs a spec or a milestone, in the same session as the convergence; whenever a slice of a milestone is about to be implemented or lands; when the work of a spec starts or lands; and before editing the roadmap. Covers the draft the design grounding's search reads, the plan document vocabulary (spec, milestone, plans directory, roadmap), choosing between a spec and a milestone, the roadmap, the file layout and the fixed sections, plan items and their citations, assembly from the discussion's transcript, cutting the work into steps and slices, acceptance criteria, the design audit, the reviews of a plan document, the harvest, and the deletion that ends a plan document's life.
+description: MUST use when the shapes of a design discussion that expects its full path settle, before its record search, to write the draft the search reads, and when a design discussion has converged and its work needs a spec or a milestone, in the same session as the convergence; whenever a slice of a milestone is about to be implemented or lands; when the work of a spec starts or lands; and before editing the roadmap. Covers the draft the design grounding's search reads, the plan document vocabulary (spec, milestone, plans directory, roadmap), choosing between a spec and a milestone, the roadmap, the directory layout, what each file of a plan document's directory holds and the fixed sections, plan items and their citations, assembly from the discussion's transcript and the committed transcript with its removal step, cutting the work into steps and slices, acceptance criteria, the design audit, the reviews of a plan document, the harvest, the move of a landed slice's spec under its milestone's harvested/, and the deletion that ends a plan document's life.
 ---
 
 # Planning
@@ -29,15 +29,17 @@ reads, and it re-enters at each slice's audit and at each landing.
 
 | word | meaning |
 | --- | --- |
-| **plan document** | a spec, a milestone document, or the spec of a slice. Temporary: it leaves when its work lands |
+| **plan document** | a spec, a milestone document, or the spec of a slice, each a directory (`skill@knowledge-architect-planning@plans-layout`). Temporary: a spec and a milestone leave when their work lands; a slice's spec is harvested when its slice lands, and leaves with its milestone |
 | **plans directory** | docs/plans/ at the project's root, the one directory where a project keeps its plan documents. The checker fixes the path (`skill@knowledge-architect-planning@plans-layout`) |
 | **spec** | the plan document of work done in one branch and one PR: the converged design and a concise implementation sequence. Cited `spec@plans@<id>` |
 | **step** | one item of an implementation sequence, in a spec or in a slice |
-| **slice** | a part of a milestone that is one branch and one PR, with its own spec, cited `spec@<milestone>@<slice>` |
-| **milestone** | work across several PRs, with design sessions between them. Its plan documents are one directory: the **milestone document**, its `README.md`, and one spec per slice. Cited `milestone@plans@<id>` |
+| **slice** | a part of a milestone that is one branch and one PR, with its own spec, a directory inside the milestone's, cited `spec@<milestone>@<slice>` |
+| **milestone** | work across several PRs, with design sessions between them. Its plan documents are one directory: the **milestone document**, its `README.md` with the files beside it, and one spec directory per slice. Cited `milestone@plans@<id>` |
+| **harvested** | the state of a slice's spec once its slice has landed: its directory moved under its milestone's `harvested/`, frozen there, until the milestone's directory leaves (`skill@knowledge-architect-planning@plan-document-leaves`) |
+| **frozen** | no commit modifies the file: a commit may add it or delete it, and the move that harvests a slice moves it; every file under a milestone's `harvested/` is frozen |
 | **item** | a thread, an argument, a criterion or an acceptance criterion, defined in a plan document as a level-three heading ending with its slug, under the section of its kind (`skill@knowledge-architect-planning@spec-contents`) |
 | **roadmap** | docs/roadmap.md at the project's root, optional: the order in which the owner wants known work done (`skill@knowledge-architect-planning@spec-or-milestone`) |
-| **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction |
+| **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction. A plan document's committed copy of it is its `transcript.txt` |
 | **assembly** | writing a plan document from the discussion's transcript (`skill@knowledge-architect-planning@spec-contents`) |
 | **converged** | convergence holds, as loop step 6 of `skill@knowledge-architect-design@discussion-loop` defines it |
 | **thread** | one open question or proposal of a design discussion, the unit that carries a state, as `skill@knowledge-architect-design@discussion-overview` defines it; a thread closed `approved` or `argued` is a decision |
@@ -121,32 +123,72 @@ docs/plans/
 ├─ specs/
 │  ├─ README.md
 │  ├─ index.md             generated
-│  └─ <id>.md              a spec
+│  └─ <id>/                a spec
+│     ├─ README.md         the document the searches read
+│     ├─ deliberation.md   its Threads and Arguments
+│     ├─ search/           the generated lines of its searches
+│     └─ transcript.txt    the discussion's trimmed transcript
 └─ milestones/
    ├─ README.md
    ├─ index.md             generated
    └─ <id>/                a milestone
       ├─ README.md         the milestone document
-      ├─ index.md          generated: the slice specs
-      └─ <slice>.md        the spec of one slice
+      ├─ index.md          generated: its slices, live and harvested
+      ├─ deliberation.md
+      ├─ search/
+      ├─ transcript.txt
+      ├─ <slice>/          the spec of one live slice, laid out as a spec
+      └─ harvested/
+         └─ <slice>/       the spec of a landed slice, frozen
 ```
 
-- The checker constructs the anchor `plans` at docs/plans/, one anchor per milestone directory and
-  one per spec file. A file or a directory directly under docs/plans/ outside this layout is a
-  finding, and so is a directory under milestones/ with no `README.md`. `cargo klarch index` writes
-  every `index.md`, and `cargo klarch check --fix` writes them once the first three phases of the
-  check find nothing, then runs every check. For a commit of part of the working tree,
-  `cargo klarch index --staged` writes them into git's index from what is staged, and
+**What each file of a plan document's directory holds**, a slice's directory included:
+
+| file | holds | owed |
+| --- | --- | --- |
+| `README.md` | the document the searches read: every section of `skill@knowledge-architect-planning@spec-contents` but Threads and Arguments | always |
+| `deliberation.md` | the sections Threads and Arguments, whose items record the argument of the discussion | where the document has a thread or an argument |
+| `search/discussion.txt` | the generated lines of the discussion's record search, as `skill@knowledge-architect-planning@spec-contents` says | where that search ran for this document |
+| `search/design-audit.txt` | the fit lines of its design audit, as `skill@knowledge-architect-planning@working-a-slice` says | where that audit ran |
+| `transcript.txt` | the trimmed transcript of the discussion, as `skill@knowledge-architect-planning@spec-contents` says | where the document was assembled from a transcript |
+
+- The checker refuses any other file or directory in a plan document's directory; a milestone's
+  directory admits besides its generated `index.md`, its slice directories and `harvested/`. A
+  spec written as one file, `docs/plans/specs/<id>.md`, is a finding whose repair names the
+  directory.
+- The checker reads `README.md` and `deliberation.md`. It never parses a `.txt` file, so a
+  reference, a slug or a commit SHA in `transcript.txt` or in `search/` is no citation and raises no
+  finding.
+- **Every file under a milestone's `harvested/` is frozen, and out of the walk**: the checker reads
+  it for the items it defines alone, so an item it defines still resolves from inside its
+  milestone, and a live item that reuses one of its ids is reported. `cargo klarch commits` reports a
+  commit that modifies a frozen file, other than adding it, deleting it, or the move that harvests a
+  slice.
+- The checker constructs the anchor `plans` at docs/plans/, one anchor per spec directory and one
+  per milestone directory. A slice's directory is no anchor: its milestone is the anchor of every
+  file under the milestone's directory. A file or a directory directly under docs/plans/ outside
+  this layout is a finding, and so is a directory under milestones/ with no `README.md`.
+  `cargo klarch index` writes every `index.md`, and `cargo klarch check --fix` writes them once the
+  first three phases of the check find nothing, then runs every check. For a commit of part of the
+  working tree, `cargo klarch index --staged` writes them into git's index from what is staged, and
   `cargo klarch check --staged` checks what the commit will record.
-- The milestone document links each slice's spec as a navigation row, `[<slice title>](<slice>.md)`.
-  The checker resolves a relative link only in a `README.md` or an `index.md`.
+- **A `README.md` reaches the files beside it by relative navigation links**, such as
+  `[deliberation](deliberation.md)` and `[the discussion's search](search/discussion.txt)`, and an
+  item of `deliberation.md` by its item reference. The milestone document links each live slice's
+  spec as a navigation row, `[<slice title>](<slice>/README.md)`. The checker resolves a relative
+  link only in a `README.md` or an `index.md`, to a target under its own directory, so a slice's
+  `README.md` reaches its milestone's `deliberation.md` through item references alone. No file of a
+  plan document's directory is cited by a `path` reference.
 - **The plans directory holds plan documents and nothing else**, except its `README.md` files and
   generated indexes, which keep its homes in the tree while no plan document is open. A document with
   another lifetime, such as a record of how far a subject is implemented or a survey that outlives
   its work, has its own home. If none fits, ask the owner before writing it anywhere.
 - **A plan document is cited by its kind**, never by its path: `spec@plans@<id>`,
   `milestone@plans@<id>`, `spec@<milestone>@<slice>`. A `path` citation of one is refused. A whole
-  plan document may be cited from anywhere but a goals home, and its citations dangle when it leaves (`skill@knowledge-architect-planning@plan-document-leaves`).
+  plan document may be cited from anywhere but a goals home, and its citations dangle when it leaves
+  (`skill@knowledge-architect-planning@plan-document-leaves`). **A harvested slice is cited from
+  inside its milestone's directory only**: a citation of it, or of an item it defines, from
+  anywhere else is refused, and its repair names the milestone.
 - **A plan document defines items, and no design entry** (`skill@knowledge-architect-planning@spec-contents`). A plan's name is the anchor of its
   items, so it is not the name of a Component, of a location or of a reserved anchor, `plans`,
   `elsewhere` or `*`, and one name is not used under both homes.
@@ -157,9 +199,11 @@ docs/plans/
 is held to, and the reviews of `skill@knowledge-architect-planning@plan-reviews` check it.
 
 **The sections of a spec of specs/ and of a milestone document are fixed: level-two headings with
-these titles, in this order.** A slice's spec owes the five sections of its entry instead, and
-carries of the sections below only those its slice fills. `cargo klarch check` reports a section a
-document owes as missing or out of order. A section a document owes and has nothing to hold says
+these titles, in this order**, Threads and Arguments in `deliberation.md`, every other in
+`README.md`. A slice's `README.md` owes the five sections of its entry instead, and carries of the
+sections below only those its slice fills, "What is already decided" where the slice has entries
+to seed its audit's search; its threads and arguments are in its own `deliberation.md`.
+`cargo klarch check` reports a section a document owes as missing or out of order. A section a document owes and has nothing to hold says
 so in one line rather than being omitted, so a reader can tell an empty section from a missing one.
 
 | section | holds |
@@ -168,12 +212,12 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search gave a verdict other than `unrelated`, with its verdict, its action and its outcome: the answer the discussion gave, that the decided design respects it, or that it stays open |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search gave a verdict whose outcome changed something, the design, a thread or the work, with that outcome, and a link to `search/discussion.txt` for the other verdicts |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
-| Threads | one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's words that closed it, verbatim, with their round, or, for a thread closed `argued`, the argument that closed it |
-| Arguments | one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words verbatim |
+| Threads | in `deliberation.md`: one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's ruling that closed it, attributed, with its round, or, for a thread closed `argued`, the argument that closed it |
+| Arguments | in `deliberation.md`: one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words, the session's verbatim and the owner's attributed |
 | New names, in one place | every new name the design uses (a type, a function, a field, an event, a bound, a counter) in one fenced block with the file it goes in; a name that exists in the code is listed as existing |
-| Decided design | one subsection per thread closed `approved` or `argued`: the shape, the argument, the nearest rival and the fact that defeated it |
+| Decided design | one subsection per thread closed `approved` or `argued`: the shape and every condition its closure set, the argument, the nearest rival and the fact that defeated it |
 | Mapping tables | one table per total function the code will need, over its whole domain: which existing thing becomes which new thing. Empty when the work needs none |
 | Losing alternatives | every ruled-out thread, every thread withdrawn with its defeating reason, and every superseded thread under the thread that absorbed it, each with the thread it lost to and the fact that decided it |
 | Readings | where the work reads an external specification the project implements: each reading it makes, and where it is recorded. Empty for work that reads none |
@@ -190,20 +234,26 @@ document and one spec per slice are written together, in the session that conver
 document that held every slice's design would be read whole at every slice's grounding, and grows
 with every slice the milestone has.
 
-- **A slice's spec leaves when its slice lands, so it holds what only that slice builds**: the slice's
+- **A slice's spec is frozen when its slice lands, so it holds what only that slice builds**: the slice's
   entry (`skill@knowledge-architect-planning@cutting-steps-and-slices`) and its steps, then, in the sections above, the items of its own threads and the arguments only
-  they use, its decided design, its mapping tables, its losing alternatives, the acceptance
+  they use, in its `deliberation.md`, its decided design, its mapping tables, its losing alternatives, the acceptance
   criteria it judges and its harvest row. These sections are not ordered against the entry's.
 - **The milestone document holds what crosses slices or outlives one**: the status, how the work is
   done, the names, what the work is, the criteria, every item that more than one slice's
-  document cites, the premortem, the implementation sequence with each slice linked to its spec,
+  document cites, in the milestone's `deliberation.md` for a thread or an argument, the premortem, the implementation sequence with each slice linked to its spec,
   the order rationale, the defaults awaiting the owner, the harvest row of the document itself and
   the later consequences. A section whose content lives in the slice specs says so in one line.
 - **An item cited from the milestone document, or from more than one slice's spec, lives in the
-  milestone document.** A slice's spec that held it would dangle those citations when it leaves; the
-  check reports any that remain at that deletion.
+  milestone document.** A slice's spec that held it is frozen once harvested, so the item could no
+  longer be amended in place when a later slice's landing changes it.
 - A design session held at a slice's audit writes its design into that slice's spec, and what it
   decides for later slices into theirs.
+
+**Every condition of a decided thread is in the decided design of a document the search reads**,
+the `README.md` of the spec, of the milestone or of the slice; `deliberation.md` holds only the
+argument. A slice's design audit searches the record with the two `README.md` files as its work
+(`skill@knowledge-architect-planning@working-a-slice`), so a condition written only in
+`deliberation.md` is one that no search checks the record against.
 
 **Content rules.**
 
@@ -228,11 +278,13 @@ sections is an item, and a slug anywhere else in a plan document defines nothing
 
 - An id is in the grammar `[a-z0-9]+(-[a-z0-9]+)+`. A thread keeps the slug the discussion minted.
   An argument is numbered `arg-1`, `arg-2`, …, in order of appearance and never reused, in one sequence
-  across a milestone's README and its slice specs, which share one namespace.
+  across the documents of a milestone's directory, its harvested slices included, which share one
+  namespace.
 - An item is cited `<kind>@<anchor>@<id>`, where the anchor is a spec's id, or the milestone's name for
-  an item of the milestone document or of any of its slice specs, and only from inside its own plan document, a milestone's documents counting as one: the spec file, or the milestone's directory. From anywhere
-  else, a commit message and a design head included, the plan document is cited whole, and an item
-  or a slice is named beside it as #<id>, a name, per `primer@where-knowledge-goes`.
+  an item of the milestone document or of any of its slice specs, live or harvested, and only from inside its own plan document, a milestone's documents counting as one: the spec's directory, or the milestone's directory. From anywhere
+  else, a commit message and a design head included, the plan document is cited whole, a harvested
+  slice's milestone in its place, and an item or a slice is named beside it as #<id>, a name, per
+  `primer@where-knowledge-goes`.
 
 **A path the plan document's work will create** is cited `planned@<anchor>@<path>`, under the rules of a
 `path` reference: the anchor that will hold it, a trailing `/` for a directory. The form is legal
@@ -241,22 +293,46 @@ that creates the file converts it to `path@<anchor>@<path>` in the same change.
 
 **Assembly from the transcript.** The plan documents of one discussion record the whole of it:
 each thread in the document that carries it, with its proposer, its final state, the arguments on
-each side, every argument it uses included, the owner's rulings verbatim with their round, and its
+each side, every argument it uses included, the owner's rulings with their round, and its
 relations. An argument that threads in two plan documents use, a milestone's documents counting as
 one, is in both, since an item is cited only from inside its own plan. An answer of the owner on a
 reading or a fact is recorded with its source, as `primer@labelled-items` says. It is assembled from the transcript, not from memory. Dispatch a
 subagent that extracts every session the discussion spans, a resumed session included, as
 `agent@knowledge-architect-transcript-reviewer@extract-transcripts` says, read whole, and from the
-extraction takes the delta tables, the owner's messages verbatim and the arguments; the design
+extraction takes the delta tables, the owner's messages and the arguments; the design
 skill's per-round delta is the draft it reads. The transcript reviewer then checks the document
 against the same lines. Where one argument ends and the next begins is decided at
 assembly, and the transcript reviewer of `skill@knowledge-architect-planning@plan-reviews` checks that no argument was lost. The status section quotes, for
 each session the discussion spans, the message where the discussion begins in it, so that a
 reviewer reads the same sessions: each is found by that message, never by a session identifier,
 as `skill@knowledge-architect-review` says, and the document names no file of the transcript
-directory, whose path holds the session identifier and the machine's home directory. Where the harness keeps no
+directory, whose path holds the session identifier and the machine's home directory. It also
+numbers the rounds, each named by the opening words of the owner's message, so that an item cites
+its round. Where the harness keeps no
 transcript, assemble from the conversation, and say so, and why, in the commit that adds the
 document.
+
+- **The owner's words are attributed in the items**, as `primer@design-heads` says of a durable
+  record, each citing its round; the verbatim words are in `transcript.txt`.
+- **The discussion's record search** leaves, of what `cargo klarch worklist` writes, only
+  `generated-lines.md`, copied after `cargo klarch worklist --verify` passes, as
+  `search/discussion.txt` beside the `README.md` of the document whose draft the search read. Its
+  verdict files, `shown.md`, its agent directories, `agents.txt` and `work.txt` stay in the scratch
+  space: their quotations go stale as the record changes, and "What is already decided" carries the
+  outcome of every verdict that changed something.
+- **The transcript** is committed as `transcript.txt` beside the `README.md` of the milestone
+  document or the spec, for each session the discussion spans in order: the output of
+  `cargo klarch transcript show <session> --from "<opening words>"`, without `--tools`, from the
+  message where the discussion begins to the owner's last message before the branch that adds the
+  plan document merges, so that the rulings given at its reviews are in it: it is committed after
+  the review before that merge.
+- **Before that commit, read the transcript whole and remove** every path under a home directory,
+  every e-mail address, every credential and token, and the pasted material the owner marks. Then
+  show the owner the transcript, and push no commit that holds it before the owner's word for that
+  transcript: once pushed, it cannot be taken back, so a word on committing transcripts in general,
+  or on another transcript, does not stand for it. A transcript the owner does not approve is
+  removed from the branch before any push, and a commit message of the branch says that none is
+  committed.
 
 ## Cutting the steps and the slices `##cutting-steps-and-slices`
 
@@ -281,7 +357,7 @@ failure.** Every other test here serves that one.
   commits the branch carries, such as the commit of its own a fix met outside the task takes, is the
   implementing session's to judge.
 
-A slice's entry is five level-two sections, with these titles, in this order, and
+A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `cargo klarch check` reports one missing or out of order. Fixtures, where it applies, sits between
 Claims and Audit subjects, and is not checked:
 
@@ -415,8 +491,9 @@ naming the decision and the premise it watches, its slug last:
 
 **Watches until** names the first occasions that exercise the decision, so that a command over the
 history counts them from the commit that wrote the line: commits on the main branch that change a
-named path or the guarded head's text, release tags, audit reports of an axis, plan documents
-deleted at their landing, or one event the tree shows, such as the first issue a consumer of an
+named path or the guarded head's text, release tags, audit reports of an axis, specs and
+milestones deleted at their landing, a slice's spec moved under its milestone's `harvested/` being
+none, or one event the tree shows, such as the first issue a consumer of an
 interface opens; never an occasion that only a session's transcript holds. A relocation, a commit
 whose added lines are exactly the lines it removes, is no occasion, since it exercises no decision.
 Its length is the writer's judgement, short for a cause kept on a doubt, and no count is kept in the
@@ -436,8 +513,9 @@ that puts it to the owner names one: it stops the slice, the whole of which rest
 design the gap defeats or on the ruling the documents reserve to the owner.
 
 1. **Ground**: the Component's `CLAUDE.md`, its design home, its `rejected` home; then the
-   milestone document entire, then the slice's spec. The issues and the tripwires, of every anchor,
-   are read at the audit.
+   milestone's `README.md` entire, then the slice's `README.md`, and the items of a
+   `deliberation.md` that either cites where a shape's argument is needed. The issues and the
+   tripwires, of every anchor, are read at the audit.
 2. **The design audit.** Read the slice's entry and every decided shape it depends on against the
    code as it stands and against the design homes. List every gap: a shape the code refutes, a
    passage of a specification the entry did not read, a name the entry uses that the code does not
@@ -446,24 +524,28 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    code meets bears on it too: read it in the milestone document, since no register holds it before
    the harvest. Dispatch the
    search of the whole record as the description of `agent@knowledge-architect-record-searcher` says, with
-   `--work` the slice's spec and the milestone document, `--subject slice-audit`,
-   `--seeds-from` the slice's spec, and `--since` the commit that last changed the slice's spec,
-   `git log -1 --format=%H -- <spec>`; for a spec, `--work` and `--seeds-from` the spec,
-   `--subject spec-audit` and `--since` the commit that last changed it. `--seeds-from` takes as
-   seeds the design entries and the declared-register entries the spec's section "What is already
+   `--work` the milestone's `README.md` and the slice's `README.md`, and no other file,
+   `--subject slice-audit`, `--seeds-from` the slice's `README.md`, and `--since` the commit that
+   last changed the slice's `README.md`, `git log -1 --format=%H -- <slice>/README.md`; for a spec,
+   `--work` and `--seeds-from` the spec's `README.md`, `--subject spec-audit` and `--since` the
+   commit that last changed it. `deliberation.md`, `search/` and `transcript.txt` are never the
+   search's work: the decided design carries every condition the search checks. `--seeds-from` takes as
+   seeds the design entries and the declared-register entries the `README.md`'s section "What is already
    decided" cites. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
    `unrelated`, with its entry's text: read it, and sort each verdict into the sorts below as a gap;
    a `constrains` verdict is a fit. A gap whose entry `gaps.md` marks `changed-since` is on an entry
    the spec's design could not have read in its current text, since its file changed after the
    spec did. The audit's record is `fit-lines.md`, whole, the line of each
    entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the
-   audit applies nothing in place, in the message of the slice's first commit. A firing found at the audit is
+   audit applies nothing in place, in the message of the slice's first commit; and, in that same
+   commit, copied as `search/design-audit.txt` beside the audited `README.md`, the slice's or the
+   spec's. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
-     amended documents alone, with a subject that names the slice's design audit in those words,
+     amended documents and `search/design-audit.txt` alone, with a subject that names the slice's design audit in those words,
      and a message listing each finding: the gap, the answer and the decision it follows from, and
      the lines of `fit-lines.md`. Where the slice's first change sets what the per-commit gate
      requires, per `primer@branch-commits`, the amended documents land in that change's commit
@@ -501,7 +583,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    `Q<n>`, since each is written in place as a thread with its slug. The slice's documents exist, so
    the ruling is not left to a commit message as the in-change path would leave it: it is written in
    place in the milestone's documents by the rule of
-   `skill@knowledge-architect-planning@spec-contents`, as a thread with the owner's words verbatim,
+   `skill@knowledge-architect-planning@spec-contents`, as a thread attributing the owner's ruling,
    like the audit's other answers, and the audit's commit lists it among its gaps. It is no
    converged design session, so it owes no new review of
    `skill@knowledge-architect-planning@plan-reviews`.
@@ -529,8 +611,8 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    `skill@knowledge-architect-review@review-axes` defines it and says what it owes: the harvest
    writes the record the decision-record, routing and standing-state axes judge, so the review of
    point 4 cannot see it.
-7. **The slice's spec leaves** in a commit of its own, after the review before the merge has read
-   the tip that holds it, as in `skill@knowledge-architect-planning@plan-document-leaves`. What crosses slices stays in the
+7. **The slice's spec is harvested** in a commit of its own, after the review before the merge has
+   read the tip that holds it, as `skill@knowledge-architect-planning@plan-document-leaves` says. What crosses slices stays in the
    milestone document, amended in place where the landing changed it.
 
 **The work of a spec** takes the same points once, for the whole spec, on its one branch:
@@ -543,10 +625,10 @@ design the gap defeats or on the ruling the documents reserve to the owner.
 - point 3, the claims and checks of each step;
 - point 4, the review of the work, once;
 - points 5 and 6, the report and the harvest, in the commits that land the work;
-- point 7, the deletion of the spec, in a commit of its own after the review before the merge, as
-  in `skill@knowledge-architect-planning@plan-document-leaves`.
+- point 7, the deletion of the spec's directory, in a commit of its own after the review before the
+  merge, as in `skill@knowledge-architect-planning@plan-document-leaves`.
 
-Where a point names the milestone document or the slice's spec, the work of a spec reads the spec:
+Where a point names the milestone's or the slice's `README.md`, the work of a spec reads the spec's:
 its defaults, its threads, its harvest row, and the design audit its commit subject names.
 
 ## Reviews of a plan document `##plan-reviews`
@@ -579,8 +661,8 @@ these four:
   It reports a shape, an acceptance criterion, a default, a step or a harvest row that contradicts
   a goal, that contradicts or widens a head the document does not list as reversed or rewritten,
   or that brings back a rejected design, and reads beside them the verdict files of the discussion's
-  record search, whose directory its brief names, reporting a verdict the document leaves
-  unanswered. A conflict with a goal goes to the owner.
+  record search, whose directory its brief names, and the document's `search/discussion.txt`,
+  reporting a verdict the document leaves unanswered. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another
   durable outcome, and that no ruling of the owner is recorded reversed, relaxed or turned from its
@@ -614,6 +696,8 @@ This list is their one home; the reviewer reads it here.
 
 - every name the document uses is defined in the names sections or exists in the code;
 - every total function the code will need is a mapping table;
+- every condition of a decided thread is in the decided design of a `README.md`, never in
+  `deliberation.md` alone;
 - every fixture is expressible in the vocabulary that exists, or names its addition;
 - a milestone document points to `skill@knowledge-architect-planning@working-a-slice`;
 - every number is a measurement with its instrument, or a default marked as the owner's;
@@ -630,15 +714,28 @@ This list is their one home; the reviewer reads it here.
 
 ## When a plan document leaves `##plan-document-leaves`
 
-**A plan document is deleted in a commit of its own, once its last harvest is complete and the
-review before the merge has read the tip that holds it, and that commit's message cites it by its
-kind**, `spec@plans@<id>`, `milestone@plans@<id>` or `spec@<milestone>@<slice>`, which resolves
-against the commit's parent. The reviewers of that review, the transcript reviewer's search
-included, read the document in the tree they judge, and a pair a harvest row states is in a tree
-`git log -G` reads. A milestone's slice spec leaves when its slice lands; the milestone document
-leaves once its last slice has landed and every default it lists is ruled: in the commit that deletes
-that slice's spec, or, where a default is still unruled then, in the commit that records the last
-ruling. Before deleting:
+**A spec or a milestone is deleted, its whole directory, in a commit of its own, once its last
+harvest is complete and the review before the merge has read the tip that holds it, and that
+commit's message cites it by its kind**, `spec@plans@<id>` or `milestone@plans@<id>`, which
+resolves against the commit's parent. The reviewers of that review, the transcript reviewer's
+search included, read the document in the tree they judge, and a pair a harvest row states is in a
+tree `git log -G` reads.
+
+**A slice's spec is harvested when its slice lands**: its directory is moved under its milestone's
+`harvested/`, `git mv <milestone>/<slice> <milestone>/harvested/<slice>`, in a commit of its own
+after the review before the merge has read the tip that holds it, whose message cites it as
+`spec@<milestone>@<slice>`, which resolves against the commit's parent. The move changes nothing in
+the slice's files: from that commit on they are frozen, and they leave with the milestone's
+directory. The same commit re-points the milestone document's link to the slice, to
+`harvested/<slice>/README.md`, and repairs each citation of the slice, or of an item it defines,
+from outside the milestone's directory, as the paragraphs below say of a leaving document's
+citations, since the checker refuses them once the slice is harvested.
+
+The milestone leaves once its last slice has landed and every default it lists is ruled: in a
+commit that deletes its directory, the last slice's spec with it, or, where a default is still
+unruled then, after the last slice is harvested, in the commit that records the last ruling.
+
+Before deleting a plan document or harvesting a slice:
 
 - every harvest row of the document is done;
 - every acceptance criterion has been reported on, and has become a tripwire or left (`skill@knowledge-architect-planning@acceptance-criteria`);
@@ -651,9 +748,10 @@ ruling. Before deleting:
   a default only once the owner has ruled on it;
 - its row of the roadmap, if it has one, is removed (`skill@knowledge-architect-planning@spec-or-milestone`).
 
-**A citation of the leaving document from another plan document dangles.** The session that meets
-it, the one deleting the document or the one rebasing the citing document's branch onto that
-deletion, does two things in one commit:
+**A citation of the leaving document from another plan document dangles**, and so does a
+citation of a harvested slice from outside its milestone. The session that meets
+it, the one deleting the document or harvesting the slice, or the one rebasing the citing
+document's branch onto that commit, does two things in one commit:
 
 - it removes the citation from the citing document;
 - it opens a `question` issue in the root's issue register, under
@@ -664,18 +762,19 @@ deletion, does two things in one commit:
   leaving document's harvested design entries, since the leaving document no longer exists. For a
   milestone, its next slice's audit reads the issue.
 
-A milestone's own documents count as one plan document: where a slice spec that leaves is cited by its milestone
-document or its sibling specs, they re-point or remove the citation with no
-`question` issue, since the next slice's audit already reads the milestone against what landed.
+A milestone's own documents count as one plan document: a harvested slice's spec still resolves
+from inside its milestone's directory, so its milestone document and its sibling specs keep their
+citations of it, and no `question` issue is opened.
 
 Any other citation of the leaving document, from an issue, a design head or a `CLAUDE.md`, dangles
-too, and `cargo klarch check` reports it: the deleting commit repairs each, as
+too, and `cargo klarch check` reports it: the deleting or harvesting commit repairs each, as
 `skill@knowledge-architect-issue-tracking` says of a sentence whose reference dangles, and an issue whose
 subject was the leaving document closes with it.
 
-A reader who needs the deliberation later finds it in history:
+A reader who needs the deliberation later finds a harvested slice's under its milestone's
+`harvested/` while the milestone is open, and every deleted document's in history:
 
 ```sh
-git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document, with its commit
-git show <commit>^:<path of the document>                   # the document as it stood before deletion
+git log --diff-filter=D --name-only -- docs/plans/         # every deleted plan document's files, with their commit
+git show <commit>^:<path of the file>                       # a file as it stood before deletion
 ```
