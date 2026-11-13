@@ -226,8 +226,10 @@ harvest wrote into the design homes, and the later slices of its milestone go on
 entries it cites. Judged against the tree of each later day, it would fail, and a session would edit
 it to pass, rewriting the record of what was decided. Under `goal@documentation-stays-consistent`, a
 tree that passes conforms in the texts the checker reads; a frozen file is read for its definitions
-alone, as an installed file is: that reading of the goal is the session's, taken in the
-discussion of the milestone that built this, and the owner's to contest. The exemption names a location whose files leave the tree with their
+alone, as an installed file is. The session took that reading of the goal in the discussion of
+the milestone that built this, and the owner confirmed it at the review before the merge of the
+slice that built this, with the difference between the two classes before the owner: an installed
+file's source is judged on every run, and a frozen file's citations on none. The exemption names a location whose files leave the tree with their
 milestone, the case `design@check@the-regime-has-no-opt-out` admits: an exemption that names files
 leaving the tree expires with its subject. The generated lines of a search and the transcript are
 records of their time in the same way; being `.txt` files, the walk never parses them, and they need

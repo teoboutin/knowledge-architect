@@ -89,8 +89,11 @@ work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and
     stay, `primer@design-heads` on the same, and `primer@coined-terms`. This work names the case
     the closed issue on verbatim words recorded, for the harvest to rule: the owner asked for an
     issue entry holding the owner's words verbatim, as input to a later discussion, in the slice
-    that put `cli` on top, W3 of the retrospective's workflow file of 2026-11-06 on that slice. The
-    harvest rules whether an issue entry may quote the owner on the owner's request, or never;
+    that put `cli` on top, W3 of the retrospective's workflow file of 2026-11-06 on that slice.
+    Whether an issue entry may quote the owner on the owner's request, or never, was put to the
+    owner at the review before this slice's merge, and the owner chose the exception: the entry
+    holds the words the owner asked it to keep, marked as quoted on the owner's request, as input to
+    a later discussion and never as the ground of a ruling, and the rest of it attributes;
   - every other shipped text that names a plan document's file, a slice's spec as a file, or the
     deletion of a slice's spec at its landing: among them the design skill, the review skill, the
     record searcher's, the transcript reviewer's, the cold implementer's and the design-conformance
@@ -362,8 +365,9 @@ decided design; the slice's design audit checks each reading against the head re
 - `design@agent-skills@plan-records-the-exchange`: `deliberation.md` records the whole exchange,
   attributing the owner's words; the verbatim words are in `transcript.txt`.
 - `design@agent-skills@attribution-replaces-quotation`: plan items attribute too; the owner's
-  verbatim words stay in a committed transcript, and the case of an issue entry the owner asks for
-  is ruled by this slice's harvest.
+  verbatim words stay in a committed transcript, and an issue entry quotes the owner only where
+  the owner asks it to keep the words, the exception the owner chose at the review before this
+  slice's merge.
 - `design@agent-skills@no-progress-record`: a harvested slice is no progress record: it is a slice's
   plan, frozen, which leaves with its milestone; history lists every plan document and milestone
   that left.

@@ -66,6 +66,9 @@ an empty subsection is omitted.
   its own after its review, where it was deleted, and leaves with its milestone's directory. A
   slice audit's search takes as its work the milestone's `README.md` and the slice's, seeds from the
   slice's `README.md`, and takes as `--since` the commit that last changed it.
+- `agent-skills`, patch: an issue entry holds the owner's words verbatim where the owner asks it to
+  keep them, marked as quoted on the owner's request, as input to a later discussion and never as
+  the ground of a ruling; the rest of the entry attributes, as before.
 
 ## 0.10.0
 

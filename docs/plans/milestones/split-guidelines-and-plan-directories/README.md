@@ -266,7 +266,8 @@ in the spec of the slice that rewrites it.
 - `goal@documentation-stays-consistent`: the goal binds "in the texts the checker reads", and the
   frozen files leave the walk by construction, as the project's installed files and generated
   indexes already do with no declaration, per `design@check@installed-files-outside-the-walk`; the
-  session's decision at the review of this document, replacing the reading it took in round 3; see
+  session's reading at the review of this document, which replaced the reading it took in round 3
+  and which the owner confirmed at the review before the merge of slice 1; see
   `criterion@split-guidelines-and-plan-directories@documentation-stays-consistent`.
 - `goal@documentation-has-a-structure-and-a-model`: reworded under
   `skill@knowledge-architect-goal-setting` and ruled by the owner in the closing exchange,
@@ -420,8 +421,10 @@ reads". Satisfied by `thread@split-guidelines-and-plan-directories@frozen-plan-a
 a frozen file leaves the walk by construction, parsed for definitions only, as the project already
 takes its installed files and its generated indexes out of the walk with no declaration, per
 `design@check@installed-files-outside-the-walk`. A frozen file joins that class, so the goal's
-words reach it as they reach those files. This is the session's decision at the review of this
-document. It replaces the argument the session gave in round 3,
+words reach it as they reach those files. The session took this reading at the review of this
+document, and the owner confirmed it at the review before the merge of slice 1, with the difference
+between the two classes before the owner: an installed file's source is judged on every run, and a
+frozen file's citations on none. It replaces the argument the session gave in round 3,
 `argument@split-guidelines-and-plan-directories@arg-48`, which left the frozen files in the walk
 with their references unjudged and did not defeat the rival reading the search put to the owner:
 that their references stay judged, or that they leave the tree at landing.
