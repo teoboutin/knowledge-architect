@@ -24,7 +24,8 @@ and its slice specs into the layout it builds, so the layout below is the one
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. No default awaits the owner: see "Defaults awaiting the owner".
+  waits. No default awaits the owner: D1, from the review of this document, on the regime of the
+  frozen files, is ruled; see "Defaults awaiting the owner".
 
 **Its source.** It was assembled from one session's transcript, extracted with
 `cargo klarch transcript show`. The discussion begins at the owner's message that opens "I want to
@@ -36,7 +37,7 @@ reply to it:
 | round | the owner's message, by its opening words | the session's reply |
 | --- | --- | --- |
 | 1 | "I want to discuss three subjects together" | headed "Round 1": grounding, criteria, twelve threads, Q1 to Q3 |
-| 2 | "Q1 yes, with a step that removes private information" | the draft written and the record search dispatched; one thread opened |
+| 2 | "Q1 yes, with a step that removes private information" | the draft written and the record search dispatched; two threads opened |
 | 3 | "Try again", after a search agent failed twice on an API error | headed "Round 3": the search's verdicts, Q4 to Q6 |
 | 4 | "frozen-plan-artifacts: agreed on those shapes" | headed "Round 4": the goal draft, Q7 to Q9, the premortem, the checkpoint table |
 | closing | "Q7: right now, would a project be able to define its own shapes via an extension ?", then "documentation-has-a-structure-and-a-model wording approved" | the answer to Q7's factual part; the goal committed |
@@ -45,8 +46,15 @@ The session put nine questions to the owner, Q1 to Q9, numbered in the conversat
 are kept here. The search of the whole record ran once, between rounds 2 and 3, over a draft of
 this milestone: 19 agents of `agent@knowledge-architect-record-searcher`, whose reports passed
 `cargo klarch worklist --verify` and gave 301 entries a verdict other than `unrelated`. Its output,
-the draft it read and the goal reviewer's two reports sit in the session's scratch space, outside
-the tree; this document carries each verdict's outcome under "What is already decided".
+the draft it read and the goal reviewer's two reports sit in the session's scratch space on the
+owner's machine, outside the tree: the search's output in `$CLAUDE_CODE_TMPDIR/split-design/search/`.
+Slice 1 commits the search's `generated-lines.md` as this milestone's `search/discussion.txt`, and
+nothing else of that output; this document carries each verdict's outcome under "What is already
+decided", and the reports of single search agents and of the session's investigators, which no
+file of the tree keeps, are cited only beside what a reader can check in the tree. An issue the
+commit that adds this document closes, named here by its bare slug, sits in the history under
+crates/agent-skills/docs/open-issues/: `git log --diff-filter=D --format=%H -1 -- <its path>` names
+the commit that deleted it, and `git show <that commit>^:<its path>` prints it.
 
 ## How the work is done
 
@@ -60,7 +68,8 @@ This repository adds:
   slice 1;
 - a slice whose first change sets what the per-commit gate requires, as slice 1's checker change
   does, puts that change and every fix the tree needs in the branch's first commit, per
-  `primer@branch-commits`;
+  `primer@branch-commits`; so the branch that adds this document merges before slice 1 starts, per
+  `skill@knowledge-architect-planning@plan-reviews`, and slice 1 starts on a branch of its own;
 - each slice writes its CHANGELOG.md entries in the `Next release` section, per
   `instructions@git-workflow` point 1, and a change of the rules a project's recorded content must
   meet gets a Migration entry, per `design@knowledge-architect@changelog-entries`.
@@ -78,15 +87,43 @@ This repository adds:
 | the subject standard | `design@agent-skills@subject-split-standard`, delivered by the fragment `path@agent-skills@fragments/subject-split.md` |
 | the search | the search of the whole record by `cargo klarch worklist` and `agent@knowledge-architect-record-searcher`, at a discussion's grounding and at a slice's design audit |
 | the draft | the draft of this milestone the search read, written at round 2 under `skill@knowledge-architect-planning@when-planning-starts` |
-| the plan model | the plan registers `model` compiles in today: `spec` of the File shape, `milestone` of the Directory shape carrying `spec` and the four item registers, and the item registers of the Section shape, built by `Registers::built_in` around the constants `SPEC_REGISTER`, `MILESTONE_REGISTER`, `ITEM_REGISTERS` and `PLAN_SECTIONS` in `path@model@src/manifest.rs` |
-| a frozen file | a file of a plan document's directory judged when it is written and never again: the search's output and a harvested slice's spec; and `transcript.txt`, which is never parsed. See `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` |
-| harvested | the state of a slice's spec after its slice lands: kept in its milestone's directory, frozen, cited from inside the milestone only. See `thread@split-guidelines-and-plan-directories@harvested-slice-kept` |
+| the plan model | the plan registers `model` compiles in today: `spec` of the File shape, `milestone` of the Directory shape carrying `spec` and the four item registers, and the item registers of the Section shape, built by `Registers::built_in` around the constants `SPEC_REGISTER`, `MILESTONE_REGISTER`, `ITEM_REGISTERS`, `PLAN_SECTIONS`, `SPECS_HOME` and `MILESTONES_HOME`, with the helper `plan`, all in `path@model@src/manifest.rs` |
+| a frozen file | a file under a slice's directory moved to its milestone's `harvested/`, the one frozen location. It leaves the walk by construction, parsed for definitions only, per D1. `transcript.txt` and the files of `search/`, being `.txt` files, are never parsed and need no such rule. See "The regime of each file" |
+| harvested | the state of a slice after its slice lands: its directory moved under its milestone's `harvested/`, which is the marker, kept there and frozen until the milestone leaves, cited from inside the milestone only. See `thread@split-guidelines-and-plan-directories@harvested-slice-kept` |
 | the code-split scout | the installed agent slice 2 adds, which judges the code a piece of work touches against the split guidelines. See `thread@split-guidelines-and-plan-directories@splits-planned-before-work` |
 | the scoped auditor | one `agent@knowledge-architect-design-record-auditor`, dispatched at planning on the heads a harvest will touch, not a whole audit. See `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` |
-| the twelve root heads | the heads of `register@knowledge-architect@design` that argue a Component's existence: `design@knowledge-architect@installed-text-crate`, `design@knowledge-architect@model-crate`, `design@knowledge-architect@check-crate`, `design@knowledge-architect@git-crate`, `design@knowledge-architect@query-crate`, `design@knowledge-architect@transcript-crate`, `design@knowledge-architect@create-crate`, `design@knowledge-architect@cli-crate`, `design@knowledge-architect@testing-crate`, `design@knowledge-architect@gates-crate`, `design@knowledge-architect@mutation-command-host`, `design@knowledge-architect@xtask-crate`, as search agent 15 listed them |
+| the twelve root heads | the heads of `register@knowledge-architect@design` that argue a Component's existence: `design@knowledge-architect@installed-text-crate`, `design@knowledge-architect@model-crate`, `design@knowledge-architect@check-crate`, `design@knowledge-architect@git-crate`, `design@knowledge-architect@query-crate`, `design@knowledge-architect@transcript-crate`, `design@knowledge-architect@create-crate`, `design@knowledge-architect@cli-crate`, `design@knowledge-architect@testing-crate`, `design@knowledge-architect@gates-crate`, `design@knowledge-architect@mutation-command-host`, `design@knowledge-architect@xtask-crate`, one per Component other than the root |
 | P1 to P8 | the causes of the premortem, under "Premortem" |
-| Q1 to Q9 | the questions the session put to the owner, each answered in the round the table above gives |
+| Q1 to Q9 | the questions the session put to the owner, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
+| D1 | the default awaiting the owner, under "Defaults awaiting the owner" |
 | the Groups A to F | the six groups of the search's `conflicts` verdicts, under "What is already decided" |
+| thaum | a sibling project of the owner's, which also uses the workflow, read by the session in round 1 for its guidelines on splitting code |
+
+The questions, each with the default the session gave:
+
+- **Q1**, round 1: is committing the trimmed transcript acceptable, as the default for every
+  adopting project? Default: yes, with a step before the commit that reads it and removes private
+  data and pasted material.
+- **Q2**, round 1: are slice specs kept until the milestone leaves, or kept indefinitely? Default:
+  until the milestone leaves.
+- **Q3**, round 1: one milestone, with the slices in the order of "Implementation sequence"?
+  Default: yes, plans first, so the later slices are planned in the new layout.
+- **Q4**, round 3: which real session left a split undone, or cut code badly, for lack of the
+  module guidelines, the evidence `design@agent-skills@behaviour-additions-need-real-use` asks?
+  Default if none: the module guidelines and the scout parked as an issue.
+- **Q5**, round 3: the delivery, whose host lists are the owner's per
+  `design@agent-skills@shared-text-fragment`. Default: the module guidelines inside the fragment
+  of the default code shape, and the code-split scout a new agent hosting that fragment and the one
+  on when to split, two new host entries.
+- **Q6**, round 3: is reopening `design@agent-skills@one-record-searcher` part of this milestone?
+  Default: no.
+- **Q7**, round 4: is "from a variety of published shapes" an outcome the goal states, or a means
+  left to the design? Default: left out of the goal, so both readings stay admitted.
+- **Q8**, round 4: for a domain whose knowledge fits none of the shapes offered, must the goal
+  require a new shape, or only admit one? No default.
+- **Q9**, round 4: what "cover" means, on the case of a catalogue of hardware parts. A: a procedure
+  covers knowledge only where it says how to record that kind; B: wherever it gives the knowledge a
+  home. Default: A.
 
 ## What the work is
 
@@ -96,9 +133,10 @@ This repository adds:
   skill, which says "These criteria are guidelines: a Component that departs from one does not
   fail on that alone." Design subjects: the subject standard, whose two triggers are the
   `worklist` bound and heads that "answer questions about parts of the Component that change
-  apart". Code inside a Component: the default code shape alone, "a guideline, not a rule a unit
-  fails alone", whose units are "a function, a type or a module"; nothing says how a Component's
-  code is cut into modules, or when.
+  apart". Code inside a Component: the default code shape alone, which its head,
+  `design@agent-skills@default-code-shape`, calls "a guideline, not a rule a unit fails alone",
+  and whose units the fragment names "a function, a type or a module"; nothing says how a
+  Component's code is cut into modules, or when.
 - **Where a split is recorded.** The component-creation skill has a Component's purpose recorded
   as the statement of the design head that argues its existence, in the root's design home, and
   says "A Component kept against the default criteria is a decision about the layout, recorded in
@@ -117,10 +155,12 @@ This repository adds:
   agent. The measurement under `argument@split-guidelines-and-plan-directories@arg-20` gives the
   sizes.
 - **The plan model.** It is compiled into `model` as built-in registers, defined in
-  `path@model@src/manifest.rs`; those constants, with `PLANS_DIR`, `SLICE_SECTIONS`, `PLANS_ANCHOR` of
-  `path@model@src/entity.rs` and `Registers::is_plan_register`, are named in 10 files of four
-  crates, `model`, `check`, `create` and `query`: `grep -rlE` of the eight names over crates/*/src
-  and tools/*/src, on the commit before this document's.
+  `path@model@src/manifest.rs`; the constants `SPEC_REGISTER`, `MILESTONE_REGISTER`,
+  `ITEM_REGISTERS` and `PLAN_SECTIONS`, with `PLANS_DIR` and `SLICE_SECTIONS` of the same file,
+  `PLANS_ANCHOR` of `path@model@src/entity.rs` and `Registers::is_plan_register`, are named in 10
+  files of four crates, `model`, `check`, `create` and `query`: `grep -rlE` of these eight names
+  over crates/*/src and tools/*/src, on the commit before this document's. `SPECS_HOME` and
+  `MILESTONES_HOME` of manifest.rs, which locate the two homes, add no file to that count.
 
 **Outside the work**, each with what owns it:
 
@@ -172,9 +212,12 @@ in the spec of the slice that rewrites it.
 
 - **Group A, 32 entries, rewritten by slice 1** as the plan model and the plan documents' layout
   change: the work's own reversals. Listed in `spec@split-guidelines-and-plan-directories@plan-directories`.
-- **Group B, 13 entries, rewritten by slice 1** to state one member they do not state today, the
-  dated record judged when written, per
-  `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`. Listed in the same spec.
+- **Group B, 13 entries, rewritten by slice 1** to admit one member they do not state today, the
+  frozen location of a milestone's directory, `harvested/`, which leaves the walk by construction,
+  each citing the one
+  head that slice 1's harvest writes for that regime rather than restating it, per
+  `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` and D1. Listed in the same
+  spec.
 - **Group C, 2 entries, answered with no reversal**: `design@agent-skills@thread-slug-is-entry-id`
   and `design@agent-skills@arguments-as-items`. `deliberation.md` stays a live, item-bearing file of
   the plan, so a thread stays an item under a Threads section and an argument an item under an
@@ -183,7 +226,8 @@ in the spec of the slice that rewrites it.
 - **Group D, 6 entries, rewritten by slices 2 and 3**: `design@agent-skills@subject-split-standard`,
   `design@agent-skills@default-code-shape`, `design@agent-skills@component-skill-delivery`,
   `design@agent-skills@premortem-as-watch-points` and `design@agent-skills@design-audit-checks-fit`
-  by slice 2, with the two of Group F; `design@agent-skills@existing-heads-on-touch` by slice 3.
+  by slice 2, with the host lists of `design@agent-skills@shared-text-fragment` of Group F;
+  `design@agent-skills@existing-heads-on-touch` by slice 3.
   Listed in `spec@split-guidelines-and-plan-directories@planned-splits` and
   `spec@split-guidelines-and-plan-directories@conformance-before-harvest`. Slice 4 reads
   `design@agent-skills@component-skill-delivery` again, since the Component argument changes how
@@ -199,9 +243,11 @@ in the spec of the slice that rewrites it.
 
 **`conflicts`, `goal-setting`: 2 goals.**
 
-- `goal@documentation-stays-consistent`: read so that a dated record is consistent when it was
-  consistent with the tree it was written in, a reading the session took in round 3, under
-  "Decided"; see `criterion@split-guidelines-and-plan-directories@documentation-stays-consistent`.
+- `goal@documentation-stays-consistent`: the goal binds "in the texts the checker reads", and the
+  frozen files leave the walk by construction, as the project's installed files and generated
+  indexes already do with no declaration, per `design@check@installed-files-outside-the-walk`; the
+  session's decision at the review of this document, replacing the reading it took in round 3; see
+  `criterion@split-guidelines-and-plan-directories@documentation-stays-consistent`.
 - `goal@documentation-has-a-structure-and-a-model`: reworded under
   `skill@knowledge-architect-goal-setting` and ruled by the owner in the closing exchange,
   `thread@split-guidelines-and-plan-directories@custom-register-goal`; committed on this branch
@@ -215,8 +261,18 @@ work that schedules them:
 - `plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them`, by
   `thread@split-guidelines-and-plan-directories@committed-transcript`. Its closing condition adds
   that the attribution slips of a release's retrospectives are then counted against the new
-  regime: slice 1's harvest judges that count as a cause, by the standard of
-  `skill@knowledge-architect-decision-recording@ruled-tripwires`.
+  regime. That count stays a condition of this milestone, not a cause the harvest may drop: slice
+  1's harvest opens a `todo` issue for it, as "Later consequences" says. The baseline it is
+  counted against, from the closed issue: in the intake of forty received retrospective files,
+  thirteen of its 23 workflow files report slips against the attribution rules of
+  `primer@design-heads`, `primer@owner-word-premise` or `primer@question-authority`, at least 24
+  slips, each caught before the merge; by kind, an approval or an answer recorded as a ruling 10,
+  an act or an argument of the session attributed to the owner 6, a hedge widened 1, a quotation 5,
+  in three files, and a premise not shown 2. Only the quotation kind bears on the owner's
+  hypothesis, hedged as the owner gave it, that the planning skill's demand for exact quotes
+  probably confuses sessions. The major ones, a decision attributed that the owner did not make,
+  are in six files, and one slip changed what was built. The issue's text is read as "Status and
+  audience" says.
 
 The same commit closes `a-slice-s-spec-with-no-section-of-decided-entries-gives-its-audit-no-seed`,
 graded `touches` below, since slice 1 has a slice's own document hold its section "What is already
@@ -238,7 +294,14 @@ decided", and with its two members the cluster `the-slice-audit-s-search-on-one-
   grounding's steps, which meets its re-entry point. Reopening
   `design@agent-skills@one-record-searcher` is not part of this milestone, on the owner's Q6 word
   in round 4. The issue stays open, with this discussion as an occasion that met its re-entry; a
-  thread added after the search gets a search of its own, as the design skill asks.
+  thread added after the search gets a search of its own, as the design skill asks. Its re-entry
+  point is rewritten on this branch to name an occasion whose own work includes that reopening, so
+  that slice 2, which changes the grounding's steps again, does not meet it again.
+
+One issue the search graded `unrelated` has its re-entry point met by the work:
+`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
+the next change that edits `design@knowledge-architect@git-crate`, which slice 4 is. Slice 4's
+design audit sorts it as a gap of the slice.
 
 **`touches` and `worsens`: 27 issues.** `respect`, the work keeps within the issue, each named with
 the slice that meets it:
@@ -288,7 +351,9 @@ the slice that meets it:
 `issue@knowledge-architect@the-documents-do-not-render-as-a-site`,
 `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`,
 `issue@model@a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`,
-`issue@model@the-resolver-s-arms-have-mutation-survivors`.
+`issue@model@the-resolver-s-arms-have-mutation-survivors`. The work limits nothing in the render
+issue, but it adds a question to its design, in answer to the search's verdict on
+`goal@documents-render-as-a-linked-site`: see "Later consequences".
 
 **`constrains`: 211 entries.** The design keeps within each quoted sentence, action `respect`,
 except seven graded `none`, which bear on nothing the design changes:
@@ -308,10 +373,11 @@ except seven graded `none`, which bear on nothing the design changes:
   slices 1 and 4 write Migration entries for adopting projects.
 - `design@agent-skills@audit-triggers`: slice 4's Migration entry cites the design-record axis, so a
   project's pin move runs it over the heads that argue a Component's existence.
-- `design@agent-skills@agents-write-in-scratch`: a committed `search/` is a copy the session makes
-  after `--verify` passes, never the searchers' own directories.
-- `design@agent-skills@verdicts-reach-the-conformance-review`: the committed `search/` stays what
-  the design-conformance reviewer reads.
+- `design@agent-skills@agents-write-in-scratch`: a committed `search/` holds only the generated
+  lines the session copies after `--verify` passes, never the searchers' own directories.
+- `design@agent-skills@verdicts-reach-the-conformance-review`: the design-conformance reviewer
+  reads the verdict files in the session's scratch space at the review of the plan, as today;
+  `search/` commits the generated lines only.
 - `design@agent-skills@transcript-extraction-is-the-checker-s` and
   `design@agent-skills@transcript-found-by-listing`: the committed transcript is the output of the
   checker's own command, found by its opening message.
@@ -323,8 +389,10 @@ except seven graded `none`, which bear on nothing the design changes:
   split in slice 2's guidelines.
 - `design@xtask@ci-builds-the-tip-alone`: a move-only commit is built by the session before its
   push, since CI builds only the tip.
-- `design@create@init-command` and `design@create@component-command`: `klarch init` and
-  `klarch new-component` write the plans directory slice 1 defines.
+- `design@create@init-command` and `design@create@component-command`: `klarch init` writes the
+  plans directory slice 1 defines; `klarch new-component` writes only the new Component's documents
+  and register homes, since the `wanted` filter it hands `owed_documents` in
+  `path@create@src/command.rs` admits that Component alone, so slice 1 leaves it unchanged.
 - `rejected@agent-skills@one-generic-auditor-agent`: the code-split scout is an installed agent,
   never a briefed general-purpose one.
 - `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists` and
@@ -507,12 +575,16 @@ Binding. Source: `goal@records-reach-their-reader`. Satisfied by
 
 ### A kept plan document is no stale text a reader takes for current `##documentation-stays-consistent`
 
-Binding. Source: `goal@documentation-stays-consistent`. Satisfied by
-`thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`, on the reading the session took
-in round 3: a dated record is consistent when it was consistent with the tree it was written in.
-The rival reading, that every committed file stays consistent with the current tree, would let no
-record of a past exchange be committed; `design@check@message-references-resolve-in-either-tree`
-already reads the goal the first way for a commit message.
+Binding. Source: `goal@documentation-stays-consistent`, which binds "in the texts the checker
+reads". Satisfied by `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` under D1:
+a frozen file leaves the walk by construction, parsed for definitions only, as the project already
+takes its installed files and its generated indexes out of the walk with no declaration, per
+`design@check@installed-files-outside-the-walk`. A frozen file joins that class, so the goal's
+words reach it as they reach those files. This is the session's decision at the review of this
+document. It replaces the argument the session gave in round 3,
+`argument@split-guidelines-and-plan-directories@arg-48`, which left the frozen files in the walk
+with their references unjudged and did not defeat the rival reading the search put to the owner:
+that their references stay judged, or that they leave the tree at landing.
 
 ### A decision is recorded with its arguments `##design-recorded-with-arguments`
 
@@ -535,7 +607,8 @@ Weighed: the owner's aim in round 1, which would become binding with a bound. Sa
 ### Nothing the owner did not choose to publish is committed `##nothing-published-unchosen`
 
 Weighed: it bears on the committed transcript. Satisfied by the removal step of
-`thread@split-guidelines-and-plan-directories@committed-transcript`, a claim of slice 1, per P4.
+`thread@split-guidelines-and-plan-directories@committed-transcript` and by the owner's word on each
+transcript before its push, claims of slice 1, per P4 and `goal@the-owner-decides`.
 
 ## Threads
 
@@ -547,9 +620,9 @@ the tree's plan documents. Slice 2's holds one: the record of a split inside a c
 state it proposed, under the heading "Checkpoint: contest any of these". The owner answered in the
 closing exchange: "I have nothing to contest in the table, you can start planning once we finish the
 goal draft and have it commited. Put the milestone on the same branch." That word closed each
-thread at the state the table proposed, `presumed-settled` included, and is cited below as "the
-owner's word on the checkpoint table". Where a thread is `argued`, the table's argument closed it,
-and the owner's word left it standing.
+thread at the state the table proposed, and promoted the one it proposed `presumed-settled` to
+`approved`; it is cited below as "the owner's word on the checkpoint table". Where a thread is
+`argued`, the table's argument closed it, and the owner's word left it standing.
 
 ### Splitting guidance is a guideline a project weighs, for Components, modules and design subjects; one decision per head stays a rule, and the `worklist` bound stays a trigger on its ground of cost `##split-guidelines-not-rules`
 
@@ -566,7 +639,8 @@ and the owner's word left it standing.
   too, is out on `design@agent-skills@one-decision-per-head`. The owner's word on the checkpoint
   table left it standing.
 - Its shape: "Decided design", "Guidelines, and what stays a rule". Harvest: slice 2's, into
-  `design@agent-skills@subject-split-standard` and the head slice 2 writes on the module guidelines.
+  `design@agent-skills@subject-split-standard` and `design@agent-skills@default-code-shape`, which
+  slice 2 rewrites to hold the module guidelines.
 
 ### Splits of code and of the design record are found and planned before the work: a code-split scout at the design grounding, a `worklist` notice at planning, each split a step or a slice before the work `##splits-planned-before-work`
 
@@ -583,7 +657,10 @@ and the owner's word left it standing.
   and `argument@split-guidelines-and-plan-directories@arg-47` asked the real-use evidence that
   `argument@split-guidelines-and-plan-directories@arg-50` gave.
 - The owner's words, round 4: "Q5: agreed" and "Q6 no." Closed by the owner's word on the
-  checkpoint table, with the P2 clause.
+  checkpoint table. The table's row for this thread also named the P2 clause, which stresses
+  `thread@split-guidelines-and-plan-directories@discussion-record-apart` alone, per the premortem's
+  table; no premortem cause on this thread became a clause, and P1 and P8 are named for slice 2's
+  harvest.
 - Its shape: slice 2's spec, "Decided design", "When a split is found and planned". Built and
   harvested by slice 2,
   into `design@agent-skills@subject-split-standard`, `design@agent-skills@default-code-shape`,
@@ -640,7 +717,7 @@ and the owner's word left it standing.
   `design@agent-skills@record-searched-before-the-work` and
   `design@query@seeds-from-the-plan-s-decided-section`.
 
-### The search's output and a harvested slice's spec are judged when written, never again; `deliberation.md` stays live; `transcript.txt` is never parsed; and a change to a frozen file after its first commit, other than its deletion, is a finding `##frozen-plan-artifacts`
+### A slice moved under `harvested/` is frozen by its location and leaves the walk by construction; `deliberation.md` stays live; the search's generated lines and the transcript are committed as `.txt` files, never parsed; a commit that modifies a harvested file is a finding `##frozen-plan-artifacts`
 
 - Proposed by the session in round 2, `argument@split-guidelines-and-plan-directories@arg-37`.
 - Final state: `approved`.
@@ -652,8 +729,18 @@ and the owner's word left it standing.
   to, which the session put to the owner to contest.
 - The owner's words, round 4: "frozen-plan-artifacts: agreed on those shapes." The P3 clause was
   closed by the owner's word on the checkpoint table.
+- Revised at the review of this document by D1, which the owner ruled: the shape the owner agreed to,
+  "judged when written" as a comparison against HEAD, cannot be built as written. No phase of the
+  checker may spawn git, per `path@model@CLAUDE.md`, and the shape names no question the gathering
+  asks and hands in; and slice 1's own search output fails it, since its `generated-lines.md`
+  cites the issues the commit that adds this document deletes. D1 defines a frozen file by its
+  location instead, and gives the harvested marker the form the discussion had left open. On D1
+  the owner chose to commit, of a search's output, the generated lines only, as a `.txt` file, so
+  that no rule of a frozen location is needed for them. The title above states D1 as ruled.
 - Its shape: "Decided design", "The regime of each file". Built by slice 1; harvest: slice 1's, into
-  the 13 heads of Group B.
+  one head of the regime, which the 13 heads of Group B cite, and a head of its own for the P3
+  clause unless the one-decision test of
+  `skill@knowledge-architect-decision-recording@head-shape` joins it to the regime's.
 
 ### The trimmed transcript of each session of the discussion is committed in the plan document's directory, after a step that removes private information; plan items attribute the owner's words and cite the round `##committed-transcript`
 
@@ -687,6 +774,8 @@ and the owner's word left it standing.
   against keeping indefinitely, actually: they would accumulate, pollute grep or other searches with
   outdated matches, and also increase migration work when the checker evolves for little value."
   Closed by the owner's word on the checkpoint table.
+- The marker's form, the move of the slice's directory under its milestone's `harvested/`, is D1's,
+  which the owner ruled.
 - Its shape: "Decided design", "The life of a slice's spec". Built by slice 1; harvest: slice 1's,
   into `design@agent-skills@plan-document-leaves-at-landing`, rewritten at the slice level, and
   `design@agent-skills@tripwire-horizon`.
@@ -883,7 +972,9 @@ it.** `issue@check@core-heads-bundle-decisions-with-many-citing-sites` has stood
 2026-11-04, "left unsplit because a split must first read every site that cites the head, 6 to 39
 sites". The default code shape says outright: "In an existing unit the change edits, only the lines
 the change writes are weighed; the rest of the unit is a lead, never an obligation." So no
-instruction ever moves an existing debt."
+instruction ever moves an existing debt." The date is wrong: the entry has been open since
+2026-10-09, under another path in `core`, and moved to `check` on 2026-11-04, by
+`git log --follow --diff-filter=AR --date=short` over its file.
 
 ### The harvest carries conformance work nobody planned `##arg-19`
 
@@ -894,7 +985,9 @@ bundled decision included. The decision-record reviewer judges the whole head, n
 2026-11-11 and 11-12 the history holds a run of "[review] Repairs … bundled heads split" commits.
 No planning step lists the heads a harvest will touch without reversing them." The last part, the
 run of review commits, is an argument from review cost, which
-`argument@split-guidelines-and-plan-directories@arg-46` dropped.
+`argument@split-guidelines-and-plan-directories@arg-46` dropped. Its dates are imprecise: the
+main branch dates the commits whose subject holds "bundled heads split" 2026-10-25, 2026-11-10
+and 2026-11-11.
 
 ### The sizes of the plan documents this repository deleted `##arg-20`
 
@@ -945,7 +1038,9 @@ widened to the whole crate); against a split, "two parts every change reads toge
 process and its mutations" (fragmentation) and "one item, such as an enum, is large by itself"
 ("moving code does not divide an item; dividing it is a design change"). "Size keeps exactly one
 role. It is not a number we pick: it is "a file a session cannot read whole in one pass"." thaum's
-800-line threshold has no recorded basis in thaum's history, per the session's investigator. "The
+800-line threshold has no recorded basis in thaum's history, per the session's investigator, a
+subagent of round 1 whose report no file keeps; slice 2's design audit reads thaum's tree again,
+as its audit subjects say. "The
 text stays language-neutral, to respect the no-Rust-idiom head. It also adds a procedure: the split
 is a **move-only commit** that comes before the work, so that the review reads the work."
 
@@ -992,7 +1087,9 @@ break. The deliberation's items then *attribute* your words and cite the round."
 comparable to today's READMEs. The plans investigator measured three sessions on this machine: 16,432,
 23,950 and 26,231 words without tools." "**Consequence you must weigh:** the installed text would tell
 *every adopting project* to commit the owner's raw words to its repository, public ones included:
-every aside, every pasted log. You hold this question (Q1 below)."
+every aside, every pasted log. You hold this question (Q1 below)." The plans investigator was a
+subagent of round 1 whose report no file keeps; its word counts are taken again with
+`cargo klarch transcript show <session> | wc -w` over a session of the project.
 
 ### A kept slice's spec defeats both halves of the argument for deleting it `##arg-30`
 
@@ -1093,7 +1190,10 @@ Round 3, the session. Bears on
 `thread@split-guidelines-and-plan-directories@splits-planned-before-work`. "**The scouts' findings
 need a home when the plan does not take them.** Agent-3 found that "never an issue" is safe only for
 a split the work bears on. A split a scout reports outside the work's area is routed by
-`primer@met-outside-the-task`, usually as an issue."
+`primer@met-outside-the-task`, usually as an issue." Agent 3 of the search gave that finding as its
+verdict on `design@agent-skills@met-outside-the-task-outcomes` against this thread, with its
+reason, in the search's verdict file of that thread, which is not committed; the outcome it led to
+is this argument's, and its line in `search/discussion.txt` gives the verdict.
 
 ### The twelve root heads would fail the new rule, and slice 4 brings them to it `##arg-43`
 
@@ -1120,7 +1220,8 @@ Round 3, the session. Bears on
 "`issue@agent-skills@the-review-cost-counts-are-not-compared-yet`: my case cited the "[review]
 Repairs … bundled heads split" commits, which is an argument from review cost. I drop that argument.
 The case stands on the record alone: the core-heads issue has been open since 2026-11-04, and the
-rule that a touched head is brought to the rules in the same change."
+rule that a touched head is brought to the rules in the same change." The issue has been open
+since 2026-10-09, as the note under `argument@split-guidelines-and-plan-directories@arg-18` says.
 
 ### An instruction about agent behaviour needs real-use evidence `##arg-47`
 
@@ -1218,17 +1319,18 @@ number of shapes. With Q8 as admit only, adding a shape stays open and is never 
 
 ## New names, in one place
 
-The names the discussion fixed. The model's new types, functions and fields are named by slice 1,
-which the discussion left open; each slice's spec lists the names it adds.
+The names the discussion fixed. The discussion left the model's new types, functions and fields
+open: slice 1's spec proposes them under its own "New names, in one place", names its design audit
+may change; each slice's spec lists the names it adds.
 
 ```
 docs/plans/specs/<id>/                     a spec, a directory (slice 1)
 docs/plans/milestones/<id>/<slice>/        a slice's spec, a directory (slice 1)
 README.md                                  in each plan document's directory: the document the search reads (slice 1)
 deliberation.md                            beside it: the Threads and Arguments items (slice 1)
-search/                                    beside it: the search's output, copied after --verify (slice 1)
+search/<occasion>.txt                      beside it: a search's generated lines, discussion.txt or design-audit.txt, never parsed (slice 1, D1)
 transcript.txt                             beside it: the trimmed transcript of each session (slice 1)
-harvested                                  the state of a landed slice's spec, kept and frozen (slice 1)
+harvested/                                 in a milestone's directory: each landed slice's directory, moved there, kept and frozen (slice 1, D1)
 the code-split scout                       an installed agent under crates/agent-skills/content/agents/ (slice 2)
 ```
 
@@ -1265,56 +1367,123 @@ docs/plans/specs/<id>/
   README.md          the document the search reads: the decided design, the steps, the criteria,
                      the acceptance criteria, the harvest, and its section "What is already decided"
   deliberation.md    the Threads and Arguments items, attributing the owner's words, each citing its round
-  search/            the search's output, as `worklist --verify` wrote it
+  search/            discussion.txt, the generated lines of the discussion's search, and design-audit.txt
   transcript.txt     the trimmed transcript of each session, private information removed
 docs/plans/milestones/<id>/
   README.md          what crosses slices
+  index.md           generated: the slices, as the model of slice 1 defines the listing
   deliberation.md
   search/
   transcript.txt
-  <slice>/           each slice a spec directory as above, kept harvested until the milestone leaves
+  <slice>/           each live slice a spec directory as above
+  harvested/
+    <slice>/         each landed slice's directory, moved here, kept until the milestone leaves
 ```
 
+- **What a directory owes**: `README.md`, always. `deliberation.md` where the document has a thread
+  or an argument; slices 3 and 4 of this milestone have none. `search/` where a search ran for the
+  document, at its discussion's grounding or at its design audit, and `transcript.txt` where the
+  document was assembled from a discussion's transcript; `spec@plans@path-quickfixes` holds
+  neither. The checker refuses any other file or directory, and a milestone's directory admits
+  besides its generated `index.md`, its slice directories and `harvested/`.
+- **What `search/` holds**, on the owner's choice in ruling D1: of what `worklist` writes, only
+  the generated lines, each as a `.txt` file named by its occasion: `generated-lines.md` of the
+  discussion's search as `search/discussion.txt`, and, at a slice's or a spec's design audit,
+  `fit-lines.md` as `search/design-audit.txt`, in the audit's commit, under the slice's own
+  `search/`. Nothing else is committed: not the `verdicts-<subject>.md` files, `shown.md`,
+  `gaps.md`, the agent directories, `agents.txt` or `work.txt`, the last three the searchers'
+  working files, per `design@agent-skills@agents-write-in-scratch`. Being `.txt`, the walk never
+  parses them, so they never break and need no rule of a frozen location. The searchers' reasons
+  are not kept: a reason that changed something is carried by the outcome the `README.md` records.
+- **What "What is already decided" keeps of the search**: each verdict whose outcome changed
+  something, with that outcome, and a link to `search/discussion.txt` for the rest; it no longer
+  copies the full list of verdicts. A rule of the planning skill slice 1 writes; this document's own
+  list stays as it is until slice 1's migration applies the rule to it.
+- Rival, committing the verdict files and the reports: on this discussion's search, by `wc -c` over
+  its output in the session's scratch space, the whole output holds 8,193,395 bytes, the verdict
+  files 1,922,848 holding 617 copied entry blocks for 301 entries, `shown.md` 2,051,313 and the 19
+  reports 413,365, where `generated-lines.md` holds 22,581; and a report's quotations go stale as
+  the record changes. Lost to the owner's choice of the generated lines only.
+- **How a `README.md` reaches the files beside it**: by relative navigation links, which the
+  checker resolves in a `README.md`, to `deliberation.md`, `transcript.txt` and `search/`; and an
+  item of `deliberation.md` by its item reference, as today.
 - **A slice's search reads the documents of the milestone and of the slice**: `--work` is the
   milestone's `README.md` and the slice's `README.md`, and `--seeds-from` the slice's `README.md`,
   which holds its own section "What is already decided". `deliberation.md`, `search/` and
-  `transcript.txt` are cited and never graded.
+  `transcript.txt` are linked and never graded.
 - **The P2 clause**: every condition of a decided thread is in the decided design of a document the
   search reads; `deliberation.md` holds only the argument. A claim of slice 1.
 - Nearest rival: the deliberation kept inside the document the search reads. Defeated by the
   measurement of `argument@split-guidelines-and-plan-directories@arg-20`: the deliberation record and
-  the copy of the search's outcomes made about 80% of a milestone's document at its first commit, and
-  a slice's audit took 44 search agents where its spec alone needed about 15.
+  the copy of the search's outcomes made 86% of the `goals-at-the-root` milestone's document at its
+  first commit and 80% at its deletion, and a slice's audit took 44 search agents where its spec
+  alone needed about 15. The same closed issue on a slice audit's search reported that seven of
+  the first 27 reports of that audit said the agent could not read the document whole, and read it
+  in parts and by search, a strain on `design@agent-skills@search-reads-the-whole-record` and on
+  `design@agent-skills@milestone-split-by-lifetime`: a second premise, on the quality of each
+  agent's reading, which a larger `worklist` bound would not answer.
 
 ### The regime of each file
 
 For `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`.
 
-| file | regime |
-| --- | --- |
-| `README.md` of a plan document | live, as today |
-| `deliberation.md` | live: it defines the thread and argument items, and its references are judged |
-| `search/`, and a harvested slice's `README.md` | judged when written: `check` judges its references while the file is new or changed against HEAD, and `commits` judges them in the commit that writes it; never again after that |
-| `transcript.txt` | never parsed: the walk reads `.md` and `.rs` only (`LIVE_SUFFIXES` in `path@model@src/walk.rs`) |
+This is D1's design, which the owner ruled. **A frozen file is defined by its location, a slice's
+directory under `harvested/`, and leaves the walk by construction**, parsed for definitions only, as
+`design@check@installed-files-outside-the-walk` makes the installed files:
 
-- **The P3 clause**: once a frozen file's first commit lands, any change to it other than its
-  deletion is a finding.
-- The 13 heads of Group B are rewritten to state this one member, the dated record, which leaves the
-  tree with its milestone, as `design@check@the-regime-has-no-opt-out` argues of an exemption whose
-  file is leaving the tree.
-- Nearest rival: the frozen files never judged, the round-2 shape. Defeated by the 13 heads of Group
-  B, `design@check@the-regime-has-no-opt-out` among them, which a never-judged file contradicts, and
-  by the precedent of `design@check@message-references-resolve-in-either-tree`, a record judged
-  against the tree it was written in (`argument@split-guidelines-and-plan-directories@arg-40`).
+| file | regime | how it gets there |
+| --- | --- | --- |
+| `README.md` of a plan document or of a live slice | live, as today | written by the session |
+| `deliberation.md` of a plan document or of a live slice | live: it defines the thread and argument items, and its references are judged | written by the session |
+| `search/<occasion>.txt` | never parsed: a `.txt` file, as `transcript.txt` | written by `worklist --verify` from the tree of its time, and copied there |
+| any file under a slice's directory moved under its milestone's `harvested/`, its `README.md` and `deliberation.md` included | frozen | the move is the harvested marker, in a commit of its own after the review before the slice's merge; the slice is live until that commit |
+| `transcript.txt` | never parsed: the walk reads `.md` and `.rs` only (`LIVE_SUFFIXES` in `path@model@src/walk.rs`) | committed after the removal step, on the owner's word |
+
+- **"Judged when written" holds as**: a search's generated lines are written by `worklist --verify`
+  from the tree of its time and never parsed after, and a slice's documents are judged live until
+  the commit that moves them.
+- **Parsed for definitions only**: an item a frozen file defines resolves from inside its
+  milestone, and a live item that reuses one of its ids is still reported, so the duplicate check
+  sees every number; a frozen file raises no finding of its own.
+- **The P3 clause**: `cargo klarch commits` reports a commit that modifies a file under
+  `harvested/`, other than adding it, deleting it, or the move that freezes a slice. It applies to
+  every commit, on the branch that wrote the file as on any later one.
+- **A citation of a harvested slice**, or of an item it defines, from outside its milestone's
+  directory is refused, as `thread@split-guidelines-and-plan-directories@harvested-slice-kept`
+  decided.
+- **The regime is one decision, with one head**, written by slice 1's harvest. The 13 heads of
+  Group B each admit the frozen location by citing it, rather than each restating it; the P3
+  clause takes a head of its own unless the one-decision test of
+  `skill@knowledge-architect-decision-recording@head-shape` joins it to the regime's. A frozen file
+  leaves the tree with its milestone, as `design@check@the-regime-has-no-opt-out` argues of an
+  exemption whose file is leaving the tree.
+- Nearest rival: the git comparison against HEAD, "judged when written" as the round-3 shape the
+  owner agreed to stated it, a frozen file's references judged while it is new or changed against
+  HEAD. Defeated by two facts: no phase of the checker may spawn git, per `path@model@CLAUDE.md`,
+  and the shape names no question the gathering would ask and hand in; and slice 1's own search
+  output fails it, since its `generated-lines.md` cites the issues the commit that adds this
+  document deletes, so the commit that adds the output would report a dangling reference for each.
+- Earlier rival: the frozen files left in the walk with their references unjudged, the round-2
+  shape. Defeated by the 13 heads of Group B, `design@check@the-regime-has-no-opt-out` among them,
+  which a file in the walk whose references go unjudged contradicts
+  (`argument@split-guidelines-and-plan-directories@arg-40`).
 
 ### The committed transcript
 
 For `thread@split-guidelines-and-plan-directories@committed-transcript`.
 
 - For each session the discussion spans, the output of `cargo klarch transcript show`, from the
-  message where the discussion begins and trimmed of tool calls, is committed as the plan document's
-  `transcript.txt`, after a step, named in the planning skill, that reads it and removes private
-  information and pasted material. A claim of slice 1, per P4.
+  message where the discussion begins to the message where the plan document is committed, trimmed
+  of tool calls, is committed as the plan document's `transcript.txt`, after a step, named in the
+  planning skill, that reads it and removes private information and pasted material. A claim of
+  slice 1, per P4.
+- **The removal step removes**: every path under a home directory, every e-mail address, every
+  credential and token, and the pasted material the owner marks.
+- **The owner decides each publication.** Once a transcript is pushed, it cannot be taken back, an
+  action `goal@the-owner-decides` reserves to the owner. So after the removal step the session
+  shows the owner the transcript, and pushes it only on the owner's word for that transcript, in
+  every project the planning skill instructs. The owner's Q1 word here rules the policy, not each
+  publication, and it does not stand for another project's owner.
 - Plan items attribute the owner's words and cite the round of the transcript; the verbatim words
   stay in the transcript. This is the closing condition of the issue
   `plan-documents-keep-the-owner-s-words-verbatim-where-other-records-attribute-them`, closed by the
@@ -1326,15 +1495,18 @@ For `thread@split-guidelines-and-plan-directories@committed-transcript`.
 - Nearest rival: the owner's words verbatim in the plan items. Defeated by the owner's report that
   out of the context they answered they have little value
   (`argument@split-guidelines-and-plan-directories@arg-10`), and by the slips the closed issue
-  counted where the two regimes meet.
+  counted where the two regimes meet: of at least 24 attribution slips in 13 workflow files, only
+  the quotation kind bears on the hypothesis that the verbatim regime confuses sessions, 5 slips in
+  three files, as "What is already decided" gives the baseline.
 
 ### The life of a slice's spec
 
 For `thread@split-guidelines-and-plan-directories@harvested-slice-kept`.
 
-- When a slice lands, its spec is marked harvested instead of deleted, in a commit of its own after
-  the review before the merge, so the message that cites it resolves in its parent's tree. It is
-  frozen from then on.
+- When a slice lands, its spec is marked harvested instead of deleted: its directory is moved under
+  its milestone's `harvested/`, which is the marker, per D1, in a commit of its own after the review
+  before the merge, so the message that cites it resolves in its parent's tree. It is frozen from
+  that commit on, and live until it.
 - Its items still resolve from inside the milestone; a citation of it from outside the milestone's
   directory is refused.
 - The milestone's directory leaves whole when its last slice lands, as a milestone leaves today.
@@ -1361,21 +1533,36 @@ their specs.
   `thread@split-guidelines-and-plan-directories@splits-planned-before-work`: lost to a command,
   `worklist --out`, which needs no point of view apart
   (`argument@split-guidelines-and-plan-directories@arg-41`).
-- **A split never left as an issue, wherever found**, under the same thread: lost to agent 3's finding
-  that this holds only for a split the work bears on; one outside it is routed by
-  `primer@met-outside-the-task` (`argument@split-guidelines-and-plan-directories@arg-42`).
+- **A split never left as an issue, wherever found**, under the same thread: lost to the search's
+  verdict on `design@agent-skills@met-outside-the-task-outcomes`, that this holds only for a split
+  the work bears on; one outside it is routed by `primer@met-outside-the-task`
+  (`argument@split-guidelines-and-plan-directories@arg-42`).
 - **Conformance in the harvest**, under
   `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`: the failure the owner
   reported (`argument@split-guidelines-and-plan-directories@arg-8`).
 - **The deliberation inside the document the search reads**, under
   `thread@split-guidelines-and-plan-directories@discussion-record-apart`: lost to the 44-agent
   measurement.
-- **Frozen files never judged**, under
-  `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`: lost to the 13 heads of Group
-  B.
+- **`--seeds-from` taking the rows of the milestone document's table that name the slice**, the
+  other form the closed issue on a slice's spec with no seed offered, under the same thread: lost
+  to a slice's own `README.md` holding its section "What is already decided", which needs no new
+  form of `--seeds-from`. The issue measured what an unseeded audit costs: at the second slice's
+  audit of the milestone that moved the goals to the root, of the 53 entries that are or cite one
+  of the slice's 8 decided entries, 7 had been graded `unrelated` and their agents graded them
+  again.
+- **The git comparison against HEAD**, under
+  `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`: lost to the two facts of
+  "The regime of each file", that no phase may spawn git and that slice 1's own search output
+  fails it.
+- **Frozen files left in the walk and never judged**, under the same thread: lost to the 13 heads of
+  Group B.
+- **The search's verdict files and reports committed beside its generated lines**, under the same
+  thread: lost to the owner's choice of the generated lines only, in ruling D1, on the sizes
+  "The plan document's directory" gives and the staleness of a report's quotations.
 - **The owner's words verbatim in plan items**, under
   `thread@split-guidelines-and-plan-directories@committed-transcript`: lost to the owner's report,
-  `argument@split-guidelines-and-plan-directories@arg-10`.
+  `argument@split-guidelines-and-plan-directories@arg-10`, and to the count of quotation slips,
+  5 of at least 24 attribution slips.
 - **Harvested specs kept indefinitely**, under
   `thread@split-guidelines-and-plan-directories@harvested-slice-kept`: lost to the owner's argument,
   `argument@split-guidelines-and-plan-directories@arg-35`.
@@ -1400,8 +1587,8 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
 | --- | --- | --- | --- |
 | P1 | the code-split scout proposes a split on every module it touches; plans fill with move-only steps that buy nothing | `thread@split-guidelines-and-plan-directories@splits-planned-before-work`, `thread@split-guidelines-and-plan-directories@module-split-guidelines` | named as a cause for slice 2's harvest to judge as a tripwire; the guidelines' signals against a split are the guard, and `tripwire@agent-skills@shape-findings-fragment-code` already watches the code side |
 | P2 | a slice's search reads only the documents of the milestone and the slice, and misses a condition stated only in `deliberation.md` | `thread@split-guidelines-and-plan-directories@discussion-record-apart` | converted into a clause of the design, "The plan document's directory": every condition of a decided thread is in a document the search reads; a claim of slice 1 |
-| P3 | a frozen file is edited later, for example re-pointed by a migration; the checker then judges it against the tree of the day, and sessions rewrite history to pass | `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` | converted into a clause of the design, "The regime of each file": once its first commit lands, any change to a frozen file other than its deletion is a finding; a claim of slice 1 |
-| P4 | private data reaches a public repository through `transcript.txt`, which cannot be undone | `thread@split-guidelines-and-plan-directories@committed-transcript` | a claim of slice 1's removal step; a check that could be scripted, such as finding home-directory paths and e-mail addresses, goes into `issue@transcript@an-option-anonymizes-what-transcript-prints`, never a tripwire |
+| P3 | a frozen file is edited later, for example re-pointed by a migration; the checker then judges it against the tree of the day, and sessions rewrite history to pass | `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` | converted into a clause of the design, "The regime of each file": a commit that modifies a file under `harvested/`, other than adding it, deleting it or the move that freezes a slice, is a finding, as D1 restates it; a claim of slice 1 |
+| P4 | private data reaches a public repository through `transcript.txt`, which cannot be undone | `thread@split-guidelines-and-plan-directories@committed-transcript` | a claim of slice 1's removal step and of the owner's word on each transcript before its push; a check that could be scripted, such as finding home-directory paths and e-mail addresses, goes into `issue@transcript@an-option-anonymizes-what-transcript-prints`, never a tripwire |
 | P5 | a later slice cites an item of a harvested slice whose decision a later slice of the same milestone reversed | `thread@split-guidelines-and-plan-directories@harvested-slice-kept` | named as a cause for slice 1's harvest to judge; the status section of every plan document says that a design home wins over it |
 | P6 | the harvest touches heads the planning step did not list, and the unplanned conformance work comes back | `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` | named as a cause for slice 3's harvest to judge; the spec-conformity review reports a touched head missing from the list |
 | P7 | the one line per criterion turns into a box ticked "met" with no reason | `thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria` | named as a cause for slice 4's harvest to judge as a tripwire: its evidence lands in the design-record audit's reports |
@@ -1456,9 +1643,29 @@ The order is the session's default at Q3, which the owner's word of round 2 appr
 
 ## Defaults awaiting the owner
 
-None. Every default the discussion put to the owner was ruled by the owner's word on the checkpoint
-table, in the closing exchange, or by an answer to a labelled question. The defaults the session
-decided on the record are reported in the commit that adds this document.
+None awaits. Every default the discussion put to the owner was ruled by the owner's word on the
+checkpoint table, in the closing exchange, or by an answer to a labelled question. The defaults the
+session decided on the record are written where they apply, with their ground: the threads closed
+`argued`, each with the argument that closed it; the Premortem's verdicts; and the satisfaction
+line of each criterion. One default came from the review of this document:
+
+- **D1**, ruled by the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`
+  and the marker of `thread@split-guidelines-and-plan-directories@harvested-slice-kept`. A frozen
+  file is defined by its location, a slice's directory moved under its milestone's `harvested/`,
+  the move being the harvested marker, in the commit after the review before the slice's merge; it
+  leaves the walk by construction, parsed for definitions only, as
+  `design@check@installed-files-outside-the-walk` makes the installed files. The P3 clause
+  becomes: `commits` reports a commit that modifies a file under `harvested/`, other than adding
+  it, deleting it, or the move that freezes a slice. The regime is one head, which the 13 heads of
+  Group B cite. The owner replaced the part of the default on the search's output: the owner chose
+  to commit, of a search's output, only the generated lines, `generated-lines.md` of the
+  discussion's search and `fit-lines.md` of a design audit, each as `search/<occasion>.txt`, which
+  the walk never parses, as it never parses `transcript.txt`, so neither needs the rule of a frozen
+  location. What D1 changes from what the owner agreed to in round 4: "judged when written" becomes
+  a consequence of where the file sits or of its suffix, not a comparison against HEAD, which no
+  phase can make and which slice 1's own search output fails; and the harvested marker takes a
+  form the discussion had left open. Written into "The plan document's directory", "The regime of
+  each file", "The life of a slice's spec", the Names, the Premortem's P3 and slice 1's spec.
 
 ## Harvest
 
@@ -1468,16 +1675,26 @@ Each slice's row is in its spec. The row of this document:
   after the review before the merge, per `skill@knowledge-architect-planning@plan-document-leaves`.
 - **The premortem's causes** P1, P5, P6, P7 and P8 are judged at the harvest of the slice the table
   names, by the standard of `skill@knowledge-architect-decision-recording@ruled-tripwires`; P2, P3
-  and P4 are claims of slice 1.
+  and P4 are claims of slice 1, and slice 1's harvest row carries their outcomes into its commit
+  message.
 - **AC1** is reported on at each of slices 2, 3 and 4, and once more when this document leaves.
-- **The design** of the four subsections above lands in the heads each thread's item names, at the
+- **The design** of the five subsections above lands in the heads each thread's item names, at the
   harvest of the slice that builds it.
 
 ## Later consequences
 
 - `design@agent-skills@one-record-searcher` is not reopened, on the owner's Q6 word:
-  `issue@agent-skills@a-record-search-misses-what-is-added-after-it` stays open, and the next design
-  discussion that changes the record search meets its re-entry point again.
+  `issue@agent-skills@a-record-search-misses-what-is-added-after-it` stays open, and its re-entry
+  point is now a design discussion whose own work includes that reopening.
+- The render's design, `issue@knowledge-architect@the-documents-do-not-render-as-a-site`, decides
+  whether a frozen file's references link to their targets as of the commit that froze it, or the
+  frozen files stay out of the site, for `goal@documents-render-as-a-linked-site`: a frozen file's
+  reference to an entry a later commit removed names nothing in the current tree. No render exists
+  yet, so nothing is built for it here.
+- The count of attribution slips that the closed issue on verbatim words asked for: slice 1's
+  harvest opens a `todo` issue in `agent-skills` that counts the slips of the retrospectives of the
+  next release after slice 1's, by the kinds of the baseline under "What is already decided", and
+  compares the count with that baseline.
 - The anonymizing option of `klarch transcript`,
   `issue@transcript@an-option-anonymizes-what-transcript-prints`, would replace part of the manual
   removal step of slice 1, and carry P4's scriptable check.

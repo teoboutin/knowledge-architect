@@ -53,5 +53,9 @@ the decision kept, changed or reversed there, with
 
 ### Re-entry
 
-That discussion, which the owner schedules; or the next design discussion that changes the record
-search or the grounding's steps, whichever comes first.
+The next design discussion whose own work includes reopening
+`design@agent-skills@one-record-searcher`, which the owner schedules.
+
+The design discussion of `milestone@plans@split-guidelines-and-plan-directories` met the earlier
+re-entry point, which also named the next discussion that changes the grounding's steps; on the
+owner's word, given as its Q6, the reopening was kept out of that milestone.

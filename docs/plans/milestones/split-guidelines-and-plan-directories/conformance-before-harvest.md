@@ -1,7 +1,8 @@
 # The heads a harvest will touch, judged and conformed before the harvest
 
-The third slice of `milestone@plans@split-guidelines-and-plan-directories`. It leaves when it lands,
-under the rule slice 1 builds. The threads, arguments and decided design it shares with the other
+The third slice of `milestone@plans@split-guidelines-and-plan-directories`. When it lands, it is
+moved under its milestone's `harvested/` and stays there until the milestone leaves, under the rule
+slice 1 builds. The threads, arguments and decided design it shares with the other
 slices are in the milestone document; what only this slice builds is below.
 
 ## Builds
@@ -61,7 +62,10 @@ touched head still leaves the change conformant.
 
 - The planning skill's source, its section on what a spec holds and its procedure of a slice.
 - `path@agent-skills@content/agents/design-record-auditor.md`, for what a brief scoped to a list of
-  heads must give it.
+  heads must give it: the agent is written for a group of the axis's saved workflow, with a shared
+  calibration sample, in its description, its sections "Your brief" and "Take your group", and the
+  return form that counts "plus <m> of the sample"; a dispatch outside the workflow meets each of
+  them.
 - The design homes `path@agent-skills@docs/design/audit-method.md`,
   `path@agent-skills@docs/design/audit-record-axes.md` and
   `path@agent-skills@docs/design/owner-and-intent.md`.
@@ -97,7 +101,7 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
   write what a head lacks, an argument or a goal's constraint, it owes the design skill or the owner,
   per `argument@split-guidelines-and-plan-directories@arg-26`.
 - **The case stands on the record alone**: `issue@check@core-heads-bundle-decisions-with-many-citing-sites`,
-  open since 2026-11-04, and `design@agent-skills@existing-heads-on-touch`, by which a touched head is
+  open since 2026-10-09, and `design@agent-skills@existing-heads-on-touch`, by which a touched head is
   brought to the rules in the change that touches it. The argument from review cost was dropped in
   round 3, `argument@split-guidelines-and-plan-directories@arg-46`.
 - Nearest rival: conforming touched heads in the harvest, as today. Defeated by the owner's report,
