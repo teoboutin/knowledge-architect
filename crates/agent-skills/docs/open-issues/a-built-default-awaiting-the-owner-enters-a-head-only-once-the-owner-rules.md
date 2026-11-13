@@ -34,7 +34,7 @@ with defaults unruled, was answered before, by a rewording of the planning skill
 owner's ruling decides when a head is written, not what it stands on; the owner has not ruled on
 that reading.
 
-Two further instances, in this repository, each a lapse of the condition, which is delivered at
+Three further instances, in this repository, each a lapse of the condition, which is delivered at
 both acts: `primer@installed-skills` loads `skill@knowledge-architect-decision-recording` before
 writing into a design home, and the harvest of `skill@knowledge-architect-planning@working-a-slice`
 loads it too.
@@ -46,6 +46,12 @@ loads it too.
 - The slice that built the `model` crate, 2026-11-04, a slice with no discussion: the content of
   one default, D4, was written into a head before the ruling, and the decision-record reviewer
   caught it.
+- Slice 1 of `milestone@plans@split-guidelines-and-plan-directories`, 2026-11-13: the head of the
+  check of `commits` on the frozen files stated D2 of that milestone while D2 awaited the owner,
+  and the decision-record reviewer of the review before the slice's merge found it. The head was
+  not taken back before the ruling, and the owner was not told of it. The owner's ruling on D2
+  took the check out of the checker, so the head was reversed into
+  `design@check@a-frozen-file-is-guarded-by-the-review` and no longer states the default.
 
 The retrospective of the first proposed a pointer from the in-change path of
 `skill@knowledge-architect-design@decision-authority` to
