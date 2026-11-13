@@ -440,8 +440,9 @@ of the tree as it is, and a reference to what it defined is reported as unresolv
 
 `live`. The owner chose the review before a merge over this check, which no goal ranks, on the
 argument that a check cannot reliably cover every sequence of actions a session may take on the
-frozen files, and that a review handles those sequences more flexibly. It was built, and an
-adversarial reviewer of its code reached three edits of the frozen record that its first wording
-admitted: a freezing move that also edits the slice, a rename inside harvested/ that edits the
-file, and a frozen file deleted in one commit and added again with new content in the next. The
+frozen files, and that a review handles those sequences more flexibly. It was built, and a
+sequence it admits stays: a slice moved out of harvested/, edited while live, and moved back, each
+commit passing, the record rewritten; refusing the move out would also refuse the removal of a
+mistaken harvest or of a stray file. An adversarial reviewer's three edits of the frozen record,
+which the clause's first wording admitted, only narrowed it to this one. The
 design kept is `design@check@a-frozen-file-is-guarded-by-the-review`.

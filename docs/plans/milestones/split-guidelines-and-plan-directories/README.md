@@ -868,7 +868,7 @@ Two defaults came from the review before slice 1's merge:
   their outcomes are carried out do; its cost, one more exception a reader must know. The rival,
   never: the rule that a durable record attributes stays whole, and the words the owner asks to
   keep are reduced to an attribution, lost to later sessions where no transcript holds them. The
-  owner chose the default, which no goal ranks, written into
+  session chose the default, which no goal ranks, and the owner approved it, written into
   `design@agent-skills@attribution-replaces-quotation`.
 - **D4**, ruled by the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`:
   the reading of `goal@documentation-stays-consistent`, which binds "in the texts the checker
