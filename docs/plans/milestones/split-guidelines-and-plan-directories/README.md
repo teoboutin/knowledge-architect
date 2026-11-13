@@ -14,9 +14,11 @@ This milestone document is the plan of four pieces of work that one design discu
   discussion sits beside the documents a slice's record search reads, never inside them.
 
 It holds what crosses the slices; each slice's spec holds what only that slice builds. It leaves
-when its last slice has landed and every default it lists is ruled. Slice 1 migrates this document
-and its slice specs into the layout it builds, so the layout below is the one
-`skill@knowledge-architect-planning@plans-layout` states today.
+when its last slice has landed and every default it lists is ruled. This document and its slice
+specs are in the layout slice 1 builds, the one `skill@knowledge-architect-planning@plans-layout`
+states: the threads and the arguments in [the milestone's deliberation](deliberation.md) and in
+each slice's own, the discussion's transcript in [transcript.txt](transcript.txt), and the lines of
+the discussion's record search in [search/discussion.txt](search/discussion.txt).
 
 - Written for a session that did not witness the discussion.
 - Where this document or a slice's spec and a design home disagree on a point that "What is already
@@ -28,11 +30,15 @@ and its slice specs into the layout it builds, so the layout below is the one
   frozen files, is ruled; see "Defaults awaiting the owner".
 
 **Its source.** It was assembled from one session's transcript, extracted with
-`cargo klarch transcript show`. The discussion begins at the owner's message that opens "I want to
-discuss three subjects together, because they overlap quite a bit: the guidelines about how
-projects, docs and code are split", and ends at the owner's message "documentation-has-a-structure-and-a-model
-wording approved, no further change needed". A round is one message of the owner and the session's
-reply to it:
+`cargo klarch transcript show`, and committed, trimmed of tool calls and after the removal step of
+`skill@knowledge-architect-planning@spec-contents`, as [transcript.txt](transcript.txt), on the
+owner's word for that transcript. The discussion begins at the owner's message that opens "I want
+to discuss three subjects together, because they overlap quite a bit: the guidelines about how
+projects, docs and code are split", and its last round is the owner's message
+"documentation-has-a-structure-and-a-model wording approved, no further change needed". The
+transcript runs on through the review of this document, to the owner's last message before the
+branch that added this document merged, so that the rulings given at that review are in it. A round
+is one message of the owner and the session's reply to it:
 
 | round | the owner's message, by its opening words | the session's reply |
 | --- | --- | --- |
@@ -40,21 +46,25 @@ reply to it:
 | 2 | "Q1 yes, with a step that removes private information" | the draft written and the record search dispatched; two threads opened |
 | 3 | "Try again", after a search agent failed twice on an API error | headed "Round 3": the search's verdicts, Q4 to Q6 |
 | 4 | "frozen-plan-artifacts: agreed on those shapes" | headed "Round 4": the goal draft, Q7 to Q9, the premortem, the checkpoint table |
-| closing | "Q7: right now, would a project be able to define its own shapes via an extension ?", then "documentation-has-a-structure-and-a-model wording approved" | the answer to Q7's factual part; the goal committed |
+| closing | "Q7: right now, would a project be able to define its own shapes via an extension ?", then "documentation-has-a-structure-and-a-model wording approved" | the answer to Q7's factual part; the goal committed; then this document written and reviewed, and D1 and Q10 put |
+| review 1 | "D1: what exactly would end up in the search/ directory ?" | the output of the search measured; D1 and Q10 restated with a recommendation |
+| review 2 | "D1 agreed on recommendation" | D1 written as ruled; the goals home's definition of the record drafted, with Q11 to Q13 |
+| review 3 | "Agreed on Q11 Q12 Q13, goal is approved" | the transcript review's repairs; Q14 and Q15 put |
+| review 4 | "q14 q15 agreed" | none: the transcript ends at this message |
 
-The session put nine questions to the owner, Q1 to Q9, numbered in the conversation; their labels
-are kept here. The search of the whole record ran once, between rounds 2 and 3, over a draft of
-this milestone: 19 agents of `agent@knowledge-architect-record-searcher`, whose reports passed
-`cargo klarch worklist --verify` and gave 301 entries a verdict other than `unrelated`. Its output,
-the draft it read and the goal reviewer's two reports sit in the session's scratch space on the
-owner's machine, outside the tree: the search's output in `$CLAUDE_CODE_TMPDIR/split-design/search/`.
-Slice 1 commits the search's `generated-lines.md` as this milestone's `search/discussion.txt`, and
-nothing else of that output; this document carries each verdict's outcome under "What is already
-decided", and the reports of single search agents and of the session's investigators, which no
-file of the tree keeps, are cited only beside what a reader can check in the tree. An issue the
-commit that adds this document closes, named here by its bare slug, sits in the history under
-crates/agent-skills/docs/open-issues/: `git log --diff-filter=D --format=%H -1 -- <its path>` names
-the commit that deleted it, and `git show <that commit>^:<its path>` prints it.
+The session put fifteen questions to the owner, Q1 to Q15, numbered in the conversation; their
+labels are kept here. The search of the whole record ran once, between rounds 2 and 3, over a draft
+of this milestone: 19 agents of `agent@knowledge-architect-record-searcher`, whose reports passed
+`cargo klarch worklist --verify` and gave 301 entries a verdict other than `unrelated`. Of its
+output, its `generated-lines.md` alone is committed, as
+[search/discussion.txt](search/discussion.txt), one line per entry with its verdict and its action.
+"What is already decided" carries the outcome of each verdict that changed something. The verdict
+files, the draft the search read, the reports of single search agents and of the session's
+investigators, and the goal reviewer's reports are not committed; a claim drawn from one of them is
+cited only beside what a reader can check in the tree. An issue the commit that adds this document
+closes, named here by its bare slug, sits in the history under crates/agent-skills/docs/open-issues/:
+`git log --diff-filter=D --format=%H -1 -- <its path>` names the commit that deleted it, and
+`git show <that commit>^:<its path>` prints it.
 
 ## How the work is done
 
@@ -94,7 +104,8 @@ This repository adds:
 | the scoped auditor | one `agent@knowledge-architect-design-record-auditor`, dispatched at planning on the heads a harvest will touch, not a whole audit. See `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` |
 | the twelve root heads | the heads of `register@knowledge-architect@design` that argue a Component's existence: `design@knowledge-architect@installed-text-crate`, `design@knowledge-architect@model-crate`, `design@knowledge-architect@check-crate`, `design@knowledge-architect@git-crate`, `design@knowledge-architect@query-crate`, `design@knowledge-architect@transcript-crate`, `design@knowledge-architect@create-crate`, `design@knowledge-architect@cli-crate`, `design@knowledge-architect@testing-crate`, `design@knowledge-architect@gates-crate`, `design@knowledge-architect@mutation-command-host`, `design@knowledge-architect@xtask-crate`, one per Component other than the root |
 | P1 to P8 | the causes of the premortem, under "Premortem" |
-| Q1 to Q9 | the questions the session put to the owner, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
+| Q1 to Q9 | the questions the session put to the owner during the discussion, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
+| Q10 to Q15 | the questions the session put to the owner at the review of this document: Q10 to Q13 on the goals home's definition of the record, ruled in the commit "[goals] The record of a project holds the entries of the kinds of entries it declares"; Q14 and Q15 on two attributions, D1's and that of `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`, approved as the review reworded them |
 | D1 | the default awaiting the owner, under "Defaults awaiting the owner" |
 | the Groups A to F | the six groups of the search's `conflicts` verdicts, under "What is already decided" |
 | thaum | a sibling project of the owner's, which also uses the workflow, read by the session in round 1 for its guidelines on splitting code |
@@ -172,7 +183,8 @@ The questions, each with the default the session gave:
   `issue@agent-skills@a-record-search-misses-what-is-added-after-it` stays open;
 - the design of what a changelog entry may cite: the owner moved
   `issue@knowledge-architect@the-changelog-holds-references-no-check-reads` out of this milestone in
-  round 4, to be designed with `issue@knowledge-architect@a-mechanical-changelog-check`;
+  round 4, intending to handle it with the design of the changelog's model and checks, which the
+  session identifies as `issue@knowledge-architect@a-mechanical-changelog-check`;
 - a whole pass of the design-record axis over this repository:
   `issue@agent-skills@this-repository-s-heads-await-the-design-record-axis`; the scoped auditor
   conforms only the heads one harvest touches;
@@ -204,7 +216,12 @@ The questions, each with the default the session gave:
 
 Several of these are rewritten by the work, as the groups below say; the rest bind it.
 
-**The verdicts of the search.** 301 entries got a verdict other than `unrelated`. Their outcomes:
+**The verdicts of the search whose outcome changed something.** The search gave 301 entries a
+verdict other than `unrelated`, and [search/discussion.txt](search/discussion.txt) holds the line of
+each, with its verdict and its action. Each verdict below changed the design, a thread or the work,
+and is listed with that outcome; a verdict the file holds and this section does not name changed
+nothing, the design already keeping within its entry, or the entry bearing on nothing the design
+changes.
 
 **`conflicts`, `check-reversal`: 56 entries, in six groups.** Each entry the work rewrites is listed,
 with every text `cargo klarch show` lists as referencing it and the harvest that judges each text,
@@ -275,7 +292,7 @@ work that schedules them:
   audience" says.
 
 The same commit closes `a-slice-s-spec-with-no-section-of-decided-entries-gives-its-audit-no-seed`,
-graded `touches` below, since slice 1 has a slice's own document hold its section "What is already
+graded `touches`, since slice 1 has a slice's own document hold its section "What is already
 decided", and with its two members the cluster `the-slice-audit-s-search-on-one-branch`.
 
 **`trigger-met`, `rule-before-work`: 3 issues.**
@@ -287,8 +304,9 @@ decided", and with its two members the cluster `the-slice-audit-s-search-on-one-
   alone, so the trigger is not met. The issue stays open.
 - `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`: its re-entry point
   was the next Migration entry citing installed text, which slice 1 writes. On the owner's word in
-  round 4, it becomes a `todo` with no re-entry point, designed with
-  `issue@knowledge-architect@a-mechanical-changelog-check`, in the commit that adds this document.
+  round 4, it becomes a `todo` with no re-entry point, in the commit that adds this document; the
+  owner intends to handle it with the design of the changelog's model and checks, which the session
+  identifies as `issue@knowledge-architect@a-mechanical-changelog-check`.
   Slice 1's Migration entry follows `design@knowledge-architect@changelog-entries` as it stands.
 - `issue@agent-skills@a-record-search-misses-what-is-added-after-it`: the work changes the
   grounding's steps, which meets its re-entry point. Reopening
@@ -303,35 +321,21 @@ One issue the search graded `unrelated` has its re-entry point met by the work:
 the next change that edits `design@knowledge-architect@git-crate`, which slice 4 is. Slice 4's
 design audit sorts it as a gap of the slice.
 
-**`touches` and `worsens`: 27 issues.** `respect`, the work keeps within the issue, each named with
-the slice that meets it:
+**`touches` and `worsens`: the issues that put a condition on a slice**, each named with the slice
+that meets it:
 
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`: the evidence that splits left
   to whoever meets them sit undone; a conforming step slice 3 plans budgets the reading of every
   citing site, 6 to 39 per head by the issue's count.
-- `issue@check@the-cost-of-a-relocation-is-bounded-by-no-argued-head`: slice 2's guidelines become a
-  text that tells a session when to split; it argues no bound on a relocation's cost.
-- `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`: slices 1
-  to 3 add a layout the checker enforces and fixed planning steps; each argues its own need.
 - `issue@agent-skills@installed-text-assumes-pull-requests-and-ci`: slice 1's text on specs,
   milestones and slices assumes neither, or names this issue at the site.
-- `a-slice-s-spec-with-no-section-of-decided-entries-gives-its-audit-no-seed` and
-  `the-slice-audit-s-search-on-one-branch`: closed with this document, above.
 - `issue@agent-skills@a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component`
   and `issue@agent-skills@texts-send-the-owner-more-than-the-closed-list`: slice 3's conforming step
   routes a misfiled head as the record settles, and sends the owner only the closed list.
-- `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: slice 1's frozen
-  files are read by no check once written, the harm this issue names, bounded by their leaving with
-  the milestone and by the P3 clause.
 - `issue@knowledge-architect@path-quickfixes-read-against-the-lints-on-ids` and
   `issue@knowledge-architect@path-quickfixes-read-against-the-renamed-checker`: slice 1's minimal
   migration keeps `spec@plans@path-quickfixes` resolving and its arguments readable, and takes over
   none of the readings those issues ask for.
-- `issue@knowledge-architect@command-output-is-not-declared-a-contract`: `transcript.txt` is a frozen
-  copy; nothing is built on the output of `transcript show` staying stable.
-- `issue@query@no-command-lists-the-numbers-in-use-in-a-plan-across-its-history`: harvested slices
-  keep their item numbers in the tree, and `deliberation.md` stays live, so the duplicate check
-  still sees every number.
 - `issue@check@a-plain-hash-item-name-is-read-by-nothing`: slice 1 redraws which file of a plan
   holds an item, and states which `#<id>` names it reads.
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`: slice 1's change
@@ -341,28 +345,7 @@ the slice that meets it:
   move modules more often; each move-only step of slice 2's procedure searches the prose for the
   old path, a claim of slice 2.
 
-`none`, the issue limits nothing in the work: `issue@query@no-command-counts-a-tripwire-s-horizon`,
-`issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`,
-`issue@agent-skills@the-closing-audit-of-a-move-reaches-no-planning-text`,
-`issue@agent-skills@how-parallel-work-is-partitioned-among-agents`,
-`issue@agent-skills@this-repository-s-heads-await-the-design-record-axis`,
-`issue@agent-skills@a-lighter-pass-for-untouched-components`,
-`issue@check@texts-citing-the-relocation-goal-state-its-old-measure`,
-`issue@knowledge-architect@the-documents-do-not-render-as-a-site`,
-`issue@knowledge-architect@every-crate-takes-a-version-at-each-release`,
-`issue@model@a-slug-in-a-quotation-is-reported-as-a-misplaced-definition`,
-`issue@model@the-resolver-s-arms-have-mutation-survivors`. The work limits nothing in the render
-issue, but it adds a question to its design, in answer to the search's verdict on
-`goal@documents-render-as-a-linked-site`: see "Later consequences".
-
-**`constrains`: 211 entries.** The design keeps within each quoted sentence, action `respect`,
-except seven graded `none`, which bear on nothing the design changes:
-`design@agent-skills@review-judges-additions`,
-`design@agent-skills@enclosing-design-read-at-grounding`, `design@agent-skills@test-economy`,
-`design@agent-skills@integrated-test-through-public-api`,
-`tripwire@agent-skills@shape-findings-fragment-code`,
-`issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data` and
-`goal@the-workflow-improves-through-real-use`. Those whose sentence shapes the design, and how:
+**`constrains`: the entries whose sentence shapes the design**, and how:
 
 - `design@agent-skills@branch-commits-judged-at-tip`: slice 1's checker change and every migration
   the tree needs land in its branch's first commit.
@@ -398,159 +381,9 @@ except seven graded `none`, which bear on nothing the design changes:
 - `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists` and
   `rejected@agent-skills@module-directory-component`: slice 2's module guidelines state no occasion
   for an intermediate Component, and do not make a module directory a Component.
-
-Every entry graded `constrains`, `respect`, grouped by its kind and anchor:
-
-- Goals (18): `goal@serves-one-kind-of-project`, `goal@every-target-project-can-adopt-it`,
-  `goal@adoption-is-easy`, `goal@projects-add-their-own-checks`,
-  `goal@documents-render-as-a-linked-site`, `goal@tasks-a-tool-does-better-are-the-tool-s`,
-  `goal@design-is-recorded-with-its-arguments`, `goal@records-reach-their-reader`,
-  `goal@the-owner-decides`, `goal@the-owner-s-word-is-verified`,
-  `goal@design-with-agents-as-counterparts`, `goal@agents-work-without-drift`,
-  `goal@generic-tools-and-procedures-are-shipped`, `goal@agents-get-a-complete-workflow`,
-  `goal@only-needed-instructions`, `goal@the-workflow-leads-to-better-code`,
-  `goal@projects-are-split-into-modular-units`, `goal@session-orchestrates-the-work`.
-- `agent-skills`, design (100): `design@agent-skills@knowledge-table-home`,
-  `design@agent-skills@primer-limit`, `design@agent-skills@checker-model-in-primer`,
-  `design@agent-skills@rarer-checker-rules-by-findings`,
-  `design@agent-skills@code-change-reads-its-record`, `design@agent-skills@goals-bind`,
-  `design@agent-skills@branch-commits-judged-at-tip`,
-  `design@agent-skills@questions-go-to-their-authority`,
-  `design@agent-skills@answer-keeps-its-authority`,
-  `design@agent-skills@met-outside-the-task-outcomes`,
-  `design@agent-skills@a-goal-reading-is-reported`, `design@agent-skills@one-home-for-head-rules`,
-  `design@agent-skills@restatement-size-test`, `design@agent-skills@context-cost-of-agent-text`,
-  `design@agent-skills@plans-directory-in-primer`, `design@agent-skills@audit-outcomes`,
-  `design@agent-skills@audit-triggers`, `design@agent-skills@audit-agent-per-axis`,
-  `design@agent-skills@audit-repairs-the-whole-record`, `design@agent-skills@retro-trigger`,
-  `design@agent-skills@plan-read-against-the-record`,
-  `design@agent-skills@verdicts-reach-the-conformance-review`,
-  `design@agent-skills@a-scratch-directory-per-subagent`,
-  `design@agent-skills@agents-write-in-scratch`,
-  `design@agent-skills@report-written-through-the-shell`,
-  `design@agent-skills@reviews-judge-by-the-writer-s-criteria`,
-  `design@agent-skills@transcript-reviewer-agent`,
-  `design@agent-skills@transcript-extraction-is-the-checker-s`,
-  `design@agent-skills@transcript-found-by-listing`,
-  `design@agent-skills@goals-axis-in-the-review-before-a-merge`,
-  `design@agent-skills@code-shape-axis`, `design@agent-skills@code-claims-scope`,
-  `design@agent-skills@design-record-axis`, `design@agent-skills@design-record-axis-dispatch`,
-  `design@agent-skills@created-heads-checked-in-the-run`,
-  `design@agent-skills@component-crate-mapping`, `design@agent-skills@split-cost-by-publication`,
-  `design@agent-skills@component-split-signals`,
-  `design@agent-skills@shared-code-decisions-go-to-the-lowest-enclosing-component`,
-  `design@agent-skills@no-installed-rule-on-when-an-intermediate-component-exists`,
-  `design@agent-skills@dependency-decision-home`,
-  `design@agent-skills@new-or-reshaped-head-needs-design`,
-  `design@agent-skills@a-head-is-owed-by-an-entry-test`,
-  `design@agent-skills@losing-alternatives-filter`, `design@agent-skills@development-skill`,
-  `design@agent-skills@the-workflow-teaches-no-rust-idiom`,
-  `design@agent-skills@instruction-record-is-minimal`,
-  `design@agent-skills@behaviour-additions-need-real-use`,
-  `design@agent-skills@synthetic-evidence-not-built`,
-  `design@agent-skills@capabilities-not-structure`,
-  `design@agent-skills@no-two-installed-instructions-contradict`,
-  `design@agent-skills@statement-names-an-act`, `design@agent-skills@term-defined-at-first-load`,
-  `design@agent-skills@admission-rules-home`,
-  `design@agent-skills@at-least-one-independent-verification`,
-  `design@agent-skills@tripwire-recording-authority`, `design@agent-skills@goal-entry-shape`,
-  `design@agent-skills@a-goal-carries-an-example-only-for-its-direction`,
-  `design@agent-skills@goals-change-through-goal-setting`,
-  `design@agent-skills@goal-standard-rules`,
-  `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`,
-  `design@agent-skills@goal-outcome-survives-empty-skeleton`,
-  `design@agent-skills@goal-one-meaning-any-breadth`,
-  `design@agent-skills@requires-admits-rules-out`, `design@agent-skills@goal-holds-one-intent`,
-  `design@agent-skills@goal-drafted-to-move-the-tree`,
-  `design@agent-skills@what-shows-a-goal-met-is-design`,
-  `design@agent-skills@no-goal-refines-another`, `design@agent-skills@goals-home-at-the-root-only`,
-  `design@agent-skills@goal-draft-shows-reach`,
-  `design@agent-skills@goal-owner-statements-go-to-the-reviewer`,
-  `design@agent-skills@reach-finding-asks-not-narrows`, `design@agent-skills@goal-reviewer-agent`,
-  `design@agent-skills@goal-edit-ruled-alone`,
-  `design@agent-skills@content-mirrors-the-install-layout`,
-  `design@agent-skills@shipped-text-cites-no-entry`,
-  `design@agent-skills@installed-text-works-with-what-an-installing-project-holds`,
-  `design@agent-skills@no-external-handoff`, `design@agent-skills@one-skill-per-activity`,
-  `design@agent-skills@search-reads-the-whole-record`,
-  `design@agent-skills@session-acts-on-the-verdicts`,
-  `design@agent-skills@search-runs-once-the-shapes-settle`,
-  `design@agent-skills@seeds-name-decisions`, `design@agent-skills@ruled-items-labelled`,
-  `design@agent-skills@design-home-is-built-intent`, `design@agent-skills@local-intent-binds`,
-  `design@agent-skills@heads-stand-on-argument`, `design@agent-skills@fork-choice-in-weak-form`,
-  `design@agent-skills@unargued-approval-is-argued`,
-  `design@agent-skills@default-ruled-before-merge`, `design@agent-skills@document-vocabulary`,
-  `design@agent-skills@step-is-no-commit`, `design@agent-skills@spec-and-milestone`,
-  `design@agent-skills@in-change-path`, `design@agent-skills@design-hands-off-to-planning`,
-  `design@agent-skills@plan-written-in-the-converging-session`,
-  `design@agent-skills@acceptance-criteria-in-the-document`,
-  `design@agent-skills@plan-landing-is-not-tied-to-its-work`,
-  `design@agent-skills@undesigned-work-is-an-issue`, `design@agent-skills@roadmap-orders-issues`.
-- `agent-skills`, rejected (24): `rejected@agent-skills@directive-restated-everywhere`,
-  `rejected@agent-skills@finding-reported-not-recorded`,
-  `rejected@agent-skills@audit-without-calibration-or-recheck`,
-  `rejected@agent-skills@head-repaired-only-when-touched`,
-  `rejected@agent-skills@design-listing-cut-in-groups-of-sixty`,
-  `rejected@agent-skills@subject-groups-bounded-at-sixty`,
-  `rejected@agent-skills@one-generic-auditor-agent`,
-  `rejected@agent-skills@module-directory-component`,
-  `rejected@agent-skills@head-split-by-independent-reversal`,
-  `rejected@agent-skills@entry-test-for-unbuilt-work`,
-  `rejected@agent-skills@every-losing-thread-recorded`,
-  `rejected@agent-skills@a-goal-for-every-component`,
-  `rejected@agent-skills@goal-carries-reading-examples`,
-  `rejected@agent-skills@goal-measure-in-what-the-project-builds`,
-  `rejected@agent-skills@ledger-written-during-discussion`,
-  `rejected@agent-skills@conformance-reader-at-the-checkpoint`,
-  `rejected@agent-skills@search-work-carries-the-deliberation`,
-  `rejected@agent-skills@search-work-is-the-question`,
-  `rejected@agent-skills@slice-audit-seeded-by-the-milestone`,
-  `rejected@agent-skills@work-statement-written-for-the-search`,
-  `rejected@agent-skills@owner-words-quoted-in-head`,
-  `rejected@agent-skills@milestone-holds-every-slice-design`,
-  `rejected@agent-skills@plan-document-deleted-with-its-harvest`,
-  `rejected@agent-skills@spec-plus-detailed-plan`.
-- `check`, design (11): `design@check@model-then-checks`, `design@check@phases-gate-the-report`,
-  `design@check@finding-names-the-repair`, `design@check@a-commit-message-is-a-document`,
-  `design@check@every-commit-judged-by-the-tip-checker`,
-  `design@check@message-references-resolve-in-either-tree`, `design@check@branch-shas-are-refused`,
-  `design@check@generated-files-are-pure`, `design@check@groups-are-subdirectories`,
-  `design@check@goals-home-cites-only-goals-and-root-homes`,
-  `design@check@links-are-navigation-rows`.
-- `check`, rejected (1): `rejected@check@split-enforced-by-a-check`.
-- `create`, design (2): `design@create@init-command`, `design@create@component-command`.
-- `git`, design (1): `design@git@git-is-asked-through-one-module`.
-- `knowledge-architect`, design (12): `design@knowledge-architect@model-crate`,
-  `design@knowledge-architect@check-crate`, `design@knowledge-architect@query-crate`,
-  `design@knowledge-architect@mock-projects-in-one-crate`, `design@knowledge-architect@api-facade`,
-  `design@knowledge-architect@git-flow`, `design@knowledge-architect@no-branch-sha-is-cited`,
-  `design@knowledge-architect@versioning-policy`, `design@knowledge-architect@changelog-entries`,
-  `design@knowledge-architect@the-branch-writes-its-changelog-entries`,
-  `design@knowledge-architect@capability-cost-before-migration`,
-  `design@knowledge-architect@the-record-lives-in-the-repository`.
-- `knowledge-architect`, rejected (1): `rejected@knowledge-architect@model-inside-the-checker`.
-- `model`, design (21): `design@model@one-entity-table`, `design@model@two-segment-ids`,
-  `design@model@a-slug-elsewhere-defines-nothing`, `design@model@an-entity-belongs-to-its-anchor`,
-  `design@model@registers-are-declared`, `design@model@frontmatter-subset`,
-  `design@model@declarable-directory-register`, `design@model@item-registers-built-in`,
-  `design@model@a-file-register-index-is-rows`, `design@model@one-list-of-generated-files`,
-  `design@model@register-home-reference`, `design@model@path-to-a-home-is-reported`,
-  `design@model@plans-is-a-reserved-anchor`, `design@model@anchor-collisions-refused`,
-  `design@model@kind-names-refused-as-anchors`,
-  `design@model@a-component-carries-what-a-project-attaches`,
-  `design@model@a-placed-name-reads-as-nothing-else`,
-  `design@model@tracked-and-ignored-is-a-finding`, `design@model@model-facade`,
-  `design@model@resolver-outcome`, `design@model@cause-words-in-the-resolver`.
-- `model`, rejected (4): `rejected@model@subdirectory-anchors-location`,
-  `rejected@model@cross-plan-item-citation`,
-  `rejected@model@plan-register-references-have-no-anchor`,
-  `rejected@model@cause-words-in-the-lints`.
-- `query`, design (5): `design@query@cluster-rooted-at-a-subject`,
-  `design@query@worklist-writes-and-verifies-the-reports`, `design@query@occasion-shaped-output`,
-  `design@query@clusters-packed-under-a-word-bound`, `design@query@worklist-bound-is-40000-words`.
-- `transcript`, design (3): `design@transcript@transcript-command-reads-any-project`,
-  `design@transcript@transcript-query-verbs`, `design@transcript@cut-text-reported`.
-- `xtask`, design (1): `design@xtask@ci-builds-the-tip-alone`.
+- `goal@documents-render-as-a-linked-site`: the work adds a question to the design of
+  `issue@knowledge-architect@the-documents-do-not-render-as-a-site`, whether a frozen file's
+  references link to their targets as of the commit that froze it; see "Later consequences".
 
 ## Criteria
 
@@ -679,7 +512,8 @@ docs/plans/milestones/<id>/
   document was assembled from a discussion's transcript; `spec@plans@path-quickfixes` holds
   neither. The checker refuses any other file or directory, and a milestone's directory admits
   besides its generated `index.md`, its slice directories and `harvested/`.
-- **What `search/` holds**, on the owner's choice in ruling D1: of what `worklist` writes, only
+- **What `search/` holds**, on the session's recommendation, which the owner approved in review 2,
+  ruling D1: of what `worklist` writes, only
   the generated lines, each as a `.txt` file named by its occasion: `generated-lines.md` of the
   discussion's search as `search/discussion.txt`, and, at a slice's or a spec's design audit,
   `fit-lines.md` as `search/design-audit.txt`, in the audit's commit, under the slice's own
@@ -689,9 +523,9 @@ docs/plans/milestones/<id>/
   parses them, so they never break and need no rule of a frozen location. The searchers' reasons
   are not kept: a reason that changed something is carried by the outcome the `README.md` records.
 - **What "What is already decided" keeps of the search**: each verdict whose outcome changed
-  something, with that outcome, and a link to `search/discussion.txt` for the rest; it no longer
-  copies the full list of verdicts. A rule of the planning skill slice 1 writes; this document's own
-  list stays as it is until slice 1's migration applies the rule to it.
+  something, with that outcome, and a link to `search/discussion.txt` for the rest, never the full
+  list of verdicts. A rule of the planning skill slice 1 writes, which this document's own section
+  follows.
 - Rival, committing the verdict files and the reports: on this discussion's search, by `wc -c` over
   its output in the session's scratch space, the whole output holds 8,193,395 bytes, the verdict
   files 1,922,848 holding 617 copied entry blocks for 301 entries, `shown.md` 2,051,313 and the 19
@@ -767,10 +601,13 @@ directory under `harvested/`, and leaves the walk by construction**, parsed for 
 For `thread@split-guidelines-and-plan-directories@committed-transcript`.
 
 - For each session the discussion spans, the output of `cargo klarch transcript show`, from the
-  message where the discussion begins to the message where the plan document is committed, trimmed
-  of tool calls, is committed as the plan document's `transcript.txt`, after a step, named in the
-  planning skill, that reads it and removes private information and pasted material. A claim of
-  slice 1, per P4.
+  message where the discussion begins to the owner's last message before the branch that adds the
+  plan document merges, trimmed of tool calls, is committed as the plan document's `transcript.txt`,
+  after a step, named in the planning skill, that reads it and removes private information and
+  pasted material. A claim of slice 1, per P4. The transcript ends there, rather than at the commit
+  of the plan document, so that the rulings given at the plan document's reviews are in it: the
+  session's decision at review 3, since this milestone's transcript would otherwise miss the
+  rulings on D1 and on Q10 to Q13.
 - **The removal step removes**: every path under a home directory, every e-mail address, every
   credential and token, and the pasted material the owner marks.
 - **The owner decides each publication.** Once a transcript is pushed, it cannot be taken back, an
@@ -807,6 +644,24 @@ For `thread@split-guidelines-and-plan-directories@harvested-slice-kept`.
 - Nearest rival: a harvested spec kept indefinitely. Defeated by the owner's argument
   (`argument@split-guidelines-and-plan-directories@arg-35`): they would accumulate, put outdated
   matches in every search, and raise the migration work of every change of the checker.
+
+### A project's own kinds of entries, in an existing goal
+
+For `thread@split-guidelines-and-plan-directories@custom-register-goal`. No slice builds it: the
+goals home is its record, written on the branch that added this document, in the commit "[goals] A
+project declares kinds of entries of its own to record the knowledge of its own domain".
+
+- The purpose of a project's own kinds of entries is stated by rewording
+  `goal@documentation-has-a-structure-and-a-model`: a project declares kinds of entries of its own
+  to record the knowledge of its own domain that the procedures of the workflow do not cover.
+- The phrase "from a variety of published shapes" is out of the goal, on the owner's Q7 answer in
+  the closing exchange, so the goal admits one shape or several.
+- The goal admits a new shape and requires none, on the owner's Q8 answer in the closing exchange.
+- "Do not cover" takes reading A of Q9, the owner's answer in the closing exchange: a procedure
+  covers a kind of knowledge only where it says how to record that kind.
+- Nearest rival: a goal of its own. Defeated by rule 5 of
+  `skill@knowledge-architect-goal-setting@goal-or-not`, a qualifier belongs to the goal it qualifies
+  (`argument@split-guidelines-and-plan-directories@arg-51`).
 
 ## Mapping tables
 
@@ -851,8 +706,9 @@ their specs.
 - **Frozen files left in the walk and never judged**, under the same thread: lost to the 13 heads of
   Group B.
 - **The search's verdict files and reports committed beside its generated lines**, under the same
-  thread: lost to the owner's choice of the generated lines only, in ruling D1, on the sizes
-  "The plan document's directory" gives and the staleness of a report's quotations.
+  thread: lost to the session's recommendation of the generated lines only, which the owner
+  approved in ruling D1, on the sizes "The plan document's directory" gives and the staleness of a
+  report's quotations.
 - **The owner's words verbatim in plan items**, under
   `thread@split-guidelines-and-plan-directories@committed-transcript`: lost to the owner's report,
   `argument@split-guidelines-and-plan-directories@arg-10`, and to the count of quotation slips,
@@ -973,8 +829,9 @@ Each slice's row is in its spec. The row of this document:
   and P4 are claims of slice 1, and slice 1's harvest row carries their outcomes into its commit
   message.
 - **AC1** is reported on at each of slices 2, 3 and 4, and once more when this document leaves.
-- **The design** of the five subsections above lands in the heads each thread's item names, at the
-  harvest of the slice that builds it.
+- **The design** of the first five subsections of "Decided design" lands in the heads each thread's
+  item names, at the harvest of the slice that builds it; the sixth, the goal's, is in the goals
+  home already, and no harvest records it.
 
 ## Later consequences
 

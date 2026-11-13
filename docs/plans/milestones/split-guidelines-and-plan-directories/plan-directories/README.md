@@ -593,6 +593,9 @@ milestone document's "The plan document's directory". What this slice adds to it
   it, so the planning skill states one shape of a plan document's directory;
 - the anchor of a spec is its directory, and its items are cited by its id, as today's
   `design@model@spec-file-is-an-anchor` states for a spec file;
+- adopting projects move their plan documents into directories too, by the Migration entry of this
+  slice's CHANGELOG.md; `klarch init` writes the new layout, and `klarch new-component` writes no
+  plan document, per `argument@split-guidelines-and-plan-directories@arg-45`;
 - the nearest rival, a spec as one file, which `design@model@spec-file-is-an-anchor` chose, lost to the
   artifacts a plan document now has, `deliberation.md`, `search/` and `transcript.txt`, which a file
   cannot hold beside it without a second home for each.

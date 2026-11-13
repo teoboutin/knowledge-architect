@@ -12,8 +12,8 @@
 - Moved by `argument@split-guidelines-and-plan-directories@arg-45`: adopting projects migrate their
   plan documents, and `init` writes the new layout; `new-component` writes no plan document.
 - Closed on `argument@split-guidelines-and-plan-directories@arg-53`: the rival, a spec as one file,
-  has no place for the artifacts. The owner's word on the checkpoint table, quoted in the milestone
-  document's Threads, left it standing.
+  has no place for the artifacts. The owner's word on the checkpoint table, attributed in the
+  milestone's Threads, left it standing.
 - Its shape: this spec's "Decided design", and the milestone document's "The plan document's
   directory". Harvest: this slice's, into `design@model@spec-file-is-an-anchor`,
   `design@model@milestone-entries-are-directories`, `design@agent-skills@milestone-is-a-directory`
@@ -38,11 +38,9 @@
 - Proposed by the owner in round 2, `argument@split-guidelines-and-plan-directories@arg-36`, answering
   Q3, whose default the session had put in round 1, `argument@split-guidelines-and-plan-directories@arg-33`.
 - Final state: `approved`.
-- The owner's words, round 2: "Q3 looks right for now. The first slice will also need to migrate the
-  existing plans, path-quickfixes, and also the milestone we will write in this session. The
-  path-quickfix migration should be kept minimal, the milestone one maybe not, because having it done
-  properly will also provide a first real test of the new structure." Closed by the owner's word on
-  the checkpoint table.
+- The owner's answer, round 2: Q3's default found right for now, with the migration of
+  `argument@split-guidelines-and-plan-directories@arg-36`. Closed by the owner's word on the
+  checkpoint table.
 - Its shape: this spec's "Builds", "This repository", and its mapping table. Harvest: none of its
   own; the migration is work, and its decision is recorded by the heads of Group A.
 
@@ -51,18 +49,19 @@
 ### Plan documents as directories hold artifacts of their own `##arg-11`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@plan-document-directory`.
-"I think that specs should be one directory, and not just one file. Because standalone specs tend to
-show the same defect, they become very large documents. That would allow them to hold separate data
-as artifacts too, such as the transcript."
+The owner thought a spec should be a directory, not one file, since standalone specs show the same
+defect and become very large documents, and since a directory could hold separate data as
+artifacts too, such as the transcript.
 
 ### Specs and milestones as first-class models, leaving the Directory shape as it is `##arg-14`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@plan-model-first-class`.
-"Implementation wise, I think that we should consider giving plan documents (specs and milestones) and
-their directory structure their own arm of the model, not reusable. They diverge quite a bit from the
-others, with lots of additional items, and we are changing them again. I like the current Directory
-shape that is available for custom registers, so rather than changing it, I think that giving Specs
-and Milestones their own first class models in the model crate is a better direction."
+On the implementation, the owner thought the project should consider giving plan documents, specs
+and milestones, and their directory structure, an arm of the model of their own, not reusable,
+since they diverge from the other registers, with many additional items, and are being changed
+again. The owner liked the Directory shape available to a project's own registers, and judged that,
+rather than changing it, giving specs and milestones first-class models of their own in the model
+crate is a better direction.
 
 ### A directory reopens the rival of `design@model@spec-file-is-an-anchor`, on artifacts with no other home `##arg-27`
 
@@ -95,10 +94,11 @@ README would be written in the old shape, so it would be about as large as the o
 ### A proper migration of this milestone is the first real test of the new structure `##arg-36`
 
 Round 2, the owner. Bears on
-`thread@split-guidelines-and-plan-directories@plan-migration-in-first-slice`. "The first slice will
-also need to migrate the existing plans, path-quickfixes, and also the milestone we will write in this
-session. The path-quickfix migration should be kept minimal, the milestone one maybe not, because
-having it done properly will also provide a first real test of the new structure."
+`thread@split-guidelines-and-plan-directories@plan-migration-in-first-slice`. The owner said that the
+first slice would also need to migrate the existing plans, `spec@plans@path-quickfixes` and the
+milestone written in that session: the migration of `spec@plans@path-quickfixes` kept minimal, that
+of the milestone perhaps not, since doing it properly would also be a first real test of the new
+structure.
 
 ### Adopting projects migrate their plan documents too `##arg-45`
 

@@ -113,8 +113,9 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
 - **Conformance in the harvest**, under
   `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`: lost to the owner's report,
   `argument@split-guidelines-and-plan-directories@arg-8`.
-- **A whole audit of the design-record axis at planning**: the owner asked for "a (single or few, but
-  not full audit) design record auditor", `argument@split-guidelines-and-plan-directories@arg-8`.
+- **A whole audit of the design-record axis at planning**: the owner asked, in round 1, for one
+  design-record auditor, or a few, but not a full audit,
+  `argument@split-guidelines-and-plan-directories@arg-8`.
 
 ## Implementation sequence
 

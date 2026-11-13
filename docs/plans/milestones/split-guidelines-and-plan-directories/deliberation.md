@@ -7,9 +7,9 @@ Slice 1's spec holds three: plan documents as directories, their model types, an
 the tree's plan documents. Slice 2's holds one: the record of a split inside a crate.
 
 **The checkpoint table.** In round 4 the session put to the owner a table of every thread with the
-state it proposed, under the heading "Checkpoint: contest any of these". The owner answered in the
-closing exchange: "I have nothing to contest in the table, you can start planning once we finish the
-goal draft and have it commited. Put the milestone on the same branch." That word closed each
+state it proposed, under the heading "Checkpoint: contest any of these". In the closing exchange the
+owner answered that they had nothing to contest in the table, and that planning could start once the
+goal draft was finished and committed, the milestone on the same branch. That word closed each
 thread at the state the table proposed, and promoted the one it proposed `presumed-settled` to
 `approved`; it is cited below as "the owner's word on the checkpoint table". Where a thread is
 `argued`, the table's argument closed it, and the owner's word left it standing.
@@ -46,7 +46,7 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   work's area is routed by `primer@met-outside-the-task`. Q5 and Q6 were put to the owner in round 3,
   and `argument@split-guidelines-and-plan-directories@arg-47` asked the real-use evidence that
   `argument@split-guidelines-and-plan-directories@arg-50` gave.
-- The owner's words, round 4: "Q5: agreed" and "Q6 no." Closed by the owner's word on the
+- The owner's rulings, round 4: Q5's default agreed, and no to Q6. Closed by the owner's word on the
   checkpoint table. The table's row for this thread also named the P2 clause, which stresses
   `thread@split-guidelines-and-plan-directories@discussion-record-apart` alone, per the premortem's
   table; no premortem cause on this thread became a clause, and P1 and P8 are named for slice 2's
@@ -65,11 +65,9 @@ thread at the state the table proposed, and promoted the one it proposed `presum
 - Moved by `argument@split-guidelines-and-plan-directories@arg-38`, which labelled the size signal an
   assumption until measured; and `argument@split-guidelines-and-plan-directories@arg-47`, which asked
   for real-use evidence under `design@agent-skills@behaviour-additions-need-real-use`.
-- The owner's words, round 4: "Q4: without the guidance thaum gives, modules are basically never
-  split, and can grow to thousands of lines, at which point no one will bother. And if the task is
-  not planned ahead of time, it never gets done. Either issues accumulate, or nothing at all gets
-  done." and "Q5: agreed". The Q4 answer is the owner's report, the real-use evidence; Q5 ruled the
-  delivery. Closed by the owner's word on the checkpoint table.
+- The owner's answers, round 4: on Q4, the owner's report,
+  `argument@split-guidelines-and-plan-directories@arg-50`, the real-use evidence; and Q5's default
+  agreed, which ruled the delivery. Closed by the owner's word on the checkpoint table.
 - Its shape: slice 2's spec, "Decided design", "The module guidelines". Built and harvested by
   slice 2, into
   `design@agent-skills@default-code-shape` and the fragment it decides.
@@ -117,18 +115,19 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   `goal@documentation-stays-consistent`. The premortem added the P3 clause,
   `argument@split-guidelines-and-plan-directories@arg-52`, stricter than the shape the owner agreed
   to, which the session put to the owner to contest.
-- The owner's words, round 4: "frozen-plan-artifacts: agreed on those shapes." The P3 clause was
-  closed by the owner's word on the checkpoint table.
+- The owner's ruling, round 4: the owner agreed to the thread's shapes as the session had put them.
+  The P3 clause was closed by the owner's word on the checkpoint table.
 - Revised at the review of this document by D1, which the owner ruled: the shape the owner agreed to,
   "judged when written" as a comparison against HEAD, cannot be built as written. No phase of the
   checker may spawn git, per `path@model@CLAUDE.md`, and the shape names no question the gathering
   asks and hands in; and slice 1's own search output fails it, since its `generated-lines.md`
   cites the issues the commit that adds this document deletes. D1 defines a frozen file by its
-  location instead, and gives the harvested marker the form the discussion had left open. On D1
-  the session recommended committing, of a search's output, the generated lines only, as a `.txt`
-  file, so that no rule of a frozen location is needed for them; the owner approved it, ruling D1.
-  The owner said then that they had understood from the start that one artifact of the search was
-  meant, not its whole directory: the agreement on the shapes in round 4 rested, for `search/`, on
+  location instead, and gives the harvested marker the form the discussion had left open. On D1,
+  in review 1, the session recommended committing, of a search's output, the generated lines only,
+  as a `.txt` file, so that no rule of a frozen location is needed for them; the owner approved it
+  in review 2, ruling D1. The owner said then that they had understood from the start that one
+  artifact of the search was meant, not its whole directory, and that they had misunderstood the
+  earlier exchanges: the agreement on the shapes in round 4 rested, for `search/`, on
   that misunderstanding, which the session's sketch, naming "the record search's verdict files"
   without saying what they hold, had left open. The title above states D1 as ruled.
 - Its shape: "Decided design", "The regime of each file". Built by slice 1; harvest: slice 1's, into
@@ -145,11 +144,9 @@ thread at the state the table proposed, and promoted the one it proposed `presum
 - Moved by `argument@split-guidelines-and-plan-directories@arg-34`, the owner's answer, and
   `argument@split-guidelines-and-plan-directories@arg-44`: a SHA the transcript quotes is a
   quotation, not a citation.
-- The owner's words, round 2: "Q1 yes, with a step that removes private information. I think we
-  might also be able to add a bit of automatic postprocess to the extraction, such as anonymizing
-  paths, maybe under an option of the transcript command. This can be kept for later though."
-  Closed by the owner's word on the checkpoint table, with the exemption from the rule on branch
-  SHAs.
+- The owner's ruling, round 2: Q1's default accepted, with a step that removes private
+  information, `argument@split-guidelines-and-plan-directories@arg-34`. Closed by the owner's word on
+  the checkpoint table, with the exemption from the rule on branch SHAs.
 - Its shape: "Decided design", "The committed transcript". Built by slice 1; harvest: slice 1's, into `design@agent-skills@plan-records-the-exchange`,
   `design@agent-skills@attribution-replaces-quotation`, `design@agent-skills@ledger-from-transcript`
   and `design@knowledge-architect@no-branch-sha-is-cited`. The anonymizing option is
@@ -164,10 +161,9 @@ thread at the state the table proposed, and promoted the one it proposed `presum
 - Moved by `argument@split-guidelines-and-plan-directories@arg-35`, the owner's argument against
   keeping a harvested spec indefinitely, and by
   `argument@split-guidelines-and-plan-directories@arg-40`, the regime of a frozen file.
-- The owner's words, round 2: "Q2 I meant kept until the milestone leaves. There is an argument
-  against keeping indefinitely, actually: they would accumulate, pollute grep or other searches with
-  outdated matches, and also increase migration work when the checker evolves for little value."
-  Closed by the owner's word on the checkpoint table.
+- The owner's ruling, round 2: on Q2, kept until the milestone leaves, with the owner's argument
+  against keeping indefinitely, `argument@split-guidelines-and-plan-directories@arg-35`. Closed by
+  the owner's word on the checkpoint table.
 - The marker's form, the move of the slice's directory under its milestone's `harvested/`, is D1's,
   which the owner ruled.
 - Its shape: "Decided design", "The life of a slice's spec". Built by slice 1; harvest: slice 1's,
@@ -195,15 +191,15 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   of its own, `argument@split-guidelines-and-plan-directories@arg-32` and
   `argument@split-guidelines-and-plan-directories@arg-51`.
 - Final state: `approved`. The goal reviewer read the draft in two rounds: its first found that the
-  draft had replaced the owner's test, knowledge "not covered by the generic procedures we ship",
-  with coverage by a shipped kind of entry, and the draft returned to the owner's test; its second
+  draft had replaced the owner's test of round 1, knowledge that the generic procedures the project
+  ships do not cover, with coverage by a shipped kind of entry, and the draft returned to the owner's test; its second
   reported no blocking finding.
-- Q7, Q8 and Q9 were put to the owner in round 4. The owner's words, closing exchange: on Q7,
-  `argument@split-guidelines-and-plan-directories@arg-54`, whole; "Q8 admit only. This would be
-  taken in on my request anyway."; "Q9 A"; and, on the goal by its slug,
-  "documentation-has-a-structure-and-a-model wording approved, no further change needed".
-  `argument@split-guidelines-and-plan-directories@arg-55` answered the factual part of Q7 from the
-  record.
+- Q7, Q8 and Q9 were put to the owner in round 4. The owner's answers, closing exchange: on Q7,
+  `argument@split-guidelines-and-plan-directories@arg-54`; on Q8, the goal admits a new shape and
+  does not require one, the owner adding that a new shape would be taken in on the owner's request
+  in any case; on Q9, reading A; and the goal's wording, named by its slug, approved with no further
+  change. `argument@split-guidelines-and-plan-directories@arg-55` answered the factual part of Q7 from
+  the record.
 - Its shape: the goal, committed on this branch before this document in the commit "[goals] A project
   declares kinds of entries of its own to record the knowledge of its own domain". No slice builds
   it, and no harvest records it: the goals home is its record.
@@ -214,127 +210,125 @@ One sequence, from `argument@split-guidelines-and-plan-directories@arg-1` to
 `argument@split-guidelines-and-plan-directories@arg-55`, in order of appearance, shared with the
 slice specs. An argument cited only by a thread of one slice's spec is in that spec: seven in slice
 1's, two in slice 2's, so the numbers missing below are there. An argument below that also bears on a
-slice's thread says so in words; that thread cites it. Key words are verbatim, the owner's spelling
-kept.
+slice's thread says so in words; that thread cites it. The session's key words are verbatim; the
+owner's words are attributed, each with its round, and stand verbatim in the milestone's
+transcript, which the milestone's `README.md` links.
 
 ### Splitting guidance is a set of guidelines, for the reasons that the guidance on dispatching is `##arg-1`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@split-guidelines-not-rules`.
-"First, I want to make it clear that on this subject, what we are providing are guidelines to
-consider during design, and not hard rules. This concerns splitting project into components, design
-and other records into multiple files and subsections by subjects, and code into multiple files or
-functions within one component. For nearly the same reasons as the guidelines about how to split
-work into subagents: consumer projects will have diverse needs and circumstances, which are hard to
-anticipate, so we let target projects reason over their own needs, taking our guidelines into
-consideration."
+The owner made clear that on this subject the project provides guidelines to consider during
+design, not hard rules: for the split of a project into Components, of design and other records
+into files and subsections by subject, and of code into files or functions within one Component.
+The reasons are nearly those of the guidelines on splitting work among subagents: consumer
+projects have diverse needs and circumstances, hard to anticipate, so a target project reasons over
+its own needs, taking the shipped guidelines into consideration.
 
 ### The argument for a Component's existence reasons over the shipped guidelines, followed or not `##arg-3`
 
 Round 1, the owner. Bears on
-`thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria`. "for the
-splitting of project into components, such decisions should be recorded at project level. I think
-we already have this guideline, but I am unsure whether we had it apply only locallly, or also in
-installed text. And I want to add to it that the arguments for the decision should reason about the
-guidelines we ship, and not only about the project's local circumstances. If a guideline was
-followed, keep record of why it was considered beneficial. If one was not followed, record the
-arguments against it, or the costs."
+`thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria`. The owner held
+that the split of a project into Components is recorded at project level, a guideline the owner
+thought already existed, while unsure whether it applied only locally or also in the installed
+text. The owner wanted to add that the arguments for such a decision reason about the guidelines
+the project ships, not only about the project's local circumstances: where a guideline was
+followed, the record keeps why it was considered beneficial; where one was not, the arguments
+against it, or the costs.
 
 ### Code inside a crate has little guidance, and file size is a poor argument for a split `##arg-4`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
-"I think our guidelines for splitting in Components are already fine. However, I think we have
-little to no guidelines about how to architecture code inside a crate. We can maybe take a bit of
-inspiration from thaum (../games/thaum), which has a few guidelines about this. They rely on file
-size though, and I think we should find better arguments than just file size for the splits."
+The owner judged the guidelines for splitting into Components already fine, and found little to no
+guidelines on how to architecture code inside a crate. The owner suggested taking some inspiration
+from thaum, which has a few guidelines on this; they rely on file size, and the owner thought better
+arguments than file size alone should be found for a split.
 
 ### The aim: work partitioned into smaller units of change, for agents and for searches `##arg-5`
 
 Round 1, the owner. Bears on
 `thread@split-guidelines-and-plan-directories@split-guidelines-not-rules` and
-`thread@split-guidelines-and-plan-directories@module-split-guidelines`. "Overall, the aim of those
-guidelines for splitting projects is so that work can be more easily partitionned across large
-projects, into smaller units of changes. This is what I want to work toward. Because this helps
-improve the work efficiency of agents, as well as the efficiency of design searches." On design
-documents: "The point of those splits is to have more fine grained, coherent threads for the design
-record."
+`thread@split-guidelines-and-plan-directories@module-split-guidelines`. The owner stated the aim of
+the split guidelines, which the owner wants to work toward: that work can be partitioned more easily
+across large projects, into smaller units of change, since this improves the work efficiency of
+agents and the efficiency of design searches. On design documents, the owner gave the point of a
+split as finer-grained, coherent threads for the design record.
 
 ### Splits are thought of at design or planning, and planned as steps or slices; a code split is a design decision, a record split is none `##arg-6`
 
 Round 1, the owner. Bears on
 `thread@split-guidelines-and-plan-directories@splits-planned-before-work`, and on a thread of slice
-2's spec, which cites it. "I think that splitting
-(either at crate or file level, and for both of docs like design and for Rust code) should be thought
-of at either of design or planning steps, and planned as their own steps or slices depending on size
-of relocation. Probably by dispatching an agent that search for touched areas that are (or are going
-to) hit a split condition. Probably one agent for the code side and one for the design record side. I
-think the code side probably belongs to the design steps, because a crate or module split is a design
-decision. While the splitting of design record is not a decision in itself."
+2's spec, which cites it. The owner thought that a split, at crate or file level, of documents such
+as the design as of Rust code, should be thought of at the design or the planning steps, and planned
+as a step or a slice of its own by the size of the relocation; probably by dispatching an agent that
+searches for the areas touched that hit, or are going to hit, a split condition, probably one agent
+for the code side and one for the design record side. The owner thought the code side probably
+belongs to the design steps, since a crate or a module split is a design decision, while a split of
+the design record is no decision in itself.
 
 ### A split left to implementation is never done `##arg-7`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@splits-planned-before-work`.
-"Leaving the splitting decision to implementation never works, because an implementer considers the
-task to big to carry as part of same work. And an issue on splitting is likely to be left sitting for
-very long, untouched."
+The owner reported that leaving the split decision to implementation never works, since an
+implementer considers the task too big to carry within the same work, and that an issue on a split
+is likely to sit untouched for a long time.
 
 ### A head the harvest changes without conforming it cannot be judged fairly, and conforming it in the harvest brings unplanned work `##arg-8`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
-"the planning step of anticipating design splits should also cover design entries that are currently
-non conformant with the design standard and will be changed by the harvest. Because if the harvest
-only changes it without fixing non conformity, the design record review cannot judge fairly against
-the standard. And doing such splits in the work/harvest that touches the head brings unplanned work
-in scope, which is often hard to accomplish properly. I think this can be done at planning steps, by
-dispatching a (single or few, but not full audit) design record auditor manually, which would look at
-entries that are expected to be touched by the work and might be non conformant, so that fixing them
-can be planned ahead of time (probably as its own slice, or just before harvest if bringing to
-conformance is not too large of a task)."
+The owner asked that the planning step that anticipates design splits also cover the design entries
+that do not conform to the design standard today and that the harvest will change. Where the harvest
+changes such an entry without fixing its non-conformity, the design-record review cannot judge it
+fairly against the standard; and doing that work in the work or the harvest that touches the head
+brings unplanned work into scope, often hard to do properly. The owner thought it can be done at
+planning, by dispatching by hand one design-record auditor, or a few, but not a full audit, on the
+entries the work is expected to touch that might not conform, so that their repair is planned
+ahead: probably as a slice of its own, or just before the harvest where the conforming work is not
+too large.
 
 ### A milestone's document centralises everything, and grows too large for the searches of later slices `##arg-9`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@discussion-record-apart`,
-and on a thread of slice 1's spec, which cites it. "There is
-an issue about the fact that plan documents, in particular milestone's README, become far too large.
-This severely hinders record searches of later slices. To solve that, I think that plans should
-update their structure. Right now, the README centralize everything, which is the root of the
-defect." and "The README should stop centralizing everything. More content should be directed at
-the slices of milestones (right now they are very thin, far too much). And the README itself could
-probably be split."
+and on a thread of slice 1's spec, which cites it. The owner pointed to the issue that plan
+documents, a milestone's README in particular, become far too large, which severely hinders the
+record searches of later slices, and thought that plans should change their structure: the README
+centralises everything, which the owner named the root of the defect. The owner proposed that the
+README stop centralising everything, that more content go to the slices of a milestone, which the
+owner found far too thin, and that the README itself could probably be split.
 
 ### The owner's verbatim words have little value out of the context they answered, and the extracted transcript could be committed `##arg-10`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@committed-transcript`.
-"For the conversation record, right now the README holds my verbatim words. There is an issue about
-that. I now thinks this is positive, but badly done. Out of context of what they answered to, they
-have little value. I wonder if the extracted transcript could not just be committed in the milestone
-directory, and beside standalone specs too. They should not be large files, once metadata is
-trimmed."
+The owner noted that the README holds the owner's verbatim words, the subject of an issue, and said
+that the owner now thought this positive but badly done: out of the context they answered, the words
+have little value. The owner wondered whether the extracted transcript could be committed in the
+milestone's directory, and beside a standalone spec too, expecting small files once the metadata is
+trimmed.
 
 ### A slice's spec kept, marked harvested, cited from inside its milestone only `##arg-12`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@harvested-slice-kept`.
-"Maybe spec documents should not be deleted at each slice. They can be useful for following slices,
-especially if they start getting more content. Instead, we can consider a way to mark one as
-"harvested", which would make citing it externally (of the containing milestone directory)
-forbidden. This would also remove the need to refactor the plan documents themselves after finishing
-one slice. And would allow slice specs to hold more items citeable inside the milestone."
+The owner suggested that a slice's spec perhaps not be deleted at each slice, since it can serve the
+following slices, more so as slices hold more content; instead, a way could be considered to mark
+one harvested, which would forbid citing it from outside its milestone's directory. The owner added
+that this would remove the need to refactor the plan documents after each slice, and let a slice's
+spec hold more items citable inside the milestone.
 
 ### A slice's search should read a document of bounded size, and each slice's artifacts sit in documents of their own `##arg-13`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@discussion-record-apart`.
-"The aim of that is so that a design record search of one slice gets a reasonnably sized document,
-which does not gorw with slice counts. Artifacts that happen at each slice should be recorded in their
-own documents, such as what the previous design searches surfaced (committing the search report as an
-artifact directly inside one spec might be enough, it would also be easier than putting it inside
-something else)"
+The owner gave the aim: that the record search of one slice gets a document of reasonable size,
+which does not grow with the slice count. Artifacts produced at each slice should be recorded in
+documents of their own, such as what the previous searches surfaced; the owner thought committing
+the search report as an artifact inside one spec might be enough, and easier than putting it inside
+something else.
 
 ### A goal: target projects keep records of domain knowledge in registers of their own `##arg-15`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@custom-register-goal`.
-"Related to that: I think it could be made a project goal that "target projects can make their own
-registers, from a variety of published shapes, so that they can keep records of custom, domain
-related knowledge that is not covered by the generic procedures we ship". Maybe this is already
-covered though, or at least partially."
+The owner thought it could be made a goal of the project that a target project can make registers
+of its own, from a variety of published shapes, to keep records of custom knowledge of its domain
+that the generic procedures the project ships do not cover; and that this was maybe already
+covered, at least in part.
 
 ### The guidance is already a guideline for Components and for code, and design subjects have a standard `##arg-16`
 
@@ -506,16 +500,16 @@ itself. My default is therefore to reword the existing goal rather than add a ne
 ### The committed transcript is acceptable, with a step that removes private information; anonymization later `##arg-34`
 
 Round 2, the owner. Bears on `thread@split-guidelines-and-plan-directories@committed-transcript`.
-"Q1 yes, with a step that removes private information. I think we might also be able to add a bit of
-automatic postprocess to the extraction, such as anonymizing paths, maybe under an option of the
-transcript command. This can be kept for later though."
+The owner accepted Q1's default, with a step that removes private information. The owner thought an
+automatic post-processing of the extraction might also be added, such as anonymizing paths, maybe
+under an option of the transcript command, and that this can be kept for later.
 
 ### Harvested specs kept indefinitely would accumulate, pollute searches and raise migration work `##arg-35`
 
 Round 2, the owner. Bears on `thread@split-guidelines-and-plan-directories@harvested-slice-kept`.
-"Q2 I meant kept until the milestone leaves. There is an argument against keeping indefinitely,
-actually: they would accumulate, pollute grep or other searches with outdated matches, and also
-increase migration work when the checker evolves for little value."
+The owner said that Q2 had meant kept until the milestone leaves, and gave an argument against
+keeping indefinitely: the specs would accumulate, pollute grep and other searches with outdated
+matches, and increase the migration work as the checker evolves, for little value.
 
 ### The search's verdict files would break at the first later reversal unless frozen `##arg-37`
 
@@ -641,19 +635,20 @@ rival reading, no record of a past exchange could ever be committed."
 
 Round 4, the owner. Bears on no thread: it moved
 `issue@knowledge-architect@the-changelog-holds-references-no-check-reads` out of the milestone.
-"defer that one again. Make it just a todo. These deferred issues are problematic, they often bring
-unrelated work in scope at bad moments IMO. I think I will handle this one at the same time when we
-design and publish a model and checks for the changelog, which would assert its structure, and take
-care of what can be referenced in a changelog and how (there should already be an issue for this)."
+The owner asked that the issue be deferred again, as a `todo` only, finding, in the owner's
+opinion, that deferred issues often bring unrelated work into scope at bad moments. The owner
+thought to handle it when a model and checks for the changelog are designed and published, which
+would assert its structure and settle what a changelog may reference and how, and expected an
+issue for that work to exist already.
 
 ### Without guidance modules are never split, and an unplanned split never gets done `##arg-50`
 
 Round 4, the owner. Bears on
 `thread@split-guidelines-and-plan-directories@module-split-guidelines` and
-`thread@split-guidelines-and-plan-directories@splits-planned-before-work`. "Q4: without the guidance
-thaum gives, modules are basically never split, and can grow to thousands of lines, at which point no
-one will bother. And if the task is not planned ahead of time, it never gets done. Either issues
-accumulate, or nothing at all gets done."
+`thread@split-guidelines-and-plan-directories@splits-planned-before-work`. Answering Q4, the owner
+reported that without the guidance thaum gives, modules are in practice never split and can grow to
+thousands of lines, at which point no one bothers; and that a task not planned ahead never gets
+done: either issues accumulate, or nothing is done at all.
 
 ### The goal's added clause qualifies the capability it follows `##arg-51`
 
@@ -693,13 +688,13 @@ shape, collides with your ruling that a declared Directory register carries one 
 ### An extension cannot define a shape today; a new shape is taken into knowledge-architect `##arg-54`
 
 The closing exchange, the owner. Bears on
-`thread@split-guidelines-and-plan-directories@custom-register-goal`. "Q7: right now, would a project
-be able to define its own shapes via an extension ? Or is the entry point only on checks ? The end
-result is that if I find a new shape that is useful, by working in another project, I might take it in
-knowledge-architect, so another project can easily pick it up if needed. TBH, knowledge-architect
-already handles most record itself, and the available shapes are already quite flexible. I suppose we
-can leave that out of the goal. In any case, if I want to take it a new shape, I think the goal as
-worded already supports it, no ? Or at least admits it."
+`thread@split-guidelines-and-plan-directories@custom-register-goal`. Putting Q7's factual part, the
+owner asked whether a project could today define shapes of its own through an extension, or whether
+an extension enters through checks alone. The owner said the end result is that a useful new shape
+found while working in another project might be taken into knowledge-architect, so that another
+project can pick it up; that knowledge-architect already handles most of the record itself and its
+shapes are already quite flexible; supposed that the phrase could be left out of the goal; and asked
+whether the goal as worded already supports taking in a new shape, or at least admits it.
 
 ### An extension enters through checks alone, and the goal as drafted admits a new shape `##arg-55`
 
