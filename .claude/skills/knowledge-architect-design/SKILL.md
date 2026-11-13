@@ -609,6 +609,18 @@ choices whose option space genuinely is closed and consequence-free.
    discussion's one search of the whole record, never a pass over what
    changed since the first rounds.
 
+   **Where you expect the full path, once the draft exists and before
+   the search, dispatch `agent@knowledge-architect-code-split-scout`**
+   with the draft as its work, as its description says: it reads the
+   code the work touches from a point of view apart from yours, which
+   drafted the shapes it judges. Each split it reports in a module or
+   a Component the work writes into is a thread of the discussion,
+   written into the draft before the search, so that the search reads
+   it; each one outside the work's area is routed as
+   `primer@met-outside-the-task` says, since the plan document takes no
+   work its discussion did not decide. The in-change path and bounded
+   work dispatch no scout.
+
    Dispatch the search as the description of
    `agent@knowledge-architect-record-searcher` says, with the draft as
    its `--work`, each thread's slug as a `--subject`, and as seeds the

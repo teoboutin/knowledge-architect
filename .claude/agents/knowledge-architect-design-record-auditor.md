@@ -285,8 +285,10 @@ is split into subjects read apart when:
   bound the work leaves of the words one agent is given; or
 - its heads answer questions about parts of the Component that change apart.
 
-A split moves headings and decides nothing, so it is a fix in a commit of its own, as
-`primer@met-outside-the-task` says. To see the notices, run `cargo klarch worklist --out <dir>` with
+A split moves headings and decides nothing. One that the planning of a piece of work finds is a step
+before the harvest that writes into the subject, as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says; one met outside planned work is a
+fix in a commit of its own, as `primer@met-outside-the-task` says. To see the notices, run `cargo klarch worklist --out <dir>` with
 `<dir>` a new directory of your scratch space outside the project.
 
 ## The rules on the Component, rejected designs and the deliberation `##record-rules`
