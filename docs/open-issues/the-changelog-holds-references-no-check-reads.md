@@ -42,7 +42,9 @@ that discussion, since a released section's content never changes; the owner's e
 writing a name as its reference in a released section is a change of structure, is weighed against
 the premise of `design@knowledge-architect@changelog-section-fixed-at-release`.
 
-On the owner's word, this work waits for no event: it is designed together with
-`issue@knowledge-architect@a-mechanical-changelog-check`, when a model of the changelog and checks of
-its structure are designed, which decide what an entry may cite and how. Until then, a Migration
+On the owner's word, this work waits for no event. The owner intends to handle it when a model of
+the changelog and checks of its structure are designed and published, which decide what an entry
+may cite and how; the session identified that work as
+`issue@knowledge-architect@a-mechanical-changelog-check`, on the owner's guess that an issue for it
+already exists. Until then, a Migration
 entry cites a section as `design@knowledge-architect@changelog-entries` says.
