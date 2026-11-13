@@ -183,12 +183,14 @@ mod tests {
             "module-split.md",
             &[
                 ".claude/agents/knowledge-architect-code-shape-reviewer.md",
+                ".claude/agents/knowledge-architect-code-split-scout.md",
                 ".claude/skills/knowledge-architect-development/SKILL.md",
             ],
         ),
         (
             "when-to-split.md",
             &[
+                ".claude/agents/knowledge-architect-code-split-scout.md",
                 ".claude/skills/knowledge-architect-design/SKILL.md",
                 ".claude/skills/knowledge-architect-development/SKILL.md",
             ],

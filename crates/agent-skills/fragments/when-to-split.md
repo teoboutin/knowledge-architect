@@ -1,4 +1,5 @@
-%% Delivered as a fragment: `design@agent-skills@shared-text-fragment`; its moments are
+%% Delivered as a fragment, hosted by the design and development skills and the code-split scout:
+%% `design@agent-skills@shared-text-fragment`; its moments are
 %% `design@agent-skills@component-skill-delivery`.
 **A Component may need creating or splitting** when work you are placing belongs to no existing
 Component, or when the code you add gives a Component a second reason to change: two concrete
