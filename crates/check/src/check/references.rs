@@ -691,8 +691,12 @@ fn written_reference(token: &str, anchors: &Anchors) -> bool {
 ///
 /// **The places it is read from are the root, every anchor that is a directory, and the
 /// document's own directory**: a path written in a component's README is often relative to that
-/// component, and one written beside a file relative to it. A spec is an anchor and a file, so
-/// it is no place. A `.` segment is passed over and a `..` climbs from the place; one that climbs
+/// component, and one written beside a file relative to it. **A plan document's directory, a
+/// spec's or a milestone's, and every directory under it, is no place**: a plan anchor carries no
+/// `path` kind, so the finding would name a form the resolver refuses, and the names of its
+/// layout, `search/discussion.txt` or `harvested/`, are written in every text that describes the
+/// layout; a `README.md` reaches the files beside it by a relative link, which the link check
+/// judges. A `.` segment is passed over and a `..` climbs from the place; one that climbs
 /// past the root names nothing from there. A leading slash is read from the root alone. The
 /// suffix, a line number or a fragment, is no part of the path.
 ///
@@ -714,6 +718,13 @@ fn names_this_tree(span: &str, rel: &Path, anchors: &Anchors, inputs: &Inputs) -
         );
         bases.push(rel.parent().unwrap_or(Path::new("")));
     }
+    let plans: Vec<&Path> = anchors
+        .all()
+        .iter()
+        .filter(|a| a.is_plan())
+        .map(|a| a.path.as_path())
+        .collect();
+    bases.retain(|base| !plans.iter().any(|plan| base.starts_with(plan)));
     bases.into_iter().any(|base| {
         let mut at = base.to_path_buf();
         for segment in &segments {
@@ -2413,6 +2424,53 @@ mod tests {
             let (found, _) = checked(&m, &format!("See `{span}`.\n"), &present);
             assert_eq!(found, Vec::<String>::new(), "{span}: {found:#?}");
         }
+    }
+
+    /// The claim: a plan document's directory, and every directory under it, is no place a first
+    /// segment is read from, from a document outside the plan or inside it, where a component's
+    /// directory still is one. Mutation checked: the plan filter dropped from `names_this_tree`.
+    #[test]
+    fn a_plan_directory_is_no_place_a_first_segment_is_read_from() {
+        let m = manifest();
+        let mut present = tree();
+        for p in [
+            "docs",
+            "docs/plans",
+            "docs/plans/milestones",
+            "docs/plans/milestones/a-milestone",
+            "docs/plans/milestones/a-milestone/README.md",
+            "docs/plans/milestones/a-milestone/search",
+            "docs/plans/milestones/a-milestone/search/discussion.txt",
+            "docs/plans/milestones/a-milestone/a-slice",
+            "docs/plans/milestones/a-milestone/a-slice/README.md",
+            "docs/plans/specs",
+            "docs/plans/specs/a-spec",
+            "docs/plans/specs/a-spec/README.md",
+            "docs/plans/specs/a-spec/transcript.txt",
+        ] {
+            present.push(p.to_string());
+        }
+        let paths: Vec<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let anchors = Anchors::of(&m, &paths);
+        let text =
+            "It commits `search/discussion.txt`, `transcript.txt` and `a-slice/README.md`.\n";
+        for at in [
+            "notes/prose.md",
+            "docs/plans/milestones/a-milestone/README.md",
+            "docs/plans/milestones/a-milestone/a-slice/README.md",
+            "docs/plans/specs/a-spec/README.md",
+        ] {
+            let (found, _) = checked_under(vec![(at, text)], &present, &anchors);
+            assert_eq!(found, Vec::<String>::new(), "{at}: {found:#?}");
+        }
+        // A component's directory stays a place, from a plan document as from any other.
+        let (found, _) = checked_under(
+            vec![(IN_PLANS, "See `notes/real/a.md`.\n")],
+            &present,
+            &anchors,
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].contains("names no anchor"), "{found:#?}");
     }
 
     #[test]
