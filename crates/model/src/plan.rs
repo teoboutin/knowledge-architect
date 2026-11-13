@@ -170,14 +170,35 @@ pub(crate) fn slices<'a>(
 }
 
 /// Whether `rel` sits under a milestone's `harvested/`, the one frozen location: out of the walk
-/// by construction, parsed for definitions only, and modified by no commit but the one that adds
-/// it, the one that deletes it and the move that freezes a slice.
+/// by construction, parsed for definitions only, and judged by the P3 clause of `commits` alone.
 ///
 /// Read off the path alone, whatever the milestone's directory holds, so the walk, the survey and
 /// `commits` agree on it with no anchor built.
 pub(crate) fn is_frozen(rel: &Path) -> bool {
-    parts_under(rel, &milestones_dir())
-        .is_some_and(|parts| parts.len() >= 3 && parts[1] == HARVESTED_DIR)
+    frozen_place(rel).is_some()
+}
+
+/// Where a frozen file sits, read off its path alone: its milestone's directory and name, and, for
+/// a file inside a directory of `harvested/`, that directory's name, the slice's, and the path the
+/// file has in the slice's live directory, `<milestone>/<slice>/<rest>`. A file directly under
+/// `harvested/` is frozen too, in no slice, and the layout reports it.
+pub(crate) fn frozen_place(rel: &Path) -> Option<crate::model::Frozen> {
+    let parts = parts_under(rel, &milestones_dir())?;
+    if parts.len() < 3 || parts[1] != HARVESTED_DIR {
+        return None;
+    }
+    let milestone_dir = milestones_dir().join(&parts[0]);
+    let slice = (parts.len() >= 4).then(|| {
+        let live = parts[2..]
+            .iter()
+            .fold(milestone_dir.clone(), |p, s| p.join(s));
+        (parts[2].clone(), live)
+    });
+    Some(crate::model::Frozen {
+        milestone: parts[0].clone(),
+        milestone_dir,
+        slice,
+    })
 }
 
 /// Whether a path holds a plan document by its position: a file inside a spec's directory or a
@@ -194,6 +215,15 @@ pub(crate) fn is_plan_position(rel: &Path) -> bool {
         };
     }
     parts_under(rel, &milestones_dir()).is_some_and(|parts| parts.len() >= 2)
+}
+
+/// The files a plan document's `search/` holds, each the generated lines of one search, named by
+/// its occasion: the grounding of its discussion, and its design audit.
+pub(crate) const SEARCH_FILES: [&str; 2] = ["discussion.txt", "design-audit.txt"];
+
+/// Whether `name` is a file a plan document's `search/` holds.
+pub(crate) fn is_search_file(name: &str) -> bool {
+    SEARCH_FILES.contains(&name)
 }
 
 /// Whether `name` is a file a plan document's directory holds beside its `README.md`, at its top:
@@ -265,11 +295,16 @@ mod tests {
         );
     }
 
-    /// The claim: every path under a milestone's `harvested/` is frozen, and nothing else is.
+    /// The claim: every path under a milestone's `harvested/` is frozen, a file directly under it
+    /// included, and nothing else is. Mutation checked: `parts.len() < 3` of `frozen_place` made
+    /// `parts.len() < 4`, which leaves a file directly under `harvested/` live; caught.
     #[test]
     fn only_a_path_under_a_milestone_s_harvested_is_frozen() {
         assert!(is_frozen(Path::new(
             "docs/plans/milestones/m-one/harvested/a-slice/README.md"
+        )));
+        assert!(is_frozen(Path::new(
+            "docs/plans/milestones/m-one/harvested/loose.md"
         )));
         assert!(is_frozen(Path::new(
             "docs/plans/milestones/m-one/harvested/a-slice/search/discussion.txt"
@@ -283,5 +318,66 @@ mod tests {
         assert!(!is_frozen(Path::new(
             "docs/plans/specs/harvested/x/README.md"
         )));
+    }
+
+    /// The claim: a frozen file of a slice's directory has, as its live path, the same path with
+    /// `harvested/` taken out, and a file directly under `harvested/` is in no slice. Mutation
+    /// checked: `parts[2..]` of the live path made `parts[3..]`, which drops the slice's
+    /// directory; caught.
+    #[test]
+    fn a_frozen_file_s_live_path_takes_harvested_out() {
+        let frozen = frozen_place(Path::new(
+            "docs/plans/milestones/m-one/harvested/a-slice/search/discussion.txt",
+        ))
+        .expect("frozen");
+        assert_eq!(
+            frozen.milestone_dir,
+            Path::new("docs/plans/milestones/m-one")
+        );
+        assert_eq!(frozen.milestone, "m-one");
+        assert_eq!(
+            frozen.slice,
+            Some((
+                "a-slice".to_string(),
+                PathBuf::from("docs/plans/milestones/m-one/a-slice/search/discussion.txt")
+            ))
+        );
+        let loose = frozen_place(Path::new("docs/plans/milestones/m-one/harvested/loose.md"))
+            .expect("frozen");
+        assert_eq!(loose.slice, None);
+    }
+
+    /// The claim: where two specs share an id, the anchor is the first in path order, and the
+    /// second is the duplicate entry finding. Mutation checked: `or_insert` of `spec_dirs` made
+    /// `insert`, which keeps the last; caught.
+    #[test]
+    fn two_specs_of_one_id_anchor_the_first_in_path_order() {
+        let tree = paths(&[
+            "docs/plans/specs/a-group/a-spec/README.md",
+            "docs/plans/specs/b-group/a-spec/README.md",
+        ]);
+        assert_eq!(
+            spec_dirs(&tree).get("a-spec"),
+            Some(&PathBuf::from("docs/plans/specs/a-group/a-spec"))
+        );
+    }
+
+    /// The claim: a Markdown file of specs/ or of a milestone's directory is at a plan position,
+    /// but the README and the index of specs/ and anything not Markdown. Mutation checked: the
+    /// `[name]` arm of `is_plan_position` made `true`, which reads the home's README and index as
+    /// plan documents; caught.
+    #[test]
+    fn the_homes_navigation_files_are_no_plan_position() {
+        for (rel, at) in [
+            ("docs/plans/specs/README.md", false),
+            ("docs/plans/specs/index.md", false),
+            ("docs/plans/specs/a-spec.md", true),
+            ("docs/plans/specs/a-spec/README.md", true),
+            ("docs/plans/specs/a-spec/transcript.txt", false),
+            ("docs/plans/milestones/m-one/README.md", true),
+            ("docs/plans/milestones/README.md", false),
+        ] {
+            assert_eq!(is_plan_position(Path::new(rel)), at, "{rel}");
+        }
     }
 }

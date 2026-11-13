@@ -663,17 +663,16 @@ impl Drop for History {
 }
 
 /// A plan document holding every section a spec or a milestone's README owes, each empty but
-/// those `sections` fills, as `(title, body)` pairs.
+/// those `sections` fills, as `(title, body)` pairs. Its Threads and Arguments are its
+/// `deliberation.md`'s, which a README.md may not hold.
 fn plan_document(title: &str, intro: &str, sections: &[(&str, &str)]) -> String {
-    const OWED: [&str; 20] = [
+    const OWED: [&str; 18] = [
         "Status and audience",
         "How the work is done",
         "Names",
         "What the work is",
         "What is already decided",
         "Criteria",
-        "Threads",
-        "Arguments",
         "New names, in one place",
         "Decided design",
         "Mapping tables",
@@ -2827,11 +2826,13 @@ fn a_message_cites_a_plan_whole_and_never_an_item() {
         &plan_document(
             "A spec with one thread",
             "It is the plan of one pull request.",
-            &[(
-                "Threads",
-                "### It holds one thread `##one-thread`\n\nApproved.",
-            )],
+            &[],
         ),
+    );
+    history.write(
+        "docs/plans/specs/a-spec/deliberation.md",
+        "# Its deliberation\n\n## Threads\n\n### It holds one thread `##one-thread`\n\nApproved.\n\n\
+         ## Arguments\n\nNone.\n",
     );
     let whole = history.commit("A spec is planned\n\nIt is `spec@plans@a-spec`.\n");
     let item = history.commit("Its thread is named\n\nIt is `thread@a-spec@one-thread`.\n");
@@ -2845,42 +2846,60 @@ fn a_message_cites_a_plan_whole_and_never_an_item() {
     );
 }
 
-/// The claims of the frozen location under `commits`: a commit that modifies a file of a slice
-/// under its milestone's `harvested/` is reported, naming the commit and the file, and one that
-/// adds a file there, deletes one, or moves a live slice's directory there is not; and a
-/// `transcript.txt`, never parsed, holding a dangling reference, a slug definition and the SHA of a
-/// commit of the range yields no finding, under `refuse-branch-shas`, nor does a committed
-/// markdown file under harvested/ holding a dangling reference. Mutations checked, in
+/// The milestone `a-milestone` of a `tiny_project_refusing_branch_shas`, under `history`'s project,
+/// with the live slices `names`, each holding its README.md and a deliberation.md. Its README.md
+/// links none of them, so a slice moved under `harvested/` leaves no link dangling.
+fn milestone_with_slices(history: &History, names: &[&str]) {
+    let m = "docs/plans/milestones/a-milestone";
+    tiny_project_refusing_branch_shas(history);
+    history.write(
+        &format!("{m}/README.md"),
+        &plan_document("A milestone", "Its slices are its directories.", &[]),
+    );
+    for name in names {
+        history.write(
+            &format!("{m}/{name}/README.md"),
+            &slice_document("One of its slices"),
+        );
+        history.write(
+            &format!("{m}/{name}/deliberation.md"),
+            "# Its deliberation\n\n## Threads\n\nNone.\n\n## Arguments\n\nNone.\n",
+        );
+    }
+}
+
+impl History {
+    /// `git mv` of a path of the project to another, the target's parent created first.
+    fn mv(&self, from: &str, to: &str) {
+        let target = self.dir.join(to);
+        std::fs::create_dir_all(target.parent().expect("a parent")).expect("the target's parent");
+        let from = self.dir.join(from).to_string_lossy().into_owned();
+        self.git(&["mv", &from, &target.to_string_lossy()]);
+    }
+}
+
+/// The claims of the frozen location under `commits` that admit a change: the move that freezes
+/// a slice, which adds each of its files under `harvested/` as its parent held it at its live
+/// path, and the deletion of a frozen file, pass; and a `transcript.txt`, never parsed, holding a
+/// dangling reference, a slug definition and the SHA of a commit of the range yields no finding,
+/// under `refuse-branch-shas`. The claims that refuse one: a commit that modifies a frozen file is
+/// reported, naming the commit and the file, and so is one that adds a file there that no move
+/// carries. Mutations checked, in `frozen_file_findings` of
 /// `path@check@src/commands/history.rs`: `findings.extend(frozen);` made `drop(frozen);`, caught
-/// by the edit; in `path@git@src/git.rs`, `--diff-filter=MT` of `modified_paths` made
-/// `--diff-filter=MTAD`, caught by the addition and the deletion.
+/// by the edit; `if moved {` made `if true {`, caught by the added file; and the `Deleted` arm made
+/// to push the modification's finding, caught by the deletion.
 #[test]
 fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there_is() {
     let history = History::new("commit-frozen");
-    tiny_project_refusing_branch_shas(&history);
     let m = "docs/plans/milestones/a-milestone";
-    history.write(
-        &format!("{m}/README.md"),
-        &plan_document(
-            "A milestone",
-            "Its slices: [the first](first-step/README.md), [the last](last-step/README.md).",
-            &[],
-        ),
-    );
-    history.write(
-        &format!("{m}/first-step/README.md"),
-        &slice_document("Its first step"),
-    );
-    history.write(
-        &format!("{m}/last-step/README.md"),
-        &slice_document("Its last step"),
-    );
+    milestone_with_slices(&history, &["first-step", "last-step"]);
     let base = history.commit("The milestone is planned\n");
+    let early = history.commit("An early change of the range\n");
     history.write(
         &format!("{m}/transcript.txt"),
         &format!(
             "A transcript quotes `design@tiny@no-such-entry`, a heading\n\n\
-             ### A quoted heading `##a-quoted-slug`\n\nand the commit {base}.\n"
+             ### A quoted heading `##a-quoted-slug`\n\nand the commit {early} of the range.\n"
         ),
     );
     let quoted = history.commit("The transcript is committed\n");
@@ -2892,18 +2911,14 @@ fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there
             &[],
         ),
     );
-    std::fs::create_dir_all(history.dir.join(format!("{m}/harvested")))
-        .expect("the harvested directory");
-    history.git(&[
-        "mv",
+    history.mv(
         &format!("{m}/first-step"),
         &format!("{m}/harvested/first-step"),
-    ]);
+    );
     let frozen = history.commit("The first step is harvested\n");
     history.write(
         &format!("{m}/harvested/first-step/notes.md"),
-        "# Notes added after the move\n\nThey cite `design@tiny@no-such-entry`, which a frozen \
-         file may, since nothing reads its references.\n",
+        "# Notes added after the move\n",
     );
     let added = history.commit("A file is added under harvested\n");
     history.write(
@@ -2915,9 +2930,22 @@ fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there
     let deleted = history.commit("A file under harvested is deleted\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 1, "{stdout}{stderr}");
-    for sha in [&quoted, &frozen, &added, &deleted] {
+    for sha in [&early, &quoted, &frozen, &deleted] {
         assert!(stdout.contains(&format!("{sha} passed")), "{sha}: {stdout}");
     }
+    assert!(
+        stdout.contains(&format!(
+            "{added} failed: it adds 1 harvested file(s) no freezing move carries"
+        )),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains(&format!(
+            "commit {added}: {m}/harvested/first-step/notes.md  this commit adds a file under the \
+             harvested/ of the milestone `a-milestone`"
+        )),
+        "{stdout}"
+    );
     assert!(
         stdout.contains(&format!("{edited} failed: it modifies 1 harvested file(s)")),
         "{stdout}"
@@ -2929,7 +2957,141 @@ fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there
         )),
         "{stdout}"
     );
-    assert!(stdout.contains("FAILED: 1 finding above"), "{stdout}");
+    assert!(stdout.contains("FAILED: 2 findings above"), "{stdout}");
+}
+
+/// The claims of the P3 clause on a move: a freezing move that also edits a file, a rename inside
+/// `harvested/`, and a frozen file deleted in one commit and added again with other content in
+/// the next are each reported, as an addition no freezing move carries; the deletion passes.
+/// Mutations checked, in `frozen_file_findings` of `path@check@src/commands/history.rs`: the
+/// added blob looked up anywhere in the parent's tree rather than at the live path, which admits
+/// the rename and still refuses the edited move and the rewritten file; caught by the rename. And
+/// `if moved {` made `if true {`, caught.
+#[test]
+fn a_move_into_harvested_that_is_not_the_freezing_move_is_reported() {
+    let history = History::new("commit-frozen-move");
+    let m = "docs/plans/milestones/a-milestone";
+    milestone_with_slices(&history, &["first-step", "second-step", "last-step"]);
+    let base = history.commit("The milestone is planned\n");
+    history.mv(
+        &format!("{m}/first-step"),
+        &format!("{m}/harvested/first-step"),
+    );
+    let frozen = history.commit("The first step is harvested\n");
+    history.mv(
+        &format!("{m}/second-step"),
+        &format!("{m}/harvested/second-step"),
+    );
+    let readme = format!("{m}/harvested/second-step/README.md");
+    let text = std::fs::read_to_string(history.dir.join(&readme)).expect("the moved README");
+    history.write(&readme, &format!("{text}\nA line added by the move.\n"));
+    let moved_edited = history.commit("The second step is harvested, and edited\n");
+    history.mv(
+        &format!("{m}/harvested/first-step"),
+        &format!("{m}/harvested/renamed-step"),
+    );
+    let renamed = history.commit("A harvested slice is renamed\n");
+    history.remove(&format!("{m}/harvested/renamed-step/deliberation.md"));
+    let deleted = history.commit("A frozen file is deleted\n");
+    history.write(
+        &format!("{m}/harvested/renamed-step/deliberation.md"),
+        "# Its deliberation, rewritten\n\n## Threads\n\nNone.\n\n## Arguments\n\nNone.\n",
+    );
+    let readded = history.commit("The frozen file is added again, rewritten\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for sha in [&frozen, &deleted] {
+        assert!(stdout.contains(&format!("{sha} passed")), "{sha}: {stdout}");
+    }
+    for (sha, count) in [(&moved_edited, 1), (&renamed, 2), (&readded, 1)] {
+        assert!(
+            stdout.contains(&format!(
+                "{sha} failed: it adds {count} harvested file(s) no freezing move carries"
+            )),
+            "{sha}: {stdout}"
+        );
+    }
+    assert!(
+        stdout.contains(&format!(
+            "commit {moved_edited}: {readme}  this commit adds a file"
+        )),
+        "{stdout}"
+    );
+    assert!(stdout.contains("FAILED: 4 findings above"), "{stdout}");
+}
+
+/// The claims of the P3 clause beside a phase: a frozen file made a symlink is a type change,
+/// reported as a modification, and the summary line of a commit whose tree also stops at a phase,
+/// as a symlink's does, names that cause beside the stop. Mutations checked, in
+/// `path@check@src/commands/history.rs`: in `frozen_file_findings`, `ChangeKind::Deleted => {}`
+/// made `ChangeKind::Deleted | ChangeKind::TypeChanged => {}`, caught; in `commits`,
+/// `for cause in &causes {` made `for cause in causes.iter().take(0) {`, caught.
+#[test]
+fn a_frozen_file_made_a_symlink_is_modified_and_the_stop_names_the_cause() {
+    let history = History::new("commit-frozen-symlink");
+    let m = "docs/plans/milestones/a-milestone";
+    milestone_with_slices(&history, &["first-step", "last-step"]);
+    history.commit("The milestone is planned\n");
+    history.mv(
+        &format!("{m}/first-step"),
+        &format!("{m}/harvested/first-step"),
+    );
+    let base = history.commit("Its first step is harvested\n");
+    let deliberation = history
+        .dir
+        .join(format!("{m}/harvested/first-step/deliberation.md"));
+    std::fs::remove_file(&deliberation).expect("the frozen file");
+    std::os::unix::fs::symlink("README.md", &deliberation).expect("a symlink");
+    let linked = history.commit("A frozen file is made a symlink\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    let line = stdout
+        .lines()
+        .find(|l| l.trim_start().starts_with(&format!("{linked} failed")))
+        .unwrap_or_else(|| panic!("no summary line: {stdout}"));
+    assert!(line.contains("its tree stops at phase 2"), "{line}");
+    assert!(
+        line.ends_with("; it modifies 1 harvested file(s)"),
+        "{line}"
+    );
+    assert!(
+        stdout.contains(&format!(
+            "commit {linked}: {m}/harvested/first-step/deliberation.md  this commit modifies a \
+             file of a harvested slice"
+        )),
+        "{stdout}"
+    );
+}
+
+/// The claim: the P3 clause judges a project in a subdirectory of its repository, its paths read
+/// relative to the project. Mutation checked: `"--relative",` removed from `tree_changes` of
+/// `path@git@src/git.rs`, which names every path from the repository's root, so none is under the
+/// project's `harvested/`; caught.
+#[test]
+fn a_harvested_file_edited_in_a_vendored_project_is_reported() {
+    let history = History::at("commit-frozen-vendored", "vendored");
+    let m = "docs/plans/milestones/a-milestone";
+    milestone_with_slices(&history, &["first-step", "last-step"]);
+    history.commit("The milestone is planned\n");
+    history.mv(
+        &format!("{m}/first-step"),
+        &format!("{m}/harvested/first-step"),
+    );
+    let base = history.commit("Its first step is harvested\n");
+    history.write(
+        &format!("{m}/harvested/first-step/README.md"),
+        &slice_document("Its first step, edited once frozen"),
+    );
+    let edited = history.commit("A harvested file is edited\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    assert!(
+        stdout.contains(&format!(
+            "commit {edited}: {m}/harvested/first-step/README.md  this commit modifies a file of a \
+             harvested slice"
+        )),
+        "{stdout}"
+    );
 }
 
 /// The claim: the anchors a message is judged against are its commit's, milestone anchors
@@ -8364,7 +8526,9 @@ fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
 /// its directory or by its README.md, a slice's included. Mutations checked, in
 /// `write` of `path@query@src/worklist.rs`: `seeds.extend(&taken);` made `let _ = &taken;`, which
 /// takes no seed; the refusal `let Some((citation, rel)) = found else {` given the citation
-/// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught.
+/// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught. A harvested
+/// slice is refused, given by its directory or its README.md; mutation checked: the refusal's
+/// condition `frozen_file(manifest, rel)` made `false`, caught.
 #[test]
 fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries() {
     let (sandbox, out) = worklist_audit_project("worklist-seeds-from");
@@ -8471,6 +8635,29 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         assert_eq!(code, 2, "{stdout}{stderr}");
         assert!(
             stderr.contains("no plan document of the project"),
+            "{stderr}"
+        );
+        assert!(!refused.exists(), "nothing written");
+    }
+    // A harvested slice landed, and its audit was done while it was live: it is refused, by its
+    // directory as by its README.md, though its README.md holds the section.
+    sandbox.write(
+        "docs/plans/milestones/a-milestone/harvested/a-landed-slice/README.md",
+        "# A landed slice\n\n## Builds\n\nNone.\n\n## What is already decided\n\n\
+         - `design@widget@springs-coil`\n",
+    );
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    for path in [
+        "docs/plans/milestones/a-milestone/harvested/a-landed-slice",
+        "docs/plans/milestones/a-milestone/harvested/a-landed-slice/README.md",
+    ] {
+        let (stdout, stderr, code) =
+            sandbox.run(&["worklist", "--out", &refused_text, "--seeds-from", path]);
+        assert_eq!(code, 2, "{path}: {stdout}{stderr}");
+        assert!(
+            stderr.contains("a harvested slice, under its milestone's harvested/, is landed"),
             "{stderr}"
         );
         assert!(!refused.exists(), "nothing written");

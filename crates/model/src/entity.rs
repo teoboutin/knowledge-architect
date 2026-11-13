@@ -1989,17 +1989,17 @@ impl Entities {
                 continue;
             }
             if !is_entry_id(&dir.name) {
-                // A frozen file reports nothing, as an installed one does not.
-                if !dir.harvested {
-                    self.findings.push(Finding::in_file(
-                        &readme,
-                        format!(
-                            "`{}` cannot be an entry id of the {} register",
-                            dir.name, register.name
-                        ),
-                        "name the directory in two or more lower-case words joined by hyphens;                          an id no reference can spell is a plan document nothing points at",
-                    ));
-                }
+                // A harvested slice whose name is no id is reported in phase 2 by the layout,
+                // which stops the run before this finding is read.
+                self.findings.push(Finding::in_file(
+                    &readme,
+                    format!(
+                        "`{}` cannot be an entry id of the {} register",
+                        dir.name, register.name
+                    ),
+                    "name the directory in two or more lower-case words joined by hyphens; an id \
+                     no reference can spell is a plan document nothing points at",
+                ));
                 continue;
             }
             self.defined
@@ -2490,6 +2490,32 @@ mod tests {
             found.iter().any(|f| f
                 .contains("`##too-deep` is written at a level-4 heading of the Threads section")),
             "{found:#?}"
+        );
+    }
+
+    /// The claim: a plan's directory whose name is no id is one finding at its README.md, its
+    /// repair one sentence with no run of spaces in it. Mutation checked: the `\` that continues
+    /// the repair's literal in `plan_definitions` removed, which keeps the next line's indent in
+    /// the text; caught.
+    #[test]
+    fn a_plan_directory_named_no_id_is_told_to_rename_it_in_one_sentence() {
+        let text =
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n";
+        let manifest = Manifest::parse(Path::new("/nowhere"), text).expect("a declaration");
+        let docs = vec![("docs/plans/specs/Bad_Name/README.md", "# A spec\n")];
+        let paths: Vec<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        let e = table_under(docs, &Anchors::of(&manifest, &paths));
+        let found: Vec<&Finding> = e
+            .definition_findings()
+            .iter()
+            .filter(|f| f.what.contains("`Bad_Name` cannot be an entry id"))
+            .collect();
+        assert_eq!(found.len(), 1, "{:#?}", e.definition_findings());
+        assert_eq!(
+            found[0].action,
+            "name the directory in two or more lower-case words joined by hyphens; an id no \
+             reference can spell is a plan document nothing points at"
         );
     }
 

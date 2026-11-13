@@ -379,6 +379,7 @@ fn plan_home(
         if let Some(doc) = model.documents().iter().find(|d| d.rel == readme) {
             judged += 1;
             entry(out, register, &sections, doc);
+            deliberation_in_readme(out, register, doc, &deliberation);
         }
         let file = dir.join(crate::model::declared::DELIBERATION_FILE);
         if let Some(doc) = model.documents().iter().find(|d| d.rel == file) {
@@ -386,6 +387,43 @@ fn plan_home(
         }
     }
     judged
+}
+
+/// Each section of a plan's `README.md` that its `deliberation.md` holds, Threads or Arguments,
+/// one finding per heading: a plan's `README.md` holds what was decided, and its argument lives
+/// beside it, so a project that only moved a plan file to its directory's `README.md` is told to
+/// split it.
+fn deliberation_in_readme(
+    out: &mut Vec<Finding>,
+    register: &Register,
+    doc: &Document,
+    deliberation: &[&str],
+) {
+    for l in &doc.observations {
+        let Observation::Heading { level: 2, text } = &l.what else {
+            continue;
+        };
+        if !deliberation.contains(&text.as_str()) {
+            continue;
+        }
+        let beside = doc
+            .rel
+            .with_file_name(crate::model::declared::DELIBERATION_FILE);
+        out.push(Finding::at(
+            &doc.rel,
+            l.line,
+            format!(
+                "this {} entry's README.md holds the section `## {text}`, which its \
+                 deliberation.md holds",
+                register.name
+            ),
+            format!(
+                "move the section, with its items, into `{}` beside it; a plan's README.md holds \
+                 the design it decided, and its deliberation.md the threads and the arguments",
+                beside.display()
+            ),
+        ));
+    }
 }
 
 /// The headings of a document, by level and text, in order.
@@ -1906,8 +1944,11 @@ mod tests {
     /// The claim: the README.md of a spec of specs/ and of a milestone owe the plan sections in
     /// order, the Threads and the Arguments apart, the README.md of a slice owes the slice
     /// sections, and a deliberation.md owes the Threads and the Arguments, each missing one a
-    /// finding naming the list. Mutations checked: a slice's README checked against the plan
-    /// sections; the `in_order` call over a deliberation.md dropped.
+    /// finding naming the list; a README.md holding a Threads or an Arguments section is a
+    /// finding per section, naming its deliberation.md. Mutations checked: a slice's README
+    /// checked against the plan sections; the `in_order` call over a deliberation.md dropped; the
+    /// `deliberation_in_readme` call dropped; its `with_file_name` made `join`, which names a
+    /// path inside the README.md.
     #[test]
     fn a_plan_document_owes_the_sections_of_its_kind() {
         let table = Anchors::of(
@@ -2032,6 +2073,33 @@ mod tests {
                 && f.contains("level-two section `Threads`")),
             "{found:#?}"
         );
+        // A README.md that holds a Threads or an Arguments section, a spec's, a milestone's or a
+        // slice's, is one finding per section, its repair naming the deliberation.md beside it.
+        let mut held = docs(&plan_sections, &slice_sections);
+        for (rel, text) in held.iter_mut() {
+            let section = if rel.contains("a-spec") {
+                "Threads"
+            } else {
+                "Arguments"
+            };
+            text.push_str(&format!("\n## {section}\n\nNone.\n"));
+        }
+        let found = run(held);
+        assert_eq!(found.len(), 3, "{found:#?}");
+        for (dir, section) in [
+            ("docs/plans/specs/a-spec", "Threads"),
+            ("docs/plans/milestones/m-one", "Arguments"),
+            ("docs/plans/milestones/m-one/a-slice", "Arguments"),
+        ] {
+            assert!(
+                found
+                    .iter()
+                    .any(|f| f.starts_with(&format!("{dir}/README.md:"))
+                        && f.contains(&format!("holds the section `## {section}`"))
+                        && f.contains(&format!("into `{dir}/deliberation.md` beside it"))),
+                "{dir}: {found:#?}"
+            );
+        }
     }
 
     /// The claim: the item registers are the tool's, so a declaration of one, or a location

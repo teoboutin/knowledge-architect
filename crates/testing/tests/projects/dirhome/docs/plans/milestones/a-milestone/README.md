@@ -1,6 +1,7 @@
 # A milestone the mock plans
 
-Its one step is [the step](a-step/README.md), cited `spec@a-milestone@a-step`, and its landed
+Its steps are [the step](a-step/README.md), cited `spec@a-milestone@a-step`, and [the second
+step](b-step/README.md), cited `spec@a-milestone@b-step`, and its landed
 step `spec@a-milestone@a-landed-step`; the listing is [the index](index.md). Its discussion is
 [the deliberation](deliberation.md), its search [the generated lines](search/discussion.txt) and
 its source [the transcript](transcript.txt). A spec beside it is `spec@plans@a-spec`, and the plans directory's own

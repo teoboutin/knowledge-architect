@@ -1216,12 +1216,17 @@ pub fn commits(
         // The first parent, whose tree the P3 clause and the message's references compare
         // against; a root commit has none, and modifies nothing.
         let first_parent = crate::git::rev_parse(root, &format!("{sha}^"));
-        let frozen = match &first_parent {
+        let (frozen, modified, added) = match &first_parent {
             Some(parent) => frozen_file_findings(root, short, parent, sha, &tree.manifest)?,
-            None => Vec::new(),
+            None => (Vec::new(), 0, 0),
         };
-        if !frozen.is_empty() {
-            causes.push(format!("it modifies {} harvested file(s)", frozen.len()));
+        if modified > 0 {
+            causes.push(format!("it modifies {modified} harvested file(s)"));
+        }
+        if added > 0 {
+            causes.push(format!(
+                "it adds {added} harvested file(s) no freezing move carries"
+            ));
         }
         findings.extend(frozen);
         if trouble > 0 {
@@ -1407,38 +1412,92 @@ pub fn commits(
     })
 }
 
-/// The findings of the P3 clause over one commit: each file under a milestone's `harvested/`
-/// that the commit modifies against its first parent, named by the commit and by the file.
+/// The findings of the P3 clause over one commit, each named by the commit and by the file, and
+/// how many of them are modifications and how many additions.
 ///
 /// A harvested slice is frozen by its location, judged while it was live and read for its
-/// definitions alone once moved, so an edit of it is judged by no check and would let a session
-/// rewrite a frozen record against the tree of its day. Adding a file there, deleting one, and the
-/// move that freezes a slice, which adds every file of the slice there, change no file both trees
-/// hold, so none is a finding. It applies to every commit, on the branch that wrote the file as on
-/// any later one. `Err` carries git's reason where git could not compare the two trees.
+/// definitions alone once moved, so a write into it is judged by no check and would let a session
+/// rewrite a frozen record against the tree of its day. So a file under a milestone's `harvested/`
+/// that both trees hold and the commit changes, in content, mode or kind, is a finding; and so is
+/// a file the commit adds there, unless it is the move that freezes a slice: the first parent
+/// holds the same blob, mode and id, at the file's live path, `<milestone>/<slice>/<rest>`. A
+/// freezing move that also edits a file, a rename inside `harvested/`, a frozen file deleted and
+/// added again with other content, and a file added beside a frozen slice are each reported. A
+/// deletion is no finding, since a harvested slice leaves with its milestone. It applies to every
+/// commit, on the branch that wrote the file as on any later one. `Err` carries git's reason where
+/// git could not compare the two trees or list the parent's.
 fn frozen_file_findings(
     root: &Path,
     short: &str,
     parent: &str,
     sha: &str,
     manifest: &Manifest,
-) -> Result<Vec<Finding>, String> {
-    let modified = crate::git::modified_paths(root, parent, sha)
+) -> Result<(Vec<Finding>, usize, usize), String> {
+    use crate::git::ChangeKind;
+    let changes = crate::git::tree_changes(root, parent, sha)
         .map_err(|e| format!("git could not compare commit {short} with its parent: {e}"))?;
-    Ok(modified
-        .into_iter()
-        .filter(|rel| crate::model::listing::frozen_file(manifest, rel))
-        .map(|rel| {
-            Finding::in_file(
-                format!("commit {short}: {}", rel.display()),
-                "this commit modifies a file of a harvested slice, which is frozen under its \
-                 milestone's harvested/",
-                "leave the file as the move under harvested/ left it: take the edit out of this \
-                 commit, and make the change in a live document instead; a harvested slice \
-                 leaves only with its milestone",
-            )
-        })
-        .collect())
+    let mut findings = Vec::new();
+    let (mut modified, mut added) = (0, 0);
+    // The parent's tree, listed once and only where the commit adds a frozen file.
+    let mut parent_tree: Option<BTreeMap<PathBuf, crate::git::Blob>> = None;
+    for change in changes {
+        let Some(frozen) = crate::model::listing::frozen_at(manifest, &change.rel) else {
+            continue;
+        };
+        let file = format!("commit {short}: {}", change.rel.display());
+        match change.kind {
+            ChangeKind::Deleted => {}
+            ChangeKind::Modified | ChangeKind::TypeChanged => {
+                modified += 1;
+                findings.push(Finding::in_file(
+                    file,
+                    "this commit modifies a file of a harvested slice, which is frozen under its \
+                     milestone's harvested/",
+                    "leave the file as the move under harvested/ left it: take the edit out of \
+                     this commit, and make the change in a live document instead; a harvested \
+                     slice leaves only with its milestone",
+                ));
+            }
+            ChangeKind::Added => {
+                if parent_tree.is_none() {
+                    let listed =
+                        crate::git::snapshot_entries(root, crate::git::Source::Commit(parent))
+                            .map_err(|e| {
+                                format!("git could not list the parent of commit {short}: {e}")
+                            })?;
+                    parent_tree = Some(
+                        listed
+                            .into_iter()
+                            .map(|e| (e.entry().rel, e.blob()))
+                            .collect(),
+                    );
+                }
+                let moved = frozen.slice.as_ref().is_some_and(|(_, live)| {
+                    parent_tree
+                        .as_ref()
+                        .and_then(|tree| tree.get(live))
+                        .is_some_and(|blob| change.after.as_ref() == Some(blob))
+                });
+                if moved {
+                    continue;
+                }
+                added += 1;
+                findings.push(Finding::in_file(
+                    file,
+                    format!(
+                        "this commit adds a file under the harvested/ of the milestone `{}` that \
+                         its parent does not hold, as the same blob of the same mode, at its path \
+                         in the slice's live directory",
+                        frozen.milestone
+                    ),
+                    "only the move that freezes a slice adds a file there, each file as the live \
+                     slice held it: make the edit in the live slice before the move, in a commit \
+                     of its own, or make the change in a live document instead",
+                ));
+            }
+        }
+    }
+    Ok((findings, modified, added))
 }
 
 /// Every citation of a commit of the range in `text`: a run of 7 to 64 lowercase hex digits,

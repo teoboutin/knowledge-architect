@@ -100,14 +100,15 @@ pub enum WorklistMode {
         /// by its full object name once resolved, so a revision that is also the name of a path
         /// is read as the revision.
         since: Option<String>,
-        /// A plan document, a spec, a slice's spec or a milestone document, by its path, a
-        /// relative one read from the working directory: the design entries and the entries of
-        /// declared registers that its section "What is already decided" cites are added to the
-        /// seeds, none where it holds no such section. It makes the run a design audit: `work.txt`
-        /// names the plan document, and `Verify` writes `gaps.md` and `fit-lines.md` in place of
-        /// `generated-lines.md`. A path that is no plan document of the project, or a path of the
-        /// plan document or of a file of the work holding a line break, refuses the run, nothing
-        /// written.
+        /// A plan document, a spec, a live slice or a milestone, by the path of its directory or
+        /// of its `README.md`, a relative one read from the working directory: the design entries
+        /// and the entries of declared registers that its section "What is already decided" cites
+        /// are added to the seeds, none where it holds no such section. It makes the run a design
+        /// audit: `work.txt` names the plan document, and `Verify` writes `gaps.md` and
+        /// `fit-lines.md` in place of `generated-lines.md`. A path that is no plan document of the
+        /// project, a harvested slice, which landed and whose audit was done while it was live,
+        /// or a path of the plan document or of a file of the work holding a line break, refuses
+        /// the run, nothing written.
         seeds_from: Option<PathBuf>,
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote, against its
@@ -138,8 +139,8 @@ pub enum WorklistMode {
 /// - under `WorklistMode::Write`, an incomplete model, a directory inside the project or not
 ///   empty, a seed naming no entry, a file of the work it cannot read, a `since` git cannot
 ///   resolve to one commit or a failure of git asked what changed since it or for its message, a
-///   `seeds_from` that is no plan document, or a file of the work or a plan document whose path
-///   holds a line break, nothing written, and a write that failed, the files before it left in
+///   `seeds_from` that is no plan document or is a harvested slice, or a file of the work or a
+///   plan document whose path holds a line break, nothing written, and a write that failed, the files before it left in
 ///   place;
 /// - under `WorklistMode::Verify`, a file of the work list it cannot read or parse: `agents.txt`;
 ///   `work.txt`, with a line other than `work`, `subject`, `spec` and `since` lines, a subject that
@@ -206,7 +207,7 @@ struct Asked<'a> {
 /// Every refusal comes before the first write, so a refused run leaves `dir` as it found it: an
 /// incomplete model, per `design@check@phases-gate-the-report`, a `dir` the walk would read or that
 /// holds anything, a seed that names no entry of the record, a file of the work it cannot read, a
-/// `since` git refuses, and a `seeds_from` that is no plan document.
+/// `since` git refuses, and a `seeds_from` that is no plan document or is a harvested slice.
 fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCode, String> {
     let Asked {
         dir,
@@ -302,6 +303,18 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
                     path.display()
                 ));
             };
+            // A harvested slice landed, and its design audit was run while it was live: its
+            // files are frozen, out of the walk, and a later audit would judge them against a
+            // tree they were never written for.
+            if crate::model::listing::frozen_file(manifest, rel) {
+                return Err(format!(
+                    "--seeds-from {}: a harvested slice, under its milestone's harvested/, is \
+                     landed, and its design audit was done while it was live: give a live plan \
+                     document, a spec's, a live slice's or a milestone's directory or its \
+                     README.md. Nothing was written.",
+                    path.display()
+                ));
+            }
             let decided = model
                 .documents()
                 .iter()

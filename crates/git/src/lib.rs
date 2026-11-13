@@ -45,9 +45,9 @@ mod git;
 pub use git::{
     blob_bytes, blobs, commit_message, commit_of, entries, git, ignore_query, ignored, ignores,
     index_differs_from_head, init_repository, inside_work_tree, last_changed, main_worktree_path,
-    modified_paths, object_name, paths_changed_since, rev_list, rev_parse, snapshot_entries,
-    stage_generated, tracked_and_ignored, unmerged, Entry, EntryKind, Invocation, SnapshotEntry,
-    Source,
+    object_name, paths_changed_since, rev_list, rev_parse, snapshot_entries, stage_generated,
+    tracked_and_ignored, tree_changes, unmerged, Blob, ChangeKind, Entry, EntryKind, Invocation,
+    SnapshotEntry, Source, TreeChange,
 };
 
 /// The directory of the Component this library belongs to: its own crate directory, evaluated at
