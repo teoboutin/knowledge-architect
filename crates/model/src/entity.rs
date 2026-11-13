@@ -1896,8 +1896,8 @@ impl Entities {
                 self.directory_definitions(model, anchors, anchor, register, &home);
                 continue;
             }
-            if let Shape::Plan(_) = register.shape {
-                self.plan_definitions(model, anchors, anchor, register);
+            if let Shape::Plan(kind) = register.shape {
+                self.plan_definitions(model, anchors, anchor, register, kind);
                 continue;
             }
             if register.shape != Shape::File {
@@ -1955,6 +1955,7 @@ impl Entities {
         anchors: &Anchors,
         anchor: &Anchor,
         register: &Register,
+        kind: crate::manifest::PlanKind,
     ) {
         let read: Vec<&PathBuf> = model
             .documents()
@@ -1963,14 +1964,12 @@ impl Entities {
             .map(|d| &d.rel)
             .collect();
         let held = |rel: &Path| read.iter().any(|r| *r == rel);
-        let dirs: Vec<crate::plan::PlanDir> = match register.shape {
-            Shape::Plan(crate::manifest::PlanKind::Spec) if anchor.is_milestone() => {
+        let dirs: Vec<crate::plan::PlanDir> = match kind {
+            crate::manifest::PlanKind::Spec if anchor.is_milestone() => {
                 crate::plan::slices(&anchor.path, read.iter().copied())
             }
-            Shape::Plan(crate::manifest::PlanKind::Spec) => {
-                crate::plan::spec_dirs_all(read.iter().copied())
-            }
-            Shape::Plan(_) => anchors
+            crate::manifest::PlanKind::Spec => crate::plan::spec_dirs_all(read.iter().copied()),
+            crate::manifest::PlanKind::Milestone | crate::manifest::PlanKind::Slice => anchors
                 .all()
                 .iter()
                 .filter(|a| a.is_milestone())
@@ -1981,7 +1980,6 @@ impl Entities {
                     harvested: false,
                 })
                 .collect(),
-            _ => Vec::new(),
         };
         for dir in dirs {
             let readme = dir.readme();
@@ -2055,7 +2053,7 @@ impl Entities {
         // defines one slug twice leaves its repair to the family `agents` of the last phase.
         // A frozen file reports nothing either, so a live item reusing a frozen id is reported at
         // the live site alone.
-        let installed = |file: &Path| {
+        let installed_or_frozen = |file: &Path| {
             model.installed().iter().any(|d| d.rel == file)
                 || model.frozen().iter().any(|d| d.rel == file)
         };
@@ -2065,7 +2063,7 @@ impl Entities {
             }
             // One finding at each site, each naming the others, so the reader who opens
             // either copy is told the other exists.
-            for site in sites.iter().filter(|s| !installed(&s.file)) {
+            for site in sites.iter().filter(|s| !installed_or_frozen(&s.file)) {
                 let others: Vec<String> = sites
                     .iter()
                     .filter(|s| *s != site)

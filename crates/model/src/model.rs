@@ -117,9 +117,18 @@ fn parsed_prose(files: Vec<(PathBuf, String)>) -> Vec<Document> {
 }
 
 /// Whether the file `rel` is a frozen file of a project: one under a milestone's `harvested/`,
-/// where the project has the anchor `plans`.
+/// where the project has the anchor `plans`. `rel` is project-relative: any other path is never
+/// frozen.
 pub fn frozen_file(manifest: &Manifest, rel: &Path) -> bool {
     frozen_at(manifest, rel).is_some()
+}
+
+/// Whether the file `rel` is a frozen file the model parses for its definitions: a frozen file of
+/// a project, per [`frozen_file`], written in markdown. Any other frozen file is never read, as a
+/// `.txt` file of a plan document never is, so a caller that reads the files a model parses asks
+/// this rather than [`frozen_file`].
+pub fn frozen_document(manifest: &Manifest, rel: &Path) -> bool {
+    frozen_file(manifest, rel) && rel.extension().is_some_and(|e| e == "md")
 }
 
 /// Where a frozen file of a project sits, read off its path alone.
@@ -136,7 +145,8 @@ pub struct Frozen {
 }
 
 /// Where the file `rel` sits, when it is a frozen file of a project: one under a milestone's
-/// `harvested/`, where the project has the anchor `plans`. `None` for any other path.
+/// `harvested/`, where the project has the anchor `plans`. `None` for any other path. `rel` is
+/// project-relative: an absolute path, or one relative to another directory, is `None`.
 pub fn frozen_at(manifest: &Manifest, rel: &Path) -> Option<Frozen> {
     if !manifest.plans() {
         return None;
@@ -146,7 +156,8 @@ pub fn frozen_at(manifest: &Manifest, rel: &Path) -> Option<Frozen> {
 
 impl Frozen {
     /// Where `rel` would sit as a frozen file, read off the path alone, whatever the manifest
-    /// declares: `None` for a path under no milestone's `harvested/`. A caller holding the
+    /// declares: `None` for a path under no milestone's `harvested/`. `rel` is project-relative:
+    /// an absolute path, or one relative to another directory, is `None`. A caller holding the
     /// manifest asks [`frozen_at`], which also asks whether the project has plans.
     pub fn of(rel: &Path) -> Option<Frozen> {
         crate::plan::frozen_place(rel)
@@ -305,7 +316,7 @@ impl Model {
             .collect();
         let frozen = files
             .iter()
-            .filter(|f| frozen_file(manifest, f) && f.extension().is_some_and(|e| e == "md"))
+            .filter(|f| frozen_document(manifest, f))
             .filter_map(|rel| {
                 let text = std::fs::read_to_string(root.join(rel)).ok()?;
                 Some((rel.clone(), text))
@@ -605,6 +616,32 @@ fn describe(what: &Observation) -> (&'static str, String) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: of a project's files, the model parses a frozen one only where it is markdown,
+    /// and no file outside a milestone's `harvested/`. Mutations checked, in `frozen_document`:
+    /// the extension test dropped, which parses a frozen `transcript.txt`; and `&&` made `||`,
+    /// which parses every markdown file; each caught.
+    #[test]
+    fn a_frozen_file_is_parsed_only_where_it_is_markdown() {
+        let manifest = Manifest::parse(
+            Path::new("/nowhere"),
+            "[project]\nchecker-version = \"fixture\"\nname = \"tiny\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\nexclude = []\n\n[agents]\nharness = []\n",
+        )
+        .expect("declared");
+        let h = "docs/plans/milestones/a-milestone/harvested/a-step";
+        for (rel, parsed) in [
+            (format!("{h}/README.md"), true),
+            (format!("{h}/transcript.txt"), false),
+            (format!("{h}/search/discussion.txt"), false),
+            (
+                "docs/plans/milestones/a-milestone/README.md".to_string(),
+                false,
+            ),
+        ] {
+            assert_eq!(frozen_document(&manifest, Path::new(&rel)), parsed, "{rel}");
+        }
+    }
 
     /// The claim: a walked file the working tree will not give as text is told the repair of its
     /// own cause, and its statement names none: a deletion not staged, a directory in its place,

@@ -585,7 +585,9 @@ pub struct TreeChange {
 /// `design@git@failed-git-is-an-error`, since a caller that judges what changed reads an empty
 /// answer as nothing changed.
 pub fn tree_changes(root: &Path, from: &str, to: &str) -> io::Result<Vec<TreeChange>> {
-    // `--no-renames`, so a move is its two paths, and the status letters are A, D, M and T;
+    // `--no-renames`, so a move is its two paths, and the status letters are A, D, M and T: the
+    // plumbing `diff-tree` detects no rename unless asked to, so the flag changes nothing today,
+    // and keeps the answer if a git version or a configuration ever turns detection on;
     // `--relative`, so a project in a subdirectory of its repository gets its own paths, relative
     // to it; `-r`, so a path is a file's, never a tree's; `--no-abbrev`, so an object id is whole.
     let raw = git(root)
@@ -1364,6 +1366,69 @@ mod tests {
         );
         assert_eq!(found.get(Path::new("docs/orphan.md")), None);
         assert!(parse_log("").is_empty());
+    }
+
+    /// The claims of the reading of `diff-tree -r -z --raw --no-renames`: an addition carries the
+    /// later blob alone, a deletion the earlier alone, and a modification and a type change both,
+    /// each blob with its mode and its object id; a status letter other than A, D, M and T, a
+    /// header of another shape and a record with no path are each refused, never skipped.
+    /// Mutations checked, in `changes_of`: the `"M" | "T"` arm made to give `Modified` to both,
+    /// caught by the type change; the source and destination modes swapped in the addition's
+    /// blob, caught; and the arm of any other status made to `continue`, caught by the status `X`.
+    #[test]
+    fn a_raw_tree_change_is_read_by_its_status_and_any_other_record_is_refused() {
+        let o = |c: char| c.to_string().repeat(40);
+        let zero = o('0');
+        let raw = format!(
+            ":000000 100644 {zero} {a} A\0new.md\0\
+             :100644 000000 {b} {zero} D\0gone.md\0\
+             :100644 100755 {b} {b} M\0mode.md\0\
+             :100644 120000 {c} {a} T\0link.md\0",
+            a = o('a'),
+            b = o('b'),
+            c = o('c'),
+        );
+        let blob = |mode: &str, oid: &String| Blob {
+            mode: mode.to_string(),
+            oid: oid.clone(),
+        };
+        let found = changes_of(raw.as_bytes()).expect("four records");
+        assert_eq!(
+            found,
+            vec![
+                TreeChange {
+                    rel: PathBuf::from("new.md"),
+                    kind: ChangeKind::Added,
+                    before: None,
+                    after: Some(blob("100644", &o('a'))),
+                },
+                TreeChange {
+                    rel: PathBuf::from("gone.md"),
+                    kind: ChangeKind::Deleted,
+                    before: Some(blob("100644", &o('b'))),
+                    after: None,
+                },
+                TreeChange {
+                    rel: PathBuf::from("mode.md"),
+                    kind: ChangeKind::Modified,
+                    before: Some(blob("100644", &o('b'))),
+                    after: Some(blob("100755", &o('b'))),
+                },
+                TreeChange {
+                    rel: PathBuf::from("link.md"),
+                    kind: ChangeKind::TypeChanged,
+                    before: Some(blob("100644", &o('c'))),
+                    after: Some(blob("120000", &o('a'))),
+                },
+            ]
+        );
+        for refused in [
+            format!(":100644 100644 {zero} {zero} X\0odd.md\0"),
+            format!(":100644 100644 {zero} A\0short.md\0"),
+            format!(":000000 100644 {zero} {zero} A\0"),
+        ] {
+            assert!(changes_of(refused.as_bytes()).is_err(), "{refused:?}");
+        }
     }
 
     /// The claim: each answer is paired with the request it answers, and a body is consumed

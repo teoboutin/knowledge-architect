@@ -106,7 +106,9 @@ pub mod document {
 
 /// What the tree holds beside the walked documents, and how the walk filters it.
 pub mod listing {
-    pub use crate::model::{frozen_at, frozen_file, snapshot_checker_dirs, Frozen};
+    pub use crate::model::{
+        frozen_at, frozen_document, frozen_file, snapshot_checker_dirs, Frozen,
+    };
     pub use crate::survey::{from_listing, survey, Outside, Survey};
     pub use crate::walk::{live_files, skipped};
 }

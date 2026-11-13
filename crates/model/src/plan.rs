@@ -1,14 +1,15 @@
 //! The plans layout: every plan document a directory, read off the tree.
 //!
 //! A spec is a directory of specs/, or of a group of specs/, holding its `README.md`; a milestone
-//! is a directory of milestones/ holding its `README.md`, one directory per live slice, and its
-//! `harvested/`, which holds one directory per landed slice. Each plan document's directory holds,
-//! beside its `README.md`, its `deliberation.md`, its `search/` and its `transcript.txt`, and
-//! nothing else. These are types of their own, not entries of the generic Directory shape, which
+//! is a directory of milestones/ holding its `README.md`, its generated `index.md`, one directory
+//! per live slice, and its `harvested/`, which holds one directory per landed slice. Each plan
+//! document's directory holds, beside its `README.md`, its `deliberation.md`, its `search/` and its
+//! `transcript.txt`, and nothing else but what a milestone's holds besides. These are types of their own, not entries of the generic Directory shape, which
 //! a declared register uses carrying one register, per `design@model@declarable-directory-register`.
 //!
 //! **The one frozen location is a milestone's `harvested/`.** Every file under it leaves the walk
-//! by construction and is parsed for definitions only, as the installed files are, per
+//! by construction; a markdown file there is parsed for its definitions only, as the installed
+//! files are, and any other file is never read, per
 //! `design@check@installed-files-outside-the-walk`: a harvested slice is judged while it is live,
 //! and the move under `harvested/` is what freezes it.
 //!
@@ -170,7 +171,9 @@ pub(crate) fn slices<'a>(
 }
 
 /// Whether `rel` sits under a milestone's `harvested/`, the one frozen location: out of the walk
-/// by construction, parsed for definitions only, and judged by the P3 clause of `commits` alone.
+/// by construction, parsed for definitions only where it is markdown, and its content judged by
+/// the P3 clause of `commits` alone. Where it sits is the layout's to judge: a file directly under
+/// `harvested/` is frozen, and phase 2 reports it.
 ///
 /// Read off the path alone, whatever the milestone's directory holds, so the walk, the survey and
 /// `commits` agree on it with no anchor built.
@@ -201,9 +204,10 @@ pub(crate) fn frozen_place(rel: &Path) -> Option<crate::model::Frozen> {
     })
 }
 
-/// Whether a path holds a plan document by its position: a file inside a spec's directory or a
-/// spec file of specs/, grouped or not, or a file inside a milestone's directory. The README and
-/// the index of the two homes are not.
+/// Whether a path holds a plan document by its position: a markdown file inside a spec's
+/// directory or a spec file of specs/, grouped or not, or a markdown file inside a milestone's
+/// directory. The README and the index of the two homes are not, and no file other than
+/// markdown is.
 pub(crate) fn is_plan_position(rel: &Path) -> bool {
     if rel.extension().is_none_or(|e| e != "md") {
         return false;
@@ -271,7 +275,9 @@ mod tests {
     }
 
     /// The claim: a milestone's slices are its headed directories but `search/` and
-    /// `harvested/`, then the headed directories of `harvested/`, marked harvested.
+    /// `harvested/`, then the headed directories of `harvested/`, marked harvested. Mutations
+    /// checked, in `slices`: `&& p[0] != SEARCH_DIR` dropped, `p[0] != HARVESTED_DIR &&` dropped,
+    /// and the harvested slices marked live; each caught.
     #[test]
     fn a_slice_is_live_or_harvested_by_where_its_directory_sits() {
         let m = Path::new("docs/plans/milestones/m-one");

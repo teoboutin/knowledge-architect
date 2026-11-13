@@ -822,32 +822,38 @@ fn link(
     let resolved = dir.join(file_part.trim_end_matches('/'));
     // A harvested slice is cited from inside its milestone's directory only, by a link as by a
     // reference: from anywhere else the link is refused as the reference is, its repair naming
-    // the milestone, which resolves from anywhere. A file directly under `harvested/` sits in no
-    // slice, and the layout reports it.
-    let harvested = crate::model::listing::Frozen::of(&resolved).filter(|f| {
+    // the milestone, which resolves from anywhere. So is any other target into `harvested/`, and
+    // `harvested/` itself, which name no slice. A directory is placed by the head it holds, its
+    // `README.md`: a slice's directory has three components under milestones/, as a file directly
+    // under `harvested/` has, and only its head places it in its slice.
+    let as_directory = file_part.ends_with('/') || inputs.directories.contains(&resolved);
+    let placed = if as_directory {
+        resolved.join("README.md")
+    } else {
+        resolved.clone()
+    };
+    let harvested = crate::model::listing::Frozen::of(&placed).filter(|f| {
         anchors
             .by_name(&f.milestone)
             .is_some_and(|a| a.is_milestone())
             && !doc.rel.starts_with(&f.milestone_dir)
     });
     if let Some(frozen) = harvested {
-        if let Some((slice, _)) = frozen.slice {
-            let cause = resolve::Cause::Harvested {
-                form: format!(
-                    "milestone@{}@{}",
-                    anchors
-                        .all()
-                        .iter()
-                        .find(|a| a.constructed == Some(table::Constructed::Plans))
-                        .map_or("plans", |a| a.name.as_str()),
-                    frozen.milestone
-                ),
-                milestone: frozen.milestone,
-                id: slice,
-            };
-            out.push(reported(&cause, &doc.rel, line, target));
-            return;
-        }
+        let cause = resolve::Cause::Harvested {
+            form: format!(
+                "milestone@{}@{}",
+                anchors
+                    .all()
+                    .iter()
+                    .find(|a| a.constructed == Some(table::Constructed::Plans))
+                    .map_or("plans", |a| a.name.as_str()),
+                frozen.milestone
+            ),
+            milestone: frozen.milestone,
+            id: frozen.slice.map(|(slice, _)| slice),
+        };
+        out.push(reported(&cause, &doc.rel, line, target));
+        return;
     }
     if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
         out.push(reported(&cause, &doc.rel, line, target));
@@ -1527,12 +1533,16 @@ mod tests {
         );
     }
 
-    /// The claim: a relative link into a milestone's harvested slice, from a README.md outside
-    /// the milestone's directory, is refused as a reference to it is, its repair naming the
-    /// milestone; the same link from the milestone's own README.md resolves. Mutation checked:
-    /// `&& !doc.rel.starts_with(&f.milestone_dir)` dropped from `link`, which refuses the
-    /// milestone's own link; and the `harvested` filter made `None`, which accepts the outside
-    /// link; each caught.
+    /// The claim: a relative link into a milestone's `harvested/`, from a README.md outside the
+    /// milestone's directory, is refused as a reference to it is, its repair naming the
+    /// milestone: a link to a file of a harvested slice, to the slice's directory with or without
+    /// its trailing slash, and to `harvested/` itself; the same link from the milestone's own
+    /// README.md resolves. Mutations checked: `&& !doc.rel.starts_with(&f.milestone_dir)` dropped
+    /// from `link`, which refuses the milestone's own link; the `harvested` filter made `None`,
+    /// which accepts the outside links; `as_directory` made `file_part.ends_with('/')` alone,
+    /// which names no slice for the directory written without its slash; and `placed` made
+    /// `resolved.clone()`, which names no slice for the slice's directory and accepts
+    /// `harvested/`; each caught.
     #[test]
     fn a_link_into_a_harvested_slice_from_outside_its_milestone_is_refused() {
         let m = manifest();
@@ -1546,26 +1556,52 @@ mod tests {
         .map(PathBuf::from)
         .collect();
         let anchors = Anchors::of(&m, &tree);
-        let present: Vec<String> = tree.iter().map(|p| p.display().to_string()).collect();
+        // A checkout lists its directories beside its files, and the links name three of them.
+        let present: Vec<String> = tree
+            .iter()
+            .map(|p| p.display().to_string())
+            .chain(
+                [
+                    "docs/plans/milestones/m-one",
+                    "docs/plans/milestones/m-one/harvested",
+                    "docs/plans/milestones/m-one/harvested/a-slice",
+                ]
+                .map(String::from),
+            )
+            .collect();
         let docs = vec![
             (
                 "docs/plans/milestones/README.md",
-                "# Milestones\n\n[A landed slice](m-one/harvested/a-slice/README.md).\n",
+                "# Milestones\n\n[A landed slice](m-one/harvested/a-slice/README.md).\n\n\
+                 [Its directory](m-one/harvested/a-slice/).\n\n\
+                 [Without its slash](m-one/harvested/a-slice).\n\n\
+                 [The landed slices](m-one/harvested/).\n",
             ),
             (
                 "docs/plans/milestones/m-one/README.md",
-                "# A milestone\n\n[Its landed slice](harvested/a-slice/README.md).\n",
+                "# A milestone\n\n[Its landed slice](harvested/a-slice/README.md).\n\n\
+                 [Its directory](harvested/a-slice/).\n\n[Its landed slices](harvested/).\n",
             ),
         ];
         let (found, _) = checked_under(docs, &present, &anchors);
-        assert_eq!(found.len(), 1, "{found:#?}");
+        assert_eq!(found.len(), 4, "{found:#?}");
+        for (at, line) in [3, 5, 7].into_iter().enumerate() {
+            assert!(
+                found[at].starts_with(&format!("docs/plans/milestones/README.md:{line} "))
+                    && found[at].contains(
+                        "cites the harvested slice `a-slice` of the milestone `m-one` from \
+                         outside the milestone"
+                    )
+                    && found[at].contains("cite the milestone whole, as `milestone@plans@m-one`"),
+                "{found:#?}"
+            );
+        }
         assert!(
-            found[0].starts_with("docs/plans/milestones/README.md:3")
-                && found[0].contains(
-                    "cites the harvested slice `a-slice` of the milestone `m-one` from outside \
-                     the milestone"
+            found[3].starts_with("docs/plans/milestones/README.md:9 ")
+                && found[3].contains(
+                    "cites the harvested/ of the milestone `m-one` from outside the milestone"
                 )
-                && found[0].contains("cite the milestone whole, as `milestone@plans@m-one`"),
+                && found[3].contains("cite the milestone whole, as `milestone@plans@m-one`"),
             "{found:#?}"
         );
     }
