@@ -732,14 +732,7 @@ fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: 
         }
     }
 
-    let headings: Vec<(u8, &str)> = doc
-        .observations
-        .iter()
-        .filter_map(|l| match &l.what {
-            Observation::Heading { level, text } => Some((*level, text.as_str())),
-            _ => None,
-        })
-        .collect();
+    let headings = headings(doc);
     match headings.first() {
         Some((1, _)) => {}
         _ => out.push(Finding::in_file(
@@ -1950,7 +1943,8 @@ mod tests {
     /// finding per section, naming its deliberation.md. Mutations checked: a slice's README
     /// checked against the plan sections; the `in_order` call over a deliberation.md dropped; the
     /// `deliberation_in_readme` call dropped; its `with_file_name` made `join`, which names a
-    /// path inside the README.md.
+    /// path inside the README.md; and its `level: 2` made `level: _`, which reports a Threads or
+    /// an Arguments heading of another level.
     #[test]
     fn a_plan_document_owes_the_sections_of_its_kind() {
         let table = Anchors::of(
@@ -2088,6 +2082,14 @@ mod tests {
         }
         let found = run(held);
         assert_eq!(found.len(), 3, "{found:#?}");
+        // Only a level-two section is the deliberation's: a Threads or an Arguments heading at
+        // another level, in any README.md, is the README.md's own and no finding.
+        let mut other_levels = docs(&plan_sections, &slice_sections);
+        for (_, text) in other_levels.iter_mut() {
+            text.push_str("\n### Threads\n\nNone.\n\n#### Arguments\n\nNone.\n");
+        }
+        let clean = run(other_levels);
+        assert!(clean.is_empty(), "{clean:#?}");
         for (dir, section) in [
             ("docs/plans/specs/a-spec", "Threads"),
             ("docs/plans/milestones/m-one", "Arguments"),
@@ -2100,6 +2102,85 @@ mod tests {
                         && f.contains(&format!("holds the section `## {section}`"))
                         && f.contains(&format!("into `{dir}/deliberation.md` beside it"))),
                 "{dir}: {found:#?}"
+            );
+        }
+    }
+
+    /// The claim: a group of specs/ is a directory holding no README.md, asserted against the
+    /// groups specs/'s register.toml declares in both directions, and each spec it holds owes the
+    /// plan sections as a spec of specs/ does. Mutations checked, in the specs/ arm of
+    /// `plan_home`: the `dirs.extend` over a group's specs dropped, caught by the grouped spec's
+    /// missing section; the finding of an undeclared group dropped; and the finding of a declared
+    /// group with no directory dropped; each caught.
+    #[test]
+    fn a_group_of_specs_is_declared_and_its_specs_owe_their_sections() {
+        let table = Anchors::of(&declaring(""), &[]);
+        let spec = table.registers().by_name("spec").expect("built in");
+        let plan_sections: Vec<&str> = spec.sections.iter().map(String::as_str).collect();
+        let without_names: Vec<&str> = plan_sections
+            .iter()
+            .copied()
+            .filter(|s| *s != "Names")
+            .collect();
+        let manifest = declaring("");
+        let docs = [
+            (
+                "docs/plans/specs/a-group/b-spec/README.md",
+                with_sections("A grouped spec", &without_names),
+            ),
+            (
+                "docs/plans/specs/other/c-spec/README.md",
+                with_sections("A spec of an undeclared group", &plan_sections),
+            ),
+        ];
+        let mut present = all_of("");
+        for (p, _) in &docs {
+            present.push(p.to_string());
+        }
+        for p in [
+            "docs/plans/specs/register.toml",
+            "docs/plans/specs/a-group",
+            "docs/plans/specs/a-group/b-spec",
+            "docs/plans/specs/other",
+            "docs/plans/specs/other/c-spec",
+        ] {
+            present.push(p.to_string());
+        }
+        let model = Model::from_documents(
+            docs.into_iter()
+                .map(|(p, t)| (PathBuf::from(p), t))
+                .collect(),
+        );
+        let found: Vec<String> = findings_over(
+            &manifest,
+            &present,
+            model,
+            &[(
+                "docs/plans/specs/register.toml",
+                "groups = [\"a-group\", \"gone\"]\n",
+            )],
+        )
+        .into_iter()
+        .filter(|f| !f.contains("generated"))
+        .collect();
+        assert_eq!(found.len(), 3, "{found:#?}");
+        for (at, what) in [
+            (
+                "docs/plans/specs/a-group/b-spec/README.md",
+                "level-two section `Names`",
+            ),
+            (
+                "docs/plans/specs/other",
+                "`other` is a subdirectory of the spec register and is no declared group",
+            ),
+            (
+                "docs/plans/specs/gone",
+                "the spec register declares the group `gone` and there is no directory",
+            ),
+        ] {
+            assert!(
+                found.iter().any(|f| f.starts_with(at) && f.contains(what)),
+                "{at}: {found:#?}"
             );
         }
     }

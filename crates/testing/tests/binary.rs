@@ -2884,10 +2884,10 @@ impl History {
 /// dangling reference, a slug definition and the SHA of a commit of the range yields no finding,
 /// under `refuse-branch-shas`. The claims that refuse one: a commit that modifies a frozen file is
 /// reported, naming the commit and the file, and so is one that adds a file there that no move
-/// carries. Mutations checked, in `frozen_file_findings` of
-/// `path@check@src/commands/history.rs`: `findings.extend(frozen);` made `drop(frozen);`, caught
-/// by the edit; `if moved {` made `if true {`, caught by the added file; and the `Deleted` arm made
-/// to push the modification's finding, caught by the deletion.
+/// carries. Mutations checked, in `path@check@src/commands/history.rs`: in `commits`,
+/// `findings.extend(frozen);` made `drop(frozen);`, caught by the edit; in
+/// `frozen_change_findings`, `if moved {` made `if true {`, caught by the added file, and the
+/// `Deleted` arm made to push the modification's finding, caught by the deletion.
 #[test]
 fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there_is() {
     let history = History::new("commit-frozen");
@@ -2963,7 +2963,7 @@ fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there
 /// The claims of the P3 clause on a move: a freezing move that also edits a file, a rename inside
 /// `harvested/`, and a frozen file deleted in one commit and added again with other content in
 /// the next are each reported, as an addition no freezing move carries; the deletion passes.
-/// Mutations checked, in `frozen_file_findings` of `path@check@src/commands/history.rs`: the
+/// Mutations checked, in `frozen_change_findings` of `path@check@src/commands/history.rs`: the
 /// added blob looked up anywhere in the parent's tree rather than at the live path, which admits
 /// the rename and still refuses the edited move and the rewritten file; caught by the rename. And
 /// `if moved {` made `if true {`, caught.
@@ -3023,7 +3023,7 @@ fn a_move_into_harvested_that_is_not_the_freezing_move_is_reported() {
 /// The claims of the P3 clause beside a phase: a frozen file made a symlink is a type change,
 /// reported as a modification, and the summary line of a commit whose tree also stops at a phase,
 /// as a symlink's does, names that cause beside the stop. Mutations checked, in
-/// `path@check@src/commands/history.rs`: in `frozen_file_findings`, `ChangeKind::Deleted => {}`
+/// `path@check@src/commands/history.rs`: in `frozen_change_findings`, `ChangeKind::Deleted => {}`
 /// made `ChangeKind::Deleted | ChangeKind::TypeChanged => {}`, caught; in `commits`,
 /// `for cause in &causes {` made `for cause in causes.iter().take(0) {`, caught.
 #[test]

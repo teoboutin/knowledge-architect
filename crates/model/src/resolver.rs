@@ -85,11 +85,13 @@ pub enum Cause {
         form: String,
         id: String,
     },
-    /// A harvested slice cited from outside its milestone's directory.
+    /// A milestone's `harvested/`, or a harvested slice in it, cited from outside the milestone's
+    /// directory. `id` is the slice's, `None` for a target in no slice: `harvested/` itself, or a
+    /// file directly under it.
     Harvested {
         milestone: String,
         form: String,
-        id: String,
+        id: Option<String>,
     },
     UndefinedItem {
         anchor: String,
@@ -274,10 +276,16 @@ impl Cause {
                 form,
                 id,
             } => (
-                format!(
-                    "`{span}` cites the harvested slice `{id}` of the milestone `{milestone}` from \
-                     outside the milestone"
-                ),
+                match id {
+                    Some(id) => format!(
+                        "`{span}` cites the harvested slice `{id}` of the milestone `{milestone}` \
+                         from outside the milestone"
+                    ),
+                    None => format!(
+                        "`{span}` cites the harvested/ of the milestone `{milestone}` from outside \
+                         the milestone"
+                    ),
+                },
                 format!(
                     "cite the milestone whole, as `{form}`; a harvested slice is frozen under its \
                      milestone's harvested/ and cited only from inside that milestone, which \
@@ -680,7 +688,7 @@ fn table_written(
         Resolution::Harvested { form } => Err(Cause::Harvested {
             milestone: anchor.to_string(),
             form: form.to_string(),
-            id: id.to_string(),
+            id: Some(id.to_string()),
         }),
         Resolution::Undefined => {
             let register = anchors.registers().by_name(kind.name());
@@ -1393,16 +1401,24 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
     }) {
         return Some(format!("spec@{PLANS_ANCHOR}@{}", spec.name));
     }
-    // No spec the tree places holds it, as for a deleted spec. Only a Markdown file sits at a
-    // plan position, so a group's directory, the home's register.toml and anything not `.md` is
-    // a path like any other. A spec's own README.md or deliberation.md names the spec by its
-    // directory, at the top of specs/ or in a group; any other `.md` file is a spec file, named
-    // by its stem, grouped or not, but the home's own README and index.
+    // No spec the tree places holds it, as for a deleted spec. A spec's directory, at the top of
+    // specs/ or in a group, holds its README.md, its deliberation.md, its transcript.txt, its
+    // search/ and the search files in it, so each of these names the spec by its directory. Any
+    // other `.md` file is a spec file, named by its stem, grouped or not, but the home's own README
+    // and index. Anything else, a group's directory, the home's register.toml and any other file
+    // not `.md`, sits at no plan position and is a path like any other.
     let (file, dirs) = parts.split_last()?;
+    let spec_dir_file = |file: &str| {
+        file == crate::plan::README
+            || crate::plan::is_beside_readme(file)
+            || file == crate::manifest::SEARCH_DIR
+    };
     let id = match dirs {
-        [.., spec]
-            if dirs.len() <= 2
-                && (file == crate::plan::README || crate::plan::is_beside_readme(file)) =>
+        [.., spec] if dirs.len() <= 2 && spec_dir_file(file) => spec.as_str(),
+        [.., spec, search]
+            if dirs.len() <= 3
+                && search == crate::manifest::SEARCH_DIR
+                && crate::plan::is_search_file(file) =>
         {
             spec.as_str()
         }
@@ -1709,13 +1725,14 @@ mod tests {
 
     /// The claim: the repair a refused plan citation names is the form that resolves for each
     /// position: a slice for a file of a live slice's directory, the milestone for its own files,
-    /// a harvested slice's or anything in no slice, a spec for a file of a spec's directory or a
-    /// spec file, and nothing for a navigation file, a group's directory or the home's
-    /// register.toml. Mutations checked: the README and index filter, and the id test of the
+    /// a harvested slice's or anything in no slice, a spec for a file of a spec's directory, its
+    /// search/ and a file of it included, or a spec file, and nothing for a navigation file, a
+    /// group's directory, the home's register.toml or a file no spec's directory holds. Mutations checked: the README and index filter, and the id test of the
     /// slice segment, each removed from `plan_document`; in its fallback, the spec file's
     /// `file.strip_suffix(".md")?` made `parts[0].strip_suffix(".md").unwrap_or(&parts[0])`, the
     /// first segment read as the spec, and the arm of a spec's own README.md or deliberation.md
-    /// deleted; each caught.
+    /// deleted; in the arm of a file of a spec's search/, its `search == crate::manifest::SEARCH_DIR`
+    /// test made `false`, and its `is_search_file` test made `true`; and `|| file == crate::manifest::SEARCH_DIR` dropped; each caught.
     #[test]
     fn the_p1_repair_names_the_form_for_each_position() {
         let m = manifest();
@@ -1774,6 +1791,24 @@ mod tests {
                 "docs/plans/specs/a-group/b-spec.md",
                 Some("spec@plans@b-spec"),
             ),
+            (
+                "docs/plans/specs/gone-spec/transcript.txt",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/gone-spec/search",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/gone-spec/search/discussion.txt",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/a-group/gone-spec/search/design-audit.txt",
+                Some("spec@plans@gone-spec"),
+            ),
+            ("docs/plans/specs/gone-spec/notes.txt", None),
+            ("docs/plans/specs/gone-spec/search/notes.txt", None),
             ("docs/plans/specs/a-group", None),
             ("docs/plans/specs/register.toml", None),
             ("docs/plans/specs/README.md", None),

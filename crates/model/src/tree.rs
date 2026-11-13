@@ -274,7 +274,8 @@ fn plan_home(
 ///   its groups**, each group a directory holding no README.md and one directory per spec; a spec
 ///   file is refused, its repair naming the spec's directory.
 /// - **milestones/ holds its README.md, its index.md and one directory per milestone**, by
-///   `directory_layout`, which judges every Directory home alike.
+///   `directory_layout`, which judges a declared Directory home's entries and the milestones
+///   alike, and each milestone's directory by `plan_directory`.
 /// - **A plan document's directory holds what `plan_directory` admits.**
 /// - **A plan's name is no other anchor's and no reserved word**, per
 ///   `design@model@a-placed-name-reads-as-nothing-else`: a milestone
@@ -384,16 +385,24 @@ fn headed(inputs: &TreeInputs, dir: &Path) -> bool {
 
 /// Whether `dir`, a directory of specs/ or of a group holding no `README.md` as a file, holds a
 /// plan's own files instead: a `README.md` that is a directory, a `deliberation.md`, a
-/// `transcript.txt` or a `search/`. Such a directory is a spec missing its head, never a group,
-/// and is reported once, its repair the `README.md` to create; its files are not judged one by one.
+/// `transcript.txt` or a `search/`, and no spec's directory. Such a directory is a spec missing
+/// its head, never a group, and is reported once, its repair the `README.md` to create; its files
+/// are not judged one by one. A directory that holds a spec's directory is a group, whatever else
+/// it holds, so its stray files are judged one by one as a group's are: the repair of a missing
+/// head there would make it a spec holding a spec.
 fn unheaded_plan(out: &mut Vec<Finding>, dir: &Path, inputs: &TreeInputs) -> bool {
     use crate::manifest::SEARCH_DIR;
-    let plans_own = children(inputs, dir).into_iter().any(|path| {
-        let name = path.file_name().unwrap_or_default().to_string_lossy();
-        name == crate::plan::README
-            || crate::plan::is_beside_readme(&name)
-            || (name == SEARCH_DIR && inputs.directories.contains(path))
-    });
+    let children = children(inputs, dir);
+    let holds_a_spec = children
+        .iter()
+        .any(|path| inputs.directories.contains(*path) && headed(inputs, path));
+    let plans_own = !holds_a_spec
+        && children.into_iter().any(|path| {
+            let name = path.file_name().unwrap_or_default().to_string_lossy();
+            name == crate::plan::README
+                || crate::plan::is_beside_readme(&name)
+                || (name == SEARCH_DIR && inputs.directories.contains(path))
+        });
     if plans_own {
         out.push(Finding::in_file(
             dir,
@@ -471,7 +480,13 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
         // A group: a directory holding no README.md, whose own directories are specs.
         for inner in children(inputs, path) {
             if !inputs.directories.contains(inner) {
-                if inner.extension().is_some_and(|e| e == "md") {
+                // A plan's own file in a group is a stray file, never a spec file: its name is a
+                // file of a spec's directory, so the spec file's repair would name a spec
+                // `deliberation`.
+                let name = inner.file_name().unwrap_or_default().to_string_lossy();
+                if inner.extension().is_some_and(|e| e == "md")
+                    && !crate::plan::is_beside_readme(&name)
+                {
                     spec_file(out, inner);
                 } else {
                     other(out, inner, "a group of specs/");
@@ -495,9 +510,10 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
 
 /// What one plan document's directory holds, per its kind: its README.md, its deliberation.md,
 /// its transcript.txt and its search/, holding the files `crate::plan::SEARCH_FILES` names; a milestone besides its generated
-/// index.md, one directory per live slice, each held to the same rule, and its harvested/, one
-/// directory per harvested slice, whose contents are frozen and judged by no rule but the P3
-/// clause of `commits`.
+/// index.md, one directory per live slice, each held to the same rule, and its harvested/, which
+/// holds one directory per harvested slice, each holding a README.md and named by an id. That is
+/// all the layout asks of harvested/: what a harvested slice's directory holds is frozen, and no
+/// rule but the P3 clause of `commits` judges it.
 fn plan_directory(
     out: &mut Vec<Finding>,
     dir: &Path,
@@ -621,10 +637,12 @@ fn plan_directory(
     }
 }
 
-/// What one Directory home holds, per `design@model@declarable-directory-register`: its
-/// README.md, its index.md and one directory per entry, each holding a README.md, and no entry
-/// holding a register.toml or a subdirectory; an entry's name is no other anchor's, per
-/// `design@model@a-placed-name-reads-as-nothing-else`, and an entry it refuses is no anchor.
+/// What one home of entry directories holds: a declared Directory home, per
+/// `design@model@declarable-directory-register`, or milestones/. Its README.md, its index.md and
+/// one directory per entry, each holding a README.md; an entry's name is no other anchor's, per
+/// `design@model@a-placed-name-reads-as-nothing-else`, and an entry it refuses is no anchor. A
+/// declared register's entry holds no register.toml and no subdirectory; a milestone's directory
+/// holds what `plan_directory` admits, its slices among them.
 ///
 /// Phase 2, because the entries are anchors read off the tree: a later phase over a tree that
 /// breaks one would judge documents no anchor owns. The `milestone` register keeps the wording
@@ -1337,8 +1355,11 @@ mod plans_tests {
     /// the harvested arm, and the `is_entry_id` arm of the harvested arm deleted; in
     /// `specs_layout`, the group arm's `spec_file(out, inner)` made `other(out, inner, "a group of
     /// specs/")`; in `headed`, `&& !inputs.directories.contains(&readme)` dropped; in
-    /// `unheaded_plan`, `plans_own` made `false`; and `is_search_file` made to test the `.txt`
-    /// suffix alone.
+    /// `unheaded_plan`, `plans_own` made `false`, `|| (name == SEARCH_DIR && ..)` made `|| false`,
+    /// caught by the spec holding its search/ alone, and `!holds_a_spec &&` dropped, caught by the
+    /// group holding a stray deliberation.md; in the group arm of `specs_layout`,
+    /// `&& !crate::plan::is_beside_readme(&name)` dropped, caught by the same; and
+    /// `is_search_file` made to test the `.txt` suffix alone.
     #[test]
     fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
         let manifest = declaring_full(
@@ -1457,6 +1478,27 @@ mod plans_tests {
                 vec![],
                 "docs/plans/specs/a-group/a-spec",
                 "is a spec missing its head",
+            ),
+            (
+                vec!["docs/plans/specs/a-spec/search/discussion.txt"],
+                vec![],
+                "docs/plans/specs/a-spec",
+                "is a spec missing its head",
+            ),
+            (
+                vec!["docs/plans/specs/a-spec/transcript.txt"],
+                vec![],
+                "docs/plans/specs/a-spec",
+                "is a spec missing its head",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-group/b-spec/README.md",
+                    "docs/plans/specs/a-group/deliberation.md",
+                ],
+                vec![],
+                "docs/plans/specs/a-group/deliberation.md",
+                "sits in a group of specs/, which holds one directory per spec",
             ),
             (
                 vec!["docs/plans/specs/a-spec/README.md/x.md"],
