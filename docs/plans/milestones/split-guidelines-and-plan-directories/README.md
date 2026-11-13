@@ -774,7 +774,7 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
 
 ## Implementation sequence
 
-1. [Plan documents as directories, with model types of their own](plan-directories/README.md),
+1. [Plan documents as directories, with model types of their own](harvested/plan-directories/README.md),
    `spec@split-guidelines-and-plan-directories@plan-directories`. Builds the plan model, the layout,
    the regime of each file, the planning skill's and the primer's text, and migrates
    `spec@plans@path-quickfixes`, minimally, and this milestone, properly. Fails alone on: the
