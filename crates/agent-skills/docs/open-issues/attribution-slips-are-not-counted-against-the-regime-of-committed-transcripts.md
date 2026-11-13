@@ -24,9 +24,9 @@ that the planning skill's demand for exact quotations probably confused sessions
 a decision attributed to the owner that the owner did not make, were in six files, and one slip
 changed what was built.
 
-The count owed: the same kinds, over the retrospective files received for the first release tagged
-after the merge of the slice that made plan documents directories, counted per workflow file as the
-baseline is, and compared with the baseline.
+The count owed: the same kinds, over the first batch of retrospective files an intake receives
+whose sessions ran a release tagged after the merge of the slice that made plan documents
+directories, counted per workflow file as the baseline is, and compared with the baseline.
 
 ### Why it matters
 
@@ -40,8 +40,9 @@ firmer or a different ruling than the owner gave, goes unseen, against
 
 ### Trigger
 
-The retrospective files received for the first release tagged after the merge of the slice that
-made plan documents directories have all been analysed under docs/retrospective-reports/. Then
-count the slips by kind, compare them with the baseline, record the comparison in this entry's
+The intake of the first batch of retrospective files whose sessions ran a release tagged after the
+merge of the slice that made plan documents directories, its analyses written under
+`path@knowledge-architect@docs/retrospective-reports/`. That intake counts the slips of its batch by
+kind, compare them with the baseline, record the comparison in this entry's
 closing commit, and reopen `design@agent-skills@attribution-replaces-quotation` if the
 misattribution kinds rose.

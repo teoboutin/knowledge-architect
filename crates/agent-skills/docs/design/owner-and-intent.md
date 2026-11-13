@@ -53,9 +53,8 @@ decision exists. A decision that no work implements, such as a policy, and that 
 any spec, counts as built intent, since nothing waits to be built, and is recorded when it is made.
 A slice's spec kept under its milestone's `harvested/` holds design that is built, and is no design
 home: it is frozen and out of the walk, per `design@model@a-harvested-slice-is-frozen`, its decisions
-are in the design homes since its harvest, and a design home wins over it where they disagree, as
-every plan document's status section says. The rival, a design home holding intent built or not, needs a
-marker on every entry to tell the two apart, and checking the code against an unbuilt entry reports
+are in the design homes since its harvest, and a design home wins over it where they disagree.
+The rival, a design home holding intent built or not, needs a marker on every entry to tell the two apart, and checking the code against an unbuilt entry reports
 a defect in code nobody has written. Unbuilt intent has a checked home because plan documents are a
 structure the checker reads, per `design@model@plan-register`. This serves
 `goal@documentation-stays-consistent`.
@@ -126,7 +125,7 @@ defeat are in the head. The deliberation is not, because every session reads the
 before it changes code, and a head that carried its whole deliberation would make that read cost
 the length of every discussion ever held. History serves the reader who needs it, because a spec
 or a milestone leaves when its work lands, per
-`design@agent-skills@plan-document-leaves-at-landing`: a deleted plan document is listed by
+`design@agent-skills@spec-or-milestone-leaves-at-landing`: a deleted plan document is listed by
 `git log --diff-filter=D` on the plans directory, and its last state is one `git show` away; a
 landed slice's spec stays under its milestone's `harvested/` until then, per
 `design@agent-skills@harvested-slice-kept`.

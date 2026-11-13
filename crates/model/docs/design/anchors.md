@@ -79,7 +79,7 @@ in every respect but the one its layout fixes:
   kind, and a milestone carries `spec` besides, for its slices, cited `spec@<milestone>@<slice>`
   and unique only inside the milestone, per `design@model@plan-document-kinds`. A slice's directory
   is no anchor: the milestone is the anchor of every file under its directory, `harvested/`
-  included. A plan document whose name is refused, or a spec whose name a milestone holds, is no
+  included, per `design@model@slice-directory-is-no-anchor`. A plan document whose name is refused, or a spec whose name a milestone holds, is no
   anchor.
 
 **The entry and plan anchors are read off the tree, so every builder of the anchors is handed the

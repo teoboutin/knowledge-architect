@@ -332,7 +332,8 @@ duplicated item stops it at phase 3, and a missing section is a finding of the l
 `design@model@plan-register`, `design@model@plans-split-dirs`, `design@model@plan-document-kinds`,
 `design@model@a-placed-name-reads-as-nothing-else`, `design@model@spec-directory-is-an-anchor`,
 `design@check@plan-document-sections-by-kind`, `design@model@plan-items-by-section`,
-`design@model@plan-item-scope`, `design@model@a-harvested-slice-is-frozen` and
+`design@model@plan-item-scope`, `design@model@a-harvested-slice-is-frozen`,
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone` and
 `design@check@a-frozen-file-is-never-modified`.
 
 ## Commit messages

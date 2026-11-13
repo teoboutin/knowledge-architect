@@ -24,9 +24,10 @@ anchor a path names is `design@check@deepest-anchor-wins`.
 refused from every anchor, and the finding names the form that resolves: `spec@plans@<id>`,
 `milestone@plans@<id>`, `spec@<milestone>@<slice>` for a live slice, and the milestone's form for
 what sits under its harvested/, a slice there being cited from inside its milestone alone, per
-`design@model@a-harvested-slice-is-frozen`. It is judged by where the target sits, before the
-deepest-anchor rule and whether or not it exists, so a citation of a deleted plan gets the same
-repair. This overrides the ancestor's spelling of an anchor's own directory for a spec and a
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone`. It is judged by where the
+target sits, before the deepest-anchor rule and whether or not it exists, so a citation of a deleted
+plan's `README.md`, or of a file beside it, gets the same repair; a file under a deleted plan's
+`search/` is judged as any other path is. This overrides the ancestor's spelling of an anchor's own directory for a spec and a
 milestone. A plan anchor, a milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a citation written as a path
 is one `show spec@…` would not list. A plan's `README.md` reaches the files beside it by a relative
 navigation link, per `design@check@links-are-navigation-rows`, and an item by its item reference.

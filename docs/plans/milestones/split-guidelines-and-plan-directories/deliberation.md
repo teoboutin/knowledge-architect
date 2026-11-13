@@ -126,8 +126,8 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   in review 1, the session recommended committing, of a search's output, the generated lines only,
   as a `.txt` file, so that no rule of a frozen location is needed for them; the owner approved it
   in review 2, ruling D1. The owner said then that they had understood from the start that one
-  artifact of the search was meant, not its whole directory, and that they had misunderstood the
-  earlier exchanges: the agreement on the shapes in round 4 rested, for `search/`, on
+  artifact of the search was meant, not its whole directory, and that they had misunderstood what
+  was meant in the earlier exchanges: the agreement on the shapes in round 4 rested, for `search/`, on
   that misunderstanding, which the session's sketch, naming "the record search's verdict files"
   without saying what they hold, had left open. The title above states D1 as ruled.
 - Its shape: "Decided design", "The regime of each file". Built by slice 1; harvest: slice 1's, into
@@ -167,7 +167,7 @@ thread at the state the table proposed, and promoted the one it proposed `presum
 - The marker's form, the move of the slice's directory under its milestone's `harvested/`, is D1's,
   which the owner ruled.
 - Its shape: "Decided design", "The life of a slice's spec". Built by slice 1; harvest: slice 1's,
-  into `design@agent-skills@plan-document-leaves-at-landing`, rewritten at the slice level, and
+  into `plan-document-leaves-at-landing` (now `design@agent-skills@spec-or-milestone-leaves-at-landing`), rewritten at the slice level, and
   `design@agent-skills@tripwire-horizon`.
 
 ### The head that argues a Component's existence, or a Component that departs from a criterion, reasons over each shipped criterion; the twelve root heads are brought to the rule `##component-split-argues-the-criteria`
@@ -228,7 +228,7 @@ its own needs, taking the shipped guidelines into consideration.
 
 Round 1, the owner. Bears on
 `thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria`. The owner held
-that the split of a project into Components is recorded at project level, a guideline the owner
+that the split of a project into Components should be recorded at project level, a guideline the owner
 thought already existed, while unsure whether it applied only locally or also in the installed
 text. The owner wanted to add that the arguments for such a decision reason about the guidelines
 the project ships, not only about the project's local circumstances: where a guideline was
@@ -482,7 +482,7 @@ subagent of round 1 whose report no file keeps; its word counts are taken again 
 ### A kept slice's spec defeats both halves of the argument for deleting it `##arg-30`
 
 Round 1, the session. Bears on `thread@split-guidelines-and-plan-directories@harvested-slice-kept`.
-"This reverses `design@agent-skills@plan-document-leaves-at-landing` at the slice level. That head's
+"This reverses `plan-document-leaves-at-landing` (now `design@agent-skills@spec-or-milestone-leaves-at-landing`) at the slice level. That head's
 argument was that a kept document is either walked, so its references break at every reversal, or
 unwalked, "unchecked text that a grep finds with no marker that it is stale". The `harvested`
 marker defeats the "no marker" half. Freezing its references defeats the "breaks at every

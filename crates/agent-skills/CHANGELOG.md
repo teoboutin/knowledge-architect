@@ -45,8 +45,9 @@ an empty subsection is omitted.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
-  `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `Model::frozen`, `Model::set_frozen`
-  and `table::Anchor::is_milestone` in `knowledge-architect-model`, and `tree_changes`,
+  `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
+  `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
+  `knowledge-architect-model`, and `tree_changes`,
   `TreeChange`, `ChangeKind`, `Blob` and `SnapshotEntry::blob` in `knowledge-architect-git`.
 
 ### Workflow

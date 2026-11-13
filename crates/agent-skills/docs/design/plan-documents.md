@@ -115,17 +115,19 @@ the record against. A `README.md` reaches the files beside it by relative naviga
 item of `deliberation.md` by its item reference.
 
 The deliberation, read inside the document the search reads, made that document too large for the
-searchers of a later slice: measured with `git show <deleting-commit>^:<file> | wc -c` over the
-plan documents this repository deleted, the Threads, the Arguments and the copy of the search's
-outcomes made about 80% of the `goals-at-the-root` milestone's README, most of it there at its first
-commit; a slice audit of that milestone took 44 search agents where its slice's spec alone needed
-about 15, and seven of the first 27 reports said the agent could not read the document whole, a
+searchers of a later slice: the Threads, the Arguments and the copy of the search's outcomes made
+about 80% of the bytes of the `goals-at-the-root` milestone's README in the parent of d687aa43,
+which deleted it, most of it there at its first commit, each section's share re-taken by
+`git show d687aa43^:<that README> | LC_ALL=C awk '/^## /{s=$0} {n[s]+=length($0)+1} END{for (k in n) print n[k], k}'`;
+a slice audit of that milestone took 44 search agents where its slice's spec alone needed about 15,
+and seven of the first 27 reports said the agent could not read the document whole, figures counted
+in the issue entry that 1beacf9d closed, which `git show --stat 1beacf9d` names; a
 strain on the quality of each agent's reading that a larger bound of `worklist` would not answer.
 The rival is `rejected@agent-skills@deliberation-in-the-searched-document`. The arrangement serves
 `goal@records-reach-their-reader`, under which a slice's search meets what bears on the slice: a
 search whose agents cannot read their work whole meets it in part.
 
-### A spec or a milestone leaves when its work lands, in a commit of its own after the review before the merge `##plan-document-leaves-at-landing`
+### A spec or a milestone leaves when its work lands, in a commit of its own after the review before the merge `##spec-or-milestone-leaves-at-landing`
 
 A spec, or a milestone with every slice's spec under it, is deleted, its whole directory, once its
 last harvest is complete, in a commit of its own after the review before the merge has read the tip
@@ -158,11 +160,11 @@ closes neither the pair's case nor the stale SHA. The design this decision did n
 
 When a slice lands, its spec's directory is moved under its milestone's `harvested/`, the move being
 the marker of its state, in a commit of its own after the review before the merge, for the reasons
-`design@agent-skills@plan-document-leaves-at-landing` gives for a deletion; the slice's files are
+`design@agent-skills@spec-or-milestone-leaves-at-landing` gives for a deletion; the slice's files are
 live until that commit and frozen from it on, per `design@model@a-harvested-slice-is-frozen`. Its
-items still resolve from inside the milestone's directory, and a citation of it, or of an item it
-defines, from anywhere else is refused, its repair naming the milestone. The milestone's directory
-leaves whole with its last slice, as `design@agent-skills@plan-document-leaves-at-landing` says.
+items still resolve from inside the milestone's directory, and it is cited from there alone, per
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone`. The milestone's directory
+leaves whole with its last slice, as `design@agent-skills@spec-or-milestone-leaves-at-landing` says.
 
 A kept spec serves the later slices of its milestone, more so as each slice's spec holds more of the
 design and more items citable inside the milestone, and the milestone document and the sibling specs
@@ -170,7 +172,7 @@ keep their citations of it rather than being re-pointed at each landing, on the 
 It meets both halves of the argument for deleting a landed plan document, for as long as the
 milestone is open: out of the walk, its references never break, and its place under `harvested/`
 is the marker that it describes landed work, whose decisions the design homes hold and win over it,
-as every plan document's status section says. Deleting it at its slice's landing, the rival, takes
+per `design@agent-skills@design-home-is-built-intent`. Deleting it at its slice's landing, the rival, takes
 from the later slices of the milestone the record they plan from:
 `rejected@agent-skills@slice-spec-deleted-at-its-landing`. Keeping it after its milestone leaves lost
 to the owner's argument: harvested specs would accumulate, put outdated matches in every search,
@@ -269,7 +271,7 @@ search's generated lines as `search/discussion.txt`, per
 
 The design this decision did not keep: `rejected@agent-skills@ledger-written-during-discussion`.
 
-### The trimmed transcript of a discussion is committed beside its plan document, after a step that removes private information, and pushed only on the owner's word for that transcript `##committed-transcript`
+### The trimmed transcript of a discussion is committed beside its plan document, after a step that removes private information `##committed-transcript`
 
 The planning skill commits, for each session a discussion spans, the output of `klarch transcript
 show` without tool calls, from the message where the discussion begins to the owner's last message
@@ -283,15 +285,22 @@ a reference, a slug or a commit SHA in it is a quotation, not a citation, per
 words in the tree rather than in a transcript on one machine.
 
 Before its commit, the session reads it whole and removes every path under a home directory, every
-e-mail address, every credential and token, and the pasted material the owner marks; then shows the
-owner the transcript and pushes no commit holding it before the owner's word for that transcript. A
-transcript once pushed cannot be taken back, an action `goal@the-owner-decides` reserves to the
-owner, so the owner's word that transcripts are committed in general rules the policy and stands
-for no single publication, nor for another project's owner. The rival, committing no transcript, kept
-the owner's words verbatim only in the items, where out of the context they answered they have
-little value, on the owner's report: `rejected@agent-skills@owner-words-verbatim-in-plan-items`. A
-script that finds home paths and e-mail addresses could replace part of the removal step:
+e-mail address, every credential and token, and the pasted material the owner marks. The rival,
+committing no transcript, kept the owner's words verbatim only in the items, where out of the
+context they answered they have little value, on the owner's report:
+`rejected@agent-skills@owner-words-verbatim-in-plan-items`. A script that finds home paths and
+e-mail addresses could replace part of the removal step:
 `issue@transcript@an-option-anonymizes-what-transcript-prints`.
+
+### A committed transcript is pushed only on the owner's word for that transcript `##transcript-pushed-on-the-owner-s-word`
+
+Once its removal step is done, per `design@agent-skills@committed-transcript`, the session shows the
+owner the transcript and pushes no commit holding it before the owner's word for that transcript; a
+transcript the owner does not approve is removed from the branch before any push. A transcript once
+pushed cannot be taken back, an action `goal@the-owner-decides` reserves to the owner. The rival,
+the owner's word that transcripts are committed in general standing for each publication, lets a
+session publish what the owner never read; so that word rules the policy and stands for no single
+publication, nor for another project's owner.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 
@@ -396,7 +405,7 @@ plans a feature that will not be built yet so that the work done meanwhile does 
 which needs the document where every session reads it, on the main branch; that serves
 `goal@agents-work-without-drift`. What "spec" and "milestone" measure is the
 work, one pull request or several, not where the document lands. The document leaves when its work
-lands, per `design@agent-skills@plan-document-leaves-at-landing`.
+lands, per `design@agent-skills@spec-or-milestone-leaves-at-landing`.
 
 The owner's intent: "It regularly happens that I will prepare a spec/design for a feature that I
 won't be implementing right now, just to ensure that the intermediate tasks I will perform do not

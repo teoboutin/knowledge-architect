@@ -73,8 +73,8 @@ One exception is text in the checker's syntax that no checked form expresses, wr
 backticks beside a reference to the issue entry that records the missing form. The check reads it:
 a reference-shaped token outside backticks is reported, and is silent where its paragraph holds a
 backticked reference to an issue entry, per `design@check@reference-shape-outside-span`. Prose that mentions a
-directory without asking the reader to follow it is not a repair and is outside this head. A
-frozen file, under a milestone's `harvested/`, raises no finding, per
+directory without asking the reader to follow it is not a repair and is outside this head. The
+text of a frozen file, under a milestone's `harvested/`, raises no finding, per
 `design@model@a-harvested-slice-is-frozen`, so nothing in it is repaired, in plain text or
 otherwise.
 

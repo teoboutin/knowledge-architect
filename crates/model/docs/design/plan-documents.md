@@ -31,10 +31,9 @@ path can be followed in every project that installs it, as
 
 Most work spans components, so a plan sits at the root whatever its subject: the milestone that
 built the plans layout touched three, and the milestone that released version 0.1 touched every
-component. Two premises are the owner's weighing: "there should never be that many planned tasks
-open at once that splitting the directory would make sense", and "plans have a tendency to break
-each other, when they are designed before the other is implemented", which one directory keeps in
-one view. The reference grammar names the anchor, so a later split adds
+component. Two premises are the owner's weighing: that so many planned tasks should never be open
+at once that splitting the directory would make sense, and that plans tend to break each other when
+one is designed before the other is implemented, which one directory keeps in one view. The reference grammar names the anchor, so a later split adds
 anchors and rewrites no citation.
 
 The design this decision did not keep: `rejected@model@plans-directory-per-component`.
@@ -65,7 +64,11 @@ nothing else:
   which holds one directory per landed slice, per `design@model@a-harvested-slice-is-frozen`.
 
 Any other file or directory of a plan document's directory is a phase-2 finding, and so is a file of
-`search/` other than those two. What each file holds, and when it is written, is the planning
+`search/` other than those two. The set is closed because the searches read the `README.md` alone,
+per `design@agent-skills@discussion-record-apart`, and each file beside it has a role the planning
+skill states and a regime `design@model@a-harvested-slice-is-frozen` states: a file of no stated
+role, admitted by an open set, is where a session can write a condition of the design that no
+search then reads, with no rule saying what it may hold. What each file holds, and when it is written, is the planning
 skill's, per `design@agent-skills@discussion-record-apart`. A spec of specs/ and a slice take the
 same shape, so the planning skill states one shape of a plan document's directory.
 
@@ -109,7 +112,7 @@ citations written the other way, and no plan anchor carries the `path` kind, so 
 reaches the files beside it by relative navigation links, which the link check judges. A whole plan
 document may be cited from anywhere; when it leaves, each citation dangles, and that is the revisit
 it asks for. A harvested slice is cited from inside its milestone only, per
-`design@model@a-harvested-slice-is-frozen`.
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone`.
 
 ### A plan's items are the level-three headings of its item sections, and the section gives the kind `##plan-items-by-section`
 
@@ -170,23 +173,26 @@ three-part grammar, shorter than the root anchor and a compound id by the root a
 separator. The anchor holds every file of its directory, and the directory stays an entry of the
 `spec` register that holds it.
 
-### A milestone is a directory carrying its slices, each a directory it owns, and the four item registers `##milestone-entries-are-directories`
+### A milestone is a directory, an anchor carrying `spec` for its slices and the four item registers `##milestone-entries-are-directories`
 
 Each milestone is a directory of milestones/, an anchor carrying `spec`, for its slices, and the
 four item registers, per `design@model@plan-document-kinds`. Each slice is a directory of the
 milestone holding its `README.md`, live, or under the milestone's `harvested/` once it lands, per
-`design@model@a-harvested-slice-is-frozen`. **A slice's directory is no anchor**: the milestone is
-the anchor of every file under its directory, its slices' included, so it owns their items, per
-`design@model@an-entity-belongs-to-its-anchor`, and its slices and itself share one namespace of
-items, which the duplicate check reads whole, and the citation forms through the milestone need
-no slice anchor. The rival is `rejected@model@slice-directory-as-an-anchor`.
+`design@model@a-harvested-slice-is-frozen`.
 
 What a plan adds on top of its registers is the tool's and keyed on the register: its documents owe
 the sections of their kind, per `design@check@plan-document-sections-by-kind`, its `README.md` and
 `deliberation.md` define items, its items are cited from inside the plan only, per
-`design@model@plan-item-scope`, and it carries no `path` kind. The `milestone` register exists
-because the owner asked to cite a milestone as `milestone@plans@<id>`. Citing the milestone by a
-path to its `README.md` needs no register, and loses to that request.
+`design@model@plan-item-scope`, and it carries no `path` kind. The `milestone` register exists on
+the owner's choice to cite a milestone as `milestone@plans@<id>` over a path to its `README.md`,
+which needs no register; no goal ranks the two.
+
+### A slice's directory is no anchor: its milestone is the anchor of every file under it `##slice-directory-is-no-anchor`
+
+The milestone is the anchor of every file under its directory, its slices' included, so it owns
+their items, per `design@model@an-entity-belongs-to-its-anchor`, and its slices and itself share one
+namespace of items, which the duplicate check reads whole, and the citation forms through the
+milestone need no slice anchor. The rival is `rejected@model@slice-directory-as-an-anchor`.
 
 ### A harvested slice is frozen: its directory under its milestone's `harvested/` leaves the walk by construction and is parsed for definitions only `##a-harvested-slice-is-frozen`
 
@@ -207,14 +213,11 @@ definitions alone. The regime of each file of a plan document's directory:
   milestone; a live definition that reuses one of its ids is the duplicate finding, at the live site
   alone, so the duplicate check sees every number of the milestone; the milestone's `index.md` lists
   the slice, titled from its frozen `README.md`, per `design@model@a-file-register-index-is-rows`;
-  and a frozen file raises no finding of its own.
-- **Cited from inside its milestone only**: a citation of a harvested slice, or of an item it
-  defines, from a file outside the milestone's directory is refused, its repair naming the
-  milestone whole, per `design@model@an-unresolved-reference-is-reported`, and so is a relative link
-  into `harvested/` from outside the milestone. A frozen file is never judged again, so it can
-  state a design a later slice of its milestone reversed; cited from inside the milestone alone, it
-  is read beside the documents that reversed it, and every citation of it leaves with the
-  milestone's directory, which leaves whole.
+  and the text of a frozen file raises no finding of its own, while the layout of `harvested/` is
+  judged, per `design@model@plan-document-directory`: a file directly under it, and a directory
+  there that holds no `README.md` or whose name is no id, is a phase-2 finding.
+- **Cited from inside its milestone only**, per
+  `design@model@a-harvested-slice-is-cited-from-inside-its-milestone`.
 - **Never modified**: a commit that modifies a frozen file is a finding of `commits`, per
   `design@check@a-frozen-file-is-never-modified`.
 
@@ -223,8 +226,8 @@ harvest wrote into the design homes, and the later slices of its milestone go on
 entries it cites. Judged against the tree of each later day, it would fail, and a session would edit
 it to pass, rewriting the record of what was decided. Under `goal@documentation-stays-consistent`, a
 tree that passes conforms in the texts the checker reads; a frozen file is read for its definitions
-alone, as an installed file is, the session's reading of that goal taken at the review of the
-milestone that built this. The exemption names a location whose files leave the tree with their
+alone, as an installed file is: that reading of the goal is the session's, taken in the
+discussion of the milestone that built this, and the owner's to contest. The exemption names a location whose files leave the tree with their
 milestone, the case `design@check@the-regime-has-no-opt-out` admits: an exemption that names files
 leaving the tree expires with its subject. The generated lines of a search and the transcript are
 records of their time in the same way; being `.txt` files, the walk never parses them, and they need
@@ -242,3 +245,15 @@ The rivals, and the facts that defeat them:
   regime of every reference in a walked file, `design@check@the-regime-has-no-opt-out` and
   `design@model@a-reference-is-live-in-every-prose` among them, refuse a walked file whose references
   go unjudged.
+
+### A harvested slice, and every item it defines, is cited from inside its milestone only `##a-harvested-slice-is-cited-from-inside-its-milestone`
+
+A citation of a harvested slice, or of an item it defines, from a file outside the milestone's
+directory, a commit message included, is refused, its repair naming the milestone whole, per
+`design@model@an-unresolved-reference-is-reported`, and so is a relative link into a harvested
+slice from outside the milestone. A frozen file is never judged again, per
+`design@model@a-harvested-slice-is-frozen`, so it can state a design a later slice of its milestone
+reversed; cited from inside the milestone alone, it is read beside the documents that reversed it,
+and every citation of it leaves with the milestone's directory, which leaves whole. The rival, a
+harvested slice cited from anywhere, as a live slice is, puts a citation of a frozen record in a
+document that outlives it and reads it apart from the documents that reversed it.

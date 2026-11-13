@@ -3,7 +3,8 @@
 The first slice of `milestone@plans@split-guidelines-and-plan-directories`. When it lands, it is
 moved under its milestone's `harvested/` and stays there until the milestone leaves, under the rule
 it builds. The threads, arguments and decided design it shares with the other slices are in the
-milestone document; those only this slice uses are below.
+milestone document; those only this slice uses are below, and its own threads
+and arguments in [its deliberation](deliberation.md).
 
 Its design audit's record, the audit's `fit-lines.md`, is
 [search/design-audit.txt](search/design-audit.txt).
@@ -139,8 +140,9 @@ the installed copy.
    `search/discussion.txt`, is not reported, untracked or committed; an item that harvested slice defines resolves from a sibling
    slice's `README.md`; and a live item that reuses one of its ids is reported.
 5. **The P3 clause.** In a mock project under git, `commits` reports a commit that edits a file of a
-   slice under `harvested/`; it reports none for a commit that adds one, deletes one, or moves a
-   live slice's directory under `harvested/`.
+   slice under `harvested/`, and one that adds a file there other than by the move that freezes a
+   slice, as D2 builds it; it reports none for a commit that deletes one, or that moves a live
+   slice's directory under `harvested/` unchanged.
 6. **The transcript is never parsed.** A reference-shaped span, a slug definition and a branch SHA in
    `transcript.txt` produce no finding of `check` or `commits`.
 7. **A harvested slice is cited from inside its milestone only.** A citation of a harvested slice, or
@@ -265,7 +267,7 @@ rewritten by the slice, the planning skill among them, is judged by the step tha
 - `design@agent-skills@milestone-split-by-lifetime`:
   `path@agent-skills@docs/design/plan-documents.md` (2 sites),
   `a-slice-audit-s-search-reads-the-whole-milestone-document-in-every-agent` (closed by the commit that adds this milestone).
-- `design@agent-skills@plan-document-leaves-at-landing`:
+- `plan-document-leaves-at-landing` (now `design@agent-skills@spec-or-milestone-leaves-at-landing`):
   `path@agent-skills@docs/design/owner-and-intent.md`,
   `path@agent-skills@docs/design/plan-documents.md` (2 sites).
 - `design@agent-skills@ledger-from-transcript`: `path@agent-skills@docs/design/plan-documents.md`,
@@ -353,7 +355,7 @@ decided design; the slice's design audit checks each reading against the head re
 - `design@agent-skills@milestone-split-by-lifetime`: the split by lifetime gains the deliberation
   apart from the documents the search reads, and a slice kept under `harvested/` until its
   milestone leaves.
-- `design@agent-skills@plan-document-leaves-at-landing`: at the slice level, a slice is moved under
+- `plan-document-leaves-at-landing` (now `design@agent-skills@spec-or-milestone-leaves-at-landing`): at the slice level, a slice is moved under
   `harvested/` at its landing; a spec and a milestone still leave at theirs.
 - `design@agent-skills@ledger-from-transcript`: the assembly commits the transcript after the
   removal step and the owner's word, and the search's generated lines as `search/discussion.txt`.
@@ -699,7 +701,10 @@ the slice starts; a plan document added later is mapped by the same rule.
   `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`,
   `thread@split-guidelines-and-plan-directories@committed-transcript` and
   `thread@split-guidelines-and-plan-directories@harvested-slice-kept` land in those heads, or in a head
-  of their own where the entry tests of `primer@design-heads` give one.
+  of their own where the entry tests of `primer@design-heads` give one. Where a thread's name
+  misdescribes its decision, the pair: `#frozen-plan-artifacts → a-harvested-slice-is-frozen`, its
+  P3 clause landing in `design@check@a-frozen-file-is-never-modified` and its search's generated
+  lines in `design@agent-skills@plan-commits-the-generated-lines`.
 - **The head of the frozen location**, one head that the 13 heads of Group B cite, and a head of
   its own for the P3 clause unless the one-decision test of
   `skill@knowledge-architect-decision-recording@head-shape` joins it to the first.
@@ -719,8 +724,9 @@ the slice starts; a plan document added later is mapped by the same rule.
   could compute its firing, which condition 1 of the standard sends to a check, and routed to
   `issue@transcript@an-option-anonymizes-what-transcript-prints`.
 - **The count of attribution slips** that the closing condition of the issue on verbatim words
-  named, against the rewritten `design@agent-skills@attribution-replaces-quotation`: a `todo` issue
-  of `agent-skills` opened by the harvest, as the milestone document's "Later consequences" says,
-  with the baseline its "What is already decided" carries.
+  named, against the rewritten `design@agent-skills@attribution-replaces-quotation`: an issue
+  of `agent-skills` opened by the harvest, `deferred` since a named event gates the count, as the
+  milestone document's "Later consequences" says, with the baseline its "What is already decided"
+  carries.
 - **This slice's spec** is moved under the milestone's `harvested/` after the review before the
   merge, under the rule it builds, rather than deleted.
