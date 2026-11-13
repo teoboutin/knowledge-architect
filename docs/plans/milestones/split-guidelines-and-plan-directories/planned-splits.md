@@ -1,7 +1,8 @@
 # Splits planned before the work: module guidelines, the code-split scout, and the record side at planning
 
-The second slice of `milestone@plans@split-guidelines-and-plan-directories`. It leaves when it lands,
-under the rule slice 1 builds. The threads, arguments and decided design it shares with the other
+The second slice of `milestone@plans@split-guidelines-and-plan-directories`. When it lands, it is
+moved under its milestone's `harvested/` and stays there until the milestone leaves, under the rule
+slice 1 builds. The threads, arguments and decided design it shares with the other
 slices are in the milestone document; those only this slice uses are below.
 
 ## Builds
@@ -20,8 +21,10 @@ slices are in the milestone document; those only this slice uses are below.
   draft exists, beside the search; each split the scout reports that the work bears on is a thread of
   the discussion; one outside the work's area is routed by `primer@met-outside-the-task`.
 - **The planning skill**:
-  - at planning, `cargo klarch worklist --out <dir>` over the draft's subjects lists the subjects the
-    harvest writes into whose cluster exceeds the bound; each such subject, and each subject whose
+  - at planning, `cargo klarch worklist --out <dir>` prints its notice of every cluster above the
+    bound across the whole record, since `--subject` names subjects of the work, not design
+    subjects; the session reads the notice and keeps the design subjects the harvest writes into,
+    those of the heads its harvest rows name; each such subject, and each subject whose
     heads will answer questions about parts that change apart, is split in a step, or a slice when
     the move is large, before the harvest that writes into it;
   - a code split the discussion decided is a move-only step, or slice, before the work that needs it,
@@ -33,8 +36,16 @@ slices are in the milestone document; those only this slice uses are below.
   state who splits a subject or a module and when: a subject split stays a move that decides nothing,
   now planned before the harvest where planning finds it, and a fix in a commit of its own where a
   session meets it outside planned work.
+- **The code-shape reviewer**, `agent@knowledge-architect-code-shape-reviewer`, which hosts the
+  default code shape and so the module guidelines: where a branch's diff meets a signal for a
+  module split, it reports it, and the session routes it to a planned step or by
+  `primer@met-outside-the-task`, never to the implementer as work inside the task.
 - **The record**: the heads of Group D this slice rewrites, and the hosts of
-  `design@agent-skills@shared-text-fragment`, below, with every text that cites them.
+  `design@agent-skills@shared-text-fragment`, below, with every text that cites them. The hosts of
+  the two fragments are named in three places, each updated: the test list `FRAGMENT_HOSTS` in
+  `path@agent-skills@src/lib.rs`, the `%%` comment at the head of
+  `path@agent-skills@fragments/default-code-shape.md`, and the prose of
+  `design@agent-skills@default-code-shape`.
 - **CHANGELOG.md**: the entries the change owes, in the `Next release` section.
 
 ## Claims
@@ -68,7 +79,7 @@ The seeds of this slice's audit, the decisions it rewrites, with every text `car
 as referencing each, on the commit before the milestone document's. Each text is judged by this
 slice's harvest, as slice 1's spec says of its own.
 
-**Group D, and the two of Group F.**
+**Group D, and `design@agent-skills@shared-text-fragment` of Group F.**
 
 - `design@agent-skills@subject-split-standard`:
   `path@agent-skills@content/skills/component-creation/SKILL.md`,
@@ -115,14 +126,6 @@ slice's harvest, as slice 1's spec says of its own.
   `path@agent-skills@fragments/three-homes.md`, `path@agent-skills@fragments/trigger-test.md`,
   `path@agent-skills@fragments/when-to-split.md`, `path@agent-skills@src/lib.rs`,
   `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`.
-- `design@agent-skills@work-divided-by-judgement`: `path@agent-skills@content/PRIMER.md` (4 sites),
-  `path@agent-skills@content/skills/retrospective/SKILL.md`,
-  `path@agent-skills@docs/design/dispatching.md`,
-  `path@agent-skills@docs/design/how-installed-text-changes.md`,
-  `path@agent-skills@docs/design/project-configuration.md`,
-  `path@agent-skills@docs/design/retrospective.md`,
-  `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`,
-  `path@agent-skills@fragments/admission-evidence.md`.
 
 What each is rewritten to state:
 
@@ -143,10 +146,10 @@ What each is rewritten to state:
   any other goes to the owner or to a design session, as the audit's sorts say.
 - `design@agent-skills@shared-text-fragment`: the default code shape and the fragment on when to split
   each gain the code-split scout as a host, on the owner's Q5 word.
-- `design@agent-skills@work-divided-by-judgement`: unchanged in its rule; the planning and design
-  skills' new dispatch cites it with its property.
 
-**Bound and not rewritten**: `design@agent-skills@one-decision-per-head`, Group E;
+**Bound and not rewritten**: `design@agent-skills@work-divided-by-judgement`, of Group F,
+unchanged in its rule, which the planning and design skills' new dispatch cites with its property;
+`design@agent-skills@one-decision-per-head`, Group E;
 `design@agent-skills@component-split-signals`; `design@agent-skills@the-workflow-teaches-no-rust-idiom`;
 `design@query@worklist-bound-is-40000-words`; `design@git@git-is-asked-through-one-module`;
 `design@xtask@ci-builds-the-tip-alone`; `rejected@agent-skills@one-generic-auditor-agent`;
@@ -171,9 +174,12 @@ What each is rewritten to state:
   `issue@check@the-cost-of-a-relocation-is-bounded-by-no-argued-head`;
   `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`;
   `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`.
-- thaum's development skill and its head on a module per review scope, in thaum's own tree, as the
-  grounding of the criterion; a finding read there goes to `path@agent-skills@docs/grounding/`, per
-  the root `CLAUDE.md`.
+- thaum's development skill and its head on a module per review scope, in the tree of thaum, the
+  owner's sibling project, which the owner names the location of, as the grounding of the
+  criterion; a finding read there goes to `path@agent-skills@docs/grounding/`, per the root
+  `CLAUDE.md`.
+- `agent@knowledge-architect-code-shape-reviewer`'s source, for what it does with a signal of the
+  module guidelines a branch's diff meets.
 
 ## Fails alone on
 
@@ -218,7 +224,11 @@ a step of its own, and *earns no head* unless one of the tests in `primer@design
 reason goes in a comment at the module and in the message of the move commit. In this repository a
 module split never passes test 1, since the facade in `design@knowledge-architect@api-facade` keeps
 public paths unchanged. That reconciles "a split is a design decision" with "it needs no record".
-Correct me if you meant something else."
+Correct me if you meant something else." The claim on test 1 is imprecise: the facade of
+`design@knowledge-architect@api-facade` covers `check`, `cli`, `model`, `query`, `transcript`,
+`create` and `testing`, and `gates` declares `pub mod process` in `path@gates@src/lib.rs`, so a
+split of that module changes a public path. "A module split's record" below states the case
+behind the facade only.
 
 ## Decided design
 
@@ -250,7 +260,8 @@ For `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
 - Nearest rival: a size threshold as the criterion, thaum's. Defeated by the owner's
   `argument@split-guidelines-and-plan-directories@arg-4`, and by thaum's own record: its threshold has
   no recorded basis, and its open issue on an event vocabulary of 999 lines in one item shows a size
-  a move cannot fix, per the session's investigator.
+  a move cannot fix, per the session's investigator, a subagent of round 1 whose report no file
+  keeps; this slice's design audit reads thaum's tree again for both facts.
 
 ### When a split is found and planned
 
@@ -308,8 +319,8 @@ For `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
 
 ## Harvest
 
-- **Design heads**: Group D's heads of this slice and the two of Group F, as "What is already
-  decided" says, under `skill@knowledge-architect-decision-recording`; the decisions of
+- **Design heads**: Group D's heads of this slice and `design@agent-skills@shared-text-fragment`,
+  as "What is already decided" says, under `skill@knowledge-architect-decision-recording`; the decisions of
   `thread@split-guidelines-and-plan-directories@module-split-guidelines`,
   `thread@split-guidelines-and-plan-directories@splits-planned-before-work` and
   `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded` land there, or in a head of
@@ -317,7 +328,9 @@ For `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
   `thread@split-guidelines-and-plan-directories@split-guidelines-not-rules` this slice builds lands in
   `design@agent-skills@subject-split-standard` and `design@agent-skills@default-code-shape`.
 - **Losing alternatives**: those above, judged by the tests of
-  `skill@knowledge-architect-decision-recording@losing-alternatives`.
+  `skill@knowledge-architect-decision-recording@losing-alternatives`. A lead from the review of the
+  plan: a size threshold as the criterion of a module split lost in part to a survey of thaum's
+  record, outside the project, which the harvest weighs under test 3.
 - **The premortem's causes**: P1 and P8, judged by the standard of
   `skill@knowledge-architect-decision-recording@ruled-tripwires`, P1 folded into
   `tripwire@agent-skills@shape-findings-fragment-code` where that entry guards the same premise.

@@ -75,8 +75,9 @@ audit.
 - The design home `path@agent-skills@docs/design/components.md`.
 - The standing entries the slice bears on:
   `issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
-  the next change that edits `design@knowledge-architect@git-crate`, which this slice is, as search
-  agent 2 noted: the audit sorts it as a gap of the slice;
+  the next change that edits `design@knowledge-architect@git-crate`, which this slice is, though the
+  search graded it `unrelated` on the draft, which had slice 4 rewrite no existing head: the audit
+  sorts it as a gap of the slice;
   `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`, whose discussion may add
   the publication cost to what a split weighs;
   `issue@check@the-cost-of-a-relocation-is-bounded-by-no-argued-head`.
@@ -118,8 +119,9 @@ For `thread@split-guidelines-and-plan-directories@component-split-argues-the-cri
 - **No argument over the criteria required**, under
   `thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria`: fails
   `goal@design-is-recorded-with-its-arguments`.
-- **The twelve root heads left to the rule on touched heads**, the reading search agents 2 and 15
-  took of the draft: lost to the rule's first real use in the tree that ships it,
+- **The twelve root heads left to the rule on touched heads**, the reading two of the search's
+  agents noted in their reports, which no file of the tree keeps, that the draft brought them to
+  the rule only when a change touched them: lost to the rule's first real use in the tree that ships it,
   `argument@split-guidelines-and-plan-directories@arg-43`.
 
 ## Implementation sequence
@@ -134,10 +136,18 @@ For `thread@split-guidelines-and-plan-directories@component-split-argues-the-cri
 - **Design heads**: the head stating the rule, written under
   `skill@knowledge-architect-decision-recording`; the decision of
   `thread@split-guidelines-and-plan-directories@component-split-argues-the-criteria` lands there.
+  A lead from the review of the plan: for agent-facing text, test 2 of `primer@design-heads` counts
+  each text that states the instruction, and the reviewers judge the rule through the text that
+  states it, a pointer, not a site; if step 3 of the component-creation skill alone states it, test
+  2 fails, and the reason goes beside the instruction in the skill. The harvest applies the test as
+  written, and "Where it is stated" below follows its outcome.
 - **Losing alternatives**: those above, judged by the tests of
   `skill@knowledge-architect-decision-recording@losing-alternatives`.
 - **The premortem's causes**: P7, judged by the standard of
-  `skill@knowledge-architect-decision-recording@ruled-tripwires`.
+  `skill@knowledge-architect-decision-recording@ruled-tripwires`. A lead from the review of the
+  plan: P7 may fail condition 1, since the decision-record reviewer and the design-record auditor
+  this slice changes judge each Component head by the rule, so a criterion's line with no reason
+  is a finding they report, and the failure is not silent.
 - **AC1**, reported at this slice's design audit, and once more when the milestone's directory
   leaves.
 - **The milestone's directory leaves** after this slice's review before the merge, per the milestone

@@ -34,8 +34,9 @@ string of the output without the repository at hand.
 ### Why it matters
 
 A transcript committed to a public repository with private data in it cannot be taken back. The
-manual removal step is the only guard until the option exists, and a step a session follows by
-reading is the one the milestone's premortem names as the cause of that failure.
+milestone's premortem names that failure, its cause P4, and guards it only by the manual removal
+step, a `grep` before the commit and the owner's word before the push, claims of its first slice;
+a step a session follows by reading is the guard this option would replace in part.
 
 ### What would close it
 

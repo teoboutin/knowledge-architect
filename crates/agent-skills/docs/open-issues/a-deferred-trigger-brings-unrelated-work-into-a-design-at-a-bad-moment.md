@@ -35,6 +35,13 @@ that entry is written, not how every entry of the changelog cites what it cites,
 passed the test by its words while the occasion it named did not need the work. Not established:
 whether the other instances the owner has in mind share this mechanism.
 
+A second instance of the same discussion: `issue@agent-skills@a-record-search-misses-what-is-added-after-it`,
+a `design` entry, named as its re-entry point the next design discussion that changes the record
+search or the grounding's steps. The milestone changes the grounding's steps, so the record search
+graded the issue `trigger-met`, and the session put to the owner whether reopening
+`design@agent-skills@one-record-searcher` was part of the milestone. The owner kept it out, and the
+issue's re-entry point was rewritten to name a discussion whose own work includes that reopening.
+
 `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` asks the opposite question,
 whether more reviews should read a re-entry point against a change; a decision on either entry
 bears on the other.
@@ -47,7 +54,10 @@ which the owner holds, since the instances are the owner's to report.
 Work pulled into a design by an event it happens to cause is designed at the wrong moment, inside a
 scope that was not built for it, or delays the design that met it, against
 `goal@agents-work-without-drift`. It strains `design@agent-skills@standing-state-review-before-every-merge`,
-which makes waiting entries read against every change, and the trigger test.
+which has every tripwire and every deferred trigger read against every change, and the trigger
+test; a `design` entry's re-entry point is read by no review, as
+`issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` records, and the record search
+meets it instead.
 
 ### What would close it
 
