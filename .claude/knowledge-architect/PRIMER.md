@@ -348,8 +348,8 @@ includes the design homes of the intermediate Components enclosing it.
   entry, holding a `README.md`, beside a hand-written `README.md` and a generated `index.md`. Each
   entry is an anchor named by its basename, carrying at its own directory the register that a
   declared directory register's `carries` names, so an entry of it is cited `<kind>@<entry>@<id>`;
-- a **plan document** is a directory, a spec of docs/plans/specs/ or a milestone of
-  docs/plans/milestones/ with one directory per slice, each holding a `README.md` and, beside it,
+- a **plan document** is a directory, an entry of `spec`, a spec of docs/plans/specs/, or of
+  `milestone`, a milestone of docs/plans/milestones/ with one directory per slice, each holding a `README.md` and, beside it,
   the files `skill@knowledge-architect-planning@plans-layout` lists; a plan's items, of `thread`,
   `argument`, `criterion` and `acceptance`, are level-three headings under the section of their
   kind, in its `README.md` or its `deliberation.md`. A landed slice's directory, moved under its

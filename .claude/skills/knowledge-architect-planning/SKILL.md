@@ -36,7 +36,7 @@ reads, and it re-enters at each slice's audit and at each landing.
 | **slice** | a part of a milestone that is one branch and one PR, with its own spec, a directory inside the milestone's, cited `spec@<milestone>@<slice>` |
 | **milestone** | work across several PRs, with design sessions between them. Its plan documents are one directory: the **milestone document**, its `README.md` with the files beside it, and one spec directory per slice. Cited `milestone@plans@<id>` |
 | **harvested** | the state of a slice's spec once its slice has landed: its directory moved under its milestone's `harvested/`, frozen there, until the milestone's directory leaves (`skill@knowledge-architect-planning@plan-document-leaves`) |
-| **frozen** | no commit modifies the file: a commit may add it or delete it, and the move that harvests a slice moves it; every file under a milestone's `harvested/` is frozen |
+| **frozen** | no commit modifies the file: the move that harvests a slice adds it, unchanged, and a commit may delete it; every file under a milestone's `harvested/` is frozen |
 | **item** | a thread, an argument, a criterion or an acceptance criterion, defined in a plan document as a level-three heading ending with its slug, under the section of its kind (`skill@knowledge-architect-planning@spec-contents`) |
 | **roadmap** | docs/roadmap.md at the project's root, optional: the order in which the owner wants known work done (`skill@knowledge-architect-planning@spec-or-milestone`) |
 | **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction. A plan document's committed copy of it is its `transcript.txt` |
@@ -162,8 +162,8 @@ docs/plans/
 - **Every file under a milestone's `harvested/` is frozen, and out of the walk**: the checker reads
   it for the items it defines alone, so an item it defines still resolves from inside its
   milestone, and a live item that reuses one of its ids is reported. `cargo klarch commits` reports a
-  commit that modifies a frozen file, other than adding it, deleting it, or the move that harvests a
-  slice.
+  commit that modifies or adds a frozen file, other than the move that harvests a slice, which adds
+  each of its files unchanged; a commit may delete one.
 - The checker constructs the anchor `plans` at docs/plans/, one anchor per spec directory and one
   per milestone directory. A slice's directory is no anchor: its milestone is the anchor of every
   file under the milestone's directory. A file or a directory directly under docs/plans/ outside
@@ -727,7 +727,8 @@ after the review before the merge has read the tip that holds it, whose message 
 `spec@<milestone>@<slice>`, which resolves against the commit's parent. The move changes nothing in
 the slice's files: from that commit on they are frozen, and they leave with the milestone's
 directory. The same commit re-points the milestone document's link to the slice, to
-`harvested/<slice>/README.md`, and repairs each citation of the slice, or of an item it defines,
+`harvested/<slice>/README.md`, writes the milestone's `index.md` again with
+`cargo klarch index`, which lists the slice as harvested, and repairs each citation of the slice, or of an item it defines,
 from outside the milestone's directory, as the paragraphs below say of a leaving document's
 citations, since the checker refuses them once the slice is harvested.
 
