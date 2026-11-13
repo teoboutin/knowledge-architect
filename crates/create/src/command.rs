@@ -401,7 +401,7 @@ fn owed_documents(
         let text = home_text(&register.name, &anchor.name);
         match register.shape {
             Shape::Heading => out.push((home.file, text, Some(home.readme))),
-            Shape::File | Shape::Directory => out.push((home.readme, text, None)),
+            Shape::File | Shape::Directory | Shape::Plan(_) => out.push((home.readme, text, None)),
             // An item register lives inside a plan document and has no home of its own.
             Shape::Section => {}
         }
@@ -478,8 +478,10 @@ fn refuse_present_indexes(
         .into_iter()
         .filter(|(a, _, _)| wanted(a))
     {
-        if matches!(register.shape, Shape::File | Shape::Directory)
-            && std::fs::symlink_metadata(root.join(&home.index)).is_ok()
+        if matches!(
+            register.shape,
+            Shape::File | Shape::Directory | Shape::Plan(_)
+        ) && std::fs::symlink_metadata(root.join(&home.index)).is_ok()
         {
             return Err(format!(
                 "{} exists, and the index generated there would replace it: move it aside. \
@@ -577,8 +579,19 @@ fn home_text(register: &str, anchor: &str) -> String {
             "Open issues",
             format!("One file per outstanding item of {anchor}. No entry yet."),
         ),
-        SPEC_REGISTER => ("Specs", "No entry yet.".to_string()),
-        MILESTONE_REGISTER => ("Milestones", "No entry yet.".to_string()),
+        // A plan home says what it holds, and nothing a first plan document makes false.
+        SPEC_REGISTER => (
+            "Specs",
+            "One directory per spec, the plan of work done in one branch, holding its README.md. \
+             The generated index.md lists them."
+                .to_string(),
+        ),
+        MILESTONE_REGISTER => (
+            "Milestones",
+            "One directory per milestone, the plan of work done across several branches, holding \
+             its README.md and one directory per slice. The generated index.md lists them."
+                .to_string(),
+        ),
         other => (
             other,
             format!("The entries of the {other} register. No entry yet."),

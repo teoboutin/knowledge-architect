@@ -184,13 +184,14 @@ mod planted {
         // five refusals of the plans layout, in notes/plans.md: a spec, a milestone directory,
         // a slice spec cited by path, a milestone named as a path's anchor, and a pointer from
         // the root reaching inside `plans`.
-        // And an item of a plan cited from outside it, which the scoped resolution refuses, and
+        // And an item of a plan cited from outside it, which the scoped resolution refuses, a
+        // harvested slice and an item it defines cited from outside its milestone, and
         // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
         // notes/ids.md, a defined id written outside its reference form, once per lint. And, in
         // docs/goals.md, a design head cited from a goals home, which resolves and is refused
         // there, per `design@check@goals-home-cites-only-goals-and-root-homes`. And, in this copy that holds no
         // generated file, the three READMEs' links to an index that is not there.
-        ("references", 29, "is referenced"),
+        ("references", 31, "is referenced"),
         // One defect per shape assertion over what is there: an undeclared kind, a missing owed
         // subsection, an undeclared group, a file of another suffix, and frontmatter that does not
         // parse; and, in this copy that holds no generated file, a missing index for each of the
@@ -354,7 +355,21 @@ mod planted {
             "{what}"
         );
         assert!(action.contains("`milestone@plans@m-one`"), "{action}");
-        assert_eq!(here.len(), 6, "{here:#?}");
+        // A harvested slice and an item it defines, cited from outside the milestone, are each
+        // refused, and each repair cites the milestone whole.
+        let (what, action) = at(14);
+        assert!(
+            what.contains("cites the harvested slice `a-landed-step` of the milestone `m-one`"),
+            "{what}"
+        );
+        assert!(action.contains("`milestone@plans@m-one`"), "{action}");
+        let (what, action) = at(15);
+        assert!(
+            what.contains("cites an item of the plan `m-one` from outside it"),
+            "{what}"
+        );
+        assert!(action.contains("`milestone@plans@m-one`"), "{action}");
+        assert_eq!(here.len(), 8, "{here:#?}");
     }
 
     fn one(needle: &str) -> String {

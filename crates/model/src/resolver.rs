@@ -85,6 +85,12 @@ pub enum Cause {
         form: String,
         id: String,
     },
+    /// A harvested slice cited from outside its milestone's directory.
+    Harvested {
+        milestone: String,
+        form: String,
+        id: String,
+    },
     UndefinedItem {
         anchor: String,
         kind: String,
@@ -261,6 +267,21 @@ impl Cause {
                     "cite the plan whole, as `{form}`, and name the item beside it in plain text as \
                      #{id}; an item is cited only from inside its own plan, so retiring the plan asks \
                      no other document to be redesigned"
+                ),
+            ),
+            Harvested {
+                milestone,
+                form,
+                id,
+            } => (
+                format!(
+                    "`{span}` cites the harvested slice `{id}` of the milestone `{milestone}` from \
+                     outside the milestone"
+                ),
+                format!(
+                    "cite the milestone whole, as `{form}`; a harvested slice is frozen under its \
+                     milestone's harvested/ and cited only from inside that milestone, which \
+                     leaves whole"
                 ),
             ),
             UndefinedItem {
@@ -653,6 +674,11 @@ fn table_written(
         }),
         Resolution::OutsidePlan { form } => Err(Cause::OutsidePlan {
             plan: anchor.to_string(),
+            form: form.to_string(),
+            id: id.to_string(),
+        }),
+        Resolution::Harvested { form } => Err(Cause::Harvested {
+            milestone: anchor.to_string(),
             form: form.to_string(),
             id: id.to_string(),
         }),
@@ -1328,10 +1354,13 @@ fn entry_at(anchors: &Anchors, target: &Path) -> Option<String> {
 
 /// The kind form of a plan document at `target`, or `None` when no plan document is there.
 ///
-/// A plan document is a spec file of `specs/`, a milestone directory, or a file inside a
-/// milestone directory, per `design@model@plan-document-kinds`. The README and the index of the plans
-/// directory and of its two homes are not plan documents, and are cited by path. Judged by
-/// where the target sits, not by whether it exists: a path to a deleted slice spec gets the same
+/// A plan document is a spec's directory of `specs/`, grouped or not, a milestone's directory, or
+/// a slice's directory inside a milestone, per `design@model@plan-document-kinds`; a file inside
+/// one is cited by that plan document's form. A harvested slice is cited from inside its milestone
+/// only, so a path into `harvested/` takes the milestone's form, which resolves from anywhere. The
+/// README and the index of the plans directory and of its two homes are not plan documents, and
+/// are cited by path. Judged by where the target sits, and for a spec by the spec anchors the tree
+/// places, not by whether the target exists: a path to a deleted file of a slice gets the same
 /// repair as one to a present one.
 pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> {
     use crate::manifest::{MILESTONES_HOME, SPECS_HOME};
@@ -1339,27 +1368,37 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
         .all()
         .iter()
         .find(|a| a.constructed == Some(Constructed::Plans))?;
-    if let Ok(inside) = target.strip_prefix(plans.path.join(MILESTONES_HOME)) {
-        let parts: Vec<String> = inside
-            .components()
-            .map(|c| c.as_os_str().to_string_lossy().into_owned())
-            .collect();
+    let parts_under = |dir: &Path| -> Option<Vec<String>> {
+        target.strip_prefix(dir).ok().map(|inside| {
+            inside
+                .components()
+                .map(|c| c.as_os_str().to_string_lossy().into_owned())
+                .collect()
+        })
+    };
+    if let Some(parts) = parts_under(&plans.path.join(MILESTONES_HOME)) {
         // The first segment names a milestone only in the id grammar: a directory of another
-        // name is no milestone, and its finding is phase 2's.
+        // name is no milestone, and its finding is phase 2's. A slice's name is an id too, which
+        // no file of the milestone, `search/` or `harvested/` is.
         let m = parts.first().filter(|m| entity::is_entry_id(m))?;
-        let slice = match parts.as_slice() {
-            [_, file] => file
-                .strip_suffix(".md")
-                .filter(|s| *s != "README" && *s != "index"),
-            _ => None,
-        };
-        return Some(match slice {
+        return Some(match parts.get(1).filter(|s| entity::is_entry_id(s)) {
             Some(slice) => format!("spec@{m}@{slice}"),
             None => format!("milestone@{PLANS_ANCHOR}@{m}"),
         });
     }
-    entity::entry_id(target, &plans.path.join(SPECS_HOME))
-        .map(|id| format!("spec@{PLANS_ANCHOR}@{id}"))
+    let parts = parts_under(&plans.path.join(SPECS_HOME))?;
+    if let Some(spec) = anchors.all().iter().find(|a| {
+        a.constructed == Some(Constructed::Plan(crate::manifest::PlanKind::Spec))
+            && target.starts_with(&a.path)
+    }) {
+        return Some(format!("spec@{PLANS_ANCHOR}@{}", spec.name));
+    }
+    // No spec the tree places holds it: the first segment names the spec, a spec file's stem
+    // included, but the home's own README and index.
+    let first = parts.first()?;
+    let id = first.strip_suffix(".md").unwrap_or(first);
+    (!(parts.len() == 1 && (id == "README" || id == "index")))
+        .then(|| format!("spec@{PLANS_ANCHOR}@{id}"))
 }
 
 /// Assert one resolved target: it exists and has the claimed kind, unless the ignore rules
@@ -1657,17 +1696,18 @@ mod tests {
         );
     }
 
-    /// The claim: the repair a refused plan citation names is the form that resolves for each position: a slice for
-    /// a slice spec, the milestone for its README, its index or anything deeper, a spec for a
-    /// spec, and nothing for a navigation file. Mutations checked: the README and index filter,
-    /// and the one-segment test, each removed from `plan_document`.
+    /// The claim: the repair a refused plan citation names is the form that resolves for each
+    /// position: a slice for a file of a live slice's directory, the milestone for its own files,
+    /// a harvested slice's or anything in no slice, a spec for a file of a spec's directory or a
+    /// spec file, and nothing for a navigation file. Mutations checked: the README and index
+    /// filter, and the id test of the slice segment, each removed from `plan_document`.
     #[test]
     fn the_p1_repair_names_the_form_for_each_position() {
         let m = manifest();
         let anchors = Anchors::of(&m, &[] as &[PathBuf]);
         for (target, form) in [
             (
-                "docs/plans/milestones/m-one/a-slice.md",
+                "docs/plans/milestones/m-one/a-slice/README.md",
                 Some("spec@m-one@a-slice"),
             ),
             (
@@ -1683,10 +1723,26 @@ mod tests {
                 Some("milestone@plans@m-one"),
             ),
             (
-                "docs/plans/milestones/m-one/a.md/x.md",
+                "docs/plans/milestones/m-one/a/README.md/x.md",
                 Some("milestone@plans@m-one"),
             ),
             ("docs/plans/milestones/m-one", Some("milestone@plans@m-one")),
+            (
+                "docs/plans/milestones/m-one/harvested/a-slice/README.md",
+                Some("milestone@plans@m-one"),
+            ),
+            (
+                "docs/plans/milestones/m-one/a-slice/deliberation.md",
+                Some("spec@m-one@a-slice"),
+            ),
+            (
+                "docs/plans/specs/a-spec/README.md",
+                Some("spec@plans@a-spec"),
+            ),
+            (
+                "docs/plans/specs/a-spec/deliberation.md",
+                Some("spec@plans@a-spec"),
+            ),
             ("docs/plans/specs/a-spec.md", Some("spec@plans@a-spec")),
             ("docs/plans/specs/README.md", None),
             ("docs/plans/milestones/README.md", None),
@@ -2140,7 +2196,7 @@ mod tests {
             ),
             (
                 "a-project",
-                "docs/plans/milestones/m-one/a-slice.md:3",
+                "docs/plans/milestones/m-one/a-slice/README.md:3",
                 suffixed(Cause::PlanDocumentByPath {
                     form: "spec@m-one@a-slice".to_string(),
                 }),
@@ -2162,7 +2218,7 @@ mod tests {
         assert_eq!(
             path_over(
                 "a-project",
-                "docs/plans/milestones/m-one/a-slice.md:3",
+                "docs/plans/milestones/m-one/a-slice/README.md:3",
                 &[],
                 &[],
                 &[]

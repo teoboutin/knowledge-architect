@@ -11,7 +11,7 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
 
-use crate::entity::{entry_id, Anchors, Home};
+use crate::entity::{entry_id, Anchor, Anchors, Home};
 use crate::manifest::{Manifest, Register, Shape};
 use crate::model::{Document, Model};
 use crate::scan::Observation;
@@ -138,6 +138,81 @@ pub(crate) fn directory_register_index(
     render(rows, &["id"], command)
 }
 
+/// The index of one plan register's home: one row per plan document, its `README.md`'s title
+/// linking that `README.md`.
+///
+/// specs/ lists its specs, each group under a heading of its own, as a File home lists its
+/// entries; milestones/ lists its milestones by id, as a Directory home lists its entries; a
+/// milestone lists its live slices, then its harvested ones under the heading `harvested`, each
+/// titled from its frozen `README.md`. A plan document whose `README.md` neither the walk nor the
+/// frozen files hold is no row, as a File entry the walk leaves out is none.
+pub(crate) fn plan_index(
+    model: &Model,
+    anchors: &Anchors,
+    anchor: &Anchor,
+    register: &Register,
+    home: &Home,
+    command: &str,
+) -> String {
+    if register.name == crate::manifest::MILESTONE_REGISTER {
+        let mut rows = Vec::new();
+        for m in anchors.all().iter().filter(|a| a.is_milestone()) {
+            if m.path.parent() != Some(home.dir.as_path()) {
+                continue;
+            }
+            rows.push(Row {
+                group: None,
+                values: vec![m.name.clone()],
+                title: titled(model, &m.path.join("README.md"), &m.name),
+                link: format!("{}/README.md", m.name),
+                id: m.name.clone(),
+            });
+        }
+        return render(rows, &["id"], command);
+    }
+    // Read off the documents the model holds, never off a listing, which a model assembled from a
+    // commit's blobs has none of: `check` and `commits` then render one index for one tree.
+    let read: Vec<&PathBuf> = model
+        .documents()
+        .iter()
+        .chain(model.frozen())
+        .map(|d| &d.rel)
+        .collect();
+    let dirs = if anchor.is_milestone() {
+        crate::plan::slices(&anchor.path, read.iter().copied())
+    } else {
+        crate::plan::spec_dirs_all(read.iter().copied())
+    };
+    let mut rows = Vec::new();
+    for dir in dirs {
+        let inside = dir.path.strip_prefix(&home.dir).unwrap_or(&dir.path);
+        let parts: Vec<String> = inside
+            .components()
+            .map(|c| c.as_os_str().to_string_lossy().into_owned())
+            .collect();
+        rows.push(Row {
+            group: (parts.len() > 1).then(|| parts[0].clone()),
+            values: Vec::new(),
+            title: titled(model, &dir.readme(), &dir.name),
+            link: format!("{}/README.md", parts.join("/")),
+            id: dir.name,
+        });
+    }
+    render(rows, &[], command)
+}
+
+/// The level-one title of the document at `rel`, walked or frozen, or `id` where neither holds
+/// one.
+fn titled(model: &Model, rel: &std::path::Path, id: &str) -> String {
+    model
+        .documents()
+        .iter()
+        .chain(model.frozen())
+        .find(|d| d.rel == rel)
+        .map(|d| title(d, id))
+        .unwrap_or_else(|| id.to_string())
+}
+
 /// The bytes of an index over its rows, per `design@model@a-file-register-index-is-rows`.
 fn render(mut rows: Vec<Row>, keys: &[&str], command: &str) -> String {
     rows.sort_by(|a, b| {
@@ -253,7 +328,7 @@ pub fn file_register_indexes(
 ) -> Vec<(PathBuf, String)> {
     let mut out = Vec::new();
     let anchors = Anchors::of(manifest, present);
-    for (_, register, home) in anchors.instances() {
+    for (anchor, register, home) in anchors.instances() {
         if !directories.contains(&home.dir) {
             continue;
         }
@@ -263,6 +338,9 @@ pub fn file_register_indexes(
             Shape::File => file_register_index(model, register, &home, manifest.command()),
             Shape::Directory => {
                 directory_register_index(model, &anchors, &register.name, &home, manifest.command())
+            }
+            Shape::Plan(_) => {
+                plan_index(model, &anchors, anchor, register, &home, manifest.command())
             }
         };
         out.push((home.index.clone(), text));
@@ -305,7 +383,12 @@ pub(crate) fn generated_index_paths<'a>(
     Anchors::of(manifest, paths)
         .instances()
         .into_iter()
-        .filter(|(_, register, _)| matches!(register.shape, Shape::File | Shape::Directory))
+        .filter(|(_, register, _)| {
+            matches!(
+                register.shape,
+                Shape::File | Shape::Directory | Shape::Plan(_)
+            )
+        })
         .map(|(_, _, home)| home.index)
         .collect()
 }
@@ -517,8 +600,10 @@ mod tests {
     }
 
     /// The claim: the milestones home's index has one row per milestone, its README's title
-    /// linking its README, and no row for a file inside a milestone, whose own index lists it.
-    /// Mutation checked: the Directory home rendered by `file_register_index`.
+    /// linking its README, and no row for a slice, which the milestone's own index lists, live
+    /// first and harvested under a heading, a harvested slice titled from its frozen README.
+    /// Mutations checked: the milestones home rendered as a slice listing; `model.frozen()`
+    /// dropped from the documents `plan_index` reads.
     #[test]
     fn the_milestones_index_lists_each_milestone_once_and_no_file_inside_one() {
         let text =
@@ -535,16 +620,22 @@ mod tests {
                 "# The first one\n",
             ),
             (
-                "docs/plans/milestones/a-first/a-slice.md",
+                "docs/plans/milestones/a-first/a-slice/README.md",
                 "# A slice of it\n",
             ),
         ];
-        let model = Model::from_documents(
+        let mut model = Model::from_documents(
             docs.iter()
                 .map(|(p, t)| (PathBuf::from(p), t.to_string()))
                 .collect(),
         );
+        let landed = "docs/plans/milestones/a-first/harvested/a-landed-slice/README.md";
+        model.set_frozen(vec![(
+            PathBuf::from(landed),
+            "# A landed slice\n".to_string(),
+        )]);
         let mut present: HashSet<PathBuf> = docs.iter().map(|(p, _)| PathBuf::from(p)).collect();
+        present.insert(PathBuf::from(landed));
         present.insert(PathBuf::from("docs/plans/milestones/a-first"));
         present.insert(PathBuf::from("docs/plans/milestones/b-later"));
         present.insert(PathBuf::from("docs/plans/milestones"));
@@ -568,8 +659,9 @@ mod tests {
         );
         assert_eq!(
             all[&PathBuf::from("docs/plans/milestones/a-first/index.md")],
-            "**Generated — do not edit.** `klarch index`\n\n1 entry\n\n| title |\n| --- |\n\
-             | [A slice of it](a-slice.md) |\n"
+            "**Generated — do not edit.** `klarch index`\n\n2 entries\n\n| title |\n| --- |\n\
+             | [A slice of it](a-slice/README.md) |\n\n## harvested\n\n| title |\n| --- |\n\
+             | [A landed slice](harvested/a-landed-slice/README.md) |\n"
         );
     }
 
@@ -583,7 +675,7 @@ mod tests {
              [walk]\nskip-dirs = []\nskip-files = []\n\n";
         let manifest = Manifest::parse(std::path::Path::new("/nowhere"), text).expect("declared");
         let tree: Vec<PathBuf> = [
-            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/a-spec/README.md",
             "docs/plans/milestones/m-one/README.md",
         ]
         .iter()

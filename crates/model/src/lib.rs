@@ -58,6 +58,7 @@ mod index;
 mod manifest;
 mod model;
 mod phases;
+mod plan;
 mod records;
 mod resolver;
 mod scan;
@@ -80,9 +81,10 @@ pub use model::{Document, Model};
 /// What a manifest declares.
 pub mod declared {
     pub use crate::manifest::{
-        normalise_list, normalise_one, owned_path, LocationDecl, Pin, Register, Registers, Scope,
-        Shape, Walk, AGENT_DOCUMENT, GOAL_REGISTER, ISSUE_REGISTER, MILESTONE_REGISTER,
-        OWNED_PREFIX, REJECTED_REGISTER, SPEC_REGISTER, TRIPWIRE_REGISTER,
+        normalise_list, normalise_one, owned_path, LocationDecl, Pin, PlanKind, Register,
+        Registers, Scope, Shape, Walk, AGENT_DOCUMENT, DELIBERATION_FILE, DELIBERATION_SECTIONS,
+        GOAL_REGISTER, ISSUE_REGISTER, MILESTONE_REGISTER, OWNED_PREFIX, REJECTED_REGISTER,
+        SPEC_REGISTER, TRIPWIRE_REGISTER,
     };
 }
 
@@ -104,7 +106,7 @@ pub mod document {
 
 /// What the tree holds beside the walked documents, and how the walk filters it.
 pub mod listing {
-    pub use crate::model::snapshot_checker_dirs;
+    pub use crate::model::{frozen_file, snapshot_checker_dirs};
     pub use crate::survey::{from_listing, survey, Outside, Survey};
     pub use crate::walk::{live_files, skipped};
 }

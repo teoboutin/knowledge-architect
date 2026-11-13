@@ -4,4 +4,4 @@
 
 | title |
 | --- |
-| [A spec the mock plans](a-spec.md) |
+| [A spec the mock plans](a-spec/README.md) |

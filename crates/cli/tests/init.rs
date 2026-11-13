@@ -267,6 +267,68 @@ fn init_then_check_passes_at_the_root() {
     assert!(!goals.contains("\n## "), "no goal is written: {goals}");
 }
 
+/// The claim: `init` writes the plans directory in the layout the model defines, and no text of
+/// it turns false once a first spec is added: a spec's directory, with its README.md and its
+/// deliberation.md, passes the check after `index`, and neither plan home says it holds no entry.
+/// Mutation checked: `home_text` of `path@create@src/command.rs` given back "No entry yet." for
+/// the `spec` register, caught by the text assertion.
+#[test]
+fn init_writes_a_plans_directory_a_first_spec_leaves_true() {
+    let scratch = Scratch::new("plans-layout");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "probe"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let root = scratch.path("probe");
+    for home in [
+        "docs/plans/specs/README.md",
+        "docs/plans/milestones/README.md",
+    ] {
+        let text = std::fs::read_to_string(root.join(home)).expect("written");
+        assert!(!text.contains("No entry yet"), "{home}: {text}");
+        assert!(text.contains("One directory per"), "{home}: {text}");
+    }
+    let mut readme = "# A first spec\n".to_string();
+    for section in [
+        "Status and audience",
+        "How the work is done",
+        "Names",
+        "What the work is",
+        "What is already decided",
+        "Criteria",
+        "New names, in one place",
+        "Decided design",
+        "Mapping tables",
+        "Losing alternatives",
+        "Readings",
+        "Premortem",
+        "Acceptance criteria",
+        "Implementation sequence",
+        "Order rationale",
+        "Defaults awaiting the owner",
+        "Harvest",
+        "Later consequences",
+    ] {
+        readme.push_str(&format!("\n## {section}\n\nNone.\n"));
+    }
+    let spec = root.join("docs/plans/specs/a-first-spec");
+    std::fs::create_dir_all(&spec).expect("the spec's directory");
+    std::fs::write(spec.join("README.md"), readme).expect("the spec");
+    std::fs::write(
+        spec.join("deliberation.md"),
+        "# Its deliberation\n\n## Threads\n\n### One thread `##one-thread`\n\nArgued.\n\n\
+         ## Arguments\n\nNone.\n",
+    )
+    .expect("the deliberation");
+    let (out, err, code) = klarch(&root, &["index"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let (out, err, code) = klarch(&root, &["check"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let index = std::fs::read_to_string(root.join("docs/plans/specs/index.md")).expect("written");
+    assert!(
+        index.contains("[A first spec](a-first-spec/README.md)"),
+        "{index}"
+    );
+}
+
 /// The claim: an existing README.md and CLAUDE.md are kept byte for byte and listed as kept;
 /// a kept CLAUDE.md that lacks the primer's import makes the run exit 1 with the check's
 /// finding, since files were written.

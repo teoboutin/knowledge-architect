@@ -24,16 +24,6 @@ None.
 
 None.
 
-## Threads
-
-### A thread its slice defines again `##defined-twice`
-
-The slice spec defines the same id.
-
-## Arguments
-
-None.
-
 ## New names, in one place
 
 None.

@@ -1,0 +1,6 @@
+A transcript, never parsed: it quotes `design@dirhome@no-such-entry`, which names nothing, a
+heading that would define a slug,
+
+### A quoted heading `##a-quoted-slug`
+
+and a commit by its digits, 1234567abcdef0.

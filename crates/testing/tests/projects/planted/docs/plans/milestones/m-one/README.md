@@ -1,6 +1,6 @@
 # A milestone the planted mock cites the wrong way
 
-Its one step is [the step](a-step.md); the listing is [the index](index.md).
+Its one step is [the step](a-step/README.md), its landed step [the landed step](harvested/a-landed-step/README.md); the listing is [the index](index.md), and its discussion [the deliberation](deliberation.md).
 
 ## Status and audience
 
@@ -23,16 +23,6 @@ None.
 None.
 
 ## Criteria
-
-None.
-
-## Threads
-
-### The planted milestone holds one thread `##planted-thread`
-
-Cited from outside the plan in the planted notes.
-
-## Arguments
 
 None.
 

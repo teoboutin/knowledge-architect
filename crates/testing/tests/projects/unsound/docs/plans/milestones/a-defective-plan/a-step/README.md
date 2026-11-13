@@ -4,12 +4,6 @@
 
 Nothing.
 
-## Threads
-
-### The same thread again `##defined-twice`
-
-One namespace per milestone, so this is the second definition.
-
 ## Claims
 
 None.

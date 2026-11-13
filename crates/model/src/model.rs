@@ -92,6 +92,34 @@ pub struct Model {
     /// per `design@model@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: the last phase judges
     /// the bytes, and reports it.
     installed: Vec<Document>,
+    /// The markdown files under a milestone's `harvested/`, the one frozen location, parsed and
+    /// scanned like a document and walked by no check: they define the items and the slices of
+    /// their milestone, and no reference in them is read, as `crate::plan` says.
+    frozen: Vec<Document>,
+}
+
+/// Each file parsed as markdown prose, as a file outside the walk read for its definitions is.
+fn parsed_prose(files: Vec<(PathBuf, String)>) -> Vec<Document> {
+    files
+        .into_iter()
+        .map(|(rel, text)| {
+            let parsed = source::parse(&rel, &text, Literals::Prose);
+            let observations = scan::scan(&parsed);
+            Document {
+                rel,
+                text,
+                parsed,
+                observations,
+                literals: Literals::Prose,
+            }
+        })
+        .collect()
+}
+
+/// Whether the file `rel` is a frozen file of a project: one under a milestone's `harvested/`,
+/// where the project has the anchor `plans`.
+pub fn frozen_file(manifest: &Manifest, rel: &Path) -> bool {
+    manifest.plans() && crate::plan::is_frozen(rel)
 }
 
 /// The checker's directories as the summary block names them: project-relative where one sits
@@ -184,6 +212,8 @@ impl Model {
         // first is a function of the tree, the second is judged by its bytes alone.
         let mut generated = crate::index::generated_paths(manifest, &listing);
         generated.extend(files.iter().filter(|f| manifest.owned(f)).cloned());
+        // A frozen file leaves the walk by construction, as an installed one does.
+        generated.extend(files.iter().filter(|f| frozen_file(manifest, f)).cloned());
         for path in walk::live_files(root, walk_config, &files, &generated) {
             let rel_for_error = path.strip_prefix(root).unwrap_or(&path).to_path_buf();
             let text = match std::fs::read_to_string(&path) {
@@ -242,6 +272,14 @@ impl Model {
                 Some((rel.clone(), text))
             })
             .collect();
+        let frozen = files
+            .iter()
+            .filter(|f| frozen_file(manifest, f) && f.extension().is_some_and(|e| e == "md"))
+            .filter_map(|rel| {
+                let text = std::fs::read_to_string(root.join(rel)).ok()?;
+                Some((rel.clone(), text))
+            })
+            .collect();
         let mut model = Self {
             root: root.to_path_buf(),
             docs,
@@ -250,8 +288,10 @@ impl Model {
             untracked,
             checker_sources,
             installed: Vec::new(),
+            frozen: Vec::new(),
         };
         model.set_installed(installed);
+        model.set_frozen(frozen);
         Ok(model)
     }
 
@@ -336,6 +376,7 @@ impl Model {
             untracked: HashSet::new(),
             checker_sources: checker.iter().map(|p| p.to_path_buf()).collect(),
             installed: Vec::new(),
+            frozen: Vec::new(),
         }
     }
 
@@ -345,20 +386,22 @@ impl Model {
     /// entities are its own installed set's. A copy is markdown, so it is parsed with no literal
     /// mode, and nothing walks it.
     pub fn set_installed(&mut self, copies: Vec<(PathBuf, String)>) {
-        self.installed = copies
-            .into_iter()
-            .map(|(rel, text)| {
-                let parsed = source::parse(&rel, &text, Literals::Prose);
-                let observations = scan::scan(&parsed);
-                Document {
-                    rel,
-                    text,
-                    parsed,
-                    observations,
-                    literals: Literals::Prose,
-                }
-            })
-            .collect();
+        self.installed = parsed_prose(copies);
+    }
+
+    /// Set the frozen files the model holds, each project-relative with its text: the markdown
+    /// files under a milestone's `harvested/`.
+    ///
+    /// `build` reads them off the disk; `commits` hands in a commit's own blobs. Each is parsed
+    /// as markdown, and nothing walks it.
+    pub fn set_frozen(&mut self, files: Vec<(PathBuf, String)>) {
+        self.frozen = parsed_prose(files);
+    }
+
+    /// The frozen files, parsed: read by the entity table for definitions, by no check for
+    /// references, per `crate::plan`.
+    pub fn frozen(&self) -> &[Document] {
+        &self.frozen
     }
 
     /// The installed copies, parsed: read by the entity table for definitions, by no check for

@@ -1,7 +1,9 @@
 # A milestone the mock plans
 
-Its one step is [the step](a-step.md), cited `spec@a-milestone@a-step`; the listing is
-[the index](index.md). A spec beside it is `spec@plans@a-spec`, and the plans directory's own
+Its one step is [the step](a-step/README.md), cited `spec@a-milestone@a-step`, and its landed
+step `spec@a-milestone@a-landed-step`; the listing is [the index](index.md). Its discussion is
+[the deliberation](deliberation.md), its search [the generated lines](search/discussion.txt) and
+its source [the transcript](transcript.txt). A spec beside it is `spec@plans@a-spec`, and the plans directory's own
 head is `path@plans@README.md`, its specs home `register@plans@spec` and that home's
 listing `path@plans@specs/index.md`.
 
@@ -28,18 +30,6 @@ None.
 ## Criteria
 
 None.
-
-## Threads
-
-### The milestone has one slice `##one-slice`
-
-Approved, argued by `argument@a-milestone@arg-1`.
-
-## Arguments
-
-### One slice is enough for a mock `##arg-1`
-
-Bears on `thread@a-milestone@one-slice`.
 
 ## New names, in one place
 

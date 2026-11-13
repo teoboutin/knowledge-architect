@@ -181,11 +181,11 @@ pub struct WorklistArgs {
     /// written. The work list names the commit by its subject.
     #[arg(long, value_name = "COMMIT", conflicts_with = "verify")]
     pub since: Option<String>,
-    /// The path of a plan document, a spec, a slice's spec or a milestone document, for its
-    /// design audit: the design entries and declared-register entries its section "What is
-    /// already decided" cites become seeds, beside any `--seed`, and `--verify` writes the
-    /// audit's outputs. A path that is no plan document, or that holds a line break, is refused,
-    /// nothing written.
+    /// The directory of a plan document, a spec, a slice or a milestone, or its README.md, for
+    /// its design audit: the design entries and declared-register entries the section "What is
+    /// already decided" of its README.md cites become seeds, beside any `--seed`, and `--verify`
+    /// writes the audit's outputs. A path that is no plan document's directory or README.md, or
+    /// that holds a line break, is refused, nothing written.
     #[arg(long = "seeds-from", value_name = "SPEC", conflicts_with = "verify")]
     pub seeds_from: Option<std::path::PathBuf>,
 }

@@ -24,13 +24,6 @@ None.
 
 None.
 
-## Threads
-
-None.
-
-## Arguments
-
-None.
 
 ## New names, in one place
 

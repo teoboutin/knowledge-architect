@@ -70,8 +70,11 @@ fn the_walk_obeys_the_project_that_declares_it() {
 }
 
 /// The indexes of the plans homes and of each milestone leave the walk too: the walk asks for
-/// the generated paths with git's listing, which places the milestones. Mutation checked:
-/// `Model::build` asking with an empty listing, which walks the milestone's index.
+/// the generated paths with git's listing, which places the milestones. So do a milestone's
+/// harvested slice, the one frozen location, and every `.txt` file of a plan's directory, its
+/// search/ and its transcript. Mutations checked: `Model::build` asking with an empty listing,
+/// which walks the milestone's index; the frozen files left out of `generated` in `Model::build`,
+/// which walks the harvested slice.
 #[test]
 fn the_plans_indexes_are_outside_the_walk() {
     let names = walked(&model("dirhome"));
@@ -85,9 +88,12 @@ fn the_plans_indexes_are_outside_the_walk() {
             "docs/plans/README.md",
             "docs/plans/milestones/README.md",
             "docs/plans/milestones/a-milestone/README.md",
-            "docs/plans/milestones/a-milestone/a-step.md",
+            "docs/plans/milestones/a-milestone/a-step/README.md",
+            "docs/plans/milestones/a-milestone/a-step/deliberation.md",
+            "docs/plans/milestones/a-milestone/deliberation.md",
             "docs/plans/specs/README.md",
-            "docs/plans/specs/a-spec.md",
+            "docs/plans/specs/a-spec/README.md",
+            "docs/plans/specs/a-spec/deliberation.md",
         ]
     );
 }
@@ -354,14 +360,17 @@ mod unsound {
             "agent-config/open-issues",
             "docs/plans/stray.md",
             "docs/plans/milestones/Not_An_Id",
+            "docs/plans/milestones/a-defective-plan/a-slice-file.md",
+            "docs/plans/milestones/a-defective-plan/search/verdicts.md",
             "docs/plans/milestones/held-twice/register.toml",
             "docs/plans/milestones/no-readme",
             "docs/plans/milestones/register.toml",
             "docs/plans/milestones/stray.md",
             "docs/plans/milestones/the-widget",
             "docs/plans/milestones/the-widget.md",
-            "docs/plans/specs/agent-config.md",
-            "docs/plans/specs/held-twice.md",
+            "docs/plans/specs/a-spec-file.md",
+            "docs/plans/specs/agent-config/README.md",
+            "docs/plans/specs/held-twice/README.md",
         ];
         assert_eq!(first_files, want, "{found:#?}");
     }
@@ -424,12 +433,21 @@ mod unsound {
             "`docs/plans/milestones/register.toml` sits in milestones/"
         )
         .starts_with("docs/plans/milestones/register.toml"));
+        assert!(one_of(
+            &found,
+            "`docs/plans/milestones/held-twice/register.toml` sits in the milestone directory"
+        )
+        .starts_with("docs/plans/milestones/held-twice/register.toml"));
+        // A plan document is a directory, so a spec file and a slice file are each a finding
+        // whose repair names the directory, and search/ holds `.txt` files alone.
+        assert!(one_of(&found, "is a spec file, and a spec is a directory")
+            .contains("move it to `docs/plans/specs/a-spec-file/README.md`"));
         assert!(
-            one_of(&found, "a milestone directory holds no register.toml")
-                .starts_with("docs/plans/milestones/held-twice/register.toml")
-                && one_of(&found, "a milestone directory holds no register.toml")
-                    .contains("a milestone's slice specs sit beside its README, ungrouped")
+            one_of(&found, "a-slice-file.md` sits in the milestone directory")
+                .contains("a slice is a directory: move it to")
         );
+        assert!(one_of(&found, "holds `.txt` files alone")
+            .starts_with("docs/plans/milestones/a-defective-plan/search/verdicts.md"));
         assert!(one_of(&found, "the milestone `the-widget` is no anchor")
             .contains("is the name of a component"));
         assert!(one_of(&found, "the milestone `Not_An_Id` is no anchor")
@@ -462,7 +480,7 @@ mod unsound {
             foreign.contains("move each entry to the root's home"),
             "{foreign}"
         );
-        assert_eq!(found.len(), 17, "{found:#?}");
+        assert_eq!(found.len(), 20, "{found:#?}");
     }
 
     #[test]
@@ -519,6 +537,13 @@ mod unsound {
             .filter(|f| f.contains("`thread@a-defective-plan@defined-twice` is also defined at"))
             .collect();
         assert_eq!(twice.len(), 2, "{all:#?}");
+        // A live item reusing the id of an item a harvested slice defines is reported at the live
+        // site alone: the frozen file defines, and reports nothing.
+        assert!(one_of(
+            &all,
+            "`thread@a-defective-plan@frozen-twice` is also defined at"
+        )
+        .starts_with("docs/plans/milestones/a-defective-plan/a-step/deliberation.md"));
         // An id of one segment, reported where it is defined, per
         // `design@model@two-segment-ids`.
         let lonely = one_of(&all, "`##lonely` is an id of one segment");
@@ -530,7 +555,7 @@ mod unsound {
             "`##widget-goal` is written in `parts/the-widget/docs/goals.md`",
         );
         assert!(widget.contains("no heading register home"), "{widget}");
-        assert_eq!(all.len(), 14, "{all:#?}");
+        assert_eq!(all.len(), 15, "{all:#?}");
     }
 
     #[test]

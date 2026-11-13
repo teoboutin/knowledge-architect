@@ -775,7 +775,7 @@ fn tiny_project(history: &History, unloadable: bool) {
     );
     history.write(
         "docs/plans/specs/README.md",
-        "# Specs — tiny\n\nOne file per spec; the listing beside this file is generated.\n",
+        "# Specs — tiny\n\nOne directory per spec; the listing beside this file is generated.\n",
     );
     history.write(
         "docs/plans/milestones/README.md",
@@ -1113,6 +1113,56 @@ fn anchors_lists_every_anchor_kind_with_its_homes() {
     );
     assert!(after("m-one ").is_empty(), "{out}");
     assert!(after("a-spec ").is_empty(), "{out}");
+    // A spec and a milestone are each listed at its directory; a slice, live or harvested, is
+    // no anchor, so no line names it.
+    assert!(
+        out.lines()
+            .any(|l| l == "a-spec  spec  docs/plans/specs/a-spec"),
+        "{out}"
+    );
+    assert!(
+        out.lines()
+            .any(|l| l == "m-one  milestone  docs/plans/milestones/m-one"),
+        "{out}"
+    );
+    assert!(
+        !out.contains("a-step") && !out.contains("a-landed-step"),
+        "{out}"
+    );
+}
+
+/// The claim: `show` prints an item wherever its document sits in the plan's directory, with
+/// every reference to it: one of a spec's deliberation.md, cited from its README.md, and one a
+/// harvested slice defines, read from its frozen file and cited from a live slice's README.md.
+/// Mutation checked: `.chain(model.frozen())` dropped from `records` in
+/// `path@model@src/records.rs`, which prints the harvested item as resolving to nothing.
+#[test]
+fn show_prints_an_item_of_any_file_of_a_plan_s_directory_with_its_citers() {
+    for (reference, site, citer) in [
+        (
+            "thread@a-spec@one-thing",
+            "docs/plans/specs/a-spec/deliberation.md:5",
+            "docs/plans/specs/a-spec/README.md:",
+        ),
+        (
+            "thread@a-milestone@landed-thread",
+            "docs/plans/milestones/a-milestone/harvested/a-landed-step/deliberation.md:5",
+            "docs/plans/milestones/a-milestone/a-step/README.md:",
+        ),
+    ] {
+        let (out, stderr, code) = run("dirhome", &["show", reference]);
+        assert_eq!(code, 0, "{reference}: {out}{stderr}");
+        assert!(
+            out.lines().next() == Some(&format!("{reference}  {site}")),
+            "{reference}: {out}"
+        );
+        assert!(
+            out.lines()
+                .skip_while(|l| *l != "referenced at:")
+                .any(|l| l.trim_start().starts_with(citer)),
+            "{reference}: {out}"
+        );
+    }
 }
 
 /// A heading register's home in its directory shape is printed as the directory, and a
@@ -2709,7 +2759,7 @@ fn a_message_naming_the_plan_document_its_commit_deletes_resolves_against_the_pa
     let history = History::new("commit-plan-parent");
     tiny_project(&history, false);
     history.write(
-        "docs/plans/specs/a-spec.md",
+        "docs/plans/specs/a-spec/README.md",
         &plan_document(
             "A spec that lands",
             "It is the plan of one pull request.",
@@ -2720,26 +2770,26 @@ fn a_message_naming_the_plan_document_its_commit_deletes_resolves_against_the_pa
         "docs/plans/milestones/a-milestone/README.md",
         &plan_document(
             "A milestone that lands",
-            "Its steps: [the first](first-step.md), [the last](last-step.md); [the index](index.md).",
+            "Its steps: [the first](first-step/README.md), [the last](last-step/README.md); [the index](index.md).",
             &[],
         ),
     );
     history.write(
-        "docs/plans/milestones/a-milestone/first-step.md",
+        "docs/plans/milestones/a-milestone/first-step/README.md",
         &slice_document("Its first step"),
     );
     history.write(
-        "docs/plans/milestones/a-milestone/last-step.md",
+        "docs/plans/milestones/a-milestone/last-step/README.md",
         &slice_document("Its last step"),
     );
     let base = history.commit("The plans are written\n");
-    history.remove("docs/plans/specs/a-spec.md");
-    history.remove("docs/plans/milestones/a-milestone/first-step.md");
+    history.remove("docs/plans/specs/a-spec/README.md");
+    history.remove("docs/plans/milestones/a-milestone/first-step/README.md");
     history.write(
         "docs/plans/milestones/a-milestone/README.md",
         &plan_document(
             "A milestone that lands",
-            "Its step: [the last](last-step.md); [the index](index.md).",
+            "Its step: [the last](last-step/README.md); [the index](index.md).",
             &[],
         ),
     );
@@ -2747,7 +2797,7 @@ fn a_message_naming_the_plan_document_its_commit_deletes_resolves_against_the_pa
         "The spec and the first step land\n\nThey leave: `spec@plans@a-spec` and \
          `spec@a-milestone@first-step`.\n",
     );
-    for rel in ["README.md", "last-step.md", "index.md"] {
+    for rel in ["README.md", "last-step/README.md", "index.md"] {
         history.remove(&format!("docs/plans/milestones/a-milestone/{rel}"));
     }
     let milestone = history.commit(
@@ -2773,7 +2823,7 @@ fn a_message_cites_a_plan_whole_and_never_an_item() {
     tiny_project(&history, false);
     let base = history.commit("The project is created\n");
     history.write(
-        "docs/plans/specs/a-spec.md",
+        "docs/plans/specs/a-spec/README.md",
         &plan_document(
             "A spec with one thread",
             "It is the plan of one pull request.",
@@ -2795,6 +2845,93 @@ fn a_message_cites_a_plan_whole_and_never_an_item() {
     );
 }
 
+/// The claims of the frozen location under `commits`: a commit that modifies a file of a slice
+/// under its milestone's `harvested/` is reported, naming the commit and the file, and one that
+/// adds a file there, deletes one, or moves a live slice's directory there is not; and a
+/// `transcript.txt`, never parsed, holding a dangling reference, a slug definition and the SHA of a
+/// commit of the range yields no finding, under `refuse-branch-shas`, nor does a committed
+/// markdown file under harvested/ holding a dangling reference. Mutations checked, in
+/// `path@check@src/commands/history.rs`: `findings.extend(frozen);` made `drop(frozen);`, caught
+/// by the edit; in `path@git@src/git.rs`, `--diff-filter=MT` of `modified_paths` made
+/// `--diff-filter=MTAD`, caught by the addition and the deletion.
+#[test]
+fn a_commit_that_modifies_a_harvested_file_is_reported_and_no_other_change_there_is() {
+    let history = History::new("commit-frozen");
+    tiny_project_refusing_branch_shas(&history);
+    let m = "docs/plans/milestones/a-milestone";
+    history.write(
+        &format!("{m}/README.md"),
+        &plan_document(
+            "A milestone",
+            "Its slices: [the first](first-step/README.md), [the last](last-step/README.md).",
+            &[],
+        ),
+    );
+    history.write(
+        &format!("{m}/first-step/README.md"),
+        &slice_document("Its first step"),
+    );
+    history.write(
+        &format!("{m}/last-step/README.md"),
+        &slice_document("Its last step"),
+    );
+    let base = history.commit("The milestone is planned\n");
+    history.write(
+        &format!("{m}/transcript.txt"),
+        &format!(
+            "A transcript quotes `design@tiny@no-such-entry`, a heading\n\n\
+             ### A quoted heading `##a-quoted-slug`\n\nand the commit {base}.\n"
+        ),
+    );
+    let quoted = history.commit("The transcript is committed\n");
+    history.write(
+        &format!("{m}/README.md"),
+        &plan_document(
+            "A milestone",
+            "Its slices: [the last](last-step/README.md), and one harvested.",
+            &[],
+        ),
+    );
+    std::fs::create_dir_all(history.dir.join(format!("{m}/harvested")))
+        .expect("the harvested directory");
+    history.git(&[
+        "mv",
+        &format!("{m}/first-step"),
+        &format!("{m}/harvested/first-step"),
+    ]);
+    let frozen = history.commit("The first step is harvested\n");
+    history.write(
+        &format!("{m}/harvested/first-step/notes.md"),
+        "# Notes added after the move\n\nThey cite `design@tiny@no-such-entry`, which a frozen \
+         file may, since nothing reads its references.\n",
+    );
+    let added = history.commit("A file is added under harvested\n");
+    history.write(
+        &format!("{m}/harvested/first-step/README.md"),
+        &slice_document("Its first step, edited once frozen"),
+    );
+    let edited = history.commit("A harvested file is edited\n");
+    history.remove(&format!("{m}/harvested/first-step/notes.md"));
+    let deleted = history.commit("A file under harvested is deleted\n");
+    let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    for sha in [&quoted, &frozen, &added, &deleted] {
+        assert!(stdout.contains(&format!("{sha} passed")), "{sha}: {stdout}");
+    }
+    assert!(
+        stdout.contains(&format!("{edited} failed: it modifies 1 harvested file(s)")),
+        "{stdout}"
+    );
+    assert!(
+        stdout.contains(&format!(
+            "commit {edited}: {m}/harvested/first-step/README.md  this commit modifies a file of a \
+             harvested slice"
+        )),
+        "{stdout}"
+    );
+    assert!(stdout.contains("FAILED: 1 finding above"), "{stdout}");
+}
+
 /// The claim: the anchors a message is judged against are its commit's, milestone anchors
 /// included, and not the working tree's. The milestone's deletion is staged and not committed
 /// before the range is judged, so git's listing of the working tree holds no anchor
@@ -2808,16 +2945,16 @@ fn a_commit_s_milestone_anchors_are_read_off_its_own_tree() {
         "docs/plans/milestones/a-milestone/README.md",
         &plan_document(
             "A milestone",
-            "Its step: [the step](a-step.md); [the index](index.md).",
+            "Its step: [the step](a-step/README.md); [the index](index.md).",
             &[],
         ),
     );
     history.write(
-        "docs/plans/milestones/a-milestone/a-step.md",
+        "docs/plans/milestones/a-milestone/a-step/README.md",
         &slice_document("Its step"),
     );
     let sha = history.commit("A milestone is planned\n\nIts step is `spec@a-milestone@a-step`.\n");
-    for rel in ["README.md", "a-step.md", "index.md"] {
+    for rel in ["README.md", "a-step/README.md", "index.md"] {
         history.remove(&format!("docs/plans/milestones/a-milestone/{rel}"));
     }
     history.git(&["add", "-A"]);
@@ -4988,10 +5125,14 @@ fn an_escape_resolving_here_names_a_form_the_next_run_accepts() {
             "`milestone@plans@a-milestone`",
         ),
         (
-            "docs/plans/milestones/a-milestone/a-step.md",
+            "docs/plans/milestones/a-milestone/a-step/README.md",
             "`spec@a-milestone@a-step`",
         ),
-        ("docs/plans/specs/a-spec.md", "`spec@plans@a-spec`"),
+        (
+            "docs/plans/milestones/a-milestone/harvested/a-landed-step/README.md",
+            "`milestone@plans@a-milestone`",
+        ),
+        ("docs/plans/specs/a-spec/README.md", "`spec@plans@a-spec`"),
         ("../README.md", "`path@dirhome@README.md`"),
     ];
     let text: String = cases
@@ -6196,7 +6337,7 @@ fn an_entry_s_name_gives_way_to_a_spec_and_to_an_earlier_path() {
     sandbox.write("world/README.md", "# World\n");
     sandbox.write("world/war-economy/README.md", "# A market\n");
     sandbox.write(
-        "docs/plans/specs/war-economy.md",
+        "docs/plans/specs/war-economy/README.md",
         "# A spec named war-economy\n",
     );
     sandbox.write("game-design/index/README.md", "# An entry named index\n");
@@ -6295,7 +6436,7 @@ fn every_path_to_an_entry_s_directory_names_the_entry() {
         "# core-mock\n\nSee `close-combat@north` and `path@elsewhere@game-design/close-combat/README.md`.\n",
     );
     sandbox.write(
-        "docs/plans/specs/a-plan.md",
+        "docs/plans/specs/a-plan/README.md",
         "# A plan\n\nIt creates `planned@gdd@close-combat/`.\n",
     );
     sandbox.stage();
@@ -8190,11 +8331,20 @@ const WORKLIST_SPEC: &str = "# An audited spec\n\n## Status and audience\n\nIt n
 /// "What is already decided", its plans index regenerated and staged.
 fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
     let (sandbox, out) = worklist_project(tag);
-    sandbox.write("docs/plans/specs/an-audit.md", WORKLIST_SPEC);
+    sandbox.write("docs/plans/specs/an-audit/README.md", WORKLIST_SPEC);
     sandbox.write(
-        "docs/plans/specs/no-section.md",
+        "docs/plans/specs/no-section/README.md",
         "# A spec with no decided section\n\n## Status and audience\n\nIt names \
          `design@core-mock@first-head`.\n",
+    );
+    sandbox.write(
+        "docs/plans/milestones/a-milestone/README.md",
+        "# A milestone\n\nIts slice is [the slice](a-slice/README.md).\n",
+    );
+    sandbox.write(
+        "docs/plans/milestones/a-milestone/a-slice/README.md",
+        "# An audited slice\n\n## Builds\n\nIt names `design@core-mock@long-head`.\n\n\
+         ## What is already decided\n\n- `design@widget@springs-coil`\n",
     );
     let (stdout, stderr, code) = sandbox.run(&["index"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
@@ -8210,7 +8360,8 @@ fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
 /// from the section counts one a `--seed` also names, `design@core-mock@first-head`, as a
 /// regression guard: it counted only the seeds `--seed` had not named before `decided_seeds` took
 /// the selection out of `write`, which no mutation of the present code brings back. A plan
-/// document with no such section gives no seed, and the run says so. Mutations checked, in
+/// document with no such section gives no seed, and the run says so. A plan document is named by
+/// its directory or by its README.md, a slice's included. Mutations checked, in
 /// `write` of `path@query@src/worklist.rs`: `seeds.extend(&taken);` made `let _ = &taken;`, which
 /// takes no seed; the refusal `let Some((citation, rel)) = found else {` given the citation
 /// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught.
@@ -8223,7 +8374,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         "--out",
         &out_text,
         "--seeds-from",
-        "docs/plans/specs/an-audit.md",
+        "docs/plans/specs/an-audit",
         "--seed",
         "design@widget@gears-turn",
         "--seed",
@@ -8255,9 +8406,38 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         .unwrap_or_else(|| panic!("no spec line: {work}"));
     assert!(
         spec_line.starts_with("spec spec@plans@an-audit /")
-            && spec_line.ends_with("docs/plans/specs/an-audit.md"),
+            && spec_line.ends_with("docs/plans/specs/an-audit/README.md"),
         "{spec_line}"
     );
+    // A slice is a plan document too, its own README.md holding its section, given by its
+    // directory or by its README.md.
+    for slice in [
+        "docs/plans/milestones/a-milestone/a-slice",
+        "docs/plans/milestones/a-milestone/a-slice/README.md",
+    ] {
+        let at = std::env::temp_dir().join(format!(
+            "knowledge-worklist-seeds-slice-{}",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_dir_all(&at);
+        let at_text = at.to_string_lossy().into_owned();
+        let (stdout, stderr, code) =
+            sandbox.run(&["worklist", "--out", &at_text, "--seeds-from", slice]);
+        assert_eq!(code, 0, "{slice}: {stdout}{stderr}");
+        assert!(
+            stdout.contains(
+                "spec@a-milestone@a-slice: 1 seeds from its section \"What is already decided\""
+            ),
+            "{slice}: {stdout}"
+        );
+        let seeds: Vec<String> = worklist_marks(&at)
+            .into_iter()
+            .filter(|(_, marks)| marks.first().is_some_and(|m| m == "seed"))
+            .map(|(reference, _)| reference)
+            .collect();
+        assert_eq!(seeds, ["design@widget@springs-coil"], "{slice}");
+        let _ = std::fs::remove_dir_all(&at);
+    }
     let refused = std::env::temp_dir().join(format!(
         "knowledge-worklist-seeds-refused-{}",
         std::process::id()
@@ -8269,7 +8449,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         "--out",
         &refused_text,
         "--seeds-from",
-        "docs/plans/specs/no-section.md",
+        "docs/plans/specs/no-section/README.md",
     ]);
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(
@@ -8285,7 +8465,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         "no seed"
     );
     let _ = std::fs::remove_dir_all(&refused);
-    for path in ["docs/design.md", "docs/plans/specs/missing.md"] {
+    for path in ["docs/design.md", "docs/plans/specs/missing/README.md"] {
         let (stdout, stderr, code) =
             sandbox.run(&["worklist", "--out", &refused_text, "--seeds-from", path]);
         assert_eq!(code, 2, "{stdout}{stderr}");
@@ -8314,7 +8494,7 @@ fn worklist_refuses_a_path_of_the_work_holding_a_line_break() {
             "--out",
             &out_text,
             option,
-            "docs/plans/specs/an-audit.md",
+            "docs/plans/specs/an-audit/README.md",
         ]);
         assert_eq!(code, 2, "{option}: {stdout}{stderr}");
         assert!(stderr.contains("its path holds a line break"), "{stderr}");
@@ -8341,11 +8521,11 @@ fn worklist_verify_at_an_audit_writes_the_gaps_and_the_fit_lines() {
         "--out",
         &out_text,
         "--work",
-        "docs/plans/specs/an-audit.md",
+        "docs/plans/specs/an-audit/README.md",
         "--subject",
         "spec-audit",
         "--seeds-from",
-        "docs/plans/specs/an-audit.md",
+        "docs/plans/specs/an-audit/README.md",
         "--since",
         "HEAD",
     ]);

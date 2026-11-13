@@ -16,7 +16,7 @@ use crate::Manifest;
 /// home is missing, a negative answer about the project, per `design@cli@exit-code-ladder`;
 /// `check` names the repair.
 pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
-    use crate::model::declared::Shape;
+    use crate::model::declared::{PlanKind, Shape};
     use crate::model::table::Constructed;
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     let anchors = Anchors::of(manifest, model.listing());
@@ -26,13 +26,14 @@ pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Strin
     let holds_dir = |p: &Path| model.listing().iter().any(|l| l.starts_with(p) && l != p);
     let mut missing = false;
     for anchor in anchors.all() {
-        // An entry is named by the Directory register it is an entry of: `milestone`, or the
-        // register a project declares.
+        // An entry is named by the Directory register a project declares it an entry of, and a
+        // plan document's directory by its kind; a slice's directory is no anchor.
         let kind = match (&anchor.constructed, &anchor.entry_of) {
             (Some(Constructed::Plans), _) => "plans",
             (Some(Constructed::Entry), Some(of)) => of.register.as_str(),
             (Some(Constructed::Entry), None) => "entry",
-            (Some(Constructed::Spec), _) => "spec",
+            (Some(Constructed::Plan(PlanKind::Milestone)), _) => "milestone",
+            (Some(Constructed::Plan(_)), _) => "spec",
             (None, _) if anchor.is_component => "component",
             (None, _) => "location",
         };
@@ -60,7 +61,9 @@ pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Strin
             // register's directory, of any shape, is its home with or without its README, whose
             // absence `check` reports apart.
             let dir_held = match register.shape {
-                Shape::Heading | Shape::File | Shape::Directory => holds_dir(&home.dir),
+                Shape::Heading | Shape::File | Shape::Directory | Shape::Plan(_) => {
+                    holds_dir(&home.dir)
+                }
                 Shape::Section => continue,
             };
             if dir_held {

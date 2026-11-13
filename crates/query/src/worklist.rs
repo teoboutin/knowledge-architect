@@ -283,16 +283,22 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
     let audit = match seeds_from {
         None => None,
         Some(path) => {
-            let real = absolute(path)?;
+            let mut real = absolute(path)?;
+            refuse_a_line_break("--seeds-from", &real)?;
+            // A plan document is its directory and its `README.md` alike: the directory names
+            // the `README.md`, which holds the section the seeds come from.
+            if real.is_dir() {
+                real = real.join("README.md");
+            }
             let found = real
                 .strip_prefix(&root)
                 .ok()
                 .and_then(|rel| Some((plan_citation(&entities, rel)?, rel)));
-            refuse_a_line_break("--seeds-from", &real)?;
             let Some((citation, rel)) = found else {
                 return Err(format!(
-                    "--seeds-from {}: no plan document of the project, a spec, a slice's spec or \
-                     a milestone document, is at that path. Nothing was written.",
+                    "--seeds-from {}: no plan document of the project, a spec's, a slice's or a \
+                     milestone's directory or its README.md, is at that path. Nothing was \
+                     written.",
                     path.display()
                 ));
             };
@@ -610,17 +616,22 @@ fn heading(what: &Observation) -> Option<(u8, &str)> {
     }
 }
 
-/// The citation of the plan document whose file is `rel`, project-relative: an entry of `spec`, a
-/// spec of the plans directory or a slice's spec, or of `milestone`, whose file is its
-/// `README.md`; `None` for any other path.
+/// The citation of the plan document whose `README.md` is `rel`, project-relative, or whose
+/// directory is: an entry of `spec`, a spec of the plans directory or a slice, or of `milestone`;
+/// `None` for any other path.
 fn plan_citation(entities: &Entities, rel: &Path) -> Option<String> {
+    let readme = rel.join("README.md");
     [SPEC_REGISTER, MILESTONE_REGISTER]
         .into_iter()
         .find_map(|register| {
             entities
                 .of_kind(&Kind::new(register))
                 .into_iter()
-                .find(|(_, _, sites)| sites.first().is_some_and(|s| s.file == rel))
+                .find(|(_, _, sites)| {
+                    sites
+                        .first()
+                        .is_some_and(|s| s.file == rel || s.file == readme)
+                })
                 .map(|(anchor, id, _)| format!("{register}@{anchor}@{id}"))
         })
 }
@@ -1817,12 +1828,15 @@ mod tests {
         let text = work_text(
             &[PathBuf::from("/a/x.md")],
             &["spec-audit".to_string()],
-            Some(("spec@plans@x", Path::new("/a b/docs/plans/specs/x.md"))),
+            Some((
+                "spec@plans@x",
+                Path::new("/a b/docs/plans/specs/x/README.md"),
+            )),
             Some("[query] A subject | with a bar"),
         );
         assert_eq!(
             text,
-            "work /a/x.md\nsubject spec-audit\nspec spec@plans@x /a b/docs/plans/specs/x.md\n\
+            "work /a/x.md\nsubject spec-audit\nspec spec@plans@x /a b/docs/plans/specs/x/README.md\n\
              since [query] A subject | with a bar\n"
         );
         assert_eq!(
@@ -2000,15 +2014,18 @@ mod tests {
         let (_, _, entities) = table_of(&[
             ("docs/plans/README.md", "# Plans\n"),
             ("docs/plans/specs/README.md", "# Specs\n"),
-            ("docs/plans/specs/a-spec.md", "# A spec\n"),
+            ("docs/plans/specs/a-spec/README.md", "# A spec\n"),
             ("docs/plans/milestones/README.md", "# Milestones\n"),
             ("docs/plans/milestones/a-mile/README.md", "# A milestone\n"),
-            ("docs/plans/milestones/a-mile/a-slice.md", "# A slice\n"),
+            (
+                "docs/plans/milestones/a-mile/a-slice/README.md",
+                "# A slice\n",
+            ),
             ("docs/design.md", "# Design\n"),
         ]);
         let cited = |rel: &str| plan_citation(&entities, Path::new(rel));
         assert_eq!(
-            cited("docs/plans/specs/a-spec.md").as_deref(),
+            cited("docs/plans/specs/a-spec/README.md").as_deref(),
             Some("spec@plans@a-spec")
         );
         assert_eq!(
@@ -2016,7 +2033,7 @@ mod tests {
             Some("milestone@plans@a-mile")
         );
         assert_eq!(
-            cited("docs/plans/milestones/a-mile/a-slice.md").as_deref(),
+            cited("docs/plans/milestones/a-mile/a-slice/README.md").as_deref(),
             Some("spec@a-mile@a-slice")
         );
         assert_eq!(cited("docs/design.md"), None);
@@ -2035,7 +2052,7 @@ mod tests {
                     ## What is already decided\n\n`design@a-project@first` and \
                     `goal@a-goal`.\n\n### A subsection\n\n`rule@notes@a-rule`.\n\n\
                     ## Criteria\n\n`design@a-project@after`.\n";
-        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec.md", spec)]);
+        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec/README.md", spec)]);
         assert_eq!(
             decided_references(&model.documents()[0], &anchors),
             Some(
@@ -2045,7 +2062,7 @@ mod tests {
             )
         );
         let deeper = "# A spec\n\n### What is already decided\n\n`design@a-project@first`.\n";
-        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec.md", deeper)]);
+        let (model, anchors, _) = table_of(&[("docs/plans/specs/a-spec/README.md", deeper)]);
         assert_eq!(decided_references(&model.documents()[0], &anchors), None);
     }
     /// An entry of `role` that is no seed, cites none, and did not change.
