@@ -26,8 +26,9 @@ the discussion's record search in [search/discussion.txt](search/discussion.txt)
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1, from the review of this document, on the regime of the frozen files, and D2, from the
-  review of slice 1's work, on the P3 clause, are ruled; see "Defaults awaiting the owner".
+  waits. D1, from the review of this document, on the regime of the frozen files, D2, from the
+  review of slice 1's work, on the P3 clause, and D3 and D4, from the review before slice 1's
+  merge, are ruled; see "Defaults awaiting the owner".
 
 **Its source.** It was assembled from one session's transcript, extracted with
 `cargo klarch transcript show`, and committed, trimmed of tool calls and after the removal step of
@@ -106,7 +107,7 @@ This repository adds:
 | P1 to P8 | the causes of the premortem, under "Premortem" |
 | Q1 to Q9 | the questions the session put to the owner during the discussion, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
 | Q10 to Q15 | the questions the session put to the owner at the review of this document: Q10 to Q13 on the goals home's definition of the record, ruled in the commit "[goals] The record of a project holds the entries of the kinds of entries it declares"; Q14 and Q15 on two attributions, D1's and that of `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`, approved as the review reworded them |
-| D1, D2 | the defaults put to the owner, under "Defaults awaiting the owner": both ruled |
+| D1 to D4 | the defaults put to the owner, under "Defaults awaiting the owner": all ruled |
 | the Groups A to F | the six groups of the search's `conflicts` verdicts, under "What is already decided" |
 | thaum | a sibling project of the owner's, which also uses the workflow, read by the session in round 1 for its guidelines on splitting code |
 
@@ -841,13 +842,43 @@ One default came from the review of slice 1's work:
   `harvested/` only as the move that freezes a slice, each file added with the content its live
   path held in the commit's first parent; a modification and a type change stay reported, and a
   deletion stays admitted. The rival, D1's wording as written, keeps the three edits admitted.
-  The owner ruled that the checker stays out of it: no check of `commits` guards the frozen files,
+  The session then put to the owner the loop the stricter clause still admitted: a slice moved out
+  of `harvested/`, edited, then moved back, each step passing. Three shapes: (a), the default, the
+  clause as built, under which the loop passes, its middle commit judged as a live document and the
+  detour visible in the history; (b), also report a commit that deletes a frozen file while adding
+  the same slice back as a live directory, at the cost that a slice moved back by mistake could
+  then be repaired only by an addition the clause refuses; (c), refuse every deletion under
+  `harvested/` but the whole milestone's, at the cost that a mistaken harvest or a stray file could
+  never be removed. The owner chose none of the three and ruled that the checker stays out of it: no check of `commits` guards the frozen files,
   on the argument that a check cannot reliably cover every sequence of actions a session may take on
   them and that a review handles those sequences more flexibly. The rule, with the narrowing of
   the additions, stays an instruction that the review before a merge judges, by its standing-state
   axis; the clause of `commits` built as the default was removed, per
   `design@check@a-frozen-file-is-guarded-by-the-review`. Written into "The regime of each file", the
   Premortem's P3 and slice 1's spec.
+
+Two defaults came from the review before slice 1's merge:
+
+- **D3**, ruled by the owner, on `thread@split-guidelines-and-plan-directories@committed-transcript`:
+  may an issue entry quote the owner verbatim on the owner's request? The case is the one slice 1's
+  spec names, an issue entry the owner asked to hold the owner's words. The default, yes: the
+  entry holds the words the owner asked it to keep, marked as quoted on the owner's request, as
+  input to a later discussion and never as the ground of a ruling, one more case of an existing
+  exception, since an issue entry leaves when it closes, as the committed files that leave once
+  their outcomes are carried out do; its cost, one more exception a reader must know. The rival,
+  never: the rule that a durable record attributes stays whole, and the words the owner asks to
+  keep are reduced to an attribution, lost to later sessions where no transcript holds them. The
+  owner chose the default, which no goal ranks, written into
+  `design@agent-skills@attribution-replaces-quotation`.
+- **D4**, ruled by the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`:
+  the reading of `goal@documentation-stays-consistent`, which binds "in the texts the checker
+  reads", that a frozen file, parsed for its definitions only, is no such text, as an installed
+  file is none. The design-conformance reviewer argued that the analogy is imperfect: an installed
+  file's source is judged on every run, and a frozen file's citations on none. The rival: every
+  parsed file is a text the checker reads, which reopens D1, since a slice's frozen files would
+  then stay judged, or the slice would leave the tree at its landing. The owner confirmed the
+  reading, with that argument before the owner, written into
+  `design@model@a-harvested-slice-is-frozen` and `criterion@split-guidelines-and-plan-directories@documentation-stays-consistent`.
 
 ## Harvest
 
