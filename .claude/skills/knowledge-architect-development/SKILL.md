@@ -137,7 +137,7 @@ recorded mutation of a test of logic, and the integrated row adds its economy qu
 
 ### A module with a signal for a split
 
-**A module holds what one review reads against one reference.** A reference is a design decision, a
+**A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such
 as a process the project runs, a store it writes or a service it calls, which one module owns. These
 are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a
@@ -165,10 +165,13 @@ that reads it in parts judges code it has not read. No number of lines is a sign
 the work that needs it, in commits that hold the move alone, so that the review of the move reads a
 move and the review of the work reads the work.
 
-**A module split is a step a plan document plans, never work inside another task.** Implement such
-a step as its move alone, and state the split's reason in a comment at the module and in the
-message of the move's commit. A signal for a split that you meet while implementing work that
-planned no split is not acted on inside that work: route it as `primer@met-outside-the-task` says.
+**Shaping the code the change writes stays yours under the default shape**, a new module for it
+included. **Moving code the change does not write between modules, or out of one, is a split**,
+the move of the guidelines above: a step of the plan document where one carries the work, and
+otherwise commits of its own before the work, on the same branch. State the split's reason in a
+comment at the module and in the message of the move's commit. A signal for a split over code the
+work does not write, which no such step took, is not acted on inside that work: route it as
+`primer@met-outside-the-task` says.
 
 ### A Component with a second reason to change
 

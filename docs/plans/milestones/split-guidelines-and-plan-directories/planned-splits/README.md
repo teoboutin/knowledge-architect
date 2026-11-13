@@ -72,8 +72,8 @@ and arguments in [its deliberation](deliberation.md).
 
 ## Claims
 
-1. **The guidelines are worded with no language's terms.** The installed default code shape names no
-   construct of one language in the module guidelines: read by the agent-text review against
+1. **The guidelines are worded with no language's terms.** The installed module guidelines' fragment
+   names no construct of one language: read by the agent-text review against
    `design@agent-skills@the-workflow-teaches-no-rust-idiom`.
 2. **Size has one role.** The guidelines state size only as a file a session cannot read whole in one
    pass, and state no number of lines; the assumption the session labelled in round 3, that this
@@ -278,7 +278,7 @@ For `thread@split-guidelines-and-plan-directories@splits-planned-before-work`.
 - **The record side, no decision**: `worklist --out` at planning, with the work its audits will
   take, over the subjects the harvest writes into; a subject above the bound, or one whose heads will answer parts that change apart, is
   split before the harvest.
-- **Each split the plan takes is a step, or a slice when the move is large, before the work or the
+- **Each split the plan takes is a step, or, in a milestone, a slice when the move is large, before the work or the
   harvest that needs it.** Never left to the implementer, never an issue.
 - **A split a scout reports outside the work's area** is routed by `primer@met-outside-the-task`,
   usually as an issue: the plan does not take work its discussion did not decide.
@@ -316,7 +316,7 @@ For `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
 
 ## Implementation sequence
 
-1. **The module guidelines** in the default code shape's fragment: Claims 1 and 2.
+1. **The module guidelines** in a fragment of their own: Claims 1 and 2.
 2. **The code-split scout**, its source and its two hosted fragments: Claim 3.
 3. **The design skill's grounding** and **the planning skill's steps** and audit: Claims 4 to 7.
 4. **The record and the changelog**: the heads above, with their citing texts, and the CHANGELOG.md

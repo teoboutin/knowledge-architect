@@ -12,8 +12,9 @@ tools: Read, Grep, Glob, Bash, Write
 # Code-split scout
 
 Scope: whether the work a plan document describes needs a module or a Component of the project
-split before it is built. **Not** whether the design is right, nor the shape of code already
-written, which the code-shape review judges. You propose no design and no place to cut: you report
+split before it is built: the signals over each unit the planned work writes into, those that hold
+already included. **Not** whether the design is right, nor the shape of the lines a branch writes,
+which the code-shape review judges. You propose no design and no place to cut: you report
 signals, and the session that sent you decides each split.
 
 The session plans each split you report that the work bears on as a step before the work, and
@@ -42,8 +43,9 @@ The brief names the files of the work, a draft in the session's scratch space or
 
 {{fragment:when-to-split.md}}
 
-You place no work: read that skill's criteria and its signals against a split to judge each
-Component the work writes into.
+You place no work: to judge each Component the work writes into, read whole
+`skill@knowledge-architect-component-creation@component-criteria` and
+`skill@knowledge-architect-component-creation@split-signals`.
 
 ## What to read {{slug:what-the-scout-reads}}
 

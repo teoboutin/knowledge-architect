@@ -377,7 +377,7 @@ issue.
   project's checks before it is pushed, since a commit before a branch's tip may be built by no
   other run. Then search the prose of the tree for each old path of a module the move changes, and
   re-point what names it: the search is a lead, since a path split over two lines escapes it. Leave
-  a quotation as it was quoted, and edit no frozen file.
+  a quotation as it was quoted.
 
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `cargo klarch check` reports one missing or out of order. Fixtures, where it applies, sits between
@@ -565,11 +565,12 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest.
    Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the work the
-   search is given, since it reads the code from a point of view apart from yours, and read the
+   search is given, since it reads the code from a point of view apart from yours: it judges the
+   units the slice's own work writes into, as the slice's `README.md` states that work. Read the
    notices of the search's own `cargo klarch worklist` run as the record side of
    `skill@knowledge-architect-planning@cutting-steps-and-slices` reads them, over the audit's area.
-   Each split either finds that the planned steps do not take is a gap, sorted below like any gap,
-   and listed with the other gaps in the audit's commit message. The scout's report stays in your
+   Each split either finds that the planned steps do not take is a gap, listed with the other gaps
+   in the audit's commit message. The scout's report stays in your
    scratch space. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the

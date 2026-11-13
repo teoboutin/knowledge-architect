@@ -5,7 +5,7 @@
 %% code-split scout, per `design@agent-skills@shared-text-fragment`. Size's role rests on a
 %% measurement: one read of a file returns only its first part past a cap, recorded in the message of
 %% the design audit of the slice that planned these guidelines.
-**A module holds what one review reads against one reference.** A reference is a design decision, a
+**A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such
 as a process the project runs, a store it writes or a service it calls, which one module owns. These
 are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a

@@ -63,7 +63,7 @@ recorded mutation of a test of logic, and the integrated row adds its economy qu
 
 ## The module guidelines `##module-guidelines`
 
-**A module holds what one review reads against one reference.** A reference is a design decision, a
+**A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such
 as a process the project runs, a store it writes or a service it calls, which one module owns. These
 are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a
@@ -106,9 +106,9 @@ the evidence, and whether a comment at the code argues the departure; a departur
 no finding unless the argument is false of the code. A test finding names the test and what is
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
 commit and the missing figures.
-**Report each signal for a module split that a unit of the range meets, under a heading of its
-own**, with the signal, the evidence and each signal against a split that holds: it is no departure
-of the branch, and its repair is no split inside the branch, since the dispatcher routes it to a
-planned step or as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
+**A signal of the module guidelines over code the range writes is a departure**, reported as any
+other. **One over code the range does not write is a split signal: report it under a heading of its
+own**, with the signal, the evidence and each signal against a split that holds. It is no repair
+inside the branch: the dispatching session routes it as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

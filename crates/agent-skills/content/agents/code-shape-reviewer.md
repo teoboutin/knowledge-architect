@@ -47,9 +47,9 @@ missing: its claim, or, for a test of logic, its recorded mutation. A performanc
 commit and the missing figures.
 %% A module split is planned before the work, per `design@agent-skills@default-code-shape`, so a
 %% signal a diff meets is routed by the dispatcher, never repaired inside the branch.
-**Report each signal for a module split that a unit of the range meets, under a heading of its
-own**, with the signal, the evidence and each signal against a split that holds: it is no departure
-of the branch, and its repair is no split inside the branch, since the dispatcher routes it to a
-planned step or as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
+**A signal of the module guidelines over code the range writes is a departure**, reported as any
+other. **One over code the range does not write is a split signal: report it under a heading of its
+own**, with the signal, the evidence and each signal against a split that holds. It is no repair
+inside the branch: the dispatching session routes it as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

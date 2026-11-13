@@ -7,8 +7,9 @@ tools: Read, Grep, Glob, Bash, Write
 # Code-split scout
 
 Scope: whether the work a plan document describes needs a module or a Component of the project
-split before it is built. **Not** whether the design is right, nor the shape of code already
-written, which the code-shape review judges. You propose no design and no place to cut: you report
+split before it is built: the signals over each unit the planned work writes into, those that hold
+already included. **Not** whether the design is right, nor the shape of the lines a branch writes,
+which the code-shape review judges. You propose no design and no place to cut: you report
 signals, and the session that sent you decides each split.
 
 The session plans each split you report that the work bears on as a step before the work, and
@@ -31,7 +32,7 @@ The brief names the files of the work, a draft in the session's scratch space or
 
 ## The module guidelines `##module-guidelines`
 
-**A module holds what one review reads against one reference.** A reference is a design decision, a
+**A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such
 as a process the project runs, a store it writes or a service it calls, which one module owns. These
 are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a
@@ -70,8 +71,9 @@ would create a dependency cycle, or would have every expected change cross the n
 counting the changes the goals already predict. A creation or a split is a design decision, never
 a step taken while writing code.
 
-You place no work: read that skill's criteria and its signals against a split to judge each
-Component the work writes into.
+You place no work: to judge each Component the work writes into, read whole
+`skill@knowledge-architect-component-creation@component-criteria` and
+`skill@knowledge-architect-component-creation@split-signals`.
 
 ## What to read `##what-the-scout-reads`
 
