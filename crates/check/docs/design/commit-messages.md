@@ -121,8 +121,9 @@ remote `main` to `HEAD`, so what is judged is the branch's own commits and never
 commit modifies or changes the type of against its first parent, and every file it adds there
 other than by the move that freezes a slice: that move adds each file of the slice with the content
 its live path held in the first parent. A deletion is admitted, since a frozen file leaves with its
-milestone. The clause has no option and applies to every commit, on the branch that froze the slice
-as on any later one, and a commit it reports fails, per
+milestone. The clause has no option and applies to every commit that has a parent, on the branch that froze
+the slice as on any later one; a root commit has none to compare with, and rewrites no frozen
+record. A commit it reports fails, per
 `design@check@every-commit-judged-by-the-tip-checker`.
 
 A frozen file is out of the walk and read for its definitions alone, per

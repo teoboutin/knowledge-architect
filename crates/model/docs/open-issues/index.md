@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-18 entries
+19 entries
 
 | kind | title |
 | --- | --- |
@@ -13,6 +13,7 @@
 | design | [A Rust item named in prose has no checked form](a-rust-item-named-in-prose-has-no-checked-form.md) |
 | design | [A slug in the definition form inside a quotation is reported as a misplaced definition](a-slug-in-a-quotation-is-reported-as-a-misplaced-definition.md) |
 | design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
+| design | [The plans layout is read in three units, which no test compares](the-plans-layout-is-read-in-three-units.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, where every other reference survives the move](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
