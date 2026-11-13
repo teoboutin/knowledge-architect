@@ -128,9 +128,10 @@ was live no rule of the checker judges it.
 The owner chose the review over a clause of `commits`, which no goal ranks, on the argument that a
 check cannot reliably cover every sequence of actions a session may take on the frozen files, and
 that a review handles those sequences more flexibly. The record bears it out: the clause built for
-it admitted, in its first wording, three sequences that an adversarial reviewer of its code
-reached, a freezing move that also edits the slice, a rename inside harvested/ that edits the file,
-and a frozen file deleted in one commit and added again with new content in the next. It strains no
+it admits a slice moved out of harvested/, edited while live and moved back, each commit passing,
+and refusing the move out would also refuse the removal of a mistaken harvest or of a stray file;
+the three edits an adversarial reviewer of its code reached only narrowed the clause's first
+wording to that sequence. It strains no
 goal: `goal@documentation-stays-consistent` binds in the texts the checker reads, and a frozen file,
 parsed for definitions only, is none, a reading the owner confirmed. Its cost is an edit of a
 frozen file that the review misses, which reaches the main branch with nothing reporting it. The

@@ -7,7 +7,9 @@ tools: Read, Grep, Glob, Bash, Write
 # Standing-state review
 
 Scope: the recorded state that is supposed to **leave** its file when something happens. A tripwire
-when it fires, an issue when it closes, an acceptance criterion when its plan document lands.
+when it fires, an issue when it closes, an acceptance criterion when its plan document lands. Also
+the one record that is supposed **never to change** while it stands, a frozen file under a
+milestone's harvested/, since no check judges a change of one.
 **Not** whether the design is right, whether the code works, or whether a decision was recorded
 correctly. Those are other axes.
 

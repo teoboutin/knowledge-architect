@@ -233,8 +233,8 @@ once its outcomes are carried out, per `design@agent-skills@committed-audit-repo
 entry holds the owner's words verbatim only where the owner asks it to keep them, marked as quoted
 on the owner's request, as input to a later discussion and never as the ground of a ruling, the rest
 of the entry attributing: an issue entry leaves when it closes, as those files leave once their
-outcomes are carried out. The owner chose that exception over an issue entry that never quotes the
-owner, which no goal ranks. An attribution is checked against
+outcomes are carried out. The session chose that exception over an issue entry that never quotes
+the owner, which no goal ranks; the owner approved it. An attribution is checked against
 the question it answered, as a quotation is: by its writer, with the owner's words beside it, at
 the close of the decision-recording skill,
 `skill@knowledge-architect-decision-recording@before-you-finish`, and by the transcript reviewer,
