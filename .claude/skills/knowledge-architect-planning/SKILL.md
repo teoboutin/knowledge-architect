@@ -358,6 +358,27 @@ failure.** Every other test here serves that one.
   commits the branch carries, such as the commit of its own a fix met outside the task takes, is the
   implementing session's to judge.
 
+**A split the work needs is a step before the work or the harvest that needs it**, or, in a
+milestone, a slice of its own where the move is large: never left to the implementer, and never an
+issue.
+
+- **The record side.** Run `cargo klarch worklist --out <dir>`, `<dir>` a new directory of your
+  scratch space outside the project, with `--work` each `README.md` of the plan document that its
+  design audits will take, since the threshold of its notices is the bound less the words of the
+  work. Of the notices it prints, keep each one on the cluster of a design subject the harvest
+  writes into, a subject holding a head the harvest names; a notice on a remainder or on the goals
+  of a cluster names no subject of the harvest. Each subject so kept, and each subject whose heads
+  the harvest will make answer questions about parts that change apart, is split by the subject
+  standard of `skill@knowledge-architect-decision-recording@current-design`, in a step before the
+  harvest that writes into it.
+- **The code side.** A split of a module or of a Component that the discussion decided is a step
+  before the work that needs it.
+- **A move lands in commits that hold the move alone**, each of which builds and passes the
+  project's checks before it is pushed, since a commit before a branch's tip may be built by no
+  other run. Then search the prose of the tree for each old path of a module the move changes, and
+  re-point what names it: the search is a lead, since a path split over two lines escapes it. Leave
+  a quotation as it was quoted, and edit no frozen file.
+
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `cargo klarch check` reports one missing or out of order. Fixtures, where it applies, sits between
 Claims and Audit subjects, and is not checked:
@@ -542,7 +563,14 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    commit, copied as `search/design-audit.txt` beside the audited `README.md`, the slice's or the
    spec's. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
-   harvest. Sort each gap:
+   harvest.
+   Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the work the
+   search is given, since it reads the code from a point of view apart from yours, and read the
+   notices of the search's own `cargo klarch worklist` run as the record side of
+   `skill@knowledge-architect-planning@cutting-steps-and-slices` reads them, over the audit's area.
+   Each split either finds that the planned steps do not take is a gap, sorted below like any gap,
+   and listed with the other gaps in the audit's commit message. The scout's report stays in your
+   scratch space. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
