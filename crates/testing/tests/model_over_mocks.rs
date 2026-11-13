@@ -90,6 +90,8 @@ fn the_plans_indexes_are_outside_the_walk() {
             "docs/plans/milestones/a-milestone/README.md",
             "docs/plans/milestones/a-milestone/a-step/README.md",
             "docs/plans/milestones/a-milestone/a-step/deliberation.md",
+            "docs/plans/milestones/a-milestone/b-step/README.md",
+            "docs/plans/milestones/a-milestone/b-step/deliberation.md",
             "docs/plans/milestones/a-milestone/deliberation.md",
             "docs/plans/specs/README.md",
             "docs/plans/specs/a-spec/README.md",
@@ -439,15 +441,18 @@ mod unsound {
         )
         .starts_with("docs/plans/milestones/held-twice/register.toml"));
         // A plan document is a directory, so a spec file and a slice file are each a finding
-        // whose repair names the directory, and search/ holds `.txt` files alone.
+        // whose repair names the directory, and search/ holds `discussion.txt` and `design-audit.txt` alone.
         assert!(one_of(&found, "is a spec file, and a spec is a directory")
             .contains("move it to `docs/plans/specs/a-spec-file/README.md`"));
         assert!(
             one_of(&found, "a-slice-file.md` sits in the milestone directory")
                 .contains("a slice is a directory: move it to")
         );
-        assert!(one_of(&found, "holds `.txt` files alone")
-            .starts_with("docs/plans/milestones/a-defective-plan/search/verdicts.md"));
+        assert!(one_of(
+            &found,
+            "holds `discussion.txt` and `design-audit.txt` alone"
+        )
+        .starts_with("docs/plans/milestones/a-defective-plan/search/verdicts.md"));
         assert!(one_of(&found, "the milestone `the-widget` is no anchor")
             .contains("is the name of a component"));
         assert!(one_of(&found, "the milestone `Not_An_Id` is no anchor")

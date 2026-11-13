@@ -311,7 +311,9 @@ pub(crate) fn judge_part(
                 // check reading those as index rows would report every intra-doc link.
                 Observation::Link(target) if references && doc.is_markdown() => {
                     let in_home = goals_of.is_some();
-                    link(&mut out, &mut counts, doc, l.line, target, nav, in_home, inputs);
+                    link(
+                        &mut out, &mut counts, doc, l.line, target, nav, in_home, anchors, inputs,
+                    );
                 }
                 _ => {}
             }
@@ -754,6 +756,7 @@ fn link(
     target: &str,
     nav: bool,
     in_goals_home: bool,
+    anchors: &Anchors,
     inputs: &Inputs,
 ) {
     // A bare fragment stays on the page; on a file target a fragment rides along and is
@@ -817,6 +820,35 @@ fn link(
         return;
     }
     let resolved = dir.join(file_part.trim_end_matches('/'));
+    // A harvested slice is cited from inside its milestone's directory only, by a link as by a
+    // reference: from anywhere else the link is refused as the reference is, its repair naming
+    // the milestone, which resolves from anywhere. A file directly under `harvested/` sits in no
+    // slice, and the layout reports it.
+    let harvested = crate::model::listing::Frozen::of(&resolved).filter(|f| {
+        anchors
+            .by_name(&f.milestone)
+            .is_some_and(|a| a.is_milestone())
+            && !doc.rel.starts_with(&f.milestone_dir)
+    });
+    if let Some(frozen) = harvested {
+        if let Some((slice, _)) = frozen.slice {
+            let cause = resolve::Cause::Harvested {
+                form: format!(
+                    "milestone@{}@{}",
+                    anchors
+                        .all()
+                        .iter()
+                        .find(|a| a.constructed == Some(table::Constructed::Plans))
+                        .map_or("plans", |a| a.name.as_str()),
+                    frozen.milestone
+                ),
+                milestone: frozen.milestone,
+                id: slice,
+            };
+            out.push(reported(&cause, &doc.rel, line, target));
+            return;
+        }
+    }
     if let Err(cause) = assert_target(&resolved, file_part.ends_with('/'), &inputs.tree()) {
         out.push(reported(&cause, &doc.rel, line, target));
     }
@@ -1491,6 +1523,49 @@ mod tests {
         assert!(tokens[0].starts_with("notes/prose.md:1"), "{found:#?}");
         assert!(
             tokens[0].contains("write it in backticks, as `design@a-part@a-decision`"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a relative link into a milestone's harvested slice, from a README.md outside
+    /// the milestone's directory, is refused as a reference to it is, its repair naming the
+    /// milestone; the same link from the milestone's own README.md resolves. Mutation checked:
+    /// `&& !doc.rel.starts_with(&f.milestone_dir)` dropped from `link`, which refuses the
+    /// milestone's own link; and the `harvested` filter made `None`, which accepts the outside
+    /// link; each caught.
+    #[test]
+    fn a_link_into_a_harvested_slice_from_outside_its_milestone_is_refused() {
+        let m = manifest();
+        let tree: Vec<PathBuf> = [
+            "docs/plans/README.md",
+            "docs/plans/milestones/README.md",
+            "docs/plans/milestones/m-one/README.md",
+            "docs/plans/milestones/m-one/harvested/a-slice/README.md",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = tree.iter().map(|p| p.display().to_string()).collect();
+        let docs = vec![
+            (
+                "docs/plans/milestones/README.md",
+                "# Milestones\n\n[A landed slice](m-one/harvested/a-slice/README.md).\n",
+            ),
+            (
+                "docs/plans/milestones/m-one/README.md",
+                "# A milestone\n\n[Its landed slice](harvested/a-slice/README.md).\n",
+            ),
+        ];
+        let (found, _) = checked_under(docs, &present, &anchors);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].starts_with("docs/plans/milestones/README.md:3")
+                && found[0].contains(
+                    "cites the harvested slice `a-slice` of the milestone `m-one` from outside \
+                     the milestone"
+                )
+                && found[0].contains("cite the milestone whole, as `milestone@plans@m-one`"),
             "{found:#?}"
         );
     }

@@ -1393,12 +1393,23 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
     }) {
         return Some(format!("spec@{PLANS_ANCHOR}@{}", spec.name));
     }
-    // No spec the tree places holds it: the first segment names the spec, a spec file's stem
-    // included, but the home's own README and index.
-    let first = parts.first()?;
-    let id = first.strip_suffix(".md").unwrap_or(first);
-    (!(parts.len() == 1 && (id == "README" || id == "index")))
-        .then(|| format!("spec@{PLANS_ANCHOR}@{id}"))
+    // No spec the tree places holds it, as for a deleted spec. Only a Markdown file sits at a
+    // plan position, so a group's directory, the home's register.toml and anything not `.md` is
+    // a path like any other. A spec's own README.md or deliberation.md names the spec by its
+    // directory, at the top of specs/ or in a group; any other `.md` file is a spec file, named
+    // by its stem, grouped or not, but the home's own README and index.
+    let (file, dirs) = parts.split_last()?;
+    let id = match dirs {
+        [.., spec]
+            if dirs.len() <= 2
+                && (file == crate::plan::README || crate::plan::is_beside_readme(file)) =>
+        {
+            spec.as_str()
+        }
+        [] if file == crate::plan::README || file == crate::plan::INDEX => return None,
+        _ => file.strip_suffix(".md")?,
+    };
+    Some(format!("spec@{PLANS_ANCHOR}@{id}"))
 }
 
 /// Assert one resolved target: it exists and has the claimed kind, unless the ignore rules
@@ -1699,8 +1710,12 @@ mod tests {
     /// The claim: the repair a refused plan citation names is the form that resolves for each
     /// position: a slice for a file of a live slice's directory, the milestone for its own files,
     /// a harvested slice's or anything in no slice, a spec for a file of a spec's directory or a
-    /// spec file, and nothing for a navigation file. Mutations checked: the README and index
-    /// filter, and the id test of the slice segment, each removed from `plan_document`.
+    /// spec file, and nothing for a navigation file, a group's directory or the home's
+    /// register.toml. Mutations checked: the README and index filter, and the id test of the
+    /// slice segment, each removed from `plan_document`; in its fallback, the spec file's
+    /// `file.strip_suffix(".md")?` made `parts[0].strip_suffix(".md").unwrap_or(&parts[0])`, the
+    /// first segment read as the spec, and the arm of a spec's own README.md or deliberation.md
+    /// deleted; each caught.
     #[test]
     fn the_p1_repair_names_the_form_for_each_position() {
         let m = manifest();
@@ -1744,6 +1759,23 @@ mod tests {
                 Some("spec@plans@a-spec"),
             ),
             ("docs/plans/specs/a-spec.md", Some("spec@plans@a-spec")),
+            // No spec the tree places holds these: a deleted spec's files, a spec file in a
+            // group, and a group's directory and the home's register.toml, which are no plan
+            // positions and are cited by path, as before plan documents were directories.
+            (
+                "docs/plans/specs/gone-spec/README.md",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/a-group/gone-spec/deliberation.md",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/a-group/b-spec.md",
+                Some("spec@plans@b-spec"),
+            ),
+            ("docs/plans/specs/a-group", None),
+            ("docs/plans/specs/register.toml", None),
             ("docs/plans/specs/README.md", None),
             ("docs/plans/milestones/README.md", None),
             ("docs/plans/README.md", None),

@@ -1,8 +1,9 @@
 # The one step of the mock's milestone
 
 It belongs to `milestone@plans@a-milestone`, and builds `thread@a-milestone@one-slice` on what
-the landed step `spec@a-milestone@a-landed-step` built, `thread@a-milestone@landed-thread`. Its
-own discussion is [the deliberation](deliberation.md), [the generated lines](search/discussion.txt)
+the landed step `spec@a-milestone@a-landed-step` built, `thread@a-milestone@landed-thread`, beside
+what its sibling step decided in its own deliberation, `thread@a-milestone@second-slice`. Its own
+discussion is [the deliberation](deliberation.md), [the generated lines](search/discussion.txt)
 and [the transcript](transcript.txt).
 
 ## Builds

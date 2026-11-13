@@ -8,4 +8,6 @@ Cited by its sibling's README, from inside the milestone.
 
 ## Arguments
 
-None.
+### An argument written with no slug
+
+A live file would owe it a slug; a frozen file raises no finding of its own.

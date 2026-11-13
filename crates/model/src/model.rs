@@ -119,7 +119,38 @@ fn parsed_prose(files: Vec<(PathBuf, String)>) -> Vec<Document> {
 /// Whether the file `rel` is a frozen file of a project: one under a milestone's `harvested/`,
 /// where the project has the anchor `plans`.
 pub fn frozen_file(manifest: &Manifest, rel: &Path) -> bool {
-    manifest.plans() && crate::plan::is_frozen(rel)
+    frozen_at(manifest, rel).is_some()
+}
+
+/// Where a frozen file of a project sits, read off its path alone.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Frozen {
+    /// The milestone's name, the basename of its directory.
+    pub milestone: String,
+    /// The milestone's directory, project-relative.
+    pub milestone_dir: PathBuf,
+    /// For a file inside a directory of `harvested/`: the slice's name, and the path the file
+    /// has in the slice's live directory, `<milestone>/<slice>/<rest>`. `None` for a file directly
+    /// under `harvested/`, which sits in no slice.
+    pub slice: Option<(String, PathBuf)>,
+}
+
+/// Where the file `rel` sits, when it is a frozen file of a project: one under a milestone's
+/// `harvested/`, where the project has the anchor `plans`. `None` for any other path.
+pub fn frozen_at(manifest: &Manifest, rel: &Path) -> Option<Frozen> {
+    if !manifest.plans() {
+        return None;
+    }
+    Frozen::of(rel)
+}
+
+impl Frozen {
+    /// Where `rel` would sit as a frozen file, read off the path alone, whatever the manifest
+    /// declares: `None` for a path under no milestone's `harvested/`. A caller holding the
+    /// manifest asks [`frozen_at`], which also asks whether the project has plans.
+    pub fn of(rel: &Path) -> Option<Frozen> {
+        crate::plan::frozen_place(rel)
+    }
 }
 
 /// The checker's directories as the summary block names them: project-relative where one sits

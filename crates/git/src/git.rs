@@ -545,33 +545,119 @@ pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>
     Ok(out)
 }
 
-/// The paths under `root` whose content or kind one commit changes against another, relative to
-/// `root`, sorted: a path both trees hold whose blob or mode differs. A path only one tree holds is
-/// no such path, so an addition, a deletion and a move, which is the deletion of one path and the
-/// addition of another, are none of them.
+/// How one path's entry differs between two commits' trees.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ChangeKind {
+    /// Only the later tree holds the path.
+    Added,
+    /// Only the earlier tree holds the path.
+    Deleted,
+    /// Both hold it, with another blob or another mode of the same kind.
+    Modified,
+    /// Both hold it, as entries of different kinds: a file and a symlink, or either and a gitlink.
+    TypeChanged,
+}
+
+/// One blob a tree records at a path: its mode and its object id, as git spells them.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Blob {
+    pub mode: String,
+    pub oid: String,
+}
+
+/// One path whose entry differs between two commits' trees, with the blob each tree records
+/// there, `None` where a tree holds no entry at the path.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct TreeChange {
+    pub rel: PathBuf,
+    pub kind: ChangeKind,
+    pub before: Option<Blob>,
+    pub after: Option<Blob>,
+}
+
+/// Every path under `root` whose entry one commit's tree records differently from another's,
+/// relative to `root`, sorted by path, each with how it differs and the blob each tree holds.
 ///
-/// `from` and `to` are full object names of commits. A failure of git is an `Err` carrying git's
-/// reason, per `design@git@failed-git-is-an-error`, since a caller that judges what was modified
-/// reads an empty answer as nothing modified.
-pub fn modified_paths(root: &Path, from: &str, to: &str) -> io::Result<Vec<PathBuf>> {
-    // `--no-renames`, so a move is its two paths whatever a configuration says, and is neither
-    // `M` nor `T`; `--relative`, so a project in a subdirectory of its repository gets its own
-    // paths, relative to it; `-r`, so a path is a file's, never a tree's.
-    let mut out = git(root)
+/// **A move is the deletion of one path and the addition of another**, whatever a configuration
+/// says, so a caller that judges a move compares the two blobs itself. A path is a file's, a
+/// symlink's or a gitlink's, never a tree's. `from` and `to` are full object names of commits. A
+/// failure of git, or a record this function cannot read, is an `Err` carrying the reason, per
+/// `design@git@failed-git-is-an-error`, since a caller that judges what changed reads an empty
+/// answer as nothing changed.
+pub fn tree_changes(root: &Path, from: &str, to: &str) -> io::Result<Vec<TreeChange>> {
+    // `--no-renames`, so a move is its two paths, and the status letters are A, D, M and T;
+    // `--relative`, so a project in a subdirectory of its repository gets its own paths, relative
+    // to it; `-r`, so a path is a file's, never a tree's; `--no-abbrev`, so an object id is whole.
+    let raw = git(root)
         .args([
             "diff-tree",
             "-r",
             "-z",
+            "--raw",
             "--no-renames",
+            "--no-abbrev",
             "--relative",
-            "--diff-filter=MT",
-            "--name-only",
             from,
             to,
             "--",
         ])
-        .paths()?;
-    out.sort();
+        .output()?;
+    let mut out = changes_of(&raw)?;
+    out.sort_by(|a, b| a.rel.cmp(&b.rel));
+    Ok(out)
+}
+
+/// The records of `diff-tree -r -z --raw --no-renames`: each a header,
+/// `:<src mode> <dst mode> <src oid> <dst oid> <status>`, then the path as the next field. A
+/// status other than A, D, M and T, or a header of another shape, is refused rather than
+/// skipped, since a skipped record is a change nothing reports.
+fn changes_of(raw: &[u8]) -> io::Result<Vec<TreeChange>> {
+    let mut out = Vec::new();
+    let mut fields = nul_separated(raw).into_iter();
+    while let Some(header) = fields.next() {
+        let Some(path) = fields.next() else {
+            return Err(io::Error::other(
+                "`git diff-tree --raw` printed a record with no path",
+            ));
+        };
+        let header = String::from_utf8_lossy(header);
+        let parts: Vec<&str> = header.trim_start_matches(':').split(' ').collect();
+        let [src_mode, dst_mode, src_oid, dst_oid, status] = parts[..] else {
+            return Err(io::Error::other(format!(
+                "`git diff-tree --raw` printed a record this tool cannot read: {header}"
+            )));
+        };
+        let blob = |mode: &str, oid: &str| Blob {
+            mode: mode.to_string(),
+            oid: oid.to_string(),
+        };
+        let (kind, before, after) = match status {
+            "A" => (ChangeKind::Added, None, Some(blob(dst_mode, dst_oid))),
+            "D" => (ChangeKind::Deleted, Some(blob(src_mode, src_oid)), None),
+            "M" | "T" => (
+                if status == "M" {
+                    ChangeKind::Modified
+                } else {
+                    ChangeKind::TypeChanged
+                },
+                Some(blob(src_mode, src_oid)),
+                Some(blob(dst_mode, dst_oid)),
+            ),
+            other => {
+                return Err(io::Error::other(format!(
+                    "`git diff-tree --raw` reported a change of kind `{other}` at {}, which this \
+                     tool does not read",
+                    as_path(path).display()
+                )))
+            }
+        };
+        out.push(TreeChange {
+            rel: as_path(path),
+            kind,
+            before,
+            after,
+        });
+    }
     Ok(out)
 }
 
@@ -629,9 +715,8 @@ pub enum Source<'a> {
     Commit(&'a str),
 }
 
-/// One entry of a snapshot's listing, whose path and kind [`SnapshotEntry::entry`] gives. The
-/// mode and the blob id the snapshot records for it stay inside the crate, which no caller has
-/// needed.
+/// One entry of a snapshot's listing, whose path and kind [`SnapshotEntry::entry`] gives, and
+/// whose mode and blob id [`SnapshotEntry::blob`] gives.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct SnapshotEntry {
     pub(crate) rel: PathBuf,
@@ -646,6 +731,14 @@ impl SnapshotEntry {
         Entry {
             rel: self.rel.clone(),
             kind: self.kind,
+        }
+    }
+
+    /// The mode and the blob id the snapshot records at the path.
+    pub fn blob(&self) -> Blob {
+        Blob {
+            mode: self.mode.clone(),
+            oid: self.oid.clone(),
         }
     }
 }
