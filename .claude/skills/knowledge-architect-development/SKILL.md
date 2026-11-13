@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-development
-description: MUST use before starting or iterating on any change to the project's Rust code — grounding in the record of the code being changed, specifying the unit of work as claims with tests that discriminate and showing each with `cargo x mutate`, the default shape of the code, the gate, the commit, the review axes for code and when to dispatch them, the conditional performance step and the optional diff mutation sweep, and which comment species a sentence belongs in. Not for agent-facing text, a decision's record, or parking an item, which their own skills cover.
+description: MUST use before starting or iterating on any change to the project's Rust code — grounding in the record of the code being changed, specifying the unit of work as claims with tests that discriminate and showing each with `cargo x mutate`, the default shape of the code, the module guidelines and who splits a module, the gate, the commit, the review axes for code and when to dispatch them, the conditional performance step and the optional diff mutation sweep, and which comment species a sentence belongs in. Not for agent-facing text, a decision's record, or parking an item, which their own skills cover.
 ---
 
 # Developing
@@ -134,6 +134,41 @@ writer picks the evidence, and the table says what each form tells:
 
 An integrated test also has the kind of what it exercises: an integrated test of logic owes the
 recorded mutation of a test of logic, and the integrated row adds its economy question.
+
+### A module with a signal for a split
+
+**A module holds what one review reads against one reference.** A reference is a design decision, a
+section of a specification the project implements, a set of invariants, or one external effect, such
+as a process the project runs, a store it writes or a service it calls, which one module owns. These
+are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a
+split where one of these signals holds:
+
+| signal | the failure a split prevents |
+| --- | --- |
+| a second reference enters the module | a review that reads code outside its subject |
+| two parts of the module change apart, counting the changes the goals already predict | unrelated changes in one file's diff |
+| an invariant can only be protected by a boundary of visibility | a helper that bypasses the invariant made visible to code that must not call it |
+
+Each signal is weighed against the signals against a split:
+
+- **two parts that every change reads together**, such as a process and the changes it applies: a
+  split leaves one review reading across two files;
+- **one item large by itself**, such as an enumeration of many cases: moving code does not divide
+  it, and dividing it is a design change;
+- **one owner per external effect**: a split that spreads one effect over two modules leaves it with
+  no owner.
+
+**Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
+that reads it in parts judges code it has not read. No number of lines is a signal by itself.
+
+**A split is a move before the work.** It is decided where the work is designed, and lands before
+the work that needs it, in commits that hold the move alone, so that the review of the move reads a
+move and the review of the work reads the work.
+
+**A module split is a step a plan document plans, never work inside another task.** Implement such
+a step as its move alone, and state the split's reason in a comment at the module and in the
+message of the move's commit. A signal for a split that you meet while implementing work that
+planned no split is not acted on inside that work: route it as `primer@met-outside-the-task` says.
 
 ### A Component with a second reason to change
 
