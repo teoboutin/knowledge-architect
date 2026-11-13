@@ -8,45 +8,66 @@ and arguments in [its deliberation](deliberation.md).
 
 ## Builds
 
-- **The module guidelines**, inside the fragment of the default code shape,
-  `path@agent-skills@fragments/default-code-shape.md`, so its hosts stay the same, on the owner's Q5
-  word: the criterion, the signals for and against a split, the one role of size, and the move-only
-  commit, per this spec's "The module guidelines". Worded with no language's terms.
+- **The module guidelines**, a fragment of their own, `planned@agent-skills@fragments/module-split.md`,
+  on the owner's Q16 word, `thread@split-guidelines-and-plan-directories@module-guidelines-fragment`,
+  which replaced Q5's delivery inside the fragment of the default code shape: the criterion, the
+  signals for and against a split, the one role of size, and the move before the work, per this
+  spec's "The module guidelines". Its hosts are the development skill,
+  `agent@knowledge-architect-code-shape-reviewer` and the code-split scout: one new fragment and its
+  host list. Worded with no language's terms. The fragment of the default code shape keeps its text
+  and its hosts.
 - **The code-split scout**, a new installed agent, `knowledge-architect-code-split-scout`, whose
-  source is a new file of `path@agent-skills@content/agents/`, hosting the fragments of the default
-  code shape and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q5 word: two new host
-  entries. It reads the draft of a discussion on its full path and the code the draft touches, and
-  reports, per module or Component, each signal of the module guidelines or of the component-creation
-  skill that the work pushes it past, and each signal against a split that holds.
-- **The design skill**: its grounding, on the full path, dispatches the code-split scout once the
-  draft exists, beside the search; each split the scout reports that the work bears on is a thread of
-  the discussion; one outside the work's area is routed by `primer@met-outside-the-task`.
+  source is a new file of `path@agent-skills@content/agents/`, hosting the module guidelines'
+  fragment and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q16 word. It reads a
+  draft of a plan document and the code the draft touches, and reports, per module or Component, each
+  signal of the module guidelines or of the component-creation skill that the work pushes it past,
+  and each signal against a split that holds. It writes only in the scratch directory its brief
+  names, and returns its report; the report is never committed, since a plan document's directory
+  holds no such file, per `design@model@plan-document-directory`.
+- **The design skill**: its grounding dispatches the code-split scout once the draft of a plan
+  document exists, that is where the session expects the full path, and before the search of the
+  whole record, so that each split thread the scout opens is in the draft the search reads; each
+  split the scout reports that the work bears on is a thread of the discussion, and one outside the
+  work's area is routed by `primer@met-outside-the-task`. A split thread opened after the search gets
+  a search of its own, as the skill already asks of any thread added after it. The in-change path and
+  bounded work dispatch no scout.
 - **The planning skill**:
-  - at planning, `cargo klarch worklist --out <dir>` prints its notice of every cluster above the
-    bound across the whole record, since `--subject` names subjects of the work, not design
-    subjects; the session reads the notice and keeps the design subjects the harvest writes into,
-    those of the heads its harvest rows name; each such subject, and each subject whose
-    heads will answer questions about parts that change apart, is split in a step, or a slice when
-    the move is large, before the harvest that writes into it;
-  - a code split the discussion decided is a move-only step, or slice, before the work that needs it,
-    never left to the implementer, and never an issue;
-  - the design audit of each slice runs the code-split scout and the `worklist` notice again over the
-    slice's area, and each split they find is a gap of the audit, sorted as
-    `skill@knowledge-architect-planning@working-a-slice` point 2 sorts any gap.
+  - at planning, `cargo klarch worklist --out <dir>`, `<dir>` a new directory outside the project,
+    with `--work` the `README.md` files the slices' audits will take, since the notice's threshold is
+    the bound less the words of the work, prints its notice of every cluster above that threshold
+    across the whole record; the session keeps, of the notices on clusters rooted at a design
+    subject, those the harvest writes into, the subjects of the heads its harvest rows name, and
+    leaves a remainder's and a goals group's notice aside; each such subject, and each subject whose
+    heads will answer questions about parts that change apart, is split in a step, or, in a
+    milestone, a slice when the move is large, before the harvest that writes into it;
+  - a code split the discussion decided is a step, or, in a milestone, a slice, before the work that
+    needs it, never left to the implementer, and never an issue; its move lands in commits that hold
+    the move alone, each of which builds and passes the project's checks before it is pushed, since a
+    commit before a branch's tip may be built by no other run; the text names neither a pull request
+    nor continuous integration, per
+    `issue@agent-skills@installed-text-assumes-pull-requests-and-ci`;
+  - the design audit of each slice, and of a spec where one runs, runs the code-split scout and the
+    `worklist` notice again over its area, and each split they find is a gap of the audit, sorted as
+    point 2 of `skill@knowledge-architect-planning@working-a-slice` sorts any gap; its outcome is
+    listed in the audit's commit message, with the other gaps.
 - **The decision-recording and development skills, and the subject standard's fragment**, where they
   state who splits a subject or a module and when: a subject split stays a move that decides nothing,
   now planned before the harvest where planning finds it, and a fix in a commit of its own where a
   session meets it outside planned work.
 - **The code-shape reviewer**, `agent@knowledge-architect-code-shape-reviewer`, which hosts the
-  default code shape and so the module guidelines: where a branch's diff meets a signal for a
+  default code shape and the module guidelines' fragment: where a branch's diff meets a signal for a
   module split, it reports it, and the session routes it to a planned step or by
   `primer@met-outside-the-task`, never to the implementer as work inside the task.
 - **The record**: the heads of Group D this slice rewrites, and the hosts of
   `design@agent-skills@shared-text-fragment`, below, with every text that cites them. The hosts of
-  the two fragments are named in three places, each updated: the test list `FRAGMENT_HOSTS` in
-  `path@agent-skills@src/lib.rs`, the `%%` comment at the head of
-  `path@agent-skills@fragments/default-code-shape.md`, and the prose of
-  `design@agent-skills@default-code-shape`.
+  the fragments are named in five places, each updated: the test list `FRAGMENT_HOSTS` in
+  `path@agent-skills@src/lib.rs`, a row for the new fragment and the scout added to the row of
+  `path@agent-skills@fragments/when-to-split.md`; the `%%` comment at the head of each fragment;
+  the prose of `design@agent-skills@default-code-shape`; the sentence of
+  `design@agent-skills@component-skill-delivery` that has the design and development skills host the
+  fragment on when to split as the two activities of its first two moments; and the sentence of
+  `design@agent-skills@shared-text-fragment` that lists the fragments and the extension of that one
+  to the development skill.
 - **CHANGELOG.md**: the entries the change owes, in the `Next release` section.
 
 ## Claims
@@ -59,9 +80,9 @@ and arguments in [its deliberation](deliberation.md).
    limit is a signal, is measured first: the Read tool's limit, by reading a file above it, with the
    measurement in the commit, or the sentence leaves.
 3. **The scout hosts what the owner ruled.** The installed `knowledge-architect-code-split-scout`
-   holds the text of the default code shape and of the fragment on when to split, and the build's host
-   lists name it for both: `cargo x skill knowledge-architect-code-split-scout` shows both
-   placeholders.
+   holds the text of the module guidelines' fragment and of the fragment on when to split, and not
+   that of the default code shape; the build's host lists name it for both:
+   `cargo x skill knowledge-architect-code-split-scout` shows both placeholders.
 4. **A split found outside the work has an outcome.** The design skill's text routes a split the
    scout reports outside the work's area by `primer@met-outside-the-task`, and a split inside it as a
    thread: read in the installed text.
@@ -70,7 +91,9 @@ and arguments in [its deliberation](deliberation.md).
 6. **A move-only step leaves no stale path.** The planning skill's move-only step searches the prose
    of the tree for each old module path the move changes, per
    `issue@model@a-rust-item-named-in-prose-has-no-checked-form`, and states that the search is a lead,
-   since a path split over two lines escapes it.
+   since a path split over two lines escapes it; it re-points no quotation and edits no frozen file,
+   since no command performs a move, per
+   `issue@knowledge-architect@no-command-renames-or-moves-an-entry-or-a-component`.
 7. **Each dispatch fixed at a step names its property.** The code-split scout's dispatch names the
    property of `design@agent-skills@work-divided-by-judgement` it rests on, a point of view apart.
 
@@ -145,8 +168,15 @@ What each is rewritten to state:
 - `design@agent-skills@design-audit-checks-fit`: a split found at a slice's audit is a gap the audit
   sorts, not a design act of the audit: a split the decided design implies is applied in place, and
   any other goes to the owner or to a design session, as the audit's sorts say.
-- `design@agent-skills@shared-text-fragment`: the default code shape and the fragment on when to split
-  each gain the code-split scout as a host, on the owner's Q5 word.
+- `design@agent-skills@shared-text-fragment`: the module guidelines' fragment joins the list, hosted
+  by the development skill, the code-shape reviewer and the code-split scout, and the fragment on when
+  to split gains the scout as a host, on the owner's Q16 word; the harvest argues again, on the
+  `claude` ask, the head's rival of a harness hook delivering pointed sections, since the rewrite meets
+  the re-entry point of `issue@agent-skills@heads-argued-from-another-harness`.
+- `design@agent-skills@needless-instruction`, which cites
+  `design@agent-skills@premortem-as-watch-points`: its list of the rules whose cost goes to the
+  standing question, "code, tests or the split into Components", gains the module guidelines and
+  the subject standard as the question does, found at this slice's design audit.
 
 **Bound and not rewritten**: `design@agent-skills@work-divided-by-judgement`, of Group F,
 unchanged in its rule, which the planning and design skills' new dispatch cites with its property;
@@ -185,7 +215,7 @@ unchanged in its rule, which the planning and design skills' new dispatch cites 
 ## Fails alone on
 
 - A plan written under the new text with no split step where a signal of the guidelines holds for a
-  module the work touches.
+  module the work touches and the signals against a split do not outweigh it.
 - A split the code-split scout reports that has no thread, no step and no outcome of
   `primer@met-outside-the-task`.
 
@@ -218,10 +248,15 @@ For `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
 - **Size has one role**: a file a session cannot read whole in one pass, the argument the
   decision-recording skill already uses for turning a design home into a directory. No number of
   lines is picked. The premise that this limit is a signal is measured first, Claim 2.
-- **A split is a move-only commit before the work**, so that the review of the work reads the work.
-- **The delivery**, on the owner's Q5 word in round 4: the module guidelines inside the fragment of
-  the default code shape, so its hosts stay the same, and the code-split scout a new installed agent
-  hosting that fragment and the fragment on when to split, two new host entries.
+- **A split is a move before the work, in commits that hold the move alone**, so that the review of
+  the work reads the work.
+- **The delivery**, on the owner's Q16 word at this slice's design audit, which replaced Q5's of
+  round 4: the module guidelines a fragment of their own, hosted by the development skill, the
+  code-shape reviewer and the code-split scout, and the scout a new installed agent hosting that
+  fragment and the fragment on when to split. The scout does not host the default code shape, whose
+  test rules it applies none of, per `design@agent-skills@shared-text-fragment`'s rule that a host
+  applies the whole fragment;
+  `thread@split-guidelines-and-plan-directories@module-guidelines-fragment`.
 - These are guidelines a project weighs, per the milestone document's "Guidelines, and what stays a
   rule".
 - Nearest rival: a size threshold as the criterion, thaum's. Defeated by the owner's
@@ -234,18 +269,21 @@ For `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
 
 For `thread@split-guidelines-and-plan-directories@splits-planned-before-work`.
 
-- **The code side, a design decision**: the code-split scout at the design grounding, on the full
-  path, once the draft exists; each split it reports that the work bears on is a thread of the
-  discussion.
-- **The record side, no decision**: `worklist --out` at planning, over the subjects the harvest
-  writes into; a subject above the bound, or one whose heads will answer parts that change apart, is
+- **The code side, a design decision**: the code-split scout at the design grounding, once the draft
+  of a plan document exists and before the search of the whole record, so that the threads it opens
+  are in the work the search reads; each split it reports that the work bears on is a thread of the
+  discussion. Placed before the search at this slice's design audit, from the spec's "beside the
+  search", on `design@agent-skills@search-runs-once-the-shapes-settle` and
+  `issue@agent-skills@a-record-search-misses-what-is-added-after-it`.
+- **The record side, no decision**: `worklist --out` at planning, with the work its audits will
+  take, over the subjects the harvest writes into; a subject above the bound, or one whose heads will answer parts that change apart, is
   split before the harvest.
 - **Each split the plan takes is a step, or a slice when the move is large, before the work or the
   harvest that needs it.** Never left to the implementer, never an issue.
 - **A split a scout reports outside the work's area** is routed by `primer@met-outside-the-task`,
   usually as an issue: the plan does not take work its discussion did not decide.
-- **Each slice's design audit** runs the scout and the notice again over the slice's area, since the
-  code moves between slices.
+- **Each slice's design audit**, and a spec's where one runs, runs the scout and the notice again
+  over its area, since the code moves between slices and between a spec's writing and its work.
 - Nearest rivals: a record scout, an agent, which lost to a command needing no point of view apart;
   and a split left to the implementer, today's practice, which the owner reported never done,
   `argument@split-guidelines-and-plan-directories@arg-7` and
@@ -286,12 +324,17 @@ For `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
 
 ## Harvest
 
+- **Attribution**: Q5 and Q16 approved the session's defaults; a head records the delivery as the
+  session's choice that the owner approved, in the weak form, never as the owner's ruling, per
+  `design@agent-skills@fork-choice-in-weak-form`.
 - **Design heads**: Group D's heads of this slice and `design@agent-skills@shared-text-fragment`,
   as "What is already decided" says, under `skill@knowledge-architect-decision-recording`; the decisions of
   `thread@split-guidelines-and-plan-directories@module-split-guidelines`,
   `thread@split-guidelines-and-plan-directories@splits-planned-before-work` and
   `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded` land there, or in a head of
-  their own where the entry tests give one; the part of
+  their own where the entry tests give one, the module guidelines and the rule that a module split is
+  planned before the work being two decisions with two nearest rivals, judged by the one-decision
+  test; the part of
   `thread@split-guidelines-and-plan-directories@split-guidelines-not-rules` this slice builds lands in
   `design@agent-skills@subject-split-standard` and `design@agent-skills@default-code-shape`.
 - **Losing alternatives**: those above, judged by the tests of
