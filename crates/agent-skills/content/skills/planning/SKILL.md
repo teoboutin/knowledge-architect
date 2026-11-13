@@ -17,8 +17,8 @@ reads, and it re-enters at each slice's audit and at each landing.
   `skill@knowledge-architect-design`. On its full path, it ends at convergence and the premortem,
   its causes named and its acceptance criteria written, and hands off to this skill; its
   in-change path writes no plan document.
-- **Writing the code** of a step, its claims and its tests: the project's own development
-  procedure. This workflow installs none.
+- **Writing the code** of a step, its claims and its tests: `skill@knowledge-architect-development`
+  for the project's Rust code, and the project's own development procedure for any other code.
 - **Dispatching the reviewers**: `skill@knowledge-architect-review`.
 - **Auditing one aspect of the whole project**, which the design audit of a slice or a spec is
   not: `skill@knowledge-architect-project-audit`.
