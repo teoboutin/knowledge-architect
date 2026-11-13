@@ -218,6 +218,9 @@ For `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
   decision-recording skill already uses for turning a design home into a directory. No number of
   lines is picked. The premise that this limit is a signal is measured first, Claim 2.
 - **A split is a move-only commit before the work**, so that the review of the work reads the work.
+- **The delivery**, on the owner's Q5 word in round 4: the module guidelines inside the fragment of
+  the default code shape, so its hosts stay the same, and the code-split scout a new installed agent
+  hosting that fragment and the fragment on when to split, two new host entries.
 - These are guidelines a project weighs, per the milestone document's "Guidelines, and what stays a
   rule".
 - Nearest rival: a size threshold as the criterion, thaum's. Defeated by the owner's

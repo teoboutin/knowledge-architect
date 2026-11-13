@@ -8,7 +8,7 @@
   `argument@split-guidelines-and-plan-directories@arg-6`; the session's reading of the owner's words,
   `argument@split-guidelines-and-plan-directories@arg-23`, offered in round 1 for correction.
 - Final state: `approved`. It stood `presumed-settled` in the checkpoint table as the session's
-  reading; the owner's word on the checkpoint table, quoted in the milestone document's Threads,
+  reading; the owner's word on the checkpoint table, attributed in the milestone's Threads,
   closed it. In round 3 the session noted that `design@git@git-is-asked-through-one-module` shows a
   module decision that does earn a head, by test 2 of `primer@design-heads`.
 - Its shape: this spec's "Decided design", "A module split's record". Harvest: this slice's, into
@@ -20,8 +20,8 @@
 ### A split within a crate needs no decision record `##arg-2`
 
 Round 1, the owner. Bears on `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
-"in most cases, splitting within one crate should not need decision record, it does not directly
-affect what is decided or implemented"
+The owner held that in most cases a split within one crate should need no decision record, since it
+does not directly affect what is decided or implemented.
 
 ### A module split is decided at design time and earns no head unless a head test holds `##arg-23`
 
