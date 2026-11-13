@@ -111,10 +111,11 @@ it, it is `constrains`, action `none`, `against: -`, its reason naming the seed,
 verdict enters none:
 
 - at the design grounding, `generated-lines.md`, which the commit message carries on the in-change
-  path and for bounded work, and whose entries the plan document's "What is already decided" gives
-  an outcome on the full path, per `design@agent-skills@session-acts-on-the-verdicts`;
-- at the design audit, `fit-lines.md`, which the audit's commit message carries, per
-  `design@agent-skills@design-audit-checks-fit`;
+  path and for bounded work, and which the plan document commits as `search/discussion.txt` on the
+  full path, its "What is already decided" giving the outcome of each verdict that changed
+  something, per `design@agent-skills@session-acts-on-the-verdicts`;
+- at the design audit, `fit-lines.md`, which the audit's commit message carries and the audit's
+  commit copies as `search/design-audit.txt`, per `design@agent-skills@design-audit-checks-fit`;
 - at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
   and no finding, so no analysis carries it.
 
@@ -171,13 +172,15 @@ to the owner as `primer@question-authority` says; and carries each report's `## 
 the act each action names at an occasion is stated by the skill that dispatches the search there.
 Where the occasion's record goes:
 
-- at the design grounding on the full path, the plan document's "What is already decided" gives each
-  entry with a verdict other than `unrelated` its verdict, its action and its outcome: the answer the
-  discussion gave, that the design respects it, or that it stays open;
+- at the design grounding on the full path, the plan document commits `generated-lines.md` as its
+  `search/discussion.txt`, the line of each entry given a verdict other than `unrelated`, and its
+  "What is already decided" gives each verdict whose outcome changed the design, a thread or the
+  work, with that outcome, and links `search/discussion.txt` for the others;
 - on the in-change path and for bounded work, the commit message carries the lines of
   `generated-lines.md`;
 - at a design audit, the session reads `gaps.md` and sorts each gap, and the audit's commit message
-  carries `fit-lines.md`;
+  carries `fit-lines.md`, which the same commit copies as `search/design-audit.txt` beside the
+  audited `README.md`;
 - at an intake, the analysis that holds a cluster of findings carries the generated line of each
   entry given a verdict against it.
 
@@ -189,6 +192,18 @@ entries graded as bearing, lost to the size of that reading:
 `rejected@agent-skills@relevance-grades-read-by-the-session`. A verdict the session misjudges has a
 reader at the plan document's review and at the merge, per
 `design@agent-skills@verdicts-reach-the-conformance-review`.
+
+### A plan document commits, of a record search's output, the generated lines alone, as a `.txt` file `##plan-commits-the-generated-lines`
+
+Of what `klarch worklist` writes, a plan document commits the generated lines alone, each as a `.txt`
+file of its `search/` named by its occasion, `discussion.txt` or `design-audit.txt`, per
+`design@agent-skills@session-acts-on-the-verdicts`, which the walk never parses, per
+`design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. The verdict files, `shown.md`,
+`gaps.md`, the agent directories and the searchers' working files stay in the session's scratch
+space, per `design@agent-skills@agents-write-in-scratch`: the searchers' reasons are not kept, since
+a reason that changed something is carried by the outcome the plan document records, and a report's
+quotations go stale as the record changes. The rival, committing the whole output, is
+`rejected@agent-skills@search-output-committed-whole`.
 
 ### The design skill's record search runs once the shapes settle `##search-runs-once-the-shapes-settle`
 
@@ -231,8 +246,10 @@ dispatched at the checkpoint, `rejected@agent-skills@conformance-reader-at-the-c
 The work of the search of `design@agent-skills@search-runs-once-the-shapes-settle` is the draft of
 the document that will carry the deliberation, in the form of the path the session expects: on the
 full path the draft of the spec, which the planning skill writes, per
-`design@agent-skills@design-hands-off-to-planning`; on the in-change path and for bounded work the
-draft of the commit message, which the design skill writes. Each thread is a subject of the work. The
+`design@agent-skills@design-hands-off-to-planning`, whose threads and arguments the assembly then
+writes into the plan document's `deliberation.md`, per `design@agent-skills@discussion-record-apart`;
+on the in-change path and for bounded work the draft of the commit message, which the design skill
+writes. Each thread is a subject of the work. The
 draft is never read as the discussion's state, and the plan document is never assembled from it, per
 `design@agent-skills@ledger-from-transcript`.
 
@@ -304,10 +321,12 @@ first work did not cover, with the draft extended by that thread as the work: th
 the whole record but judged it against the first draft, so an entry that bears only on the new
 subject may stand `unrelated`. The plan-document review of `design@agent-skills@plan-read-against-the-record` stays
 the backstop. The installed planning skill dispatches it at the design audit of a milestone slice,
-point 2 of `skill@knowledge-architect-planning@working-a-slice`, with the slice's spec and the
-milestone document as the work, `slice-audit` as its subject, the seeds of its spec, and `--since`
-the commit that last changed the spec, and at the design audit of a spec where one runs, with the
-spec as the work and `spec-audit` as its subject, and acts on its verdicts as
+point 2 of `skill@knowledge-architect-planning@working-a-slice`, with the milestone's `README.md`
+and the slice's `README.md` as the work and no other file, never a `deliberation.md`, per
+`design@agent-skills@discussion-record-apart`, `slice-audit` as its subject, the seeds of the slice's
+`README.md`, and `--since` the commit that last changed the slice's `README.md`, and at the design
+audit of a spec where one runs, with the spec's `README.md` as the work and the seeds, and
+`spec-audit` as its subject, and acts on its verdicts as
 `design@agent-skills@design-audit-checks-fit` says. The audit lists as a gap every standing
 entry the slice's code bears on: a tripwire whose firing condition, or a deferred trigger, the
 planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or
@@ -388,7 +407,8 @@ the work again. The search's check writes `gaps.md`, every verdict other than `c
 A `constrains` verdict is a fit, which the audit records and does not read again; every other verdict
 but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into the planning skill's
 sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
-record, in its commit message.
+record, in its commit message, and copied in the same commit as `search/design-audit.txt` beside the
+audited `README.md`, so the record of the audit stays in the plan document while it exists.
 
 It serves `goal@session-orchestrates-the-work`: the audit runs before every slice, point
 2 of `skill@knowledge-architect-planning@working-a-slice`, so its cost recurs at each slice, and the

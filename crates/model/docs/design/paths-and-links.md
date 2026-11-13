@@ -69,7 +69,7 @@ stays silent under `design@check@backticked-bare-id`.
 - **The anchor** is a component, a declared location or the anchor `plans`, where it carries the
   register; `*` names every component's own home of a component-scoped register, per
   `design@model@generic-anchor-names-every-component-copy`. The home of a register the root alone carries names no anchor,
-  `register@<register>`, as `register@goal`, per `design@model@root-register-reference-has-no-anchor`. An entry or a spec anchor is no anchor of the form: an entry's
+  `register@<register>`, as `register@goal`, per `design@model@root-register-reference-has-no-anchor`. An entry or a plan anchor is no anchor of the form: an entry's
   homes are its own directory, which the entry's reference already names, as
   `milestone@plans@<id>` names a milestone's, and one document has one name, per
   `design@model@plan-document-kinds` and `design@model@declarable-directory-register`.
@@ -148,7 +148,9 @@ not asserted, per `design@model@ignored-targets-are-not-asserted`. `*` and the e
 refused: a planned path is in this tree, at one anchor.
 
 **It is legal in the plans directory alone**, since a plan document is the one place that
-describes unbuilt work, per `design@model@plan-register`. Elsewhere it is a finding that asks for
+describes unbuilt work, per `design@model@plan-register`. A planned path in a harvested slice is
+judged by none of this, and is not reported once its work creates the file: the slice's files left
+the walk when it was harvested, per `design@model@a-harvested-slice-is-frozen`. Elsewhere it is a finding that asks for
 the plan that creates the file. An issue entry states what is missing rather than the shape of its
 fix, and a hypothetical file there is `path@elsewhere@<path>`.
 

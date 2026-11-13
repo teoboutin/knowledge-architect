@@ -850,3 +850,43 @@ the session already acted on; it would also bring back `rejected@agent-skills@re
 and `rejected@agent-skills@repair-defects-left-to-next-pass`. Scoping it to dispatches no skill
 names needed an exemption for each chain. A minimum, one independent verification, ends an
 open-ended chain without forbidding any of them.
+
+### A slice's spec deleted when its slice lands, as a spec is `##slice-spec-deleted-at-its-landing`
+
+`live`. It kept no plan document past its work, but it took from the milestone's later slices the
+spec they plan from, and made the milestone document and the sibling specs re-point their citations
+of it at each landing. A slice's spec kept frozen under its milestone's `harvested/` meets the
+argument for deleting a landed document while the milestone is open: out of the walk, its
+references never break, and its place is the marker that it describes landed work. It is kept here
+because a doubt remains that a later slice builds on an item of a harvested spec whose decision a
+later landing reversed, which `tripwire@agent-skills@harvested-item-built-after-its-reversal`
+watches; this is the candidate if it fires.
+
+### The deliberation kept inside the plan document the record search reads `##deliberation-in-the-searched-document`
+
+`live`. It kept a plan document whole in one file. It lost to a measurement over the plan documents
+this repository deleted, `git show <deleting-commit>^:<file> | wc -c`: the Threads, the Arguments
+and the copy of the search's outcomes made about 80% of the `goals-at-the-root` milestone's README,
+and a slice audit of that milestone took 44 search agents where the slice's spec alone needed about
+15, seven of its first 27 reports saying the agent could not read the document whole.
+
+### The owner's words verbatim in a plan document's items `##owner-words-verbatim-in-plan-items`
+
+`live`. It kept the rulings as the owner made them where the items are read. It lost on the
+owner's report that, out of the context they answered, the words have little value, once the
+committed transcript holds them in context; and on the intake of forty received retrospective files,
+thirteen of whose 23 workflow files report at least 24 slips against the attribution rules, five of
+them, in three files, a quotation, the kind that bears on whether the two regimes, verbatim in plan documents
+and attributed elsewhere, confuse sessions. It is kept here because a doubt remains that
+attribution in the items keeps the scope and the hedges a quotation showed, which
+`issue@agent-skills@attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts`
+counts; this is the candidate if the count rises.
+
+### A record search's whole output committed beside its plan document `##search-output-committed-whole`
+
+`live`. It kept every searcher's reason beside the plan document. Measured with `wc -c` over the
+output of the search that grounded the discussion of plan documents as directories, in that
+session's scratch space, the whole output held 8,193,395 bytes, the verdict files 1,922,848 of them,
+holding 617 copied entry blocks for 301 entries, `shown.md` 2,051,313 and the 19 reports 413,365,
+where the generated lines held 22,581; and a report's quotations go stale as the record changes,
+where the outcome a plan document records carries every reason that changed something.

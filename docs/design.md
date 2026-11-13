@@ -830,6 +830,12 @@ So neither a commit message nor a document cites the SHA of a commit of its own 
 that commit by its subject. `commits` refuses such a citation, per
 `design@check@branch-shas-are-refused`, which this repository's manifest turns on.
 
+A SHA that a plan document's committed transcript quotes is a quotation, not a citation. The
+transcript records what was said in the discussion, as the session and the tools printed it, and
+no reader follows a SHA in it to a commit: the plan document that cites the commit names it by its
+subject. Replacing each such SHA by hand would alter the record it exists to keep, and the walk
+reads no `.txt` file, so `commits` does not see it, per `design@check@branch-shas-are-refused`.
+
 ### A record carried by a commit message rides on a commit that changes a file `##a-record-rides-on-a-commit-that-changes-a-file`
 
 **A commit that changes no file does not reach main.** GitHub's rebase merge drops it: a pull

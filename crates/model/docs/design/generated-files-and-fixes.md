@@ -37,6 +37,14 @@ restale it on every wording edit, and a date would break
 row per entry, its id, then its README's level-one title linking `<id>/README.md`, sorted by id. Its rows come from the
 entries, which are anchors, so no file inside an entry is a row; the entry's own index lists those.
 
+**The plan registers' indexes take the same bytes, in the form of the shape each resembles**, per
+`design@model@plan-model-first-class`: specs/ lists one row per spec, its title linking
+`<id>/README.md`, a grouped spec under its group's heading, as a file register lists its entries;
+milestones/ lists one row per milestone with the `id` column, as a Directory register does; and
+each milestone's `index.md` lists its slices, a live slice ungrouped and a harvested one under the
+heading `harvested`, the subdirectory it sits in, titled from its frozen `README.md`, per
+`design@model@a-harvested-slice-is-frozen`.
+
 **The rows come from the walked entries, not from the instance's declarations.** A group is the
 subdirectory an entry sits in, so an undeclared group still lists its entries and a declared group
 holding none prints no heading; an entry whose id, title or metadata the shape check refuses is

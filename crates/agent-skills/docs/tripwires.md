@@ -407,3 +407,18 @@ the standing-state review.
 **Watches until:** three commits on the main branch that add an analysis under
 `path@knowledge-architect@docs/retrospective-reports/`, counted from the commit that writes this
 line.
+
+## Guarding `design@agent-skills@harvested-slice-kept`: a later slice builds on an item of a harvested slice whose decision an earlier landing reversed `##harvested-item-built-after-its-reversal`
+
+The decision rests on the premise that a harvested slice's spec serves the later slices of its
+milestone without misleading them: a later slice that cites one of its items reads the design homes,
+which win over it where an earlier landing of the milestone reversed what the item states.
+
+**Fires when:** an issue, an audit report or a retrospective file reports work merged on the main
+branch that follows a decision stated by an item of a harvested slice's spec, where the design
+homes held, at that merge, a later decision that reversed it.
+**Response:** reopen `design@agent-skills@harvested-slice-kept`, on whether a harvested slice's
+items stay citable from inside its milestone.
+**Re-entry:** the standing-state review: the issue, the report or the analysis is in the tree.
+**Watches until:** the second milestone whose directory leaves the main branch holding a slice under
+`harvested/`, counted from the commit that writes this line.

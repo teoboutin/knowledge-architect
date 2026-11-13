@@ -16,9 +16,11 @@
 //! entry beside a hand-written `README.md`, a generated `index.md` and an optional
 //! `register.toml`; the entries' frontmatter, title, sections and owed subsections are asserted
 //! here, per `design@check@a-file-register-is-a-directory-of-entries` and
-//! `design@model@frontmatter-subset`. A Directory register, the milestones home, owes the same two
-//! navigation files, and each of its entries is a directory whose README is asserted as a File
-//! entry is.
+//! `design@model@frontmatter-subset`. A Directory register owes the same two navigation files, and
+//! each of its entries is a directory whose README is asserted as a File entry is. So do the plan
+//! types' homes, specs/ and milestones/: each plan document is a directory whose `README.md`
+//! owes the sections of its kind and whose `deliberation.md` owes the Threads and the Arguments,
+//! per `design@check@plan-document-sections-by-kind`.
 //!
 //! **Whether what is there exists is not this check's question.** An anchor or a home that is
 //! not there is a finding of phase 2, and a definition sitting where none may is
@@ -620,7 +622,7 @@ fn is_entry(rel: &Path, home: &Home) -> bool {
 /// One entry: its frontmatter, its title, its sections and the subsections its kind owes.
 ///
 /// `sections` are the level-two sections the entry owes at its anchor, per
-/// `Anchor::sections_of`: a register's own, or a slice spec's.
+/// `Anchor::sections_of`: a register's own, or a slice's `README.md`'s.
 fn entry(out: &mut Vec<Finding>, register: &Register, sections: &[String], doc: &Document) {
     let declared: Vec<&str> = register.metadata.iter().map(|(k, _)| k.as_str()).collect();
     let mut values: BTreeMap<&str, &str> = BTreeMap::new();

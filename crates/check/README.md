@@ -253,42 +253,58 @@ refused. It holds three things and nothing else:
 | path | what it is |
 | --- | --- |
 | docs/plans/README.md | hand-written: what the directory holds |
-| docs/plans/specs/ | the `spec` register: one file `<id>.md` per spec, beside a hand-written `README.md` and a generated `index.md`, as any file register |
-| docs/plans/milestones/ | the `milestone` register: one directory `<id>/` per milestone, beside a hand-written `README.md` and a generated `index.md` |
+| docs/plans/specs/ | the `spec` plan type: one directory `<id>/` per spec, beside a hand-written `README.md` and a generated `index.md`; a subdirectory holding no `README.md` is a declared group of specs |
+| docs/plans/milestones/ | the `milestone` plan type: one directory `<id>/` per milestone, beside a hand-written `README.md` and a generated `index.md` |
 
-**Each milestone directory is an anchor of its own**, named by its basename: `milestone` is the
-built-in directory register, whose entries carry `spec` and the four item registers. Its `README.md` is the
-milestone document, its `index.md` is generated and lists its slices, and every other `.md` file in
-it is the spec of one slice. A directory under milestones/ with no `README.md` is a finding. **Each
-spec file is an anchor too**, named by its id, and stays an entry of the `spec` register of
-`plans`.
+**Each spec's directory and each milestone's is an anchor of its own**, named by its basename. A
+plan document's directory holds:
 
-**A plan document holds fixed sections.** A spec of specs/ and a milestone's README owe, in order:
-Status and audience, How the work is done, Names, What the work is, What is already decided,
-Criteria, Threads, Arguments, "New names, in one place", Decided design, Mapping tables, Losing
-alternatives, Readings, Premortem, Acceptance criteria, Implementation sequence, Order rationale,
-Defaults awaiting the owner, Harvest, Later consequences. A slice spec owes Builds, Claims, Audit
-subjects, Fails alone on, Premises that expire.
+| file | what it is |
+| --- | --- |
+| `README.md` | the document the search reads: the decided design, the steps, the criteria, and "What is already decided" |
+| `deliberation.md` | the Threads and Arguments, where the document has a thread or an argument |
+| `search/` | the generated lines of a search run for the document, each a `.txt` file, `discussion.txt` and `design-audit.txt` |
+| `transcript.txt` | the trimmed transcript of the discussion, where the document was assembled from one |
+
+A milestone's directory holds besides its generated `index.md`, which lists its slices, one
+directory per live slice, holding the same files as a spec's, and `harvested/`, holding the
+directory of each slice that has landed. Any other file or directory is a finding, and so is a spec
+written as one file. **A slice's directory is no anchor**: the milestone is the anchor of every file
+under its directory. A `.txt` file is never parsed, and every file under `harvested/` is frozen: out
+of the walk, read for its definitions alone, and cited from inside its milestone alone.
+`cargo klarch commits` reports a commit that modifies a frozen file, or adds one other than by the
+move that freezes a slice.
+
+**A plan document holds fixed sections.** The `README.md` of a spec and of a milestone owes, in
+order: Status and audience, How the work is done, Names, What the work is, What is already decided,
+Criteria, "New names, in one place", Decided design, Mapping tables, Losing alternatives, Readings,
+Premortem, Acceptance criteria, Implementation sequence, Order rationale, Defaults awaiting the
+owner, Harvest, Later consequences. The `README.md` of a slice owes Builds, Claims, Audit subjects,
+Fails alone on, Premises that expire. A `deliberation.md` owes Threads, then Arguments, which no
+`README.md` holds.
 
 **A plan's items are headings of four of those sections.** A level-three heading ending with its
 slug, `### <statement> ##<id>`, under Threads, Arguments, Criteria or Acceptance criteria, defines
 an item of the kind `thread`, `argument`, `criterion` or `acceptance`, in the plan's anchor: the
-spec, or the milestone, whose README and slice specs share one namespace. Every level-three heading
-of those sections carries a slug; a slug anywhere else in a plan defines nothing. An item is cited
-`<kind>@<plan>@<id>`, from inside its own plan only: a citation from outside it, a commit message
-included, is refused, and the finding names the whole-document form.
+spec, or the milestone, whose files and slices' files share one namespace, a harvested slice's
+included. Every level-three heading of those sections carries a slug; a slug anywhere else in a
+plan defines nothing. An item is cited `<kind>@<plan>@<id>`, from inside its own plan's directory
+only: a citation from outside it, a commit message included, is refused, and the finding names the
+whole-document form.
 
 **A plan document is cited by its kind, never by its path**:
 
 ```text
-spec@plans@<id>               a spec, docs/plans/specs/<id>.md
+spec@plans@<id>               a spec, docs/plans/specs/<id>/
 milestone@plans@<id>          a milestone, docs/plans/milestones/<id>/
-spec@<milestone>@<slice>      a slice spec, docs/plans/milestones/<milestone>/<slice>.md
+spec@<milestone>@<slice>      a live slice, docs/plans/milestones/<milestone>/<slice>/
 ```
 
-A `path` citation of a plan document is refused, and the finding names the form above. The
-plans directory's README, and the README and index of each of its two homes, are cited by path,
-as in `path@plans@README.md`.
+A `path` citation of a plan document, or of a file inside its directory, is refused, and the
+finding names the form above. A harvested slice is cited `spec@<milestone>@<slice>` from inside its
+milestone's directory alone; from anywhere else, the milestone is cited whole. A plan's `README.md` reaches
+the files beside it by relative links. The plans directory's README, and the README and index of
+each of its two homes, are cited by path, as in `path@plans@README.md`.
 
 **A path a plan's work will create is cited `planned@<anchor>@<path>`**, from a document of the
 plans directory only. Its anchor and path follow the rules of a `path` reference, and the target
@@ -311,12 +327,13 @@ are findings. So is a milestone name outside the id grammar, `[a-z0-9]+(-[a-z0-9
 a declared directory register gives way to every plan of the same name.
 
 A tree that breaks this layout stops the run at phase 2, except a home's missing `README.md` or
-`index.md`, which is a finding of the last phase as in every file register. A misplaced or
+`index.md`, which is a finding of the last phase as in a file register's home. A misplaced or
 duplicated item stops it at phase 3, and a missing section is a finding of the last phase. The arguments are
 `design@model@plan-register`, `design@model@plans-split-dirs`, `design@model@plan-document-kinds`,
-`design@model@a-placed-name-reads-as-nothing-else`, `design@model@spec-file-is-an-anchor`,
-`design@check@plan-document-sections-by-kind`, `design@model@plan-items-by-section` and
-`design@model@plan-item-scope`.
+`design@model@a-placed-name-reads-as-nothing-else`, `design@model@spec-directory-is-an-anchor`,
+`design@check@plan-document-sections-by-kind`, `design@model@plan-items-by-section`,
+`design@model@plan-item-scope`, `design@model@a-harvested-slice-is-frozen` and
+`design@check@a-frozen-file-is-never-modified`.
 
 ## Commit messages
 
@@ -338,7 +355,8 @@ was written against, byte for byte and cleaned of nothing, per
 fails the run**, the range's last commit included, with its tree's findings named by the commit and
 the file, and its message is still judged where its tree reached the last phase, per
 `design@check@every-commit-judged-by-the-tip-checker`. The summary block counts the commits, how many passed and how many failed, and a commit
-fails on any finding of its tree, of its message or of a citation by SHA:
+fails on any finding of its tree, of its message, of a citation by SHA, or of a change of a frozen
+file under a milestone's harvested/, per `design@check@a-frozen-file-is-never-modified`:
 
 ```
 commits in origin/main..HEAD: 2 commits, 1 passed, 1 failed

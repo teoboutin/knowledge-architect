@@ -6,7 +6,8 @@
 
 The walked set is git's listing from the manifest's directory, `git ls-files --cached --others
 --exclude-standard`, with `[walk] skip-dirs`, `skip-files` and `exclude` applied after it, and the
-generated indexes and the installed agent files removed by construction. Nothing generated is declared: `target` and
+generated indexes, the installed agent files and the frozen files of a harvested slice removed by
+construction, the last per `design@model@a-harvested-slice-is-frozen`. Nothing generated is declared: `target` and
 `path@agent-config@worktrees/` are covered by the ignore rules, so no `[walk]` row names them. A path
 reference whose target the ignore rules cover is exempt from assertion the same way, per
 `design@model@ignored-targets-are-not-asserted`.
@@ -31,8 +32,10 @@ names depends on where the manifest sits rather than on the tree.
 
 **No ignore rule can take a tracked file out of the walk.** `--cached` is unaffected by the ignore
 rules, so no ignore line, however written, can take a live document out of every check. What
-leaves the walk does so by the manifest: a declared row, or an exclusion derived from a
-declaration, as the generated indexes and the installed agent files are, per `design@check@installed-files-outside-the-walk`. That is what a
+leaves the walk does so by the manifest or by the layout the tool fixes: a declared row, an
+exclusion derived from a declaration, as the generated indexes and the installed agent files are,
+per `design@check@installed-files-outside-the-walk`, or the frozen location of the plans layout, as
+the files of a harvested slice are. That is what a
 hand-rolled matcher cannot promise, and it is the property the whole walk is
 chosen for; the matcher and the three things it could not do are
 `rejected@model@hand-rolled-gitignore-matcher`.

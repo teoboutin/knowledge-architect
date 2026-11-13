@@ -8,7 +8,7 @@
 //! **A file register's entry is its file; a heading register's entry is its section.** That is
 //! the whole of the difference between the two shapes here: the body of the first is the file's
 //! text, and the body of the second is the heading line through to the next heading at or above
-//! its level. A Directory register's entry, a milestone, is its README's file.
+//! its level. A Directory register's entry, and a plan document, is its README's file.
 //!
 //! Nothing here reads the filesystem or spawns a process. The last-change column a listing
 //! prints comes from `git::last_changed`, which `issues` of `query` calls beside these; every function

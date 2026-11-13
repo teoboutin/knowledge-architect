@@ -157,7 +157,9 @@ catches one. When
 the thread is approved, or closed `argued`, and its decision earns an entry, the entry's heading ends with the same
 slug, except in the case below, so the spec, the commit messages and the design home name the decision with one identifier.
 In the plan document the thread is an item, a level-three heading ending with the same slug under
-the Threads section, cited from inside that document only, per `design@model@plan-items-by-section`.
+the Threads section of its `deliberation.md`, per `design@model@plan-items-by-section`, cited from
+inside the plan's directory only, a milestone's slices included, live or harvested, per
+`design@model@plan-item-scope`.
 
 A thread is named by the decision it would record if approved, not by the change it proposes. A
 thread's slug is minted in the round it opens, and the approved shape can drift from the proposal,

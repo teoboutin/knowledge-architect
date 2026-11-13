@@ -264,10 +264,8 @@ being written, and a home that changes shape dangles every one of them.
 
 ### Every subdirectory of a location an anchor, with no Directory register `##subdirectory-anchors-location`
 
-`live`. A flag on a location would have made each of its subdirectories an anchor. It loses on two
-facts: `milestone` needs entries that are directories, to be cited `milestone@plans@<id>`, so it
-keeps the Directory shape, and the tool would hold two mechanisms placing anchors off the tree for
-one shape; and it gives a subject no reference of its own and no generated listing of the subjects.
+`live`. A flag on a location would have made each of its subdirectories an anchor. It loses because
+it gives a subject no reference of its own and no generated listing of the subjects.
 
 ### A Component's register list fixed by the word _component_ `##component-register-list-fixed`
 
@@ -318,3 +316,27 @@ would change an interface others consume.
 `live`. A consumer of the resolver with no check would read each target the ignore rules cover as
 absent. It would change an interface others consume. A run over a tree git holds does ask in `check`,
 since no gathering of the working tree reads that tree.
+
+### A spec as one file of specs/ `##spec-as-one-file`
+
+`live`. A spec would stay one Markdown file, its anchor the file, and a milestone's slices files
+beside its `README.md`. It loses because a plan document now has files with no other home, its
+`deliberation.md`, its `search/` and its `transcript.txt`, which a file cannot hold beside it without
+a second home for each. Reverting to it would move every adopting project's specs back into files.
+
+### The Directory shape extended to carry the plan documents `##plans-on-the-directory-shape`
+
+`live`. `spec` and `milestone` would be registers of the Directory shape a project declares, the
+plans layout held as conditions on their names. It loses because a milestone carries five registers
+where a declared Directory register carries one, on the owner's ruling that
+`design@model@declarable-directory-register` records, carries no `path` kind, and owes sections
+compiled in; admitting those in the shape a project declares breaks that ruling, or makes the shape
+change whenever the planning skill changes what a plan document holds.
+
+### A slice's directory as an anchor of its own `##slice-directory-as-an-anchor`
+
+`live`. Each slice of a milestone would be an anchor at its directory. It loses because the deepest
+anchor owns the definitions of the files under it, per `design@model@an-entity-belongs-to-its-anchor`,
+so a slice's items would leave the milestone's namespace and its citation forms, and a slice's name
+would sit in the anchor position, where two milestones' slices of one name collide, per
+`design@model@a-placed-name-reads-as-nothing-else`. It would change how every slice's items are cited.

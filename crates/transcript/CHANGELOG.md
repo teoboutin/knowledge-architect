@@ -6,6 +6,66 @@ class is `design@knowledge-architect@changelog-entries`. Inside a subsection, en
 surface, in the order `checks`, `cli`, `manifest`, `library`, `agent-skills`, `gates`, `mutate`;
 an empty subsection is omitted.
 
+## Next release
+
+### Migration
+
+- `checks`, major: every plan document is a directory. A spec `docs/plans/specs/<id>.md`, in a group
+  of specs/ or not, moves to `docs/plans/specs/<id>/README.md`, and a slice
+  `docs/plans/milestones/<milestone>/<slice>.md` to `docs/plans/milestones/<milestone>/<slice>/README.md`;
+  a spec file, or a slice file beside a milestone's `README.md`, is a finding naming the directory. A
+  subdirectory of specs/ that holds a `README.md` is a spec, and any other is a group, as before. The
+  sections Threads and Arguments of a plan's `README.md`, a milestone's and each slice's included,
+  move with their items to a `deliberation.md` beside it, which holds those two sections: a
+  `README.md` holding either is a finding. A plan's directory holds nothing else but `search/`,
+  with `discussion.txt` and `design-audit.txt` alone, and `transcript.txt`; a milestone's holds
+  besides its `index.md`, its slices' directories and `harvested/`. The `.txt` files are never
+  parsed. No citation changes: `spec@plans@<id>`, `spec@<milestone>@<slice>` and every item
+  reference resolve as before, and a `path` reference to a plan document's directory or to a file in
+  it is refused, its finding naming the plan's reference. A project moves each file with `git mv`,
+  moves the two sections by hand, then runs `klarch index`, all in the commit that moves the pin,
+  per `primer@branch-commits`. This holds for every project the consumer's tests build, mock
+  projects included. `init` writes the homes of specs/ and milestones/ with a text that states the
+  new layout.
+- `library`, major: `declared::Shape` gains the variant `Plan(PlanKind)`, which the registers `spec`
+  and `milestone` now have, where they had `File` and `Directory`; `table::Constructed::Spec` is
+  replaced by `Constructed::Plan(PlanKind)`, which a milestone's anchor also is, where it was
+  `Constructed::Entry`; and `resolve::Cause` gains the variant `Harvested`. A program that matches
+  any of the three exhaustively adds the new arms, and one that tells a plan register by its shape
+  reads `Shape::Plan`.
+
+### New features
+
+- `checks`, minor: a landed slice is harvested by moving its directory under its milestone's
+  `harvested/`. A harvested slice's files leave the walk and are parsed for their definitions
+  alone, a definition there still counting against a live one of the same id; a harvested slice,
+  or an item it defines, is cited from inside its milestone's directory only, and a relative link
+  into `harvested/` from outside it is refused. `commits` reports a commit that modifies a file
+  under `harvested/`, or adds one other than by the move that freezes a slice.
+- `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
+  seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
+- `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
+  `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `Model::frozen`, `Model::set_frozen`
+  and `table::Anchor::is_milestone` in `knowledge-architect-model`, and `tree_changes`,
+  `TreeChange`, `ChangeKind`, `Blob` and `SnapshotEntry::blob` in `knowledge-architect-git`.
+
+### Workflow
+
+- `agent-skills`, patch: a plan document is a directory: its `README.md` is what the record
+  searches read and holds every condition of a decided thread, its `deliberation.md` the Threads
+  and Arguments, its `search/` the generated lines of its discussion's search and of its design
+  audit, committed as `discussion.txt` and `design-audit.txt`, and its `transcript.txt` the
+  discussion's trimmed transcript. The assembly runs a removal step over the transcript, of every
+  path under a home directory, every e-mail address, every credential and token and the pasted
+  material the owner marks, then shows it to the owner and pushes it only on the owner's word for
+  that transcript. A plan item attributes the owner's words, citing the round, and "What is already
+  decided" keeps only the verdicts whose outcome changed something, linking `search/discussion.txt`
+  for the rest.
+- `agent-skills`, patch: a landed slice is moved under its milestone's `harvested/` in a commit of
+  its own after its review, where it was deleted, and leaves with its milestone's directory. A
+  slice audit's search takes as its work the milestone's `README.md` and the slice's, seeds from the
+  slice's `README.md`, and takes as `--since` the commit that last changed it.
+
 ## 0.10.0
 
 ### Migration

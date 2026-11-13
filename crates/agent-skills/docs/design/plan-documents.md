@@ -65,25 +65,31 @@ apply elsewhere in the future too."
 
 The design this decision did not keep: `rejected@agent-skills@spec-plus-detailed-plan`.
 
-### A milestone is a directory, its head a README, each slice a spec `##milestone-is-a-directory`
+### A milestone is a directory, its head a README, each slice a directory of its own `##milestone-is-a-directory`
 
 A milestone's plan documents are one directory under milestones/ in the plans directory, which the
 checker makes an anchor named by its basename, per `design@model@plan-document-kinds`: the milestone
-document is its `README.md`, a generated `index.md` lists the slices, and each slice's spec is a file
-beside it, cited `spec@<milestone>@<slice>`. The head is a README because the checker
-resolves a relative link only in a `README.md` or an `index.md`, per
+document is its `README.md`, with the files of a plan document's directory beside it, per
+`design@agent-skills@discussion-record-apart`; a generated `index.md` lists the slices, live and
+harvested; and each slice's spec is a directory beside them, `<slice>/`, laid out as a spec of
+specs/ is, and cited `spec@<milestone>@<slice>`. A slice's directory is no anchor: the milestone is
+the anchor of every file under its directory, so a slice's items are the milestone's. The head is a
+README because the checker resolves a relative link only in a `README.md` or an `index.md`, per
 `design@check@links-are-navigation-rows`, so the head can link each slice's spec as a navigation row.
-A slice's spec is a spec, so it leaves when its slice lands, per
-`design@agent-skills@plan-document-leaves-at-landing`: its decisions are then in the design homes. The
-README leaves once its last slice has landed and every default it lists is ruled, per
-`design@agent-skills@default-ruled-before-merge`: in the commit that deletes that slice's spec, or in
-the commit that records the last ruling.
+When a slice lands, its directory moves under the milestone's `harvested/`, where it stays, frozen,
+until the milestone leaves, per `design@agent-skills@harvested-slice-kept`: its decisions are then in
+the design homes. The milestone's directory leaves whole once its last slice has landed and every
+default it lists is ruled, per `design@agent-skills@default-ruled-before-merge`: in the commit that
+deletes it with the last slice's spec, or in the commit that records the last ruling.
 
 ### A milestone's design is split across its documents by lifetime, from the session that converged `##milestone-split-by-lifetime`
 
 The design of a milestone is split across its documents from the start, by lifetime: a slice's spec holds what
 only that slice builds, and the README holds what crosses slices or outlives one, every item cited
-from more than one slice's document included. A README holding every slice's design is read whole
+from more than one slice's document included: a slice's spec is frozen once its slice lands, per
+`design@model@a-harvested-slice-is-frozen`, so an item another slice cites could no longer be
+amended in place when a later landing changes it. Each document keeps its threads and arguments in
+its own `deliberation.md`, per `design@agent-skills@discussion-record-apart`. A README holding every slice's design is read whole
 at every slice's grounding and grows with every slice: the README of the structured-plans milestone
 held 1,624 lines when it left, counted with `wc -l` on `git show` of its deleting commit's parent.
 The slice specs exist from the session that converged, so the audit of a slice applies its findings
@@ -94,15 +100,42 @@ audit found.
 
 The design this decision did not keep: `rejected@agent-skills@milestone-holds-every-slice-design`.
 
-### A plan document leaves when its work lands, in a commit of its own after the review before the merge `##plan-document-leaves-at-landing`
+### The record of a discussion sits in its plan document's directory beside the document the search reads, and every condition of a decided thread is in that document `##discussion-record-apart`
 
-A plan document is deleted once its last harvest is complete, in a commit of its own after the
-review before the merge has read the tip that holds it, and that commit's message cites it by its
-kind, which resolves against the commit's parent. A plan document kept after its work lands is a
-second home for every decision it carried, and it starts drifting at the first later reversal.
-Walked by the checker, its references break at every reversal, and someone repairs a document about
-finished work; left out of the walk, it is unchecked text that a grep finds with no marker that it
-is stale. Either breaks `goal@documentation-stays-consistent`. Leaving the
+Each plan document, a spec, a milestone document or a slice's spec, is a directory, per
+`design@model@plan-document-directory`: its `README.md` is the document the searches read; its
+`deliberation.md` holds the Threads and Arguments items; its `search/` holds the generated lines of
+its searches, per `design@agent-skills@plan-commits-the-generated-lines`; and its `transcript.txt` holds
+the discussion's trimmed transcript, per `design@agent-skills@committed-transcript`. A slice's
+design audit searches the record with the milestone's `README.md` and the slice's own as its work,
+never the files beside them, per `design@agent-skills@record-searched-before-the-work`, so every
+condition of a decided thread is written in the decided design of a `README.md`, and
+`deliberation.md` holds only the argument: a condition written there alone is one no search checks
+the record against. A `README.md` reaches the files beside it by relative navigation links, and an
+item of `deliberation.md` by its item reference.
+
+The deliberation, read inside the document the search reads, made that document too large for the
+searchers of a later slice: measured with `git show <deleting-commit>^:<file> | wc -c` over the
+plan documents this repository deleted, the Threads, the Arguments and the copy of the search's
+outcomes made about 80% of the `goals-at-the-root` milestone's README, most of it there at its first
+commit; a slice audit of that milestone took 44 search agents where its slice's spec alone needed
+about 15, and seven of the first 27 reports said the agent could not read the document whole, a
+strain on the quality of each agent's reading that a larger bound of `worklist` would not answer.
+The rival is `rejected@agent-skills@deliberation-in-the-searched-document`. The arrangement serves
+`goal@records-reach-their-reader`, under which a slice's search meets what bears on the slice: a
+search whose agents cannot read their work whole meets it in part.
+
+### A spec or a milestone leaves when its work lands, in a commit of its own after the review before the merge `##plan-document-leaves-at-landing`
+
+A spec, or a milestone with every slice's spec under it, is deleted, its whole directory, once its
+last harvest is complete, in a commit of its own after the review before the merge has read the tip
+that holds it, and that commit's message cites it by its kind, which resolves against the commit's
+parent. A milestone's slice does not leave at its own landing: its spec is harvested and leaves with
+the milestone, per `design@agent-skills@harvested-slice-kept`. A plan document kept after its work
+lands is a second home for every decision it carried, and it starts drifting at the first later
+reversal. Walked by the checker, its references break at every reversal, and someone repairs a
+document about finished work; left out of the walk, it is unchecked text that a grep finds with no
+marker that it is stale. Either breaks `goal@documentation-stays-consistent`. Leaving the
 choice to each project lost too: the installed planning skill would have nothing to say where a
 document's work ends, against `goal@agents-get-a-complete-workflow`.
 
@@ -120,6 +153,28 @@ and a history edit of the branch then gave that commit a new SHA, so the briefs 
 branch no longer held. Extending the briefs to read the document from history was the rival: it
 closes neither the pair's case nor the stale SHA. The design this decision did not keep:
 `rejected@agent-skills@plan-document-deleted-with-its-harvest`.
+
+### A slice's spec is kept under its milestone's `harvested/` once its slice lands, frozen, until the milestone leaves `##harvested-slice-kept`
+
+When a slice lands, its spec's directory is moved under its milestone's `harvested/`, the move being
+the marker of its state, in a commit of its own after the review before the merge, for the reasons
+`design@agent-skills@plan-document-leaves-at-landing` gives for a deletion; the slice's files are
+live until that commit and frozen from it on, per `design@model@a-harvested-slice-is-frozen`. Its
+items still resolve from inside the milestone's directory, and a citation of it, or of an item it
+defines, from anywhere else is refused, its repair naming the milestone. The milestone's directory
+leaves whole with its last slice, as `design@agent-skills@plan-document-leaves-at-landing` says.
+
+A kept spec serves the later slices of its milestone, more so as each slice's spec holds more of the
+design and more items citable inside the milestone, and the milestone document and the sibling specs
+keep their citations of it rather than being re-pointed at each landing, on the owner's proposal.
+It meets both halves of the argument for deleting a landed plan document, for as long as the
+milestone is open: out of the walk, its references never break, and its place under `harvested/`
+is the marker that it describes landed work, whose decisions the design homes hold and win over it,
+as every plan document's status section says. Deleting it at its slice's landing, the rival, takes
+from the later slices of the milestone the record they plan from:
+`rejected@agent-skills@slice-spec-deleted-at-its-landing`. Keeping it after its milestone leaves lost
+to the owner's argument: harvested specs would accumulate, put outdated matches in every search,
+and raise the migration work of every change of the checker, for little value.
 
 ### A discussion whose decision lands in the change under way keeps its deliberation in that change's commit message `##in-change-path`
 
@@ -207,9 +262,36 @@ wrong, so the transcript reviewer checks every assembled document against the sa
 rival, a draft ledger the agent writes to a file every round with the least effort, answers the
 cost of a write per round and not the other two reasons of the rejected alternative it repeats: a
 stale ledger stated with confidence is worse than none, and a file the agent writes is corroborated
-only by the conversation, which compaction removes.
+only by the conversation, which compaction removes. The assembly then commits the trimmed
+transcript beside the document, per `design@agent-skills@committed-transcript`, and the discussion's
+search's generated lines as `search/discussion.txt`, per
+`design@agent-skills@plan-commits-the-generated-lines`.
 
 The design this decision did not keep: `rejected@agent-skills@ledger-written-during-discussion`.
+
+### The trimmed transcript of a discussion is committed beside its plan document, after a step that removes private information, and pushed only on the owner's word for that transcript `##committed-transcript`
+
+The planning skill commits, for each session a discussion spans, the output of `klarch transcript
+show` without tool calls, from the message where the discussion begins to the owner's last message
+before the branch that adds the plan document merges, as the `transcript.txt` of the plan document
+of a spec or of a milestone. It ends there rather than at the plan document's commit so that the
+rulings given at the plan document's reviews are in it. Being a `.txt` file, it is never parsed, so
+a reference, a slug or a commit SHA in it is a quotation, not a citation, per
+`design@model@a-harvested-slice-is-frozen`. It holds the owner's words verbatim, so the items of
+`deliberation.md` attribute them and cite the round, per
+`design@agent-skills@attribution-replaces-quotation`, and an attribution is checked against the
+words in the tree rather than in a transcript on one machine.
+
+Before its commit, the session reads it whole and removes every path under a home directory, every
+e-mail address, every credential and token, and the pasted material the owner marks; then shows the
+owner the transcript and pushes no commit holding it before the owner's word for that transcript. A
+transcript once pushed cannot be taken back, an action `goal@the-owner-decides` reserves to the
+owner, so the owner's word that transcripts are committed in general rules the policy and stands
+for no single publication, nor for another project's owner. The rival, committing no transcript, kept
+the owner's words verbatim only in the items, where out of the context they answered they have
+little value, on the owner's report: `rejected@agent-skills@owner-words-verbatim-in-plan-items`. A
+script that finds home paths and e-mail addresses could replace part of the removal step:
+`issue@transcript@an-option-anonymizes-what-transcript-prints`.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 
@@ -368,35 +450,42 @@ leaves, need no word, per `design@agent-skills@roadmap-orders-issues`.
 ### No record of landed work is kept `##no-progress-record`
 
 No installed skill asks for a file recording what has landed. History lists every plan document that
-left, and each landing commit says where its results live; releases are in the changelog. A progress
+left, and each landing commit says where its results live; releases are in the changelog. A slice's
+spec kept under its milestone's `harvested/` is no such record: it is the slice's plan, frozen, kept
+for the milestone's later slices and leaving with the milestone, per
+`design@agent-skills@harvested-slice-kept`. A progress
 file would be a third document about the same work, with a lifetime of its own, where
 `design@agent-skills@knowledge-table-home` gives each kind of statement one home.
 
 ### The plan documents of a discussion record the whole of it, each thread with every argument it uses `##plan-records-the-exchange`
 
-A plan document assembled from a discussion records every thread it carries with its proposer and
-round, its final state, the arguments on each side, the owner's rulings verbatim with their round,
-and its relations. Where one discussion converges on two plan documents, such as a spec and a
-milestone, each thread is in the document that carries it, with every argument that thread uses,
-so an argument two threads in two documents use is in both: an item is cited only from inside its
-own plan, per `design@model@plan-item-scope`, so a document holding the argument once would leave
-the other's threads pointing at no argument. The record is the owner's proposal, made for the
-initial spec: a precise record of the design work and the exchange, every thread written with its
-final state and its arguments, each item open to cross-reference, bounded to the spec document or
-the milestone directory. It applies to a spec, and to a milestone document with its slice specs,
-which share the record by the rule of `design@agent-skills@milestone-split-by-lifetime`; the owner
-extended it to milestones, since they too are created through the design skill.
-`design@agent-skills@standing-argument-in-head` names the plan document as the home of the
-deliberation while it exists, and `goal@design-is-recorded-with-its-arguments`
-is served only where the rulings are recorded as the owner made them. On the in-change path, the
-commit message carries the same record, for the same reason, per
+A plan document assembled from a discussion records, in its `deliberation.md`, every thread it
+carries with its proposer and round, its final state, the arguments on each side, the owner's
+rulings attributed with their round, and its relations; the owner's words verbatim are in its
+`transcript.txt`, per `design@agent-skills@committed-transcript`. Where one discussion converges on
+two plan documents, such as a spec and a milestone, each thread is in the document that carries it,
+with every argument that thread uses, so an argument two threads in two documents use is in both:
+an item is cited only from inside its own plan, per `design@model@plan-item-scope`, so a document
+holding the argument once would leave the other's threads pointing at no argument. The record is
+the owner's proposal, made for the initial spec: a precise record of the design work and the
+exchange, every thread written with its final state and its arguments, each item open to
+cross-reference, bounded to the spec's directory or the milestone's. It applies to a spec, and to a
+milestone document with its slice specs, which share the record by the rule of
+`design@agent-skills@milestone-split-by-lifetime`; the owner extended it to milestones, since they
+too are created through the design skill. `design@agent-skills@standing-argument-in-head` names the
+plan document as the home of the deliberation while it exists, and
+`goal@design-is-recorded-with-its-arguments` is served only where the rulings are recorded as the
+owner made them, which the attribution states and the committed transcript lets a reviewer check.
+On the in-change path, the commit message carries the same record, for the same reason, per
 `design@agent-skills@in-change-path`. The rival, a plan document recording each thread's final
-state and resolution, leaves the rulings and the arguments to memory. The cost is a longer plan
-document to write and to read.
+state and resolution, leaves the rulings and the arguments to memory. The rival that kept the
+owner's words verbatim in the items is `rejected@agent-skills@owner-words-verbatim-in-plan-items`.
+The cost is a longer plan document to write and to read.
 
 ### An argument is an item, without a state `##arguments-as-items`
 
-Each argument of the discussion is an item of the plan document, under its Arguments section, so a
+Each argument of the discussion is an item of the plan document, under the Arguments section of its
+`deliberation.md`, so a
 ruling, a closure or a premortem cause can cite what decided it, and the standing argument a
 harvest writes is a selection of named arguments rather than a rewrite. It carries no state: a
 state would need a relation between many arguments and many threads, which the design skill
@@ -405,23 +494,24 @@ declines to track, and an identifier needs none.
 ### A leaving plan's citations are removed, and each citing plan gets a question `##retiring-plan-opens-issue`
 
 A whole plan document may be cited from another plan, per `design@model@plan-item-scope`. When it
-leaves, the session that meets the dangling citation, the one deleting it or the one rebasing the
-citing plan onto the deletion, removes the citation and opens a `question` issue on the citing
-plan: does it still hold now that the leaving plan is built, accounting for deviations or other
-unplanned happenings? The issue cites
-the citing plan, so it cannot outlive it, and its `Why it matters` cites what the leaving plan
-harvested, since that plan no longer exists. It is a `question` rather than a `todo` because the
-reading may find nothing to change. For a milestone, its next slice's audit reads it. A milestone's
-own documents are one plan, per `design@model@plan-item-scope`, so its milestone document and its
-sibling slice specs re-point a citation of a leaving slice with no question: that audit already
-reads the milestone against what landed. The retiring
-session revisits nothing itself: a revisit at that moment would redesign the citing plan at a time
-chosen by another plan's landing, rather than at its own audit, where the owner rules on it as
-`goal@the-owner-decides` asks.
+leaves, or when a harvested slice's spec is cited from outside its milestone, which the checker
+refuses, the session that meets the dangling citation, the one deleting the document or harvesting
+the slice, or the one rebasing the citing plan onto that commit, removes the citation and opens a
+`question` issue on the citing plan: does it still hold now that the leaving plan is built,
+accounting for deviations or other unplanned happenings? The issue cites the citing plan, so it
+cannot outlive it, and its `Why it matters` cites what the leaving plan harvested, since that plan
+no longer exists. It is a `question` rather than a `todo` because the reading may find nothing to
+change. For a milestone, its next slice's audit reads it. A milestone's own documents are one plan,
+per `design@model@plan-item-scope`, and a harvested slice's spec still resolves from inside its
+milestone's directory, per `design@agent-skills@harvested-slice-kept`, so its milestone document and
+its sibling slice specs keep their citations of it, with no question: the next slice's audit
+already reads the milestone against what landed. The retiring session revisits nothing itself: a
+revisit at that moment would redesign the citing plan at a time chosen by another plan's landing,
+rather than at its own audit, where the owner rules on it as `goal@the-owner-decides` asks.
 
 The decision is recorded here because two installed skills apply it, the planning skill where a
 plan document leaves and the issue-tracking skill among the issue kinds, and both act on the
 dangling citation the checker reports: the same reason at two sites, and a procedure the installed
 text and the checker must keep consistent, per `design@agent-skills@instruction-record-is-minimal`.
-The argument is the owner's, against citing a plan's items from another plan: it "forces design
-work at a moment that might not be the best".
+The argument is the owner's, against citing a plan's items from another plan: such a citation
+forces design work at a moment that may not be the best one for it.

@@ -41,7 +41,9 @@ hand-written one is stale at the next reference written elsewhere.
 included; a string literal bound to a name yields none, per
 `design@model@a-reference-is-live-in-every-prose`. So a comment in code naming an issue is
 as live as a sentence in a document, and closing the issue reaches the code. This serves
-`goal@design-is-recorded-with-its-arguments`.
+`goal@design-is-recorded-with-its-arguments`. A file under a milestone's `harvested/` is out of the
+walk, read for the items it defines alone, per `design@model@a-harvested-slice-is-frozen`: it is never
+modified, so its references claim no revisit, and it leaves with its milestone.
 
 ### A sentence about the past whose reference dangles is rewritten to the present or removed, except an absent entry, skill or agent in a record of a deliberation, and a quotation of the owner is kept with a reference beside it `##a-past-sentence-is-rewritten`
 
@@ -54,7 +56,9 @@ it, since rewriting it at a rename, with no change to what it decides, risks mis
 the risk `design@agent-skills@attribution-replaces-quotation` names.
 In a record of a deliberation,
 an entry its tree does not hold is named by its bare slug instead, and a skill or an agent by its
-bare name, per the same head.
+bare name, per the same head. A frozen file, under a milestone's `harvested/`, is never rewritten:
+it is out of the walk, so none of its references is reported as dangling, per
+`design@model@a-harvested-slice-is-frozen`.
 
 ### Plain text is never the repair of a finding, except text in the checker's syntax beside the issue that records its missing form, an absent entry's, skill's or agent's bare name in a record of a deliberation, and a quotation, and no instruction offers an unchecked form as the way to clear one `##plain-text-is-no-repair`
 
@@ -69,7 +73,10 @@ One exception is text in the checker's syntax that no checked form expresses, wr
 backticks beside a reference to the issue entry that records the missing form. The check reads it:
 a reference-shaped token outside backticks is reported, and is silent where its paragraph holds a
 backticked reference to an issue entry, per `design@check@reference-shape-outside-span`. Prose that mentions a
-directory without asking the reader to follow it is not a repair and is outside this head.
+directory without asking the reader to follow it is not a repair and is outside this head. A
+frozen file, under a milestone's `harvested/`, raises no finding, per
+`design@model@a-harvested-slice-is-frozen`, so nothing in it is repaired, in plain text or
+otherwise.
 
 The checker cannot express every reference a project needs. The first exception covers text in the checker's
 syntax, which would be read as a candidate if it were backticked: a reference,

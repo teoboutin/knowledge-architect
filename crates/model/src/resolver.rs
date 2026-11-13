@@ -7,8 +7,8 @@
 //! `register` reference against the anchors that carry the register, per
 //! `design@model@register-home-reference`. A table reference that resolves to nothing has a cause:
 //! the anchor is unknown, the anchor does not carry that register, an item of a plan is cited from
-//! outside it, or the id is not defined there; the kinds resolved outside the table have refusals of
-//! their own. A reference of any kind whose id, or whose path, ends in a line suffix or a fragment,
+//! outside it, a harvested slice is cited from outside its milestone, or the id is not defined
+//! there; the kinds resolved outside the table have refusals of their own. A reference of any kind whose id, or whose path, ends in a line suffix or a fragment,
 //! and that resolves to nothing as written, is judged again without it, and its cause says to drop
 //! it. A span whose kind position holds an
 //! anchor is no reference, and the caller reports it. The argument is

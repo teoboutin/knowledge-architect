@@ -20,14 +20,18 @@ anchor a path names is `design@check@deepest-anchor-wins`.
 
 **A plan document is cited by its kind, never by its path**, per
 `design@model@plan-document-kinds`. A
-`path` citation of a spec, of a milestone directory or of a file inside one is refused from every
-anchor, and the finding names the form that resolves: `spec@plans@<id>`, `milestone@plans@<id>`
-or `spec@<milestone>@<slice>`. It is judged by where the target sits, before the deepest-anchor
-rule and whether or not it exists, so a citation of a deleted plan gets the same repair. This
-overrides the ancestor's spelling of an anchor's own directory for a milestone. A plan anchor, a
-milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a citation written as a path
-is one `show spec@…` would not list. The README of the plans directory, and the README and index
-of each of its two homes, are not plan documents, and are cited `path@plans@<file>`.
+`path` citation of a spec's or a milestone's directory, or of a file or a directory inside one, is
+refused from every anchor, and the finding names the form that resolves: `spec@plans@<id>`,
+`milestone@plans@<id>`, `spec@<milestone>@<slice>` for a live slice, and the milestone's form for
+what sits under its harvested/, a slice there being cited from inside its milestone alone, per
+`design@model@a-harvested-slice-is-frozen`. It is judged by where the target sits, before the
+deepest-anchor rule and whether or not it exists, so a citation of a deleted plan gets the same
+repair. This overrides the ancestor's spelling of an anchor's own directory for a spec and a
+milestone. A plan anchor, a milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a citation written as a path
+is one `show spec@…` would not list. A plan's `README.md` reaches the files beside it by a relative
+navigation link, per `design@check@links-are-navigation-rows`, and an item by its item reference.
+The README of the plans directory, and the README and index of each of its two homes, are not plan
+documents, and are cited `path@plans@<file>`.
 
 **A fenced path reference is live**, as every reference is, per
 `design@model@a-reference-is-live-in-every-prose`: a sketch names its paths on purpose, and an
@@ -51,7 +55,12 @@ carve-out.
 media type `application/json`, a unit `km/h`, a git ref `origin/main`, the fixture path of a test,
 a path on another machine. The first segment is read from the root, from every anchor that is a
 directory, and from the document's own directory, a `..` climbing from each; a leading slash is
-read from the root alone. A spec is an anchor and a file, so it is no place a path is read from.
+read from the root alone. **A plan document's directory, a spec's or a milestone's, and every
+directory under it, is no place a first segment is read from**, whether the document is inside
+the plan or outside it: a plan anchor carries no `path` kind, so the finding would name a repair the
+resolver refuses; the names of the plan's layout, its deliberation file, its search directory or
+its harvested directory, recur in every text that describes the layout; and a plan's `README.md`
+reaches the files beside it by a relative link, which the link check judges.
 Only the first segment is asked, so a pointer whose first segment is here and whose rest is not is
 still a finding, and the anchored form it is rewritten in reports it dangling. A commit message is
 judged against two trees, per `design@check@message-references-resolve-in-either-tree`.
@@ -104,9 +113,12 @@ anchor edits its one line of the project's `knowledge-architect.toml` and no doc
 fixed-string grep per anchor is an
 anchor's complete inbound-reference list. An anchor's own directory is the one target with no
 spelling under its own name, so it is named from an ancestor — a reference that names a
-location, which a move is expected to break. A plan document is the exception: the rule on a
-`path` to a spec or a milestone is judged before this one, and overrides the ancestor's spelling of
-a milestone's own directory, per `design@check@every-path-names-its-anchor`.
+location, which a move is expected to break. A file under a plan's directory, a slice's
+included, has that plan as its deepest anchor, since a slice's directory is no anchor, per
+`design@model@anchors-are-components-and-locations`. A plan document is the exception to the
+spelling: the rule on a `path` to a spec or a milestone is judged before this one, and overrides
+the ancestor's spelling of a spec's or a milestone's own directory, per
+`design@check@every-path-names-its-anchor`.
 
 ### A relative markdown link is a navigation row, and README.md and index.md files are the navigation homes `##links-are-navigation-rows`
 
