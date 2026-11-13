@@ -51,9 +51,8 @@ work touches: `model`, `check`, `query`, `create`, `agent-skills`, `testing` and
   sections of today's list but Threads and Arguments; `README.md` of a slice owes its entry's five
   sections and carries "What is already decided" when the slice has entries to seed; `deliberation.md`
   owes Threads and Arguments. The lints on ids and the reference checks read the new layout.
-  `cargo klarch commits` reports the P3 clause, as D2 of the milestone document builds it: a
-  commit that modifies a file under `harvested/`, or adds one other than by the move that freezes a
-  slice, unchanged. The rule on branch SHAs
+  `cargo klarch commits` reports no change of a file under `harvested/`: the review before a merge
+  judges it, as the owner ruled on D2 of the milestone document. The rule on branch SHAs
   already skips every `.txt` file, `transcript.txt` and `search/` included, since
   `branch_sha_findings` in `path@check@src/commands/history.rs` reads only the walked documents,
   and under D1 it skips a harvested slice too: rewriting `design@knowledge-architect@no-branch-sha-is-cited`
@@ -142,10 +141,9 @@ the installed copy.
    dangling reference in the `README.md` of a slice under `harvested/`, or in
    `search/discussion.txt`, is not reported, untracked or committed; an item that harvested slice defines resolves from a sibling
    slice's `README.md`; and a live item that reuses one of its ids is reported.
-5. **The P3 clause.** In a mock project under git, `commits` reports a commit that edits a file of a
-   slice under `harvested/`, and one that adds a file there other than by the move that freezes a
-   slice, as D2 builds it; it reports none for a commit that deletes one, or that moves a live
-   slice's directory under `harvested/` unchanged.
+5. **No check guards a frozen file.** In a mock project under git, `commits` reports none of the
+   move that freezes a slice, a file added beside a frozen slice, an edit of a frozen file and its
+   deletion, as the owner ruled on D2; the review before a merge judges such a commit.
 6. **The transcript is never parsed.** A reference-shaped span, a slug definition and a branch SHA in
    `transcript.txt` produce no finding of `check` or `commits`.
 7. **A harvested slice is cited from inside its milestone only.** A citation of a harvested slice, or
@@ -506,8 +504,8 @@ the texts `cargo klarch show` lists at the harvest:
   whose outcome changed something, with a link to `search/discussion.txt` for the rest, and a
   design audit's `fit-lines.md` is committed as `search/design-audit.txt` beside the commit message
   that carries it.
-- `design@check@every-commit-judged-by-the-tip-checker`: the P3 clause is a further source of a
-  commit's failure, which the head's list of sources and its per-commit line gain.
+- `design@check@every-commit-judged-by-the-tip-checker`: judged again, and left with its list of
+  sources: a change of a frozen file is none, as the owner ruled on D2.
 - `design@check@groups-are-subdirectories`: specs/ keeps its groups, a subdirectory holding a
   `README.md` being a spec.
 - `design@model@an-entity-belongs-to-its-anchor`: unchanged in its rule, since a slice's directory
@@ -541,8 +539,7 @@ whether that argument still stands, per `skill@knowledge-architect-decision-reco
   `path@model@src/resolver.rs`, `path@model@src/walk.rs` (`LIVE_SUFFIXES`, and how the installed
   files leave the walk) and `path@model@src/shipped_set.rs`.
 - `path@check@src/check/registers.rs`, `path@check@src/check/references.rs` and
-  `path@check@src/commands/history.rs` (`branch_sha_findings`, and where the P3 clause's finding
-  goes).
+  `path@check@src/commands/history.rs` (`branch_sha_findings`).
 - The mock projects `planted`, `dirhome` and `unsound` under `path@testing@tests/projects/`, and
   the unit tests that write plan paths, named under "This repository".
 - `path@query@src/worklist.rs`, `path@query@src/graph.rs` and `path@query@src/anchors.rs`.
@@ -587,7 +584,6 @@ SEARCH_DIR = "search"                      crates/model/src/manifest.rs: holding
 TRANSCRIPT_FILE = "transcript.txt"         crates/model/src/manifest.rs
 HARVESTED_DIR = "harvested"                crates/model/src/manifest.rs
 DELIBERATION_SECTIONS                      crates/model/src/manifest.rs: Threads and Arguments, taken out of PLAN_SECTIONS
-frozen_file_findings                       crates/check/src/commands/history.rs: the P3 clause's findings of `commits`
 ```
 
 Existing names the slice reuses: `Registers::built_in`, `Registers::is_plan_register`,
@@ -707,10 +703,11 @@ the slice starts; a plan document added later is mapped by the same rule.
   `thread@split-guidelines-and-plan-directories@harvested-slice-kept` land in those heads, or in a head
   of their own where the entry tests of `primer@design-heads` give one. Where a thread's name
   misdescribes its decision, the pair: `#frozen-plan-artifacts → a-harvested-slice-is-frozen`, its
-  P3 clause landing in `design@check@a-frozen-file-is-never-modified` and its search's generated
+  P3 clause landing in `design@check@a-frozen-file-is-guarded-by-the-review` and its search's generated
   lines in `design@agent-skills@plan-commits-the-generated-lines`.
 - **The head of the frozen location**, one head that the 13 heads of Group B cite, and a head of
-  its own for the P3 clause unless the one-decision test of
+  its own for the P3 clause, the review before a merge guarding the frozen files where no check
+  does, as the owner ruled on D2, unless the one-decision test of
   `skill@knowledge-architect-decision-recording@head-shape` joins it to the first.
 - **Losing alternatives**: those above and those of the milestone document's threads this slice
   builds, judged by the tests of `skill@knowledge-architect-decision-recording@losing-alternatives`.

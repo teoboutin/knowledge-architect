@@ -272,8 +272,9 @@ directory of each slice that has landed. Any other file or directory is a findin
 written as one file. **A slice's directory is no anchor**: the milestone is the anchor of every file
 under its directory. A `.txt` file is never parsed, and every file under `harvested/` is frozen: out
 of the walk, read for its definitions alone, and cited from inside its milestone alone.
-`cargo klarch commits` reports a commit that modifies a frozen file, or adds one other than by the
-move that freezes a slice.
+No commit modifies a frozen file, or adds one other than by the move that freezes a slice; no check
+reports such a commit, and the review before a merge judges it, per
+`design@check@a-frozen-file-is-guarded-by-the-review`.
 
 **A plan document holds fixed sections.** The `README.md` of a spec and of a milestone owes, in
 order: Status and audience, How the work is done, Names, What the work is, What is already decided,
@@ -334,7 +335,7 @@ duplicated item stops it at phase 3, and a missing section is a finding of the l
 `design@check@plan-document-sections-by-kind`, `design@model@plan-items-by-section`,
 `design@model@plan-item-scope`, `design@model@a-harvested-slice-is-frozen`,
 `design@model@a-harvested-slice-is-cited-from-inside-its-milestone` and
-`design@check@a-frozen-file-is-never-modified`.
+`design@check@a-frozen-file-is-guarded-by-the-review`.
 
 ## Commit messages
 
@@ -356,8 +357,9 @@ was written against, byte for byte and cleaned of nothing, per
 fails the run**, the range's last commit included, with its tree's findings named by the commit and
 the file, and its message is still judged where its tree reached the last phase, per
 `design@check@every-commit-judged-by-the-tip-checker`. The summary block counts the commits, how many passed and how many failed, and a commit
-fails on any finding of its tree, of its message, of a citation by SHA, or of a change of a frozen
-file under a milestone's harvested/, per `design@check@a-frozen-file-is-never-modified`:
+fails on any finding of its tree, of its message or of a citation by SHA. A change of a frozen file
+under a milestone's harvested/ is none: the review before a merge judges it, per
+`design@check@a-frozen-file-is-guarded-by-the-review`:
 
 ```
 commits in origin/main..HEAD: 2 commits, 1 passed, 1 failed

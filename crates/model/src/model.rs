@@ -138,10 +138,9 @@ pub struct Frozen {
     pub milestone: String,
     /// The milestone's directory, project-relative.
     pub milestone_dir: PathBuf,
-    /// For a file inside a directory of `harvested/`: the slice's name, and the path the file
-    /// has in the slice's live directory, `<milestone>/<slice>/<rest>`. `None` for a file directly
-    /// under `harvested/`, which sits in no slice.
-    pub slice: Option<(String, PathBuf)>,
+    /// For a file inside a directory of `harvested/`: the slice's name. `None` for a file
+    /// directly under `harvested/`, which sits in no slice.
+    pub slice: Option<String>,
 }
 
 /// Where the file `rel` sits, when it is a frozen file of a project: one under a milestone's

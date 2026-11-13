@@ -850,7 +850,7 @@ fn link(
                 frozen.milestone
             ),
             milestone: frozen.milestone,
-            id: frozen.slice.map(|(slice, _)| slice),
+            id: frozen.slice,
         };
         out.push(reported(&cause, &doc.rel, line, target));
         return;

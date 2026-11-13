@@ -545,124 +545,6 @@ pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>
     Ok(out)
 }
 
-/// How one path's entry differs between two commits' trees.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ChangeKind {
-    /// Only the later tree holds the path.
-    Added,
-    /// Only the earlier tree holds the path.
-    Deleted,
-    /// Both hold it, with another blob or another mode of the same kind.
-    Modified,
-    /// Both hold it, as entries of different kinds: a file and a symlink, or either and a gitlink.
-    TypeChanged,
-}
-
-/// One blob a tree records at a path: its mode and its object id, as git spells them.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Blob {
-    pub mode: String,
-    pub oid: String,
-}
-
-/// One path whose entry differs between two commits' trees, with the blob each tree records
-/// there, `None` where a tree holds no entry at the path.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct TreeChange {
-    pub rel: PathBuf,
-    pub kind: ChangeKind,
-    pub before: Option<Blob>,
-    pub after: Option<Blob>,
-}
-
-/// Every path under `root` whose entry one commit's tree records differently from another's,
-/// relative to `root`, sorted by path, each with how it differs and the blob each tree holds.
-///
-/// **A move is the deletion of one path and the addition of another**, whatever a configuration
-/// says, so a caller that judges a move compares the two blobs itself. A path is a file's, a
-/// symlink's or a gitlink's, never a tree's. `from` and `to` are full object names of commits. A
-/// failure of git, or a record this function cannot read, is an `Err` carrying the reason, per
-/// `design@git@failed-git-is-an-error`, since a caller that judges what changed reads an empty
-/// answer as nothing changed.
-pub fn tree_changes(root: &Path, from: &str, to: &str) -> io::Result<Vec<TreeChange>> {
-    // `--no-renames`, so a move is its two paths, and the status letters are A, D, M and T: the
-    // plumbing `diff-tree` detects no rename unless asked to, so the flag changes nothing today,
-    // and keeps the answer if a git version or a configuration ever turns detection on;
-    // `--relative`, so a project in a subdirectory of its repository gets its own paths, relative
-    // to it; `-r`, so a path is a file's, never a tree's; `--no-abbrev`, so an object id is whole.
-    let raw = git(root)
-        .args([
-            "diff-tree",
-            "-r",
-            "-z",
-            "--raw",
-            "--no-renames",
-            "--no-abbrev",
-            "--relative",
-            from,
-            to,
-            "--",
-        ])
-        .output()?;
-    let mut out = changes_of(&raw)?;
-    out.sort_by(|a, b| a.rel.cmp(&b.rel));
-    Ok(out)
-}
-
-/// The records of `diff-tree -r -z --raw --no-renames`: each a header,
-/// `:<src mode> <dst mode> <src oid> <dst oid> <status>`, then the path as the next field. A
-/// status other than A, D, M and T, or a header of another shape, is refused rather than
-/// skipped, since a skipped record is a change nothing reports.
-fn changes_of(raw: &[u8]) -> io::Result<Vec<TreeChange>> {
-    let mut out = Vec::new();
-    let mut fields = nul_separated(raw).into_iter();
-    while let Some(header) = fields.next() {
-        let Some(path) = fields.next() else {
-            return Err(io::Error::other(
-                "`git diff-tree --raw` printed a record with no path",
-            ));
-        };
-        let header = String::from_utf8_lossy(header);
-        let parts: Vec<&str> = header.trim_start_matches(':').split(' ').collect();
-        let [src_mode, dst_mode, src_oid, dst_oid, status] = parts[..] else {
-            return Err(io::Error::other(format!(
-                "`git diff-tree --raw` printed a record this tool cannot read: {header}"
-            )));
-        };
-        let blob = |mode: &str, oid: &str| Blob {
-            mode: mode.to_string(),
-            oid: oid.to_string(),
-        };
-        let (kind, before, after) = match status {
-            "A" => (ChangeKind::Added, None, Some(blob(dst_mode, dst_oid))),
-            "D" => (ChangeKind::Deleted, Some(blob(src_mode, src_oid)), None),
-            "M" | "T" => (
-                if status == "M" {
-                    ChangeKind::Modified
-                } else {
-                    ChangeKind::TypeChanged
-                },
-                Some(blob(src_mode, src_oid)),
-                Some(blob(dst_mode, dst_oid)),
-            ),
-            other => {
-                return Err(io::Error::other(format!(
-                    "`git diff-tree --raw` reported a change of kind `{other}` at {}, which this \
-                     tool does not read",
-                    as_path(path).display()
-                )))
-            }
-        };
-        out.push(TreeChange {
-            rel: as_path(path),
-            kind,
-            before,
-            after,
-        });
-    }
-    Ok(out)
-}
-
 /// Where `root` sits in the repository's main working tree, when `root` lies in a linked worktree:
 /// the same path relative to the main working tree's top, or `None` in the main working tree, in a
 /// repository whose common directory is not a `.git` directory, or where git cannot say.
@@ -717,8 +599,9 @@ pub enum Source<'a> {
     Commit(&'a str),
 }
 
-/// One entry of a snapshot's listing, whose path and kind [`SnapshotEntry::entry`] gives, and
-/// whose mode and blob id [`SnapshotEntry::blob`] gives.
+/// One entry of a snapshot's listing, whose path and kind [`SnapshotEntry::entry`] gives. The
+/// mode and the blob id the snapshot records for it stay inside the crate, which no caller has
+/// needed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct SnapshotEntry {
     pub(crate) rel: PathBuf,
@@ -733,14 +616,6 @@ impl SnapshotEntry {
         Entry {
             rel: self.rel.clone(),
             kind: self.kind,
-        }
-    }
-
-    /// The mode and the blob id the snapshot records at the path.
-    pub fn blob(&self) -> Blob {
-        Blob {
-            mode: self.mode.clone(),
-            oid: self.oid.clone(),
         }
     }
 }
@@ -1366,69 +1241,6 @@ mod tests {
         );
         assert_eq!(found.get(Path::new("docs/orphan.md")), None);
         assert!(parse_log("").is_empty());
-    }
-
-    /// The claims of the reading of `diff-tree -r -z --raw --no-renames`: an addition carries the
-    /// later blob alone, a deletion the earlier alone, and a modification and a type change both,
-    /// each blob with its mode and its object id; a status letter other than A, D, M and T, a
-    /// header of another shape and a record with no path are each refused, never skipped.
-    /// Mutations checked, in `changes_of`: the `"M" | "T"` arm made to give `Modified` to both,
-    /// caught by the type change; the source and destination modes swapped in the addition's
-    /// blob, caught; and the arm of any other status made to `continue`, caught by the status `X`.
-    #[test]
-    fn a_raw_tree_change_is_read_by_its_status_and_any_other_record_is_refused() {
-        let o = |c: char| c.to_string().repeat(40);
-        let zero = o('0');
-        let raw = format!(
-            ":000000 100644 {zero} {a} A\0new.md\0\
-             :100644 000000 {b} {zero} D\0gone.md\0\
-             :100644 100755 {b} {b} M\0mode.md\0\
-             :100644 120000 {c} {a} T\0link.md\0",
-            a = o('a'),
-            b = o('b'),
-            c = o('c'),
-        );
-        let blob = |mode: &str, oid: &String| Blob {
-            mode: mode.to_string(),
-            oid: oid.clone(),
-        };
-        let found = changes_of(raw.as_bytes()).expect("four records");
-        assert_eq!(
-            found,
-            vec![
-                TreeChange {
-                    rel: PathBuf::from("new.md"),
-                    kind: ChangeKind::Added,
-                    before: None,
-                    after: Some(blob("100644", &o('a'))),
-                },
-                TreeChange {
-                    rel: PathBuf::from("gone.md"),
-                    kind: ChangeKind::Deleted,
-                    before: Some(blob("100644", &o('b'))),
-                    after: None,
-                },
-                TreeChange {
-                    rel: PathBuf::from("mode.md"),
-                    kind: ChangeKind::Modified,
-                    before: Some(blob("100644", &o('b'))),
-                    after: Some(blob("100755", &o('b'))),
-                },
-                TreeChange {
-                    rel: PathBuf::from("link.md"),
-                    kind: ChangeKind::TypeChanged,
-                    before: Some(blob("100644", &o('c'))),
-                    after: Some(blob("120000", &o('a'))),
-                },
-            ]
-        );
-        for refused in [
-            format!(":100644 100644 {zero} {zero} X\0odd.md\0"),
-            format!(":100644 100644 {zero} A\0short.md\0"),
-            format!(":000000 100644 {zero} {zero} A\0"),
-        ] {
-            assert!(changes_of(refused.as_bytes()).is_err(), "{refused:?}");
-        }
     }
 
     /// The claim: each answer is paired with the request it answers, and a body is consumed

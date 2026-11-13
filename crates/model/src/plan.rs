@@ -171,8 +171,8 @@ pub(crate) fn slices<'a>(
 }
 
 /// Whether `rel` sits under a milestone's `harvested/`, the one frozen location: out of the walk
-/// by construction, parsed for definitions only where it is markdown, and its content judged by
-/// the P3 clause of `commits` alone. Where it sits is the layout's to judge: a file directly under
+/// by construction, parsed for definitions only where it is markdown, and its content judged by no
+/// check, per `design@check@a-frozen-file-is-guarded-by-the-review`. Where it sits is the layout's to judge: a file directly under
 /// `harvested/` is frozen, and phase 2 reports it.
 ///
 /// Read off the path alone, whatever the milestone's directory holds, so the walk, the survey and
@@ -182,21 +182,15 @@ pub(crate) fn is_frozen(rel: &Path) -> bool {
 }
 
 /// Where a frozen file sits, read off its path alone: its milestone's directory and name, and, for
-/// a file inside a directory of `harvested/`, that directory's name, the slice's, and the path the
-/// file has in the slice's live directory, `<milestone>/<slice>/<rest>`. A file directly under
-/// `harvested/` is frozen too, in no slice, and the layout reports it.
+/// a file inside a directory of `harvested/`, that directory's name, the slice's. A file directly
+/// under `harvested/` is frozen too, in no slice, and the layout reports it.
 pub(crate) fn frozen_place(rel: &Path) -> Option<crate::model::Frozen> {
     let parts = parts_under(rel, &milestones_dir())?;
     if parts.len() < 3 || parts[1] != HARVESTED_DIR {
         return None;
     }
     let milestone_dir = milestones_dir().join(&parts[0]);
-    let slice = (parts.len() >= 4).then(|| {
-        let live = parts[2..]
-            .iter()
-            .fold(milestone_dir.clone(), |p, s| p.join(s));
-        (parts[2].clone(), live)
-    });
+    let slice = (parts.len() >= 4).then(|| parts[2].clone());
     Some(crate::model::Frozen {
         milestone: parts[0].clone(),
         milestone_dir,
@@ -326,12 +320,11 @@ mod tests {
         )));
     }
 
-    /// The claim: a frozen file of a slice's directory has, as its live path, the same path with
-    /// `harvested/` taken out, and a file directly under `harvested/` is in no slice. Mutation
-    /// checked: `parts[2..]` of the live path made `parts[3..]`, which drops the slice's
-    /// directory; caught.
+    /// The claim: a frozen file of a slice's directory names its milestone and its slice, and a
+    /// file directly under `harvested/` is in no slice. Mutation checked: `parts.len() >= 4` made
+    /// `parts.len() >= 3`, which puts the loose file in a slice named by its file name; caught.
     #[test]
-    fn a_frozen_file_s_live_path_takes_harvested_out() {
+    fn a_frozen_file_names_its_milestone_and_its_slice() {
         let frozen = frozen_place(Path::new(
             "docs/plans/milestones/m-one/harvested/a-slice/search/discussion.txt",
         ))
@@ -341,13 +334,7 @@ mod tests {
             Path::new("docs/plans/milestones/m-one")
         );
         assert_eq!(frozen.milestone, "m-one");
-        assert_eq!(
-            frozen.slice,
-            Some((
-                "a-slice".to_string(),
-                PathBuf::from("docs/plans/milestones/m-one/a-slice/search/discussion.txt")
-            ))
-        );
+        assert_eq!(frozen.slice.as_deref(), Some("a-slice"));
         let loose = frozen_place(Path::new("docs/plans/milestones/m-one/harvested/loose.md"))
             .expect("frozen");
         assert_eq!(loose.slice, None);

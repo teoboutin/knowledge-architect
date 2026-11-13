@@ -218,8 +218,9 @@ definitions alone. The regime of each file of a plan document's directory:
   there that holds no `README.md` or whose name is no id, is a phase-2 finding.
 - **Cited from inside its milestone only**, per
   `design@model@a-harvested-slice-is-cited-from-inside-its-milestone`.
-- **Never modified**: a commit that modifies a frozen file is a finding of `commits`, per
-  `design@check@a-frozen-file-is-never-modified`.
+- **Never modified**: no commit modifies a frozen file, or adds one other than by the move that
+  freezes its slice; a deletion is admitted, since a frozen file leaves with its milestone. The
+  review before a merge judges it, and no check does, per `design@check@a-frozen-file-is-guarded-by-the-review`.
 
 **A slice is judged while it is live, and never after.** A harvested slice records a design its
 harvest wrote into the design homes, and the later slices of its milestone go on changing the

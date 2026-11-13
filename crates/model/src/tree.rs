@@ -513,7 +513,7 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
 /// index.md, one directory per live slice, each held to the same rule, and its harvested/, which
 /// holds one directory per harvested slice, each holding a README.md and named by an id. That is
 /// all the layout asks of harvested/: what a harvested slice's directory holds is frozen, and no
-/// rule but the P3 clause of `commits` judges it.
+/// rule of the checker judges it, per `design@check@a-frozen-file-is-guarded-by-the-review`.
 fn plan_directory(
     out: &mut Vec<Finding>,
     dir: &Path,

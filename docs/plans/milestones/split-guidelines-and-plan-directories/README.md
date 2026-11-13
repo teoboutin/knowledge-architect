@@ -26,9 +26,8 @@ the discussion's record search in [search/discussion.txt](search/discussion.txt)
   defect of the plan document.
 - Every name it uses is defined under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1, from the review of this document, on the regime of the frozen files, is ruled; D2,
-  from the review of slice 1's work, on the P3 clause, awaits the owner; see "Defaults awaiting the
-  owner".
+  waits. D1, from the review of this document, on the regime of the frozen files, and D2, from the
+  review of slice 1's work, on the P3 clause, are ruled; see "Defaults awaiting the owner".
 
 **Its source.** It was assembled from one session's transcript, extracted with
 `cargo klarch transcript show`, and committed, trimmed of tool calls and after the removal step of
@@ -107,7 +106,7 @@ This repository adds:
 | P1 to P8 | the causes of the premortem, under "Premortem" |
 | Q1 to Q9 | the questions the session put to the owner during the discussion, each put in the session's reply of the round the table above gives and answered in the owner's next message, each restated below |
 | Q10 to Q15 | the questions the session put to the owner at the review of this document: Q10 to Q13 on the goals home's definition of the record, ruled in the commit "[goals] The record of a project holds the entries of the kinds of entries it declares"; Q14 and Q15 on two attributions, D1's and that of `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`, approved as the review reworded them |
-| D1, D2 | the defaults put to the owner, under "Defaults awaiting the owner": D1 ruled, D2 awaiting the owner |
+| D1, D2 | the defaults put to the owner, under "Defaults awaiting the owner": both ruled |
 | the Groups A to F | the six groups of the search's `conflicts` verdicts, under "What is already decided" |
 | thaum | a sibling project of the owner's, which also uses the workflow, read by the session in round 1 for its guidelines on splitting code |
 
@@ -348,7 +347,8 @@ that meets it:
   false at its first entry.
 - `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`: slice 1's frozen
   files are read by no check once written, the harm this issue names, a cost the work accepts,
-  bounded by their leaving with the milestone and by the P3 clause.
+  bounded by their leaving with the milestone and by the P3 clause, which the review before a merge
+  judges.
 - `issue@model@a-rust-item-named-in-prose-has-no-checked-form` (`worsens`): planned module splits
   move modules more often; each move-only step of slice 2's procedure searches the prose for the
   old path, a claim of slice 2.
@@ -583,10 +583,11 @@ directory under `harvested/`, and leaves the walk by construction**, parsed for 
 - **Parsed for definitions only**: an item a frozen file defines resolves from inside its
   milestone, and a live item that reuses one of its ids is still reported, so the duplicate check
   sees every number; a frozen file raises no finding of its own.
-- **The P3 clause**, as D2 builds it: `cargo klarch commits` reports a commit that modifies a file
-  under `harvested/`, or adds one other than by the move that freezes a slice, which adds each of
-  the slice's files with the content its live path held in the commit's first parent; a commit may
-  delete one. It applies to every commit, on the branch that wrote the file as on any later one.
+- **The P3 clause**, as D2 builds it: no commit modifies a file under `harvested/`, or adds one
+  other than by the move that freezes a slice, which adds each of the slice's files with the
+  content its live path held in the commit's parent; a commit may delete one. It applies to every commit, on the branch that wrote the file as on any later one. No
+  check of the checker reports such a commit: the review before a merge judges it, by its
+  standing-state axis, as the owner ruled on D2.
 - **A citation of a harvested slice**, or of an item it defines, from outside its milestone's
   directory is refused, as `thread@split-guidelines-and-plan-directories@harvested-slice-kept`
   decided.
@@ -748,7 +749,7 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
 | --- | --- | --- | --- |
 | P1 | the code-split scout proposes a split on every module it touches; plans fill with move-only steps that buy nothing | `thread@split-guidelines-and-plan-directories@splits-planned-before-work`, `thread@split-guidelines-and-plan-directories@module-split-guidelines` | named as a cause for slice 2's harvest to judge as a tripwire; the guidelines' signals against a split are the guard, and `tripwire@agent-skills@shape-findings-fragment-code` already watches the code side |
 | P2 | a slice's search reads only the documents of the milestone and the slice, and misses a condition stated only in `deliberation.md` | `thread@split-guidelines-and-plan-directories@discussion-record-apart` | converted into a clause of the design, "The plan document's directory": every condition of a decided thread is in a document the search reads; a claim of slice 1 |
-| P3 | a frozen file is edited later, for example re-pointed by a migration; the checker then judges it against the tree of the day, and sessions rewrite history to pass | `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` | converted into a clause of the design, "The regime of each file": a commit that modifies a file under `harvested/`, other than adding it, deleting it or the move that freezes a slice, is a finding, as D1 restates it, narrowed by D2 to admit no addition but the freezing move; a claim of slice 1 |
+| P3 | a frozen file is edited later, for example re-pointed by a migration; the checker then judges it against the tree of the day, and sessions rewrite history to pass | `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts` | converted into a clause of the design, "The regime of each file": no commit modifies a file under `harvested/`, or adds one other than by the move that freezes a slice, as D1 restates it, narrowed by D2; the review before a merge judges it and no check does, as the owner ruled on D2; a claim of slice 1 |
 | P4 | private data reaches a public repository through `transcript.txt`, which cannot be undone | `thread@split-guidelines-and-plan-directories@committed-transcript` | a claim of slice 1's removal step and of the owner's word on each transcript before its push; a check that could be scripted, such as finding home-directory paths and e-mail addresses, goes into `issue@transcript@an-option-anonymizes-what-transcript-prints`, never a tripwire |
 | P5 | a later slice cites an item of a harvested slice whose decision a later slice of the same milestone reversed | `thread@split-guidelines-and-plan-directories@harvested-slice-kept` | named as a cause for slice 1's harvest to judge; the status section of every plan document says that a design home wins over it |
 | P6 | the harvest touches heads the planning step did not list, and the unplanned conformance work comes back | `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` | named as a cause for slice 3's harvest to judge; the spec-conformity review reports a touched head missing from the list |
@@ -804,7 +805,7 @@ The order is the session's default at Q3, which the owner's word of round 2 appr
 
 ## Defaults awaiting the owner
 
-D2 awaits the owner. Every default the discussion put to the owner was ruled by the owner's word on the
+Every default the discussion put to the owner was ruled by the owner's word on the
 checkpoint table, in the closing exchange, or by an answer to a labelled question. The defaults the
 session decided on the record are written where they apply, with their ground: the threads closed
 `argued`, each with the argument that closed it; the Premortem's verdicts; and the satisfaction
@@ -831,7 +832,7 @@ line of each criterion. One default came from the review of this document:
 
 One default came from the review of slice 1's work:
 
-- **D2**, awaiting the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`:
+- **D2**, ruled by the owner, on `thread@split-guidelines-and-plan-directories@frozen-plan-artifacts`:
   the P3 clause that D1 states admits "adding" a file under `harvested/`. An adversarial reviewer
   of slice 1's code reached three edits of the frozen record that pass under that wording: a
   freezing move that also edits the slice, a rename inside `harvested/` that edits, and a frozen
@@ -840,7 +841,13 @@ One default came from the review of slice 1's work:
   `harvested/` only as the move that freezes a slice, each file added with the content its live
   path held in the commit's first parent; a modification and a type change stay reported, and a
   deletion stays admitted. The rival, D1's wording as written, keeps the three edits admitted.
-  Written into "The regime of each file" and slice 1's spec.
+  The owner ruled that the checker stays out of it: no check of `commits` guards the frozen files,
+  on the argument that a check cannot reliably cover every sequence of actions a session may take on
+  them and that a review handles those sequences more flexibly. The rule, with the narrowing of
+  the additions, stays an instruction that the review before a merge judges, by its standing-state
+  axis; the clause of `commits` built as the default was removed, per
+  `design@check@a-frozen-file-is-guarded-by-the-review`. Written into "The regime of each file", the
+  Premortem's P3 and slice 1's spec.
 
 ## Harvest
 
