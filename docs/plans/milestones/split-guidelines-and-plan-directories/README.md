@@ -782,8 +782,8 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
    `spec@plans@path-quickfixes`, minimally, and this milestone, properly. Fails alone on: the
    checker refusing the migrated tree, or a slice audit's `--work` still the whole milestone.
 2. [Splits planned before the work](planned-splits/README.md),
-   `spec@split-guidelines-and-plan-directories@planned-splits`. Builds the module guidelines inside
-   the default code shape, the code-split scout, the record side at planning and the routing of a
+   `spec@split-guidelines-and-plan-directories@planned-splits`. Builds the module guidelines as a
+   fragment of their own, the code-split scout, the record side at planning and the routing of a
    split found outside the work. Fails alone on: a plan written under the new text with no split step
    where a guideline's signal holds, or a scout's finding with no outcome.
 3. [The heads a harvest touches, conformed before it](conformance-before-harvest/README.md),

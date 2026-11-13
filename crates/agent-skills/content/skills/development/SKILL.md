@@ -114,10 +114,13 @@ by a probe beforehand enters as a regression guard, and is recorded as such.
 %% Who splits a module and when: a split planned before the work, per
 %% `design@agent-skills@default-code-shape`; its record, a comment and the move's commit message
 %% unless a test of the primer's design-head rules holds.
-**A module split is a step a plan document plans, never work inside another task.** Implement such
-a step as its move alone, and state the split's reason in a comment at the module and in the
-message of the move's commit. A signal for a split that you meet while implementing work that
-planned no split is not acted on inside that work: route it as `primer@met-outside-the-task` says.
+**Shaping the code the change writes stays yours under the default shape**, a new module for it
+included. **Moving code the change does not write between modules, or out of one, is a split**,
+the move of the guidelines above: a step of the plan document where one carries the work, and
+otherwise commits of its own before the work, on the same branch. State the split's reason in a
+comment at the module and in the message of the move's commit. A signal for a split over code the
+work does not write, which no such step took, is not acted on inside that work: route it as
+`primer@met-outside-the-task` says.
 
 ### A Component with a second reason to change
 
