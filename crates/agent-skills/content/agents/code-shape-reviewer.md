@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-code-shape-reviewer
-description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
+description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code, and each signal for a module split a unit meets.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -26,6 +26,10 @@ nowhere else.
 
 {{fragment:default-code-shape.md}}
 
+## The module guidelines {{slug:module-guidelines}}
+
+{{fragment:module-split.md}}
+
 ## What to read {{slug:what-the-reviewer-reads}}
 
 Read the diff of the range whole, and each unit it writes or edits whole. For each test the range
@@ -40,6 +44,12 @@ Return a numbered list. Each finding names the unit, the property of the standar
 the evidence, and whether a comment at the code argues the departure; a departure argued there is
 no finding unless the argument is false of the code. A test finding names the test and what is
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
-commit and the missing figures. **If nothing departs, say so plainly.** Do not report style preferences.
+commit and the missing figures.
+%% A module split is planned before the work, per `design@agent-skills@default-code-shape`, so a
+%% signal a diff meets is routed by the dispatcher, never repaired inside the branch.
+**Report each signal for a module split that a unit of the range meets, under a heading of its
+own**, with the signal, the evidence and each signal against a split that holds: it is no departure
+of the branch, and its repair is no split inside the branch, since the dispatcher routes it to a
+planned step or as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-code-shape-reviewer
-description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code.
+description: The code-shape axis of the review before a merge. Judges each unit of code the branch writes or edits against the default shape of code the development skill states, one reason to change per unit, no fragmentation, the logic pure and tested without its side effects, an integrated test driving the project through its public API, and each test the branch adds against its claim and the evidence that it discriminates; reports each departure that is not argued at the code, and each signal for a module split a unit meets.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -61,6 +61,36 @@ writer picks the evidence, and the table says what each form tells:
 An integrated test also has the kind of what it exercises: an integrated test of logic owes the
 recorded mutation of a test of logic, and the integrated row adds its economy question.
 
+## The module guidelines `##module-guidelines`
+
+**A module holds what one review reads against one reference.** A reference is a design decision, a
+section of a specification the project implements, a set of invariants, or one external effect, such
+as a process the project runs, a store it writes or a service it calls, which one module owns. These
+are guidelines a project weighs, never a rule a module fails alone. A module is a candidate for a
+split where one of these signals holds:
+
+| signal | the failure a split prevents |
+| --- | --- |
+| a second reference enters the module | a review that reads code outside its subject |
+| two parts of the module change apart, counting the changes the goals already predict | unrelated changes in one file's diff |
+| an invariant can only be protected by a boundary of visibility | a helper that bypasses the invariant made visible to code that must not call it |
+
+Each signal is weighed against the signals against a split:
+
+- **two parts that every change reads together**, such as a process and the changes it applies: a
+  split leaves one review reading across two files;
+- **one item large by itself**, such as an enumeration of many cases: moving code does not divide
+  it, and dividing it is a design change;
+- **one owner per external effect**: a split that spreads one effect over two modules leaves it with
+  no owner.
+
+**Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
+that reads it in parts judges code it has not read. No number of lines is a signal by itself.
+
+**A split is a move before the work.** It is decided where the work is designed, and lands before
+the work that needs it, in commits that hold the move alone, so that the review of the move reads a
+move and the review of the work reads the work.
+
 ## What to read `##what-the-reviewer-reads`
 
 Read the diff of the range whole, and each unit it writes or edits whole. For each test the range
@@ -75,6 +105,10 @@ Return a numbered list. Each finding names the unit, the property of the standar
 the evidence, and whether a comment at the code argues the departure; a departure argued there is
 no finding unless the argument is false of the code. A test finding names the test and what is
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
-commit and the missing figures. **If nothing departs, say so plainly.** Do not report style preferences.
+commit and the missing figures.
+**Report each signal for a module split that a unit of the range meets, under a heading of its
+own**, with the signal, the evidence and each signal against a split that holds: it is no departure
+of the branch, and its repair is no split inside the branch, since the dispatcher routes it to a
+planned step or as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

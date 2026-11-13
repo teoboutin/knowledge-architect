@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-development
-description: MUST use before starting or iterating on any change to the project's Rust code — grounding in the record of the code being changed, specifying the unit of work as claims with tests that discriminate and showing each with `cargo x mutate`, the default shape of the code, the gate, the commit, the review axes for code and when to dispatch them, the conditional performance step and the optional diff mutation sweep, and which comment species a sentence belongs in. Not for agent-facing text, a decision's record, or parking an item, which their own skills cover.
+description: MUST use before starting or iterating on any change to the project's Rust code — grounding in the record of the code being changed, specifying the unit of work as claims with tests that discriminate and showing each with `cargo x mutate`, the default shape of the code, the module guidelines and who splits a module, the gate, the commit, the review axes for code and when to dispatch them, the conditional performance step and the optional diff mutation sweep, and which comment species a sentence belongs in. Not for agent-facing text, a decision's record, or parking an item, which their own skills cover.
 ---
 
 %% Its record is `design@agent-skills@development-skill`. It states no pull request and no continuous
@@ -106,6 +106,18 @@ type that holds them, and the verdict, naming the failing test for a catch. A cl
 by a probe beforehand enters as a regression guard, and is recorded as such.
 
 {{fragment:default-code-shape.md}}
+
+### A module with a signal for a split
+
+{{fragment:module-split.md}}
+
+%% Who splits a module and when: a split planned before the work, per
+%% `design@agent-skills@default-code-shape`; its record, a comment and the move's commit message
+%% unless a test of the primer's design-head rules holds.
+**A module split is a step a plan document plans, never work inside another task.** Implement such
+a step as its move alone, and state the split's reason in a comment at the module and in the
+message of the move's commit. A signal for a split that you meet while implementing work that
+planned no split is not acted on inside that work: route it as `primer@met-outside-the-task` says.
 
 ### A Component with a second reason to change
 

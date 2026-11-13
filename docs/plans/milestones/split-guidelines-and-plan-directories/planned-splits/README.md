@@ -8,7 +8,7 @@ and arguments in [its deliberation](deliberation.md).
 
 ## Builds
 
-- **The module guidelines**, a fragment of their own, `planned@agent-skills@fragments/module-split.md`,
+- **The module guidelines**, a fragment of their own, `path@agent-skills@fragments/module-split.md`,
   on the owner's Q16 word, `thread@split-guidelines-and-plan-directories@module-guidelines-fragment`,
   which replaced Q5's delivery inside the fragment of the default code shape: the criterion, the
   signals for and against a split, the one role of size, and the move before the work, per this
