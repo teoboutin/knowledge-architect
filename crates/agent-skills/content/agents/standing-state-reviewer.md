@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-standing-state-reviewer
-description: The standing-state axis of a dispatched review. Re-reads, for every change, what no other step is sure to re-read before the merge: every tripwire in every tripwires home, every deferred issue's trigger, the acceptance criteria of a landing plan document, and every issue entry the change opens or closes.
+description: The standing-state axis of a dispatched review. Re-reads, for every change, what no other step is sure to re-read before the merge: every tripwire in every tripwires home, every deferred issue's trigger, the acceptance criteria of a landing plan document, every issue entry the change opens or closes, and every change of a frozen file under a milestone's harvested/.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -111,6 +111,22 @@ planning skill gives it, confirm that every criterion still standing was reporte
 once more, and that each one that recurs at later work was judged as a cause, as
 `skill@knowledge-architect-decision-recording@ruled-tripwires` says, and either written or deleted,
 with its outcome in the record of the work.
+
+## A frozen file {{slug:frozen-file-changes}}
+
+%% No check guards the frozen files; this axis does: `design@check@a-frozen-file-is-guarded-by-the-review`.
+**No check reports a change of a frozen file, so this axis does.** List every file under a
+milestone's `harvested/` that a commit of the range adds, modifies or deletes:
+
+```sh
+git log --format=%h --name-status <range> -- 'docs/plans/milestones/*/harvested/*'
+```
+
+Report each commit that modifies one, or adds one other than by the move that freezes a slice, which
+adds each of the slice's files with the content its live path held in the commit's parent, as
+`skill@knowledge-architect-planning@plans-layout` says: name the commit and the file. A deletion is
+no finding. The repair is to take the change out of that commit and make it in a live
+document instead.
 
 ## The predicate {{slug:standing-predicate}}
 

@@ -147,7 +147,8 @@ docs/plans/
 
 %% The layout and the anchors: `design@agent-skills@milestone-is-a-directory`; the files beside a
 %% README: `design@agent-skills@discussion-record-apart`; the frozen files under `harvested/`:
-%% `design@model@a-harvested-slice-is-frozen`.
+%% `design@model@a-harvested-slice-is-frozen`; guarded by the review alone:
+%% `design@check@a-frozen-file-is-guarded-by-the-review`.
 %% A README holds the document because the checker resolves a relative link only there.
 **What each file of a plan document's directory holds**, a slice's directory included:
 
@@ -168,9 +169,10 @@ docs/plans/
   finding.
 - **Every file under a milestone's `harvested/` is frozen, and out of the walk**: the checker reads
   it for the items it defines alone, so an item it defines still resolves from inside its
-  milestone, and a live item that reuses one of its ids is reported. `{{command}} commits` reports a
-  commit that modifies or adds a frozen file, other than the move that harvests a slice, which adds
-  each of its files unchanged; a commit may delete one.
+  milestone, and a live item that reuses one of its ids is reported. **No commit modifies a frozen
+  file, or adds one other than by the move that harvests a slice**, which adds each of its files
+  unchanged; a commit may delete one. No check reports such a commit: the review before a merge
+  does, by its standing-state axis.
 - The checker constructs the anchor `plans` at docs/plans/, one anchor per spec directory and one
   per milestone directory. A slice's directory is no anchor: its milestone is the anchor of every
   file under the milestone's directory. A file or a directory directly under docs/plans/ outside

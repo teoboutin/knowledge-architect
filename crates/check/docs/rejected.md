@@ -435,3 +435,13 @@ and a split as a fix of its own carry the incentive instead.
 reference beside the install finding. No check reads these findings, and the model is complete without them,
 whichever crate held the check and whichever of the files was missing: over a missing one the model is built
 of the tree as it is, and a reference to what it defined is reported as unresolved.
+
+### `commits` refusing a change of a file under harvested/ other than the freezing move and a deletion `##commits-refuses-a-change-under-harvested`
+
+`live`. The owner chose the review before a merge over this check, which no goal ranks, on the
+argument that a check cannot reliably cover every sequence of actions a session may take on the
+frozen files, and that a review handles those sequences more flexibly. It was built, and an
+adversarial reviewer of its code reached three edits of the frozen record that its first wording
+admitted: a freezing move that also edits the slice, a rename inside harvested/ that edits the
+file, and a frozen file deleted in one commit and added again with new content in the next. The
+design kept is `design@check@a-frozen-file-is-guarded-by-the-review`.

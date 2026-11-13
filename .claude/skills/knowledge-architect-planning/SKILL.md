@@ -161,9 +161,10 @@ docs/plans/
   finding.
 - **Every file under a milestone's `harvested/` is frozen, and out of the walk**: the checker reads
   it for the items it defines alone, so an item it defines still resolves from inside its
-  milestone, and a live item that reuses one of its ids is reported. `cargo klarch commits` reports a
-  commit that modifies or adds a frozen file, other than the move that harvests a slice, which adds
-  each of its files unchanged; a commit may delete one.
+  milestone, and a live item that reuses one of its ids is reported. **No commit modifies a frozen
+  file, or adds one other than by the move that harvests a slice**, which adds each of its files
+  unchanged; a commit may delete one. No check reports such a commit: the review before a merge
+  does, by its standing-state axis.
 - The checker constructs the anchor `plans` at docs/plans/, one anchor per spec directory and one
   per milestone directory. A slice's directory is no anchor: its milestone is the anchor of every
   file under the milestone's directory. A file or a directory directly under docs/plans/ outside

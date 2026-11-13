@@ -40,15 +40,13 @@ an empty subsection is omitted.
   `harvested/`. A harvested slice's files leave the walk and are parsed for their definitions
   alone, a definition there still counting against a live one of the same id; a harvested slice,
   or an item it defines, is cited from inside its milestone's directory only, and a relative link
-  into `harvested/` from outside it is refused. `commits` reports a commit that modifies a file
-  under `harvested/`, or adds one other than by the move that freezes a slice.
+  into `harvested/` from outside it is refused.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
-  `knowledge-architect-model`, and `tree_changes`,
-  `TreeChange`, `ChangeKind`, `Blob` and `SnapshotEntry::blob` in `knowledge-architect-git`.
+  `knowledge-architect-model`.
 
 ### Workflow
 
@@ -63,7 +61,9 @@ an empty subsection is omitted.
   decided" keeps only the verdicts whose outcome changed something, linking `search/discussion.txt`
   for the rest.
 - `agent-skills`, patch: a landed slice is moved under its milestone's `harvested/` in a commit of
-  its own after its review, where it was deleted, and leaves with its milestone's directory. A
+  its own after its review, where it was deleted, and leaves with its milestone's directory. No
+  commit modifies a file there, or adds one other than by that move, and the standing-state
+  reviewer reports a commit of the branch that does. A
   slice audit's search takes as its work the milestone's `README.md` and the slice's, seeds from the
   slice's `README.md`, and takes as `--since` the commit that last changed it.
 - `agent-skills`, patch: an issue entry holds the owner's words verbatim where the owner asks it to

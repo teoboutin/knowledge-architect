@@ -62,8 +62,8 @@ says so. No commit is set apart as the range's tip: a range that does not end at
 such as a pre-push hook's or an audit of old history, holds no commit that `check` has judged,
 and treating its last commit specially would leave that commit's failure unreported as a finding.
 The summary counts the range's commits, how many passed and how many failed. A commit fails when
-any finding of the run belongs to it: its tree's, its message's, a citation of the range by SHA,
-or a change of a frozen file, per `design@check@a-frozen-file-is-never-modified`. Its line names
+any finding of the run belongs to it: its tree's, its message's, or a citation of the range by
+SHA. Its line names
 each of those sources, with its count of findings, except a tree that does not load, which is one
 finding. So the header agrees with the verdict line, and passed plus failed is
 the number of commits. Separate counts of failed trees and
@@ -115,34 +115,26 @@ A message is not a file of the tree, and a check whose verdict moved with the br
 range, per `design@check@staged-tree-source`. The range is always explicit, and the gates pass the range from the
 remote `main` to `HEAD`, so what is judged is the branch's own commits and never `main`'s.
 
-### A frozen file is never modified, and `commits` admits under harvested/ only the move that freezes a slice, and a deletion `##a-frozen-file-is-never-modified`
+### No check judges a change of a frozen file: the review before a merge does `##a-frozen-file-is-guarded-by-the-review`
 
-`commits` reports, in each commit of its range, every file under a milestone's harvested/ that the
-commit modifies or changes the type of against its first parent, and every file it adds there
-other than by the move that freezes a slice: that move adds each file of the slice with the content
-its live path held in the first parent. A deletion is admitted, since a frozen file leaves with its
-milestone. The clause has no option and applies to every commit that has a parent, on the branch that froze
-the slice as on any later one; a root commit has none to compare with, and rewrites no frozen
-record. A commit it reports fails, per
-`design@check@every-commit-judged-by-the-tip-checker`.
+`commits` judges no change of a file under a milestone's harvested/, as `check` judges none: a
+commit that modifies, adds or deletes one passes or fails on its tree and its message alone. The
+rule that no commit modifies a frozen file, or adds one other than by the move that freezes its
+slice, is an instruction of the installed text, and the review
+before a merge judges each commit of the branch against it. A frozen file is out of the walk and
+read for its definitions alone, per `design@model@a-harvested-slice-is-frozen`, so after its slice
+was live no rule of the checker judges it.
 
-A frozen file is out of the walk and read for its definitions alone, per
-`design@model@a-harvested-slice-is-frozen`: it was judged while its slice was live, and no rule of
-`check` judges it after. An edit made later, such as a migration that re-points it, would
-therefore be judged by nothing, or a session would rewrite it against the tree of its day to pass,
-and the frozen record would no longer be the one the slice's work was judged against. Only a check
-that compares a commit with its parent sees an edit, and `check` reads no range, per
-`design@check@check-reads-no-range-of-history`, so the clause is `commits`'s. It serves
-`goal@documentation-stays-consistent`: that a frozen file holds what was judged is established by
-running the checker, not by a reviewer remembering it.
-
-The nearest rival admits any addition under harvested/ beside the deletion and the freezing move.
-An adversarial reviewer of the code that built the clause reached three edits of the frozen record
-that it admits: a freezing move that also edits the slice, a rename inside harvested/ that edits
-the file, and a frozen file deleted in one commit and added again with new content in the next, the
-last being the rewrite of history the clause exists against. The admission of an addition only as
-the freezing move is D2 of `milestone@plans@split-guidelines-and-plan-directories`, a default
-awaiting the owner's word, built as written.
+The owner chose the review over a clause of `commits`, which no goal ranks, on the argument that a
+check cannot reliably cover every sequence of actions a session may take on the frozen files, and
+that a review handles those sequences more flexibly. The record bears it out: the clause built for
+it admitted, in its first wording, three sequences that an adversarial reviewer of its code
+reached, a freezing move that also edits the slice, a rename inside harvested/ that edits the file,
+and a frozen file deleted in one commit and added again with new content in the next. It strains no
+goal: `goal@documentation-stays-consistent` binds in the texts the checker reads, and a frozen file,
+parsed for definitions only, is none, a reading the owner confirmed. Its cost is an edit of a
+frozen file that the review misses, which reaches the main branch with nothing reporting it. The
+design not kept: `rejected@check@commits-refuses-a-change-under-harvested`.
 
 ### `commits` refuses a citation of a commit of its range by SHA, where the manifest turns it on `##branch-shas-are-refused`
 
