@@ -331,7 +331,7 @@ decided", and with its two members the cluster `the-slice-audit-s-search-on-one-
   that slice 2, which changes the grounding's steps again, does not meet it again.
 
 One issue the search graded `unrelated` has its re-entry point met by the work:
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point is
 the next change that edits `design@knowledge-architect@git-crate`, which slice 4 is. Slice 4's
 design audit sorts it as a gap of the slice.
 
@@ -899,7 +899,8 @@ Each slice's row is in its spec. The row of this document:
   names, by the standard of `skill@knowledge-architect-decision-recording@ruled-tripwires`; P2, P3
   and P4 are claims of slice 1, and slice 1's harvest row carries their outcomes into its commit
   message.
-- **AC1** is reported on at each of slices 2, 3 and 4, and once more when this document leaves.
+- **AC1** is reported on at each of slices 2, 3 and 4, and once more when this document leaves,
+  where it is judged by the standard of `skill@knowledge-architect-planning@acceptance-criteria`.
 - **The design** of the first five subsections of "Decided design" lands in the heads each thread's
   item names, at the harvest of the slice that builds it; the sixth, the goal's, is in the goals
   home already, and no harvest records it.

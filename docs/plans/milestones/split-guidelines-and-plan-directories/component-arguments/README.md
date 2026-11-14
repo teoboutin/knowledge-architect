@@ -16,7 +16,20 @@ other slices are in the milestone document; what only this slice builds is below
     layout, recorded in the root's design home.", reworded to mean a Component that departs from a
     default criterion, which removes the reading of "kept" as kept unsplit.
 - **The decision-record reviewer and the design-record auditor**: each judges a head that argues a
-  Component's existence by the rule, through the text that states it.
+  Component's existence by the rule, through the text that states it, a pointer that asks for it to
+  be read whole.
+- **The project-audit skill's design-record axis**, source
+  `path@agent-skills@content/skills/project-audit/SKILL.md`: its list of the axis's rules names the
+  rule, for a head that argues a Component's existence, so that the Migration entry's citation of
+  the axis delivers it.
+- **The root's design home split by subject**: section 1, "Layout and packaging", holds the heads
+  that argue which Components exist and how they depend on each other beside the heads on naming,
+  facades and what a package ships, parts that change apart, the second trigger of the subject
+  standard of `skill@knowledge-architect-decision-recording@current-design`. The heads move, unchanged,
+  into a subject of the Components and a subject of the packaging, before the work writes into the
+  first.
+- **The touched heads conformed**: each head of the list below that the scoped auditor found
+  non-conformant, brought to the rules on design heads before the rule's first use writes into it.
 - **A design head of `agent-skills`** stating the rule, since it is judged at two sites at least, the
   skill's step and the reviewers, per test 2 of `primer@design-heads`; and
   `design@agent-skills@component-skill-delivery` read again for how the criteria are applied.
@@ -63,8 +76,21 @@ twelve root heads, `design@knowledge-architect@installed-text-crate`,
 `design@knowledge-architect@transcript-crate`, `design@knowledge-architect@create-crate`,
 `design@knowledge-architect@cli-crate`, `design@knowledge-architect@testing-crate`,
 `design@knowledge-architect@gates-crate`, `design@knowledge-architect@mutation-command-host` and
-`design@knowledge-architect@xtask-crate`. The scoped auditor of slice 3 judges them at this slice's
-audit.
+`design@knowledge-architect@xtask-crate`. The design audit added three heads the harvest
+touches, none of which it rewrites:
+
+- `design@agent-skills@component-skill-delivery`, which the harvest reads again "for how the
+  criteria are applied";
+- `design@knowledge-architect@checker-asks-git-through-the-crate`, whose sentence that "no tool
+  needs a wrapper of git of its own is argued by no head" changes with the conforming of
+  `design@knowledge-architect@git-crate` to `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`;
+- `design@agent-skills@design-record-axis`, whose list of the axis's rules gains the rule as a
+  member: the head's argument, that the axis re-applies the rules on design heads to every entry,
+  covers it, so it is recorded directly, per `primer@design-heads`, and the decision is unchanged.
+
+No head is rewritten or reversed by this slice. The scoped auditor judged the fifteen heads at this
+slice's audit, and "Implementation sequence" carries a conforming step for each it found
+non-conformant.
 
 ## Audit subjects
 
@@ -74,7 +100,7 @@ audit.
 - The root's design home, `register@knowledge-architect@design`, the twelve root heads whole.
 - The design home `path@agent-skills@docs/design/components.md`.
 - The standing entries the slice bears on:
-  `issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
+  `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point is
   the next change that edits `design@knowledge-architect@git-crate`, which this slice is, though the
   search graded it `unrelated` on the draft, which had slice 4 rewrite no existing head: the audit
   sorts it as a gap of the slice;
@@ -126,10 +152,25 @@ For `thread@split-guidelines-and-plan-directories@component-split-argues-the-cri
 
 ## Implementation sequence
 
-1. **The skill's text and the reviewers' texts**: Claims 1 and 2.
-2. **The twelve root heads**: Claim 3, each head that owes a decision through the design skill.
-3. **The record and the changelog**: the new head, `design@agent-skills@component-skill-delivery`
-   read again, and the CHANGELOG.md entries with the Migration entry: Claim 4. This is the harvest.
+1. **The skill's text and the reviewers' texts**, with the project-audit skill's list of the axis's
+   rules: Claims 1 and 2.
+2. **The root's design home split by subject**, a move alone: the heads that argue a Component's
+   existence and how the Components depend on each other in one subject, the heads on naming,
+   facades and packages in another, each head unchanged.
+3. **The touched heads conformed**, each by its verified draft of the scoped auditor: an edit that
+   writes no new argument and changes no word of the owner is the step's work; a missing argument is
+   a decision, through the design skill, as `design@knowledge-architect@check-crate`'s premise for
+   the install is; each head a split or a retitle creates is judged alone by the auditor briefed to
+   check before the step's commit.
+4. **The twelve root heads**: Claim 3, each head that owes a decision through the design skill. The
+   conforming of `design@knowledge-architect@git-crate` takes up
+   `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`: each of its three
+   statements that the head's line on a criterion needs is argued there, and the issue closes or
+   keeps the statements left, its re-entry point rewritten.
+5. **The record and the changelog**: `design@agent-skills@component-skill-delivery` read again, the
+   rule's head or its reason beside the instruction as test 2 decides, the new member of
+   `design@agent-skills@design-record-axis`, and the CHANGELOG.md entries with the Migration entry:
+   Claim 4. This is the harvest.
 
 ## Harvest
 
@@ -149,6 +190,10 @@ For `thread@split-guidelines-and-plan-directories@component-split-argues-the-cri
   this slice changes judge each Component head by the rule, so a criterion's line with no reason
   is a finding they report, and the failure is not silent.
 - **AC1**, reported at this slice's design audit, and once more when the milestone's directory
-  leaves.
+  leaves, where it is judged by the standard of
+  `skill@knowledge-architect-planning@acceptance-criteria`: written as a tripwire, folded into an
+  entry that guards the same premise, or deleted with the document.
 - **The milestone's directory leaves** after this slice's review before the merge, per the milestone
-  document's harvest row.
+  document's harvest row. The deleting commit removes its row of `path@knowledge-architect@docs/roadmap.md`, and repairs each
+  citation of it from outside its directory, in the issue entries `cargo klarch check` reports, as
+  `skill@knowledge-architect-planning@plan-document-leaves` says.
