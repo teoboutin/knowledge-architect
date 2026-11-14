@@ -142,8 +142,8 @@ Members: 2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow W1, C3
   how an agent behaves on "a behaviour seen in a real session ... with the owner naming what the
   session would have lacked without it". The behaviour was seen: the review's 30 sites. What the
   session would have lacked is the owner's to name: the default reads it as the list of citers to
-  re-read before the review. C3: open an issue in `check`, kind `design`, slug
-  `a-quotation-beside-a-reference-is-not-checked-against-its-entry`: the three heads; the mechanism,
+  re-read before the review. C3: open an issue in `check`, kind `design`,
+  `issue@check@a-quotation-beside-a-reference-is-not-checked-against-its-entry`: the three heads; the mechanism,
   that `check` reads no quotation against the entry its paragraph cites; what is not measured, the
   count of quotations beside references in this tree and the share that paraphrase; the re-entry
   point, a design discussion after that census, or on the owner's word. Its `Why it matters` names
@@ -167,10 +167,14 @@ Instructions: 1 added, 0 removed. Nearest rival: the file's two sentences, one p
 paragraph's commit.
 
 Default: W1 handled now with the text above; C3 opened as the issue
-`a-quotation-beside-a-reference-is-not-checked-against-its-entry` in `check`.
+`issue@check@a-quotation-beside-a-reference-is-not-checked-against-its-entry` in `check`.
 Outcome: for the owner (a fact only the owner holds): pending. The question: what the session would
 have lacked without the sentence, which `design@agent-skills@behaviour-additions-need-real-use`
 asks the owner to name before an instruction about how an agent behaves is added.
+Outcome (C3): decided by the session: the issue
+`issue@check@a-quotation-beside-a-reference-is-not-checked-against-its-entry` opened, at the review
+before the merge. Ground: item g, an issue only, since the check's cost and its false findings are
+unmeasured; whatever the owner rules on W1, C3's fix lies in the checker, where no census exists.
 
 ## transcript-unlabelled-lines: `transcript` counts lines it leaves unlabelled, without locating them, and asks a finding for each
 

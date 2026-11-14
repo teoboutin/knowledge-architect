@@ -18,12 +18,13 @@ contradicts a head.
 The texts, in `path@agent-skills@content/skills/review/SKILL.md`:
 
 - `skill@knowledge-architect-review@review-axes`: "A review owes every axis of this table whose
-  condition holds"; the transcript reviewer runs "after every other axis has run, its repairs are
+  condition holds"; the transcript reviewer runs "after every other axis has run, the re-review that
+  each repair adding, removing or reversing a design head owes included, their repairs are
   committed and every item of their reports has its outcome";
 - `skill@knowledge-architect-review@what-review-leaves`: "A repair that rewords a goal is drafted as
   its own item under `skill@knowledge-architect-goal-setting@drawing-out-intent`"; and "A repair
-  that adds, removes or reverses a design head is reviewed by the decision-record axis, and by any
-  other axis whose condition it meets", a repair of the last transcript review being reviewed after
+  that adds, removes or reverses a design head, a split of a head included, is reviewed by the
+  decision-record axis, and by any other axis whose condition it meets", a repair of the last transcript review being reviewed after
   it, and any other repair being reviewed by no axis again.
 
 The goals axis in merge mode, `agent@knowledge-architect-goal-reviewer`, reports "each goal the

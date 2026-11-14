@@ -5,8 +5,9 @@ kind: design
 
 ## Summary
 
-Three sessions made a one-line edit of this repository's Rust source inside a task that was not
-Rust work, and none loaded `skill@knowledge-architect-development` and `skill@klarch-development`.
+Three sessions made a small edit of this repository's Rust source inside another task, two of them
+one-line edits inside text work, and none loaded `skill@knowledge-architect-development` and
+`skill@klarch-development`.
 The instruction is delivered at the session's start; the edit comes later, inside the other task.
 Where to deliver it at the moment of the edit is a design question with three rivals.
 
@@ -32,7 +33,13 @@ The instances, from this repository's retrospective project files:
   tests, and the full gates later passed, but it did not load the development skill;
 - slice 1 of the plan directories, 2026-11-13, its standing answer: a lint repair in Rust written
   without loading the development skills, in the same repair that decided a change against a
-  head's recorded reading without the design skill.
+  head's recorded reading without the design skill. By its details, the repair is the commit
+  "[check] A plan document's directory is no place the first-segment lint reads a path from" on
+  main: 60 lines added and 2 removed in `path@check@src/check/references.rs`, with a test and a
+  `cargo x mutate` run, so no one-line edit. The slice also changed Rust code in its own work, in
+  "[model] Plan documents as directories, with model types of their own, and the tree's plan
+  documents migrated", so that this edit was made inside a task that looked like text work is an
+  assumption, not established.
 
 The suspected mechanism, in one sentence: an instruction read at the session's start is not
 recalled at an edit of Rust made inside a task that looks like text work.
@@ -51,7 +58,8 @@ The rivals, none ranked by the record:
   `CLAUDE.md` at an edit made without a read of the directory is an assumption to measure;
 - a sentence where the three tasks are delivered: the review skill's repair step, the section of
   `path@agent-skills@CLAUDE.md` on editing an installed skill, a brief; three homes for one moment;
-- no change: each edit was one line, the gates passed on each, and the review judged the third. It
+- no change: the first two edits were one line, the gates passed on each, and the review judged
+  the third. It
   loses on the lapse rule of `skill@knowledge-architect-retrospective-intake@admission-rules`, whose
   recurrence at one point of delivery moves the delivery; and the third repair carried a decision
   against a head that the development skill's grounding reads.

@@ -61,7 +61,9 @@ that decides the touched-head proposals, not by this intake. Ground: the trigger
 comparison then reads the series", serves the decision on a cost-argued proposal; the one such
 proposal decided here loses to the fact of `design@agent-skills@created-heads-checked-in-the-run`,
 on which no count bears; the other two wait for a design discussion, which the new issue's text
-sends to the comparison.
+sends to the comparison. The entry's "Trigger" section, which named the arrival of such a proposal,
+is rewritten at the review before the merge to name the occasion argued here: the decision on such
+a proposal, where it turns on review cost.
 
 ## head-changed-without-design-skill: code or an agent's edit contradicted, narrowed or rewrote a head with no deliberation
 

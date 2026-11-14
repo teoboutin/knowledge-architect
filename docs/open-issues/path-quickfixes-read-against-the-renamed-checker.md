@@ -16,6 +16,13 @@ The leaving spec rewrote `design@check@fix-before-the-checks`, which no longer s
 It also added repair text for a reference to a missing skill of the installer's namespace, in `path@model@src/resolver.rs`, and moved the shipped text to `path@check@src/agents.rs`. The quick-fixes spec's rows on the order
 of a run, and its paths, were re-pointed mechanically and not read against these.
 
+The spec's row on a raw path's finding quotes its repair as fixed text, "write
+`path@<anchor>@<path>`, `path@elsewhere@<path>` for a path outside this tree, or `path@*@<path>` for
+every component's own copy", with line numbers in `path@check@src/check/references.rs`. The repair
+in `judge_part` of that file now also offers `register@<anchor>@<register>` for a register's home,
+and `path@elsewhere@<project>/<path>` for a file of another project, so the quotation and its line
+numbers no longer match the code; the two tests it names still pin the whole line.
+
 ### Why it matters
 
 A spec on hold written against a superseded order would be implemented from false statements, against `design@check@fix-before-the-checks`.
