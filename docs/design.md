@@ -11,20 +11,7 @@ these decisions serve are `register@goal`.
 `register@check@design`; how the gates run is `register@gates@design`, and this repository's own
 gates `register@xtask@design`; how the agent skills are shaped is `register@agent-skills@design`.
 
-## 1. Layout and packaging
-
-### No Component's directory is named after the project, and a published crate's directory may differ from its package's name `##no-component-directory-named-after-the-project`
-
-A Component is named by the basename of its directory, and the project root by the project's name,
-per `design@model@components-carry-the-same-documents`, so a directory named `knowledge-architect`
-would collide with the root: a run over a scratch project
-laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
-crate may sit in a directory named by what it does rather than by its package, crates/cli for the
-package knowledge-architect. The cost: a reference says `cli` where cargo says
-`-p knowledge-architect`.
-
-The design this decision did not keep:
-`rejected@knowledge-architect@crate-directory-named-after-project`.
+## 1. The Components and how they depend on each other
 
 ### The installed text lives in its own crate, which the crate holding the installed-file check depends on `##installed-text-crate`
 
@@ -178,16 +165,6 @@ that an extension's tests pull the harness as a package of its own, added to tho
 the unit tests, and sometimes out of the crates, test the public API, per `design@agent-skills@integrated-test-through-public-api`, and that one crate might keep others from duplicating fixtures or reaching into another's, the shape of `design@agent-skills@shared-test-component`. No package ships them, per
 `design@knowledge-architect@package-include-whitelist`. The nearest rival, the mock tests kept as a unit-test module of each crate, reads internals a consumer cannot, and needs either a copy of each mock or a path into another crate.
 
-### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
-
-A project that runs the checker or writes an extension names this package alone of the checker's for what it builds: its dependency line, its `cargo install` and an extension's imports
-all spell it, and an extension's tests add `knowledge-architect-testing`, per `design@knowledge-architect@testing-crate`. So `cli` has that name and keeps every path such a build names, re-exporting what the checks' crate holds, as
-`design@check@the-facade-publishes-what-a-consumer-needs` lists, and the crate of the checks is `knowledge-architect-check`,
-which such a project's build does not name.
-The rival, a new name for the top-level crate, changes every project's dependency line and every extension's imports
-to gain a name, and an installed setup snippet would change with them; a migration is its whole cost, per
-`design@knowledge-architect@capability-cost-before-migration`, and the name buys a consumer no capability.
-
 ### A typed command prints as it works and returns its exit code, rather than data for its caller to print `##a-typed-command-prints-and-returns-its-code`
 
 Each command's function, in `commands` and in the crates `query`, `transcript` and `create`, takes the domain's types, prints, and returns `Result<ExitCode, String>`. The session chose
@@ -207,22 +184,6 @@ depends on `check`, a macro over `check`'s. The session chose this over a crate 
 rival holds one home at the fixed cost of a published crate, for a name no plan proposed; the component-creation skill's default, printing in the
 Component that defines the data, leans against it by a default, not a rule. The cost of the choice is one reason at three sites, which a test per copy holds. The copies leave with the last command that returns data, per
 `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
-
-### The crates of the checker's tools are facades, those an extension is written against with role modules, and every other module is private `##api-facade`
-
-`check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
-role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
-`design@model@model-facade`. `query`, `transcript` and `create` hold what no extension is written against, each crate root
-re-exporting its typed functions, with no role module, and every module private by the same rule. `testing` holds what an extension's tests are written against, its crate root re-exporting `check`'s module `run`.
-
-- **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
-  the implementation's module tree, so moving an item between files changes no public path, and is no library break under
-  `design@knowledge-architect@versioning-policy`.
-- **A `pub` item no consumer can reach is refused.** Each lib.rs carries `#![warn(unreachable_pub)]`, and the clippy gate
-  runs with `-D warnings`, so an item is public only through the facade.
-- **A public signature keeps its types public**, or the compiler reports it.
-
-The design this decision did not keep: `rejected@knowledge-architect@module-tree-as-public-api`.
 
 ### The gates runner is a published library, and a project keeps a small binary of its own `##gates-crate`
 
@@ -296,6 +257,47 @@ repository's sources in every binary, as `rejected@xtask@source-view-in-the-chec
 source view. And `gates` and `mutate` run the project's build or its tests, which no command of
 `klarch` does, per `design@knowledge-architect@mutation-command-host`.
 
+## 2. Naming, facades and what a package ships
+
+### No Component's directory is named after the project, and a published crate's directory may differ from its package's name `##no-component-directory-named-after-the-project`
+
+A Component is named by the basename of its directory, and the project root by the project's name,
+per `design@model@components-carry-the-same-documents`, so a directory named `knowledge-architect`
+would collide with the root: a run over a scratch project
+laid out that way stopped in phase 1, reporting that the name "names 2 anchors". So a published
+crate may sit in a directory named by what it does rather than by its package, crates/cli for the
+package knowledge-architect. The cost: a reference says `cli` where cargo says
+`-p knowledge-architect`.
+
+The design this decision did not keep:
+`rejected@knowledge-architect@crate-directory-named-after-project`.
+
+### The package that holds the binary keeps the name `knowledge-architect`, whichever crate holds the checks `##the-binary-crate-keeps-the-package-name`
+
+A project that runs the checker or writes an extension names this package alone of the checker's for what it builds: its dependency line, its `cargo install` and an extension's imports
+all spell it, and an extension's tests add `knowledge-architect-testing`, per `design@knowledge-architect@testing-crate`. So `cli` has that name and keeps every path such a build names, re-exporting what the checks' crate holds, as
+`design@check@the-facade-publishes-what-a-consumer-needs` lists, and the crate of the checks is `knowledge-architect-check`,
+which such a project's build does not name.
+The rival, a new name for the top-level crate, changes every project's dependency line and every extension's imports
+to gain a name, and an installed setup snippet would change with them; a migration is its whole cost, per
+`design@knowledge-architect@capability-cost-before-migration`, and the name buys a consumer no capability.
+
+### The crates of the checker's tools are facades, those an extension is written against with role modules, and every other module is private `##api-facade`
+
+`check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
+role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
+`design@model@model-facade`. `query`, `transcript` and `create` hold what no extension is written against, each crate root
+re-exporting its typed functions, with no role module, and every module private by the same rule. `testing` holds what an extension's tests are written against, its crate root re-exporting `check`'s module `run`.
+
+- **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
+  the implementation's module tree, so moving an item between files changes no public path, and is no library break under
+  `design@knowledge-architect@versioning-policy`.
+- **A `pub` item no consumer can reach is refused.** Each lib.rs carries `#![warn(unreachable_pub)]`, and the clippy gate
+  runs with `-D warnings`, so an item is public only through the facade.
+- **A public signature keeps its types public**, or the compiler reports it.
+
+The design this decision did not keep: `rejected@knowledge-architect@module-tree-as-public-api`.
+
 ### Each published crate ships a whitelist of files `##package-include-whitelist`
 
 Each crate under crates/ declares `include` in its Cargo.toml, listing its sources, its Cargo.toml,
@@ -362,7 +364,7 @@ one command, which serves `goal@every-target-project-can-adopt-it`.
 The design this decision did not keep:
 `rejected@knowledge-architect@workflow-as-marketplace-plugin`.
 
-## 2. Versions and releases
+## 3. Versions and releases
 
 ### Every crate carries one version, and so does the installed text `##version-lockstep`
 
@@ -693,7 +695,7 @@ and no new tag. The nearest rival, one `cargo publish --workspace`, cannot be re
 lists no option that skips a version crates.io already holds, and `--exclude` names crates, which
 a re-run cannot change.
 
-## 3. How work reaches main
+## 4. How work reaches main
 
 ### All work goes through a branch, a review and a pull request merged up to date with main `##git-flow`
 
@@ -895,7 +897,7 @@ switch between checkouts that share a target directory. A single checkout pays n
 The design this decision did not keep:
 `rejected@knowledge-architect@build-tied-to-cargo-manifest-dir`.
 
-## 4. This repository's agent configuration
+## 5. This repository's agent configuration
 
 ### Every finding on the workflow that this repository's own use of it produces stays in this repository, never on GitHub `##workflow-findings-stay-here`
 
@@ -956,7 +958,7 @@ on a file whose findings all end in no change: that commit changes no file, and 
 drops a commit that changes no file, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
 
-## 5. What the tools and the workflow hold to together
+## 6. What the tools and the workflow hold to together
 
 ### A project's record lives in its repository, as files and commit messages, never in an external tracker `##the-record-lives-in-the-repository`
 
