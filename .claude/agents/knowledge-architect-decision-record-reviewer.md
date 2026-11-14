@@ -437,8 +437,9 @@ change:
 - **Argue it under `skill@knowledge-architect-design` first**, if it was not: a reversal contradicts
   a statement of the incumbent, the second case of the backstop of `primer@design-heads`.
 - **Delete the tripwires guarding the reversed decision.** `skill@knowledge-architect-issue-tracking` owns that movement.
-- **Repair what pointed at the old behaviour**: skills, subagent definitions, scoped `CLAUDE.md`
-  files, generated headers. Grep the behaviour's wording as well as the slug, since a pointer that
+- **Repair every text that points at or describes the old behaviour**: the skills, the subagent
+  definitions, the scoped `CLAUDE.md` files, the `README.md` of each Component that exposes it, and
+  the generated headers. Grep the behaviour's wording as well as the slug, since a pointer that
   describes the behaviour without naming it is the one a slug grep misses. A sentence about the
   past that named the old slug is rewritten to state the present, or removed, never retargeted and
   never turned into plain text, as `skill@knowledge-architect-issue-tracking` says of a deleted
