@@ -120,7 +120,8 @@ by a probe beforehand enters as a regression guard, and is recorded as such.
 included. **Moving code the change does not write between modules, or out of one, is a split**,
 the move of the guidelines above: a step of the plan document where one carries the work, and
 otherwise commits of its own before the work, on the same branch. State the split's reason in a
-comment at the module and in the message of the move's commit. A signal for a split over code the
+comment at the module and in the message of the move's commit, and in a design head only where a
+test of `primer@design-heads` holds. A signal for a split over code the
 work does not write, which no such step took, is not acted on inside that work: a split is a design
 decision, so it is no fix of the second row of `primer@met-outside-the-task`, and it is routed by the
 other rows of that table, usually as an issue.

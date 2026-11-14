@@ -9,7 +9,7 @@ and arguments in [its deliberation](deliberation.md).
 ## Builds
 
 - **The module guidelines**, a fragment of their own, `path@agent-skills@fragments/module-split.md`,
-  on the owner's Q16 word, `thread@split-guidelines-and-plan-directories@module-guidelines-fragment`,
+  on the session's default the owner approved at Q16, `thread@split-guidelines-and-plan-directories@module-guidelines-fragment`,
   which replaced Q5's delivery inside the fragment of the default code shape: the criterion, the
   signals for and against a split, the one role of size, and the move before the work, per this
   spec's "The module guidelines". Its hosts are the development skill,
@@ -18,7 +18,7 @@ and arguments in [its deliberation](deliberation.md).
   and its hosts.
 - **The code-split scout**, a new installed agent, `agent@knowledge-architect-code-split-scout`, whose
   source is a new file of `path@agent-skills@content/agents/`, hosting the module guidelines'
-  fragment and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q16 word, the latter
+  fragment and `path@agent-skills@fragments/when-to-split.md`, on the session's default the owner approved at Q16, the latter
   holding the occasion of a Component split alone, on the owner's Q17 word,
   `thread@split-guidelines-and-plan-directories@when-to-split-fragment-split`: the instruction to
   load the component-creation skill, the signals that a split is cut in the wrong place and the
@@ -182,7 +182,7 @@ What each is rewritten to state:
   any other goes to the owner or to a design session, as the audit's sorts say.
 - `design@agent-skills@shared-text-fragment`: the module guidelines' fragment joins the list, hosted
   by the development skill, the code-shape reviewer and the code-split scout, and the fragment on when
-  to split gains the scout as a host, on the owner's Q16 word. The harness-hook rival is not argued
+  to split gains the scout as a host, on the session's default the owner approved at Q16. The harness-hook rival is not argued
   again here: the review before the merge rewrote the re-entry of
   `issue@agent-skills@heads-argued-from-another-harness` so that a change to a host list does not
   meet it.
@@ -263,7 +263,7 @@ For `thread@split-guidelines-and-plan-directories@module-split-guidelines`.
   lines is picked. The premise that this limit is a signal is measured first, Claim 2.
 - **A split is a move before the work, in commits that hold the move alone**, so that the review of
   the work reads the work.
-- **The delivery**, on the owner's Q16 word at this slice's design audit, which replaced Q5's of
+- **The delivery**, on the session's default the owner approved at Q16, at this slice's design audit, which replaced Q5's of
   round 4: the module guidelines a fragment of their own, hosted by the development skill, the
   code-shape reviewer and the code-split scout, and the scout a new installed agent hosting that
   fragment and the fragment on when to split. The scout does not host the default code shape, whose
@@ -337,9 +337,10 @@ For `thread@split-guidelines-and-plan-directories@in-crate-split-unrecorded`.
 
 ## Harvest
 
-- **Attribution**: Q5 and Q16 approved the session's defaults; a head records the delivery as the
-  session's choice that the owner approved, in the weak form, never as the owner's ruling, per
-  `design@agent-skills@fork-choice-in-weak-form`.
+- **Attribution**: Q5 and Q16 approved the session's defaults, so a head records Q16's delivery on
+  its argument, the host rule and the cost of loading text no act applies, and the approval in the
+  commit; Q17 is recorded on the owner's argument, and Q18 as the owner's choice at a fork, in the
+  weak form, per `design@agent-skills@fork-choice-in-weak-form`.
 - **Design heads**: Group D's heads of this slice and `design@agent-skills@shared-text-fragment`,
   as "What is already decided" says, under `skill@knowledge-architect-decision-recording`; the decisions of
   `thread@split-guidelines-and-plan-directories@module-split-guidelines`,

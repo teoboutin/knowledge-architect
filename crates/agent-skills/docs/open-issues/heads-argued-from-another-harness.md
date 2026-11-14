@@ -26,7 +26,11 @@ The instances, found by the review before the merge of the branch that narrowed 
   its reasons;
 - `rejected@agent-skills@head-rules-in-decision-recording`, kept because "another agent provider
   may not load the primer"; `rejected@check@session-start-hook-primer`, kept because "another
-  context or harness might not follow it"; `rejected@model@agent-configuration-anchor`, whose second
+  context or harness might not follow it", whose other reason, that a hook needs the installer to
+  edit the user's settings file, the Claude Code documentation on hooks
+  (https://code.claude.com/docs/en/hooks) also weakens, since it lists a project's committed
+  settings file as a scope a hook may be configured in;
+  `rejected@model@agent-configuration-anchor`, whose second
   reason is a skill served to two harnesses;
 - the `instructions` bullet of `design@model@harness-kinds-cited-without-anchor`, which names a
   second harness.
@@ -55,7 +59,4 @@ whichever comes first: each is an occasion whose work reads those entries' groun
 For `design@agent-skills@shared-text-fragment`, whose rival is about how a fragment is delivered:
 the next design discussion whose work changes how fragments are delivered to their hosts, or a
 design-record audit pass, whichever comes first. A change to a fragment's host list does not meet
-it, since its work reads no ground of the delivery. The harvest of the slice on splits planned
-before the work changed that head's host lists and met the earlier re-entry point; the argument of
-the rival it wrote was withdrawn at its review, since one premise misread the documentation of
-`disableAllHooks` and the thread closed with no record search of its own.
+it, since its work reads no ground of the delivery.
