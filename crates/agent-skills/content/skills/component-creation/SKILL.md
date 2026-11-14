@@ -20,7 +20,7 @@ registers, `skill@knowledge-architect-setup`; **recording the decision**,
 ## What a Component is by default {{slug:component-criteria}}
 
 %% The criteria are guidelines that real use corrects, through the retrospective's question, per
-%% `design@agent-skills@component-skill-delivery`.
+%% `design@agent-skills@component-criteria-are-guidelines`.
 %% The domain criterion is stated here alone, so no head: the owner's argument that a Component takes
 %% decisions about one main matter, with smaller side ones allowed; the word is "domain" because a
 %% subject is a part of a design home, per `design@agent-skills@subject-split-standard`.
@@ -173,7 +173,7 @@ Name a Component before its directory is created:
 %% project ships, followed or not, keeping why one paid or what departing from it cost. Its rival, a
 %% head that states the purpose alone, leaves a later split or merge no argument to defeat, which
 %% `goal@design-is-recorded-with-its-arguments` rules out. The criteria stay guidelines a head argues
-%% over, never conditions it meets, per `design@agent-skills@component-skill-delivery`.
+%% over, never conditions it meets, per `design@agent-skills@component-criteria-are-guidelines`.
 3. **Record its purpose** as the statement of the design head that argues its existence, in the
    root's design home, under `skill@knowledge-architect-decision-recording`. No goal is written
    for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says. **For a

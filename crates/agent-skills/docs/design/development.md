@@ -60,7 +60,7 @@ does not depend on what a project builds. What it says about code is stated from
 the default shape of code, per `design@agent-skills@default-code-shape`, the module guidelines, per
 `design@agent-skills@module-split-guidelines`, what a test owes, per
 `design@agent-skills@test-economy`, and the criteria of a Component, per
-`design@agent-skills@component-skill-delivery`. A mechanical gate on idiom, such as a set of lints,
+`design@agent-skills@component-criteria-are-guidelines`. A mechanical gate on idiom, such as a set of lints,
 may ship once knowledge-architect's owner takes it in; the clippy gate of the recommended list is
 one, per `design@gates@a-project-holds-its-gate-list`.
 
