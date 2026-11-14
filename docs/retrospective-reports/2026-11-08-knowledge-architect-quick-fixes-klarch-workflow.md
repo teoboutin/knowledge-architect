@@ -101,7 +101,7 @@ Members: 2026-11-08-knowledge-architect-quick-fixes-klarch-workflow C2.
   checker change, or `skill@knowledge-architect-agent-configuration` for the root's rule. A branch
   of its own.
 - **h. The proposal.** Open an issue in `check`, kind `design`, slug
-  `a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted`: the two instances of the
+  `issue@check@a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted`: the two instances of the
   quick-fixes session; the mechanism, that the head's repair by an amend is barred by a project
   rule on uncommitted work; the three shapes above, with the reason of
   `rejected@check@commit-msg-hook` that the draft check must answer and the bytes
@@ -113,7 +113,7 @@ Members: 2026-11-08-knowledge-architect-quick-fixes-klarch-workflow C2.
 
 Default: open the issue.
 Outcome: decided by the session: open an issue, `check`, kind `design`, slug
-`a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted`. Ground: the proposal brings
+`issue@check@a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted`. Ground: the proposal brings
 back `rejected@check@commit-msg-hook` without answering its parent reason, while the case it reports
 defeats a premise of `design@check@one-command-judges-messages-after-the-commit` in this repository;
 the shapes that answer it change a recorded decision, so the work is a design discussion on a
@@ -200,17 +200,17 @@ Members: 2026-11-08-knowledge-architect-quick-fixes-klarch-workflow C1; 2026-11-
   cluster's to weigh.
 - **g. Its route.** An issue only, joining the cluster's branch.
 - **h. The proposal.** Open a defect issue in `mutate`,
-  `a-filter-that-matches-no-test-reads-as-survived`, with the two instances, the three shapes and
+  `issue@mutate@a-filter-that-matches-no-test-reads-as-survived`, with the two instances, the three shapes and
   the head the first would widen, and add it to the members of
   `issue@mutate@the-mutation-run-s-false-verdicts-on-one-branch`.
 
 Default: open the issue and add it to the cluster.
-Outcome: decided by the session: open an issue, `mutate`, kind `defect`, `a-filter-that-matches-no-test-reads-as-survived`, a member of `issue@mutate@the-mutation-run-s-false-verdicts-on-one-branch`. Ground: the false verdict stands at origin/main; one fix shape widens `design@mutate@baseline-runs-by-default` and another is the twin issue's closing work, so it is weighed on that cluster's branch.
+Outcome: decided by the session: open an issue, `mutate`, kind `defect`, `issue@mutate@a-filter-that-matches-no-test-reads-as-survived`, a member of `issue@mutate@the-mutation-run-s-false-verdicts-on-one-branch`. Ground: the false verdict stands at origin/main; one fix shape widens `design@mutate@baseline-runs-by-default` and another is the twin issue's closing work, so it is weighed on that cluster's branch.
 
 Text to add to `issue@mutate@the-mutation-run-s-false-verdicts-on-one-branch`, in the list of members under "What":
 
 ```
-- `a-filter-that-matches-no-test-reads-as-survived`
+- `issue@mutate@a-filter-that-matches-no-test-reads-as-survived`
 ```
 
 in the sentence that says why they go on one branch, "because both misjudge" becomes "because
@@ -223,7 +223,7 @@ widened to every verdict, is one of its fixes.
 ```
 
 The member's reference resolves only once its entry exists: the commit that adds it to this list
-opens `a-filter-that-matches-no-test-reads-as-survived`, or comes after the one that
+opens `issue@mutate@a-filter-that-matches-no-test-reads-as-survived`, or comes after the one that
 does, and the analysis that carries this block is committed no earlier.
 
 ## development-grounding-skips-tripwires: the touched Components' tripwires read in part before a Rust edit

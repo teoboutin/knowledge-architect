@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+30 entries
 
 | kind | title |
 | --- | --- |
@@ -17,8 +17,10 @@
 | deferred | [The citation regime could be offered by `check` over any pinned text](citation-regime-over-any-pinned-text.md) |
 | deferred | [The agent configuration serves one provider's harness](configuration-for-several-agent-providers.md) |
 | deferred | [A project cannot reference an entry of another project](cross-project-references.md) |
+| design | [A message that fails `commits` while work is uncommitted waits for a history edit](a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted.md) |
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [Heads of `check` and `create` bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
+| design | [After `index --staged` and the commit, the working tree's generated file is stale](index-staged-leaves-the-working-tree-s-generated-file-stale.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
 | design | [No head argues that a project can run the checker from its git pre-commit hook](no-head-argues-that-the-checker-runs-from-a-pre-commit-hook.md) |

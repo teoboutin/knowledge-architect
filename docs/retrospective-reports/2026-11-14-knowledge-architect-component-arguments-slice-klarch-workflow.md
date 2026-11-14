@@ -133,7 +133,7 @@ for the intake of 2026-11-14-knowledge-architect-conformance-before-harvest-slic
   `design@agent-skills@pre-harvest-conformance` speaks of the harvest only.
 - **g. Its route.** A decision on two heads: an issue, for a design discussion on its own branch.
 - **h. The proposal.** Open an issue in agent-skills, kind `design`, slug
-  `a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`. Instance: this slice's
+  `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`. Instance: this slice's
   twelve heads, reported by both files. Mechanism: the definition names the
   harvest, while a project whose product is text writes heads in its steps. Re-entry point: the
   planning of the next plan document whose steps write into existing heads, at the moment it writes
@@ -141,7 +141,7 @@ for the intake of 2026-11-14-knowledge-architect-conformance-before-harvest-slic
 
 Default: open the issue above.
 Outcome: decided by the session: open an issue, agent-skills, kind `design`,
-`a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`. Ground: the fix contradicts
+`issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`. Ground: the fix contradicts
 statements of `design@agent-skills@pre-harvest-conformance` and
 `design@agent-skills@scoped-auditor-on-touched-heads`, and the shape for a step that is itself the
 conformance is not settled by the record, so the work needs a design discussion.

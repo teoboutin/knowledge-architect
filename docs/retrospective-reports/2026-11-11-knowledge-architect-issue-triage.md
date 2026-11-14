@@ -145,7 +145,7 @@ Members: 2026-11-11-knowledge-architect-issue-triage P4 (home, project file);
   per `primer@design-heads`, "The weak form"), and is put to the owner in that discussion; no part
   of this intake's work rests on it.
 - **h. The proposal.** Open an issue in `agent-skills`, kind `design`, slug
-  `a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`. What: the rule's text at
+  `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`. What: the rule's text at
   `path@agent-skills@fragments/head-shape.md`; the instances (issue triage, four rounds and the git
   flow head; finding repairs, one removed citation, nine heads, three rounds, 26 sites; the
   transcript reader's round asking for a bundle older than the branch; standing questions, a title
@@ -167,7 +167,7 @@ Members: 2026-11-11-knowledge-architect-issue-triage P4 (home, project file);
 
 Default: open the issue above; no edit of the installed text in this intake.
 Outcome: decided by the session: open an issue (`agent-skills`, `design`,
-`a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`). Ground: the premise of
+`issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`). Ground: the premise of
 `design@agent-skills@existing-heads-on-touch`, a repair "at the cost of one read", fails on a
 bundled head in three sessions; each fix reverses part of that head, one narrows an owner's
 ruling, and the definition feeds `design@agent-skills@scoped-auditor-on-touched-heads`, so the

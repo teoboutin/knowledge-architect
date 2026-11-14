@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-A cluster of the issue record: two entries on the analysis file the intake writes, which one branch
+A cluster of the issue record: three entries on the analysis file the intake writes, which one branch
 closes together. Each member's own entry holds its observation, its reason and its closing work;
 this entry holds only that they go together.
 
@@ -17,8 +17,9 @@ The members:
 
 - `issue@agent-skills@a-decided-intake-section-repeats-its-outcome-as-its-default`
 - `issue@agent-skills@an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed`
+- `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`
 
-They go on one branch because both change
+They go on one branch because each changes
 `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` and the intake heads of
 `register@agent-skills@design`. Found by a triage of the whole issue record on 2026-11-11, which
 read every entry against the tree and sized it: each member was judged to have a clear path to

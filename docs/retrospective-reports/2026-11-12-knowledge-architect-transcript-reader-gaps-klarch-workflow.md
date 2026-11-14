@@ -81,12 +81,12 @@ Members: 2026-11-12-knowledge-architect-transcript-reader-gaps-klarch-workflow C
   intake's.
 - **g. Its route.** An issue only: a design discussion and a branch of `mutate`.
 - **h. The proposal.** Open a design issue in `mutate`,
-  `a-list-of-mutations-runs-as-a-loop-of-the-session`, naming the head's reopening condition as met,
+  `issue@mutate@a-list-of-mutations-runs-as-a-loop-of-the-session`, naming the head's reopening condition as met,
   the new argument for the rejected design, and the filter that hid eleven verdicts as the cost the
   file reports.
 
 Default: open the issue.
-Outcome: decided by the session: open an issue, `mutate`, kind `design`, `a-list-of-mutations-runs-as-a-loop-of-the-session`. Ground: `design@mutate@mutation-command` waits for a second real use, which this session's list of 36 caller-written mutations is; a weak-form choice reopens on that fact without the owner, per `primer@design-heads`, and the discussion goes to the owner if it ends at a fork.
+Outcome: decided by the session: open an issue, `mutate`, kind `design`, `issue@mutate@a-list-of-mutations-runs-as-a-loop-of-the-session`. Ground: `design@mutate@mutation-command` waits for a second real use, which this session's list of 36 caller-written mutations is; a weak-form choice reopens on that fact without the owner, per `primer@design-heads`, and the discussion goes to the owner if it ends at a fork.
 
 ## silent-condition-read-alone: condition 1 of the tripwire standard read without the paragraph on slips
 

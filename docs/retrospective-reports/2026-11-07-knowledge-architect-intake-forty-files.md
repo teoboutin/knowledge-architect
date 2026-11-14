@@ -213,7 +213,7 @@ as absent and on a project skill's addition missed.
 - **g. Its route.** An issue, since the delivery needs a discussion under
   `skill@knowledge-architect-design`.
 - **h. The proposal.** Open an issue entry in `register@agent-config@issue`, kind `design`, slug
-  `a-rust-edit-inside-another-task-is-made-without-the-development-skills`. It states the
+  `issue@agent-config@a-rust-edit-inside-another-task-is-made-without-the-development-skills`. It states the
   instruction and its two deliveries, the three instances with their tasks, the suspected
   mechanism (read at the start, needed at an edit made inside another task), the three other
   skipped loads of item a as the same mechanism at the primer's list, the rivals above, and
@@ -222,7 +222,7 @@ as absent and on a project skill's addition missed.
 
 Default: open the issue.
 Outcome: decided by the session: open an issue, anchor `agent-config`, kind `design`, slug
-`a-rust-edit-inside-another-task-is-made-without-the-development-skills`. Ground: the third
+`issue@agent-config@a-rust-edit-inside-another-task-is-made-without-the-development-skills`. Ground: the third
 instance meets the condition the intake-forty-files P1 named; the lapse rule of
 `skill@knowledge-architect-retrospective-intake@admission-rules` moves a recurring lapse's delivery;
 the rivals need a discussion, and the root's table puts what is outstanding about the agent
