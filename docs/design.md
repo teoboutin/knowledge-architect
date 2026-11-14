@@ -970,11 +970,12 @@ the owner approved it.
 
 ### No operation can lose content in a checkout that holds work, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
 
-No operation can lose content, committed or not. Content is lost in two forms: an operation that
-removes uncommitted content from the working tree, which no commit holds, and a history edit that
-drops a commit no other reference holds. With a clean tree, editing the branch's own history is an
-ordinary move, bounded by verifying that nothing was lost. The one exception is finishing a rebase
-whose conflicts the tree now resolves, by `git rebase --continue` or by a commit of the staged
+No operation can lose content, committed or not. Content is lost in two forms: an operation after
+which uncommitted content is held by neither the working tree, git's index nor a commit, as
+`git reset -- <path>` does to staged content that differs from the path's working-tree content, and
+a history edit that drops a commit no other reference holds. With a clean tree, editing the
+branch's own history is an ordinary move, bounded by verifying that nothing was lost. The one
+exception is finishing a rebase whose conflicts the tree now resolves, by `git rebase --continue` or by a commit of the staged
 resolution before it, per `design@knowledge-architect@a-stopped-rebase-keeps-its-message`: it resumes a history edit begun with a clean tree, and the uncommitted
 content it meets is the resolution, which the replayed commit records.
 
