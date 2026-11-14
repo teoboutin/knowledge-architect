@@ -19,8 +19,11 @@ that workflow at the intake of forty-seven files, and reports having plans for i
   `design@agent-skills@one-record-searcher`. The installed text ships saved workflows for the
   audit axes alone, per `design@agent-skills@audit-axis-runs-a-workflow`.
 - The report: the standing answers of the workflow file of the first slice of plan directories,
-  2026-11-13, a workflow running a design audit's 36 searchers. Analysed in the section on the
-  tools and procedures the batch reports, in `path@knowledge-architect@docs/retrospective-reports/2026-11-12-knowledge-architect-finding-repairs-klarch-workflow.md`, where the owner ruled it taken in.
+  2026-11-13, a workflow running a design audit's 36 searchers. Analysed in the section on the tools
+  and procedures the batch reports, in the analysis of
+  2026-11-12-knowledge-architect-finding-repairs-klarch-workflow, which "[intake] The forty-seven
+  retrospective analyses leave, every outcome carried out" removed, where the owner ruled it taken
+  in.
 - Bearing on it: `issue@agent-skills@no-test-runs-a-saved-workflow-s-logic`, which a saved
   workflow for the search would widen, and the subject `searcher-dispatch-exceeds-harness-cap` of
   the same intake, whose rewording of the dispatch sentence is the rival this workflow would

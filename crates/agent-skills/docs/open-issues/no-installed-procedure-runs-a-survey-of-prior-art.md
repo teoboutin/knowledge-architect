@@ -18,9 +18,11 @@ forty-seven files, and reports having plans for it.
   for one; a finding read in another project goes to a grounding file of its Component, per the root
   CLAUDE.md's knowledge table.
 - The report: the standing answers of the workflow file of that project's session of 2026-11-13 on
-  a long draw, generic, by its words, "to any project that implements a specification other
-  engines implement". Analysed in the section on the tools and procedures the batch reports, in
-  `path@knowledge-architect@docs/retrospective-reports/2026-11-12-knowledge-architect-finding-repairs-klarch-workflow.md`, where the owner ruled it taken in.
+  a long draw, generic, by its words, "to any project that implements a specification other engines
+  implement". Analysed in the section on the tools and procedures the batch reports, in the analysis
+  of 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow, which "[intake] The forty-seven
+  retrospective analyses leave, every outcome carried out" removed, where the owner ruled it taken
+  in.
 
 ### Why it matters
 
