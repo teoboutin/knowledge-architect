@@ -40,9 +40,9 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the design head that argues a Component's existence, in the root's design
   home, reasons over each default criterion of the component-creation skill and over the signals
   against a split, for a criterion followed why it pays, for one departed from the argument or the
-  cost accepted. A project brings its existing Component heads to the rule at the pin move by a pass
-  of the design-record axis, `skill@knowledge-architect-project-audit@design-record-axis`, whose
-  rules now name step 3 of `skill@knowledge-architect-component-creation@creation-procedure`.
+  cost accepted, a rule of `skill@knowledge-architect-decision-recording@head-shape`. A project
+  brings its existing Component heads to the rule at the pin move by a pass of the design-record
+  axis, `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section.
 
 ### New features
 
@@ -119,9 +119,9 @@ an empty subsection is omitted.
   the owner's words going to the owner. Each design audit runs the auditor again over its harvest's
   heads, and a harvest that touches a head its list missed conforms it there and names it in its
   commit.
-- `agent-skills`, patch: the decision-record reviewer and the design-record auditor report a head
-  that argues a Component's existence and does not reason over a default criterion or the signals
-  against a split, or names one with no reason.
+- `agent-skills`, patch: the decision-record reviewer and the design-record auditor, which host the
+  shape rules on a head, report a head that argues a Component's existence and does not reason over
+  a default criterion or the signals against a split, or names one with no reason.
 
 ## 0.10.0
 

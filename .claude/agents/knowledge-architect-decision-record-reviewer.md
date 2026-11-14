@@ -248,6 +248,17 @@ over two decisions shows a bundle. Rewording the title to state both does not ma
 member of a set the title's rule admits is no decision, so a member missing from a title is no
 finding.
 
+**The head that argues a Component's existence reasons over each default criterion and over the
+signals against a split**, for a Component the default criteria of
+`skill@knowledge-architect-component-creation@component-criteria` cover, whether it follows each
+criterion or departs from it: for a criterion followed, why it pays here; for one departed from, the
+argument against it here, or the cost accepted; for the signals of
+`skill@knowledge-architect-component-creation@split-signals`, which were weighed against cutting it
+out as a Component of its own, or against the split that made it, and why none prevails. A
+criterion named with no reason, or a fact stated with no reason it pays, is not reasoned over. A
+later session that weighs a split or a merge of the Component then meets the argument it has to
+defeat.
+
 **A head written from a decision the owner approved is read against that approval before it is
 written.** The title and the body state the position as the owner saw it, in a plan document's
 thread or in the discussion of the in-change path. The approval is read by its direction: a clause
@@ -489,11 +500,6 @@ to the design skill.
 A head that argues from a goal's words without naming the goal is the common miss of the standing
 argument. The owner's ground a head attributes is read in its source, against the question it
 answered: an answer to another question is not the owner's ground for this one.
-
-**Does each head the diff writes that argues a Component's existence reason over the default
-criteria?** Read step 3 of `skill@knowledge-architect-component-creation@creation-procedure` whole,
-and judge the head by it: a default criterion, or the signals against a split, that the head does
-not reason over, or names with no reason, is a finding.
 
 **Does each subject a head of the diff sits in meet the split standard of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Report a
 subject the standard says to split, with the test it meets.

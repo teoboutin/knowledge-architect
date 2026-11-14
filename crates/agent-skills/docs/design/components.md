@@ -55,6 +55,36 @@ per `goal@the-workflow-improves-through-real-use`. The nearest rival, a rule of
 splitting each Component must meet, fixes before any use what the goal leaves to a direction, and
 leaves a session whose project the rule fits badly no move but to break it.
 
+### The head that argues a Component's existence reasons over each default criterion and over the signals against a split, whether it follows or departs from each `##component-head-reasons-over-each-criterion`
+
+For a Component the default criteria of `skill@knowledge-architect-component-creation@component-criteria`
+cover, the head that argues its existence gives, for each criterion followed, why it pays for that
+Component; for each one departed from, the argument against it there, or the cost accepted; and,
+for the signals of `skill@knowledge-architect-component-creation@split-signals`, which were weighed
+against cutting it out as a Component of its own, or against the split that made it, and why none
+prevails. A criterion named with no reason, or a fact stated with no reason it pays, is not reasoned
+over. The root and an intermediate Component, which the criteria do not cover, are outside the
+rule.
+
+`goal@design-is-recorded-with-its-arguments` constrains it: a decision recorded in an entry of its
+own carries its argument and the alternatives that lost, so that a later session can tell what a
+change costs without deriving the argument again. A Component's existence is such a decision, and a
+split or a merge of it is the change a later session weighs, against the criteria and the signals
+the project ships. The argument is the owner's: the argument for a Component's existence reasons
+over the guidelines the project ships, not only over the project's local circumstances, and keeps
+why a guideline followed paid and the argument or the cost of one not followed. The criteria stay
+guidelines the head argues over, never conditions it meets, per
+`design@agent-skills@component-criteria-are-guidelines`, so an argued departure is no defect of the
+head. The nearest rival, a head that states the Component's purpose alone and is required to argue
+over no criterion, leaves the session that weighs a split or a merge no argument to defeat, which
+the goal rules out.
+
+The rule is one of the shape rules on a head, delivered by
+`path@agent-skills@fragments/head-shape.md`, per `design@agent-skills@one-home-for-head-rules`: the
+decision-recording skill, which the writer of the head loads at step 3 of
+`skill@knowledge-architect-component-creation@creation-procedure`, the decision-record reviewer and
+the design-record auditor host it whole, and that step restates it in one sentence with its pointer.
+
 ### A Component that holds Rust code is one crate `##component-crate-mapping`
 
 A split creates one crate for each Component it cuts out that holds Rust code in its own files, and
