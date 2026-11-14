@@ -216,8 +216,10 @@ adversarial reviewer runs mutations in, per
    `design@knowledge-architect@no-operation-loses-content`, and `design@knowledge-architect@git-flow`
    for "main's history is never rewritten".
 
-- The hazard is **content loss**, in two forms: an operation that removes uncommitted content from
-  the working tree, and a history edit that drops a commit no other reference holds.
+- The hazard is **content loss**, in two forms: an operation after which uncommitted content is
+  held by neither the working tree, git's index nor a commit, as `git reset -- <path>` does to
+  staged content that differs from the working tree's, which `git diff -- <path>` shows, and a
+  history edit that drops a commit no other reference holds.
 - **While uncommitted changes exist in the tree, run no operation that touches history, restores
   files, or removes a file that holds uncommitted content.** Examples (non-exhaustive):
   `reset --hard`, `checkout -- <path>`, `restore`, `clean`, `stash`, `commit --amend`, `rebase`,
