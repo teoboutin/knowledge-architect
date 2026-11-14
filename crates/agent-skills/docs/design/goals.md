@@ -417,14 +417,16 @@ The findings of the kinds, of a measure and of a refinement are graded by who se
 - a question a goal leaves open of when, how much or by what means is no finding, per
   `design@agent-skills@goal-one-meaning-any-breadth`.
 
-A term with two meanings in the project is `blocks` where the report names the act an agent taking
-the other meaning would take, and `minor` otherwise. Rule 3 has such a word defined or replaced in
-either case, a `settled` repair; a second sense that moves no agent changes no act, which is what
-`minor` means, and a grade fixed by the row whatever the act fed the stop findings that changed
-nothing. In a review of the whole goal set in another project, a line naming that act read "none"
-or "low" for all ten `blocks` findings on old wording of one round, and the rounds stopped only once
-the owner counted the findings that named one. The rival, `asks`, sends the owner a question that no
-intent of the owner answers.
+The owner took this grading in from another project's goal reviews, per
+`goal@generic-tools-and-procedures-are-shipped`, so that a term with no plausible misreading does
+not block the rounds. A term with two meanings in the project is `blocks` where the report names the
+act an agent taking the other meaning would take, and `minor` otherwise. Rule 3 has such a word
+defined or replaced in either case, a `settled` repair; a second sense that moves no agent changes
+no act, which is what `minor` means, and a grade fixed by the row whatever the act fed the stop
+findings that changed nothing. In a review of the whole goal set in another project, a line naming
+that act read "none" or "low" for all ten `blocks` findings on old wording of one round, and the
+rounds stopped only once the owner counted the findings that named one. The rival, `asks`, sends the
+owner a question that no intent of the owner answers.
 
 No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
 question of intent. A draft-mode review of goals that held a measure, recorded in
