@@ -2405,6 +2405,10 @@ mod tests {
         );
     }
 
+    // The claim: the repair of a path at an unknown anchor lists the declared anchors and no plan
+    // anchor, and names the form of a file of another project, per
+    // `design@model@foreign-file-names-its-project`: a writer who puts that project's name in the
+    // anchor slot meets this finding. The whole repair line is pinned.
     #[test]
     fn a_path_s_unknown_anchor_repair_lists_no_plan_anchor() {
         let m = manifest();
@@ -2422,7 +2426,9 @@ mod tests {
             action,
             Some(
                 "anchor at one of a-project, a-part, plans, at `elsewhere` for a path this tree \
-                 does not hold, or at `*` for every component's own copy"
+                 does not hold, with the project's name as its first segment for a file of \
+                 another project, as `path@elsewhere@<project>/<path>`, or at `*` for every \
+                 component's own copy"
             )
         );
     }
