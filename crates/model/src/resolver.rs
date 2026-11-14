@@ -496,7 +496,9 @@ impl Cause {
                 format!("`{span}` names `{name}`, which is no anchor of this project"),
                 format!(
                     "anchor at one of {names}, at `{ESCAPE_ANCHOR}` for a path this tree does not \
-                     hold, or at `*` for every component's own copy"
+                     hold, with the project's name as its first segment for a file of another \
+                     project, as `path@{ESCAPE_ANCHOR}@<project>/<path>`, or at `*` for every \
+                     component's own copy"
                 ),
             ),
             PlannedUnknownAnchor { name, names } => (
