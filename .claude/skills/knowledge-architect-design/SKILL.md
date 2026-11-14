@@ -613,10 +613,12 @@ choices whose option space genuinely is closed and consequence-free.
    the search, dispatch `agent@knowledge-architect-code-split-scout`**
    with the draft as its work, as its description says: it reads the
    code the work touches from a point of view apart from yours, which
-   drafted the shapes it judges. Each split it reports in a module or
-   a Component the work writes into is a thread of the discussion,
-   written into the draft before the search, so that the search reads
-   it; each one outside the work's area is routed as
+   drafted the shapes it judges. It reports signals and decides
+   nothing. Each signal it reports in a module or a Component the work
+   writes into opens a thread of the discussion, where you weigh it and
+   decide whether and how to split, written into the draft before the
+   search, so that the search reads it; each one outside the work's
+   area is routed as
    `primer@met-outside-the-task` says, since the plan document takes no
    work its discussion did not decide. The in-change path and bounded
    work dispatch no scout.
@@ -921,14 +923,15 @@ work implements and that is not part of any spec is recorded when it is made, pe
 
 ## Work that may need a Component of its own `##when-to-split`
 
-**A Component may need creating or splitting** when work you are placing belongs to no existing
-Component, or when the code you add gives a Component a second reason to change: two concrete
-changes someone could plausibly ask for, each touching it independently. Before placing the work,
-load `skill@knowledge-architect-component-creation`, which holds the default criteria, the shapes and
-the procedure. A split is probably cut in the wrong place where it needs many new dependencies,
-would create a dependency cycle, or would have every expected change cross the new boundary,
-counting the changes the goals already predict. A creation or a split is a design decision, never
-a step taken while writing code.
+**A Component may need creating or splitting** when work belongs to no existing Component, or when
+code added to a Component gives it a second reason to change: two concrete changes someone could
+plausibly ask for, each touching it independently.
+
+Before placing the work, load `skill@knowledge-architect-component-creation`, which holds the default
+criteria, the shapes and the procedure. A split is probably cut in the wrong place where it needs
+many new dependencies, would create a dependency cycle, or would have every expected change cross
+the new boundary, counting the changes the goals already predict. A creation or a split is a design
+decision, never a step taken while writing code.
 
 ## Keep-or-change (evaluating an incumbent design) `##incumbent-evaluation`
 

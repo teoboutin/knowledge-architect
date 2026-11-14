@@ -518,10 +518,12 @@ choices whose option space genuinely is closed and consequence-free.
    the search, dispatch `agent@knowledge-architect-code-split-scout`**
    with the draft as its work, as its description says: it reads the
    code the work touches from a point of view apart from yours, which
-   drafted the shapes it judges. Each split it reports in a module or
-   a Component the work writes into is a thread of the discussion,
-   written into the draft before the search, so that the search reads
-   it; each one outside the work's area is routed as
+   drafted the shapes it judges. It reports signals and decides
+   nothing. Each signal it reports in a module or a Component the work
+   writes into opens a thread of the discussion, where you weigh it and
+   decide whether and how to split, written into the draft before the
+   search, so that the search reads it; each one outside the work's
+   area is routed as
    `primer@met-outside-the-task` says, since the plan document takes no
    work its discussion did not decide. The in-change path and bounded
    work dispatch no scout.
@@ -771,6 +773,8 @@ work implements and that is not part of any spec is recorded when it is made, pe
 ## Work that may need a Component of its own {{slug:when-to-split}}
 
 {{fragment:when-to-split.md}}
+
+{{fragment:how-to-split.md}}
 
 ## Keep-or-change (evaluating an incumbent design) {{slug:incumbent-evaluation}}
 

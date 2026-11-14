@@ -18,7 +18,14 @@ and arguments in [its deliberation](deliberation.md).
   and its hosts.
 - **The code-split scout**, a new installed agent, `agent@knowledge-architect-code-split-scout`, whose
   source is a new file of `path@agent-skills@content/agents/`, hosting the module guidelines'
-  fragment and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q16 word. It reads a
+  fragment and `path@agent-skills@fragments/when-to-split.md`, on the owner's Q16 word, the latter
+  holding the occasion of a Component split alone, on the owner's Q17 word,
+  `thread@split-guidelines-and-plan-directories@when-to-split-fragment-split`: the instruction to
+  load the component-creation skill, the signals that a split is cut in the wrong place and the
+  sentence that a creation or a split is a design decision move to a fragment of their own,
+  `path@agent-skills@fragments/how-to-split.md`, hosted by the design and development skills and
+  not by the scout, which reads the component-creation skill's criteria and signals against a split
+  by their references. It reads a
   draft of a plan document and the code the draft touches, and reports, per module or Component, each
   signal of the module guidelines or of the component-creation skill that the work pushes it past,
   and each signal against a split that holds. It writes only in the scratch directory its brief
@@ -61,7 +68,7 @@ and arguments in [its deliberation](deliberation.md).
 - **The record**: the heads of Group D this slice rewrites, and the hosts of
   `design@agent-skills@shared-text-fragment`, below, with every text that cites them. The hosts of
   the fragments are named in five places, each updated: the test list `FRAGMENT_HOSTS` in
-  `path@agent-skills@src/lib.rs`, a row for the new fragment and the scout added to the row of
+  `path@agent-skills@src/lib.rs`, a row for each new fragment and the scout added to the row of
   `path@agent-skills@fragments/when-to-split.md`; the `%%` comment at the head of each fragment;
   the prose of `design@agent-skills@default-code-shape`; the sentence of
   `design@agent-skills@component-skill-delivery` that has the design and development skills host the
@@ -81,7 +88,8 @@ and arguments in [its deliberation](deliberation.md).
    measurement in the commit, or the sentence leaves.
 3. **The scout hosts what the owner ruled.** The installed `agent@knowledge-architect-code-split-scout`
    holds the text of the module guidelines' fragment and of the fragment on when to split, and not
-   that of the default code shape; the build's host lists name it for both:
+   that of the default code shape nor of the fragment on how to split; the build's host lists name
+   it for both:
    `cargo x skill knowledge-architect-code-split-scout` shows both placeholders.
 4. **A split found outside the work has an outcome.** The design skill's text routes a split the
    scout reports outside the work's area by `primer@met-outside-the-task`, and a split inside it as a

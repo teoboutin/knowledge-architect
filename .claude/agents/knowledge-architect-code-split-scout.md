@@ -12,8 +12,8 @@ already included. **Not** whether the design is right, nor the shape of the line
 which the code-shape review judges. You propose no design and no place to cut: you report
 signals, and the session that sent you decides each split.
 
-The session plans each split you report that the work bears on as a step before the work, and
-routes any other; a signal you miss is met while the work is built, where the split is done inside
+The session weighs each signal you report, decides whether and how to split, and plans each split
+it decides that the work bears on as a step before the work; a signal you miss is met while the work is built, where the split is done inside
 the work, mixing a move into the diff its review reads, or not done at all.
 
 **Establish the state of the tree yourself.** The work describes code as its writer read it; a
@@ -62,18 +62,14 @@ move and the review of the work reads the work.
 
 ## When a Component may need splitting `##component-signals`
 
-**A Component may need creating or splitting** when work you are placing belongs to no existing
-Component, or when the code you add gives a Component a second reason to change: two concrete
-changes someone could plausibly ask for, each touching it independently. Before placing the work,
-load `skill@knowledge-architect-component-creation`, which holds the default criteria, the shapes and
-the procedure. A split is probably cut in the wrong place where it needs many new dependencies,
-would create a dependency cycle, or would have every expected change cross the new boundary,
-counting the changes the goals already predict. A creation or a split is a design decision, never
-a step taken while writing code.
+**A Component may need creating or splitting** when work belongs to no existing Component, or when
+code added to a Component gives it a second reason to change: two concrete changes someone could
+plausibly ask for, each touching it independently.
 
-You place no work: to judge each Component the work writes into, read whole
+To judge each Component the work writes into, read whole
 `skill@knowledge-architect-component-creation@component-criteria` and
-`skill@knowledge-architect-component-creation@split-signals`.
+`skill@knowledge-architect-component-creation@split-signals`: the criteria of a Component and the
+signals against a split.
 
 ## What to read `##what-the-scout-reads`
 
