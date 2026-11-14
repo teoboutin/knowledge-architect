@@ -85,7 +85,9 @@ thread at the state the table proposed, and promoted the one it proposed `presum
   heads in the harvest, is the failure the owner reported. The owner's word on the checkpoint table
   left it standing.
 - Its shape: slice 3's spec, "Decided design". Harvest: slice 3's, into
-  `design@agent-skills@existing-heads-on-touch`, rewritten to narrow "in that change".
+  `design@agent-skills@existing-heads-on-touch`, rewritten to narrow "in that change", and into two
+  heads of its own, #pre-harvest-conformance → `design@agent-skills@pre-harvest-conformance` and
+  #pre-harvest-conformance → `design@agent-skills@scoped-auditor-on-touched-heads`.
 
 ### The record of the discussion and the search's output sit beside the documents a slice's search reads: its work is the milestone's and the slice's own documents `##discussion-record-apart`
 

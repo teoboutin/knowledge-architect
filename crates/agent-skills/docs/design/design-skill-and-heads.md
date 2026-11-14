@@ -249,12 +249,16 @@ A plan document lists, in its section "What is already decided", the heads its h
 without reversing or rewriting their decision, a milestone's in each slice's spec, and a step before
 the harvest brings each one found non-conformant to the rules, or a slice of its own where the work
 is large, as `skill@knowledge-architect-planning@cutting-steps-and-slices` says; which heads are found
-non-conformant is `design@agent-skills@scoped-auditor-on-touched-heads`. A conforming edit that must
-write what a head's argument does not hold is a decision, and goes to the design skill, per
-`primer@design-heads`. A head the list missed is conformed in the harvest, per
-`design@agent-skills@existing-heads-on-touch`, and named in the harvest's commit as missed.
+non-conformant is `design@agent-skills@scoped-auditor-on-touched-heads`. Each conforming edit is
+routed by the authority that settles it, per `primer@question-authority`, never by the outcome table
+of an audit: an edit that must write what a head's argument does not hold is a decision, and goes to
+the design skill, per `primer@design-heads`, and a move to the Component the record settles is the
+step's work. A head the list missed is conformed in the harvest, per
+`design@agent-skills@existing-heads-on-touch`, and named in the harvest's commit as missed by the
+list.
 
-It serves `goal@design-is-recorded-with-its-arguments`, as the rule it delivers does. The step comes
+It serves `goal@design-is-recorded-with-its-arguments`: a head the harvest edits states its decision
+and the argument for it when the review before the merge reads it. The step comes
 before the harvest on the owner's report: the design-record review cannot judge fairly a head the
 harvest changed without conforming it, and conforming it in the harvest brings into the harvest
 work nobody planned, often hard to do properly there. The record shows such work sitting undone:

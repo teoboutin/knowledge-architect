@@ -438,6 +438,7 @@ in the harvest and names it in its commit, which each review reads as the proced
 messages, a head their list missed.
 **Response:** reopen `design@agent-skills@pre-harvest-conformance`, with
 `rejected@agent-skills@conformance-in-the-harvest` among the candidates.
-**Re-entry:** the commit messages of the harvests on the main branch, `git log --grep='missed by the list'`.
+**Re-entry:** the commit messages of the harvests on the main branch, each read whole, since a
+message wraps the phrase "missed by the list": `git log --grep='^\[harvest\]' --format='%h%n%B'`.
 **Watches until:** three specs or milestones deleted at their landing, counted from the commit that
 wrote this line.
