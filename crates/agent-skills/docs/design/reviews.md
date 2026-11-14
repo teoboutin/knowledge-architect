@@ -107,9 +107,9 @@ ends, per `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
 
 The repairs of the last transcript review before a merge land as additional commits, as many as
 their kinds need: a repair that the primer routes to a commit of its own stays one, and nothing asks
-the dispatcher to merge them into a single commit. The additional commits are the owner's proposal:
-"I'd just replace "as a last commit" by "as an additional commit". This is simpler, it prevents any
-possible conflict, without exceptions and no need to check a condition."
+the dispatcher to merge them into a single commit. The additional commits are the owner's proposal,
+in place of the repairs landed as a last commit: the owner argued that additional commits are
+simpler, prevent any possible conflict, and need no exception and no condition to check.
 A repair that would leave an earlier commit failing is folded, per
 `design@agent-skills@review-repair-appended-or-folded`.
 
