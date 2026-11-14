@@ -23,7 +23,7 @@ documents.
   `headed`, and writes the names README.md, harvested and search as literals. Its specs/ arm also
   repeats, almost word for word, the findings on declared groups that `directory_contents` gives.
 - No test compares the three readings over one tree. Found by the code-shape reviewer at the review
-  before the merge of slice 1 of `milestone@plans@split-guidelines-and-plan-directories`; its findings
+  before the merge of slice 1 of the milestone on split guidelines and plan directories; its findings
   3 and 4.
 
 ### Why it matters

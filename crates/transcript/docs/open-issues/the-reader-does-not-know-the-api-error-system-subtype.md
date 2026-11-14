@@ -14,7 +14,7 @@ the reader to report each such value as a finding on the checker. The subtype is
 
 ### What
 
-The session that designed `milestone@plans@split-guidelines-and-plan-directories`, extracted on
+The session that designed the milestone on split guidelines and plan directories, extracted on
 2026-11-13 by its transcript review with `cargo klarch transcript show <session> --from <opening
 words> --full`, printed `unrecognised system subtype "api_error": 6`. The six lines are in the
 session's top-level transcript file: `grep -c '"subtype":"api_error"'` over it gives 6. Each is a

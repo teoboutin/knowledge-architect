@@ -15,7 +15,7 @@ question to rule before the work starts, whether or not the work is the right pl
 ### What
 
 The owner's report, in the design discussion of
-`milestone@plans@split-guidelines-and-plan-directories`, attributed with its hedge: in the owner's
+the milestone on split guidelines and plan directories, attributed with its hedge: in the owner's
 view, these deferred issues are problematic, since they often bring unrelated work into scope at bad
 moments.
 

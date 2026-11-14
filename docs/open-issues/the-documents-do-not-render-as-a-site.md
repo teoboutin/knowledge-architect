@@ -51,7 +51,7 @@ These are leads for this work's own design session:
 
 ### A question from the milestone on plan directories
 
-`milestone@plans@split-guidelines-and-plan-directories` makes some files of a plan's directory
+the milestone on split guidelines and plan directories makes some files of a plan's directory
 frozen: they leave the walk by construction, so no check judges their references after they are
 written, and one may name an entry a later commit removed. This work decides whether a frozen
 file's links point to their targets as of the commit that froze it, or the frozen files stay out of

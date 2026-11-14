@@ -56,6 +56,6 @@ the decision kept, changed or reversed there, with
 The next design discussion whose own work includes reopening
 `design@agent-skills@one-record-searcher`, which the owner schedules.
 
-The design discussion of `milestone@plans@split-guidelines-and-plan-directories` met the earlier
+The design discussion of the milestone on split guidelines and plan directories met the earlier
 re-entry point, which also named the next discussion that changes the grounding's steps; on the
 owner's word, given as its Q6, the reopening was kept out of that milestone.

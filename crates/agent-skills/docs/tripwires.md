@@ -442,3 +442,19 @@ messages, a head their list missed.
 message wraps the phrase "missed by the list": `git log --grep='^\[harvest\]' --format='%h%n%B'`.
 **Watches until:** three specs or milestones deleted at their landing, counted from the commit that
 wrote this line.
+
+## Guarding `design@agent-skills@discussion-record-apart`: a design audit's search reads a record of the discussion `##audit-search-reads-a-discussion-record`
+
+The decision rests on the premise that a slice's or a spec's design audit gives its record search,
+as `--work`, the plan's `README.md` files alone, so that no agent reads the threads, the arguments,
+the transcript or the generated lines of an earlier search.
+
+**Fires when:** the record of a design audit, its commit message or its `search/design-audit.txt`,
+shows a `--work` file other than the milestone's `README.md` and the slice's own, or the spec's,
+or a file holding a Threads or an Arguments section.
+**Response:** reopen `design@agent-skills@discussion-record-apart`, and open a `defect` naming the
+audit and the file its search read.
+**Re-entry:** the standing-state review of the branch that holds a design audit.
+**Watches until:** two commits on the main branch whose subject names a design audit, counted from
+the commit that writes this line; kept on a doubt, since an audit's record need not name its
+`--work`.

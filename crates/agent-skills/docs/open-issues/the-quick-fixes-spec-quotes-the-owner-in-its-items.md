@@ -15,13 +15,14 @@ that was moved into its directory with no other edit?
 ### What
 
 The slice that made plan documents directories moved the spec into its directory with no other
-edit, its words kept as written, the owner's verbatim words included, on the owner's word in the
-thread #plan-migration-in-first-slice of `milestone@plans@split-guidelines-and-plan-directories`.
+edit, its words kept as written, the owner's verbatim words included: the owner proposed that
+migration of `spec@plans@path-quickfixes`, minimal, and approved it, in the discussion of the milestone on split guidelines and plan directories,
+whose documents left the tree in the commit "[plans] The milestone on split guidelines and plan directories leaves: its last slice landed, and every default is ruled".
 Its `deliberation.md` quotes the owner in several items, the ruling on its thread
 #fix-admission among them, and the spec has no `transcript.txt` that keeps those words elsewhere.
-The rewritten head states no exception for such a document, and the exception is recorded only in
-the documents of `milestone@plans@split-guidelines-and-plan-directories`, which leave with that
-milestone while the spec may stay.
+The rewritten head states no exception for such a document, and this entry is the one record of the
+exception: the thread that ruled it is printed by `git show <that commit>^:<path>`, its path
+`path@elsewhere@docs/plans/milestones/split-guidelines-and-plan-directories/harvested/plan-directories/deliberation.md`.
 
 ### Why it matters
 
