@@ -73,12 +73,9 @@ module guidelines are a fragment of their own, at the cost of one more fragment,
 applies them and none of the default shape's test rules: the scout hosting the whole default shape
 would load those rules into every run of it, the same cost, under a host rule narrowed to admit it,
 which weakens the rule for every fragment; and the scout reading the default shape by a pointer
-loses to this head's argument. Each fragment's host list is the session's, decided by the rule that
-a text is a host only where its act applies the whole fragment, and each change of a list is
-reported under the turn's "Decided" section, per `primer@decided-section`, where the owner can
-contest it: the owner ruled so, and reported that no argument had kept the lists to the owner, whose
-approvals of them were no ground. The admission standard's four fragments follow from its split by
-subsection, under the same rule. The expectation sets stay behind a pointer, since the reader needs one skill's set, which
+loses to this head's argument. Who decides each fragment's host list is
+`design@agent-skills@host-lists-are-the-session-s`; the admission standard's four fragments
+follow from its split by subsection, under the host rule. The expectation sets stay behind a pointer, since the reader needs one skill's set, which
 varies per finding. The pointer it replaces had left the writer of about 35 tripwires of this
 repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs last,
 so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a new
@@ -87,6 +84,21 @@ the shipped workflow depend on a hook one harness runs, which an environment of 
 lacks; since `goal@serves-one-kind-of-project` asks every target project's
 agents to run under the `claude` harness, that defeat is to be argued again, per
 `issue@agent-skills@heads-argued-from-another-harness`.
+
+### A fragment's host list is the session's, decided by the rule that a host applies the whole fragment, each change reported under "Decided" `##host-lists-are-the-session-s`
+
+The session decides which texts host a fragment, by the rule of
+`design@agent-skills@shared-text-fragment` that a text is a host only where its act applies the
+whole fragment, and reports each change of a list under the turn's "Decided" section, per
+`primer@decided-section`, where the owner can contest it. `FRAGMENT_HOSTS` of
+`path@agent-skills@src/lib.rs` holds the lists, and its test fails while a list and the shipped texts
+disagree.
+
+The owner chose the lists decided by the session over lists reserved to the owner, which no goal
+ranks. The rival, lists reserved to the owner, costs a question to the owner at
+every change of a list. The shape chosen lets a list change before the owner has seen it, and
+leaves the owner the report of each change and the right to contest it. The rule decides what a list holds, so a change the session
+makes is checkable against the rule by any reader.
 
 ### Code that decides which lines are inlined reads each kind of placeholder through one reader `##one-placeholder-reader-per-kind`
 

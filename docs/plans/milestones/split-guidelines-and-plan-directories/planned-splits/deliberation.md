@@ -68,14 +68,17 @@
   went to the owner, on the ground that the owner approved each list, which the table of what the
   owner brings in `primer@design-heads` counts as no ground; the same head records the module
   guidelines' list as the session's choice.
-- Put to the owner as Q18, with shape (b): the host lists not reserved to the owner.
+- Put to the owner as Q18, two shapes: (a), the session's default, the lists reserved to the owner,
+  the reservation then standing on the owner's word as a reservation of an action, at the cost of a
+  question to the owner at every change of a list; (b), the session decides each list by the host
+  rule and reports each change, at the cost that a list changes before the owner has seen it.
 - Final state: `approved`, on the owner's word on Q18, shape (b): the session decides each host list
   by the head's rule that a text is a host only where its act applies the whole fragment, and
   reports each change of a list under the turn's "Decided" section, per `primer@decided-section`,
-  where the owner can contest it. The owner reported that no argument had ever kept the lists to the
-  owner.
-- Its shape: the host-list sentence of `design@agent-skills@shared-text-fragment`. Harvest: this
-  slice's review, into that head.
+  where the owner can contest it. The owner chose (b) over the session's default, and reported
+  knowing of no argument for keeping the lists to the owner.
+- Its shape and harvest: `design@agent-skills@host-lists-are-the-session-s`, written by this
+  slice's review, which `design@agent-skills@shared-text-fragment` cites.
 
 ## Arguments
 
