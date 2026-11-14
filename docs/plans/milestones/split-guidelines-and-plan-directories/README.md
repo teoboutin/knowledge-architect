@@ -161,9 +161,11 @@ The questions, each with the default the session gave:
 - **When a split happens.** A Component split is decided by the design skill. A module split is
   left to whoever writes the code, and the default code shape weighs "only the lines the change
   writes" in a unit a change edits. A subject split is "a fix in a commit of its own", by whoever
-  meets the `worklist` notice. A head a change touches is brought to the rules on heads in that
-  change, per `design@agent-skills@existing-heads-on-touch`, so a harvest carries the conformance
-  of every head it touches, planned or not.
+  meets the `worklist` notice. A head a change touches is brought to the rules on heads before the
+  change lands, per `design@agent-skills@existing-heads-on-touch`, and in planned work by a step
+  before the harvest, per `design@agent-skills@pre-harvest-conformance`, the heads judged by the
+  scoped auditor, per `design@agent-skills@scoped-auditor-on-touched-heads`. Slice 3 built this.
+  Before it, a harvest carried the conformance of every head it touched, planned or not.
 - **Plan documents.** A spec, a milestone and each slice of a milestone is a directory holding its
   `README.md`, the document the searches read, and beside it its `deliberation.md`, its `search/`
   and its `transcript.txt`, per `design@model@plan-document-directory`; a landed slice's directory
@@ -211,8 +213,9 @@ The questions, each with the default the session gave:
 - `design@agent-skills@the-workflow-teaches-no-rust-idiom`: what the text says about code is said
   from a higher vantage than one language;
 - `design@agent-skills@subject-split-standard`: when a design subject is split;
-- `design@agent-skills@existing-heads-on-touch`: a touched head is brought to the rules in the change
-  that touches it;
+- `design@agent-skills@existing-heads-on-touch`: a touched head is brought to the rules before the
+  change lands, in planned work by a step before the harvest, per
+  `design@agent-skills@pre-harvest-conformance`;
 - `design@agent-skills@design-record-axis`: the audit axis whose auditor the scoped auditor reuses;
 - `design@agent-skills@milestone-is-a-directory`, `design@agent-skills@milestone-split-by-lifetime`,
   `design@agent-skills@plan-records-the-exchange`, `design@agent-skills@ledger-from-transcript`,

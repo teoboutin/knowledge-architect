@@ -238,10 +238,10 @@ of a new member, with this alternative among the candidates.
 ### Conformance of the heads a harvest touches done in the harvest, as for a change no plan document plans `##conformance-in-the-harvest`
 
 `live`. The design-record review cannot judge fairly a head the harvest changed without conforming
-it, and conforming it there brings into the harvest work nobody planned, on the owner's report
-that a planning step should take it. It is kept here because a doubt remains: the list a plan
-writes may miss heads its harvest touches, which the harvest then conforms as this alternative
-does; a harvest that keeps naming heads its list missed is the evidence that brings it back.
+it, and conforming it in the harvest brings into the harvest work nobody planned, often hard to do
+properly there, on the owner's report. It is kept here because a doubt remains: a plan's list may
+miss heads its harvest touches, which the harvest then conforms as this alternative does, and
+`tripwire@agent-skills@touched-heads-missed-by-the-list` watches whether that recurs.
 
 ### A head's title stating the instance built, the members or the mechanism that exist `##title-states-built-instance`
 
