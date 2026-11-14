@@ -212,28 +212,25 @@ adversarial reviewer runs mutations in, per
   `design@knowledge-architect@changelog-entries` and `design@knowledge-architect@versioning-policy`:
   read both whole before writing an entry.
 
-2. **No operation that can lose content, committed or not.** Its home is
-   `design@knowledge-architect@no-operation-loses-content`, and `design@knowledge-architect@git-flow`
-   for "main's history is never rewritten".
+2. **No operation that can lose content, committed or not.** Read its home whole before any
+   operation of this point: `design@knowledge-architect@no-operation-loses-content`, which says what
+   content loss is and the one exception, and `design@knowledge-architect@git-flow` for "main's
+   history is never rewritten".
 
-- The hazard is **content loss**, in two forms: an operation after which uncommitted content is
-  held by neither the working tree, git's index nor a commit, as `git reset -- <path>` does to
-  staged content that differs from the working tree's, which `git diff -- <path>` shows, and a
-  history edit that drops a commit no other reference holds.
+- **Before `git reset -- <path>`, run `git diff -- <path>`**: where it shows a difference, the
+  working tree does not hold the staged content, and the reset loses it unless a commit holds it.
 - **While uncommitted changes exist in the tree, run no operation that touches history, restores
   files, or removes a file that holds uncommitted content.** Examples (non-exhaustive):
   `reset --hard`, `checkout -- <path>`, `restore`, `clean`, `stash`, `commit --amend`, `rebase`,
-  `rm -f`. The one exception is finishing a rebase whose conflicts the tree now resolves, as point 3
-  does.
+  `rm -f`. The exception the head admits is the finish of a stopped rebase, as point 3 does it.
 - **Before applying a mutation that will need reverting, stage the file**, so the revert does not
   depend on a restore: the revert undoes the edit, and `git diff -- <path>` showing no difference
   with the staged copy confirms it.
-- **With a clean tree, editing the branch's own history is an ordinary move**: rewording or
-  amending a commit message, squashing, rebasing. It is bounded by two verifications before the
-  old head is dropped: that the tree was clean, and that no content was lost. For a rewrite that
-  keeps the base, `git diff <old-head> HEAD` is empty. For a rebase onto a moved base, compare the
-  branch's own delta instead: `git range-diff <old-base>..<old-head> <new-base>..HEAD` reports
-  every commit carried over.
+- **Before the old head of a history edit of the branch is dropped**, a reword, an amend, a
+  squash or a rebase, check that the tree was clean when it began, and that no content was lost:
+  for a rewrite that keeps the base, `git diff <old-head> HEAD` is empty. For a rebase onto a
+  moved base, compare the branch's own delta instead:
+  `git range-diff <old-base>..<old-head> <new-base>..HEAD` reports every commit carried over.
 - **To reword the message of a commit that is not the newest**, without a rebase that opens an
   editor, which the harness refuses: write a script that reads a message on stdin and writes the reworded
   one, then run `git filter-branch -f --msg-filter '<script>' origin/main..HEAD` with a clean tree.
