@@ -19,8 +19,8 @@ The persisted form of a cut tool result is a text that opens `<persisted-output>
 "Preview (first 2KB):" and the preview. The size is the result's own.
 
 - `design@transcript@cut-text-reported` names in every header each text the harness cut, and
-  recognises only the marker `... (truncated <N> chars)`; `grep -rn -i persisted crates/transcript/`
-  returns nothing at the intake of 2026-11-14.
+  recognises only the marker `... (truncated <N> chars)`; `grep -rn -i persisted crates/transcript/src/`
+  returns nothing at the intake of 2026-11-14, so no code of the reader names the block.
 - In one session of this repository, `cargo klarch transcript show 2a29314b --full` names one cut in
   its header, the `truncated` one, and not the persisted block its transcript holds.
 - The text is not silent to a reader who looks: `show --full --tools` prints the block whole, its

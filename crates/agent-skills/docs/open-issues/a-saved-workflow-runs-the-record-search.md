@@ -28,7 +28,9 @@ that workflow at the intake of forty-seven files, and reports having plans for i
 
 ### Why it matters
 
-Each search dispatches up to 27 agents by hand and checks their reports one by one; a saved
+Each search dispatches its agents by hand and checks their reports one by one: 24 to 27 agents
+in each of the five searches the intake of forty-seven files counted, and 36 in the design audit
+above; a saved
 workflow is a task a tool does better, per `goal@tasks-a-tool-does-better-are-the-tool-s`, and
 the owner's choice takes its generic part in, per `goal@generic-tools-and-procedures-are-shipped`.
 

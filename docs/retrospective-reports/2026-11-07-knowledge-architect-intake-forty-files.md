@@ -541,18 +541,22 @@ occasion is this intake's commit; no received file reports the act the clause na
 `skill@knowledge-architect-issue-tracking@movement-instruction` deletes a tripwire whose horizon
 passes unfired.
 
-## tripwire-shape-findings-fragment-code: re-entered at this intake, unfired; its horizon's second occasion
+## tripwire-shape-findings-fragment-code: re-entered at this intake, unfired; its horizon's first occasion
 
 Members: `tripwire@agent-skills@shape-findings-fragment-code` (verdict `unrelated`). Its re-entry
 is "the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`".
 
 - **The horizon.** "three commits on the main branch that add analyses of received retrospective
   workflow files, counted for both decisions from the commit that writes this line". `git blame` of
-  crates/agent-skills/docs/tripwires.md, line 358, gives 87fea465, "[agent-skills] The installed
-  development skill, its review agents, and the local skill cut to an overlay", of 2026-11-02. Since
-  it, e8562915 added analyses, by
-  `git log --diff-filter=A --format=%h 87fea465..origin/main -- docs/retrospective-reports/`. This
-  intake's commit is the second occasion: the horizon does not pass.
+  crates/agent-skills/docs/tripwires.md gives 87fea465, "[agent-skills] The installed development
+  skill, its review agents, and the local skill cut to an overlay", of 2026-11-02, for the line's
+  first half, and 15350653, "[review] Repairs of the review before the merge of the slice on splits
+  planned before the work: the scout's scope, a split no fix of its own, the hook rival withdrawn,
+  the host lists the session's, and the heads reshaped", of 2026-11-14, for its second, which
+  rewrote "counted from" as "counted for both decisions from". The commit that writes the line as it
+  stands is 15350653, so the count runs from it, and
+  `git log --diff-filter=A --format=%h 15350653..origin/main -- docs/retrospective-reports/`
+  returns nothing. This intake's commit is the first occasion: the horizon does not pass.
 - **Whether it fired.** The clause needs, in two pieces of work, "a split that bought nothing": a
   function made for the default shape with one caller, "no test of its own and a name that says no
   more than its body", or a module split whose parts change together. The answers on rules about
@@ -563,6 +567,7 @@ is "the intake of a retrospective workflow file, `skill@klarch-retrospective-int
   "was judged to need nothing" (transcript-reader-gaps, standing, line 62). Thaum's size split
   "was in the change's interest" (long-draw, standing, lines 113 and 114). Unfired.
 
-Default: no change; the tripwire stands, its horizon at its second occasion.
+Default: no change; the tripwire stands, its horizon at its first occasion.
 Outcome: decided by the session: no change, unfired. Ground: no answer of the batch reports a
-split that bought nothing as the clause defines it; the horizon's third occasion is a later intake.
+split that bought nothing as the clause defines it; the horizon's second and third occasions are
+later intakes.

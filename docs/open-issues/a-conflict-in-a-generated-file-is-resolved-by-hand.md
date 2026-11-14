@@ -1,5 +1,5 @@
 ---
-kind: todo
+kind: question
 ---
 # A conflict in a generated file, met when commits are replayed, is resolved by hand
 
@@ -53,6 +53,7 @@ script loses a resolution.
 
 ### What would close it
 
-The owner takes the task in or declines it. If taken in: a design discussion places the move, in
-the checker or in the installed text, with a test that replays a commit regenerating an index over
-a mock project. If declined, this entry is deleted with that reason in the commit.
+The owner's word on the question whether the task is taken in. Taken in: this entry becomes a
+`todo`, closed by a design discussion that places the move, in the checker or in the installed
+text, with a test that replays a commit regenerating an index over a mock project. Declined: this
+entry is deleted with that reason in the commit.

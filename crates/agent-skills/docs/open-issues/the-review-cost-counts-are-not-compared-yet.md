@@ -115,6 +115,8 @@ of the workflow. The count of drift corrections would also measure the supervisi
 
 ### Trigger
 
-A proposal to add or cut workflow text, or to change when a review runs, that argues from review
-cost; or the owner's request for the comparison. The comparison then reads the series above, and
-this entry closes with it.
+The decision on a proposal to add or cut workflow text, or to change when a review runs, that
+argues from review cost, where the decision turns on that cost; or the owner's request for the
+comparison. The discussion or the intake that decides such a proposal runs the comparison over the
+series above, and this entry closes with it. A proposal that arrives and is sent to another
+discussion, or that loses on a fact no count bears on, is no occasion.
