@@ -5,7 +5,7 @@ is for is `design@knowledge-architect@testing-crate`; what it does for a user is
 this way is `register@testing@design`.
 
 **Nothing of the repository depends on this crate**, and it dev-depends on `cli` by path alone, per
-`design@knowledge-architect@testing-crate`, which `path@testing@tests/dependency_rules.rs` holds for each crate of the workspace.
+`design@knowledge-architect@no-crate-depends-on-testing`, which `path@testing@tests/dependency_rules.rs` holds for each crate of the workspace.
 
 **A test of the binary asks for it with `klarch()`**, in `path@testing@tests/binary.rs`, which builds it, per
 `design@testing@nested-cargo-builds-the-binary`. A mutation of the binary's code owes a `--build` probe that
