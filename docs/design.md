@@ -29,6 +29,21 @@ one included. All of them are published together, at one version, per
 
 The design this decision did not keep: `rejected@knowledge-architect@single-published-package`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, the text a project installs,
+pays here because every adopting project's sessions read that text, which changes with each
+instruction the workflow gains, while the code that installs it does not. Its interface, the list of
+install paths and texts that `path@agent-skills@src/lib.rs` exposes, changes on its own when a skill
+gains a section or an agent is added, and stays as it is when a check changes its logic. Its own
+tests hold the build's passes and the hosts of each fragment, and the shipped set is held to the
+entity table by `design@knowledge-architect@shipped-set-tests-in-the-model`. It takes the decisions
+of one domain, how the workflow's text is shaped, in `register@agent-skills@design`. Of the signals
+of `skill@knowledge-architect-component-creation@split-signals`: it adds one dependency, from `check`, and no cycle, since `model`'s dev-dependency is by
+path alone; a change crosses its boundary where a rule of the checker and the text that teaches it
+change together, as a new kind of reference does, but a skill reworded or an agent added changes
+the text alone, so the boundary separates two reasons to change. That the build's bundling passes
+are tied to this project's own skills is
+`issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`.
+
 ### The tests that hold the shipped text to the entity table reach it from `model` by a path-only dev-dependency `##shipped-set-tests-in-the-model`
 
 They read private items of the table, its harness kinds among them, so they stay beside it. A dev-dependency
@@ -48,7 +63,7 @@ and the environment the crate sets, `design@git@repository-variables-dropped` an
 `design@git@index-file-variable-kept`, reaches every question the checker's verdict depends on,
 which `goal@documentation-stays-consistent` needs. `transcript`'s one question moves no verdict: it holds to the same crate, which
 `design@knowledge-architect@git-crate` makes the wrapper of git for these crates, so the one read covers its question too; that no tool needs a wrapper of git of its own is argued by no head, which
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head` holds. A test of the checker may run git itself to build
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head` holds. A test of the checker may run git itself to build
 its fixture.
 
 ### What a run reads of a project is a crate of its own, which the checks depend on `##model-crate`
@@ -83,13 +98,29 @@ right, and `goal@documents-render-as-a-linked-site`, whose site is built from
 what each reference names. The nearest rival
 is `rejected@knowledge-architect@model-inside-the-checker`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, what a run reads of a project,
+pays because every tool over the record needs it and none of them needs the checks. Its interface,
+the facade of `design@model@model-facade`, changes on its own when the manifest, the walk or the
+entity table changes, and stays as it is when a check is added or reworded, as the command above
+counts. Its own tests are the unit tests beside the parse, the walk and the resolver. It takes the
+decisions of one domain, what a document of the record is and how it is read, in
+`register@model@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` alone, and `check`, `query`,
+`create` and `cli` depend on it, with no cycle; a change that crosses its boundary, a form the model
+reads and a check judges, is one of the four classes the command counts, and the commits that
+touched one side alone are the reason the boundary is there.
+
 ### The checks, and the commands that run the checker or install the workflow, are a crate of their own, between the model and the binary `##check-crate`
 
 `knowledge-architect-check`, in crates/check, reports each breach of the rules it holds for every
 project and of those a project declares, and keeps what it generates current. It holds every check
 of the last phase, the logic of the commands that run the checker or install the workflow behind a
 typed API, and what an extension is written against, per
-`design@check@an-extension-plugs-in-through-phased-hooks`. It depends on `model`, `git` and
+`design@check@an-extension-plugs-in-through-phased-hooks`. The install sits here because it writes
+exactly the files the last phase compares byte for byte with what the build ships, per
+`design@check@installed-files-compared-by-bytes`: both read the manifest's harnesses and owned
+paths, in one module, `path@check@src/agents.rs`. The rival, the install inside `agent-skills`,
+makes that crate depend on `model` for the manifest, while `model` dev-depends on it, a cycle that
+`design@agent-skills@shared-test-component` avoids even among dev-dependencies. It depends on `model`, `git` and
 `agent-skills` by path and by exact version, per `design@knowledge-architect@version-lockstep`;
 `create` and `testing` depend on it, and `cli` re-exports what a consumer needs of it, per
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. It serves
@@ -106,21 +137,50 @@ the binary once the commands span crates. The checks in one crate with the model
 into the build of a tool over the record, such as `query`, which depends on nothing of the checks,
 per `design@knowledge-architect@model-crate` and `design@query@query-depends-on-no-check`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, judging a project's documents
+against the rules, pays because every command that judges a tree runs one library, and the
+install is the side domain that writes what that judgement compares. Its interface, the typed
+commands and what an extension is written against, changes on its own when a rule or a hook of
+an extension changes, and stays as it is when the parse of a form changes and the rule does not,
+which the model absorbs. Its own tests are the unit tests beside each check, beside the mock
+projects' tests in `testing`. It takes the decisions of one domain, the rules a document is held
+to, in `register@check@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `model`, `git` and
+`agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; a split of the
+checks from the commands that run them would have every new command cross the new boundary, and a
+split of the install would add a crate that depends on `model` and `agent-skills` for a side domain.
+
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
 `knowledge-architect-git`, in crates/git, wraps git for the checker's tools: `check`, `model`,
 `query`, `transcript` and `create` depend on it by path and by exact version, per
 `design@knowledge-architect@version-lockstep`, and ask git through it alone, per
 `design@knowledge-architect@checker-asks-git-through-the-crate`. The crate's interface changes for reasons of its
-own: a git question or a git version that another tool needs and the checker does not. It takes
-decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
-on it alone. It is one unit with one purpose, the
+own: a git question or a git version that another tool needs and the checker does not, as a tool
+that rewrites a branch's history would, which
+`issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history` holds as unbuilt. It
+takes decisions of its own, `register@git@design`. It knows nothing of a project's documents and
+depends on no crate of knowledge-architect, as `path@git@Cargo.toml` declares: a function of it
+that read the manifest to find a project's root would put the model's parse into the build of every
+tool that needs git, the cost the nearest rival below has. It is one unit with one purpose, the
 direction `goal@projects-are-split-into-modular-units` gives the parts of a
-project. Whom the crate serves beyond these crates, and that it knows nothing of a project's
-documents, are argued by no head, which
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head` holds. The nearest rival, the checker's git
+project. Whom the crate serves beyond these crates, and that no tool needs a wrapper of git of its
+own, are argued by no head, which
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head` holds. The nearest rival, the checker's git
 module made public, puts the checker's own dependencies into the build of every tool that needs
 git: `rejected@knowledge-architect@git-module-made-public`.
+
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, asking git in git's own terms
+for the checker's tools, pays because the environment it sets reaches every question the checker's
+verdict depends on, per `design@knowledge-architect@checker-asks-git-through-the-crate`. Its
+interface changes with git, as a floor on git's version, `design@git@git-floor-for-commit-trees`,
+or an operation in git's terms a tool needs, per
+`design@git@an-operation-in-git-s-terms-is-the-library-s`, and stays as it is when a check or the
+model changes. Its own tests sit beside its one module, `path@git@src/git.rs`, and the checker's
+tests over scratch repositories exercise it too. It takes the decisions of one domain, how git is
+asked, in `register@git@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on no crate of the workspace,
+and each crate of the checker's tools depends on it, so no cycle forms; a new question crosses its
+boundary as a function on one side and its call on the other, and a change of git itself changes
+this crate alone.
 
 ### The commands that read the record and run no check are a crate of their own `##query-crate`
 
@@ -134,12 +194,32 @@ depends on it. `model`, the command, stays in `check`, since it calls each exten
 depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
 `check`, puts every check into the build of a tool over the record.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, answering a question about the
+record without judging it, pays because those commands then build no check. Its interface, a typed
+function per command, changes on its own when a listing or the record search changes, and stays
+as it is when a check changes. Its own tests are the unit tests beside the listings and the record
+search. It takes the decisions of one domain, what the commands that read the record answer and how
+the record search packs its work, in `register@query@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
+`model` and `git`, `cli` depends on it, and no cycle forms; the listings and the record search
+could be cut apart, but both read the record by its entries and their references, so a change of
+that reading would cross the new boundary.
+
 ### The reader of the harness's transcripts is a crate of its own, which `cli` depends on `##transcript-crate`
 
 `knowledge-architect-transcript`, in crates/transcript, depends on `git` alone, by path and by exact version, for the main
 worktree's path, and takes the project's root from its caller. It changes when the harness's format does, a reason the checks do
 not share, and imports nothing of them. `cli` depends on it, and offers the command, per `design@knowledge-architect@cli-crate`. It serves `goal@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project's past sessions said.
 The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
+
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, reading the harness's
+transcripts, pays because the reader then changes with the harness's format alone. Its interface,
+the command's function, which takes the project's root, per
+`design@transcript@transcript-command-reads-any-project`, changes on its own when a harness's
+format changes, a reason no other crate shares. Its own tests are the unit tests beside its reader.
+It takes the decisions of one domain, how a transcript is read, in `register@transcript@design`. Of
+the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` alone and `cli` on it, with no cycle; an option the command
+gains crosses into `cli`'s declaration, the cost every command pays under
+`design@cli@command-parsing-home`, and a format change crosses nothing.
 
 ### Creating a project, or a Component in one, is a crate of its own, above the checks `##create-crate`
 
@@ -148,6 +228,18 @@ each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `a
 version. `cli` depends on it. It has a purpose and a design of its own, per `goal@projects-are-split-into-modular-units`, which directs a project into units that each serve one purpose: a project is created, or a Component added to one, by one command, per `design@create@init-command` and `design@create@component-command`. It serves `goal@every-target-project-can-adopt-it`, under which a new target project, which adopts knowledge-architect from its first commit, is served first. The cost is what `check` publishes for it, under
 `design@check@the-facade-publishes-what-a-consumer-needs`. The nearest rival keeps it in `check`, whose interface then changes for
 what a new project holds.
+
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, writing what a new project or a
+new Component holds, pays because a new target project is served from its first commit by one
+command. Its interface, the functions of `init`, `new-component` and `init --rust`, changes on its
+own when what a new project holds changes, and stays as it is when a check's logic changes. Its own
+tests are the unit tests beside its writer, and `path@cli@tests/init.rs` drives the binary over the
+projects it writes. It takes the decisions of one domain, what a project is created with, in
+`register@create@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `check`, `model`, `git` and
+`agent-skills`, each for a part of what it writes or of how its run ends, and no crate below it
+depends on it, so no cycle forms; a document every project comes to owe changes the checks and what
+this crate writes together, the one change the goals predict that crosses, and the snippets and the
+manifest it writes change alone.
 
 ### The binary and the parsing of its commands are a crate above every crate that contributes a command `##cli-crate`
 
@@ -161,6 +253,19 @@ parser in them. It says nothing of which crates `check` may depend on, which
 per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, the program's command line, pays
+because each frontend then pulls the logic from the crates below with no parser in them. Its
+interface, the commands' declarations and their dispatch, per
+`design@cli@the-commands-are-a-library-module`, changes on its own when a command's flags change.
+Its own tests are `path@cli@tests/init.rs`, `path@cli@tests/fixture_pin.rs` and
+`path@cli@tests/public_paths.rs`, with the unit tests of its parsing. It takes the decisions of one
+domain, how the command line is built, in `register@cli@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
+every crate that contributes a command, the many-dependencies signal, which a crate above them all
+has by construction and which keeps the graph free of the cycle its rival forms; every new command
+crosses its boundary, touching the crate of its logic and this one, the cost
+`design@cli@command-parsing-home` accepts against `rejected@cli@each-crate-parses-its-commands`, and a
+change of a command's logic alone crosses nothing.
+
 ### The harness an extension's tests need is a published crate of its own `##testing-crate`
 
 `knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, since a project tests its extension as `check` tests
@@ -170,10 +275,22 @@ to their dev-dependencies, and no crate of the workspace depends on it, per
 The owner chose the published crate over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks, holding, with a hedge,
 that an extension's tests should pull the harness separately, which seemed more natural to the owner; it costs each extension's tests one more dependency, and the crate one first publish.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, the means an extension's tests
+and this repository's integrated tests share to run the checks over a project, pays because a
+fixture is then written once, per `design@knowledge-architect@mock-projects-in-one-crate`. Its
+interface, the harness that re-exports `check`'s module `run`, changes on its own when the means a
+test uses change, and stays as it is when a check changes. Its own tests are those of its `tests/`,
+the mock projects' among them. It takes the decisions of one domain, where a test of the program
+sits, in `register@testing@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `check` alone, and no crate
+depends on it, per `design@knowledge-architect@no-crate-depends-on-testing`, so no cycle forms, its
+dev-dependencies included; a split of the published harness from the unshipped tests would have the
+tests depend on the harness, a dependency between the parts, for two parts that change together when
+the means of running over a project changes.
+
 ### No crate of the workspace depends on `testing`, a dev-dependency included `##no-crate-depends-on-testing`
 
 `path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names `knowledge-architect-testing`.
-Its unshipped tests dev-depend on `cli`, `model` and `agent-skills`, by path alone, which publishing drops, per
+Its unshipped tests dev-depend on `cli`, `model`, `agent-skills` and `gates`, by path alone, which publishing drops, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
 the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
 The nearest rival, `cli` depending on `testing` to offer the harness under its own paths, makes a cycle with the tests of `testing` that use `cli`.
@@ -224,6 +341,17 @@ The designs this decision did not keep: `rejected@knowledge-architect@gates-comm
 `rejected@knowledge-architect@gates-binary-configured-by-file` and
 `rejected@knowledge-architect@each-project-writes-its-runner`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, running a project's merge gates,
+pays because each project then keeps its list and nothing of the runner. Its interface, the runner a
+maintenance crate calls with its root, its gate list and its flags, the flags themselves included,
+per `design@gates@the-library-owns-the-flags`, changes on its own when how a gate runs changes, and
+stays as it is when the checker changes. Its own tests are the unit tests beside the runner, and
+`path@xtask@tests/gates_bin.rs` drives this repository's binary over it. It takes the decisions of
+one domain, how the gates run, in `register@gates@design`. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on no
+crate of the workspace, so no cycle forms; a gate a project adds changes that project's list alone,
+per `design@gates@a-project-holds-its-gate-list`, and what of a gate's behaviour a project may keep
+in its own code is `issue@gates@no-head-argues-when-a-project-s-copy-of-a-gate-behaviour-goes`.
+
 ### The hand mutation is a published crate of its own, which a project's maintenance crate depends on, and no crate of the checker or the gates links `##mutation-command-host`
 
 The hand mutation is the package `knowledge-architect-mutate`, the Component `mutate`, in
@@ -250,6 +378,15 @@ tool is a command of `klarch`, is argued by no head, which
 whose generic part ships as a published crate. It costs one more crate in the
 publish order, after the gates library and before `cli`, per `design@knowledge-architect@partial-publish-rerun`.
 
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, the hand mutation, one mutation a
+session writes, per `design@mutate@mutation-command`, pays because a project's maintenance crate
+then adds it with one dependency. Its interface, the command's function, which takes the project's
+root, changes on its own when how a run mutates, gives its verdict or restores changes. Its own
+tests are `path@mutate@tests/harness.rs` and `path@mutate@tests/modes.rs`, with its unit tests. It
+takes the decisions of one domain, how a mutation runs, in `register@mutate@design`. Of the signals
+of `skill@knowledge-architect-component-creation@split-signals`: it depends on no crate of the workspace, the maintenance crate depends on it, and no cycle
+forms; the changes the goals predict, a mode of the run or a way to restore, stay inside it.
+
 ### This repository's maintenance commands are a crate of their own, never published, apart from the published program `##xtask-crate`
 
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
@@ -271,6 +408,17 @@ task local to this repository either finds nothing to work on in another project
 repository's sources in every binary, as `rejected@xtask@source-view-in-the-checker` records of the
 source view. And `gates` and `mutate` run the project's build or its tests, which no command of
 `klarch` does, per `design@knowledge-architect@mutation-command-host`.
+
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, this repository's maintenance
+tasks, holds several commands, which the skill admits for commands that share one purpose and one
+design: each is a task this repository's instructions require or fix, per
+`design@xtask@a-local-task-is-the-maintenance-tool-s`, in a module of its own, per
+`design@xtask@one-module-per-subcommand`. Its interface, the command line of `cargo x`, changes on
+its own when this repository's procedure changes. Its own tests are those of its `tests/`. It takes
+the decisions of one domain, how this repository is maintained, in `register@xtask@design`. Of the
+signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `cli`, `gates` and `mutate` by path, and includes files of
+`agent-skills` and `transcript` with `#[path]`, per `design@xtask@internals-included-not-exported`;
+no crate depends on it, so no cycle forms; a task added changes its own module alone.
 
 ## 2. Naming, facades and what a package ships
 
