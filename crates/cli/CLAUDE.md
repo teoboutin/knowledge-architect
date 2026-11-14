@@ -4,6 +4,9 @@
 command's logic is mostly the typed function of its tool's crate, such as `knowledge_architect_query`,
 per `design@cli@command-parsing-home`. A new command is a declaration here and a function there, and a check of a plain
 value goes in the declaration.
+The tool's own call of that rule is then reached by no test that passes the value through the
+binary, so it is tested in process, or through a path the declaration does not see, such as a
+name taken from PATH.
 A combination of arguments the domain refuses is a type of that function, and `cli::run`
 refuses a value that holds it, per `design@cli@command-parsing-home`.
 
