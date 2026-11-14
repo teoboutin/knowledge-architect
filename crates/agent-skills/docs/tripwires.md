@@ -3,38 +3,6 @@
 Evidence that would reopen a decision of `register@agent-skills@design`. A tripwire leaves this
 file by an exit of `skill@knowledge-architect-issue-tracking@movement-instruction`. What is outstanding is `register@agent-skills@issue`.
 
-## Guarding `design@agent-skills@expectation-set-bounds-scope`: a contradiction between two installed instructions is closed as outside a skill's scope `##expectation-set-closes-a-contradiction`
-
-The decision rests on the premise that an expectation set scopes the owner's behaviour only, so
-that no finding of two installed instructions leaving no move satisfying both is closed by citing
-one.
-
-**Fires when:** a finding that two installed instructions leave no move satisfying both is closed
-by citing an expectation set, in two separate analyses or reviews, or in a record that reaches the
-main branch with no review reporting it.
-**Response:** open a `defect` naming the finding and the set cited, and reopen
-`design@agent-skills@expectation-set-bounds-scope` if its boundary sentence admits the reading.
-**Re-entry:** the standing-state review of the change that closed the finding.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files under docs/retrospective-reports/, counted from the commit that writes this line.
-
-## Guarding `design@agent-skills@record-searched-before-the-work`: a deferred trigger met by work that bypasses the design skill and found only at the review `##deferred-trigger-met-by-undesigned-work`
-
-The decision sends no search before work that goes through neither the design skill nor a
-retrospective intake; bounded work that goes through the skill is searched at the grounding, per `design@agent-skills@bounded-path-in-design`. It rests
-on the premise that a deferred trigger met by work that bypasses the skill costs little when the
-review is the first to read it.
-
-**Fires when:** a second instance is recorded of a deferred trigger met by work that did not go
-through the design skill, and found only at the standing-state review. The first was in thaum: a move
-of the pinned checker met the trigger of a deferred issue that named that move.
-**Response:** open a `design` issue naming both instances, and propose a search before such work,
-with its host.
-**Re-entry:** the standing-state review before every merge, which reads every deferred trigger
-against the change.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files under docs/retrospective-reports/, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@bounded-path-in-design`: a decision taken on the bounded path earns a head `##a-shortcut-decision-earns-a-head`
 
 The decision rests on the premise that a session classifies work as bounded only when every
@@ -79,22 +47,6 @@ candidates.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.
-
-## Guarding `design@agent-skills@audit-triggers`: a pin moves across a version whose changelog cites an axis or the review of the whole goal set, and it is not run `##axis-not-run-at-a-pin-move`
-
-The decision rests on the premise that the move of a pin reads the Migration entries of the versions
-crossed and runs the axis or the review of the whole goal set they cite. It watches agent behaviour
-in a consumer project, which this project cannot see, per
-`issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`.
-
-**Fires when:** in two separate pin moves, received retrospective files show a pin moved across such
-a version with the axis or the review not run. An axis or a review that the owner chose to replace
-or to scope at the move is not counted, since the owner's request is the main occasion of an audit,
-per `design@agent-skills@audit-triggers`.
-**Response:** reopen `design@agent-skills@audit-triggers`.
-**Re-entry:** the retrospective of a session that moved a pin.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files under docs/retrospective-reports/, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@workflow-axis-finding-standard`: auditors report predicted gaps as provable ones across passes `##audit-drafts-mostly-noise`
 
@@ -206,39 +158,6 @@ one group to one misreading of one rule that the calibration did not catch.
 **Re-entry:** the session's verification of each report of the design-record axis.
 **Watches until:** 3 passes of the design-record axis, each counted by its report file.
 
-## Guarding `design@agent-skills@owner-word-holds-as-far-as-its-premise`: a deliberate departure from a specification is overridden as a reading `##departure-overridden-as-a-reading`
-
-The decision rests on the premise that a project states its departures from a specification it
-follows, so that a session can tell an owner's answer on a reading from a scope decision.
-
-**Fires when:** a session applies a source's text over an answer the owner gave as a deliberate
-departure from that source, in two separate pieces of work, or once in a record that reaches the
-main branch with no review reporting it.
-**Response:** reopen `design@agent-skills@owner-word-holds-as-far-as-its-premise` on how a
-departure is recorded, so that a session can tell it from a reading.
-**Re-entry:** the retrospective of each session, and the standing-state review before every merge,
-with the limit `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
-names.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files under docs/retrospective-reports/, counted from the commit that writes this line.
-
-## Guarding `design@agent-skills@admission-rules-home`: an unneeded addition is made in a session that did not load the agent-configuration skill `##agent-text-written-without-the-standard`
-
-The decision rests on the premise that a session writing agent-facing text loads the
-agent-configuration skill, whose trigger delivers the standard at that moment, so that a home
-outside the primer reaches every writer.
-
-**Fires when:** an addition to agent-facing text that fails the need test of
-`design@agent-skills@statement-names-an-act` or the real-use rule of
-`design@agent-skills@behaviour-additions-need-real-use`, made in a session that did not load the
-agent-configuration skill, is reported in two separate pieces of work, or reaches the main branch
-with no review reporting it.
-**Response:** reopen `design@agent-skills@admission-rules-home` on its rival the primer, a
-one-sentence pointer in the primer to the standard.
-**Re-entry:** the retrospective of that session, and the outcome of the review's finding.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files under docs/retrospective-reports/, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@rejected-citation-direction`: an entry cited only by heads that do not decide its question `##rejected-entry-cited-by-the-wrong-head`
 
 The decision rests on the premise that the head citing a `rejected` entry is the one whose argument
@@ -283,42 +202,6 @@ rather than an acceptance criterion.
 **Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
 report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
 from the commit that writes this line.
-
-## Guarding `design@agent-skills@derived-decision-proceeds-on-default`: a decision the record leaves open is classed as settled, and reaches the main branch with no exchange `##open-fork-classed-as-settled`
-
-The decision rests on the premise that a session tells a default the record settles from a choice
-the goals and the record leave open, so that only the first is built and merged on the session's
-word, and the second meets the owner before the merge, per
-`design@agent-skills@default-ruled-before-merge`, while the owner can still challenge it, as
-`goal@design-with-agents-as-counterparts` has it.
-
-**Fires when:** a decision found on the main branch was a choice between shapes that all met every
-binding constraint, which no goal ranked, and the branch that merged it reported it under "Decided"
-as settled by the record, without putting it to the owner, once on the main branch, since no
-procedure reports such a decision before the merge.
-**Response:** reopen `design@agent-skills@derived-decision-proceeds-on-default` and
-`design@agent-skills@questions-go-to-their-authority` on how a session tells a fork from a decision
-the record settles, with the instances.
-**Re-entry:** the retrospective of each session, which reads the turns' "Decided" sections, and the
-standing-state review, which reads the issue the owner's report of such a merge opens.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files, counted from the commit that writes this line.
-
-## Guarding `design@agent-skills@heads-stand-on-argument`: a fact the owner reported is recorded as an unattributed premise `##owner-fact-recorded-unattributed`
-
-The decision rests on the premise that a session records a fact the owner reported as the owner's
-report, so that a later session can tell it was the owner's to check with the owner, and does not
-take it for a premise the session established.
-
-**Fires when:** a head on the main branch states, with no attribution, a premise that the record of
-its deliberation, a plan document or a commit message, shows the owner reported, once on the main
-branch, since no review reads a premise the head does not attribute.
-**Response:** reopen `design@agent-skills@heads-stand-on-argument` on how the head-ground fragment
-words the row of a fact the owner holds, with the instance.
-**Re-entry:** the retrospective of each session, and the design-record axis of the project audit,
-whose auditor reads the history of a head's ground.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-files, counted from the commit that writes this line.
 
 ## Guarding `design@agent-skills@audit-net-growth`: an intake's repairs, held for no word of the owner, add instructions that interact `##intake-repairs-interact-unheld`
 

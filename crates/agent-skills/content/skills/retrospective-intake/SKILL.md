@@ -129,9 +129,7 @@ The order is a suggestion; the content is not.
     has none. **A finding that two installed instructions leave no move satisfying both is always
     in scope**, and is never closed by citing an expectation set;
 %% The sets bound a skill's scope per `design@agent-skills@expectation-set-bounds-scope`; the
-%% missing sets are `issue@agent-skills@expectation-sets-for-the-installed-skills`; the closing of a
-%% contradiction by a set is watched by
-%% `tripwire@agent-skills@expectation-set-closes-a-contradiction`.
+%% missing sets are `issue@agent-skills@expectation-sets-for-the-installed-skills`.
   - **an observation**: a use that went well, or a behaviour not reproduced. It needs no action.
 - **e. Its scope.** The goal it serves or threatens, from the project's goals home,
   `register@goal`; a finding on the installed text or on the checker has its scope in the

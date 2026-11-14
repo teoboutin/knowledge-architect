@@ -8,21 +8,6 @@ Entry shape and the movement instruction between the two files are
 `skill@knowledge-architect-issue-tracking`. The standing re-entry point is the standing-state
 review, which re-reads every tracker file.
 
-## Guarding `design@check@checker-source-literals-are-data`: a literal of the tool's non-test source cites a rule `##checker-source-literals-are-data-whole-source-scope`
-
-**Fires when:** a review finds a string literal in the tool's non-test source that cites a rule:
-a `CR:` marker followed by a rule number written out, with a sentence around it that says
-something about the rule. A message that interpolates the number it names, and the marker
-pattern itself in the scanner, do not fire it. A review is where it surfaces, such as
-the data check of thaum's rules-reviewer: nothing mechanical reads that literal any more.
-**Response:** reopen the scope of `design@check@checker-source-literals-are-data`, with the rule
-narrowed to test modules among the candidates, at the cost of an attribute lookup in the extractor;
-moving the citation into the comment above the literal repairs the instance.
-**Re-entry:** the intake of a retrospective file from a project whose binary registers an
-extension.
-**Watches until:** the next three commits on the main branch that add an analysis under
-`path@knowledge-architect@docs/retrospective-reports/`.
-
 ## Guarding `design@check@phases-gate-the-report`: a way around the whole-report stop `##phases-gate-the-report-two`
 
 The report stops at the first phase that finds anything, and the whole report stops: the

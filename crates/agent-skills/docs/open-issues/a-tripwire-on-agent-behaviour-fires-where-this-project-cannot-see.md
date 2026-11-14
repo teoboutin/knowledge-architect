@@ -84,13 +84,10 @@ itself (or bundled in the agent skill crate under a command, to avoid polluting 
 in other projects)." The owner calls it larger design work. In a later discussion, about where the
 search for the issues and tripwires a piece of work bears on runs, the owner stated the aim of that
 work: "My later goal is to automate the retrospective skill to look at the tripwires of this
-project, without requiring a manual edit of the questions the retrospective skill asks." A
-tripwire of the same class,
-`tripwire@agent-skills@deferred-trigger-met-by-undesigned-work`, waits for evidence that arises
-mostly in the sessions of projects that use the workflow; its re-entry is the standing-state review
-of this repository, which holds only the tree. `klarch transcript search`, with `--all-projects`
-and `--subagents`, reads every session on a machine, consumers' included, which that work can use,
-per `design@transcript@transcript-query-verbs`.
+project, without requiring a manual edit of the questions the retrospective skill asks."
+`klarch transcript search`, with `--all-projects` and `--subagents`, reads every session on a
+machine, consumers' included, which that work can use, per
+`design@transcript@transcript-query-verbs`.
 
 ### What would close it
 
