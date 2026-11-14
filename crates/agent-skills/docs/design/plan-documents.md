@@ -182,7 +182,7 @@ and raise the migration work of every change of the checker, for little value.
 
 The design skill has two paths, which differ only in where the deliberation is kept until the
 harvest. The in-change path is open when the decision lands in the change under way: its work,
-where that change began before the discussion opened, as an issue fix or a review repair does, or
+where that change began before the discussion opened, as an issue fix or a review repair already under way does, or
 its record, whenever the discussion opened, for a decision recorded when it is made, per
 `design@agent-skills@design-home-is-built-intent`. It writes no plan document. The message of the
 commit that writes the decision's design entry, or that implements a decision that earns none,
@@ -190,7 +190,7 @@ carries what a plan document would: every thread with its final state, the groun
 closure, the owner's ruling attributed per `design@agent-skills@attribution-replaces-quotation` or
 the argument of a thread closed `argued`, the rivals that lost with their reasons, every premortem
 cause with its outcome, and the acceptance criteria. The
-premortem runs when reversal touches any of the four things the skill names: stored data, a
+premortem runs when a later reversal of the decision would touch any of the four things the skill names: stored data, a
 consumed interface, behaviour users have adapted to, and a decided thread that would reopen. The four never open the in-change path: a decision that is cheap to
 reverse and whose work comes later takes the full path, per
 `design@agent-skills@design-hands-off-to-planning`, as does any discussion that converges on work

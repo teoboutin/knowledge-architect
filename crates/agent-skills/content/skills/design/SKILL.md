@@ -148,7 +148,8 @@ evidence bring, which nobody knows in advance.
 %% two commits.
 - **The in-change path.** It is open when the decision lands in the
   change under way: its work, where that change began before the
-  discussion opened, as an issue fix or a review repair does, or its
+  discussion opened, as an issue fix or a review repair already under
+  way does, or its
   record, whenever the discussion opened, for a decision that no work
   implements and that is not part of any spec, which
   `skill@knowledge-architect-decision-recording@when-recording-happens` records when it is made. No
@@ -182,9 +183,9 @@ evidence bring, which nobody knows in advance.
   `skill@knowledge-architect-planning@working-a-slice` puts to the owner in
   one message, ends at the owner's ruling, with no premortem.
 
-On the in-change path, the premortem runs when reversal touches any of the four; the four never
+On the in-change path, the premortem runs when a later reversal of this decision would touch any of the four; the four never
 decide which path is taken.
-To decide, state what reversal touches, in nouns. The four: stored
+To decide, state what that reversal would touch, in nouns. The four: stored
 data that would have to be migrated; an interface other code or other
 people already consume; behavior users have adapted to, in the sense
 Keep-or-change uses — a document that argues it, or observed use —
