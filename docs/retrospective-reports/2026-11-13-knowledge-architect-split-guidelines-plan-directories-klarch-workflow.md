@@ -21,7 +21,7 @@
   - `design@transcript@transcript-format-tolerated-and-reported`: constrains, respect.
   - `design@transcript@format-classed-on-the-inventory`: constrains, respect.
   - `rejected@transcript@strict-transcript-reader`: constrains, respect.
-  - `issue@transcript@the-reader-does-not-know-the-api-error-system-subtype`: touches, respect.
+  - `the-reader-does-not-know-the-api-error-system-subtype`: touches, respect.
   - `design@agent-skills@unrecognised-entries-reach-upstream`: constrains, respect.
   - `rejected@agent-skills@retrospective-asks-for-unrecognised-lines`: constrains, respect.
   - `design@agent-skills@transcript-extraction-is-the-checker-s`: constrains, respect.
@@ -91,7 +91,7 @@ Members: 2026-11-13-knowledge-architect-split-guidelines-plan-directories-klarch
   and its keys `error`, `level`, `maxRetries`, `retryAttempt` and `retryInMs` beside those of every
   chain line.
 - **c. Whether it is already recorded.** Yes:
-  `issue@transcript@the-reader-does-not-know-the-api-error-system-subtype` (verdict `touches`),
+  `the-reader-does-not-know-the-api-error-system-subtype` (verdict `touches`),
   opened by the same session on these six lines, with the fields measured and its closing work:
   "`api_error` classed in `KNOWN_SYSTEM_SUBTYPES` as ignored, with a comment naming the fields it
   was classed on, and a test that a line of that subtype raises no note, shown to fail without the
@@ -108,8 +108,8 @@ Members: 2026-11-13-knowledge-architect-split-guidelines-plan-directories-klarch
   changes text alone, closing the issue brings those axes onto it for one subtype whose only cost
   is a header line, and the issue waits for a branch of the `transcript` Component.
 
-Default: no change, unless the intake's branch carries Rust edits of other sections, in which case handle now, closing the issue.
-Outcome: decided by the session: no change, already recorded by `issue@transcript@the-reader-does-not-know-the-api-error-system-subtype`, which holds the measurement and the closing work. If the intake's branch carries the Rust edits other sections propose, handle now instead: close the issue by its own closing work, under `skill@klarch-development`. Ground: the member is the instance that issue was opened on, and nothing in this batch adds to it; the issue settles the work, so only the cost of the code axes on the branch decides when it lands.
+Default: handle now, closing the issue, since the intake's branch carries Rust edits of other sections.
+Outcome: decided by the session: handle now, closing the issue `the-reader-does-not-know-the-api-error-system-subtype` by its own closing work, under `skill@klarch-development`. Ground: the intake's branch carries the Rust edits of the sections `worklist-plural-seeds` and `other-project-path-form-unclear`, so the code axes of the review are owed on it anyway, and this change costs one more claim under them; the issue settled the work: one entry in `KNOWN_SYSTEM_SUBTYPES`, a comment naming the fields, and a test shown to fail without the entry.
 
 Under the handle-now branch of the outcome, the entry added to `KNOWN_SYSTEM_SUBTYPES` in `path@transcript@src/reader.rs`, after `"stop_hook_summary",`, with the test the issue's closing work names written under `skill@klarch-development` (no agent-facing text changes, so no instruction is added or removed):
 
