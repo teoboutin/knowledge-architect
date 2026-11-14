@@ -125,7 +125,7 @@ through several git commands; rewording a commit's message, or folding a fixup c
 fixes, would be one too. A step that decides for the matter a tool works on, such as which
 commits to fold or what a check of the result must find, is the tool's, composed from those
 operations, however many tools share it: the library holds no function that chooses which commits
-a tool folds, and none that reads a project's documents.
+a tool folds.
 
 The crate's interface changes for reasons of its own, a git question that another tool needs and the
 checker does not among them, per `design@knowledge-architect@git-crate`; so what admits a function
@@ -133,3 +133,15 @@ is what it says of a repository, never which tool calls it. The nearest rival, a
 enters the library once a second tool needs it, loses to this: under a count of tools the same
 operation changes its home when a tool is added, with no change to the operation, so the design and
 the code move after the fact.
+
+### The library depends on no crate of knowledge-architect and reads no document of a project `##the-library-depends-on-no-crate-of-the-project`
+
+`path@git@Cargo.toml` declares no dependency on a crate of knowledge-architect, and no function of
+the library reads a project's documents, the manifest among them. The nearest rival, a library that
+reads the manifest to find a project's root, puts the model's parse into the build of every tool
+that needs git: the cost of the checker's dependencies in that build, which
+`design@knowledge-architect@git-crate` argues the crate apart to avoid. No test holds the absence of
+the dependency: the two tests of `path@testing@tests/dependency_rules.rs` judge the tools over the
+record and the crate `testing`, and neither reads this crate. Whether the library also knows nothing
+of the workflow is argued by no head, which
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head` holds.
