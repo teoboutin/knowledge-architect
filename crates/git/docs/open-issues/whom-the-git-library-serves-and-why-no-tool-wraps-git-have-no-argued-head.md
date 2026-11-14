@@ -40,7 +40,7 @@ maintenance tool declare no dependency on the crate. Statement 1 is wider than t
 names the checker's tools alone. A third statement the goal held, that the library knows nothing of
 a project's documents or of the workflow, and depends on no part of knowledge-architect that does,
 is argued in part: that it depends on no crate of knowledge-architect and reads no document of a
-project is `design@git@the-library-depends-on-no-crate-of-the-project`. That it knows nothing of the
+project is `design@git@the-library-brings-no-parse-of-the-model-into-a-tool-s-build`. That it knows nothing of the
 workflow is argued by no head, and stays open here beside statement 2, whose discussion settles the
 library's interface: `stage_generated` names the files it stages by the checker's word, as
 `issue@git@tools-run-git-past-the-wrapper` says.

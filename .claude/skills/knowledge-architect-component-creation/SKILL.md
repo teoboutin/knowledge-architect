@@ -125,9 +125,9 @@ Name a Component before its directory is created:
    `skill@knowledge-architect-setup@components-and-locations`.
 3. **Record its purpose** as the statement of the design head that argues its existence, in the
    root's design home, under `skill@knowledge-architect-decision-recording`. No goal is written
-   for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says. The head
-   reasons over each default criterion and the signals against a split, as
-   `skill@knowledge-architect-decision-recording@head-shape` says.
+   for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says. For a
+   Component the default criteria cover, the head reasons over each default criterion and the
+   signals against a split, as `skill@knowledge-architect-decision-recording@head-shape` says.
 4. **For a split, move the record that is now the new Component's**: each design head, `rejected`
    entry, issue and tripwire whose subject it holds, the Component that owns each decided by
    `skill@knowledge-architect-decision-recording@owning-component`. A move adds and removes no

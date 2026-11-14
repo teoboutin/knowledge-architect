@@ -21,10 +21,9 @@ misfiled head changes no ruling of the owner. The same sentence cites
 settles. Which Component owns a head is settled by
 `skill@knowledge-architect-decision-recording@owning-component`.
 
-The milestone that wrote the authority routing kept this outcome with the owner, citing
-the head now `design@agent-skills@design-record-axis-judges-the-component`. That head argues why the axis judges a head's Component,
-not why the outcome goes to the owner. A slice 4 review of that milestone found the gap; it was
-not argued there, since the slice's spec named the outcome as staying.
+The outcome stays with the owner, and `design@agent-skills@design-record-axis-judges-the-component`
+argues why the axis judges a head's Component,
+not why the outcome goes to the owner: no head argues that.
 
 A move can still bear on the owner: a head whose Component is uncertain under
 `skill@knowledge-architect-decision-recording@owning-component`. That case may justify the owner
