@@ -121,11 +121,15 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
     compares with it. From the merge until the publish, main's
     README status line names a version that is not yet on crates.io.
 11. **Tag**, with a clean tree on main, once every new crate of step 6 has its placeholder and its
-    trusted publisher. crates.io shows a crate's trusted publisher only to its owners, so ask the
-    owner to confirm it for each new crate, and check that the crate's `trustpub_only` field, at
-    step 6's second address, is `true`. Run the first two commands below, then give the owner the
-    last two: the tag push, which starts `path@knowledge-architect@.github/workflows/release.yml`,
-    is the owner's, since the harness's auto mode refuses it to the session.
+    trusted publisher. crates.io serves a crate's trusted-publisher configuration only to a
+    logged-in request, so ask the owner to confirm it for each new crate, and check that the
+    crate's `trustpub_only` field, at step 6's second address, is `true`: it verifies that trusted
+    publishing is required, so that a publish with no configured publisher fails, and not the
+    configuration itself, per `design@knowledge-architect@owner-confirms-the-trusted-publisher`.
+    Run the first two commands below, then give the owner the last two: the tag and its push, which
+    starts `path@knowledge-architect@.github/workflows/release.yml`, are the owner's, since the
+    harness's auto mode refused the push to the session in a release, per
+    `design@knowledge-architect@owner-pushes-the-release-tag`.
 
     ```sh
     git checkout main && git pull --ff-only
@@ -133,6 +137,9 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
     git tag -a v<version> -m "Release <version>"
     git push origin v<version>
     ```
+
+    Once the owner says the push ran, run `git ls-remote origin refs/tags/v<version>`, and go on
+    only when it prints the tag's line: it exits 0 whether or not origin holds the tag.
 12. **The owner's approval.** The workflow's `verify` job checks that the tag names a commit on
     main and the version every crate carries. Its `publish` job then waits for the approval of the
     environment `release`, which is the owner's word to publish, per
@@ -181,10 +188,10 @@ The `publish` job uploads the crates one by one, in the order of its list in
 already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
-  `git push origin :refs/tags/v<version>`, which you give the owner to run, as step 11's push, and
-  wait for the owner's word that it ran, then `git tag -d v<version>`; repair on a branch, run
-  again on its head the steps that step 9 names for a repair, and release the same version again
-  from step 9.
+  `git push origin :refs/tags/v<version>`, which you give the owner to run, as step 11's push;
+  once the owner says it ran, run `git ls-remote origin refs/tags/v<version>`, and only when it
+  prints nothing, `git tag -d v<version>`; repair on a branch, run again on its head the steps that
+  step 9 names for a repair, and release the same version again from step 9.
 - **Some crates were uploaded**: re-run the failed job, `gh run rerun <run id> --failed`, from the
   same tag, per `design@knowledge-architect@partial-publish-rerun`; where the re-run waits for an
   approval, the owner gives it as at step 12. If that cannot succeed without a change to the
