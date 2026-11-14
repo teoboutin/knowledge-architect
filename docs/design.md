@@ -160,12 +160,8 @@ split of the install would add a crate that depends on `model` and `agent-skills
 The logic of `install-agent-skills` sits in `check` because it writes exactly the files the last
 phase compares byte for byte with what the build ships, per
 `design@check@installed-files-compared-by-bytes`. Both take that set from one function,
-`shipped(manifest)` in `path@check@src/agents.rs`, which renders the shipped texts for the
-project's declared command, and returns none when the project serves no agent harness: the install
-calls it in `path@check@src/commands/mod.rs`, and the gathering of the last phase's inputs in
-`path@check@src/commands/gathered.rs`. The byte comparison is in `path@check@src/check/agents.rs`,
-and the predicate of the installer's owned paths, which the install applies, is the model's,
-`owned_path` in `path@model@src/manifest.rs`. The rival, the install inside `agent-skills`, makes
+`shipped(manifest)` in `path@check@src/agents.rs`, so the files written and the files compared
+cannot differ. The rival, the install inside `agent-skills`, makes
 that crate depend on `model` for the manifest, while `model` dev-depends on it, a cycle that
 `design@agent-skills@shared-test-component` avoids even among dev-dependencies.
 
@@ -199,7 +195,7 @@ of the floor on its version, is caught in the one crate that asks git. It takes 
 domain, how git is asked, in `register@git@design`, which pays because the environment and the
 version floor every question needs are decided once, not by each tool that asks git. Of the signals
 of `skill@knowledge-architect-component-creation@split-signals`: it depends on no crate of the
-workspace, per `design@git@the-library-depends-on-no-crate-of-the-project`,
+workspace, per `design@git@the-library-brings-no-parse-of-the-model-into-a-tool-s-build`,
 and each crate of the checker's tools depends on it, so no cycle forms; a new question crosses its
 boundary as a function on one side and its call on the other, and a change of git itself changes
 this crate alone.

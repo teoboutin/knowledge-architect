@@ -134,7 +134,7 @@ enters the library once a second tool needs it, loses to this: under a count of 
 operation changes its home when a tool is added, with no change to the operation, so the design and
 the code move after the fact.
 
-### The library depends on no crate of knowledge-architect and reads no document of a project `##the-library-depends-on-no-crate-of-the-project`
+### The library depends on no crate that brings the model's parse into a tool's build, and reads no project document through that parse `##the-library-brings-no-parse-of-the-model-into-a-tool-s-build`
 
 `path@git@Cargo.toml` declares no dependency on a crate of knowledge-architect, and no function of
 the library reads a project's documents, the manifest among them. The nearest rival, a library that

@@ -43,7 +43,7 @@ Two items of the library's interface may serve the checker rather than git: `com
 `CRATE_DIR` in `path@git@src/lib.rs` exist for the checker's reading of its own source's literals
 as data and for its refusal of a build from another checkout; and `stage_generated` names its files
 by the checker's word, though it stages any contents a caller gives. That the library knows nothing
-of a project's documents is `design@git@the-library-depends-on-no-crate-of-the-project`; that it
+of a project's documents is `design@git@the-library-brings-no-parse-of-the-model-into-a-tool-s-build`; that it
 knows nothing of the workflow is argued by no head, per
 `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`.
 
