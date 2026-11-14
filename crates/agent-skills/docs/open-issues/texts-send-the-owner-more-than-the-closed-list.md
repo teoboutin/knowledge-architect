@@ -24,6 +24,13 @@ necessarily one change per text. The texts left:
 
 - `design@agent-skills@audit-outcomes` and the audit's outcome tables, which send the owner the
   removal of an entry, a head in the wrong Component, and any finding no row names;
+- the calibration of the design-record and tripwire axes, which sends the owner a difference
+  between groups wherever a rule's text admits both verdicts and no record states the reading,
+  where an argument from the goals and the record may still rank the two readings:
+  `design@agent-skills@calibration-in-the-run`, the project-audit skill's design-record and
+  tripwire axes, and the calibration sections of `agent@knowledge-architect-design-record-auditor`
+  and `agent@knowledge-architect-tripwire-auditor`. The planning skill's scoped dispatch of the
+  design-record auditor sends the owner such a reading only where no argument ranks the two;
 - the primer's knowledge table, whose row for docs/audit-reports/ says "the owner's ruling on each
   of its items".
 
