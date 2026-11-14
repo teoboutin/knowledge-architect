@@ -1,7 +1,8 @@
 # Design
 
 How `testing` is built, and why. That it exists, and how it depends on the other crates, is
-`design@knowledge-architect@testing-crate`.
+`design@knowledge-architect@testing-crate`; that no crate depends on it is
+`design@knowledge-architect@no-crate-depends-on-testing`.
 
 ## Its tests
 
