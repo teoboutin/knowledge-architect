@@ -490,6 +490,11 @@ A head that argues from a goal's words without naming the goal is the common mis
 argument. The owner's ground a head attributes is read in its source, against the question it
 answered: an answer to another question is not the owner's ground for this one.
 
+**Does each head the diff writes that argues a Component's existence reason over the default
+criteria?** Read step 3 of `skill@knowledge-architect-component-creation@creation-procedure` whole,
+and judge the head by it: a default criterion, or the signals against a split, that the head does
+not reason over, or names with no reason, is a finding.
+
 **Does each subject a head of the diff sits in meet the split standard of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Report a
 subject the standard says to split, with the test it meets.
 
