@@ -199,9 +199,9 @@ condition 1, or lists the check that would have caught it as a claim of the step
 rather than an acceptance criterion.
 **Response:** reopen `design@agent-skills@tripwire-admission-test`, on how condition 1 is worded.
 **Re-entry:** the standing-state review: the issue and the commit are in the tree and the history.
-**Watches until:** the fifth plan document deleted at its landing on the main branch, and the second
-report file of the tripwire axis added under docs/audit-reports/ on the main branch, both counted
-from the commit that writes this line.
+**Watches until:** the later of two occasions, each counted from the commit that writes this line:
+the fifth plan document deleted at its landing on the main branch, and the second report file of
+the tripwire axis added under docs/audit-reports/ on the main branch.
 
 ## Guarding `design@agent-skills@audit-net-growth`: an intake's repairs, held for no word of the owner, add instructions that interact `##intake-repairs-interact-unheld`
 
