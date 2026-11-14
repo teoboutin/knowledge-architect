@@ -58,7 +58,7 @@ that deletes a plan document the review read or moves a slice's spec under its m
 plan document on a branch of its own; the work it reviews is the whole branch. **An axis named by
 an agent is dispatched as that agent. An axis with no agent is dispatched as a fresh
 general-purpose subagent**, briefed with the axis's question as this table states it, the commit range, and the files that carry the standard. **An axis that applies and was not run is said,
-with the reason, in the commit that records the review.**
+with the reason, in the record of the review.**
 
 **Last, at the review before a merge, the transcript reviewer runs alone**:
 after every other axis has run, the re-review that each repair adding, removing or reversing a
@@ -164,8 +164,8 @@ before acting on any of its items.
 
 **A repair that adds, removes or reverses a design head, a split of a head included, is reviewed by
 the decision-record axis**, and by any other axis whose condition it meets, whichever axis's finding it answers. A repair of the last transcript review
-is reviewed after it, and the review ends with the repairs of that decision-record review; one made
-before it is reviewed before it, as `skill@knowledge-architect-review@review-axes` says. Any other repair, a rewording
+is reviewed after it, and the review ends with the repairs of that decision-record review;
+`skill@knowledge-architect-review@review-axes` says when one made before it is reviewed. Any other repair, a rewording
 or an argument, a mention or a reference added inside an existing head included, and a title
 brought to what its head's body already argues, is reviewed by no axis again; one made before the
 last transcript review is still read by it.
