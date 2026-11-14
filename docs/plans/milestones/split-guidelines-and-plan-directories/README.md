@@ -793,7 +793,7 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
    fragment of their own, the code-split scout, the record side at planning and the routing of a
    split found outside the work. Fails alone on: a plan written under the new text with no split step
    where a guideline's signal holds, or a scout's finding with no outcome.
-3. [The heads a harvest touches, conformed before it](conformance-before-harvest/README.md),
+3. [The heads a harvest touches, conformed before it](harvested/conformance-before-harvest/README.md),
    `spec@split-guidelines-and-plan-directories@conformance-before-harvest`. Builds the list of touched
    heads, the scoped auditor's dispatch at planning and the conforming step. Fails alone on: a
    harvest that conforms a head the list did not name, without naming it as missed.
