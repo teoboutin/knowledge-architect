@@ -235,6 +235,14 @@ it, where the head's ground is read from the head itself. It is kept here becaus
 `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument` reopens the routing
 of a new member, with this alternative among the candidates.
 
+### Conformance of the heads a harvest touches done in the harvest, as for a change no plan document plans `##conformance-in-the-harvest`
+
+`live`. The design-record review cannot judge fairly a head the harvest changed without conforming
+it, and conforming it there brings into the harvest work nobody planned, on the owner's report
+that a planning step should take it. It is kept here because a doubt remains: the list a plan
+writes may miss heads its harvest touches, which the harvest then conforms as this alternative
+does; a harvest that keeps naming heads its list missed is the evidence that brings it back.
+
 ### A head's title stating the instance built, the members or the mechanism that exist `##title-states-built-instance`
 
 `live`. An audit of this repository's design heads at commit eee5176f found the instance stated as

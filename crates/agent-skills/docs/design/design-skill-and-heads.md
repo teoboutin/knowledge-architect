@@ -217,11 +217,19 @@ covers it" too widely; the design-conformance reviewer reads every plan document
 
 The design this decision did not keep: `rejected@agent-skills@member-routed-by-approval-scope`.
 
-### A head that a change touches is brought to the rules on heads in that change `##existing-heads-on-touch`
+### A head that a change touches is brought to the rules on heads before the change lands: by a step before the harvest in planned work, in that change otherwise `##existing-heads-on-touch`
 
-A head that a change touches is brought, in that change, to the rules of `primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape`:
-its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
-argument. Where that would relax what the owner's words in it approved, or turn it from its
+A head that a change touches is brought, before the change lands, to the rules of
+`primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape`: its title to the
+rule it argues, each decision it bundles to a head of its own, its ground to its argument. In work a
+plan document plans, the plan lists the heads its harvest will touch without reversing or rewriting
+their decision, and a step before the harvest
+conforms each one the scoped design-record auditor finds non-conformant, as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says. A head the list missed, and a
+head any other change touches, is brought to the rules in the change that touches it: the planned
+step moves where conformance happens and never leaves a touched head unconformed.
+
+Where bringing a head to the rules would relax what the owner's words in it approved, or turn it from its
 direction, as a title moved from the members the owner named to a rule that admits others, the
 change goes to the owner as one proposal, per `design@agent-skills@transcript-reviewer-agent`.
 
@@ -232,9 +240,22 @@ project audit's scope, not that change's. Adding a reference, or rewording a sen
 than re-pointing, and so is removing one, on the owner's word.
 
 The rules apply at the moment a session already reads the head and changes what it says, so a head is repaired at
-the cost of one read. The whole record is repaired at once only by a project audit, on the
-occasions of `design@agent-skills@audit-triggers`, per
-`design@agent-skills@audit-repairs-the-whole-record`.
+the cost of one read. It serves `goal@design-is-recorded-with-its-arguments`: a head the record keeps
+states its decision and the argument for it, so one that a change edits leaves the change doing so.
+The whole record is repaired at once only by a project audit, on the occasions of
+`design@agent-skills@audit-triggers`, per `design@agent-skills@audit-repairs-the-whole-record`.
+
+**In planned work the step comes before the harvest**, on the owner's report: the design-record
+review cannot judge fairly a head the harvest changed without conforming it, and conforming it in
+the harvest brings into the harvest work nobody planned, often hard to do properly there. The
+record shows such work sitting undone:
+`issue@check@core-heads-bundle-decisions-with-many-citing-sites` holds two heads that bundle
+decisions, each with many citing sites to read before a split, left to whoever next touches them.
+Planning lists the heads, so their conformance is a step, or a slice where the work is large, that
+the plan sizes and the review reads apart from the harvest. A conforming edit that must write what
+a head's argument does not hold is a decision, and goes to the design skill, per
+`primer@design-heads`. The nearest rival, conformance in the harvest as for any other change, is
+`rejected@agent-skills@conformance-in-the-harvest`.
 
 ### A write into a design home, or an edit of agent-facing text a head describes, loads the decision-recording skill first, with no condition judged before it `##design-home-write-loads-recording`
 
