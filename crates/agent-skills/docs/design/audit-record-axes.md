@@ -5,8 +5,10 @@
 ### The design-record axis re-applies to every entry the rules on design heads, on the subject a head sits in and on rejected alternatives, reading the tripwires and issues that bear on each head and judging neither them, the restatements nor the code `##design-record-axis`
 
 Its corpus is every design head and every rejected alternative of every Component. Its rules are
-`primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` for a head, the
-split standard of `design@agent-skills@subject-split-standard` for the subject it sits in, and
+`primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` for a head,
+step 3 of `skill@knowledge-architect-component-creation@creation-procedure` for a head that argues a
+Component's existence, since it is a rule on design heads that the component-creation skill states
+at the moment such a head is written, the split standard of `design@agent-skills@subject-split-standard` for the subject it sits in, and
 `skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected alternative; the
 Component it sits in is judged per `design@agent-skills@design-record-axis-judges-the-component`. Each
 head is read with the tripwires guarding it, the issues naming it and the history behind each
