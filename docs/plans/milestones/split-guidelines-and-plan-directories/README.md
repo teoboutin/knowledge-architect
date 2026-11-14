@@ -205,7 +205,7 @@ The questions, each with the default the session gave:
 
 **The decisions the design rests on and does not argue again**, the seeds the draft named:
 
-- `design@agent-skills@component-skill-delivery`: the Component criteria are guidelines, delivered
+- `design@agent-skills@component-criteria-are-guidelines`, with `design@agent-skills@component-skill-delivery`: the Component criteria are guidelines, delivered
   by the component-creation skill at the moments its description names;
 - `design@agent-skills@component-split-signals`: the signals against a split, judged, never
   computed;
@@ -331,9 +331,10 @@ decided", and with its two members the cluster `the-slice-audit-s-search-on-one-
   that slice 2, which changes the grounding's steps again, does not meet it again.
 
 One issue the search graded `unrelated` has its re-entry point met by the work:
-`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point is
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point was
 the next change that edits `design@knowledge-architect@git-crate`, which slice 4 is. Slice 4's
-design audit sorts it as a gap of the slice.
+design audit sorted it as a gap of the slice, and its re-entry point is now the discussion that
+settles `issue@git@tools-run-git-past-the-wrapper`.
 
 **`touches` and `worsens`: the issues that put a condition on a slice**, each named with the slice
 that meets it:
