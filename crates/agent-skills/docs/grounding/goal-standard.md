@@ -1,11 +1,7 @@
 # The goal standard: how other fields state and review high-level goals
 
-Findings established outside this project that the design of the goal standard leans on: the rules of
-`skill@knowledge-architect-goal-setting@goal-or-not`, argued in
-`design@agent-skills@goal-standard-rules`, and the way `agent@knowledge-architect-goal-reviewer`
-grades its findings, and the way goal-setting stops its reviews, argued in
-`design@agent-skills@goal-finding-grades`, `design@agent-skills@goal-review-stops-on-old-wording`
-and `design@agent-skills@whole-set-rounds`. Each finding names its source and how it was read:
+Findings established outside this project on how other fields state and review high-level goals,
+which the design of the goal standard leans on. Each finding names its source and how it was read:
 
 - **read**: the passage was read in the primary text;
 - **secondary**: it was read in a summary or a quotation, not in the primary text;
@@ -15,9 +11,10 @@ and `design@agent-skills@whole-set-rounds`. Each finding names its source and ho
 A finding read secondary or assumed is a lead, and is read at its source before an argument rests on
 it alone.
 
-**The revision of the standard rests first on this project's own record**, argued in the heads
-above. On the owner's word, the proposals of the discussion that made that revision weighed more
-than these findings, and a finding changed one of them only by an argument the owner weighed.
+**The revision of the standard rests first on this project's own record**, argued in the design
+heads on the goal standard. On the owner's word, the proposals of the discussion that made that
+revision weighed more than these findings, and a finding changed one of them only by an argument
+the owner weighed.
 
 ## The questions
 

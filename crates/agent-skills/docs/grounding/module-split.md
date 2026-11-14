@@ -1,8 +1,7 @@
 # Module splits: one project's threshold of lines, and its cut by scope of review
 
-Findings read in thaum, a project of the owner's that installs the workflow, which
-`design@agent-skills@module-split-guidelines` and
-`rejected@agent-skills@module-split-at-a-size-threshold` lean on. Each was read at thaum's commit
+Findings read in thaum, a project of the owner's that installs the workflow, on its threshold of
+lines for a module split and its cut of modules by scope of review. Each was read at thaum's commit
 66df2201, and is read again at the source it names.
 
 ## The threshold has no recorded basis
