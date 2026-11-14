@@ -429,8 +429,9 @@ forms; the changes the goals predict, a mode of the run or a way to restore, sta
 
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
 the tasks this repository's own instructions require, or whose procedure they fix, per
-`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds` and `gates`, whose list and flags are
-this repository's while the published library runs them, per `design@knowledge-architect@gates-crate`.
+`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds` and `gates`, whose list, and the flags
+CI passes, are this repository's, while the published library defines the flags and runs the gates,
+per `design@knowledge-architect@gates-crate`.
 It also hosts `mutate`, whose logic a published crate ships, per
 `design@knowledge-architect@mutation-command-host`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per
 `design@agent-skills@maintenance-crate-ask`, which this repository, a target project, carries. It
