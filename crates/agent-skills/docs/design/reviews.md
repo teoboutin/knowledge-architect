@@ -191,15 +191,16 @@ the reviewer already holds its report and a tool that writes it.
 
 ### A subagent writes a report file with a shell redirect, since the harness refuses its file tool on a report file by its name `##report-written-through-the-shell`
 
-A reviewer, a record searcher filling its `report.md`, and the report step of an audit's saved
-workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
+A reviewer, a record searcher filling its `report.md`, the code-split scout, and the report step of
+an audit's saved workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
 searcher, by `Edit` of the skeleton, never by `Write`, and fall back to returning the report as text
 where the harness refuses the write. An auditor's drafts are no report file of a name the
 harness refuses, and an auditor writes them with a shell redirect only where the file tool is
 refused.
 
 The argument turns on the harness's behaviour. Claude Code refuses a subagent's `Write` of a new
-`report.md`, of a new `findings.md` and over an existing `report.md`, with "Subagents should return
+`report.md`, of a new `findings.md`, of a new `summary.md`, of a new file whose name begins with
+`report-`, and over an existing `report.md`, with "Subagents should return
 findings as text, not write report files. Include this content in your final response instead.",
 and lets the same subagent `Write` a `review.md`, a `scratch.md` or a `report.txt`, `Edit` an
 existing `report.md`, and write a `report-bash.md` with a shell redirect; the record searchers and

@@ -81,7 +81,9 @@ signals against a split.
 
 ## Reporting `##how-to-report-signals`
 
-Write the report as `report.md` in your scratch directory, and return it whole. One entry per
+Write the report whole as `report.md` in your scratch directory with a shell redirect,
+`cat > <path> <<'EOF'`, since the harness can refuse a report file written with your file tool, and
+return it whole. One entry per
 module or Component where a signal for a split holds, and one per part of the work that belongs to
 no existing Component. An entry for a split holds:
 
