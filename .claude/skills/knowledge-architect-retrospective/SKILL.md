@@ -99,9 +99,9 @@ finding gets one id in each file, each naming the other, since the two files may
   script. Each is also a finding on the checker, in the workflow's file.
 - Did an installed rule or guideline about code or tests, a lint the setup skill ships included,
   prove too hard or too strict to follow in this session's Rust work, or get followed against the
-  change's interest? And did one about splitting the project into Components prove too hard or too
-  strict to follow, or get followed against the project's interest? For each: the rule, the code or
-  the split, and what following it cost. Each is a finding on the installed text, in the workflow's
+  change's interest? And did one about splitting the project into Components, a module of its code,
+  or a subject of a design home, prove too hard or too strict to follow, or get followed against the
+  project's interest? For each: the rule, the code or the split, and what following it cost. Each is a finding on the installed text, in the workflow's
   file.
 - Did this session carry work an agent could have carried, spending context that its design or its
   exchange with the owner needed? For each: the work, and what carrying it cost.

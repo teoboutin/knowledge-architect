@@ -69,6 +69,34 @@ an empty subsection is omitted.
 - `agent-skills`, patch: an issue entry holds the owner's words verbatim where the owner asks it to
   keep them, marked as quoted on the owner's request, as input to a later discussion and never as
   the ground of a ruling; the rest of the entry attributes, as before.
+- `agent-skills`, patch: a new agent, `agent@knowledge-architect-code-split-scout`, reads a draft
+  of a plan document, or the `README.md` files a design audit reads, and the code its work touches,
+  and reports per module and per Component each signal for a split and each signal against one; it
+  decides nothing, and its report is never committed. The design skill dispatches it at the
+  grounding of a discussion that expects its full path, once the draft exists and before the record
+  search, each signal in a unit the work writes into opening a thread and each one outside the
+  work's area routed as met outside the task; the planning skill dispatches it again at each design
+  audit, of a slice or of a spec, where each split the planned steps do not take is a gap.
+- `agent-skills`, patch: module guidelines, in the development skill, the code-shape reviewer and
+  the scout: a module holds what one review reads against one reference, with signals for and
+  against a split, and size a signal only as a file a session cannot read whole. Moving code a change
+  does not write, between modules or out of one, is a split, never done inside the change: a step of
+  the plan document, or commits of its own before the work. The code-shape reviewer reports a signal
+  over code the branch does not write under a heading of its own, for the session to route.
+- `agent-skills`, patch: a split the work needs is planned as a step before the work or the harvest
+  that needs it, or a slice of its own in a milestone, never left to the implementer; its move lands
+  in commits that hold the move alone, each building and passing the project's checks. At planning,
+  the session runs `worklist --out` with the `README.md` files the design audits will take as the
+  work, and plans a split of each design subject the harvest writes into that a notice names; a
+  subject split met outside planned work stays a fix in a commit of its own.
+- `agent-skills`, patch: the fragment on when to split holds the occasion of a Component's creation
+  or split alone, and a new fragment on how to split, in the design and development skills, holds
+  the load of the component-creation skill and the signals of a wrong cut. The component-creation
+  skill's description and the primer's list name a scout's signal for a Component's split as a
+  moment of the skill.
+- `agent-skills`, patch: the retrospective's standing question on rules about splitting asks about
+  the split of a Component's code into modules and of a design home into subjects, beside the split
+  into Components.
 
 ## 0.10.0
 

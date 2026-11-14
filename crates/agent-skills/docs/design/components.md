@@ -7,16 +7,23 @@
 `skill@knowledge-architect-component-creation` holds the default criteria of a Component, the
 signals against a split, the mapping to crates, the shapes, the naming and the procedure of a
 creation or a split. Its description names the moments a Component is created or split, and the
-primer's list of installed skills names them too. Today they are four: new work that may belong to
+primer's list of installed skills names them too. Today they are five: new work that may belong to
 no existing Component, met in a design discussion; a second reason to change found while adding
-code, met in development; an adopting project's crates mapped to Components, at setup; and a
-Component found holding two purposes at an audit, which today is the design-record axis's finding on
-the Component a head sits in, since no axis reads a Component's purposes, per
-`issue@agent-skills@audit-axes-beyond-the-design-record`. The fragment
-`path@agent-skills@fragments/when-to-split.md` states the occasion and the signals, and sends the
-session to the skill; the design skill and the development skill host it, the two activities in
-which the first two moments are met, per `design@agent-skills@shared-text-fragment`. The setup skill
-points to the skill for the criteria and the naming.
+code, met in development; a signal for a Component's split that
+`agent@knowledge-architect-code-split-scout` reports, at the grounding of a design discussion that
+expects its full path or at a design audit, per `design@agent-skills@code-split-scout`; an adopting
+project's crates mapped to Components, at setup; and a Component found holding two purposes at an
+audit, which today is the design-record axis's finding on the Component a head sits in, since no
+axis reads a Component's purposes, per `issue@agent-skills@audit-axes-beyond-the-design-record`.
+The fragment `path@agent-skills@fragments/when-to-split.md` states the occasion, and
+`path@agent-skills@fragments/how-to-split.md` sends the session to the skill, with the signals of a
+split cut in the wrong place and the rule that a creation or a split is a design decision. The
+design skill and the development skill host both, the two activities in which the first two moments
+are met; the scout hosts the occasion alone, since it reports signals and places no work, and reads
+the skill's criteria and signals against a split by their references, per
+`design@agent-skills@shared-text-fragment`. The setup skill points to the skill for the criteria and
+the naming. A split the discussion decides is planned before the work, per
+`design@agent-skills@splits-planned-before-work`.
 
 `goal@projects-are-split-into-modular-units` has the workflow lead a target
 project toward units that each serve one purpose, the project's parts among them, as a direction and
@@ -35,7 +42,7 @@ of its own and takes a skill of its own, per `design@agent-skills@one-skill-per-
 in, and its list of activities grows. The owner
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
-extended the proposal to the development skill and to the four moments. The skill decides nothing itself: the decision to create or split goes through
+extended the proposal to the development skill and to the moments above. The skill decides nothing itself: the decision to create or split goes through
 `skill@knowledge-architect-design`, and the skill points to the setup skill for the declaration and to the
 decision-recording skill for the head that states the Component's purpose.
 

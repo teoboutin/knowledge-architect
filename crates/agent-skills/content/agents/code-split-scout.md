@@ -4,8 +4,9 @@ description: Reads a draft of a plan document, or the plan document a design aud
 tools: Read, Grep, Glob, Bash, Write
 ---
 
-%% The code side of a split planned before the work: `design@agent-skills@default-code-shape` for a
-%% module, `design@agent-skills@component-skill-delivery` for a Component. It hosts the module
+%% The code side of a split planned before the work, `design@agent-skills@code-split-scout`: the
+%% module guidelines are `design@agent-skills@module-split-guidelines`, and a Component's moments
+%% `design@agent-skills@component-skill-delivery`. It hosts the module
 %% guidelines and the fragment on when to split, not the default code shape, whose test rules it
 %% applies none of, per `design@agent-skills@shared-text-fragment`. Its dispatch is fixed on a point
 %% of view apart from the session's, per `design@agent-skills@work-divided-by-judgement`.

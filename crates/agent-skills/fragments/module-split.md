@@ -1,4 +1,4 @@
-%% The module guidelines join the default shape of `design@agent-skills@default-code-shape`; one
+%% The module guidelines are `design@agent-skills@module-split-guidelines`; one
 %% module owning one external effect is the shape of `design@git@git-is-asked-through-one-module`;
 %% guidelines and not rules, per `goal@projects-are-split-into-modular-units`, which fixes no rule of
 %% splitting. One fragment, hosted by the development skill, the code-shape reviewer and the

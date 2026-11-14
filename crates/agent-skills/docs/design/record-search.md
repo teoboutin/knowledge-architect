@@ -408,7 +408,15 @@ A `constrains` verdict is a fit, which the audit records and does not read again
 but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into the planning skill's
 sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
 record, in its commit message, and copied in the same commit as `search/design-audit.txt` beside the
-audited `README.md`, so the record of the audit stays in the plan document while it exists.
+audited `README.md`, so the record of the audit stays in the plan document while it exists. The
+audit also runs `agent@knowledge-architect-code-split-scout` over the units its slice's or its
+spec's work writes into, and reads the notices of the search's own `klarch worklist` run as the
+record side at planning reads them, per `design@agent-skills@code-split-scout` and
+`design@agent-skills@subject-split-standard`. Each split either finds that the planned steps do not
+take is a gap like any other, sorted by the same sorts and listed with the other gaps in the
+audit's commit message: a split the decided design implies is applied in place, as a step before the
+work, and any other goes to the owner or to a design session, as the sorts say. The audit designs no
+split of its own, as it designs no other part of the work.
 
 It serves `goal@session-orchestrates-the-work`: the audit runs before every slice, point
 2 of `skill@knowledge-architect-planning@working-a-slice`, so its cost recurs at each slice, and the
@@ -417,5 +425,8 @@ the reading of the record is the searchers'. A fit needs no act, since a `constr
 the work only to keep within the sentence it quotes, which the spec already decided. The nearest
 rival, the audit's whole reading of the verdicts and of the entries they name, re-reads at every slice
 what the spec's design session already weighed, the cost
-`rejected@agent-skills@relevance-grades-read-by-the-session` records. The lines the audit's message
+`rejected@agent-skills@relevance-grades-read-by-the-session` records. The scout and the notice run
+again at each audit, since the code and the record move between slices and between a spec's writing
+and its work, so a split the plan's discussion could not see is found before the work that needs
+it. The lines the audit's message
 owes per entry are written by the command, per `design@query@occasion-shaped-output`.

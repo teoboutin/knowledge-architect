@@ -45,7 +45,7 @@ the evidence, and whether a comment at the code argues the departure; a departur
 no finding unless the argument is false of the code. A test finding names the test and what is
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
 commit and the missing figures.
-%% A module split is planned before the work, per `design@agent-skills@default-code-shape`, so a
+%% A module split is planned before the work, per `design@agent-skills@splits-planned-before-work`, so a
 %% signal a diff meets is routed by the dispatcher, never repaired inside the branch.
 **A signal of the module guidelines over code the range writes is a departure**, reported as any
 other. **One over code the range does not write is a split signal: report it under a heading of its

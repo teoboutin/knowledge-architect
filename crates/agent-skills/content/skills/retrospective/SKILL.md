@@ -112,9 +112,9 @@ finding gets one id in each file, each naming the other, since the two files may
 %% installed rule about code, on the owner's ruling.
 - Did an installed rule or guideline about code or tests, a lint the setup skill ships included,
   prove too hard or too strict to follow in this session's Rust work, or get followed against the
-  change's interest? And did one about splitting the project into Components prove too hard or too
-  strict to follow, or get followed against the project's interest? For each: the rule, the code or
-  the split, and what following it cost. Each is a finding on the installed text, in the workflow's
+  change's interest? And did one about splitting the project into Components, a module of its code,
+  or a subject of a design home, prove too hard or too strict to follow, or get followed against the
+  project's interest? For each: the rule, the code or the split, and what following it cost. Each is a finding on the installed text, in the workflow's
   file.
 %% The three questions are `design@agent-skills@premortem-as-watch-points`'s watches, the first two
 %% on `design@agent-skills@work-divided-by-judgement`, the third on

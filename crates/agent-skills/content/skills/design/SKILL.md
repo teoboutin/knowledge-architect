@@ -510,8 +510,8 @@ choices whose option space genuinely is closed and consequence-free.
    discussion's one search of the whole record, never a pass over what
    changed since the first rounds.
 
-%% The code side of a split planned before the work: `design@agent-skills@default-code-shape` and
-%% `design@agent-skills@component-skill-delivery`; before the search, per
+%% The code side of a split planned before the work: `design@agent-skills@code-split-scout` and
+%% `design@agent-skills@splits-planned-before-work`; before the search, per
 %% `design@agent-skills@search-runs-once-the-shapes-settle`; its dispatch fixed on a point of view
 %% apart, per `design@agent-skills@work-divided-by-judgement`.
    **Where you expect the full path, once the draft exists and before

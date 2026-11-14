@@ -112,7 +112,7 @@ by a probe beforehand enters as a regression guard, and is recorded as such.
 {{fragment:module-split.md}}
 
 %% Who splits a module and when: a split planned before the work, per
-%% `design@agent-skills@default-code-shape`; its record, a comment and the move's commit message
+%% `design@agent-skills@splits-planned-before-work`; its record, a comment and the move's commit message
 %% unless a test of the primer's design-head rules holds.
 **Shaping the code the change writes stays yours under the default shape**, a new module for it
 included. **Moving code the change does not write between modules, or out of one, is a split**,

@@ -1,9 +1,9 @@
 ---
 name: knowledge-architect-component-creation
-description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when an adopting project's crates are mapped to Components at setup, when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
+description: MUST use when new work may belong to no existing Component, when code being added gives a Component a second reason to change, when the code-split scout reports a signal for a Component's split, when an adopting project's crates are mapped to Components at setup, when an audit finds a Component holding two purposes or a head sitting in a Component that does not own its subject — creating a Component or splitting one. Covers the default criteria of a Component, the intermediate Component, the signals against a split, how Components map to crates, the shapes a Component can take, how a Component is named, and the procedure of a creation or a split. Not for the design discussion that decides it, the declaration in the manifest, or the goals, which their own skills cover.
 ---
 
-%% The activity and its four moments are `design@agent-skills@component-skill-delivery`. The criteria
+%% The activity and its moments are `design@agent-skills@component-skill-delivery`. The criteria
 %% are guidelines, never a rule a Component fails alone, per
 %% `goal@projects-are-split-into-modular-units`.
 # Creating or splitting a Component
