@@ -172,7 +172,9 @@ rule of this skill.
 
 **A goal's wording proposed in another activity**, a plan's default, a review's repair, an audit's
 item or a goal a design discussion sets, is drafted here as its own item, with its boundary block,
-and the owner's word on a batch of other items never covers it.
+and the owner's word on a batch of other items never covers it. The report that proposed it, a
+merge-mode goals axis's included, is no round of step 4: the rounds start with the first
+draft-mode dispatch on the new wording.
 
 **A goal need not be met yet.** A goal is the owner's intent about where the project should get to,
 and it constrains future work and design from the moment it is written. When nothing fulfils it yet and
