@@ -56,6 +56,10 @@ const KNOWN_SYSTEM_SUBTYPES: &[&str] = &[
     // the machine the reader was measured on holding one: a hook's report, with no message of the
     // owner or of the session, which is an assumption over those lines alone.
     "stop_hook_summary",
+    // Classed on the 6 lines of this type in the transcripts of one machine, 2026-11-14, harness
+    // 2.1.321: each a report of an API call the harness retried, `level` `error`, with `error`,
+    // `retryAttempt`, `maxRetries` and `retryInMs`, and no message of the owner or of the session.
+    "api_error",
 ];
 
 /// The `attachment.type` values: `queued_command` is used, the others ignored on purpose.
@@ -1962,6 +1966,23 @@ mod tests {
             Some("a fork: it inherits its parent's context up to a line it does not name (contextLength 3)")
         );
         assert!(fork_context(&file(&[CHAIN]), &file(&[PARENT])).is_none());
+    }
+
+    /// The claim: a `system` line of subtype `api_error` raises no note in the survey, where a
+    /// subtype outside the list does. Mutation checked: `"api_error",` removed from
+    /// `KNOWN_SYSTEM_SUBTYPES`, caught.
+    #[test]
+    fn the_survey_notes_no_api_error_system_line() {
+        let retried = r#"{"type":"system","subtype":"api_error","uuid":"x1","level":"error","error":{},"retryAttempt":1,"maxRetries":10,"retryInMs":500}"#;
+        let mut inventory = Inventory::default();
+        inventory.survey(&file(&[retried]), "t", false);
+        assert!(inventory.unknown.is_empty(), "{:?}", inventory.unknown);
+        let other = retried.replace("api_error", "api_other");
+        inventory.survey(&file(&[other.as_str()]), "t", false);
+        assert_eq!(
+            inventory.unknown.keys().cloned().collect::<Vec<_>>(),
+            [("system subtype".to_string(), "api_other".to_string())]
+        );
     }
 
     #[test]
