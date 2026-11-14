@@ -31,6 +31,16 @@ Instances, from retrospective files of this repository's sessions:
 - the slice that holds the fixtures and the integrated tests, 2026-11-07: eleven reviewers each
   built into their own target directory, 0.7 to 2.3 GB each, on a shared tmpfs that hit its quota;
   three reviewers met build failures.
+- three sessions of 2026-11-11 and 2026-11-12, a goals slice, a new crate's placeholder and the
+  retrospective's standing questions: about twenty reviewers' worktrees and scratch directories
+  made by hand in the first; by hand in the second; by shell loops for 7, then 3, then 1
+  reviewers, each removed after, in the third.
+- the slice on the dispatch judgement, 2026-11-12: of 15 reviewers sent at the plan and at the
+  merge, the first reported the refusal of `design@check@a-foreign-build-is-refused`, met with the
+  release binary built in the main checkout; the session's later briefs told each reviewer to build
+  in its worktree, a cold release build each; two reviewers ran no checker. The invariant's
+  sentence on `CARGO_TARGET_DIR` is the subagent's act, read by the dispatcher, so a brief that
+  omits it leaves the reviewer without it.
 
 The cost per reviewer is one full build, since a worktree with a target directory of its own builds
 from empty. The two disk failures have causes recorded elsewhere: the location the session chose,

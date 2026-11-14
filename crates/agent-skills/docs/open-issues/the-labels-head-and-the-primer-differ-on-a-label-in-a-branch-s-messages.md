@@ -15,8 +15,8 @@ the primer and a prefix of its own kind by the head, which lists none for it.
 
 ### What
 
-The instance: the branch that triaged the issue record put fourteen questions to the owner as
-`Q1` to `Q14`, in the conversation, and its commit messages record each ruling by its label, "Q1 of
+The instance: the branch that triaged the issue record put nineteen questions to the owner as
+`Q1` to `Q19`, in the conversation, and its commit messages record each ruling by its label, "Q1 of
 this branch's questions". The design-conformance reviewer of its review before the merge reported
 the conflict: the head's table gives `Q` the committed document "none", and one of that branch's
 commits argued against a rival on that very reading, while the primer's text admits the label.
@@ -29,6 +29,12 @@ commits argued against a rival on that very reading, while the primer's text adm
   plan document, …; a file; or the commit messages of one branch, counting as one".
 - `skill@knowledge-architect-review@what-review-leaves` puts several review items to the owner as
   `Q<n>` and has the record of the review name each item by its content, not by the label.
+- `skill@knowledge-architect-planning`, at a gap a slice's design audit puts to the owner: "each
+  under a label, `Q<n>`, since each is written in place as a thread with its slug". The milestone
+  of split guidelines and plan directories wrote such a label, `Q16`, into its documents and into
+  the messages of its second slice's branch, where the head's table gives `Q` no committed
+  document, though the skill's reason implies the label need not reach the document. No review
+  reported it; the intake of forty-seven retrospective files found it.
 
 Suspected mechanism: the primer's list of records was written for the numbering, which needs every
 record a label reaches, and the head's split of prefixes was written before the commit messages of a

@@ -75,6 +75,18 @@ search takes, which `klarch worklist --out` prints. The analysis is W1 of 2026-1
 in the commit "[intake] The analyses of forty received retrospective files, three outcomes for the
 owner".
 
+The intake of forty-seven retrospective files, 2026-11-14, added three costs, by the files' reports:
+the in-change discussion of
+2026-11-12-knowledge-architect-retrospective-standing-questions-klarch-workflow, W1, whose work
+edited one Component's installed text, ran 18 agents, of which 4, given clusters of the checker and
+the model, 223 entries in all, graded every entry `unrelated`, and 2 returned one entry each; the
+follow-up request of 2026-11-12-knowledge-architect-transcript-reader-gaps-klarch-workflow, W3, made
+the day of a first search over the same record, ran 18 agents, about 2.7 million subagent tokens, of
+which 6 graded every entry `unrelated`, and of its 6 verdicts that asked something 4 repeated the
+first search's and 2 were new; and the second search of the design discussion of
+2026-11-14-thaum-casting-process-design-klarch-workflow, C2, for seven threads opened after the
+first, packed the whole record into 15 agents and found three conflicts that changed the design.
+
 ### Why it matters
 
 A grounding whose search costs more agents than sessions will pay for gets skipped, against

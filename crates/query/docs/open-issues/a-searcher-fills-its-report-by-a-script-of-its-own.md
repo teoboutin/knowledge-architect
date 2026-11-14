@@ -55,6 +55,18 @@ Further instances, from retrospective files received at the intake of 2026-11-07
   refused returned the report as text, and the session extracted the fenced report by a script
   before `--verify`.
 
+Further instances, from retrospective files received at the intake of 2026-11-14:
+
+- three sessions of this repository, 2026-11-11 and 2026-11-12, on trees from `v0.9.0-304` to
+  `v0.9.0-360`: in one, every searcher filled its report by a script or a whole rewrite; in
+  another, most searchers of its first search wrote a quotation checker of their own, and those of
+  its second search, once `worklist --check` was built, looped on it and still filled their lines
+  by scripts; in the third, several of 36 searchers wrote `fill.py`, `fix.py` or `fixq.py` to fill
+  their report and to extend each quotation to whole words, the repair of
+  `issue@query@a-quotation-cut-from-its-punctuation-is-refused-as-out-of-order`;
+- a fourth session, 2026-11-11: one searcher's script overwrote the preamble of its report, which
+  the check does not read, so nothing was refused.
+
 The harness's edit tool replaces one exact string per call, so filling a report of 90 lines by it
 costs 90 calls. Not established: whether another harness offers a cheaper edit.
 

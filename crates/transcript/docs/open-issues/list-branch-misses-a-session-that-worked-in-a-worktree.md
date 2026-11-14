@@ -50,6 +50,14 @@ names the branch of the session's start, not always the branch worked on. `assum
 of the harness is an inference from these counts, not from its documentation; which harness events
 write the worktree's branch is not established.
 
+Measured at the intake of 2026-11-14, a session that shared the main checkout contradicts that
+reading: it started on `main`, its lines carry four branches, and one of its lines carries `main`
+while the next, written two seconds later, after another session had checked out `planned-splits`
+in the same checkout, carries `planned-splits`. In that session the field followed
+the branch the checkout held when each line was written, not the branch of the session's start. The false listing this causes is
+`issue@transcript@list-branch-lists-a-session-that-did-no-work-on-the-branch`, decided in the same
+discussion.
+
 Ruled out: a change to the field's reading since the release of 0.9.0, as
 `git log -S gitBranch v0.9.0..HEAD` returned nothing at the intake.
 `design@transcript@transcript-directory-resolution` makes a worktree's sessions the project's, which

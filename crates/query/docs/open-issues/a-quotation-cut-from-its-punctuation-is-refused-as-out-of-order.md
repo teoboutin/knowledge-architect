@@ -56,6 +56,22 @@ Ruled out: a quotation from the line naming the entry, or from a citing site. Ea
 substring of the entry's own text, `cargo klarch show` on the entry, whitespace collapsed; each is
 followed there by `,` or `:`.
 
+**Recurrence**, from the retrospective files received at the intake of 2026-11-14: twelve sessions,
+ten of them on a tree after the message repair of the change "[query] The report check says what
+keeps a quotation from being found, and which line it may not come from", report that most
+searchers' first
+`--check` failed on quotations cut one word short of their punctuation, or under eight words, from
+2 to 50 per report, and that nearly every searcher wrote a script of its own to extend each
+quotation to whole words, then ran the check 2 to 4 times. The scripts follow a right message as
+well as a wrong one, so a repair of the message alone leaves the round trip.
+The files propose three shapes: the finding prints the whole-word run it would accept, punctuation
+included, which keeps every head; `--check --fix` writes that run, against
+`design@query@worklist-check-judges-one-report`; or the check accepts a quotation that differs only
+by punctuation at its ends, against the run of whole words of
+`design@query@worklist-writes-and-verifies-the-reports` and the verbatim quotation of
+`design@agent-skills@every-verdict-quotes-its-entry`. Not established: whether a printed run still
+leaves each searcher scripting the edit of its refused lines.
+
 ### Why it matters
 
 The refusal's repair is to extend the edge word to the whole word of the text, and the message
@@ -77,3 +93,9 @@ that restores the search for the word anywhere in the body is caught.
 Accepting such a quotation instead, by matching an edge word against the body word without its
 punctuation, would change what `design@query@worklist-writes-and-verifies-the-reports` decides, a
 run of whole words, and goes to `skill@knowledge-architect-design` first.
+
+The message repair alone no longer closes this entry, since the round trip of the recurrence under
+"What" follows a right message too. The entry closes with a shape, argued under
+`skill@knowledge-architect-design`, by which a searcher repairs a refused quotation with no script
+of its own, the message repair above built with it or made needless by it; or with the owner's
+ruling, in the commit that deletes this entry, that the round trip stays.

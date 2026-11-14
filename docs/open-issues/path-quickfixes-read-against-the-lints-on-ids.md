@@ -39,6 +39,22 @@ files received at the intake of 2026-11-07:
 - the revision of the goal standard in this repository, 2026-11-04: the same repairs over the
   review's records, applied by a script.
 
+Four more, from the retrospective files of 2026-11-07 to 2026-11-13:
+
+- the intake of forty files in this repository, 2026-11-07: the repairs the checker's findings
+  named, applied by script while forty analysis files were assembled; the file does not name the
+  finding kinds;
+- the first slice of the goals' milestone in this repository: the checker's replacement for a
+  reference, applied by a script over hundreds of findings in pasted reports; the file names neither
+  the finding kinds nor whether the reports sat in a document or a message;
+- a design discussion in thaum on 0.9.0: about 50 findings of the plain-word lint, each naming one
+  reference, applied by a script; the file proposed a `--fix` for that finding kind, which is the
+  second class below, and a fix for it would choose;
+- thaum's pin move to 0.10.0, 2026-11-13: every goal reference respelled with the substitution the
+  0.10.0 changelog offers for the forms it makes malformed, each finding naming one form, the first
+  class below.
+
+
 So in one session the lints on ids give a number of one-candidate repairs of the order of the 179
 raw-path findings the spec's census counted over many sessions. Two arguments of
 `spec@plans@path-quickfixes` rest on that census, taken before the lints on ids landed: #arg-7, that

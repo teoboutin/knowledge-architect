@@ -77,3 +77,10 @@ that shape.
 A superseding instruction is agent-facing text, so the shape decided writes it under
 `skill@knowledge-architect-agent-configuration@admission-standard`, per
 `design@agent-skills@admission-rules-home`.
+
+A supersession missed where it is documented: in this repository's slice on splits planned before
+the work, 2026-11-14, a dispatched implementer met a fix in the installed text and reported it for
+the workflow's file, by `primer@met-outside-the-task`, missing the root's supersession of that
+route, which `instructions@repository-skills` states as its paragraph's second bolded sentence;
+the dispatching session routed it by the supersession. The retrospective proposed lifting the
+sentence to the head of the section. One instance; the shape decided here settles where it goes.

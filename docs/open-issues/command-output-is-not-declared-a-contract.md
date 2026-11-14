@@ -41,6 +41,14 @@ Instances seen:
   `cli::run` returns an exit code and no `Report`: C1 of the same file. The workaround on the
   consumer's side: the binary computes the list in a function of its own, and a test calls that
   function. It tests what the binary passes, not what `check` does with it.
+- A fix toward a documented exit code: `--since` of `klarch transcript` refused an impossible date
+  such as `2026-13-45` with exit 1, while `path@cli@README.md`'s exit table put it at exit 2; the
+  branch that made it exit 2 classed the change major, reading "a command change that breaks
+  existing usage" literally, from 2026-11-12-knowledge-architect-value-checks-while-parsing P2.
+  The release's other entries made its bump a minor, so the class changed no number. Whether such
+  a fix is classed by the contract it meets or by the code it changes turns on which part of a
+  command's behaviour is its usage, so the row this entry's discussion gives the exit code answers
+  it.
 
 `klarch transcript` declares its text and its `--json` output no contract, as `anchors` and
 `worklist` declare theirs, per `design@transcript@transcript-query-verbs`: the policy this entry asks for

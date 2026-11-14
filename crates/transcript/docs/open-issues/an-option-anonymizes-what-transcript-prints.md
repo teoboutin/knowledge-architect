@@ -31,6 +31,12 @@ search of a transcript for home-directory paths and e-mail addresses before its 
 established: whether a SHA of a branch's own commit can be told apart from any other hexadecimal
 string of the output without the repository at hand.
 
+A plan document's assembly in the first slice of the milestone on split guidelines and plan
+directories carried the whole extraction by hand: the cut line found in `transcript show` output,
+a regex replacing 100 home paths, and a grep for e-mail addresses and tokens. The same discussion
+weighs a cut at a named message of the owner, where the planning skill's extraction ends,
+per C1 of the retrospective file `2026-11-13-knowledge-architect-plan-directories-slice-1-klarch-workflow`.
+
 ### Why it matters
 
 A transcript committed to a public repository with private data in it cannot be taken back. The

@@ -30,6 +30,13 @@ A zero does not tell "bounded work never occurred" from "a session built bounded
 loading the design skill": the cloud sessions of this repository's pull requests 24 and 25 built
 the owner's requests without loading it, as `design@agent-skills@settled-means-recorded` records.
 
+One instance after that count, read at the intake of 47 files: the branch that moved three value
+checks into the command-line declaration, whose workflow file says it handled one issue "as bounded
+work" (2026-11-12-knowledge-architect-value-checks-while-parsing-klarch-workflow). Its commit on
+main, "[cli] The checks of a date, a pattern and a project's name are made while parsing", names no
+classification, so the count's command does not find it, and the file does not say whether the
+owner accepted the classification.
+
 ### Why it matters
 
 `design@agent-skills@bounded-path-in-design` exists so that bounded work costs one proposal, built on

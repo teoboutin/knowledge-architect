@@ -43,6 +43,11 @@ The facts a design starts from:
 - A staged check compares the installed files with the shipped text of the working tree, per
   `issue@check@a-staged-check-compares-installed-files-with-unstaged-shipped-text`, which an agent
   committing part of a shared tree meets.
+- A partition by file sends back every item whose fix crosses it: in the branch that repaired the
+  checker's finding texts, three waves of implementers in worktrees each held a disjoint set of
+  files, and five items needed a file another agent owned; each came back with its evidence and was
+  carried by a later agent, and the main session assembled each wave by cherry-picks (the standing
+  answers of 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow).
 
 Two entries partition work among agents too:
 `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and

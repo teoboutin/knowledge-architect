@@ -128,6 +128,15 @@ plans directory finds it. Two lessons on method:
   subagents classed a ground taken from a goal differently and used different thresholds for a
   rewritten head, so its weekly counts carry that uncertainty.
 
+**A third worked instance.** The branch that repaired the checker's finding texts, widened on the
+owner's word to an audit of every finding text against `design@check@finding-names-the-repair`, ran
+one inventory agent per group of files, each giving every finding its causes and a verdict, and
+used the implementers of the repairs as the independent verification. Its session judged the
+generic part, auditing every text of one kind against one rule, shipped in part, since the audit
+axes read design records, tripwires and agent text and no family of code texts (the standing
+answers of 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow). It is an instance of
+the axis on the alignment of an implementation with the design.
+
 **Method.** The method these lessons led to is `design@agent-skills@audit-method`, generic over the
 axes, each axis giving its own dispatch; the design-record axis keeps its bounded groups and its
 calibration sample, per `design@agent-skills@design-record-axis-dispatch`. The owner, when the

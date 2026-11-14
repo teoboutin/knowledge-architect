@@ -26,7 +26,15 @@ Instances:
   out too low, with no error;
 - C1 of the workflow file of the retrospective of the release of 0.9.0, 2026-11-01: the
   standing-state reviewer counted the horizons of 37 tripwires by hand, and one had passed. One
-  horizon's wording admitted two counts, and the reviewer counted it both ways.
+  horizon's wording admitted two counts, and the reviewer counted it both ways;
+- C3 of the workflow file of the retrospective of the intake of forty files, 2026-11-07: the
+  standing-state reviewer counted eleven horizons at two of three occasions, where a checking
+  subagent counted nine, and two at one of three; the session relayed eleven without recounting, into two commit messages that
+  reached the main branch, and a recount after the merge, by `git blame` and
+  `git log --diff-filter=A`, gave nine;
+- C1 of the workflow file of the retrospective of the release of 0.10.0, 2026-11-12: the
+  standing-state reviewer counted every horizon by hand, with `git log -S` on its line,
+  `git tag --contains` on the commit that search found, and a relocation commit excluded by hand.
 
 The shapes, per `skill@knowledge-architect-issue-tracking@tripwire-entry`: commits on the main
 branch that change a named path or the guarded head's text, release tags, audit reports of an axis,

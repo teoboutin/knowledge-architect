@@ -47,6 +47,14 @@ issues before a release, 2026-11-01. Twice, a commit of part of the edited shipp
 `check --staged` and `index --staged` on the installed copies of sources left unstaged, while
 `commits` passed the commits; the session folded unrelated text changes into one commit.
 
+Three more, from the retrospective files of three slices of this repository of 2026-11-14, on
+0.10.0 builds: the slice that gave each Component's head its arguments, and the slice that moved
+the conformance check before the harvest, each met four installed copies reported as differing
+while their sources' edits sat unstaged; the first committed past the finding and judged the
+commit with `commits`; in the slice that planned the splits, a repair agent committing one installed-text fix
+apart from the others checked that commit's tree in a scratch worktree, and the slice's record
+searcher had graded this entry `unrelated` to the work.
+
 ### Why it matters
 
 `design@check@staged-check-semantics` states that `check --staged` applies `check`'s rules "as on a

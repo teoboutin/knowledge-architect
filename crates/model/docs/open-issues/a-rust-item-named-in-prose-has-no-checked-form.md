@@ -35,6 +35,17 @@ reference, which dangles at a move today. Against it: a module path names an ite
 publishes, which a file path does not, and the three wrong names the reviewer found were of that
 kind. Both shapes are for the discussion.
 
+A further instance, from thaum's retrospective of its split of oversized modules, on 0.9.0,
+2026-11-11: a module was split and its file kept as the parent, so a sentence naming an item beside
+a `path` reference to that file still resolved while the item lived in a child. The session
+re-pointed 84 rows of one record, and most of the entries its search graded as bearing on the
+work, by a script that listed each line naming an old file within two lines of a moved item's
+name. A `path` reference does not dangle in this case, since the file stays. Its proposal, a check
+that each item named in a table column a project declares, beside a `path` reference, occurs in
+the target, is a shape for this discussion: under `design@model@one-entity-table` the names resolve
+through the one table, and a shape one project declares is that project's own check, per
+`design@check@an-extension-plugs-in-through-phased-hooks`.
+
 ### Why it matters
 
 Renaming or removing an item does not give the list of what to repair, against

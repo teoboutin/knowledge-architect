@@ -42,6 +42,14 @@ Instances, from retrospective files of this repository's sessions, 2026-11-01 to
   10 issues moved, re-pointed over 95 files, by a script;
 - the slice that moved the commands out of the checker: heads, `rejected` entries and issues moved
   into new Components by a script of about 100 lines.
+- the second slice of the goals' milestone, 2026-11-11: six heads renamed or split, every citer
+  re-pointed by `sed` and Python scripts, and every goal reference respelled by a `perl`
+  substitution, whose interpolation of `@goal` emptied ten spans of the plan documents with no
+  error; a reviewer found them;
+- a design discussion in thaum on 0.10.0, 2026-11-14: the citations of an issue its plan document
+  replaced, re-pointed by a dispatched agent by hand over 33 files, 79 rows of a census among them;
+  `check` listed each dangling citation once the issue's file was gone, and wrote none.
+
 
 What a command may not rewrite, per the record:
 

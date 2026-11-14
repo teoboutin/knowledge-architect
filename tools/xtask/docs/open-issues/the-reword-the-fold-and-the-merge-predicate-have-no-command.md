@@ -61,6 +61,26 @@ Further instances, from the retrospective files received at the intake of 2026-1
   loop twice, the first stopping while a run was in progress; and the session that closed about
   twenty issues before a release, 2026-11-01.
 
+Further instances, from the retrospective files received at the intake of 2026-11-14: the reword
+by hand in twelve sessions of this repository, 2026-11-07 to 2026-11-14, eight reporting it as a
+finding and four in their answer on scripts. Counts the files give: twelve rewords in four
+`filter-branch` passes, and a fifth pass after `git am` stripped the bracketed subject prefixes, in
+the intake of forty files; six in the session on the record search's verdicts; four, and three, in
+the second slice on goals and the issue triage; three in the session on a new crate's placeholder;
+seven runs in the session on the finding repairs, four of them moves of a review's record from one
+commit message to another. Two scripts left the branch as it was: one pattern missed a wrapped line (the first slice on
+goals), and one script that asserted its pattern failed on the commits lacking it, so that
+`filter-branch` stopped and applied nothing (the slice on Components' arguments); each was caught
+by the `range-diff` check alone.
+
+A further instance of the fold, from the same intake: 2026-11-11-knowledge-architect-goals-second-slice
+P1. A fixup of an early commit conflicted, during the autosquash, with a later commit of the branch
+that edited the same lines. The session ran `git rebase --abort` and appended the repair, legal
+there since appending left no earlier commit failing. Where the fold is owed, the move is to
+resolve the conflict and finish the stopped commit as point 3 of the root `CLAUDE.md` says, per
+`design@knowledge-architect@a-stopped-rebase-keeps-its-message`, then run the fold's checks; a
+command of the fold states what it does when the autosquash stops.
+
 ### Why it matters
 
 Each procedure is run by hand at each reword, each repair folded and each merge, and a step missed
