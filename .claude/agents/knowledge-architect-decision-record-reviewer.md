@@ -282,8 +282,8 @@ is split into subjects read apart when:
 
 A split moves headings and decides nothing. One that the planning of a piece of work finds is a step
 before the harvest that writes into the subject, as
-`skill@knowledge-architect-planning@cutting-steps-and-slices` says; one met outside planned work is a
-fix in a commit of its own, as `primer@met-outside-the-task` says. To see the notices, run `cargo klarch worklist --out <dir>` with
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says; one met otherwise, outside planning
+or while the work is built, is a fix in a commit of its own, as `primer@met-outside-the-task` says. To see the notices, run `cargo klarch worklist --out <dir>` with
 `<dir>` a new directory of your scratch space outside the project.
 
 ## The rules on rejected designs, a reversal and the deliberation `##rejected-and-reversal-rules`

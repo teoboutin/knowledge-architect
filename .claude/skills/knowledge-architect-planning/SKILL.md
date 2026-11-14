@@ -375,8 +375,9 @@ issue.
   before the work that needs it.
 - **A move lands in commits that hold the move alone**, each of which builds and passes the
   project's checks before it is pushed, since a commit before a branch's tip may be built by no
-  other run. Then search the prose of the tree for each old path of a module the move changes, and
-  re-point what names it: the search is a lead, since a path split over two lines escapes it. Leave
+  other run. Then search the prose of the tree for each old path of a module the move changes, matching
+  across a line break, and re-point what names it: the search is a lead, since a path named in
+  other words escapes it. Leave
   a quotation as it was quoted.
 
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
