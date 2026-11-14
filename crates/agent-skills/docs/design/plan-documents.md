@@ -181,21 +181,21 @@ and raise the migration work of every change of the checker, for little value.
 ### A discussion whose decision lands in the change under way keeps its deliberation in that change's commit message `##in-change-path`
 
 The design skill has two paths, which differ only in where the deliberation is kept until the
-harvest. The in-change path is open when the decision lands in the change under way: its work,
-where that change began before the discussion opened, as an issue fix or a review repair already under way does, or
-its record, whenever the discussion opened, for a decision recorded when it is made, per
+harvest. The in-change path is open when the decision lands in the change under way: its work, where
+that change began before the discussion opened, as an issue fix or a review repair already under way
+does, or its record, whenever the discussion opened, for a decision recorded when it is made, per
 `design@agent-skills@design-home-is-built-intent`. It writes no plan document. The message of the
 commit that writes the decision's design entry, or that implements a decision that earns none,
-carries what a plan document would: every thread with its final state, the ground of each
-closure, the owner's ruling attributed per `design@agent-skills@attribution-replaces-quotation` or
-the argument of a thread closed `argued`, the rivals that lost with their reasons, every premortem
-cause with its outcome, and the acceptance criteria. The
-premortem runs when a later reversal of the decision would touch any of the four things the skill names: stored data, a
-consumed interface, behaviour users have adapted to, and a decided thread that would reopen. The four never open the in-change path: a decision that is cheap to
-reverse and whose work comes later takes the full path, per
-`design@agent-skills@design-hands-off-to-planning`, as does any discussion that converges on work
-that does not land in the change under way. A requested change that is not bounded, and whose work
-has not started when its discussion opens, takes the full path too, even when one pull request
+carries what a plan document would: every thread with its final state, the ground of each closure,
+the owner's ruling attributed per `design@agent-skills@attribution-replaces-quotation` or the
+argument of a thread closed `argued`, the rivals that lost with their reasons, every premortem cause
+with its outcome, and the acceptance criteria. The premortem runs when a later reversal of the
+decision would touch any of the four things the skill names: stored data, a consumed interface,
+behaviour users have adapted to, and a decided thread that would reopen. The four never open the
+in-change path: a decision that is cheap to reverse and whose work comes later takes the full path,
+per `design@agent-skills@design-hands-off-to-planning`, as does any discussion that converges on
+work that does not land in the change under way. A requested change that is not bounded, and whose
+work has not started when its discussion opens, takes the full path too, even when one pull request
 builds it. Decided and unbuilt intent then has one home, the plan document, per
 `design@agent-skills@design-home-is-built-intent`.
 
