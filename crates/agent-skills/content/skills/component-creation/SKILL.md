@@ -163,13 +163,27 @@ Name a Component before its directory is created:
    record. Who rules it is `primer@question-authority`: a creation or a split that the criteria and
    the record settle is argued and reported; where two cuts both survive, the choice is the owner's.
    At setup, the setup skill's proposal of the Components to the owner takes the place of this step.
-   A Component kept against the default criteria is a decision about the layout, recorded in the
-   root's design home.
+   A Component that departs from a default criterion is a decision about the layout like any other,
+   recorded in the root's design home, its head arguing the departure as step 3 says.
 2. **Create it**, named as `skill@knowledge-architect-component-creation@component-naming` says, by
    `skill@knowledge-architect-setup@components-and-locations`.
+%% The rule on the head's argument is stated here alone, so no head: the reviewer and the auditor
+%% that judge it, and the design-record axis, read it by a pointer, which is no site. It is the
+%% owner's argument that the argument for a Component's existence reasons over the guidelines the
+%% project ships, followed or not, keeping why one paid or what departing from it cost. Its rival, a
+%% head that states the purpose alone, leaves a later split or merge no argument to defeat, which
+%% `goal@design-is-recorded-with-its-arguments` rules out. The criteria stay guidelines a head argues
+%% over, never conditions it meets, per `design@agent-skills@component-skill-delivery`.
 3. **Record its purpose** as the statement of the design head that argues its existence, in the
    root's design home, under `skill@knowledge-architect-decision-recording`. No goal is written
-   for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says.
+   for it: the goals are the project's, as `skill@knowledge-architect-goal-setting` says. **For a
+   Component the default criteria cover, the head reasons over each criterion of
+   `skill@knowledge-architect-component-creation@component-criteria` and over the signals of
+   `skill@knowledge-architect-component-creation@split-signals`**, whether the Component follows the
+   criterion or departs from it: for a criterion followed, why it pays here; for one departed from,
+   the argument against it here, or the cost accepted; for the signals, which ones were weighed and
+   why none prevails. A criterion named with no reason is not reasoned over. A later session that
+   weighs a split or a merge of the Component then meets the argument it has to defeat.
 4. **For a split, move the record that is now the new Component's**: each design head, `rejected`
    entry, issue and tripwire whose subject it holds, the Component that owns each decided by
    `skill@knowledge-architect-decision-recording@owning-component`. A move adds and removes no
