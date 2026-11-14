@@ -139,7 +139,8 @@ The grade says what the finding changes in an agent's act, and the dispatcher's 
 | a scope that names no design a purpose would argue for | 1 | `asks` | `intent` |
 | the goal names a part whose existence comes from a design choice | 2 | `blocks` | `settled` |
 | a sentence states a mechanism as the outcome, naming no built part | 2 | `asks` | `intent` |
-| a term with two meanings in the project | 3 | `blocks` | `settled` |
+| a term with two meanings in the project, the report naming the act an agent taking the other meaning would take | 3 | `blocks` | `settled` |
+| a term with two meanings in the project whose other meaning moves no agent's act | 3 | `minor` | `settled` |
 | any other wording that two agents in one situation would read in two directions | 3 | `asks` | `intent` |
 | a clause, a case included, that closes a question of when, how much or by what means | 3 | `asks` | `intent` |
 | a case the goal requires or rules out that the owner's statements do not cover | 4 | `asks` | `intent` |
