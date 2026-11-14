@@ -294,8 +294,7 @@ Default: none is taken in at this intake; the reports stay in this analysis and 
 part the owner takes in opens an issue in the Component that would ship it, as
 `issue@knowledge-architect@this-repository-s-own-tools-are-not-checked-for-a-generic-part` closes
 its own check.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the
-owner): pending.
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): pending.
 
 ## quotation-check-refuses-cut-punctuation: the report check refuses a quotation cut from its punctuation, and every searcher scripts the repair
 
