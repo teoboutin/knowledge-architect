@@ -204,11 +204,11 @@ the reviewer finds misstated is the owner's, and is put to the owner.
   correction written into a later commit's message is not a repair: the mistaken message still
   reads as it did. A message is judged against its own commit: a plan it states that a later commit
   of the branch changes is no mistake when the later commit's message names the change.
-- **A paragraph in the commit message** records the review: the message of the last repair
-  commit, or, where no repair commit is left, the message of the branch's last commit, reworded
-  with no uncommitted work in the tree. Where the last transcript review has repairs, the record of
-  its items is the message of its last repair commit, and the record of the earlier axes stays in
-  the commit that held it when the transcript reviewer read it. A record carried by a message rides on a commit that
+- **A paragraph in the commit message** records each round of the review, the axes dispatched
+  together and the repairs of their findings: the message of that round's last repair commit, or,
+  where the round leaves no repair commit, the message of the branch's last commit, reworded with
+  no uncommitted work in the tree. A record stays in the commit that holds it: a later round's
+  record names, by subject, each commit that holds an earlier round's record. A record carried by a message rides on a commit that
   changes a file: a commit of its own changes none, and the rebase merge drops it. Where no
   commit of the branch changes a file, the record is the report to the owner.
 
