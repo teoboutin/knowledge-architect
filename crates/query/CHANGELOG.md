@@ -52,6 +52,9 @@ an empty subsection is omitted.
   alone, a definition there still counting against a live one of the same id; a harvested slice,
   or an item it defines, is cited from inside its milestone's directory only, and a relative link
   into `harvested/` from outside it is refused.
+- `checks`, patch: the finding on a span shaped like a path that names no anchor names, in its
+  repair, the form of a file of another project, `path@elsewhere@<project>/<path>`, the project's
+  name as its first segment.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
@@ -83,7 +86,8 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a new agent, `agent@knowledge-architect-code-split-scout`, reads a draft
   of a plan document, or the `README.md` of the slice or the spec a design audit reads, and the code
   its work touches, and reports per module and per Component each signal for a split and each signal
-  against one, and each part of the work that belongs to no existing Component; it decides nothing, and its report is never committed. The design skill dispatches it at the
+  against one, and each part of the work that belongs to no existing Component; it decides nothing, writes its report in its scratch directory with a shell
+  redirect, and its report is never committed. The design skill dispatches it at the
   grounding of a discussion that expects its full path, once the draft exists and before the record
   search, each signal in a unit the work writes into opening a thread and each one outside the
   work's area routed as met outside the task; the planning skill dispatches it again at each design
@@ -123,6 +127,26 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the decision-record reviewer and the design-record auditor, which host the
   shape rules on a head, report a head that argues a Component's existence and does not reason over
   a default criterion or the signals against a split, or names one with no reason.
+- `agent-skills`, patch: the dispatch of `agent@knowledge-architect-record-searcher` sends one agent
+  per directory `agent-<n>` in parallel, as many at once as the harness admits and each of the rest
+  as an earlier one returns, and runs `worklist --verify` when every one has returned, where it sent
+  them all at once.
+- `agent-skills`, patch: after an install that changes the installed files, the session tells each
+  installed agent it dispatches for the rest of the session, whose definition the install changed,
+  to read its definition from disk and to follow the disk where its copy differs.
+- `agent-skills`, patch: a reversal repairs every text that points at or describes the old
+  behaviour, the `README.md` of each Component that exposes it included; a plan document's "What is
+  already decided" lists, for each decision its work reverses or rewrites, every text that reversal
+  will repair, those `show` lists as referencing it and those a grep of its wording returns.
+- `agent-skills`, patch: a review records each round, the axes dispatched together and the repairs
+  of their findings, in the message of that round's last repair commit, or, where the round leaves
+  no repair commit, of the branch's last commit, reworded. A record stays in the commit that holds
+  it, and a later round's record names by subject each commit that holds an earlier one, where the
+  record of the whole review moved to the last repair commit at each round.
+- `agent-skills`, patch: `agent@knowledge-architect-goal-reviewer` grades a term with two meanings
+  in the project `blocks` only where its report names the act an agent taking the other meaning
+  would take, and `minor` where the other meaning moves no agent's act, which the stop of a goal
+  review's rounds, counting `blocks` findings alone, no longer counts.
 
 ## 0.10.0
 
