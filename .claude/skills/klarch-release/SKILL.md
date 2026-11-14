@@ -101,13 +101,16 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    the lists; the release does not wait for it.
 8. **The dry run.** `cargo publish --workspace --dry-run` passes, skips xtask, and orders
    each crate before the crates that depend on it. Its warning "ignoring test `<name>`" for each
-   file `<name>.rs` that `git ls-files ':(glob)crates/*/tests/*.rs'` lists is expected: the
-   whitelist keeps the tests out.
+   name `<name>` among the files `<name>.rs` that `git ls-files ':(glob)crates/*/tests/*.rs'` lists
+   is expected: the whitelist keeps the tests out.
 9. **The gates and the review.** `cargo x gates --require-rebased`, then the push, and the review
    under `skill@knowledge-architect-review`. Its axes include
    `agent@klarch-changelog-reviewer`, dispatched on `v<previous>..<commit under review>`, the head's commit at the dispatch: every change of the range
    has the entries the policy owes, each entry's class is right, and the version is their highest
-   class, per `design@knowledge-architect@changelog-reviewed-at-the-release`. A repair lands as `skill@knowledge-architect-review@what-review-leaves` says, and
+   class, per `design@knowledge-architect@changelog-reviewed-at-the-release`. The axis is one agent
+   or several, each briefed with some of its predicates or a sub-range of that range, at your
+   judgement; an entry's net effect, per `design@knowledge-architect@changelog-entries`, is judged
+   by an agent given the whole range. A repair lands as `skill@knowledge-architect-review@what-review-leaves` says, and
    each of steps 2 and 4 to 8 whose result the repair changes runs again on the head.
 
 ## Merge, then publish `##merge-then-publish`
@@ -118,8 +121,11 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
     compares with it. From the merge until the publish, main's
     README status line names a version that is not yet on crates.io.
 11. **Tag**, with a clean tree on main, once every new crate of step 6 has its placeholder and its
-    trusted publisher. The tag push starts
-    `path@knowledge-architect@.github/workflows/release.yml`:
+    trusted publisher. crates.io shows a crate's trusted publisher only to its owners, so ask the
+    owner to confirm it for each new crate, and check that the crate's `trustpub_only` field, at
+    step 6's second address, is `true`. Run the first two commands below, then give the owner the
+    last two: the tag push, which starts `path@knowledge-architect@.github/workflows/release.yml`,
+    is the owner's, since the harness's auto mode refuses it to the session.
 
     ```sh
     git checkout main && git pull --ff-only
@@ -175,7 +181,8 @@ The `publish` job uploads the crates one by one, in the order of its list in
 already holds. A crate it uploaded stays published.
 
 - **The `verify` job failed, the owner declined, or nothing was uploaded**: delete the tag, with
-  `git push origin :refs/tags/v<version>` and `git tag -d v<version>`, repair on a branch, run
+  `git push origin :refs/tags/v<version>`, which you give the owner to run, as step 11's push, and
+  wait for the owner's word that it ran, then `git tag -d v<version>`; repair on a branch, run
   again on its head the steps that step 9 names for a repair, and release the same version again
   from step 9.
 - **Some crates were uploaded**: re-run the failed job, `gh run rerun <run id> --failed`, from the
