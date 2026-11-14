@@ -123,8 +123,8 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
   with no calibration sample; a point of view apart, the property
   `design@agent-skills@work-divided-by-judgement` asks of a dispatch a step fixes. A list above the
   group size of `design@agent-skills@design-record-axis-dispatch`, 60 heads, is cut into groups of
-  consecutive heads, one auditor each, each given a shared sample of about five listed heads from
-  other groups, since that head's reason for a sample, that agents dispatched together do not read
+  consecutive heads, one auditor each, a shared sample of about five listed heads, from different
+  Components where the list spans several, added to every group, since that head's reason for a sample, that agents dispatched together do not read
   a rule alike, holds for a cut list too; one auditor briefed to calibrate compares the sample and
   proposes each reading, which the session confirms, per
   `design@agent-skills@calibration-in-the-run`, never the session settling the readings itself,

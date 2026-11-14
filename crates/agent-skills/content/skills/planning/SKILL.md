@@ -600,8 +600,10 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    whether and how to split as the sorts below decide any gap, since each one the planned steps do
    not take is a gap, listed with the other gaps in the audit's commit message. The scout's report
    stays in your scratch space.
-%% The scoped auditor again at each audit, since the record moves between slices:
-%% `design@agent-skills@scoped-auditor-on-touched-heads`.
+%% The scoped auditor again at each audit, against the rival of one run at planning alone: the
+%% record moves between the plan's writing and each slice's work, so a head that conformed at
+%% planning may not at the slice. This text alone states it, so it earns no head; the dispatch it
+%% repeats is `design@agent-skills@scoped-auditor-on-touched-heads`.
    Dispatch `agent@knowledge-architect-design-record-auditor` over the
    heads the slice's or the spec's harvest touches, as
    `skill@knowledge-architect-planning@cutting-steps-and-slices` says, since the record moves
