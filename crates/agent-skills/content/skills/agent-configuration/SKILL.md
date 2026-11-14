@@ -154,6 +154,11 @@ longer ships. When it changes any of them, in the same commit:
 - stage the files the install removed, since the check fails on a deletion git still lists;
 - run `{{command}} check`.
 
+For the rest of the session, tell each installed agent you dispatch whose definition the install
+changed to read its definition from disk and to follow the disk where its copy differs, since the
+harness runs it on the definition it registered when the session started, as
+`skill@knowledge-architect-review@review-invariants` says.
+
 ## Reviewing a configuration change {{slug:reviewing-a-change}}
 
 Dispatch a review when an instruction is written and a mechanism is in place to deliver it, per

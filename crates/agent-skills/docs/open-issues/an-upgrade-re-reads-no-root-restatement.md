@@ -41,9 +41,13 @@ the session that moves the pin keeps its own copies of the primer and of
 review are then followed from the old version's text, such as the old `primer@branch-commits`. No
 step of `skill@knowledge-architect-setup@moving-the-pin` or of
 `skill@knowledge-architect-agent-configuration@after-installing` says to read the new text from disk
-after the install. A subagent of an agent type the session already had registered is covered:
-`skill@knowledge-architect-review@review-invariants` tells the session to have it read a file that
-changed on disk after the session started.
+after the install.
+
+Real use, for agents: in an adopting project's pin move to 0.10.0, the session ran the install, then
+the review of the whole goal set, and dispatched four goal reviewers on the 0.9.0 definition until
+the owner asked for the new one; the review skill's sentence on reading a changed definition from
+disk was not loaded at that dispatch. Repaired by a sentence in
+`skill@knowledge-architect-agent-configuration@after-installing` that delivers it after every install.
 
 A fourth case, reported by the L2 walk of the sixth pass, also a predicted gap: an agent type the
 crossed version adds. Step 5 of `skill@knowledge-architect-setup@moving-the-pin` runs the audit axes
