@@ -63,7 +63,7 @@ tripwire's firing clause, a deferred issue's trigger, or every member a head's a
 | `brings-back` | `rejected` | a design the work could propose again |
 | `closes`, `touches`, `worsens`, `depends-on` | `issue` | an issue the work would close; whose subject it touches, the code, the document, the decision or the procedure the issue describes; which it would make worse; or on whose answer it depends |
 | `trigger-met` | `issue` | an issue whose deferred trigger the work meets, or, for an issue of kind `design`, whose re-entry point it meets |
-| `fires` | `tripwire` | a tripwire whose firing clause the work meets |
+| `fires` | `tripwire` | a tripwire whose firing clause the work meets, by what it builds or by what it plans to build |
 | `unrelated` | every register | an entry nothing in the work meets, one that only shares the work's subject, or that the work could lead someone to change later, included |
 
 The actions each verdict admits:
