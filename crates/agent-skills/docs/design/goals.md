@@ -399,7 +399,7 @@ statements; `asks`, a question the owner rules on; `minor`, a finding that chang
 The owner argued that, with `minor` as the only grade, more grades of gravity might help the
 reviews converge.
 
-One rule's finding is `minor`, rule 5's two intents in one goal: the owner argued that such a
+A finding of rule 5, two intents in one goal, is `minor`: the owner argued that such a
 finding does not change what an agent does in the project, and that no overlap at all between goals
 is probably out of reach.
 
@@ -416,6 +416,15 @@ The findings of the kinds, of a measure and of a refinement are graded by who se
   whether the intent holds without the other goal, are the owner's;
 - a question a goal leaves open of when, how much or by what means is no finding, per
   `design@agent-skills@goal-one-meaning-any-breadth`.
+
+A term with two meanings in the project is `blocks` where the report names the act an agent taking
+the other meaning would take, and `minor` otherwise. Rule 3 has such a word defined or replaced in
+either case, a `settled` repair; a second sense that moves no agent changes no act, which is what
+`minor` means, and a grade fixed by the row whatever the act fed the stop findings that changed
+nothing. In a review of the whole goal set in another project, a line naming that act read "none"
+or "low" for all ten `blocks` findings on old wording of one round, and the rounds stopped only once
+the owner counted the findings that named one. The rival, `asks`, sends the owner a question that no
+intent of the owner answers.
 
 No finding on what a goal binds is `minor`, since a `minor` finding does not reach the owner as a
 question of intent. A draft-mode review of goals that held a measure, recorded in
