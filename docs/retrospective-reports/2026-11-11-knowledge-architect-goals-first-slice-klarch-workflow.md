@@ -166,11 +166,12 @@ Instructions: 1 added, 0 removed. Nearest rival: the file's two sentences, one p
 2 and give one act two homes; the fact that decides is that both steps write goals through this
 paragraph's commit.
 
+The default put to the owner in the conversation for W1 was "no sentence", which differs from the
+line above; the owner's ruling answers the question as put, and no session lacking the sentence was
+named, so the sentence is not added.
 Default: W1 handled now with the text above; C3 opened as the issue
 `issue@check@a-quotation-beside-a-reference-is-not-checked-against-its-entry` in `check`.
-Outcome: for the owner (a fact only the owner holds): pending. The question: what the session would
-have lacked without the sentence, which `design@agent-skills@behaviour-additions-need-real-use`
-asks the owner to name before an instruction about how an agent behaves is added.
+Outcome: for the owner (a fact only the owner holds: what the session would have lacked without the sentence, which `design@agent-skills@behaviour-additions-need-real-use` asks the owner to name before an instruction about how an agent behaves is added): W1 not handled; the sentence above is not added. The owner: "Agreed on these 4 defaults"
 Outcome (C3): decided by the session: the issue
 `issue@check@a-quotation-beside-a-reference-is-not-checked-against-its-entry` opened, at the review
 before the merge. Ground: item g, an issue only, since the check's cost and its false findings are

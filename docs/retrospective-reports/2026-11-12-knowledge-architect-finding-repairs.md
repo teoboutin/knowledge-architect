@@ -70,7 +70,7 @@ Members: 2026-11-12-knowledge-architect-finding-repairs P2.
   rule does reach them, the owner states it in the owner's own file, which the session does not edit.
 
 Default: no change in the project.
-Outcome: for the owner (a fact only the owner holds: whether the owner's user-level rule reaches the files a test run creates): pending.
+Outcome: for the owner (a fact only the owner holds: whether the owner's user-level rule reaches the files a test run creates): no change in the project; the tests keep `std::env::temp_dir()`. The owner: "Agreed on these 4 defaults"
 
 ## no-command-rewords-branch-messages: the reword of an older commit message, and the move of a record between messages, run by a hand-written script each time
 

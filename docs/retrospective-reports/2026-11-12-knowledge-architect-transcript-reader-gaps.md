@@ -44,7 +44,7 @@ the working tree, so an edit that does not compile breaks every subagent's build
 ```
 
 Default: no change.
-Outcome: for the owner (a fact only the owner holds: whether a session would have lacked the instruction, per `design@agent-skills@behaviour-additions-need-real-use`): pending.
+Outcome: for the owner (a fact only the owner holds: whether a session would have lacked the instruction, per `design@agent-skills@behaviour-additions-need-real-use`): no change; the sentence above is not added. The owner: "Agreed on these 4 defaults"
 
 ## skill-name-subject-prefix-refused: a commit-subject prefix that is a skill's name is refused as a plain word
 
