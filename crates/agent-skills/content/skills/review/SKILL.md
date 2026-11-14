@@ -64,7 +64,8 @@ general-purpose subagent**, briefed with the axis's question as this table state
 with the reason, in the commit that records the review.**
 
 **Last, at the review before a merge, the transcript reviewer runs alone**:
-after every other axis has run, its repairs are committed and every item of their reports has its
+after every other axis has run, the re-review that each repair adding, removing or reversing a
+design head owes included, their repairs are committed and every item of their reports has its
 outcome under `skill@knowledge-architect-review@what-review-leaves`, since an answer of the owner
 given after its extraction reads to it as missing. Its range is the whole branch,
 `<main branch>..<head>`, and its brief names the transcripts of every session that worked on the
@@ -175,9 +176,9 @@ before acting on any of its items.
 %% The trigger is a heading whose slug appears or disappears, so a split, which writes a new heading,
 %% is reviewed again: `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
 **A repair that adds, removes or reverses a design head, a split of a head included, is reviewed by
-the decision-record axis**, and by any other axis whose condition it meets, whichever axis's finding it answers. A repair made before the last
-transcript review is reviewed before it, and that transcript review then runs as `skill@knowledge-architect-review@review-axes` says; a repair of the last transcript review
-is reviewed after it, and the review ends with the repairs of that decision-record review. Any other repair, a rewording
+the decision-record axis**, and by any other axis whose condition it meets, whichever axis's finding it answers. A repair of the last transcript review
+is reviewed after it, and the review ends with the repairs of that decision-record review; one made
+before it is reviewed before it, as `skill@knowledge-architect-review@review-axes` says. Any other repair, a rewording
 or an argument, a mention or a reference added inside an existing head included, and a title
 brought to what its head's body already argues, is reviewed by no axis again; one made before the
 last transcript review is still read by it.
