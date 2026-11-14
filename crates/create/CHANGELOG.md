@@ -37,6 +37,12 @@ an empty subsection is omitted.
   harvested, adds to the section "What is already decided" of each live slice's spec, or of the
   spec, the heads its harvest will touch without reversing or rewriting them, each as a reference,
   before its next design audit, which dispatches the design-record auditor over them.
+- `agent-skills`, patch: the design head that argues a Component's existence, in the root's design
+  home, reasons over each default criterion of the component-creation skill and over the signals
+  against a split, for a criterion followed why it pays, for one departed from the argument or the
+  cost accepted. A project brings its existing Component heads to the rule at the pin move by a pass
+  of the design-record axis, `skill@knowledge-architect-project-audit@design-record-axis`, whose
+  rules now name step 3 of `skill@knowledge-architect-component-creation@creation-procedure`.
 
 ### New features
 
@@ -113,6 +119,9 @@ an empty subsection is omitted.
   the owner's words going to the owner. Each design audit runs the auditor again over its harvest's
   heads, and a harvest that touches a head its list missed conforms it there and names it in its
   commit.
+- `agent-skills`, patch: the decision-record reviewer and the design-record auditor report a head
+  that argues a Component's existence and does not reason over a default criterion or the signals
+  against a split, or names one with no reason.
 
 ## 0.10.0
 
