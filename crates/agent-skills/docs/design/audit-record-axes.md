@@ -2,27 +2,30 @@
 
 ## The design-record and tripwire axes
 
-### The design-record axis re-applies to every entry the rules on design heads, on the subject and the Component a head sits in and on rejected alternatives, reading the tripwires and issues that bear on each head and judging neither them, the restatements nor the code `##design-record-axis`
+### The design-record axis re-applies to every entry the rules on design heads, on the subject a head sits in and on rejected alternatives, reading the tripwires and issues that bear on each head and judging neither them, the restatements nor the code `##design-record-axis`
 
 Its corpus is every design head and every rejected alternative of every Component. Its rules are
 `primer@design-heads` and `skill@knowledge-architect-decision-recording@head-shape` for a head, the
-split standard of `design@agent-skills@subject-split-standard` for the subject it sits in, the questions of
-`skill@knowledge-architect-decision-recording@owning-component` for the Component it sits in, and
-`skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected alternative. Each
+split standard of `design@agent-skills@subject-split-standard` for the subject it sits in, and
+`skill@knowledge-architect-decision-recording@losing-alternatives` for a rejected alternative; the
+Component it sits in is judged per `design@agent-skills@design-record-axis-judges-the-component`. Each
 head is read with the tripwires guarding it, the issues naming it and the history behind each
 citation of the owner. The owner narrowed the axis to that reading, so that the audit of the design
 takes into account the tripwires and the issues that bear on it. The audit repairs a tripwire or an issue only where its own edit makes it stale: the conformance of
 a tripwire or an issue to its own register's rules is the axis of that register, the tripwire
 axis's for a tripwire, per `design@agent-skills@tripwire-audit-axis`, and a judgement of
 it here would read entries the decision record does not hold, while a stale one the audit's edit
-leaves is a defect of the audit itself. The restatements of a head in other texts left the axis on
+leaves is a defect of the audit itself. The restatements of a head in other texts are another axis, on
 the owner's word, since reading them is another reading altogether. The truth of a head about the code is
 another axis too, since it reads the code rather than the decision record. A head the axis meets
 false of the code gets an issue. The axis is carried by
 `agent@knowledge-architect-design-record-auditor`.
 
-The Component a head sits in is judged because the axis's outcomes put a head in the wrong Component
-on the owner list, and no other step reads it for a head no branch touches: the routing reviewer,
+### The design-record axis judges the Component each head sits in `##design-record-axis-judges-the-component`
+
+The axis judges the Component a head sits in by the questions of
+`skill@knowledge-architect-decision-recording@owning-component`, because the axis's outcomes put a
+head in the wrong Component on the owner list, and no other step reads it for a head no branch touches: the routing reviewer,
 `agent@knowledge-architect-routing-reviewer@routing-predicates`, judges it only for a head a diff
 writes. The rival, that outcome removed, leaves a misfiled head unread until a change touches it.
 

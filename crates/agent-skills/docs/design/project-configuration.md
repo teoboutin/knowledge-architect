@@ -668,6 +668,15 @@ Rust project that is one package gains a workspace for the crate. A project with
 package of its own writes the crate by hand from the setup skill's blocks, since `klarch init --rust`
 refuses one, per `design@create@rust-scaffold`.
 
+### The hand mutation is no ask of a target project: the setup skill offers it within the maintenance crate's shape `##hand-mutation-is-no-ask`
+
+The hand mutation, `design@knowledge-architect@mutation-command-host`, judges nothing about the
+project by itself: it runs a step of the development procedure over a mutation a session writes, so
+it is not among what knowledge-architect asks of a target project, and the setup skill offers it
+within the shape of the maintenance crate that `design@agent-skills@maintenance-crate-ask` asks.
+Which tool taken in becomes an ask is argued by no head, which
+`issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds.
+
 ### The installed text requires neither continuous integration nor pull requests, and assumes either only inside an offered shape a project takes or leaves whole `##installed-text-requires-no-ci-and-no-pull-request`
 
 Whether a project runs continuous integration and pull requests, and how, is the project's own. No

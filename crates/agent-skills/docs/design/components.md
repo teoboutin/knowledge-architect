@@ -25,27 +25,14 @@ the skill's criteria and signals against a split by their references, per
 the naming. A split the discussion decides is planned before the work, per
 `design@agent-skills@splits-planned-before-work`.
 
-`goal@projects-are-split-into-modular-units` has the workflow lead a target
-project toward units that each serve one purpose, the project's parts among them, as a direction and
-not a rule a unit fails alone. So the installed text states default criteria of a Component, as
-guidelines a Component that departs from one does not fail on that alone, and leads a session to
-apply them at each of the moments above. What makes a split good is learned from use rather than
-fixed before it: the criteria are corrected by what the retrospective's question on a rule about
-splitting that proved too hard or too strict brings back, per
-`design@agent-skills@premortem-as-watch-points`, and the changes real use asks of the workflow, per
-`goal@the-workflow-improves-through-real-use`. The nearest rival, a rule of
-splitting each Component must meet, fixes before any use what the goal leaves to a direction, and
-leaves a session whose project the rule fits badly no move but to break it. The activity's methodology, a cut of a boundary followed by a
+The skill leads a session to apply its default criteria at each of the moments above, per
+`design@agent-skills@component-criteria-are-guidelines`. The activity's methodology, a cut of a boundary followed by a
 move of the record, is apart from a design discussion's and from the setup's, so it is an activity
 of its own and takes a skill of its own, per `design@agent-skills@one-skill-per-activity`;
 `goal@agents-get-a-complete-workflow` covers each activity the owner has taken
-in, and its list of activities grows. The owner
-proposed a skill of its own with a fragment in the design skill, on the argument that not every design
-discussion needs the procedure, since creating a Component should be occasional; the session
-extended the proposal to the development skill and to four of the moments above. The fifth, a
-signal the scout reports, comes from the owner's proposal, made as a probable shape, of an agent
-that searches the areas a planned piece of work touches for a split condition, per
-`design@agent-skills@code-split-scout`. The skill decides nothing itself: the decision to create or split goes through
+in, and its list of activities grows. Not
+every design discussion needs the procedure, since creating a Component should be occasional, so the
+design skill carries a fragment rather than the procedure. The skill decides nothing itself: the decision to create or split goes through
 `skill@knowledge-architect-design`, and the skill points to the setup skill for the declaration and to the
 decision-recording skill for the head that states the Component's purpose.
 
@@ -53,6 +40,20 @@ Two rivals lost. Writing the whole procedure into the design skill would load it
 discussion, most of which create no Component. Placing it in the planning skill misplaces the
 decision: whether a Component exists is a decision about how the project is built, which
 `primer@design-heads` places in the design record, not a choice of how work is cut into branches.
+
+### The default criteria of a Component are guidelines, corrected by use, that a Component departing from one does not fail on that alone `##component-criteria-are-guidelines`
+
+`goal@projects-are-split-into-modular-units` has the workflow lead a target
+project toward units that each serve one purpose, the project's parts among them, as a direction and
+not a rule a unit fails alone. So the installed text states default criteria of a Component, as
+guidelines a Component that departs from one does not fail on that alone, and leads a session to
+apply them at each of the moments `design@agent-skills@component-skill-delivery` names. What makes a
+split good is learned from use rather than fixed before it: the criteria are corrected by what the
+retrospective's question on a rule about splitting that proved too hard or too strict brings back,
+per `design@agent-skills@premortem-as-watch-points`, and the changes real use asks of the workflow,
+per `goal@the-workflow-improves-through-real-use`. The nearest rival, a rule of
+splitting each Component must meet, fixes before any use what the goal leaves to a direction, and
+leaves a session whose project the rule fits badly no move but to break it.
 
 ### A Component that holds Rust code is one crate `##component-crate-mapping`
 
@@ -77,7 +78,7 @@ refuses a dependency cycle outside dev-dependencies, and neither rule argues it:
 Every Component that holds Rust code has one shape, a crate, which the owner argued leaves a session
 one shape fewer to weigh in a split and to search for in a project, against no measured gain of the
 module shape. "One reason to change" is the test for a Component as for a function, so the criteria
-of `design@agent-skills@component-skill-delivery` and the default code shape of
+of `design@agent-skills@component-criteria-are-guidelines` and the default code shape of
 `design@agent-skills@default-code-shape` read the same way at two scales.
 
 ### The cost of the crate a split creates is weighed by whether the project publishes `##split-cost-by-publication`
@@ -100,7 +101,7 @@ its boundary is probably cut in the wrong place. The expected changes count thos
 predict, not only those of the history. The first two are the owner's argument that a split
 multiplying dependencies or creating a cycle is cut wrongly. The third is the session's, derived from
 the test of one reason to change of the default criteria, per
-`design@agent-skills@component-skill-delivery`: a
+`design@agent-skills@component-criteria-are-guidelines`: a
 boundary every change crosses separates no reason to change. The rival the session weighed splits on
 the default criteria alone, which reads two reasons to change in a unit and cuts it with no regard to
 what the cut costs between the parts; no rival was offered in the discussion. The cost of the signals

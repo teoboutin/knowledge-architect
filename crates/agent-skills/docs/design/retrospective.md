@@ -58,7 +58,7 @@ modules or a design home into subjects, proved too hard or too strict or was fol
 work's interest, `goal@the-workflow-leads-to-better-code` and
 `goal@projects-are-split-into-modular-units`, whose default shape, default criteria, module
 guidelines and subject standard are learned from use, per `design@agent-skills@default-code-shape`,
-`design@agent-skills@component-skill-delivery`, `design@agent-skills@module-split-guidelines` and
+`design@agent-skills@component-criteria-are-guidelines`, `design@agent-skills@module-split-guidelines` and
 `design@agent-skills@subject-split-standard`; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
 question, which no goal ranks, and the owner approved it; and, for the questions on dispatch,

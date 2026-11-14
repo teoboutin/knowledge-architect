@@ -20,7 +20,8 @@ The skills, subagent definitions and primer that the checker installs are a sepa
 installed files depends on it by path and by exact version. A package ships only the files under
 its own directory, so text embedded with `include_str!` must sit inside a package; giving the text
 a crate of its own keeps it a component of its own, with its own design home, rather than a part
-of the checker.
+of the checker, as `goal@projects-are-split-into-modular-units` directs: a unit serves one purpose,
+here the text a project installs, apart from the checks that judge its documents.
 
 A user names only `knowledge-architect`, and cargo fetches every other crate it depends on, this
 one included. All of them are published together, at one version, per
@@ -56,15 +57,26 @@ its fixture.
 phases 1 to 3 and the resolver, and `check` depends on it by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. A tool over the record needs the model and at most
 phases 1 to 3, never the last phase: `id` and `worklist` run them and no check, and `show` runs no phase and
-reads the resolver. A writer's gate is these phases, and `init` and `new-component`, which end as `check --fix` does inside a worktree, are why
-`create` depends on `check`. Phases 1 to 3 say whether the model can be trusted, not whether the content
+reads the resolver. A writer's gate is these phases; `create`, which also ends as `check --fix` does, sits above `check`, per
+`design@knowledge-architect@create-crate`. Phases 1 to 3 say whether the model can be trusted, not whether the content
 conforms. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
 wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
 them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the checker's
-source, some touched the model's files alone and some the checks alone, as the command in the
-milestone document that the commit "[review] Repairs of the review of the plan documents of the
-Component split and of the rules that cut it" writes takes again. It serves
+source while it was one crate, crates/core/src, some touched the model's files alone and some the
+checks alone, as this command counts on any revision whose history holds that directory, printing the
+commits that touched the model alone, the checks alone, both, and neither:
+
+```sh
+git log --format=%H <revision> -- crates/core/src | while read h; do
+  f=$(git show --name-only --format= "$h" -- crates/core/src)
+  m=$(echo "$f" | grep -cE 'src/(manifest|walk|survey|scan|document|entity|records|model|index|finding|git)\.rs|src/source/')
+  c=$(echo "$f" | grep -c 'src/check/')
+  echo "$m $c"
+done | awk '{ if ($1 && $2) b++; else if ($1) m++; else if ($2) c++; else n++ } END { print m, c, b, n }'
+```
+
+It serves
 `goal@documentation-has-a-structure-and-a-model`, which asks for a model that
 reports no breach of a rule on what a document says and lets a tool tell whether what it read is complete and
 right, and `goal@documents-render-as-a-linked-site`, whose site is built from
@@ -96,9 +108,10 @@ per `design@knowledge-architect@model-crate` and `design@query@query-depends-on-
 
 ### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
 
-Every git invocation of the checker's library is a function of `knowledge-architect-git`, in
-crates/git, which `check`, `model`, `query`, `transcript` and `create` depend on by path and by exact version, per
-`design@knowledge-architect@version-lockstep`. The crate's interface changes for reasons of its
+`knowledge-architect-git`, in crates/git, wraps git for the checker's tools: `check`, `model`,
+`query`, `transcript` and `create` depend on it by path and by exact version, per
+`design@knowledge-architect@version-lockstep`, and ask git through it alone, per
+`design@knowledge-architect@checker-asks-git-through-the-crate`. The crate's interface changes for reasons of its
 own: a git question or a git version that another tool needs and the checker does not. It takes
 decisions of its own, `register@git@design`. And a tool that rewrites a branch's history depends
 on it alone. It is one unit with one purpose, the
@@ -128,7 +141,7 @@ worktree's path, and takes the project's root from its caller. It changes when t
 not share, and imports nothing of them. `cli` depends on it, and offers the command, per `design@knowledge-architect@cli-crate`. It serves `goal@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project's past sessions said.
 The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
 
-### Creating a project is a crate of its own, above the checks `##create-crate`
+### Creating a project, or a Component in one, is a crate of its own, above the checks `##create-crate`
 
 `knowledge-architect-create`, in crates/create, holds `init`, `new-component` and `init --rust`, and depends on `check`, since
 each run inside a worktree ends as `check --fix` ends, on `model`, `git`, and `agent-skills` for the snippets it writes, by path and by exact
@@ -148,16 +161,22 @@ parser in them. It says nothing of which crates `check` may depend on, which
 per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
-### The harness an extension's tests need is a published crate of its own, on which no crate depends `##testing-crate`
+### The harness an extension's tests need is a published crate of its own `##testing-crate`
 
 `knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, since a project tests its extension as `check` tests
 its own checks, per `goal@projects-add-their-own-checks`. It depends on `check`, by path and by exact version. An extension's tests add it
-to their dev-dependencies, and `path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names it.
+to their dev-dependencies, and no crate of the workspace depends on it, per
+`design@knowledge-architect@no-crate-depends-on-testing`.
+The owner chose the published crate over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks, holding, with a hedge,
+that an extension's tests should pull the harness separately, which seemed more natural to the owner; it costs each extension's tests one more dependency, and the crate one first publish.
+
+### No crate of the workspace depends on `testing`, a dev-dependency included `##no-crate-depends-on-testing`
+
+`path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names `knowledge-architect-testing`.
 Its unshipped tests dev-depend on `cli`, `model` and `agent-skills`, by path alone, which publishing drops, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
 the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
-The owner chose the published crate over `rejected@knowledge-architect@harness-kept-in-check`, which no goal ranks, believing it more natural
-that an extension's tests pull the harness as a package of its own, added to those tests and to nothing else; it costs each extension's tests one more dependency, and the crate one first publish.
+The nearest rival, `cli` depending on `testing` to offer the harness under its own paths, makes a cycle with the tests of `testing` that use `cli`.
 
 ### This repository's mock projects and the tests over them sit in one crate, not in the crates they test `##mock-projects-in-one-crate`
 
@@ -217,22 +236,18 @@ The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
 runs a project's merge gates, per `design@knowledge-architect@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
-`klarch` is no host either. The owner gave the criterion, that `klarch` holds no tool that runs the
-project's build or its tests, as a first wording, and was unsure of it. The owner's pick of the rule stated
-in a goal, over the session's default of a decision per exception, fell with that goal, which the
-owner ruled no goal: the rule is a decision, and this head holds the exception. The session worded the criterion as a tool whose result does not exist without
-running them, and admitted a command that runs a command its caller names on the invocation where
-its result exists without that run; the owner approved both. The hand mutation's result does not
+`klarch` is no host either: a tool whose result does not exist without running the project's build
+or its tests is no command of `klarch`, and a command that runs a command its caller names on the
+invocation, whose result exists without that run, may be one. The rule is a decision, and this head
+holds the exception. The session chose this wording of the criterion over the owner's first
+wording, a tool that runs the project's build or its tests, which no goal ranks and which places
+every tool the same way; the owner approved it, and was unsure of the criterion. That a command
+given a test command by its caller is not running the tests is the owner's own reading. The hand mutation's result does not
 exist without running the project's tests, so it stays out, as the gates do, per
 `rejected@knowledge-architect@gates-command-of-the-checker`. The rule this exception belongs to, that every other
 tool is a command of `klarch`, is argued by no head, which
-`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own was the owner's proposal,
-argued on these two facts. It serves `goal@generic-tools-and-procedures-are-shipped`,
-whose generic part ships as a published crate. The hand mutation judges nothing about the project
-by itself: it runs a step of the development procedure over a mutation a session writes, so it is
-not among what knowledge-architect asks of a target project, and the setup skill offers it within
-the maintenance crate's shape. Which tool taken in becomes an ask is argued by no head, which
-`issue@knowledge-architect@no-head-argues-what-becomes-an-ask` holds. It costs one more crate in the
+`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own stands on these two facts. It serves `goal@generic-tools-and-procedures-are-shipped`,
+whose generic part ships as a published crate. It costs one more crate in the
 publish order, after the gates library and before `cli`, per `design@knowledge-architect@partial-publish-rerun`.
 
 ### This repository's maintenance commands are a crate of their own, never published, apart from the published program `##xtask-crate`

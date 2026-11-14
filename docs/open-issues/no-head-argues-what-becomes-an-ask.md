@@ -37,7 +37,7 @@ From `goal@serves-one-kind-of-project`, which no longer holds them:
   quality mechanically, such as a gate or a check". It defined the term the statement above uses.
 - "a tool that serves efficiency, such as a command that rewrites history, becomes no ask; a
   procedure of the installed workflow is none". It bound which tool taken in is not asked of a
-  project. `design@knowledge-architect@mutation-command-host` applies it to the hand mutation.
+  project. `design@agent-skills@hand-mutation-is-no-ask` applies it to the hand mutation.
 - "The installed text states each ask, those listed here included." It bound the installed text.
   `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` holds the
   work.
