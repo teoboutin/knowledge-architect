@@ -4,5 +4,5 @@
 
 | kind | title |
 | --- | --- |
-| observation | [A test of the gates binary failed once in a full gates run, and passed in every run after](a-test-of-the-gates-binary-failed-once-in-a-full-gates-run.md) |
+| defect | [Tests of the gates binary fail at random when a fake program they just wrote is busy](gates-binary-tests-fail-when-a-fake-program-they-wrote-is-busy.md) |
 | todo | [The reword of an older commit, the fold of a repair and the merge predicate have no command of the tool](the-reword-the-fold-and-the-merge-predicate-have-no-command.md) |

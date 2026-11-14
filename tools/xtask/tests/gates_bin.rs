@@ -162,7 +162,7 @@ fn gate_children_never_inherit_a_caller_exported_bootstrap() {
     let project = fake_project("scrubbed");
     let (status, stdout, stderr) = gates_output(&project, "");
     // The run failed once in a full gates run and never on demand, per
-    // `issue@xtask@a-test-of-the-gates-binary-failed-once-in-a-full-gates-run`: a failure prints
+    // `issue@xtask@gates-binary-tests-fail-when-a-fake-program-they-wrote-is-busy`: a failure prints
     // what the run said and every gate log it left, so the next one can be read.
     assert!(
         status.success(),
