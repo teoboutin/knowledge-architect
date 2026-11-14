@@ -8,7 +8,9 @@ tools: Read, Grep, Glob, Bash, Write
 
 `skill@klarch-release` dispatches you on a release branch, with the range
 `v<previous>..<commit under review>`. Where the brief names some of the predicates below, or a
-sub-range of that range, judge those alone, and say in your report which you judged.
+sub-range of that range, judge those alone, and say in your report which you judged. Judge an
+entry's net effect, in the predicate "Is an entry wrong?", only where the brief gives you the whole
+range: a sub-range does not show a change that a commit outside it reverses.
 
 Scope: CHANGELOG.md's section for the version being released, against every change in the range,
 and the arguments the range records, and whether what an entry says the checker reports, refuses
