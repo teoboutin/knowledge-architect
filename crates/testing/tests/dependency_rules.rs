@@ -31,7 +31,7 @@ fn no_crate_below_the_tools_depends_on_the_checks() {
     }
 }
 
-/// The claim of `design@knowledge-architect@testing-crate`: no crate of the workspace names this one, a
+/// The claim of `design@knowledge-architect@no-crate-depends-on-testing`: no crate of the workspace names this one, a
 /// dev-dependency included, so the graph holds no cycle and a build pulls in nothing of it.
 #[test]
 fn no_crate_of_the_workspace_depends_on_this_one() {

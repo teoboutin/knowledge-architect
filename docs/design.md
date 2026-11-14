@@ -327,7 +327,7 @@ the means of running over a project changes.
 ### No crate of the workspace depends on `testing`, a dev-dependency included `##no-crate-depends-on-testing`
 
 `path@testing@tests/dependency_rules.rs` holds that no crate of the workspace names `knowledge-architect-testing`.
-Its unshipped tests dev-depend on `cli`, `model`, `agent-skills` and `gates`, by path alone, which publishing drops, per
+The unshipped tests of `testing` dev-depend on `cli`, `model`, `agent-skills` and `gates`, by path alone, which publishing drops, per
 `path@agent-skills@docs/grounding/crate-boundaries.md`, so the graph holds no cycle, dev-dependencies included, as `design@agent-skills@shared-test-component` asks. So where a test of
 the binary sits, `design@testing@binary-tests-in-testing`, is what this direction rests on.
 The nearest rival, `cli` depending on `testing` to offer the harness under its own paths, makes a cycle with the tests of `testing` that use `cli`.
