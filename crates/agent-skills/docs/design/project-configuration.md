@@ -401,8 +401,11 @@ design skill or belongs in a comment, and to read a head at every grounding. The
 the decision-recording skill's section `skill@knowledge-architect-decision-recording@head-shape`,
 beside the first two, and by the texts that judge a head; the hosts test of
 `path@agent-skills@src/lib.rs` holds the lists. The decision-recording skill keeps the procedures
-of writing a head. Every other text points to the rules, or restates one sentence of them with its
-pointer, per `design@agent-skills@restatement-size-test`. The fragments are also the home of four
+of writing a head. A text whose act applies a rule on design heads, a text that writes or judges a
+head among them, hosts the fragment that holds the rule rather than pointing to it, and a new rule
+on heads joins a fragment whose every host applies it whole, an existing one or a new one. Every
+other text points to the rules, or restates one sentence of them with its pointer, per
+`design@agent-skills@restatement-size-test`. The fragments are also the home of four
 rules on heads that have no head of their own: present tense, the alignment of the slug and the
 title, a decision worth a slug has its own level-three heading, and fidelity to what the owner
 approved, read by its direction, per `design@agent-skills@transcript-reviewer-agent`.
