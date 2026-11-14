@@ -52,9 +52,12 @@ const KNOWN_SYSTEM_SUBTYPES: &[&str] = &[
     "local_command",
     "model_refusal_no_fallback",
     "bridge_status",
-    // Classed on the lines its issue quoted, of a cloud session of harness 2.1.312, with no file of
-    // the machine the reader was measured on holding one: a hook's report, with no message of the
-    // owner or of the session, which is an assumption over those lines alone.
+    // Classed on the one line its issue quoted, of the 3 it counted in a cloud session of harness
+    // 2.1.312, which shows `hookCount`, `hookInfos` (a hook's command and its duration) and
+    // `hookErrors`, and elides the rest: a hook's report, with no message of the owner or of the
+    // session, which is an assumption over that line alone. On 2026-11-14, no transcript of the
+    // owner's machine, harness 2.1.306 to 2.1.322, held one: the only such line under its
+    // `~/.claude/projects` is a copy of the quoted line, in a tool result an earlier session saved.
     "stop_hook_summary",
     // Classed on the 6 lines of this type in the transcripts of one machine, 2026-11-14, harness
     // 2.1.321: each a report of an API call the harness retried, `level` `error`, with `error`,
