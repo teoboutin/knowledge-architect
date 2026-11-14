@@ -33,6 +33,10 @@ an empty subsection is omitted.
   `Constructed::Entry`; and `resolve::Cause` gains the variant `Harvested`. A program that matches
   any of the three exhaustively adds the new arms, and one that tells a plan register by its shape
   reads `Shape::Plan`.
+- `agent-skills`, patch: a plan document under way when the pin moves, whose work is not yet
+  harvested, adds to the section "What is already decided" of each live slice's spec, or of the
+  spec, the heads its harvest will touch without reversing or rewriting them, each as a reference,
+  before its next design audit, which dispatches the design-record auditor over them.
 
 ### New features
 
@@ -98,6 +102,17 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the retrospective's standing question on rules about splitting asks about
   the split of a Component's code into modules and of a design home into subjects, beside the split
   into Components.
+- `agent-skills`, patch: the heads a harvest will touch are listed in the plan document's "What is
+  already decided", a milestone's in each slice's spec; once the list exists, one
+  `agent@knowledge-architect-design-record-auditor` judges them, as a drafter scoped to the list,
+  never the axis's saved workflow, a list of more than 60 heads cut into groups that share a
+  calibrated sample; each head it finds non-conformant gets a step that conforms it before the
+  harvest, or a slice of its own, an edit that writes no new argument and changes no word of the
+  owner being the step's work, a move to the Component the record settles included, one that must
+  write what the head's argument does not hold going to the design skill, and one that would relax
+  the owner's words going to the owner. Each design audit runs the auditor again over its harvest's
+  heads, and a harvest that touches a head its list missed conforms it there and names it in its
+  commit.
 
 ## 0.10.0
 

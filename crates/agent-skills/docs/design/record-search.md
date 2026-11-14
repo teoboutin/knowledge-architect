@@ -415,7 +415,10 @@ record side at planning reads them, per `design@agent-skills@code-split-scout` a
 `design@agent-skills@splits-planned-before-work`. Each split either finds that the planned steps do not
 take is a gap like any other, sorted by the same sorts and listed with the other gaps in the
 audit's commit message: a split the decided design implies is applied in place, as a step before the
-work, and any other goes to the owner or to a design session, as the sorts say. The audit designs no
+work, and any other goes to the owner or to a design session, as the sorts say. It also runs
+`agent@knowledge-architect-design-record-auditor` over the heads the slice's or the spec's harvest
+touches, per `design@agent-skills@existing-heads-on-touch`, and each head it finds non-conformant
+that no planned step conforms is a gap like any other. The audit designs no
 split of its own, as it designs no other part of the work.
 
 It serves `goal@session-orchestrates-the-work`: the audit runs before every slice, point
@@ -425,8 +428,8 @@ the reading of the record is the searchers'. A fit needs no act, since a `constr
 the work only to keep within the sentence it quotes, which the spec already decided. The nearest
 rival, the audit's whole reading of the verdicts and of the entries they name, re-reads at every slice
 what the spec's design session already weighed, the cost
-`rejected@agent-skills@relevance-grades-read-by-the-session` records. The scout and the notice run
-again at each audit, since the code and the record move between slices and between a spec's writing
+`rejected@agent-skills@relevance-grades-read-by-the-session` records. The scout, the notice and the
+scoped auditor run again at each audit, since the code and the record move between slices and between a spec's writing
 and its work, so a split the plan's discussion could not see is found before the work that needs
 it. The lines the audit's message
 owes per entry are written by the command, per `design@query@occasion-shaped-output`.
