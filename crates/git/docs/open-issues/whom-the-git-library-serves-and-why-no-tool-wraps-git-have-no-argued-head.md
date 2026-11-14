@@ -7,8 +7,9 @@ kind: design
 
 Two statements about the `git` crate bound the project while a goal of the Component held them,
 and no design head states either of them. `design@knowledge-architect@git-crate` is the head on their
-subject: it argues the crate against the checker's git module made public, and names the checker's
-library and five crates. Nobody has argued the two statements against a rival.
+subject: it argues the crate against the checker's git module made public, and has it wrap git for
+the checker's tools, the five crates that ask git through it. Nobody has argued the two statements
+against a rival.
 
 ## Details
 
@@ -33,12 +34,16 @@ needed no argument, so none was written against a rival when the crate was split
 
 **What a reading of the record found**: the argument of `design@knowledge-architect@git-crate`
 against `rejected@knowledge-architect@git-module-made-public` has a tool that needs git reach it
-without the checker's parsers, which is not statement 2: twelve files outside the crate start git
+without the checker's parsers, which is not statement 2: fifteen files outside the crate start git
 themselves, as `issue@git@tools-run-git-past-the-wrapper` lists, and `mutate`, `gates` and the
 maintenance tool declare no dependency on the crate. Statement 1 is wider than that head, which
 names the checker's tools alone. A third statement the goal held, that the library knows nothing of
-a project's documents, stands on that argument and on `path@git@Cargo.toml`, and is in
-`design@knowledge-architect@git-crate`.
+a project's documents or of the workflow, and depends on no part of knowledge-architect that does,
+is argued in part: that it depends on no crate of knowledge-architect and reads no document of a
+project is `design@git@the-library-depends-on-no-crate-of-the-project`. That it knows nothing of the
+workflow is argued by no head, and stays open here beside statement 2, whose discussion settles the
+library's interface: `stage_generated` names the files it stages by the checker's word, as
+`issue@git@tools-run-git-past-the-wrapper` says.
 
 **The re-entry point**: the discussion that settles `issue@git@tools-run-git-past-the-wrapper`,
 which has to say which sites move onto the library, and so whom it serves.
@@ -53,5 +58,6 @@ another crate meets no argument to defeat.
 
 A discussion under `skill@knowledge-architect-design` argues each statement against its nearest
 rival: for statement 1, a crate that serves the checker's library alone; for statement 2, a wrapper
-of git in each tool that needs one. Each statement that stands on a fact enters `design@knowledge-architect@git-crate`
+of git in each tool that needs one; and, for the part of the third on the workflow, a library whose
+interface names what the workflow generates. Each statement that stands on a fact enters `design@knowledge-architect@git-crate`
 or a head of `register@git@design`, and each that does not leaves.
