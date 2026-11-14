@@ -41,8 +41,7 @@ Two items of the library's interface may serve the checker rather than git: `com
 `CRATE_DIR` in `path@git@src/lib.rs` exist for the checker's reading of its own source's literals
 as data and for its refusal of a build from another checkout; and `stage_generated` names its files
 by the checker's word, though it stages any contents a caller gives. That the library knows nothing
-of a project's documents or of the workflow is a rule no head states yet, per
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`.
+of a project's documents is stated by `design@knowledge-architect@git-crate`.
 
 ### Why it matters
 
@@ -50,7 +49,7 @@ A tool that cannot reach an invocation through the library keeps a wrapper of gi
 the environment the library sets for every invocation, per
 `design@git@repository-variables-dropped`, reaches none of it. That no tool needs a wrapper of its
 own is a reason for the crate that no head argues yet, per
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`.
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`.
 
 ### What would close it
 

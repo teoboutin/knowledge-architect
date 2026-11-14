@@ -331,7 +331,7 @@ decided", and with its two members the cluster `the-slice-audit-s-search-on-one-
   that slice 2, which changes the grounding's steps again, does not meet it again.
 
 One issue the search graded `unrelated` has its re-entry point met by the work:
-`issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
+`issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point is
 the next change that edits `design@knowledge-architect@git-crate`, which slice 4 is. Slice 4's
 design audit sorts it as a gap of the slice.
 

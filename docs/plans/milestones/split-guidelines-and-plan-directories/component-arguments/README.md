@@ -83,7 +83,7 @@ touches, none of which it rewrites:
   criteria are applied";
 - `design@knowledge-architect@checker-asks-git-through-the-crate`, whose sentence that "no tool
   needs a wrapper of git of its own is argued by no head" changes with the conforming of
-  `design@knowledge-architect@git-crate` to `issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`;
+  `design@knowledge-architect@git-crate` to `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`;
 - `design@agent-skills@design-record-axis`, whose list of the axis's rules gains the rule as a
   member: the head's argument, that the axis re-applies the rules on design heads to every entry,
   covers it, so it is recorded directly, per `primer@design-heads`, and the decision is unchanged.
@@ -100,7 +100,7 @@ non-conformant.
 - The root's design home, `register@knowledge-architect@design`, the twelve root heads whole.
 - The design home `path@agent-skills@docs/design/components.md`.
 - The standing entries the slice bears on:
-  `issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`, whose re-entry point is
+  `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`, whose re-entry point is
   the next change that edits `design@knowledge-architect@git-crate`, which this slice is, though the
   search graded it `unrelated` on the draft, which had slice 4 rewrite no existing head: the audit
   sorts it as a gap of the slice;
@@ -164,7 +164,7 @@ For `thread@split-guidelines-and-plan-directories@component-split-argues-the-cri
    check before the step's commit.
 4. **The twelve root heads**: Claim 3, each head that owes a decision through the design skill. The
    conforming of `design@knowledge-architect@git-crate` takes up
-   `issue@git@whom-the-library-serves-and-what-it-knows-have-no-argued-head`: each of its three
+   `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`: each of its three
    statements that the head's line on a criterion needs is argued there, and the issue closes or
    keeps the statements left, its re-entry point rewritten.
 5. **The record and the changelog**: `design@agent-skills@component-skill-delivery` read again, the
