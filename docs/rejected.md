@@ -109,3 +109,15 @@ cargo refuses to publish a crate that pins a version crates.io does not hold. Un
 crate whose manifest holds `knowledge-architect-agent-skills = "=0.99.0"`, packaged with
 `cargo publish --dry-run --no-verify` in a directory outside every repository, stops with "failed to
 select a version for the requirement `knowledge-architect-agent-skills = "=0.99.0"`", exit 101.
+
+### The session pushing a release's tag, and deleting a pushed one `##session-pushes-the-release-tag`
+
+`live`. Refuted by an observation of an outside tool: the harness's auto mode refused the tag push
+to the session in the release of 0.10.0, before `git tag` ran. The deletion pushes the same ref,
+and its refusal is assumed from the push's, not seen.
+
+### The session reading a new crate's trusted publisher itself `##session-reads-the-trusted-publisher`
+
+`live`. Refuted by a measurement of an outside tool: crates.io answers 403 without login on the
+endpoint of a crate's trusted-publisher configuration, so a session cannot read which publisher a
+new crate names.

@@ -798,6 +798,66 @@ The approval is a separate act with its own record, not a barrier against an age
 `gh` holds the owner's token with the `repo` scope can approve a pending deployment through the API.
 That the approval is the owner's alone is an instruction of `skill@klarch-release`.
 
+### A release's tag is created, pushed and deleted on origin by the owner, and each push read back on origin by the session `##owner-pushes-the-release-tag`
+
+At the tag of a release, `skill@klarch-release` has the session run `git checkout main && git pull
+--ff-only` and the comparison of main's tree with the reviewed head's, per
+`design@knowledge-architect@publish-after-merge`, and has the owner run the creation of the
+annotated tag `v<version>` and its push to origin, which starts the release workflow. A pushed tag
+that is deleted, after a failed `verify` job, a declined approval or a run that uploaded nothing, is
+deleted on origin by the owner, `git push origin :refs/tags/v<version>`. Once the owner says a push
+ran, the session reads `git ls-remote origin refs/tags/v<version>` before it goes on: the tag must
+be listed after its push, and absent after its deletion, and the session deletes the local tag,
+`git tag -d v<version>`, only once it is absent. The command exits 0 in both cases, and prints one
+line for a tag origin holds and nothing for one it does not, as it does for `v0.10.0`, which origin
+holds, and for `v99.99.99`, which it does not. That check serves
+`goal@the-owner-s-word-is-verified`: the session checks what it can read of a fact the owner
+reports. The push is not the owner's word to publish, which stays the approval of the deployment,
+per `design@knowledge-architect@owner-word-mechanism`.
+
+It stands on a behaviour of the harness: **its auto mode refused the tag push to the session**, in
+the release of 0.10.0, by the retrospective report of that release, which the message of the commit
+"[agent-config] The release's tag push and its deletion are the owner's, its changelog axis is
+split at judgement, and its dry-run warnings are counted by name" carries out. It was seen once and
+is not reproduced here. Under this head the session runs no push, so the observation is taken again
+only where the session's push is argued again. The refusal came before `git tag` ran, by that
+report, so which of the creation and the push the harness refuses alone is not established, and the
+two stay together with the owner. The deletion pushes the same ref, and its refusal is assumed from
+the push's, not seen.
+
+The nearest rival, the session creating, pushing and deleting the tag itself, loses on that
+refusal, as `rejected@knowledge-architect@session-pushes-the-release-tag` records. The other rival,
+a permission rule of the project's settings under which the session pushes and deletes the tag,
+spares the owner the two commands only at a release that adds no crate, since
+`design@knowledge-architect@owner-confirms-the-trusted-publisher` brings the owner to the step
+whenever a crate is new, and whether such a rule lifts the auto mode's refusal is not established.
+The push can be undone, a tag deleted before the deployment is approved, so `goal@the-owner-decides`,
+under which the owner decides every action that cannot be undone, does not rank the two. The session
+chose the owner's push over the permission rule, which no goal ranks; the owner approved it.
+
+### A new crate's trusted publisher is confirmed by the owner, and checked by the session against the crate's `trustpub_only` `##owner-confirms-the-trusted-publisher`
+
+At the tag of a release, `skill@klarch-release` has the owner confirm the trusted publisher of each
+crate the release adds, and has the session check that confirmation, before the tag, against the
+crate's `trustpub_only` field at `https://crates.io/api/v1/crates/<crate>`, which must be `true`.
+The field verifies that the crate requires trusted publishing, so that a publish with no configured
+publisher fails; it does not verify the configuration itself. It serves
+`goal@the-owner-s-word-is-verified`: the session checks what it can read of a fact the owner
+reports.
+
+It stands on a behaviour of crates.io: **it serves a crate's trusted-publisher configuration only
+to a logged-in request**.
+`https://crates.io/api/v1/trusted_publishing/github_configs?crate=<crate>` answers 403, "this
+action requires authentication", without login, while `trustpub_only` answers, on the crate
+`knowledge-architect`, with
+`curl -s -o /dev/null -w '%{http_code}' -A 'knowledge-architect release check' '<address>'`. So the
+session reads whether a crate requires trusted publishing, and not which publisher it names.
+
+The nearest rival, the session reading the publisher's configuration itself, loses on that answer,
+as `rejected@knowledge-architect@session-reads-the-trusted-publisher` records. The other rival, the
+session tagging on the owner's confirmation alone, loses to `goal@the-owner-s-word-is-verified`,
+since `trustpub_only` is readable without login.
+
 ### Every version after a crate's first is published by the release workflow, with a token crates.io issues to its run `##publish-credential`
 
 Each published crate names, on crates.io, a trusted publisher: this repository, the workflow
