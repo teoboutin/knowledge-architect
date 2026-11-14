@@ -43,6 +43,6 @@ firmer or a different ruling than the owner gave, goes unseen, against
 The intake of the first batch of retrospective files whose sessions ran a release tagged after the
 merge of the slice that made plan documents directories, its analyses written under
 `path@knowledge-architect@docs/retrospective-reports/`. That intake counts the slips of its batch by
-kind, compare them with the baseline, record the comparison in this entry's
-closing commit, and reopen `design@agent-skills@attribution-replaces-quotation` if the
+kind, compares them with the baseline, records the comparison in this entry's
+closing commit, and reopens `design@agent-skills@attribution-replaces-quotation` if the
 misattribution kinds rose.
