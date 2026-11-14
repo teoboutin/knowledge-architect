@@ -26,8 +26,8 @@ exception: the thread that ruled it is printed by `git show <that commit>^:<path
 
 ### Why it matters
 
-Once the milestone leaves, the tree holds a live plan document that the head
-`design@agent-skills@attribution-replaces-quotation` refuses, with nothing recording why, against
+The tree holds a live plan document that the head
+`design@agent-skills@attribution-replaces-quotation` refuses, with this entry alone recording why, so that once it closes while the spec stays nothing does, against
 `goal@documentation-stays-consistent`; a session that reads the spec as precedent copies the
 quotations into a new plan document.
 
