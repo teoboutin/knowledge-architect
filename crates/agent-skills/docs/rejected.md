@@ -450,8 +450,9 @@ sees whether they are mostly rejected, and this alternative is the candidate if 
 `live`. Writing agent-facing text is not every session's work, and the agent-configuration skill's
 trigger delivers the standard when it is, per `design@agent-skills@primer-limit`; the session that
 wrote the statement its owner judged useless had loaded that skill. It is kept here because a doubt
-remains: a session that edits agent-facing text inside another task may not load the skill, which
-`tripwire@agent-skills@agent-text-written-without-the-standard` watches.
+remains: a session that edits agent-facing text inside another task may not load the skill, as a
+dispatched agent of this repository did in the first slice of plan documents as directories, though
+no addition that fails the standard was reported from it.
 
 ### The checker's model printed by the binary, the primer pointing to the command `##checker-model-printed-by-binary`
 

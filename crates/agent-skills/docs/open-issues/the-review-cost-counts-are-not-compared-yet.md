@@ -71,6 +71,38 @@ owner":
   whose slug appears, and sent to the decision-record axis twice more: three passes of that axis
   before the transcript review.
 
+The counts of the 26 workflow files of the intake of 47 files, 2026-11-07 to 2026-11-14, one line
+per branch merged, as each file gives them. A file whose version precedes v0.9.0-385, where the
+retrospective first asked for the three counts, gives what it reported unasked, and a count it did
+not give is marked "not given":
+
+- 2026-11-07-knowledge-architect-intake-forty-files-klarch-workflow: 4 rounds (nine axes; five on the repairs; the decision-record axis alone on the second repairs; the transcript axis alone); repair commits not given; owner corrections not given.
+- 2026-11-07-knowledge-architect-transcript-unrecognised-lines-klarch-workflow: 2 rounds (ten axes; the transcript axis alone); 3 repair commits; owner corrections not given.
+- 2026-11-08-knowledge-architect-quick-fixes-klarch-workflow: 2 rounds (nine axes in parallel; the transcript axis alone and last); repair commits not given; owner corrections not given.
+- 2026-11-10-knowledge-architect-record-search-verdicts-klarch-workflow: ten axes, two goals rounds, two decision-record re-reviews and the transcript review last, 5 or 6 rounds, since the file does not say whether the first goals round ran among the ten axes; repair commits not given; owner corrections not given.
+- 2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow: 4 rounds (an early review on four axes; ten axes before the merge; the decision-record axis alone on the repairs; the transcript axis), beside three rounds of the review of the whole goal set inside the work; one repair commit of about 40 heads and entries, with 8 decision-record findings folded into it; owner corrections not given.
+- 2026-11-11-knowledge-architect-goals-second-slice-klarch-workflow: fourteen axes, the transcript axis among them, and two decision-record re-reviews of repairs, one of them after the transcript axis; the number of rounds not given; repair commits not given; owner corrections not given.
+- 2026-11-11-knowledge-architect-issue-triage-klarch-workflow: 7 rounds (eleven axes at once; the goals axis; four rounds of the decision-record axis on the repairs; the transcript axis last); repair commits not given; owner corrections not given.
+- 2026-11-11-knowledge-architect-primer-import-first-line-klarch-workflow: 3 rounds (nine axes; a re-review; the transcript review); repair commits not given; owner corrections not given.
+- 2026-11-11-knowledge-architect-searcher-check-reviewer-reports-klarch-workflow: 3 rounds (ten axes; the eight axes a head-changing repair owed; the transcript reviewer alone and last); repair commits not given; owner corrections not given.
+- 2026-11-11-thaum-split-oversized-modules-klarch-workflow: 2 rounds (ten axes; the transcript axis last and alone); repair commits not given; owner corrections not given.
+- 2026-11-12-knowledge-architect-dispatch-judgement-klarch-workflow: 3 rounds (the spec's review on seven axes; seven axes before the merge; the transcript axis last); repair commits not given; owner corrections not given.
+- 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow: 5 rounds (twelve reviewers at once; three single decision-record reviews; the transcript review); 36 commits after the reviewed range, none folded, the file not saying how many repaired a finding; 0 owner corrections.
+- 2026-11-12-knowledge-architect-new-crate-placeholder-klarch-workflow: "four rounds", listed as eight axes, two decision-record re-reviews, a transcript review, and a final round of the decision-record and agent-text axes, so 4 or 5 rounds; repair commits not given; owner corrections not given.
+- 2026-11-12-knowledge-architect-release-0-10-0-klarch-workflow: 4 rounds (changelog, standing state and self-consistency at once; the transcript reviewer; a reading of 48 commits; a reading for arguments from a future breaking cost); 3 repair commits; 0 owner corrections.
+- 2026-11-12-knowledge-architect-retrospective-standing-questions-klarch-workflow: 3 rounds (seven axes; three axes on the repairs that added a head; the transcript review); 2 repair commits, the second round's repairs folded into the first; 0 owner corrections.
+- 2026-11-12-knowledge-architect-transcript-reader-gaps-klarch-workflow: 6 rounds (ten axes; four decision-record rounds on the repairs, with 6, 3, 4 and 3 findings; the transcript axis last); repair commits not given; owner corrections not given.
+- 2026-11-12-knowledge-architect-value-checks-while-parsing-klarch-workflow: 2 rounds (nine axes; the transcript axis alone); 1 repair commit; owner corrections not given.
+- 2026-11-12-thaum-triggers-design-klarch-workflow: 2 rounds (nine axes in parallel; the transcript axis alone), beside four design-conformance readers dispatched at the grounding; repair commits not given; owner corrections not given.
+- 2026-11-13-knowledge-architect-plan-directories-slice-1-klarch-workflow: 5 rounds (the work's first review in two dispatches; eleven axes before the merge; the transcript axis; two axes on the commits of the owner's rulings taken after it); 8 repair commits; 0 owner corrections.
+- 2026-11-13-knowledge-architect-split-guidelines-plan-directories-klarch-workflow: 2 rounds (nine axes; the transcript axis alone), the goal reviewer's three draft-mode dispatches counted under goal-setting; 2 repair commits; 0 owner corrections.
+- 2026-11-13-thaum-long-draw-klarch-workflow: 3 rounds (12 axes; a second decision-record review; the transcript review); 4 repair commits, and 1 history edit of messages; 0 owner corrections.
+- 2026-11-13-thaum-pin-move-0-10-klarch-workflow: 3 rounds (ten axes; two axes again on the repairs; the transcript axis last), beside six rounds of the goal review inside the work; 12 repair commits, three message repairs folded; 0 owner corrections of drift, the owner correcting the session five times on its own drafts. The file's summary says twelve axes and its count line ten.
+- 2026-11-14-knowledge-architect-component-arguments-slice-klarch-workflow: 4 rounds (nine axes; a second pass of two axes; the transcript axis; the standing-state read of the milestone's deletion); 6 repair commits, beside three fixes of older defects; 0 owner corrections.
+- 2026-11-14-knowledge-architect-conformance-before-harvest-slice-klarch-workflow: 4 rounds (three axes on the work; seven axes before the merge; the decision-record review of its repair; the transcript review); 4 repair commits, plus two rewords of earlier messages; 0 owner corrections.
+- 2026-11-14-knowledge-architect-planned-splits-slice-klarch-workflow: 5 rounds (four reviewers on the work; nine before the merge; two decision-record reviews of repairs; the transcript review); 5 repair commits, beside two fixes of items met outside the task; 0 owner corrections, the owner ruling three questions.
+- 2026-11-14-thaum-casting-process-design-klarch-workflow: 2 rounds (nine axes; the transcript axis alone and last); 3 repair commits, plus one amend of the plan commit's message folded into it and one commit recording the owner's answer to a corrected premise; 0 owner corrections.
+
 ### Why it matters
 
 Until the counts are compared across branches, whether the workflow lowers the review rounds, the
