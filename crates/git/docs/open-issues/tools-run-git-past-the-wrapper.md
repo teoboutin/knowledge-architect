@@ -7,7 +7,7 @@ kind: todo
 
 The git library's public interface does not let every tool of knowledge-architect run every git
 invocation it needs: it keeps private the environment of an invocation, its standard input and its
-exit code as an answer. Twelve files of the other crates' code, their tests included, start git
+exit code as an answer. Fifteen files of the other crates' code, their tests included, start git
 themselves.
 
 ## Details
@@ -24,9 +24,11 @@ The code outside the crate that starts git itself, found with
 - library code: `path@mutate@src/run.rs` (`git init` and `git apply` in a scratch directory) and
   `path@mutate@src/harness.rs` (`rev-parse --git-path`);
 - tests: `path@mutate@tests/harness.rs`, `path@mutate@tests/modes.rs`,
-  `path@testing@tests/extension_api.rs`, `path@testing@tests/checks_over_mocks.rs`, `path@cli@tests/init.rs`, `path@cli@tests/fixture_pin.rs`, `path@testing@tests/binary.rs`, the
-  unit test of `path@model@src/source/rs.rs`, `path@xtask@tests/gates_bin.rs` and
-  `path@xtask@tests/mutate_bin.rs`.
+  `path@testing@tests/extension_api.rs`, `path@testing@tests/checks_over_mocks.rs`,
+  `path@testing@tests/extension_refusals.rs`, `path@testing@tests/suffixed_references.rs`,
+  `path@cli@tests/init.rs`, `path@cli@tests/fixture_pin.rs`, `path@testing@tests/binary.rs`, the
+  unit test of `path@model@src/source/rs.rs`, a unit test of `path@check@src/commands/mod.rs`,
+  `path@xtask@tests/gates_bin.rs` and `path@xtask@tests/mutate_bin.rs`.
 
 The gates library's `rebased` gate runs `git merge-base --is-ancestor` as a gate's command line,
 through its own spawn helper, in `path@gates@src/gates.rs`.
