@@ -78,8 +78,8 @@ only part a reader sees, in a citing document or in code, and the title is what 
 shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
 decision it names, so rename it even when that means rewriting every reference in the project.
 
-%% Where conformance happens, planned before the harvest in planned work:
-%% `design@agent-skills@existing-heads-on-touch`.
+%% The rule: `design@agent-skills@existing-heads-on-touch`; planned before the harvest in planned
+%% work: `design@agent-skills@pre-harvest-conformance`.
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
 argument. In work a plan document plans, a head its harvest will touch without reversing or

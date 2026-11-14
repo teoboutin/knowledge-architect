@@ -384,7 +384,7 @@ issue.
 harvest**, so that the harvest writes into heads that already conform, and the review before the
 merge judges the harvest's change rather than a head's older defects. A head the harvest touches is
 one whose text it changes without reversing or rewriting its decision; re-pointing a reference does
-not touch a head.
+not touch a head, as `skill@knowledge-architect-decision-recording@head-shape` says.
 
 - **The list.** The section "What is already decided" of a spec lists the heads its harvest will
   touch, each as a reference, apart from the decisions it reverses or rewrites; in a milestone, each
@@ -395,11 +395,11 @@ not touch a head.
   dispatched at and a worktree of its own detached at it, its group, the listed heads one
   by one, a group label and a draft file named by each head's slug, and a scratch directory of its
   own; a list of more than 60 heads is cut into groups of consecutive heads whose sizes differ by at
-  most one, none above 60, one auditor each, and each group is given a shared sample of
-  about five listed heads from other groups; once every group has returned, one auditor briefed to
+  most one, none above 60, one auditor each, and a shared sample of about five listed heads, from
+  different Components where the list spans several, is added to every group; once every group has returned, one auditor briefed to
   calibrate compares the sample's verdicts and proposes each reading, which you confirm before
-  acting on a draft it bears on; a rule whose text admits both verdicts, with no record stating the
-  reading, goes to the owner, per `primer@question-authority`. Where the list holds a single group, its sample is none.
+  acting on a draft it bears on; a rule whose text admits both verdicts, where no argument from the
+  goals and the record ranks the two readings, goes to the owner, per `primer@question-authority`. Where the list holds a single group, its sample is none.
   Verify each draft that proposes a change against the head's text, then route it as the next
   bullet says, whatever outcome the draft proposes.
 - **The conforming step.** Each head a verified draft finds non-conformant gets a step that brings it
@@ -415,8 +415,9 @@ not touch a head.
   edit that would relax what the owner's words in the head approved, or turn it from its direction,
   goes to the owner as one proposal, as `skill@knowledge-architect-decision-recording@head-shape`
   says. Each head a split, a merge, a rename, a move or a retitle of the step creates is judged
-  alone, by the auditor briefed to check, its brief naming the text of each such head as the step
-  writes it, before the step's commit.
+  alone, by the auditor briefed to check, before the step's commit: its brief names, in place of a
+  group's verdicts and drafts, the text of each such head as the step writes it, and a check file in
+  a scratch directory of its own.
 
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `cargo klarch check` reports one missing or out of order. Fixtures, where it applies, sits between

@@ -116,6 +116,34 @@ judged alone. One checker per group reads the rules once for every created head 
 one per proposal reads them once per head. A retitle is judged with them, since the owner rules on
 its new title as on a created head.
 
+### The heads a plan's harvest will touch are judged by the design-record auditor dispatched on the list alone, at planning and at each design audit, never by a pass of the axis `##scoped-auditor-on-touched-heads`
+
+Once a plan document lists the heads its harvest will touch, per
+`design@agent-skills@pre-harvest-conformance`, the session dispatches
+`agent@knowledge-architect-design-record-auditor` as a drafter on that list, its group the listed
+heads, and again at the design audit of each slice and of a spec where one runs, over the heads
+that slice's or that spec's harvest touches, as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says. A list above the group size of
+`design@agent-skills@design-record-axis-dispatch` is cut as that head cuts a group, and a shared
+sample is added to every group and calibrated by an auditor, as
+`design@agent-skills@calibration-in-the-run` has it; a head a conforming split or move creates is
+judged alone by the auditor briefed to check, as `design@agent-skills@created-heads-checked-in-the-run`
+has it. The session verifies the drafts, and routes each conforming edit by the authority that
+settles it, per `primer@question-authority`, never by the outcome table of an audit.
+
+- **A point of view apart.** The auditor judges the heads by the rules on heads, apart from the
+  session that wrote the plan, the property `design@agent-skills@work-divided-by-judgement` asks of
+  a dispatch an instruction fixes at a step.
+- **The list alone, not a pass.** The owner chose, in the discussion that planned this, one
+  auditor or a few on the heads the work is expected to touch over a full audit; no goal ranks the
+  two. A pass reads the whole record, on the occasions of `design@agent-skills@audit-triggers`.
+- **The axis's bound, sample and check carry over** for the reasons those heads give: the bound
+  rests on what an auditor reads per head, which a scoped dispatch reads too; agents dispatched
+  together do not read a rule alike, whatever dispatched them; a head created by a split, judged
+  only as part of the split, is the edit most often undone.
+- **Again at each design audit**, since the record moves between the plan's writing and each
+  slice's work; a spec worked with no design audit has the run at planning alone.
+
 ### Every entry the application of a design-record pass changes is judged after the application, in a second run of the axis's saved workflow `##application-judged-by-diff`
 
 After the owner's ruling, the session commits its application of a pass of the design-record axis

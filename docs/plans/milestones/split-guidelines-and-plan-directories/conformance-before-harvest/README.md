@@ -24,14 +24,16 @@ slices are in the milestone document; what only this slice builds is below.
   `agent@knowledge-architect-design-record-auditor` host: in planned work, a head the harvest
   touches is listed and conformed by a step before the harvest; a head the list missed, and one any
   other change touches, in the change that touches it.
-- **The record**: `design@agent-skills@existing-heads-on-touch` and
-  `design@agent-skills@design-audit-checks-fit`, rewritten, below, with every text that cites them.
+- **The record**: `design@agent-skills@existing-heads-on-touch`, rewritten, below, with every text
+  that cites it, and the decision of
+  `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` in heads of its own where
+  the entry tests give them, per the harvest row.
 - **CHANGELOG.md**: the entries the change owes, in the `Next release` section.
 
 ## Claims
 
 1. **The plan lists the touched heads.** The installed planning skill has a plan document list the
-   heads its harvest touches without reversing them, in its section "What is already decided".
+   heads its harvest touches without reversing or rewriting them, in its section "What is already decided".
 2. **One scoped auditor, at planning.** The installed planning skill dispatches one
    `agent@knowledge-architect-design-record-auditor` on that list at planning, scoped to it, with
    its property named, and never the axis's saved workflow; the auditor's load stays under the group
@@ -46,8 +48,9 @@ slices are in the milestone document; what only this slice builds is below.
 
 ## What is already decided
 
-The seed of this slice's audit, the decision it rewrites, with every text `cargo klarch show` lists as
-referencing it, on the commit before the milestone document's, each judged by this slice's harvest:
+The seeds of this slice's audit: the decision it rewrites, with every text `cargo klarch show` lists
+as referencing it, on the commit before the milestone document's, each judged by this slice's
+harvest; and the decision its audit found it widens, with its citing texts at the audit:
 
 - `design@agent-skills@existing-heads-on-touch`: `path@agent-skills@docs/design/audit-method.md`,
   `path@agent-skills@docs/design/owner-and-intent.md`,
@@ -62,16 +65,17 @@ touched head still leaves the change conformant.
   The rule is also stated, citing no entry before this slice, in the fragment
   `path@agent-skills@fragments/head-shape.md` and its three hosts, which `cargo klarch show` does not
   list: rewritten in this slice's first step.
-- `design@agent-skills@design-audit-checks-fit`, widened at this slice's design audit: a design
-  audit also runs the scoped auditor over the heads its slice's or its spec's harvest touches.
-  Its citing texts, each judged by this slice's harvest: the planning skill's source, at its design
-  audit point; `path@agent-skills@docs/design/development.md`;
-  `path@agent-skills@docs/design/record-search.md`.
+- `design@agent-skills@design-audit-checks-fit`, which the audit found the rerun of the scoped
+  auditor at each design audit widens. The rerun lands instead in the head of the scoped auditor
+  the harvest writes, since it answers whether the touched heads conform, not whether the spec
+  still fits the record; this head stays as it is, bound. Its citing texts, each judged by this
+  slice's harvest: the planning skill's source, at its design audit point;
+  `path@agent-skills@docs/design/development.md`; `path@agent-skills@docs/design/record-search.md`.
 
 **The heads this slice's harvest touches without reversing or rewriting them**: none. The slice
-lands before the rule it builds, so no scoped auditor ran for it at planning. Its harvest writes
-only the two heads above: each of their citing texts stays true of the rewritten heads, and is left
-as it is, so the harvest touches no head that holds one.
+lands before the rule it builds, so no scoped auditor ran for it at planning. Its harvest rewrites
+the head above and writes heads of its own for the thread: each citing text of the two heads above
+stays true, and is left as it is, so the harvest touches no head that holds one.
 
 **Bound and not rewritten**: `design@agent-skills@design-record-axis`,
 `design@agent-skills@design-record-axis-dispatch`, `design@agent-skills@one-decision-per-head` and
@@ -105,8 +109,9 @@ as it is, so the harvest touches no head that holds one.
 
 ## Premises that expire
 
-- Slice 4's plan is the first written under this slice's text: its list of touched heads is read
-  at slice 4's audit.
+- Slice 4's plan, written before this slice, is the first whose design audit runs under this
+  slice's text: its list of touched heads is read at slice 4's audit, against the definition of a
+  touched head this slice installs.
 
 ## Decided design
 
@@ -133,7 +138,7 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
   edit that must write what the head's argument does not hold, a missing argument, a goal's
   constraint, or a member or a citation its argument does not cover, goes to the design skill; an
   edit that relaxes or turns what the owner's words in the head approved goes to the owner as one
-  proposal. Each head a split, a merge, a rename or a retitle creates is judged alone by the
+  proposal. Each head a split, a merge, a rename, a move or a retitle creates is judged alone by the
   auditor briefed to check, per `design@agent-skills@created-heads-checked-in-the-run`.
 - **A head the list missed** is conformed in the harvest, as the rule on touched heads says, and
   named in the harvest's commit as missed by the list: narrowing where conformance happens never
@@ -163,15 +168,14 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
 ## Implementation sequence
 
 1. **The planning skill's text**: the list, the dispatch and the conforming step: Claims 1 to 3.
-2. **The record and the changelog**: `design@agent-skills@existing-heads-on-touch` and
-   `design@agent-skills@design-audit-checks-fit` rewritten, each with its citing texts, and the
-   CHANGELOG.md entries. This is the harvest, read by Claim 4.
+2. **The record and the changelog**: `design@agent-skills@existing-heads-on-touch` rewritten, and
+   the heads of `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`, each with
+   its citing texts, and the CHANGELOG.md entries. This is the harvest, read by Claim 4.
 
 ## Harvest
 
 - **Design heads**: `design@agent-skills@existing-heads-on-touch`, rewritten under
-  `skill@knowledge-architect-decision-recording`, and `design@agent-skills@design-audit-checks-fit`
-  given its new member; the decision of
+  `skill@knowledge-architect-decision-recording`; the decision of
   `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` lands there, or in a head of
   its own where the entry tests give one.
 - **Losing alternatives**: those above, judged by the tests of

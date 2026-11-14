@@ -427,3 +427,17 @@ items stay citable from inside its milestone.
 **Re-entry:** the standing-state review: the issue, the report or the analysis is in the tree.
 **Watches until:** the second milestone whose directory leaves the main branch holding a slice under
 `harvested/`, counted from the commit that writes this line.
+
+## Guarding `design@agent-skills@pre-harvest-conformance`: a plan's list of the heads its harvest touches misses some, so their conformance comes back into the harvest `##touched-heads-missed-by-the-list`
+
+The decision moves the conformance of the heads a harvest touches to a step before the harvest, on
+the premise that planning can list them. A harvest that touches a head its list missed conforms it
+in the harvest and names it in its commit, which each review reads as the procedure working.
+
+**Fires when:** the harvests of two plan documents on the main branch each name, in their commit
+messages, a head their list missed.
+**Response:** reopen `design@agent-skills@pre-harvest-conformance`, with
+`rejected@agent-skills@conformance-in-the-harvest` among the candidates.
+**Re-entry:** the commit messages of the harvests on the main branch, `git log --grep='missed by the list'`.
+**Watches until:** three specs or milestones deleted at their landing, counted from the commit that
+wrote this line.
