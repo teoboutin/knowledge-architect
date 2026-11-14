@@ -90,9 +90,7 @@ agents to run under the `claude` harness, that defeat is to be argued again, per
 The session decides which texts host a fragment, by the rule of
 `design@agent-skills@shared-text-fragment` that a text is a host only where its act applies the
 whole fragment, and reports each change of a list under the turn's "Decided" section, per
-`primer@decided-section`, where the owner can contest it. `FRAGMENT_HOSTS` of
-`path@agent-skills@src/lib.rs` holds the lists, and its test fails while a list and the shipped texts
-disagree.
+`primer@decided-section`, where the owner can contest it.
 
 The owner chose the lists decided by the session over lists reserved to the owner, which no goal
 ranks. The rival, lists reserved to the owner, costs a question to the owner at
