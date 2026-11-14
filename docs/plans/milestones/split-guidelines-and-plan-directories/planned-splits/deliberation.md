@@ -35,6 +35,29 @@
   `design@agent-skills@default-code-shape` or a head of its own, and the host lists of
   `design@agent-skills@shared-text-fragment`.
 
+### The fragment on when to split holds the occasion alone, and the procedure and the signals against a cut go to a fragment of their own `##when-to-split-fragment-split`
+
+- Opened by the review of this slice's work: the agent-facing-text and self-consistency reviewers
+  found that the scout, made a host of `path@agent-skills@fragments/when-to-split.md` by Q16,
+  hosts two sentences no act of it applies, the instruction to load the component-creation skill
+  before placing the work and the sentence that a creation or a split is never a step taken while
+  writing code, which the scout's own text then overrode.
+- Put to the owner as Q17, with the session's default: drop the scout from the fragment's hosts,
+  the scout reading the component-creation skill's criteria and signals against a split by their
+  references. Rival: keep the hosting as Q16 has it.
+- Final state: `approved`, on the owner's word on Q17, which chose neither: the fragment is split,
+  since a fragment named for when to split holds no content on how to split. The occasion stays in
+  `path@agent-skills@fragments/when-to-split.md`, hosted by the design skill, the development skill
+  and the scout; the instruction to load the component-creation skill, the signals that a split is
+  cut in the wrong place and the sentence that a creation or a split is a design decision go to a
+  fragment of their own, hosted by the design and development skills. The owner stated that the
+  fragment exists mostly for the scout, where the record has it written for the design and
+  development skills before the scout existed, per `design@agent-skills@component-skill-delivery`;
+  the ruling's ground, the fragment's name, stands without that premise.
+- Its shape: this spec's "Builds". Harvest: this slice's, into the host lists of
+  `design@agent-skills@shared-text-fragment` and the delivery of
+  `design@agent-skills@component-skill-delivery`.
+
 ## Arguments
 
 ### A split within a crate needs no decision record `##arg-2`

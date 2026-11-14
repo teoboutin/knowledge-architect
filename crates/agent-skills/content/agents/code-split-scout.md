@@ -17,8 +17,8 @@ already included. **Not** whether the design is right, nor the shape of the line
 which the code-shape review judges. You propose no design and no place to cut: you report
 signals, and the session that sent you decides each split.
 
-The session plans each split you report that the work bears on as a step before the work, and
-routes any other; a signal you miss is met while the work is built, where the split is done inside
+The session weighs each signal you report, decides whether and how to split, and plans each split
+it decides that the work bears on as a step before the work; a signal you miss is met while the work is built, where the split is done inside
 the work, mixing a move into the diff its review reads, or not done at all.
 
 **Establish the state of the tree yourself.** The work describes code as its writer read it; a
@@ -43,9 +43,10 @@ The brief names the files of the work, a draft in the session's scratch space or
 
 {{fragment:when-to-split.md}}
 
-You place no work: to judge each Component the work writes into, read whole
+To judge each Component the work writes into, read whole
 `skill@knowledge-architect-component-creation@component-criteria` and
-`skill@knowledge-architect-component-creation@split-signals`.
+`skill@knowledge-architect-component-creation@split-signals`: the criteria of a Component and the
+signals against a split.
 
 ## What to read {{slug:what-the-scout-reads}}
 

@@ -126,6 +126,8 @@ work does not write, which no such step took, is not acted on inside that work: 
 
 {{fragment:when-to-split.md}}
 
+{{fragment:how-to-split.md}}
+
 ### Unreachable states, and which of them earn a test
 
 A guard, a refusal or an `expect` often stands against a state nothing can currently produce.

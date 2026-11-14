@@ -550,9 +550,10 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    units the slice's own work writes into, as the slice's `README.md` states that work. Read the
    notices of the search's own `{{command}} worklist` run as the record side of
    `skill@knowledge-architect-planning@cutting-steps-and-slices` reads them, over the audit's area.
-   Each split either finds that the planned steps do not take is a gap, listed with the other gaps
-   in the audit's commit message. The scout's report stays in your
-   scratch space. Sort each gap:
+   The scout reports signals and decides nothing: weigh each signal and each notice, and decide
+   whether and how to split as the sorts below decide any gap, since each one the planned steps do
+   not take is a gap, listed with the other gaps in the audit's commit message. The scout's report
+   stays in your scratch space. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
