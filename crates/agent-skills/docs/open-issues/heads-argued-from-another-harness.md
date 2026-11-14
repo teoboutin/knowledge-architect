@@ -20,6 +20,8 @@ The instances, found by the review before the merge of the branch that narrowed 
 - `design@agent-skills@audit-axis-runs-a-workflow`: the rival of a skill written for the Workflow
   tool alone lost on its failing in every other harness, and the head's title says the saved
   workflows are "their one home for any harness";
+- `design@agent-skills@shared-text-fragment`: the rival of a harness hook delivering pointed
+  sections lost on another harness lacking the hook;
 - `design@agent-skills@workflow-axis-corpus`: its definition "holds for a second harness", one of
   its reasons;
 - `rejected@agent-skills@head-rules-in-decision-recording`, kept because "another agent provider
@@ -35,8 +37,8 @@ made `claude` an ask re-pointed their references without arguing them again.
 ### Why it matters
 
 Each defeat or retention now rests on a case no goal covers. A head whose rival stands undefeated
-may be wrong, and a `rejected` entry whose recording test is gone is kept for nothing. The first head
-binds every session that edits the audit's saved workflows.
+may be wrong, and a `rejected` entry whose recording test is gone is kept for nothing. The first two
+heads bind every session that edits the audit's saved workflows or the shipped fragments.
 
 ### What would close it
 
@@ -46,6 +48,14 @@ kept on a ground that still holds, or reversed; each `rejected` entry kept on a 
 
 ### Re-entry
 
-The next design discussion that changes one of the heads or `rejected` entries this entry lists, or
-a design-record audit pass, whichever comes first: each is an occasion whose work reads those
-entries' ground.
+For every instance but `design@agent-skills@shared-text-fragment`: the next design discussion that
+changes one of the heads or `rejected` entries this entry lists, or a design-record audit pass,
+whichever comes first: each is an occasion whose work reads those entries' ground.
+
+For `design@agent-skills@shared-text-fragment`, whose rival is about how a fragment is delivered:
+the next design discussion whose work changes how fragments are delivered to their hosts, or a
+design-record audit pass, whichever comes first. A change to a fragment's host list does not meet
+it, since its work reads no ground of the delivery. The harvest of the slice on splits planned
+before the work changed that head's host lists and met the earlier re-entry point; the argument of
+the rival it wrote was withdrawn at its review, since one premise misread the documentation of
+`disableAllHooks` and the thread closed with no record search of its own.

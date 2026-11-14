@@ -46,10 +46,13 @@ no finding unless the argument is false of the code. A test finding names the te
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
 commit and the missing figures.
 %% A module split is planned before the work, per `design@agent-skills@splits-planned-before-work`, so a
-%% signal a diff meets is routed by the dispatcher, never repaired inside the branch.
-**A signal of the module guidelines over code the range writes is a departure**, reported as any
-other. **One over code the range does not write is a split signal: report it under a heading of its
-own**, with the signal, the evidence and each signal against a split that holds. It is no repair
-inside the branch: the dispatching session routes it as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
+%% signal a diff meets is routed by the dispatcher, never repaired inside the branch; the boundary
+%% with the writer's own shaping is `design@agent-skills@default-code-shape`'s.
+**Shaping the code the range writes, a new module for it included, is no split**: a signal of the
+module guidelines over that code is a departure, reported as any other. **One over code the range
+does not write is a split signal: report it under a heading of its own**, with the signal, the
+evidence and each signal against a split that holds. It is no repair inside the branch: a split is a
+design decision, so it is no fix of the second row of `primer@met-outside-the-task`, and the
+dispatching session routes it by the other rows. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

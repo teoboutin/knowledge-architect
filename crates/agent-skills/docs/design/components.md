@@ -42,7 +42,10 @@ of its own and takes a skill of its own, per `design@agent-skills@one-skill-per-
 in, and its list of activities grows. The owner
 proposed a skill of its own with a fragment in the design skill, on the argument that not every design
 discussion needs the procedure, since creating a Component should be occasional; the session
-extended the proposal to the development skill and to the moments above. The skill decides nothing itself: the decision to create or split goes through
+extended the proposal to the development skill and to four of the moments above. The fifth, a
+signal the scout reports, comes from the owner's proposal, made as a probable shape, of an agent
+that searches the areas a planned piece of work touches for a split condition, per
+`design@agent-skills@code-split-scout`. The skill decides nothing itself: the decision to create or split goes through
 `skill@knowledge-architect-design`, and the skill points to the setup skill for the declaration and to the
 decision-recording skill for the head that states the Component's purpose.
 

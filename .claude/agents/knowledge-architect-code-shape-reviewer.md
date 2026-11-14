@@ -87,9 +87,8 @@ Each signal is weighed against the signals against a split:
 **Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
 that reads it in parts judges code it has not read. No number of lines is a signal by itself.
 
-**A split is a move before the work.** It is decided where the work is designed, and lands before
-the work that needs it, in commits that hold the move alone, so that the review of the move reads a
-move and the review of the work reads the work.
+**A split is a move before the work**, planned and committed as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says.
 
 ## What to read `##what-the-reviewer-reads`
 
@@ -106,9 +105,11 @@ the evidence, and whether a comment at the code argues the departure; a departur
 no finding unless the argument is false of the code. A test finding names the test and what is
 missing: its claim, or, for a test of logic, its recorded mutation. A performance finding names the
 commit and the missing figures.
-**A signal of the module guidelines over code the range writes is a departure**, reported as any
-other. **One over code the range does not write is a split signal: report it under a heading of its
-own**, with the signal, the evidence and each signal against a split that holds. It is no repair
-inside the branch: the dispatching session routes it as `primer@met-outside-the-task` says. **If nothing departs, say so plainly.** Do not report style preferences.
+**Shaping the code the range writes, a new module for it included, is no split**: a signal of the
+module guidelines over that code is a departure, reported as any other. **One over code the range
+does not write is a split signal: report it under a heading of its own**, with the signal, the
+evidence and each signal against a split that holds. It is no repair inside the branch: a split is a
+design decision, so it is no fix of the second row of `primer@met-outside-the-task`, and the
+dispatching session routes it by the other rows. **If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.

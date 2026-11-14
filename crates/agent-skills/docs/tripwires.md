@@ -356,7 +356,7 @@ split, with the instances.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
 the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
-workflow files, counted from the commit that writes this line.
+workflow files, counted for both decisions from the commit that writes this line.
 
 ## Guarding `design@agent-skills@test-economy`: a test of logic is called golden or integration to skip its mutation evidence `##logic-tests-relabelled`
 
