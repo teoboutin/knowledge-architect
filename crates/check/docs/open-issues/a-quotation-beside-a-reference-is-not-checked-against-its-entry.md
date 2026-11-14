@@ -16,10 +16,11 @@ findings on paraphrases, is not measured.
 ### What
 
 The instance: the workflow file of the first slice of the goals, 2026-11-11, its C3, analysed in the
-section `goal-citers-not-reread` of
-`path@knowledge-architect@docs/retrospective-reports/2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow.md`.
-"Three heads quoted a goal in quotation marks beside its reference, and the goal no longer held the
-quoted words." The report does not name the three heads.
+section `goal-citers-not-reread` of the analysis of
+2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow, which "[intake] The forty-seven
+retrospective analyses leave, every outcome carried out" removed. "Three heads quoted a goal in
+quotation marks beside its reference, and the goal no longer held the quoted words." The report does
+not name the three heads.
 
 The mechanism, in one sentence: a rewording keeps the slug, so every reference still resolves, and
 no lint of `check` reads a quotation against the entry its paragraph cites; by
@@ -35,8 +36,8 @@ paraphrase rather than quote, which a check would refuse wrongly. The report sta
 measure either.
 
 The suspected shape: a lint that, for a quotation in a paragraph holding one reference, checks that
-the quoted words are a run of the cited entry's text, leaving `design@check@quotation-read-by-no-id-lint`
-standing for the lints on ids.
+the quoted words are a run of the cited entry's text, leaving
+`design@check@quotation-read-by-no-id-lint` standing for the lints on ids.
 
 Re-entry point: a design discussion under `skill@knowledge-architect-design` once the census below
 is taken, or on the owner's word.
@@ -44,9 +45,9 @@ is taken, or on the owner's word.
 ### Why it matters
 
 A quotation that no longer matches attributes to an entry words it does not hold, and a reader who
-trusts the quotation acts on a rule that was reworded, against `goal@documentation-stays-consistent`.
-The re-read of a reworded entry's citers, which the instance's other finding asks of a session,
-finds such a quotation only by reading every citer.
+trusts the quotation acts on a rule that was reworded, against
+`goal@documentation-stays-consistent`. The re-read of a reworded entry's citers, which the
+instance's other finding asks of a session, finds such a quotation only by reading every citer.
 
 ### What would close it
 
