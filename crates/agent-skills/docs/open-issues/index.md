@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-71 entries
+74 entries
 
 | kind | title |
 | --- | --- |
@@ -57,6 +57,8 @@
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
 | todo | [A review dispatched by a workflow keeps no reviewer's report in the session's transcript](a-review-run-by-a-workflow-keeps-no-report-in-the-transcript.md) |
+| todo | [No saved workflow runs the record search, which the owner takes in](a-saved-workflow-runs-the-record-search.md) |
+| todo | [No saved workflow runs the review before a merge, which the owner takes in](a-saved-workflow-runs-the-review-before-a-merge.md) |
 | todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
 | todo | [Rules of the installed text that no head argues, each given its argument or refused, on one branch](agent-skills-heads-owing-an-argument-on-one-branch.md) |
 | todo | [The project audit has three axes, and the other axes the owner named have none](audit-axes-beyond-the-design-record.md) |
@@ -65,6 +67,7 @@
 | todo | [Installed instructions assume pull requests and continuous integration](installed-text-assumes-pull-requests-and-ci.md) |
 | todo | [No check compares an audit pass's count of severe violations left with the previous pass's](no-check-compares-an-audit-pass-s-owner-list-count-with-the-previous-pass-s.md) |
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
+| todo | [No installed procedure says how a survey of prior art runs, which the owner takes in](no-installed-procedure-runs-a-survey-of-prior-art.md) |
 | todo | [No test runs a shipped saved workflow's logic: the counts the audit workflows report as exact are untested](no-test-runs-a-saved-workflow-s-logic.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
