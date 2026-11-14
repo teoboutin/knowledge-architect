@@ -19,8 +19,13 @@ slices are in the milestone document; what only this slice builds is below.
     and goes to the design skill or to the owner as `primer@design-heads` routes it;
   - each slice's design audit runs the scoped auditor again over the heads its slice's harvest
     touches, since the record moves between slices.
-- **The record**: `design@agent-skills@existing-heads-on-touch`, rewritten, below, with every text
-  that cites it.
+- **The rule on touched heads**, in the fragment `path@agent-skills@fragments/head-shape.md`, which
+  the decision-recording skill, `agent@knowledge-architect-decision-record-reviewer` and
+  `agent@knowledge-architect-design-record-auditor` host: in planned work, a head the harvest
+  touches is listed and conformed by a step before the harvest; a head the list missed, and one any
+  other change touches, in the change that touches it.
+- **The record**: `design@agent-skills@existing-heads-on-touch` and
+  `design@agent-skills@design-audit-checks-fit`, rewritten, below, with every text that cites them.
 - **CHANGELOG.md**: the entries the change owes, in the `Next release` section.
 
 ## Claims
@@ -53,6 +58,19 @@ It is rewritten to state that a head a change touches is brought to the rules on
 harvest that touches it, in a step the plan lists, where the change is planned work; and in that
 change, as today, where it is not. It is narrowed in where conformance happens, never relaxed: a
 touched head still leaves the change conformant.
+
+  The rule is also stated, citing no entry before this slice, in the fragment
+  `path@agent-skills@fragments/head-shape.md` and its three hosts, which `cargo klarch show` does not
+  list: rewritten in this slice's first step.
+- `design@agent-skills@design-audit-checks-fit`, widened at this slice's design audit: a design
+  audit also runs the scoped auditor over the heads its slice's or its spec's harvest touches.
+  Its citing texts, each judged by this slice's harvest: the planning skill's source, at its design
+  audit point; `path@agent-skills@docs/design/development.md`;
+  `path@agent-skills@docs/design/record-search.md`.
+
+**The heads this slice's harvest touches without reversing or rewriting them**: none. The slice
+lands before the rule it builds, so no scoped auditor ran for it at planning; its harvest writes
+only the two heads above.
 
 **Bound and not rewritten**: `design@agent-skills@design-record-axis`,
 `design@agent-skills@design-record-axis-dispatch`, `design@agent-skills@one-decision-per-head` and
@@ -95,8 +113,32 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
 
 - **The list**: the heads the harvest touches without reversing or rewriting them, in the plan's
   section "What is already decided", beside the heads it reverses or rewrites.
-- **The judgement**: one design-record auditor at planning, scoped to the list; a point of view apart,
-  the property `design@agent-skills@work-divided-by-judgement` asks of a dispatch a step fixes.
+- **The judgement**: one design-record auditor at planning, scoped to the list, briefed as a drafter
+  with no calibration sample; a point of view apart, the property
+  `design@agent-skills@work-divided-by-judgement` asks of a dispatch a step fixes. A list above the
+  group size of `design@agent-skills@design-record-axis-dispatch`, 60 heads, is cut into groups of
+  consecutive heads, one auditor each, each given a shared sample of about five listed heads from
+  other groups, since that head's reason for a sample, that agents dispatched together do not read
+  a rule alike, holds for a cut list too; one auditor briefed to calibrate compares the sample and
+  proposes each reading, which the session confirms, per
+  `design@agent-skills@calibration-in-the-run`, never the session settling the readings itself,
+  `rejected@agent-skills@session-settles-calibration`. The session
+  verifies each draft that proposes a change, per
+  `design@agent-skills@at-least-one-independent-verification`, and routes it by the planning skill,
+  whatever outcome the draft proposes: the auditor's outcome table is the audit's.
+- **The routing of a conforming edit**, by the authority that settles it, per
+  `primer@question-authority`: an edit that writes no new argument and changes no word of the
+  owner, a move to the Component the owning-Component rules settle included, is the step's work; an
+  edit that must write what the head's argument does not hold, a missing argument, a goal's
+  constraint, or a member or a citation its argument does not cover, goes to the design skill; an
+  edit that relaxes or turns what the owner's words in the head approved goes to the owner as one
+  proposal. Each head a split, a merge, a rename or a retitle creates is judged alone by the
+  auditor briefed to check, per `design@agent-skills@created-heads-checked-in-the-run`.
+- **A head the list missed** is conformed in the harvest, as the rule on touched heads says, and
+  named in the harvest's commit as missed by the list: narrowing where conformance happens never
+  leaves a touched head unconformed.
+- **At each design audit**, the scoped auditor runs again over the heads that slice's or that spec's
+  harvest touches; a spec worked without a design audit has the run at planning alone.
 - **The conforming step**: before the harvest, a step of its own or a slice of its own; where it must
   write what a head lacks, an argument or a goal's constraint, it owes the design skill or the owner,
   per `argument@split-guidelines-and-plan-directories@arg-26`.
