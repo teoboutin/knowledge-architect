@@ -175,10 +175,10 @@ changes the goals predict, unrelated changes in one diff; an invariant only a bo
 protects, a helper that bypasses it made visible to code that must not call it. Three signals weigh
 against a split: two parts every change reads together, one item large by itself, which no move
 divides, and one owner per external effect. Size has one role, a file a session cannot read whole in
-one pass, and no number of lines is a signal. A split is a move before the work, per
-`design@agent-skills@splits-planned-before-work`. The fragment names no construct of one language,
-per `design@agent-skills@the-workflow-teaches-no-rust-idiom`, and its hosts are the development
-skill, `agent@knowledge-architect-code-shape-reviewer` and
+one pass, and no number of lines is a signal. A split is a move before the work, planned as
+`design@agent-skills@splits-planned-before-work` says. The fragment names no construct of one
+language, per `design@agent-skills@the-workflow-teaches-no-rust-idiom`, and its hosts are the
+development skill, `agent@knowledge-architect-code-shape-reviewer` and
 `agent@knowledge-architect-code-split-scout`, per `design@agent-skills@shared-text-fragment`.
 
 `goal@projects-are-split-into-modular-units` names the code of one part among the layers where a
@@ -189,61 +189,83 @@ against one reference is one that a review reads whole without reading outside i
 owner reported that without such guidance modules are in practice never split and grow to thousands
 of lines; that report is the real-use evidence `design@agent-skills@behaviour-additions-need-real-use`
 asks of an instruction about agent behaviour. The size signal rests on a measurement of the harness:
-the Read tool, given with no range a file above its cap, returned only the first part of the file,
-so a review that reads such a file in parts judges code it has not read. It is recorded, with the
-file read and the cap, in the message of the commit "[plans] The design audit of the slice on splits
-planned before the work: its gaps answered in place, Q16 ruled, and the lines of its record search",
-and taken again by one read, with no range, of a file whose tokens exceed the cap. Were a session
-to read any file whole in one pass, the size signal would leave the fragment.
+the Read tool returns a file given with no range only up to a cap, and, asked with `allow_large`,
+only up to what fits in the context the session has left, an option its description reserves for a
+need of the whole file; so a session meets files it cannot read whole in one pass, and a review that
+reads such a file in parts judges code it has not read. The figures are in the message of the
+commit "[review] Repairs of the review before the merge of the slice on splits planned before the
+work: the scout's scope, a split no fix of its own, the hook rival withdrawn, the host lists the
+session's, and the heads reshaped", taken again by two reads, with no range, of a file whose tokens exceed
+the cap, one plain and one with `allow_large`. Were a read to return any file whole in one pass,
+the size signal would leave the fragment.
 
 The nearest rival, a threshold of lines as the criterion, says nothing of what a review reads
-against. The one project of the owner's that holds such a threshold gives it no measurement or
-argument, and its record shows an item a move cannot bring under it, as
-`path@agent-skills@docs/grounding/module-split.md` reads it: the design not kept is
-`rejected@agent-skills@module-split-at-a-size-threshold`.
+against: the design not kept is `rejected@agent-skills@module-split-at-a-size-threshold`.
 
-### A split of code the work needs is decided where the work is designed and planned as a step before the work, never left to its implementer `##splits-planned-before-work`
+### A split the work needs, of its code or of a subject of a design home, is found where the work is designed or planned and is a step before the work or the harvest that needs it, never left to its implementer `##splits-planned-before-work`
 
 A split of a module or of a Component that a piece of work bears on is decided in the design
-discussion of that work, and planned in its plan document as a step before the work that needs it,
-or, in a milestone, as a slice of its own where the move is large. It is never left to the
-implementer, and never parked as an issue. The move lands in commits that hold the move alone, each
-building and passing the project's checks before its push, so that the review of the move reads a
-move and the review of the work reads the work; the installed text names neither continuous
-integration nor a pull request for it, per
-`design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`. Where no plan document
-carries the work, the split is commits of its own before the work, on the same branch. The boundary
-with the writer's own shaping is `design@agent-skills@default-code-shape`'s: moving code the change
-does not write is a split. A signal met outside the work's area, by
-`agent@knowledge-architect-code-split-scout` or by the code-shape reviewer, is routed by
-`primer@met-outside-the-task`, since a plan takes no work its discussion did not decide, per
-`design@agent-skills@met-outside-the-task-outcomes`. The split of a subject of a design home is
-planned the same way before the harvest that writes into it, per
-`design@agent-skills@subject-split-standard`.
+discussion of that work, found there by `design@agent-skills@code-split-scout`, and planned in its
+plan document as a step before the work that needs it, or, in a milestone, as a slice of its own
+where the move is large. A split of a subject of a design home that the harvest writes into is found
+at planning, by `klarch worklist --out` run with the `README.md` files the plan document's design
+audits will take as the work, and is a step before that harvest; when a subject splits is
+`design@agent-skills@subject-split-standard`. Neither is left to the implementer, nor parked as an
+issue. Where no plan document carries the work, a split of code is commits of its own before the
+work, on the same branch, committed as `design@agent-skills@move-lands-in-move-only-commits` says.
+The boundary with the writer's own shaping is `design@agent-skills@default-code-shape`'s: moving
+code the change does not write is a split.
+
+A signal met outside the work's area, by the scout, by the code-shape reviewer or while the work is
+written, is routed by `primer@met-outside-the-task`, since a plan takes no work its discussion did
+not decide, per `design@agent-skills@met-outside-the-task-outcomes`. A split of code is a design
+decision, so it is no fix of that table's second row, which takes only what changes no decision; a
+split of a subject met there takes the route `design@agent-skills@subject-split-standard` gives it.
 
 `goal@projects-are-split-into-modular-units` leads a project toward units that each serve one
 purpose, and a split nobody carries out serves none. The owner reported that a split left to
 implementation is never done, since an implementer judges it too large to carry within the same
 work, that an issue on a split sits untouched for a long time, and that a task not planned ahead
 never gets done; these are the owner's reports, a premise open to challenge. That report defeats
-the nearest rival, the split left to whoever meets it while writing the code.
+the nearest rival, the split left to whoever meets it while writing the code. The owner proposed
+that a split, of the design record as of code, be thought of at the design or the planning steps
+and planned as a step or a slice of its own, the code side probably at the design steps, since a
+split of code is a design decision, and a split of the design record no decision in itself. The
+record side is a command, not an agent: the notice needs no point of view apart and no other
+property on which `design@agent-skills@work-divided-by-judgement` lets an instruction fix a
+dispatch, so a record scout at planning loses to the command.
 
-### An installed scout reads the code a planned piece of work touches for split signals, before the record search of its design and at each design audit, and decides nothing `##code-split-scout`
+### A split's move lands in commits that hold the move alone, each building and passing the project's checks before its push `##move-lands-in-move-only-commits`
 
-`agent@knowledge-architect-code-split-scout` reads a draft of a plan document, or the `README.md`
-files a design audit reads, and the code the work touches, and reports, per module and per
-Component, each signal for a split the work pushes the unit past or that holds already, and each
-signal against a split that holds. It hosts the module guidelines and the occasion of a Component's
-split, `path@agent-skills@fragments/when-to-split.md`, and reads the component-creation skill's
-criteria and signals against a split by their references. The design skill dispatches it at the
-grounding of a discussion that expects its full path, once the draft exists and before the search of
-the whole record, so that each thread a signal opens is in the work the search reads, per
-`design@agent-skills@search-runs-once-the-shapes-settle`; the in-change path and bounded work
-dispatch none. The planning skill dispatches it again at the design audit of each slice, and of a
-spec where one runs, since the code moves between slices and between a spec's writing and its work,
-and each split it reports that the planned steps do not take is a gap the audit sorts, per
-`design@agent-skills@design-audit-checks-fit`. Its report is never committed, since a plan
-document's directory holds no such file, per `design@model@plan-document-directory`.
+The move of a split lands in commits that hold the move alone, each building and passing the
+project's checks before it is pushed. The planning skill states it at the step of a split, in
+`skill@knowledge-architect-planning@cutting-steps-and-slices`, and the development skill for a split
+of code no plan document carries; the installed text names neither continuous integration nor a
+pull request for it, per `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`.
+
+The nearest rival, the move folded into the commits of the work that needs it, puts a move into the
+diff the work's review reads: kept apart, the review of the move reads a move and the review of the
+work reads the work. Each commit is checked before its push, since a commit before a branch's tip
+may be built by no other run.
+
+### An installed scout reads the code a planned piece of work touches for signals of a split or of a Component to create, before the record search of its design and at each design audit, and decides nothing `##code-split-scout`
+
+`agent@knowledge-architect-code-split-scout` reads a draft of a plan document, or the `README.md` of
+the slice or the spec a design audit reads, and the code the work touches, and reports, per module
+and per Component, each signal for a split the work pushes the unit past or that holds already, each
+signal against a split that holds, and each part of the work that belongs to no existing Component.
+It finds the code side of a split planned before the work, per
+`design@agent-skills@splits-planned-before-work`. It hosts the module guidelines of
+`design@agent-skills@module-split-guidelines` and the occasion of a Component's creation or split,
+`path@agent-skills@fragments/when-to-split.md`, per `design@agent-skills@shared-text-fragment`, and
+reads the component-creation skill's criteria and signals against a split by their references. The
+design skill dispatches it at the grounding of a discussion that expects its full path, once the
+draft exists and before the search of the whole record, so that each thread a signal opens is in the
+work the search reads, per `design@agent-skills@search-runs-once-the-shapes-settle`; the in-change
+path and bounded work dispatch none. The planning skill dispatches it again at the design audit of
+each slice, and of a spec where one runs, for the reason `design@agent-skills@design-audit-checks-fit`
+states. Its report is never committed, since a plan document's directory holds no such file, per
+`design@model@plan-document-directory`.
 
 The dispatch is fixed at those steps on a point of view apart from the session's, the property
 `design@agent-skills@work-divided-by-judgement` admits: the session drafted the shapes the scout
@@ -251,6 +273,5 @@ judges. The nearest rival, the session reading the code for signals itself, judg
 the shapes it chose, from the view that chose them. The scout decides nothing and proposes no
 place to cut: the session weighs each signal and decides whether and how to split, in the thread the
 signal opens or by the audit's sorts, since a split is a design decision, weighed in the discussion
-the session holds against the record it has read; the owner directed so when ruling on the fragment
-on when to split. The record side of a split planned before the work is a command, not a scout, per
-`design@agent-skills@subject-split-standard`.
+the session holds against the record it has read; the owner directed that the scout send back
+signals and that the session receiving them decide and plan the split.

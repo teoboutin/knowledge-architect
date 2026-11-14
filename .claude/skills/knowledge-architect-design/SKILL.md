@@ -616,8 +616,9 @@ choices whose option space genuinely is closed and consequence-free.
    drafted the shapes it judges. It reports signals and decides
    nothing. Each signal it reports in a module or a Component the work
    writes into opens a thread of the discussion, where you weigh it and
-   decide whether and how to split, written into the draft before the
-   search, so that the search reads it; each one outside the work's
+   write the split's shape, or that none is made, into the draft before
+   the search, so that the search reads it, the thread staying open
+   until the search has run; each one outside the work's
    area is routed as
    `primer@met-outside-the-task` says, since the plan document takes no
    work its discussion did not decide. The in-change path and bounded

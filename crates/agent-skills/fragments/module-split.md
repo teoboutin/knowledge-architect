@@ -2,9 +2,11 @@
 %% module owning one external effect is the shape of `design@git@git-is-asked-through-one-module`;
 %% guidelines and not rules, per `goal@projects-are-split-into-modular-units`, which fixes no rule of
 %% splitting. One fragment, hosted by the development skill, the code-shape reviewer and the
-%% code-split scout, per `design@agent-skills@shared-text-fragment`. Size's role rests on a
-%% measurement: one read of a file returns only its first part past a cap, recorded in the message of
-%% the design audit of the slice that planned these guidelines.
+%% code-split scout, per `design@agent-skills@shared-text-fragment`. Size's role rests on the
+%% measurement its head names: a read returns a file only up to a cap, and one with `allow_large`
+%% only up to what fits in the context left. A split is planned and committed as
+%% `design@agent-skills@splits-planned-before-work` and
+%% `design@agent-skills@move-lands-in-move-only-commits` say.
 **A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such
 as a process the project runs, a store it writes or a service it calls, which one module owns. These
@@ -29,6 +31,5 @@ Each signal is weighed against the signals against a split:
 **Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
 that reads it in parts judges code it has not read. No number of lines is a signal by itself.
 
-**A split is a move before the work.** It is decided where the work is designed, and lands before
-the work that needs it, in commits that hold the move alone, so that the review of the move reads a
-move and the review of the work reads the work.
+**A split is a move before the work**, planned and committed as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says.

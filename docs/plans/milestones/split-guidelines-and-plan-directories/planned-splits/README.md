@@ -36,7 +36,8 @@ and arguments in [its deliberation](deliberation.md).
   whole record, so that each split thread the scout opens is in the draft the search reads; each
   split the scout reports that the work bears on is a thread of the discussion, and one outside the
   work's area is routed by `primer@met-outside-the-task`. A split thread opened after the search gets
-  a search of its own, as the skill already asks of any thread added after it. The in-change path and
+  a search of its own where it is on a subject the search's work did not cover, as the skill asks of
+  any thread so added. The in-change path and
   bounded work dispatch no scout.
 - **The planning skill**:
   - at planning, `cargo klarch worklist --out <dir>`, `<dir>` a new directory outside the project,
@@ -62,9 +63,12 @@ and arguments in [its deliberation](deliberation.md).
   now planned before the harvest where planning finds it, and a fix in a commit of its own where a
   session meets it outside planned work.
 - **The code-shape reviewer**, `agent@knowledge-architect-code-shape-reviewer`, which hosts the
-  default code shape and the module guidelines' fragment: where a branch's diff meets a signal for a
-  module split, it reports it, and the session routes it to a planned step or by
-  `primer@met-outside-the-task`, never to the implementer as work inside the task.
+  default code shape and the module guidelines' fragment: shaping the code the range writes, a new
+  module for it included, is no split, so a signal of the guidelines over that code is a departure,
+  repaired in the branch as any other; a signal over code the range does not write is reported
+  under a heading of its own, and the dispatching session routes it by `primer@met-outside-the-task`,
+  by a row other than the second, since a split is a design decision, never to the implementer as
+  work inside the task.
 - **The record**: the heads of Group D this slice rewrites, and the hosts of
   `design@agent-skills@shared-text-fragment`, below, with every text that cites them. The hosts of
   the fragments are named in five places, each updated: the test list `FRAGMENT_HOSTS` in

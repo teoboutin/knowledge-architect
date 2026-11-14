@@ -12,8 +12,8 @@
   closed it. In round 3 the session noted that `design@git@git-is-asked-through-one-module` shows a
   module decision that does earn a head, by test 2 of `primer@design-heads`.
 - Its shape: this spec's "Decided design", "A module split's record". Harvest: this slice's, into
-  `design@agent-skills@default-code-shape` and the planning skill's text; no head of its own unless
-  the entry tests give one.
+  the development skill's text, which alone states it, so it earns no head by test 2 of
+  `primer@design-heads`.
 
 ### The module guidelines are a fragment of their own, hosted by the development skill, the code-shape reviewer and the code-split scout `##module-guidelines-fragment`
 
@@ -54,9 +54,28 @@
   fragment exists mostly for the scout, where the record has it written for the design and
   development skills before the scout existed, per `design@agent-skills@component-skill-delivery`;
   the ruling's ground, the fragment's name, stands without that premise.
+- On confirming the split, the owner stated that the scout sends back signals of code that might
+  need a split, and that the session receiving them analyses them, decides whether and how to split,
+  and plans the split.
 - Its shape: this spec's "Builds". Harvest: this slice's, into the host lists of
   `design@agent-skills@shared-text-fragment` and the delivery of
   `design@agent-skills@component-skill-delivery`.
+
+### A fragment's host list is the session's under the host rule, each change reported under "Decided" `##host-lists-are-the-session-s`
+
+- Opened by the decision-record review before this slice's merge: `design@agent-skills@shared-text-fragment`
+  held every host list but the admission standard's four to be the owner's, so that a host added
+  went to the owner, on the ground that the owner approved each list, which the table of what the
+  owner brings in `primer@design-heads` counts as no ground; the same head records the module
+  guidelines' list as the session's choice.
+- Put to the owner as Q18, with shape (b): the host lists not reserved to the owner.
+- Final state: `approved`, on the owner's word on Q18, shape (b): the session decides each host list
+  by the head's rule that a text is a host only where its act applies the whole fragment, and
+  reports each change of a list under the turn's "Decided" section, per `primer@decided-section`,
+  where the owner can contest it. The owner reported that no argument had ever kept the lists to the
+  owner.
+- Its shape: the host-list sentence of `design@agent-skills@shared-text-fragment`. Harvest: this
+  slice's review, into that head.
 
 ## Arguments
 

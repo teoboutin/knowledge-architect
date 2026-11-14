@@ -61,39 +61,32 @@ the warning that a shallow history miscounts a tripwire's horizon; and two block
 standard, per `design@agent-skills@component-skill-delivery`: the occasion of a Component's creation
 or split, hosted by the design skill, the development skill and the code-split scout, and how to
 split, the load of the component-creation skill with the signals of a wrong cut, hosted by the two
-skills alone. Those two smaller blocks are fragments because the owner proposed a fragment on when
-to split for the design skill, and then chose to split it, since a fragment named for when to split
-holds no content on how to split, over the session's default of dropping the scout from its hosts
-and over keeping the scout a host of the whole, which no goal ranks; the rule admits no other block
-smaller than a standard, and the session extended these to the development skill. The module
-guidelines are a fragment of their own because the scout applies them and none of the default
-shape's test rules: the session chose that over the scout hosting the whole default shape under a
-host rule narrowed to admit it, and over the scout reading the default shape by a pointer, which
-this head's argument defeats; no goal ranks the first two, and the owner approved it. The host lists
-of every fragment but the four of the admission standard are the owner's: the owner approved each
-list, the narrowings included, so a host added to one goes to the owner; the admission standard's
-four follow from the owner's approval of its split by subsection, under the rule that a host applies
-the whole fragment. The expectation sets stay behind a pointer, since the reader needs one skill's set, which
+skills alone. The occasion is a fragment because the owner proposed a fragment on when to split
+for the design skill; the rule admits no other block smaller than a standard, and the session
+extended it to the development skill. How to split is a fragment of its own, at the cost of one more
+fragment, on the owner's argument that a fragment named for when to split holds no content on how
+to split. Its two rivals each leave content on how to split in the fragment on when to split: the
+session's default, the scout dropped from the fragment's hosts, and the scout kept a host of the
+whole, which besides loads into every run of it two sentences no act of it applies, the cost
+`design@agent-skills@context-cost-of-agent-text` counts, and which its own text overrides. The
+module guidelines are a fragment of their own, at the cost of one more fragment, because the scout
+applies them and none of the default shape's test rules: the scout hosting the whole default shape
+would load those rules into every run of it, the same cost, under a host rule narrowed to admit it,
+which weakens the rule for every fragment; and the scout reading the default shape by a pointer
+loses to this head's argument. Each fragment's host list is the session's, decided by the rule that
+a text is a host only where its act applies the whole fragment, and each change of a list is
+reported under the turn's "Decided" section, per `primer@decided-section`, where the owner can
+contest it: the owner ruled so, and reported that no argument had kept the lists to the owner, whose
+approvals of them were no ground. The admission standard's four fragments follow from its split by
+subsection, under the same rule. The expectation sets stay behind a pointer, since the reader needs one skill's set, which
 varies per finding. The pointer it replaces had left the writer of about 35 tripwires of this
 repository and thaum without the rule they broke. The snippet pass cannot carry prose: it runs last,
 so a snippet keeps its `%%` lines and its placeholders, and every snippet is written into a new
-project by `klarch init --rust`. A harness hook that delivers the sections a pointer names, which the
-`claude` harness can run from a skill's or a subagent's frontmatter as from a settings file, puts
-the same text into the same context at the same moment as the fragment does, so it saves nothing a
-session pays, per `design@agent-skills@context-cost-of-agent-text`, and it costs what the fragment
-does not. The text a session receives is computed at each run, outside the installed file that
-`design@check@installed-files-compared-by-bytes` compares and a review reads. A setting outside the
-project's tree, `disableAllHooks` in the user's settings or a `--settings` given for one run, turns
-the delivery off, and the session reads the bare pointer. And one hook's added context is capped at
-10,000 characters, past which the harness hands the model a file's path and a preview of 2,000
-characters and does not ask it to read the file, while the fragments the decision-recording skill
-hosts hold several times that: a hook would deliver them in parts, by several hooks, a structure the
-fragment does not need. These are read in the Claude Code documentation's page on hooks, at "Hook
-locations", at the `additionalContext` field and at disabling hooks; the characters are counted by
-`grep -v '^%%' <fragment> | wc -m` over each fragment the skill's source names, summed, and a host's
-fragments fitting under one hook's cap would weaken that last cost alone. A review of a changed fragment reads it
-in every host, since a sentence true in one host's context can be false in another's, as two
-sentences of the first fragments were.
+project by `klarch init --rust`. A harness hook delivering pointed sections was defeated on its making
+the shipped workflow depend on a hook one harness runs, which an environment of another harness
+lacks; since `goal@serves-one-kind-of-project` asks every target project's
+agents to run under the `claude` harness, that defeat is to be argued again, per
+`issue@agent-skills@heads-argued-from-another-harness`.
 
 ### Code that decides which lines are inlined reads each kind of placeholder through one reader `##one-placeholder-reader-per-kind`
 

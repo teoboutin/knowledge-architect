@@ -385,17 +385,15 @@ other defaults. The rival, no row, leaves such an edit to be read by no step bef
 against `goal@the-owner-decides`. Per `design@agent-skills@goal-reviewer-agent`,
 the agent is the same one goal-setting dispatches.
 
-### The shape of the code a branch writes is judged against the default shape by an installed reviewer, before the branch merges `##code-shape-axis`
+### The shape of the code a branch writes is judged against the default shape and the module guidelines by an installed reviewer, before the branch merges `##code-shape-axis`
 
 `agent@knowledge-architect-code-shape-reviewer` judges each unit of code a branch writes or edits
 against the default shape of `design@agent-skills@default-code-shape`, and each test it adds by
 `design@agent-skills@test-economy`, in the review before the merge, so every branch's code is
 weighed against the shape before it merges. It also hosts the module guidelines of
-`design@agent-skills@module-split-guidelines`: a signal for a split over code the range writes is a
-departure like any other, and one over code the range does not write is a split signal, reported
-under a heading of its own and no repair inside the branch, which the dispatching session routes as
-`primer@met-outside-the-task` says, since a split is planned before the work, per
-`design@agent-skills@splits-planned-before-work`.
+`design@agent-skills@module-split-guidelines`, so a signal of them over code the range writes is a
+departure like any other; one over code the range does not write is reported under a heading of its
+own, for the dispatching session to route as `design@agent-skills@splits-planned-before-work` says.
 `goal@the-workflow-leads-to-better-code` has what the workflow says about code
 and tests aim at code of better quality, and the default shape is what it says about the shape of
 code. The nearest rival, the shape applied by the session that writes the code and weighed by no

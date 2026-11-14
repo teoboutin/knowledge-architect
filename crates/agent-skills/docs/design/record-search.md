@@ -409,10 +409,10 @@ but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into th
 sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
 record, in its commit message, and copied in the same commit as `search/design-audit.txt` beside the
 audited `README.md`, so the record of the audit stays in the plan document while it exists. The
-audit also runs `agent@knowledge-architect-code-split-scout` over the units its slice's or its
-spec's work writes into, and reads the notices of the search's own `klarch worklist` run as the
+audit also runs `agent@knowledge-architect-code-split-scout` with the slice's or the spec's
+`README.md` as its work, and reads the notices of the search's own `klarch worklist` run as the
 record side at planning reads them, per `design@agent-skills@code-split-scout` and
-`design@agent-skills@subject-split-standard`. Each split either finds that the planned steps do not
+`design@agent-skills@splits-planned-before-work`. Each split either finds that the planned steps do not
 take is a gap like any other, sorted by the same sorts and listed with the other gaps in the
 audit's commit message: a split the decided design implies is applied in place, as a step before the
 work, and any other goes to the owner or to a design session, as the sorts say. The audit designs no

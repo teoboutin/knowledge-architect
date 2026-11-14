@@ -564,9 +564,9 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    spec's. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest.
-   Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the work the
-   search is given, since it reads the code from a point of view apart from yours: it judges the
-   units the slice's own work writes into, as the slice's `README.md` states that work. Read the
+   Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the
+   `README.md` of the slice or of the spec as its work, since it reads the code from a point of view
+   apart from yours: it judges the units that work writes into. Read the
    notices of the search's own `cargo klarch worklist` run as the record side of
    `skill@knowledge-architect-planning@cutting-steps-and-slices` reads them, over the audit's area.
    The scout reports signals and decides nothing: weigh each signal and each notice, and decide
