@@ -41,8 +41,9 @@ an empty subsection is omitted.
   home, reasons over each default criterion of the component-creation skill and over the signals
   against a split, for a criterion followed why it pays, for one departed from the argument or the
   cost accepted, a rule of `skill@knowledge-architect-decision-recording@head-shape`. A project
-  brings its existing Component heads to the rule at the pin move by a pass of the design-record
-  axis, `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section.
+  brings its existing Component heads to the rule by a pass of the design-record axis,
+  `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section, run
+  after the pin move as `skill@knowledge-architect-setup@moving-the-pin` says.
 
 ### New features
 
