@@ -52,9 +52,10 @@ an empty subsection is omitted.
   alone, a definition there still counting against a live one of the same id; a harvested slice,
   or an item it defines, is cited from inside its milestone's directory only, and a relative link
   into `harvested/` from outside it is refused.
-- `checks`, patch: the finding on a span shaped like a path that names no anchor names, in its
-  repair, the form of a file of another project, `path@elsewhere@<project>/<path>`, the project's
-  name as its first segment.
+- `checks`, patch: the finding on a span shaped like a path that names no anchor, and the finding
+  on a `path` reference whose anchor is no anchor of the project, name, in their repairs, the form
+  of a file of another project, `path@elsewhere@<project>/<path>`, the project's name as its first
+  segment.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
