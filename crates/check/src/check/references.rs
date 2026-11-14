@@ -280,7 +280,9 @@ pub(crate) fn judge_part(
                         format!(
                             "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
                              register's home, `path@elsewhere@<path>` for a path this tree does \
-                             not hold, or `path@*@<path>` for every component's own copy{planned}{}",
+                             not hold, with the project's name as its first segment for a file \
+                             of another project, as `path@elsewhere@<project>/<path>`, or \
+                             `path@*@<path>` for every component's own copy{planned}{}",
                             if located {
                                 ". A reference names a file: drop the line number or the \
                                  fragment, and name the function or the heading in prose"
@@ -2237,10 +2239,14 @@ mod tests {
         // The claim, per `design@agent-skills@plain-text-is-no-repair`: the repair names
         // checked forms only, so no reading of it clears the finding by unbackticking the path.
         // The whole repair line is pinned, so an unchecked form offered in any words fails,
-        // on the plain span and on both located ones.
+        // on the plain span and on both located ones. It names the form of a file of another
+        // project, per `design@model@foreign-file-names-its-project`: a writer of a foreign path
+        // meets this finding first.
         let forms = "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
                      register's home, `path@elsewhere@<path>` for a path this tree does not hold, \
-                     or `path@*@<path>` for every component's own copy";
+                     with the project's name as its first segment for a file of another project, \
+                     as `path@elsewhere@<project>/<path>`, or `path@*@<path>` for every \
+                     component's own copy";
         let located = ". A reference names a file: drop the line number or the fragment, and \
                        name the function or the heading in prose";
         let m = manifest();
@@ -2473,8 +2479,10 @@ mod tests {
             action,
             Some(
                 "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a register's \
-                 home, `path@elsewhere@<path>` for a path this tree does not hold, or \
-                 `path@*@<path>` for every component's own copy, or \
+                 home, `path@elsewhere@<path>` for a path this tree does not hold, with the \
+                 project's name as its first segment for a file of another project, as \
+                 `path@elsewhere@<project>/<path>`, or `path@*@<path>` for every component's \
+                 own copy, or \
                  `planned@<anchor>@<path>` for a path the plan's work will create"
             )
         );
