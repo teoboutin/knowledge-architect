@@ -46,7 +46,7 @@ loads it too.
 - The slice that built the `model` crate, 2026-11-04, a slice with no discussion: the content of
   one default, D4, was written into a head before the ruling, and the decision-record reviewer
   caught it.
-- Slice 1 of `milestone@plans@split-guidelines-and-plan-directories`, 2026-11-13: the head of the
+- Slice 1 of the milestone on split guidelines and plan directories, 2026-11-13: the head of the
   check of `commits` on the frozen files stated D2 of that milestone while D2 awaited the owner,
   and the decision-record reviewer of the review before the slice's merge found it. The head was
   not taken back before the ruling, and the owner was not told of it. The owner's ruling on D2

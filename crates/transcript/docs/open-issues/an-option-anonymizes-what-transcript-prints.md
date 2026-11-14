@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-`milestone@plans@split-guidelines-and-plan-directories` has a plan document commit the transcript of
+the milestone on split guidelines and plan directories has a plan document commit the transcript of
 its discussion, extracted with `klarch transcript show`, after a step that reads it and removes
 private information by hand. The owner proposed an option of the command that anonymizes part of
 the output, such as the paths under the machine's home directory, and left it for later.
