@@ -294,7 +294,7 @@ Default: none is taken in at this intake; the reports stay in this analysis and 
 part the owner takes in opens an issue in the Component that would ship it, as
 `issue@knowledge-architect@this-repository-s-own-tools-are-not-checked-for-a-generic-part` closes
 its own check.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): pending.
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): taken in: the two dynamic workflows of item 3, the record search's and the review's, and the survey of prior art of item 4, each as a todo issue, `issue@agent-skills@a-saved-workflow-runs-the-record-search`, `issue@agent-skills@a-saved-workflow-runs-the-review-before-a-merge` and `issue@agent-skills@no-installed-procedure-runs-a-survey-of-prior-art`, not designed now; the others not taken in. The owner: "I already had plans in my head for the two workflow proposals, especially for the record search, but also the review. Also for the survey procedure. Those should not be designed now anyway, a todo issue is enough"
 
 ## quotation-check-refuses-cut-punctuation: the report check refuses a quotation cut from its punctuation, and every searcher scripts the repair
 
