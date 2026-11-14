@@ -158,7 +158,8 @@ The order is a suggestion; the content is not.
   - a text edit of the project's own agent configuration whose design is settled:
     `skill@knowledge-architect-agent-configuration`;
   - a decision, or one whose design is not settled: `skill@knowledge-architect-design`;
-  - a change to the project's code: the project's own development procedure;
+  - a change to the project's code: `skill@knowledge-architect-development` for its Rust code, and
+    the project's own development procedure for any other code;
   - an issue only, when the work needs a branch of its own;
   - a fix in the installed text or in the checker: sent upstream;
   - nothing.
