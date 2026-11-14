@@ -56,6 +56,22 @@ nine of this repository's ten begun after the restatement among them.
   is the section "The standing answers, with the claim-check lapses of twenty-one files" of
   2026-10-31-knowledge-architect-intake-seventeen-files-klarch-workflow, in the commit "[intake]
   The analyses of forty received retrospective files, three outcomes for the owner".
+- Further instances, in the intake of forty-seven retrospective files of 2026-11-07 to
+  2026-11-14: nineteen of its 26 workflow files report the lapse, 16 of this repository's 21 and 3
+  of thaum's 5, at least fifty instances, each caught before the merge but one, a horizon count
+  relayed from a reviewer into two commit messages that reached main. By where the false claim was
+  written: commit messages, in most files; heads, in 4 files; answers to the owner, in 4 files,
+  beside the questions put to the owner on an unchecked premise, against
+  `primer@owner-word-premise`, in 7 files; an issue entry, a review record, a doc comment, a
+  milestone document and a brief in the others. One file, that of the slice on value checks while
+  parsing, wrote no claim list and no false claim. At least one instance is in a message about Rust
+  work, where the development skill's commit step restates the rule: that of slice 1 of the plan
+  directories; the five of the branch on the record search's verdicts were in a branch of four
+  development steps, its file not saying which commits they were; whether those sessions loaded
+  the development skill at those commits is an assumption. The move-only split of oversized
+  modules in thaum was Rust work on 0.9.0, which ships no development skill. The analysis is the
+  section `message-claims-written-unchecked` of the analyses of the intake of forty-seven files,
+  in the commit that adds them under `path@knowledge-architect@docs/retrospective-reports/`.
 - The count after the restatement in the development skill's commit step: of this repository's
   ten files whose session began after that restatement shipped, nine report the lapse; the one
   without is that of the slice that put `cli` on top. At least one lapse was in a message about

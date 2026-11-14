@@ -45,6 +45,13 @@ Component split, 2026-11-02. `skill@knowledge-architect-planning` asks, for each
 reverses or rewrites, every text that `show` lists as referencing it; the session ran `show` on 19
 heads in a shell loop and grouped the files by hand.
 
+A further instance of the first list: C4 of 2026-11-12-thaum-triggers-design-klarch-workflow, a
+design discussion of another project carried to a milestone plan at the pin `=0.9.0`: for the
+section "What is already decided", the session built by script, from repeated `show` runs, the 20
+rows of texts referencing the decisions its work rewrites, and proposed a `show` mode printing only
+the referencing paths of several references. Analysed at the intake of forty-seven received files,
+2026-11-14.
+
 The second work list asks for the citing entry: a pin move of thaum to 0.8.0, whose migration cites
 each `rejected` entry from the heads whose argument covers it. To find which head cites an entry,
 the session and three reviewers wrote scripts mapping each line `show` prints to the level-three

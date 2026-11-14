@@ -62,3 +62,6 @@ The check, run by `cargo x gates`, failing on a reference to an entry planted in
 file the installed copies hold, and passing on a `%%` comment that cites one in content/. The
 release procedure, `skill@klarch-release`, checks the shipped text for
 references by hand; the check replaces that step.
+
+The release of 0.10.0 read the shipped text's spans by a one-line loop, among the release checks it
+scripted (the standing answers of 2026-11-12-knowledge-architect-release-0-10-0-klarch-workflow).

@@ -42,6 +42,25 @@ graded the issue `trigger-met`, and the session put to the owner whether reopeni
 `design@agent-skills@one-record-searcher` was part of the milestone. The owner kept it out, and the
 issue's re-entry point was rewritten to name a discussion whose own work includes that reopening.
 
+A third instance, from 2026-11-13-knowledge-architect-plan-directories-slice-1 P2: the re-entry
+point of `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`,
+"when work next changes what a session reads or runs at a commit", was graded `trigger-met` at the
+audit of the first slice of the plan directories, which adds steps at three kinds of commit; the
+session argued the slice was not the occasion, and the design-conformance reviewer argued it was.
+Two readers applied the point in opposite directions, so it names no event they agree on. The
+file proposed naming the event: a change to the commit step of an installed skill or to what
+`cargo klarch commits` prints. It also shows a review reading a re-entry point, the question of
+`issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`.
+
+A further instance, at a slice's design audit: in the slice on splits planned before the work, the
+audit graded an issue `trigger-met`, `rule-before-work`, its re-entry met by the slice's change to
+one head. The planning skill's sorts at a design audit name no verdict action, so the
+session had two readings, arguing the instance in the slice or ruling its re-entry. A harvest agent
+took the first and closed the thread with no search of its own, against
+`design@agent-skills@no-thread-closes-before-the-search`; the review before the merge withdrew the
+argument and the re-entry was rewritten so that a change of a host list no longer meets it, per W4
+of the retrospective file `2026-11-14-knowledge-architect-planned-splits-slice-klarch-workflow`.
+
 `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` asks the opposite question,
 whether more reviews should read a re-entry point against a change; a decision on either entry
 bears on the other.

@@ -8,7 +8,7 @@ kind: design
 The installed primer asks that a failing staged check be repaired before the commit, and this
 repository's root asks that a push follow a passing `commits` check. Sessions keep joining the
 check and the commit or the push in one command whose separator runs the second whatever the check
-found: nine instances in six sessions of this repository, one in thaum. Each is a lapse of a
+found: ten instances in seven sessions of this repository, one in thaum. Each is a lapse of a
 clear instruction; the recurrence is the argument for moving where it is delivered.
 
 ## Details
@@ -46,9 +46,15 @@ them, each called a lapse by its file:
 - the branch that triaged the issue record, 2026-11-11: one command ran `check --fix` with its
   last line read by `tail`, then `git commit`, the `commits` check and `git push`, joined with
   semicolons; both checks failed on a dangling reference, and the commit and its push went out.
-  Reported by its session, not by a retrospective file.
+  Reported by its session, and by P1 of its retrospective project file.
+- the first slice of the goals milestone, 2026-11-10: one command ran the staged check, `git
+  commit`, the `commits` check with its output read by `tail`, then `git push`, the push after a
+  semicolon; `commits` failed on a branch SHA a committed file cited, the push went out, and
+  the amended commit was force-pushed over it. Reported in the standing answers of its workflow
+  file; the separator is read from the session's transcript. `pipefail` was set, and a semicolon
+  is outside what it stops.
 
-That is two pushes and seven commits in this repository, from 2026-11-01 to 2026-11-11, and one in
+That is three pushes and seven commits in this repository, from 2026-11-01 to 2026-11-11, and one in
 thaum. A further lapse of the push rule, of another shape, in the slice that moved the consumers
 out: after a `git rebase --onto` that detached HEAD, the session ran `commits` on the detached
 commits and pushed the branch's name, which still held the commit that had failed.

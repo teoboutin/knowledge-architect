@@ -47,6 +47,13 @@ answer, with no rival weighed, which the decision-record reviewer found; and P1 
 installed sentence wider than the decided design, with a further clause outside the owner's premise,
 which the spec-conformity and decision-record reviewers found. Each was repaired before its merge.
 
+Two more, in the files of the intake of forty-seven retrospective files of 2026-11-07 to
+2026-11-14: the implementer of a defect fix in thaum placed a second decision, a new case, inside
+an existing head, which three reviewers found; and the session of this repository's slice that
+runs the design-conformance check before the harvest gave a head a member its argument did not
+cover, in its answer to a search verdict, which the review before the merge found. Each was
+repaired before its merge.
+
 ### Why it matters
 
 A member beyond the argument enters a head with no deliberation, against

@@ -7,9 +7,8 @@ kind: design
 
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
-plain-text pointers among the candidates. Seven instances are known, and the re-entry point has
-been met four times with no discussion. Of the first three, the finding on a
-reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
+plain-text pointers among the candidates. Eight instances are known, and the re-entry point has
+been met five times with no discussion. Of the first three, the finding on a reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
 first, references in the checker's syntax with their backticks removed, and neither of the other
 two: a bare path, and the bare name of a skill still to be created, which no table defines.
 
@@ -94,6 +93,16 @@ order of known work is the owner's. The analyses are the sections "The pointers 
 three files" and the one on this entry's re-entry point of
 2026-11-01-knowledge-architect-narrowed-goals-klarch-workflow, in the commit "[intake] The analyses
 of forty received retrospective files, three outcomes for the owner".
+
+A further instance, meeting the re-entry point again, from the retrospective files of the second
+slice of the goals' milestone, 2026-11-11: the anchored form of the root goals home's reference, which the checker refuses as
+malformed in backticks, written without backticks at ten sites of the slice's plan documents,
+beside no issue entry, as syntax examples of the form the slice refused. The bare-token lint did
+not report it: it reports a token that reads as a well-formed reference, and the candidate rule
+reads this one as malformed; a copy of the minimal mock project still passes with the form bare on
+0.10.0. A candidate for the discussion, from that file: the lint also reports a token of a known
+kind in a shape the backticked form refuses, with the backticked form's repair. The checked form
+the case needed already existed: a sentence that names the form in words.
 
 ### Why it matters
 

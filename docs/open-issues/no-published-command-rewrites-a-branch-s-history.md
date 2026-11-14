@@ -31,6 +31,13 @@ skill asks a repair "by a history edit of the branch after that". One session re
 cherry-pick, and its first attempt amended the wrong commit. A command meets that refusal: it drives
 the rebase with no editor, as this repository's fold does with `GIT_SEQUENCE_EDITOR=true`.
 
+Further instances, from the retrospective files received at the intake of 2026-11-14: two sessions
+of thaum, 2026-11-13, reworded earlier commits' messages with a hand-written loop of
+`git commit-tree` over the same trees, authors and dates, two and three times, checking an empty
+`git diff` and the `range-diff` by hand, since the harness refuses an interactive rebase. One
+proposed a command of the maintenance crate, which reaches no other project since that crate is
+never published.
+
 A further task, not taken in: moving a commit to the branch's front, as a session of this
 repository did once, 2026-11-01, when a stricter check landed mid-branch; its scripted sequence
 editor stopped twice on a generated index and left a later commit's index stale, so the task

@@ -27,6 +27,16 @@ cut, its notice ending "truncated <n> chars", as the record search of the same b
 The premise it defeats in that branch's record: the ground of a premortem cause dropped on the
 doubt's weight, "the owner sees each report returned in the session".
 
+A second instance, from the other side: at a review before the merge of 12 axes in a project that
+uses the workflow, every reviewer returned its whole report as text beside its file, at roughly
+1 000 to 3 000 words each, and the dispatching session needed one line per finding; the transcript
+reviewer read the report files as well as the transcript (W2 of
+2026-11-13-thaum-long-draw-klarch-workflow). Its proposal, that a reviewer return its verdict line,
+its finding count and the report's path while the transcript reviewer's brief lists the report
+files, is the rival `design@agent-skills@reviewer-returns-its-report-whole` defeated, with this
+issue's second closing shape added: closing the issue by that shape would also decide whether a
+reviewer still returns its report whole, and weigh the context the returned reports fill.
+
 ### Why it matters
 
 The transcript reviewer is the one axis that can see whether the other axes' findings were acted on,
