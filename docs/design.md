@@ -430,8 +430,9 @@ forms; the changes the goals predict, a mode of the run or a way to restore, sta
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
 the tasks this repository's own instructions require, or whose procedure they fix, per
 `design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds` and `gates`, whose list, and the flags
-CI passes, are this repository's, while the published library defines the flags and runs the gates,
-per `design@knowledge-architect@gates-crate`.
+CI passes, are this repository's, while the published library defines its own flags and runs the
+gates, per `design@knowledge-architect@gates-crate`; cargo's own `--locked`, which CI passes ahead of
+the `x` alias, is cargo's.
 It also hosts `mutate`, whose logic a published crate ships, per
 `design@knowledge-architect@mutation-command-host`. It is the maintenance crate that knowledge-architect asks of every Rust target project, per
 `design@agent-skills@maintenance-crate-ask`, which this repository, a target project, carries. It
@@ -910,11 +911,10 @@ a re-run cannot change.
   `design@knowledge-architect@scratch-worktree-outside-git-rules`.
 - The branch is rebased on main before review and merge, and reviewed before any merge. A review
   repair lands as `design@agent-skills@review-repair-appended-or-folded` decides: appended, and
-  folded where appending leaves an earlier commit failing the per-commit rule below. Where every
-  repair was folded, the record of the review goes into the message of the branch's last commit, as
-  `skill@knowledge-architect-review@what-review-leaves` says. The owner's reason the fold applies
-  here is that this repository keeps rewriting its checker, so a repair that changes what it judges
-  is no rare case.
+  folded where appending leaves an earlier commit failing the per-commit rule below. Where the
+  record of the review goes is `skill@knowledge-architect-review@what-review-leaves`. The owner's
+  reason the fold applies here is that this repository keeps rewriting its checker, so a repair
+  that changes what it judges is no rare case.
 - **Every commit of a branch passes the check under the branch tip's checker**, as
   `design@check@every-commit-judged-by-the-tip-checker` decides. So work whose intermediate trees cannot
   pass lands as one commit, squashed before review.

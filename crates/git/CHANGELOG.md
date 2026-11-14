@@ -145,8 +145,8 @@ an empty subsection is omitted.
   record of the whole review moved to the last repair commit at each round.
 - `agent-skills`, patch: `agent@knowledge-architect-goal-reviewer` grades a term with two meanings
   in the project `blocks` only where its report names the act an agent taking the other meaning
-  would take, and `minor` where the other meaning moves no agent's act, which the stop of a goal
-  review's rounds, counting `blocks` findings alone, no longer counts.
+  would take, and `minor` where the report names no such act, which the stop of a goal review's
+  rounds, counting `blocks` findings alone, no longer counts.
 
 ## 0.10.0
 
