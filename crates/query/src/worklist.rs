@@ -397,14 +397,20 @@ fn write(manifest: &Manifest, asked: &Asked, checker: &[&Path]) -> Result<ExitCo
     }
     if let Some((citation, _, has_section, taken)) = &audit {
         if *has_section {
-            outln!("{citation}: {taken} seeds from its section \"{DECIDED_SECTION}\"");
+            let noun = if *taken == 1 { "seed" } else { "seeds" };
+            outln!("{citation}: {taken} {noun} from its section \"{DECIDED_SECTION}\"");
         } else {
             outln!("{citation}: no section \"{DECIDED_SECTION}\", so no seed from it");
         }
     }
     if since.is_some() {
+        let noun = if changed.len() == 1 {
+            "entry"
+        } else {
+            "entries"
+        };
         outln!(
-            "{} entries changed since the commit \"{}\", marked `{CHANGED_MARK}`",
+            "{} {noun} changed since the commit \"{}\", marked `{CHANGED_MARK}`",
             changed.len(),
             since_subject.as_deref().unwrap_or_default()
         );

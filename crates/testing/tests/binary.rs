@@ -8177,7 +8177,9 @@ fn worklist_changed(out: &Path) -> Vec<String> {
 /// which misses the untracked file; `.args([sha.as_str(), "--"])` made `.args(["HEAD", "--"])`,
 /// which misses the later commit's change; in `write` of `path@query@src/worklist.rs`,
 /// `paths.contains(&e.record.site.file)` made `!paths.contains(&e.record.site.file)`; and in
-/// `render`, the push of the changed-since mark in `agents.txt` removed; each caught.
+/// `render`, the push of the changed-since mark in `agents.txt` removed; each caught. The count of
+/// changed entries takes the singular for one and the plural for five; mutation checked, in
+/// `write`: the condition of the singular, `changed.len() == 1`, made `changed.len() == 0`, caught.
 #[test]
 fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commit() {
     let (sandbox, out) = worklist_project("worklist-since");
@@ -8290,6 +8292,23 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         "{stdout}"
     );
     let _ = std::fs::remove_dir_all(&head);
+    // One entry changed: the count takes the singular.
+    worklist_commit(&sandbox, "The later base");
+    sandbox.write(
+        "docs/tripwires.md",
+        &format!("{WORKLIST_TRIPWIRES}\nA later line.\nAnother line.\n"),
+    );
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "HEAD"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert_eq!(
+        worklist_changed(&head),
+        ["tripwire@core-mock@first-premise"]
+    );
+    assert!(
+        stdout.contains("1 entry changed since the commit \"The later base\""),
+        "{stdout}"
+    );
+    let _ = std::fs::remove_dir_all(&head);
     let _ = std::fs::remove_dir_all(&out);
 }
 
@@ -8367,7 +8386,9 @@ fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
 /// takes no seed; the refusal `let Some((citation, rel)) = found else {` given the citation
 /// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught. A harvested
 /// slice is refused, given by its directory or its README.md; mutation checked: the refusal's
-/// condition `frozen_file(manifest, rel)` made `false`, caught.
+/// condition `frozen_file(manifest, rel)` made `false`, caught. The count takes the singular for
+/// one seed, the slice's, and the plural for two, the spec's; mutation checked, in `write`:
+/// `if *taken == 1 { "seed" }` made `if *taken == 0 { "seed" }`, caught.
 #[test]
 fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries() {
     let (sandbox, out) = worklist_audit_project("worklist-seeds-from");
@@ -8429,7 +8450,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         assert_eq!(code, 0, "{slice}: {stdout}{stderr}");
         assert!(
             stdout.contains(
-                "spec@a-milestone@a-slice: 1 seeds from its section \"What is already decided\""
+                "spec@a-milestone@a-slice: 1 seed from its section \"What is already decided\""
             ),
             "{slice}: {stdout}"
         );
