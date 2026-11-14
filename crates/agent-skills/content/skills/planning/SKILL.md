@@ -615,8 +615,9 @@ design the gap defeats or on the ruling the documents reserve to the owner.
      amended documents and `search/design-audit.txt` alone, with a subject that names the slice's design audit in those words,
      and a message listing each finding: the gap, the answer and the decision it follows from, and
      the lines of `fit-lines.md`. Where the slice's first change sets what the per-commit gate
-     requires, per `primer@branch-commits`, the amended documents land in that change's commit
-     instead, and its message carries the audit's subject and list. Earlier audits are found with
+     requires, the amended documents end in that change's commit, committed with it or folded into
+     it before the review, per `primer@branch-commits`, and its message carries the audit's subject
+     and list. Earlier audits are found with
      `git log --grep='design audit'`.
      **An answer that relaxes a ruling of the owner, or turns it from its direction, is a scope
      change even when it is the one answer the document implies.** It is applied with the
