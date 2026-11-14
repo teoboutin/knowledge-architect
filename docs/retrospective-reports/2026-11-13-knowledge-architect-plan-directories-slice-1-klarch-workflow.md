@@ -108,7 +108,7 @@ Members: 2026-11-13-knowledge-architect-plan-directories-slice-1-klarch-workflow
   title.
 - **g. Its route.** An issue only: a design discussion and a branch of the `transcript` Component.
 - **h. The proposal.** Open a defect issue in `transcript`,
-  `list-branch-lists-a-session-that-did-no-work-on-the-branch`, with the measurement above, the
+  `issue@transcript@list-branch-lists-a-session-that-did-no-work-on-the-branch`, with the measurement above, the
   three proposals, and "What would close it": the same discussion as
   `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree`, measuring which lines
   carry which branch in sessions whose checkout moved, with a test over a fixture of a session whose
@@ -118,7 +118,7 @@ The worktree issue's assumption is corrected in place in the same commit, after 
 labels, as `primer@verify-before-relying` asks of a diagnosis evidence contradicts.
 
 Default: open the issue, and correct the worktree issue's assumption.
-Outcome: decided by the session: open an issue, `transcript`, kind `defect`, `list-branch-lists-a-session-that-did-no-work-on-the-branch`, and correct the assumption of `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree` with the measurement. Ground: the defect stands at origin/main by measurement; its fix rewrites `design@transcript@transcript-query-verbs`, which needs a design discussion, the one the worktree issue already asks for.
+Outcome: decided by the session: open an issue, `transcript`, kind `defect`, `issue@transcript@list-branch-lists-a-session-that-did-no-work-on-the-branch`, and correct the assumption of `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree` with the measurement. Ground: the defect stands at origin/main by measurement; its fix rewrites `design@transcript@transcript-query-verbs`, which needs a design discussion, the one the worktree issue already asks for.
 
 Text to add to `issue@transcript@list-branch-misses-a-session-that-worked-in-a-worktree`, in "What", after the sentence that labels the reading an assumption and ends "which harness events write the worktree's branch is not established.":
 
@@ -128,11 +128,11 @@ reading: it started on `main`, its lines carry four branches, and one of its lin
 while the next, written two seconds later, after another session had checked out `planned-splits`
 in the same checkout, carries `planned-splits`. In that session the field followed
 the branch the checkout held when each line was written, not the branch of the session's start. The false listing this causes is
-`list-branch-lists-a-session-that-did-no-work-on-the-branch`, decided in the same
+`issue@transcript@list-branch-lists-a-session-that-did-no-work-on-the-branch`, decided in the same
 discussion.
 ```
 
-The reference in that block resolves only once the new issue exists: the commit that adds the block opens `list-branch-lists-a-session-that-did-no-work-on-the-branch`, or comes after the one that does, and the analysis that carries the block is committed no earlier.
+The reference in that block resolves only once the new issue exists: the commit that adds the block opens `issue@transcript@list-branch-lists-a-session-that-did-no-work-on-the-branch`, or comes after the one that does, and the analysis that carries the block is committed no earlier.
 
 ## passed-horizon-left-standing: a tripwire whose horizon is said to have passed is left standing
 

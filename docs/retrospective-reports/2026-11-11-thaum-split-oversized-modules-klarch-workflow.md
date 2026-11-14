@@ -90,14 +90,14 @@ Members: 2026-11-11-thaum-split-oversized-modules-klarch-workflow C5.
   the move may land in the checker or in the installed text, which the discussion decides, as for
   the issues on renames and on the review's worktrees, both in the root's issue directory.
 - **h. The proposal.** Open an issue in the root, `knowledge-architect`, kind `todo`, slug
-  `a-conflict-in-a-generated-file-is-resolved-by-hand`: the instance; the root's rule as the same
+  `issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand`: the instance; the root's rule as the same
   task in this repository; the bounds above; "What would close it": the owner takes the task in or
   declines it; if taken in, a design discussion places the move, with a test that replays a commit
   regenerating an index over a mock project; if declined, the entry is deleted with that reason.
 
 Default: open the issue.
 Outcome: decided by the session: open an issue, `knowledge-architect`, kind `todo`, slug
-`a-conflict-in-a-generated-file-is-resolved-by-hand`. Ground: the task follows from the tree with no
+`issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand`. Ground: the task follows from the tree with no
 judgement and recurs, which `goal@tasks-a-tool-does-better-are-the-tool-s` gives a tool only once the
 owner takes it in, so the decision stays the issue's closing condition; the proposed driver shipped
 by the install is refused by `design@check@owned-namespace-check`.
@@ -160,7 +160,7 @@ Members: 2026-11-11-thaum-split-oversized-modules-klarch-workflow C4,
 - **g. Its route.** A decision of the checker: `skill@knowledge-architect-design`, then
   `skill@klarch-development`. It needs a branch of its own.
 - **h. The proposal.** Open an issue in `check`, kind `design`, slug
-  `index-staged-leaves-the-working-tree-s-generated-file-stale`: the two instances; the mechanism,
+  `issue@check@index-staged-leaves-the-working-tree-s-generated-file-stale`: the two instances; the mechanism,
   that the head leaves the working-tree file as it was, so after the commit it holds the old rows;
   the three shapes (thaum's notice, which `design@check@one-question-one-command` defeats;
   dispatch-judgement's write of the staged rows, which the rejected entry's reason still covers;
@@ -171,7 +171,7 @@ Members: 2026-11-11-thaum-split-oversized-modules-klarch-workflow C4,
 
 Default: open the issue.
 Outcome: decided by the session: open an issue, `check`, kind `design`, slug
-`index-staged-leaves-the-working-tree-s-generated-file-stale`. Ground: each proposal changes
+`issue@check@index-staged-leaves-the-working-tree-s-generated-file-stale`. Ground: each proposal changes
 `design@check@index-staged-write`; one brings back `rejected@check@index-staged-writes-working-file`
 without an argument that answers its reason, the other is defeated by
 `design@check@one-question-one-command`, and the shape no record defeats still reverses the head's

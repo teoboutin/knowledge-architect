@@ -167,11 +167,11 @@ Members: 2026-11-12-knowledge-architect-retrospective-standing-questions-klarch-
   `transcript-shows-only-persisted-preview`, a second kind of cut the head does not name.
 - **g. Its route.** An issue only: a design discussion and a branch of `transcript`.
 - **h. The proposal.** Open a design issue in `transcript`,
-  `the-header-names-the-cuts-of-sessions-a-filter-left-out`, with the run above, the proposal and
+  `issue@transcript@the-header-names-the-cuts-of-sessions-a-filter-left-out`, with the run above, the proposal and
   the distinction between a fact about the reader and a fact about a session.
 
 Default: open the issue.
-Outcome: decided by the session: open an issue, `transcript`, kind `design`, `the-header-names-the-cuts-of-sessions-a-filter-left-out`. Ground: the notices stand at origin/main by measurement, and the fix narrows what `design@transcript@cut-text-reported` says every header prints.
+Outcome: decided by the session: open an issue, `transcript`, kind `design`, `issue@transcript@the-header-names-the-cuts-of-sessions-a-filter-left-out`. Ground: the notices stand at origin/main by measurement, and the fix narrows what `design@transcript@cut-text-reported` says every header prints.
 
 ## standing-2026-11-12-knowledge-architect-retrospective-standing-questions-klarch-workflow: the standing answers
 

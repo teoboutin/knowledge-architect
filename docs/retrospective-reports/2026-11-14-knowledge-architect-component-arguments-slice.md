@@ -72,7 +72,7 @@ project interaction note of 2026-11-14-knowledge-architect-component-arguments-s
   guard of a wrong `--work`. That is a design discussion.
 - **g. Its route.** An issue, for a design discussion on its own branch.
 - **h. The proposal.** Open an issue in agent-skills, kind `design`, slug
-  `a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving`. Instance: AC1 of
+  `issue@agent-skills@a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving`. Instance: AC1 of
   the milestone on split guidelines and plan directories, kept by 7e180a76 and dropped by 89c2d927.
   Mechanism: a criterion is admitted on the premise that the landing's work reports on it, and the
   work's records hold no observable for it. Re-entry point: the next acceptance criterion whose
@@ -81,7 +81,7 @@ project interaction note of 2026-11-14-knowledge-architect-component-arguments-s
 
 Default: open the issue above.
 Outcome: decided by the session: open an issue, agent-skills, kind `design`,
-`a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving`. Ground: every fix
+`issue@agent-skills@a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving`. Ground: every fix
 widens or reverses a head (`design@agent-skills@criteria-test-silent-premises`,
 `design@agent-skills@design-audit-checks-fit`, `design@query@occasion-shaped-output`), and no
 argument of the record ranks the rivals.

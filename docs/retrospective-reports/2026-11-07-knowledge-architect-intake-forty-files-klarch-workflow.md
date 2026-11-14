@@ -505,12 +505,12 @@ Members: 2026-11-07-knowledge-architect-intake-forty-files-klarch-workflow C1.
 - **g. Its route.** An issue only: a branch of `transcript`, with the design question on the second
   shape. It can share the discussion of `transcript-list-cut-notices-other-sessions`.
 - **h. The proposal.** Open a todo issue in `transcript`,
-  `a-persisted-tool-result-is-named-in-no-header`, with the marker's form, the count above, the
+  `issue@transcript@a-persisted-tool-result-is-named-in-no-header`, with the marker's form, the count above, the
   first shape as its closing work, and the second shape named as a rival to argue under the design
   skill on the measurement of how long the files stay.
 
 Default: open the issue.
-Outcome: decided by the session: open an issue, `transcript`, kind `todo`, `a-persisted-tool-result-is-named-in-no-header`. Ground: the header at origin/main names no persisted result, which `design@transcript@cut-text-reported`'s rule and argument cover; the code is the defect, and the rival of printing the file reopens on a premise of that head that fails for this form.
+Outcome: decided by the session: open an issue, `transcript`, kind `todo`, `issue@transcript@a-persisted-tool-result-is-named-in-no-header`. Ground: the header at origin/main names no persisted result, which `design@transcript@cut-text-reported`'s rule and argument cover; the code is the defect, and the rival of printing the file reopens on a premise of that head that fails for this form.
 
 ## head-repair-rereview-unbounded: the decision-record re-review of a repair that writes a head has no bound but a round of rewordings
 
@@ -788,13 +788,13 @@ Members: 2026-11-07-knowledge-architect-intake-forty-files-klarch-workflow W2.
 - **e. Its scope.** `goal@the-owner-decides`, which the head serves. The owner of the fix: the installed intake's source, `path@agent-skills@content/skills/retrospective-intake/SKILL.md`, and the head `design@agent-skills@intake-outcome-authority`. The fix contradicts a statement of that head, so it is a decision.
 - **f. A better fix.** The rivals: the report's file past a threshold; the lines always in a file whose path the conversation gives, with the counts; no change, a long message. The fact that would decide is unmeasured: whether a message of 438 lines reaches the owner whole and readable in the harness. Each rival changes the head's words, so none is a settled text edit.
 - **g. Its route.** An issue only: the change needs a design decision on the head, and joins the cluster that changes the same section on one branch.
-- **h. The proposal.** Open an issue in `register@agent-skills@issue`, kind `design`, slug `an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`, stating the instance, the head's sentence it would change, the three rivals and the measurement that would decide; and add it as a member of `issue@agent-skills@the-intake-analysis-s-sections-on-one-branch` with the bullet below, written as its `issue@agent-skills@<slug>` reference in the commit that creates the entry, and the cluster's Summary changed from "two entries" to "three entries". Until it closes, an intake gives the lines in the conversation, as the sentence says. Instructions: 0.
+- **h. The proposal.** Open an issue in `register@agent-skills@issue`, kind `design`, slug `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`, stating the instance, the head's sentence it would change, the three rivals and the measurement that would decide; and add it as a member of `issue@agent-skills@the-intake-analysis-s-sections-on-one-branch` with the bullet below, written as its `issue@agent-skills@<slug>` reference in the commit that creates the entry, and the cluster's Summary changed from "two entries" to "three entries". Until it closes, an intake gives the lines in the conversation, as the sentence says. Instructions: 0.
 
 Default: open the design issue and add it to the cluster; this intake gives its lines in the conversation.
 Outcome: decided by the session: open an issue. Ground: the fix contradicts "the summary in the conversation" of `design@agent-skills@intake-outcome-authority`, which the backstop of `primer@design-heads` sends to `skill@knowledge-architect-design`; the fact that would rank the rivals is unmeasured; the change belongs to the branch of `issue@agent-skills@the-intake-analysis-s-sections-on-one-branch`.
 
 ```text
-- `an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`
+- `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`
 ```
 
 ## standing-2026-11-07-knowledge-architect-intake-forty-files-klarch-workflow: the standing answers

@@ -98,12 +98,12 @@ Members: 2026-11-10-knowledge-architect-record-search-verdicts-klarch-workflow C
   an issue, whose placement waits on the unargued rule above.
 - **h. The proposal.** Ask the owner whether the task is taken in. Default: open a question issue at
   the root, `knowledge-architect`,
-  `no-command-finds-a-recorded-mutation-whose-code-left-the-source`, holding the instance, the
+  `issue@knowledge-architect@no-command-finds-a-recorded-mutation-whose-code-left-the-source`, holding the instance, the
   proposal, its two rivals and the placement question, so the instance is kept until the owner's
   word; taken in, the issue becomes a todo; not taken in, it closes with that word.
 
-Default: open the question issue `no-command-finds-a-recorded-mutation-whose-code-left-the-source` at the root anchor `knowledge-architect`.
-Outcome: decided by the session: open the question issue `no-command-finds-a-recorded-mutation-whose-code-left-the-source` at the root anchor `knowledge-architect`. Ground: opening an issue takes no task in, so the issue parks for the owner whether the task is taken in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner; the intake reads every "no command does X" finding of this batch so, and the owner's answer, given in that issue, needs no wait here.
+Default: open the question issue `issue@knowledge-architect@no-command-finds-a-recorded-mutation-whose-code-left-the-source` at the root anchor `knowledge-architect`.
+Outcome: decided by the session: open the question issue `issue@knowledge-architect@no-command-finds-a-recorded-mutation-whose-code-left-the-source` at the root anchor `knowledge-architect`. Ground: opening an issue takes no task in, so the issue parks for the owner whether the task is taken in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner; the intake reads every "no command does X" finding of this batch so, and the owner's answer, given in that issue, needs no wait here.
 
 ## goal-rounds-and-merge-axis-unjoined: how a goal rewording drafted at a review joins the drafting rounds
 

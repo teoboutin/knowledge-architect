@@ -238,11 +238,11 @@ Members: 2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow C1(b);
   and in `cargo x transcript-kinds`, two sessions of this batch spent a finding on it, and searcher-check C3 could not locate them.
 - **g. Its route.** An issue only: a design discussion and a branch of `transcript`.
 - **h. The proposal.** Open a design issue in `transcript`,
-  `a-claude-p-prompt-asks-for-a-finding-in-every-header`, with the measurement above, the three
+  `issue@transcript@a-claude-p-prompt-asks-for-a-finding-in-every-header`, with the measurement above, the three
   shapes and the two heads they would rewrite.
 
 Default: open the issue.
-Outcome: decided by the session: open an issue, `transcript`, kind `design`, `a-claude-p-prompt-asks-for-a-finding-in-every-header`; the `/compact` part needs no change, repaired by `ba463928`. Ground: the six lines are those `design@transcript@transcript-labels-in-code` leaves unlabelled on purpose, and `design@transcript@transcript-format-tolerated-and-reported` asks a finding for each; every fix rewrites one of the two heads.
+Outcome: decided by the session: open an issue, `transcript`, kind `design`, `issue@transcript@a-claude-p-prompt-asks-for-a-finding-in-every-header`; the `/compact` part needs no change, repaired by `ba463928`. Ground: the six lines are those `design@transcript@transcript-labels-in-code` leaves unlabelled on purpose, and `design@transcript@transcript-format-tolerated-and-reported` asks a finding for each; every fix rewrites one of the two heads.
 
 ## exempt-repairs-held-the-defects: the repairs the re-review rule exempts held all eight record defects of one review
 
@@ -296,7 +296,7 @@ Members: 2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow W2.
 - **g. Its route.** An issue only: the evidence must outlive the analysis, so that a second instance
   can reach it.
 - **h. The proposal.** Open an issue in `agent-skills`, kind `observation`, slug
-  `the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review`. Its content: the
+  `issue@agent-skills@the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review`. Its content: the
   instance and its eight findings by class; the conditions (a repair commit changing about 40 heads
   and entries, the axis sent on the whole commit); that it does not reproduce a loss, since the
   axis read the exempt repairs anyway; what would make it so (a branch whose repairs met no trigger
@@ -306,7 +306,7 @@ Members: 2026-11-11-knowledge-architect-goals-first-slice-klarch-workflow W2.
 
 Default: open the observation issue above; no change to the review skill.
 Outcome: decided by the session: open an issue (`agent-skills`, `observation`,
-`the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review`). Ground: one
+`issue@agent-skills@the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review`). Ground: one
 instance, with no defect lost, does not establish that the exemption of
 `design@agent-skills@only-a-head-changing-repair-is-reviewed-again` loses defects, so no reversal is
 argued; the evidence is kept where a second instance finds it, per

@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-65 entries
+71 entries
 
 | kind | title |
 | --- | --- |
@@ -16,14 +16,18 @@
 | deferred | [The review-cost counts that retrospectives report are not compared across branches yet](the-review-cost-counts-are-not-compared-yet.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |
+| design | [An acceptance criterion admitted without condition 2 can have its evidence in no record at the leaving](a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving.md) |
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
 | design | [A deferred issue's trigger, or a re-entry point, brings unrelated work into a design's scope at a bad moment](a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A record search misses what bears on a part of the work added after it ran](a-record-search-misses-what-is-added-after-it.md) |
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
+| design | [A touched head is defined by what a plan's harvest changes, not by what its steps change](a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps.md) |
+| design | [A head a change touches owes its whole conformance, older debts included, at any edit](a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |
 | design | [An intake's analysis can leave before the owner's ruling in it is committed](an-intake-analysis-can-leave-before-the-owner-s-ruling-is-committed.md) |
+| design | [An intake's lines per section go in the conversation at any count](an-intake-s-lines-per-section-go-in-the-conversation-at-any-count.md) |
 | design | [Decisions argued from a second agent harness, which the scope goal now asks against](heads-argued-from-another-harness.md) |
 | design | [No design head argues that an installed instruction prevails over one the configuration adds, nor that the installed text may rely on the harness's own mechanisms](no-head-argues-an-outside-instruction-s-precedence-or-the-reliance-on-the-harness.md) |
 | design | [No design head argues the expectation that a target project records little of its own about its agent-facing text](no-head-argues-that-a-target-project-records-little-about-its-agent-facing-text.md) |
@@ -35,7 +39,9 @@
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
 | design | [The labels head and the primer give two answers for a label that reaches a branch's commit messages](the-labels-head-and-the-primer-differ-on-a-label-in-a-branch-s-messages.md) |
 | design | [The installed review names neither of two questions of meaning that a passing check leaves open](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
+| design | [The record of a whole-set goal review must hold reviewers' material that is not in checked forms](the-whole-set-record-cannot-hold-its-reviewers-material-in-checked-forms.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
+| observation | [The repairs the re-review rule exempts held every record defect of one review](the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |
 | question | [Does a head carry the magnitude of the measurement it rests on?](a-head-s-measurement-says-nothing-of-its-magnitude.md) |

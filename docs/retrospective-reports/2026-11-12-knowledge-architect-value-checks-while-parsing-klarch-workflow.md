@@ -57,11 +57,11 @@ Members: 2026-11-12-knowledge-architect-value-checks-while-parsing-klarch-workfl
 - **g. Its route.** An issue only: a change of `mutate` under `skill@klarch-development`, on a
   branch of its own or with another of the crate's.
 - **h. The proposal.** Open a todo issue in `mutate`,
-  `a-repeated-text-cannot-be-replaced-at-one-of-its-occurrences`, with the instance, the option
+  `issue@mutate@a-repeated-text-cannot-be-replaced-at-one-of-its-occurrences`, with the instance, the option
   proposed and its refusal of an n past the last, and the comment and README sentence it rewords.
 
 Default: open the issue.
-Outcome: decided by the session: open an issue, `mutate`, kind `todo`, `a-repeated-text-cannot-be-replaced-at-one-of-its-occurrences`. Ground: the refusal's own reason does not reach a site the caller names; the change reverses no head and is a change of the Rust source, which needs a branch of the crate.
+Outcome: decided by the session: open an issue, `mutate`, kind `todo`, `issue@mutate@a-repeated-text-cannot-be-replaced-at-one-of-its-occurrences`. Ground: the refusal's own reason does not reach a site the caller names; the change reverses no head and is a change of the Rust source, which needs a branch of the crate.
 
 ## transcript-review-record-without-repairs: where the record of a transcript review with no repairs goes
 
