@@ -39,8 +39,8 @@ session or one of its subagents acted as if a rule of the primer were absent, wh
 skill's addition was missed, whether the session needed to write a reference or a path without
 backticks because no checked form expresses it, whether the session or a subagent wrote a script
 or carried by hand over several steps a mechanical task the installed workflow asks of it, and
-whether an installed rule about code or about splitting into Components proved too hard or too
-strict, or was followed against the work's interest, whether the session carried work an agent
+whether an installed rule about code, or about splitting into Components, modules or subjects of a
+design home, proved too hard or too strict, or was followed against the work's interest, whether the session carried work an agent
 could have carried, whether a dispatched agent came back unfinished or with a report the session
 could not act on without redoing the work, whether a returned conclusion proved wrong after its
 independent verification or was verified again where no skill asked, and whether a review, the
@@ -53,12 +53,13 @@ decision or a goal whose failure would be seen in real sessions before any check
 `design@check@primer-import-line`, `design@agent-skills@no-routing-table`,
 `design@agent-skills@plain-text-is-no-repair`,
 `goal@tasks-a-tool-does-better-are-the-tool-s`, and, for the question whether a rule or
-guideline about code or tests, or about splitting the project into Components, proved too hard or
-too strict or was followed against the work's interest,
-`goal@the-workflow-leads-to-better-code` and
-`goal@projects-are-split-into-modular-units`, whose default shape and default
-criteria are learned from use, per `design@agent-skills@default-code-shape` and
-`design@agent-skills@component-skill-delivery`; a lint
+guideline about code or tests, or about splitting the project into Components, its code into
+modules or a design home into subjects, proved too hard or too strict or was followed against the
+work's interest, `goal@the-workflow-leads-to-better-code` and
+`goal@projects-are-split-into-modular-units`, whose default shape, default criteria, module
+guidelines and subject standard are learned from use, per `design@agent-skills@default-code-shape`,
+`design@agent-skills@component-skill-delivery`, `design@agent-skills@module-split-guidelines` and
+`design@agent-skills@subject-split-standard`; a lint
 the setup ships counts as such a rule: the session chose that over leaving lints out of the
 question, which no goal ranks, and the owner approved it; and, for the questions on dispatch,
 `design@agent-skills@work-divided-by-judgement`, watched by the question on work an agent could
@@ -151,8 +152,8 @@ causes of a repair that already exist, of `design@agent-skills@root-cause-repair
 work did not need or a rule written for one interaction; an instruction agents perform passes the
 need test of
 `design@agent-skills@statement-names-an-act`, so a needless finding is never routed as an
-instruction no agent performs. A cost that a rule about code, tests or the split into Components
-imposes on purpose is reported under the standing question on those rules of
+instruction no agent performs. A cost that a rule about code, tests, or the split into Components,
+modules or subjects of a design home imposes on purpose is reported under the standing question on those rules of
 `design@agent-skills@premortem-as-watch-points`, where its cost is weighed against its reason.
 
 ### A retrospective's files go where the owner directs, and nothing of them leaves the machine before the owner's reading and word `##retrospective-destination`

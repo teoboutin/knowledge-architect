@@ -892,3 +892,10 @@ session's scratch space, the whole output held 8,193,395 bytes, the verdict file
 holding 617 copied entry blocks for 301 entries, `shown.md` 2,051,313 and the 19 reports 413,365,
 where the generated lines held 22,581; and a report's quotations go stale as the record changes,
 where the outcome a plan document records carries every reason that changed something.
+
+### A threshold of lines as the criterion of a module split `##module-split-at-a-size-threshold`
+
+`live`. A count of lines says nothing of what a review of the module reads against. The one project
+of the owner's that splits a module at a threshold of lines added the number with no measurement and
+no argument, and its record holds a module that one item keeps above the threshold, which no move
+can divide: the survey is `path@agent-skills@docs/grounding/module-split.md`.

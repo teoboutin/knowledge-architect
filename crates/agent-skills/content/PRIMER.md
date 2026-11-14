@@ -585,9 +585,10 @@ never takes their place.
 - `skill@knowledge-architect-development`: before starting or iterating on a change to the
   project's Rust code.
 - `skill@knowledge-architect-component-creation`: new work may belong to no existing Component;
-  code added gives a Component a second reason to change; an adopting project's crates are mapped to
-  Components; an audit finds a Component holding two purposes, or a head in a Component that does
-  not own its subject.
+  code added gives a Component a second reason to change;
+  `agent@knowledge-architect-code-split-scout` reports a signal for a Component's split; an adopting
+  project's crates are mapped to Components; an audit finds a Component holding two purposes, or a
+  head in a Component that does not own its subject.
 - `skill@knowledge-architect-review`: before merging to the main branch, or when an
   activity's skill says its work is ready.
 - `skill@knowledge-architect-agent-configuration`: before editing a `CLAUDE.md`, a skill or an

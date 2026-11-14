@@ -378,8 +378,8 @@ failure.** Every other test here serves that one.
   commits the branch carries, such as the commit of its own a fix met outside the task takes, is the
   implementing session's to judge.
 
-%% Splits planned before the work: the code side is `design@agent-skills@default-code-shape` and
-%% `design@agent-skills@component-skill-delivery`, the record side
+%% Splits planned before the work: `design@agent-skills@splits-planned-before-work`, the code side
+%% found by `design@agent-skills@code-split-scout`, the record side
 %% `design@agent-skills@subject-split-standard`, a command with no point of view apart, so no agent,
 %% per `design@agent-skills@work-divided-by-judgement`. The notice's threshold is the bound less the
 %% work's words, per `design@query@clusters-packed-under-a-word-bound`; a remainder's and a goals
@@ -543,7 +543,8 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest.
 %% The scout and the notice again at each audit, since the code and the record move between the
-%% plan's writing and its work: `design@agent-skills@design-audit-checks-fit`; the report is no file
+%% plan's writing and its work: `design@agent-skills@design-audit-checks-fit` and
+%% `design@agent-skills@code-split-scout`; the report is no file
 %% of a plan document's directory, per `design@model@plan-document-directory`.
    Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the work the
    search is given, since it reads the code from a point of view apart from yours: it judges the

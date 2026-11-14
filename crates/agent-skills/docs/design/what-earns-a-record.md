@@ -124,8 +124,12 @@ holds the heads a piece of work reads together, one part of the Component, read 
 the `rejected` entries, issues and tripwires of its Component or location that join it; it is split when the
 work list's notice names its cluster, its own entries above the bound of
 `design@query@clusters-packed-under-a-word-bound`, or when its heads answer questions about parts of the Component that change apart; a split moves
-headings and decides nothing, so it is a fix in a commit of its own, per `primer@met-outside-the-task`.
-Its hosts are `skill@knowledge-architect-decision-recording@current-design`, the writer's, and the
+headings and decides nothing. A split the planning of a piece of work finds, by
+`klarch worklist --out` run with the `README.md` files its design audits will take as the work, in a subject the
+harvest writes into, is a step before that harvest, per
+`design@agent-skills@splits-planned-before-work`, and the planning skill's record side names that
+run; a split met outside planned work is a fix in a commit of its own, per
+`primer@met-outside-the-task`. Its hosts are `skill@knowledge-architect-decision-recording@current-design`, the writer's, and the
 two judges of a head, `agent@knowledge-architect-decision-record-reviewer` and
 `agent@knowledge-architect-design-record-auditor`, per `design@agent-skills@shared-text-fragment`;
 each judge reports a subject the standard says to split.
@@ -133,9 +137,16 @@ each judge reports a subject the standard says to split.
 The direction is the owner's: a standard of how to split, and a strong incentive to split early;
 the owner chose the notice and the split as a fix of its own for the incentive, and asked that the
 decision-recording skill, its reviewer and the design-record axis of the audit look for subjects to
-split. A cluster above the bound is read whole by one agent, and thaum's state-model subject held
-55,103 words at thaum's commit edd2cb5d, so a split keeps an agent's reading within what agents were
-seen to read whole. The citations between heads give no split point, since most subjects are one
+split. The owner later proposed that a split, of the design record as of code, be thought of at the
+design or the planning steps and planned as a step or a slice of its own, a split of the design
+record being no decision in itself, which the planning step carries out. A cluster above the bound is still read whole, by one agent alone, at a peak of context the
+bound of `design@query@worklist-bound-is-40000-words` exists to keep below the point where its cost
+ramps up, and thaum's state-model subject held 55,103 words at thaum's commit edd2cb5d: so the first
+test is a rule, on that ground of cost. The second test is a guideline the writer weighs, since
+`goal@projects-are-split-into-modular-units` makes one purpose per unit a direction and fixes no
+rule of splitting. The record side is a command, no agent: the notice needs no point of view
+apart and no other property on which `design@agent-skills@work-divided-by-judgement` lets an
+instruction fix a dispatch, so a record scout at planning loses to the command. The citations between heads give no split point, since most subjects are one
 connected group of heads beside a few that cite nothing of theirs, measured over this repository at
 ed9dd60 and over thaum by the scripts the message of the commit "[review] Repairs of the transcript review of one search of the whole record, with the scripts of its measurements" holds, so the second test
 stays a judgement. On `goal@only-needed-instructions`, the owner's reading is

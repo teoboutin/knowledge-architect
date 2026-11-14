@@ -335,19 +335,24 @@ the owner's word on their growth.
 **Watches until:** two audit reports of the agentic-workflow axis, counted from the commit that
 writes this line.
 
-## Guarding `design@agent-skills@default-code-shape`: a shape finding leads a session to split code that gains nothing from the split `##shape-findings-fragment-code`
+## Guarding `design@agent-skills@default-code-shape` and `design@agent-skills@module-split-guidelines`: a shape finding or a signal for a module split leads a session to split code that gains nothing from the split `##shape-findings-fragment-code`
 
-The decision rests on the premise that the fragmentation clause of the default shape holds a
-session back from splitting code to answer a finding of one reason to change. Each procedure counts
-such a split as success: the tests pass, the review reports nothing left, and only a reader of the
-result sees the cost.
+The decisions rest on the premise that the fragmentation clause of the default shape, and the
+signals against a split of the module guidelines, hold a session back from splitting code to answer
+a finding of one reason to change or a signal of
+`agent@knowledge-architect-code-split-scout`. Each procedure counts such a split as success: the
+tests pass, a move-only step is built as planned, the review reports nothing left, and only a reader
+of the result sees the cost.
 
 **Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`
-reports, in answer to the standing question on rules about code, a split made to satisfy the default
-shape that bought nothing, a function with one caller, no test of its own and a name that says no
-more than its body, in two separate pieces of work.
+reports, in answer to the standing question on rules about code and splitting, a split that bought
+nothing, in two separate pieces of work: one made to satisfy the default shape, a function with one
+caller, no test of its own and a name that says no more than its body; or a module split planned on
+a signal of the module guidelines whose parts are read against one reference and changed together
+in every later change that touched them.
 **Response:** reopen `design@agent-skills@default-code-shape` on how the fragmentation clause is
-worded and delivered, with the instances.
+worded and delivered, or `design@agent-skills@module-split-guidelines` on its signals against a
+split, with the instances.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
 the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
