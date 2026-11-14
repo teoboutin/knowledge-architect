@@ -260,8 +260,12 @@ only part a reader sees, in a citing document or in code, and the title is what 
 shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
 decision it names, so rename it even when that means rewriting every reference in the project.
 
-**A head that a change touches is brought to the rules on design heads in that change**: its title
-to the rule it argues, each decision it bundles to a head of its own, its ground to its argument. Re-pointing a
+**A head that a change touches is brought to the rules on design heads before the change lands**:
+its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
+argument. In work a plan document plans, a head its harvest touches is listed in the plan and
+brought to them by a step before the harvest, as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says; a head the list missed, and a
+head any other change touches, in the change that touches it. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
 one does. Where bringing it
 to the rule would relax or turn what the owner's words in it approved, as a title moved from the

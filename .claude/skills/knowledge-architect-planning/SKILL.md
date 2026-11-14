@@ -213,7 +213,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; and each entry the discussion's search gave a verdict whose outcome changed something, the design, a thread or the work, with that outcome, and a link to `search/discussion.txt` for the other verdicts |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text that `cargo klarch show` lists as referencing it (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; the heads its harvest will touch without reversing or rewriting them, as `skill@knowledge-architect-planning@cutting-steps-and-slices` lists them; and each entry the discussion's search gave a verdict whose outcome changed something, the design, a thread or the work, with that outcome, and a link to `search/discussion.txt` for the other verdicts |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | in `deliberation.md`: one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's ruling that closed it, attributed, with its round, or, for a thread closed `argued`, the argument that closed it |
 | Arguments | in `deliberation.md`: one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words, the session's verbatim and the owner's attributed |
@@ -379,6 +379,43 @@ issue.
   across a line break, and re-point what names it: the search is a lead, since a path named in
   other words escapes it. Leave
   a quotation as it was quoted.
+
+**A head the harvest touches is brought to the rules on design heads by a step before the
+harvest**, so that the harvest writes into heads that already conform, and the review before the
+merge judges the harvest's change rather than a head's older defects. A head the harvest touches is
+one whose text it changes without reversing or rewriting its decision, a head it adds a member to
+included; re-pointing a reference does not touch a head.
+
+- **The list.** The section "What is already decided" of a spec lists the heads its harvest will
+  touch, each as a reference, apart from the decisions it reverses or rewrites; in a milestone, each
+  slice's spec lists those its own harvest will touch, since its design audit takes them as seeds.
+- **The judgement.** Once the list exists, dispatch `agent@knowledge-architect-design-record-auditor`
+  as a drafter, never the design-record axis's saved workflow, which audits the whole record, since
+  the auditor reads the heads from a point of view apart from yours. Its brief names the commit the plan
+  document is written on and a worktree of its own detached at it, its group, the listed heads one
+  by one, and a scratch directory of its own; a list of more than 60 heads is cut into groups of
+  consecutive heads of at most 60, one auditor each, and each group is given a shared sample of
+  about five listed heads from other groups; once every group has returned, one auditor briefed to
+  calibrate compares the sample's verdicts and proposes each reading, which you confirm before
+  acting on a draft it bears on. Where the list holds a single group, its sample is none.
+  Verify each draft that proposes a change against the head's text, then route it as the next
+  bullet says, whatever outcome the draft proposes.
+- **The conforming step.** Each head a verified draft finds non-conformant gets a step that brings it
+  to the rules of `primer@design-heads` and
+  `skill@knowledge-architect-decision-recording@head-shape`, read whole, before the harvest, or, in
+  a milestone, a slice of its own where the work is large, such as a head bundling many decisions,
+  each with its citing sites to read. An edit that writes no
+  new argument and changes no word of the owner, a move to the Component that
+  `skill@knowledge-architect-decision-recording@owning-component` settles included, is the step's
+  work. An edit that must write what the head's argument does not hold, a missing argument, the
+  constraint it takes from a goal, or a member or a citation its argument does not cover, is a
+  decision: it goes to `skill@knowledge-architect-design`, and the step waits for it. An
+  edit that would relax what the owner's words in the head approved, or turn it from its direction,
+  goes to the owner as one proposal, as the rule on touched heads says. Each head a split, a merge,
+  a rename or a retitle of the step creates is judged alone, by the auditor briefed to check, before
+  the step's commit.
+- **At each design audit**, dispatch it again over the heads that slice's or that spec's harvest
+  touches, since the record moves between the plan's writing and its work.
 
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `cargo klarch check` reports one missing or out of order. Fixtures, where it applies, sits between
@@ -573,7 +610,10 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    The scout reports signals and decides nothing: weigh each signal and each notice, and decide
    whether and how to split as the sorts below decide any gap, since each one the planned steps do
    not take is a gap, listed with the other gaps in the audit's commit message. The scout's report
-   stays in your scratch space. Sort each gap:
+   stays in your scratch space. Dispatch `agent@knowledge-architect-design-record-auditor` over the
+   heads the slice's or the spec's harvest touches, as
+   `skill@knowledge-architect-planning@cutting-steps-and-slices` says: each head it finds
+   non-conformant that no planned step conforms is a gap. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
@@ -639,7 +679,9 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    alternative decide whether each decision and each alternative earns an entry, the rules on a head's shape
    decide how the decisions are cut into heads, and they govern where the two disagree: an item of the row the tests exclude is named in the harvest's commit,
    with the test it fails. Where a design home is a directory, a new subdocument is
-   linked from its README. **The harvest's review is the review before the merge**, as
+   linked from its README. A head the harvest touches that the plan's list did not name is brought to
+   the rules in the harvest, as the rule on touched heads says, and named in the harvest's commit as
+   missed by the list. **The harvest's review is the review before the merge**, as
    `skill@knowledge-architect-review@review-axes` defines it and says what it owes: the harvest
    writes the record the decision-record, routing and standing-state axes judge, so the review of
    point 4 cannot see it.
