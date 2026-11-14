@@ -1,11 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-74 entries
+75 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A saved workflow's `//` comments ship to every installing project, though the standard sends maintainer-only text to a comment the build removes](a-saved-workflow-s-comments-ship-to-every-project.md) |
 | defect | [A spec worked without its design audit, as the rule allows, missed a critical gap an audit would have listed](a-spec-worked-without-its-design-audit-missed-a-critical-gap.md) |
+| defect | [A wrapped `Outcome` line escapes the search for pending outcomes before an intake's merge](a-wrapped-outcome-line-escapes-the-search-for-pending-outcomes.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
 | deferred | [The attribution slips of the next release's retrospectives are not counted against the regime of committed transcripts](attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts.md) |
