@@ -76,8 +76,11 @@ Members: 2026-11-12-knowledge-architect-release-0-10-0 P1.
     ```
 ````
 
+- **i. The review before the merge.** Its decision-record axis found the rival of item f standing: item f's ground, "the owner's push costs nothing the rival saves", holds only at a release that adds a crate, since the owner is at step 11 for the publisher only when a crate is new, and whether a permission rule lifts the auto mode's refusal is not established. No fact defeats the rival and no goal ranks the two, since the push can be undone, so the push was a fork put to the owner, its default built: the owner creates, pushes and deletes the tag, and the session reads each push back with `git ls-remote origin refs/tags/v<version>`, per `design@knowledge-architect@owner-pushes-the-release-tag`.
+
 Default: handle now, the step-11 edit above.
 Outcome: decided by the session: handle now. Ground: the publisher's configuration is served to the crate's owners alone (403 measured), a provable gap; `design@knowledge-architect@publish-credential` gives the session `trustpub_only` as the check of the owner's confirmation, per `goal@the-owner-s-word-is-verified`; no head names who pushes, and `design@knowledge-architect@owner-word-mechanism` makes the deployment approval, not the push, the owner's word, so moving the push changes no decision; the rival changes permissions only the owner sets.
+Outcome (the push, item i): for the owner (a fork: the owner's push and deletion of the tag, or the session's under a permission rule of the project's settings, which no goal ranks): as built: the owner creates, pushes and deletes the tag, and the session checks each on origin. The owner: "Agreed on these 4 defaults"
 
 ## release-warning-count-by-file: release step 8 counts one warning per test file, and two files share a name
 
