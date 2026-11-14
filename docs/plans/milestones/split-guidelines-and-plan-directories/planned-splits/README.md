@@ -182,9 +182,10 @@ What each is rewritten to state:
   any other goes to the owner or to a design session, as the audit's sorts say.
 - `design@agent-skills@shared-text-fragment`: the module guidelines' fragment joins the list, hosted
   by the development skill, the code-shape reviewer and the code-split scout, and the fragment on when
-  to split gains the scout as a host, on the owner's Q16 word; the harvest argues again, on the
-  `claude` ask, the head's rival of a harness hook delivering pointed sections, since the rewrite meets
-  the re-entry point of `issue@agent-skills@heads-argued-from-another-harness`.
+  to split gains the scout as a host, on the owner's Q16 word. The harness-hook rival is not argued
+  again here: the review before the merge rewrote the re-entry of
+  `issue@agent-skills@heads-argued-from-another-harness` so that a change to a host list does not
+  meet it.
 - `design@agent-skills@needless-instruction`, which cites
   `design@agent-skills@premortem-as-watch-points`: its list of the rules whose cost goes to the
   standing question, "code, tests or the split into Components", gains the module guidelines and

@@ -232,16 +232,16 @@ that a split, of the design record as of code, be thought of at the design or th
 and planned as a step or a slice of its own, the code side probably at the design steps, since a
 split of code is a design decision, and a split of the design record no decision in itself.
 
-### A split of the design record a harvest writes into is found at planning by `klarch worklist --out`, a command, and no agent is dispatched for it `##record-split-found-by-a-command`
+### A subject of the design record above the bound that a harvest writes into is found at planning by the notice of `klarch worklist --out`, a command, and no agent is dispatched for it `##record-split-found-by-a-command`
 
-At planning, the session runs `klarch worklist --out` with the `README.md` files the plan
-document's design audits will take as the work, since the notice's threshold is the bound less the
-words of the work, and keeps, of the notices on clusters rooted at a design subject, those of the
-subjects its harvest rows write into; each such subject, and each whose heads will answer questions
-about parts that change apart, is split before that harvest, per
-`design@agent-skills@splits-planned-before-work` and `design@agent-skills@subject-split-standard`.
-The design audit of each slice and of a spec reads the notices of its own search again, per
-`design@agent-skills@design-audit-checks-fit`.
+At planning, the session finds the subjects of the design record its harvest writes into that are
+above the bound by the notice of `klarch worklist --out`, run as
+`skill@knowledge-architect-planning@cutting-steps-and-slices` says, with the work its design audits
+will take, since the notice's threshold is the bound less the words of the work, per
+`design@query@clusters-packed-under-a-word-bound`; each is split before that harvest, per
+`design@agent-skills@splits-planned-before-work`. The other trigger of a subject's split, heads that
+answer questions about parts that change apart, is the session's judgement, per
+`design@agent-skills@subject-split-standard`, and no command or agent finds it.
 
 No agent is dispatched for it. The notice is a command's output, which needs no point of view apart
 and no other property on which `design@agent-skills@work-divided-by-judgement` lets an instruction
