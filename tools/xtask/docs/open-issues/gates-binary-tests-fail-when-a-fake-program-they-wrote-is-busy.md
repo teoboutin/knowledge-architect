@@ -1,14 +1,17 @@
 ---
-kind: observation
+kind: defect
 ---
-# A test of the gates binary failed once in a full gates run, and passed in every run after
+# Tests of the gates binary fail at random when a fake program they just wrote is busy
 
 ## Summary
 
 `gate_children_never_inherit_a_caller_exported_bootstrap`, of `path@xtask@tests/gates_bin.rs`,
-failed once inside `cargo x gates`, on a branch that changes no Rust source. It passed alone, three
-times with its whole test file, and in the next `cargo x gates`. Whether it is a defect of the test
-or of the gates is not established.
+failed once inside `cargo x gates`, on a branch that changes no Rust source, and
+`annotations_appear_under_actions_alone`, of the same file, failed once on another branch, its
+first gate reporting "could not run: Text file busy (os error 26)". Each passed in every run after.
+The second failure establishes the cause the first left as a lead: a fake program the test has
+just written is run while another thread's child still holds it open for writing, so the kernel
+refuses the run with ETXTBSY.
 
 ## Details
 
@@ -39,6 +42,17 @@ and a program just written cannot be run while another thread's child still hold
 writing; the failing run printed neither the run's output nor its error, which the test now
 prints when it fails.
 
+On 2026-11-14, on the branch of the last slice of the milestone on split guidelines and plan
+directories, whose Rust change was one comment, `cargo x gates` failed its `test` gate on
+`annotations_appear_under_actions_alone`, at `path@xtask@tests/gates_bin.rs` line 332, the output
+the test now prints on failure showing its first gate:
+
+```
+fmt        could not run: Text file busy (os error 26)
+```
+
+It passed alone, `cargo test -p xtask --test gates_bin`, and in the next `cargo x gates`.
+
 ### Why it matters
 
 `cargo x gates` is the one verdict a session trusts before a merge. A test that fails once in
@@ -47,6 +61,6 @@ one.
 
 ### What would close it
 
-The test prints the run's status, its stdout and stderr, and every gate log of the fake project
-when its first assertion fails. What remains: either a second failure read from them and its cause fixed, or, if none recurs over the
-gates runs of the next three merged branches, this entry closed as not reproduced.
+The tests of `path@xtask@tests/gates_bin.rs` write each fake program so that no thread's child holds
+it open for writing when it runs, for example written under another name and renamed into place,
+and no gates run fails on ETXTBSY over the gates runs of the next three merged branches.
