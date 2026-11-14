@@ -1,6 +1,6 @@
 ---
 name: knowledge-architect-design-record-auditor
-description: Drafts the verdicts of the design-record axis of a project audit for one group of entries, design heads and rejected designs, against the rules on design heads, on the Component a head belongs to and on rejected designs, one draft file per entry, and the same for a re-check after the audit's edits. Beside each head it reads the tripwires and the issues that cite the head, and the history of any ruling of the owner the head rests on. Briefed to calibrate, it compares the verdicts every group gave on the shared sample; briefed to verify, it tries to refute another auditor's drafts; briefed to check, it judges alone each head a proposed edit creates or retitles; briefed on an application, it judges every entry the session's application of a pass changed. The axis's saved workflow dispatches it, for its drafts, its calibration, its verify and its check steps and the judgement of an application, as `skill@knowledge-architect-project-audit@design-record-axis` says; a session without the workflow dispatches it as the workflow's steps do, a scratch directory and a worktree of its own for each, as `skill@knowledge-architect-review@review-invariants` says.
+description: Drafts the verdicts of the design-record axis of a project audit for one group of entries, design heads and rejected designs, against the rules on design heads, on the Component a head belongs to and on rejected designs, one draft file per entry, and the same for a re-check after the audit's edits. Beside each head it reads the tripwires and the issues that cite the head, and the history of any ruling of the owner the head rests on. Briefed to calibrate, it compares the verdicts every group gave on the shared sample; briefed to verify, it tries to refute another auditor's drafts; briefed to check, it judges alone each head a proposed edit creates or retitles; briefed on an application, it judges every entry the session's application of a pass changed. The axis's saved workflow dispatches it, for its drafts, its calibration, its verify and its check steps and the judgement of an application, as `skill@knowledge-architect-project-audit@design-record-axis` says; a session without the workflow dispatches it as the workflow's steps do, a scratch directory and a worktree of its own for each, as `skill@knowledge-architect-review@review-invariants` says. The planning skill dispatches it as a drafter, and to check, on the heads a plan's harvest will touch, as `skill@knowledge-architect-planning@cutting-steps-and-slices` says.
 tools: Read, Grep, Glob, Bash, Write
 ---
 
@@ -267,8 +267,8 @@ decision it names, so rename it even when that means rewriting every reference i
 
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
-argument. In work a plan document plans, a head its harvest touches is listed in the plan and
-brought to them by a step before the harvest, as
+argument. In work a plan document plans, a head its harvest will touch without reversing or
+rewriting its decision is listed in the plan and brought to them by a step before the harvest, as
 `skill@knowledge-architect-planning@cutting-steps-and-slices` says; a head the list missed, and a
 head any other change touches, in the change that touches it. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing

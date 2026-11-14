@@ -793,7 +793,7 @@ The session assumed the milestone shipped and failed, in round 4, and named thes
 3. [The heads a harvest touches, conformed before it](conformance-before-harvest/README.md),
    `spec@split-guidelines-and-plan-directories@conformance-before-harvest`. Builds the list of touched
    heads, the scoped auditor's dispatch at planning and the conforming step. Fails alone on: a
-   harvest that conforms a head the list did not name.
+   harvest that conforms a head the list did not name, without naming it as missed.
 4. [The head of a Component's existence argues each criterion](component-arguments/README.md),
    `spec@split-guidelines-and-plan-directories@component-arguments`. Builds the rule, rewords the
    component-creation skill's sentence on a Component kept against the criteria, and brings the
