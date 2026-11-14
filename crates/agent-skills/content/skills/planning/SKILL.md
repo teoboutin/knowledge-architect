@@ -418,24 +418,29 @@ issue.
 %% comparison `design@agent-skills@calibration-in-the-run`'s, and the
 %% check of a created head `design@agent-skills@created-heads-checked-in-the-run`'s. A move to the
 %% Component the record settles is no question for the owner, per `primer@question-authority`.
+%% A whole audit of the axis at planning lost: the owner asked for one auditor, or a few, on the
+%% heads the work touches, not a full audit; an audit's occasions are
+%% `design@agent-skills@audit-triggers`.
 **A head the harvest touches is brought to the rules on design heads by a step before the
 harvest**, so that the harvest writes into heads that already conform, and the review before the
 merge judges the harvest's change rather than a head's older defects. A head the harvest touches is
-one whose text it changes without reversing or rewriting its decision, a head it adds a member to
-included; re-pointing a reference does not touch a head.
+one whose text it changes without reversing or rewriting its decision; re-pointing a reference does
+not touch a head.
 
 - **The list.** The section "What is already decided" of a spec lists the heads its harvest will
   touch, each as a reference, apart from the decisions it reverses or rewrites; in a milestone, each
   slice's spec lists those its own harvest will touch, since its design audit takes them as seeds.
 - **The judgement.** Once the list exists, dispatch `agent@knowledge-architect-design-record-auditor`
   as a drafter, never the design-record axis's saved workflow, which audits the whole record, since
-  the auditor reads the heads from a point of view apart from yours. Its brief names the commit the plan
-  document is written on and a worktree of its own detached at it, its group, the listed heads one
-  by one, and a scratch directory of its own; a list of more than 60 heads is cut into groups of
-  consecutive heads of at most 60, one auditor each, and each group is given a shared sample of
+  the auditor reads the heads from a point of view apart from yours. Its brief names the commit it is
+  dispatched at and a worktree of its own detached at it, its group, the listed heads one
+  by one, a group label and a draft file named by each head's slug, and a scratch directory of its
+  own; a list of more than 60 heads is cut into groups of consecutive heads whose sizes differ by at
+  most one, none above 60, one auditor each, and each group is given a shared sample of
   about five listed heads from other groups; once every group has returned, one auditor briefed to
   calibrate compares the sample's verdicts and proposes each reading, which you confirm before
-  acting on a draft it bears on. Where the list holds a single group, its sample is none.
+  acting on a draft it bears on; a rule whose text admits both verdicts, with no record stating the
+  reading, goes to the owner, per `primer@question-authority`. Where the list holds a single group, its sample is none.
   Verify each draft that proposes a change against the head's text, then route it as the next
   bullet says, whatever outcome the draft proposes.
 - **The conforming step.** Each head a verified draft finds non-conformant gets a step that brings it
@@ -449,11 +454,10 @@ included; re-pointing a reference does not touch a head.
   constraint it takes from a goal, or a member or a citation its argument does not cover, is a
   decision: it goes to `skill@knowledge-architect-design`, and the step waits for it. An
   edit that would relax what the owner's words in the head approved, or turn it from its direction,
-  goes to the owner as one proposal, as the rule on touched heads says. Each head a split, a merge,
-  a rename or a retitle of the step creates is judged alone, by the auditor briefed to check, before
-  the step's commit.
-- **At each design audit**, dispatch it again over the heads that slice's or that spec's harvest
-  touches, since the record moves between the plan's writing and its work.
+  goes to the owner as one proposal, as `skill@knowledge-architect-decision-recording@head-shape`
+  says. Each head a split, a merge, a rename, a move or a retitle of the step creates is judged
+  alone, by the auditor briefed to check, its brief naming the text of each such head as the step
+  writes it, before the step's commit.
 
 A slice's entry is five level-two sections of its `README.md`, with these titles, in this order, and
 `{{command}} check` reports one missing or out of order. Fixtures, where it applies, sits between
@@ -599,10 +603,14 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    The scout reports signals and decides nothing: weigh each signal and each notice, and decide
    whether and how to split as the sorts below decide any gap, since each one the planned steps do
    not take is a gap, listed with the other gaps in the audit's commit message. The scout's report
-   stays in your scratch space. Dispatch `agent@knowledge-architect-design-record-auditor` over the
+   stays in your scratch space.
+%% The scoped auditor again at each audit, since the record moves between slices:
+%% `design@agent-skills@existing-heads-on-touch` and `design@agent-skills@design-audit-checks-fit`.
+   Dispatch `agent@knowledge-architect-design-record-auditor` over the
    heads the slice's or the spec's harvest touches, as
-   `skill@knowledge-architect-planning@cutting-steps-and-slices` says: each head it finds
-   non-conformant that no planned step conforms is a gap. Sort each gap:
+   `skill@knowledge-architect-planning@cutting-steps-and-slices` says, since the record moves
+   between the plan's writing and its work: each head it finds non-conformant that no planned step
+   conforms is a gap. Sort each gap:
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
@@ -671,8 +679,8 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    decide how the decisions are cut into heads, and they govern where the two disagree: an item of the row the tests exclude is named in the harvest's commit,
    with the test it fails. Where a design home is a directory, a new subdocument is
    linked from its README. A head the harvest touches that the plan's list did not name is brought to
-   the rules in the harvest, as the rule on touched heads says, and named in the harvest's commit as
-   missed by the list. **The harvest's review is the review before the merge**, as
+   the rules in the harvest, as `skill@knowledge-architect-decision-recording@head-shape` says, and
+   named in the harvest's commit as missed by the list. **The harvest's review is the review before the merge**, as
    `skill@knowledge-architect-review@review-axes` defines it and says what it owes: the harvest
    writes the record the decision-record, routing and standing-state axes judge, so the review of
    point 4 cannot see it.

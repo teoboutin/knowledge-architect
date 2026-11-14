@@ -40,9 +40,9 @@ slices are in the milestone document; what only this slice builds is below.
 3. **A conforming step comes before the harvest.** The installed planning skill places each
    conforming step before the harvest, and routes one that owes a decision to the design skill or to
    the owner.
-4. **The harvest conforms no unlisted head.** At this slice's own harvest, every head the harvest
-   touches is in the list its spec holds, or the review reports it: the spec-conformity review's
-   reading of P6.
+4. **No unlisted head is conformed silently.** At this slice's own harvest, every head the harvest
+   touches is in the list its spec holds, or is conformed there and named in the harvest's commit as
+   missed by the list, and the review reports it: the spec-conformity review's reading of P6.
 
 ## What is already decided
 
@@ -69,8 +69,9 @@ touched head still leaves the change conformant.
   `path@agent-skills@docs/design/record-search.md`.
 
 **The heads this slice's harvest touches without reversing or rewriting them**: none. The slice
-lands before the rule it builds, so no scoped auditor ran for it at planning; its harvest writes
-only the two heads above.
+lands before the rule it builds, so no scoped auditor ran for it at planning. Its harvest writes
+only the two heads above: each of their citing texts stays true of the rewritten heads, and is left
+as it is, so the harvest touches no head that holds one.
 
 **Bound and not rewritten**: `design@agent-skills@design-record-axis`,
 `design@agent-skills@design-record-axis-dispatch`, `design@agent-skills@one-decision-per-head` and
@@ -99,7 +100,7 @@ only the two heads above.
 
 ## Fails alone on
 
-- A harvest that conforms a head its plan's list did not name.
+- A harvest that conforms a head its plan's list did not name, without naming it as missed.
 - A conforming step that writes a missing argument with no design skill and no ruling.
 
 ## Premises that expire
@@ -162,13 +163,15 @@ For `thread@split-guidelines-and-plan-directories@pre-harvest-conformance`.
 ## Implementation sequence
 
 1. **The planning skill's text**: the list, the dispatch and the conforming step: Claims 1 to 3.
-2. **The record and the changelog**: `design@agent-skills@existing-heads-on-touch` rewritten with its
-   citing texts, and the CHANGELOG.md entries. This is the harvest, read by Claim 4.
+2. **The record and the changelog**: `design@agent-skills@existing-heads-on-touch` and
+   `design@agent-skills@design-audit-checks-fit` rewritten, each with its citing texts, and the
+   CHANGELOG.md entries. This is the harvest, read by Claim 4.
 
 ## Harvest
 
 - **Design heads**: `design@agent-skills@existing-heads-on-touch`, rewritten under
-  `skill@knowledge-architect-decision-recording`; the decision of
+  `skill@knowledge-architect-decision-recording`, and `design@agent-skills@design-audit-checks-fit`
+  given its new member; the decision of
   `thread@split-guidelines-and-plan-directories@pre-harvest-conformance` lands there, or in a head of
   its own where the entry tests give one.
 - **Losing alternatives**: those above, judged by the tests of

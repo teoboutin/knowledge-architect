@@ -82,8 +82,8 @@ decision it names, so rename it even when that means rewriting every reference i
 %% `design@agent-skills@existing-heads-on-touch`.
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
-argument. In work a plan document plans, a head its harvest touches is listed in the plan and
-brought to them by a step before the harvest, as
+argument. In work a plan document plans, a head its harvest will touch without reversing or
+rewriting its decision is listed in the plan and brought to them by a step before the harvest, as
 `skill@knowledge-architect-planning@cutting-steps-and-slices` says; a head the list missed, and a
 head any other change touches, in the change that touches it. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
