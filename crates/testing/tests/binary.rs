@@ -8178,8 +8178,9 @@ fn worklist_changed(out: &Path) -> Vec<String> {
 /// which misses the later commit's change; in `write` of `path@query@src/worklist.rs`,
 /// `paths.contains(&e.record.site.file)` made `!paths.contains(&e.record.site.file)`; and in
 /// `render`, the push of the changed-since mark in `agents.txt` removed; each caught. The count of
-/// changed entries takes the singular for one and the plural for five; mutation checked, in
-/// `write`: the condition of the singular, `changed.len() == 1`, made `changed.len() == 0`, caught.
+/// changed entries takes the singular for one and the plural for zero and five; mutations checked,
+/// in `write`: the condition of the singular, `changed.len() == 1`, made `changed.len() == 0`, and
+/// made `changed.len() <= 1`; each caught.
 #[test]
 fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commit() {
     let (sandbox, out) = worklist_project("worklist-since");
@@ -8309,6 +8310,16 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         "{stdout}"
     );
     let _ = std::fs::remove_dir_all(&head);
+    // No entry changed: the count takes the plural.
+    worklist_commit(&sandbox, "The last base");
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "HEAD"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(worklist_changed(&head).is_empty(), "{stdout}");
+    assert!(
+        stdout.contains("0 entries changed since the commit \"The last base\""),
+        "{stdout}"
+    );
+    let _ = std::fs::remove_dir_all(&head);
     let _ = std::fs::remove_dir_all(&out);
 }
 
@@ -8387,8 +8398,9 @@ fn worklist_audit_project(tag: &str) -> (Sandbox, PathBuf) {
 /// `spec@plans@x` for any path; and `if *has_section {` made `if true {`; each caught. A harvested
 /// slice is refused, given by its directory or its README.md; mutation checked: the refusal's
 /// condition `frozen_file(manifest, rel)` made `false`, caught. The count takes the singular for
-/// one seed, the slice's, and the plural for two, the spec's; mutation checked, in `write`:
-/// `if *taken == 1 { "seed" }` made `if *taken == 0 { "seed" }`, caught.
+/// one seed, the slice's, and the plural for two, the spec's, and for none, a spec whose section
+/// cites only a goal; mutations checked, in `write`: `if *taken == 1 { "seed" }` made
+/// `if *taken == 0 { "seed" }`, and made `if *taken <= 1 { "seed" }`; each caught.
 #[test]
 fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries() {
     let (sandbox, out) = worklist_audit_project("worklist-seeds-from");
@@ -8487,6 +8499,28 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
             .values()
             .any(|marks| marks.first().is_some_and(|m| m == "seed")),
         "no seed"
+    );
+    let _ = std::fs::remove_dir_all(&refused);
+    // A section that cites nothing a seed can be gives no seed, and the count takes the plural.
+    sandbox.write(
+        "docs/plans/specs/no-seed/README.md",
+        "# A spec whose decided section cites a goal alone\n\n## Status and audience\n\nNone.\n\n\
+         ## What is already decided\n\n- `goal@top-goal`\n",
+    );
+    let (stdout, stderr, code) = sandbox.run(&["index"]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    sandbox.stage();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &refused_text,
+        "--seeds-from",
+        "docs/plans/specs/no-seed",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(
+        stdout.contains("spec@plans@no-seed: 0 seeds from its section \"What is already decided\""),
+        "{stdout}"
     );
     let _ = std::fs::remove_dir_all(&refused);
     for path in ["docs/design.md", "docs/plans/specs/missing/README.md"] {
