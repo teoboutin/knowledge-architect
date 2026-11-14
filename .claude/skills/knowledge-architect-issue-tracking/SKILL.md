@@ -342,7 +342,8 @@ An issue entry moves too:
   index in the same change.
 
 If a closed entry still holds something live, such as an instruction about how to work in that
-area or an uncertainty that survived the fix, that content is not an open issue. Move it to the home
+area, an uncertainty that survived the fix, or, for an entry a plan document schedules, its leads,
+its measurements and its closing condition, that content is not an open issue. Move it to the home
 the knowledge table of `primer@where-knowledge-goes` gives it, **then** delete the file.
 
 Deleting or renaming an entry means fixing what points at it. Every `issue@<anchor>@<id>` and
