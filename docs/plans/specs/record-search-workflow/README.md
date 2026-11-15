@@ -31,6 +31,9 @@ the repository in a commit of its own, after its harvest and the review before t
   through a draft of the workflow, and the experiment on a cross-check stage; the reply to round 4
   holds the premortem.
 
+  [The committed transcript](transcript.txt) runs from that first message to the owner's message
+  "Q3 Q4 yes", the last before the merge, home paths written as `<home>/`; the owner approved it.
+
 ## How the work is done
 
 Per `skill@knowledge-architect-planning@working-a-slice`, the work of a spec. The work goes on the
