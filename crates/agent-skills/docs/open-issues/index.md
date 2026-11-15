@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-75 entries
+76 entries
 
 | kind | title |
 | --- | --- |
@@ -9,6 +9,7 @@
 | defect | [A wrapped `Outcome` line escapes the search for pending outcomes before an intake's merge](a-wrapped-outcome-line-escapes-the-search-for-pending-outcomes.md) |
 | defect | [In an adopting project, a finding sent upstream is counted again as a violation left on old text at every later pass](an-upstream-finding-stays-in-every-later-old-text-count.md) |
 | defect | [Texts of the workflow and of this repository send the owner more than the closed list of what is the owner's](texts-send-the-owner-more-than-the-closed-list.md) |
+| defect | [The project-audit skill says a harness may list saved workflows only when a session starts, which two observations contradict](the-audit-skill-says-a-harness-lists-saved-workflows-only-at-session-start.md) |
 | deferred | [The attribution slips of the next release's retrospectives are not counted against the regime of committed transcripts](attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts.md) |
 | deferred | [A project cannot use an unreleased change to a shipped tool through a Cargo patch](co-development-through-a-cargo-patch.md) |
 | deferred | [A dispatched agent writes its report once, at the end, where a file written as it works and annotated by its verifier could fill the gaps](dispatched-agents-write-their-report-as-they-work.md) |
