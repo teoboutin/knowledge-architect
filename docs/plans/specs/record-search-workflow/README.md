@@ -468,7 +468,7 @@ The fields of the result:
 ### The search runs one saved workflow, for every occasion
 
 From #search-runs-a-saved-workflow. The installed text ships `knowledge-architect-record-search`,
-`planned@agent-skills@content/workflows/record-search.js`, for every occasion of the search: the
+`path@agent-skills@content/workflows/record-search.js`, for every occasion of the search: the
 occasions differ only by the flags their `args` give, and `--seeds-from` alone switches the outputs
 to `gaps.md` and `fit-lines.md`. It ships in the installed text, and not as a `klarch-` workflow of
 this repository, on the owner's take-in of its generic part, per
@@ -677,7 +677,7 @@ From #search-workflow-logic-tested and #workflow-logic-test-home.
   search, and nothing reports it.
 - Its test lives in `path@agent-skills@src/workflow_parse.rs`, the one module that runs `node` on a
   shipped workflow and owns the CI requirement on it (`checked`, `required`, `CI_VAR`). The test
-  reads the source copy, `planned@agent-skills@content/workflows/record-search.js`, strips its
+  reads the source copy, `path@agent-skills@content/workflows/record-search.js`, strips its
   `%%` lines as the build does, substitutes `{{command}}` with a command of its own, calls the
   function with fixed `args` and compares the string it returns with the expected one, each value
   quoted as above; it skips without `node` and fails under `cargo x gates --ci`, as the parse check
@@ -850,7 +850,7 @@ checks, and the others are judged at the harvest, under Premortem.
      `worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry` asserts in a
      `constrains, respect` verdict's file.
 3. **The workflow** (`agent-skills`). Builds
-   `planned@agent-skills@content/workflows/record-search.js`, its `meta` and the three phases of the
+   `path@agent-skills@content/workflows/record-search.js`, its `meta` and the three phases of the
    decided design, the logic test of `worklistCommand` in `path@agent-skills@src/workflow_parse.rs`,
    that module's doc and the lines of `path@agent-skills@CLAUDE.md` that describe the module; runs
    `cargo klarch install-agent-skills` and commits the installed copy with the change, as
