@@ -380,8 +380,8 @@ path that is no plan document, and a path of a file of the work or of the plan d
 line break. A write that fails stops it with exit 2, naming the path, the files written before it
 left in place.
 
-**`worklist --verify <dir>`** first removes every `verdicts-*.md`, `generated-lines.md`, `gaps.md`
-and `fit-lines.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the snapshot and every report.
+**`worklist --verify <dir>`** first removes every `verdicts-*.md`, `generated-lines.md`, `gaps.md`,
+`fit-lines.md` and `closing-sections.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the snapshot and every report.
 Each line of a report is
 
 ```text
@@ -408,7 +408,10 @@ When every report passes, it writes from the snapshot:
 - at a design audit, a work list `--out` wrote with `--seeds-from`, in place of
   `generated-lines.md`: `gaps.md`, every verdict other than `constrains` and `unrelated` with its
   entry's text, and `fit-lines.md`, the same lines as `generated-lines.md` under the plan document's
-  citation and, where `--since` was given, the subject of its commit.
+  citation and, where `--since` was given, the subject of its commit;
+- `closing-sections.md`, at every occasion: each agent of `agents.txt`, in its order, under a line
+  `=== agent-<n>`, with its report's closing sections, from the first of them to the report's end,
+  fenced; an agent whose sections are empty is listed with them empty.
 
 A run that fails or stops leaves none of these files, unless a removal of one of them fails. These stop it with exit 2, before any report
 is judged where they are in `agents.txt`, `work.txt` or the snapshot: a file of the work list it

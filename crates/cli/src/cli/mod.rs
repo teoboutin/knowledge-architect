@@ -117,8 +117,8 @@ pub struct WorklistArgs {
     )]
     pub out: Option<std::path::PathBuf>,
     /// Check the reports the agents filled in DIR, a directory `--out` wrote. It first removes
-    /// every `verdicts-*.md`, the `generated-lines.md`, the `gaps.md` and the `fit-lines.md` of
-    /// DIR. Every entry an agent was given
+    /// every `verdicts-*.md`, the `generated-lines.md`, the `gaps.md`, the `fit-lines.md` and the
+    /// `closing-sections.md` of DIR. Every entry an agent was given
     /// has one verdict line in its report, in the verdicts its register admits and the actions its
     /// verdict admits; `against` names subjects `work.txt` lists, or is `-` on `unrelated` and on
     /// `constrains` with the action `none`; the quotation is a run of at least eight whole words of
@@ -128,7 +128,8 @@ pub struct WorklistArgs {
     /// per subject and `generated-lines.md`, the lines a commit message owes; at a design audit,
     /// a work list `--out` wrote with `--seeds-from`, `gaps.md`, every verdict but `constrains`
     /// and `unrelated`, and `fit-lines.md`, the lines under the plan document's citation, in place
-    /// of `generated-lines.md`.
+    /// of `generated-lines.md`; and, at every occasion, `closing-sections.md`, each report's
+    /// `## Decided` and `## Met outside the task`, in the order of the agents.
     #[arg(long, value_name = "DIR")]
     pub verify: Option<std::path::PathBuf>,
     /// Check the report of one agent, AGENT_DIR, a directory `agent-<n>` that `--out` wrote, by
