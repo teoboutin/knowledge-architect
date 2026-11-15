@@ -325,16 +325,18 @@ When every report passes, `--verify` writes, from the snapshot of
 `design@query@verify-reads-the-snapshot-and-no-model`:
 
 - one verdict file per subject of `work.txt`, `verdicts-<subject>.md`: every verdict other than
-  `unrelated` whose `against` names that subject, with its agent's verdict line and its entry's text
-  and inbound list, fenced as the snapshot fences them so that a heading of the text reads as no
-  section of the file, in the order of `agents.txt`;
+  `unrelated` whose `against` names that subject, in the two parts of
+  `design@query@verdicts-split-by-action`;
 - outside an audit, `generated-lines.md`: one line per entry given a verdict other than `unrelated`,
   its reference, its verdict and its action, with no quotation and no reason, for the commit message
   the occasion owes;
 - at an audit, a run whose `work.txt` names a plan document, `gaps.md`, every verdict other than
   `constrains` and `unrelated` with its entry's text, and `fit-lines.md`, the plan document cited
   whole, the commit named by its subject, and the line of each entry given a verdict other than
-  `unrelated`, in place of `generated-lines.md`.
+  `unrelated`, in place of `generated-lines.md`;
+- at every occasion, `closing-sections.md`: for each agent of `agents.txt`, in its order, its
+  report's text from its first closing section to its end, fenced, an agent whose sections are empty
+  listed with them empty.
 
 A run removes these files of a previous run before it judges anything, and a write that fails
 removes those written before it, so a run that fails, or stops on a file it cannot read, leaves none
@@ -357,6 +359,62 @@ KB of `show` output, as the message of the commit "[harvest] The graded entries'
 the narrower grounding and the retrospective's new question recorded" states. The files are read by `--verify`, the searcher and the
 session, and are no contract with another reader, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+`closing-sections.md` is read by the dispatching session itself. In a saved workflow the searchers'
+returns never reach the session, so their closing sections are otherwise read in each `report.md`,
+one file per searcher, 22 in the search of the discussion that designed the file, the reading that
+left unread the closing sections of 16 of 18 reports in one search, two of whose items bore on the
+work, as the issue on those sections recorded until the commit that planned this file deleted it;
+`git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it; or copied by an
+agent of the workflow, a copy of the same reading. The command writes them, per
+`goal@tasks-a-tool-does-better-are-the-tool-s`, the task taken in by the owner's approval of the
+design that adds the file.
+
+### A verdict file gives each act verdict with its entry's text whole, then each light verdict as its verdict line, with no entry text `##verdicts-split-by-action`
+
+Each `verdicts-<subject>.md` that a passing `worklist --verify` writes holds two parts, each in the
+order of `agents.txt` and its heading line written even where it is empty. Under `## Act verdicts`,
+each act verdict with its agent's verdict line and its entry's text and inbound list, fenced as the
+snapshot fences them so that a heading of the text reads as no section of the file; under
+`## Light verdicts`, each light verdict as its `===` line and its agent's verdict line, per
+`design@query@light-line-keeps-its-reason`, with no entry text and no inbound list. A light verdict is
+`constrains` or `touches` with the action `respect` or `none` and an empty `owner-question`; every
+other verdict but `unrelated` is an act verdict. `gaps.md` gives each of its verdicts whole,
+whichever part it takes here.
+
+It serves `goal@session-orchestrates-the-work`, under which the main session keeps its context for
+the design and the decisions. A verdict file holds two parts because a search returns two populations: over the four searches
+whose commit messages carry their lines, "[plans] The spec of the dispatch judgement in the primer,
+and of one check by another session as sufficient verification", "[check] A slug written with a hash
+sign in backticks, `#<id>` or `<word>#<id>`, is read by no lint", "[agent-skills] The retrospective
+asks for the tools a session set up, the record search's misses and a merged branch's review cost,
+and reports a needless instruction" and "[agent-skills] The goal reviewer grades a two-sense term
+`blocks` only where the report names the act the other sense would produce", 11, 10, 6 and 1
+verdicts needed an act and 177, 115, 125 and 19 were light, counted by their verdict and action as
+the lines ``^- `<ref>`: <verdict>, <action>.$`` of each message give them. The session reads an act verdict's entry
+whole to act on it. A light verdict asks the work only to keep within the sentence it quotes, and the
+verdict files of the search that measured the split reached about 1.5 MB, an entry appearing once
+under each subject it is graded against, more than a session reads whole, against 95 KB for its
+light lines with their reasons, both taken over that search's verdict files in its session's
+scratch space, as the spec of that work, added by the commit "[plans] The spec of the
+record search's saved workflow, with the closing sections and the verdict order a passing
+`worklist --verify` writes", records; over a passing search's directory,
+`sed -s -n '/^## Light verdicts/,$p' <dir>/verdicts-*.md | wc -c` takes the light part again. The
+session runs `show` on a light line it doubts, never once per entry, so the rival of
+`design@query@occasion-shaped-output`, the session running `show` once per entry it acts on, does not
+come back. The files stay one per subject, on
+the argument of `design@query@occasion-shaped-output` that a subject handed to an agent is that
+subject's file.
+
+### A light verdict's line in a verdict file keeps the searcher's quotation and reason `##light-line-keeps-its-reason`
+
+Under `## Light verdicts` of each `verdicts-<subject>.md`, per
+`design@query@verdicts-split-by-action`, a light verdict is its `===` line and its agent's verdict
+line whole, its quotation and its reason included. The searchers' reasons carried three verdicts
+that bore on the design in the search that measured the split, which the session's reading of the
+lines without them let through: `rejected@query@light-lines-without-reason`. The cost is the
+reasons' words in the light part, which `sed -s -n '/^## Light verdicts/,$p' <dir>/verdicts-*.md | wc -c`
+takes over a passing search's directory.
 
 ### The items are packed into the fewest agents first-fit-decreasing gives, spread evenly, under the bound left once the work is counted, an item above it alone `##clusters-packed-under-a-word-bound`
 
@@ -403,8 +461,10 @@ session's 50,000 and over the owner's own first figure, 30,000, to raise the bou
 searchers are asked for fuller verdicts; no goal ranks the three. Both searches of the discussion
 that chose it, real use per `design@agent-skills@synthetic-evidence-not-built`,
 peaked under 250,000 tokens in every searcher at this bound. Re-take it, on the machine that ran the
-search, over each searcher's transcript file, `subagents/agent-<id>.jsonl` under the session's
-directory of the harness's transcripts, the input, cache and output tokens of its last turn:
+search, over each searcher's transcript file under the session's directory of the harness's
+transcripts, `subagents/agent-<id>.jsonl` for an agent the session dispatched and
+`subagents/workflows/wf_<id>/agent-<id>.jsonl` for an agent of a saved workflow, the input, cache
+and output tokens of its last turn:
 `jq -s '[.[] | select(.message.usage) | .message.usage | .input_tokens + (.cache_creation_input_tokens//0) + (.cache_read_input_tokens//0) + .output_tokens] | last' <file>`.
 A search whose searchers peak above 250,000 tokens reopens the bound, and one whose peaks stay well
 under it is the ground of a next raise. No measurement of recall stands behind any value of the

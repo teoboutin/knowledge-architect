@@ -909,3 +909,17 @@ where the outcome a plan document records carries every reason that changed some
 of the owner's that splits a module at a threshold of lines added the number with no measurement and
 no argument, and its record holds a module that one item keeps above the threshold, which no move
 can divide: the survey is `path@agent-skills@docs/grounding/module-split.md`.
+
+### A cross-check stage of the record search's workflow that refutes the verdicts before the session reads them `##verdicts-verified-in-the-workflow`
+
+`live`. A fixed step of the workflow, one agent per subject trying to refute each verdict, would
+make the independent verification of the verdicts, and the session would act on the survivors
+without checking them again. An output verified by a session other than its author is no property
+on which an instruction fixes a dispatch, since every conclusion acted on is one. Run once, as real
+use, in the search of the discussion that designed the workflow, the cross-checkers refuted 16 of
+the 430 verdicts they read, counted as the lines marked `refuted` in their twelve files, as the
+spec of that work records after the commit "[review] The plan review's repairs of the record search
+workflow's spec: a step 0 that conforms its heads, the workflow's result and outputs specified, and
+Q2 and D2 awaiting the owner"; the three
+that changed the design lay in the searchers' own reasons, which a verdict file keeps, and the
+session still reads every light line to keep the work within it.

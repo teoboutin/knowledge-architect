@@ -73,9 +73,8 @@ and the branch's diff, runs `show` on each entry such a line names, reports a ve
 unanswered, and reads as declared departures the heads the diff rewrites and those the message names
 as reversed.
 
-The session acts on each verdict without reading the entry by rule, per
-`design@agent-skills@session-acts-on-the-verdicts`, after the verdict's one independent
-verification, per `design@agent-skills@at-least-one-independent-verification`; this reviewer's
+The session acts on each verdict as `design@agent-skills@session-acts-on-the-verdicts` says, after
+the verdict's one independent verification, per `design@agent-skills@at-least-one-independent-verification`; this reviewer's
 reading is a review of the work, which that minimum admits, and this reviewer already reads the record
 against the work, so on the full path the verdict files add reading and no dispatch. The rival, the
 verdicts recorded and read by no reviewer, leaves a verdict the session misjudged to surface only
@@ -142,8 +141,9 @@ A dispatcher that sends several subagents together names in each brief a scratch
 from the others', as it names a distinct worktree for a reviewer that builds, and an agent that
 writes working files writes them there only. The installed review skill states it among the
 invariants of a dispatch, `primer@dispatching-work` states it for every dispatch of agents together,
-and the record searcher's description, which carries its dispatch rule,
-makes each agent directory that `klarch worklist` writes its searcher's scratch directory.
+and the record search's saved workflow, which holds its dispatch, per
+`design@agent-skills@search-runs-a-saved-workflow`, gives each searcher the agent directory that
+`klarch worklist` writes as its scratch directory.
 Subagents sharing one scratch directory overwrite one another's files: parallel searchers in one
 session did, and one repeated its work, and reviewers in another could not tell whether files of the
 same names had been overwritten. A searcher that does not notice fills another agent's report,
@@ -194,9 +194,13 @@ the reviewer already holds its report and a tool that writes it.
 A reviewer, a record searcher filling its `report.md`, the code-split scout, and the report step of
 an audit's saved workflow write their report file with a shell redirect, `cat > <path> <<'EOF'`, or, for the
 searcher, by `Edit` of the skeleton, never by `Write`, and fall back to returning the report as text
-where the harness refuses the write. An auditor's drafts are no report file of a name the
-harness refuses, and an auditor writes them with a shell redirect only where the file tool is
-refused.
+where the harness refuses the write. The record search's saved workflow writes a report its
+searcher returned as text into that searcher's `report.md` by a shell redirect, at the step of
+`design@agent-skills@report-loop-in-the-workflow` that writes it. An auditor writes each draft under
+the name its brief gives, and with a shell redirect where the file tool is refused: the saved
+workflows of the design-record and tripwire axes name a draft `<nn>-<slug>.md` or `<nn>-<id>.md`,
+which no name the harness refuses matches, while the planning skill's dispatch names it by the head's slug, which the harness refuses
+where the slug begins with `report-`.
 
 The argument turns on the harness's behaviour. Claude Code refuses a subagent's `Write` of a new
 `report.md`, of a new `findings.md`, of a new `summary.md`, of a new file whose name begins with

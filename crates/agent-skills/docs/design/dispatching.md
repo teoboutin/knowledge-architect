@@ -72,10 +72,9 @@ The standing argument:
   returns unfinished is a new piece. How parallel work is partitioned among agents is
   `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`.
 - **The facts on the harness** are measured in Claude Code 2.1.321, once each: a general-purpose
-  subagent holds `Agent` and can dispatch a nested agent, and holds no `Workflow`, so a saved
-  workflow stays with the main session; and the primer reaches a nested agent. The probe that takes
-  each again: one general-purpose agent asked to list its tools and to dispatch one nested agent
-  that quotes a sentence of the primer from its initial context, with no file read.
+  subagent holds `Agent` and can dispatch a nested agent; and the primer reaches a nested agent. The
+  probe that takes each again: one general-purpose agent asked to list its tools and to dispatch one
+  nested agent that quotes a sentence of the primer from its initial context, with no file read.
 
 The retrospective watches this decision with two of its standing questions, per
 `design@agent-skills@premortem-as-watch-points`: work the session carried that an agent could have
@@ -90,19 +89,23 @@ task's size. The admission standard,
 `design@agent-skills@admission-rules-home`, so it binds a project's own skills as it binds the
 installed text, and the primer says only that a dispatch a skill or an agent fixes is made as that
 text says. The rule's list of properties is open, each one a property of the step whatever the
-task's size; the properties the installed text uses today are three: a point of view apart from the
+task's size; the properties the installed text uses today are a point of view apart from the
 session's (the reviews, the goal reviewer, the audits, whose agents judge the project by a standard
 and are judged again by their verifiers); an output whose form a command checks (the record search,
 through `klarch worklist --verify`; the transcript extraction at a plan's assembly, whose lines a
-command, `klarch transcript show`, writes, which fixes their form); and an occasion most work meets (a merge, a development
-checkpoint). An output verified by a session other than its author is no such property: under
+command, `klarch transcript show`, writes, which fixes their form); an occasion most work meets (a merge, a development
+checkpoint); and a step of a saved workflow that runs a command, which its script cannot run (the
+agents of the record search's workflow that run `klarch worklist --out` and `--verify`, per
+`design@agent-skills@workflow-runs-the-worklist` and `design@agent-skills@report-loop-in-the-workflow`, and the preflight of an audit axis's workflow,
+which runs the checker's commands). An output verified by a session other than its author is no such property: under
 `design@agent-skills@at-least-one-independent-verification` every returned conclusion is, so it
-would admit any dispatch. Any other "always dispatch X" is a size claim in disguise.
+would admit any dispatch, and a cross-check stage of the record search's workflow lost on it,
+`rejected@agent-skills@verdicts-verified-in-the-workflow`. Any other "always dispatch X" is a size claim in disguise.
 
 The rule on fixed dispatches tests a property of the step. Without the test, the fixed dispatches
 are a list, which a later writer extends by analogy, and the threshold of size comes back, which
 `design@agent-skills@work-divided-by-judgement` argues against. Every fixed dispatch of the
-installed text fits one of the three properties above.
+installed text fits one of the properties above.
 
 ### A claim the work acts on gets at least one independent verification before it is acted on, by a session other than its author, against the evidence its report carries, and one is enough `##at-least-one-independent-verification`
 

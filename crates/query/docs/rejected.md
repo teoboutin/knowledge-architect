@@ -85,3 +85,14 @@ Its first reason, that an anchor bounds nothing, as in thaum at its commit ef213
 Component held 51.9% of the bytes of the standing entries, is answered by
 `design@query@packed-by-search-unit`, which splits a search unit above the bound and packs the small
 ones together.
+
+### Light verdicts in a verdict file as compact lines without their reason `##light-lines-without-reason`
+
+`live`. It would have changed the format of the verdict files `worklist --verify` writes. Run in the
+record search of the discussion that split the files into act and light verdicts, where cross-check
+agents read every verdict again, three verdicts that bore on the design, each graded light, were
+found in the searchers' own reasons, which the compact lines dropped, and the session reading the
+lines had let all three through. The run's twelve cross-check files stayed in that session's scratch
+space; the spec of that work, added by the commit "[plans] The spec of the record search's saved
+workflow, with the closing sections and the verdict order a passing `worklist --verify` writes",
+names the three entries.
