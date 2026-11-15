@@ -1,5 +1,5 @@
 //! The tests that run `node` on the saved workflows the installer writes: the parse check of every
-//! one, and the test of the record search's flag builder.
+//! one, and the tests of the record search's flag builder and of its merge of failing reports.
 //!
 //! The harness runs a saved workflow's body as an async function, so a top-level `return` and
 //! `await` are legal there and a parser refuses them on the bare file. The parse check wraps the
@@ -8,11 +8,12 @@
 //! domain of validity: a syntax error, which node reports for that wrapped text. It runs no part of
 //! the script, and it checks nothing the harness checks of `meta` beyond its parse.
 //!
-//! The test of the flag builder runs one part of one script: `worklistCommand` of the record
-//! search's workflow, with the function it calls, each taken from the installed text, `{{command}}`
-//! replaced by a command of the test's, and run under `node` on fixed `args`. The script's body,
-//! which calls the harness's `agent` and `phase`, never runs; the rest of its logic is judged by no
-//! test, per `issue@agent-skills@no-test-runs-a-saved-workflow-s-logic`.
+//! The tests of the record search's workflow run two parts of its script: `worklistCommand`, the
+//! flag builder, with `quoted`, on fixed `args`, and `failingReports`, the merge of the failing
+//! reports, with `agentName`, on fixed returns of the check's agent. Each function is taken from the
+//! installed text, `{{command}}` replaced by a command of the test's, and run under `node`. The
+//! script's body, which calls the harness's `agent` and `phase`, never runs; the rest of its logic
+//! is judged by no test, per `issue@agent-skills@no-test-runs-the-record-search-workflow-s-body`.
 //!
 //! Why `node` and not a JavaScript parser compiled into the test: a parser crate would run on every
 //! machine, but it adds a large dev-dependency to every build of the suite, and it parses only,
@@ -122,8 +123,8 @@ fn every_installed_saved_workflow_parses() {
 
 /// The claim: the check discriminates. Each installed workflow with one stray `)` planted on a
 /// line fails it, and the same text with a top-level `return`, legal in the harness, passes.
-/// Mutation checked: in `node_check`, `Some(if out.status.success() {` made `Some(if true {`;
-/// caught.
+/// Mutation checked: in `node_run`, which `node_check` calls, `Some(if out.status.success() {` made
+/// `Some(if true {`; caught.
 #[test]
 fn the_parse_check_fails_on_a_planted_syntax_error() {
     for (path, text) in workflows() {
@@ -188,22 +189,31 @@ fn function_source(text: &str, name: &str) -> String {
     panic!("no top-level function `{name}`, closed by a lone `}}`, in the script")
 }
 
+/// What `node` prints on stdout for the top-level `functions` of the installed record search,
+/// `{{command}}` replaced by `klarch`, followed by the statement `run`; `None` where no `node` can
+/// be started and the run does not require it.
+fn record_search_run(functions: &[&str], run: &str) -> Option<String> {
+    let text = record_search().replace("{{command}}", "klarch");
+    let mut script: String = functions
+        .iter()
+        .map(|name| format!("{}\n", function_source(&text, name)))
+        .collect();
+    script.push_str(run);
+    match checked(node_run(NODE, &["-"], &script), required()) {
+        Err(failure) => panic!("{failure}"),
+        Ok(None) => None,
+        Ok(Some(Err(message))) => panic!("{functions:?} did not run:\n{message}"),
+        Ok(Some(Ok(stdout))) => Some(stdout),
+    }
+}
+
 /// What `worklistCommand` of the installed record search returns for each of `cases`, a JavaScript
 /// array of `args` objects, `{{command}}` replaced by `klarch`; `None` where no `node` can be
 /// started and the run does not require it.
 fn worklist_commands(cases: &str) -> Option<Vec<String>> {
-    let text = record_search().replace("{{command}}", "klarch");
-    let script = format!(
-        "{}\n{}\nprocess.stdout.write({cases}.map(worklistCommand).join('\\n'))\n",
-        function_source(&text, "quoted"),
-        function_source(&text, "worklistCommand"),
-    );
-    match checked(node_run(NODE, &["-"], &script), required()) {
-        Err(failure) => panic!("{failure}"),
-        Ok(None) => None,
-        Ok(Some(Err(message))) => panic!("the flag builder did not run:\n{message}"),
-        Ok(Some(Ok(stdout))) => Some(stdout.lines().map(str::to_string).collect()),
-    }
+    let run = format!("process.stdout.write({cases}.map(worklistCommand).join('\\n'))\n");
+    let stdout = record_search_run(&["quoted", "worklistCommand"], &run)?;
+    Some(stdout.lines().map(str::to_string).collect())
 }
 
 /// The claim: `worklistCommand` maps every argument of the workflow in a fixed order, `--out`, then
@@ -232,4 +242,53 @@ fn the_record_search_s_flag_builder_maps_every_argument() {
         return eprintln!("{SKIPPED}");
     };
     assert_eq!(got, EXPECTED);
+}
+
+/// What `failingReports` of the installed record search returns for each of `cases`, a JavaScript
+/// array of returns of the check's agent, each as one line of JSON; `None` where no `node` can be
+/// started and the run does not require it.
+fn failing_reports(cases: &str) -> Option<Vec<String>> {
+    let run = format!(
+        "process.stdout.write({cases}.map((c) => JSON.stringify(failingReports(c))).join('\\n'))\n"
+    );
+    let stdout = record_search_run(&["agentName", "failingReports"], &run)?;
+    Some(stdout.lines().map(str::to_string).collect())
+}
+
+/// The claim: `failingReports` sends back each report the check's output names, an agent's report
+/// once with its findings in order and without a repeated line, whether or not the check's agent
+/// listed it, the agent named by the last `agent-<n>` of a path it returned; and the `failing` it
+/// gives the workflow to return is the list it sends back, or, where it sends back none, the
+/// agent's own list. Mutation checked: in `failingReports`, `return { sendBack, failing: sendBack.length ?
+/// sendBack : checked.failing }` made `return { sendBack, failing: checked.failing }`, the defect
+/// the commit "[agent-skills] The record search's workflow returns the failing reports it sent
+/// back, not only those the check's agent listed" repaired; caught. And the scan of the output,
+/// `if (m) add(m[1], l)` made `if (false) add(m[1], l)`, which sends back only what the agent
+/// listed; caught. And `sendBack.length ? sendBack : checked.failing` made `sendBack`, which
+/// returns an empty list where the output names no report; caught. And
+/// `if (l && !byAgent.get(name).includes(l))` made `if (l)`, which repeats a line the agent and the
+/// output both give; caught.
+#[test]
+fn the_record_search_s_failing_reports_merge_the_check_s_output() {
+    // Bound by a `const`, which the checker does not read.
+    const ONE: &str = r#"{"agent":"agent-1","findings":"/s/agent-1/report.md:3: no quotation\n/s/agent-1/report.md:9: no reason"}"#;
+    const TWO: &str =
+        r#"{"agent":"agent-2","findings":"error: /s/agent-2/report.md:7: not a line"}"#;
+    let expected = [
+        format!(r#"{{"sendBack":[{ONE},{TWO}],"failing":[{ONE},{TWO}]}}"#),
+        r#"{"sendBack":[],"failing":[{"agent":"the work list","findings":"error: /s/work.txt: unreadable"}]}"#
+            .to_string(),
+    ];
+    let cases = r#"[
+        { passed: false,
+          output: '/s/agent-1/report.md:3: no quotation\nerror: /s/agent-2/report.md:7: not a line\n/s/agent-1/report.md:9: no reason\nFAILED',
+          failing: [{ agent: '/s/agent-1', findings: '/s/agent-1/report.md:3: no quotation' }] },
+        { passed: false,
+          output: 'error: /s/work.txt: unreadable',
+          failing: [{ agent: 'the work list', findings: 'error: /s/work.txt: unreadable' }] },
+    ]"#;
+    let Some(got) = failing_reports(cases) else {
+        return eprintln!("{SKIPPED}");
+    };
+    assert_eq!(got, expected);
 }

@@ -12,8 +12,9 @@ installed file's stem as its `name`, which the build asserts. The harness runs t
 an async function, so a top-level `return` is legal there and `node --check` refuses it on the
 bare file: `path@agent-skills@src/workflow_parse.rs` parses each installed workflow so wrapped,
 with `node`, in the crate's tests, and runs the record search's flag builder, `worklistCommand`,
-on fixed `args`, taking it and the function it calls from their `function <name>(` line to the
-next lone `}`; both skip without `node` unless `cargo x gates --ci`, which CI runs, requires it,
+on fixed `args`, and its merge of the failing reports, `failingReports`, on fixed returns of the
+check's agent, taking each and the function it calls from their `function <name>(` line to the
+next lone `}`; all skip without `node` unless `cargo x gates --ci`, which CI runs, requires it,
 per `design@gates@ci-flag-for-ci-only-requirements`. The build's passes run over it as over any shipped file: a `%%` line is
 removed, even inside a template literal, so a line of a prompt never opens with `%%`.
 
