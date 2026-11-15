@@ -162,9 +162,14 @@ The standing argument:
   2.1.321, so a search run inside an agent dispatches by hand; the probe that takes it again is one
   general-purpose agent asked to list its tools. Whether a run needs a permission rule is
   `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A harness that does
-  not list the workflow is `claude` too: `skill@knowledge-architect-project-audit` says a harness may
-  list saved workflows only when a session starts, so a session that ran the install later may not
-  see the workflow listed, and it gives that session the same by-hand line for an audit axis.
+  not list the workflow is taken to be `claude` too, on an unmeasured premise: a harness may list
+  saved workflows only when a session starts, so a session that ran the install later may not see
+  the workflow listed, as `skill@knowledge-architect-project-audit` says in giving that session the
+  same by-hand line for an audit axis. The one observation, in the session of the commit "[audit]
+  Pass 4 of the agentic-workflow axis, run through the saved workflow: 36 findings confirmed, 23
+  causes repaired", saw a new workflow listed right after its install; the probe that takes it
+  again is a session that runs the install of a workflow it did not start with, then reads the
+  workflows its harness lists.
 - **The line restates no step**, so it cannot drift from the script, which a line restating them
   would, as the premortem of the discussion that designed the workflow named; the steps keep the
   one home of `design@agent-skills@search-runs-a-saved-workflow`.

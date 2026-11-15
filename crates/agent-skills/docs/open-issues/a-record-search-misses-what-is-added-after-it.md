@@ -105,3 +105,10 @@ The next design discussion whose own work includes reopening
 The design discussion of the milestone on split guidelines and plan directories met the earlier
 re-entry point, which also named the next discussion that changes the grounding's steps; on the
 owner's word, given as its Q6, the reopening was kept out of that milestone.
+
+### Leads
+
+- A second search costs one call: the record search runs as the saved workflow
+  `knowledge-architect-record-search`, per `design@agent-skills@search-runs-a-saved-workflow`, so a
+  search after a new thread, or after a shape changes, is one run of it with the extended draft as
+  its `work`.

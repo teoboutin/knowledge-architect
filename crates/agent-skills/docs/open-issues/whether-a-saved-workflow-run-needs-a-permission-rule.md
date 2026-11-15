@@ -21,7 +21,10 @@ auto mode. Whether a default-mode session gets a prompt or needs a `Workflow(<na
 not established." The owner approved the delivery on that statement. No later run tested it: every
 pass of the audit ran in the same mode, and so did the first pass of the design-record axis through
 its own saved workflow, `knowledge-architect-design-record-audit`, which meets the same question.
-The installed audit skill and the setup skill name no permission for the workflow.
+So does the record search's saved workflow, `knowledge-architect-record-search`, which every design
+grounding, design audit and intake grounding runs; the searcher's description sends a session whose
+run the permission mode refuses to the steps by hand. The installed audit skill and the setup skill
+name no permission for the workflows.
 
 ### Why it matters
 
