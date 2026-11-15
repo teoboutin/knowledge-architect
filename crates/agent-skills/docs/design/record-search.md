@@ -180,7 +180,10 @@ cover. That a standing authorization in the user's or the project's instructions
 the session's reading of a description that quotes no sentence for it: the session chose it over
 the reading that only an invocation the description names is an opt-in, no cost weighed, which no
 goal ranks; the owner approved it. A session that holds none takes the by-hand line of
-`design@agent-skills@fallback-dispatch-line`.
+`design@agent-skills@fallback-dispatch-line`: the session chose that premise and the by-hand line
+over the setup skill proposing a standing-authorization line for each adopting project's
+`CLAUDE.md`, a rival that widens the work into the setup skill; no goal ranks the two, and the owner
+approved the session's default.
 
 ### The record search is an agent apart from the standing-state reviewer `##search-apart-from-the-standing-state-review`
 
