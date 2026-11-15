@@ -58,6 +58,12 @@ an empty subsection is omitted.
   segment.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
+- `cli`, minor: a passing `worklist --verify` writes `closing-sections.md`, every report's
+  `## Decided` and `## Met outside the task` in the order of `agents.txt`, at every occasion. Each
+  verdict file holds its act verdicts whole under `## Act verdicts`, then its light verdicts,
+  `constrains` or `touches` with the action `respect` or `none` and an empty `owner-question`, as
+  their lines under `## Light verdicts`, with no entry text; the line `--verify` prints per subject
+  counts its act verdicts.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
@@ -128,10 +134,23 @@ an empty subsection is omitted.
 - `agent-skills`, patch: the decision-record reviewer and the design-record auditor, which host the
   shape rules on a head, report a head that argues a Component's existence and does not reason over
   a default criterion or the signals against a split, or names one with no reason.
-- `agent-skills`, patch: the dispatch of `agent@knowledge-architect-record-searcher` sends one agent
-  per directory `agent-<n>` in parallel, as many at once as the harness admits and each of the rest
-  as an earlier one returns, and runs `worklist --verify` when every one has returned, where it sent
-  them all at once.
+- `agent-skills`, patch: the record search runs as the saved workflow
+  `knowledge-architect-record-search`, which the install writes under .claude/workflows/, where the
+  session dispatched every searcher and checked every report by hand: one agent runs
+  `worklist --out` from the workflow's `args`, one `agent@knowledge-architect-record-searcher` per
+  directory `agent-<n>` runs in parallel, as many at once as the harness admits and each of the rest
+  as an earlier one returns, an agent writes each report returned as text into its `report.md`, and
+  one agent runs `worklist --verify`, each failing report sent back to its searcher for at most
+  `maxRounds` runs of the check, 3 by default. The searcher's description names the workflow and
+  its `args`, and the design skill's grounding, the planning skill's design audit and the intake's
+  grounding run it. The session edits nothing in the tree until it returns. A session that cannot
+  run it, inside an agent, where the run is refused, or with no opt-in for the Workflow tool, which a
+  standing authorization in the user's or the project's instructions gives, dispatches its steps by
+  hand from the script.
+- `agent-skills`, patch: the session reads each act verdict of a verdict file with its entry, and
+  each light verdict as its line, running `show` on one that looks like a downgrade, and carries
+  every searcher's closing sections from `closing-sections.md`; the design-conformance reviewer
+  reads the verdict files the same way.
 - `agent-skills`, patch: after an install that changes the installed files, the session tells each
   installed agent it dispatches for the rest of the session, whose definition the install changed,
   to read its definition from disk and to follow the disk where its copy differs.

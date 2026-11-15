@@ -250,7 +250,7 @@ one draft per head:
 
 | head | verdict | step 0 |
 | --- | --- | --- |
-| `design@agent-skills@one-record-searcher` | fails one decision per head, and the title test | retitled to the rule of one agent for every kind; split out `design@agent-skills@failing-report-goes-back-to-its-searcher` and `design@agent-skills@search-dispatch-in-the-searcher-s-description` |
+| `design@agent-skills@one-record-searcher` | fails one decision per head, and the title test | retitled to the rule of one agent for every kind; split out `design@agent-skills@failing-report-goes-back-to-its-searcher` and `search-dispatch-in-the-searcher-s-description`, now `design@agent-skills@search-runs-a-saved-workflow` |
 | `design@agent-skills@session-acts-on-the-verdicts` | fails one decision per head: the list "Where the occasion's record goes" is a second decision | split out `design@agent-skills@search-record-kept-per-occasion`; `design@agent-skills@plan-commits-the-generated-lines` re-pointed to it |
 | `design@query@occasion-shaped-output` | fails one decision per head, the title test, and "not implementation" | split out `design@query@verify-reads-the-snapshot-and-no-model`; retitled; the clause on a failed removal moved to a comment at `remove_outputs` |
 | `design@query@worklist-writes-and-verifies-the-reports` | fails the title test, and one decision per head | retitled; split out `design@query@skeleton-names-the-admitted-verdicts` |
@@ -272,7 +272,7 @@ The rest of this section names each head as step 0 leaves it.
 The decisions the work rewrites, each with every text the rewrite repairs, the repair made by step
 4 for the installed text and by the harvest for the design homes:
 
-- `design@agent-skills@search-dispatch-in-the-searcher-s-description`, the head step 0 splits out of
+- `search-dispatch-in-the-searcher-s-description`, now `design@agent-skills@search-runs-a-saved-workflow`, the head step 0 splits out of
   `design@agent-skills@one-record-searcher`: its statement that the searcher's description carries
   the dispatch, "since a dispatcher reads an agent's description and never its body", turns false:
   the workflow carries the dispatch, and the description names the workflow. The harvest rewrites
@@ -350,7 +350,7 @@ outcome:
 
 | entry | verdict | outcome |
 | --- | --- | --- |
-| `design@agent-skills@one-record-searcher` | conflicts | rewritten in `design@agent-skills@search-dispatch-in-the-searcher-s-description`, above |
+| `design@agent-skills@one-record-searcher` | conflicts | rewritten in `search-dispatch-in-the-searcher-s-description`, now `design@agent-skills@search-runs-a-saved-workflow`, above |
 | `design@agent-skills@session-acts-on-the-verdicts` | conflicts | rewritten, above |
 | `design@query@worklist-writes-and-verifies-the-reports` | conflicts | touched only where its text names an output, above |
 | `design@query@occasion-shaped-output` | conflicts | rewritten; its argument keeps the files per subject, above |
@@ -677,8 +677,9 @@ From #search-workflow-logic-tested and #workflow-logic-test-home.
   search, and nothing reports it.
 - Its test lives in `path@agent-skills@src/workflow_parse.rs`, the one module that runs `node` on a
   shipped workflow and owns the CI requirement on it (`checked`, `required`, `CI_VAR`). The test
-  reads the source copy, `path@agent-skills@content/workflows/record-search.js`, strips its
-  `%%` lines as the build does, substitutes `{{command}}` with a command of its own, calls the
+  reads the installed copy of the script from `crate::FILES`, which the build wrote from
+  `path@agent-skills@content/workflows/record-search.js` with its `%%` lines removed, substitutes
+  `{{command}}` with a command of its own, calls the
   function with fixed `args` and compares the string it returns with the expected one, each value
   quoted as above; it skips without `node` and fails under `cargo x gates --ci`, as the parse check
   does. How it reaches the function without running the script's body, which calls the harness's
@@ -792,7 +793,7 @@ checks, and the others are judged at the harvest, under Premortem.
    that run finds non-conformant, each as the table says, the auditor's drafts of the plan's review
    giving each new head's text where they are still at hand: the new heads
    `design@agent-skills@failing-report-goes-back-to-its-searcher`,
-   `design@agent-skills@search-dispatch-in-the-searcher-s-description`,
+   `search-dispatch-in-the-searcher-s-description`, now `design@agent-skills@search-runs-a-saved-workflow`,
    `design@agent-skills@search-record-kept-per-occasion`,
    `design@query@verify-reads-the-snapshot-and-no-model`,
    `design@query@skeleton-names-the-admitted-verdicts` and
@@ -873,8 +874,7 @@ checks, and the others are judged at the harvest, under Premortem.
    copy an output and need no change unless their text names the dispatch; brings to the present
    `issue@agent-skills@a-saved-workflow-runs-the-review-before-a-merge`, line 19, which says the
    installed text ships saved workflows "for the audit axes alone"; installs with
-   `cargo klarch install-agent-skills`; writes the CHANGELOG.md entries and runs `cargo x
-   changelog`. Fails alone on `cargo klarch check`. Claims:
+   `cargo klarch install-agent-skills`. Fails alone on `cargo klarch check`. Claims:
    - the description's by-hand line points to the script and restates no step of it (the
      premortem's cause 6): checked by reading the installed description against the script, and by
      the agent-facing-text axis of the review;
@@ -911,7 +911,7 @@ checks, and the others are judged at the harvest, under Premortem.
 
 | what | where | when |
 | --- | --- | --- |
-| #search-runs-a-saved-workflow, #workflow-runs-the-worklist, #worklist-notices-returned, #report-loop-in-the-workflow, #search-reads-a-fixed-tree, #dispatch-text-home, #fallback-dispatch-line | `design@agent-skills@search-dispatch-in-the-searcher-s-description` rewritten, its title and slug brought to the workflow, and the heads the entry tests admit in `path@agent-skills@docs/design/record-search.md`, the workflow's head carrying the owner's take-in under `goal@generic-tools-and-procedures-are-shipped`, the opt-in premise as D2 is ruled, and the measured fact that a general-purpose subagent holds no `Workflow`, with its probe, moved from `design@agent-skills@work-divided-by-judgement` | after step 4 |
+| #search-runs-a-saved-workflow, #workflow-runs-the-worklist, #worklist-notices-returned, #report-loop-in-the-workflow, #search-reads-a-fixed-tree, #dispatch-text-home, #fallback-dispatch-line | `search-dispatch-in-the-searcher-s-description`, now `design@agent-skills@search-runs-a-saved-workflow`, rewritten, its title and slug brought to the workflow, by the pairs `#dispatch-text-home → search-runs-a-saved-workflow` and `#search-reads-a-fixed-tree → session-edits-nothing-while-the-search-runs`, and the heads the entry tests admit in `path@agent-skills@docs/design/record-search.md`, the workflow's head carrying the owner's take-in under `goal@generic-tools-and-procedures-are-shipped`, the opt-in premise as D2 is ruled, and the measured fact that a general-purpose subagent holds no `Workflow`, with its probe, moved from `design@agent-skills@work-divided-by-judgement` | after step 4 |
 | #verdicts-split-by-action, #closing-sections-file | `design@agent-skills@session-acts-on-the-verdicts` rewritten; `design@query@occasion-shaped-output` rewritten | after step 4 |
 | the fixed worklist and verify agents | `design@agent-skills@dispatch-fixed-only-on-a-step-property` gains the property of a step that runs a command | after step 4 |
 | the writer of a report returned as text | `design@agent-skills@report-written-through-the-shell` gains the member | after step 4 |
@@ -923,6 +923,7 @@ checks, and the others are judged at the harvest, under Premortem.
 | #worklist-module-split, #binary-tests-split | the commit of step 1 | step 1 |
 | the issues that cite the rewritten heads | each read, and a statement about where the dispatch lives brought to the present | after step 4 |
 | the premortem's causes 3, 4 and 5 | judged by the tripwire standard; every cause with its outcome in the harvest's commit message | the harvest |
+| the branch's changes a consumer meets | CHANGELOG.md, its `Next release` section, by `design@knowledge-architect@changelog-entries` and `design@knowledge-architect@versioning-policy`, then `cargo x changelog` | the harvest |
 
 ## Later consequences
 

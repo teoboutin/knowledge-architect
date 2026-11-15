@@ -1,14 +1,15 @@
 ---
 kind: todo
 ---
-# No test runs a shipped saved workflow's logic: the counts the audit workflows report as exact are untested
+# No test runs the audit workflows' logic: the counts they report as exact are untested
 
 ## Summary
 
 The three audit workflows compute the counts their report copies as exact, and no test runs that
 logic: it sits in each script's top-level body, beside the harness's `agent`, `phase` and `log`
 calls, so nothing can call it apart from a real run. The parse of each installed saved workflow is
-tested, by `path@agent-skills@src/workflow_parse.rs`; what the scripts compute is not.
+tested, by `path@agent-skills@src/workflow_parse.rs`, and so is the record search's flag builder;
+what the audit scripts compute is not.
 
 ## Details
 
@@ -60,7 +61,11 @@ received retrospective files.
   result, and it says it is no project of Anthropic. Its cost: the stubs are a second statement of
   the harness's API, which a change of the harness leaves stale until a real run shows it.
 - **Pure functions the script's body calls**, which a test calls with fixed returns, the shape the
-  code-shape finding above named, change each script and need no stub of the harness.
+  code-shape finding above named, change each script and need no stub of the harness. The record
+  search's saved workflow has one: its flag builder, `worklistCommand`, top-level in
+  `path@agent-skills@content/workflows/record-search.js`, which
+  `the_record_search_s_flag_builder_maps_every_argument` in `path@agent-skills@src/workflow_parse.rs`
+  takes from the installed text and runs under `node` on fixed `args`.
 - Either runs on `node`, which the parse test already requires where `cargo x gates --ci` runs
   and skips without elsewhere, per `design@gates@ci-flag-for-ci-only-requirements`.
 
