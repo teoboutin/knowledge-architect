@@ -7748,7 +7748,8 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
 /// agent whose sections are empty listed with them empty; and prints the count of the reports it
 /// holds. Mutations checked, in `path@query@src/worklist.rs`: in `judge_reports`, the closing text
 /// inserted as `closing_text("")`, which writes every agent's sections empty; and in `verify`, the
-/// printed count `out.reports` made `0`; each caught.
+/// printed count `reports` made `0`, and the push of `closing-sections.md` into the files written
+/// deleted; each caught.
 #[test]
 fn worklist_verify_writes_the_closing_sections_of_every_report() {
     let (sandbox, out, _) = worklist_out("worklist-closing-sections", &["--bound", "120"]);

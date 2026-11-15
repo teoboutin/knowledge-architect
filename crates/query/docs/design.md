@@ -334,9 +334,7 @@ When every report passes, `--verify` writes, from the snapshot of
   `constrains` and `unrelated` with its entry's text, and `fit-lines.md`, the plan document cited
   whole, the commit named by its subject, and the line of each entry given a verdict other than
   `unrelated`, in place of `generated-lines.md`;
-- at every occasion, `closing-sections.md`: for each agent of `agents.txt`, in its order, its
-  report's text from its first closing section to its end, fenced, an agent whose sections are empty
-  listed with them empty.
+- at every occasion, `closing-sections.md`, per `design@query@closing-sections-file`.
 
 A run removes these files of a previous run before it judges anything, and a write that fails
 removes those written before it, so a run that fails, or stops on a file it cannot read, leaves none
@@ -359,16 +357,6 @@ KB of `show` output, as the message of the commit "[harvest] The graded entries'
 the narrower grounding and the retrospective's new question recorded" states. The files are read by `--verify`, the searcher and the
 session, and are no contract with another reader, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
-
-`closing-sections.md` is read by the dispatching session itself. In a saved workflow the searchers'
-returns never reach the session, so their closing sections are otherwise read in each `report.md`,
-one file per searcher, 22 in the search of the discussion that designed the file, the reading that
-left unread the closing sections of 16 of 18 reports in one search, two of whose items bore on the
-work, as the issue on those sections recorded until the commit that planned this file deleted it;
-`git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it; or copied by an
-agent of the workflow, a copy of the same reading. The command writes them, per
-`goal@tasks-a-tool-does-better-are-the-tool-s`, the task taken in by the owner's approval of the
-design that adds the file.
 
 ### A verdict file gives each act verdict with its entry's text whole, then each light verdict as its verdict line, with no entry text `##verdicts-split-by-action`
 
@@ -415,6 +403,23 @@ that bore on the design in the search that measured the split, which the session
 lines without them let through: `rejected@query@light-lines-without-reason`. The cost is the
 reasons' words in the light part, which `sed -s -n '/^## Light verdicts/,$p' <dir>/verdicts-*.md | wc -c`
 takes over a passing search's directory.
+
+### A passing `worklist --verify` gathers every report's closing sections into `closing-sections.md`, which the dispatching session reads in place of each report `##closing-sections-file`
+
+At every occasion, `closing-sections.md`, one of the files of
+`design@query@occasion-shaped-output`, holds for each agent of `agents.txt`, in its order, its
+report's text from its first closing section to its end, fenced, an agent whose sections are empty
+listed with them empty.
+
+`closing-sections.md` is read by the dispatching session itself. In a saved workflow the searchers'
+returns never reach the session, so their closing sections are otherwise read in each `report.md`,
+one file per searcher, 22 in the search of the discussion that designed the file, the reading that
+left unread the closing sections of 16 of 18 reports in one search, two of whose items bore on the
+work, as the issue on those sections recorded until the commit that planned this file deleted it;
+`git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it; or copied by an
+agent of the workflow, a copy of the same reading. The command writes them, per
+`goal@tasks-a-tool-does-better-are-the-tool-s`, the task taken in by the owner's approval of the
+design that adds the file.
 
 ### The items are packed into the fewest agents first-fit-decreasing gives, spread evenly, under the bound left once the work is counted, an item above it alone `##clusters-packed-under-a-word-bound`
 
