@@ -147,8 +147,8 @@ search often reads.
 ### A session that cannot run the record search's workflow dispatches its steps by hand, in the script's order, with the script's prompts, read from the script `##fallback-dispatch-line`
 
 The searcher's description keeps one line for a session that cannot run the workflow: one running
-inside an agent, one whose run the permission mode refuses, one whose harness does not list the
-workflow, and one that holds no opt-in for the Workflow tool, per
+inside an agent, one whose run the permission mode refuses, and one that holds no opt-in for the
+Workflow tool, per
 `design@agent-skills@standing-authorization-is-a-workflow-opt-in`. That session dispatches the steps by
 hand, in the script's order, with the script's prompts, read from the script, as
 `design@agent-skills@audit-axis-runs-a-workflow` has a session do for an audit axis. The line
@@ -161,15 +161,14 @@ The standing argument:
   nothing built. A general-purpose subagent holds no `Workflow` tool, measured once in Claude Code
   2.1.321, so a search run inside an agent dispatches by hand; the probe that takes it again is one
   general-purpose agent asked to list its tools. Whether a run needs a permission rule is
-  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A harness that does
-  not list the workflow is taken to be `claude` too, on an unmeasured premise: a harness may list
-  saved workflows only when a session starts, so a session that ran the install later may not see
-  the workflow listed, as `skill@knowledge-architect-project-audit` says in giving that session the
-  same by-hand line for an audit axis. The one observation, in the session of the commit "[audit]
-  Pass 4 of the agentic-workflow axis, run through the saved workflow: 36 findings confirmed, 23
-  causes repaired", saw a new workflow listed right after its install; the probe that takes it
-  again is a session that runs the install of a workflow it did not start with, then reads the
-  workflows its harness lists.
+  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A session that ran
+  the install after it started is no case: its harness lists a workflow installed mid-session, as
+  two sessions observed, that of the commit "[audit] Pass 4 of the agentic-workflow axis, run
+  through the saved workflow: 36 findings confirmed, 23 causes repaired" and that of the commit
+  "[agent-skills] The record search's saved workflow, `knowledge-architect-record-search`, with a
+  `node` test of its flag builder", which listed `knowledge-architect-record-search` with its
+  `meta` description after its install. The probe that takes it again is a session that runs the
+  install of a workflow it did not start with, then reads the workflows its harness lists.
 - **The line restates no step**, so it cannot drift from the script, which a line restating them
   would, as the premortem of the discussion that designed the workflow named; the steps keep the
   one home of `design@agent-skills@search-runs-a-saved-workflow`.
