@@ -530,10 +530,11 @@ choices whose option space genuinely is closed and consequence-free.
    work its discussion did not decide. The in-change path and bounded
    work dispatch no scout.
 
-   Dispatch the search as the description of
+   Run the search, the saved workflow
+   `knowledge-architect-record-search`, as the description of
    `agent@knowledge-architect-record-searcher` says, with the draft as
-   its `--work`, each thread's slug as a `--subject`, and as seeds the
-   decisions read so far that the problem and the shapes rest on or may
+   its `work`, each thread's slug in its `subjects`, and as its `seeds`
+   the decisions read so far that the problem and the shapes rest on or may
    change, never a goal: a goal is graded by a goal agent and reaches
    the cluster agents by its title, and an entry citing a seed is never
    `unrelated`, so a goal seed puts every entry citing it in

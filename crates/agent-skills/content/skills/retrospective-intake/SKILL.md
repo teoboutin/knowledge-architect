@@ -63,9 +63,11 @@ A finding is cited by its id and its file's stem, in the form
    finding recurs across sessions is evidence: say how many times. Give each cluster, and each
    finding left alone, an id in the grammar of an entry id: the search's subjects.
 4. **Search the whole record with the received files as the work.** One search covers every file
-   received together. Dispatch it as the description of `agent@knowledge-architect-record-searcher`
-   says, with each received file as a `--work`, each id of point 3 as a `--subject`, and as the
-   seeds the design heads and goals the findings name, or none. A proposed fix on a subject the
+   received together. Run it, the saved workflow
+   `knowledge-architect-record-search`, as the description of
+   `agent@knowledge-architect-record-searcher` says, with each received file in its `work`, each id
+   of point 3 in its `subjects`, and as its `seeds` the design heads and goals the findings name, or
+   none. A proposed fix on a subject the
    files did not raise sends the search again, with the fix as its `--work`, before its outcome is
    decided or put to the owner.
 %% The searcher is `design@agent-skills@one-record-searcher`, its clusters

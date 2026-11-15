@@ -567,14 +567,14 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    have, a consequence the entry did not see, and **a standing entry the slice's planned code bears on**:
    a tripwire whose firing condition, or a `deferred` issue whose trigger, the planned code meets, and an issue of any kind the slice's code touches, closes, makes worse or depends on. A cause of the milestone document's premortem whose firing condition the planned
    code meets bears on it too: read it in the milestone document, since no register holds it before
-   the harvest. Dispatch the
-   search of the whole record as the description of `agent@knowledge-architect-record-searcher` says, with
-   `--work` the milestone's `README.md` and the slice's `README.md`, and no other file,
-   `--subject slice-audit`, `--seeds-from` the slice's `README.md`, and `--since` the commit that
-   last changed the slice's `README.md`, `git log -1 --format=%H -- <slice>/README.md`; for a spec,
-   `--work` and `--seeds-from` the spec's `README.md`, `--subject spec-audit` and `--since` the
-   commit that last changed it. `deliberation.md`, `search/` and `transcript.txt` are never the
-   search's work: the decided design carries every condition the search checks. `--seeds-from` takes as
+   the harvest. Run the
+   search of the whole record, the saved workflow `knowledge-architect-record-search`, as the
+   description of `agent@knowledge-architect-record-searcher` says, with `work` the milestone's
+   `README.md` and the slice's `README.md`, and no other file, `subjects` `slice-audit`,
+   `seedsFrom` the slice's `README.md`, and `since` the commit that last changed the slice's
+   `README.md`, `git log -1 --format=%H -- <slice>/README.md`; for a spec, `work` and `seedsFrom`
+   the spec's `README.md`, `subjects` `spec-audit` and `since` the commit that last changed it. `deliberation.md`, `search/` and `transcript.txt` are never the
+   search's work: the decided design carries every condition the search checks. `seedsFrom` takes as
    seeds the design entries and the declared-register entries the `README.md`'s section "What is already
    decided" cites. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
    `unrelated`, with its entry's text: read it, and sort each verdict into the sorts below as a gap;
