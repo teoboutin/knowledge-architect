@@ -11,8 +11,10 @@ does not read**: a reference in it is checked by nobody, so it cites none. Its `
 installed file's stem as its `name`, which the build asserts. The harness runs the file's body as
 an async function, so a top-level `return` is legal there and `node --check` refuses it on the
 bare file: `path@agent-skills@src/workflow_parse.rs` parses each installed workflow so wrapped,
-with `node`, in the crate's tests, skipping without `node` unless `cargo x gates --ci`, which CI
-runs, requires it, per `design@gates@ci-flag-for-ci-only-requirements`. The build's passes run over it as over any shipped file: a `%%` line is
+with `node`, in the crate's tests, and runs the record search's flag builder, `worklistCommand`,
+on fixed `args`, taking it and the function it calls from their `function <name>(` line to the
+next lone `}`; both skip without `node` unless `cargo x gates --ci`, which CI runs, requires it,
+per `design@gates@ci-flag-for-ci-only-requirements`. The build's passes run over it as over any shipped file: a `%%` line is
 removed, even inside a template literal, so a line of a prompt never opens with `%%`.
 
 This repository installs its own skills, and its check compares each installed file with the shipped

@@ -1,19 +1,24 @@
-//! The parse check of every saved workflow the installer writes.
+//! The tests that run `node` on the saved workflows the installer writes: the parse check of every
+//! one, and the test of the record search's flag builder.
 //!
 //! The harness runs a saved workflow's body as an async function, so a top-level `return` and
-//! `await` are legal there and a parser refuses them on the bare file. The check wraps the
+//! `await` are legal there and a parser refuses them on the bare file. The parse check wraps the
 //! installed text, its `%%` lines already removed by the build, in `async function body() {…}`,
-//! with `export` removed from the start of each line, and hands it to `node --check` on stdin.
+//! with `export` removed from the start of each line, and hands it to `node --check` on stdin. Its
+//! domain of validity: a syntax error, which node reports for that wrapped text. It runs no part of
+//! the script, and it checks nothing the harness checks of `meta` beyond its parse.
 //!
-//! Its domain of validity: a syntax error, which node reports for that wrapped text. It runs no
-//! part of the script and judges none of its logic, and it checks nothing the harness checks of
-//! `meta` beyond its parse.
+//! The test of the flag builder runs one part of one script: `worklistCommand` of the record
+//! search's workflow, with the function it calls, each taken from the installed text, `{{command}}`
+//! replaced by a command of the test's, and run under `node` on fixed `args`. The script's body,
+//! which calls the harness's `agent` and `phase`, never runs; the rest of its logic is judged by no
+//! test, per `issue@agent-skills@no-test-runs-a-saved-workflow-s-logic`.
 //!
 //! Why `node` and not a JavaScript parser compiled into the test: a parser crate would run on every
 //! machine, but it adds a large dev-dependency to every build of the suite, and it parses only,
-//! where testing what the audit workflows compute needs an engine that runs the script. The cost
-//! taken instead: a machine without `node` skips the check, and `cargo x gates --ci`, which CI
-//! runs, fails it there, per `design@gates@ci-flag-for-ci-only-requirements`.
+//! where testing what a workflow computes needs an engine that runs the script. The cost taken
+//! instead: a machine without `node` skips both, and `cargo x gates --ci`, which CI runs, fails them
+//! there, per `design@gates@ci-flag-for-ci-only-requirements`.
 
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -36,11 +41,11 @@ fn wrapped(text: &str) -> String {
     format!("async function body() {{\n{}\n}}\n", body.join("\n"))
 }
 
-/// What `<program> --check` says of `text` once wrapped: `Ok` when it parses, `Err` with its
-/// message when it does not, and `None` when `program` cannot be started.
-fn node_check(program: &str, text: &str) -> Option<Result<(), String>> {
+/// What `<program> <args>` does with `input` on its stdin: `Ok` with its stdout when it exits 0,
+/// `Err` with its stderr when it does not, and `None` when `program` cannot be started.
+fn node_run(program: &str, args: &[&str], input: &str) -> Option<Result<String, String>> {
     let mut child = Command::new(program)
-        .args(["--check", "-"])
+        .args(args)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -50,14 +55,20 @@ fn node_check(program: &str, text: &str) -> Option<Result<(), String>> {
         .stdin
         .take()
         .expect("a piped stdin")
-        .write_all(wrapped(text).as_bytes())
+        .write_all(input.as_bytes())
         .expect("node reads the script");
     let out = child.wait_with_output().expect("node ran");
     Some(if out.status.success() {
-        Ok(())
+        Ok(String::from_utf8_lossy(&out.stdout).into_owned())
     } else {
         Err(String::from_utf8_lossy(&out.stderr).into_owned())
     })
+}
+
+/// What `<program> --check` says of `text` once wrapped: `Ok` when it parses, `Err` with its
+/// message when it does not, and `None` when `program` cannot be started.
+fn node_check(program: &str, text: &str) -> Option<Result<(), String>> {
+    node_run(program, &["--check", "-"], &wrapped(text)).map(|r| r.map(|_| ()))
 }
 
 /// Whether this run requires `node`: the variable `--ci` sets. Read in this one place, the side
@@ -67,7 +78,7 @@ fn required() -> bool {
 }
 
 /// What a run that skips prints, on its own stderr, which `cargo test` shows under `--nocapture`.
-const SKIPPED: &str = "skipped: no `node` can be started, so no saved workflow was parsed";
+const SKIPPED: &str = "skipped: no `node` can be started, so no saved workflow was run";
 
 /// The outcome of a check that needed `node`: `Ok(Some(_))` when it ran, `Ok(None)` when no
 /// `node` could be started and the run does not require it, and `Err` when the run requires it,
@@ -77,7 +88,7 @@ fn checked<T>(outcome: Option<T>, required: bool) -> Result<Option<T>, &'static 
         Some(result) => Ok(Some(result)),
         None if required => Err(
             "no `node` can be started, and `KNOWLEDGE_ARCHITECT_CI` is set, as `cargo x gates --ci` \
-             sets it: the saved workflows must be parsed",
+             sets it: the saved workflows must be run",
         ),
         None => Ok(None),
     }
@@ -150,4 +161,73 @@ fn the_wrapping_drops_export_and_encloses_the_body() {
         wrapped("export const meta = 1\nconst exported = 'export x'"),
         "async function body() {\nconst meta = 1\nconst exported = 'export x'\n}\n"
     );
+}
+
+/// The installed text of the record search's workflow.
+fn record_search() -> &'static str {
+    workflows()
+        .into_iter()
+        .find(|(path, _)| *path == ".claude/workflows/knowledge-architect-record-search.js")
+        .expect("the record search's workflow is installed")
+        .1
+}
+
+/// The source of the top-level function `name` of `text`: from its line `function <name>(` to the
+/// next line that is a lone `}`, both included. It panics where the script holds no such function,
+/// so a reshaped function fails the test instead of leaving it to judge nothing.
+fn function_source(text: &str, name: &str) -> String {
+    let opening = format!("function {name}(");
+    let mut taken = text.lines().skip_while(|l| !l.starts_with(&opening));
+    let mut source = Vec::new();
+    for line in taken.by_ref() {
+        source.push(line);
+        if line == "}" {
+            return source.join("\n");
+        }
+    }
+    panic!("no top-level function `{name}`, closed by a lone `}}`, in the script")
+}
+
+/// What `worklistCommand` of the installed record search returns for each of `cases`, a JavaScript
+/// array of `args` objects, `{{command}}` replaced by `klarch`; `None` where no `node` can be
+/// started and the run does not require it.
+fn worklist_commands(cases: &str) -> Option<Vec<String>> {
+    let text = record_search().replace("{{command}}", "klarch");
+    let script = format!(
+        "{}\n{}\nprocess.stdout.write({cases}.map(worklistCommand).join('\\n'))\n",
+        function_source(&text, "quoted"),
+        function_source(&text, "worklistCommand"),
+    );
+    match checked(node_run(NODE, &["-"], &script), required()) {
+        Err(failure) => panic!("{failure}"),
+        Ok(None) => None,
+        Ok(Some(Err(message))) => panic!("the flag builder did not run:\n{message}"),
+        Ok(Some(Ok(stdout))) => Some(stdout.lines().map(str::to_string).collect()),
+    }
+}
+
+/// The claim: `worklistCommand` maps every argument of the workflow in a fixed order, `--out`, then
+/// `--work`, `--subject`, `--seed`, `--since`, `--seeds-from` and `--bound`, each element once and
+/// single-quoted, an inner `'` written `'\''`, so a backticked seed runs no substitution; and no
+/// `subjects` and no `seeds` add no flag. Mutation checked: in
+/// `worklistCommand`, `for (const s of a.seeds || [])` made
+/// `for (const s of (a.seeds || []).slice(0, -1))`, which drops the last seed; caught. And in
+/// `quoted`, `String(value).replace(/'/g, "'\\''")` made `String(value)`; caught.
+#[test]
+fn the_record_search_s_flag_builder_maps_every_argument() {
+    // Bound by a `const`, which the checker does not read: a seed here names no entry.
+    const EXPECTED: [&str; 2] = [
+        r#"klarch worklist --out '/s/a b' --work 'w.md' --work 'it'\''s.md' --subject 't-one' --subject 't-two' --seed '`design@x@one`' --seed 'issue@x@two' --since 'abc123' --seeds-from 'docs/plans/specs/s/README.md' --bound '30000'"#,
+        "klarch worklist --out '/s/b' --work 'w.md'",
+    ];
+    let cases = r#"[
+        { scratch: '/s/a b', work: ['w.md', "it's.md"], subjects: ['t-one', 't-two'],
+          seeds: ['`design@x@one`', 'issue@x@two'], since: 'abc123',
+          seedsFrom: 'docs/plans/specs/s/README.md', bound: 30000, maxRounds: 2 },
+        { scratch: '/s/b', work: ['w.md'] },
+    ]"#;
+    let Some(got) = worklist_commands(cases) else {
+        return eprintln!("{SKIPPED}");
+    };
+    assert_eq!(got, EXPECTED);
 }
