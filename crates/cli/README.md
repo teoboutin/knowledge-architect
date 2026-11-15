@@ -381,8 +381,8 @@ line break. A write that fails stops it with exit 2, naming the path, the files 
 left in place.
 
 **`worklist --verify <dir>`** first removes every `verdicts-*.md`, `generated-lines.md`, `gaps.md`,
-`fit-lines.md` and `closing-sections.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the snapshot and every report.
-Each line of a report is
+`fit-lines.md` and `closing-sections.md` of `<dir>`, then reads `work.txt`, `agents.txt`, the
+snapshot and every report. Each line of a report is
 
 ```text
 - <reference> | verdict: <verdict> | against: <subjects or -> | action: <action> | owner-question: <text> | quote: <text> | reason: <text>
