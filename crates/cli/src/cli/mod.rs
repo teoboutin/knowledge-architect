@@ -125,7 +125,9 @@ pub struct WorklistArgs {
     /// the entry's own text, below its first line, or all of a shorter one; a reason is given; and
     /// a seed or an entry citing one is never `unrelated`. Each report closes with `## Decided`
     /// and `## Met outside the task`. When every report passes, it writes `verdicts-<subject>.md`
-    /// per subject and `generated-lines.md`, the lines a commit message owes; at a design audit,
+    /// per subject, its act verdicts with their entries' text, then its light verdicts,
+    /// `constrains` or `touches` with `respect` or `none` and no owner-question, as their lines;
+    /// and `generated-lines.md`, the lines a commit message owes; at a design audit,
     /// a work list `--out` wrote with `--seeds-from`, `gaps.md`, every verdict but `constrains`
     /// and `unrelated`, and `fit-lines.md`, the lines under the plan document's citation, in place
     /// of `generated-lines.md`; and, at every occasion, `closing-sections.md`, each report's

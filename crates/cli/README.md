@@ -402,7 +402,11 @@ task`. It reads no model, so it judges the reports against what the agents were 
 When every report passes, it writes from the snapshot:
 
 - `verdicts-<subject>.md` per subject of `work.txt`: every verdict other than `unrelated` whose
-  `against` names the subject, each entry's verdict lines above its text and its inbound list;
+  `against` names the subject, in two parts. Under `## Act verdicts`, every verdict that is neither
+  `constrains` nor `touches`, or whose action is neither `respect` nor `none`, or that holds an
+  owner-question, each entry's verdict line above its text and its inbound list; under
+  `## Light verdicts`, every other verdict, as its verdict line alone, its quotation and its reason
+  included;
 - `generated-lines.md`: one line per entry given a verdict other than `unrelated`,
   ``- `<reference>`: <verdict>, <action>.``, for a commit message;
 - at a design audit, a work list `--out` wrote with `--seeds-from`, in place of

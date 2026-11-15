@@ -36,10 +36,14 @@ const WORK_FILE: &str = "work.txt";
 /// The one subject of a work for which no subject is named.
 const WHOLE_WORK: &str = "whole-work";
 /// A passing `--verify` writes one verdict file per subject of the work,
-/// `verdicts-<subject>.md`: every verdict but `unrelated` against that subject, with its entry's
-/// text.
+/// `verdicts-<subject>.md`: every verdict but `unrelated` against that subject, each act verdict
+/// with its entry's text, then each light verdict as its line.
 const VERDICTS_PREFIX: &str = "verdicts-";
 const VERDICTS_SUFFIX: &str = ".md";
+/// The two parts of a verdict file, each heading written even where its part is empty: the act
+/// verdicts whole, then the light verdicts as their lines.
+const ACT_PART: &str = "## Act verdicts";
+const LIGHT_PART: &str = "## Light verdicts";
 /// A passing `--verify` writes the lines a commit message owes, one per entry given a verdict
 /// other than `unrelated`: its reference, its verdict and its action.
 const GENERATED_LINES_FILE: &str = "generated-lines.md";
@@ -977,9 +981,9 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
         } = &list;
         let out = outputs(order, agents, &given, snapshot, work, &closing);
         write_all(dir, &out.files)?;
-        for (subject, count) in &out.counts {
+        for (subject, count, acts) in &out.counts {
             outln!(
-                "{count} verdicts against {subject} in {}",
+                "{count} verdicts against {subject}, {acts} of them act verdicts, in {}",
                 dir.join(verdicts_file(subject)).display()
             );
         }
@@ -1420,27 +1424,52 @@ fn own_body(own: &str) -> &str {
 }
 
 /// What a passing `--verify` writes, before any write: each file's name and text, the count of
-/// verdicts in each subject's verdict file, in the order of `work.txt`, the count of generated
+/// verdicts in each subject's verdict file and of the act verdicts among them, in the order of
+/// `work.txt`, the count of generated
 /// lines, or of fit lines at an audit, at an audit the count of gaps, and the count of reports
 /// whose closing sections it holds.
 struct Outputs {
     files: Vec<(String, String)>,
-    counts: Vec<(String, usize)>,
+    counts: Vec<(String, usize, usize)>,
     lines: usize,
     gaps: Option<usize>,
     reports: usize,
 }
 
+/// One subject's verdict file as `outputs` builds it: its act part and its light part, each
+/// without its heading, the count of its verdicts and that of its act verdicts.
+struct VerdictFile {
+    subject: String,
+    act: String,
+    light: String,
+    count: usize,
+    acts: usize,
+}
+
+/// Whether a verdict other than `unrelated` is an act verdict, which a verdict file gives whole,
+/// rather than a light one, which it gives as its line: every verdict but `constrains` and
+/// `touches`, every action but `respect` and `none`, and any verdict with an owner-question, since
+/// putting the question to the owner is an act of the session. The rest, `constrains` or `touches`
+/// with `respect` or `none` and no owner-question, ask the work only to keep within the sentence
+/// quoted, which the line carries with its reason.
+fn is_act(verdict: &Verdict) -> bool {
+    !(matches!(verdict.verdict.as_str(), "constrains" | "touches")
+        && matches!(verdict.action.as_str(), "respect" | "none")
+        && verdict.owner_question.is_empty())
+}
+
 /// The outputs of passing reports.
 ///
 /// Each subject's verdict file, `verdicts-<subject>.md`, holds every verdict but `unrelated` whose
-/// `against` names the subject, in the order of `agents.txt`, once where it names the subject
-/// twice: its entry's `===` line, carrying the changed-since mark where `agents.txt` gives it,
-/// the agent's verdict line, then the entry's own text and its inbound list from the snapshot,
-/// each fenced, so that a heading of the text reads as no section of the file. A verdict
-/// `against: -` is in no verdict file. A subject no verdict names still gets its file, which then
-/// holds its heading alone, so a session tells a subject nothing bears on from one whose file is
-/// missing.
+/// `against` names the subject, once where it names the subject twice, in two parts, each under
+/// its heading, `## Act verdicts` then `## Light verdicts`, and each in the order of `agents.txt`.
+/// Every verdict starts with its entry's `===` line, carrying the changed-since mark where
+/// `agents.txt` gives it, then the agent's verdict line, which holds the quotation and the reason.
+/// An act verdict, as [`is_act`] tells it, adds the entry's own text and its inbound list from the
+/// snapshot, each fenced, so that a heading of the text reads as no section of the file; a light
+/// verdict adds nothing. A verdict `against: -` is in no verdict file. A subject no verdict names
+/// still gets its file, which then holds its heading and the two part headings alone, so a session
+/// tells a subject nothing bears on from one whose file is missing.
 ///
 /// `generated-lines.md` holds one line per entry given a verdict other than `unrelated`, in the
 /// same order, `` - `<reference>`: <verdict>, <action>. ``. Its reference
@@ -1449,7 +1478,8 @@ struct Outputs {
 ///
 /// At a design audit, where `work` names a plan document, `gaps.md` and `fit-lines.md` take the
 /// place of `generated-lines.md`. `gaps.md` holds every verdict but `constrains` and `unrelated`,
-/// whatever subjects its `against` names, as a verdict file gives it, since a gap is the audit's
+/// whatever subjects its `against` names, each whole, as a verdict file gives an act verdict, a
+/// light `touches` verdict included, since a gap is the audit's
 /// whatever the subject: each is sorted by the planning skill's four sorts. `fit-lines.md` holds the
 /// generated lines under one line citing the plan document whole and naming the `--since` commit
 /// by its subject, where `work` gives one, so the audit's message carries them as written.
@@ -1472,10 +1502,16 @@ fn outputs(
 ) -> Outputs {
     let mut gaps = String::from("# The gaps: every verdict but `constrains` and `unrelated`\n");
     let mut gap_count = 0;
-    let mut files: Vec<(String, String, usize)> = work
+    let mut files: Vec<VerdictFile> = work
         .subjects
         .iter()
-        .map(|s| (s.clone(), format!("# The verdicts against `{s}`\n"), 0))
+        .map(|s| VerdictFile {
+            subject: s.clone(),
+            act: String::new(),
+            light: String::new(),
+            count: 0,
+            acts: 0,
+        })
         .collect();
     let mut lines: Vec<String> = Vec::new();
     for (agent, reference) in order {
@@ -1492,17 +1528,18 @@ fn outputs(
             .and_then(|l| l.get(reference))
             .is_some_and(|l| l.changed);
         let shown = &snapshot[reference];
+        let mark = if changed {
+            format!("  {CHANGED_MARK}")
+        } else {
+            String::new()
+        };
+        let light = format!("\n=== {reference}{mark}\n{agent}: {}\n", verdict.line());
         let block = format!(
-            "\n=== {reference}{}\n{agent}: {}\n\n{}\n{}",
-            if changed {
-                format!("  {CHANGED_MARK}")
-            } else {
-                String::new()
-            },
-            verdict.line(),
+            "{light}\n{}\n{}",
             fenced("text", &shown.own),
             fenced("text", &shown.inbound)
         );
+        let act = is_act(verdict);
         if verdict.verdict != "constrains" {
             gaps.push_str(&block);
             gap_count += 1;
@@ -1513,15 +1550,28 @@ fn outputs(
                 continue;
             }
             named.push(subject);
-            if let Some((_, text, count)) = files.iter_mut().find(|(s, _, _)| s == subject) {
-                text.push_str(&block);
-                *count += 1;
+            if let Some(file) = files.iter_mut().find(|f| &f.subject == subject) {
+                if act {
+                    file.act.push_str(&block);
+                    file.acts += 1;
+                } else {
+                    file.light.push_str(&light);
+                }
+                file.count += 1;
             }
         }
     }
     let mut written: Vec<(String, String)> = files
         .iter()
-        .map(|(s, text, _)| (verdicts_file(s), text.clone()))
+        .map(|f| {
+            (
+                verdicts_file(&f.subject),
+                format!(
+                    "# The verdicts against `{}`\n\n{ACT_PART}\n{}\n{LIGHT_PART}\n{}",
+                    f.subject, f.act, f.light
+                ),
+            )
+        })
         .collect();
     let generated: String = lines.iter().map(|l| format!("{l}\n")).collect();
     match &work.spec {
@@ -1551,7 +1601,10 @@ fn outputs(
     written.push((CLOSING_SECTIONS_FILE.to_string(), sections));
     Outputs {
         files: written,
-        counts: files.into_iter().map(|(s, _, count)| (s, count)).collect(),
+        counts: files
+            .into_iter()
+            .map(|f| (f.subject, f.count, f.acts))
+            .collect(),
         lines: lines.len(),
         gaps: work.spec.is_some().then_some(gap_count),
         reports: reports.len(),
@@ -2602,17 +2655,18 @@ mod tests {
     }
 
     /// The claim: each subject's verdict file holds exactly the verdicts but `unrelated` whose
-    /// `against` names it, once where it names it twice, each with its `===` line, carrying the
-    /// changed-since mark, its agent's verdict line, its entry's own text and its inbound list
-    /// fenced; a subject no verdict names gets its heading alone; `generated-lines.md` holds
-    /// exactly the entries given a verdict other than `unrelated`, `-` included, in the order of
-    /// `agents.txt`; and the counts are those of the files. Mutations checked, in `outputs`:
-    /// `if verdict.verdict == "unrelated" {` made `if false {`;
-    /// `files.iter_mut().find(|(s, _, _)| s == subject)` made `files.iter_mut().find(|_| true)`;
+    /// `against` names it, once where it names it twice, the act verdicts first, each with its
+    /// `===` line, carrying the changed-since mark, its agent's verdict line, and, for an act
+    /// verdict, its entry's own text and its inbound list fenced; a subject no verdict names gets
+    /// its heading and its two part headings alone; `generated-lines.md` holds exactly the entries
+    /// given a verdict other than `unrelated`, `-` included, in the order of `agents.txt`; and the
+    /// counts, of verdicts and of act verdicts, are those of the files. Mutations checked, in
+    /// `outputs`: `if verdict.verdict == "unrelated" {` made `if false {`;
+    /// `files.iter_mut().find(|f| &f.subject == subject)` made `files.iter_mut().find(|_| true)`;
     /// `for (agent, reference) in order {` made `for (agent, reference) in given.keys() {`, which
     /// sorts `agent-10` before `agent-2`; `if changed {` made `if false {`;
-    /// `if named.contains(&subject.as_str()) {` made `if false {`; and `*count += 1;` made
-    /// `*count += 0;`; each caught.
+    /// `if named.contains(&subject.as_str()) {` made `if false {`; `file.count += 1;` made
+    /// `file.count += 0;`; and `file.acts += 1;` made `file.acts += 0;`; each caught.
     #[test]
     fn the_outputs_hold_each_subject_s_verdicts_and_the_generated_lines() {
         let entries = [
@@ -2681,12 +2735,13 @@ mod tests {
                 .collect()
         };
         let a = file("verdicts-a-thread.md");
-        assert_eq!(headed(a), ["d@x@one", "d@x@two"], "{a}");
+        // The act verdict `d@x@two` first, then the light `d@x@one`.
+        assert_eq!(headed(a), ["d@x@two", "d@x@one"], "{a}");
         let b = file("verdicts-b-thread.md");
         assert_eq!(headed(b), ["d@x@two", "i@x@issue  changed-since"], "{b}");
         assert_eq!(
             file("verdicts-c-thread.md"),
-            "# The verdicts against `c-thread`\n"
+            "# The verdicts against `c-thread`\n\n## Act verdicts\n\n## Light verdicts\n"
         );
         assert!(
             b.contains(&format!(
@@ -2705,9 +2760,9 @@ mod tests {
         assert_eq!(
             out.counts,
             [
-                ("a-thread".to_string(), 2),
-                ("b-thread".to_string(), 2),
-                ("c-thread".to_string(), 0)
+                ("a-thread".to_string(), 2, 1),
+                ("b-thread".to_string(), 2, 2),
+                ("c-thread".to_string(), 0, 0)
             ]
         );
         assert_eq!((out.lines, out.files.len(), out.gaps), (4, 5, None));
@@ -2802,6 +2857,119 @@ mod tests {
         assert_eq!(file(&audit), text);
     }
 
+    /// The claim: a verdict file holds, under `## Act verdicts`, every act verdict, in the order of
+    /// `agents.txt`, each with its fenced text and inbound list, then, under `## Light verdicts`,
+    /// every light verdict as its `===` line, its changed-since mark included, and its verdict line
+    /// with its quotation and its reason, with no fence; one verdict of each row of the spec's
+    /// mapping table, `constrains` and `touches` with `respect` and `none` light where they hold no
+    /// owner-question and act where they hold one. Mutations checked, in `is_act`:
+    /// `matches!(verdict.verdict.as_str(), "constrains" | "touches")` made
+    /// `matches!(verdict.verdict.as_str(), "constrains" | "touches" | "worsens")`, which classes
+    /// `worsens` as light; and `&& verdict.owner_question.is_empty())` made `)`, which ignores the
+    /// owner-question; each caught.
+    #[test]
+    fn a_verdict_file_holds_its_act_verdicts_whole_then_its_light_verdicts_as_lines() {
+        // (reference, verdict, action, owner-question, act)
+        let entries = [
+            ("x@x@light-c", "constrains", "respect", "", false),
+            ("x@x@act-w", "worsens", "none", "", true),
+            ("x@x@light-t", "touches", "none", "", false),
+            ("x@x@act-c", "conflicts", "check-reversal", "", true),
+            ("x@x@act-q", "constrains", "none", "Which reading?", true),
+            ("x@x@act-b", "brings-back", "new-argument-needed", "", true),
+            ("x@x@light-n", "constrains", "none", "", false),
+            ("x@x@act-x", "closes", "close-with-the-work", "", true),
+            ("x@x@act-d", "depends-on", "rule-before-work", "", true),
+            ("x@x@light-r", "touches", "respect", "", false),
+            ("x@x@act-f", "fires", "rule-before-work", "", true),
+            ("x@x@act-t", "trigger-met", "rule-before-work", "", true),
+            ("x@x@act-g", "conflicts", "goal-setting", "", true),
+            ("x@x@none", "unrelated", "none", "", false),
+        ];
+        let order: Vec<(String, String)> = entries
+            .iter()
+            .map(|(r, ..)| ("agent-1".to_string(), r.to_string()))
+            .collect();
+        let mut agents: BTreeMap<String, BTreeMap<String, Listed>> = BTreeMap::new();
+        let mut given = BTreeMap::new();
+        let mut snapshot = BTreeMap::new();
+        for (reference, verdict, action, question, _) in entries {
+            let mut entry = plain(Role::Unit);
+            entry.changed = reference == "x@x@light-t";
+            agents
+                .entry("agent-1".to_string())
+                .or_default()
+                .insert(reference.to_string(), entry);
+            let mut fields = line(verdict, "a-thread", action, QUOTE, "the reason");
+            fields.owner_question = question.to_string();
+            given.insert(("agent-1".to_string(), reference.to_string()), fields);
+            snapshot.insert(
+                reference.to_string(),
+                Shown {
+                    own: format!("{reference}  docs/x.md:1\n\nThe text of {reference}"),
+                    inbound: "referenced by nothing".to_string(),
+                },
+            );
+        }
+        let work = Work {
+            subjects: vec!["a-thread".to_string()],
+            ..Work::default()
+        };
+        let out = outputs(&order, &agents, &given, &snapshot, &work, &BTreeMap::new());
+        let text = &out
+            .files
+            .iter()
+            .find(|(n, _)| n == "verdicts-a-thread.md")
+            .expect("the verdict file")
+            .1;
+        let (act, light) = text
+            .split_once("\n## Light verdicts\n")
+            .unwrap_or_else(|| panic!("no light part: {text}"));
+        let (title, act) = act
+            .split_once("\n## Act verdicts\n")
+            .unwrap_or_else(|| panic!("no act part: {text}"));
+        assert_eq!(title, "# The verdicts against `a-thread`\n");
+        let headed = |part: &str| -> Vec<String> {
+            part.lines()
+                .filter_map(|l| l.strip_prefix("=== "))
+                .map(String::from)
+                .collect()
+        };
+        let want = |is_act: bool| -> Vec<String> {
+            entries
+                .iter()
+                .filter(|e| e.4 == is_act && e.1 != "unrelated")
+                .map(|e| match e.0 {
+                    "x@x@light-t" => format!("{}  {CHANGED_MARK}", e.0),
+                    r => r.to_string(),
+                })
+                .collect()
+        };
+        assert_eq!(headed(act), want(true), "{text}");
+        assert_eq!(headed(light), want(false), "{text}");
+        for (reference, ..) in entries.iter().filter(|e| e.4) {
+            assert!(
+                act.contains(&format!(
+                    "```text\n{reference}  docs/x.md:1\n\nThe text of {reference}\n```\n\n\
+                     ```text\nreferenced by nothing\n```\n"
+                )),
+                "{reference}: {act}"
+            );
+        }
+        assert!(
+            !light.contains("```") && !light.contains("The text of"),
+            "{light}"
+        );
+        assert!(
+            light.contains(&format!(
+                "\n=== x@x@light-t  {CHANGED_MARK}\nagent-1: verdict: touches | against: a-thread | \
+                 action: none | owner-question: | quote: {QUOTE} | reason: the reason\n"
+            )),
+            "{light}"
+        );
+        assert_eq!(out.counts, [("a-thread".to_string(), 13, 9)]);
+    }
+
     /// The claim: at a design audit, `gaps.md` holds exactly the verdicts but `constrains` and
     /// `unrelated`, whatever their `against`, `-` and a subject named twice included, each once,
     /// in the order of `agents.txt`; `fit-lines.md` holds the generated lines under one line
@@ -2880,6 +3048,8 @@ mod tests {
             .collect();
         assert_eq!(gaps, ["d@x@two", "t@x@wire", "i@x@issue"]);
         assert!(file("gaps.md").contains("The text of t@x@wire"));
+        // `i@x@issue`, `touches, none`, is a light verdict, whole in `gaps.md` all the same.
+        assert!(file("gaps.md").contains("The text of i@x@issue"));
         assert_eq!(
             file("fit-lines.md"),
             "The fit of `spec@plans@a-spec` to the record, since the commit \
