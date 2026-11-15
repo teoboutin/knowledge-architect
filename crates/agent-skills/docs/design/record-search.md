@@ -2,7 +2,7 @@
 
 ## The record search
 
-### One installed agent reads whole the entries `klarch worklist` gives one agent directory, gives each a verdict against the work, and fills the report `klarch worklist --verify` judges `##one-record-searcher`
+### One installed agent grades every kind of entry that `klarch worklist` gives one agent directory, and fills the report `klarch worklist --verify` judges `##one-record-searcher`
 
 `agent@knowledge-architect-record-searcher` takes the path of `work.txt` and one agent directory that
 `klarch worklist --out` wrote, per `design@query@worklist-writes-and-verifies-the-reports`. It reads
@@ -10,14 +10,7 @@ every file of the work whole, then its entries whole, leaning to recall, with th
 and its goal title lines, edits its report in place and runs `klarch worklist --check` on it,
 repairing each finding, before it returns, per `design@query@worklist-check-judges-one-report`, or returns it as text where the harness refuses every
 write of it. The same agent grades the clusters of a cluster agent and the goals of a goal agent,
-per `design@query@goal-context-once`. Its description carries the dispatch, since a dispatcher reads
-an agent's description and never its body: the work list written with the work, the subjects and the
-seeds, one agent per directory in parallel, the check of every report by `--verify`, a report that
-fails it sent back, then the acts on the verdict files that `design@agent-skills@session-acts-on-the-verdicts`
-gives.
-
-A report that fails the check goes back to its agent and is never repaired by the dispatcher, since
-choosing a verdict or an action routes an act, which is the grading this agent holds.
+per `design@query@goal-context-once`.
 
 One agent grades every kind of entry, since a cluster holds a head beside the `rejected` entries it
 cites and the issues and tripwires that cite it, per `design@query@cluster-rooted-at-a-subject`: an
@@ -26,6 +19,21 @@ agent per kind would read half of every cluster. The design this decision did no
 session keeps its context for what needs it, the design, the decisions and the questions to the
 owner, and hands the reading to the agents it dispatches, per
 `goal@session-orchestrates-the-work`.
+
+### A report that fails `klarch worklist --verify` goes back to its searcher, and its dispatcher never repairs it `##failing-report-goes-back-to-its-searcher`
+
+A report of `agent@knowledge-architect-record-searcher` that fails `klarch worklist --verify` goes
+back to its agent and is never repaired by the dispatcher, since choosing a verdict or an action routes an act, which
+is the grading `design@agent-skills@one-record-searcher` gives the searcher.
+
+### The record searcher's description carries the dispatch of the search, since a dispatcher reads an agent's description and never its body `##search-dispatch-in-the-searcher-s-description`
+
+The description of `agent@knowledge-architect-record-searcher` carries the dispatch, since a
+dispatcher reads an agent's description and never its body: the work list written with the work,
+the subjects and the seeds, one agent per directory in parallel, the check of every report by
+`--verify`, a report that fails it sent back, per
+`design@agent-skills@failing-report-goes-back-to-its-searcher`, then the acts on the verdict files
+that `design@agent-skills@session-acts-on-the-verdicts` gives.
 
 ### The record search is an agent apart from the standing-state reviewer `##search-apart-from-the-standing-state-review`
 
@@ -113,7 +121,7 @@ verdict enters none:
 - at the design grounding, `generated-lines.md`, which the commit message carries on the in-change
   path and for bounded work, and which the plan document commits as `search/discussion.txt` on the
   full path, its "What is already decided" giving the outcome of each verdict that changed
-  something, per `design@agent-skills@session-acts-on-the-verdicts`;
+  something, per `design@agent-skills@search-record-kept-per-occasion`;
 - at the design audit, `fit-lines.md`, which the audit's commit message carries and the audit's
   commit copies as `search/design-audit.txt`, per `design@agent-skills@design-audit-checks-fit`;
 - at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
@@ -169,20 +177,9 @@ which the session makes as it checks its own claims or hands to an agent it disp
 entry it must reason over itself, such as one a proposal would reverse; puts each `owner-question`
 to the owner as `primer@question-authority` says; and carries each report's `## Decided` and
 `## Met outside the task` into its own sections. The searcher's description states these acts, and
-the act each action names at an occasion is stated by the skill that dispatches the search there.
-Where the occasion's record goes:
-
-- at the design grounding on the full path, the plan document commits `generated-lines.md` as its
-  `search/discussion.txt`, the line of each entry given a verdict other than `unrelated`, and its
-  "What is already decided" gives each verdict whose outcome changed the design, a thread or the
-  work, with that outcome, and links `search/discussion.txt` for the others;
-- on the in-change path and for bounded work, the commit message carries the lines of
-  `generated-lines.md`;
-- at a design audit, the session reads `gaps.md` and sorts each gap, and the audit's commit message
-  carries `fit-lines.md`, which the same commit copies as `search/design-audit.txt` beside the
-  audited `README.md`;
-- at an intake, the analysis that holds a cluster of findings carries the generated line of each
-  entry given a verdict against it.
+the act each action names at an occasion is stated by the skill that dispatches the search there,
+and what the occasion keeps of the search is
+`design@agent-skills@search-record-kept-per-occasion`.
 
 It serves `goal@session-orchestrates-the-work`: the main session keeps the design and
 the decisions and hands the reading to agents. A verdict carries its quotation, which the command checks, so the evidence an act rests on
@@ -193,11 +190,28 @@ entries graded as bearing, lost to the size of that reading:
 reader at the plan document's review and at the merge, per
 `design@agent-skills@verdicts-reach-the-conformance-review`.
 
+### Each occasion of the record search keeps, of its output, the generated lines alone, in the record that occasion already writes `##search-record-kept-per-occasion`
+
+Where the occasion's record goes:
+
+- at the design grounding on the full path, the plan document commits `generated-lines.md` as its
+  `search/discussion.txt`, the line of each entry given a verdict other than `unrelated`, and its
+  "What is already decided" gives each verdict whose outcome changed the design, a thread or the
+  work, with that outcome, and links `search/discussion.txt` for the others;
+- on the in-change path and for bounded work, the commit message carries the lines of
+  `generated-lines.md`;
+- at a design audit, the record `design@agent-skills@design-audit-checks-fit` gives, `fit-lines.md`;
+- at an intake, the analysis that holds a cluster of findings carries the generated line of each
+  entry given a verdict against it.
+
+How a plan document commits the lines is `design@agent-skills@plan-commits-the-generated-lines`.
+
 ### A plan document commits, of a record search's output, the generated lines alone, as a `.txt` file `##plan-commits-the-generated-lines`
 
 Of what `klarch worklist` writes, a plan document commits the generated lines alone, each as a `.txt`
 file of its `search/` named by its occasion, `discussion.txt` or `design-audit.txt`, per
-`design@agent-skills@session-acts-on-the-verdicts`, which the walk never parses, per
+`design@agent-skills@search-record-kept-per-occasion` and
+`design@agent-skills@design-audit-checks-fit`, which the walk never parses, per
 `design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. The verdict files, `shown.md`,
 `gaps.md`, the agent directories and the searchers' working files stay in the session's scratch
 space, per `design@agent-skills@agents-write-in-scratch`: the searchers' reasons are not kept, since

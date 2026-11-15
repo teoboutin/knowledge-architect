@@ -244,7 +244,7 @@ answer questions about parts that change apart, is the session's judgement, per
 `design@agent-skills@subject-split-standard`, and no command or agent finds it.
 
 No agent is dispatched for it. The notice is a command's output, which needs no point of view apart
-and no other property on which `design@agent-skills@work-divided-by-judgement` lets an instruction
+and no other property on which `design@agent-skills@dispatch-fixed-only-on-a-step-property` lets an instruction
 fix a dispatch. The nearest rival, a record scout, an agent reading the record at planning for
 subjects to split, loses to the command on that ground, where the code side keeps an agent,
 `design@agent-skills@code-split-scout`, on a point of view apart.
@@ -282,7 +282,7 @@ states. Its report is never committed, since a plan document's directory holds n
 `design@model@plan-document-directory`.
 
 The dispatch is fixed at those steps on a point of view apart from the session's, the property
-`design@agent-skills@work-divided-by-judgement` admits: the session drafted the shapes the scout
+`design@agent-skills@dispatch-fixed-only-on-a-step-property` admits: the session drafted the shapes the scout
 judges. The nearest rival, the session reading the code for signals itself, judges the code against
 the shapes it chose, from the view that chose them. The scout decides nothing and proposes no
 place to cut: the session weighs each signal and decides whether and how to split, in the thread the

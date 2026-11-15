@@ -9,7 +9,8 @@ tools: Read, Grep, Glob, Bash, Write
 %% `design@agent-skills@component-skill-delivery`. It hosts the module
 %% guidelines and the fragment on when to split, not the default code shape, whose test rules it
 %% applies none of, per `design@agent-skills@shared-text-fragment`. Its dispatch is fixed on a point
-%% of view apart from the session's, per `design@agent-skills@work-divided-by-judgement`.
+%% of view apart from the session's, per
+%% `design@agent-skills@dispatch-fixed-only-on-a-step-property`.
 # Code-split scout
 
 Scope: whether the work a plan document describes needs a module or a Component of the project

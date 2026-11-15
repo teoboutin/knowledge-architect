@@ -382,7 +382,7 @@ failure.** Every other test here serves that one.
 %% found by `design@agent-skills@code-split-scout`, the move committed as
 %% `design@agent-skills@move-lands-in-move-only-commits` says, the record side
 %% `design@agent-skills@subject-split-standard`, a command with no point of view apart, so no agent,
-%% per `design@agent-skills@work-divided-by-judgement`. The notice's threshold is the bound less the
+%% per `design@agent-skills@dispatch-fixed-only-on-a-step-property`. The notice's threshold is the bound less the
 %% work's words, per `design@query@clusters-packed-under-a-word-bound`; a remainder's and a goals
 %% group's notices, per `design@query@residual-grouped-by-search-unit`, are no subject the harvest
 %% writes into. No CI and no pull request named, per
