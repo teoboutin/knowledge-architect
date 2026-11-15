@@ -42,7 +42,7 @@ premortem. Arguments: `argument@record-search-workflow@arg-8`, `argument@record-
 design, "The workflow writes the text reports, runs `--verify`, and sends a failing report back".
 Harvest: the head of the workflow. Closed in the reply to round 3 on its argument; the value 3 of
 `maxRounds` is Q2, put as open to the owner's word in the reply to round 3 and approved with the
-design, round 4; the owner's word on the value itself is awaited. The premortem of the reply to round 4 added the clause that each text
+design, round 4; the owner approved the value itself, round 5. The premortem of the reply to round 4 added the clause that each text
 report is written by an agent of its own.
 
 ### A passing `--verify` writes every report's closing sections into one file `##closing-sections-file`

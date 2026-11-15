@@ -13,17 +13,18 @@ the repository in a commit of its own, after its harvest and the review before t
   spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. Q1 is ruled; Q2 and D2, under "Defaults awaiting the owner", await the owner's word.
+  waits. Q1, Q2 and D2, under "Defaults awaiting the owner", are ruled.
 - Its line numbers name the tree at the commit "[intake] The forty-seven retrospective analyses
   leave, every outcome carried out", on which it was written.
 - It was assembled from the transcript of one session. The discussion begins at the owner's message
   that opens "There's an issue about the record search being launched manually", and ends at the
-  owner's message that opens "q1 no. The design looks right, proceed". It holds four owner messages,
-  the rounds:
+  owner's message that opens "Q2 agreed, D2 too". It holds five owner messages, the rounds:
   - **round 1**, opening "There's an issue about the record search being launched manually";
   - **round 2**, opening "I had plans to design, but not specific plans";
   - **round 3**, opening "This new shape looks right";
-  - **round 4**, opening "q1 no. The design looks right, proceed".
+  - **round 4**, opening "q1 no. The design looks right, proceed";
+  - **round 5**, opening "Q2 agreed, D2 too", the rulings on the defaults the plan's review put to
+    the owner.
 
   "The reply to round n" is the session's messages after the owner's message of round n. The reply
   to round 3 holds the draft of this spec, the code-split scout's report, the record search run
@@ -879,15 +880,15 @@ checks, and the others are judged at the harvest, under Premortem.
 - **Q1, ruled.** Does this discussion reopen `design@agent-skills@one-record-searcher`, as the
   re-entry of `issue@agent-skills@a-record-search-misses-what-is-added-after-it` names? Put in the
   reply to round 3 with the default no. The owner ruled no, round 4. Bears on #dispatch-text-home.
-- **Q2, awaiting the owner.** `maxRounds` defaults to 3 runs of `--verify`, a value with no basis,
+- **Q2, ruled.** `maxRounds` defaults to 3 runs of `--verify`, a value with no basis,
   put in the reply to round 3 as open to the owner's word, and approved with the design, round 4:
-  the session chose 3, which no goal ranks. The owner's word on the value itself is awaited.
+  the session chose 3, which no goal ranks. The owner approved the value, round 5.
   Bears on #report-loop-in-the-workflow.
-- **D2, awaiting the owner.** The opt-in the Workflow tool requires: the default is the premise of
+- **D2, ruled.** The opt-in the Workflow tool requires: the default is the premise of
   the decided design, that a skill the session loads itself, which names the workflow, is no opt-in
   by the tool's description, that a standing authorization in the user's or the project's
   instructions is one, and that a session holding none dispatches by the by-hand line. A material
-  finding of the plan's review. Bears on #dispatch-text-home and #fallback-dispatch-line.
+  finding of the plan's review. The owner approved the default, round 5. Bears on #dispatch-text-home and #fallback-dispatch-line.
 
 ## Harvest
 
