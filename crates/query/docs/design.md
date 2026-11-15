@@ -341,12 +341,17 @@ removes those written before it, so a run that fails, or stops on a file it cann
 of them, per `design@cli@exit-code-ladder`, but where a removal itself fails, as the comments at
 `remove_outputs` and `write_all` in `path@query@src/worklist.rs` say.
 
-It serves `goal@tasks-a-tool-does-better-are-the-tool-s`,
-`goal@records-reach-their-reader` and
-`goal@session-orchestrates-the-work`: a session that hands one subject of the work to an
-agent hands it that subject's file, and the lines a commit message owes per entry are written by the
-command in forms `cargo klarch commits` judges. Written by each session, they cost a script per
-occasion: twelve sessions wrote them so, nine of this repository and three of thaum, and four met a
+It serves `goal@session-orchestrates-the-work`, under which the main session orchestrates agents
+that carry the work and keeps its focus on the design and the decisions: a session that hands one
+subject of the work to an agent hands it that subject's file. It serves
+`goal@records-reach-their-reader`, under which a recorded item is cited where it bears on other
+work, in a reference the checker checks: the lines a commit message owes per entry are written by
+the command in forms `cargo klarch commits` judges. And it serves
+`goal@tasks-a-tool-does-better-are-the-tool-s`, under which a task that recurs, and that a tool
+does at a lower cost or with a better result, is done by a tool once the owner has taken it in: the
+owner took in the verdict files of each subject and the generated lines, on the owner's word given
+as Q4 of the review before the merge of the branch that built the record search's saved workflow.
+Written by each session, they cost a script per occasion: twelve sessions wrote them so, nine of this repository and three of thaum, and four met a
 cycle of findings on the reasons they copied, of 13, 41 and 49, 11, and 45 findings, as the issue
 on those lines recorded until it was deleted;
 `git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists it. A generated line carries no quotation, since a commit
@@ -421,8 +426,10 @@ left unread the closing sections of 16 of 18 reports in one search, two of whose
 work, as the issue on those sections recorded until the commit that planned this file deleted it;
 `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it; or copied by an
 agent of the workflow, a copy of the same reading. The command writes them, per
-`goal@tasks-a-tool-does-better-are-the-tool-s`, the task taken in by the owner's approval of the
-design that adds the file.
+`goal@tasks-a-tool-does-better-are-the-tool-s`, under which a task that recurs, and that a tool
+does at a lower cost or with a better result, is done by a tool once the owner has taken it in: the
+reading recurs at every search, and the owner took the task in, on the owner's word given as Q3 of
+the review before the merge of the branch that built the record search's saved workflow.
 
 ### The items are packed into the fewest agents first-fit-decreasing gives, spread evenly, under the bound left once the work is counted, an item above it alone `##clusters-packed-under-a-word-bound`
 
