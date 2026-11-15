@@ -132,7 +132,7 @@ judged alone by the auditor briefed to check, as `design@agent-skills@created-he
 has it. The session verifies the drafts.
 
 - **A point of view apart.** The auditor judges the heads by the rules on heads, apart from the
-  session that wrote the plan, the property `design@agent-skills@work-divided-by-judgement` asks of
+  session that wrote the plan, the property `design@agent-skills@dispatch-fixed-only-on-a-step-property` asks of
   a dispatch an instruction fixes at a step.
 - **The list alone, not a pass.** The owner chose, in the discussion that planned this, one
   auditor or a few on the heads the work is expected to touch over a full audit; no goal ranks the

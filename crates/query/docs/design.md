@@ -221,14 +221,14 @@ ed9dd60 and 55 in thaum at edd2cb5d, counted while the remainder still held the 
 serves. The design this decision did not keep:
 `rejected@query@one-residual-group`.
 
-### `worklist --out` writes the agents' entries, the report skeletons and the work into a directory outside the project, and `worklist --verify` judges the filled reports against the list it wrote `##worklist-writes-and-verifies-the-reports`
+### `worklist --out` writes, into a directory outside the project, each agent's group, the skeleton of its report and what its check reads, and `worklist --verify` judges the filled reports against what it wrote, so that no searcher derives its group or writes its report by hand `##worklist-writes-and-verifies-the-reports`
 
 `klarch worklist --out <dir>` writes `agents.txt`, one line per agent and entry with its role, its
 seed mark and its `changed-since` mark; `work.txt`, the files of the work, the subjects of the work,
 and the plan document and the commit where they are given; per agent `entries.md`, the entries it
 grades whole, then its context entries and its goal title lines, and `report.md`, one line per entry
-to give a verdict, naming the verdicts its register admits; and `shown.md`, the snapshot of
-`design@query@occasion-shaped-output`. It takes `--work <path>` for each file of the work, whose
+to give a verdict, per `design@query@skeleton-names-the-admitted-verdicts`; and `shown.md`, the
+snapshot of `design@query@verify-reads-the-snapshot-and-no-model`. It takes `--work <path>` for each file of the work, whose
 words leave the bound, `--subject <id>` for each subject of the work, `whole-work` where none is
 given, `--seed <ref>`, `--bound`, `--since`, per `design@query@since-marks-changed-entries`, and `--seeds-from`, per
 `design@query@seeds-from-the-plan-s-decided-section`.
@@ -247,14 +247,19 @@ closing sections; a line it cannot parse stops it. The verdicts and their action
 
 It serves `goal@records-reach-their-reader` and `goal@tasks-a-tool-does-better-are-the-tool-s`:
 an instruction to give every entry one verdict, with a quotation of its text, is kept by a command,
-not by a reader. Each skeleton line names the verdicts its register admits, since a searcher reads
-the table once and applies it from memory: over three searches whose skeleton named none, 13 of 45
-searchers wrote a relation their entry's role did not admit, as the issue on that skeleton recorded
-until it was deleted; `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it. The nearest rival, each searcher deriving its group from the listings and writing
+not by a reader. The nearest rival, each searcher deriving its group from the listings and writing
 its report by hand, listed one entry under two lists in the discussion that produced the `rejected`
 register, and only the searcher's own correction, appended to its report, showed it. The command's
 output is read by its own `--verify`, the searcher and the session, and is no contract with another
 reader, per `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
+
+### Each line of a report skeleton names the verdicts its entry's register admits `##skeleton-names-the-admitted-verdicts`
+
+Each line of the `report.md` that `klarch worklist --out` writes names the verdicts its entry's
+register admits, per `design@agent-skills@verdict-report`, since a searcher reads the table once and
+applies it from memory: over three searches whose skeleton named none, 13 of 45 searchers wrote a
+relation their entry's role did not admit, as the issue on that skeleton recorded until it was
+deleted; `git log --diff-filter=D --name-only -- crates/query/docs/open-issues/` lists it.
 
 ### `worklist --check` judges one agent's report by the judgement of `--verify`, and writes nothing `##worklist-check-judges-one-report`
 
@@ -303,12 +308,21 @@ the plan document, is a script each audit writes again: the slice of the integra
 its spec, as the issue on that seeding recorded until it was deleted;
 `git log --diff-filter=D --name-only -- crates/agent-skills/docs/open-issues/` lists it.
 
-### A passing `worklist --verify` writes, from a snapshot `--out` takes of every entry's show text, one verdict file per subject of the work and the per-entry lines a commit message owes `##occasion-shaped-output`
+### `worklist --out` takes a snapshot of every entry's show text, and `worklist --verify` writes from it and reads no model `##verify-reads-the-snapshot-and-no-model`
 
 `klarch worklist --out` writes `shown.md`, the snapshot: every entry of the record with its own text
 and its inbound list, as `show` prints them, in two fenced blocks, computed by `show`'s own code. No
 agent is given it, so an agent's load is its entries file alone, and `--verify` compares a quotation
-with the entry's own text alone. When every report passes, `--verify` writes, from it:
+with the entry's own text alone. `--verify` reads no model, so the session reads what the searchers
+judged, whatever the tree has become since. The rival, an assembly that reads the model when
+`--verify` runs, either makes `--verify` read a model, which a tree that gained a finding of the
+first three phases since `--out` would then block, or adds a third command step to every grounding,
+for an inbound list current to the minute: `rejected@query@gather-reads-the-model`.
+
+### A passing `worklist --verify` writes the files each occasion of the search reads or records, so that no session assembles them by a script `##occasion-shaped-output`
+
+When every report passes, `--verify` writes, from the snapshot of
+`design@query@verify-reads-the-snapshot-and-no-model`:
 
 - one verdict file per subject of `work.txt`, `verdicts-<subject>.md`: every verdict other than
   `unrelated` whose `against` names that subject, with its agent's verdict line and its entry's text
@@ -324,10 +338,8 @@ with the entry's own text alone. When every report passes, `--verify` writes, fr
 
 A run removes these files of a previous run before it judges anything, and a write that fails
 removes those written before it, so a run that fails, or stops on a file it cannot read, leaves none
-of them, per `design@cli@exit-code-ladder`, but where a removal itself fails: the removal stops at the
-first file it cannot remove, and a failed removal of a file this run wrote is not reported.
-`--verify` reads no model, so the session reads what the searchers judged, whatever the tree has
-become since.
+of them, per `design@cli@exit-code-ladder`, but where a removal itself fails, as the comments at
+`remove_outputs` and `write_all` in `path@query@src/worklist.rs` say.
 
 It serves `goal@tasks-a-tool-does-better-are-the-tool-s`,
 `goal@records-reach-their-reader` and
@@ -342,11 +354,7 @@ message reads a quoted reference as live and a quotation's own marks can end its
 nearest rival, the session running `show` once per entry it acts on, is a script each session writes
 again: the grounding of the discussion that first assembled the entries did so over 202 entries, 576
 KB of `show` output, as the message of the commit "[harvest] The graded entries' assembly, `klarch id`,
-the narrower grounding and the retrospective's new question recorded" states. Its other rival, an
-assembly that reads the model when `--verify` runs, either makes `--verify` read a model, which a tree
-that gained a finding of the first three phases since `--out` would then block, or adds a third
-command step to every grounding, for an inbound list current to the minute:
-`rejected@query@gather-reads-the-model`. The files are read by `--verify`, the searcher and the
+the narrower grounding and the retrospective's new question recorded" states. The files are read by `--verify`, the searcher and the
 session, and are no contract with another reader, per
 `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 

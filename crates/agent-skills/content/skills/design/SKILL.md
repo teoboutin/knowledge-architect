@@ -514,7 +514,7 @@ choices whose option space genuinely is closed and consequence-free.
 %% The code side of a split planned before the work: `design@agent-skills@code-split-scout` and
 %% `design@agent-skills@splits-planned-before-work`; before the search, per
 %% `design@agent-skills@search-runs-once-the-shapes-settle`; its dispatch fixed on a point of view
-%% apart, per `design@agent-skills@work-divided-by-judgement`.
+%% apart, per `design@agent-skills@dispatch-fixed-only-on-a-step-property`.
    **Where you expect the full path, once the draft exists and before
    the search, dispatch `agent@knowledge-architect-code-split-scout`**
    with the draft as its work, as its description says: it reads the

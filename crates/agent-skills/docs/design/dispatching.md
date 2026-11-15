@@ -2,7 +2,7 @@
 
 ## Dispatching work
 
-### A session divides the work between itself and the agents it dispatches by a judgement on how the pieces relate, and an instruction fixes a dispatch only on a property of the step that holds whatever the task's size `##work-divided-by-judgement`
+### A session divides the work between itself and the agents it dispatches by a judgement on how the pieces relate `##work-divided-by-judgement`
 
 `primer@dispatching-work` states the judgement and the purpose it weighs toward: the main session
 dispatches so that its context stays for what only it can do, the design, the decisions and the
@@ -18,20 +18,8 @@ between, as implementing a design does. A dispatched piece is what its brief giv
 the agent carries all of it. Point 3 of `skill@knowledge-architect-planning@working-a-slice` points
 to the section, where implementation starts.
 
-An instruction fixes a dispatch at a step only on a property of the step that holds whatever the
-task's size. The admission standard,
-`skill@knowledge-architect-agent-configuration@admission-standard`, states the rule, per
-`design@agent-skills@admission-rules-home`, so it binds a project's own skills as it binds the
-installed text, and the primer says only that a dispatch a skill or an agent fixes is made as that
-text says. The rule's list of properties is open, each one a property of the step whatever the
-task's size; the properties the installed text uses today are three: a point of view apart from the
-session's (the reviews, the goal reviewer, the audits, whose agents judge the project by a standard
-and are judged again by their verifiers); an output whose form a command checks (the record search,
-through `klarch worklist --verify`; the transcript extraction at a plan's assembly, whose lines a
-command, `klarch transcript show`, writes, which fixes their form); and an occasion most work meets (a merge, a development
-checkpoint). An output verified by a session other than its author is no such property: under
-`design@agent-skills@at-least-one-independent-verification` every returned conclusion is, so it
-would admit any dispatch. Any other "always dispatch X" is a size claim in disguise.
+The section judges no dispatch that a skill or an agent fixes at a step, which
+`design@agent-skills@dispatch-fixed-only-on-a-step-property` admits.
 
 The standing argument:
 
@@ -83,9 +71,6 @@ The standing argument:
   a brief that tells its agents not to commit leaves the commit outside their pieces. What an agent
   returns unfinished is a new piece. How parallel work is partitioned among agents is
   `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`.
-- **The rule on fixed dispatches tests a property of the step.** Without the test, the fixed
-  dispatches are a list, which a later writer extends by analogy, and the threshold comes back.
-  Every fixed dispatch of the installed text fits one of the three properties above.
 - **The facts on the harness** are measured in Claude Code 2.1.321, once each: a general-purpose
   subagent holds `Agent` and can dispatch a nested agent, and holds no `Workflow`, so a saved
   workflow stays with the main session; and the primer reaches a nested agent. The probe that takes
@@ -96,6 +81,28 @@ The retrospective watches this decision with two of its standing questions, per
 `design@agent-skills@premortem-as-watch-points`: work the session carried that an agent could have
 carried, and an agent that came back unfinished or with a report the session could not act on.
 A token bound per agent in the primer lost: `rejected@agent-skills@dispatch-size-hint`.
+
+### An instruction fixes a dispatch of an agent at a step only on a property of the step that holds whatever the task's size `##dispatch-fixed-only-on-a-step-property`
+
+An instruction fixes a dispatch at a step only on a property of the step that holds whatever the
+task's size. The admission standard,
+`skill@knowledge-architect-agent-configuration@admission-standard`, states the rule, per
+`design@agent-skills@admission-rules-home`, so it binds a project's own skills as it binds the
+installed text, and the primer says only that a dispatch a skill or an agent fixes is made as that
+text says. The rule's list of properties is open, each one a property of the step whatever the
+task's size; the properties the installed text uses today are three: a point of view apart from the
+session's (the reviews, the goal reviewer, the audits, whose agents judge the project by a standard
+and are judged again by their verifiers); an output whose form a command checks (the record search,
+through `klarch worklist --verify`; the transcript extraction at a plan's assembly, whose lines a
+command, `klarch transcript show`, writes, which fixes their form); and an occasion most work meets (a merge, a development
+checkpoint). An output verified by a session other than its author is no such property: under
+`design@agent-skills@at-least-one-independent-verification` every returned conclusion is, so it
+would admit any dispatch. Any other "always dispatch X" is a size claim in disguise.
+
+The rule on fixed dispatches tests a property of the step. Without the test, the fixed dispatches
+are a list, which a later writer extends by analogy, and the threshold of size comes back, which
+`design@agent-skills@work-divided-by-judgement` argues against. Every fixed dispatch of the
+installed text fits one of the three properties above.
 
 ### A claim the work acts on gets at least one independent verification before it is acted on, by a session other than its author, against the evidence its report carries, and one is enough `##at-least-one-independent-verification`
 

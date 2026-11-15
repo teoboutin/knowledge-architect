@@ -1265,6 +1265,7 @@ fn remove_outputs(dir: &Path) -> Result<(), String> {
             || (name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX));
         if output {
             let path = entry.path();
+            // The removal stops at the first file it cannot remove.
             std::fs::remove_file(&path).map_err(|e| format!("{}: {e}", path.display()))?;
         }
     }
@@ -1491,6 +1492,8 @@ fn write_all(dir: &Path, files: &[(String, String)]) -> Result<(), String> {
         let path = dir.join(name);
         if let Err(e) = std::fs::write(&path, text) {
             for (written, _) in &files[..=n] {
+                // A failed removal of a file this run wrote is not reported: the error returned
+                // is the write's.
                 let _ = std::fs::remove_file(dir.join(written));
             }
             return Err(format!(

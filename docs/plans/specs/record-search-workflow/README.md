@@ -250,27 +250,36 @@ one draft per head:
 
 | head | verdict | step 0 |
 | --- | --- | --- |
-| `design@agent-skills@one-record-searcher` | fails one decision per head, and the title test | retitled to the rule of one agent for every kind; split out `failing-report-goes-back-to-its-searcher` and `search-dispatch-in-the-searcher-s-description` |
-| `design@agent-skills@session-acts-on-the-verdicts` | fails one decision per head: the list "Where the occasion's record goes" is a second decision | split out `search-record-kept-per-occasion`; `design@agent-skills@plan-commits-the-generated-lines` re-pointed to it |
-| `design@query@occasion-shaped-output` | fails one decision per head, the title test, and "not implementation" | split out `verify-reads-the-snapshot-and-no-model`; retitled; the clause on a failed removal moved to a comment at `remove_outputs` |
-| `design@query@worklist-writes-and-verifies-the-reports` | fails the title test, and one decision per head | retitled; split out `skeleton-names-the-admitted-verdicts` |
+| `design@agent-skills@one-record-searcher` | fails one decision per head, and the title test | retitled to the rule of one agent for every kind; split out `design@agent-skills@failing-report-goes-back-to-its-searcher` and `design@agent-skills@search-dispatch-in-the-searcher-s-description` |
+| `design@agent-skills@session-acts-on-the-verdicts` | fails one decision per head: the list "Where the occasion's record goes" is a second decision | split out `design@agent-skills@search-record-kept-per-occasion`; `design@agent-skills@plan-commits-the-generated-lines` re-pointed to it |
+| `design@query@occasion-shaped-output` | fails one decision per head, the title test, and "not implementation" | split out `design@query@verify-reads-the-snapshot-and-no-model`; retitled; the clause on a failed removal moved to a comment at `remove_outputs` |
+| `design@query@worklist-writes-and-verifies-the-reports` | fails the title test, and one decision per head | retitled; split out `design@query@skeleton-names-the-admitted-verdicts` |
 | `design@query@worklist-bound-is-40000-words` | conforms; which Component owns it reads two ways, query or cli | none: it stays in query, as the parameter of `design@query@clusters-packed-under-a-word-bound`, whose packing decides a searcher's load, the bound's argument; cli only spells the default |
 | `design@agent-skills@a-scratch-directory-per-subagent` | conforms | none |
 
 The heads this list gained at the plan's review, `design@agent-skills@report-written-through-the-shell`
 and `design@agent-skills@work-divided-by-judgement`, were not in that run: the session that starts
-the work dispatches the auditor on them as a drafter before step 0, and a head it finds
-non-conformant joins step 0. The rest of this section names each head as step 0 leaves it.
+the work dispatched the auditor on them as a drafter before step 0, and a head it finds
+non-conformant joins step 0. Both joined it:
+
+| head | verdict | step 0 |
+| --- | --- | --- |
+| `design@agent-skills@report-written-through-the-shell` | fails "What a head stands on": the owner's approval of the session's default, the shell, is recorded as the owner's choice | the fork's choice attributed to the session, approved by the owner |
+| `design@agent-skills@work-divided-by-judgement` | fails one decision per head, the rule on fixed dispatches losing to rivals of its own; its measured fact that a general-purpose subagent holds no `Workflow` grounds no statement of the head | retitled to the judgement; split out `design@agent-skills@dispatch-fixed-only-on-a-step-property`; the fact on `Workflow` stays until the harvest moves it, under Harvest |
+
+The rest of this section names each head as step 0 leaves it.
 
 The decisions the work rewrites, each with every text the rewrite repairs, the repair made by step
 4 for the installed text and by the harvest for the design homes:
 
-- `search-dispatch-in-the-searcher-s-description`, the head step 0 splits out of
+- `design@agent-skills@search-dispatch-in-the-searcher-s-description`, the head step 0 splits out of
   `design@agent-skills@one-record-searcher`: its statement that the searcher's description carries
   the dispatch, "since a dispatcher reads an agent's description and never its body", turns false:
   the workflow carries the dispatch, and the description names the workflow. The harvest rewrites
-  it, its title and slug brought to the workflow. `design@agent-skills@one-record-searcher`,
-  retitled, and `failing-report-goes-back-to-its-searcher` stand: one agent per directory, the check
+  it, its title and slug brought to the workflow, with the argument the head lacks after step 0:
+  its premise on what a dispatcher reads cites no reading or measurement, and it names no rival.
+  `design@agent-skills@one-record-searcher`,
+  retitled, and `design@agent-skills@failing-report-goes-back-to-its-searcher` stand: one agent per directory, the check
   by `--verify`, a report sent back and never repaired by the dispatcher. Texts: the searcher's
   description; the texts that cite `design@agent-skills@one-record-searcher` today, read by step 0
   for which statement each cites and re-pointed there: the `%%` comment of
@@ -286,9 +295,9 @@ The decisions the work rewrites, each with every text the rewrite repairs, the r
   description. Texts: the searcher's description; the design skill's loop step 1; the planning
   skill's point 2 of `skill@knowledge-architect-planning@working-a-slice`; the intake skill's point
   4; the design homes that cite it, `path@agent-skills@docs/design/dispatching.md` line 115,
-  `path@agent-skills@docs/design/record-search.md` lines 16, 88 and 116, and line 200, which step 0
-  re-points to `search-record-kept-per-occasion`, `path@agent-skills@docs/design/reviews.md` line
-  77; and `issue@agent-skills@a-lighter-pass-for-untouched-components`, line 73, read by the harvest.
+  `path@agent-skills@docs/design/record-search.md` lines 16 and 88, and lines 116 and 200, which
+  step 0 re-points to `design@agent-skills@search-record-kept-per-occasion`,
+  `path@agent-skills@docs/design/reviews.md` line 77; and `issue@agent-skills@a-lighter-pass-for-untouched-components`, line 73, read by the harvest.
 - `design@query@occasion-shaped-output`, as step 0 retitles it: its sentence that each verdict file
   holds every verdict "with its agent's verdict line and its entry's text and inbound list" turns
   false for a light verdict, and `closing-sections.md` is a new output its argument does not cover,
@@ -322,12 +331,14 @@ The heads the harvest touches without reversing or rewriting them, per
   the workflow that writes a report returned as text into its `report.md`, by a shell redirect.
   The head's argument, that the harness refuses a subagent's `Write` over an existing `report.md`,
   covers it.
-- `design@agent-skills@work-divided-by-judgement`: a fixed dispatch of the installed text stands
-  only on a property of the step; "An output verified by a session other than its author is no such
-  property". It rules out #verdicts-verified-in-the-workflow. Its measured fact, that a
-  general-purpose subagent holds no `Workflow` tool, grounds #fallback-dispatch-line. Its list of
+- `design@agent-skills@dispatch-fixed-only-on-a-step-property`: a fixed dispatch of the installed
+  text stands only on a property of the step; "An output verified by a session other than its
+  author is no such property". It rules out #verdicts-verified-in-the-workflow. Its list of
   properties "is open"; the workflow's fixed worklist and verify agents add a member, a step of a
   saved workflow that runs a command, which its script cannot run, argued under Decided design.
+- `design@agent-skills@work-divided-by-judgement`: its measured fact, that a general-purpose
+  subagent holds no `Workflow` tool, grounds #fallback-dispatch-line, and leaves it for the head of
+  the workflow at the harvest.
 
 The discussion's record search, run through a draft of the workflow over the draft of this spec
 with each thread as a subject, gave 233 verdicts other than `unrelated`: 221 `constrains` or
@@ -339,13 +350,13 @@ outcome:
 
 | entry | verdict | outcome |
 | --- | --- | --- |
-| `design@agent-skills@one-record-searcher` | conflicts | rewritten in `search-dispatch-in-the-searcher-s-description`, above |
+| `design@agent-skills@one-record-searcher` | conflicts | rewritten in `design@agent-skills@search-dispatch-in-the-searcher-s-description`, above |
 | `design@agent-skills@session-acts-on-the-verdicts` | conflicts | rewritten, above |
 | `design@query@worklist-writes-and-verifies-the-reports` | conflicts | touched only where its text names an output, above |
 | `design@query@occasion-shaped-output` | conflicts | rewritten; its argument keeps the files per subject, above |
 | `design@query@worklist-bound-is-40000-words` | conflicts | its re-take path reworded, above |
 | `design@agent-skills@a-scratch-directory-per-subagent` | conflicts | its site rewritten, above |
-| `design@agent-skills@work-divided-by-judgement` | refuted to conflicts by the experiment | rules out #verdicts-verified-in-the-workflow; gains a property, above |
+| `design@agent-skills@work-divided-by-judgement` | refuted to conflicts by the experiment | its rule on fixed dispatches, now `design@agent-skills@dispatch-fixed-only-on-a-step-property`, rules out #verdicts-verified-in-the-workflow and gains a property, above |
 | `design@agent-skills@design-audit-checks-fit` | refuted to conflicts by the experiment | the new thread #worklist-notices-returned |
 | `goal@serves-one-kind-of-project`, `issue@agent-skills@heads-argued-from-another-harness` | refuted by the experiment | the new thread #fallback-dispatch-line, argued on a measured fact of `claude`, not on another harness |
 | `issue@agent-skills@a-record-search-misses-what-is-added-after-it` | refuted to trigger-met by the experiment, with an owner-question | Q1, ruled no in round 4 |
@@ -497,8 +508,8 @@ From #workflow-runs-the-worklist and #worklist-notices-returned.
   `outln!` in `write`, and writes them into no file of the directory.
 - **The worklist agent, and the verify agent below, are fixed dispatches on a property of the step
   that holds whatever the task's size: each runs a command, which a workflow's script cannot run.**
-  `design@agent-skills@work-divided-by-judgement` states that its list of properties is open; this
-  is a new member of it, which the harvest adds. It is no size claim: a search of one agent needs
+  `design@agent-skills@dispatch-fixed-only-on-a-step-property` states that its list of properties
+  is open; this is a new member of it, which the harvest adds. It is no size claim: a search of one agent needs
   the command run all the same, and the script has no other way to run it. `--verify` judges the
   worklist step's result too: a directory the step dropped leaves its entries with no verdict,
   which `--verify` reports. `design@agent-skills@record-split-found-by-a-command` stands: no agent
@@ -527,7 +538,7 @@ From #report-loop-in-the-workflow.
   searcher again with them, by hand, and runs `--verify` itself, or reports the search as failing
   where a searcher repeats a finding; it repairs no report.
 - **No step of the workflow repairs a report**: a report that fails goes back to its searcher, per
-  `failing-report-goes-back-to-its-searcher`, the head step 0 splits out of
+  `design@agent-skills@failing-report-goes-back-to-its-searcher`, the head step 0 splits out of
   `design@agent-skills@one-record-searcher`.
 - No cross-check stage: per #verdicts-verified-in-the-workflow. The session may still hand a
   subject's verdict file to an agent it dispatches, at its judgement.
@@ -728,7 +739,7 @@ order, after `{{command}} worklist`, each value single-quoted, an inner `'` writ
   rivals of #closing-sections-file: a copy of the kind that missed sixteen reports; one file read
   per searcher, 22 in this search, the returns never reaching the session.
 - **A cross-check stage inside the workflow**, #verdicts-verified-in-the-workflow, ruled out on
-  `design@agent-skills@work-divided-by-judgement`.
+  `design@agent-skills@dispatch-fixed-only-on-a-step-property`.
 - **Light verdicts as compact lines without their reason**, the first shape of
   #verdicts-split-by-action: it let three load-bearing verdicts through, found by the experiment.
 - **One file of the light verdicts across subjects**: lost to the argument of
@@ -780,11 +791,17 @@ checks, and the others are judged at the harvest, under Premortem.
    "What is already decided". Then applies the splits and retitles of its table, and of any head
    that run finds non-conformant, each as the table says, the auditor's drafts of the plan's review
    giving each new head's text where they are still at hand: the new heads
-   `failing-report-goes-back-to-its-searcher`, `search-dispatch-in-the-searcher-s-description`,
-   `search-record-kept-per-occasion`, `verify-reads-the-snapshot-and-no-model` and
-   `skeleton-names-the-admitted-verdicts`, each slug checked free by `klarch id`; the retitles of
-   `design@agent-skills@one-record-searcher`, `design@query@occasion-shaped-output` and
-   `design@query@worklist-writes-and-verifies-the-reports`; the clause on a failed removal moved
+   `design@agent-skills@failing-report-goes-back-to-its-searcher`,
+   `design@agent-skills@search-dispatch-in-the-searcher-s-description`,
+   `design@agent-skills@search-record-kept-per-occasion`,
+   `design@query@verify-reads-the-snapshot-and-no-model`,
+   `design@query@skeleton-names-the-admitted-verdicts` and
+   `design@agent-skills@dispatch-fixed-only-on-a-step-property`, each slug checked free by
+   `klarch id`; the retitles of `design@agent-skills@one-record-searcher`,
+   `design@query@occasion-shaped-output`, `design@query@worklist-writes-and-verifies-the-reports`
+   and `design@agent-skills@work-divided-by-judgement`; the ground of
+   `design@agent-skills@report-written-through-the-shell` brought to the fork's choice of the
+   session; the clause on a failed removal moved
    from `design@query@occasion-shaped-output` to a comment at `remove_outputs`; and the re-points
    the drafts name, `design@agent-skills@plan-commits-the-generated-lines` and
    the line of `register@query@design` that cites the snapshot, 231, among them, with each citer of
@@ -894,9 +911,9 @@ checks, and the others are judged at the harvest, under Premortem.
 
 | what | where | when |
 | --- | --- | --- |
-| #search-runs-a-saved-workflow, #workflow-runs-the-worklist, #worklist-notices-returned, #report-loop-in-the-workflow, #search-reads-a-fixed-tree, #dispatch-text-home, #fallback-dispatch-line | `search-dispatch-in-the-searcher-s-description` rewritten, its title and slug brought to the workflow, and the heads the entry tests admit in `path@agent-skills@docs/design/record-search.md`, the workflow's head carrying the owner's take-in under `goal@generic-tools-and-procedures-are-shipped` and the opt-in premise as D2 is ruled | after step 4 |
+| #search-runs-a-saved-workflow, #workflow-runs-the-worklist, #worklist-notices-returned, #report-loop-in-the-workflow, #search-reads-a-fixed-tree, #dispatch-text-home, #fallback-dispatch-line | `design@agent-skills@search-dispatch-in-the-searcher-s-description` rewritten, its title and slug brought to the workflow, and the heads the entry tests admit in `path@agent-skills@docs/design/record-search.md`, the workflow's head carrying the owner's take-in under `goal@generic-tools-and-procedures-are-shipped`, the opt-in premise as D2 is ruled, and the measured fact that a general-purpose subagent holds no `Workflow`, with its probe, moved from `design@agent-skills@work-divided-by-judgement` | after step 4 |
 | #verdicts-split-by-action, #closing-sections-file | `design@agent-skills@session-acts-on-the-verdicts` rewritten; `design@query@occasion-shaped-output` rewritten | after step 4 |
-| the fixed worklist and verify agents | `design@agent-skills@work-divided-by-judgement` gains the property of a step that runs a command | after step 4 |
+| the fixed worklist and verify agents | `design@agent-skills@dispatch-fixed-only-on-a-step-property` gains the property of a step that runs a command | after step 4 |
 | the writer of a report returned as text | `design@agent-skills@report-written-through-the-shell` gains the member | after step 4 |
 | the re-take path of a workflow's agents | `design@query@worklist-bound-is-40000-words` | after step 4 |
 | the site of the searchers' scratch directories | `design@agent-skills@a-scratch-directory-per-subagent` | after step 4 |
