@@ -53,8 +53,8 @@ every design entry the document cites, to read the entry and every text that ref
 %% The verdict files are read only where the brief names their directory: a search's directory is
 %% in a scratch space, which may be gone by the review, most often by the review before a merge.
 Then read the verdicts of the record search that grounded the document: the verdict files,
-`verdicts-<subject>.md`, in the directory the brief names, where it names one, each verdict with
-its entry's text; for a plan document, its `search/discussion.txt`, the search's generated lines,
+`verdicts-<subject>.md`, in the directory the brief names, where it names one, its act verdicts
+each with its entry's text, then its light verdicts each as its line with its quotation and reason; for a plan document, its `search/discussion.txt`, the search's generated lines,
 and `{{command}} show` on each entry a line gives a verdict other than `constrains` and
 `unrelated`; and, at the review before a merge, `{{command}} show` on each entry a generated
 line of the commit message gives a verdict other than `constrains` and `unrelated`, a line

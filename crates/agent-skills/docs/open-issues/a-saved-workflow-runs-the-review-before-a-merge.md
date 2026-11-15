@@ -16,7 +16,8 @@ plans for its design.
 ### What
 
 - The review's dispatch is `skill@knowledge-architect-review`; the installed text ships saved
-  workflows for the audit axes alone, per `design@agent-skills@audit-axis-runs-a-workflow`.
+  workflows for the audit axes, per `design@agent-skills@audit-axis-runs-a-workflow`, and for the
+  record search, `knowledge-architect-record-search`, none for a review.
 - The report: the standing answers of the workflow file of the first slice of plan directories,
   2026-11-13. Analysed in the section on the tools and procedures the batch reports, in the analysis
   of 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow, which "[intake] The forty-seven
