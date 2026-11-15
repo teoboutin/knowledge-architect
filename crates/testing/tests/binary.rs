@@ -7918,15 +7918,16 @@ fn worklist_check_judges_one_report_and_writes_nothing() {
     let _ = std::fs::remove_dir_all(&out);
 }
 
-/// The outputs are the snapshot's text, not the tree's: an entry edited after `--out` is written
-/// as `--out` saw it, since `--verify` reads no model; and a passing run prints the count of each
-/// subject's verdicts and of the generated lines. A snapshot that lacks an entry `agents.txt`
+/// The outputs are the snapshot's text, not the tree's: an entry edited after `--out`, given an
+/// act verdict so that its verdict file holds its text, is written as `--out` saw it, since
+/// `--verify` reads no model; and a passing run prints the count of each subject's verdicts and
+/// of its act verdicts, and of the generated lines. A snapshot that lacks an entry `agents.txt`
 /// lists, as one an older `--out` wrote, stops the run before any report is judged, with exit 2,
 /// no `PASSED` line, and none of the outputs of the passing run before it; one cut short, or one
 /// whose entry lacks its second block, as an older `--out` wrote it, is refused the same way.
 /// Mutations checked, in `verify` of `path@query@src/worklist.rs`: `if !missing.is_empty() {` made
-/// `if false {`, which reaches the lookup of the missing entry; and the printed counts,
-/// `for (subject, count) in &out.counts {` made to print 0 for each; each caught.
+/// `if false {`, which reaches the lookup of the missing entry; and, in the count line of each
+/// subject, `{count}` made `0`, and `{acts}` made `0`; each caught.
 #[test]
 fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry() {
     let (sandbox, out) = worklist_project("worklist-snapshot-gap");
@@ -7942,7 +7943,7 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
         text.replace(
             &report_line(&text, head),
             &format!(
-                "- {head} | verdict: constrains | against: whole-work | action: respect | \
+                "- {head} | verdict: conflicts | against: whole-work | action: check-reversal | \
                  owner-question: | quote: {quote} | reason: it bears"
             ),
         ),
@@ -7957,7 +7958,7 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(
         stdout.contains(&format!(
-            "1 verdicts against whole-work in {}",
+            "1 verdicts against whole-work, 1 of them act verdicts, in {}",
             out.join("verdicts-whole-work.md").display()
         )) && stdout.contains(&format!(
             "1 lines in {}",
