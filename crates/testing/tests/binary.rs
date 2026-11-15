@@ -7689,11 +7689,11 @@ fn worklist_snapshot_holds_the_show_text_of_every_entry() {
 
 /// A failing run, and a run stopped on a line it cannot parse, leave none of the outputs of a
 /// previous run: no verdict file, a subject's that this run's `work.txt` no longer lists included,
-/// and no generated lines. Mutations checked, in `path@query@src/worklist.rs`: the call
-/// `remove_outputs(dir)?;` deleted from `verify`; in `remove_outputs`,
-/// `(name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX))` made `false`; and
-/// `[GENERATED_LINES_FILE, GAPS_FILE, FIT_LINES_FILE]` made `[GAPS_FILE, FIT_LINES_FILE]`; each
-/// caught.
+/// no generated lines and no closing sections. Mutations checked, in
+/// `path@query@src/worklist.rs`: the call `remove_outputs(dir)?;` deleted from `verify`; in
+/// `remove_outputs`, `(name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX))` made
+/// `false`; `GENERATED_LINES_FILE,` removed from the names it removes; and
+/// `CLOSING_SECTIONS_FILE,` removed from them; each caught.
 #[test]
 fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
     let (sandbox, out) = worklist_project("worklist-verify-removes");
@@ -7709,7 +7709,11 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
             .expect("the work list")
             .flatten()
             .map(|e| e.file_name().to_string_lossy().into_owned())
-            .filter(|n| n.starts_with("verdicts-") || n == "generated-lines.md")
+            .filter(|n| {
+                n.starts_with("verdicts-")
+                    || n == "generated-lines.md"
+                    || n == "closing-sections.md"
+            })
             .collect();
         names.sort();
         names
@@ -7721,7 +7725,14 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
         std::fs::write(&report, &passing).expect("a passing report");
         let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
         assert_eq!(code, 0, "{stdout}{stderr}");
-        assert_eq!(outputs(), ["generated-lines.md", "verdicts-whole-work.md"]);
+        assert_eq!(
+            outputs(),
+            [
+                "closing-sections.md",
+                "generated-lines.md",
+                "verdicts-whole-work.md"
+            ]
+        );
         std::fs::write(out.join("verdicts-old-thread.md"), "# an earlier subject\n")
             .expect("an earlier subject's file");
         std::fs::write(&report, &failing).expect("a failing report");
@@ -7729,6 +7740,72 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
         assert_eq!(code, want, "{stdout}{stderr}");
         assert!(outputs().is_empty(), "{:?}", outputs());
     }
+    let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The claim: a passing `--verify` writes `closing-sections.md`, every agent of `agents.txt` once,
+/// in its order, with the closing sections of its report, both sections and their items, and an
+/// agent whose sections are empty listed with them empty; and prints the count of the reports it
+/// holds. Mutations checked, in `path@query@src/worklist.rs`: in `judge_reports`, the closing text
+/// inserted as `closing_text("")`, which writes every agent's sections empty; and in `verify`, the
+/// printed count `out.reports` made `0`; each caught.
+#[test]
+fn worklist_verify_writes_the_closing_sections_of_every_report() {
+    let (sandbox, out, _) = worklist_out("worklist-closing-sections", &["--bound", "120"]);
+    let out_text = out.to_string_lossy().into_owned();
+    fill_unrelated(&out);
+    let mut agents: Vec<String> = Vec::new();
+    for line in std::fs::read_to_string(out.join("agents.txt"))
+        .expect("agents.txt")
+        .lines()
+    {
+        let agent = line.split(' ').next().expect("an agent").to_string();
+        if !agents.contains(&agent) {
+            agents.push(agent);
+        }
+    }
+    assert!(agents.len() > 2, "{agents:?}");
+    let skeleton = "## Decided\n\n## Met outside the task\n";
+    // The first agent keeps its sections empty; every other fills both.
+    for agent in &agents[1..] {
+        let report = out.join(agent).join("report.md");
+        let text = std::fs::read_to_string(&report).expect("a report");
+        assert!(text.contains(skeleton), "{text}");
+        let filled = text.replace(
+            skeleton,
+            &format!(
+                "## Decided\n\n- decided by {agent}\n\n## Met outside the task\n\n- met by {agent}\n"
+            ),
+        );
+        std::fs::write(&report, filled).expect("a filled report");
+    }
+    let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let path = out.join("closing-sections.md");
+    assert!(
+        stdout.contains(&format!("{} reports in {}", agents.len(), path.display())),
+        "{stdout}"
+    );
+    let sections = std::fs::read_to_string(&path).expect("closing-sections.md");
+    let headed: Vec<&str> = sections
+        .lines()
+        .filter_map(|l| l.strip_prefix("=== "))
+        .collect();
+    assert_eq!(headed, agents, "{sections}");
+    assert!(
+        sections.contains(&format!("=== {}\n\n```text\n{skeleton}```\n", agents[0])),
+        "{sections}"
+    );
+    for agent in &agents[1..] {
+        assert!(
+            sections.contains(&format!(
+                "=== {agent}\n\n```text\n## Decided\n\n- decided by {agent}\n\n\
+                 ## Met outside the task\n\n- met by {agent}\n```\n"
+            )),
+            "{agent}: {sections}"
+        );
+    }
+    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// Every file under `dir` with its bytes, by its path relative to `dir`.

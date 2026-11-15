@@ -48,6 +48,10 @@ const GENERATED_LINES_FILE: &str = "generated-lines.md";
 /// `unrelated`, under the citation of the plan document and the subject of the `--since` commit.
 const GAPS_FILE: &str = "gaps.md";
 const FIT_LINES_FILE: &str = "fit-lines.md";
+/// A passing `--verify` writes, at every occasion, an audit included, the closing sections of
+/// every report, `## Decided` and `## Met outside the task`, one agent after another in the order
+/// of `agents.txt`, for the session that dispatched the search to carry into its own.
+const CLOSING_SECTIONS_FILE: &str = "closing-sections.md";
 /// The section of a plan document whose design and declared-register references `--seeds-from`
 /// takes as seeds, a level-two heading.
 const DECIDED_SECTION: &str = "What is already decided";
@@ -113,10 +117,11 @@ pub enum WorklistMode {
     },
     /// Check the reports the agents filled in `dir`, a directory `Write` wrote, against its
     /// `agents.txt`, `work.txt` and `shown.md`. It first removes every `verdicts-*.md`, the
-    /// `generated-lines.md`, the `gaps.md` and the `fit-lines.md` of `dir`; when every report
-    /// passes, it writes `verdicts-<subject>.md` for each subject `work.txt` lists, and
-    /// `generated-lines.md`, or, where `work.txt` names a plan document, which `Write` writes for
-    /// `seeds_from`, `gaps.md` and `fit-lines.md`.
+    /// `generated-lines.md`, the `gaps.md`, the `fit-lines.md` and the `closing-sections.md` of
+    /// `dir`; when every report passes, it writes `verdicts-<subject>.md` for each subject
+    /// `work.txt` lists, and `generated-lines.md`, or, where `work.txt` names a plan document,
+    /// which `Write` writes for `seeds_from`, `gaps.md` and `fit-lines.md`; and, in both cases,
+    /// `closing-sections.md`.
     Verify {
         /// The directory the work list was written into.
         dir: std::path::PathBuf,
@@ -147,8 +152,9 @@ pub enum WorklistMode {
 ///   is no id or one listed twice, a `spec` line that is not a citation then a path, or a `spec`
 ///   or `since` line given twice; `shown.md`, cut short, an entry lacking one of its two blocks,
 ///   or lacking an entry `agents.txt` lists; a report, or a report line it cannot parse; and a removal or a
-///   write that failed. Nothing is judged where one of the first three stops it, and no verdict
-///   file and no generated line is left, unless a removal fails: removing the outputs of a
+///   write that failed. Nothing is judged where one of the first three stops it, and none of the
+///   outputs, the verdict files, the generated lines, the gaps, the fit lines and the closing
+///   sections, is left, unless a removal fails: removing the outputs of a
 ///   previous run stops at the first that cannot be removed, and after a failed write a file of
 ///   this run that cannot be removed is left with no report;
 /// - under `WorklistMode::Check`, a path with no last component, an agent `agents.txt` does not
@@ -943,7 +949,8 @@ fn actions(role: Role, verdict: &str) -> &'static [&'static str] {
 }
 
 /// Check every report of the directory against `agents.txt`, `work.txt` and the snapshot, and,
-/// when every report passes, write the verdict files and the generated lines.
+/// when every report passes, write the verdict files, the generated lines, or at an audit the gaps
+/// and the fit lines, and the closing sections of the reports.
 ///
 /// It reads no model: what each agent was given is what `agents.txt` says, the subjects are what
 /// `work.txt` lists, and each entry's text is what `--out` wrote into the snapshot, so the check
@@ -953,7 +960,11 @@ fn actions(role: Role, verdict: &str) -> &'static [&'static str] {
 fn verify(dir: &Path) -> Result<ExitCode, String> {
     remove_outputs(dir)?;
     let list = read_list(dir)?;
-    let (findings, given) = judge_reports(dir, &list, None)?;
+    let Judged {
+        findings,
+        given,
+        closing,
+    } = judge_reports(dir, &list, None)?;
     for finding in &findings {
         outln!("{finding}");
     }
@@ -964,7 +975,7 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             work,
             snapshot,
         } = &list;
-        let out = outputs(order, agents, &given, snapshot, work);
+        let out = outputs(order, agents, &given, snapshot, work, &closing);
         write_all(dir, &out.files)?;
         for (subject, count) in &out.counts {
             outln!(
@@ -980,6 +991,11 @@ fn verify(dir: &Path) -> Result<ExitCode, String> {
             None => GENERATED_LINES_FILE,
         };
         outln!("{} lines in {}", out.lines, dir.join(lines_file).display());
+        outln!(
+            "{} reports in {}",
+            out.reports,
+            dir.join(CLOSING_SECTIONS_FILE).display()
+        );
         outln!("PASSED: every report gives every entry it was given one verdict");
         Ok(ExitCode::SUCCESS)
     } else {
@@ -1017,7 +1033,7 @@ fn check(agent_dir: &Path) -> Result<ExitCode, String> {
             dir.join(AGENTS_FILE).display()
         ));
     }
-    let (findings, _) = judge_reports(dir, &list, Some(&agent))?;
+    let Judged { findings, .. } = judge_reports(dir, &list, Some(&agent))?;
     for finding in &findings {
         outln!("{finding}");
     }
@@ -1113,8 +1129,15 @@ fn read_list(dir: &Path) -> Result<List, String> {
     })
 }
 
-/// Every finding of the reports judged, and each verdict by its agent and its entry's reference.
-type Judged = (Vec<String>, BTreeMap<(String, String), Verdict>);
+/// What the reports judged hold.
+struct Judged {
+    /// Every finding on them.
+    findings: Vec<String>,
+    /// Each verdict, by its agent and its entry's reference.
+    given: BTreeMap<(String, String), Verdict>,
+    /// Each agent's closing text, by its agent, as [`closing_text`] cuts it.
+    closing: BTreeMap<String, String>,
+}
 
 /// Judge the report of every agent of `list`, or of `only` alone, or `Err` for a report it cannot
 /// read or a line it cannot parse.
@@ -1127,6 +1150,7 @@ fn judge_reports(dir: &Path, list: &List, only: Option<&str>) -> Result<Judged, 
     } = list;
     let mut findings: Vec<String> = Vec::new();
     let mut given: BTreeMap<(String, String), Verdict> = BTreeMap::new();
+    let mut closing: BTreeMap<String, String> = BTreeMap::new();
     for (agent, listed) in agents {
         if only.is_some_and(|o| o != agent) {
             continue;
@@ -1156,8 +1180,33 @@ fn judge_reports(dir: &Path, list: &List, only: Option<&str>) -> Result<Judged, 
         for (reference, verdict) in verdicts {
             given.insert((agent.clone(), reference), verdict);
         }
+        closing.insert(agent.clone(), closing_text(&report).to_string());
     }
-    Ok((findings, given))
+    Ok(Judged {
+        findings,
+        given,
+        closing,
+    })
+}
+
+/// Whether `line` is the heading of a closing section, its trailing spaces trimmed: the line at
+/// which a report's verdict lines end, and its closing text starts.
+fn is_closing_heading(line: &str) -> bool {
+    matches!(line.trim_end(), DECIDED | MET_OUTSIDE)
+}
+
+/// The closing text of `report`: from its first closing section's heading, whichever comes first,
+/// to its end, trailing whitespace trimmed; empty where it holds neither heading, which
+/// `judge_report` reports.
+fn closing_text(report: &str) -> &str {
+    let mut at = 0;
+    for line in report.split_inclusive('\n') {
+        if is_closing_heading(line) {
+            return report[at..].trim_end();
+        }
+        at += line.len();
+    }
+    ""
 }
 
 /// Judge one agent's report, `report`, the agent named `agent` and its file `rel`, against the
@@ -1181,7 +1230,7 @@ fn judge_report(
     let mut graded: BTreeMap<String, usize> = BTreeMap::new();
     for (n, line) in report.lines().enumerate() {
         let at = format!("{rel}:{}", n + 1);
-        if matches!(line.trim_end(), DECIDED | MET_OUTSIDE) {
+        if is_closing_heading(line) {
             break;
         }
         let Some(rest) = line.strip_prefix("- ") else {
@@ -1255,13 +1304,19 @@ fn verdicts_file(subject: &str) -> String {
 }
 
 /// Remove every output a previous `--verify` wrote into `dir`: each verdict file, the generated
-/// lines, the gaps file and the fit lines.
+/// lines, the gaps file, the fit lines and the closing sections.
 fn remove_outputs(dir: &Path) -> Result<(), String> {
     let listing = std::fs::read_dir(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
     for entry in listing {
         let entry = entry.map_err(|e| format!("{}: {e}", dir.display()))?;
         let name = entry.file_name().to_string_lossy().into_owned();
-        let output = [GENERATED_LINES_FILE, GAPS_FILE, FIT_LINES_FILE].contains(&name.as_str())
+        let output = [
+            GENERATED_LINES_FILE,
+            GAPS_FILE,
+            FIT_LINES_FILE,
+            CLOSING_SECTIONS_FILE,
+        ]
+        .contains(&name.as_str())
             || (name.starts_with(VERDICTS_PREFIX) && name.ends_with(VERDICTS_SUFFIX));
         if output {
             let path = entry.path();
@@ -1366,12 +1421,14 @@ fn own_body(own: &str) -> &str {
 
 /// What a passing `--verify` writes, before any write: each file's name and text, the count of
 /// verdicts in each subject's verdict file, in the order of `work.txt`, the count of generated
-/// lines, or of fit lines at an audit, and, at an audit, the count of gaps.
+/// lines, or of fit lines at an audit, at an audit the count of gaps, and the count of reports
+/// whose closing sections it holds.
 struct Outputs {
     files: Vec<(String, String)>,
     counts: Vec<(String, usize)>,
     lines: usize,
     gaps: Option<usize>,
+    reports: usize,
 }
 
 /// The outputs of passing reports.
@@ -1397,6 +1454,12 @@ struct Outputs {
 /// generated lines under one line citing the plan document whole and naming the `--since` commit
 /// by its subject, where `work` gives one, so the audit's message carries them as written.
 ///
+/// `closing-sections.md`, written at every occasion, holds under its title, for each agent of
+/// `agents.txt` in its order, each at its first line there, a line `=== <agent>` and the agent's
+/// closing text from `closing`, fenced as an entry's text is, so that a heading of the report reads
+/// as no section of the file. An agent whose sections are empty is listed with them empty, so a
+/// session tells a report with nothing to carry from one missing.
+///
 /// Every reference of `order` with a verdict in `given` is in `snapshot`, as `verify` checks
 /// before judging.
 fn outputs(
@@ -1405,6 +1468,7 @@ fn outputs(
     given: &BTreeMap<(String, String), Verdict>,
     snapshot: &BTreeMap<String, Shown>,
     work: &Work,
+    closing: &BTreeMap<String, String>,
 ) -> Outputs {
     let mut gaps = String::from("# The gaps: every verdict but `constrains` and `unrelated`\n");
     let mut gap_count = 0;
@@ -1474,11 +1538,23 @@ fn outputs(
         }
         None => written.push((GENERATED_LINES_FILE.to_string(), generated)),
     }
+    let mut sections = String::from("# The closing sections of the searchers' reports\n");
+    let mut reports: Vec<&str> = Vec::new();
+    for (agent, _) in order {
+        if reports.contains(&agent.as_str()) {
+            continue;
+        }
+        reports.push(agent);
+        let text = closing.get(agent).map_or("", String::as_str);
+        sections.push_str(&format!("\n=== {agent}\n\n{}", fenced("text", text)));
+    }
+    written.push((CLOSING_SECTIONS_FILE.to_string(), sections));
     Outputs {
         files: written,
         counts: files.into_iter().map(|(s, _, count)| (s, count)).collect(),
         lines: lines.len(),
         gaps: work.spec.is_some().then_some(gap_count),
+        reports: reports.len(),
     }
 }
 
@@ -1497,7 +1573,7 @@ fn write_all(dir: &Path, files: &[(String, String)]) -> Result<(), String> {
                 let _ = std::fs::remove_file(dir.join(written));
             }
             return Err(format!(
-                "{}: {e}. No verdict file and no generated line was written.",
+                "{}: {e}. None of the outputs was written.",
                 path.display()
             ));
         }
@@ -2590,7 +2666,7 @@ mod tests {
                 .to_vec(),
             ..Work::default()
         };
-        let out = outputs(&order, &agents, &given, &snapshot, &work);
+        let out = outputs(&order, &agents, &given, &snapshot, &work, &BTreeMap::new());
         let file = |name: &str| {
             out.files
                 .iter()
@@ -2634,7 +2710,96 @@ mod tests {
                 ("c-thread".to_string(), 0)
             ]
         );
-        assert_eq!((out.lines, out.files.len(), out.gaps), (4, 4, None));
+        assert_eq!((out.lines, out.files.len(), out.gaps), (4, 5, None));
+    }
+
+    /// The claim: `closing-sections.md` holds, under its title, every agent of `agents.txt` once,
+    /// in its order, `agent-2` before `agent-10`, each at its first line there, with its report's
+    /// text from its first closing section, whichever comes first, to its end, fenced longer than
+    /// any fence it holds; an agent whose sections are empty is listed with them empty; and the
+    /// file is the same at an audit as outside one. Mutations checked, in `outputs`:
+    /// `for (agent, _) in order {` made `for (agent, _) in &order[..order.len() - 1] {`, which
+    /// skips the last agent; and made `for (agent, _) in closing.iter() {`, which sorts `agent-10`
+    /// before `agent-2`; each caught.
+    #[test]
+    fn the_closing_sections_hold_every_report_s_sections_in_the_order_of_the_list() {
+        let names: Vec<String> = (1..=11).map(|n| format!("agent-{n}")).collect();
+        // agent-2 grades two entries, so it has two lines in `agents.txt`.
+        let mut order: Vec<(String, String)> = names
+            .iter()
+            .map(|a| (a.clone(), format!("d@x@{a}")))
+            .collect();
+        order.insert(2, ("agent-2".to_string(), "d@x@second".to_string()));
+        let empty = "## Decided\n\n## Met outside the task\n";
+        let closing: BTreeMap<String, String> = names
+            .iter()
+            .map(|a| {
+                let sections = match a.as_str() {
+                    "agent-3" => empty.to_string(),
+                    "agent-5" => format!(
+                        "## Met outside the task\n\n- met, run as\n\n```sh\nklarch check\n```\n\n\
+                         ## Decided\n\n- decided by {a}\n"
+                    ),
+                    _ => format!(
+                        "## Decided\n\n- decided by {a}\n\n## Met outside the task\n\n- met by {a}\n"
+                    ),
+                };
+                let text = report(&passing(&format!("d@x@{a}")), &sections);
+                (a.clone(), closing_text(&text).to_string())
+            })
+            .collect();
+        let work = Work {
+            subjects: vec!["a-thread".to_string()],
+            ..Work::default()
+        };
+        // No entry and no verdict: every report gave its entry `unrelated`.
+        let file = |work: &Work| {
+            let out = outputs(
+                &order,
+                &BTreeMap::new(),
+                &BTreeMap::new(),
+                &BTreeMap::new(),
+                work,
+                &closing,
+            );
+            assert_eq!(out.reports, 11);
+            out.files
+                .iter()
+                .find(|(n, _)| n == "closing-sections.md")
+                .map(|(_, t)| t.clone())
+                .expect("closing-sections.md")
+        };
+        let text = file(&work);
+        let headed: Vec<&str> = text
+            .lines()
+            .filter_map(|l| l.strip_prefix("=== "))
+            .collect();
+        assert_eq!(headed, names, "{text}");
+        assert!(
+            text.starts_with(
+                "# The closing sections of the searchers' reports\n\n=== agent-1\n\n```text\n\
+                 ## Decided\n\n- decided by agent-1\n\n## Met outside the task\n\n\
+                 - met by agent-1\n```\n\n=== agent-2\n"
+            ),
+            "{text}"
+        );
+        assert!(
+            text.contains("\n=== agent-3\n\n```text\n## Decided\n\n## Met outside the task\n```\n"),
+            "{text}"
+        );
+        assert!(
+            text.contains(
+                "\n=== agent-5\n\n````text\n## Met outside the task\n\n- met, run as\n\n\
+                 ```sh\nklarch check\n```\n\n## Decided\n\n- decided by agent-5\n````\n"
+            ),
+            "{text}"
+        );
+        assert!(text.ends_with("- met by agent-11\n```\n"), "{text}");
+        let audit = Work {
+            spec: Some("spec@plans@a-spec".to_string()),
+            ..work
+        };
+        assert_eq!(file(&audit), text);
     }
 
     /// The claim: at a design audit, `gaps.md` holds exactly the verdicts but `constrains` and
@@ -2696,11 +2861,16 @@ mod tests {
             spec: Some("spec@plans@a-spec".to_string()),
             since: Some("[query] The last change".to_string()),
         };
-        let out = outputs(&order, &agents, &given, &snapshot, &work);
+        let out = outputs(&order, &agents, &given, &snapshot, &work, &BTreeMap::new());
         let names: Vec<&str> = out.files.iter().map(|(n, _)| n.as_str()).collect();
         assert_eq!(
             names,
-            ["verdicts-spec-audit.md", "gaps.md", "fit-lines.md"],
+            [
+                "verdicts-spec-audit.md",
+                "gaps.md",
+                "fit-lines.md",
+                "closing-sections.md"
+            ],
             "no generated-lines.md at an audit"
         );
         let file = |name: &str| &out.files.iter().find(|(n, _)| n == name).expect(name).1;
@@ -2722,7 +2892,14 @@ mod tests {
             since: None,
             ..work
         };
-        let out = outputs(&order, &agents, &given, &snapshot, &without_since);
+        let out = outputs(
+            &order,
+            &agents,
+            &given,
+            &snapshot,
+            &without_since,
+            &BTreeMap::new(),
+        );
         let fit = &out
             .files
             .iter()
