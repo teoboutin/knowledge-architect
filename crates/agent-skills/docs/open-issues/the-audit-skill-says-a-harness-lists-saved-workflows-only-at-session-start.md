@@ -8,8 +8,8 @@ kind: defect
 The installed project-audit skill, `path@agent-skills@content/skills/project-audit/SKILL.md`, says:
 "A harness may list saved workflows only when a session starts, so a session that ran the install
 later may not see the workflow listed; a session whose harness does not list the workflow
-dispatches its steps by hand". Two sessions saw the harness list a saved workflow installed after
-they started, and none saw the contrary. `design@agent-skills@audit-axis-runs-a-workflow` keeps the
+dispatches its steps by hand". Two sessions saw the harness list a saved workflow added after they
+started, one by the install and one by a git operation, and none saw the contrary. `design@agent-skills@audit-axis-runs-a-workflow` keeps the
 same by-hand case, "A session whose harness does not list the workflow dispatches its steps by
 hand".
 
@@ -27,17 +27,26 @@ the by-hand line. The observations, both under Claude Code:
   install; that commit's message says so, and says it softened the sentence to "may" for that
   reason.
 - In the session that built the commit "[agent-skills] The record search's saved workflow,
-  `knowledge-architect-record-search`, with a `node` test of its flag builder", after
-  `cargo klarch install-agent-skills` wrote
-  `path@agent-config@workflows/knowledge-architect-record-search.js` mid-session, the harness listed `knowledge-architect-record-search` with its `meta` description
-  among the session's available skills, in a skill listing the session's transcript holds after the
-  install's output.
+  `knowledge-architect-record-search`, with a `node` test of its flag builder", a `git cherry-pick`
+  of a worktree's commits wrote `path@agent-config@workflows/knowledge-architect-record-search.js`
+  into the session's checkout mid-session, and the harness then listed
+  `knowledge-architect-record-search` with its `meta` description among the session's available
+  skills, in a skill listing the session's transcript holds after the cherry-pick's output. The
+  session's one `cargo klarch install-agent-skills` ran after that listing.
 
-Not established: whether some other version of Claude Code, or another way of adding the file than
-the install, lists saved workflows only at a session's start. No session was observed doing so.
+Not established: that the install itself, rather than a git operation, adds a workflow the harness
+lists mid-session rests on the first observation alone; and whether some other version of Claude
+Code lists saved workflows only at a session's start. No session was observed doing so.
 
 The record search's by-hand line was cut to its three cases for this reason, in
 `design@agent-skills@fallback-dispatch-line`, which records both observations.
+
+The title of `design@agent-skills@audit-axis-runs-a-workflow` says the steps' one home serves "any
+harness", and its body keeps the case of a harness that does not list the workflow. Read as a case
+of another harness, that case is one `goal@serves-one-kind-of-project` asks nothing built for, as
+`design@agent-skills@fallback-dispatch-line` argues for the record search's line; the head states
+no argument that the case is a state of `claude`. That head's other argument from a harness
+other than `claude` is `issue@agent-skills@heads-argued-from-another-harness`'s.
 
 ### Why it matters
 
@@ -53,4 +62,6 @@ The probe, a run of the harness's mechanics that `design@agent-skills@synthetic-
 admits: a session that runs the install of a workflow it did not start with, then reads the
 workflows its harness lists. Then the skill's sentence and the by-hand case of
 `design@agent-skills@audit-axis-runs-a-workflow` corrected to what it shows: removed where the
-harness lists the workflow, or the sentence stated as measured where it does not.
+harness lists the workflow, or the sentence stated as measured where it does not; and that head's
+"any harness" brought to `goal@serves-one-kind-of-project`, through
+`skill@knowledge-architect-design` where it changes the decision.

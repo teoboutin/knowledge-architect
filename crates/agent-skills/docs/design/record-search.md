@@ -102,24 +102,20 @@ notices, which the step returns from the run it makes for the command's sake, pe
 
 ### The record search's workflow sends each failing report back to its searcher for at most `maxRounds` runs of `worklist --verify`, then returns the reports still failing `##report-loop-in-the-workflow`
 
-As each searcher returns, a report it returned as text is written into its `report.md` through the
-shell, per `design@agent-skills@report-written-through-the-shell`: the script runs each searcher
-and its writer as the two stages of one `pipeline`, which the Workflow tool's authoring reference
-says runs "each item through all stages independently, NO barrier between stages". Once every
-searcher has returned, one agent runs `klarch worklist --verify`, a command the script cannot run,
-and returns whether it passed, its output, and each failing agent with its findings. The script
-sends back to its searcher each report the agent listed and each report that a line of the output
-names by a path holding `agent-<n>/report.md`, each once with all its findings, so that a line the
-agent left out still sends its report back, and runs the check again. No step repairs a report, per
+Each report a searcher returned as text is written into its `report.md` through the shell, per
+`design@agent-skills@report-written-through-the-shell`. Once every searcher has returned, one agent
+runs `klarch worklist --verify`, a command the script cannot run, and returns whether it passed,
+its output, and each failing agent with its findings; the script sends each failing report back to
+its searcher with its findings, and runs the check again. No step repairs a report, per
 `design@agent-skills@failing-report-goes-back-to-its-searcher`. `maxRounds` counts the runs of the
 check, 3 where `args` gives none. Past them, or where a failing check names no report to send back,
-the workflow returns `failing`, the reports it would send back, or the agent's own list where
-neither names a report, with the last run's output, `verifyOutput`, and `notices`, and caps nothing
-silently: the session sends each failing agent again by hand, with its findings, and runs the check
-itself, or reports the search as failing where a searcher repeats a finding, and reports it failing
-with `verifyOutput` where `failing` names no report. `failing` names the reports the last run judged
-failing, and a line the check cannot parse stops that run at the line's report, so a run can
-advance one report while others still fail.
+the workflow returns `failing`, with the last run's output, `verifyOutput`, and `notices`, and caps
+nothing silently: the session sends each failing agent again by hand, with its findings, and runs
+the check itself, or reports the search as failing where a searcher repeats a finding, and reports
+it failing with `verifyOutput` where `failing` names no report. `failing` names the reports the
+last run judged failing, and a line the check cannot parse stops that run at the line's report, per
+`design@query@worklist-writes-and-verifies-the-reports`, so `failing` can name one report while
+others still fail.
 
 A bound is owed, since a searcher can repeat a finding, and a loop with none would never end. The
 session chose 3 runs, two sendings back, over any other bound, none weighed and none grounded by a
@@ -161,14 +157,16 @@ The standing argument:
   nothing built. A general-purpose subagent holds no `Workflow` tool, measured once in Claude Code
   2.1.321, so a search run inside an agent dispatches by hand; the probe that takes it again is one
   general-purpose agent asked to list its tools. Whether a run needs a permission rule is
-  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A session that ran
-  the install after it started is no case: its harness lists a workflow installed mid-session, as
-  two sessions observed, that of the commit "[audit] Pass 4 of the agentic-workflow axis, run
-  through the saved workflow: 36 findings confirmed, 23 causes repaired" and that of the commit
-  "[agent-skills] The record search's saved workflow, `knowledge-architect-record-search`, with a
-  `node` test of its flag builder", which listed `knowledge-architect-record-search` with its
-  `meta` description after its install. The probe that takes it again is a session that runs the
-  install of a workflow it did not start with, then reads the workflows its harness lists.
+  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A session to which
+  a workflow is added after it started is no case: its harness lists a workflow added mid-session,
+  as two sessions observed. In the session of the commit "[audit] Pass 4 of the agentic-workflow
+  axis, run through the saved workflow: 36 findings confirmed, 23 causes repaired", a new workflow
+  was listed right after its install; in the session of the commit "[agent-skills] The record
+  search's saved workflow, `knowledge-architect-record-search`, with a `node` test of its flag
+  builder", the harness listed `knowledge-architect-record-search` with its `meta` description
+  after a `git cherry-pick` wrote the file into that session's checkout. The probe that takes it
+  again is a session that runs the install of a workflow it did not start with, then reads the
+  workflows its harness lists.
 - **The line restates no step**, so it cannot drift from the script, which a line restating them
   would, as the premortem of the discussion that designed the workflow named; the steps keep the
   one home of `design@agent-skills@search-runs-a-saved-workflow`.
