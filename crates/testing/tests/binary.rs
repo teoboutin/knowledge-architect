@@ -7919,7 +7919,7 @@ fn worklist_check_judges_one_report_and_writes_nothing() {
 }
 
 /// The outputs are the snapshot's text, not the tree's: an entry edited after `--out`, given an
-/// act verdict so that its verdict file holds its text, is written as `--out` saw it, since
+/// act verdict so that its verdict file holds its text, beside a light verdict, is written as `--out` saw it, since
 /// `--verify` reads no model; and a passing run prints the count of each subject's verdicts and
 /// of its act verdicts, and of the generated lines. A snapshot that lacks an entry `agents.txt`
 /// lists, as one an older `--out` wrote, stops the run before any report is judged, with exit 2,
@@ -7927,7 +7927,8 @@ fn worklist_check_judges_one_report_and_writes_nothing() {
 /// whose entry lacks its second block, as an older `--out` wrote it, is refused the same way.
 /// Mutations checked, in `verify` of `path@query@src/worklist.rs`: `if !missing.is_empty() {` made
 /// `if false {`, which reaches the lookup of the missing entry; and, in the count line of each
-/// subject, `{count}` made `0`, and `{acts}` made `0`; each caught.
+/// subject, `{count}` made `0`, `{acts}` made `0`, `{acts}` made `{count}`, and `{count}` made
+/// `{acts}`; each caught.
 #[test]
 fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry() {
     let (sandbox, out) = worklist_project("worklist-snapshot-gap");
@@ -7949,6 +7950,21 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
         ),
     )
     .expect("a report on the head");
+    // A light verdict beside it, so the count of verdicts and that of act verdicts differ.
+    let issue = "issue@core-mock@on-the-head";
+    let (report, text) = report_with(&out, issue);
+    let quote = worklist_quotes(&out)[issue].clone();
+    std::fs::write(
+        &report,
+        text.replace(
+            &report_line(&text, issue),
+            &format!(
+                "- {issue} | verdict: touches | against: whole-work | action: respect | \
+                 owner-question: | quote: {quote} | reason: it bears too"
+            ),
+        ),
+    )
+    .expect("a report on the issue");
     sandbox.write(
         "docs/design.md",
         &WORKLIST_DESIGN.replace("It serves", "EDITED AFTER THE WORK LIST. It serves"),
@@ -7958,10 +7974,10 @@ fn worklist_verify_writes_from_the_snapshot_and_refuses_one_that_lacks_an_entry(
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(
         stdout.contains(&format!(
-            "1 verdicts against whole-work, 1 of them act verdicts, in {}",
+            "2 verdicts against whole-work, 1 of them act verdicts, in {}",
             out.join("verdicts-whole-work.md").display()
         )) && stdout.contains(&format!(
-            "1 lines in {}",
+            "2 lines in {}",
             out.join("generated-lines.md").display()
         )),
         "{stdout}"

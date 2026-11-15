@@ -1626,7 +1626,7 @@ fn write_all(dir: &Path, files: &[(String, String)]) -> Result<(), String> {
                 let _ = std::fs::remove_file(dir.join(written));
             }
             return Err(format!(
-                "{}: {e}. None of the outputs was written.",
+                "{}: {e}. Every output this run wrote was removed, except any whose removal failed.",
                 path.display()
             ));
         }
@@ -2597,8 +2597,9 @@ mod tests {
     /// order, a list item under `## Met outside the task` ahead of `## Decided` read as no verdict;
     /// both sections are owed; each entry given owes one verdict; a `graded above` line names an
     /// entry given; and the first line that cannot be parsed is the `Err`, by its line. Mutations
-    /// checked, in `judge_report`: `if matches!(line.trim_end(), DECIDED | MET_OUTSIDE) {` made
-    /// `if matches!(line.trim_end(), DECIDED) {`, which parses the list item and stops; and
+    /// checked, in `is_closing_heading`, which `judge_report` asks:
+    /// `matches!(line.trim_end(), DECIDED | MET_OUTSIDE)` made `matches!(line.trim_end(), DECIDED)`,
+    /// which parses the list item and stops; and
     /// `for section in [DECIDED, MET_OUTSIDE] {` made `for section in [MET_OUTSIDE] {`; each caught.
     #[test]
     fn a_report_s_verdict_lines_end_at_either_closing_section_and_owe_both() {
@@ -2768,23 +2769,48 @@ mod tests {
         assert_eq!((out.lines, out.files.len(), out.gaps), (4, 5, None));
     }
 
+    /// The claim: a report's closing text starts at the first line that is a closing heading once
+    /// its trailing whitespace is trimmed, `## Decided  ` and a CRLF line end included, and never
+    /// at an indented one, which is no heading; it runs to the report's end, its trailing
+    /// whitespace trimmed; and a report with no closing heading has none. Mutations checked, in
+    /// `is_closing_heading`: `line.trim_end()` made `line.trim_end_matches('\n')`, which misses
+    /// both the trailing spaces and the CRLF, and made `line.trim()`, which takes the indented
+    /// line; each caught.
+    #[test]
+    fn the_closing_text_starts_at_the_first_closing_heading_its_trailing_spaces_trimmed() {
+        assert_eq!(
+            closing_text(
+                "- a | b\n   ## Decided\n## Decided  \n\n- d\n## Met outside the task\n\n"
+            ),
+            "## Decided  \n\n- d\n## Met outside the task"
+        );
+        assert_eq!(
+            closing_text("- a | b\r\n## Met outside the task\r\n\r\n- m\r\n## Decided\r\n"),
+            "## Met outside the task\r\n\r\n- m\r\n## Decided"
+        );
+        assert_eq!(closing_text("- a | b\n## Decided later\n"), "");
+    }
+
     /// The claim: `closing-sections.md` holds, under its title, every agent of `agents.txt` once,
-    /// in its order, `agent-2` before `agent-10`, each at its first line there, with its report's
+    /// in its order, `agent-2` before `agent-10`, each at its first line there, its lines apart, with its report's
     /// text from its first closing section, whichever comes first, to its end, fenced longer than
     /// any fence it holds; an agent whose sections are empty is listed with them empty; and the
     /// file is the same at an audit as outside one. Mutations checked, in `outputs`:
     /// `for (agent, _) in order {` made `for (agent, _) in &order[..order.len() - 1] {`, which
     /// skips the last agent; and made `for (agent, _) in closing.iter() {`, which sorts `agent-10`
-    /// before `agent-2`; each caught.
+    /// before `agent-2`; and `if reports.contains(&agent.as_str()) {` made
+    /// `if reports.last() == Some(&agent.as_str()) {`, which lists an agent twice where its lines
+    /// are apart; each caught.
     #[test]
     fn the_closing_sections_hold_every_report_s_sections_in_the_order_of_the_list() {
         let names: Vec<String> = (1..=11).map(|n| format!("agent-{n}")).collect();
-        // agent-2 grades two entries, so it has two lines in `agents.txt`.
+        // agent-2 grades two entries, so it has two lines in `agents.txt`, apart.
         let mut order: Vec<(String, String)> = names
             .iter()
             .map(|a| (a.clone(), format!("d@x@{a}")))
             .collect();
-        order.insert(2, ("agent-2".to_string(), "d@x@second".to_string()));
+        // Its second line after agent-3's, so its two lines are not adjacent.
+        order.insert(3, ("agent-2".to_string(), "d@x@second".to_string()));
         let empty = "## Decided\n\n## Met outside the task\n";
         let closing: BTreeMap<String, String> = names
             .iter()
