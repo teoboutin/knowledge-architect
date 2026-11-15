@@ -68,7 +68,7 @@ A finding is cited by its id and its file's stem, in the form
    `agent@knowledge-architect-record-searcher` says, with each received file in its `work`, each id
    of point 3 in its `subjects`, and as its `seeds` the design heads and goals the findings name, or
    none. A proposed fix on a subject the
-   files did not raise sends the search again, with the fix as its `--work`, before its outcome is
+   files did not raise runs the search again, with the fix as its `work`, before its outcome is
    decided or put to the owner.
 %% The searcher is `design@agent-skills@one-record-searcher`, its clusters
 %% `design@query@cluster-rooted-at-a-subject`, and its verdicts at an intake

@@ -80,7 +80,7 @@ text leaves that room on purpose, per `primer@room-to-judge`.
    `agent@knowledge-architect-record-searcher` says, with each received file in its `work`, each id
    of point 3 in its `subjects`, and as its `seeds` the design heads and goals the findings name, or
    none. A proposed fix on a subject the
-   files did not raise sends the search again, with the fix as its `--work`, before its outcome is
+   files did not raise runs the search again, with the fix as its `work`, before its outcome is
    decided or put to the owner.
 
    Read the verdict files the search's check writes, one per subject, as that description says,

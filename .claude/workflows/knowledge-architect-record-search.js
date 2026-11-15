@@ -19,11 +19,20 @@ if (!(typeof args.scratch === 'string' && args.scratch !== '')) throw new Error(
 if (!(isList(args.work) && args.work.length)) throw new Error('work: at least one file of the work')
 if (args.subjects !== undefined && !isList(args.subjects)) throw new Error('subjects: a list of ids')
 if (args.seeds !== undefined && !isList(args.seeds)) throw new Error('seeds: a list of references')
+if (args.since !== undefined && typeof args.since !== 'string') throw new Error('since: a commit')
+if (args.seedsFrom !== undefined && typeof args.seedsFrom !== 'string') throw new Error('seedsFrom: a path')
+if (args.bound !== undefined && !Number.isInteger(args.bound)) throw new Error('bound: an integer')
 const maxRounds = args.maxRounds === undefined ? 3 : args.maxRounds
 if (!(Number.isInteger(maxRounds) && maxRounds >= 1)) throw new Error('maxRounds: an integer, at least 1')
 
 const SEARCHER = 'knowledge-architect-record-searcher'
 const at = (...parts) => parts.join('/')
+// The last name agent-<n> in a directory or a file path an agent returns, or null where it holds
+// none.
+const agentName = (s) => {
+  const all = [...String(s).matchAll(/(?:^|\/)(agent-[0-9]+)(?=\/|$)/g)]
+  return all.length ? all[all.length - 1][1] : null
+}
 const lines = (xs) => xs.filter(Boolean).join('\n')
 
 // A value single-quoted for the shell, an inner ' written '\'', so that a backticked seed or a path
@@ -32,8 +41,6 @@ function quoted(value) {
   return "'" + String(value).replace(/'/g, "'\\''") + "'"
 }
 
-// The whole command line of `worklist --out`: after the directory, each file of the work, each
-// subject, each seed, then since, seedsFrom and bound, each value quoted.
 function worklistCommand(a) {
   const line = ['cargo klarch worklist --out', quoted(a.scratch)]
   for (const w of a.work) line.push('--work', quoted(w))
@@ -68,14 +75,13 @@ const listed = await agent(lines([
 ]), { effort: 'low', schema: LISTED, phase: 'worklist', label: 'worklist' })
 if (!listed) throw new Error('the worklist step returned nothing')
 if (listed.refusal) return { refusal: listed.refusal }
-const names = (listed.agents || []).map((a) => a.split('/').pop())
-if (!names.length || names.some((n) => !/^agent-[0-9]+$/.test(n))) {
+const names = (listed.agents || []).map(agentName)
+if (!names.length || names.some((n) => !n)) {
   throw new Error('the worklist step returned no agent directory agent-<n>: ' + JSON.stringify(listed.agents))
 }
 const notices = listed.notices || ''
 log(names.length + ' agent directories')
 
-// The searchers: one per agent directory, which is its scratch directory.
 const REPORT = {
   type: 'object',
   properties: { written: { type: 'boolean' }, reportText: { type: 'string' } },
@@ -117,9 +123,7 @@ const writeText = (name, r) => {
 phase('search')
 await pipeline(names, (name) => search(name, null, name), (r, name) => writeText(name, r))
 
-// The check: one agent runs `worklist --verify`; each searcher whose report fails is sent again
-// with its findings, and the check runs again, for at most maxRounds runs. No step repairs a
-// report: choosing a verdict or an action is the searcher's grading.
+// No step repairs a report: choosing a verdict or an action is the searcher's grading.
 phase('verify')
 const VERIFIED = {
   type: 'object',
@@ -142,18 +146,32 @@ for (let round = 1; ; round++) {
     'You run the check of every report of a record search. From the project root, run this command ' +
       'once, exactly as written:',
     'cargo klarch worklist --verify ' + quoted(args.scratch),
-    'Return passed, true where it exits 0 and false otherwise; output, every line it printed, ' +
-      'verbatim; and failing, one item per agent whose report a finding names, a finding being a line ' +
-      'that opens with agent-<n>/report.md: agent, its name agent-<n>, and findings, each such line ' +
-      'of it, verbatim, one per line.',
+    'Return passed, true where it exits 0 and false otherwise; output, every line it printed on ' +
+      'stdout and on stderr, verbatim; and failing, one item per agent whose report a line of that ' +
+      'output names, by a path that holds agent-<n>/report.md, whatever comes before it: agent, its ' +
+      'name agent-<n>, and findings, each such line, verbatim, one per line.',
     'Repair no report, and edit nothing.',
   ]), { effort: 'low', schema: VERIFIED, phase: 'verify', label: 'verify ' + round })
   if (!checked) throw new Error('the check of the reports returned nothing, at its run ' + round)
   if (checked.passed) break
-  const failing = checked.failing
-    .map((f) => ({ agent: f.agent.split('/').pop(), findings: f.findings }))
-    .filter((f) => names.includes(f.agent))
-  // A failing check with no agent to send back, such as a file it could not read, ends the loop.
+  // Each agent once, with all its findings: those the agent returned, and each line of the output
+  // that names its report, so that a line the agent left out, such as the error of a line the check
+  // cannot read, still sends the report back. An agent the worklist step did not return is kept,
+  // since its directory holds a report nobody filled.
+  const byAgent = new Map()
+  const add = (name, text) => {
+    if (!name) return
+    if (!byAgent.has(name)) byAgent.set(name, [])
+    for (const l of String(text).split('\n')) if (l && !byAgent.get(name).includes(l)) byAgent.get(name).push(l)
+  }
+  for (const f of checked.failing) add(agentName(f.agent), f.findings)
+  for (const l of String(checked.output).split('\n')) {
+    const m = /(agent-[0-9]+)\/report\.md/.exec(l)
+    if (m) add(m[1], l)
+  }
+  const failing = [...byAgent].map(([agent, lines]) => ({ agent, findings: lines.join('\n') }))
+  // A failing check that names no report to send back, such as one whose work list it could not
+  // read, ends the loop.
   if (round >= maxRounds || !failing.length) {
     log('the check still fails after ' + round + ' runs')
     return { failing: checked.failing, verifyOutput: checked.output, notices }
@@ -164,7 +182,7 @@ for (let round = 1; ; round++) {
     (r, f) => writeText(f.agent, r))
 }
 
-const subjects = args.subjects && args.subjects.length ? args.subjects : ['whole-work']
+const subjects = args.subjects && args.subjects.length ? [...new Set(args.subjects)] : ['whole-work']
 const outputs = { notices, verdictFiles: subjects.map((s) => at(args.scratch, 'verdicts-' + s + '.md')) }
 if (args.seedsFrom !== undefined) {
   outputs.gaps = at(args.scratch, 'gaps.md')
@@ -173,6 +191,7 @@ if (args.seedsFrom !== undefined) {
   outputs.generatedLines = at(args.scratch, 'generated-lines.md')
 }
 outputs.closingSections = at(args.scratch, 'closing-sections.md')
-outputs.statement = 'The searchers read the tree as it stood while this workflow ran: the session ' +
-  'edits nothing in the tree until the workflow returns, so an edit made meanwhile is read by no verdict.'
+outputs.statement = 'The searchers read the tree as it stood when each read it: the session edits ' +
+  'nothing in the tree until the workflow returns, since an edit made meanwhile is read by some ' +
+  'verdicts and missed by others.'
 return outputs

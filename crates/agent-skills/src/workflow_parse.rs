@@ -208,23 +208,25 @@ fn worklist_commands(cases: &str) -> Option<Vec<String>> {
 
 /// The claim: `worklistCommand` maps every argument of the workflow in a fixed order, `--out`, then
 /// `--work`, `--subject`, `--seed`, `--since`, `--seeds-from` and `--bound`, each element once and
-/// single-quoted, an inner `'` written `'\''`, so a backticked seed runs no substitution; and no
-/// `subjects` and no `seeds` add no flag. Mutation checked: in
-/// `worklistCommand`, `for (const s of a.seeds || [])` made
+/// single-quoted, each inner `'` written `'\''`, so a backticked seed runs no substitution; no
+/// `subjects` and no `seeds` add no flag; and an empty `since` is passed on, for `--out` to refuse.
+/// Mutation checked: in `worklistCommand`, `for (const s of a.seeds || [])` made
 /// `for (const s of (a.seeds || []).slice(0, -1))`, which drops the last seed; caught. And in
-/// `quoted`, `String(value).replace(/'/g, "'\\''")` made `String(value)`; caught.
+/// `quoted`, `String(value).replace(/'/g, "'\\''")` made `String(value)`, and the same made
+/// `String(value).replace(/'/, "'\\''")`, which escapes the first `'` alone; each caught. And
+/// `if (a.since !== undefined)` made `if (a.since)`, which drops an empty `since`; caught.
 #[test]
 fn the_record_search_s_flag_builder_maps_every_argument() {
     // Bound by a `const`, which the checker does not read: a seed here names no entry.
     const EXPECTED: [&str; 2] = [
-        r#"klarch worklist --out '/s/a b' --work 'w.md' --work 'it'\''s.md' --subject 't-one' --subject 't-two' --seed '`design@x@one`' --seed 'issue@x@two' --since 'abc123' --seeds-from 'docs/plans/specs/s/README.md' --bound '30000'"#,
-        "klarch worklist --out '/s/b' --work 'w.md'",
+        r#"klarch worklist --out '/s/a b' --work 'w.md' --work 'it'\''s o'\''k.md' --subject 't-one' --subject 't-two' --seed '`design@x@one`' --seed 'issue@x@two' --since 'abc123' --seeds-from 'docs/plans/specs/s/README.md' --bound '30000'"#,
+        "klarch worklist --out '/s/b' --work 'w.md' --since ''",
     ];
     let cases = r#"[
-        { scratch: '/s/a b', work: ['w.md', "it's.md"], subjects: ['t-one', 't-two'],
+        { scratch: '/s/a b', work: ['w.md', "it's o'k.md"], subjects: ['t-one', 't-two'],
           seeds: ['`design@x@one`', 'issue@x@two'], since: 'abc123',
           seedsFrom: 'docs/plans/specs/s/README.md', bound: 30000, maxRounds: 2 },
-        { scratch: '/s/b', work: ['w.md'] },
+        { scratch: '/s/b', work: ['w.md'], since: '' },
     ]"#;
     let Some(got) = worklist_commands(cases) else {
         return eprintln!("{SKIPPED}");
