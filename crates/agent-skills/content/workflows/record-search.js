@@ -179,7 +179,7 @@ for (let round = 1; ; round++) {
   // read, ends the loop.
   if (round >= maxRounds || !failing.length) {
     log('the check still fails after ' + round + ' runs')
-    return { failing: checked.failing, verifyOutput: checked.output, notices }
+    return { failing: failing.length ? failing : checked.failing, verifyOutput: checked.output, notices }
   }
   log('run ' + round + ': ' + failing.length + ' reports fail, sent back')
   await pipeline(failing,
