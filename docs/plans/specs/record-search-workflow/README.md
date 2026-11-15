@@ -901,11 +901,13 @@ checks, and the others are judged at the harvest, under Premortem.
   put in the reply to round 3 as open to the owner's word, and approved with the design, round 4:
   the session chose 3, which no goal ranks. The owner approved the value, round 5.
   Bears on #report-loop-in-the-workflow.
-- **D2, ruled.** The opt-in the Workflow tool requires: the default is the premise of
-  the decided design, that a skill the session loads itself, which names the workflow, is no opt-in
-  by the tool's description, that a standing authorization in the user's or the project's
-  instructions is one, and that a session holding none dispatches by the by-hand line. A material
-  finding of the plan's review. The owner approved the default, round 5. Bears on #dispatch-text-home and #fallback-dispatch-line.
+- **D2, ruled.** The opt-in the Workflow tool requires. That a skill the session loads itself,
+  which names the workflow, is no opt-in is a reading of the tool's description, which counts as one
+  "The user invoked a skill or slash command whose instructions tell you to call Workflow"; that a
+  standing authorization in the user's or the project's instructions is one is the session's reading
+  of the same description. The default built on them: a session holding none dispatches by the
+  by-hand line, over the setup skill proposing a standing-authorization line for each project. A
+  material finding of the plan's review. The owner approved the default, round 5. Bears on #dispatch-text-home and #fallback-dispatch-line.
 
 ## Harvest
 

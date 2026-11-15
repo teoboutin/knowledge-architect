@@ -1,11 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-11 entries
+12 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A quotation whose last word is cut from its punctuation is refused as words "not in this order"](a-quotation-cut-from-its-punctuation-is-refused-as-out-of-order.md) |
 | defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
+| question | [Whether two heads of the query design home each bundle a second decision](two-query-heads-may-each-bundle-a-second-decision.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [No command counts a tripwire's horizon](no-command-counts-a-tripwire-s-horizon.md) |
 | todo | [No command lists the entries two commits differ by](no-command-lists-the-entries-two-commits-differ-by.md) |

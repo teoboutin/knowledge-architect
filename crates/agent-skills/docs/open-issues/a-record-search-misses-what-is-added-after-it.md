@@ -104,7 +104,12 @@ The next design discussion whose own work includes reopening
 
 The design discussion of the milestone on split guidelines and plan directories met the earlier
 re-entry point, which also named the next discussion that changes the grounding's steps; on the
-owner's word, given as its Q6, the reopening was kept out of that milestone.
+owner's word, given as its Q6, the reopening was kept out of that milestone. The discussion of
+the record search's saved workflow, whose spec the commit "[plans] The spec of the record search's
+saved workflow, with the closing sections and the verdict order a passing `worklist --verify`
+writes" added, met it too: on the owner's word, given as that spec's Q1, the reopening of
+`design@agent-skills@one-record-searcher` was kept out of that work, which rewrote only where the
+dispatch lives.
 
 ### Leads
 
