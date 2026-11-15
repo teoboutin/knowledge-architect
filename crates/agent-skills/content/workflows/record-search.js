@@ -27,19 +27,23 @@ if (!(Number.isInteger(maxRounds) && maxRounds >= 1)) throw new Error('maxRounds
 
 const SEARCHER = 'knowledge-architect-record-searcher'
 const at = (...parts) => parts.join('/')
-// The last name agent-<n> in a directory or a file path an agent returns, or null where it holds
-// none.
-const agentName = (s) => {
+const lines = (xs) => xs.filter(Boolean).join('\n')
+
+%% The four functions below are pure, and the tests of the agent-skills crate's `workflow_parse`
+%% module read each from its `function <name>(` line to the next line that is a lone `}` and run it
+%% under `node`: `the_record_search_s_flag_builder_maps_every_argument` runs `worklistCommand` with
+%% `quoted`, and `the_record_search_s_failing_reports_merge_the_check_s_output` runs
+%% `failingReports` with `agentName`. Keep each in that form, and keep each calling nothing outside
+%% the four. The flag builder and the merge are functions of their own because their failure is
+%% silent: a dropped or misquoted seed weakens the search, a report the merge leaves out is sent
+%% back by nobody, and nothing reports either.
+%% `agentName`: the last name agent-<n> in a directory or a file path an agent returns, or null
+%% where it holds none.
+function agentName(s) {
   const all = [...String(s).matchAll(/(?:^|\/)(agent-[0-9]+)(?=\/|$)/g)]
   return all.length ? all[all.length - 1][1] : null
 }
-const lines = (xs) => xs.filter(Boolean).join('\n')
 
-%% The two functions below are pure, and `path@agent-skills@src/workflow_parse.rs` reads each from
-%% its `function <name>(` line to the next line that is a lone `}` and runs it under `node`: keep
-%% each in that form, and keep `worklistCommand` calling nothing outside the two. The flag builder
-%% is a function of its own because its failure is silent: a dropped or misquoted seed weakens the
-%% search, and nothing reports it.
 // A value single-quoted for the shell, an inner ' written '\'', so that a backticked seed or a path
 // holding a space or a quote reaches the command as one word, and runs no substitution.
 function quoted(value) {
@@ -55,6 +59,28 @@ function worklistCommand(a) {
   if (a.seedsFrom !== undefined) line.push('--seeds-from', quoted(a.seedsFrom))
   if (a.bound !== undefined) line.push('--bound', quoted(a.bound))
   return line.join(' ')
+}
+
+// The reports a failing check sends back, each agent once with all its findings: those the check's
+// agent returned, and each line of the output that names its report, so that a line the agent left
+// out, such as the error of a line the check cannot read, still sends the report back. An agent the
+// worklist step did not return is kept, since its directory holds a report nobody filled. `failing`
+// is what the workflow returns once it sends nothing more back: the reports it would send back, or
+// the agent's own list where neither names a report.
+function failingReports(checked) {
+  const byAgent = new Map()
+  const add = (name, text) => {
+    if (!name) return
+    if (!byAgent.has(name)) byAgent.set(name, [])
+    for (const l of String(text).split('\n')) if (l && !byAgent.get(name).includes(l)) byAgent.get(name).push(l)
+  }
+  for (const f of checked.failing) add(agentName(f.agent), f.findings)
+  for (const l of String(checked.output).split('\n')) {
+    const m = /(agent-[0-9]+)\/report\.md/.exec(l)
+    if (m) add(m[1], l)
+  }
+  const sendBack = [...byAgent].map(([agent, found]) => ({ agent, findings: found.join('\n') }))
+  return { sendBack, failing: sendBack.length ? sendBack : checked.failing }
 }
 
 // The work list: one agent runs `worklist --out`, since a script runs no command, and returns the
@@ -159,30 +185,17 @@ for (let round = 1; ; round++) {
   ]), { effort: 'low', schema: VERIFIED, phase: 'verify', label: 'verify ' + round })
   if (!checked) throw new Error('the check of the reports returned nothing, at its run ' + round)
   if (checked.passed) break
-  // Each agent once, with all its findings: those the agent returned, and each line of the output
-  // that names its report, so that a line the agent left out, such as the error of a line the check
-  // cannot read, still sends the report back. An agent the worklist step did not return is kept,
-  // since its directory holds a report nobody filled.
-  const byAgent = new Map()
-  const add = (name, text) => {
-    if (!name) return
-    if (!byAgent.has(name)) byAgent.set(name, [])
-    for (const l of String(text).split('\n')) if (l && !byAgent.get(name).includes(l)) byAgent.get(name).push(l)
-  }
-  for (const f of checked.failing) add(agentName(f.agent), f.findings)
-  for (const l of String(checked.output).split('\n')) {
-    const m = /(agent-[0-9]+)\/report\.md/.exec(l)
-    if (m) add(m[1], l)
-  }
-  const failing = [...byAgent].map(([agent, lines]) => ({ agent, findings: lines.join('\n') }))
+  const { sendBack, failing } = failingReports(checked)
   // A failing check that names no report to send back, such as one whose work list it could not
   // read, ends the loop.
-  if (round >= maxRounds || !failing.length) {
-    log('the check still fails after ' + round + ' runs')
-    return { failing: failing.length ? failing : checked.failing, verifyOutput: checked.output, notices }
+  if (!sendBack.length || round >= maxRounds) {
+    log(sendBack.length
+      ? 'the check still fails after ' + round + ' runs'
+      : 'the check fails at its run ' + round + ' and names no report to send back')
+    return { failing, verifyOutput: checked.output, notices }
   }
-  log('run ' + round + ': ' + failing.length + ' reports fail, sent back')
-  await pipeline(failing,
+  log('run ' + round + ': ' + sendBack.length + ' reports fail, sent back')
+  await pipeline(sendBack,
     (f) => search(f.agent, f.findings, f.agent + ' again ' + round),
     (r, f) => writeText(f.agent, r))
 }

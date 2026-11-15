@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-74 entries
+75 entries
 
 | kind | title |
 | --- | --- |
@@ -69,6 +69,7 @@
 | todo | [No check reports a lens of the agentic-workflow axis whose second agent found nothing the first did not](no-check-reports-a-duplicated-workflow-lens-whose-other-agents-found-nothing.md) |
 | todo | [No installed procedure says how a survey of prior art runs, which the owner takes in](no-installed-procedure-runs-a-survey-of-prior-art.md) |
 | todo | [No test runs the audit workflows' logic: the counts they report as exact are untested](no-test-runs-a-saved-workflow-s-logic.md) |
+| todo | [No test runs the body of the record search's workflow: its round loop, its report writer and its outputs are untested](no-test-runs-the-record-search-workflow-s-body.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |

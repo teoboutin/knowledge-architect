@@ -8,8 +8,9 @@ kind: todo
 The three audit workflows compute the counts their report copies as exact, and no test runs that
 logic: it sits in each script's top-level body, beside the harness's `agent`, `phase` and `log`
 calls, so nothing can call it apart from a real run. The parse of each installed saved workflow is
-tested, by `path@agent-skills@src/workflow_parse.rs`, and so is the record search's flag builder;
-what the audit scripts compute is not.
+tested, by `path@agent-skills@src/workflow_parse.rs`, and so are the record search's flag builder
+and its merge of the failing reports; what the audit scripts compute is not. The rest of the record
+search's script is `issue@agent-skills@no-test-runs-the-record-search-workflow-s-body`.
 
 ## Details
 
@@ -62,10 +63,12 @@ received retrospective files.
   the harness's API, which a change of the harness leaves stale until a real run shows it.
 - **Pure functions the script's body calls**, which a test calls with fixed returns, the shape the
   code-shape finding above named, change each script and need no stub of the harness. The record
-  search's saved workflow has one: its flag builder, `worklistCommand`, top-level in
-  `path@agent-skills@content/workflows/record-search.js`, which
-  `the_record_search_s_flag_builder_maps_every_argument` in `path@agent-skills@src/workflow_parse.rs`
-  takes from the installed text and runs under `node` on fixed `args`.
+  search's saved workflow has two: its flag builder, `worklistCommand`, and its merge of the failing
+  reports, `failingReports`, top-level in `path@agent-skills@content/workflows/record-search.js`,
+  which `the_record_search_s_flag_builder_maps_every_argument` and
+  `the_record_search_s_failing_reports_merge_the_check_s_output` in
+  `path@agent-skills@src/workflow_parse.rs` take from the installed text and run under `node` on
+  fixed inputs.
 - Either runs on `node`, which the parse test already requires where `cargo x gates --ci` runs
   and skips without elsewhere, per `design@gates@ci-flag-for-ci-only-requirements`.
 
