@@ -41,8 +41,8 @@ premortem. Arguments: `argument@record-search-workflow@arg-8`, `argument@record-
 `argument@record-search-workflow@arg-27`, `argument@record-search-workflow@arg-35`. Shape: Decided
 design, "The workflow writes the text reports, runs `--verify`, and sends a failing report back".
 Harvest: the head of the workflow. Closed in the reply to round 3 on its argument; the value 3 of
-`maxRounds` is D1, put as open to the owner's word in the reply to round 3, which the owner approved
-with the design, round 4. The premortem of the reply to round 4 added the clause that each text
+`maxRounds` is Q2, put as open to the owner's word in the reply to round 3 and approved with the
+design, round 4; the owner's word on the value itself is awaited. The premortem of the reply to round 4 added the clause that each text
 report is written by an agent of its own.
 
 ### A passing `--verify` writes every report's closing sections into one file `##closing-sections-file`
@@ -111,7 +111,8 @@ Final state: argued, with a clause from the premortem. Arguments:
 `argument@record-search-workflow@arg-20`, `argument@record-search-workflow@arg-25`,
 `argument@record-search-workflow@arg-36`. Shape: Decided design, "The dispatch lives in the script,
 and the searcher's description keeps what the session needs". Harvest: the head of the workflow.
-The premortem of the reply to round 4 added the clause that the line restates no step.
+The premortem of the reply to round 4 added the clause that the line restates no step. A thread on
+a subject the search covered, #dispatch-text-home, so it owed no search of its own.
 
 ### The flag builder is a pure function, tested under `node` `##search-workflow-logic-tested`
 
@@ -173,6 +174,8 @@ spec) differ only in their flags. `--seeds-from` switches the outputs to `gaps.m
 
 Round 1, the session. Bears on #search-runs-a-saved-workflow. "you took in the generic part of the
 36-agent workflow, and a rewording still leaves 24 to 36 hand dispatches and checks per search."
+The 36 searchers of that design audit ran as a dynamic workflow; under the rival they would be
+dispatched by hand.
 
 ### The session running `--out` saves nothing `##arg-6`
 
@@ -237,7 +240,9 @@ asked what would change in each case, and proposed an experiment in this discuss
 Round 2, the session. Bears on #verdicts-split-by-action. Counted over the verdict lines of the
 commit messages of four past searches: 177, 116, 125 and 19 verdicts `constrains` or `touches` with
 `respect` or `none`, and 11, 9, 6 and 1 that need an act. "So a search returns two very different
-populations".
+populations". The four commits and the command are named in the README's decided design; the second
+search, recounted, is 115 light, 1 `worsens` and 9 other act verdicts, the session having counted
+the `worsens` among the light.
 
 ### To act on a verdict the session reads its entry whole anyway `##arg-16`
 
@@ -284,6 +289,8 @@ doing the reading."
 
 Round 3, the session. Bears on #verdicts-split-by-action. "With reasons, the light lines are 95 KB
 for 178 entries. The verdict files are 1.5 MB, since one entry appears under each of its subjects."
+The 178 are the entries the verdict files hold graded `constrains` or `touches` with `respect` or
+`none`; the other 43 such verdicts are `against: -`, in no verdict file.
 
 ### A subject handed to an agent is that subject's file `##arg-22`
 
@@ -303,7 +310,8 @@ workflow's other fixed steps stand on "an output whose form a command checks".
 Round 3, the session. Bears on #worklist-notices-returned. "A design audit reads the notices that
 `worklist --out` prints. Those notices go to stdout only (`outln!`, in
 `path@query@src/worklist.rs`, lines 435 to 471). The draft's worklist step returned only the directories,
-so the notices would be lost."
+so the notices would be lost." At the commit "[intake] The forty-seven retrospective analyses leave,
+every outcome carried out", the `outln!` calls of `write` are at lines 396 to 445.
 
 ### A search run inside an agent cannot run the workflow `##arg-25`
 
@@ -339,7 +347,9 @@ Round 3, the session. Bears on #verdicts-verified-in-the-workflow and #verdicts-
 10 narrowed an `against` list or an action without changing the work", and "I found nothing the
 cross-checkers missed through the conversation's context." "This is one run, so it cannot rank
 sessions against cross-checkers. What it does establish, confirmed by reading: a cross-check would
-have saved my misses, but so would the reasons the searchers had already written."
+have saved my misses, but so would the reasons the searchers had already written." Counted as the
+lines marked `refuted` in the cross-checkers' twelve files, the refutations are 16, not 17. The README's "What is already
+decided" gives each refutation with its reading.
 
 ### This work moves the dispatch, and the reopening would change what a search reads `##arg-30`
 
@@ -347,7 +357,9 @@ Round 3, the session, the default of Q1. Bears on #dispatch-text-home. "In a rel
 kept this reopening out of the milestone on split guidelines. The two works also change apart: this
 one moves the dispatch, the reopening would change what a search reads." And: "with a workflow, a
 second search after a new thread is a single call with the extended draft." The owner ruled Q1 no,
-round 4.
+round 4. That Q6 is the milestone on split guidelines and plan directories, which left in the commit
+"[plans] The milestone on split guidelines and plan directories leaves: its last slice landed, and
+every default is ruled".
 
 ### A dropped seed is a silent failure `##arg-31`
 
