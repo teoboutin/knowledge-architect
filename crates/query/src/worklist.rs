@@ -1479,8 +1479,8 @@ fn is_act(verdict: &Verdict) -> bool {
 /// At a design audit, where `work` names a plan document, `gaps.md` and `fit-lines.md` take the
 /// place of `generated-lines.md`. `gaps.md` holds every verdict but `constrains` and `unrelated`,
 /// whatever subjects its `against` names, each whole, as a verdict file gives an act verdict, a
-/// light `touches` verdict included, since a gap is the audit's
-/// whatever the subject: each is sorted by the planning skill's four sorts. `fit-lines.md` holds the
+/// light `touches` verdict included, since the audit reads every gap, whatever subject it names:
+/// each is sorted by the planning skill's four sorts. `fit-lines.md` holds the
 /// generated lines under one line citing the plan document whole and naming the `--since` commit
 /// by its subject, where `work` gives one, so the audit's message carries them as written.
 ///
