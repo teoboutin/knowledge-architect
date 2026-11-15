@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-10 entries
+11 entries
 
 | kind | title |
 | --- | --- |
@@ -14,3 +14,4 @@
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [Two answers of `show` that differ from what the check reads, fixed on one branch](show-s-answers-on-one-branch.md) |
+| todo | [`worklist.rs` is past one read and holds the work list's writer and its judge, which change apart](worklist-rs-holds-a-writer-and-a-judge-past-one-read.md) |

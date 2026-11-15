@@ -411,8 +411,11 @@ At every occasion, `closing-sections.md`, one of the files of
 report's text from its first closing section to its end, fenced, an agent whose sections are empty
 listed with them empty.
 
-`closing-sections.md` is read by the dispatching session itself. In a saved workflow the searchers'
-returns never reach the session, so their closing sections are otherwise read in each `report.md`,
+`closing-sections.md` is read by the dispatching session itself. The record search runs as a saved
+workflow, per `design@agent-skills@search-runs-a-saved-workflow`, whose script dispatches each
+searcher by `agent()`, which "returns its final text" to the script, as the Workflow tool's
+authoring reference says, so the searchers' returns never reach the session, and their closing
+sections are otherwise read in each `report.md`,
 one file per searcher, 22 in the search of the discussion that designed the file, the reading that
 left unread the closing sections of 16 of 18 reports in one search, two of whose items bore on the
 work, as the issue on those sections recorded until the commit that planned this file deleted it;
