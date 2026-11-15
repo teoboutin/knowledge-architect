@@ -144,9 +144,9 @@ an empty subsection is omitted.
   `maxRounds` runs of the check, 3 by default. The searcher's description names the workflow and
   its `args`, and the design skill's grounding, the planning skill's design audit and the intake's
   grounding run it. The session edits nothing in the tree until it returns. A session that cannot
-  run it, inside an agent, where the run is refused, or with no opt-in for the Workflow tool, which a
-  standing authorization in the user's or the project's instructions gives, dispatches its steps by
-  hand from the script.
+  run it, inside an agent, where the run is refused, where the harness does not list the workflow,
+  or with no opt-in for the Workflow tool, which a standing authorization in the user's or the
+  project's instructions gives, dispatches its steps by hand from the script.
 - `agent-skills`, patch: the session reads each act verdict of a verdict file with its entry, and
   each light verdict as its line, running `show` on one that looks like a downgrade, and carries
   every searcher's closing sections from `closing-sections.md`; the design-conformance reviewer

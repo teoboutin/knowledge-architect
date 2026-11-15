@@ -69,9 +69,10 @@ The standing argument:
 ### The record search's saved workflow ships in the installed text, on the owner's take-in of its generic part `##search-workflow-ships-installed`
 
 `goal@generic-tools-and-procedures-are-shipped` ships the generic part of a tool a target project
-sets up once the owner takes it in, and the owner took in the generic part of the workflow that ran
-a design audit's 36 searchers at the intake of forty-seven retrospective files, which the commit
-"[intake] The forty-seven retrospective analyses leave, every outcome carried out" closed. Under the
+sets up once the owner takes it in. A design audit's 36 searchers ran as a workflow, and at the
+intake of forty-seven retrospective files, which the commit "[intake] The forty-seven retrospective
+analyses leave, every outcome carried out" closed, the owner took in the generic part of that
+workflow. Under the
 goal a part is taken in by the owner's choice, not because it is generic, so that take-in is a
 premise of this head: a ruling of the owner that withdrew it would move the workflow out of the
 installed text, into a `klarch-` workflow of this repository, the nearest rival.
@@ -101,20 +102,33 @@ notices, which the step returns from the run it makes for the command's sake, pe
 
 ### The record search's workflow sends each failing report back to its searcher for at most `maxRounds` runs of `worklist --verify`, then returns the reports still failing `##report-loop-in-the-workflow`
 
-Once every searcher has returned, each report a searcher returned as text is written into its
-`report.md` through the shell, per `design@agent-skills@report-written-through-the-shell`. One agent then runs `klarch worklist --verify`,
-a command the script cannot run, and returns whether it passed, its output, and each failing agent
-with its findings; the script sends each failing agent's searcher again with them, and runs the
-check again. No step repairs a report, per
+As each searcher returns, a report it returned as text is written into its `report.md` through the
+shell, per `design@agent-skills@report-written-through-the-shell`: the script runs each searcher
+and its writer as the two stages of one `pipeline`, which the Workflow tool's authoring reference
+says runs "each item through all stages independently, NO barrier between stages". Once every
+searcher has returned, one agent runs `klarch worklist --verify`, a command the script cannot run,
+and returns whether it passed, its output, and each failing agent with its findings. The script
+sends back to its searcher each report the agent listed and each report that a line of the output
+names by a path holding `agent-<n>/report.md`, each once with all its findings, so that a line the
+agent left out still sends its report back, and runs the check again. No step repairs a report, per
 `design@agent-skills@failing-report-goes-back-to-its-searcher`. `maxRounds` counts the runs of the
 check, 3 where `args` gives none. Past them, or where a failing check names no report to send back,
-the workflow returns `failing`, the last run's output and `notices`, and caps nothing silently: the
-session sends each failing agent again by hand, with its findings, and runs the check itself, or
-reports the search as failing where a searcher repeats a finding.
+the workflow returns `failing`, the reports it would send back, or the agent's own list where
+neither names a report, with the last run's output, `verifyOutput`, and `notices`, and caps nothing
+silently: the session sends each failing agent again by hand, with its findings, and runs the check
+itself, or reports the search as failing where a searcher repeats a finding, and reports it failing
+with `verifyOutput` where `failing` names no report. `failing` names the reports the last run judged
+failing, and a line the check cannot parse stops that run at the line's report, so a run can
+advance one report while others still fail.
 
 A bound is owed, since a searcher can repeat a finding, and a loop with none would never end. The
 session chose 3 runs, two sendings back, over any other bound, none weighed and none grounded by a
 measurement, which no goal ranks; the owner approved it.
+
+The script runs the loop, per `goal@tasks-a-tool-does-better-are-the-tool-s`, under which a task
+that recurs and that a tool does at a lower cost is done by a tool once the owner has taken it in:
+the loop recurs at every search, and the owner took in the workflow, as
+`design@agent-skills@search-workflow-ships-installed` records.
 
 ### The session edits nothing in the tree while the record search's workflow runs `##session-edits-nothing-while-the-search-runs`
 
@@ -134,7 +148,8 @@ search often reads.
 
 The searcher's description keeps one line for a session that cannot run the workflow: one running
 inside an agent, one whose run the permission mode refuses, one whose harness does not list the
-workflow, and one that holds no opt-in for the Workflow tool. That session dispatches the steps by
+workflow, and one that holds no opt-in for the Workflow tool, per
+`design@agent-skills@standing-authorization-is-a-workflow-opt-in`. That session dispatches the steps by
 hand, in the script's order, with the script's prompts, read from the script, as
 `design@agent-skills@audit-axis-runs-a-workflow` has a session do for an audit axis. The line
 restates no step.
@@ -146,17 +161,24 @@ The standing argument:
   nothing built. A general-purpose subagent holds no `Workflow` tool, measured once in Claude Code
   2.1.321, so a search run inside an agent dispatches by hand; the probe that takes it again is one
   general-purpose agent asked to list its tools. Whether a run needs a permission rule is
-  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`.
-- **The opt-in is read in the Workflow tool's description**, which counts as one "The user invoked a
-  skill or slash command whose instructions tell you to call Workflow": the skills that name this
-  workflow are most often loaded by the session itself, which that sentence does not cover. That a
-  standing authorization in the user's or the project's instructions is an opt-in is the session's
-  reading of a description that quotes no sentence for it: the session chose it over the reading
-  that only an invocation the description names is an opt-in, no cost weighed, which no goal ranks;
-  the owner approved it. A session that holds none takes the by-hand line.
+  `issue@agent-skills@whether-a-saved-workflow-run-needs-a-permission-rule`. A harness that does
+  not list the workflow is `claude` too: `skill@knowledge-architect-project-audit` says a harness may
+  list saved workflows only when a session starts, so a session that ran the install later may not
+  see the workflow listed, and it gives that session the same by-hand line for an audit axis.
 - **The line restates no step**, so it cannot drift from the script, which a line restating them
   would, as the premortem of the discussion that designed the workflow named; the steps keep the
   one home of `design@agent-skills@search-runs-a-saved-workflow`.
+
+### A standing authorization in the user's or the project's instructions is an opt-in for the Workflow tool `##standing-authorization-is-a-workflow-opt-in`
+
+The opt-in is read in the Workflow tool's description, which counts as one "The user invoked a
+skill or slash command whose instructions tell you to call Workflow": the skills that name the
+record search's workflow are most often loaded by the session itself, which that sentence does not
+cover. That a standing authorization in the user's or the project's instructions is an opt-in is
+the session's reading of a description that quotes no sentence for it: the session chose it over
+the reading that only an invocation the description names is an opt-in, no cost weighed, which no
+goal ranks; the owner approved it. A session that holds none takes the by-hand line of
+`design@agent-skills@fallback-dispatch-line`.
 
 ### The record search is an agent apart from the standing-state reviewer `##search-apart-from-the-standing-state-review`
 
@@ -304,7 +326,7 @@ reason over itself that its file does not give whole; puts each `owner-question`
 `primer@question-authority` says; and carries each item of `closing-sections.md`, every report's
 `## Decided` and `## Met outside the task`, into its own sections. The two parts of a verdict file
 are `design@query@verdicts-split-by-action`'s, and `closing-sections.md` is
-`design@query@occasion-shaped-output`'s. The searcher's description
+`design@query@closing-sections-file`'s. The searcher's description
 states these acts, and the act each action names at an occasion is stated by the skill that
 dispatches the search there, and what the occasion keeps of the search is
 `design@agent-skills@search-record-kept-per-occasion`.
@@ -314,15 +336,13 @@ the decisions and hands the reading to agents. A verdict carries its quotation, 
 is in the line; the session reads an entry whole where it must reason over the entry itself, since
 there the line does not carry what it needs. An act verdict is one the session must reason over to
 act on, a `check-reversal` among them, so its entry comes whole; a light verdict asks the work only
-to keep within the sentence it quotes, and its line keeps the searcher's reason, which carried each
-of the three verdicts bearing on the design that the session let through in the run that measured
-the split, per `design@query@verdicts-split-by-action`.
+to keep within the sentence it quotes, and its line keeps the searcher's reason, per
+`design@query@light-line-keeps-its-reason`.
 The nearest rival, the session reading whole the
 entries graded as bearing, lost to the size of that reading:
 `rejected@agent-skills@relevance-grades-read-by-the-session`. The verification stays the session's,
 or that of an agent the session chooses to dispatch, and no fixed step of the workflow makes it:
-`rejected@agent-skills@verdicts-verified-in-the-workflow`. In a workflow the searchers' returns never
-reach the session, so it reads their closing sections in the file the check writes. A verdict the
+`rejected@agent-skills@verdicts-verified-in-the-workflow`. A verdict the
 session misjudges has a reader at the plan document's review and at the merge, per
 `design@agent-skills@verdicts-reach-the-conformance-review`.
 
