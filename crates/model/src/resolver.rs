@@ -2345,4 +2345,127 @@ mod tests {
             format!("repair the pointer, or delete it. {DROP_THE_SUFFIX}")
         );
     }
+
+    /// The claim: a line suffix after a fragment, and a fragment after a line suffix, are both
+    /// stripped, so the path is left whole. Mutation checked: the second strip of a fragment
+    /// dropped from `without_suffix`.
+    #[test]
+    fn a_suffix_and_a_fragment_in_either_order_are_both_stripped() {
+        for (written, bare) in [
+            ("docs/design.md#x:12", "docs/design.md"),
+            ("docs/design.md:12#x", "docs/design.md"),
+            ("docs/design.md#x", "docs/design.md"),
+            ("docs/design.md", "docs/design.md"),
+        ] {
+            assert_eq!(
+                without_suffix(written),
+                (bare, written != bare),
+                "{written}"
+            );
+        }
+    }
+
+    /// The claim: an escaped path with a leading `/` is read from the root alone, so a path that
+    /// only an anchor's directory holds resolves to nothing here; written with no slash, the same
+    /// path is read from that anchor and is refused. Mutation checked: in `resolved_here`,
+    /// `if !bare.starts_with('/')` made `if true`.
+    #[test]
+    fn an_escaped_path_with_a_leading_slash_is_read_from_the_root_alone() {
+        let files = ["crates/one/src/a.rs"];
+        let directories = ["crates", "crates/one", "crates/one/src"];
+        assert_eq!(
+            path_over("elsewhere", "/src/a.rs", &files, &directories, &[]),
+            Ok(Target::Elsewhere)
+        );
+        assert_eq!(
+            path_over("elsewhere", "src/a.rs", &files, &directories, &[]),
+            Err(Cause::ResolvesHere {
+                form: "path@one@src/a.rs".to_string()
+            })
+        );
+    }
+
+    /// The claim: an escaped path that resolves here once its line suffix is dropped is told the
+    /// form at its anchor and to drop the suffix too. Mutation checked: in `path`, the escape
+    /// anchor taken out of `located`, `resolve(path)` for it alone.
+    #[test]
+    fn a_suffixed_escaped_path_that_resolves_here_is_told_to_drop_its_suffix() {
+        let files = ["crates/one/src/a.rs"];
+        let directories = ["crates", "crates/one", "crates/one/src"];
+        assert_eq!(
+            path_over(
+                "elsewhere",
+                "crates/one/src/a.rs:12",
+                &files,
+                &directories,
+                &[]
+            ),
+            suffixed(Cause::ResolvesHere {
+                form: "path@one@src/a.rs".to_string()
+            })
+        );
+    }
+
+    /// The claim: an item a plan does not define, cited from inside it, is told to define it
+    /// under its section of the plan, not in a home, since an item register has none. Mutation
+    /// checked: in `table_written`, the section lookup made never to match.
+    #[test]
+    fn an_undefined_item_is_told_to_define_it_under_its_section() {
+        let m = manifest();
+        let spec = PathBuf::from("docs/plans/specs/a-spec/README.md");
+        let anchors = Anchors::of(&m, std::slice::from_ref(&spec));
+        let model = Model::from_documents(vec![(
+            spec.clone(),
+            "# A spec\n\n## Threads\n\n### A thread `##thread-one`\n".to_string(),
+        )]);
+        let entities = Entities::build(&model, &anchors);
+        assert_eq!(
+            table(
+                &Kind::new("thread"),
+                "a-spec",
+                "no-such",
+                &spec,
+                &anchors,
+                &entities,
+            ),
+            Err(Cause::UndefinedItem {
+                anchor: "a-spec".to_string(),
+                kind: "thread".to_string(),
+                id: "no-such".to_string(),
+                section: "Threads".to_string(),
+            })
+        );
+    }
+
+    /// The claim: the generic form asks the ignore rules about its path under every anchor, not
+    /// the first alone. Mutation checked: in `ignore_queries`, `anchors.all()` of the generic arm
+    /// made `anchors.all().iter().take(1)`.
+    #[test]
+    fn the_generic_form_asks_the_ignore_rules_under_every_anchor() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("notes.md"),
+            "# Notes\n\nSee `path@*@gen/x.rs`.\n".to_string(),
+        )]);
+        let queries = ignore_queries(&model, &anchors);
+        for a in anchors.all() {
+            let query = crate::git::ignore_query(&a.path.join("gen/x.rs"), false);
+            assert!(queries.contains(&query), "{}: {queries:?}", a.name);
+        }
+    }
+
+    /// The claim: a navigation link whose target `refused` refuses asks git nothing, so no query
+    /// climbs out of the repository or opens at its root. Mutation checked: in `ignore_queries`,
+    /// the link arm's `refused` test dropped.
+    #[test]
+    fn a_refused_link_asks_the_ignore_rules_nothing() {
+        let m = manifest();
+        let anchors = Anchors::of(&m, &[] as &[PathBuf]);
+        let model = Model::from_documents(vec![(
+            PathBuf::from("README.md"),
+            "# Readme\n\n[up](../out.md) [root](/abs.md) [here](./x.md)\n".to_string(),
+        )]);
+        assert_eq!(ignore_queries(&model, &anchors), Vec::<String>::new());
+    }
 }
