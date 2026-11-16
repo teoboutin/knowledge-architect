@@ -103,9 +103,12 @@ fn findings_in(manifest: &Manifest, rel: &str) -> Vec<(String, String)> {
 /// each of its three repairs, `path` under a named anchor and under `*`, and `planned`, a
 /// reference whose entry or file exists and whose suffix alone fails is told to drop the suffix,
 /// naming the form without it; and one whose rest fails too keeps the repair of what fails, the
-/// sentence on the suffix after it. The project's design entry is `one-decision`. Mutation
-/// checked, and caught: the call to `located` in `path` of `path@model@src/resolver.rs` made
-/// `resolve(path)`, which gives `README.md` the `Missing` cause.
+/// sentence on the suffix after it. The project's design entry is `one-decision`. Each text is
+/// told by a fragment only it holds and by the values it carries, the span and the form, per
+/// `design@model@cause-words-unpinned`. Mutations checked, each caught: the call to `located` in
+/// `path` of `path@model@src/resolver.rs` made `resolve(path)`, which gives `README.md` the
+/// `Missing` cause; and in `located`, the form `entity::spelled(kind, anchor, bare)` made
+/// `entity::spelled(kind, anchor, id)`, which names the form with its suffix.
 #[test]
 fn each_resolution_path_names_the_repair_of_a_suffix() {
     let spans = [
@@ -133,13 +136,13 @@ fn each_resolution_path_names_the_repair_of_a_suffix() {
     let found = findings_in(&m, "notes.md");
     assert_eq!(found.len(), spans.len(), "{found:#?}");
     for ((what, action), (span, form)) in found.iter().zip(spans) {
-        assert_eq!(what, &format!("`{span}` points inside `{form}`"));
-        assert_eq!(
-            action,
-            &format!(
-                "drop the line number or the fragment, as `{form}`, and name the point inside \
-                 it in prose"
-            )
+        assert!(what.starts_with(&format!("`{span}` ")), "{what}");
+        assert!(what.contains(&format!("points inside `{form}`")), "{what}");
+        assert!(
+            action.starts_with(&format!(
+                "drop the line number or the fragment, as `{form}`"
+            )),
+            "{action}"
         );
     }
 }
@@ -147,9 +150,12 @@ fn each_resolution_path_names_the_repair_of_a_suffix() {
 /// The claim: a suffixed reference whose written form resolves passes, as it would with no
 /// suffix: a path under a directory the ignore rules cover, whose written spelling git reports
 /// ignored, and a planned path in a plan document whose target does not exist. A planned path
-/// pointing into a file that exists beside them is reported, so the plan document is read. Mutation
-/// checked: in `located` of `path@model@src/resolver.rs`, `written.is_ok() || ` removed, which
-/// tells the ignored path to drop its suffix.
+/// pointing into a file that exists beside them is reported, so the plan document is read; its
+/// repair is told by a fragment only it holds and by the form it carries, per
+/// `design@model@cause-words-unpinned`. Mutations checked, each caught: in `located` of
+/// `path@model@src/resolver.rs`, `written.is_ok() || ` removed, which tells the ignored path to
+/// drop its suffix; and in `planned_in_plans`, the `PointsIntoExisting` cause returned as
+/// `NowExists`, whose repair names no point inside the file.
 #[test]
 fn a_suffixed_reference_whose_written_form_resolves_passes() {
     let plans = "# Plans\n\nIt writes `planned@core-mock@new.md#a-head`.\n\
@@ -166,11 +172,15 @@ fn a_suffixed_reference_whose_written_form_resolves_passes() {
     );
     assert_eq!(findings_in(&m, "notes.md"), []);
     let found = findings_in(&m, "docs/plans/README.md");
-    let actions: Vec<&str> = found.iter().map(|(_, a)| a.as_str()).collect();
-    assert_eq!(
-        actions,
-        ["write `path@core-mock@README.md`, and name the function or the heading in prose"],
-        "{found:#?}"
+    assert_eq!(found.len(), 1, "{found:#?}");
+    let action = &found[0].1;
+    assert!(
+        action.starts_with("write `path@core-mock@README.md`,"),
+        "{action}"
+    );
+    assert!(
+        action.contains("name the function or the heading in prose"),
+        "{action}"
     );
 }
 
