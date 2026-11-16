@@ -332,17 +332,19 @@ document.
   the spec or the slice it was held for, `<n>` the next number of that `transcripts/`, from 1: for
   each session the discussion spans in order, the output of
   `cargo klarch transcript show <session> --from "<opening words>"`, without `--tools`, from the
-  message where the discussion begins to the owner's word on the last checkpoint table it showed,
-  the one `skill@knowledge-architect-design@threads-and-states` shows before the hand-off to
-  planning. It goes in the commit that adds or rewrites the plan document. The discussion that
-  produced the document is one; a later one that reaches a checkpoint, such as a design session
-  opened at a slice's or a spec's design audit or a rediscussion of a milestone before a slice's
-  turn, is another, filed under the slice it rewrites, or under the milestone where it rewrites
-  several slices or the milestone's `README.md`. An implementation, a design audit that reopens
-  nothing, and a material finding settled on one word of the owner commit none. Where a plan
-  review reopens a thread before the branch merges, a new checkpoint follows: extract the same
-  discussion's file again, to it. A ruling given after the last checkpoint is in no transcript, so
-  its attribution in the items is its whole record.
+  message where the discussion begins to the owner's word on the last checkpoint table the
+  discussion showed before the commit that adds or rewrites the plan document: the one
+  `skill@knowledge-architect-design@threads-and-states` shows before the hand-off to planning, or,
+  where a plan review reopens a thread before the branch merges, the checkpoint that follows the
+  reopening, the same discussion's file then extracted again. `cargo klarch transcript show` has no
+  option that ends its output, so cut the last session's output after that message of the owner.
+  The file goes in that commit. The discussion that produced the document is one; a later one that reaches a
+  checkpoint, such as a design session opened at a slice's or a spec's design audit or a
+  rediscussion of a milestone before a slice's turn, is another, filed under the slice it
+  rewrites, or under the milestone where it rewrites several slices or the milestone's
+  `README.md`. An implementation, a design audit that reopens nothing, and a material finding
+  settled on one word of the owner commit none. A ruling given after the last checkpoint is in no
+  transcript, so its attribution in the items is its whole record.
 - **Before that commit, read the transcript whole and remove** every path under a home directory,
   every e-mail address, every credential and token, and the pasted material the owner marks.
 
