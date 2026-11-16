@@ -20,7 +20,8 @@ not hold it yet", as its doc comment says. For `link/../x`, with `link` a symlin
 `../elsewhere/dir`, `init` creates `work/x`, which is self-consistent: every later step reads the
 same folded path.
 
-What `cargo init` does, measured with cargo 1.99.1 on the owner's machine, in a scratch directory
+What `cargo init` does, measured with cargo 1.99.1, the toolchain this machine selects outside the
+repository, on the owner's machine, in a scratch directory
 holding `work/link -> ../elsewhere/dir` and an empty `elsewhere/dir`, from `work`:
 
 - `cargo init --vcs none link/../x` creates `elsewhere/x`, the directory the kernel reaches by
@@ -28,6 +29,8 @@ holding `work/link -> ../elsewhere/dir` and an empty `elsewhere/dir`, from `work
   "No such file or directory (os error 2)", exit 101. It leaves `elsewhere/x` empty.
 - `cargo init --vcs none newdir/../y`, with no `newdir`, exits 0, creates `work/y`, and leaves an
   empty `work/newdir` beside it.
+
+Inside the repository the selected cargo is 1.98.0, which was not measured.
 
 The commands to take it again:
 
