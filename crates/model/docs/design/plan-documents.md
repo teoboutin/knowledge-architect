@@ -57,14 +57,21 @@ nothing else:
 
 - `deliberation.md`, the Threads and the Arguments of the discussion, per
   `design@model@plan-items-by-section`;
-- `search/`, the generated lines of the document's searches, as `discussion.txt` and
-  `design-audit.txt`;
-- `transcript.txt`, the discussion's trimmed transcript;
+- `search/`, the generated lines of the document's searches, one `.txt` file per search, as
+  `discussion-<n>.txt` for the grounding of its n-th design discussion and `design-audit-<n>.txt`
+  for its n-th design audit;
+- `transcripts/`, the trimmed transcripts of its design discussions, one `.txt` file per
+  discussion, as `<n>.txt` for the n-th;
 - in a milestone besides, its generated `index.md`, one directory per live slice, and `harvested/`,
   which holds one directory per landed slice, per `design@model@a-harvested-slice-is-frozen`.
 
 Any other file or directory of a plan document's directory is a phase-2 finding, and so is a file of
-`search/` other than those two. The set is closed because the searches read the `README.md` alone,
+`search/` or of `transcripts/` with another name, `<n>` being a number counted from 1 with no leading
+zero, so each number has one name. A plan document can be discussed again after its first
+discussion, and audited at each slice, so each of these files is numbered: a second discussion or a
+second audit adds a file beside the first rather than writing over it, per
+`design@agent-skills@committed-transcript` and
+`design@agent-skills@plan-commits-the-generated-lines`. The set is closed because the searches read the `README.md` alone,
 per `design@agent-skills@discussion-record-apart`, and each file beside it has a role the planning
 skill states and a regime `design@model@a-harvested-slice-is-frozen` states: a file of no stated
 role, admitted by an open set, is where a session can write a condition of the design that no
@@ -74,7 +81,7 @@ same shape, so the planning skill states one shape of a plan document's director
 
 **A plan document has artifacts with no other home.** Its deliberation sits beside the document the
 search reads, not inside it, per `design@agent-skills@discussion-record-apart`, and the generated
-lines of its searches and the transcript of its discussion are kept beside the document they
+lines of its searches and the transcripts of its design discussions are kept beside the document they
 record, per `design@agent-skills@plan-commits-the-generated-lines` and
 `design@agent-skills@committed-transcript`. A spec as one file could hold none of them
 beside it without a second home for each, of a kind no register has: that rival is
@@ -206,7 +213,7 @@ definitions alone. The regime of each file of a plan document's directory:
 | file | regime |
 | --- | --- |
 | `README.md` or `deliberation.md` of a spec, a milestone or a live slice | live: walked, its definitions and its references judged |
-| `transcript.txt`, and the `.txt` files of `search/` | never parsed: the walk reads `.md` and `.rs` files alone, `LIVE_SUFFIXES` in `path@model@src/walk.rs` |
+| the `.txt` files of `search/` and of `transcripts/` | never parsed: the walk reads `.md` and `.rs` files alone, `LIVE_SUFFIXES` in `path@model@src/walk.rs` |
 | any file under `harvested/` | frozen |
 
 - **Parsed for definitions only**: a slice or an item a frozen file defines resolves from inside its

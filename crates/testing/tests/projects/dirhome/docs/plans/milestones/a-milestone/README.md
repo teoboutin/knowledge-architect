@@ -3,8 +3,8 @@
 Its steps are [the step](a-step/README.md), cited `spec@a-milestone@a-step`, and [the second
 step](b-step/README.md), cited `spec@a-milestone@b-step`, and its landed
 step `spec@a-milestone@a-landed-step`; the listing is [the index](index.md). Its discussion is
-[the deliberation](deliberation.md), its search [the generated lines](search/discussion.txt) and
-its source [the transcript](transcript.txt). A spec beside it is `spec@plans@a-spec`, and the plans directory's own
+[the deliberation](deliberation.md), its search [the generated lines](search/discussion-1.txt) and
+its source [the transcript](transcripts/1.txt). A spec beside it is `spec@plans@a-spec`, and the plans directory's own
 head is `path@plans@README.md`, its specs home `register@plans@spec` and that home's
 listing `path@plans@specs/index.md`.
 

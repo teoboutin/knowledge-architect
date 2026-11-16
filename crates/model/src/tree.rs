@@ -384,14 +384,13 @@ fn headed(inputs: &TreeInputs, dir: &Path) -> bool {
 }
 
 /// Whether `dir`, a directory of specs/ or of a group holding no `README.md` as a file, holds a
-/// plan's own files instead: a `README.md` that is a directory, a `deliberation.md`, a
-/// `transcript.txt` or a `search/`, and no spec's directory. Such a directory is a spec missing
+/// plan's own files instead: a `README.md` that is a directory, a `deliberation.md`, a `search/`
+/// or a `transcripts/`, and no spec's directory. Such a directory is a spec missing
 /// its head, never a group, and is reported once, its repair the `README.md` to create; its files
 /// are not judged one by one. A directory that holds a spec's directory is a group, whatever else
 /// it holds, so its stray files are judged one by one as a group's are: the repair of a missing
 /// head there would make it a spec holding a spec.
 fn unheaded_plan(out: &mut Vec<Finding>, dir: &Path, inputs: &TreeInputs) -> bool {
-    use crate::manifest::SEARCH_DIR;
     let children = children(inputs, dir);
     let holds_a_spec = children
         .iter()
@@ -401,7 +400,7 @@ fn unheaded_plan(out: &mut Vec<Finding>, dir: &Path, inputs: &TreeInputs) -> boo
             let name = path.file_name().unwrap_or_default().to_string_lossy();
             name == crate::plan::README
                 || crate::plan::is_beside_readme(&name)
-                || (name == SEARCH_DIR && inputs.directories.contains(path))
+                || (crate::plan::is_numbered_dir(&name) && inputs.directories.contains(path))
         });
     if plans_own {
         out.push(Finding::in_file(
@@ -413,7 +412,7 @@ fn unheaded_plan(out: &mut Vec<Finding>, dir: &Path, inputs: &TreeInputs) -> boo
             ),
             format!(
                 "create `{}` as a file, the spec document; a spec's directory holds its \
-                 README.md beside its deliberation.md, its search/ and its transcript.txt",
+                 README.md beside its deliberation.md, its search/ and its transcripts/",
                 dir.join(crate::plan::README).display()
             ),
         ));
@@ -509,7 +508,8 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
 }
 
 /// What one plan document's directory holds, per its kind: its README.md, its deliberation.md,
-/// its transcript.txt and its search/, holding the files `crate::plan::SEARCH_FILES` names; a milestone besides its generated
+/// its search/, holding the files `crate::plan::is_search_file` admits, and its transcripts/,
+/// holding those `crate::plan::is_transcript_file` admits; a milestone besides its generated
 /// index.md, one directory per live slice, each held to the same rule, and its harvested/, which
 /// holds one directory per harvested slice, each holding a README.md and named by an id. That is
 /// all the layout asks of harvested/: what a harvested slice's directory holds is frozen, and no
@@ -520,7 +520,7 @@ fn plan_directory(
     kind: crate::manifest::PlanKind,
     inputs: &TreeInputs,
 ) {
-    use crate::manifest::{PlanKind, HARVESTED_DIR, SEARCH_DIR};
+    use crate::manifest::{PlanKind, HARVESTED_DIR, SEARCH_DIR, TRANSCRIPTS_DIR};
     let milestone = kind == PlanKind::Milestone;
     let noun = match kind {
         PlanKind::Spec => "spec",
@@ -528,10 +528,10 @@ fn plan_directory(
         PlanKind::Slice => "slice",
     };
     let holds = if milestone {
-        "its README.md, its index.md, its deliberation.md, its search/, its transcript.txt, one \
+        "its README.md, its index.md, its deliberation.md, its search/, its transcripts/, one \
          directory per slice and its harvested/"
     } else {
-        "its README.md, its deliberation.md, its search/ and its transcript.txt"
+        "its README.md, its deliberation.md, its search/ and its transcripts/"
     };
     for path in children(inputs, dir) {
         let name = path
@@ -547,24 +547,37 @@ fn plan_directory(
         {
             continue;
         }
-        if is_dir && name == SEARCH_DIR {
+        // search/ and transcripts/ each hold numbered `.txt` files, one per search or per design
+        // discussion, so that a second one is added beside the first rather than over it. Each
+        // gives the test of a name, what the directory holds, and the repair of a name it refuses.
+        type Numbered = (fn(&str) -> bool, &'static str, &'static str);
+        let numbered: Option<Numbered> = match name.as_str() {
+            SEARCH_DIR if is_dir => Some((
+                crate::plan::is_search_file,
+                "`discussion-<n>.txt` and `design-audit-<n>.txt` alone, <n> a number from 1",
+                "move it out, or name it by its occasion and its number; search/ holds the \
+                 generated lines of each search, `discussion-<n>.txt` at the grounding of the n-th \
+                 design discussion and `design-audit-<n>.txt` at the n-th design audit",
+            )),
+            TRANSCRIPTS_DIR if is_dir => Some((
+                crate::plan::is_transcript_file,
+                "`<n>.txt` alone, <n> a number from 1",
+                "move it out, or name it by the number of its discussion; transcripts/ holds the \
+                 trimmed transcript of the n-th design discussion as `<n>.txt`",
+            )),
+            _ => None,
+        };
+        if let Some((admits, alone, repair)) = numbered {
             for inner in children(inputs, path) {
                 let file = inner.file_name().unwrap_or_default().to_string_lossy();
-                if inputs.directories.contains(inner) || !crate::plan::is_search_file(&file) {
+                if inputs.directories.contains(inner) || !admits(&file) {
                     out.push(Finding::in_file(
                         inner,
                         format!(
-                            "`{}` sits in a search/ directory, which holds `{}` alone",
-                            inner.display(),
-                            crate::plan::SEARCH_FILES.join("` and `")
+                            "`{}` sits in a {name}/ directory, which holds {alone}",
+                            inner.display()
                         ),
-                        format!(
-                            "move it out, or name it by its occasion; search/ holds the \
-                             generated lines of a search, `{}` at the grounding of a discussion \
-                             and `{}` at a design audit",
-                            crate::plan::SEARCH_FILES[0],
-                            crate::plan::SEARCH_FILES[1]
-                        ),
+                        repair,
                     ));
                 }
             }
@@ -1343,8 +1356,10 @@ mod plans_tests {
     /// is a directory, a milestone whose README is a directory (no anchor, so no milestone), a
     /// file beside specs/ and beside a milestone, a milestone named like a location, a spec file
     /// whose repair names the spec's directory, a slice file whose repair names the slice's, a
-    /// file of a plan document's directory the layout does not admit, a search/ holding other
-    /// than its two search files, a harvested/ holding other than headed slices or a slice whose
+    /// file of a plan document's directory the layout does not admit, the single-file
+    /// `transcript.txt` among them, a search/ holding other than `discussion-<n>.txt` and
+    /// `design-audit-<n>.txt`, a transcripts/ holding other than `<n>.txt`, each malformed number
+    /// and each name of the single-file layout among them, a harvested/ holding other than headed slices or a slice whose
     /// name is no id, a group nested in a group, a spec's directory holding a plan's files and no
     /// README.md, in specs/ or in a group, and an index.md or a harvested/ in a spec's or a
     /// slice's directory. Mutations checked, each failing this test: the directory test dropped
@@ -1355,11 +1370,16 @@ mod plans_tests {
     /// the harvested arm, and the `is_entry_id` arm of the harvested arm deleted; in
     /// `specs_layout`, the group arm's `spec_file(out, inner)` made `other(out, inner, "a group of
     /// specs/")`; in `headed`, `&& !inputs.directories.contains(&readme)` dropped; in
-    /// `unheaded_plan`, `plans_own` made `false`, `|| (name == SEARCH_DIR && ..)` made `|| false`,
-    /// caught by the spec holding its search/ alone, and `!holds_a_spec &&` dropped, caught by the
+    /// `unheaded_plan`, `plans_own` made `false`, `|| (crate::plan::is_numbered_dir(&name) && ..)`
+    /// made `|| false`, caught by the spec holding its search/ alone and by the one holding its
+    /// transcripts/ alone, and `!holds_a_spec &&` dropped, caught by the
     /// group holding a stray deliberation.md; in the group arm of `specs_layout`,
-    /// `&& !crate::plan::is_beside_readme(&name)` dropped, caught by the same; and
-    /// `is_search_file` made to test the `.txt` suffix alone.
+    /// `&& !crate::plan::is_beside_readme(&name)` dropped, caught by the same; in
+    /// `plan_directory`, `is_search_file` made to test the `.txt` suffix alone, the admits test of
+    /// the numbered arm made `true`, its directory test `inputs.directories.contains(inner) ||`
+    /// dropped, and the `TRANSCRIPTS_DIR` arm deleted, which leaves transcripts/ a finding as a
+    /// slice with no README.md; each caught. The large milestone case holds every numbered name
+    /// at once, and a harvested slice keeping a `transcript.txt`, which no rule judges.
     #[test]
     fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {
         let manifest = declaring_full(
@@ -1440,7 +1460,8 @@ mod plans_tests {
                 ],
                 vec![],
                 "docs/plans/milestones/m-one/a-slice/search/discussion.md",
-                "holds `discussion.txt` and `design-audit.txt` alone",
+                "sits in a search/ directory, which holds `discussion-<n>.txt` and \
+                 `design-audit-<n>.txt` alone",
             ),
             (
                 vec![
@@ -1466,8 +1487,8 @@ mod plans_tests {
             (
                 vec![
                     "docs/plans/specs/a-spec/deliberation.md",
-                    "docs/plans/specs/a-spec/transcript.txt",
-                    "docs/plans/specs/a-spec/search/discussion.txt",
+                    "docs/plans/specs/a-spec/transcripts/1.txt",
+                    "docs/plans/specs/a-spec/search/discussion-1.txt",
                 ],
                 vec![],
                 "docs/plans/specs/a-spec",
@@ -1480,15 +1501,21 @@ mod plans_tests {
                 "is a spec missing its head",
             ),
             (
-                vec!["docs/plans/specs/a-spec/search/discussion.txt"],
+                vec!["docs/plans/specs/a-spec/search/discussion-1.txt"],
                 vec![],
                 "docs/plans/specs/a-spec",
                 "is a spec missing its head",
             ),
             (
-                vec!["docs/plans/specs/a-spec/transcript.txt"],
+                vec!["docs/plans/specs/a-spec/transcripts/1.txt"],
                 vec![],
                 "docs/plans/specs/a-spec",
+                "is a spec missing its head",
+            ),
+            (
+                vec!["docs/plans/specs/a-group/a-spec/transcripts/1.txt"],
+                vec![],
+                "docs/plans/specs/a-group/a-spec",
                 "is a spec missing its head",
             ),
             (
@@ -1575,7 +1602,91 @@ mod plans_tests {
                 ],
                 vec![],
                 "docs/plans/specs/a-spec/search/notes.txt",
-                "holds `discussion.txt` and `design-audit.txt` alone",
+                "sits in a search/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/transcript.txt",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/transcript.txt",
+                "sits in the spec directory `docs/plans/specs/a-spec`, which holds its README.md, \
+                 its deliberation.md, its search/ and its transcripts/",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/search/discussion.txt",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/search/discussion.txt",
+                "sits in a search/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/search/design-audit.txt",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/search/design-audit.txt",
+                "sits in a search/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/search/discussion-x.txt",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/search/discussion-x.txt",
+                "sits in a search/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/transcripts/0.txt",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/transcripts/0.txt",
+                "sits in a transcripts/ directory, which holds `<n>.txt` alone, <n> a number \
+                 from 1  → move it out, or name it by the number of its discussion",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/transcripts/a.txt",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/transcripts/a.txt",
+                "sits in a transcripts/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/a-slice/README.md",
+                    "docs/plans/milestones/m-one/a-slice/transcripts/discussion-1.txt",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/a-slice/transcripts/discussion-1.txt",
+                "sits in a transcripts/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/milestones/m-one/README.md",
+                    "docs/plans/milestones/m-one/transcripts/sub/1.txt",
+                ],
+                vec![],
+                "docs/plans/milestones/m-one/transcripts/sub",
+                "sits in a transcripts/ directory",
+            ),
+            (
+                vec![
+                    "docs/plans/specs/a-spec/README.md",
+                    "docs/plans/specs/a-spec/transcripts/1.txt/notes.md",
+                ],
+                vec![],
+                "docs/plans/specs/a-spec/transcripts/1.txt",
+                "sits in a transcripts/ directory",
             ),
             (
                 vec!["docs/plans/milestones/plans/README.md"],
@@ -1602,8 +1713,13 @@ mod plans_tests {
                 vec![
                     "docs/plans/milestones/m-one/README.md",
                     "docs/plans/milestones/m-one/deliberation.md",
-                    "docs/plans/milestones/m-one/transcript.txt",
-                    "docs/plans/milestones/m-one/search/discussion.txt",
+                    "docs/plans/milestones/m-one/transcripts/1.txt",
+                    "docs/plans/milestones/m-one/transcripts/2.txt",
+                    "docs/plans/milestones/m-one/search/discussion-1.txt",
+                    "docs/plans/milestones/m-one/search/design-audit-1.txt",
+                    "docs/plans/milestones/m-one/a-slice/transcripts/1.txt",
+                    "docs/plans/milestones/m-one/a-slice/search/design-audit-2.txt",
+                    "docs/plans/milestones/m-one/harvested/b-slice/transcript.txt",
                     "docs/plans/milestones/m-one/a-slice/README.md",
                     "docs/plans/milestones/m-one/a-slice/deliberation.md",
                     "docs/plans/milestones/m-one/harvested/b-slice/README.md",

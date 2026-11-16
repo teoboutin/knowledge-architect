@@ -640,7 +640,7 @@ mod tests {
 
     /// The claim: of a project's files, the model parses a frozen one only where it is markdown,
     /// and no file outside a milestone's `harvested/`. Mutations checked, in `frozen_document`:
-    /// the extension test dropped, which parses a frozen `transcript.txt`; and `&&` made `||`,
+    /// the extension test dropped, which parses a frozen transcript, `transcripts/1.txt`; and `&&` made `||`,
     /// which parses every markdown file; each caught.
     #[test]
     fn a_frozen_file_is_parsed_only_where_it_is_markdown() {
@@ -653,8 +653,8 @@ mod tests {
         let h = "docs/plans/milestones/a-milestone/harvested/a-step";
         for (rel, parsed) in [
             (format!("{h}/README.md"), true),
-            (format!("{h}/transcript.txt"), false),
-            (format!("{h}/search/discussion.txt"), false),
+            (format!("{h}/transcripts/1.txt"), false),
+            (format!("{h}/search/discussion-1.txt"), false),
             (
                 "docs/plans/milestones/a-milestone/README.md".to_string(),
                 false,

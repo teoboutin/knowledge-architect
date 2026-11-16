@@ -3,8 +3,8 @@
 It belongs to `milestone@plans@a-milestone`, and builds `thread@a-milestone@one-slice` on what
 the landed step `spec@a-milestone@a-landed-step` built, `thread@a-milestone@landed-thread`, beside
 what its sibling step decided in its own deliberation, `thread@a-milestone@second-slice`. Its own
-discussion is [the deliberation](deliberation.md), [the generated lines](search/discussion.txt)
-and [the transcript](transcript.txt).
+discussion is [the deliberation](deliberation.md), [the generated lines](search/discussion-1.txt)
+and [the transcript](transcripts/1.txt).
 
 ## Builds
 

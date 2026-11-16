@@ -18,9 +18,9 @@ an empty subsection is omitted.
   sections Threads and Arguments of a plan's `README.md`, a milestone's and each slice's included,
   move with their items to a `deliberation.md` beside it, which holds those two sections: a
   `README.md` holding either is a finding. A plan's directory holds nothing else but `search/`,
-  with `discussion.txt` and `design-audit.txt` alone, and `transcript.txt`; a milestone's holds
-  besides its `index.md`, its slices' directories and `harvested/`. The `.txt` files are never
-  parsed. No citation changes: `spec@plans@<id>`, `spec@<milestone>@<slice>` and every item
+  with `discussion-<n>.txt` and `design-audit-<n>.txt` alone, and `transcripts/`, with `<n>.txt`
+  alone, `<n>` a number from 1 with no leading zero; a milestone's holds besides its `index.md`, its
+  slices' directories and `harvested/`. The `.txt` files are never parsed. No citation changes: `spec@plans@<id>`, `spec@<milestone>@<slice>` and every item
   reference resolve as before, and a `path` reference to a plan document's directory or to a file in
   it is refused, its finding naming the plan's reference. A project moves each file with `git mv`,
   moves the two sections by hand, then runs `klarch index`, all in the commit that moves the pin,

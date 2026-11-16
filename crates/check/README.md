@@ -263,8 +263,10 @@ plan document's directory holds:
 | --- | --- |
 | `README.md` | the document the search reads: the decided design, the steps, the criteria, and "What is already decided" |
 | `deliberation.md` | the Threads and Arguments, where the document has a thread or an argument |
-| `search/` | the generated lines of a search run for the document, each a `.txt` file, `discussion.txt` and `design-audit.txt` |
-| `transcript.txt` | the trimmed transcript of the discussion, where the document was assembled from one |
+| `search/` | the generated lines of each search run for the document, each a `.txt` file: `discussion-<n>.txt` at the grounding of its n-th design discussion, `design-audit-<n>.txt` at its n-th design audit |
+| `transcripts/` | the trimmed transcript of each design discussion that reached a convergence checkpoint for the document, `<n>.txt` for the n-th |
+
+`<n>` is a number counted from 1, with no leading zero.
 
 A milestone's directory holds besides its generated `index.md`, which lists its slices, one
 directory per live slice, holding the same files as a spec's, and `harvested/`, holding the

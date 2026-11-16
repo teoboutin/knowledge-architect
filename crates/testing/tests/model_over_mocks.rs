@@ -441,7 +441,8 @@ mod unsound {
         )
         .starts_with("docs/plans/milestones/held-twice/register.toml"));
         // A plan document is a directory, so a spec file and a slice file are each a finding
-        // whose repair names the directory, and search/ holds `discussion.txt` and `design-audit.txt` alone.
+        // whose repair names the directory, and search/ holds `discussion-<n>.txt` and
+        // `design-audit-<n>.txt` alone.
         assert!(one_of(&found, "is a spec file, and a spec is a directory")
             .contains("move it to `docs/plans/specs/a-spec-file/README.md`"));
         assert!(
@@ -450,7 +451,7 @@ mod unsound {
         );
         assert!(one_of(
             &found,
-            "holds `discussion.txt` and `design-audit.txt` alone"
+            "holds `discussion-<n>.txt` and `design-audit-<n>.txt` alone"
         )
         .starts_with("docs/plans/milestones/a-defective-plan/search/verdicts.md"));
         assert!(one_of(&found, "the milestone `the-widget` is no anchor")

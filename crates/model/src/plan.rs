@@ -4,7 +4,7 @@
 //! is a directory of milestones/ holding its `README.md`, its generated `index.md`, one directory
 //! per live slice, and its `harvested/`, which holds one directory per landed slice. Each plan
 //! document's directory holds, beside its `README.md`, its `deliberation.md`, its `search/` and its
-//! `transcript.txt`, and nothing else but what a milestone's holds besides. These are types of their own, not entries of the generic Directory shape, which
+//! `transcripts/`, and nothing else but what a milestone's holds besides. These are types of their own, not entries of the generic Directory shape, which
 //! a declared register uses carrying one register, per `design@model@declarable-directory-register`.
 //!
 //! **The one frozen location is a milestone's `harvested/`.** Every file under it leaves the walk
@@ -21,7 +21,7 @@ use std::path::{Component, Path, PathBuf};
 
 use crate::manifest::{
     PlanKind, DELIBERATION_FILE, HARVESTED_DIR, MILESTONES_HOME, PLANS_DIR, SEARCH_DIR, SPECS_HOME,
-    TRANSCRIPT_FILE,
+    TRANSCRIPTS_DIR,
 };
 
 /// The head of every plan document's directory.
@@ -142,15 +142,15 @@ pub(crate) fn spec_dirs<'a>(
 }
 
 /// The slices of the milestone at `milestone`, live then harvested, each in path order: a
-/// directory of the milestone holding a `README.md`, but `harvested/` and `search/`, and a
-/// directory of its `harvested/` holding one.
+/// directory of the milestone holding a `README.md`, but `harvested/`, `search/` and
+/// `transcripts/`, and a directory of its `harvested/` holding one.
 pub(crate) fn slices<'a>(
     milestone: &Path,
     paths: impl IntoIterator<Item = &'a PathBuf>,
 ) -> Vec<PlanDir> {
     let paths: Vec<&PathBuf> = paths.into_iter().collect();
     let live = headed(milestone, paths.iter().copied(), |p| {
-        p.len() == 1 && p[0] != HARVESTED_DIR && p[0] != SEARCH_DIR
+        p.len() == 1 && p[0] != HARVESTED_DIR && !is_numbered_dir(&p[0])
     });
     let harvested = headed(&milestone.join(HARVESTED_DIR), paths.iter().copied(), |p| {
         p.len() == 1
@@ -215,19 +215,45 @@ pub(crate) fn is_plan_position(rel: &Path) -> bool {
     parts_under(rel, &milestones_dir()).is_some_and(|parts| parts.len() >= 2)
 }
 
-/// The files a plan document's `search/` holds, each the generated lines of one search, named by
-/// its occasion: the grounding of its discussion, and its design audit.
-pub(crate) const SEARCH_FILES: [&str; 2] = ["discussion.txt", "design-audit.txt"];
+/// The occasions of a plan document's searches, each naming the files of its `search/`,
+/// `<occasion>-<n>.txt`: the grounding of a design discussion, numbered as that discussion's
+/// transcript is, and a design audit, numbered per audit.
+pub(crate) const SEARCH_OCCASIONS: [&str; 2] = ["discussion", "design-audit"];
 
-/// Whether `name` is a file a plan document's `search/` holds.
+/// Whether `name` is a file a plan document's `search/` holds, `<occasion>-<n>.txt`, its occasion
+/// one of `SEARCH_OCCASIONS`.
 pub(crate) fn is_search_file(name: &str) -> bool {
-    SEARCH_FILES.contains(&name)
+    SEARCH_OCCASIONS.iter().any(|occasion| {
+        name.strip_prefix(occasion)
+            .and_then(|rest| rest.strip_prefix('-'))
+            .is_some_and(is_numbered_txt)
+    })
+}
+
+/// Whether `name` is a file a plan document's `transcripts/` holds, `<n>.txt`, the trimmed
+/// transcript of its n-th design discussion.
+pub(crate) fn is_transcript_file(name: &str) -> bool {
+    is_numbered_txt(name)
+}
+
+/// Whether `name` is `<n>.txt`, `<n>` a number counted from 1, written in decimal digits with no
+/// leading zero, so each number has one name: `0.txt`, `01.txt` and `a.txt` are none.
+fn is_numbered_txt(name: &str) -> bool {
+    name.strip_suffix(".txt").is_some_and(|n| {
+        !n.is_empty() && !n.starts_with('0') && n.bytes().all(|b| b.is_ascii_digit())
+    })
+}
+
+/// Whether `name` is a directory a plan document's directory holds beside its `README.md`, whose
+/// files are numbered `.txt` files: its `search/` or its `transcripts/`.
+pub(crate) fn is_numbered_dir(name: &str) -> bool {
+    name == SEARCH_DIR || name == TRANSCRIPTS_DIR
 }
 
 /// Whether `name` is a file a plan document's directory holds beside its `README.md`, at its top:
-/// its `deliberation.md` or its `transcript.txt`.
+/// its `deliberation.md`.
 pub(crate) fn is_beside_readme(name: &str) -> bool {
-    name == DELIBERATION_FILE || name == TRANSCRIPT_FILE
+    name == DELIBERATION_FILE
 }
 
 #[cfg(test)]
@@ -268,10 +294,11 @@ mod tests {
         );
     }
 
-    /// The claim: a milestone's slices are its headed directories but `search/` and
-    /// `harvested/`, then the headed directories of `harvested/`, marked harvested. Mutations
-    /// checked, in `slices`: `&& p[0] != SEARCH_DIR` dropped, `p[0] != HARVESTED_DIR &&` dropped,
-    /// and the harvested slices marked live; each caught.
+    /// The claim: a milestone's slices are its headed directories but `search/`, `transcripts/`
+    /// and `harvested/`, then the headed directories of `harvested/`, marked harvested. Mutations
+    /// checked, in `slices`: `&& !is_numbered_dir(&p[0])` dropped, `p[0] != HARVESTED_DIR &&`
+    /// dropped, and the harvested slices marked live; in `is_numbered_dir`, each of its two names
+    /// dropped; each caught.
     #[test]
     fn a_slice_is_live_or_harvested_by_where_its_directory_sits() {
         let m = Path::new("docs/plans/milestones/m-one");
@@ -279,6 +306,7 @@ mod tests {
             "docs/plans/milestones/m-one/README.md",
             "docs/plans/milestones/m-one/b-slice/README.md",
             "docs/plans/milestones/m-one/search/README.md",
+            "docs/plans/milestones/m-one/transcripts/README.md",
             "docs/plans/milestones/m-one/harvested/a-slice/README.md",
             "docs/plans/milestones/m-one/harvested/README.md",
         ]);
@@ -307,7 +335,7 @@ mod tests {
             "docs/plans/milestones/m-one/harvested/loose.md"
         )));
         assert!(is_frozen(Path::new(
-            "docs/plans/milestones/m-one/harvested/a-slice/search/discussion.txt"
+            "docs/plans/milestones/m-one/harvested/a-slice/search/discussion-1.txt"
         )));
         assert!(!is_frozen(Path::new(
             "docs/plans/milestones/m-one/a-slice/README.md"
@@ -326,7 +354,7 @@ mod tests {
     #[test]
     fn a_frozen_file_names_its_milestone_and_its_slice() {
         let frozen = frozen_place(Path::new(
-            "docs/plans/milestones/m-one/harvested/a-slice/search/discussion.txt",
+            "docs/plans/milestones/m-one/harvested/a-slice/search/discussion-1.txt",
         ))
         .expect("frozen");
         assert_eq!(
@@ -338,6 +366,54 @@ mod tests {
         let loose = frozen_place(Path::new("docs/plans/milestones/m-one/harvested/loose.md"))
             .expect("frozen");
         assert_eq!(loose.slice, None);
+    }
+
+    /// The claim: `search/` admits `discussion-<n>.txt` and `design-audit-<n>.txt`, and
+    /// `transcripts/` admits `<n>.txt`, `<n>` a number from 1 with no leading zero, and nothing
+    /// else, the names of the single-file layout included. Mutations checked: in
+    /// `is_numbered_txt`, `!n.is_empty() &&` dropped, `!n.starts_with('0') &&` dropped, and
+    /// `is_ascii_digit` made `is_ascii_alphanumeric`; in `is_search_file`, the
+    /// `strip_prefix('-')` dropped; each caught.
+    #[test]
+    fn the_numbered_files_of_a_plan_document_have_one_name_each() {
+        for name in [
+            "discussion-1.txt",
+            "discussion-12.txt",
+            "design-audit-1.txt",
+            "design-audit-30.txt",
+        ] {
+            assert!(is_search_file(name), "{name}");
+        }
+        for name in [
+            "discussion.txt",
+            "design-audit.txt",
+            "discussion-0.txt",
+            "discussion-01.txt",
+            "discussion-x.txt",
+            "discussion-.txt",
+            "discussion1.txt",
+            "discussion-1.md",
+            "design-audit-1",
+            "verdicts-1.txt",
+            "1.txt",
+        ] {
+            assert!(!is_search_file(name), "{name}");
+        }
+        for name in ["1.txt", "2.txt", "10.txt"] {
+            assert!(is_transcript_file(name), "{name}");
+        }
+        for name in [
+            "transcript.txt",
+            "0.txt",
+            "01.txt",
+            "a.txt",
+            ".txt",
+            "1.md",
+            "1",
+            "discussion-1.txt",
+        ] {
+            assert!(!is_transcript_file(name), "{name}");
+        }
     }
 
     /// The claim: where two specs share an id, the anchor is the first in path order, and the
@@ -366,7 +442,7 @@ mod tests {
             ("docs/plans/specs/index.md", false),
             ("docs/plans/specs/a-spec.md", true),
             ("docs/plans/specs/a-spec/README.md", true),
-            ("docs/plans/specs/a-spec/transcript.txt", false),
+            ("docs/plans/specs/a-spec/transcripts/1.txt", false),
             ("docs/plans/milestones/m-one/README.md", true),
             ("docs/plans/milestones/README.md", false),
         ] {

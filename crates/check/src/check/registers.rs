@@ -297,6 +297,7 @@ fn plan_home(
             if inputs.directories.contains(path)
                 && name != "harvested"
                 && name != "search"
+                && name != "transcripts"
                 && headed(path)
             {
                 dirs.push(path.clone());
