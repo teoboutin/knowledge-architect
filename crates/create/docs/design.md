@@ -188,7 +188,7 @@ declares `cargo klarch` as the command unless `--command` gives one. It makes `.
 repository git decides, a negation or a leading space included; outside one, under `--vcs none`, a
 line `target`, `target/`, `/target` or `/target/` does. This is the
 shape of `design@agent-skills@xtask-pins-checker`, and it gives a new project the gates of the list
-`design@gates@a-project-holds-its-gate-list` recommends, a gate being a tool whose generic part
+`design@gates@recommended-gate-list` recommends, a gate being a tool whose generic part
 `goal@generic-tools-and-procedures-are-shipped` has shipped so that it serves each target project that carries out its activity.
 
 ### `init --rust` writes no CI workflow `##init-writes-no-ci-workflow`
