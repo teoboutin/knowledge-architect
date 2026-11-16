@@ -895,13 +895,6 @@ fn verdict(report: &Report) -> String {
     }
 }
 
-/// What a run looked at, as the block printed above the findings.
-///
-/// **A check that did not run contributes nothing.** Its counts are not zero, they are
-/// unasked, and a zero would read as "nothing found" for a check that never ran. The
-/// `checked:` line is what makes that legible for a check that carries no count of its own,
-/// such as `generated`: without it, a run of `generated` alone and a run that performed
-/// nothing look the same.
 /// The checker's directories as the summary line names them, comma-separated.
 fn sources(dirs: &[std::path::PathBuf]) -> String {
     dirs.iter()
@@ -910,6 +903,14 @@ fn sources(dirs: &[std::path::PathBuf]) -> String {
         .join(", ")
 }
 
+/// What a run looked at, as the block printed above the findings.
+///
+/// **A check that did not run contributes nothing.** Its counts are not zero, they are
+/// unasked, and a zero would read as "nothing found" for a check that never ran. The
+/// `checked:` line is what makes that legible for a check that carries no count of its own,
+/// such as `generated`: without it, a run of `generated` alone and a run that performed
+/// nothing look the same.
+///
 /// `tree` names the tree walked, where it is not the working tree: plain `check` prints no
 /// `tree:` line, so its output is what it was before `--staged` existed, and a `walk:` count
 /// with no `tree:` line is of the working tree.
