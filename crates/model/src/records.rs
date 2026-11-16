@@ -25,7 +25,9 @@ use crate::scan::Observation;
 /// One recorded entry, as a row and as a body.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Record {
+    /// The anchor that defines the entry.
     pub anchor: String,
+    /// The entry's id, as a reference writes it after the anchor.
     pub id: String,
     /// The entry's title: a file entry's level-one heading, a heading entry's heading text
     /// without its slug. The id where the entry carries neither.
@@ -189,6 +191,7 @@ impl Record {
 pub struct Inbound(BTreeMap<(Kind, String, String), Vec<Site>>);
 
 impl Inbound {
+    /// Every reference span of every document of the model, keyed by what it names.
     pub fn build(model: &Model, anchors: &Anchors) -> Inbound {
         let mut by_entity: BTreeMap<(Kind, String, String), Vec<Site>> = BTreeMap::new();
         for doc in model.documents() {

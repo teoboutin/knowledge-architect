@@ -92,6 +92,14 @@ impl Outside {
     }
 }
 
+/// The survey of the working tree: [`from_listing`] over the model's own listing and links, each
+/// file outside the walk read from disk under the manifest's root.
+///
+/// # Errors
+///
+/// None as written: it always returns `Ok`. A file that cannot be read is recorded in the
+/// survey as [`Outside::Unreadable`], with the reason, and a path the working tree no longer
+/// holds as [`Outside::Missing`].
 pub fn survey(manifest: &Manifest, model: &Model) -> std::io::Result<Survey> {
     let root = manifest.root();
     Ok(from_listing(

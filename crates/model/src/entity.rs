@@ -77,6 +77,7 @@ const PRIMER_PATH: &str = ".claude/knowledge-architect/PRIMER.md";
 pub struct Kind(Arc<str>);
 
 impl Kind {
+    /// The kind spelled `name`, whether or not any register has that name.
     pub fn new(name: &str) -> Kind {
         Kind(Arc::from(name))
     }
@@ -86,6 +87,7 @@ impl Kind {
         Kind::new(PATH_KIND)
     }
 
+    /// Whether this is the kind `path`.
     pub fn is_path(&self) -> bool {
         &*self.0 == PATH_KIND
     }
@@ -95,6 +97,7 @@ impl Kind {
         Kind::new(PLANNED_KIND)
     }
 
+    /// Whether this is the kind `planned`.
     pub fn is_planned(&self) -> bool {
         &*self.0 == PLANNED_KIND
     }
@@ -104,6 +107,7 @@ impl Kind {
         Kind::new(REGISTER_KIND)
     }
 
+    /// Whether this is the kind `register`.
     pub fn is_register(&self) -> bool {
         &*self.0 == REGISTER_KIND
     }
@@ -215,6 +219,7 @@ pub struct Home {
     pub index: PathBuf,
     /// A file register's per-instance options.
     pub config: PathBuf,
+    /// The register's shape, which says which of these paths the home uses.
     pub shape: Shape,
 }
 
@@ -241,7 +246,9 @@ pub struct Anchor {
 /// reference to the entry as a whole names, `<register>@<parent>@<entry>`.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct EntryOf {
+    /// The Directory register's name.
     pub register: String,
+    /// The name of the anchor whose home holds the entry.
     pub parent: String,
 }
 
@@ -527,10 +534,12 @@ impl Anchors {
         self.harness
     }
 
+    /// Every anchor, in the order [`Anchors::of`] builds them.
     pub fn all(&self) -> &[Anchor] {
         &self.list
     }
 
+    /// Every register of the manifest the anchors were built from.
     pub fn registers(&self) -> &Registers {
         &self.registers
     }
@@ -582,6 +591,11 @@ impl Anchors {
     /// as both of thaum's do — and its register homes are its own, so a document under
     /// it belongs to it and not to the component above. A component inside a location would
     /// make the two ambiguous, and `manifest::collides` refuses one.
+    ///
+    /// # Panics
+    ///
+    /// Panics when no anchor sits at the root. [`Anchors::of`] always builds the root
+    /// component, whose empty path is a prefix of every path, so anchors it built never panic.
     pub fn owning(&self, rel: &Path) -> &Anchor {
         // Depth first, and a component on a tie: two anchors at one path is a declaration
         // `manifest::collides` refuses, and until it is repaired the component keeps its own
@@ -595,6 +609,11 @@ impl Anchors {
 
     /// The name of the anchor at the project's root, which a reference to a root-scoped register
     /// is read at.
+    ///
+    /// # Panics
+    ///
+    /// Panics when no anchor sits at the root. [`Anchors::of`] always builds the root
+    /// component, so anchors it built never panic.
     pub fn root_name(&self) -> &str {
         &self
             .list
@@ -916,7 +935,9 @@ pub(crate) fn entry_refusal(name: &str, manifest: &Manifest) -> Option<String> {
 /// Where something was written.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Site {
+    /// The document's project-relative path.
     pub file: PathBuf,
+    /// The one-based line, as an editor counts.
     pub line: u32,
 }
 
@@ -934,17 +955,26 @@ const GENERIC_REPAIR: &str = "write `<kind>@<anchor>@<id>`, and for a path `path
 pub enum Candidate<'a> {
     /// A well-formed reference: kind, anchor word as written, id as written.
     Reference {
+        /// The kind its first segment names.
         kind: Kind,
+        /// The anchor word as written; for a register the project's root alone carries, which
+        /// names no anchor, the root's name.
         anchor: &'a str,
+        /// The id as written.
         id: &'a str,
     },
     /// A known kind followed by the wrong number of segments, or an empty one.
     Malformed {
+        /// What is wrong with the segments, naming no repair.
         why: &'static str,
+        /// The form to write instead.
         repair: &'static str,
     },
     /// The head is an anchor, or a reserved anchor, where a kind goes: the old form.
-    AnchorInKindPosition { head: &'a str },
+    AnchorInKindPosition {
+        /// The first segment, as written.
+        head: &'a str,
+    },
     /// The head is neither a kind nor an anchor. Not a reference; silent.
     NotOne,
     /// A well-formed reference of a harness kind, which names no anchor. `owner` is the skill
@@ -952,8 +982,11 @@ pub enum Candidate<'a> {
     /// of the primer or the root instructions; `id` is the name or the slug. The pair is the
     /// entity table's key below the kind.
     Harness {
+        /// The harness kind its first segment names.
         kind: Kind,
+        /// The skill or the agent a section belongs to; empty where there is none.
         owner: &'a str,
+        /// The name, or the section's slug.
         id: &'a str,
     },
 }
@@ -1256,11 +1289,13 @@ fn frontmatter_end(text: &str) -> Option<u32> {
 /// Why a reference to a table kind resolves to nothing, or that it resolves.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Resolution {
+    /// The reference names a defined entry.
     Resolved,
     /// Nothing declares that anchor name.
     UnknownAnchor,
     /// The anchor exists and carries no register of that kind; the anchors that do.
     AnchorLacksRegister {
+        /// The names of the anchors that carry the register.
         carriers: Vec<String>,
     },
     /// The anchor carries the register and defines no such id.
@@ -1268,11 +1303,13 @@ pub enum Resolution {
     /// An item of a plan cited from a file outside that plan; the whole-document form that
     /// may be cited instead.
     OutsidePlan {
+        /// The reference to the whole plan document.
         form: String,
     },
     /// A harvested slice cited from a file outside its milestone's directory; the milestone's
     /// whole-document form, which may be cited instead.
     Harvested {
+        /// The reference to the whole milestone.
         form: String,
     },
 }

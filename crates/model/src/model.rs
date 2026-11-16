@@ -17,12 +17,14 @@ pub struct Document {
     pub text: String,
     /// Its prose and its scopes, as the parser for its suffix found them.
     pub parsed: Parsed,
+    /// What the scan observed in its prose, each at its line, in the scan's order.
     pub observations: Vec<Located>,
     /// How its string literals were read: `Data` only under the checker's own source.
     pub literals: Literals,
 }
 
 impl Document {
+    /// Whether its path ends in `.md`.
     pub fn is_markdown(&self) -> bool {
         self.rel.extension().is_some_and(|e| e == "md")
     }
@@ -54,6 +56,7 @@ impl Document {
         out
     }
 
+    /// Each observation `f` maps to `Some`, with the line it sits on, in the scan's order.
     pub fn observations_of<'a, T: 'a>(
         &'a self,
         f: impl Fn(&'a Observation) -> Option<T> + 'a,
@@ -186,6 +189,11 @@ fn named_checker_sources(
 /// the same `checker source:` line as `check`. A directory outside the project, such as the
 /// registry copy of a published binary's source, holds no file of the project's tree, so it
 /// matches nothing and is still named.
+///
+/// # Errors
+///
+/// Returns an error when `root` cannot be canonicalised, such as a path that does not exist. A
+/// checker directory that cannot be canonicalised is no error: it is named and matches nothing.
 pub fn snapshot_checker_dirs(
     root: &Path,
     checker: &[&Path],
@@ -218,6 +226,13 @@ impl Model {
     /// instead, such as a project an extension's crate keeps as a mock, is a foreign project
     /// whose every literal is prose. Only a Rust file is marked `Data`: markdown has no
     /// literals, and `checker_files` counts what the mode changed.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error when the manifest's root cannot be canonicalised, or when git cannot give
+    /// its listing: no `git` on the path, a root outside a git worktree, or a `git ls-files` that
+    /// exits non-zero. A walked file that cannot be read is no error: it is kept as a document
+    /// with no text, carrying the reason as its [`Trouble`], so a check reports it.
     pub fn build(manifest: &Manifest, checker_sources: &[&Path]) -> std::io::Result<Self> {
         let root = manifest.root();
         let canonical_root = root.canonicalize()?;
@@ -483,10 +498,13 @@ impl Model {
         });
     }
 
+    /// The project's root, as the manifest gave it to [`Model::build`]; empty for a model
+    /// assembled from text.
     pub fn root(&self) -> &Path {
         &self.root
     }
 
+    /// Every live document, one per walked file, a file that could not be read included.
     pub fn documents(&self) -> &[Document] {
         &self.docs
     }
@@ -566,9 +584,13 @@ fn unread(e: &std::io::Error) -> Trouble {
 /// One row an extension adds to the canonical dump: the document by its index in the model,
 /// the line, the kind and the value.
 pub struct DumpRow {
+    /// The document's index in [`Model::documents`].
     pub doc: usize,
+    /// The one-based line the row sits on.
     pub line: u32,
+    /// The row's kind, the dump's third column.
     pub kind: &'static str,
+    /// The row's value, the dump's fourth column.
     pub value: String,
 }
 
