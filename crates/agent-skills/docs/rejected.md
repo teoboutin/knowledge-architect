@@ -887,7 +887,7 @@ agent could not read the document whole, figures counted in the issue entry that
 
 `live`. It kept the rulings as the owner made them where the items are read. It lost on the
 owner's report that, out of the context they answered, the words have little value, once the
-committed transcript holds them in context; and on the intake of forty received retrospective files,
+committed transcripts hold the words of the design discussions in context; and on the intake of forty received retrospective files,
 thirteen of whose 23 workflow files report at least 24 slips against the attribution rules, five of
 them, in three files, a quotation, the kind that bears on whether the two regimes, verbatim in plan documents
 and attributed elsewhere, confuse sessions. It is kept here because a doubt remains that

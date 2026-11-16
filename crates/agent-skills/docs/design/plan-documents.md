@@ -275,18 +275,21 @@ The design this decision did not keep: `rejected@agent-skills@ledger-written-dur
 
 The planning skill commits, for each design discussion that reaches a convergence checkpoint on the
 full path, the output of `klarch transcript show` without tool calls, for each session the
-discussion spans in order, from the message where the discussion begins to the owner's word on its
-last convergence checkpoint table, as `transcripts/<n>.txt` of the plan document, `<n>` numbering
-its discussions from 1 in the order they began. It is committed in the commit that adds or rewrites
-the plan document, after its removal step, per `design@agent-skills@transcript-removal-step`. The
-discussion that produced a spec or a milestone is one; a later discussion that reaches a checkpoint
-is another, such as a design session opened at a slice's or a spec's design audit, or a
+discussion spans in order, from the message where the discussion begins to the owner's word on the
+last convergence checkpoint table it showed before the commit that adds or rewrites the plan
+document: the one before the hand-off to planning, or, where a plan review reopens a thread, the
+one that follows the reopening. `klarch transcript show` has no option that ends its output, so the
+output is cut after that message of the owner. The file is `transcripts/<n>.txt` of the plan
+document, `<n>` the next number of that `transcripts/`, from 1, taken when the transcript is
+committed. It is committed in that commit, after its removal step, per
+`design@agent-skills@transcript-removal-step`. The discussion that produced a spec or a milestone
+is one; a later discussion that reaches a checkpoint is another, such as a design session opened at a slice's or a spec's design audit, or a
 rediscussion of a milestone before a slice's turn. An implementation, a design audit that reopens
 nothing, and a material finding settled on one word of the owner have none. A slice has one only
 where such a discussion was held for it: a discussion that rewrites one slice is filed under that
 slice, and one that rewrites several slices or the milestone's `README.md` under the milestone.
-Where a plan review reopens a thread before the plan document's branch merges, a new checkpoint
-follows, and the same discussion's file is extracted again to it.
+Where a plan review reopens a thread before the plan document's branch merges, the same
+discussion's file is extracted again, to the checkpoint that follows.
 
 The transcript ends at the last checkpoint because a design discussion is where the owner says what
 is worth keeping verbatim, on the owner's argument: what follows it, the assembly, the plan reviews
@@ -522,7 +525,9 @@ milestone document with its slice specs, which share the record by the rule of
 too are created through the design skill. `design@agent-skills@standing-argument-in-head` names the
 plan document as the home of the deliberation while it exists, and
 `goal@design-is-recorded-with-its-arguments` is served only where the rulings are recorded as the
-owner made them, which the attribution states and the committed transcript lets a reviewer check.
+owner made them, which the attribution states and the committed transcripts let a reviewer check
+for the rulings of the design discussions; a ruling given after the last checkpoint is in no
+transcript, so its attribution is its whole record.
 On the in-change path, the commit message carries the same record, for the same reason, per
 `design@agent-skills@in-change-path`. The rival, a plan document recording each thread's final
 state and resolution, leaves the rulings and the arguments to memory. The rival that kept the

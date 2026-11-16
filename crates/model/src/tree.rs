@@ -1375,10 +1375,11 @@ mod plans_tests {
     /// transcripts/ alone, and `!holds_a_spec &&` dropped, caught by the
     /// group holding a stray deliberation.md; in the group arm of `specs_layout`,
     /// `&& !crate::plan::is_beside_readme(&name)` dropped, caught by the same; in
-    /// `plan_directory`, `is_search_file` made to test the `.txt` suffix alone, the admits test of
-    /// the numbered arm made `true`, its directory test `inputs.directories.contains(inner) ||`
-    /// dropped, and the `TRANSCRIPTS_DIR` arm deleted, which leaves transcripts/ a finding as a
-    /// slice with no README.md; each caught. The large milestone case holds every numbered name
+    /// `plan_directory`, `crate::plan::is_search_file` made a test of the `.txt` suffix alone,
+    /// `|| !admits(&file)` made `|| false`, `inputs.directories.contains(inner) || ` dropped,
+    /// caught by a directory named `1.txt`, and `TRANSCRIPTS_DIR if is_dir` made
+    /// `TRANSCRIPTS_DIR if false`, which leaves transcripts/ a finding as a slice with no
+    /// README.md; each caught. The large milestone case holds every numbered name
     /// at once, and a harvested slice keeping a `transcript.txt`, which no rule judges.
     #[test]
     fn each_odd_shape_of_the_plans_layout_is_one_phase_two_finding() {

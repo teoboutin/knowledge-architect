@@ -72,7 +72,9 @@ chooses by the size or the kind of the work.
   whatever the time of its work", and must be merged before its work where that work's first commit
   changes what the per-commit gate checks. The default for a spec built at once, on its work's
   branch, is stated only in the section on the work of a spec, which does not say the spec stays on
-  the branch.
+  the branch. The rule would have applied to the branch of instance 1: its first commit changes what
+  the per-commit gate checks, since the checker then refuses a `transcript.txt` it accepted before,
+  so on the full path its spec would have had to merge alone, before its work.
 - Three courses are chosen at different moments by different texts: bounded work after the
   grounding, by `skill@knowledge-architect-design@bounded-work`; the path, by `skill@knowledge-architect-design@decision-authority`
   section, after the search; and the merge of a plan document, by the planning skill.
