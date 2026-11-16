@@ -128,3 +128,11 @@ new crate names.
 with "cannot override `workspace.lints` in `lints`", observed on cargo 1.98.0, so each published
 crate would repeat every lint of the workspace's table, `unsafe_code` included, in its own manifest.
 The run that shows it is the one `design@knowledge-architect@doc-lints-table` names.
+
+### Narrowing a public item to `pub(crate)` instead of documenting it, where no crate of the workspace uses it `##narrowing-instead-of-documenting`
+
+`live`. Narrowing a public item of a published crate removes it from the crate's public API, an
+interface its consumers use, to answer a documentation lint. Its test, that no crate of the
+workspace uses the item, is the wrong one: an item is public because a consumer needs it,
+extensions outside the workspace included, which no search of the workspace sees. Whether an item
+stays public is the facade's decision, made for a consumer, not a lint pass's.
