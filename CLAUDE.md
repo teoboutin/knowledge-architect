@@ -104,17 +104,14 @@ gate, and its exit code is trustworthy:**
 cargo x gates
 ```
 
-It runs five gates in cost order: `fmt`, `check` (`cargo klarch check`), `commits`
-(`cargo klarch commits origin/main..HEAD`), `clippy` with `-D warnings`, and `test`. It does not
-stop at a failure unless `--fail-fast` asks for it. It writes each gate's complete output under
-`path@knowledge-architect@target/gates/`, and prints one verdict line per gate plus a distilled
-extract per failure; when the extract is not enough, the named log holds every byte. CI runs the
-same tool on every ready pull request, as
-`cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. `--locked` makes lock drift
-fail, and `--require-rebased` adds a sixth gate, `rebased`, first, which fails unless HEAD contains
-origin/main. Exit 0 means every gate passed. The gate list's primary home is
-`design@xtask@gates-list-primary-home`, and `path@xtask@README.md` is the usage. This is a
-restatement.
+Which gates it runs, and the flags CI passes, are `design@xtask@gates-list-primary-home`, read
+whole before relying on either; `path@xtask@README.md` is the usage, with the command of each gate.
+CI runs the same tool on every ready pull request, as
+`cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. It does not stop at a
+failure unless `--fail-fast` asks for it, per `design@gates@gates-run-all`. It writes each gate's
+complete output under `path@knowledge-architect@target/gates/`, and prints one verdict line per
+gate plus a distilled extract per failure; when the extract is not enough, the named log holds
+every byte, per `design@gates@distill-over-full-logs`.
 
 **Do not filter the tool's output through pipes.** A hand-built filter pipeline hides lines,
 and loses the exit code in a shell without `pipefail`. `cargo x gates` refuses a pipe on stdout for that reason, outside GitHub
@@ -129,12 +126,13 @@ cargo fmt --all --check
 cargo klarch check
 cargo klarch commits origin/main..HEAD
 cargo clippy --workspace --all-targets -- -D warnings
+RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps
 cargo test --workspace
 ```
 
 **Which gates you owe depends on what you touched.** Anything that writes a reference or touches a
-register entry owes `cargo klarch check`. Any change to the Rust source owes fmt, clippy and the
-test suite. Every commit owes `commits`: its message and its tree. **Its range, after each commit, is the
+register entry owes `cargo klarch check`. Any change to the Rust source owes fmt, clippy, the
+documentation build and the test suite. Every commit owes `commits`: its message and its tree. **Its range, after each commit, is the
 whole branch, `cargo klarch commits origin/main..HEAD`.** The range is the whole branch because this repository refuses citations of its branch's own
 commits by SHA, and `commits` sees a citation only of a commit in the range it judges, per
 `design@check@branch-shas-are-refused`; the checker-side fix is

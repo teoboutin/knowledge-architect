@@ -37,7 +37,8 @@ klarch anchors                   # every anchor, and where each register's home 
 ```
 
 In this repository, the checker built from the checkout runs as `cargo klarch <subcommand>`, and
-`cargo x gates` runs every gate: formatting, the check, the commit messages, clippy and the tests.
+`cargo x gates` runs every gate: formatting, the check, the commit messages, clippy, the
+documentation build and the tests.
 
 ## Repository layout
 

@@ -6,13 +6,15 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 
-/// What to spawn. `envs` are added to the inherited environment, never replacing it.
+/// What to spawn. `envs` are set beside the inherited environment: a variable of the same name as
+/// an inherited one replaces its value.
 pub struct Spec<'a> {
     /// The program to run.
     pub program: &'a str,
     /// Its arguments.
     pub args: &'a [&'a str],
-    /// Variables added to the inherited environment.
+    /// Variables set beside the inherited environment, each replacing an inherited one of its
+    /// name.
     pub envs: &'a [(&'a str, &'a str)],
     /// The child's working directory. Gates pass the project root, so the child and the
     /// log paths agree on where `target/` is whatever directory the tool was invoked from.
