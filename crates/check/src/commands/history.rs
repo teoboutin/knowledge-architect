@@ -1142,8 +1142,13 @@ impl Outcome {
 ///
 /// **No commit of the range is judged apart**, the last one included: a tree that fails is a
 /// finding naming the commit, whichever commit it is, per
-/// `design@check@every-commit-judged-by-the-tip-checker`. Exit 1 on a finding, `Err` on a range
-/// that does not resolve.
+/// `design@check@every-commit-judged-by-the-tip-checker`. Exit 1 on a finding.
+///
+/// # Errors
+///
+/// Returns a could-not-run message when git does not resolve `range` to a list of commits, or
+/// when git cannot read the message of a commit of the range. A commit whose tree does not load,
+/// or whose message's ignore question git refuses, is a finding, not an error.
 pub fn commits(
     manifest: &Manifest,
     range: &str,

@@ -74,6 +74,13 @@ pub(crate) fn foreign_copy(root: &Path, libraries: &[Library]) -> Option<(Librar
 /// `packages` is what the refusal tells the user to clean: the binary's own package and every
 /// library's, so that the next run rebuilds all of them from this checkout. The refusal also
 /// names the prevention: a build tied to its checkout.
+///
+/// # Errors
+///
+/// Returns the refusal's message when the tree under `root` holds, at a trailing run of a
+/// library's compiled directory, another directory whose `Cargo.toml` declares the same package
+/// name: the first such library, in the order of `libraries`, is the one named. A tree that holds
+/// no such copy returns `Ok`.
 pub fn refuse_a_foreign_build(
     root: &Path,
     libraries: &[Library],

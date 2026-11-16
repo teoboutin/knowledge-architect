@@ -28,7 +28,9 @@ impl Gathered {
     /// `register.toml`, the agent files this version ships, and what `model` gathers for phases 1
     /// to 3 and the resolver.
     ///
-    /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
+    /// # Errors
+    ///
+    /// Returns a could-not-run message: git or the filesystem refused a read the run cannot do without.
     /// A generated file or a `register.toml` that is absent is not an error: the checks that
     /// read them report the absence.
     pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {

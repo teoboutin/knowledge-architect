@@ -124,6 +124,11 @@ impl Snapshot {
 
     /// The text of each path the tree holds as a file, read in one batch. A path the tree does
     /// not hold, or whose bytes are not text, is absent from the answer.
+    ///
+    /// # Errors
+    ///
+    /// Returns the I/O error of the one `git cat-file --batch` that reads the paths not yet
+    /// held in memory: git could not be spawned, or it failed, its reason in the error.
     pub fn read(&self, rels: &[PathBuf]) -> io::Result<BTreeMap<PathBuf, String>> {
         let mut out = BTreeMap::new();
         let mut wanted = Vec::new();
@@ -158,7 +163,9 @@ impl Snapshot {
 
 /// A file an extension generates, and what its bytes must be now.
 pub struct Generated {
+    /// Where the file is generated, relative to the project's root.
     pub rel: PathBuf,
+    /// The bytes the file must hold now.
     pub text: String,
     /// What the `generated` check tells a reader to do when the committed file differs.
     pub action: &'static str,
@@ -172,6 +179,7 @@ pub struct Generated {
 #[derive(Default)]
 #[non_exhaustive]
 pub struct ExtensionReport {
+    /// Every finding the extension's checks raised over the tree, merged after `check`'s.
     pub findings: Vec<Finding>,
     /// The names of the checks that got no input and did not run, printed as not run rather
     /// than counted, because a count nobody took reads as nothing found.
@@ -240,8 +248,14 @@ pub trait Extension {
     fn dump(&self, model: &Model) -> Vec<crate::model::table::DumpRow>;
 
     /// Read what its checks need for one tree. Runs only once `check`'s first three phases
-    /// passed over that tree, so a run that stops earlier resolves and fetches nothing. `Err`
-    /// is could-not-run.
+    /// passed over that tree, so a run that stops earlier resolves and fetches nothing.
+    ///
+    /// # Errors
+    ///
+    /// An implementation returns a could-not-run message, naming the cause, when it cannot read
+    /// what its checks need over `tree`. The caller judges nothing more of that tree: a command
+    /// over the working tree or the index stops with the message, and `commits` reports that
+    /// commit's tree as not loading.
     fn prepare(
         &mut self,
         manifest: &Manifest,
