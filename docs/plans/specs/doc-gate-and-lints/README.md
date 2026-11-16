@@ -27,7 +27,7 @@ the repository in a commit of its own, after its harvest and the review before t
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits: D1 and D2 are built as written, and the branch merges once the owner has ruled on each.
+  waits. D1 and D2, the two defaults the owner was asked to rule on, are ruled.
 
 The discussion spans one session, which begins at the owner's message "I'd like to solve
 docs/open-issues/the-documentation-lints-on-one-branch.md and the two issues it bundles." Its rounds,
@@ -39,6 +39,7 @@ named by the opening words of each of the owner's messages:
 | 2 | "start the design discussion" |
 | 3 | "nothing to contest, I agree with your proposals" |
 | 4 | "Q1 a is right." |
+| 5 | "D1 D2 agreed, proceed with the work" |
 
 The threads and the arguments are in [the deliberation](deliberation.md). The generated lines of
 the discussion's two record searches are in [the discussion's search](search/discussion.txt).
@@ -637,15 +638,16 @@ with its source. Each step writes the entries in `path@knowledge-architect@CHANG
 - **D1**, on `thread@doc-gate-and-lints@split-not-needed-is-an-issue`: the rule lands in this branch
   as "Decided design, split not needed is an issue" states it, a new head beside the incumbent, whose
   title and decision stay. The owner proposed the clarification in round 4 and did not rule on its
-  shape. Built as written; the branch merges once the owner rules.
+  shape. Ruled: the session chose this shape over the rivals of "Losing alternatives", which no
+  goal ranks; the owner approved it, round 5.
 - **D2**, on `thread@doc-gate-and-lints@doc-pass-split` and
   `thread@doc-gate-and-lints@split-not-needed-is-an-issue`: the split issues are of kind `design`,
   not `todo` as the shape the owner ruled on in round 4 said. The session chose `design` after that
   ruling, as the one kind whose re-entry point the record search reads at the next design or
   planning, where the owner's argument of round 4 has the split reconsidered; a split no discussion
   has weighed for a work that changes the code is an open design question, as the project-audit
-  skill already records a split too large for its branch. Built as written; the branch merges once
-  the owner rules.
+  skill already records a split too large for its branch. Ruled: the session chose `design` over
+  `todo`; the owner approved it, round 5.
 
 ## Harvest
 
