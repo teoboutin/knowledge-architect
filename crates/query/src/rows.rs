@@ -29,6 +29,12 @@ pub struct TripwiresFilter {
 }
 
 /// Every issue entry, one row each: exit 1 when no row is left, `Err` when the project cannot be read.
+///
+/// # Errors
+///
+/// An `Err` where the project cannot be read: its root cannot be resolved, or git cannot list
+/// it. The message carries the reason, and `klarch` reports it with exit 2. A failure of git asked
+/// when each entry last changed is no `Err`: the column reads `-`.
 pub fn issues(
     manifest: &Manifest,
     args: &IssuesFilter,
@@ -93,6 +99,11 @@ pub fn issues(
 
 /// Every tripwire entry, one row each: exit 1 when no row is left, `Err` when the project cannot be
 /// read.
+///
+/// # Errors
+///
+/// An `Err` where the project cannot be read: its root cannot be resolved, or git cannot list
+/// it. The message carries the reason, and `klarch` reports it with exit 2.
 pub fn tripwires(
     manifest: &Manifest,
     args: &TripwiresFilter,

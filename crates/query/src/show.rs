@@ -14,6 +14,22 @@ use crate::Manifest;
 /// that is not reference-shaped could not be run and exits 2, and a reference the grammar accepts
 /// that names nothing is a negative answer and exits 1. A reader who mistyped the grammar and a
 /// reader who named a deleted entry need different things.
+///
+/// # Errors
+///
+/// An `Err`, which `klarch` reports with exit 2:
+///
+/// - the project cannot be read: its root cannot be resolved, or git cannot list it;
+/// - `reference` is not reference-shaped: malformed, an anchor where the kind goes, or no
+///   reference at all, the message saying why;
+/// - for a `path` or `planned` reference, the survey of the tree that says whether its target
+///   exists fails.
+///
+/// # Panics
+///
+/// Where the resolver accepts a `register` reference whose id names no register the manifest
+/// declares. It accepts one only where it finds that register by that id, so a panic is a defect
+/// of the resolver.
 pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<ExitCode, String> {
     let model = crate::Model::build(manifest, checker).map_err(|e| e.to_string())?;
     let anchors = Anchors::of(manifest, model.listing());
