@@ -1120,6 +1120,28 @@ their verdict is a property of the toolchain as much as of the tree: on floating
 adding a clippy lint fails CI on a tree that passes locally, or the reverse, with no change in the
 diff. An upgrade is a one-line commit of that file, and the gates judge it like any other change.
 
+### Every crate takes the documentation lints from the workspace's one lint table, the maintenance tool included `##doc-lints-table`
+
+The lint table of the root `path@knowledge-architect@Cargo.toml`, `[workspace.lints.rust]` and
+`[workspace.lints.clippy]`, holds the lint on `unsafe` code, per
+`design@agent-skills@no-security-axis`, and the documentation lints the setup asks of a published
+crate, per `design@agent-skills@documentation-presence-is-linted`. Every crate takes the
+table whole, with `[lints] workspace = true`, so `xtask`, which is never published, warns on the
+documentation lints too, and its public items are documented as a published crate's are: that is
+the cost accepted. One table is what every crate shares, so a lint the table gains reaches every
+crate. A table of `xtask`'s own, without `workspace = true`, which cargo accepts, would keep it out
+of the documentation lints, at the cost of a second copy of `unsafe_code`, which
+`design@agent-skills@no-security-axis` asks of every crate, and of a lint the workspace's table
+gains later not reaching it unless that copy is edited too.
+
+The nearest rival, a table of the documentation lints in each published crate's manifest, is
+refused by cargo: a crate's `[lints]` cannot take the workspace's table and add lints of its own,
+so each published crate would repeat every lint of the table, `unsafe_code` included, and the
+crates would stop sharing one table, `rejected@knowledge-architect@lint-table-per-published-crate`.
+Observed on cargo 1.98.0, and re-taken by a workspace whose one member declares
+`[lints] workspace = true` and, beside it, `[lints.rust] missing_docs = "warn"`: `cargo check` fails
+to load the member's manifest, with "cannot override `workspace.lints` in `lints`".
+
 ### Every build that cargo starts inside a checkout is tied to that checkout `##a-build-is-tied-to-its-checkout`
 
 The `[env]` table of the cargo configuration sets `KNOWLEDGE_ARCHITECT_CHECKOUT` to the checkout's
