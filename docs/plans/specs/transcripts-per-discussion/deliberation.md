@@ -254,7 +254,8 @@ its root `CLAUDE.md`, as this one would. It keeps every adopting owner's decisio
 `goal@the-owner-decides`. It costs every project that does not opt out one approval round per
 transcript." / "If publishing a scrubbed transcript is \"an action that cannot be undone\", the
 rival is required. If it is no different from any other pushed text, as argument 3 shows, the
-proposal stands. That is a reading of `goal@the-owner-decides` only you can give."
+proposal stands. That is a reading of `goal@the-owner-decides` only you can give." "Argument 3" is
+point 3 of the same message, quoted last in `argument@transcripts-per-discussion@arg-16`.
 
 ### Numbers, not dates `##arg-18`
 
@@ -299,7 +300,10 @@ and `thread@transcripts-per-discussion@search-files-per-discussion`. "**The chec
 changes**, in the `model` Component. A project that already holds a `transcript.txt`,
 `search/discussion.txt` or `search/design-audit.txt` must rename it, so the release needs a
 Migration entry. This repository holds none of these files today." / "**The premortem runs**
-before convergence, since a later reversal would touch stored files."
+before convergence, since a later reversal would touch stored files." "None" holds of the
+repository's own plan documents, as the session's round-2 message said of `transcript.txt`: the
+`dirhome` mock held eight such files, which commit 1 renamed but for the two of its harvested
+slice.
 
 ### The first wording of the goal's sentence avoids naming a git command `##arg-24`
 
