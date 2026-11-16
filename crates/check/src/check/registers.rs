@@ -297,6 +297,11 @@ fn plan_home(
             if inputs.directories.contains(path)
                 && name != "harvested"
                 && name != "search"
+                // A defence no test reaches: phase 2 refuses a `transcripts/` holding a README.md,
+                // since `plan_directory` in `path@model@src/tree.rs` admits there only the names
+                // its file test admits, so no such tree reaches this check. The rule that a
+                // milestone's numbered directories are no slices is the model's, `slices` and
+                // `is_numbered_dir` in `path@model@src/plan.rs`, which this crate cannot call.
                 && name != "transcripts"
                 && headed(path)
             {
