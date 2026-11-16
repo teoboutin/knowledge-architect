@@ -8,6 +8,7 @@ use knowledge_architect_transcript::{ListOptions, SearchOptions, ShowFrom, ShowO
 /// The arguments of `transcript`.
 #[derive(Args)]
 pub struct TranscriptArgs {
+    /// Which of the verbs to run, with its own arguments.
     #[command(subcommand)]
     pub verb: TranscriptVerb,
 }

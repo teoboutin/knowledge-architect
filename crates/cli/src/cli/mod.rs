@@ -96,6 +96,7 @@ pub enum Command {
     Transcript(TranscriptArgs),
 }
 
+/// The arguments of `id`.
 #[derive(Args)]
 pub struct IdArgs {
     /// The ids to look up, in the grammar `[a-z0-9]+(-[a-z0-9]+)+`.
@@ -103,6 +104,7 @@ pub struct IdArgs {
     pub ids: Vec<String>,
 }
 
+/// The arguments of `worklist`.
 #[derive(Args)]
 pub struct WorklistArgs {
     /// Write the work list into DIR, a new or empty directory outside the project: `agents.txt`,
@@ -210,6 +212,7 @@ fn project_name(value: &str) -> Result<String, String> {
     knowledge_architect_create::check_name(value).map(|()| value.to_string())
 }
 
+/// The arguments of `new-component`.
 #[derive(Args)]
 pub struct NewComponentArgs {
     /// The Component's directory, relative to the working directory and inside the project.
@@ -217,6 +220,7 @@ pub struct NewComponentArgs {
     pub dir: std::path::PathBuf,
 }
 
+/// The arguments of `init`.
 #[derive(Args)]
 pub struct InitArgs {
     /// The project's directory, created when it does not exist.
@@ -255,6 +259,7 @@ pub enum Vcs {
     None,
 }
 
+/// The arguments of `check`.
 #[derive(Args)]
 pub struct CheckArgs {
     /// Apply the safe fixes the checker admits before checking: write the generated files and the
@@ -268,6 +273,7 @@ pub struct CheckArgs {
     pub staged: bool,
 }
 
+/// The arguments of `index`.
 #[derive(Args)]
 pub struct IndexArgs {
     /// Write the generated files the tree git's index would commit needs into the index, and
@@ -276,6 +282,7 @@ pub struct IndexArgs {
     pub staged: bool,
 }
 
+/// The arguments of `commits`.
 #[derive(Args)]
 pub struct CommitsArgs {
     /// The range to walk, as `git rev-list` reads one.
@@ -283,6 +290,7 @@ pub struct CommitsArgs {
     pub range: String,
 }
 
+/// The arguments of `show`.
 #[derive(Args)]
 pub struct ShowArgs {
     /// The reference to print, `<kind>@<anchor>@<id>`.
@@ -290,6 +298,7 @@ pub struct ShowArgs {
     pub reference: String,
 }
 
+/// The arguments of `issues`.
 #[derive(Args)]
 pub struct IssuesArgs {
     /// Only the entries of this kind.
@@ -303,6 +312,7 @@ pub struct IssuesArgs {
     pub terms: Vec<String>,
 }
 
+/// The arguments of `tripwires`.
 #[derive(Args)]
 pub struct TripwiresArgs {
     /// Only the entries guarding this entry: a decision, a goal or a declared register's
@@ -318,13 +328,20 @@ pub struct TripwiresArgs {
 ///
 /// `checker` is every directory of the running binary's own source, compiled into it, per
 /// `design@check@checker-source-literals-are-data`. The exit code is
-/// `design@cli@exit-code-ladder`: `Err` is could-not-run, and the caller prints it and exits 2.
-/// `extensions` is every extension the binary registers, per
-/// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none. A value holding a
-/// combination the command refuses, a `worklist` subject that is no id in the grammar of an entry
-/// id, which clap refuses while parsing, and `Command::Init`, which goes to [`init`], are `Err`. The command
+/// `design@cli@exit-code-ladder`. `extensions` is every extension the binary registers, per
+/// `design@check@an-extension-plugs-in-through-phased-hooks`; `klarch` passes none. The command
 /// prints, so a closed stdout ends the process with exit 2, and `index` and `check --fix` can return
 /// exit 2 themselves, having printed why.
+///
+/// # Errors
+///
+/// Returns a could-not-run message, which the caller prints before it exits 2. Refused before any
+/// extension runs: a value holding a combination the command refuses, such as `check` with both
+/// `fix` and `staged`, `worklist` with not exactly one of `out`, `verify` and `check` or with an
+/// argument its mode takes none of, or `transcript show` with both `from` and `from_line`; and a
+/// `worklist` subject that is no id in the grammar of an entry id, which clap refuses while
+/// parsing. Then `Command::Init`, which goes to [`init`], and every could-not-run of the
+/// command's own function.
 pub fn run(
     command: Command,
     manifest: &Manifest,
@@ -460,9 +477,16 @@ fn worklist_mode(args: &WorklistArgs) -> Result<WorklistMode, String> {
 /// Create a knowledge-architect project at `args.path`, as `klarch init` does.
 ///
 /// A binary calls this before [`locate`], with the same `libraries` and `packages` it hands
-/// [`refuse_a_foreign_build`] and the same `checker` and `extensions` it hands [`run`]. `Err` is a
-/// refusal: nothing was written, and the binary exits 2 with it. After the first write, a failure is
-/// exit 1 with the files in place, and a closed stdout still ends the process with exit 2.
+/// [`refuse_a_foreign_build`] and the same `checker` and `extensions` it hands [`run`]. After the
+/// first write, a failure is exit 1 with the files in place, and a closed stdout still ends the
+/// process with exit 2.
+///
+/// # Errors
+///
+/// Returns a refusal of `knowledge_architect_create::init`, made before anything is written,
+/// which the binary prints before it exits 2: among its causes, a working directory that cannot
+/// be read, a PATH that already holds a manifest, and a PATH with no basename to name the project
+/// by when no name is given.
 pub fn init(
     args: InitArgs,
     libraries: &[Library],
@@ -487,8 +511,12 @@ pub fn init(
 /// The project is whatever declares itself one at or above the working directory.
 ///
 /// Nothing about any particular repository is compiled in, so pointing the tool at a copy of a mock
-/// project needs no flag and no special case. `Err` is a working
-/// directory it cannot read, or no manifest at or above it.
+/// project needs no flag and no special case.
+///
+/// # Errors
+///
+/// Returns a message when the working directory cannot be read, when no manifest lies at or
+/// above it, or when the nearest manifest cannot be read or parsed.
 pub fn locate() -> Result<Manifest, String> {
     let cwd =
         std::env::current_dir().map_err(|e| format!("cannot read the working directory: {e}"))?;
