@@ -101,7 +101,8 @@ messages.
   `argument@doc-gate-and-lints@arg-25`, `argument@doc-gate-and-lints@arg-26`,
   `argument@doc-gate-and-lints@arg-27`, `argument@doc-gate-and-lints@arg-34`.
 - **Shape:** the README's section "Decided design, doc pass split".
-- **Harvest:** the issues of step 5, per the Harvest section of the README; their kind is D2.
+- **Harvest:** the issues of step 5, per the Harvest section of the README; their kind is D2,
+  which the owner approved, round 5.
 - **Ruling:** in round 4 the owner chose shape (a) of Q1, the agent's default, over (b), no split
   and no issue, and (c), a split as steps before the doc pass, and gave an argument for it,
   `argument@doc-gate-and-lints@arg-34`. The agent's replies named the kind of each issue `todo`.
@@ -133,8 +134,7 @@ messages.
   Q1. The agent's shape, a rewording of that head and of one sentence each of
   `skill@knowledge-architect-planning` and `skill@knowledge-architect-design`, followed it in the
   reply to round 4.
-- **Final state:** presumed-settled. It is built in this branch as default D1, and waits for the
-  owner's ruling before the branch merges.
+- **Final state:** approved, as default D1, round 5.
 - **Arguments that moved it:** `argument@doc-gate-and-lints@arg-34`,
   `argument@doc-gate-and-lints@arg-36`, `argument@doc-gate-and-lints@arg-37`,
   `argument@doc-gate-and-lints@arg-38`, `argument@doc-gate-and-lints@arg-39`,
@@ -146,9 +146,10 @@ messages.
   of the README. The shape was revised after the reviews of the spec into two heads, on
   `argument@doc-gate-and-lints@arg-42`, `argument@doc-gate-and-lints@arg-43` and
   `argument@doc-gate-and-lints@arg-44`.
-- **Ruling:** none yet. The agent put it in scope as D1 on `argument@doc-gate-and-lints@arg-39`,
-  and the issue kind as D2 on `argument@doc-gate-and-lints@arg-45`; the owner's ruling on each is
-  awaited before the merge.
+- **Ruling:** the agent put it in scope as D1 on `argument@doc-gate-and-lints@arg-39`, and the
+  issue kind as D2 on `argument@doc-gate-and-lints@arg-45`. In round 5 the owner approved both
+  defaults: for each, the session's choice over the rivals of the README's "Losing alternatives",
+  which no goal ranks.
 
 ### The library offers the recommended gate list in a head of its own, argued from the goal on generic tools `##recommended-gate-list`
 
