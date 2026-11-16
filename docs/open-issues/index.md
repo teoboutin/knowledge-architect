@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+27 entries
 
 | kind | title |
 | --- | --- |
@@ -31,4 +31,3 @@
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |
 | todo | [This repository's own skills, agents and commands are not checked for a generic part to ship](this-repository-s-own-tools-are-not-checked-for-a-generic-part.md) |
 | todo | [This repository's published crates warn on none of the documentation lints the setup asks for](this-repository-warns-on-none-of-the-documentation-lints.md) |
-| todo | [Mutation survivors left in three suites, caught on one branch](three-suites-mutation-survivors-on-one-branch.md) |
