@@ -2035,4 +2035,207 @@ mod tests {
             )]
         );
     }
+
+    /// The claim: a line of the owner's, the agent's or a dispatch's, and a line no row placed, is
+    /// never cut, and an injected or a tool text is. Mutations checked in `Label::never_cut`: each
+    /// of `Label::Owner`, `Label::OwnerQueued`, `Label::OwnerCommand` and `Label::OwnerInterrupt`
+    /// removed from its list; each caught.
+    #[test]
+    fn only_an_injected_or_a_tool_text_is_cut() {
+        for label in [
+            Label::Owner,
+            Label::OwnerAnswer,
+            Label::OwnerQueued,
+            Label::OwnerCommand,
+            Label::OwnerInterrupt,
+            Label::OwnerShell,
+            Label::Agent,
+            Label::Dispatch,
+            Label::Unlabelled,
+        ] {
+            assert!(label.never_cut(), "{label:?}");
+        }
+        for label in [
+            Label::Injected("meta".to_string()),
+            Label::Tool("Bash".to_string()),
+        ] {
+            assert!(!label.never_cut(), "{label:?}");
+        }
+    }
+
+    /// A scratch directory of its own under the system's temporary directory, removed when dropped.
+    struct Scratch(PathBuf);
+
+    impl Scratch {
+        fn new(tag: &str) -> Scratch {
+            let dir =
+                std::env::temp_dir().join(format!("klarch-reader-{tag}-{}", std::process::id()));
+            let _ = std::fs::remove_dir_all(&dir);
+            std::fs::create_dir_all(&dir).expect("a scratch directory");
+            Scratch(dir)
+        }
+    }
+
+    impl Drop for Scratch {
+        fn drop(&mut self) {
+            let _ = std::fs::remove_dir_all(&self.0);
+        }
+    }
+
+    /// The claim: a root handed in through a symbolic link names the sessions that ran in the
+    /// directory it reaches, since the roots are canonicalised as the `cwd` is, per
+    /// `design@transcript@transcript-directory-resolution`. `klarch` hands in a root found from its
+    /// working directory, which the system gives with its links resolved, so a library caller alone
+    /// reaches the case, and this test calls the library. Mutation
+    /// checked in `project_files`: `.map(|r| r.canonicalize().unwrap_or_else(|_| r.clone()))` made
+    /// `.map(|r| r.clone())`; caught.
+    #[test]
+    fn a_root_through_a_symlink_names_the_sessions_of_the_directory_it_reaches() {
+        let scratch = Scratch::new("root-link");
+        let real = scratch.0.join("real");
+        std::fs::create_dir_all(&real).expect("the project's directory");
+        let link = scratch.0.join("link");
+        std::os::unix::fs::symlink(&real, &link).expect("a symlink");
+        let projects = scratch.0.join("projects");
+        std::fs::create_dir_all(projects.join("-real")).expect("a project directory");
+        let line = json!({
+            "type": "user",
+            "uuid": "r1",
+            "sessionId": "r1",
+            "cwd": real.display().to_string(),
+            "message": {"content": "hi"},
+        });
+        let session = projects.join("-real/r1.jsonl");
+        std::fs::write(&session, format!("{line}\n")).expect("a transcript");
+        let found = project_files(&projects, Some(&[link])).expect("the directory reads");
+        assert_eq!(found.files, [session]);
+    }
+
+    /// The claim: every value the reader knows, of each set it reads against, is surveyed without a
+    /// note, so a classed value no fixture holds is never reported as unrecognised, per
+    /// `design@transcript@transcript-format-tolerated-and-reported`. The values are written here
+    /// rather than read from the constants, so a value removed from a set fails. Mutations checked:
+    /// `"api-request",` removed from `KNOWN_METADATA_TYPES`, `"scheduled_task_fire",` from
+    /// `KNOWN_SYSTEM_SUBTYPES`, `"total_tokens_reminder",` from `KNOWN_ATTACHMENT_TYPES`,
+    /// `"coordinator"` from `KNOWN_ORIGIN_KINDS`, and `"thinking"` from `KNOWN_ASSISTANT_ITEMS`;
+    /// each caught.
+    #[test]
+    fn every_known_value_is_surveyed_without_a_note() {
+        let mut lines: Vec<String> = Vec::new();
+        for kind in [
+            "api-request",
+            "api-request-blob",
+            "api-request-shape",
+            "last-prompt",
+            "atis-latch",
+            "mode",
+            "permission-mode",
+            "ai-title",
+            "queue-operation",
+            "pr-link",
+            "file-history-delta",
+            "file-history-snapshot",
+            "cost-state",
+            "artifact-autoreact-ledger",
+            "artifact-comment-monitor",
+            "frame-link",
+            "bridge-session",
+            "tools-used",
+            "session-owner",
+        ] {
+            lines.push(json!({ "type": kind }).to_string());
+        }
+        for subtype in [
+            "turn_duration",
+            "compact_boundary",
+            "scheduled_task_fire",
+            "informational",
+            "local_command",
+            "model_refusal_no_fallback",
+            "bridge_status",
+            "stop_hook_summary",
+            "api_error",
+        ] {
+            lines.push(json!({ "type": "system", "subtype": subtype }).to_string());
+        }
+        for attachment in [
+            "total_tokens_reminder",
+            "deferred_tools_record",
+            "prompt_snapshot",
+            "environment",
+            "date",
+            "instructions",
+            "model",
+            "session_context",
+            "credential_org",
+            "mcp_instructions_delta",
+            "remote_session_change",
+            "skill_listing",
+            "auto_mode",
+            "silent_turn_reminder",
+            "deferred_tools_delta",
+            "agent_listing_delta",
+            "edited_text_file",
+            "nested_memory",
+            "command_permissions",
+            "read_truncation_notice",
+            "structured_output",
+            "hook_success",
+            "hook_additional_context",
+            "file",
+            "task_status",
+            "compact_file_reference",
+            "invoked_skills",
+            "hook_system_message",
+            "thinking_drop",
+            "task_reminder",
+        ] {
+            lines.push(
+                json!({ "type": "attachment", "attachment": { "type": attachment } }).to_string(),
+            );
+        }
+        // `queued_command` is read, so it holds the prompt and the origin it is read for.
+        lines.push(
+            json!({
+                "type": "attachment",
+                "attachment": {
+                    "type": "queued_command",
+                    "prompt": "typed while busy",
+                    "origin": { "kind": "human" },
+                },
+            })
+            .to_string(),
+        );
+        for kind in ["human", "peer", "task-notification", "coordinator"] {
+            lines.push(
+                json!({ "type": "user", "origin": { "kind": kind }, "message": { "content": "x" } })
+                    .to_string(),
+            );
+        }
+        lines.push(
+            json!({
+                "type": "user",
+                "message": { "content": [
+                    { "type": "text", "text": "x" },
+                    { "type": "tool_result", "tool_use_id": "t1", "content": "y" },
+                ] },
+            })
+            .to_string(),
+        );
+        lines.push(
+            json!({
+                "type": "assistant",
+                "message": { "content": [
+                    { "type": "text", "text": "x" },
+                    { "type": "tool_use", "id": "t1", "name": "Bash", "input": {} },
+                    { "type": "thinking", "thinking": "z" },
+                ] },
+            })
+            .to_string(),
+        );
+        let lines: Vec<&str> = lines.iter().map(String::as_str).collect();
+        let mut inventory = Inventory::default();
+        inventory.survey(&file(&lines), "t", false);
+        assert!(inventory.unknown.is_empty(), "{:?}", inventory.unknown);
+    }
 }
