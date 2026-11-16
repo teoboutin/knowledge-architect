@@ -117,10 +117,12 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a split the work needs is planned as a step before the work or the harvest
   that needs it, or a slice of its own in a milestone, never left to the implementer. A split signal
   over code the work does not write, a doc comment added to it not counting as writing it, that the
-  design discussion or the planning weighs and finds the work does not need, becomes an issue of
-  kind `design`, whose re-entry point is the design or the planning of the next work that changes
-  that code; so does one met where the work is implemented or reviewed, where its routing as met
-  outside the task opens an issue. The move of a split lands
+  design discussion or the planning weighs and finds the work does not need, and that the signals
+  against a split do not outweigh, becomes an issue of kind `design`, whose re-entry point is the
+  design or the planning of the next work that changes that code; so does one met where the work is
+  implemented or reviewed, where its routing as met outside the task opens an issue, and the
+  code-shape reviewer names that kind and re-entry point beside each split signal it reports. An
+  outweighed signal owes no issue. The move of a split lands
   in commits that hold the move alone, each building and passing the project's checks. At planning,
   the session runs `worklist --out` with the `README.md` files the design audits will take as the
   work, and plans a split of each design subject the harvest writes into that a notice names; a

@@ -173,8 +173,8 @@ test of `primer@design-heads` holds. A signal for a split over code the
 work does not write, a doc comment added to it not counting as writing it, which no such step took,
 is not acted on inside that work: a split is a design decision, so it is no fix of the second row of
 `primer@met-outside-the-task`, and it is routed by the other rows of that table. Where they open an
-issue, it is of kind `design`, per `skill@knowledge-architect-issue-tracking`, whose re-entry point
-is the design or the planning of the next work that changes that code.
+issue, it is of kind `design`, whose re-entry point is the design or the planning of the next work
+that changes that code, as loop step 1 of `skill@knowledge-architect-design@discussion-loop` says.
 
 ### A Component with a second reason to change
 
