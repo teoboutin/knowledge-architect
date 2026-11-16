@@ -27,6 +27,21 @@ the work and the work did not take: the code-split scout and the design-record a
 heads the harvest touches, at the grounding and at the list of touched heads, and the reviews of a
 plan document, which the review of this spec now runs.
 
+The review of this spec repaired the work in the commit "[review] The committed transcript's end
+point reads one way, its number is taken at its commit, and the record says what the narrower span
+leaves unchecked", named below the first review repair. It changed the planning skill's transcript
+bullet, which now names one end point and says to cut the output after it;
+`design@agent-skills@committed-transcript`, whose number commit 2 took in the order the
+discussions began and which it aligned with the skill's next number;
+`design@agent-skills@plan-records-the-exchange`; the reason
+`rejected@agent-skills@owner-words-verbatim-in-plan-items` lost on, now that the committed
+transcripts hold the words of the design discussions in context;
+`issue@agent-skills@sessions-misread-which-course-a-design-discussion-takes`; and the doc comment
+of the test `each_odd_shape_of_the_plans_layout_is_one_phase_two_finding` in
+`path@model@src/tree.rs`. The review before the merge repaired the work again, in the commits that
+follow the commit "[review] The spec on committed transcripts states what its work rewrites and
+departs from, and corrects its counts and attributions" on the branch.
+
 This spec is written for a session that did not witness the discussion. It leaves the repository in
 a commit of its own, cited as `spec@plans@transcripts-per-discussion`, after the review before the
 merge has read the tip that holds it.
@@ -81,9 +96,11 @@ built: its review before the merge reads it against this spec.
   `search/design-audit.txt`, the names a plan document's directory admitted before this work.
 - **the numbered names**: `transcripts/<n>.txt`, `search/discussion-<n>.txt` and
   `search/design-audit-<n>.txt`, `<n>` decimal digits counted from 1 with no leading zero.
-- **F4 to F6, N1 to N5**: the questions on intent the goal reviewer raised on the goal's sentence,
-  in its first and its second round, listed in `argument@transcripts-per-discussion@arg-25` and
-  `argument@transcripts-per-discussion@arg-33`.
+- **F1 to F6, N1 to N5**: the findings of the goal reviewer's first and second rounds on the
+  goal's sentence, listed in `argument@transcripts-per-discussion@arg-25` and
+  `argument@transcripts-per-discussion@arg-33`: F1 to F3 on the first wording, which the second
+  replaced; F4 to F6 cases a push can hold or set off; N1 to N4 questions on intent, and N5 a
+  wording defect.
 - **the doc-gate-and-lints spec**: the spec deleted by the commit "[plans] The spec on the doc gate
   and the documentation lints leaves, its work landed, with the tripwire whose horizon its deletion
   passes", on main; its transcript is the measurement of `argument@transcripts-per-discussion@arg-4`.
@@ -127,8 +144,8 @@ Outside the work:
 - **A publication on another repository**, such as an issue an adopting project opens on
   knowledge-architect: `design@agent-skills@installed-fix-goes-upstream` and
   `design@agent-skills@intake-outcome-authority` stand.
-- **The splits of `resolver.rs`, `manifest.rs` and `binary.rs`**: weighed and not taken, per
-  "What is already decided".
+- **The splits of `resolver.rs`, `manifest.rs` and `binary.rs`**: not weighed, per "What is
+  already decided".
 
 ## What is already decided
 
@@ -149,11 +166,11 @@ The decisions the design rests on and does not argue again:
 
 | decision | how | texts repaired |
 | --- | --- | --- |
-| `design@agent-skills@committed-transcript` | its span reason defeated by `thread@transcripts-per-discussion@transcript-span`; rewritten in place, its removal step split out to `design@agent-skills@transcript-removal-step`, per `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it` | the planning skill's layout, file table, term "transcript" and assembly bullets; the review skill's sentence on the commit that adds a transcript after the review; the transcript reviewer's agent |
+| `design@agent-skills@committed-transcript` | its span reason defeated by `thread@transcripts-per-discussion@transcript-span`; rewritten in place, its removal step split out to `design@agent-skills@transcript-removal-step`, per `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`, and the numbering's reason and rivals moved to `design@model@plan-document-directory` by the review before the merge | the planning skill's layout, file table, term "transcript" and assembly bullets; the review skill's sentence on the commit that adds a transcript after the review; the transcript reviewer's agent |
 | `transcript-pushed-on-the-owner-s-word`, now `design@agent-skills@transcript-pushed-with-the-branch` | reversed by `thread@transcripts-per-discussion@transcript-push-approval` | the planning skill's sentence on the owner's word before a push, deleted; `issue@transcript@an-option-anonymizes-what-transcript-prints`, its "Why it matters" |
 | `design@agent-skills@attribution-replaces-quotation` | reworded: the verbatim words of a design discussion stay in its transcript, and a ruling after its last checkpoint is attributed only | the design skill, the primer's row of plan documents, and the head-ground fragment, which ships in the primer, the decision-recording and design skills, the decision-record reviewer and the design-record auditor; `issue@agent-skills@the-quick-fixes-spec-quotes-the-owner-in-its-items`, which names the transcript in words |
 | `design@model@plan-document-directory` | rewritten to the numbered names, in commit 1 | in commit 1: the regime table of `design@model@a-harvested-slice-is-frozen`, `rejected@model@spec-as-one-file`, `path@check@README.md`, and the comments and fixtures that named the single-file names |
-| `goal@the-owner-decides` | rewritten in commit 3, on the owner's ruling: two sentences added, that a push to the project's repository is no action that cannot be undone the owner decides, and that an action the push sets off is judged on its own, per `thread@transcripts-per-discussion@push-reading-in-goal` | none: no text restated the goal on a push |
+| `goal@the-owner-decides` | rewritten in commit 3, on the owner's ruling: two sentences added, that a push to the project's repository is no action that cannot be undone the owner decides, and that an action the push sets off is judged on its own, per `thread@transcripts-per-discussion@push-reading-in-goal` | none: `design@knowledge-architect@owner-pushes-the-release-tag` reads the goal on a push, that a push can be undone, and agrees with the two sentences |
 
 **Departures the wrong path produced**, from heads that stand and are not reversed:
 
@@ -172,11 +189,13 @@ tripwire guards either.
 the numbered names in commit 2 with its rule unchanged, unless named otherwise:
 `design@agent-skills@discussion-record-apart`, `design@agent-skills@ledger-from-transcript`,
 `design@agent-skills@plan-records-the-exchange`, whose premise that the committed transcript lets a
-reviewer check the rulings is narrowed to the rulings of the design discussions;
-`design@agent-skills@plan-commits-the-generated-lines`, which also gains rules: a discussion's
-search takes the number of its transcript, a second search inside one discussion is appended to
-that discussion's file after a header line, a design audit's file is numbered per audit, and the
-rival, numbering every search on its own, is stated;
+reviewer check the rulings is narrowed to the rulings of the design discussions, repaired in the
+first review repair;
+`design@agent-skills@plan-commits-the-generated-lines`, which names the numbered files as
+`design@model@plan-document-directory` does: the numbering's reason and rivals are in that head,
+and the shared number of a discussion's search and its transcript, with the append of a second
+search, is stated by the planning skill alone, its reason and rival in a comment of the skill's
+source beside it, as the review before the merge repaired them;
 `design@agent-skills@search-record-kept-per-occasion`,
 `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`,
 `design@agent-skills@design-audit-checks-fit`,
@@ -198,11 +217,14 @@ before the work, per "Status and audience".
 - `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`,
   `trigger-met`: `design@agent-skills@committed-transcript` split in two, as above;
 - `issue@model@resolver-rs-is-past-one-read`, `issue@model@manifest-rs-is-past-one-read` and
-  `issue@testing@binary-rs-is-past-one-read`, `trigger-met`: weighed, no split: the work changes the
-  constant `TRANSCRIPT_FILE` of `path@model@src/manifest.rs`, the closure `spec_dir_file` and one
-  match arm of `plan_document` in `path@model@src/resolver.rs`, and one test fixture of
-  `path@testing@tests/binary.rs`, which gives none of these files a second reason to change; each
-  stays open;
+  `issue@testing@binary-rs-is-past-one-read`, `trigger-met`: no split weighed, on the owner's
+  direction that work built before its spec takes in correctness changes only, and each entry
+  records that the weighing passes to the next work that changes the file's code. The work changes
+  the constant `TRANSCRIPT_FILE` of `path@model@src/manifest.rs` and its doc comment; in
+  `path@model@src/resolver.rs`, the closure `spec_dir_file` and the comment above it, one match arm
+  of `plan_document`, and the rows and the doc comment of the test
+  `the_p1_repair_names_the_form_for_each_position`; and one test fixture of
+  `path@testing@tests/binary.rs` and its test's doc comment;
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`,
   `trigger-met`: not taken up; the work moves when a transcript is committed, not when the claim
   check is read;
@@ -295,11 +317,11 @@ For `thread@transcripts-per-discussion@transcript-on-reopening`.
   the full path: the one that produced a spec or a milestone, or a later one, such as a design
   session opened at a slice's or a spec's design audit, or a rediscussion of a milestone before a
   slice's turn.
-- An implementation, a design audit that reopens nothing, and a material finding settled on one
-  word of the owner commit none.
-- A slice owes a transcript only where such a discussion was held for it. A discussion that
-  rewrites one slice is filed under that slice; one that rewrites several slices or the milestone's
-  `README.md`, under the milestone.
+- A discussion the harness kept no transcript of, an implementation, a design audit that reopens
+  nothing, and a material finding settled on one word of the owner commit none.
+- A transcript is filed beside the `README.md` of the document its discussion produced or
+  rewrites: a discussion that rewrites one slice is filed under that slice; one that rewrites
+  several slices or the milestone's `README.md`, under the milestone.
 
 The nearest rival, an excerpt for every reopened thread, brings back the approvals the owner wants
 left out and has no clear end.
@@ -311,11 +333,12 @@ For `thread@transcripts-per-discussion@transcript-files-per-discussion` and
 
 - A plan document's directory holds `transcripts/`, one file per design discussion,
   `transcripts/<n>.txt`, `<n>` the next number of that `transcripts/`, from 1, taken when the
-  transcript is committed, beside the `README.md`
-  of the milestone, the spec or the slice it was held for. One discussion spanning several sessions
-  stays one file.
-- `search/` holds `search/discussion-<n>.txt`, `<n>` the number of the discussion's transcript, and
-  `search/design-audit-<n>.txt`, numbered from 1 per design audit.
+  transcript is committed, filed as "Which discussions commit a transcript, and where it is filed"
+  says. One discussion spanning several sessions stays one file.
+- `search/` holds `search/discussion-<n>.txt`, `<n>` the number of the discussion's transcript, or,
+  for a discussion that commits none, the next number that no transcript and no discussion's
+  search file of that document takes; and `search/design-audit-<n>.txt`, numbered from 1 per design
+  audit.
 - A second search inside one discussion, for a thread opened after the first, appends its generated
   lines to that discussion's file, after a line naming that search.
 - `<n>` is decimal digits with no leading zero, so each number has one name. The checker refuses
@@ -338,13 +361,15 @@ For `thread@transcripts-per-discussion@transcript-push-approval`.
 - A project that wants the word states it in its root `CLAUDE.md`.
 - A publication on another repository is not reached.
 
-The argument: the owner's reading of `goal@the-owner-decides`, that a push to the project's
-repository is no action that cannot be undone, against the reading that it is one, which would put
-every push of the workflow under the owner's word; and the workflow already pushes, with no word of
-the owner, commit messages, plan items and issue entries that sessions write, each exposed to the
-same risk (`argument@transcripts-per-discussion@arg-16`). The nearest rival kept the word as the
-installed default, waivable by a project, at one approval round per transcript in every project that
-does not waive it.
+The argument: `goal@the-owner-decides` states that a push to the project's repository, whatever
+it holds, is no action that cannot be undone the owner decides; and the workflow already pushes,
+with no word of the owner, commit messages, plan items and issue entries that sessions write, each
+exposed to the same risk (`argument@transcripts-per-discussion@arg-16`). The nearest rival kept the
+word as the installed default, waivable in a project's root `CLAUDE.md`, at one approval round per
+transcript in every project that does not waive it, against a risk every text pushed with no word
+of the owner shares; a project whose owner wants the word states it, so each project's owner
+decides for that project. That a publication on another repository is not reached was the
+session's answer, which the owner approved.
 
 ### The goal's sentence on a push
 
@@ -366,7 +391,7 @@ defaults (`argument@transcripts-per-discussion@arg-34`).
 ## Mapping tables
 
 The single-file names to the numbered names, over every file a plan document's directory admitted
-before the work:
+before the work but its `README.md` and a milestone's `index.md`, which are unchanged:
 
 | before | after |
 | --- | --- |
@@ -398,8 +423,13 @@ before the work:
   repaired on F1 to F3; the second, "A push that adds commits", which the owner's ruling on F6
   replaced.
 
-None was written to a `rejected` home: commit 2 found that none meets a test of
-`skill@knowledge-architect-decision-recording@losing-alternatives`.
+None was written to a `rejected` home. A date in the name and the bare `transcript.txt` kept would
+each change the plans layout, a file format, so the first test of
+`skill@knowledge-architect-decision-recording@losing-alternatives` admits them by its letter; they
+are left without one under the narrower reading of that test, which
+`design@model@plan-document-directory` states, citing
+`issue@agent-skills@the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head`.
+The others meet no test.
 
 ## Readings
 
@@ -409,7 +439,7 @@ None: the work reads no external specification.
 
 | # | cause | thread | verdict |
 | --- | --- | --- | --- |
-| P1 | a session cuts the transcript at the wrong message, unable to find the last checkpoint | `thread@transcripts-per-discussion@transcript-span` | a claim of step 2: the planning skill names the end message as the owner's word on the last checkpoint table the discussion showed before the commit that adds or rewrites the plan document, and says that the output is cut after it |
+| P1 | a session cuts the transcript at the wrong message, unable to find the last checkpoint | `thread@transcripts-per-discussion@transcript-span` | a claim of step 2, repaired in the first review repair: the planning skill names the end message as the owner's word on the last checkpoint table the discussion showed before the commit that adds or rewrites the plan document, and says that the output is cut after it |
 | P2 | private data reaches a public repository with no person reading the file before the push | `thread@transcripts-per-discussion@transcript-push-approval` | no tripwire, condition 1: a script could compute it, and `issue@transcript@an-option-anonymizes-what-transcript-prints` is that script |
 | P3 | a ruling after the checkpoint is attributed wrongly, with no verbatim copy to check it against | `thread@transcripts-per-discussion@transcript-span` | watched by `issue@agent-skills@attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts`; the words that leave the transcript are approvals, so the ground on which `rejected@agent-skills@owner-words-verbatim-in-plan-items` lost still holds for argued words |
 | P4 | two branches both add `transcripts/2.txt` to one plan document | `thread@transcripts-per-discussion@transcript-files-per-discussion` | dropped: a rebase conflict reports it |
@@ -457,7 +487,7 @@ audience".
    `design@agent-skills@verdicts-reach-the-conformance-review` does; the design record as listed
    there; the two issues named there; the Workflow entry of the `Next release` section of
    CHANGELOG.md that announces the committed transcript, edited, with no entry of its own. Claims:
-   the premortem's P1, read in the installed copy of the
+   the premortem's P1, repaired in the first review repair, read in the installed copy of the
    planning skill's assembly bullets; no installed text keeps the owner's word before a
    transcript's push, by the reversal check's search; `cargo klarch check` passes. Fails alone on: a
    text still naming a single-file name or the word before the push.
@@ -491,8 +521,8 @@ goal in commit 3.
 | `thread@transcripts-per-discussion@transcript-span` | `design@agent-skills@committed-transcript`, rewritten in place |
 | `thread@transcripts-per-discussion@transcript-commit-timing` | `design@agent-skills@committed-transcript` |
 | `thread@transcripts-per-discussion@transcript-on-reopening` | `design@agent-skills@committed-transcript` |
-| `thread@transcripts-per-discussion@transcript-files-per-discussion` | `design@agent-skills@committed-transcript` and `design@model@plan-document-directory`, commit 1 |
-| `thread@transcripts-per-discussion@search-files-per-discussion` | `design@agent-skills@plan-commits-the-generated-lines`, with the numbering and its rival, and `design@model@plan-document-directory` |
+| `thread@transcripts-per-discussion@transcript-files-per-discussion` | `design@agent-skills@committed-transcript`, and `design@model@plan-document-directory`, commit 1, which holds the numbering, its rivals and its reason since the review before the merge |
+| `thread@transcripts-per-discussion@search-files-per-discussion` | `design@agent-skills@plan-commits-the-generated-lines`, `design@model@plan-document-directory`, and the planning skill's search bullet, with its reason and rival in a comment of the skill's source |
 | `thread@transcripts-per-discussion@transcript-push-approval` | `transcript-pushed-on-the-owner-s-word` reversed into `design@agent-skills@transcript-pushed-with-the-branch`; the removal step split out to `design@agent-skills@transcript-removal-step` |
 | `thread@transcripts-per-discussion@push-reading-in-goal` | `goal@the-owner-decides`, commit 3 |
 | the touched heads and `design@agent-skills@attribution-replaces-quotation` | rewritten in place, as "What is already decided" lists |
