@@ -241,7 +241,8 @@ of a new member, with this alternative among the candidates.
 it, and conforming it in the harvest brings into the harvest work nobody planned, often hard to do
 properly there, on the owner's report. It is kept here because a doubt remains: a plan's list may
 miss heads its harvest touches, which the harvest then conforms as this alternative does, and
-`tripwire@agent-skills@touched-heads-missed-by-the-list` watches whether that recurs.
+`issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps` holds
+what a list must count.
 
 ### A head's title stating the instance built, the members or the mechanism that exist `##title-states-built-instance`
 

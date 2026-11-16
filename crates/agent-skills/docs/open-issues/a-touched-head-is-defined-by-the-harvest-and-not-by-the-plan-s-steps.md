@@ -31,7 +31,8 @@ slice that moved the conformance check before the harvest. A step of the work br
 to a new rule, and the harvest wrote one new head and the changelog. Read literally, the twelve
 heads were outside the list; the session read the definition by its reason and kept them in, and
 the slice's spec lists twelve root heads its harvest "touches without reversing them".
-`tripwire@agent-skills@touched-heads-missed-by-the-list` did not fire: the heads were in the list.
+The tripwire that watched whether a plan's list misses heads did not fire, the heads being in the
+list, and it left at its horizon.
 
 A second instance: the spec of the branch that added the doc gate to the recommended list of the
 gates library and the documentation lints to this repository. Its step 3 brought two heads of the
