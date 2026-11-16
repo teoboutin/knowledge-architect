@@ -5,8 +5,8 @@ kind: deferred
 
 ## Summary
 
-Plan documents now attribute the owner's words in their items and keep the verbatim words in a
-committed transcript, as every other durable record attributes them. The hypothesis that the earlier
+Plan documents now attribute the owner's words in their items and keep the verbatim words of their
+design discussions, up to the last convergence checkpoint, in committed transcripts, as every other durable record attributes them. The hypothesis that the earlier
 mix of regimes confused sessions was weighed on a baseline of slips; nothing has yet counted the
 slips under the new regime, to compare with that baseline.
 
@@ -26,7 +26,11 @@ changed what was built.
 
 The count owed: the same kinds, over the first batch of retrospective files an intake receives
 whose sessions ran a release tagged after the merge of the slice that made plan documents
-directories, counted per workflow file as the baseline is, and compared with the baseline.
+directories, counted per workflow file as the baseline is, and compared with the baseline. The
+slips on rulings given after a design discussion's last convergence checkpoint, at a plan review
+or at the review before the merge, are counted apart: such a ruling is in no committed transcript,
+per `design@agent-skills@committed-transcript`, so its attribution has no verbatim copy to be
+checked against.
 
 ### Why it matters
 
@@ -43,6 +47,6 @@ firmer or a different ruling than the owner gave, goes unseen, against
 The intake of the first batch of retrospective files whose sessions ran a release tagged after the
 merge of the slice that made plan documents directories, its analyses written under
 `path@knowledge-architect@docs/retrospective-reports/`. That intake counts the slips of its batch by
-kind, compares them with the baseline, records the comparison in this entry's
+kind, those on rulings given after the last checkpoint apart, compares them with the baseline, records the comparison in this entry's
 closing commit, and reopens `design@agent-skills@attribution-replaces-quotation` if the
 misattribution kinds rose.

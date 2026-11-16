@@ -44,9 +44,10 @@ commit removes it, and from the history after that. The removal step is the only
 push: the commit that holds a transcript is pushed with its branch, with no word of the owner for
 it, per `design@agent-skills@transcript-pushed-with-the-branch`. That step is a session reading
 the file whole and removing by hand what a script could find, and nothing checks that it was done;
-the milestone's premortem named the failure, its cause P4. An option that removes the home paths
-and the branch's SHAs, and a scripted search for e-mail addresses, would take that part of the
-step out of a session's reading.
+the milestone's premortem named the failure, its cause P4. An option that removes the home paths,
+and a scripted search for e-mail addresses, would take that part of the step out of a session's
+reading; the option's replacement of the branch's SHAs is work it adds, which the step does not
+do.
 
 ### What would close it
 

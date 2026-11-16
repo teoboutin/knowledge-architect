@@ -26,6 +26,12 @@ The instance: the commit "[model] Every public item the documentation lints name
 added doc comments to the file and changed no code of it. The plan of that branch decided no split
 in that work, on the owner's word, and an issue for each file of the pass past one read.
 
+A later instance: the commit "[model] A plan document's directory holds its transcripts and its
+search files numbered, one per design discussion and per design audit" changed the file's code,
+and its branch weighed the size signal against no signal against a split, on the owner's direction
+that work built before its spec takes in correctness changes only. The weighing passes to the next
+work that changes the file's code after it.
+
 ### Why it matters
 
 A review of a change to the file reads in parts a file it cannot read whole, which

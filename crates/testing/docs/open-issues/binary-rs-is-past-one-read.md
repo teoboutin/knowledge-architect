@@ -30,6 +30,12 @@ of the record search's saved workflow, with the closing sections and the verdict
 "[review] A cause's text is compared whole for a claim of absence, and four issue entries the review
 found stale or missing are repaired", which argues it.
 
+A later instance: the commit "[model] A plan document's directory holds its transcripts and its
+search files numbered, one per design discussion and per design audit" changed the file's code,
+and its branch weighed the size signal against no signal against a split, on the owner's direction
+that work built before its spec takes in correctness changes only. The weighing passes to the next
+work that changes the file's code after it.
+
 ### Why it matters
 
 A review of a change to the tests of one command reads in parts a file it cannot read whole, which
