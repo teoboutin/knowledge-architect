@@ -527,16 +527,20 @@ into a pipe outside GitHub Actions, and exits non-zero when any gate fails: read
 a file.
 
 **A crate the project publishes warns on three lints**, which the clippy gate, denying warnings,
-turns into failures: `missing_docs` in its `Cargo.toml`'s `[lints.rust]` table, and
-`missing_errors_doc` and `missing_panics_doc` in its `[lints.clippy]` table, each at `"warn"`. They
-apply to every target of the crate: a binary, an example or an integration test then needs its own
-crate-level documentation too.
+turns into failures: `missing_docs` in the `rust` table of the lints the crate takes, and
+`missing_errors_doc` and `missing_panics_doc` in its `clippy` table, each at `"warn"`. A crate that
+takes the workspace's lints, with `[lints] workspace = true`, takes them from the workspace's
+`[workspace.lints.rust]` and `[workspace.lints.clippy]`, since cargo refuses a crate's own lint keys
+beside that line, and the lints then reach every crate that takes the table; any other crate
+declares them in its own `[lints.rust]` and `[lints.clippy]`. They apply to every target of the
+crate: a binary, an example or an integration test then needs its own crate-level documentation too.
 
-**Every crate of the project forbids `unsafe` code**, with `unsafe_code = "forbid"` in its
-`[lints.rust]` table, so the clippy gate refuses it. A crate that needs `unsafe` sets the lint to
-`"deny"` instead, allows it at each site with a `// SAFETY:` comment stating why the block is
-sound, and warns on `undocumented_unsafe_blocks` in its `[lints.clippy]` table, which refuses a
-block with no such comment.
+**Every crate of the project forbids `unsafe` code**, with `unsafe_code = "forbid"` in the `rust`
+table of the lints it takes, so the clippy gate refuses it. A crate that needs `unsafe` sets the
+lint to `"deny"` instead, in lint tables of its own, since a crate that takes the workspace's
+cannot change one of its lints, allows it at each site with a `// SAFETY:` comment stating why the
+block is sound, and warns on `undocumented_unsafe_blocks` in its `[lints.clippy]` table, which
+refuses a block with no such comment.
 
 **A project with an extension** depends on the crate that holds its extension instead of the
 checker alone, and its `klarch` command registers the extension, as that crate's documentation
