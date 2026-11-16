@@ -27,7 +27,8 @@ the repository in a commit of its own, after its harvest and the review before t
   reversed or rewritten, the design home wins, and the disagreement is a defect of this spec.
 - Every name it uses is defined in it, under Names or New names, or exists in the tree.
 - Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
-  waits. D1 and D2, the two defaults the owner was asked to rule on, are ruled.
+  waits. D1 and D2, the two defaults the owner was asked to rule on, are ruled, and so is Q3, put at
+  the review before the merge.
 
 The discussion spans one session, which begins at the owner's message "I'd like to solve
 docs/open-issues/the-documentation-lints-on-one-branch.md and the two issues it bundles." Its rounds,
@@ -40,6 +41,7 @@ named by the opening words of each of the owner's messages:
 | 3 | "nothing to contest, I agree with your proposals" |
 | 4 | "Q1 a is right." |
 | 5 | "D1 D2 agreed, proceed with the work" |
+| 6 | "q3 default" |
 
 The threads and the arguments are in [the deliberation](deliberation.md). The generated lines of
 the discussion's two record searches are in [the discussion's search](search/discussion.txt).
@@ -109,11 +111,12 @@ before the work starts.
   with
   `RUSTFLAGS="-W missing_docs" cargo clippy -p <crate> --all-targets --message-format=short -- -W clippy::missing_errors_doc -W clippy::missing_panics_doc`
   per crate, then deduplicate the warning lines by file, line, column and message.
-- Files the documentation pass writes into: `path@model@src/resolver.rs` (2511 lines),
-  `path@model@src/entity.rs` (3904) and `path@model@src/manifest.rs` (3486) exceed the 2000 lines a
-  Read with no range returns, so each is past one read. `path@git@src/git.rs` (1949 lines, no
-  `# Errors` section today, 17 owed) is past one read too: a Read with no range returned lines 1 to
-  1293 and named a cap of 25000 tokens, measured by the code-claims review of this spec.
+- Files the documentation pass writes into: `path@model@src/resolver.rs`,
+  `path@model@src/entity.rs` and `path@model@src/manifest.rs` are past one read: a Read with no
+  range returns each cut short, at a cap of 25000 tokens, as the issue step 5 writes for each
+  records. `path@git@src/git.rs` (no `# Errors` section today, 17 owed) is past one read too: a Read
+  with no range returned lines 1 to 1293 and named a cap of 25000 tokens, measured by the
+  code-claims review of this spec.
   `path@check@src/commands/history.rs`, `path@model@src/scan.rs` and
   `path@check@src/commands/mod.rs` are not measured.
 - `design@agent-skills@splits-planned-before-work` says of a split a work bears on: "Neither is left
@@ -648,6 +651,11 @@ with its source. Each step writes the entries in `path@knowledge-architect@CHANG
   has weighed for a work that changes the code is an open design question, as the project-audit
   skill already records a split too large for its branch. Ruled: the session chose `design` over
   `todo`; the owner approved it, round 5.
+- **Q3**, put at the review before the merge, on
+  `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`, whose
+  re-entry point this spec's steps 3 and 4 met: the session's default (a), this spec a second
+  instance in the issue, which stays open with its re-entry point as written, against (b), that
+  discussion held before the merge. Ruled: the owner chose the default, round 6.
 
 ## Harvest
 
