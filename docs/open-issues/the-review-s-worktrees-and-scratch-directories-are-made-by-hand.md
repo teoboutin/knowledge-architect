@@ -41,6 +41,14 @@ Instances, from retrospective files of this repository's sessions:
   in its worktree, a cold release build each; two reviewers ran no checker. The invariant's
   sentence on `CARGO_TARGET_DIR` is the subagent's act, read by the dispatcher, so a brief that
   omits it leaves the reviewer without it.
+- the branch that closed the mutation survivors of three suites, 2026-11-16: eleven reviewers
+  dispatched together, each building in its own worktree at cargo's default job count, and the
+  machine ran out of memory and restarted, which stopped all eleven. The owner reported other
+  processes of the owner's own running at the same time. The machine has 30 GB of memory and 32
+  cores, read with `free -g` and `nproc`, so eleven builds can each start 32 compiler jobs. After
+  the restart, with the owner's other processes stopped, each reviewer was told to set
+  `CARGO_BUILD_JOBS=3`, and the eleven ran to the end. Nothing tells a dispatcher how many builds a
+  batch may run at once.
 
 The cost per reviewer is one full build, since a worktree with a target directory of its own builds
 from empty. The two disk failures have causes recorded elsewhere: the location the session chose,
@@ -59,6 +67,6 @@ records why each subagent gets its own directory.
 
 The owner takes the task in or declines it. If taken in: a command that makes, for a commit and a
 list of names, one detached worktree and one scratch directory per name, prints the paths for the
-briefs, can report the disk a batch of builds needs, and removes them all; with a test over a
+briefs, can report the disk and bound the build jobs a batch of builds needs, and removes them all; with a test over a
 scratch repository; and the review skill naming it. If declined, this entry is deleted with that
 reason in the commit.
