@@ -159,6 +159,13 @@ pub(crate) fn transcript_dir() -> Result<PathBuf, String> {
                 ),
             },
         };
+    projects_dir(&config)
+}
+
+/// The `projects` directory under `config`, the harness's configuration directory.
+///
+/// `Err` when it is no directory, or cannot be read.
+fn projects_dir(config: &Path) -> Result<PathBuf, String> {
     let dir = config.join("projects");
     match std::fs::metadata(&dir) {
         Ok(meta) if meta.is_dir() => Ok(dir),
@@ -2085,8 +2092,10 @@ mod tests {
     /// The claim: a root handed in through a symbolic link names the sessions that ran in the
     /// directory it reaches, since the roots are canonicalised as the `cwd` is, per
     /// `design@transcript@transcript-directory-resolution`. `klarch` hands in a root found from its
-    /// working directory, which the system gives with its links resolved, so a library caller alone
-    /// reaches the case, and this test calls the library. Mutation
+    /// working directory, which the system gives with its links resolved, so a caller of the
+    /// library's `transcript` alone reaches the case, which hands its roots to `project_files`.
+    /// This test calls `project_files`, since `transcript` reads the transcript directory from the
+    /// environment. Mutation
     /// checked in `project_files`: `.map(|r| r.canonicalize().unwrap_or_else(|_| r.clone()))` made
     /// `.map(|r| r.clone())`; caught.
     #[test]
@@ -2109,6 +2118,104 @@ mod tests {
         std::fs::write(&session, format!("{line}\n")).expect("a transcript");
         let found = project_files(&projects, Some(&[link])).expect("the directory reads");
         assert_eq!(found.files, [session]);
+    }
+
+    /// The claim: a `projects` under the configuration directory that is no directory is refused
+    /// as such, a missing one as unreadable, and a directory is taken. Mutation checked in
+    /// `projects_dir`: `Ok(meta) if meta.is_dir() => Ok(dir),` made `Ok(_meta) if true => Ok(dir),`;
+    /// caught.
+    #[test]
+    fn a_projects_that_is_no_directory_is_refused_as_such() {
+        let scratch = Scratch::new("projects-file");
+        let file = scratch.0.join("file");
+        std::fs::create_dir_all(&file).expect("a configuration directory");
+        std::fs::write(file.join("projects"), "").expect("a file named projects");
+        let err = projects_dir(&file).expect_err("a file is refused");
+        assert!(err.ends_with("projects is not a directory"), "{err}");
+        let missing = scratch.0.join("missing");
+        let err = projects_dir(&missing).expect_err("a missing directory is refused");
+        assert!(
+            err.starts_with("cannot read the transcript directory"),
+            "{err}"
+        );
+        let dir = scratch.0.join("dir");
+        std::fs::create_dir_all(dir.join("projects")).expect("a projects directory");
+        assert_eq!(projects_dir(&dir), Ok(dir.join("projects")));
+    }
+
+    /// The claim: a nested agent whose file sorts before that of the agent that dispatched it goes
+    /// to the session that holds its dispatcher's call, where its `sessionId` holds several
+    /// sessions: a later pass places it once its dispatcher is placed, per
+    /// `design@transcript@subagent-file-attached-to-its-dispatcher`. Mutation checked in
+    /// `attach_subagents`: `if pending.is_empty() || !progress {` made `if true {`; caught.
+    #[test]
+    fn a_nested_agent_placed_after_its_dispatcher_goes_to_its_dispatcher_s_session() {
+        let scratch = Scratch::new("nested-agent");
+        let id = "abcd0000-0000-0000-0000-000000000001";
+        let top = scratch.0.join(format!("{id}.jsonl"));
+        let subagents = scratch.0.join(id).join("subagents");
+        std::fs::create_dir_all(&subagents).expect("a subagents directory");
+        let lines = |lines: &[Value]| lines.iter().map(|l| format!("{l}\n")).collect::<String>();
+        let owner = |uuid: &str, time: &str, text: &str| {
+            json!({"type": "user", "uuid": uuid, "parentUuid": null, "sessionId": id,
+                "timestamp": time, "message": {"content": text}, "origin": {"kind": "human"}})
+        };
+        let call = |uuid: &str, parent: &str, time: &str, call: &str| {
+            json!({"type": "assistant", "uuid": uuid, "parentUuid": parent, "sessionId": id,
+                "timestamp": time, "message": {"content": [
+                    {"type": "tool_use", "id": call, "name": "Agent", "input": {}}]}})
+        };
+        let brief = |uuid: &str, time: &str| {
+            json!({"type": "user", "uuid": uuid, "parentUuid": null, "sessionId": id,
+                "timestamp": time, "message": {"content": "a brief"}})
+        };
+        // Two roots under one `sessionId` cut two sessions; the first dispatches `b` by `T1`, and
+        // `b` dispatches `a` by `T3`; `agent-a` sorts before `agent-b`, so the first pass finds no
+        // owner of `T3`.
+        let files = [
+            (
+                top.clone(),
+                lines(&[
+                    owner("u1", "2026-03-01T10:00:00.000Z", "first root"),
+                    call("u2", "u1", "2026-03-01T10:00:01.000Z", "T1"),
+                    owner("u3", "2026-03-01T11:00:00.000Z", "second root"),
+                    call("u4", "u3", "2026-03-01T11:00:01.000Z", "T2"),
+                ]),
+            ),
+            (
+                subagents.join("agent-b.jsonl"),
+                lines(&[
+                    brief("b1", "2026-03-01T10:00:02.000Z"),
+                    call("b2", "b1", "2026-03-01T10:00:03.000Z", "T3"),
+                ]),
+            ),
+            (
+                subagents.join("agent-b.meta.json"),
+                r#"{"toolUseId":"T1"}"#.to_string(),
+            ),
+            (
+                subagents.join("agent-a.jsonl"),
+                lines(&[brief("a1", "2026-03-01T10:00:04.000Z")]),
+            ),
+            (
+                subagents.join("agent-a.meta.json"),
+                r#"{"toolUseId":"T3"}"#.to_string(),
+            ),
+        ];
+        for (path, text) in files {
+            std::fs::write(path, text).expect("a transcript file");
+        }
+        let corpus = Corpus::read(&scratch.0, &[top], true).expect("the files read");
+        let placed: Vec<Vec<&str>> = corpus
+            .sessions
+            .iter()
+            .map(|s| {
+                let mut ids: Vec<&str> = s.subagents.iter().map(|a| a.agent_id.as_str()).collect();
+                ids.sort_unstable();
+                ids
+            })
+            .collect();
+        assert_eq!(placed, [vec!["a", "b"], vec![]]);
     }
 
     /// The claim: every value the reader knows, of each set it reads against, is surveyed without a
