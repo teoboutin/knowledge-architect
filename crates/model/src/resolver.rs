@@ -2331,19 +2331,25 @@ mod tests {
     }
 
     /// The claim: the repair of a missing target names the repair and no cause, and a suffixed
-    /// cause's repair ends with the sentence on the suffix.
+    /// cause's repair ends with the sentence on the suffix. Each text is told by a fragment only it
+    /// holds and by the values it carries, never by its words whole: the statement names the span
+    /// and the target, the repair opens with the repair, and the cause the missing target's repair
+    /// once named, that a path which does not resolve is a guess, is absent. A suffixed cause keeps
+    /// the statement of the cause it wraps, and its repair is the wrapped repair followed by the
+    /// sentence on the suffix.
     #[test]
     fn the_texts_of_a_missing_target_and_a_suffixed_cause() {
         let missing = Cause::Missing {
             target: PathBuf::from("crates/one/z.rs"),
         };
-        assert_eq!(missing.texts("x").1, "repair the pointer, or delete it");
-        let (what, action) = Cause::Suffixed(Box::new(missing)).texts("x");
-        assert_eq!(what, "`x` does not exist, at `crates/one/z.rs`");
-        assert_eq!(
-            action,
-            format!("repair the pointer, or delete it. {DROP_THE_SUFFIX}")
-        );
+        let (what, action) = missing.texts("x");
+        assert!(what.starts_with("`x` "), "{what}");
+        assert!(what.contains("`crates/one/z.rs`"), "{what}");
+        assert!(action.starts_with("repair the pointer"), "{action}");
+        assert!(!action.contains("guess"), "{action}");
+        let (suffixed_what, suffixed_action) = Cause::Suffixed(Box::new(missing)).texts("x");
+        assert_eq!(suffixed_what, what);
+        assert_eq!(suffixed_action, format!("{action}. {DROP_THE_SUFFIX}"));
     }
 
     /// The claim: a line suffix after a fragment, and a fragment after a line suffix, are both
