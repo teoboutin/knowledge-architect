@@ -15,6 +15,11 @@ use crate::Manifest;
 /// `issue@knowledge-architect@command-output-is-not-declared-a-contract`. Exit 1 when a printed
 /// home is missing, a negative answer about the project, per `design@cli@exit-code-ladder`;
 /// `check` names the repair.
+///
+/// # Errors
+///
+/// An `Err` where the project cannot be read: its root cannot be resolved, or git cannot list
+/// it. The message carries the reason, and `klarch` reports it with exit 2.
 pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, String> {
     use crate::model::declared::{PlanKind, Shape};
     use crate::model::table::Constructed;

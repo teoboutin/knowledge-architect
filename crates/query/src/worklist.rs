@@ -143,7 +143,15 @@ pub enum WorklistMode {
 }
 
 /// Write the work list of a search of the whole record, or check the reports its agents filled, per
-/// `design@query@worklist-writes-and-verifies-the-reports`. `Err` is a refusal or a failure:
+/// `design@query@worklist-writes-and-verifies-the-reports`.
+///
+/// Exit 1 is a finding on a report. Under `Write`, it checks neither the form of a subject nor
+/// that a file of the work holds anything: a subject is listed as given, each once, and an empty
+/// file of the work counts no word.
+///
+/// # Errors
+///
+/// `Err` is a refusal or a failure:
 ///
 /// - under `WorklistMode::Write`, an incomplete model, a directory inside the project or not
 ///   empty, a seed naming no entry, a file of the work it cannot read, a `since` git cannot
@@ -164,10 +172,6 @@ pub enum WorklistMode {
 /// - under `WorklistMode::Check`, a path with no last component, an agent `agents.txt` does not
 ///   name, and what `Verify` refuses on reading the three files of the work list, the agent's own
 ///   report or a line of it; nothing is written in any case.
-///
-/// Exit 1 is a finding on a report. Under `Write`, it checks neither the form of a subject nor
-/// that a file of the work holds anything: a subject is listed as given, each once, and an empty
-/// file of the work counts no word.
 pub fn worklist(
     manifest: &Manifest,
     mode: &WorklistMode,

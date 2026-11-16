@@ -23,6 +23,15 @@ use crate::Manifest;
 /// Every kind and every anchor is listed, unfiltered: which collision refuses an id is the
 /// reader's rule, such as a design thread's slug, which collides only with a design or a
 /// `rejected` entry of the Component that will own it.
+///
+/// # Errors
+///
+/// An `Err`, the could-not-run exit 2, with nothing answered:
+///
+/// - `ids` is empty;
+/// - the project cannot be read: its root cannot be resolved, or git cannot list it;
+/// - the model is incomplete: git or the filesystem refused a read, or the first three phases
+///   found anything, the message then naming the phase and the command that reports it.
 pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<ExitCode, String> {
     if ids.is_empty() {
         return Err("no id to look up".to_string());
