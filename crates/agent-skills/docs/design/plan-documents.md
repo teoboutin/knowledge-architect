@@ -293,6 +293,11 @@ the milestone.
 Where a plan review reopens a thread before the plan document's branch merges, the same
 discussion's file is extracted again, to the checkpoint that follows.
 
+Only a design discussion commits a transcript, on the owner's argument that only a design
+discussion holds words of the owner worth keeping verbatim: elsewhere, an implementation and a
+design audit included, the owner mostly approves defaults or asks for detail. The nearest rival, an
+excerpt for every reopened thread, brings back those approvals and has no clear end.
+
 The transcript ends at the last checkpoint because a design discussion is where the owner says what
 is worth keeping verbatim, on the owner's argument: what follows it, the assembly, the plan reviews
 and, for a spec built on its plan document's branch, the implementation, holds approvals of
@@ -336,10 +341,10 @@ nearest rival kept the word as the installed default, waivable in a project's ro
 costs one approval round per transcript in every project that does not waive it, against a risk
 that every text the workflow pushes with no word of the owner shares. So the installed text asks
 for no word, and a project whose owner wants it states it in its root `CLAUDE.md`: the owner of
-each project decides for that project. A publication on another repository is not reached, the
-session's answer to the two heads that a wider reach would strain, which the owner approved: a
-finding sent upstream follows `design@agent-skills@installed-fix-goes-upstream`, and the outcomes
-of an intake `design@agent-skills@intake-outcome-authority`.
+each project decides for that project. A publication on another repository is not reached, since
+a wider reach would strain two heads that each keep a publication on another repository with the
+owner: a finding sent upstream follows `design@agent-skills@installed-fix-goes-upstream`, and the
+outcomes of an intake `design@agent-skills@intake-outcome-authority`.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 

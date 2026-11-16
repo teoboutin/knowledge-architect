@@ -56,8 +56,10 @@ put in the checkpoint table, both approved by the owner's word on the table in r
 `argument@transcripts-per-discussion@arg-15`, `argument@transcripts-per-discussion@arg-19`,
 `argument@transcripts-per-discussion@arg-21`, `argument@transcripts-per-discussion@arg-29`. Shape:
 Decided design, "The numbered files of a plan document's directory". Harvest:
-`design@agent-skills@plan-commits-the-generated-lines`, which states the numbering and its rival,
-and `design@model@plan-document-directory`.
+`design@model@plan-document-directory`, which states the numbering of the files of `search/`,
+`design@agent-skills@plan-commits-the-generated-lines`, and the planning skill's search bullet,
+which states the shared number and the append, with their reason and rival in a comment of the
+skill's source.
 
 ### A committed transcript is pushed with its branch, with no word of the owner for it `##transcript-push-approval`
 

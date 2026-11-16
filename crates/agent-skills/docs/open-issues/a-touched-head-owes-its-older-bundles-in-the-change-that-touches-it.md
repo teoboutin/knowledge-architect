@@ -43,6 +43,12 @@ Instances, from retrospective files of this repository and of thaum:
 - the session on the retrospective's standing questions, 2026-11-12, W3 of its workflow file:
   adding a member to a head led the first decision-record review to retitle it, and the re-review
   asked for a third title; "Each title was a defensible reading of the body";
+- the branch on committed transcripts per discussion, 2026-11, at its decision-record re-review:
+  the branch retitled `design@agent-skills@attribution-replaces-quotation`, which still bundles the
+  exception that lets an issue entry keep the owner's words verbatim on the owner's request, a
+  decision older than the branch with its own nearest rival, an issue entry that never quotes the
+  owner; the head was not split, on the owner's direction that the branch takes in correctness
+  changes only;
 - a slice in thaum on 0.6.0, from `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`:
   one finding of the decision-record axis cost three reviews of that axis, through the same head.
 

@@ -46,6 +46,13 @@ A further instance: W2 of the retrospective of the session that reduced the grou
 were recorded, one refuted by an argument any reader rebuilds in one round; tests 3 and 4 would have
 excluded both.
 
+A further instance: the branch on committed transcripts per discussion, 2026-11. Two rivals of
+`design@model@plan-document-directory`, a date in a file's name and the bare `transcript.txt` kept
+for the first discussion, would each change the file grammar of a plan document's directory, so
+test 1 admits them by its letter; they were left without `rejected` entries on the narrower
+reading, in which the derivation sentence limits test 1 too, since the head states both refutations
+and a reader derives them again from it.
+
 ### Why it matters
 
 `rejected@agent-skills@every-losing-thread-recorded` is `live`, with the owner's judgement that the
