@@ -749,3 +749,187 @@ fn new_component_accepts_a_relative_root() {
     assert!(root.join("svc/README.md").is_file());
     let _ = std::fs::remove_dir_all(&scratch);
 }
+
+/// The tool's source the tests of the checker directories plant: one unbound string literal,
+/// which the walk reads as data under a checker directory and as prose elsewhere, per
+/// `design@check@checker-source-literals-are-data`.
+const TOOL: &str = "tool/src/lib.rs";
+
+/// How the walk read the string literals of [`TOOL`], one line per walked copy.
+fn tool_literals(model: &Model) -> String {
+    model
+        .documents()
+        .iter()
+        .filter(|d| d.rel == Path::new(TOOL))
+        .map(|d| format!("{:?}\n", d.literals))
+        .collect()
+}
+
+/// An extension that reports how the walk read the literals of [`TOOL`]: its `dump` records it,
+/// and it generates `literals.md` holding it.
+#[derive(Default)]
+struct ToolLiterals {
+    dumped: std::sync::Arc<std::sync::Mutex<String>>,
+}
+
+impl Extension for ToolLiterals {
+    fn tables(&self) -> &'static [&'static str] {
+        &[]
+    }
+
+    fn resolve(&mut self, _: &Manifest) -> Resolution {
+        let mut resolution = Resolution::default();
+        resolution.generated.push(PathBuf::from("literals.md"));
+        resolution
+    }
+
+    fn checks(&self) -> &'static [&'static str] {
+        &[]
+    }
+
+    fn dump(&self, model: &Model) -> Vec<DumpRow> {
+        *self.dumped.lock().expect("the record") = tool_literals(model);
+        Vec::new()
+    }
+
+    fn prepare(
+        &mut self,
+        _: &Manifest,
+        _: &Model,
+        _: Tree<'_>,
+        _: Purpose,
+    ) -> Result<Box<dyn Prepared>, String> {
+        Ok(Box::new(ToolLiteralsPrepared))
+    }
+}
+
+struct ToolLiteralsPrepared;
+
+impl Prepared for ToolLiteralsPrepared {
+    fn check(&self, _: &Model, _: &Manifest, _: &Inputs) -> ExtensionReport {
+        ExtensionReport::default()
+    }
+
+    fn check_message(&self, _: &Document) -> Vec<Finding> {
+        Vec::new()
+    }
+
+    fn generated(
+        &self,
+        model: &Model,
+        _: &Manifest,
+    ) -> Vec<knowledge_architect::extension::Generated> {
+        vec![knowledge_architect::extension::Generated {
+            rel: PathBuf::from("literals.md"),
+            text: tool_literals(model),
+            action: "regenerate it",
+        }]
+    }
+}
+
+/// A copy of `dirhome` under the temporary directory, `tag` naming it, with [`TOOL`] citing an
+/// entry, every file staged.
+fn dirhome_with_a_tool(tag: &str) -> PathBuf {
+    let root = std::env::temp_dir().join(format!("ka-{tag}-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&root);
+    copy_tree(&mocks().join("dirhome"), &root);
+    std::fs::create_dir_all(root.join("tool/src")).expect("the tool's directory");
+    std::fs::write(
+        root.join(TOOL),
+        "pub fn f() {\n    println!(\"{}\", \"`design@dirhome@dir-anchor`\");\n}\n",
+    )
+    .expect("the tool's source");
+    git(&root, &["init", "-q"]);
+    git(&root, &["add", "-A"]);
+    root
+}
+
+/// The claim: `cli::run` hands `index` the checker directories it is given, so an extension
+/// generates its file over a walk that reads the literals under one of them as data; with none,
+/// as prose. Mutation checked: in `run` of `path@cli@src/cli/mod.rs`,
+/// `commands::index(manifest, mode, checker, extensions)` made
+/// `commands::index(manifest, mode, &[], extensions)`; caught.
+#[test]
+fn run_hands_index_the_checker_directories() {
+    let root = dirhome_with_a_tool("run-checker-index");
+    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let tool = root.join("tool");
+    let index = |checker: &[&Path]| {
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::<ToolLiterals>::default()];
+        let code = cli::run(
+            cli::Command::Index(cli::IndexArgs { staged: false }),
+            &manifest,
+            checker,
+            &mut extensions,
+        )
+        .expect("the index runs");
+        assert_eq!(code, std::process::ExitCode::SUCCESS);
+        std::fs::read_to_string(root.join("literals.md")).expect("the generated file")
+    };
+    assert_eq!(index(&[&tool]), "Data\n");
+    assert_eq!(index(&[]), "Prose\n");
+    let _ = std::fs::remove_dir_all(&root);
+}
+
+/// The claim: `cli::run` hands `model` the checker directories it is given, so the model it
+/// dumps, which an extension's `dump` receives, reads the literals under one of them as data; with
+/// none, as prose. Mutation checked: in `run` of `path@cli@src/cli/mod.rs`,
+/// `Command::Model => commands::model(manifest, checker, extensions),` made
+/// `Command::Model => commands::model(manifest, &[], extensions),`; caught.
+#[test]
+fn run_hands_model_the_checker_directories() {
+    let root = dirhome_with_a_tool("run-checker-model");
+    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let tool = root.join("tool");
+    let dumped = |checker: &[&Path]| {
+        let extension = ToolLiterals::default();
+        let record = extension.dumped.clone();
+        let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(extension)];
+        let code = cli::run(cli::Command::Model, &manifest, checker, &mut extensions)
+            .expect("the model is dumped");
+        assert_eq!(code, std::process::ExitCode::SUCCESS);
+        let seen = record.lock().expect("the record");
+        seen.clone()
+    };
+    assert_eq!(dumped(&[&tool]), "Data\n");
+    assert_eq!(dumped(&[]), "Prose\n");
+    let _ = std::fs::remove_dir_all(&root);
+}
+
+/// The claim: `cli::run` hands `new-component` the checker directories it is given, so the check
+/// it ends with reads a literal under one of them as data, and a reference in it that names no
+/// entry is no finding; with none, it is, and the run exits 1. Mutation checked: in `run` of
+/// `path@cli@src/cli/mod.rs`,
+/// `knowledge_architect_create::new_component(manifest, &args.dir, checker, extensions)` made
+/// `knowledge_architect_create::new_component(manifest, &args.dir, &[], extensions)`; caught.
+#[test]
+fn run_hands_new_component_the_checker_directories() {
+    let scratch = std::env::temp_dir().join(format!("ka-run-checker-new-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&scratch);
+    std::fs::create_dir_all(&scratch).expect("a scratch directory");
+    let root = scratch.join("p");
+    let code = cli::init(init_args(&root), &[], &[], &[], &mut []).expect("init runs");
+    assert_eq!(code, std::process::ExitCode::SUCCESS);
+    std::fs::create_dir_all(root.join("tool/src")).expect("the tool's directory");
+    std::fs::write(
+        root.join(TOOL),
+        "pub fn f() {\n    println!(\"{}\", \"`design@p@no-such-entry`\");\n}\n",
+    )
+    .expect("the tool's source");
+    let tool = root.join("tool");
+    let add = |dir: &str, checker: &[&Path]| {
+        let manifest = Manifest::load(&root).expect("the project's manifest");
+        cli::run(
+            cli::Command::NewComponent(cli::NewComponentArgs {
+                dir: root.join(dir),
+            }),
+            &manifest,
+            checker,
+            &mut [],
+        )
+        .expect("new-component runs")
+    };
+    assert_eq!(add("covered", &[&tool]), std::process::ExitCode::SUCCESS);
+    assert_eq!(add("live", &[]), std::process::ExitCode::FAILURE);
+    let _ = std::fs::remove_dir_all(&scratch);
+}
