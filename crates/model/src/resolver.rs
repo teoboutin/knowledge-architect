@@ -71,166 +71,284 @@ fn missing_owner_repair(kind: impl std::fmt::Display, name: &str) -> String {
 /// that refuses, and a `String` field such as `listed` or `carriers` holds text ready to print.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Cause {
+    /// A table reference names an anchor nothing declares.
     TableUnknownAnchor {
+        /// The anchor as written.
         anchor: String,
+        /// Every anchor's name, comma-separated.
         listed: String,
     },
+    /// A table reference names an anchor that carries no register of its kind.
     AnchorLacksKind {
+        /// The anchor as written.
         anchor: String,
+        /// The reference's kind.
         kind: String,
+        /// The names of the anchors that carry a register of that kind.
         carriers: Vec<String>,
     },
+    /// An item of a plan cited from a file outside that plan.
     OutsidePlan {
+        /// The plan's anchor, as written.
         plan: String,
+        /// The reference to the whole plan document, which may be cited instead.
         form: String,
+        /// The item's id, as written.
         id: String,
     },
     /// A milestone's `harvested/`, or a harvested slice in it, cited from outside the milestone's
     /// directory. `id` is the slice's, `None` for a target in no slice: `harvested/` itself, or a
     /// file directly under it.
     Harvested {
+        /// The milestone's name.
         milestone: String,
+        /// The reference to the whole milestone, which may be cited instead.
         form: String,
+        /// The slice's id, or `None` for a target in no slice.
         id: Option<String>,
     },
+    /// The plan carries the item register and defines no item of that id.
     UndefinedItem {
+        /// The plan's anchor, as written.
         anchor: String,
+        /// The item's kind.
         kind: String,
+        /// The id as written.
         id: String,
+        /// The level-two section of the plan the register's items sit under.
         section: String,
     },
+    /// The anchor carries the register and defines no entry of that id.
     Undefined {
+        /// The anchor as written.
         anchor: String,
+        /// The reference's kind.
         kind: String,
+        /// The id as written.
         id: String,
+        /// The register's home, in words, as the repair names it.
         home: String,
     },
+    /// A harness reference to a section of a skill or an agent that no file defines.
     NoOwner {
+        /// The harness kind, `skill` or `agent`.
         kind: String,
+        /// The skill's or the agent's name, as written.
         owner: String,
     },
+    /// A harness reference to a section the skill or the agent it names does not define.
     NoOwnerSection {
+        /// The harness kind, `skill` or `agent`.
         kind: String,
+        /// The skill's or the agent's name.
         owner: String,
+        /// The section's slug, as written.
         id: String,
     },
+    /// A harness reference to a whole skill or agent that no file defines.
     NoNamed {
+        /// The harness kind, `skill` or `agent`.
         kind: String,
+        /// The name, as written.
         id: String,
     },
+    /// A reference to a section of the primer or of the root instructions that it does not define.
     NoSection {
+        /// The document in words: "the primer" or "the root CLAUDE.md".
         document: &'static str,
+        /// The section's slug, as written.
         id: String,
     },
+    /// A `register` reference names no register of the project.
     NoRegister {
+        /// The register's name, as written.
         id: String,
+        /// The names of the registers a `register` reference may name, comma-separated.
         homed: String,
     },
+    /// A `register` reference names an item register, whose home is a plan's own documents.
     ItemRegister {
+        /// The register's name.
         id: String,
     },
+    /// A `register` reference names a register only the entries of a Directory register carry.
     CarriedByEntries {
+        /// The register's name.
         id: String,
+        /// The name of the Directory register whose entries carry it.
         by: String,
     },
+    /// A `register` reference at the escape anchor, which serves the path kind alone.
     RegisterAtEscape {
+        /// The names of the anchors that carry the register, comma-separated.
         carriers: String,
+        /// The repair's offer of `*`, where every Component carries the register; empty otherwise.
         every: &'static str,
     },
+    /// A `register` reference at `*` to a register attached to some Components only.
     RegisterEveryAttached {
+        /// The register's name.
         id: String,
+        /// The names of the Components it is attached to, comma-separated.
         components: String,
+        /// The names of the anchors that carry the register, comma-separated.
         carriers: String,
     },
+    /// A `register` reference at `*` to a register not every Component carries.
     RegisterEveryNotAll {
+        /// The register's name.
         id: String,
+        /// The names of the anchors that carry the register, comma-separated.
         carriers: String,
     },
+    /// A `register` reference names an anchor nothing declares.
     RegisterUnknownAnchor {
+        /// The anchor as written.
         name: String,
+        /// The names of the anchors that carry the register, comma-separated.
         carriers: String,
+        /// The repair's offer of `*`, where every Component carries the register; empty otherwise.
         every: &'static str,
     },
+    /// A `register` reference at a plan anchor, whose documents are cited by their kind.
     RegisterAtPlan {
+        /// The plan's name.
         name: String,
+        /// The reference to the plan document, by its kind.
         form: String,
     },
+    /// A `register` reference at an entry of a Directory register, whose homes are its own
+    /// directory.
     RegisterAtEntry {
+        /// The entry's name.
         name: String,
+        /// The reference to the entry as a whole.
         form: String,
     },
+    /// A `register` reference names an anchor that does not carry the register.
     RegisterNotCarried {
+        /// The anchor's name.
         name: String,
+        /// The register's name.
         id: String,
+        /// The names of the anchors that carry the register, comma-separated.
         carriers: String,
+        /// The names of the registers the anchor carries, comma-separated.
         registers: String,
     },
+    /// A path names an entry of a Directory register, its directory or its README.
     EntryByPath {
+        /// The reference to the entry as a whole.
         form: String,
     },
+    /// A path names a register's home.
     HomeByPath {
+        /// The name of the anchor that keeps the home, or `*` for every Component's.
         anchor: String,
+        /// The register's name.
         register: String,
     },
+    /// A path at the escape anchor that this tree holds.
     ResolvesHere {
+        /// The reference that names the target in this tree.
         form: String,
     },
+    /// A path at `*` whose shape is refused.
     EveryRefused {
+        /// Why the shape is refused, as [`refused`] says.
         why: &'static str,
     },
+    /// A path at `*` names the homes of a register attached to some Components only.
     AttachedHomesByPath {
+        /// The register's name.
         register: String,
+        /// The names of the Components it is attached to, comma-separated.
         components: String,
     },
+    /// A path at `*` names a required document with a trailing slash.
     RequiredKind,
+    /// A path at `*` that no Component holds as its own, outside the ignore rules.
     InNoComponent,
+    /// A path with no trailing slash names a directory.
     ClaimsFile,
+    /// A path with a trailing slash names a file.
     ClaimsDirectory,
+    /// A `path` reference names an anchor nothing declares.
     PathUnknownAnchor {
+        /// The anchor as written.
         name: String,
+        /// The name of every anchor but the plan anchors, comma-separated.
         names: String,
     },
+    /// A `planned` reference names an anchor nothing declares.
     PlannedUnknownAnchor {
+        /// The anchor as written.
         name: String,
+        /// The name of every anchor but the plan anchors, comma-separated.
         names: String,
     },
+    /// A `path` or `planned` reference at a milestone, which carries no path kind.
     AtMilestone {
+        /// The milestone's name.
         name: String,
     },
+    /// A `path` or `planned` reference at a spec, which carries no path kind.
     AtSpec {
+        /// The spec's name.
         name: String,
     },
+    /// A `path` or `planned` reference at a named anchor whose shape is refused.
     Refused {
+        /// Why the shape is refused.
         why: &'static str,
     },
+    /// A path names a plan document or a file inside one.
     PlanDocumentByPath {
+        /// The reference to the plan document, by its kind.
         form: String,
     },
+    /// A path reaches inside a deeper anchor than the one it is written at.
     InsideDeeperAnchor {
+        /// The name of the deepest anchor that holds the target.
         owner: String,
     },
+    /// A `planned` reference at `*` or at the escape anchor.
     PlannedAtReserved {
+        /// The reserved anchor, as written.
         anchor: String,
     },
+    /// A `planned` reference written outside the plans directory.
+    ///
     /// `form` is the form an existing target is cited by: the `register` form where it is a
     /// register's home, the `path` form otherwise. `None` where nothing exists at the target.
     PlannedOutsidePlans {
+        /// The form the existing target is cited by, or `None` where nothing exists there.
         form: Option<String>,
     },
+    /// A `planned` reference with a line suffix or a fragment, whose file exists without it.
     PointsIntoExisting {
+        /// The path as written, without its suffix.
         file: String,
+        /// The form the existing file is cited by.
         form: String,
     },
+    /// A `planned` reference whose target exists.
     NowExists {
+        /// The target, project-relative.
         target: PathBuf,
+        /// The form the target is cited by now: the `register` form where it is a register's
+        /// home, the `path` form otherwise.
         form: String,
     },
+    /// A `path` reference whose target the tree does not hold and the ignore rules do not cover.
     Missing {
+        /// The target, project-relative.
         target: PathBuf,
     },
     /// The reference resolves once the line suffix or the fragment after its id is dropped, as
     /// `form`.
     Located {
+        /// The reference without its suffix, which resolves.
         form: String,
     },
     /// The reference carries a line suffix or a fragment after its id, and without it still
@@ -592,6 +710,11 @@ pub type Outcome = Result<Target, Cause>;
 
 /// A reference candidate of an anchored kind, resolved by the function of its kind. A harness kind
 /// is [`harness`]'s, and reaching this function with one reads as a table kind.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] the reference resolves to nothing for, as [`planned`], [`path`],
+/// [`register`] or [`table`] gives it for the reference's kind.
 pub fn reference(
     kind: &Kind,
     anchor: &str,
@@ -650,6 +773,13 @@ fn located(
 
 /// A reference to a table kind, resolved through the entity table, an id with a line suffix or
 /// a fragment judged again without it.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] when the reference names no entry of the table: the anchor is unknown or
+/// carries no register of the kind, a plan's item or a harvested slice is cited from outside its
+/// plan or its milestone, or the id is undefined. Where the id carries a line suffix or a
+/// fragment, the cause is [`Cause::Located`] or [`Cause::Suffixed`], as the id without it gives.
 pub fn table(
     kind: &Kind,
     anchor: &str,
@@ -726,6 +856,12 @@ fn table_written(
 ///
 /// A section of a skill or an agent that does not exist is reported as the missing skill or
 /// agent, not as the missing section: its repair is the name, whatever the slug says.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] when the entity table defines nothing under the reference:
+/// [`Cause::NoOwner`], [`Cause::NoOwnerSection`], [`Cause::NoNamed`] or [`Cause::NoSection`], or,
+/// where the id carries a line suffix or a fragment, [`Cause::Located`] or [`Cause::Suffixed`].
 pub fn harness(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> Outcome {
     let resolve = |id: &str| harness_written(kind, owner, id, entities);
     located(resolve(id), kind.name(), owner, id, resolve)
@@ -771,6 +907,14 @@ fn harness_written(kind: &Kind, owner: &str, id: &str, entities: &Entities) -> O
 /// reference names what the manifest declares. Every refusal names the form that resolves, so a
 /// repair lists the anchors that carry the register, not every anchor as `table` does: an anchor
 /// that does not carry it is one more refusal for a writer who follows the repair.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] when the reference names no home the manifest declares: no such register,
+/// an item register, a register only entries carry, the escape anchor, `*` for a register not
+/// every Component carries, an unknown anchor, a plan or an entry anchor, or an anchor that does
+/// not carry the register. Where the name carries a line suffix or a fragment, the cause is
+/// [`Cause::Located`] or [`Cause::Suffixed`], as the name without it gives.
 pub fn register(anchor: &str, id: &str, anchors: &Anchors) -> Outcome {
     let resolve = |id: &str| register_written(anchor, id, anchors);
     located(resolve(id), entity::REGISTER_KIND, anchor, id, resolve)
@@ -990,6 +1134,16 @@ fn resolved_here(path: &str, rel: &Path, anchors: &Anchors, tree: &TreeInputs) -
 
 /// A `path` reference, resolved against the survey under its anchor, a path with a line suffix or
 /// a fragment judged again without it.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] when the reference names no target it may name: at the escape anchor, a
+/// target this tree holds; at `*`, a refused shape, a register's home, or a path no Component
+/// holds with the claimed kind; at a named anchor, an unknown anchor, a milestone or a spec, a
+/// refused shape, a plan document, an entry of a Directory register, a register's home, a target
+/// inside a deeper anchor, and a target the ignore rules do not cover that is missing or of the
+/// other kind than claimed. Where the path carries a line suffix or a fragment,
+/// the cause is [`Cause::Located`] or [`Cause::Suffixed`], as the path without it gives.
 pub fn path(rel: &Path, anchor: &str, path: &str, anchors: &Anchors, tree: &TreeInputs) -> Outcome {
     let resolve = |path: &str| path_written(rel, anchor, path, anchors, tree);
     located(resolve(path), entity::PATH_KIND, anchor, path, resolve)
@@ -1241,6 +1395,14 @@ fn anchored_target(
 /// reference, and whether the plan still holds is that session's report to make, not the
 /// check's. Outside the plans directory, a target that exists is named in the same form, since
 /// naming the plan that creates it would send the writer after a plan that has no work left.
+///
+/// # Errors
+///
+/// Outside the plans directory, always [`Cause::PlannedOutsidePlans`], carrying the form of a
+/// target that exists, and wrapped in [`Cause::Suffixed`] where the target exists once the suffix
+/// is dropped. Inside it, the refusals of [`planned_target`], [`Cause::NowExists`] for a target
+/// that exists and the ignore rules do not cover, [`Cause::PointsIntoExisting`] for a suffix after
+/// a file that exists, and [`Cause::Located`] or [`Cause::Suffixed`] for another suffix.
 pub fn planned(
     rel: &Path,
     anchor: &str,
@@ -1333,6 +1495,13 @@ fn converted(anchors: &Anchors, anchor: &str, target: &Path, path: &str) -> Stri
 /// The target of a planned reference, or the cause that refuses it: the two reserved words, and
 /// every rule of a named anchor that `anchored_target` applies. `show` asks the same, so a planned
 /// reference this refuses resolves to nothing in either.
+///
+/// # Errors
+///
+/// Returns the [`Cause`] when the anchor is `*` or the escape anchor, unknown, a milestone or a
+/// spec; when the path's shape is refused, or it is a line suffix or a fragment alone; when the
+/// target is a plan document or an entry of a Directory register; or when it sits inside a deeper
+/// anchor.
 pub fn planned_target(anchor: &str, path: &str, anchors: &Anchors) -> Result<PathBuf, Cause> {
     if anchor == ESCAPE_ANCHOR || anchor == entity::EVERY_ANCHOR {
         return Err(Cause::PlannedAtReserved {
@@ -1438,6 +1607,12 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
 /// as it passes on a built tree — a verdict that depends on build state is a check nobody can
 /// trust twice. The batch was taken by the caller over `ignore_queries` below, so a target
 /// this function asks about that the collector did not gather reads as not ignored.
+///
+/// # Errors
+///
+/// Where the ignore rules do not cover the target: [`Cause::Missing`] when the tree does not hold
+/// it, [`Cause::ClaimsDirectory`] when it is a file claimed as a directory, and
+/// [`Cause::ClaimsFile`] when it is a directory claimed as a file.
 pub fn assert_target(target: &Path, claims_dir: bool, tree: &TreeInputs) -> Result<(), Cause> {
     if tree
         .ignored

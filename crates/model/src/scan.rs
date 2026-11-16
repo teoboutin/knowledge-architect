@@ -28,8 +28,12 @@ use crate::source::{Parsed, ScopeKind};
 /// Something a check might care about, found at a line.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Observation {
+    /// A markdown heading outside a fence.
     Heading {
+        /// The number of `#` marks, 1 to 6.
         level: u8,
+        /// The text after the marks, a slug included, without a closing sequence of `#` or a
+        /// trailing carriage return.
         text: String,
     },
     /// A slug written as `` `##<id>` `` in a shape that could define an entity, with where it
@@ -40,7 +44,9 @@ pub enum Observation {
     /// decides that, and decides that a slug at the wrong level or at a line head defines
     /// nothing.
     SlugDef {
+        /// The slug's id, without the `##`.
         id: String,
+        /// Where on its line the slug sits.
         site: SlugSite,
     },
     /// A backticked span holding an `@` and no whitespace, as written: the input of the
@@ -108,10 +114,12 @@ pub enum SlugSite {
     Inline,
 }
 
+/// An observation with the line it sits on.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Located {
     /// One-based, as an editor counts.
     pub line: u32,
+    /// What was observed there.
     pub what: Observation,
 }
 

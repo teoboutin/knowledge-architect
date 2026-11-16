@@ -156,15 +156,18 @@ pub enum ScopeKind {
 /// A region of a file in which a rule quote discharges the claims made in it.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Scope {
+    /// What the scope is: a section, an item or a preamble.
     pub kind: ScopeKind,
     /// The heading text, or the item's name. Empty for a preamble.
     pub name: String,
-    /// One-based file lines, both ends inclusive.
+    /// The scope's first one-based file line, inclusive.
     pub first: u32,
+    /// The scope's last one-based file line, inclusive.
     pub last: u32,
 }
 
 impl Scope {
+    /// Whether a one-based file line falls within the scope, both ends included.
     pub fn holds(&self, line: u32) -> bool {
         self.first <= line && line <= self.last
     }
@@ -185,7 +188,10 @@ impl Scope {
 /// A parsed file: its prose, and the scopes a citation in it can be judged against.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Parsed {
+    /// The file's prose regions: the whole of a markdown document; in a Rust file, each run of
+    /// comment lines and each string literal read as prose.
     pub prose: Vec<Prose>,
+    /// The regions a citation in the file is judged against: its sections, or its items.
     pub scopes: Vec<Scope>,
     /// File lines that are code rather than prose in a markdown sense: a fenced block, and in
     /// Rust everything the grammar did not hand over as a comment.
@@ -240,6 +246,7 @@ pub struct Trouble {
 }
 
 impl Trouble {
+    /// A cause and its repair.
     pub fn new(what: impl Into<String>, action: impl Into<String>) -> Self {
         Trouble {
             what: what.into(),

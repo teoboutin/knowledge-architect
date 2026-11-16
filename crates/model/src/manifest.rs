@@ -245,7 +245,9 @@ pub enum Scope {
 pub struct Register {
     /// The word a reference spells in kind position.
     pub name: String,
+    /// Which anchors carry it.
     pub scope: Scope,
+    /// How its home stores its entries.
     pub shape: Shape,
     /// The basename of the home under the anchor's home base.
     pub dir: String,
@@ -298,10 +300,12 @@ impl Register {
 pub struct Registers(Vec<Register>);
 
 impl Registers {
+    /// Every register, the built-in ones first, then the declared ones by name.
     pub fn all(&self) -> &[Register] {
         &self.0
     }
 
+    /// The register whose kind word is `name`, or `None` where no register has it.
     pub fn by_name(&self, name: &str) -> Option<&Register> {
         self.0.iter().find(|r| r.name == name)
     }
@@ -607,6 +611,7 @@ impl Components {
     }
 }
 
+/// The manifest's `[walk]` table: which paths the walk leaves out.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 pub struct Walk {
@@ -697,6 +702,11 @@ impl Manifest {
     ///
     /// Walking up rather than reading a compiled-in path is what lets the tool be pointed at
     /// a mock project: the mock carries its own manifest and is therefore its own root.
+    ///
+    /// # Errors
+    ///
+    /// Returns the reason as text when no directory at or above `start` holds the manifest
+    /// file, or when the one found cannot be loaded, as [`Manifest::load`] says.
     pub fn find(start: &Path) -> Result<Self, String> {
         let root = start
             .ancestors()
@@ -716,6 +726,11 @@ impl Manifest {
     ///
     /// The ignore rules are not read here and are not this tool's to parse: git answers what it
     /// ignores, per `design@model@git-supplies-the-walk`.
+    ///
+    /// # Errors
+    ///
+    /// Returns the reason as text, prefixed with the manifest's path, when the file cannot be
+    /// read, or when its text cannot be parsed, as [`Manifest::parse`] says.
     pub fn load(root: &Path) -> Result<Self, String> {
         let path = root.join(MANIFEST_NAME);
         let text =
@@ -727,6 +742,13 @@ impl Manifest {
     ///
     /// The half of `load` that touches no filesystem, so a test over what a project declares
     /// needs no checkout — the same reason a check is a pure function over the model.
+    ///
+    /// # Errors
+    ///
+    /// Returns the TOML parser's message when the text does not deserialise: a syntax error, a
+    /// value of the wrong type, a required table or key missing, or an unknown key in a table
+    /// that refuses one. A declaration that deserialises and is then refused is no error: it is
+    /// held as a complaint, which [`Manifest::complaints`] returns.
     pub fn parse(root: &Path, text: &str) -> Result<Self, String> {
         let mut declared: Declared = toml::from_str(text).map_err(|e| e.to_string())?;
         let mut complaints = Vec::new();
@@ -750,10 +772,13 @@ impl Manifest {
         })
     }
 
+    /// The project's root: the directory `find` or `load` read the manifest from, or the root
+    /// `parse` was given.
     pub fn root(&self) -> &Path {
         &self.root
     }
 
+    /// The `[walk]` table, its paths normalised and its refused rows removed.
     pub fn walk(&self) -> &Walk {
         &self.declared.walk
     }

@@ -15,11 +15,14 @@ pub struct Finding {
     /// One-based, as an editor counts. `None` where the defect is the file itself — a
     /// missing tracker, a stale generated file — and there is no line to point at.
     pub line: Option<u32>,
+    /// What is wrong: the defect, stated so a reader needs no other context.
     pub what: String,
+    /// What to do about it: the repair.
     pub action: String,
 }
 
 impl Finding {
+    /// A finding at a one-based line of a file.
     pub fn at(
         file: impl AsRef<Path>,
         line: u32,

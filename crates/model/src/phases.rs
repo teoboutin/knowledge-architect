@@ -56,6 +56,7 @@ pub enum Phase {
 }
 
 impl Phase {
+    /// The phase's number, 1 to 4, as a summary line names it.
     pub fn number(self) -> u8 {
         self as u8
     }
@@ -83,7 +84,9 @@ impl Phase {
 /// A run that ended before the last phase: the phase that produced something, and what.
 #[derive(Debug)]
 pub struct Stop {
+    /// The phase that produced something.
     pub phase: Phase,
+    /// What it produced.
     pub findings: Vec<Finding>,
 }
 
@@ -92,6 +95,12 @@ pub struct Stop {
 /// A check is a pure function over the model, so the releases the last phase needs are not
 /// needed here and a caller resolves them only once this returns `Ok`: a run that stops
 /// earlier fetches nothing.
+///
+/// # Errors
+///
+/// Returns the [`Stop`] of the first of phases 1 to 3 that produces a finding: the manifest's
+/// complaints, then the findings of the walk and the parse, then the entity table's definition
+/// findings.
 pub fn foundation(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> Result<(), Stop> {
     let complaints = manifest.complaints();
     if !complaints.is_empty() {
@@ -134,7 +143,11 @@ pub struct Gathered {
 impl Gathered {
     /// Read the working tree under the manifest's root: one survey and the two git batches.
     ///
-    /// `Err` is could-not-run: git or the filesystem refused a read the run cannot do without.
+    /// # Errors
+    ///
+    /// Returns the reason as text when the run cannot go on: git refused one of its two batches,
+    /// the ignore question or the listing of the files it both tracks and ignores, or the survey
+    /// failed. The error is could-not-run, never a finding.
     pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
         // One listing answers every question a phase has about what is there.
         let survey = crate::survey::survey(manifest, model).map_err(|e| e.to_string())?;
@@ -179,8 +192,11 @@ impl Gathered {
 /// The gate of a tool that writes files over the model, or that answers from it: such a tool runs
 /// no check, and its answer over an incomplete model could not be trusted.
 ///
-/// `Err` is could-not-run: git or the filesystem refused a read, or the foundation stopped, which the
-/// text says by the phase and the command that reports what it found.
+/// # Errors
+///
+/// Returns the reason as text, could-not-run: git or the filesystem refused a read, as
+/// [`Gathered::over`] says, or the foundation stopped, which the text says by the phase and the
+/// command that reports what it found.
 pub fn complete_working_tree(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
     let gathered = Gathered::over(manifest, model)?;
     match foundation(model, manifest, &gathered.inputs()) {
