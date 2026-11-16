@@ -17,7 +17,8 @@ changes the file's code, per `design@agent-skills@split-issue-reenters-at-planni
 
 - **Size.** A Read of the file with no range returned no content, with the message "File content
   (464.4KB) exceeds maximum allowed size (256KB)", measured on the branch that wrote
-  `design@agent-skills@split-not-needed-is-an-issue`; `wc -l` gave 10979 lines then.
+  `design@agent-skills@split-not-needed-is-an-issue`; `wc -l` gave 10979 lines then. It holds 268
+  tests, counted by `grep -c '^#\[test\]' crates/testing/tests/binary.rs` on the same branch.
 - **The signal against.** The tests share `klarch()`, the one build of the binary, and the sandbox
   helpers. A support module shared by several test files keeps that sharing across files, so it
   does not by itself argue for one file; not established that the build stays one, since each file
