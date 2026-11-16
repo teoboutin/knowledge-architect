@@ -66,7 +66,9 @@ built: its review before the merge reads it against this spec.
 - **the checkpoint table**: the table of every thread with its state that the design skill shows
   for the owner's batch confirmation before the hand-off to planning, per
   `skill@knowledge-architect-design@threads-and-states`; "the last convergence checkpoint" is the
-  last such table a discussion showed.
+  last such table a discussion showed before the commit that adds or rewrites its plan document:
+  the one before the hand-off to planning, or, where a plan review reopens a thread, the one that
+  follows the reopening.
 - **a design discussion**: a discussion under `skill@knowledge-architect-design` on its full path.
 - **the full path, the in-change path**: the design skill's two paths, per
   `skill@knowledge-architect-design@decision-authority`.
@@ -102,7 +104,15 @@ What existed before the work, at each site it touches:
   `search/`, the two single-file names, and refused any other file.
 - **The design record**: `design@agent-skills@committed-transcript` held the span, the timing and
   the removal step in one head; the head `transcript-pushed-on-the-owner-s-word` held the owner's
-  word before each push; nine heads named the single-file names.
+  word before each push; eleven heads of the design homes named the single-file names, counted at
+  origin/main, the branch's base, as the level-three headings whose body names one:
+
+  ```sh
+  for f in $(git ls-tree -r --name-only origin/main | grep -E '(^|/)docs/design(\.md|/.*\.md)$'); do
+    git show origin/main:$f | awk -v f=$f '/^## /{h=""} /^### /{h=$0}
+      /transcript\.txt|discussion\.txt|design-audit\.txt/ && h!="" {print f, h}'
+  done | sort -u
+  ```
 - **The goal**: `goal@the-owner-decides` reserved to the owner every action that cannot be undone,
   and said nothing of a push.
 
@@ -141,21 +151,37 @@ The decisions the design rests on and does not argue again:
 | --- | --- | --- |
 | `design@agent-skills@committed-transcript` | its span reason defeated by `thread@transcripts-per-discussion@transcript-span`; rewritten in place, its removal step split out to `design@agent-skills@transcript-removal-step`, per `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it` | the planning skill's layout, file table, term "transcript" and assembly bullets; the review skill's sentence on the commit that adds a transcript after the review; the transcript reviewer's agent |
 | `transcript-pushed-on-the-owner-s-word`, now `design@agent-skills@transcript-pushed-with-the-branch` | reversed by `thread@transcripts-per-discussion@transcript-push-approval` | the planning skill's sentence on the owner's word before a push, deleted; `issue@transcript@an-option-anonymizes-what-transcript-prints`, its "Why it matters" |
-| `design@agent-skills@attribution-replaces-quotation` | reworded: the verbatim words of a design discussion stay in its transcript, and a ruling after its last checkpoint is attributed only | the design skill, the primer's row of plan documents, and the head-ground fragment the primer and the decision-recording skill carry; `issue@agent-skills@the-quick-fixes-spec-quotes-the-owner-in-its-items`, which names the transcript in words |
-| `design@model@plan-document-directory` | rewritten to the numbered names, in commit 1 | `path@check@README.md`, and the comments and fixtures that named the single-file names |
+| `design@agent-skills@attribution-replaces-quotation` | reworded: the verbatim words of a design discussion stay in its transcript, and a ruling after its last checkpoint is attributed only | the design skill, the primer's row of plan documents, and the head-ground fragment, which ships in the primer, the decision-recording and design skills, the decision-record reviewer and the design-record auditor; `issue@agent-skills@the-quick-fixes-spec-quotes-the-owner-in-its-items`, which names the transcript in words |
+| `design@model@plan-document-directory` | rewritten to the numbered names, in commit 1 | in commit 1: the regime table of `design@model@a-harvested-slice-is-frozen`, `rejected@model@spec-as-one-file`, `path@check@README.md`, and the comments and fixtures that named the single-file names |
+| `goal@the-owner-decides` | rewritten in commit 3, on the owner's ruling: two sentences added, that a push to the project's repository is no action that cannot be undone the owner decides, and that an action the push sets off is judged on its own, per `thread@transcripts-per-discussion@push-reading-in-goal` | none: no text restated the goal on a push |
+
+**Departures the wrong path produced**, from heads that stand and are not reversed:
+
+- `design@agent-skills@in-change-path`: a requested change that is not bounded and whose work has
+  not started when its discussion opens takes the full path; this one took the in-change path, per
+  "Status and audience".
+- `design@agent-skills@plan-landing-is-not-tied-to-its-work`: a plan document lands before any work
+  that changes what the per-commit gate checks; commit 1 changes it, and this spec is committed
+  after the work, on the same branch.
 
 The reversal check of commit 2 searched the design homes, the `rejected` homes, the scoped
 `CLAUDE.md` files and the installed text's source for the wording of both reversed heads; no
 tripwire guards either.
 
 **The heads the harvest touches** without reversing or rewriting their decision, each rewritten to
-the numbered names in commit 2 with its rule unchanged: `design@agent-skills@discussion-record-apart`,
-`design@agent-skills@ledger-from-transcript`, `design@agent-skills@plan-records-the-exchange`,
-`design@agent-skills@plan-commits-the-generated-lines`,
+the numbered names in commit 2 with its rule unchanged, unless named otherwise:
+`design@agent-skills@discussion-record-apart`, `design@agent-skills@ledger-from-transcript`,
+`design@agent-skills@plan-records-the-exchange`, whose premise that the committed transcript lets a
+reviewer check the rulings is narrowed to the rulings of the design discussions;
+`design@agent-skills@plan-commits-the-generated-lines`, which also gains rules: a discussion's
+search takes the number of its transcript, a second search inside one discussion is appended to
+that discussion's file after a header line, a design audit's file is numbered per audit, and the
+rival, numbering every search on its own, is stated;
 `design@agent-skills@search-record-kept-per-occasion`,
 `design@agent-skills@a-seed-and-its-citers-are-never-unrelated`,
-`design@agent-skills@design-audit-checks-fit` and
-`design@agent-skills@verdicts-reach-the-conformance-review`. No design-record auditor read them
+`design@agent-skills@design-audit-checks-fit`,
+`design@agent-skills@verdicts-reach-the-conformance-review`, and, in commit 1, the regime table of
+`design@model@a-harvested-slice-is-frozen`. No design-record auditor read them
 before the work, per "Status and audience".
 
 **The record search's verdicts that changed something**, the others in
@@ -163,14 +189,20 @@ before the work, per "Status and audience".
 
 - the `conflicts` verdicts on the heads above: reversed, reworded or rewritten as listed;
 - `design@agent-skills@installed-fix-goes-upstream` and
-  `design@agent-skills@intake-outcome-authority`, `conflicts`: standing; the owner's reading covers
-  a push to the project's own repository only, as the goal's sentence says;
+  `design@agent-skills@intake-outcome-authority`, `conflicts`: standing; that the owner's reading
+  covers a push to the project's own repository only was the session's answer to these two
+  verdicts, approved by the owner's word on the checkpoint table in round 5, and the goal's
+  sentence says so;
+- `goal@the-owner-decides`, `constrains`: rewritten in commit 3, on the owner's ruling, as the
+  table above says;
 - `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it`,
   `trigger-met`: `design@agent-skills@committed-transcript` split in two, as above;
 - `issue@model@resolver-rs-is-past-one-read`, `issue@model@manifest-rs-is-past-one-read` and
-  `issue@testing@binary-rs-is-past-one-read`, `trigger-met`: weighed, no split: the work changes a
-  constant, one match arm and one test fixture, which gives none of these files a second reason to
-  change; each stays open;
+  `issue@testing@binary-rs-is-past-one-read`, `trigger-met`: weighed, no split: the work changes the
+  constant `TRANSCRIPT_FILE` of `path@model@src/manifest.rs`, the closure `spec_dir_file` and one
+  match arm of `plan_document` in `path@model@src/resolver.rs`, and one test fixture of
+  `path@testing@tests/binary.rs`, which gives none of these files a second reason to change; each
+  stays open;
 - `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`,
   `trigger-met`: not taken up; the work moves when a transcript is committed, not when the claim
   check is read;
@@ -233,9 +265,12 @@ For `thread@transcripts-per-discussion@transcript-span` and
 - The committed transcript of a design discussion is, for each session the discussion spans in
   order, the output of `cargo klarch transcript show <session> --from "<opening words>"`, without
   `--tools`, from the message where the discussion begins to the owner's word on the last
-  checkpoint table it showed, the one the design skill shows before the hand-off to planning.
-- Where a plan review reopens a thread before the plan document's branch merges, a new checkpoint
-  follows, and the same discussion's file is extracted again to it.
+  checkpoint table the discussion showed before the commit that adds or rewrites the plan
+  document: the one the design skill shows before the hand-off to planning, or, where a plan
+  review reopens a thread before the plan document's branch merges, the one that follows the
+  reopening, the same discussion's file then extracted again.
+- `cargo klarch transcript show` has no option that ends its output, so the last session's output
+  is cut after that message of the owner.
 - It is committed in the commit that adds or rewrites the plan document, after its removal step.
 - A ruling given after the last checkpoint is in no transcript: its attribution in the items is its
   whole record.
@@ -275,7 +310,8 @@ For `thread@transcripts-per-discussion@transcript-files-per-discussion` and
 `thread@transcripts-per-discussion@search-files-per-discussion`.
 
 - A plan document's directory holds `transcripts/`, one file per design discussion,
-  `transcripts/<n>.txt`, numbered from 1 in the order the discussions began, beside the `README.md`
+  `transcripts/<n>.txt`, `<n>` the next number of that `transcripts/`, from 1, taken when the
+  transcript is committed, beside the `README.md`
   of the milestone, the spec or the slice it was held for. One discussion spanning several sessions
   stays one file.
 - `search/` holds `search/discussion-<n>.txt`, `<n>` the number of the discussion's transcript, and
@@ -373,7 +409,7 @@ None: the work reads no external specification.
 
 | # | cause | thread | verdict |
 | --- | --- | --- | --- |
-| P1 | a session cuts the transcript at the wrong message, unable to find the last checkpoint | `thread@transcripts-per-discussion@transcript-span` | a claim of step 2: the planning skill names the end message as the owner's word on the checkpoint table the design skill shows before the hand-off |
+| P1 | a session cuts the transcript at the wrong message, unable to find the last checkpoint | `thread@transcripts-per-discussion@transcript-span` | a claim of step 2: the planning skill names the end message as the owner's word on the last checkpoint table the discussion showed before the commit that adds or rewrites the plan document, and says that the output is cut after it |
 | P2 | private data reaches a public repository with no person reading the file before the push | `thread@transcripts-per-discussion@transcript-push-approval` | no tripwire, condition 1: a script could compute it, and `issue@transcript@an-option-anonymizes-what-transcript-prints` is that script |
 | P3 | a ruling after the checkpoint is attributed wrongly, with no verbatim copy to check it against | `thread@transcripts-per-discussion@transcript-span` | watched by `issue@agent-skills@attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts`; the words that leave the transcript are approvals, so the ground on which `rejected@agent-skills@owner-words-verbatim-in-plan-items` lost still holds for argued words |
 | P4 | two branches both add `transcripts/2.txt` to one plan document | `thread@transcripts-per-discussion@transcript-files-per-discussion` | dropped: a rebase conflict reports it |
@@ -396,7 +432,8 @@ audience".
    refused citation of a deleted spec's file, `plan_document` in `path@model@src/resolver.rs`,
    names the spec for a numbered file; `path@check@src/check/registers.rs` reads no `transcripts/`
    as a slice; the `dirhome` mock holds the numbered names, its harvested slice keeping the
-   single-file names. Claims, each with its test, shown to fail under the mutations commit 1's
+   single-file names; the Migration entry of the `Next release` section of CHANGELOG.md that
+   announces the plans layout states the numbered names. Claims, each with its test, shown to fail under the mutations commit 1's
    message records:
    - the numbered names are admitted and nothing else:
      `plan::tests::the_numbered_files_of_a_plan_document_have_one_name_each`;
@@ -406,7 +443,8 @@ audience".
      milestone and a slice holding every numbered name pass:
      `tree::plans_tests::each_odd_shape_of_the_plans_layout_is_one_phase_two_finding`;
    - the repair names the deleted spec for its numbered files, and nothing for a single-file name:
-     `resolver::tests::the_p1_repair_names_the_form_for_each_position`;
+     `resolver::tests::the_p1_repair_names_the_form_for_each_position`, whose `p1` is no cause of
+     this spec's premortem;
    - a conformant tree with the numbered names passes every check: the `dirhome` mock, a regression
      guard.
 
@@ -414,10 +452,12 @@ audience".
 2. **The installed text and the design record**, commit 2. At the installed text's source under
    `path@agent-skills@content/`, reinstalled with `cargo klarch install-agent-skills`: the planning
    skill, the review skill, the design skill, the primer's row of plan documents, the head-ground
-   fragment, the transcript reviewer and the design-conformance reviewer, as "What is already
-   decided" lists; the design record as listed there; the two issues named there; the `Next
-   release` section of CHANGELOG.md, whose entries announcing the plans layout and the committed
-   transcript are edited, with no entry of its own. Claims: P1, read in the installed copy of the
+   fragment and the transcript reviewer, as "What is already decided" lists, and the
+   design-conformance reviewer, which names the search files as
+   `design@agent-skills@verdicts-reach-the-conformance-review` does; the design record as listed
+   there; the two issues named there; the Workflow entry of the `Next release` section of
+   CHANGELOG.md that announces the committed transcript, edited, with no entry of its own. Claims:
+   the premortem's P1, read in the installed copy of the
    planning skill's assembly bullets; no installed text keeps the owner's word before a
    transcript's push, by the reversal check's search; `cargo klarch check` passes. Fails alone on: a
    text still naming a single-file name or the word before the push.
