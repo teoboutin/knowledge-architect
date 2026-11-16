@@ -441,7 +441,8 @@ checker, using the library only for `MANIFEST_NAME`, does not.
 ```
 
 **The gates.** `rust_project` gives, in cost order: `rebased` behind `--require-rebased`, `fmt`,
-`check`, `commits` over the branch's own commits, `clippy` with warnings denied, and `test`. Add
+`check`, `commits` over the branch's own commits, `clippy` with warnings denied, `doc`, the
+documentation build with rustdoc's warnings denied, and `test`. Add
 a gate the project owes by pushing a `Gate` to that list, with the distiller that shows its failure;
 remove one only on the owner's word. Pass the main branch as git names it, such as `origin/main`.
 The tool writes every gate's complete output under `target/gates/`, refuses to write its report

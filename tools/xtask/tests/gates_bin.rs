@@ -208,6 +208,11 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
         log("clippy")
     );
     assert!(
+        log("doc").contains("doc --workspace --no-deps --locked"),
+        "{}",
+        log("doc")
+    );
+    assert!(
         log("test").contains("test --workspace --locked"),
         "{}",
         log("test")
@@ -233,12 +238,12 @@ fn ci_reaches_every_gate() {
     };
     let (status, stdout, _) = gates_output_with(&project, "", &["--ci"], &[]);
     assert!(status.success(), "{stdout}");
-    for gate in ["fmt", "check", "commits", "clippy", "test"] {
+    for gate in ["fmt", "check", "commits", "clippy", "doc", "test"] {
         assert!(log(gate).contains("ci=[1]"), "{}", log(gate));
     }
     let (status, stdout, _) = gates_output_with(&project, "", &[], &[]);
     assert!(status.success(), "{stdout}");
-    for gate in ["fmt", "check", "commits", "clippy", "test"] {
+    for gate in ["fmt", "check", "commits", "clippy", "doc", "test"] {
         assert!(log(gate).contains("ci=[]"), "{}", log(gate));
     }
     let _ = std::fs::remove_dir_all(&project);

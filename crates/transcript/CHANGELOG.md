@@ -44,6 +44,14 @@ an empty subsection is omitted.
   brings its existing Component heads to the rule by a pass of the design-record axis,
   `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section, run
   after the pin move as `skill@knowledge-architect-setup@moving-the-pin` says.
+- `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
+  `test`, which runs `cargo doc --workspace --no-deps` with `RUSTDOCFLAGS="-D warnings"`, so every
+  rustdoc warning in the documentation of public items fails it, a link that names nothing among
+  them. A project whose public documentation gives a rustdoc warning fails the gate once its pin
+  moves, and fixes the warning or drops the gate from its own list. The gate's variable replaces a
+  `RUSTDOCFLAGS` the caller exported and a `build.rustdocflags` the project configured: a project
+  whose documentation needs a rustdoc flag, such as `--cfg docsrs`, adds it to the doc gate's
+  `envs` in its own list.
 
 ### New features
 

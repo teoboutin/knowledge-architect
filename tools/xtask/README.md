@@ -12,7 +12,7 @@ primary home of what the gates are, per `design@xtask@gates-list-primary-home`.
 ## Usage
 
 ```sh
-cargo x gates                     # run the five gates, distilled output; refuses a pipe on stdout
+cargo x gates                     # run the gates, distilled output; refuses a pipe on stdout
 cargo x gates --fail-fast         # stop at the first failing gate
 cargo x gates --full              # additionally stream raw output live
 cargo x gates --locked            # pass --locked to every gate that resolves dependencies
@@ -44,6 +44,7 @@ The gates, in cost order:
 | `check` | `cargo run -q --release -p knowledge-architect -- check` |
 | `commits` | `cargo run -q --release -p knowledge-architect -- commits origin/main..HEAD` |
 | `clippy` | `cargo clippy --workspace --all-targets -- -D warnings` |
+| `doc` | `cargo doc --workspace --no-deps`, with `RUSTDOCFLAGS="-D warnings"` |
 | `test` | `cargo test --workspace` |
 
 ## What a run produces

@@ -60,7 +60,7 @@ mod tests {
         let names: Vec<&str> = gates.iter().map(|gate| gate.name.as_str()).collect();
         assert_eq!(
             names,
-            ["rebased", "fmt", "check", "commits", "clippy", "test"]
+            ["rebased", "fmt", "check", "commits", "clippy", "doc", "test"]
         );
         assert_eq!(
             gates[3].args,

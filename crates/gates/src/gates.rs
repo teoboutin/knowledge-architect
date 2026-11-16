@@ -70,7 +70,8 @@ pub struct Gate {
     pub program: String,
     /// Its arguments.
     pub args: Vec<String>,
-    /// Variables added to the inherited environment, never replacing it.
+    /// Variables set in the child's environment, beside the one it inherits: a variable of the
+    /// same name as an inherited one replaces its value.
     pub envs: Vec<(String, String)>,
     /// Whether the command resolves dependencies, and so takes `--locked` under that flag.
     pub resolves: bool,
@@ -93,8 +94,13 @@ pub struct Checker<'a> {
 
 /// The recommended gates of a Rust project that uses the checker, in cost order: the rebase
 /// check behind its flag, formatting, the document check, the commit messages of the branch,
-/// clippy, and the tests. `base` is the main branch as git names it, such as origin/main. A
-/// project adds, removes or reorders gates in the list it is given.
+/// clippy, the documentation build with rustdoc's warnings denied, and the tests. `base` is the
+/// main branch as git names it, such as origin/main. A project adds, removes or reorders gates in
+/// the list it is given.
+///
+/// The `doc` gate denies the warnings through its own `RUSTDOCFLAGS`, which replaces one the
+/// caller exported and the project's `build.rustdocflags`: a project whose documentation needs a
+/// rustdoc flag adds it to that gate's `envs`.
 pub fn rust_project(checker: Checker, base: &str) -> Vec<Gate> {
     let owned = |args: &[&str]| args.iter().map(|a| (*a).to_owned()).collect::<Vec<_>>();
     let checker_args = |command: &[&str]| {
@@ -168,6 +174,23 @@ pub fn rust_project(checker: Checker, base: &str) -> Vec<Gate> {
             true,
             Distiller::WithoutProgress,
         ),
+        // The documentation docs.rs renders, public items alone, with every rustdoc warning an
+        // error, so a link that names nothing fails a gate. The deny is the variable rather than
+        // `build.rustdocflags` or a `[lints.rustdoc]` level the project would declare: an exported
+        // `RUSTDOCFLAGS` overrides the configuration's flags, and a plain `cargo doc` exits 0 on an
+        // unresolved link. After clippy: their cold costs are the same within what one run
+        // shows, and clippy's extract is the fuller report on a missing doc, which both gates
+        // report.
+        Gate {
+            envs: vec![("RUSTDOCFLAGS".to_owned(), "-D warnings".to_owned())],
+            ..gate(
+                "doc",
+                "cargo",
+                owned(&["doc", "--workspace", "--no-deps"]),
+                true,
+                Distiller::WithoutProgress,
+            )
+        },
         // Plain on purpose: this is the verdict run, and CI runs it too. The gates only surface
         // libtest's own over-60-seconds warnings.
         gate(
@@ -455,6 +478,8 @@ fn is_progress(line: &str) -> bool {
         "Locking ",
         "Adding ",
         "Blocking ",
+        "Documenting ",
+        "Generated ",
     ]
     .iter()
     .any(|verb| line.trim_start().starts_with(verb))
@@ -730,7 +755,7 @@ mod tests {
         let names: Vec<&str> = gates.iter().map(|gate| gate.name.as_str()).collect();
         assert_eq!(
             names,
-            ["rebased", "fmt", "check", "commits", "clippy", "test"]
+            ["rebased", "fmt", "check", "commits", "clippy", "doc", "test"]
         );
         assert!(gates[0].rebased_only);
         assert!(gates[1..].iter().all(|gate| !gate.rebased_only));
@@ -748,6 +773,33 @@ mod tests {
                 "commits",
                 "origin/main..HEAD"
             ]
+        );
+    }
+
+    /// The claim: the doc gate builds the workspace's documentation without its dependencies,
+    /// resolves, shows its failure without cargo's progress lines, and denies every rustdoc
+    /// warning through its own `RUSTDOCFLAGS`, so a link that names nothing fails it.
+    #[test]
+    fn the_doc_gate_denies_rustdoc_warnings() {
+        let gates = rust_project(
+            Checker {
+                package: "p",
+                prefix: &[],
+            },
+            "origin/main",
+        );
+        let doc = gates
+            .iter()
+            .find(|gate| gate.name == "doc")
+            .expect("a doc gate");
+        assert_eq!(doc.program, "cargo");
+        assert_eq!(doc.args, ["doc", "--workspace", "--no-deps"]);
+        assert!(doc.resolves);
+        assert!(!doc.rebased_only);
+        assert_eq!(doc.distiller, Distiller::WithoutProgress);
+        assert_eq!(
+            doc.envs,
+            [("RUSTDOCFLAGS".to_owned(), "-D warnings".to_owned())]
         );
     }
 
@@ -825,6 +877,21 @@ mod tests {
         assert!(kept.contains("error: unused variable: `phase`"));
         assert!(kept.contains("--> crates/thaum-engine/src/turn.rs:88:9"));
         assert!(kept.contains("warning: this could be a `let` binding"));
+    }
+
+    // The claim: a failing documentation build's extract keeps rustdoc's diagnostics and drops
+    // the line cargo prints per crate documented and the one naming the generated pages.
+    #[test]
+    fn doc_extract_drops_documenting_and_generated_lines() {
+        let text = " Documenting knowledge-architect-git v0.1.0 (/repo/crates/git)\n\
+                    error: unresolved link to `Nowhere`\n\
+                      --> crates/git/src/lib.rs:3:22\n\
+                    Generated /repo/target/doc/knowledge_architect_git/index.html\n";
+        let kept = without_progress(text);
+        assert!(!kept.contains("Documenting"), "{kept}");
+        assert!(!kept.contains("Generated"), "{kept}");
+        assert!(kept.contains("error: unresolved link to `Nowhere`"));
+        assert!(kept.contains("--> crates/git/src/lib.rs:3:22"));
     }
 
     const FAILING_SUITE: &str = "\
