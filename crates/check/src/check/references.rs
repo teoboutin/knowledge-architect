@@ -866,14 +866,19 @@ fn link(
 mod tests {
     use super::*;
 
-    /// The claim: a finding carries the two texts of the cause, each in its own place.
+    /// The claim: a finding carries the two texts of the cause, each in its own place. Each text
+    /// is told by a fragment only it holds and by the values it carries, per
+    /// `design@model@cause-words-unpinned`. Mutation checked: in `reported`,
+    /// `Finding::at(rel, line, what, action)` made `Finding::at(rel, line, action, what)`.
     #[test]
     fn a_reported_cause_writes_its_two_texts_in_a_finding() {
         let cause = resolve::Cause::Missing {
             target: std::path::PathBuf::from("a/b.rs"),
         };
         let (what, action) = cause.texts("path@x@b.rs");
-        assert_eq!(what, "`path@x@b.rs` does not exist, at `a/b.rs`");
+        assert!(what.starts_with("`path@x@b.rs` does not exist"), "{what}");
+        assert!(what.contains("`a/b.rs`"), "{what}");
+        assert!(action.starts_with("repair the pointer"), "{action}");
         let finding = reported(&cause, Path::new("r.md"), 3, "path@x@b.rs");
         assert_eq!((finding.what, finding.action), (what, action));
     }
@@ -2239,7 +2244,8 @@ mod tests {
         // The claim, per `design@agent-skills@plain-text-is-no-repair`: the repair names
         // checked forms only, so no reading of it clears the finding by unbackticking the path.
         // The whole repair line is pinned, so an unchecked form offered in any words fails,
-        // on the plain span and on both located ones. It names the form of a file of another
+        // on the plain span and on both located ones, as `design@model@cause-words-unpinned`
+        // says of a claim that a text holds nothing of a kind. It names the form of a file of another
         // project, per `design@model@foreign-file-names-its-project`: a writer of a foreign path
         // meets this finding first.
         let forms = "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
@@ -2283,7 +2289,10 @@ mod tests {
     #[test]
     fn a_planned_path_whose_target_exists_names_the_path_form_and_nothing_else() {
         // The premortem's cause: a file created by unrelated work. The repair asks for the
-        // conversion alone; whether the plan still holds is the creating session's to say.
+        // conversion alone; whether the plan still holds is the creating session's to say. That
+        // the repair names nothing else is a claim that it holds nothing of a kind, the "nothing
+        // else" of `design@model@planned-path-form`, so it is compared whole, as
+        // `design@model@cause-words-unpinned` says of such a claim.
         let m = manifest();
         let (found, _) = checked_in(
             &m,
@@ -2303,18 +2312,19 @@ mod tests {
         );
     }
 
+    /// The claim: a planned path outside the plans directory, whose target does not exist, is
+    /// refused, and its repair asks for the plan that creates the target, not the path form
+    /// that a target which exists is given. The repair is told by a fragment only it holds, per
+    /// `design@model@cause-words-unpinned`. Mutation checked: in `planned` of
+    /// `path@model@src/resolver.rs`, `_ => Cause::PlannedOutsidePlans { form: None },` made
+    /// `_ => Cause::PlannedOutsidePlans { form: Some(path.to_string()) },`.
     #[test]
     fn a_planned_path_outside_the_plans_directory_is_refused() {
         let m = manifest();
         let (found, _) = checked(&m, "It writes `planned@a-part@notes/new.md`.\n", &tree());
         assert_eq!(found.len(), 1, "{found:#?}");
-        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
-        assert_eq!(
-            action,
-            Some(
-                "a planned path is cited from a plan document only; name the plan that creates it"
-            )
-        );
+        let action = found[0].split_once("\n    → ").map_or("", |(_, a)| a);
+        assert!(action.contains("name the plan that creates it"), "{action}");
     }
 
     #[test]
@@ -2337,7 +2347,10 @@ mod tests {
         {
             assert!(found[i].contains(expected), "{expected}: {found:#?}");
         }
-        // The repairs of the three anchor findings name only what a planned path accepts.
+        // The repairs of the three anchor findings name only what a planned path accepts: that
+        // they offer no anchor a planned path refuses, `*` and `elsewhere` per
+        // `design@model@planned-path-form`, is a claim that a text holds nothing of a kind, so
+        // each is compared whole, as `design@model@cause-words-unpinned` says of such a claim.
         let action = |f: &String| f.split_once("\n    → ").map(|(_, a)| a.to_string());
         let reserved = "anchor at the anchor that will hold the target; a planned path sits at \
                         one anchor, never `*` or `elsewhere`";
@@ -2398,17 +2411,27 @@ mod tests {
             &anchors,
         );
         assert_eq!(found.len(), 1, "{found:#?}");
-        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
-        assert_eq!(
-            action,
-            Some("anchor at the one of a-project, a-part, plans that will hold the target")
+        // The listed set is a value of the text, read between its two fragments, and the plan
+        // anchor `a-spec` is a value it must not carry, per `design@model@cause-words-unpinned`.
+        // Mutation checked: in `anchored_target` of `path@model@src/resolver.rs`,
+        // `.filter(|a| !a.is_plan())` made `.filter(|_| true)`.
+        let action = found[0].split_once("\n    → ").map_or("", |(_, a)| a);
+        assert!(
+            action.contains("the one of a-project, a-part, plans that will hold the target"),
+            "{action}"
         );
+        assert!(!action.contains("a-spec"), "{action}");
     }
 
     // The claim: the repair of a path at an unknown anchor lists the declared anchors and no plan
     // anchor, and names the form of a file of another project, per
     // `design@model@foreign-file-names-its-project`: a writer who puts that project's name in the
-    // anchor slot meets this finding. The whole repair line is pinned.
+    // anchor slot meets this finding. The listed set is a value of the text, read between its two
+    // fragments, the plan anchor `a-spec` a value it must not carry, and the foreign form a
+    // fragment, per `design@model@cause-words-unpinned`. Mutations checked: in `anchored_target` of
+    // `path@model@src/resolver.rs`, `.filter(|a| !a.is_plan())` made `.filter(|_| true)`; and in
+    // `Cause::texts`, the sentence on a file of another project dropped from the
+    // `PathUnknownAnchor` repair.
     #[test]
     fn a_path_s_unknown_anchor_repair_lists_no_plan_anchor() {
         let m = manifest();
@@ -2421,15 +2444,15 @@ mod tests {
             &anchors,
         );
         assert_eq!(found.len(), 1, "{found:#?}");
-        let action = found[0].split_once("\n    → ").map(|(_, a)| a);
-        assert_eq!(
-            action,
-            Some(
-                "anchor at one of a-project, a-part, plans, at `elsewhere` for a path this tree \
-                 does not hold, with the project's name as its first segment for a file of \
-                 another project, as `path@elsewhere@<project>/<path>`, or at `*` for every \
-                 component's own copy"
-            )
+        let action = found[0].split_once("\n    → ").map_or("", |(_, a)| a);
+        assert!(
+            action.starts_with("anchor at one of a-project, a-part, plans, at `elsewhere`"),
+            "{action}"
+        );
+        assert!(!action.contains("a-spec"), "{action}");
+        assert!(
+            action.contains("as `path@elsewhere@<project>/<path>`"),
+            "{action}"
         );
     }
 
@@ -3609,8 +3632,12 @@ mod tests {
     /// reference written without backticks, an anchor in the kind position, a markdown link from
     /// a file that is no navigation home, a malformed span, a register whose home is a plan's
     /// own documents, and the resolution finding of a refused reference, an undefined entry, an
-    /// unknown skill and a plan's item cited from outside it; and a `path` reference gets the
-    /// citation finding alone. Mutations checked, each caught: the goals-home arm of each made
+    /// unknown skill, a plan's item cited from outside it and a skill that resolves once its line
+    /// suffix is dropped; and a `path` reference gets the citation finding alone. That no finding
+    /// names a form refused there is a claim that a text holds nothing of a kind, per
+    /// `design@check@goals-home-cites-only-goals-and-root-homes`, so each repair is compared
+    /// whole, as `design@model@cause-words-unpinned` says of such a claim. Mutations checked,
+    /// each caught: the goals-home arm of each made
     /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
     /// `let repair = if refused {`, the anchor in
     /// the kind position's `Some(_) => GOALS_HOME_REPAIR.to_string(),` given the old repair, the
@@ -3620,8 +3647,8 @@ mod tests {
     /// replaced by `rest.rsplit('@').next().is_some_and(root_register)`, `reported_in`'s test
     /// `if !in_goals_home || (...)` made `if true`, its `!refused_here &&` dropped, and
     /// the skip of a `path` reference's resolution, `if goals_of.is_some() && (kind.is_path() ||
-    /// kind.is_planned()) {`. The harness arm's `in_home, in_home` given `in_home, false`
-    /// survives as an equivalent mutant: no harness cause is one `reported_in` keeps.
+    /// kind.is_planned()) {`, and the harness arm's `in_home, in_home` given `in_home, false`,
+    /// which gives the suffixed skill the repair that drops its suffix.
     #[test]
     fn no_finding_in_a_goals_home_names_a_form_the_citation_check_refuses() {
         let found = {
@@ -3641,13 +3668,15 @@ mod tests {
                  An item register: `register@a-project@thread`.\n\n\
                  Undefined: `design@a-project@no-such-decision`.\n\n\
                  A skill: `skill@no-such-skill`.\n\n\
-                 An item: `thread@m-one@in-readme`.\n"
+                 An item: `thread@m-one@in-readme`.\n\n\
+                 A suffixed skill: `skill@a-skill:3`.\n"
                     .to_string(),
             ));
             all.push((
                 "docs/plans/milestones/m-one/README.md",
                 "# A milestone\n\n## Threads\n\n### In the README `##in-readme`\n".to_string(),
             ));
+            all.push((".claude/skills/a-skill/SKILL.md", "# A\n".to_string()));
             let borrowed: Vec<(&str, &str)> = all.iter().map(|(p, t)| (*p, t.as_str())).collect();
             let present = vec![
                 "docs".to_string(),
@@ -3664,8 +3693,8 @@ mod tests {
             .filter(|f| f.starts_with("docs/goals.md"))
             .collect();
         // One finding per line, and two, the citation's and the resolution's, on each of the last
-        // three lines.
-        assert_eq!(in_home.len(), 14, "{in_home:#?}");
+        // four lines.
+        assert_eq!(in_home.len(), 16, "{in_home:#?}");
         for f in &in_home {
             assert!(f.ends_with(GOALS_HOME_REPAIR), "{f}");
             assert!(
@@ -3754,10 +3783,10 @@ mod tests {
                 .and_then(|f| f.split_once("\n    → ").map(|(_, a)| a.to_string()))
                 .unwrap_or_else(|| panic!("{span}: {found:#?}"))
         };
-        assert_eq!(
-            action("goal@root-goal:12"),
-            "drop the line number or the fragment, as `goal@root-goal`, and name the point \
-             inside it in prose"
+        assert!(
+            action("goal@root-goal:12")
+                .starts_with("drop the line number or the fragment, as `goal@root-goal`"),
+            "{found:#?}"
         );
         assert!(
             action("register@a-project@design#x").starts_with(
