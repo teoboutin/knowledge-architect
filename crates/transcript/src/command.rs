@@ -120,6 +120,21 @@ const SEARCH_EXCERPT: usize = 200;
 
 /// Run one verb of `transcript`: exit 1 when it finds no session or no line, `Err` with no transcript
 /// directory, over a file it cannot read, or on a role, a regular expression or a date it refuses.
+///
+/// # Errors
+///
+/// An `Err`, the command could not run, where:
+///
+/// - neither `CLAUDE_CONFIG_DIR` nor `HOME` is set, or the `projects` directory under the
+///   harness's configuration directory is no directory or cannot be read;
+/// - a transcript file or directory it reads cannot be read;
+/// - under [`TranscriptVerb::Search`], a role is not one of [`ROLES`], or the pattern is refused,
+///   as [`check_pattern`] refuses it;
+/// - under [`TranscriptVerb::List`] or [`TranscriptVerb::Search`], `since` is refused, as
+///   [`check_since`] refuses it.
+///
+/// Under [`TranscriptVerb::Show`], a `session` that resolves to no one session, and a `from` that
+/// no kept line meets, are no `Err`: the run prints why and returns exit 1.
 pub fn transcript(root: &Path, verb: &TranscriptVerb) -> Result<ExitCode, String> {
     let dir = transcript_dir()?;
     match verb {
@@ -166,6 +181,12 @@ fn note_no_cwd(corpus: &mut Corpus, no_cwd: &[(std::path::PathBuf, usize)]) {
 /// [`ListOptions`] and [`SearchOptions`] take it; `Err` names the value. A binary's declaration of
 /// `--since` calls it while parsing, per `design@cli@command-parsing-home`, and [`transcript`] calls
 /// it again, since an options value can be built without the declaration.
+///
+/// # Errors
+///
+/// An `Err` naming the value where `date` is not ten characters, four digits, `-`, two digits,
+/// `-` and two digits, or names no day of the Gregorian calendar, as a month 13 or a February 29
+/// of a year that is not a leap year.
 pub fn check_since(date: &str) -> Result<(), String> {
     let bytes = date.as_bytes();
     let shaped = bytes.len() == 10
@@ -200,6 +221,11 @@ pub fn check_since(date: &str) -> Result<(), String> {
 /// `regex` crate; `Err` gives the parser's reason. A binary's declaration of the pattern calls it
 /// while parsing, per `design@cli@command-parsing-home`, and [`transcript`] parses the pattern again,
 /// since an options value can be built without the declaration.
+///
+/// # Errors
+///
+/// An `Err` carrying the `regex` crate's reason where `regex::Regex::new` refuses `pattern`:
+/// it does not parse, or it compiles past the crate's size limit.
 pub fn check_pattern(pattern: &str) -> Result<(), String> {
     parse_pattern(pattern).map(|_| ())
 }
