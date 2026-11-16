@@ -461,26 +461,33 @@ fn extract(outcome: &Outcome) -> String {
     )
 }
 
-/// Cargo's build-progress verbs. These lines say what cargo is doing, not what is wrong,
+/// Cargo's build-progress lines. These lines say what cargo is doing, not what is wrong,
 /// and on a workspace build they are the bulk of a failing gate's output.
+// Cargo writes each status verb right-aligned in a 12-column field, then a space, as
+// `   Compiling` and ` Documenting`, so the match is on that field, never on the verb after the
+// leading spaces are trimmed. A line another program wrote is kept unless its verb, too, ends at
+// column 12: cargo prints a failed build script's output indented by two spaces, so a build
+// script's `Generated ...` line starts at column 3 and stays in the extract.
 fn is_progress(line: &str) -> bool {
-    [
-        "Compiling ",
-        "Checking ",
-        "Building ",
-        "Fresh ",
-        "Finished ",
-        "Downloading ",
-        "Downloaded ",
-        "Updating ",
-        "Locking ",
-        "Adding ",
-        "Blocking ",
-        "Documenting ",
-        "Generated ",
-    ]
-    .iter()
-    .any(|verb| line.trim_start().starts_with(verb))
+    const VERBS: [&str; 13] = [
+        "Compiling",
+        "Checking",
+        "Building",
+        "Fresh",
+        "Finished",
+        "Downloading",
+        "Downloaded",
+        "Updating",
+        "Locking",
+        "Adding",
+        "Blocking",
+        "Documenting",
+        "Generated",
+    ];
+    let (Some(field), Some(rest)) = (line.get(..12), line.get(12..)) else {
+        return false;
+    };
+    rest.starts_with(' ') && VERBS.contains(&field.trim_start_matches(' '))
 }
 
 fn without_progress(text: &str) -> String {
@@ -862,12 +869,14 @@ mod tests {
     // the indented context line surviving.
     #[test]
     fn clippy_extract_drops_progress_and_keeps_diagnostics() {
-        let text = "   Compiling clap v4.6.6\n\
-                        Checking xtask v0.0.0 (/repo/tools/xtask)\n\
-                    error: unused variable: `phase`\n\
-                      --> crates/thaum-engine/src/turn.rs:88:9\n\
-                    warning: this could be a `let` binding\n\
-                        Finished `dev` profile [unoptimized] target(s) in 1.17s\n";
+        let text = concat!(
+            "   Compiling clap v4.6.6\n",
+            "    Checking xtask v0.0.0 (/repo/tools/xtask)\n",
+            "error: unused variable: `phase`\n",
+            "  --> crates/thaum-engine/src/turn.rs:88:9\n",
+            "warning: this could be a `let` binding\n",
+            "    Finished `dev` profile [unoptimized] target(s) in 1.17s\n",
+        );
         let kept = without_progress(text);
         assert!(!kept.contains("Compiling"));
         assert!(!kept.contains("Checking"));
@@ -881,15 +890,40 @@ mod tests {
     // the line cargo prints per crate documented and the one naming the generated pages.
     #[test]
     fn doc_extract_drops_documenting_and_generated_lines() {
-        let text = " Documenting knowledge-architect-git v0.1.0 (/repo/crates/git)\n\
-                    error: unresolved link to `Nowhere`\n\
-                      --> crates/git/src/lib.rs:3:22\n\
-                    Generated /repo/target/doc/knowledge_architect_git/index.html\n";
+        let text = concat!(
+            " Documenting knowledge-architect-git v0.1.0 (/repo/crates/git)\n",
+            "error: unresolved link to `Nowhere`\n",
+            "  --> crates/git/src/lib.rs:3:22\n",
+            "   Generated /repo/target/doc/knowledge_architect_git/index.html\n",
+        );
         let kept = without_progress(text);
         assert!(!kept.contains("Documenting"), "{kept}");
         assert!(!kept.contains("Generated"), "{kept}");
         assert!(kept.contains("error: unresolved link to `Nowhere`"));
         assert!(kept.contains("--> crates/git/src/lib.rs:3:22"));
+    }
+
+    // The claim: a progress line is one whose verb cargo right-aligned in its 12-column field,
+    // so a failed build script's output, which cargo indents by two spaces, stays in the extract
+    // even where it starts with a verb. Mutation checks in `is_progress`: the field match made
+    // `VERBS.iter().any(|verb| line.trim_start().starts_with(&format!("{verb} ")))` drops the
+    // build script's line and fails the first assertion; `field.trim_start_matches(' ')` made
+    // `field` drops no progress line and fails the last.
+    #[test]
+    fn a_build_script_line_starting_with_a_verb_stays_in_the_extract() {
+        let text = concat!(
+            "   Compiling bs v0.1.0 (/repo)\n",
+            "error: failed to run custom build command for `bs v0.1.0 (/repo)`\n",
+            "  --- stdout\n",
+            "  Generated tables are missing key `alpha` in spec.toml\n",
+        );
+        let kept = without_progress(text);
+        assert!(
+            kept.contains("  Generated tables are missing key `alpha` in spec.toml"),
+            "{kept}"
+        );
+        assert!(kept.contains("--- stdout"), "{kept}");
+        assert!(!kept.contains("Compiling"), "{kept}");
     }
 
     const FAILING_SUITE: &str = "\
