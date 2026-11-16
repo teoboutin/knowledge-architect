@@ -174,13 +174,11 @@ pub fn rust_project(checker: Checker, base: &str) -> Vec<Gate> {
             true,
             Distiller::WithoutProgress,
         ),
-        // The documentation docs.rs renders, public items alone, with every rustdoc warning an
-        // error, so a link that names nothing fails a gate. The deny is the variable rather than
-        // `build.rustdocflags` or a `[lints.rustdoc]` level the project would declare: an exported
-        // `RUSTDOCFLAGS` overrides the configuration's flags, and a plain `cargo doc` exits 0 on an
-        // unresolved link. After clippy: their cold costs are the same within what one run
-        // shows, and clippy's extract is the fuller report on a missing doc, which both gates
-        // report.
+        // Every rustdoc warning an error through the gate's own variable, per
+        // `design@gates@doc-gate-denial`, over public items alone, per
+        // `design@gates@doc-gate-item-scope`. After clippy: their cold costs are the same within
+        // what one run shows, and clippy's extract is the fuller report on a missing doc, which
+        // both gates report.
         Gate {
             envs: vec![("RUSTDOCFLAGS".to_owned(), "-D warnings".to_owned())],
             ..gate(
