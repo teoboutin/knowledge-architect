@@ -45,13 +45,16 @@ an empty subsection is omitted.
   `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section, run
   after the pin move as `skill@knowledge-architect-setup@moving-the-pin` says.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
-  `test`, which runs `cargo doc --workspace --no-deps` with `RUSTDOCFLAGS="-D warnings"`, so every
-  rustdoc warning in the documentation of public items fails it, a link that names nothing among
-  them. A project whose public documentation gives a rustdoc warning fails the gate once its pin
-  moves, and fixes the warning or drops the gate from its own list. The gate's variable replaces a
-  `RUSTDOCFLAGS` the caller exported and a `build.rustdocflags` the project configured: a project
-  whose documentation needs a rustdoc flag, such as `--cfg docsrs`, adds it to the doc gate's
-  `envs` in its own list.
+  `test`, which runs `cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D`
+  and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation of public
+  items fails it, a link that names nothing among them. A project whose public documentation gives
+  a rustdoc warning fails the gate once its pin moves, and fixes the warning or drops the gate from
+  its own list. Cargo reads that variable first of its sources of rustdoc flags and, while it is
+  set, ignores a `RUSTDOCFLAGS` the caller exported and a `build.rustdocflags` the project
+  configured, so neither reaches rustdoc in that gate: a project whose documentation needs a rustdoc
+  flag of its own, such as `--cfg docsrs`, adds it to that variable in the doc gate's `envs` in its
+  own list, after `warnings`, each argument separated from the next by the byte 0x1f, as
+  `"-D\u{1f}warnings\u{1f}--cfg\u{1f}docsrs"`.
 
 ### New features
 
