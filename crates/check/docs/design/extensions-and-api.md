@@ -136,6 +136,9 @@ the refusal in its own suite. Its facade is shaped as `design@knowledge-architec
 - **Nothing becomes public for `check`'s own tests.** An item becomes public because a consumer needs it, which
   an integrated test can show, per `design@agent-skills@integrated-test-through-public-api`: where what the test needs
   has an effect a consumer could see, the facade is what is fixed, and where it has none, the claim is a unit test's.
+  For the same reason an item stays public while a consumer may need it, which no search of the
+  workspace shows, so a documentation lint that warns on it is never answered by narrowing it,
+  `rejected@knowledge-architect@narrowing-instead-of-documenting`.
 - `Manifest::command` is public although thaum's extension does not call it: an extension's
   finding that names a repair command owes the project's declared command, per
   `design@check@declared-command`.

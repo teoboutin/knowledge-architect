@@ -129,7 +129,9 @@ a tool folds.
 
 The crate's interface changes for reasons of its own, a git question that another tool needs and the
 checker does not among them, per `design@knowledge-architect@git-crate`; so what admits a function
-is what it says of a repository, never which tool calls it. The nearest rival, an operation that
+is what it says of a repository, never which tool calls it. So a function stays public whether or
+not a crate of the workspace calls it, `rejected@knowledge-architect@narrowing-instead-of-documenting`.
+The nearest rival, an operation that
 enters the library once a second tool needs it, loses to this: under a count of tools the same
 operation changes its home when a tool is added, with no change to the operation, so the design and
 the code move after the fact.
