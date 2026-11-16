@@ -20,17 +20,23 @@ use crate::model::{Finding, Manifest, Model};
 /// What the structural checks looked at, so that finding nothing is distinguishable from
 /// looking at nothing.
 #[derive(Debug, Default)]
+///
+/// Every count but `walked`, `checker_sources` and `checker_files` is taken by the last phase,
+/// and is zero in the report of a run that stopped before it.
 pub struct Structure {
+    /// How many anchors are Components, the root included.
     pub components: usize,
+    /// How many locations the manifest declares.
     pub locations: usize,
-    /// Anchor-and-register pairs whose home was asserted, and the file-register entries
-    /// whose shape was.
+    /// Anchor-and-register pairs whose home was asserted.
     pub instances: usize,
+    /// The entries of file, directory and plan registers whose shape was asserted.
     pub entries: usize,
-    /// Distinct entities the table holds, reference occurrences judged against it, and the
-    /// relative markdown links resolved.
+    /// Distinct entities the table holds.
     pub entities: usize,
+    /// Reference occurrences judged against the table, every kind included.
     pub references: usize,
+    /// Relative markdown links resolved.
     pub links: usize,
     /// How many files the walk read. Not a family's count: it describes the walk every family
     /// read, so it is set whatever was asked for. It is printed because git is the walk, per
@@ -41,12 +47,20 @@ pub struct Structure {
     /// sit under it with their string literals read as data. Not a family's count: it describes
     /// the walk every family read, so it is set whatever was asked for.
     pub checker_sources: Vec<std::path::PathBuf>,
+    /// How many walked Rust files sit under `checker_sources`, their string literals read as
+    /// data. Set whatever was asked for, as `checker_sources` is.
     pub checker_files: usize,
 }
 
 /// Phases 1 to 3, over everything a check reads.
 ///
 /// `model` runs them, over what they read; this is what a caller holding [`Inputs`] calls.
+///
+/// # Errors
+///
+/// Returns the [`Stop`] of the first phase that finds anything: the manifest's complaints
+/// (phase 1), the tree's findings against the manifest (phase 2), or the entity table's
+/// definition findings (phase 3). The later phases are not run.
 pub fn foundation(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Result<(), Stop> {
     crate::model::foundation::foundation(model, manifest, &inputs.tree())
 }
@@ -56,7 +70,10 @@ pub struct Report {
     /// The phase the findings belong to: `Content` for a run that judged everything, and
     /// the phase that stopped it otherwise, when nothing later was judged.
     pub phase: Phase,
+    /// Every finding the run raised: those of the phase that stopped it, or those of the last
+    /// phase and of each extension's checks.
     pub findings: Vec<Finding>,
+    /// What the run looked at.
     pub structure: Structure,
     /// Every check the last phase performed or was asked to: `check`'s, then each
     /// extension's, in the order the `checked:` line prints them.
@@ -70,6 +87,7 @@ pub struct Report {
 }
 
 impl Report {
+    /// Whether the run raised any finding: the verdict a run's exit code reports.
     pub fn failed(&self) -> bool {
         !self.findings.is_empty()
     }

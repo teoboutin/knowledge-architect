@@ -64,6 +64,17 @@ pub enum IndexMode {
 /// Every check, over one walk: exit 0 when it finds nothing, 1 when it reports a finding, `Err` when it
 /// could not run. `CheckMode::Fix` writes first, and after a write a failure is exit 1, not 2, as
 /// `fix_then_check` says.
+///
+/// # Errors
+///
+/// Returns a could-not-run message, with nothing judged, when the model cannot be built, when a
+/// read the run cannot do without fails, or when an extension refuses to prepare. Under
+/// `CheckMode::Staged`, also when the project root cannot be read, when the staged tree cannot be
+/// assembled, an unmerged index among the causes, or when git cannot say whether the index
+/// differs from HEAD. Under `CheckMode::Fix`, a failure is an `Err` only where no fix was tried
+/// yet: over a manifest holding refused declarations, or while the tree is read for the repairs
+/// of the installed set. Every later failure is printed and returned as exit 2 while nothing was
+/// written, and 1 after a write.
 pub fn check(
     manifest: &Manifest,
     mode: CheckMode,
@@ -106,8 +117,14 @@ pub fn staged_changes_stop_the_fix(
 /// The `generated` check of `cargo klarch check` is the gate, and it names the first line at which
 /// the committed file and the regenerated one disagree.
 ///
-/// `Err` is a refusal over an incomplete model or a destination, nothing written. A write that fails
-/// is exit 2 with nothing yet written, and exit 1 after another was rewritten.
+/// A write that fails is exit 2 with nothing yet written, and exit 1 after another was rewritten.
+///
+/// # Errors
+///
+/// Returns a could-not-run message, with nothing written, when the model cannot be built, when
+/// phases 1 to 3 find it incomplete, when an extension refuses to prepare, or when a destination
+/// is refused. Under `IndexMode::Staged`, also when the project root cannot be read, when the
+/// staged tree cannot be assembled, or when git refuses the write into its index.
 pub fn index(
     manifest: &Manifest,
     mode: IndexMode,
@@ -124,9 +141,14 @@ pub fn index(
 /// `design@check@owned-namespace-check`.
 ///
 /// Exit 0 when the installed set is the shipped one afterwards, or the project declares no harness and
-/// nothing is installed. `Err` over a manifest holding refused declarations, nothing installed, and
-/// when the filesystem refused a write, the earlier writes left in place. It edits nothing outside the installer's namespace: a primer import line missing from
+/// nothing is installed. It edits nothing outside the installer's namespace: a primer import line missing from
 /// its first line is said, not written, because the root CLAUDE.md belongs to the project.
+///
+/// # Errors
+///
+/// Returns a could-not-run message when the manifest holds refused declarations, with nothing
+/// installed; when an owned path is a symbolic link, which is refused rather than followed; and
+/// when the filesystem refuses a write or a deletion, the earlier writes left in place.
 pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     if !manifest.complaints().is_empty() {
         return Err(format!(
@@ -175,6 +197,11 @@ pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
 /// that writes a generated file asks this first and touches nothing when it refuses: the
 /// answer is exit 2 naming the phase, and `check` is what reports the findings. Releases are
 /// not needed by the phases this runs, so nothing is fetched to refuse.
+///
+/// # Errors
+///
+/// Returns a could-not-run message when git or the filesystem refuses a read, or when phases 1
+/// to 3 stop, which the message says by the phase and the command that reports what it found.
 pub fn complete_working_tree(
     manifest: &Manifest,
     model: &crate::Model,
@@ -200,6 +227,12 @@ pub fn complete_working_tree(
 /// tree the checker is built from rather than one a registry sits in. While the key's
 /// own complaint stands, that complaint is the refusal, so no command runs without a key. Every
 /// refusal is could-not-run, exit 2, per `design@cli@exit-code-ladder`.
+///
+/// # Errors
+///
+/// Returns the refusal's message, with its repair, when the manifest holds no pin, the message
+/// being the key's complaint, and when the pin is a version, `"fixture"` or `"self"` that the
+/// rules above do not accept.
 pub fn refuse_another_version(manifest: &Manifest, checker_dirs: &[&Path]) -> Result<(), String> {
     let root = manifest.root().to_path_buf();
     refuse_another_version_built_at(
@@ -341,13 +374,19 @@ fn is_its_own_build(root: &Path, own: &Path, tracked: &dyn Fn(&Path) -> bool) ->
     }
 }
 
-/// Every observation the walk and the scanner produced, one per line. `Err` is a project it cannot read.
+/// Every observation the walk and the scanner produced, one per line.
 ///
 /// This is what the model was compared against the implementation it replaces with, and it is
 /// the way to see what a check is actually being handed. Filtering it on a rule number is also
 /// how a citation is located inside the file the rule index names, because markers and rule
 /// tokens are separate kinds here and a text grep tells them apart from neither each other nor
 /// from a rule number that is data.
+///
+/// # Errors
+///
+/// Returns `cannot read the project`, with the cause, when the model cannot be built: the root
+/// does not resolve, or git cannot list the tree. A file the walk cannot read is no error: the
+/// model keeps it, empty, with the reason.
 pub fn model(
     manifest: &Manifest,
     checker: &[&Path],
