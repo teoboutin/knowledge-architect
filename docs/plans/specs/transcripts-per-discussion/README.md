@@ -438,8 +438,9 @@ before the work but its `README.md` and a milestone's `index.md`, which are unch
 None was written to a `rejected` home. A date in the name and the bare `transcript.txt` kept would
 each change the plans layout, a file format, so the first test of
 `skill@knowledge-architect-decision-recording@losing-alternatives` admits them by its letter; they
-are left without one under the narrower reading of that test, which
-`design@model@plan-document-directory` states, citing
+are left without one under the narrower reading of that test, since
+`design@model@plan-document-directory` states both refutations, and the case is a further instance
+of
 `issue@agent-skills@the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head`.
 The others meet no test.
 
