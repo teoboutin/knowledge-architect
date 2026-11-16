@@ -297,8 +297,9 @@ each under `/usr/bin/time`.
 
 Binding as a presumption, derived from `design@agent-skills@splits-planned-before-work`, which has
 a split found where the work is designed or planned and never left to its implementer. Its review
-half rests on the owner's report of round 4, a premise: split signals weighed at the review before
-the merge added unplanned work at an inopportune time. Met by
+half rests on the owner's report of round 4, a premise: before the incumbent head, split signals
+were often weighed at the review before the merge, which would have added far more unplanned work,
+at a time ill suited to it. Met by
 `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
 
 ## New names, in one place
@@ -481,8 +482,8 @@ Two heads of `register@agent-skills@design`, per D1:
   - a split of a subject of a design home is outside it, per `design@agent-skills@subject-split-standard`.
 
   Its argument: the owner reported, round 4, that before the incumbent head, split signals were
-  found and weighed at the review before the merge, which added unplanned work at an inopportune
-  time, a premise attributed as the owner's report; so the rule's purpose is when a split is
+  often found and weighed at the review before the merge, which would have added far more
+  unplanned work, at a time ill suited to it, a premise attributed as the owner's report; so the rule's purpose is when a split is
   weighed, and an issue that comes back where a work is next designed or planned keeps it there. The
   owner's earlier report, that an issue on a split sits untouched, is answered by the re-entry
   point: the record search reads a `design` issue whole at the grounding of the next designed or
