@@ -10595,7 +10595,9 @@ fn show_and_id_answer_a_goal_in_the_form_with_no_anchor() {
 const SHOW_CHILD: &str = "KNOWLEDGE_ARCHITECT_BINARY_TEST_SHOW_CHILD";
 
 /// Not a test of its own: does nothing unless started by [`show_in_a_child`]. Then it runs `show`
-/// through `cli::run` with the checker directory it is given, and exits with its code.
+/// through `cli::run` with the checker directory it is given, and exits 0 where `show` returned
+/// `ExitCode::SUCCESS` and 1 for any other code; an `Err` from `cli::run` panics, which fails the
+/// child.
 #[test]
 fn show_child_entry() {
     let Ok(joined) = std::env::var(SHOW_CHILD) else {
@@ -10625,7 +10627,9 @@ fn show_child_entry() {
 
 /// The stdout of `show` run through `cli::run` over `root`, with `checker` as its checker
 /// directory, in a child process of this test executable: `show` writes to the process's stdout,
-/// which a test in process cannot read.
+/// which a test in process cannot read. This harness, [`SHOW_CHILD`] and [`show_child_entry`] exist
+/// because a typed command prints rather than returning its data,
+/// `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`.
 fn show_in_a_child(root: &Path, checker: Option<&Path>, reference: &str) -> String {
     let checker = checker.map(|c| c.display().to_string()).unwrap_or_default();
     let out = Command::new(std::env::current_exe().expect("the test executable"))
