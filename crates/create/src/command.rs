@@ -58,6 +58,12 @@ pub enum Vcs {
 /// while parsing, per `design@cli@command-parsing-home`. The name `knowledge-architect` itself is
 /// accepted. A name that is the name of a kind passes here and is refused by [`init`], by the parse
 /// of the manifest it would write, since the kinds are the manifest's registers.
+///
+/// # Errors
+///
+/// An `Err` naming the name and asking for another `--name`, where the name begins with
+/// `knowledge-architect-`, holds a character an anchor cannot spell, or is a word the tool
+/// reserves.
 pub fn check_name(name: &str) -> Result<(), String> {
     // Per `design@create@init-refuses-the-installer-s-prefix`: a project's own skills take its
     // name and a hyphen as their prefix by default, per
@@ -93,6 +99,33 @@ pub fn check_name(name: &str) -> Result<(), String> {
 /// A binary calls this before it locates a project, with the same `libraries` and `packages` it
 /// hands [`crate::check::commands::refuse_a_foreign_build`] and the same `checker` and `extensions` it hands the
 /// other commands. `Err` is a refusal: nothing was written, and the binary exits 2 with it.
+///
+/// A failure after the first write is no `Err`: it is printed to stderr, and the run returns
+/// exit 1.
+///
+/// # Errors
+///
+/// A refusal, with nothing written, where:
+///
+/// - the working directory cannot be read, or the project has no name: no `name` is given and the
+///   path's basename is missing or not UTF-8;
+/// - the path already holds the manifest, lies at or under something that is not a directory, or
+///   lies in a `.git` directory;
+/// - the name fails [`check_name`], or the manifest `init` would write does not parse or is
+///   refused, as for a name that is a kind;
+/// - a Component's directory is the root, lies outside it, in a `.git` directory or in the
+///   installer's namespace;
+/// - where no repository is created, git ignores the path or a Component's directory;
+/// - under `rust`, a `Cargo.toml` stands at or above the path, a Component lies at or under
+///   `target`, a file `rust` writes already exists or cannot be written, or the `.gitignore` is
+///   a symlink, a directory or text that is not UTF-8;
+/// - the tree holds another copy of a library the binary links;
+/// - `GIT_INDEX_FILE` is set;
+/// - the git rule refuses: outside every worktree, a directory that already holds files, unless
+///   `vcs` decides;
+/// - a destination cannot be written, two destinations overlap, or a file stands at the path of an
+///   index the run would generate;
+/// - git cannot answer whether the path lies in a worktree, or what it ignores.
 pub fn init(
     args: InitOptions,
     libraries: &[Library],
@@ -723,6 +756,23 @@ fn ignore_target(
 /// before its first write and is `Err`, exit 2. It edits the manifest with `toml_edit`, which
 /// keeps every byte it does not change, comments included, per
 /// `design@create@component-manifest-edit`.
+///
+/// A failure after the manifest is written is no `Err`: it is printed to stderr, and the run
+/// returns exit 1.
+///
+/// # Errors
+///
+/// A refusal, with nothing written, where:
+///
+/// - the project cannot be read, or the model is incomplete, as `check` would report it;
+/// - the working directory cannot be read;
+/// - `dir` is the root, lies outside it, in a `.git` directory or in the installer's namespace;
+/// - the manifest cannot be read, holds no `[project] components` array, or with `dir` added does
+///   not parse or is refused;
+/// - the destination of a document the new Component owes is a symlink, a directory where a file
+///   is due, or under a file, or a file stands at the path of an index the run would generate.
+///
+/// A failure to write the manifest, the run's first write, is an `Err` too.
 pub fn new_component(
     manifest: &Manifest,
     dir: &Path,
