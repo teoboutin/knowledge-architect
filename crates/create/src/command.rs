@@ -826,10 +826,13 @@ fn append(components: &mut toml_edit::Array, rel: &str) {
     // last element's indentation. What follows the last element, up to the last line break before
     // `]`, is its reason comment, or comment lines before `]`: it moves ahead of the new element,
     // after the comma, so every comment line stays byte for byte on its own line and a reason never
-    // reads as the new element's. `push` alone writes `"a", "svc", # reason for a`. An array whose
-    // last element opens on the bracket's line, with a line break after it, as after its reason,
-    // holds no indentation to take: the new element takes the next line, unindented. An array on
-    // one line, or an empty one, holds no line break after an element, and `push` keeps it as it is.
+    // reads as the new element's. `push` alone writes `"a", "svc", # reason for a`. A last element
+    // whose prefix holds no line break opens on the line of the element before it or of the
+    // bracket, and that line's indentation, if any, is not taken: with a line break after the last
+    // element, in its suffix or in the array's trailing part, as after its reason, the new element
+    // takes the next line, unindented. With no line break in either, as in an array on one line,
+    // `push` keeps the layout as it is, a trailing comma and the space before `]` included. An
+    // empty array takes `push` alone.
     let Some(last_value) = components.iter().last() else {
         components.push(rel);
         return;
@@ -1137,6 +1140,9 @@ mod tests {
     /// The claim: a reason after the last element of an array that opens on its bracket's line
     /// stays that element's, with or without its comma: the new element takes the next line, so
     /// the comment never reads as its own, and the array's trailing comma is kept where it held one.
+    /// An array with no line break after its last element stays on one line. Mutation checked in
+    /// `append`: the trailing part's `.is_some_and(|t| t.contains('\n'));` made
+    /// `.is_some_and(|t| !t.is_empty());`; caught, by the row `["a", ]`.
     #[test]
     fn a_reason_after_the_last_element_of_a_one_line_array_stays_its_element_s() {
         assert_eq!(
@@ -1147,8 +1153,10 @@ mod tests {
             appended("[\"a\", \"b\" # why b\n]", "c"),
             "[\"a\", \"b\", # why b\n\"c\"\n]"
         );
-        // With no line break after the last element, the array stays on one line.
+        // With no line break after the last element, the array stays on one line, a trailing
+        // part that holds no line break included.
         assert_eq!(appended("[\"a\", \"b\"]", "c"), "[\"a\", \"b\", \"c\"]");
+        assert_eq!(appended("[\"a\", ]", "c"), "[\"a\", \"c\", ]");
         assert_eq!(appended("[]", "c"), "[\"c\"]");
     }
 
