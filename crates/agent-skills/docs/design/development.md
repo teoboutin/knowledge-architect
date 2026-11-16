@@ -209,28 +209,80 @@ discussion of that work, found there by `design@agent-skills@code-split-scout`, 
 plan document as a step before the work that needs it, or, in a milestone, as a slice of its own
 where the move is large. A split of a subject of a design home that the harvest writes into is found
 at planning, as `design@agent-skills@record-split-found-by-a-command` says, and is a step before
-that harvest; when a subject splits is
-`design@agent-skills@subject-split-standard`. Neither is left to the implementer, nor parked as an
-issue. Where no plan document carries the work, a split of code is commits of its own before the
-work, on the same branch, committed as `design@agent-skills@move-lands-in-move-only-commits` says.
-The boundary with the writer's own shaping is `design@agent-skills@default-code-shape`'s: moving
-code the change does not write is a split.
+that harvest; when a subject splits is `design@agent-skills@subject-split-standard`. Neither is left
+to the implementer, and a split the work needs takes no issue in place of its step. A split signal
+the discussion weighs and finds the work does not need is an issue, as
+`design@agent-skills@split-not-needed-is-an-issue` says. Where no plan document carries the work, a
+split of code is commits of its own before the work, on the same branch, committed as
+`design@agent-skills@move-lands-in-move-only-commits` says. The boundary with the writer's own
+shaping is `design@agent-skills@default-code-shape`'s: moving code the change does not write is a
+split.
 
 A signal met outside the work's area, by the scout, by the code-shape reviewer or while the work is
 written, is routed by `primer@met-outside-the-task`, since a plan takes no work its discussion did
 not decide, per `design@agent-skills@met-outside-the-task-outcomes`. A split of code is a design
-decision, so it is no fix of that table's second row, which takes only what changes no decision; a
-split of a subject met there takes the route `design@agent-skills@subject-split-standard` gives it.
+decision, so it is no fix of that table's second row, which takes only what changes no decision;
+where that routing opens an issue on a split of code, the issue takes the shape
+`design@agent-skills@split-issue-reenters-at-planning` gives it. A split of a subject met there
+takes the route `design@agent-skills@subject-split-standard` gives it.
 
 `goal@projects-are-split-into-modular-units` leads a project toward units that each serve one
 purpose, and a split nobody carries out serves none. The owner reported that a split left to
 implementation is never done, since an implementer judges it too large to carry within the same
-work, that an issue on a split sits untouched for a long time, and that a task not planned ahead
-never gets done; these are the owner's reports, a premise open to challenge. That report defeats
-the nearest rival, the split left to whoever meets it while writing the code. The owner proposed
-that a split, of the design record as of code, be thought of at the design or the planning steps
-and planned as a step or a slice of its own, the code side probably at the design steps, since a
-split of code is a design decision, and a split of the design record no decision in itself.
+work, that an issue on a split is likely to sit untouched for a long time, and that a task not
+planned ahead never gets done; these are the owner's reports, a premise open to challenge. That
+report defeats the nearest rival, the split left to whoever meets it while writing the code. The
+owner proposed that a split, of the design record as of code, be thought of at the design or the
+planning steps and planned as a step or a slice of its own, the code side probably at the design
+steps, since a split of code is a design decision, and a split of the design record no decision in
+itself.
+
+### A split signal over code a work does not write, weighed at the work's design or planning and found not needed by it, is an issue `##split-not-needed-is-an-issue`
+
+A signal of the module guidelines of `design@agent-skills@module-split-guidelines`, over code a
+work does not write, that the work's design discussion or planning weighs and finds the work does
+not need, becomes an issue, of the shape `design@agent-skills@split-issue-reenters-at-planning`
+gives it. A doc comment added to a module does not count as writing its code, for this rule. A
+signal the discussion weighs and finds outweighed by the signals against a split makes no split
+stand, and owes no issue. A signal over code the range writes is a departure, per
+`design@agent-skills@code-shape-axis`, outside this rule, and so is a split of a subject of a
+design home, per `design@agent-skills@subject-split-standard`.
+
+`goal@projects-are-split-into-modular-units` leads a project toward units that each serve one
+purpose, so a split that stands is not dropped with the work that found it. The nearest rival, no
+split and no issue, lets the signal leave with the plan document that weighed it, and nothing
+schedules the split.
+
+### An issue on a split of code that no work carries out is of kind `design`, its re-entry point the next design or planning of work that changes that code `##split-issue-reenters-at-planning`
+
+The issue holds its instances, its suspected mechanism in one sentence, and its re-entry point,
+the design discussion or the planning of the next work that changes that code. It is the issue
+`design@agent-skills@split-not-needed-is-an-issue` opens, and the issue the routing of
+`primer@met-outside-the-task` opens for a signal met where a work is implemented or reviewed, as
+`design@agent-skills@splits-planned-before-work` says; that signal is neither weighed nor carried
+out in that work. Sending every signal met at implementation or review to an issue would bypass
+the rows of `primer@met-outside-the-task` that
+`design@agent-skills@met-outside-the-task-outcomes` routes it by.
+
+The owner argued that what matters in `design@agent-skills@splits-planned-before-work` is when a
+split of code is weighed: at the planning of a work, not at its implementation, and that an issue
+on such a split is weighed again at planning. The owner reported that, where splits are not
+planned before the work, the standing-state reviewer often finds and weighs split signals at the
+review before the merge, and that carrying them out there would add unplanned work at an
+inopportune time; this is the owner's report, a premise open to challenge. The re-entry point keeps
+the issue where the split is weighed: the record search reads a `design` issue whole at the
+grounding of the next designed or planned work, and grades a met re-entry point `trigger-met`,
+with the action `rule-before-work`, per `design@agent-skills@verdict-report`. That answers the
+owner's report, cited by `design@agent-skills@splits-planned-before-work`, that an issue on a split
+is likely to sit untouched for a long time. The premise: no review reads a `design` issue's
+re-entry point, the question `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`
+holds open; a review that read every re-entry point would bring the split back to review time, and
+this head would be argued again.
+
+The nearest rival, a `todo` entry, has no re-entry point for the search to grade `trigger-met`,
+and a `deferred` trigger is read by the standing-state reviewer at every merge, which brings the
+split back to review time; and the split is no known undesigned work of
+`design@agent-skills@undesigned-work-is-an-issue`, since whether and where to split is open.
 
 ### A subject of the design record above the bound that a harvest writes into is found at planning by the notice of `klarch worklist --out`, a command, and no agent is dispatched for it `##record-split-found-by-a-command`
 

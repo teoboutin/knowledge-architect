@@ -378,7 +378,9 @@ failure.** Every other test here serves that one.
   commits the branch carries, such as the commit of its own a fix met outside the task takes, is the
   implementing session's to judge.
 
-%% Splits planned before the work: `design@agent-skills@splits-planned-before-work`, the code side
+%% Splits planned before the work: `design@agent-skills@splits-planned-before-work`; a signal the
+%% work does not need, an issue, per `design@agent-skills@split-not-needed-is-an-issue`, of kind
+%% `design`, per `design@agent-skills@split-issue-reenters-at-planning`; the code side
 %% found by `design@agent-skills@code-split-scout`, the move committed as
 %% `design@agent-skills@move-lands-in-move-only-commits` says, the record side
 %% `design@agent-skills@subject-split-standard`, a command with no point of view apart, so no agent,
@@ -391,8 +393,10 @@ failure.** Every other test here serves that one.
 %% performs a move, per `issue@knowledge-architect@no-command-renames-or-moves-an-entry-or-a-component`;
 %% it leaves a quotation as quoted.
 **A split the work needs is a step before the work or the harvest that needs it**, or, in a
-milestone, a slice of its own where the move is large: never left to the implementer, and never an
-issue.
+milestone, a slice of its own where the move is large: never left to the implementer. A split
+signal over code the work does not write, which the discussion weighs and finds the work does not
+need, is an issue of kind `design`, per `skill@knowledge-architect-issue-tracking`, whose re-entry
+point is the design or the planning of the next work that changes that code.
 
 - **The record side.** Run `{{command}} worklist --out <dir>`, `<dir>` a new directory of your
   scratch space outside the project, with `--work` each `README.md` of the plan document that its

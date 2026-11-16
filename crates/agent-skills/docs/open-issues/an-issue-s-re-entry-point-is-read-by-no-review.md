@@ -63,6 +63,11 @@ for every change, of what waits for an event. A re-entry point that names such a
 no review reads is a parked item with no re-entry, which the issue-tracking skill says the
 registers exist to avoid. It threatens `goal@agents-work-without-drift`.
 
+The answer strains `design@agent-skills@split-issue-reenters-at-planning`, which rests on no review
+reading a `design` issue's re-entry point: a split issue's re-entry point is the design or the
+planning of the next work that changes its code, and a review that read every re-entry point would
+bring the split back to the review before the merge, where that head keeps it out.
+
 ### What would close it
 
 A decision between the two answers, recorded in the head above: the standing-state reviewer reads

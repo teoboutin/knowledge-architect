@@ -359,8 +359,10 @@ failure.** Every other test here serves that one.
   implementing session's to judge.
 
 **A split the work needs is a step before the work or the harvest that needs it**, or, in a
-milestone, a slice of its own where the move is large: never left to the implementer, and never an
-issue.
+milestone, a slice of its own where the move is large: never left to the implementer. A split
+signal over code the work does not write, which the discussion weighs and finds the work does not
+need, is an issue of kind `design`, per `skill@knowledge-architect-issue-tracking`, whose re-entry
+point is the design or the planning of the next work that changes that code.
 
 - **The record side.** Run `cargo klarch worklist --out <dir>`, `<dir>` a new directory of your
   scratch space outside the project, with `--work` each `README.md` of the plan document that its

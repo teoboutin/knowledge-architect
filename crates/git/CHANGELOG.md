@@ -115,7 +115,12 @@ an empty subsection is omitted.
   over code the branch does not write under a heading of its own, for the session to route; a split
   met outside the work is no fix in a commit of its own, since it is a design decision.
 - `agent-skills`, patch: a split the work needs is planned as a step before the work or the harvest
-  that needs it, or a slice of its own in a milestone, never left to the implementer; its move lands
+  that needs it, or a slice of its own in a milestone, never left to the implementer. A split signal
+  over code the work does not write, a doc comment added to it not counting as writing it, that the
+  design discussion or the planning weighs and finds the work does not need, becomes an issue of
+  kind `design`, whose re-entry point is the design or the planning of the next work that changes
+  that code; so does one met where the work is implemented or reviewed, where its routing as met
+  outside the task opens an issue. The move of a split lands
   in commits that hold the move alone, each building and passing the project's checks. At planning,
   the session runs `worklist --out` with the `README.md` files the design audits will take as the
   work, and plans a split of each design subject the harvest writes into that a notice names; a

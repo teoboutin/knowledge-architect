@@ -5,7 +5,9 @@
 %% code-split scout, per `design@agent-skills@shared-text-fragment`. Size's role rests on the
 %% measurement its head names: a read returns a file only up to a cap, and one with `allow_large`
 %% only up to what fits in the context left. A split is planned and committed as
-%% `design@agent-skills@splits-planned-before-work` and
+%% `design@agent-skills@splits-planned-before-work`, a signal the work does not need as
+%% `design@agent-skills@split-not-needed-is-an-issue` and
+%% `design@agent-skills@split-issue-reenters-at-planning` say, and
 %% `design@agent-skills@move-lands-in-move-only-commits` say.
 **A module holds what one review reads against one reference.** A reference is a design head, a
 section of a specification the project implements, a set of invariants, or one external effect, such

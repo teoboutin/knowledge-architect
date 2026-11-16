@@ -47,12 +47,16 @@ missing: its claim, or, for a test of logic, its recorded mutation. A performanc
 commit and the missing figures.
 %% A module split is planned before the work, per `design@agent-skills@splits-planned-before-work`, so a
 %% signal a diff meets is routed by the dispatcher, never repaired inside the branch; the boundary
-%% with the writer's own shaping is `design@agent-skills@default-code-shape`'s.
+%% with the writer's own shaping is `design@agent-skills@default-code-shape`'s; an issue the routing
+%% opens takes the shape of `design@agent-skills@split-issue-reenters-at-planning`.
 **Shaping the code the range writes, a new module for it included, is no split**: a signal of the
 module guidelines over that code is a departure, reported as any other. **One over code the range
-does not write is a split signal: report it under a heading of its own**, with the signal, the
-evidence and each signal against a split that holds. It is no repair inside the branch: a split is a
-design decision, so it is no fix of the second row of `primer@met-outside-the-task`, and the
-dispatching session routes it by the other rows. **If nothing departs, say so plainly.** Do not report style preferences.
+does not write, a doc comment the range adds to it not counting as writing it, is a split signal:
+report it under a heading of its own**, with the signal, the evidence and each signal against a
+split that holds. It is no repair inside the branch: a split is a design decision, so it is no fix
+of the second row of `primer@met-outside-the-task`, and the dispatching session routes it by the
+other rows, as an issue of kind `design` where they open one, whose re-entry point is the design or
+the planning of the next work that changes that code.
+**If nothing departs, say so plainly.** Do not report style preferences.
 List what you met outside your axis under a heading "Met outside the task", for the dispatcher to
 route, per `primer@met-outside-the-task`; do not review it.
