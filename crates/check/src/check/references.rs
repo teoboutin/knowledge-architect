@@ -868,7 +868,7 @@ mod tests {
 
     /// The claim: a finding carries the two texts of the cause, each in its own place. Each text
     /// is told by a fragment only it holds and by the values it carries, per
-    /// `design@model@cause-words-unpinned`. Mutation checked: in `reported`,
+    /// `design@model@cause-text-by-fragment-unless-absence`. Mutation checked: in `reported`,
     /// `Finding::at(rel, line, what, action)` made `Finding::at(rel, line, action, what)`.
     #[test]
     fn a_reported_cause_writes_its_two_texts_in_a_finding() {
@@ -2244,7 +2244,7 @@ mod tests {
         // The claim, per `design@agent-skills@plain-text-is-no-repair`: the repair names
         // checked forms only, so no reading of it clears the finding by unbackticking the path.
         // The whole repair line is pinned, so an unchecked form offered in any words fails,
-        // on the plain span and on both located ones, as `design@model@cause-words-unpinned`
+        // on the plain span and on both located ones, as `design@model@cause-text-by-fragment-unless-absence`
         // says of a claim that a text holds nothing of a kind. It names the form of a file of another
         // project, per `design@model@foreign-file-names-its-project`: a writer of a foreign path
         // meets this finding first.
@@ -2292,7 +2292,7 @@ mod tests {
         // conversion alone; whether the plan still holds is the creating session's to say. That
         // the repair names nothing else is a claim that it holds nothing of a kind, the "nothing
         // else" of `design@model@planned-path-form`, so it is compared whole, as
-        // `design@model@cause-words-unpinned` says of such a claim.
+        // `design@model@cause-text-by-fragment-unless-absence` says of such a claim.
         let m = manifest();
         let (found, _) = checked_in(
             &m,
@@ -2315,7 +2315,7 @@ mod tests {
     /// The claim: a planned path outside the plans directory, whose target does not exist, is
     /// refused, and its repair asks for the plan that creates the target, not the path form
     /// that a target which exists is given. The repair is told by a fragment only it holds, per
-    /// `design@model@cause-words-unpinned`. Mutation checked: in `planned` of
+    /// `design@model@cause-text-by-fragment-unless-absence`. Mutation checked: in `planned` of
     /// `path@model@src/resolver.rs`, `_ => Cause::PlannedOutsidePlans { form: None },` made
     /// `_ => Cause::PlannedOutsidePlans { form: Some(path.to_string()) },`.
     #[test]
@@ -2350,7 +2350,7 @@ mod tests {
         // The repairs of the three anchor findings name only what a planned path accepts: that
         // they offer no anchor a planned path refuses, `*` and `elsewhere` per
         // `design@model@planned-path-form`, is a claim that a text holds nothing of a kind, so
-        // each is compared whole, as `design@model@cause-words-unpinned` says of such a claim.
+        // each is compared whole, as `design@model@cause-text-by-fragment-unless-absence` says of such a claim.
         let action = |f: &String| f.split_once("\n    → ").map(|(_, a)| a.to_string());
         let reserved = "anchor at the anchor that will hold the target; a planned path sits at \
                         one anchor, never `*` or `elsewhere`";
@@ -2412,7 +2412,7 @@ mod tests {
         );
         assert_eq!(found.len(), 1, "{found:#?}");
         // The listed set is a value of the text, read between its two fragments, and the plan
-        // anchor `a-spec` is a value it must not carry, per `design@model@cause-words-unpinned`.
+        // anchor `a-spec` is a value it must not carry, per `design@model@cause-text-by-fragment-unless-absence`.
         // Mutation checked: in `anchored_target` of `path@model@src/resolver.rs`,
         // `.filter(|a| !a.is_plan())` made `.filter(|_| true)`.
         let action = found[0].split_once("\n    → ").map_or("", |(_, a)| a);
@@ -2428,7 +2428,7 @@ mod tests {
     // `design@model@foreign-file-names-its-project`: a writer who puts that project's name in the
     // anchor slot meets this finding. The listed set is a value of the text, read between its two
     // fragments, the plan anchor `a-spec` a value it must not carry, and the foreign form a
-    // fragment, per `design@model@cause-words-unpinned`. Mutations checked: in `anchored_target` of
+    // fragment, per `design@model@cause-text-by-fragment-unless-absence`. Mutations checked: in `anchored_target` of
     // `path@model@src/resolver.rs`, `.filter(|a| !a.is_plan())` made `.filter(|_| true)`; and in
     // `Cause::texts`, the sentence on a file of another project dropped from the
     // `PathUnknownAnchor` repair.
@@ -3636,7 +3636,7 @@ mod tests {
     /// suffix is dropped; and a `path` reference gets the citation finding alone. That no finding
     /// names a form refused there is a claim that a text holds nothing of a kind, per
     /// `design@check@goals-home-cites-only-goals-and-root-homes`, so each repair is compared
-    /// whole, as `design@model@cause-words-unpinned` says of such a claim. Mutations checked,
+    /// whole, as `design@model@cause-text-by-fragment-unless-absence` says of such a claim. Mutations checked,
     /// each caught: the goals-home arm of each made
     /// false, the unanchored path's `if goals_of.is_some() {`, the unquoted reference's
     /// `let repair = if refused {`, the anchor in

@@ -30,7 +30,7 @@ A cause's two texts, what is wrong and what repairs it, per `design@check@findin
 `design@knowledge-architect@model-crate`. The nearest rival is
 `rejected@model@cause-words-in-the-lints`.
 
-### A test tells a cause's text by a fragment, and compares the text whole only where its claim is that the text holds nothing of a kind `##cause-words-unpinned`
+### A test tells a cause's text by a fragment, and compares the text whole only where its claim is that the text holds nothing of a kind `##cause-text-by-fragment-unless-absence`
 
 A test that reads the texts of `Cause::texts`, beside
 `issue@model@a-rust-item-named-in-prose-has-no-checked-form`, in this crate or in a crate that

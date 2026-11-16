@@ -105,7 +105,7 @@ fn findings_in(manifest: &Manifest, rel: &str) -> Vec<(String, String)> {
 /// naming the form without it; and one whose rest fails too keeps the repair of what fails, the
 /// sentence on the suffix after it. The project's design entry is `one-decision`. Each text is
 /// told by a fragment only it holds and by the values it carries, the span and the form, per
-/// `design@model@cause-words-unpinned`. Mutations checked, each caught: the call to `located` in
+/// `design@model@cause-text-by-fragment-unless-absence`. Mutations checked, each caught: the call to `located` in
 /// `path` of `path@model@src/resolver.rs` made `resolve(path)`, which gives `README.md` the
 /// `Missing` cause; and in `located`, the form `entity::spelled(kind, anchor, bare)` made
 /// `entity::spelled(kind, anchor, id)`, which names the form with its suffix.
@@ -152,7 +152,7 @@ fn each_resolution_path_names_the_repair_of_a_suffix() {
 /// ignored, and a planned path in a plan document whose target does not exist. A planned path
 /// pointing into a file that exists beside them is reported, so the plan document is read; its
 /// repair is told by a fragment only it holds and by the form it carries, per
-/// `design@model@cause-words-unpinned`. Mutations checked, each caught: in `located` of
+/// `design@model@cause-text-by-fragment-unless-absence`. Mutations checked, each caught: in `located` of
 /// `path@model@src/resolver.rs`, `written.is_ok() || ` removed, which tells the ignored path to
 /// drop its suffix; and in `planned_in_plans`, the `PointsIntoExisting` cause returned as
 /// `NowExists`, whose repair names no point inside the file.

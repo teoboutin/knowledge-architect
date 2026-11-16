@@ -2334,7 +2334,7 @@ mod tests {
     /// cause's repair ends with the sentence on the suffix. That the repair names no cause is a
     /// claim that the text holds nothing of a kind, in any words, per
     /// `design@check@finding-names-the-repair`, so the repair is compared whole, as
-    /// `design@model@cause-words-unpinned` says of such a claim: a fragment test passes on a
+    /// `design@model@cause-text-by-fragment-unless-absence` says of such a claim: a fragment test passes on a
     /// repair that keeps its fragment and adds a cause. The statement is told by the values it
     /// carries, the span and the target. A suffixed cause keeps the statement of the cause it
     /// wraps, and its repair is the wrapped repair followed by the sentence on the suffix.
