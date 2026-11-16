@@ -135,6 +135,12 @@ const SEARCH_EXCERPT: usize = 200;
 ///
 /// Under [`TranscriptVerb::Show`], a `session` that resolves to no one session, and a `from` that
 /// no kept line meets, are no `Err`: the run prints why and returns exit 1.
+///
+/// # Panics
+///
+/// Under [`TranscriptVerb::Show`], where the session's file, read a second time, no longer holds
+/// a session at the place the first read found it, as a file rewritten between the two reads
+/// would, per `issue@transcript@show-reads-the-session-s-file-twice-and-expects-the-session-again`.
 pub fn transcript(root: &Path, verb: &TranscriptVerb) -> Result<ExitCode, String> {
     let dir = transcript_dir()?;
     match verb {
