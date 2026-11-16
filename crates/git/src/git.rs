@@ -146,6 +146,12 @@ impl Invocation {
     ///   empty;
     /// - waiting for git fails, or writing its input fails for another reason than git closing
     ///   it.
+    ///
+    /// # Panics
+    ///
+    /// When the invocation carries input for git's stdin, which only this crate's own functions
+    /// give it, and the operating system cannot create the thread that writes it, as
+    /// `std::thread::spawn` panics then; git is then neither waited for nor killed.
     pub fn output(self) -> io::Result<Vec<u8>> {
         self.run().map(|(_, stdout)| stdout)
     }
@@ -438,6 +444,11 @@ pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
 ///
 /// An `Err` carrying git's reason where `git check-ignore` fails with another exit code than 1,
 /// as [`Invocation::output`] says. Input whose every spelling is empty never fails.
+///
+/// # Panics
+///
+/// When the operating system cannot create the thread that writes git's input, as
+/// [`Invocation::output`] says.
 pub fn ignored(root: &Path, queries: &[String]) -> io::Result<HashSet<String>> {
     let wanted: Vec<&String> = queries.iter().filter(|q| !q.is_empty()).collect();
     if wanted.is_empty() {
@@ -893,6 +904,11 @@ pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
 ///   sets the skip-worktree bit again, leaves the entries staged and the bit cleared.
 ///
 /// An empty `files` spawns nothing and never fails.
+///
+/// # Panics
+///
+/// When the operating system cannot create the thread that writes git's input, as
+/// [`Invocation::output`] says.
 pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<()> {
     if files.is_empty() {
         return Ok(());
@@ -1030,6 +1046,10 @@ mod object_naming {
 /// # Errors
 ///
 /// [`blob_bytes`]'s `Err` is this function's.
+///
+/// # Panics
+///
+/// [`blob_bytes`]'s panic is this function's.
 pub fn blobs(
     root: &Path,
     source: Source,
@@ -1051,6 +1071,11 @@ pub fn blobs(
 ///
 /// A [`Source::Commit`] that names no commit is no `Err`: git answers every path as missing, and
 /// the map comes back empty.
+///
+/// # Panics
+///
+/// When the operating system cannot create the thread that writes git's input, as
+/// [`Invocation::output`] says.
 pub fn blob_bytes(
     root: &Path,
     source: Source,
