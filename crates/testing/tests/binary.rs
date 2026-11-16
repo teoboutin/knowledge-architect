@@ -1437,8 +1437,9 @@ fn show_prints_the_entry_and_what_points_at_it() {
 /// The claim, per `design@model@register-home-reference`: `show` on a `register` reference prints
 /// the home the tree holds, a file for a heading home in one file and a directory for one split
 /// into a directory, with the register's shape, then every site that cites it; one the check
-/// refuses resolves to nothing with the check's finding. Mutation checked, and caught: the
-/// `listed(&file)` branch disabled.
+/// refuses resolves to nothing with the check's finding, its statement then its repair. Mutations
+/// checked, and caught: the `listed(&file)` branch disabled; the two texts of the cause swapped in
+/// the register arm of `show`.
 #[test]
 fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     let sandbox = Sandbox::new("show-register", "dirhome");
@@ -1472,11 +1473,22 @@ fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     assert_eq!(code, 1, "{refused}");
     assert!(refused.contains("resolves to nothing"), "{refused}");
     assert!(refused.contains("carries no spec register"), "{refused}");
+    // The statement follows "resolves to nothing:", and the repair follows the arrow.
+    assert!(
+        refused.contains("resolves to nothing: `register@dirhome@spec` names"),
+        "{refused}"
+    );
+    assert!(
+        refused.contains("→ the anchors that carry one:"),
+        "{refused}"
+    );
 }
 
 /// The claim, per `design@model@planned-path-form`: `show` on a planned reference resolves whether
 /// or not the target exists, says which, and lists the plans that cite it, which are the sites a
-/// conversion edits.
+/// conversion edits; one the check refuses resolves to nothing with the check's finding, its
+/// statement then its repair. Mutation checked, and caught: the two texts of the cause swapped in
+/// the planned arm of `show`.
 #[test]
 fn show_of_a_planned_path_lists_its_citations_and_says_whether_it_exists() {
     let sandbox = Sandbox::new("show-planned", "minimal");
@@ -1501,7 +1513,11 @@ fn show_of_a_planned_path_lists_its_citations_and_says_whether_it_exists() {
     // A reference the check refuses resolves to nothing here too.
     let (refused, _, code) = sandbox.run(&["show", "planned@minimal@../x.rs"]);
     assert_eq!(code, 1, "{refused}");
-    assert!(refused.contains("resolves to nothing"), "{refused}");
+    assert!(
+        refused.contains("resolves to nothing: `planned@minimal@../x.rs` is refused"),
+        "{refused}"
+    );
+    assert!(refused.contains("→ anchor at the anchor"), "{refused}");
 
     let (present, stderr, code) = sandbox.run(&["show", "planned@minimal@code/lib.rs"]);
     assert_eq!(code, 0, "{stderr}");
