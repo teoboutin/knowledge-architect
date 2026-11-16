@@ -119,14 +119,16 @@ Actions, per `design@gates@gates-refuse-a-pipe`. When the text is wanted, redire
 file.
 
 `cargo klarch` runs the checker built from this checkout, in release mode. A single gate is still
-run by hand when that is cheaper:
+run by hand when that is cheaper, by its command in the table "The gates, in cost order" of
+`path@xtask@README.md`, read there before relying on one; `cargo klarch` stands for the
+`cargo run` of its `check` and `commits` rows, and the `doc` row gives the documentation build with
+the variable that denies its warnings. The others:
 
 ```sh
 cargo fmt --all --check
 cargo klarch check
 cargo klarch commits origin/main..HEAD
 cargo clippy --workspace --all-targets -- -D warnings
-RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps
 cargo test --workspace
 ```
 
