@@ -13,7 +13,10 @@ contradiction no source or argument resolves.
 Whatever the argument settles, the project's owner decides every action that cannot be undone, and
 knowledge-architect's own owner decides each addition, tightening or removal of a
 condition or an ask of `goal@serves-one-kind-of-project`, and whether and when it takes in the generic
-part of a tool or a procedure.
+part of a tool or a procedure. A push to the project's repository is not among the actions that
+cannot be undone the owner decides, whatever it holds. An action the push sets off is judged on its
+own: where it cannot be undone and the push is its only gate, such as a publish to a package
+registry, the push waits for the owner's word.
 
 Each decision the agents make that enters the record, and each choice they make on a question
 that is the owner's, reaches the owner, who can contest it: agents decide only while the owner can
