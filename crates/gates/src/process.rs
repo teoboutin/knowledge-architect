@@ -33,8 +33,17 @@ pub struct Completed {
 /// Runs the child to completion, capturing both streams. When `live` is set, every chunk
 /// is also written to this process's stdout as it arrives.
 ///
-/// An `Err` is a failure to spawn or to read, not a nonzero child: that is
-/// `Completed { success: false, .. }`, with whatever output the child produced.
+/// # Errors
+///
+/// When the child cannot be spawned, as for a program not found or a working directory that does
+/// not exist; when waiting for it fails; or when reading either of its streams fails. A child that
+/// exits nonzero is no error: that is `Completed { success: false, .. }`, with whatever output the
+/// child produced.
+///
+/// # Panics
+///
+/// When the operating system cannot create one of the two threads that read the child's streams,
+/// as `std::thread::spawn` panics then; the child is then neither waited for nor killed.
 pub fn run_captured(spec: &Spec, live: bool) -> std::io::Result<Completed> {
     let mut child = Command::new(spec.program)
         .args(spec.args)
