@@ -21,9 +21,7 @@ use crate::Manifest;
 ///
 /// - the project cannot be read: its root cannot be resolved, or git cannot list it;
 /// - `reference` is not reference-shaped: malformed, an anchor where the kind goes, or no
-///   reference at all, the message saying why;
-/// - for a `path` or `planned` reference, the survey of the tree that says whether its target
-///   exists fails.
+///   reference at all, the message saying why.
 ///
 /// # Panics
 ///

@@ -146,8 +146,8 @@ impl Gathered {
     /// # Errors
     ///
     /// Returns the reason as text when the run cannot go on: git refused one of its two batches,
-    /// the ignore question or the listing of the files it both tracks and ignores, or the survey
-    /// failed. The error is could-not-run, never a finding.
+    /// the ignore question or the listing of the files it both tracks and ignores. The error is
+    /// could-not-run, never a finding.
     pub fn over(manifest: &Manifest, model: &Model) -> Result<Gathered, String> {
         // One listing answers every question a phase has about what is there.
         let survey = crate::survey::survey(manifest, model).map_err(|e| e.to_string())?;
