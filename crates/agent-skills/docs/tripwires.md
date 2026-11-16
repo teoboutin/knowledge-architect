@@ -327,23 +327,3 @@ messages, a head their list missed.
 message wraps the phrase "missed by the list": `git log --grep='^\[harvest\]' --format='%h%n%B'`.
 **Watches until:** three specs or milestones deleted at their landing, counted from the commit that
 wrote this line.
-
-## Guarding `design@agent-skills@split-issue-reenters-at-planning`: the code of a file whose split issue is open keeps changing in works that neither design nor plan, so the issue is never weighed `##split-issue-skipped-by-unplanned-work`
-
-The decision keeps a split issue where the split is weighed, on the premise that the next work that
-changes that code is designed or planned, so that the record search reads the issue and grades its
-re-entry point met. A work that changes the code with no design discussion and no plan document
-runs no search, which the decision admits; works that keep doing so leave the issue untouched while
-its code changes, which every procedure counts as success, the failure the head's re-entry point
-answers.
-
-**Fires when:** the code, other than its documentation, of a file whose split issue of kind
-`design` is open is changed on the main branch by two separate works, neither of which has a plan
-document or a design deliberation, in its plan document or its commit messages, that reads the
-issue, while the issue stays open.
-**Response:** reopen `design@agent-skills@split-issue-reenters-at-planning`, on where a split issue
-is weighed again, with the instance.
-**Re-entry:** the standing-state review: `git log` over each file an open split issue of kind
-`design` names, since the commit that opened the issue.
-**Watches until:** three commits on the main branch that change the code of a file an open split
-issue of kind `design` names, counted from the commit that writes this line.
