@@ -297,8 +297,8 @@ each under `/usr/bin/time`.
 
 Binding as a presumption, derived from `design@agent-skills@splits-planned-before-work`, which has
 a split found where the work is designed or planned and never left to its implementer. Its review
-half rests on the owner's report of round 4, a premise: before the incumbent head, split signals
-were often weighed at the review before the merge, which would have added far more unplanned work,
+half rests on the owner's report of round 4, a premise: before the incumbent head, split issues
+were often found and weighed at the review before the merge, which would have added far more unplanned work,
 at a time ill suited to it. Met by
 `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
 
@@ -356,6 +356,11 @@ Gate {
 The nearest rival, the gate in this repository's list alone, is out on the owner's word, round 2.
 
 ### doc gate denial
+
+Reversed after the review before the merge: an exported `CARGO_ENCODED_RUSTDOCFLAGS`, even empty,
+made cargo ignore the `RUSTDOCFLAGS` below and pass a broken link, measured, so the gate denies
+through `CARGO_ENCODED_RUSTDOCFLAGS`, which cargo reads first, as `design@gates@doc-gate-denial`
+states it; the account below is the design as the discussion converged on it.
 
 The doc gate sets `RUSTDOCFLAGS="-D warnings"` in its `envs`, so every rustdoc warning fails it,
 with nothing the project must declare. Measured on a scratch crate, cargo and rustdoc 1.98.0:
@@ -481,7 +486,7 @@ Two heads of `register@agent-skills@design`, per D1:
     outside this rule;
   - a split of a subject of a design home is outside it, per `design@agent-skills@subject-split-standard`.
 
-  Its argument: the owner reported, round 4, that before the incumbent head, split signals were
+  Its argument: the owner reported, round 4, that before the incumbent head, split issues were
   often found and weighed at the review before the merge, which would have added far more
   unplanned work, at a time ill suited to it, a premise attributed as the owner's report; so the rule's purpose is when a split is
   weighed, and an issue that comes back where a work is next designed or planned keeps it there. The

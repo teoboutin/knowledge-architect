@@ -135,4 +135,8 @@ The run that shows it is the one `design@knowledge-architect@doc-lints-table` na
 interface its consumers use, to answer a documentation lint. Its test, that no crate of the
 workspace uses the item, is the wrong one: an item is public because a consumer needs it,
 extensions outside the workspace included, which no search of the workspace sees. Whether an item
-stays public is the facade's decision, made for a consumer, not a lint pass's.
+stays public is the facade's decision, made for a consumer, not a lint pass's. It holds for a
+crate whose public items serve consumers outside the workspace, as
+`design@check@the-facade-publishes-what-a-consumer-needs` and
+`design@git@an-operation-in-git-s-terms-is-the-library-s` argue; a crate whose public items serve
+the workspace's own tools, as `design@model@model-facade` says of `model`, is outside it.

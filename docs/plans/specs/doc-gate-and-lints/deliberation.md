@@ -48,6 +48,10 @@ messages.
   addition of `-A missing_docs` to the gate was declined on
   `argument@doc-gate-and-lints@arg-16`.
 
+- **Reversed** after the review before the merge, on a measured fact the discussion did not hold:
+  an exported `CARGO_ENCODED_RUSTDOCFLAGS`, even empty, makes cargo ignore `RUSTDOCFLAGS`, so the
+  gate now denies through `CARGO_ENCODED_RUSTDOCFLAGS`, per `design@gates@doc-gate-denial`.
+
 ### The `doc` gate builds the documentation of public items only, without `--document-private-items` `##doc-gate-item-scope`
 
 - **Proposed by:** the agent, in its reply to round 2, as a fork between public items only, its
@@ -485,7 +489,7 @@ messages.
   the planning steps and not at the implementation steps, and that such split issues are
   reconsidered at the planning steps too. The owner reported that before that head, split issues
   were often found and considered at review time by the standing-state reviewer, which would have
-  added much unplanned work at a bad time.
+  added far more unplanned work, at a time ill suited to it.
 
 ### The issue on asks has too large a scope for this discussion `##arg-35`
 

@@ -268,7 +268,7 @@ The owner argued that what matters in `design@agent-skills@splits-planned-before
 split of code is weighed: at the planning of a work, not at its implementation, and that an issue
 on such a split is weighed again at planning. The owner reported that, before
 `design@agent-skills@splits-planned-before-work`, the standing-state reviewer often found and
-weighed split issues at the review before the merge, where carrying them out would have added far
+weighed split issues at the review before the merge, which would have added far
 more unplanned work, at a time ill suited to it; this is the owner's report, a premise open to
 challenge. The
 re-entry point keeps the issue where the split is weighed: the record search reads a `design` issue whole at the
