@@ -271,7 +271,7 @@ search's generated lines as `search/discussion-<n>.txt`, per
 
 The design this decision did not keep: `rejected@agent-skills@ledger-written-during-discussion`.
 
-### A design discussion's trimmed transcript is committed beside its plan document, one file per discussion, ending at the owner's word on its last convergence checkpoint `##committed-transcript`
+### A design discussion that reaches a convergence checkpoint on the full path commits its trimmed transcript beside its plan document, ending at the owner's word on its last checkpoint `##committed-transcript`
 
 The planning skill commits, for each design discussion that reaches a convergence checkpoint on the
 full path, the output of `klarch transcript show` without tool calls, for each session the
@@ -280,14 +280,16 @@ last convergence checkpoint table it showed before the commit that adds or rewri
 document: the one before the hand-off to planning, or, where a plan review reopens a thread, the
 one that follows the reopening. `klarch transcript show` has no option that ends its output, so the
 output is cut after that message of the owner. The file is `transcripts/<n>.txt` of the plan
-document, `<n>` the next number of that `transcripts/`, from 1, taken when the transcript is
-committed. It is committed in that commit, after its removal step, per
-`design@agent-skills@transcript-removal-step`. The discussion that produced a spec or a milestone
-is one; a later discussion that reaches a checkpoint is another, such as a design session opened at a slice's or a spec's design audit, or a
-rediscussion of a milestone before a slice's turn. An implementation, a design audit that reopens
-nothing, and a material finding settled on one word of the owner have none. A slice has one only
-where such a discussion was held for it: a discussion that rewrites one slice is filed under that
-slice, and one that rewrites several slices or the milestone's `README.md` under the milestone.
+document, named as `design@model@plan-document-directory` says, `<n>` the next number of that
+`transcripts/`, taken when the transcript is committed. It is committed in that commit, after its
+removal step, per `design@agent-skills@transcript-removal-step`. The discussion that produced a spec
+or a milestone is one; a later discussion that reaches a checkpoint is another, such as a design
+session opened at a slice's or a spec's design audit, or a rediscussion of a milestone before a
+slice's turn. A discussion the harness kept no transcript of, an implementation, a design audit
+that reopens nothing, and a material finding settled on one word of the owner have none. A slice
+has one only where a discussion rewrites that slice alone: a discussion that rewrites one slice is
+filed under that slice, and one that rewrites several slices or the milestone's `README.md` under
+the milestone.
 Where a plan review reopens a thread before the plan document's branch merges, the same
 discussion's file is extracted again, to the checkpoint that follows.
 
@@ -301,12 +303,6 @@ owner's last message before the branch merges, adds those approvals and, for a s
 branch, the whole implementation, and can be committed only after the review before the merge. The
 rival ending at the plan document's commit adds only the assembly and the defaults of the plan
 reviews over the checkpoint, and has no boundary the session sees in the conversation.
-
-One file per discussion keeps the discussions of one plan document apart, on the owner's request:
-a plan document can be designed long before its work, and discussed again before its turn. Its
-number is the one its search's generated lines take, per
-`design@agent-skills@plan-commits-the-generated-lines`. The owner chose a number over a date in the
-name, which two discussions held on one day would share, while git records the date.
 
 Being a `.txt` file, a transcript is never parsed, so a reference, a slug or a commit SHA in it is a
 quotation, not a citation, per `design@model@a-harvested-slice-is-frozen`. It holds the owner's
@@ -332,16 +328,18 @@ addresses could replace part of it: `issue@transcript@an-option-anonymizes-what-
 
 Once its removal step is done, per `design@agent-skills@transcript-removal-step`, the commit that
 holds a transcript is pushed as any commit of the branch is, and the session asks no word of the
-owner for it. It stands on the owner's reading of `goal@the-owner-decides`, which reserves to the
-owner every action that cannot be undone: a push to the project's own repository is no such action,
-against the reading that it is one, which would put every push of the workflow under the owner's
-word. The workflow already pushes, with no word of the owner, commit messages, plan items and issue
-entries that sessions write, each exposed to the same risk of private information as a transcript.
-The rival, a word of the owner for each transcript before its push, held one kind of push to a rule
-no other push of the workflow meets. A project that wants the word states it in its root
-`CLAUDE.md`. A publication on another repository is not reached: a finding sent upstream follows
-`design@agent-skills@installed-fix-goes-upstream`, and the outcomes of an intake
-`design@agent-skills@intake-outcome-authority`.
+owner for it. `goal@the-owner-decides` reserves to the owner every action that cannot be undone,
+and states that a push to the project's repository, whatever it holds, is not one of them. The
+workflow already pushes, with no word of the owner, commit messages, plan items and issue entries
+that sessions write, each exposed to the same risk of private information as a transcript. The
+nearest rival kept the word as the installed default, waivable in a project's root `CLAUDE.md`: it
+costs one approval round per transcript in every project that does not waive it, against a risk
+that every text the workflow pushes with no word of the owner shares. So the installed text asks
+for no word, and a project whose owner wants it states it in its root `CLAUDE.md`: the owner of
+each project decides for that project. A publication on another repository is not reached, the
+session's answer to the two heads that a wider reach would strain, which the owner approved: a
+finding sent upstream follows `design@agent-skills@installed-fix-goes-upstream`, and the outcomes
+of an intake `design@agent-skills@intake-outcome-authority`.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 

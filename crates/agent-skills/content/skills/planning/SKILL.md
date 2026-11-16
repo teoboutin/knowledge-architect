@@ -158,7 +158,7 @@ docs/plans/
 | `deliberation.md` | the sections Threads and Arguments, whose items record the argument of the discussion | where the document has a thread or an argument |
 | `search/discussion-<n>.txt` | the generated lines of the record search of its n-th design discussion, as `skill@knowledge-architect-planning@spec-contents` says | where that search ran for this document |
 | `search/design-audit-<n>.txt` | the fit lines of its n-th design audit, as `skill@knowledge-architect-planning@working-a-slice` says | where that audit ran |
-| `transcripts/<n>.txt` | the trimmed transcript of its n-th design discussion, as `skill@knowledge-architect-planning@spec-contents` says | where that discussion reached a convergence checkpoint on the full path for this document |
+| `transcripts/<n>.txt` | the trimmed transcript of its n-th design discussion, as `skill@knowledge-architect-planning@spec-contents` says | where that discussion reached a convergence checkpoint on the full path for this document and the harness kept its transcript |
 
 `<n>` is a number counted from 1, with no leading zero: a discussion's search file and its
 transcript take the same number, and the design audits are numbered apart.
@@ -334,35 +334,40 @@ document.
 
 %% The verbatim words in a committed transcript, and attributions in the items:
 %% `design@agent-skills@committed-transcript` and `design@agent-skills@attribution-replaces-quotation`;
-%% the generated lines alone committed, and their numbers: `design@agent-skills@plan-commits-the-generated-lines`.
+%% the generated lines alone committed: `design@agent-skills@plan-commits-the-generated-lines`.
 - **The owner's words are attributed in the items**, as `primer@design-heads` says of a durable
   record, each citing its round; the verbatim words of a design discussion are in its transcript, a
   file of `transcripts/`.
+%% A discussion's search takes its transcript's number so that one number finds both; the rival,
+%% numbering the searches on their own, breaks that, and so would a second search of one discussion
+%% taking a number of its own. The numbered names: `design@model@plan-document-directory`.
 - **The discussion's record search** leaves, of what `{{command}} worklist` writes, only
   `generated-lines.md`, copied after `{{command}} worklist --verify` passes, as
   `search/discussion-<n>.txt` beside the `README.md` of the document whose draft the search read,
-  `<n>` the number the discussion's transcript takes. A second search inside the same discussion,
-  for a thread opened after the first, appends its `generated-lines.md` to that file, after a line
-  naming that search. Its verdict files, `shown.md`, its agent directories, `agents.txt` and
-  `work.txt` stay in the scratch space: their quotations go stale as the record changes, and "What
-  is already decided" carries the outcome of every verdict that changed something.
-%% The span, one file per discussion and which discussions get one: `design@agent-skills@committed-transcript`.
+  `<n>` the number the discussion's transcript takes, or, where it commits none, the next number
+  that no transcript and no discussion's search file of that document takes. A second search
+  inside the same discussion, for a thread opened after the first, appends its
+  `generated-lines.md` to that file, after a line naming that search. Its verdict files,
+  `shown.md`, its agent directories, `agents.txt` and `work.txt` stay in the scratch space: their
+  quotations go stale as the record changes, and "What is already decided" carries the outcome of
+  every verdict that changed something.
+%% The span, which discussions get one and where it is filed: `design@agent-skills@committed-transcript`.
 - **The transcript of each design discussion that reaches a convergence checkpoint on the full
-  path** is committed as `transcripts/<n>.txt` beside the `README.md` of the milestone document,
-  the spec or the slice it was held for, `<n>` the next number of that `transcripts/`, from 1: for
-  each session the discussion spans in order, the output of
-  `{{command}} transcript show <session> --from "<opening words>"`, without `--tools`, from the
+  path** is committed as `transcripts/<n>.txt` beside the `README.md` of the document it produced
+  or rewrites, `<n>` the next number of that `transcripts/`: a discussion that rewrites one slice
+  is filed under that slice, and one that rewrites several slices or the milestone's `README.md`
+  under the milestone. The file holds, for each session the discussion spans in order, the output
+  of `{{command}} transcript show <session> --from "<opening words>"`, without `--tools`, from the
   message where the discussion begins to the owner's word on the last checkpoint table the
   discussion showed before the commit that adds or rewrites the plan document: the one
   `skill@knowledge-architect-design@threads-and-states` shows before the hand-off to planning, or,
   where a plan review reopens a thread before the branch merges, the checkpoint that follows the
   reopening, the same discussion's file then extracted again. `{{command}} transcript show` has no
   option that ends its output, so cut the last session's output after that message of the owner.
-  The file goes in that commit. The discussion that produced the document is one; a later one that reaches a
-  checkpoint, such as a design session opened at a slice's or a spec's design audit or a
-  rediscussion of a milestone before a slice's turn, is another, filed under the slice it
-  rewrites, or under the milestone where it rewrites several slices or the milestone's
-  `README.md`. An implementation, a design audit that reopens nothing, and a material finding
+  The file goes in that commit. The discussion that produced the document is one; a later one that
+  reaches a checkpoint, such as a design session opened at a slice's or a spec's design audit or a
+  rediscussion of a milestone before a slice's turn, is another. A discussion the harness kept no
+  transcript of, an implementation, a design audit that reopens nothing, and a material finding
   settled on one word of the owner commit none. A ruling given after the last checkpoint is in no
   transcript, so its attribution in the items is its whole record.
 %% The removal step: `design@agent-skills@transcript-removal-step`; no word of the owner before the
@@ -602,7 +607,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the
    audit applies nothing in place, in the message of the slice's first commit; and, in that same
    commit, copied as `search/design-audit-<n>.txt` beside the audited `README.md`, the slice's or the
-   spec's, `<n>` the next number of the design audits that `search/` holds, from 1. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
+   spec's, `<n>` the next number of the design audits that `search/` holds. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest.
 %% The scout and the notice again at each audit, since the code and the record move between the

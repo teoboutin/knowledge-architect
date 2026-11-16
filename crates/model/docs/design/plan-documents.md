@@ -67,11 +67,21 @@ nothing else:
 
 Any other file or directory of a plan document's directory is a phase-2 finding, and so is a file of
 `search/` or of `transcripts/` with another name, `<n>` being a number counted from 1 with no leading
-zero, so each number has one name. A plan document can be discussed again after its first
-discussion, and audited at each slice, so each of these files is numbered: a second discussion or a
-second audit adds a file beside the first rather than writing over it, per
-`design@agent-skills@committed-transcript` and
-`design@agent-skills@plan-commits-the-generated-lines`. The set is closed because the searches read the `README.md` alone,
+zero, so each number has one name. A plan document can be designed long before its work, discussed
+again before its turn, and audited at each slice, so each of these files is numbered: a second
+discussion or a second audit adds a file beside the first rather than writing over it, and the
+discussions of one plan document stay apart, as the owner asked. Which discussions and audits write
+one is `design@agent-skills@committed-transcript` and
+`design@agent-skills@plan-commits-the-generated-lines`. A date in the name loses on the owner's
+argument: two discussions held on one day would share it, and git records the date. The single
+`transcript.txt` kept for the first discussion would spare a migration at the cost of two names for
+one kind of file. Each rival would change this file format, an interface others consume, and
+neither has a `rejected` entry: the tests of
+`skill@knowledge-architect-decision-recording@losing-alternatives` are read here in the narrower of
+the two readings that
+`issue@agent-skills@the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head`
+records, in which the sentence on derivation after them limits the first test too, and both
+refutations are derived again from this head. The set is closed because the searches read the `README.md` alone,
 per `design@agent-skills@discussion-record-apart`, and each file beside it has a role the planning
 skill states and a regime `design@model@a-harvested-slice-is-frozen` states: a file of no stated
 role, admitted by an open set, is where a session can write a condition of the design that no
