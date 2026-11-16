@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-27 entries
+24 entries
 
 | kind | title |
 | --- | --- |
@@ -18,11 +18,9 @@
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
 | todo | [No command renames an entry or a Component, or moves entries between Components](no-command-renames-or-moves-an-entry-or-a-component.md) |
-| todo | [No gate builds the crates' documentation, so a broken link in it reaches no run](no-gate-builds-the-documentation.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [Two questions on how a saved workflow runs under the harness, answered on one branch](saved-workflows-under-the-harness-on-one-branch.md) |
 | todo | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
-| todo | [The documentation lints and a gate that builds the documentation, on one branch](the-documentation-lints-on-one-branch.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
@@ -30,4 +28,3 @@
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |
 | todo | [This repository's own skills, agents and commands are not checked for a generic part to ship](this-repository-s-own-tools-are-not-checked-for-a-generic-part.md) |
-| todo | [This repository's published crates warn on none of the documentation lints the setup asks for](this-repository-warns-on-none-of-the-documentation-lints.md) |
