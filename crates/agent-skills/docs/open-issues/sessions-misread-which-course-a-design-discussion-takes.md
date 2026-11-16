@@ -76,13 +76,14 @@ chooses by the size or the kind of the work.
   the per-commit gate checks, since the checker then refuses a `transcript.txt` it accepted before,
   so on the full path its spec would have had to merge alone, before its work.
 - Three courses are chosen at different moments by different texts: bounded work after the
-  grounding, by `skill@knowledge-architect-design@bounded-work`; the path, by `skill@knowledge-architect-design@decision-authority`
-  section, after the search; and the merge of a plan document, by the planning skill.
+  grounding, by `skill@knowledge-architect-design@bounded-work`; the path, by `skill@knowledge-architect-design@decision-authority`,
+  after the search; and the merge of a plan document, by the planning skill.
 
 ### Why it matters
 
-A wrong path skips what the other path owes. Instance 1 skipped the code-split scout, the plan
-reviews and the committed transcript of the discussion, the record its own work set out to keep. A
+A wrong path skips what the other path owes. Instance 1 skipped, before its work, the code-split
+scout, the plan reviews and the committed transcript of the discussion, the record its own work set
+out to keep; the spec written after the work, and its review, then supplied them. A
 spec merged alone sends its work to a later branch and a later session, which needs a design audit
 the work did not need. Both strain `design@agent-skills@in-change-path` and
 `design@agent-skills@design-hands-off-to-planning`, and threaten `goal@agents-get-a-complete-workflow`,

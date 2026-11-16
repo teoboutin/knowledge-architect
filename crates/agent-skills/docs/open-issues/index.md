@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-77 entries
+78 entries
 
 | kind | title |
 | --- | --- |
@@ -18,6 +18,7 @@
 | deferred | [The review-cost counts that retrospectives report are not compared across branches yet](the-review-cost-counts-are-not-compared-yet.md) |
 | design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |
+| design | [A committed transcript cuts the reports of the agents its discussion dispatched](a-committed-transcript-cuts-the-reports-of-agents.md) |
 | design | [An acceptance criterion admitted without condition 2 can have its evidence in no record at the leaving](a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving.md) |
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
 | design | [A deferred issue's trigger, or a re-entry point, brings unrelated work into a design's scope at a bad moment](a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment.md) |

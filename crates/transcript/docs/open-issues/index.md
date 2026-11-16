@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-7 entries
+8 entries
 
 | kind | title |
 | --- | --- |
@@ -11,3 +11,4 @@
 | observation | [`transcript show` reads the session's file twice and expects to find the session again](show-reads-the-session-s-file-twice-and-expects-the-session-again.md) |
 | todo | [A tool result the harness persisted is shown as its preview, and no header names it](a-persisted-tool-result-is-named-in-no-header.md) |
 | todo | [No option of `klarch transcript show` removes the machine's home paths and the branch's commit SHAs from what it prints](an-option-anonymizes-what-transcript-prints.md) |
+| todo | [`transcript show` has no option that ends its output at a message](show-has-no-option-that-ends-its-output.md) |
