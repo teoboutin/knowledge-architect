@@ -87,9 +87,9 @@ pub const DELIBERATION_FILE: &str = "deliberation.md";
 /// each a `.txt` file the walk never parses.
 pub(crate) const SEARCH_DIR: &str = "search";
 
-/// The trimmed transcript of the discussion a plan document was assembled from, a `.txt` file
-/// the walk never parses.
-pub(crate) const TRANSCRIPT_FILE: &str = "transcript.txt";
+/// The directory of a plan document's directory that holds the trimmed transcripts of its design
+/// discussions, one `.txt` file per discussion, which the walk never parses.
+pub(crate) const TRANSCRIPTS_DIR: &str = "transcripts";
 
 /// The directory of a milestone that holds its harvested slices, the one frozen location: every
 /// file under it leaves the walk and is parsed for definitions only.

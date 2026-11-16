@@ -1,0 +1,2 @@
+The fit lines of a design audit, never parsed: `design@dirhome@no-such-entry` names nothing,
+and no check reports it.

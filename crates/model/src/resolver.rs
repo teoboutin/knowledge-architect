@@ -1573,8 +1573,9 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
         return Some(format!("spec@{PLANS_ANCHOR}@{}", spec.name));
     }
     // No spec the tree places holds it, as for a deleted spec. A spec's directory, at the top of
-    // specs/ or in a group, holds its README.md, its deliberation.md, its transcript.txt, its
-    // search/ and the search files in it, so each of these names the spec by its directory. Any
+    // specs/ or in a group, holds its README.md, its deliberation.md, its search/ and its
+    // transcripts/ with the numbered files in each, so each of these names the spec by its
+    // directory. Any
     // other `.md` file is a spec file, named by its stem, grouped or not, but the home's own README
     // and index. Anything else, a group's directory, the home's register.toml and any other file
     // not `.md`, sits at no plan position and is a path like any other.
@@ -1582,14 +1583,16 @@ pub(crate) fn plan_document(anchors: &Anchors, target: &Path) -> Option<String> 
     let spec_dir_file = |file: &str| {
         file == crate::plan::README
             || crate::plan::is_beside_readme(file)
-            || file == crate::manifest::SEARCH_DIR
+            || crate::plan::is_numbered_dir(file)
     };
     let id = match dirs {
         [.., spec] if dirs.len() <= 2 && spec_dir_file(file) => spec.as_str(),
-        [.., spec, search]
+        [.., spec, numbered]
             if dirs.len() <= 3
-                && search == crate::manifest::SEARCH_DIR
-                && crate::plan::is_search_file(file) =>
+                && ((numbered == crate::manifest::SEARCH_DIR
+                    && crate::plan::is_search_file(file))
+                    || (numbered == crate::manifest::TRANSCRIPTS_DIR
+                        && crate::plan::is_transcript_file(file))) =>
         {
             spec.as_str()
         }
@@ -1903,13 +1906,17 @@ mod tests {
     /// The claim: the repair a refused plan citation names is the form that resolves for each
     /// position: a slice for a file of a live slice's directory, the milestone for its own files,
     /// a harvested slice's or anything in no slice, a spec for a file of a spec's directory, its
-    /// search/ and a file of it included, or a spec file, and nothing for a navigation file, a
-    /// group's directory, the home's register.toml or a file no spec's directory holds. Mutations checked: the README and index filter, and the id test of the
+    /// search/ and its transcripts/ and a numbered file of each included, or a spec file, and
+    /// nothing for a navigation file, a group's directory, the home's register.toml or a file no
+    /// spec's directory holds, the names of the single-file layout included. Mutations checked: the README and index filter, and the id test of the
     /// slice segment, each removed from `plan_document`; in its fallback, the spec file's
     /// `file.strip_suffix(".md")?` made `parts[0].strip_suffix(".md").unwrap_or(&parts[0])`, the
     /// first segment read as the spec, and the arm of a spec's own README.md or deliberation.md
-    /// deleted; in the arm of a file of a spec's search/, its `search == crate::manifest::SEARCH_DIR`
-    /// test made `false`, and its `is_search_file` test made `true`; and `|| file == crate::manifest::SEARCH_DIR` dropped; each caught.
+    /// deleted; in the arm of a numbered file of a spec's search/ or transcripts/, its
+    /// `numbered == crate::manifest::SEARCH_DIR` test made `false`, its `is_search_file` test made
+    /// `true`, its `numbered == crate::manifest::TRANSCRIPTS_DIR` test made `false`, and its
+    /// `is_transcript_file` test made `true`; and `|| crate::plan::is_numbered_dir(file)` dropped;
+    /// each caught.
     #[test]
     fn the_p1_repair_names_the_form_for_each_position() {
         let m = manifest();
@@ -1969,7 +1976,11 @@ mod tests {
                 Some("spec@plans@b-spec"),
             ),
             (
-                "docs/plans/specs/gone-spec/transcript.txt",
+                "docs/plans/specs/gone-spec/transcripts",
+                Some("spec@plans@gone-spec"),
+            ),
+            (
+                "docs/plans/specs/gone-spec/transcripts/2.txt",
                 Some("spec@plans@gone-spec"),
             ),
             (
@@ -1977,15 +1988,23 @@ mod tests {
                 Some("spec@plans@gone-spec"),
             ),
             (
-                "docs/plans/specs/gone-spec/search/discussion.txt",
+                "docs/plans/specs/gone-spec/search/discussion-1.txt",
                 Some("spec@plans@gone-spec"),
             ),
             (
-                "docs/plans/specs/a-group/gone-spec/search/design-audit.txt",
+                "docs/plans/specs/a-group/gone-spec/search/design-audit-1.txt",
                 Some("spec@plans@gone-spec"),
             ),
             ("docs/plans/specs/gone-spec/notes.txt", None),
+            ("docs/plans/specs/gone-spec/transcript.txt", None),
             ("docs/plans/specs/gone-spec/search/notes.txt", None),
+            ("docs/plans/specs/gone-spec/search/discussion.txt", None),
+            ("docs/plans/specs/gone-spec/transcripts/notes.txt", None),
+            ("docs/plans/specs/gone-spec/search/1.txt", None),
+            (
+                "docs/plans/specs/gone-spec/transcripts/discussion-1.txt",
+                None,
+            ),
             ("docs/plans/specs/a-group", None),
             ("docs/plans/specs/register.toml", None),
             ("docs/plans/specs/README.md", None),

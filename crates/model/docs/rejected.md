@@ -321,7 +321,7 @@ since no gathering of the working tree reads that tree.
 
 `live`. A spec would stay one Markdown file, its anchor the file, and a milestone's slices files
 beside its `README.md`. It loses because a plan document now has files with no other home, its
-`deliberation.md`, its `search/` and its `transcript.txt`, which a file cannot hold beside it without
+`deliberation.md`, its `search/` and its `transcripts/`, which a file cannot hold beside it without
 a second home for each. Reverting to it would move every adopting project's specs back into files.
 
 ### The Directory shape extended to carry the plan documents `##plans-on-the-directory-shape`

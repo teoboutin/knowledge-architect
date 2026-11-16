@@ -2,7 +2,7 @@
 
 It names its sibling milestone whole, `milestone@plans@a-milestone`, and that milestone's slice,
 `spec@a-milestone@a-step`. Its discussion is [the deliberation](deliberation.md), its search
-[the generated lines](search/discussion.txt) and its source [the transcript](transcript.txt).
+[the generated lines](search/discussion-1.txt) and its source [the transcript](transcripts/1.txt).
 
 ## Status and audience
 

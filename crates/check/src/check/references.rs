@@ -698,7 +698,7 @@ fn written_reference(token: &str, anchors: &Anchors) -> bool {
 /// component, and one written beside a file relative to it. **A plan document's directory, a
 /// spec's or a milestone's, and every directory under it, is no place**: a plan anchor carries no
 /// `path` kind, so the finding would name a form the resolver refuses, and the names of its
-/// layout, `search/discussion.txt` or `harvested/`, are written in every text that describes the
+/// layout, `search/discussion-1.txt` or `harvested/`, are written in every text that describes the
 /// layout; a `README.md` reaches the files beside it by a relative link, which the link check
 /// judges. A `.` segment is passed over and a `..` climbs from the place; one that climbs
 /// past the root names nothing from there. A leading slash is read from the root alone. The
@@ -2588,20 +2588,21 @@ mod tests {
             "docs/plans/milestones/a-milestone",
             "docs/plans/milestones/a-milestone/README.md",
             "docs/plans/milestones/a-milestone/search",
-            "docs/plans/milestones/a-milestone/search/discussion.txt",
+            "docs/plans/milestones/a-milestone/search/discussion-1.txt",
             "docs/plans/milestones/a-milestone/a-slice",
             "docs/plans/milestones/a-milestone/a-slice/README.md",
             "docs/plans/specs",
             "docs/plans/specs/a-spec",
             "docs/plans/specs/a-spec/README.md",
-            "docs/plans/specs/a-spec/transcript.txt",
+            "docs/plans/specs/a-spec/transcripts",
+            "docs/plans/specs/a-spec/transcripts/1.txt",
         ] {
             present.push(p.to_string());
         }
         let paths: Vec<PathBuf> = present.iter().map(PathBuf::from).collect();
         let anchors = Anchors::of(&m, &paths);
         let text =
-            "It commits `search/discussion.txt`, `transcript.txt` and `a-slice/README.md`.\n";
+            "It commits `search/discussion-1.txt`, `transcripts/1.txt` and `a-slice/README.md`.\n";
         for at in [
             "notes/prose.md",
             "docs/plans/milestones/a-milestone/README.md",

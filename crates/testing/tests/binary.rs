@@ -2922,9 +2922,9 @@ impl History {
 /// The claims of the frozen location under `commits`: no change under `harvested/` is a finding of
 /// `commits`, since the review before a merge judges whether one is the move that freezes a slice,
 /// per `design@check@a-frozen-file-is-guarded-by-the-review`; so the freezing move, a file added beside
-/// a frozen slice, an edit of a frozen file and its deletion each pass. And a `transcript.txt`,
-/// never parsed, holding a dangling reference, a slug definition and the SHA of a commit of the
-/// range yields no finding, under `refuse-branch-shas`. A regression guard: no code under test
+/// a frozen slice, an edit of a frozen file and its deletion each pass. And a transcript,
+/// `transcripts/1.txt`, never parsed, holding a dangling reference, a slug definition and the SHA
+/// of a commit of the range yields no finding, under `refuse-branch-shas`. A regression guard: no code under test
 /// remains to mutate for the first claim.
 #[test]
 fn no_change_under_harvested_is_a_finding_of_commits() {
@@ -2934,7 +2934,7 @@ fn no_change_under_harvested_is_a_finding_of_commits() {
     let base = history.commit("The milestone is planned\n");
     let early = history.commit("An early change of the range\n");
     history.write(
-        &format!("{m}/transcript.txt"),
+        &format!("{m}/transcripts/1.txt"),
         &format!(
             "A transcript quotes `design@tiny@no-such-entry`, a heading\n\n\
              ### A quoted heading `##a-quoted-slug`\n\nand the commit {early} of the range.\n"

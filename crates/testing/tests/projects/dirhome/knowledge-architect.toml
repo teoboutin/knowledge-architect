@@ -4,8 +4,10 @@
 # its subdocument — the only ISSUE instance in any mock that declares a group, every
 # generated file committed and current, and the plans layout whole: a spec's directory, and a
 # milestone with one live slice and one under harvested/, each with its deliberation.md, its
-# search/discussion.txt and its transcript.txt. The .txt files and the harvested slice hold a
-# dangling reference that no check may report, since none of them is in the walk. Plant no defect here: this is the project that shows the
+# search/discussion-1.txt and its transcripts/1.txt, the slice also its search/design-audit-1.txt;
+# the harvested slice keeps the names of the single-file layout, search/discussion.txt and
+# transcript.txt, which no rule judges under harvested/. The .txt files and the harvested slice
+# hold a dangling reference that no check may report, since none of them is in the walk. Plant no defect here: this is the project that shows the
 # checks do not report over a tree that is right.
 
 [project]
