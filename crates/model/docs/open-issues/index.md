@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-18 entries
+22 entries
 
 | kind | title |
 | --- | --- |
@@ -12,6 +12,10 @@
 | defect | [An ignored directory cited with no trailing slash gets a verdict that depends on what is on disk](an-ignored-path-with-no-slash-passes-by-build-state.md) |
 | design | [A Rust item named in prose has no checked form](a-rust-item-named-in-prose-has-no-checked-form.md) |
 | design | [A slug in the definition form inside a quotation is reported as a misplaced definition](a-slug-in-a-quotation-is-reported-as-a-misplaced-definition.md) |
+| design | [`entity.rs` is past one read](entity-rs-is-past-one-read.md) |
+| design | [`manifest.rs` is past one read](manifest-rs-is-past-one-read.md) |
+| design | [`resolver.rs` is past one read](resolver-rs-is-past-one-read.md) |
+| design | [`scan.rs` is past one read](scan-rs-is-past-one-read.md) |
 | design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
 | design | [The plans layout is read in three units, which no test compares](the-plans-layout-is-read-in-three-units.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
