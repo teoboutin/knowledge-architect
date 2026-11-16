@@ -44,7 +44,7 @@ The gates, in cost order:
 | `check` | `cargo run -q --release -p knowledge-architect -- check` |
 | `commits` | `cargo run -q --release -p knowledge-architect -- commits origin/main..HEAD` |
 | `clippy` | `cargo clippy --workspace --all-targets -- -D warnings` |
-| `doc` | `cargo doc --workspace --no-deps`, with `RUSTDOCFLAGS="-D warnings"` |
+| `doc` | `cargo doc --workspace --no-deps`, with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D` and `warnings` joined by the byte 0x1f; by hand, `CARGO_ENCODED_RUSTDOCFLAGS="$(printf '%s\037%s' -D warnings)" cargo doc --workspace --no-deps` |
 | `test` | `cargo test --workspace` |
 
 ## What a run produces

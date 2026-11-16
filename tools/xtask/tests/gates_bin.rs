@@ -12,7 +12,8 @@ use std::process::{Command, Stdio};
 
 /// A directory holding the checker's manifest (so the tool accepts it as a project root) and,
 /// in its `bin`, a `cargo` stub that prints one line per invocation — with the value of
-/// `RUSTC_BOOTSTRAP` and `KNOWLEDGE_ARCHITECT_CI` it received — sleeps briefly so the caller can act while gates are
+/// `RUSTC_BOOTSTRAP`, `KNOWLEDGE_ARCHITECT_CI` and `CARGO_ENCODED_RUSTDOCFLAGS` it received — sleeps
+/// briefly so the caller can act while gates are
 /// still running, and fails when `FAIL_ON` names a substring of its arguments.
 fn fake_project(name: &str) -> PathBuf {
     let dir = std::env::temp_dir().join(format!("xtask-gates-bin-{name}-{}", std::process::id()));
@@ -22,7 +23,7 @@ fn fake_project(name: &str) -> PathBuf {
         .expect("the root marker can be written");
     let stub = r#"#!/bin/sh
 sleep 0.2
-echo "fake cargo: $* bootstrap=[$RUSTC_BOOTSTRAP] ci=[$KNOWLEDGE_ARCHITECT_CI]"
+echo "fake cargo: $* bootstrap=[$RUSTC_BOOTSTRAP] ci=[$KNOWLEDGE_ARCHITECT_CI] rustdocflags=[$CARGO_ENCODED_RUSTDOCFLAGS]"
 case "$*" in
   *"$FAIL_ON"*) [ -n "$FAIL_ON" ] && { echo "induced failure"; exit 1; };;
 esac
@@ -174,6 +175,40 @@ fn gate_children_never_inherit_a_caller_exported_bootstrap() {
     assert!(
         log.contains("bootstrap=[]"),
         "the export was scrubbed: {log}"
+    );
+    let _ = std::fs::remove_dir_all(&project);
+}
+
+// The claim, per the doc comment of `Gate::envs`: a gate's own variable replaces one of the same
+// name the caller exported, so an exported `CARGO_ENCODED_RUSTDOCFLAGS` cannot drop the doc gate's
+// deny, per `design@gates@doc-gate-denial`; a gate that sets no such variable inherits the export.
+// Mutation check: in `run_captured` of `path@gates@src/process.rs`,
+// `.envs(spec.envs.iter().copied())` filtered to the keys the caller did not export fails the
+// assertion on the doc gate's log.
+#[test]
+fn a_gate_s_own_variable_replaces_a_caller_exported_one() {
+    let project = fake_project("replaced");
+    let (status, stdout, _) = gates_output_with(
+        &project,
+        "",
+        &[],
+        &[("CARGO_ENCODED_RUSTDOCFLAGS", "--cfg\u{1f}x")],
+    );
+    assert!(status.success(), "{stdout}");
+    let log = |gate: &str| {
+        std::fs::read_to_string(project.join(format!("target/gates/{gate}.log")))
+            .unwrap_or_else(|_| panic!("the {gate} log was written"))
+    };
+    assert!(
+        log("doc").contains("rustdocflags=[-D\u{1f}warnings]"),
+        "{}",
+        log("doc")
+    );
+    // The export reached the run: the test gate, which sets no such variable, inherits it.
+    assert!(
+        log("test").contains("rustdocflags=[--cfg\u{1f}x]"),
+        "{}",
+        log("test")
     );
     let _ = std::fs::remove_dir_all(&project);
 }

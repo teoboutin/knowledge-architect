@@ -100,9 +100,14 @@ pub struct Checker<'a> {
 /// main branch as git names it, such as origin/main. A project adds, removes or reorders gates in
 /// the list it is given.
 ///
-/// The `doc` gate denies the warnings through its own `RUSTDOCFLAGS`, which replaces one the
-/// caller exported and the project's `build.rustdocflags`: a project whose documentation needs a
-/// rustdoc flag adds it to that gate's `envs`.
+/// The `doc` gate denies the warnings through its own `CARGO_ENCODED_RUSTDOCFLAGS`, set to `-D` and
+/// `warnings` joined by the byte 0x1f. Cargo reads that variable first of its sources of rustdoc
+/// flags and, while it is set, even empty, ignores `RUSTDOCFLAGS` and the project's configured
+/// rustdoc flags; in the gate's child it replaces one the caller exported. So no flag the caller
+/// exported or the project configured reaches rustdoc in that gate. A project whose documentation
+/// needs a rustdoc flag of its own adds it to that variable in the doc gate's `envs`, after
+/// `warnings`, each argument separated from the next by the byte 0x1f, as
+/// `"-D\u{1f}warnings\u{1f}--cfg\u{1f}docsrs"`.
 pub fn rust_project(checker: Checker, base: &str) -> Vec<Gate> {
     let owned = |args: &[&str]| args.iter().map(|a| (*a).to_owned()).collect::<Vec<_>>();
     let checker_args = |command: &[&str]| {
@@ -176,13 +181,19 @@ pub fn rust_project(checker: Checker, base: &str) -> Vec<Gate> {
             true,
             Distiller::WithoutProgress,
         ),
-        // Every rustdoc warning an error through the gate's own variable, per
-        // `design@gates@doc-gate-denial`, over public items alone, per
+        // Every rustdoc warning an error through the variable cargo reads before every other
+        // source of rustdoc flags, so neither an exported `RUSTDOCFLAGS` nor an exported
+        // `CARGO_ENCODED_RUSTDOCFLAGS` drops the deny, per `design@gates@doc-gate-denial`. Without
+        // `--document-private-items`: a library's public items, and the private items too of a
+        // binary target cargo documents, for which cargo enables that flag by default, per
         // `design@gates@doc-gate-item-scope`. After clippy: their cold costs are the same within
         // what one run shows, and clippy's extract is the fuller report on a missing doc, which
         // both gates report.
         Gate {
-            envs: vec![("RUSTDOCFLAGS".to_owned(), "-D warnings".to_owned())],
+            envs: vec![(
+                "CARGO_ENCODED_RUSTDOCFLAGS".to_owned(),
+                "-D\u{1f}warnings".to_owned(),
+            )],
             ..gate(
                 "doc",
                 "cargo",
@@ -783,9 +794,15 @@ mod tests {
         );
     }
 
-    /// The claim: the doc gate builds the workspace's documentation without its dependencies,
-    /// resolves, shows its failure without cargo's progress lines, and denies every rustdoc
-    /// warning through its own `RUSTDOCFLAGS`, so a link that names nothing fails it.
+    // The claim, on the gate's configuration alone: the doc gate builds the workspace's
+    // documentation without its dependencies, resolves, shows its failure without cargo's
+    // progress lines, and sets `CARGO_ENCODED_RUSTDOCFLAGS` to `-D` and `warnings` joined by
+    // 0x1f. That rustdoc then fails on a link that names nothing is not observed here, since the
+    // test runs no rustdoc: the mutation run recorded in the commit
+    // "[gates] The doc gate denies through `CARGO_ENCODED_RUSTDOCFLAGS`, which no exported
+    // variable or configured flag outranks" shows it. Mutation checks: the variable made
+    // `RUSTDOCFLAGS` set to `-D warnings`, and its value alone made `-D warnings`, each fail the
+    // last assertion.
     #[test]
     fn the_doc_gate_denies_rustdoc_warnings() {
         let gates = rust_project(
@@ -806,7 +823,10 @@ mod tests {
         assert_eq!(doc.distiller, Distiller::WithoutProgress);
         assert_eq!(
             doc.envs,
-            [("RUSTDOCFLAGS".to_owned(), "-D warnings".to_owned())]
+            [(
+                "CARGO_ENCODED_RUSTDOCFLAGS".to_owned(),
+                "-D\u{1f}warnings".to_owned()
+            )]
         );
     }
 
