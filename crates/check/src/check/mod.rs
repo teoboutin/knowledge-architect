@@ -19,10 +19,10 @@ use crate::model::{Finding, Manifest, Model};
 
 /// What the structural checks looked at, so that finding nothing is distinguishable from
 /// looking at nothing.
-#[derive(Debug, Default)]
 ///
 /// Every count but `walked`, `checker_sources` and `checker_files` is taken by the last phase,
 /// and is zero in the report of a run that stopped before it.
+#[derive(Debug, Default)]
 pub struct Structure {
     /// How many anchors are Components, the root included.
     pub components: usize,
