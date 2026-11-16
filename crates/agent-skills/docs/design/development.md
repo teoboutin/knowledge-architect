@@ -237,7 +237,7 @@ planning steps and planned as a step or a slice of its own, the code side probab
 steps, since a split of code is a design decision, and a split of the design record no decision in
 itself.
 
-### A split signal over code a work does not write, weighed at the work's design or planning and found not needed by it, is an issue `##split-not-needed-is-an-issue`
+### A split that stands over code a work does not write, which the work's design or planning weighs and finds the work does not need, is an issue `##split-not-needed-is-an-issue`
 
 A signal of the module guidelines of `design@agent-skills@module-split-guidelines`, over code a
 work does not write, that the work's design discussion or planning weighs and finds the work does
@@ -266,18 +266,21 @@ the rows of `primer@met-outside-the-task` that
 
 The owner argued that what matters in `design@agent-skills@splits-planned-before-work` is when a
 split of code is weighed: at the planning of a work, not at its implementation, and that an issue
-on such a split is weighed again at planning. The owner reported that, where splits are not
-planned before the work, the standing-state reviewer often finds and weighs split signals at the
-review before the merge, and that carrying them out there would add unplanned work at an
-inopportune time; this is the owner's report, a premise open to challenge. The re-entry point keeps
-the issue where the split is weighed: the record search reads a `design` issue whole at the
+on such a split is weighed again at planning. The owner reported that, before
+`design@agent-skills@splits-planned-before-work`, the standing-state reviewer often found and
+weighed split issues at the review before the merge, where carrying them out would have added far
+more unplanned work, at a time ill suited to it; this is the owner's report, a premise open to
+challenge. The
+re-entry point keeps the issue where the split is weighed: the record search reads a `design` issue whole at the
 grounding of the next designed or planned work, and grades a met re-entry point `trigger-met`,
 with the action `rule-before-work`, per `design@agent-skills@verdict-report`. That answers the
 owner's report, cited by `design@agent-skills@splits-planned-before-work`, that an issue on a split
 is likely to sit untouched for a long time. The premise: no review reads a `design` issue's
 re-entry point, the question `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`
 holds open; a review that read every re-entry point would bring the split back to review time, and
-this head would be argued again.
+this head would be argued again. A second premise: the code a split issue names is changed, while
+the issue is open, by a work that is designed or planned; were it changed only by works that go
+through neither, the issue would sit untouched, and this head would be argued again.
 
 The nearest rival, a `todo` entry, has no re-entry point for the search to grade `trigger-met`,
 and a `deferred` trigger is read by the standing-state reviewer at every merge, which brings the
