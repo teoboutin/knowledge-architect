@@ -33,6 +33,15 @@ heads were outside the list; the session read the definition by its reason and k
 the slice's spec lists twelve root heads its harvest "touches without reversing them".
 `tripwire@agent-skills@touched-heads-missed-by-the-list` did not fire: the heads were in the list.
 
+A second instance: the spec of the branch that added the doc gate to the recommended list of the
+gates library and the documentation lints to this repository. Its step 3 brought two heads of the
+gates Component to the rules because its harvest would write the doc gate into them, and listed them
+as heads its harvest touches; its step 4 rewrote `design@agent-skills@splits-planned-before-work`,
+which the spec listed apart, as a head the work rewrites. That branch, too, read the definition by
+its reason. Its review before the merge found the re-entry point below met, and the owner chose to
+keep the issue open with its re-entry point as written, rather than hold the discussion before that
+branch merged.
+
 The suspected mechanism, in one sentence: the definition names the harvest, while a project whose
 product is text writes heads in its steps.
 
