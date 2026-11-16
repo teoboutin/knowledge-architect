@@ -62,7 +62,7 @@ the default shape of code, per `design@agent-skills@default-code-shape`, the mod
 `design@agent-skills@test-economy`, and the criteria of a Component, per
 `design@agent-skills@component-criteria-are-guidelines`. A mechanical gate on idiom, such as a set of lints,
 may ship once knowledge-architect's owner takes it in; the clippy gate of the recommended list is
-one, per `design@gates@a-project-holds-its-gate-list`.
+one, per `design@gates@recommended-gate-list`.
 
 `goal@only-needed-instructions` gives no instruction to a case that an agent's
 judgement handles well enough, whichever goal the instruction would serve. The nearest rival is
@@ -130,7 +130,7 @@ a change to a declared path records its figures is
 A project may run `cargo mutants --in-diff` over a branch's changed code before the adversarial
 review, and gives its survivors to the adversarial reviewers as leads. It costs one build and one
 test run per mutant, so it is optional. cargo-mutants is no gate of the list the setup recommends, per
-`design@gates@a-project-holds-its-gate-list`, and no ask, per
+`design@gates@recommended-gate-list`, and no ask, per
 `goal@serves-one-kind-of-project`: the session chose so, which no goal ranks, and
 the owner approved it. cargo-mutants' book states the two caveats the skill carries: a diff that touches
 only test code yields no mutant ("Testing code changed in a diff"), and rust flags set in a cargo

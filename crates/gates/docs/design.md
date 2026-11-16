@@ -9,16 +9,44 @@ it did not keep are `register@gates@rejected`, each cited by the heads whose arg
 **What belongs here:** how the gates run. Which gates a project runs is that project's own; this
 repository's are `design@xtask@gates-list-primary-home`.
 
-### A project holds its gate list, and the library offers a recommended one `##a-project-holds-its-gate-list`
+### A project holds the gate list the library runs `##a-project-holds-its-gate-list`
 
 The library runs the gates it is given and decides none of them, so a project writes no gate logic
 beyond its list and the call that runs it: the rest is the library's, per
-`design@knowledge-architect@gates-crate`. `rust_project` builds
-the recommended list of a Rust project that uses the checker, in cost order: the rebase check behind
-its flag, formatting, the document check, the commit messages of the branch, clippy, and the tests.
-It takes how the project runs its checker, a package and the arguments before the checker's command,
-and the main branch as git names it. A project adds, removes or reorders gates in the list it
-receives, so a Rust project's list is the recommended one with its own edits.
+`design@knowledge-architect@gates-crate`. A project adds, removes or reorders gates in the list it
+receives, so a Rust project's list is the recommended one, `design@gates@recommended-gate-list`,
+with its own edits. The nearest rival, a list the library fixes, would leave no place for what is
+particular to one project, which `goal@generic-tools-and-procedures-are-shipped` keeps in that
+project: a gate of one project's own is in that project's list alone until knowledge-architect's
+owner takes it in.
+
+### The library offers a recommended gate list to a Rust project that uses the checker `##recommended-gate-list`
+
+`rust_project` builds the recommended list of a Rust project that uses the checker. It takes how
+the project runs its checker, a package and the arguments before the checker's command, and the
+main branch as git names it. The list's gates, in the cost order `design@gates@gates-run-all` runs
+them in, with the distiller each one is named with, from the closed set of
+`design@gates@distillers-are-a-closed-set`, what each distiller keeps being the doc comment of
+`Distiller`:
+
+| gate | what it runs | its distiller |
+| --- | --- | --- |
+| `rebased` | the rebase check, behind its flag, per `design@gates@rebase-checks-behind-a-flag` | `Ancestry` |
+| `fmt` | formatting | `Whole` |
+| `check` | the document check | `Whole` |
+| `commits` | the commit messages of the branch | `Whole` |
+| `clippy` | clippy, with its warnings denied | `WithoutProgress` |
+| `doc` | the documentation build, with rustdoc's warnings denied | `WithoutProgress` |
+| `test` | the tests | `Tests` |
+
+Where two gates' costs do not separate, the reason for their order is a comment at the gate.
+
+The list is the generic part of a Rust project's gates, and
+`goal@generic-tools-and-procedures-are-shipped` ships such a part to each target project that
+carries out its activity once knowledge-architect's owner takes it in. So a gate enters the list on
+the owner's word, which is that taking-in: the owner took the documentation build in. The nearest
+rival, no recommended list, leaves each project to write its own list, so no gate the owner took in
+reaches a target project.
 
 ### The library owns the gates' flags `##the-library-owns-the-flags`
 
@@ -141,9 +169,12 @@ under `target/` so it is ignored and leaves with the build. stdout gets one verd
 gate and, for each failed gate, a distilled extract headed by its log path. A distiller is named on its gate
 and chooses what to print from the full text; it can be aggressively
 wrong at the cost of one read of the log, which is what makes conservative distillation safe
-to iterate on. Distillers start conservative: in the recommended list, fmt, check and commits pass through
-whole, clippy drops cargo's progress lines, test keeps the failures and the compiler's own
-diagnostics.
+to iterate on. Distillers start conservative; the distiller of each gate of the recommended list is
+`design@gates@recommended-gate-list`. The nearest rival, a failed gate's full output on stdout,
+buries what failed: a test run's log holds one line per passing test, which
+`grep -c ' \.\.\. ok$' target/gates/test.log` counts after a passing `cargo x gates`, beside the
+log's length, `wc -l target/gates/test.log`. The rival reopens if those lines become a small part
+of the log.
 
 ### No gate inherits `RUSTC_BOOTSTRAP` from its caller `##gates-scrub-rustc-bootstrap`
 

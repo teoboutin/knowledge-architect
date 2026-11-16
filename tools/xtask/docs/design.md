@@ -52,7 +52,7 @@ of each other and of `gates`.
 ### The gate list lives here, and CI runs it `##gates-list-primary-home`
 
 The list in `path@xtask@src/gates.rs` is the one home of what the project's gates are: the
-recommended list of the gates library, `design@gates@a-project-holds-its-gate-list`, with this
+recommended list of the gates library, `design@gates@recommended-gate-list`, with this
 repository's own package as the checker. A local run is `cargo x gates`, and
 `path@knowledge-architect@.github/workflows/ci.yml` runs the same tool in one step, on every push to a ready pull
 request: `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. A list restated as
