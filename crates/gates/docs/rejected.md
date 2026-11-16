@@ -21,3 +21,23 @@ read back by polling, and an adversarial review reproduced three losses the pipe
 
 No gate child did any of the three, so the losses are latent. They are what a reintroduction has to
 answer.
+
+### A plain `cargo doc` gate, with an ask that each project declares its `[lints.rustdoc]` levels `##plain-cargo-doc-with-a-lints-ask`
+
+`live`. A plain `cargo doc --no-deps` reports a link that names nothing as a warning and exits 0,
+observed on cargo 1.98.0, so in a project that has not yet declared the levels the gate passes on
+the broken link it exists to fail. The run that shows it is row 1 of the script of
+`design@gates@doc-gate-denial`.
+
+### The deny passed through cargo's `build.rustdocflags`, in a configuration file or by `--config` `##deny-through-build-rustdocflags`
+
+`live`. An exported `RUSTDOCFLAGS` replaces `build.rustdocflags`: with `RUSTDOCFLAGS="--cfg foo"`
+exported, a crate whose configuration file, or a `--config` argument, sets `["-D", "warnings"]`
+documents a broken link with a warning and exits 0, observed on cargo 1.98.0. The deny is lost with
+no sign. The runs that show it are rows 5 and 6 of the script of `design@gates@doc-gate-denial`.
+
+### The link check carried by the `test` gate, through its doc tests `##link-check-in-the-test-gate`
+
+`live`. `cargo test --doc` does not report a link that names nothing, and exits 0, with
+`RUSTDOCFLAGS="-D warnings"` exported, observed on cargo 1.98.0. The run that shows
+it is row 7 of the script of `design@gates@doc-gate-denial`.
