@@ -23,9 +23,18 @@ members = [
 ]
 
 # Every crate forbids `unsafe` code, as the setup asks of every target project, per
-# `design@agent-skills@no-security-axis`; each crate's `[lints]` takes this table.
+# `design@agent-skills@no-security-axis`, and warns on the three documentation lints the setup asks
+# of a published crate, which the clippy gate denies, per
+# `design@agent-skills@documentation-presence-is-linted`. Each crate's `[lints]` takes this table:
+# cargo refuses `workspace = true` beside a crate's own lint keys, so the maintenance tool, which is
+# not published, takes the documentation lints too.
 [workspace.lints.rust]
 unsafe_code = "forbid"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+missing_errors_doc = "warn"
+missing_panics_doc = "warn"
 
 # One version for every crate, so the installed skills always match the checker that installed
 # them, per `design@knowledge-architect@version-lockstep`.
