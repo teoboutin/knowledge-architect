@@ -54,6 +54,13 @@ impl std::fmt::Display for PlanError {
 /// This is the `--replace` form's whole assertion. `str::replace` replaces every occurrence and
 /// a presence check (`assert old in s`) does not see the difference, which is how a duplicated
 /// edit reaches a file unnoticed.
+///
+/// # Errors
+///
+/// Checked in this order: [`PlanError::EmptyPattern`] when `old` is empty,
+/// [`PlanError::NoChange`] when `new` equals `old`, [`PlanError::NotFound`] when `old` occurs
+/// nowhere in `source`, and [`PlanError::NotUnique`] when it occurs at more than one position,
+/// overlapping occurrences counted.
 pub fn plan_replace(source: &str, old: &str, new: &str) -> Result<String, PlanError> {
     if old.is_empty() {
         return Err(PlanError::EmptyPattern);
@@ -256,6 +263,8 @@ pub fn restore_verdict(current: &str, recorded_mutant: &str, recorded_pre: &str)
 /// A recovery record: the pre-image, the mutant, and the mutation's patch under one directory.
 /// Whether one is complete is [`Record::exists`]'s question, and it is answered per file.
 pub struct Record {
+    /// The directory that holds the record's files: `owner-pid`, `pre-image`, `mutant`,
+    /// `manifest`, and `mutation.patch` when the run had a patch to record.
     pub dir: PathBuf,
 }
 
@@ -263,12 +272,17 @@ pub struct Record {
 pub struct Recorded {
     /// The mutated file's path, relative to the project's root.
     pub target: String,
+    /// The target's content before the mutation, which a restore writes back.
     pub pre_image: String,
+    /// The content the run wrote over the target, which a restore compares the file with.
     pub mutant: String,
+    /// The mutation as a unified diff, for a reversal by hand. `None` when the record holds no
+    /// `mutation.patch`, or holds one that cannot be read as text.
     pub patch: Option<String>,
 }
 
 impl Record {
+    /// The record whose directory is `dir`. It touches no file: the directory need not exist.
     pub fn at(dir: impl Into<PathBuf>) -> Self {
         Record { dir: dir.into() }
     }
@@ -296,6 +310,14 @@ impl Record {
     /// [`Record::exists`] and then writing is not the same thing — both runs pass the check, both
     /// write, and the four files end up a mix of two runs, so a restore compares against one run's
     /// mutant and writes the other run's pre-image into it.
+    ///
+    /// # Errors
+    ///
+    /// When the parent of `dir` cannot be created; when `dir` cannot be created, among them when
+    /// it already exists, with the kind [`io::ErrorKind::AlreadyExists`], since another run's
+    /// claim or a stale record stands there; or when the `owner-pid` file cannot be written. A
+    /// failure after `dir` is created leaves it in place, so [`Record::claimed`] then answers
+    /// true.
     pub fn claim(&self) -> io::Result<()> {
         if let Some(parent) = self.dir.parent() {
             fs::create_dir_all(parent)?;
@@ -319,6 +341,14 @@ impl Record {
     /// Writes the record. Every byte of it lands before the caller touches the target, so a hard
     /// kill at any later instant leaves the pre-image recoverable — the property
     /// `cargo x mutate restore` depends on.
+    ///
+    /// `dir` must exist, as after [`Record::claim`]. A `None` `patch` removes a `mutation.patch`
+    /// already there, and a failure of that removal is ignored.
+    ///
+    /// # Errors
+    ///
+    /// When one of `pre-image`, `mutant`, `mutation.patch` or `manifest` cannot be written, in that
+    /// order. The write stops at that file and leaves those written before it.
     pub fn write(
         &self,
         target: &str,
@@ -338,6 +368,13 @@ impl Record {
         Ok(())
     }
 
+    /// Reads the record back from `dir`.
+    ///
+    /// # Errors
+    ///
+    /// When `manifest`, `pre-image` or `mutant` cannot be read as UTF-8 text, as when the record is
+    /// incomplete. A `mutation.patch` that cannot be read is no error: [`Recorded::patch`] is then
+    /// `None`.
     pub fn read(&self) -> io::Result<Recorded> {
         Ok(Recorded {
             target: fs::read_to_string(self.dir.join("manifest"))?,
@@ -349,6 +386,10 @@ impl Record {
 
     /// Removes the record. Called only after the target is back to its pre-image, so a record
     /// left on disk always means a mutation that was not unwound.
+    ///
+    /// # Errors
+    ///
+    /// When `dir` exists and cannot be removed with all its content. An absent `dir` is no error.
     pub fn clear(&self) -> io::Result<()> {
         if self.dir.exists() {
             fs::remove_dir_all(&self.dir)?;
@@ -400,6 +441,15 @@ fn process_is_alive(pid: u32) -> bool {
 /// generated patch's `a/`/`b/` headers are then meaningless, so the fallback leg is dead. A
 /// symlink is worse: `fs::write` follows it, so the restore writes the pre-image through the link
 /// and over whatever sits at the far end, which has included the record's own files.
+///
+/// On success, the target's path: `root` joined with `file`.
+///
+/// # Errors
+///
+/// A message for the user, naming `file`, when it is absolute; when one of its components is `..`
+/// or `.git`; when `root` joined with any prefix of it, the whole path included, is a symlink; when
+/// it names something that is not a regular file; or when its metadata cannot be read, as when it
+/// does not exist. Nothing under `root` is written.
 pub fn target_is_mutable(root: &Path, file: &str) -> Result<PathBuf, String> {
     let rel = Path::new(file);
     if rel.is_absolute() {
