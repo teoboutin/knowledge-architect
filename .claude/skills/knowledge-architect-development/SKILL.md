@@ -170,9 +170,11 @@ the move of the guidelines above: a step of the plan document where one carries 
 otherwise commits of its own before the work, on the same branch. State the split's reason in a
 comment at the module and in the message of the move's commit, and in a design head only where a
 test of `primer@design-heads` holds. A signal for a split over code the
-work does not write, which no such step took, is not acted on inside that work: a split is a design
-decision, so it is no fix of the second row of `primer@met-outside-the-task`, and it is routed by the
-other rows of that table, usually as an issue.
+work does not write, a doc comment added to it not counting as writing it, which no such step took,
+is not acted on inside that work: a split is a design decision, so it is no fix of the second row of
+`primer@met-outside-the-task`, and it is routed by the other rows of that table. Where they open an
+issue, it is of kind `design`, per `skill@knowledge-architect-issue-tracking`, whose re-entry point
+is the design or the planning of the next work that changes that code.
 
 ### A Component with a second reason to change
 

@@ -6,6 +6,7 @@
 | --- | --- |
 | defect | [A quotation whose last word is cut from its punctuation is refused as words "not in this order"](a-quotation-cut-from-its-punctuation-is-refused-as-out-of-order.md) |
 | defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
+| design | [`worklist.rs` is past one read and holds the work list's writer and its judge, which change apart](worklist-rs-holds-a-writer-and-a-judge-past-one-read.md) |
 | question | [Whether two heads of the query design home each bundle a second decision](two-query-heads-may-each-bundle-a-second-decision.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |
 | todo | [No command counts a tripwire's horizon](no-command-counts-a-tripwire-s-horizon.md) |
@@ -15,4 +16,3 @@
 | todo | [No command searches the record's entries by keywords, and no command lists the mechanical work of an audit's method](no-command-searches-the-entries-or-lists-an-audit-s-work.md) |
 | todo | [`show` on a register home in the directory shape prints its path and not its subdocuments](show-lists-no-subdocument-of-a-directory-home.md) |
 | todo | [Two answers of `show` that differ from what the check reads, fixed on one branch](show-s-answers-on-one-branch.md) |
-| todo | [`worklist.rs` is past one read and holds the work list's writer and its judge, which change apart](worklist-rs-holds-a-writer-and-a-judge-past-one-read.md) |

@@ -512,7 +512,9 @@ choices whose option space genuinely is closed and consequence-free.
    changed since the first rounds.
 
 %% The code side of a split planned before the work: `design@agent-skills@code-split-scout` and
-%% `design@agent-skills@splits-planned-before-work`; before the search, per
+%% `design@agent-skills@splits-planned-before-work`; a signal the work does not need, an issue of kind
+%% `design`, per `design@agent-skills@split-not-needed-is-an-issue` and
+%% `design@agent-skills@split-issue-reenters-at-planning`; before the search, per
 %% `design@agent-skills@search-runs-once-the-shapes-settle`; its dispatch fixed on a point of view
 %% apart, per `design@agent-skills@dispatch-fixed-only-on-a-step-property`.
    **Where you expect the full path, once the draft exists and before
@@ -524,7 +526,13 @@ choices whose option space genuinely is closed and consequence-free.
    writes into opens a thread of the discussion, where you weigh it and
    write the split's shape, or that none is made, into the draft before
    the search, so that the search reads it, the thread staying open
-   until the search has run; each one outside the work's
+   until the search has run. Where none is made over code the work
+   does not write, a doc comment not counting as writing it, and the
+   signal is not outweighed by the signals against a split, it becomes
+   an issue of kind `design`, per
+   `skill@knowledge-architect-issue-tracking`, whose re-entry point is
+   the design or the planning of the next work that changes that code.
+   Each one outside the work's
    area is routed as
    `primer@met-outside-the-task` says, since the plan document takes no
    work its discussion did not decide. The in-change path and bounded
