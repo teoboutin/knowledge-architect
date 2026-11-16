@@ -10563,3 +10563,369 @@ fn show_and_id_answer_a_goal_in_the_form_with_no_anchor() {
     assert!(out.contains("goal@core-goal"), "{out}");
     assert!(!out.contains("goal@core-mock@"), "{out}");
 }
+
+/// The variable that tells this test executable it was started by [`show_in_a_child`]: the
+/// project's directory, the checker directory or nothing, and the reference, separated by the unit
+/// separator.
+const SHOW_CHILD: &str = "KNOWLEDGE_ARCHITECT_BINARY_TEST_SHOW_CHILD";
+
+/// Not a test of its own: does nothing unless started by [`show_in_a_child`]. Then it runs `show`
+/// through `cli::run` with the checker directory it is given, and exits with its code.
+#[test]
+fn show_child_entry() {
+    let Ok(joined) = std::env::var(SHOW_CHILD) else {
+        return;
+    };
+    let parts: Vec<&str> = joined.split('\u{1f}').collect();
+    let [root, checker, reference] = parts[..] else {
+        panic!("three parts in {joined:?}");
+    };
+    let manifest = knowledge_architect::Manifest::find(Path::new(root)).expect("the manifest");
+    let dirs: Vec<&Path> = if checker.is_empty() {
+        Vec::new()
+    } else {
+        vec![Path::new(checker)]
+    };
+    let command = knowledge_architect::cli::Command::Show(knowledge_architect::cli::ShowArgs {
+        reference: reference.to_string(),
+    });
+    let code =
+        knowledge_architect::cli::run(command, &manifest, &dirs, &mut []).expect("show runs");
+    std::process::exit(if code == std::process::ExitCode::SUCCESS {
+        0
+    } else {
+        1
+    });
+}
+
+/// The stdout of `show` run through `cli::run` over `root`, with `checker` as its checker
+/// directory, in a child process of this test executable: `show` writes to the process's stdout,
+/// which a test in process cannot read.
+fn show_in_a_child(root: &Path, checker: Option<&Path>, reference: &str) -> String {
+    let checker = checker.map(|c| c.display().to_string()).unwrap_or_default();
+    let out = Command::new(std::env::current_exe().expect("the test executable"))
+        .args([
+            "--exact",
+            "show_child_entry",
+            "--nocapture",
+            "--test-threads=1",
+        ])
+        .env(
+            SHOW_CHILD,
+            format!("{}\u{1f}{checker}\u{1f}{reference}", root.display()),
+        )
+        .output()
+        .expect("the child runs");
+    let stdout = String::from_utf8_lossy(&out.stdout).into_owned();
+    assert!(
+        out.status.success(),
+        "{stdout}{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    stdout
+}
+
+/// A Rust source whose unbound string literal cites `reference`, which the walk reads as a
+/// citation unless a checker directory covers it.
+fn a_tool_citing(reference: &str) -> String {
+    format!("pub fn f() {{\n    println!(\"{{}}\", \"`{reference}`\");\n}}\n")
+}
+
+/// The claim: `cli::run` hands `show` the checker directories it is given, so a reference in an
+/// unbound string literal under one of them is not listed among the entry's citations, per
+/// `design@check@checker-source-literals-are-data`; with none, it is. The binary's own
+/// directories lie outside every sandbox, so this calls `cli::run`, in a child process whose
+/// stdout it reads. Mutation checked: in `run` of `path@cli@src/cli/mod.rs`,
+/// `query::show(manifest, &args.reference, checker)` made
+/// `query::show(manifest, &args.reference, &[])`; caught.
+#[test]
+fn run_hands_show_the_checker_directories() {
+    let sandbox = Sandbox::new("run-checker-show", "minimal");
+    sandbox.write(
+        "tool/src/lib.rs",
+        &a_tool_citing("design@minimal@mock-anchor"),
+    );
+    sandbox.stage();
+    let tool = sandbox.path("tool");
+    let covered = show_in_a_child(&sandbox.dir, Some(&tool), "design@minimal@mock-anchor");
+    assert!(covered.contains("referenced at:"), "{covered}");
+    assert!(!covered.contains("tool/src/lib.rs"), "{covered}");
+    let live = show_in_a_child(&sandbox.dir, None, "design@minimal@mock-anchor");
+    assert!(live.contains("tool/src/lib.rs:2"), "{live}");
+}
+
+/// The claim: `cli::run` hands `worklist --out` the checker directories it is given, so the
+/// snapshot's inbound list of an entry holds no site in an unbound string literal under one of
+/// them; with none, it does. Mutation checked: in `run` of `path@cli@src/cli/mod.rs`,
+/// `query::worklist(manifest, &worklist_mode(&args)?, checker)` made
+/// `query::worklist(manifest, &worklist_mode(&args)?, &[])`; caught.
+#[test]
+fn run_hands_worklist_the_checker_directories() {
+    let (sandbox, out) = worklist_project("run-checker-worklist");
+    sandbox.write(
+        "tool/src/lib.rs",
+        &a_tool_citing("design@core-mock@first-head"),
+    );
+    sandbox.stage();
+    let manifest = knowledge_architect::Manifest::find(&sandbox.dir).expect("the manifest");
+    let tool = sandbox.path("tool");
+    let shown = |dir: &Path, checker: &[&Path]| {
+        let command =
+            knowledge_architect::cli::Command::Worklist(knowledge_architect::cli::WorklistArgs {
+                out: Some(dir.to_path_buf()),
+                verify: None,
+                check: None,
+                bound: 40000,
+                seeds: Vec::new(),
+                work: Vec::new(),
+                subjects: Vec::new(),
+                since: None,
+                seeds_from: None,
+            });
+        let code = knowledge_architect::cli::run(command, &manifest, checker, &mut [])
+            .expect("the work list is written");
+        assert_eq!(code, std::process::ExitCode::SUCCESS);
+        std::fs::read_to_string(dir.join("shown.md")).expect("shown.md")
+    };
+    let covered = shown(&out, &[&tool]);
+    assert!(
+        covered.contains("=== design@core-mock@first-head"),
+        "{covered}"
+    );
+    assert!(!covered.contains("tool/src/lib.rs"), "{covered}");
+    let live_dir = out.with_extension("live");
+    let _ = std::fs::remove_dir_all(&live_dir);
+    let live = shown(&live_dir, &[]);
+    assert!(live.contains("tool/src/lib.rs:2"), "{live}");
+    let _ = std::fs::remove_dir_all(&out);
+    let _ = std::fs::remove_dir_all(&live_dir);
+}
+
+/// The claim: a directory given inside the project is refused where the project's manifest was
+/// found through a link to it, since the directory is compared by its real path with the
+/// project's real root. Mutation checked: in `write` of `path@query@src/worklist.rs`,
+/// `if dir.starts_with(&root) || dir.starts_with(manifest.root()) {` made
+/// `if false || dir.starts_with(manifest.root()) {`, which writes into the project; caught.
+#[cfg(unix)]
+#[test]
+fn worklist_refuses_a_directory_inside_a_project_found_through_a_link() {
+    let (sandbox, out) = worklist_project("worklist-linked-root");
+    let link = out.with_extension("root-link");
+    let _ = std::fs::remove_file(&link);
+    std::os::unix::fs::symlink(&sandbox.dir, &link).expect("a link to the project");
+    let manifest = knowledge_architect::Manifest::find(&link).expect("the manifest");
+    let command =
+        knowledge_architect::cli::Command::Worklist(knowledge_architect::cli::WorklistArgs {
+            out: Some(link.join("new-list")),
+            verify: None,
+            check: None,
+            bound: 40000,
+            seeds: Vec::new(),
+            work: Vec::new(),
+            subjects: Vec::new(),
+            since: None,
+            seeds_from: None,
+        });
+    let refused = knowledge_architect::cli::run(command, &manifest, &[], &mut []);
+    std::fs::remove_file(&link).expect("the link removed");
+    let refusal = refused.expect_err("a directory inside the project");
+    assert!(refusal.contains("inside the project"), "{refusal}");
+    assert!(!sandbox.path("new-list").exists());
+}
+
+/// The claim: a seed is taken in backticks, as a reference is written in a document. Mutation
+/// checked: in `write` of `path@query@src/worklist.rs`, `let reference = seed.trim_matches('`');`
+/// made `let reference = seed.as_str();`, which refuses the seed as naming no entry; caught.
+#[test]
+fn worklist_takes_a_seed_in_backticks() {
+    let (sandbox, out) = worklist_project("worklist-seed-backticks");
+    let out_text = out.to_string_lossy().into_owned();
+    let (stdout, stderr, code) = sandbox.run(&[
+        "worklist",
+        "--out",
+        &out_text,
+        "--seed",
+        "`design@core-mock@first-head`",
+    ]);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    let agents = std::fs::read_to_string(out.join("agents.txt")).expect("agents.txt");
+    assert!(agents.contains("design@core-mock@first-head"), "{agents}");
+    let _ = std::fs::remove_dir_all(&out);
+}
+
+/// The claim: a working directory that no longer exists is exit 2, naming the working directory
+/// as what could not be read. Mutation checked: in `locate` of `path@cli@src/cli/mod.rs`,
+/// `format!("cannot read the working directory: {e}")` made `{ let _ = e; String::new() }`,
+/// which prints `error: ` alone; caught.
+#[cfg(target_os = "linux")]
+#[test]
+fn a_working_directory_that_is_gone_is_exit_two_naming_it() {
+    let dir = std::env::temp_dir().join(format!("knowledge-gone-cwd-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(&dir).expect("the directory");
+    // The shell enters the directory and removes it, so the binary starts in a working directory
+    // that is gone, which `current_dir` cannot read.
+    let out = Command::new("sh")
+        .arg("-c")
+        .arg("cd \"$1\" && rmdir \"$1\" && exec \"$2\" anchors")
+        .arg("sh")
+        .arg(&dir)
+        .arg(klarch())
+        .output()
+        .expect("the shell runs");
+    let stderr = String::from_utf8_lossy(&out.stderr);
+    assert_eq!(out.status.code(), Some(2), "{stderr}");
+    assert!(!dir.exists(), "the shell removed the directory");
+    assert!(
+        stderr.contains("error: cannot read the working directory: "),
+        "{stderr}"
+    );
+}
+
+/// The claim: `install-agent-skills` over a manifest holding a declaration the tool refused
+/// installs nothing and exits 2, naming the command that reports it. Mutation checked: in
+/// `install_agent_skills` of `path@check@src/commands/mod.rs`,
+/// `if !manifest.complaints().is_empty() {` made `if false {`, which installs the shipped set;
+/// caught.
+#[test]
+fn install_agent_skills_refuses_a_manifest_holding_a_refused_declaration() {
+    let sandbox = Sandbox::new("install-refused", "core");
+    sandbox.serve_claude();
+    let path = sandbox.path("knowledge-architect.toml");
+    let manifest = std::fs::read_to_string(&path).expect("the manifest");
+    std::fs::write(&path, format!("{manifest}\n[rules]\nkept = true\n")).expect("a table added");
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["install-agent-skills"]);
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(
+        err.contains("the manifest holds declarations this tool refused"),
+        "{err}"
+    );
+    assert!(err.contains("Nothing was installed"), "{err}");
+    assert!(
+        !sandbox.path(".claude").exists(),
+        "nothing is installed: {out}"
+    );
+}
+
+/// The claim: a file at the path of a home's other shape is no home: a file beside a file
+/// register's directory, named as a heading home's file would be, and a file at a heading
+/// register's directory path. Mutations checked, in `anchors` of `path@query@src/anchors.rs`:
+/// `if register.shape == Shape::Heading && listed(&home.file) {` made
+/// `if listed(&home.file) {`, which prints `docs/open-issues.md` as the issue register's home;
+/// and `l.starts_with(p) && l != p` made `l.starts_with(p)`, which prints `docs/tripwires/` as the
+/// tripwire register's; each caught.
+#[test]
+fn anchors_takes_no_file_at_a_home_s_other_path_for_the_home() {
+    let sandbox = Sandbox::new("anchors-other-shape", "dirhome");
+    sandbox.write("docs/open-issues.md", "# Not the issue home\n");
+    sandbox.write("docs/tripwires", "not the tripwire home\n");
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["anchors"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["issue", "docs/open-issues/"])),
+        "{out}"
+    );
+    assert!(
+        out.lines()
+            .any(|l| l.split_whitespace().eq(["tripwire", "docs/tripwires.md"])),
+        "{out}"
+    );
+}
+
+/// The claim: `tripwires` lists its rows by anchor then id; a first term naming an anchor keeps
+/// that anchor's rows, and the terms after it keep the rows whose id or title holds them; and
+/// `--guarding` takes a reference in backticks. Mutations checked, in `tripwires` of
+/// `path@query@src/rows.rs`: `anchor.is_none_or(|a| r.anchor == a)` made `true`, which keeps the
+/// root's row under `part`; the test of `needle` removed, which keeps both of `part`'s rows; and
+/// `.map(|g| g.trim_matches('`').to_string())` made `.map(|g| g.to_string())`, which keeps no row;
+/// each caught. The sort by anchor then id is a regression guard: the entity table is a map
+/// ordered by kind, anchor and id, so removing the sort changes no order today, and survives.
+#[test]
+fn tripwires_filters_by_anchor_and_text_and_takes_a_reference_in_backticks() {
+    let sandbox = core_with_a_part(
+        "tripwires-filters",
+        &[
+            (
+                "docs/tripwires.md",
+                "# Tripwires — core-mock\n\n\
+                 ## Guarding `design@core-mock@one-decision`: the root's premise `##root-premise`\n\n\
+                 **Fires when:** x.\n",
+            ),
+            (
+                "part/docs/tripwires.md",
+                "# part — tripwires\n\n\
+                 ## Guarding `design@core-mock@one-decision`: a later premise `##zeta-premise`\n\n\
+                 **Fires when:** x.\n\n\
+                 ## Guarding `design@core-mock@one-decision`: an earlier premise `##alpha-premise`\n\n\
+                 **Fires when:** x.\n",
+            ),
+        ],
+    );
+    let ids = |out: &str| -> Vec<String> {
+        out.lines()
+            .skip(1)
+            .map(|l| l.split_whitespace().take(2).collect::<Vec<_>>().join(" "))
+            .collect()
+    };
+    let (all, err, code) = sandbox.run(&["tripwires"]);
+    assert_eq!(code, 0, "{all}{err}");
+    assert_eq!(
+        ids(&all),
+        [
+            "core-mock root-premise",
+            "part alpha-premise",
+            "part zeta-premise"
+        ],
+        "{all}"
+    );
+    let (part, _, code) = sandbox.run(&["tripwires", "part"]);
+    assert_eq!(code, 0, "{part}");
+    assert_eq!(
+        ids(&part),
+        ["part alpha-premise", "part zeta-premise"],
+        "{part}"
+    );
+    let (later, _, code) = sandbox.run(&["tripwires", "part", "later"]);
+    assert_eq!(code, 0, "{later}");
+    assert_eq!(ids(&later), ["part zeta-premise"], "{later}");
+    let (guarding, _, code) =
+        sandbox.run(&["tripwires", "--guarding", "`design@core-mock@one-decision`"]);
+    assert_eq!(code, 0, "{guarding}");
+    assert_eq!(ids(&guarding).len(), 3, "{guarding}");
+}
+
+/// The claim: `show` takes a reference in backticks, as one is written in a document; a path
+/// reference naming no anchor is a negative answer, exit 1, naming the anchors; and the citations
+/// of a Component's home of a register, named and through `*`, are listed in the order of their
+/// sites. Mutations checked, in `path@query@src/show.rs`: in `show`,
+/// `let reference = reference.trim_matches('`');` made `let reference: &str = reference;`, which
+/// refuses the reference as not one; the `no anchor is named` arm's `ExitCode::FAILURE` made
+/// `ExitCode::SUCCESS`; and in `cited_at`, the `sort_by` of the sites removed, which lists the named
+/// citation before the one through `*` above it; each caught.
+#[test]
+fn show_takes_backticks_answers_no_anchor_with_one_and_orders_its_citations() {
+    let sandbox = Sandbox::new("show-forms", "dirhome");
+    sandbox.write(
+        "docs/rejected.md",
+        "# Rejected alternatives\n\nEvery component's tripwires sit in `register@*@tripwire`.\n\n\
+         This one's sit in `register@dirhome@tripwire`.\n",
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["show", "`register@dirhome@tripwire`"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let star = out
+        .find("docs/rejected.md:3")
+        .expect("the citation through `*`");
+    let named = out.find("docs/rejected.md:5").expect("the named citation");
+    assert!(star < named, "{out}");
+
+    let (out, err, code) = sandbox.run(&["show", "path@no-such-anchor@README.md"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains("no anchor is named no-such-anchor; the anchors are"),
+        "{out}"
+    );
+}
