@@ -3776,4 +3776,85 @@ mod tests {
         }
         assert_eq!(action("register@a-project@thread:4"), GOALS_HOME_REPAIR);
     }
+
+    /// The claim: a finding on a link shows the link as written, its fragment included, in each
+    /// arm that reports one: a link outside a navigation home, a dangling link and a link into a
+    /// harvested slice from outside its milestone. Mutations checked: in `link`, the span of each
+    /// of the three findings made `file_part` in place of `target`.
+    #[test]
+    fn a_link_s_finding_shows_the_link_with_its_fragment() {
+        let m = manifest();
+        let (found, _) = checked_in(
+            &m,
+            "parts/a-part/notes/prose.md",
+            "[a](real/a.md#top)\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`real/a.md#top` is linked from"),
+            "{found:#?}"
+        );
+        let at = "parts/a-part/notes/README.md";
+        let (found, _) = checked_in(&m, at, "[gone](real/gone.md#top)\n", &tree());
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`real/gone.md#top` does not exist"),
+            "{found:#?}"
+        );
+        let tree: Vec<PathBuf> = [
+            "docs/plans/README.md",
+            "docs/plans/milestones/README.md",
+            "docs/plans/milestones/m-one/README.md",
+            "docs/plans/milestones/m-one/harvested/a-slice/README.md",
+        ]
+        .iter()
+        .map(PathBuf::from)
+        .collect();
+        let anchors = Anchors::of(&m, &tree);
+        let present: Vec<String> = tree.iter().map(|p| p.display().to_string()).collect();
+        let docs = vec![(
+            "docs/plans/milestones/README.md",
+            "# Milestones\n\n[A landed slice](m-one/harvested/a-slice/README.md#top).\n",
+        )];
+        let (found, _) = checked_under(docs, &present, &anchors);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("`m-one/harvested/a-slice/README.md#top` cites the harvested slice"),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a harness reference that resolves to nothing is reported at the line that
+    /// writes it. Mutation checked: in `judge_part`, the harness arm's `l.line` made `l.line + 1`.
+    #[test]
+    fn a_harness_finding_is_at_the_line_of_its_reference() {
+        let (found, _) = checked(
+            &manifest(),
+            "# Notes\n\nSee `skill@no-such-skill`.\n",
+            &tree(),
+        );
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(found[0].starts_with("notes/prose.md:3 "), "{found:#?}");
+        assert!(found[0].contains("`skill@no-such-skill`"), "{found:#?}");
+    }
+
+    /// The claim: a planned path in a goals home gets the citation finding alone, as a `path`
+    /// reference does, and is not resolved, which would add a finding whose repair names a form
+    /// the goals home refuses. Mutation checked: in `judge_part`, `|| kind.is_planned()` dropped
+    /// from the goals-home skip.
+    #[test]
+    fn a_planned_path_in_a_goals_home_gets_the_citation_finding_alone() {
+        let mut docs = defined();
+        docs[0]
+            .1
+            .push_str("\nIt plans `planned@a-project@code/new.rs`.\n");
+        let borrowed: Vec<(&str, &str)> = docs.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        let (found, _) = checked_docs(&root_and_part_manifest(), borrowed, &[]);
+        assert_eq!(found.len(), 1, "{found:#?}");
+        assert!(
+            found[0].contains("is cited in the goals home"),
+            "{found:#?}"
+        );
+    }
 }
