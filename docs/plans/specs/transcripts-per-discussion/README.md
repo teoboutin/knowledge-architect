@@ -521,8 +521,18 @@ choice that made this spec late.
 
 ## Defaults awaiting the owner
 
-None. Every default of the discussion was ruled: those of the checkpoint table by the owner's word
-in round 5, and those on the goal's wording in round 6.
+None. Every default was ruled: those of the checkpoint table by the owner's word in round 5, those
+on the goal's first wording in round 6, and, at the review before the merge, the goal's present
+wording with the session's defaults on the cases its review rounds raised, the last being the
+session's default that the goal leaves the two edge cases of its last round, a changelog posted to
+a public list from a private repository and a release whose notes the host derives, to the design
+of a project where they arise, which the owner approved. A standing word of the owner deciding a
+kind of action is admitted by the goal, not stated, and left to a design head.
+
+The filing rule of a later discussion's transcript, under the slice it rewrites or under the
+milestone where it rewrites several slices or the milestone's `README.md`, was the session's
+proposal, which the owner approved with the general shape of numbered files; no rival of it was
+argued, so `design@agent-skills@committed-transcript` states it with no argument of its own.
 
 ## Harvest
 
