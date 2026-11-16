@@ -483,8 +483,8 @@ messages.
   aspect of `design@agent-skills@splits-planned-before-work` is that a code split is considered at
   the planning steps and not at the implementation steps, and that such split issues are
   reconsidered at the planning steps too. The owner reported that before that head, split issues
-  were often found and considered at review time by the standing-state reviewer, which added much
-  unplanned work at a bad time.
+  were often found and considered at review time by the standing-state reviewer, which would have
+  added much unplanned work at a bad time.
 
 ### The issue on asks has too large a scope for this discussion `##arg-35`
 
