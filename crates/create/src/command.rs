@@ -826,16 +826,35 @@ fn append(components: &mut toml_edit::Array, rel: &str) {
     // last element's indentation. What follows the last element, up to the last line break before
     // `]`, is its reason comment, or comment lines before `]`: it moves ahead of the new element,
     // after the comma, so every comment line stays byte for byte on its own line and a reason never
-    // reads as the new element's. `push` alone writes `"a", "svc", # reason for a`. An array on one
-    // line, or an empty one, holds no element line, and `push` keeps it as it is.
-    let indent = components
-        .iter()
-        .last()
-        .and_then(|last| last.decor().prefix().and_then(|p| p.as_str()))
-        .and_then(|prefix| prefix.rfind('\n').map(|at| prefix[at + 1..].to_string()));
-    let Some(indent) = indent else {
+    // reads as the new element's. `push` alone writes `"a", "svc", # reason for a`. An array whose
+    // last element opens on the bracket's line, with a line break after it, as after its reason,
+    // holds no indentation to take: the new element takes the next line, unindented. An array on
+    // one line, or an empty one, holds no line break after an element, and `push` keeps it as it is.
+    let Some(last_value) = components.iter().last() else {
         components.push(rel);
         return;
+    };
+    let indent = last_value
+        .decor()
+        .prefix()
+        .and_then(|p| p.as_str())
+        .and_then(|prefix| prefix.rfind('\n').map(|at| prefix[at + 1..].to_string()));
+    let breaks_after = last_value
+        .decor()
+        .suffix()
+        .and_then(|s| s.as_str())
+        .is_some_and(|s| s.contains('\n'))
+        || components
+            .trailing()
+            .as_str()
+            .is_some_and(|t| t.contains('\n'));
+    let indent = match indent {
+        Some(indent) => indent,
+        None if breaks_after => String::new(),
+        None => {
+            components.push(rel);
+            return;
+        }
     };
     let last = components.len() - 1;
     let decor = components
@@ -1075,6 +1094,62 @@ mod tests {
         ] {
             assert!(check_name(name).is_err(), "{name}");
         }
+    }
+
+    /// The manifest `with_component` writes from one whose `[project] components` is `array`.
+    fn appended(array: &str, rel: &str) -> String {
+        let text = format!("[project]\r\nname = \"p\"\r\ncomponents = {array}\r\n");
+        let written = with_component(&text, rel).expect("the array is edited");
+        let (head, rest) = written.split_at("[project]\r\nname = \"p\"\r\ncomponents = ".len());
+        assert_eq!(
+            head,
+            &text[..head.len()],
+            "the bytes before the array are kept"
+        );
+        rest.strip_suffix("\r\n")
+            .expect("the bytes after the array are kept")
+            .to_string()
+    }
+
+    /// The claim: inside an array written with `\r\n` line breaks, the new element's line takes
+    /// `\r\n` too, where `toml_edit` writes `\n`. Mutation checked in `with_component`: the
+    /// `replace('\n', "\r\n")` under `contains("\r\n")` removed; caught.
+    #[test]
+    fn a_crlf_array_gains_a_crlf_line() {
+        assert_eq!(
+            appended("[\r\n    \"a\",\r\n]", "b"),
+            "[\r\n    \"a\",\r\n    \"b\",\r\n]"
+        );
+    }
+
+    /// The claim: in an array written one element per line whose last element shares its line
+    /// with the closing bracket, the new element takes a line of its own, and the bracket closes
+    /// it. Mutation checked in `append`: `None => ("\n", tail.as_str()),` made
+    /// `None => ("", tail.as_str()),`; caught.
+    #[test]
+    fn an_element_on_the_closing_bracket_s_line_is_followed_on_a_line_of_its_own() {
+        assert_eq!(
+            appended("[\n    \"a\",\n    \"b\"]", "c"),
+            "[\n    \"a\",\n    \"b\",\n    \"c\"]"
+        );
+    }
+
+    /// The claim: a reason after the last element of an array that opens on its bracket's line
+    /// stays that element's, with or without its comma: the new element takes the next line, so
+    /// the comment never reads as its own, and the array's trailing comma is kept where it held one.
+    #[test]
+    fn a_reason_after_the_last_element_of_a_one_line_array_stays_its_element_s() {
+        assert_eq!(
+            appended("[\"a\", \"b\", # why b\n]", "c"),
+            "[\"a\", \"b\", # why b\n\"c\",\n]"
+        );
+        assert_eq!(
+            appended("[\"a\", \"b\" # why b\n]", "c"),
+            "[\"a\", \"b\", # why b\n\"c\"\n]"
+        );
+        // With no line break after the last element, the array stays on one line.
+        assert_eq!(appended("[\"a\", \"b\"]", "c"), "[\"a\", \"b\", \"c\"]");
+        assert_eq!(appended("[]", "c"), "[\"c\"]");
     }
 
     /// The claim: `.` and `..` fold away without the filesystem.

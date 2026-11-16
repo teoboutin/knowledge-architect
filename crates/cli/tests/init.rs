@@ -1227,3 +1227,59 @@ fn a_closed_stdout_leaves_every_document_written() {
     let (out, err, code) = klarch(&scratch.path("p"), &["check", "--fix"]);
     assert_eq!(code, 0, "{out}{err}");
 }
+
+/// The claim: a Component that would hold a file where the install writes one of its own is
+/// refused before the first write, as one overlapping a document is: the installed files are in
+/// the list of destinations judged for overlaps. An agent's file, or a saved workflow's, is where
+/// such a Component can sit, since a Component whose README.md would lie in the installer's
+/// namespace is refused, and the namespace holds every other installed path. Mutation checked in `init` of `path@create@src/command.rs`:
+/// `destinations.push(rel);` of the shipped files removed; caught.
+#[test]
+fn a_component_over_an_installed_file_refuses_before_any_write() {
+    let scratch = Scratch::new("over-installed");
+    let (out, err, code) = klarch(
+        &scratch.dir,
+        &[
+            "init",
+            "p",
+            "--component",
+            ".claude/agents/knowledge-architect-goal-reviewer.md",
+        ],
+    );
+    assert_eq!(code, 2, "{out}{err}");
+    assert!(err.contains("would both be written"), "{err}");
+    assert!(!scratch.path("p").exists(), "nothing is written");
+}
+
+/// The claim: `init` lists the repository it creates and a `.gitignore` it keeps, and notes a
+/// project above PATH that walks the new one. Mutations checked in `init` of
+/// `path@create@src/command.rs`: the line `created  a git repository` not logged, the note of
+/// the enclosing project not printed; in `ignore_target`, the line `kept     .gitignore` not
+/// logged; each caught.
+#[test]
+fn init_lists_the_repository_the_kept_gitignore_and_the_enclosing_project() {
+    let scratch = Scratch::new("listed");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "outer"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(
+        out.lines().any(|l| l == "created  a git repository"),
+        "{out}"
+    );
+    assert!(!out.contains("walks this one too"), "{out}");
+
+    let (out, err, code) = klarch(&scratch.path("outer"), &["init", "inner"]);
+    assert_eq!(code, 0, "{out}{err}");
+    let outer = scratch.path("outer");
+    assert!(
+        out.contains(&format!(
+            "note: the project at {} walks this one too, unless its [walk] exclude names it",
+            outer.display()
+        )),
+        "{out}"
+    );
+
+    scratch.write("r/.gitignore", "target/\n");
+    let (out, err, code) = klarch(&scratch.dir, &["init", "r", "--rust", "--vcs", "git"]);
+    assert_eq!(code, 0, "{out}{err}");
+    assert!(out.lines().any(|l| l == "kept     .gitignore"), "{out}");
+}
