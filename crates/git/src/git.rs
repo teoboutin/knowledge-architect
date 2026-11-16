@@ -37,6 +37,12 @@ pub struct Invocation {
 /// failure that answers the question: git exits 128 on every fatal error, a repository it refuses
 /// as owned by another user included, and that one is `Err`, since the directory may well lie
 /// inside a working tree. The message is read in the C locale, which git does not translate.
+///
+/// # Errors
+///
+/// An `Err` where git cannot start, and where it fails for any reason but `dir` lying outside
+/// every repository, a repository it refuses as owned by another user included, as
+/// [`Invocation::output`] says.
 pub fn inside_work_tree(dir: &Path) -> io::Result<bool> {
     match git(dir)
         .args(["rev-parse", "--is-inside-work-tree"])
@@ -50,6 +56,11 @@ pub fn inside_work_tree(dir: &Path) -> io::Result<bool> {
 }
 
 /// Whether git ignores `path`, relative to `root`, by the rules of the repository `root` lies in.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git check-ignore` fails, as outside every repository, as
+/// [`Invocation::output`] says. Its exit 1, the path is not ignored, is the answer `false`.
 pub fn ignores(root: &Path, path: &str) -> io::Result<bool> {
     git(root)
         .args(["check-ignore", "-q", path])
@@ -59,6 +70,11 @@ pub fn ignores(root: &Path, path: &str) -> io::Result<bool> {
 }
 
 /// Create a repository at `dir`, an existing directory, as `init` does where its git rule asks.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git init` cannot start or fails, as
+/// [`Invocation::output`] says.
 pub fn init_repository(dir: &Path) -> io::Result<()> {
     git(dir).args(["init", "-q"]).output().map(|_| ())
 }
@@ -119,6 +135,17 @@ impl Invocation {
     ///
     /// The two failures a caller must be able to tell apart from an empty answer are named in
     /// the error: git is not there, or git refused. Both are an `Err`.
+    ///
+    /// # Errors
+    ///
+    /// - git cannot start: where the root is a directory and the system finds no git, the error
+    ///   says git is not on the `PATH`; otherwise it names the command, the root and the system's
+    ///   reason;
+    /// - git exits with a code [`Invocation::accept`] does not name, or is ended by a signal: the
+    ///   error names the command, the root and git's stderr, or the exit status where stderr is
+    ///   empty;
+    /// - waiting for git fails, or writing its input fails for another reason than git closing
+    ///   it.
     pub fn output(self) -> io::Result<Vec<u8>> {
         self.run().map(|(_, stdout)| stdout)
     }
@@ -318,6 +345,11 @@ pub struct Entry {
 ///
 /// The second list is the untracked part, `--others`, so a report can say which of its files
 /// git does not track. A file staged and never committed is tracked, and is not in it.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where either `git ls-files` fails, as outside every
+/// repository, as [`Invocation::output`] says. No failure answers an empty listing.
 pub fn entries(root: &Path) -> io::Result<(Vec<Entry>, Vec<PathBuf>)> {
     let staged = git(root)
         .args(["ls-files", "-z", "-s", "--cached"])
@@ -365,6 +397,10 @@ fn mode_and_path(line: &[u8]) -> Option<Entry> {
 /// The two states contradict each other silently: `--cached` lists such a file whatever the
 /// ignore rules say, and `git check-ignore` skips paths the index holds, so a reader of the
 /// ignore rules concludes the file is out of the tree while every listing holds it.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git ls-files` fails, as [`Invocation::output`] says.
 pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
     git(root)
         .args([
@@ -397,6 +433,11 @@ pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
 /// One process per run rather than one per reference: a project with a thousand path references
 /// would otherwise spawn a thousand. `check-ignore` exits 1 when nothing matched, which is an
 /// answer, and the empty input is answered without spawning anything at all.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git check-ignore` fails with another exit code than 1,
+/// as [`Invocation::output`] says. Input whose every spelling is empty never fails.
 pub fn ignored(root: &Path, queries: &[String]) -> io::Result<HashSet<String>> {
     let wanted: Vec<&String> = queries.iter().filter(|q| !q.is_empty()).collect();
     if wanted.is_empty() {
@@ -481,6 +522,11 @@ fn is_date(line: &str) -> bool {
 /// rebase across a clock skew produces one — then lands before the commit it descends from.
 /// The per-commit check reuses the previous model as the next commit's parent tree, so an
 /// order that is not the parent chain would resolve a message against the wrong tree.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git rev-list` fails, as on a range that names a revision
+/// git does not know, as [`Invocation::output`] says.
 pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
     let out = git(root)
         .args(["rev-list", "--reverse", "--topo-order", range])
@@ -494,10 +540,14 @@ pub fn rev_list(root: &Path, range: &str) -> io::Result<Vec<String>> {
 }
 
 /// The full object name of the one commit `revision` names, any revision git reads as one object,
-/// `:/<text>` and a tag included; a range, a revision naming no object, and one whose object is no
-/// commit, such as a tree, are an `Err` carrying git's reason, per
-/// `design@git@failed-git-is-an-error`. A revision that starts with `-` is read as a revision,
-/// never as an option. Needs `git` 2.30 or newer, which reads `--end-of-options` in `rev-parse`.
+/// `:/<text>` and a tag included. A revision that starts with `-` is read as a revision, never as
+/// an option. Needs `git` 2.30 or newer, which reads `--end-of-options` in `rev-parse`.
+///
+/// # Errors
+///
+/// A range, a revision naming no object, and one whose object is no commit, such as a tree, are
+/// an `Err` carrying git's reason, per `design@git@failed-git-is-an-error`; so is any other failure
+/// of `git rev-parse`, as [`Invocation::output`] says.
 pub fn commit_of(root: &Path, revision: &str) -> io::Result<String> {
     // Resolved bare first, then peeled: a peel written after the caller's revision would join a
     // `:/<text>` search, whose pattern runs to the end of the revision. `--verify` refuses a range
@@ -517,11 +567,14 @@ pub fn commit_of(root: &Path, revision: &str) -> io::Result<String> {
 /// work tree, a deleted path and a path staged and never committed included, and every untracked
 /// path git does not ignore.
 ///
-/// `commit` is any revision [`commit_of`] resolves, and its `Err` is this function's; a failure of
-/// git asked what changed is an `Err` carrying git's reason too, per
-/// `design@git@failed-git-is-an-error`, since a caller that marks what changed reads an empty
-/// answer as nothing changed. A rename is its two paths, the old and the new, whether git would
-/// pair them or not. Needs `git` 2.30 or newer, as [`commit_of`] does.
+/// `commit` is any revision [`commit_of`] resolves. A rename is its two paths, the old and the new,
+/// whether git would pair them or not. Needs `git` 2.30 or newer, as [`commit_of`] does.
+///
+/// # Errors
+///
+/// [`commit_of`]'s `Err` is this function's; a failure of git asked what changed is an `Err`
+/// carrying git's reason too, per `design@git@failed-git-is-an-error`, since a caller that marks
+/// what changed reads an empty answer as nothing changed.
 pub fn paths_changed_since(root: &Path, commit: &str) -> io::Result<Vec<PathBuf>> {
     // Resolved first, to one commit: `git diff` reads `A..B` as a diff between two commits and a
     // tree as a tree, either of which would answer another question with no error.
@@ -636,6 +689,17 @@ impl SnapshotEntry {
 /// intent-to-add entry out, and compares against the empty tree where HEAD does not exist yet.
 /// The caller asks [`unmerged`] first: an unmerged path has no blob to commit, and a `U` row
 /// here is an error.
+///
+/// # Errors
+///
+/// - `git ls-tree` fails, as for a [`Source::Commit`] that names no tree-ish object, or
+///   `git diff --cached` fails, with git's reason, as [`Invocation::output`] says;
+/// - for [`Source::Index`], the diff reports an unmerged path, a status letter other than `A`,
+///   `M`, `T`, `D` and `U`, or a record this function cannot read.
+///
+/// A failure of git asked for HEAD is no `Err`: it reads as no commit yet, and the listing then
+/// holds only the paths the index changes, per
+/// `issue@git@rev-parse-answers-none-for-every-git-failure`.
 pub fn snapshot_entries(root: &Path, source: Source) -> io::Result<Vec<SnapshotEntry>> {
     let base = match source {
         Source::Commit(sha) => Some(sha.to_string()),
@@ -762,6 +826,11 @@ fn kind_of(mode: &[u8]) -> EntryKind {
 /// anywhere in the repository answers yes; `--ignore-submodules=none`, since without it the
 /// configuration can hide a staged gitlink. Before the first commit, the index is compared with
 /// the empty tree.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git diff --cached` fails with another exit code than 0
+/// or 1, as [`Invocation::output`] says.
 pub fn index_differs_from_head(root: &Path) -> io::Result<bool> {
     let code = git(root)
         .args([
@@ -781,6 +850,10 @@ pub fn index_differs_from_head(root: &Path) -> io::Result<bool> {
 ///
 /// A conflicted merge or rebase leaves them, and the index then has no tree to commit: git
 /// refuses `commit` and `write-tree` alike. `ls-files -u` prints one line per stage.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git ls-files` fails, as [`Invocation::output`] says.
 pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
     let listed = git(root).args(["ls-files", "-u", "-z"]).output()?;
     let mut out: Vec<PathBuf> = nul_separated(&listed)
@@ -811,6 +884,15 @@ pub fn unmerged(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// `--index-info` would replace. It asks the index itself rather than a listing a walk row can
 /// filter. Each refusal's message ends with the change to the index that lifts it; a failure of
 /// git carries git's own reason, which names its repair, as for a held index lock.
+///
+/// # Errors
+///
+/// - a path the index holds as a directory, a symlink or a gitlink, with nothing staged;
+/// - a failure of any git invocation, carrying git's reason, as [`Invocation::output`] says.
+///   Before the `--index-info` write, nothing is staged; a failure of the second write, which
+///   sets the skip-worktree bit again, leaves the entries staged and the bit cleared.
+///
+/// An empty `files` spawns nothing and never fails.
 pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<()> {
     if files.is_empty() {
         return Ok(());
@@ -944,6 +1026,10 @@ mod object_naming {
 /// A blob whose bytes are not UTF-8 contributes no entry either: a lossy decoding produces
 /// text nobody wrote. The caller sees the absence and reports it. [`blob_bytes`] answers the
 /// bytes whatever they are.
+///
+/// # Errors
+///
+/// [`blob_bytes`]'s `Err` is this function's.
 pub fn blobs(
     root: &Path,
     source: Source,
@@ -957,6 +1043,14 @@ pub fn blobs(
 
 /// The bytes of many blobs of one snapshot, in one process, as [`blobs`] reads them and
 /// with no decoding. A path the snapshot does not hold contributes no entry.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git cat-file` fails, as a git older than 2.36 refuses
+/// `-z`, as [`Invocation::output`] says. An empty `paths` spawns nothing and never fails.
+///
+/// A [`Source::Commit`] that names no commit is no `Err`: git answers every path as missing, and
+/// the map comes back empty.
 pub fn blob_bytes(
     root: &Path,
     source: Source,
@@ -1043,6 +1137,11 @@ fn read_batch(raw: &[u8], prefix: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf,
 }
 
 /// One commit's message, subject line and body, exactly as it was written.
+///
+/// # Errors
+///
+/// An `Err` carrying git's reason where `git log` fails, as for a `sha` that names no revision,
+/// as [`Invocation::output`] says.
 pub fn commit_message(root: &Path, sha: &str) -> io::Result<String> {
     let out = git(root).args(["log", "-1", "--format=%B", sha]).output()?;
     Ok(String::from_utf8_lossy(&out).into_owned())
