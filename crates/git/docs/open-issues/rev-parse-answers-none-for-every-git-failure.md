@@ -5,8 +5,9 @@ kind: defect
 
 ## Summary
 
-`rev_parse` in `path@git@src/git.rs` returns `None` when git fails for any reason, while its doc
-comment says "Every other git failure still reaches the caller as an error". The `commits`
+`rev_parse` in `path@git@src/git.rs` returns `None` when git fails for any reason, while its
+contract intends `None` for a missing revision alone; its doc comment says so, "Every other git
+failure answers `None` too, which its contract does not intend", and cites this issue. The `commits`
 command reads that `None` as "this commit has no first parent", and the index's snapshot as "no
 commit yet".
 
@@ -17,7 +18,7 @@ commit yet".
 `rev_parse(root, expression)` runs `git rev-parse --verify --quiet <expression>`, accepts exit 1 as
 the answer "names nothing", and turns every other failure into `None` with `.output().ok()?`:
 git missing from the path, a repository git refuses, any fatal error. Its type,
-`Option<String>`, has no room for the error the doc comment promises.
+`Option<String>`, has no room for the error the contract intends.
 
 Callers outside the tests, found with `git grep -n 'rev_parse(' crates/`:
 
