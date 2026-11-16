@@ -121,3 +121,10 @@ and its refusal is assumed from the push's, not seen.
 `live`. Refuted by a measurement of an outside tool: crates.io answers 403 without login on the
 endpoint of a crate's trusted-publisher configuration, so a session cannot read which publisher a
 new crate names.
+
+### A table of the documentation lints in each published crate's manifest `##lint-table-per-published-crate`
+
+`live`. cargo refuses a crate manifest that sets `[lints] workspace = true` beside lints of its own,
+with "cannot override `workspace.lints` in `lints`", observed on cargo 1.98.0, so each published
+crate would repeat every lint of the workspace's table, `unsafe_code` included, in its own manifest.
+The run that shows it is the one `design@knowledge-architect@doc-lints-table` names.
