@@ -88,7 +88,7 @@ an empty subsection is omitted.
   design audit, committed as `discussion-<n>.txt`, numbered as the discussion is, and
   `design-audit-<n>.txt`, numbered per audit, and its `transcripts/` the trimmed transcript of each
   design discussion that reaches a convergence checkpoint on the full path, as `<n>.txt`, a slice's
-  only where such a discussion was held for it. A transcript runs from the message where the
+  only where such a discussion rewrites that slice alone. A transcript runs from the message where the
   discussion begins to the owner's word on its last checkpoint table, and is committed in the
   commit that adds or rewrites the plan document, after a removal step of every path under a home
   directory, every e-mail address, every credential and token and the pasted material the owner

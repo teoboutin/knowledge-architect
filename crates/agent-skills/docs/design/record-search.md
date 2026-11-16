@@ -381,18 +381,10 @@ of the lines, while the outcome the occasion records carries every reason that c
 ### A plan document commits, of a record search's output, the generated lines alone, as a `.txt` file `##plan-commits-the-generated-lines`
 
 Of what `klarch worklist` writes, a plan document commits the generated lines alone, each as a `.txt`
-file of its `search/` named by its occasion and numbered, per
-`design@agent-skills@search-record-kept-per-occasion` and
+file of its `search/` named by its occasion and numbered, as `design@model@plan-document-directory`
+says, per `design@agent-skills@search-record-kept-per-occasion` and
 `design@agent-skills@design-audit-checks-fit`, which the walk never parses, per
-`design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. A design
-discussion's search is `discussion-<n>.txt`, its number the discussion's, the one its transcript
-takes, per `design@agent-skills@committed-transcript`, so a reader finds a discussion's search and
-its transcript by one number; a second search inside one discussion, for a thread opened after the
-first, per `design@agent-skills@search-runs-once-the-shapes-settle`, appends its generated lines to
-that discussion's file after a header line. A design audit's is `design-audit-<n>.txt`, numbered
-from 1 per audit. A second discussion or audit then adds a file beside the first rather than
-writing over it. The rival, numbering every search on its own, would break the shared number of a
-discussion's search and its transcript. The verdict files, `shown.md`,
+`design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. The verdict files, `shown.md`,
 `gaps.md`, the agent directories and the searchers' working files stay in the session's scratch
 space, per `design@agent-skills@agents-write-in-scratch`: the searchers' reasons are not kept, since
 a reason that changed something is carried by the outcome the plan document records, and a report's

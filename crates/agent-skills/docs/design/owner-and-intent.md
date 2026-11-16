@@ -223,7 +223,7 @@ The rival of its second half, an approval at a fork recorded as the owner's choi
 the owner a weighing the owner did not make.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
-### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document's committed transcripts or a file that leaves `##attribution-replaces-quotation`
+### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a design discussion's committed transcript, up to its last checkpoint, or in a file that leaves `##attribution-replaces-quotation`
 
 `primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry,
 an issue entry and a plan document's items state what the owner decided and how far the decision
