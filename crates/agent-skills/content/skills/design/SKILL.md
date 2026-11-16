@@ -531,12 +531,15 @@ choices whose option space genuinely is closed and consequence-free.
    signal is not outweighed by the signals against a split, it becomes
    an issue of kind `design`, per
    `skill@knowledge-architect-issue-tracking`, whose re-entry point is
-   the design or the planning of the next work that changes that code.
-   Each one outside the work's
+   the design or the planning of the next work that changes that code;
+   an outweighed signal owes no issue. Each one outside the work's
    area is routed as
    `primer@met-outside-the-task` says, since the plan document takes no
-   work its discussion did not decide. The in-change path and bounded
-   work dispatch no scout.
+   work its discussion did not decide, and so is a signal over code a
+   work does not write met where that work is implemented or reviewed;
+   where that routing opens an issue on a split of code, the issue
+   takes the same kind and re-entry point. The in-change path and
+   bounded work dispatch no scout.
 
    Run the search, the saved workflow
    `knowledge-architect-record-search`, as the description of
