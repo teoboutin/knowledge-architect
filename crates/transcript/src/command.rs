@@ -714,6 +714,47 @@ mod tests {
         }
     }
 
+    /// The claim: [`ROLES`] holds exactly the roles [`Label::role`] gives, so `--role` refuses no
+    /// role a line carries and takes none that no line carries. The `match` names every variant,
+    /// so a label added to the reader fails to compile here until it is listed. Mutation checked:
+    /// `"dispatch",` in `ROLES` made `"dispatchx",`; caught.
+    #[test]
+    fn the_roles_are_those_the_labels_carry() {
+        let every = [
+            Label::Owner,
+            Label::OwnerAnswer,
+            Label::OwnerQueued,
+            Label::OwnerCommand,
+            Label::OwnerInterrupt,
+            Label::OwnerShell,
+            Label::Agent,
+            Label::Dispatch,
+            Label::Injected(String::new()),
+            Label::Tool(String::new()),
+            Label::Unlabelled,
+        ];
+        for label in &every {
+            match label {
+                Label::Owner
+                | Label::OwnerAnswer
+                | Label::OwnerQueued
+                | Label::OwnerCommand
+                | Label::OwnerInterrupt
+                | Label::OwnerShell
+                | Label::Agent
+                | Label::Dispatch
+                | Label::Injected(_)
+                | Label::Tool(_)
+                | Label::Unlabelled => {}
+            }
+        }
+        let mut carried: Vec<&str> = every.iter().map(Label::role).collect();
+        carried.sort_unstable();
+        let mut listed = ROLES.to_vec();
+        listed.sort_unstable();
+        assert_eq!(carried, listed);
+    }
+
     fn kept(line: usize, label: Label, text: &str) -> Entry {
         Entry {
             line,

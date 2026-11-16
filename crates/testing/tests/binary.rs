@@ -9881,6 +9881,189 @@ fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
     assert!(stdout.contains("5e5e5e5e "), "{stdout}");
 }
 
+/// The claim: a matching line prints from the start of the text's line where the match starts,
+/// never from an earlier line break, in either form. Mutations checked in `search` of
+/// `path@transcript@src/command.rs`: `.map_or(0, |i| i + 1)` made `.map_or(0, |i| i)`, and
+/// `.rfind('\n')` made `.find('\n')`; each caught.
+#[test]
+fn transcript_search_prints_the_line_a_match_starts_on() {
+    let (stdout, _, code) = transcript("labels", "bounds-text", &["search", "(?m)^body line 3$"]);
+    assert_eq!(code, 0, "{stdout}");
+    assert!(
+        stdout
+            .lines()
+            .any(|l| l == "eeeeeeee L5 injected skill  body line 3"),
+        "{stdout}"
+    );
+    let (stdout, _, code) = transcript(
+        "labels",
+        "bounds-json",
+        &["search", "--json", "(?m)^body line 3$"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("\"text\":\"body line 3\""), "{stdout}");
+}
+
+/// The claim: `show --subagents` prints a subagent's tool calls and results under `--tools`
+/// alone, as it does the session's own. Mutations checked in `show` of
+/// `path@transcript@src/command.rs`, on the filter of a subagent's entries: made `|_| true`, and
+/// its `args.tools ||` removed; each caught.
+#[test]
+fn transcript_a_subagent_s_tool_lines_show_under_tools_alone() {
+    let call = "[c0ffee00 L2 tool Bash ";
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "sub-tools-off",
+        &["show", GAPS_SESSION, "--subagents"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains("# subagent "), "{stdout}");
+    assert!(!stdout.contains(call), "{stdout}");
+    let (stdout, _, code) = transcript(
+        "gaps",
+        "sub-tools-on",
+        &["show", GAPS_SESSION, "--subagents", "--tools"],
+    );
+    assert_eq!(code, 0, "{stdout}");
+    assert!(stdout.contains(call), "{stdout}");
+}
+
+/// A transcript directory for the test `tag`, holding each `(path, text)` of `files`, `{{root}}`
+/// replaced by the mock `core`'s root; the directory to hand as `CLAUDE_CONFIG_DIR`.
+fn transcript_config(tag: &str, files: &[(&str, &str)]) -> PathBuf {
+    let root = project("core").canonicalize().expect("the mock exists");
+    let config =
+        std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&config);
+    for (rel, text) in files {
+        let path = config.join(rel);
+        std::fs::create_dir_all(path.parent().expect("a parent")).expect("a directory");
+        std::fs::write(path, text.replace("{{root}}", &root.display().to_string()))
+            .expect("a file");
+    }
+    config
+}
+
+/// One chain line of a session the owner opens with `text`, in the mock `core`.
+fn transcript_line(uuid: &str, session_id: &str, text: &str) -> String {
+    format!(
+        r#"{{"type":"user","uuid":"{uuid}","parentUuid":null,"sessionId":"{session_id}","timestamp":"2026-03-01T10:00:00.000Z","cwd":"{{{{root}}}}","version":"2.1.316","message":{{"role":"user","content":"{text}"}},"origin":{{"kind":"human"}}}}"#
+    ) + "\n"
+}
+
+/// The claim: the walk reads a `.jsonl` file of a project's directory and passes over what is none:
+/// a file beside the project directories, a file of another extension, a directory named like a
+/// transcript, and a file under `subagents/` whose name does not open with `agent-`. Mutations
+/// checked in `path@transcript@src/reader.rs`: in `top_level_files`, the `continue` over a
+/// non-directory removed, `path.is_file() &&` removed, and the test of the `jsonl` extension
+/// removed; in `collect_agent_files`, `.is_some_and(|n| n.starts_with("agent-"))` made
+/// `.is_some()`; each caught.
+#[test]
+fn transcript_the_walk_passes_over_what_is_no_transcript() {
+    let id = "a7a7a7a7-0000-0000-0000-000000000041";
+    let session = transcript_line("w1", id, "the walked session");
+    let config = transcript_config(
+        "walk",
+        &[
+            (&format!("projects/-p/{id}.jsonl"), &session),
+            (
+                &format!("projects/-p/{id}/subagents/journal.jsonl"),
+                &transcript_line("w2", id, "no agent's file"),
+            ),
+            ("projects/stray", "a file beside the project directories\n"),
+            ("projects/-p/notes.txt", "not a transcript\n"),
+            ("projects/-p/dir.jsonl/inside.jsonl", &session),
+        ],
+    );
+    let (stdout, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "list", "--all-projects"],
+        &[("CLAUDE_CONFIG_DIR", &config)],
+    );
+    let _ = std::fs::remove_dir_all(&config);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(stdout.starts_with("# files read: 1;"), "{stdout}");
+    assert!(!stdout.contains("not JSON"), "{stdout}");
+    let row = stdout
+        .lines()
+        .find(|l| l.starts_with("a7a7a7a7 "))
+        .expect("the session's row");
+    assert!(row.contains("subagents 0"), "{row}");
+}
+
+/// The claim: a subagent file whose `sessionId` no session of its parent file carries is attached
+/// to that file's last session, per `design@transcript@subagent-file-attached-to-its-dispatcher`.
+/// Mutation checked in `attach_subagents` of `path@transcript@src/reader.rs`: the fallback to the
+/// file's last session, `last.or_else(..)`, removed; caught.
+#[test]
+fn transcript_a_subagent_no_session_carries_goes_to_its_file_s_last_session() {
+    let id = "f1f1f1f1-0000-0000-0000-000000000040";
+    let config = transcript_config(
+        "stray-agent",
+        &[
+            (
+                &format!("projects/-p/{id}.jsonl"),
+                &transcript_line("t1", id, "the dispatching session"),
+            ),
+            (
+                &format!("projects/-p/{id}/subagents/agent-0000000a.jsonl"),
+                &transcript_line(
+                    "a1",
+                    "e0e0e0e0-0000-0000-0000-000000000042",
+                    "the brief of the stray agent",
+                ),
+            ),
+        ],
+    );
+    let (stdout, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "show", "f1f1f1f1", "--subagents"],
+        &[("CLAUDE_CONFIG_DIR", &config)],
+    );
+    let _ = std::fs::remove_dir_all(&config);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(stdout.contains("# subagent f1f1f1f1/0000000a"), "{stdout}");
+    assert!(stdout.contains("the brief of the stray agent"), "{stdout}");
+}
+
+/// The claim: an empty `CLAUDE_CONFIG_DIR` reads as unset, so the transcripts are those under
+/// `.claude` of `HOME`, and an empty `HOME` as unset too, so with both empty no directory is
+/// looked for and the refusal names both. Mutations checked in `transcript_dir` of
+/// `path@transcript@src/reader.rs`: `Some(dir) if !dir.is_empty() =>` made `Some(dir) =>`, and
+/// `Some(home) if !home.is_empty() =>` made `Some(home) =>`; each caught.
+#[test]
+fn transcript_an_empty_config_dir_or_home_reads_as_unset() {
+    let id = "b8b8b8b8-0000-0000-0000-000000000043";
+    let home = transcript_config(
+        "home",
+        &[(
+            &format!(".claude/projects/-p/{id}.jsonl"),
+            &transcript_line("h1", id, "a session under HOME"),
+        )],
+    );
+    let (stdout, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "list"],
+        &[("CLAUDE_CONFIG_DIR", Path::new("")), ("HOME", &home)],
+    );
+    let _ = std::fs::remove_dir_all(&home);
+    assert_eq!(code, 0, "{stdout}{stderr}");
+    assert!(stdout.contains("b8b8b8b8 "), "{stdout}");
+    let (stdout, stderr, code) = run_with_env(
+        &project("core"),
+        &["transcript", "list"],
+        &[
+            ("CLAUDE_CONFIG_DIR", Path::new("")),
+            ("HOME", Path::new("")),
+        ],
+    );
+    assert_eq!(code, 2, "{stdout}{stderr}");
+    assert!(
+        stderr.contains("neither CLAUDE_CONFIG_DIR nor HOME is set"),
+        "{stderr}"
+    );
+}
+
 /// The claim: `klarch` lists the checker's library among those it links, so a copy of it at another
 /// path than the binary's is refused, and the refusal names its package.
 #[test]
