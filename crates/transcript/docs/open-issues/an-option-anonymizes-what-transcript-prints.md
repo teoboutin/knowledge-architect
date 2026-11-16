@@ -7,7 +7,7 @@ kind: todo
 
 A plan document commits the transcript of its discussion, per
 `design@agent-skills@committed-transcript`, extracted with `klarch transcript show`, after a step that reads it and removes
-private information by hand. The owner proposed an option of the command that anonymizes part of
+private information by hand, per `design@agent-skills@transcript-removal-step`. The owner proposed an option of the command that anonymizes part of
 the output, such as the paths under the machine's home directory, and left it for later.
 
 ## Details
@@ -39,10 +39,14 @@ per C1 of the retrospective file `2026-11-13-knowledge-architect-plan-directorie
 
 ### Why it matters
 
-A transcript committed to a public repository with private data in it cannot be taken back. The
-milestone's premortem names that failure, its cause P4, and guards it only by the manual removal
-step, a `grep` before the commit and the owner's word before the push, claims of its first slice;
-a step a session follows by reading is the guard this option would replace in part.
+A transcript pushed to a public repository with private data in it is readable there until a later
+commit removes it, and from the history after that. The removal step is the only guard before the
+push: the commit that holds a transcript is pushed with its branch, with no word of the owner for
+it, per `design@agent-skills@transcript-pushed-with-the-branch`. That step is a session reading
+the file whole and removing by hand what a script could find, and nothing checks that it was done;
+the milestone's premortem named the failure, its cause P4. An option that removes the home paths
+and the branch's SHAs, and a scripted search for e-mail addresses, would take that part of the
+step out of a session's reading.
 
 ### What would close it
 

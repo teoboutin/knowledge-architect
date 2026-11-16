@@ -19,7 +19,7 @@ edit, its words kept as written, the owner's verbatim words included: the owner 
 migration of `spec@plans@path-quickfixes`, minimal, and approved it, in the discussion of the milestone on split guidelines and plan directories,
 whose documents left the tree in the commit "[plans] The milestone on split guidelines and plan directories leaves: its last slice landed, and every default is ruled".
 Its `deliberation.md` quotes the owner in several items, the ruling on its thread
-#fix-admission among them, and the spec has no `transcript.txt` that keeps those words elsewhere.
+#fix-admission among them, and the spec has no committed transcript that keeps those words elsewhere.
 The rewritten head states no exception for such a document, and this entry is the one record of the
 exception: the thread that ruled it is printed by `git show <that commit>^:<path>`, its path
 `path@elsewhere@docs/plans/milestones/split-guidelines-and-plan-directories/harvested/plan-directories/deliberation.md`.

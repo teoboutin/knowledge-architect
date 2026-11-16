@@ -223,13 +223,15 @@ The rival of its second half, an approval at a fork recorded as the owner's choi
 the owner a weighing the owner did not make.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
-### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document's committed transcript or a file that leaves `##attribution-replaces-quotation`
+### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a plan document's committed transcripts or a file that leaves `##attribution-replaces-quotation`
 
 `primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry,
 an issue entry and a plan document's items state what the owner decided and how far the decision
-reaches, never the owner's words verbatim. The verbatim words stay in a plan document's committed
-transcript, per `design@agent-skills@committed-transcript`, and in a committed file that leaves
-once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An issue
+reaches, never the owner's words verbatim. The verbatim words of a design discussion, up to the
+owner's word on its last convergence checkpoint, stay in the plan document's committed transcript of
+it, per `design@agent-skills@committed-transcript`; a ruling given after that checkpoint, at a plan
+review or at the review before the merge, is attributed only. The owner's words verbatim also stay
+in a committed file that leaves once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An issue
 entry holds the owner's words verbatim only where the owner asks it to keep them, marked as quoted
 on the owner's request, as input to a later discussion and never as the ground of a ruling, the rest
 of the entry attributing: an issue entry leaves when it closes, as those files leave once their

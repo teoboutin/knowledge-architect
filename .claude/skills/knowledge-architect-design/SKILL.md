@@ -323,8 +323,8 @@ intent that states a purpose, a scope or a ranking is a goal to draft.
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
 commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
-file that leaves once its outcomes are carried out. An issue entry holds them only where the owner
+verbatim. The verbatim words of a design discussion stay in its plan document's committed
+transcripts, and in a committed file that leaves once its outcomes are carried out. An issue entry holds them only where the owner
 asks it to keep them, marked as quoted on the owner's request, as input to a later discussion and
 never as the ground of a ruling; the rest of the entry attributes. An attribution keeps the scope
 and the hedges of the owner's words, and is checked, like a quotation, against the question it
@@ -920,8 +920,8 @@ choices whose option space genuinely is closed and consequence-free.
 The plan document is the full account of the
 discussion, assembled from its transcript: every thread with its proposer
 and final state, the arguments on each side as items, the owner's
-rulings attributed with their round, the verbatim words in its
-committed transcript, the losing alternatives with their reasons, and the
+rulings attributed with their round, the verbatim words of its design
+discussions in its committed transcripts, the losing alternatives with their reasons, and the
 causes the premortem named, each with its outcome once the work has judged it.
 The decision record is the durable harvest of that account, written when
 the work that implements each decision lands, under

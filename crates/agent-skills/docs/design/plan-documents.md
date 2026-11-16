@@ -105,8 +105,8 @@ The design this decision did not keep: `rejected@agent-skills@milestone-holds-ev
 Each plan document, a spec, a milestone document or a slice's spec, is a directory, per
 `design@model@plan-document-directory`: its `README.md` is the document the searches read; its
 `deliberation.md` holds the Threads and Arguments items; its `search/` holds the generated lines of
-its searches, per `design@agent-skills@plan-commits-the-generated-lines`; and its `transcript.txt` holds
-the discussion's trimmed transcript, per `design@agent-skills@committed-transcript`. A slice's
+its searches, per `design@agent-skills@plan-commits-the-generated-lines`; and its `transcripts/` holds
+the trimmed transcript of each of its design discussions, per `design@agent-skills@committed-transcript`. A slice's
 design audit searches the record with the milestone's `README.md` and the slice's own as its work,
 never the files beside them, per `design@agent-skills@record-searched-before-the-work`, so every
 condition of a decided thread is written in the decided design of a `README.md`, and
@@ -266,41 +266,79 @@ cost of a write per round and not the other two reasons of the rejected alternat
 stale ledger stated with confidence is worse than none, and a file the agent writes is corroborated
 only by the conversation, which compaction removes. The assembly then commits the trimmed
 transcript beside the document, per `design@agent-skills@committed-transcript`, and the discussion's
-search's generated lines as `search/discussion.txt`, per
+search's generated lines as `search/discussion-<n>.txt`, per
 `design@agent-skills@plan-commits-the-generated-lines`.
 
 The design this decision did not keep: `rejected@agent-skills@ledger-written-during-discussion`.
 
-### The trimmed transcript of a discussion is committed beside its plan document, after a step that removes private information `##committed-transcript`
+### A design discussion's trimmed transcript is committed beside its plan document, one file per discussion, ending at the owner's word on its last convergence checkpoint `##committed-transcript`
 
-The planning skill commits, for each session a discussion spans, the output of `klarch transcript
-show` without tool calls, from the message where the discussion begins to the owner's last message
-before the branch that adds the plan document merges, as the `transcript.txt` of the plan document
-of a spec or of a milestone. It ends there rather than at the plan document's commit so that the
-rulings given at the plan document's reviews are in it. Being a `.txt` file, it is never parsed, so
-a reference, a slug or a commit SHA in it is a quotation, not a citation, per
-`design@model@a-harvested-slice-is-frozen`. It holds the owner's words verbatim, so the items of
-`deliberation.md` attribute them and cite the round, per
+The planning skill commits, for each design discussion that reaches a convergence checkpoint on the
+full path, the output of `klarch transcript show` without tool calls, for each session the
+discussion spans in order, from the message where the discussion begins to the owner's word on its
+last convergence checkpoint table, as `transcripts/<n>.txt` of the plan document, `<n>` numbering
+its discussions from 1 in the order they began. It is committed in the commit that adds or rewrites
+the plan document, after its removal step, per `design@agent-skills@transcript-removal-step`. The
+discussion that produced a spec or a milestone is one; a later discussion that reaches a checkpoint
+is another, such as a design session opened at a slice's or a spec's design audit, or a
+rediscussion of a milestone before a slice's turn. An implementation, a design audit that reopens
+nothing, and a material finding settled on one word of the owner have none. A slice has one only
+where such a discussion was held for it: a discussion that rewrites one slice is filed under that
+slice, and one that rewrites several slices or the milestone's `README.md` under the milestone.
+Where a plan review reopens a thread before the plan document's branch merges, a new checkpoint
+follows, and the same discussion's file is extracted again to it.
+
+The transcript ends at the last checkpoint because a design discussion is where the owner says what
+is worth keeping verbatim, on the owner's argument: what follows it, the assembly, the plan reviews
+and, for a spec built on its plan document's branch, the implementation, holds approvals of
+defaults and requests for detail, which an attribution records whole, an approval being no ground,
+per `primer@design-heads`. On the full path, the design skill shows the checkpoint table before the
+hand-off, so the session finds the end in its own conversation. The nearest rival, ending at the
+owner's last message before the branch merges, adds those approvals and, for a spec built on its
+branch, the whole implementation, and can be committed only after the review before the merge. The
+rival ending at the plan document's commit adds only the assembly and the defaults of the plan
+reviews over the checkpoint, and has no boundary the session sees in the conversation.
+
+One file per discussion keeps the discussions of one plan document apart, on the owner's request:
+a plan document can be designed long before its work, and discussed again before its turn. Its
+number is the one its search's generated lines take, per
+`design@agent-skills@plan-commits-the-generated-lines`. The owner chose a number over a date in the
+name, which two discussions held on one day would share, while git records the date.
+
+Being a `.txt` file, a transcript is never parsed, so a reference, a slug or a commit SHA in it is a
+quotation, not a citation, per `design@model@a-harvested-slice-is-frozen`. It holds the owner's
+words verbatim, so the items of `deliberation.md` attribute them and cite the round, per
 `design@agent-skills@attribution-replaces-quotation`, and an attribution is checked against the
-words in the tree rather than in a transcript on one machine.
+words in the tree rather than in a transcript on one machine. The rival, committing no transcript,
+kept the owner's words verbatim only in the items, where out of the context they answered they have
+little value, on the owner's report: `rejected@agent-skills@owner-words-verbatim-in-plan-items`.
 
-Before its commit, the session reads it whole and removes every path under a home directory, every
-e-mail address, every credential and token, and the pasted material the owner marks. The rival,
-committing no transcript, kept the owner's words verbatim only in the items, where out of the
-context they answered they have little value, on the owner's report:
-`rejected@agent-skills@owner-words-verbatim-in-plan-items`. A script that finds home paths and
-e-mail addresses could replace part of the removal step:
-`issue@transcript@an-option-anonymizes-what-transcript-prints`.
+### Before its commit, a committed transcript is read whole and stripped of private information `##transcript-removal-step`
 
-### A committed transcript is pushed only on the owner's word for that transcript `##transcript-pushed-on-the-owner-s-word`
+Before the commit that holds a transcript, per `design@agent-skills@committed-transcript`, the
+session reads it whole and removes every path under a home directory, every e-mail address, every
+credential and token, and the pasted material the owner marks. The transcript is the harness's log
+as `klarch transcript show` prints it, so it holds what the sessions printed, the machine's home
+paths among them, and whatever was pasted into the conversation; once pushed to a public repository,
+it is readable by anyone until a later commit removes it, and from its history after that. The step
+is the one guard before the push, per
+`design@agent-skills@transcript-pushed-with-the-branch`. A script that finds home paths and e-mail
+addresses could replace part of it: `issue@transcript@an-option-anonymizes-what-transcript-prints`.
 
-Once its removal step is done, per `design@agent-skills@committed-transcript`, the session shows the
-owner the transcript and pushes no commit holding it before the owner's word for that transcript; a
-transcript the owner does not approve is removed from the branch before any push. A transcript once
-pushed cannot be taken back, an action `goal@the-owner-decides` reserves to the owner. The rival,
-the owner's word that transcripts are committed in general standing for each publication, lets a
-session publish what the owner never read; so that word rules the policy and stands for no single
-publication, nor for another project's owner.
+### A committed transcript is pushed with its branch, with no word of the owner for it `##transcript-pushed-with-the-branch`
+
+Once its removal step is done, per `design@agent-skills@transcript-removal-step`, the commit that
+holds a transcript is pushed as any commit of the branch is, and the session asks no word of the
+owner for it. It stands on the owner's reading of `goal@the-owner-decides`, which reserves to the
+owner every action that cannot be undone: a push to the project's own repository is no such action,
+against the reading that it is one, which would put every push of the workflow under the owner's
+word. The workflow already pushes, with no word of the owner, commit messages, plan items and issue
+entries that sessions write, each exposed to the same risk of private information as a transcript.
+The rival, a word of the owner for each transcript before its push, held one kind of push to a rule
+no other push of the workflow meets. A project that wants the word states it in its root
+`CLAUDE.md`. A publication on another repository is not reached: a finding sent upstream follows
+`design@agent-skills@installed-fix-goes-upstream`, and the outcomes of an intake
+`design@agent-skills@intake-outcome-authority`.
 
 ### Acceptance criteria live in the plan document of the work that judges them `##acceptance-criteria-in-the-document`
 
@@ -470,8 +508,8 @@ file would be a third document about the same work, with a lifetime of its own, 
 
 A plan document assembled from a discussion records, in its `deliberation.md`, every thread it
 carries with its proposer and round, its final state, the arguments on each side, the owner's
-rulings attributed with their round, and its relations; the owner's words verbatim are in its
-`transcript.txt`, per `design@agent-skills@committed-transcript`. Where one discussion converges on
+rulings attributed with their round, and its relations; the owner's words verbatim in its design
+discussions are in its `transcripts/`, per `design@agent-skills@committed-transcript`. Where one discussion converges on
 two plan documents, such as a spec and a milestone, each thread is in the document that carries it,
 with every argument that thread uses, so an argument two threads in two documents use is in both:
 an item is cited only from inside its own plan, per `design@model@plan-item-scope`, so a document

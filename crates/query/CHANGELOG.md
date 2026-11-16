@@ -84,14 +84,17 @@ an empty subsection is omitted.
 
 - `agent-skills`, patch: a plan document is a directory: its `README.md` is what the record
   searches read and holds every condition of a decided thread, its `deliberation.md` the Threads
-  and Arguments, its `search/` the generated lines of its discussion's search and of its design
-  audit, committed as `discussion.txt` and `design-audit.txt`, and its `transcript.txt` the
-  discussion's trimmed transcript. The assembly runs a removal step over the transcript, of every
-  path under a home directory, every e-mail address, every credential and token and the pasted
-  material the owner marks, then shows it to the owner and pushes it only on the owner's word for
-  that transcript. A plan item attributes the owner's words, citing the round, and "What is already
-  decided" keeps only the verdicts whose outcome changed something, linking `search/discussion.txt`
-  for the rest.
+  and Arguments, its `search/` the generated lines of each design discussion's search and of each
+  design audit, committed as `discussion-<n>.txt`, numbered as the discussion is, and
+  `design-audit-<n>.txt`, numbered per audit, and its `transcripts/` the trimmed transcript of each
+  design discussion that reaches a convergence checkpoint on the full path, as `<n>.txt`, a slice's
+  only where such a discussion was held for it. A transcript runs from the message where the
+  discussion begins to the owner's word on its last checkpoint table, and is committed in the
+  commit that adds or rewrites the plan document, after a removal step of every path under a home
+  directory, every e-mail address, every credential and token and the pasted material the owner
+  marks; it is pushed with its branch, with no word of the owner for it. A plan item attributes the
+  owner's words, citing the round, and "What is already decided" keeps only the verdicts whose
+  outcome changed something, linking the discussion's `search/discussion-<n>.txt` for the rest.
 - `agent-skills`, patch: a landed slice is moved under its milestone's `harvested/` in a commit of
   its own after its review, where it was deleted, and leaves with its milestone's directory. No
   commit modifies a file there, or adds one other than by that move, and the standing-state

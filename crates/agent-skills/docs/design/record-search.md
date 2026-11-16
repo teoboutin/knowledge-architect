@@ -269,11 +269,11 @@ it, it is `constrains`, action `none`, `against: -`, its reason naming the seed,
 verdict enters none:
 
 - at the design grounding, `generated-lines.md`, which the commit message carries on the in-change
-  path and for bounded work, and which the plan document commits as `search/discussion.txt` on the
-  full path, its "What is already decided" giving the outcome of each verdict that changed
+  path and for bounded work, and which the plan document commits as `search/discussion-<n>.txt` on
+  the full path, its "What is already decided" giving the outcome of each verdict that changed
   something, per `design@agent-skills@search-record-kept-per-occasion`;
 - at the design audit, `fit-lines.md`, which the audit's commit message carries and the audit's
-  commit copies as `search/design-audit.txt`, per `design@agent-skills@design-audit-checks-fit`;
+  commit copies as `search/design-audit-<n>.txt`, per `design@agent-skills@design-audit-checks-fit`;
 - at an intake, `generated-lines.md`, which the session reads; a line `against: -` names no cluster
   and no finding, so no analysis carries it.
 
@@ -356,9 +356,9 @@ session misjudges has a reader at the plan document's review and at the merge, p
 Where the occasion's record goes:
 
 - at the design grounding on the full path, the plan document commits `generated-lines.md` as its
-  `search/discussion.txt`, the line of each entry given a verdict other than `unrelated`, and its
+  `search/discussion-<n>.txt`, the line of each entry given a verdict other than `unrelated`, and its
   "What is already decided" gives each verdict whose outcome changed the design, a thread or the
-  work, with that outcome, and links `search/discussion.txt` for the others;
+  work, with that outcome, and links that file for the others;
 - on the in-change path and for bounded work, the commit message carries the lines of
   `generated-lines.md`;
 - at a design audit, the record `design@agent-skills@design-audit-checks-fit` gives, `fit-lines.md`;
@@ -368,7 +368,7 @@ Where the occasion's record goes:
 How a plan document commits the lines is `design@agent-skills@plan-commits-the-generated-lines`.
 
 The lines are what the occasion's later readers read. The design-conformance reviewer reads, at a
-plan document's review and at the merge, the lines of `search/discussion.txt` or of the commit
+plan document's review and at the merge, the lines of its `search/discussion-<n>.txt` files or of the commit
 message, and runs `show` on each line whose verdict is not `constrains` or `unrelated`, since the
 verdict files sit in a scratch space that may be gone by then, per
 `design@agent-skills@verdicts-reach-the-conformance-review`; and the searcher's judgement that the
@@ -381,10 +381,18 @@ of the lines, while the outcome the occasion records carries every reason that c
 ### A plan document commits, of a record search's output, the generated lines alone, as a `.txt` file `##plan-commits-the-generated-lines`
 
 Of what `klarch worklist` writes, a plan document commits the generated lines alone, each as a `.txt`
-file of its `search/` named by its occasion, `discussion.txt` or `design-audit.txt`, per
+file of its `search/` named by its occasion and numbered, per
 `design@agent-skills@search-record-kept-per-occasion` and
 `design@agent-skills@design-audit-checks-fit`, which the walk never parses, per
-`design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. The verdict files, `shown.md`,
+`design@model@a-harvested-slice-is-frozen`, so they never break as the record changes. A design
+discussion's search is `discussion-<n>.txt`, its number the discussion's, the one its transcript
+takes, per `design@agent-skills@committed-transcript`, so a reader finds a discussion's search and
+its transcript by one number; a second search inside one discussion, for a thread opened after the
+first, per `design@agent-skills@search-runs-once-the-shapes-settle`, appends its generated lines to
+that discussion's file after a header line. A design audit's is `design-audit-<n>.txt`, numbered
+from 1 per audit. A second discussion or audit then adds a file beside the first rather than
+writing over it. The rival, numbering every search on its own, would break the shared number of a
+discussion's search and its transcript. The verdict files, `shown.md`,
 `gaps.md`, the agent directories and the searchers' working files stay in the session's scratch
 space, per `design@agent-skills@agents-write-in-scratch`: the searchers' reasons are not kept, since
 a reason that changed something is carried by the outcome the plan document records, and a report's
@@ -593,7 +601,8 @@ the work again. The search's check writes `gaps.md`, every verdict other than `c
 A `constrains` verdict is a fit, which the audit records and does not read again; every other verdict
 but `unrelated` is a gap, which the session reads in `gaps.md` and sorts into the planning skill's
 sorts, applying in place the gaps the spec's decisions already answer; `fit-lines.md` is the audit's
-record, in its commit message, and copied in the same commit as `search/design-audit.txt` beside the
+record, in its commit message, and copied in the same commit as `search/design-audit-<n>.txt`, `<n>`
+the audit's number, beside the
 audited `README.md`, so the record of the audit stays in the plan document while it exists. The
 audit also runs `agent@knowledge-architect-code-split-scout` with the slice's or the spec's
 `README.md` as its work, and reads the notices of the search's own `klarch worklist` run as the
