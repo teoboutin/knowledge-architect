@@ -51,6 +51,8 @@ pub enum Distiller {
     /// The output without cargo's build-progress lines, such as a linter's.
     WithoutProgress,
     /// libtest's output reduced to each failing binary's failures block, and cargo's rerun hint.
+    /// An output with no failures block, such as a compile failure, passes through whole, minus
+    /// cargo's progress lines, as [`Distiller::WithoutProgress`] shows it.
     Tests,
     /// An ancestry check that answers by its exit code alone: a silent failure is shown as the
     /// hint that HEAD does not contain `base`.
