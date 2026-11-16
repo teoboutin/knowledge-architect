@@ -2332,7 +2332,8 @@ mod tests {
 
     /// The claim: the repair of a missing target names the repair and no cause, and a suffixed
     /// cause's repair ends with the sentence on the suffix. Each text is told by a fragment only it
-    /// holds and by the values it carries, never by its words whole: the statement names the span
+    /// holds and by the values it carries, never by its words whole, per
+    /// `design@model@cause-words-unpinned`: the statement names the span
     /// and the target, the repair opens with the repair, and the cause the missing target's repair
     /// once named, that a path which does not resolve is a guess, is absent. A suffixed cause keeps
     /// the statement of the cause it wraps, and its repair is the wrapped repair followed by the

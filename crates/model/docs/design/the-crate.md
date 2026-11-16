@@ -30,6 +30,23 @@ A cause's two texts, what is wrong and what repairs it, per `design@check@findin
 `design@knowledge-architect@model-crate`. The nearest rival is
 `rejected@model@cause-words-in-the-lints`.
 
+### A test tells which text a cause's arm chooses by a fragment that text alone holds among its rivals, and pins no cause's words whole `##cause-words-unpinned`
+
+A test of a cause, in this crate or in a crate that prints a cause's texts, such as `check`, `query`
+or `testing`, asserts a fragment that the text the arm chooses holds and that the texts the rival
+arms would produce do not, and the values the text carries, the span, the anchor or a listed set,
+where its claim is about them. No test compares a text of `Cause::texts` whole. What a finding must
+do is name its repair, per `design@check@finding-names-the-repair`, and a fragment pins which repair
+an arm names: the arms that choose a text, such as `show` printing a cause's two texts in their
+order, or an undefined plan item taking the section repair rather than the home repair, each fail a
+fragment test when they choose the wrong text.
+
+The session chose the fragment test over a golden test of every cause's two texts, which no goal
+ranks; the owner approved it. The golden test also fails on a rewording that drops a repair's
+meaning while keeping the fragment, which a fragment test lets through, and it costs a test edit at
+every rewording of any of the causes. The rival of testing no text loses: the arms above give a
+reader a wrong repair, and no other test reads them.
+
 ### What a tool reads of the working tree for phases 1 to 3 and the resolver is gathered in `model`, the ignore batch included `##tree-inputs-gathered-here`
 
 `Gathered` reads it from the working tree: one survey and the two git batches. The
