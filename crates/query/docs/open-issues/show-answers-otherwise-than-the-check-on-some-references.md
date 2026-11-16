@@ -15,6 +15,7 @@ kind: defect
 - `section_text` takes a heading only from `## ` and `# ` at the line's start, and opens a fence on any line starting with three backticks. So `show instructions@<id>` runs past a heading indented by one space, or written `##` and a tab, both of which the model defines, and past the end of the file after a paragraph that opens with an inline span of three backticks.
 - `issues` prints `-` for a new file in a repository with history, where `last_changed` covers the issue directories and they hold no commit, against its comment that `-` means no history to ask.
 - `show path@<anchor>@.` answers, where the check refuses that form, unlike the `planned` and `register` branches.
+- `show register@<anchor>@<register>` exits 0 and prints `(the tree holds neither shape)` for a home the tree holds in neither shape, where `anchors` prints `missing` and exits 1.
 - A mutation that removes `kind.is_named() && anchor.is_empty()` in `show`, which stops `show skill@x` at its first heading, survives every test, and so does one that swaps the `-` and `uncommitted` of `issues`, and one that removes the filter of `issues`' `last_changed` directories to the issue register, whose only effect is that same `-` read as `uncommitted`.
 
 ### Why it matters

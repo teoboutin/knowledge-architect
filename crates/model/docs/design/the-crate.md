@@ -30,22 +30,31 @@ A cause's two texts, what is wrong and what repairs it, per `design@check@findin
 `design@knowledge-architect@model-crate`. The nearest rival is
 `rejected@model@cause-words-in-the-lints`.
 
-### A test tells which text a cause's arm chooses by a fragment that text alone holds among its rivals, and pins no cause's words whole `##cause-words-unpinned`
+### A test tells a cause's text by a fragment, and compares the text whole only where its claim is that the text holds nothing of a kind `##cause-words-unpinned`
 
-A test of a cause, in this crate or in a crate that prints a cause's texts, such as `check`, `query`
-or `testing`, asserts a fragment that the text the arm chooses holds and that the texts the rival
-arms would produce do not, and the values the text carries, the span, the anchor or a listed set,
-where its claim is about them. No test compares a text of `Cause::texts` whole. What a finding must
-do is name its repair, per `design@check@finding-names-the-repair`, and a fragment pins which repair
-an arm names: the arms that choose a text, such as `show` printing a cause's two texts in their
-order, or an undefined plan item taking the section repair rather than the home repair, each fail a
-fragment test when they choose the wrong text.
+A test that reads the texts of `Cause::texts`, beside
+`issue@model@a-rust-item-named-in-prose-has-no-checked-form`, in this crate or in a crate that
+prints them, such as `check`, `query` or `testing`, asserts a fragment that the text the arm chooses
+holds and that the texts the rival arms would produce do not, and the values the text carries, the
+span, the anchor or a listed set, where its claim is about them. Such a fragment fails when an arm
+chooses the wrong text, as `show` printing a cause's two texts out of their order does. Which cause
+an arm returns is told by the `Cause` value, not by its text.
 
-The session chose the fragment test over a golden test of every cause's two texts, which no goal
-ranks; the owner approved it. The golden test also fails on a rewording that drops a repair's
-meaning while keeping the fragment, which a fragment test lets through, and it costs a test edit at
-every rewording of any of the causes. The rival of testing no text loses: the arms above give a
-reader a wrong repair, and no other test reads them.
+A test whose claim is that a text holds nothing of a kind, in any words, compares the text whole,
+and its comment names the head that constrains the text, such as a repair that names no cause, per
+`design@check@finding-names-the-repair`, one that offers no unchecked form, per
+`design@agent-skills@plain-text-is-no-repair`, or one that names the path form and nothing else, per
+`design@model@planned-path-form`. A fragment test passes on a text that keeps its
+fragment and adds what the claim excludes, and only a whole comparison fails on every such wording.
+
+Both serve `goal@documentation-has-a-structure-and-a-model`, which asks that a tool say what is
+wrong where it is not: a finding's reader acts on the text an arm chooses. The rival of testing no
+text loses on it, since an arm that chooses the wrong text then fails no test. Beyond the claims of
+absence, the session chose the fragment test over a golden test of every cause's two texts, which
+no goal ranks; the owner approved it. The golden test also fails on a rewording that drops a
+repair's meaning while keeping the fragment, and costs a test edit at every rewording of any of the
+causes. A ruling that a command's printed words are a contract, the question of
+`issue@knowledge-architect@command-output-is-not-declared-a-contract`, reopens that choice.
 
 ### What a tool reads of the working tree for phases 1 to 3 and the resolver is gathered in `model`, the ignore batch included `##tree-inputs-gathered-here`
 
