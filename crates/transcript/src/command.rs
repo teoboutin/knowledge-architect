@@ -716,7 +716,9 @@ mod tests {
 
     /// The claim: [`ROLES`] holds exactly the roles [`Label::role`] gives, so `--role` refuses no
     /// role a line carries and takes none that no line carries. The `match` names every variant,
-    /// so a label added to the reader fails to compile here until it is listed. Mutation checked:
+    /// so a label added to the reader fails to compile here until the `match` names it, beside the
+    /// list `every` it must join: nothing checks that `every` holds it.
+    /// Mutation checked:
     /// `"dispatch",` in `ROLES` made `"dispatchx",`; caught.
     #[test]
     fn the_roles_are_those_the_labels_carry() {
