@@ -259,7 +259,9 @@ there is found by a reader, not by a gate. Met by `thread@doc-gate-and-lints@doc
 
 ### A project writes no gate logic beyond its list, and the recommended list runs in cost order `##no-gate-logic-beyond-the-list`
 
-Binding, from `design@gates@a-project-holds-its-gate-list`. Met by
+Binding, from `design@gates@a-project-holds-its-gate-list` for the gate logic, and from
+`design@gates@recommended-gate-list` and `design@gates@gates-run-all` for the cost order, since
+step 3 split the first head. Met by
 `thread@doc-gate-and-lints@doc-gate-home`: the gate is a member of the list, built by the library;
 the one measurement of cost cannot rank `doc` against `clippy`, so the order between them is decided
 by another reason, given in "Decided design, doc gate home".
