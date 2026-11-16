@@ -1095,16 +1095,35 @@ mod tests {
         );
     }
 
-    /// The claim: a project reached through a symlink is read where the symlink resolves, so a
-    /// mock reached through a link into `check`'s directory is a fixture.
+    /// The claim: a project, `check`'s directory and a checker directory reached through a
+    /// symlink are each read where the symlink resolves, so a mock reached through a link into
+    /// `check`'s directory is a fixture, a mock under a library reached through a link is one, and
+    /// a tree or `check`'s directory reached through a link is still its own build. Mutations
+    /// checked: in `is_a_library_fixture`, `.map(canonical)` made `.map(Path::to_path_buf)`; and in
+    /// `is_its_own_build`, `canonical(own)` made `own.to_path_buf()`, and `canonical(root)` made
+    /// `root.to_path_buf()`; each caught.
     #[test]
     fn the_sentinels_read_paths_as_they_resolve() {
         let scratch = Scratch::new("symlink");
+        let tree = scratch.dir("tree");
         let own = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
         let link = scratch.0.join("link-to-mock");
         std::os::unix::fs::symlink(&mock, &link).expect("a symlink");
         assert!(is_a_library_fixture(&link, &own, &[]));
+        let own_link = scratch.0.join("link-to-check");
+        std::os::unix::fs::symlink(&own, &own_link).expect("a symlink");
+        let registry = scratch.dir("registry/knowledge-architect-0.2.0");
+        assert!(is_a_library_fixture(&mock, &own_link, &[]));
+        assert!(is_a_library_fixture(
+            &mock,
+            &registry,
+            &[own_link.as_path()]
+        ));
+        let tree_link = scratch.0.join("link-to-tree");
+        std::os::unix::fs::symlink(&tree, &tree_link).expect("a symlink");
+        assert!(is_its_own_build(&tree, &own_link, &always));
+        assert!(is_its_own_build(&tree_link, &own, &always));
     }
 
     /// The claim: a pin equal to the binary's version passes; a version older or newer than the

@@ -224,6 +224,28 @@ mod tests {
         );
     }
 
+    /// The claim: the trailing run as long as the compiled directory's whole path is tried too, so
+    /// a tree holding the crate at that whole path under its root holds a copy. Mutation checked:
+    /// in `foreign_copy`, `for start in (0..parts.len()).rev()` made
+    /// `for start in (1..parts.len()).rev()`, which finds no copy; caught.
+    #[test]
+    fn a_copy_at_the_compiled_directory_s_whole_path_under_the_root_is_found() {
+        let scratch = Scratch::new("whole-path");
+        let built = scratch.crate_at("one/lib", "a-tool");
+        let whole: PathBuf = built
+            .canonicalize()
+            .expect("the compiled directory")
+            .components()
+            .filter(|c| matches!(c, Component::Normal(_)))
+            .collect();
+        let copy = scratch.crate_at(&format!("mirror/{}", whole.display()), "a-tool");
+        let found = foreign_copy(&scratch.0.join("mirror"), &[library(built)]);
+        assert_eq!(
+            found.map(|(_, dir)| dir.canonicalize().expect("the copy")),
+            Some(copy.canonicalize().expect("the copy"))
+        );
+    }
+
     #[test]
     fn a_crate_compiled_through_a_symlink_is_not_a_copy_of_itself() {
         // `cargo build --manifest-path` through a symlinked path compiles that path in.
