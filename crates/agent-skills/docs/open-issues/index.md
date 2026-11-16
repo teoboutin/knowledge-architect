@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-76 entries
+77 entries
 
 | kind | title |
 | --- | --- |
@@ -36,6 +36,7 @@
 | design | [No design head argues where the rule against structure the work does not need applies, nor the repair of an instruction for a case judgement handles](no-head-argues-where-the-rule-against-unneeded-structure-applies.md) |
 | design | [No review compares the readings that several design heads take of one goal](no-review-compares-the-readings-heads-take-of-one-goal.md) |
 | design | [Pointers written as bare plain text to clear a finding reach no check, and the rule against them is reopened](pointers-written-bare-to-clear-a-finding-reach-no-check.md) |
+| design | [Sessions misread which course a design discussion takes: bounded work, the in-change path or the full path, and when a spec merges](sessions-misread-which-course-a-design-discussion-takes.md) |
 | design | [The claim check of a commit message is read at the session's start and needed at each commit](the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit.md) |
 | design | [The first test for a losing alternative admits every rival of a head that earned its place as an interface](the-first-test-for-a-losing-alternative-admits-every-rival-of-an-interface-head.md) |
 | design | [A retrospective intake handles many unrelated findings at once, so its grounding may still load one session beyond one reading](the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session.md) |
