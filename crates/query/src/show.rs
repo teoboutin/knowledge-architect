@@ -134,7 +134,11 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
             .registers()
             .by_name(id)
             .expect("the check resolved the register");
-        let listed = |p: &Path| model.listing().iter().any(|l| l == p || l.starts_with(p));
+        // The listing names files, so a file home is held where the listing names its path, and a
+        // directory home where a listed file sits under it: a file at the directory's path, or a
+        // directory at the file's, holds neither shape, as `anchors` and `check` read a home.
+        let listed = |p: &Path| model.listing().iter().any(|l| l == p);
+        let holds_dir = |p: &Path| model.listing().iter().any(|l| l.starts_with(p) && l != p);
         let homes: Vec<&crate::model::table::Anchor> = anchors
             .all()
             .iter()
@@ -154,7 +158,7 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
             let held = if register.shape == crate::model::declared::Shape::Heading && listed(&file)
             {
                 file.display().to_string()
-            } else if listed(&home.dir) {
+            } else if holds_dir(&home.dir) {
                 format!("{}/", home.dir.display())
             } else {
                 "(the tree holds neither shape)".to_string()

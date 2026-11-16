@@ -1484,6 +1484,31 @@ fn show_of_a_register_reference_prints_the_home_the_tree_holds() {
     );
 }
 
+/// The claim, per `design@model@register-home-reference`: `show` prints only a home the tree
+/// holds in one of its two shapes, as `anchors` and `check` read it, so a file at the path of a
+/// heading home's directory, and a directory at the path of its file, hold neither shape.
+/// Mutations checked, in `show` of `path@query@src/show.rs`: `.any(|l| l == p)` of `listed` made
+/// `.any(|l| l == p || l.starts_with(p))`, which prints `docs/tripwires.md` for the directory
+/// planted there; and `l.starts_with(p) && l != p` of `holds_dir` made `l.starts_with(p)`, which
+/// prints `docs/tripwires/` for the file planted there; each caught.
+#[test]
+fn show_of_a_register_reference_takes_no_path_of_the_other_shape_for_the_home() {
+    let sandbox = Sandbox::new("show-register-other-shape", "dirhome");
+    std::fs::remove_file(sandbox.path("docs/tripwires.md")).expect("the tripwire home is there");
+    sandbox.write("docs/tripwires", "not the tripwire home\n");
+    sandbox.write(
+        "docs/tripwires.md/inside.txt",
+        "not the tripwire home either\n",
+    );
+    sandbox.stage();
+    let (out, stderr, code) = sandbox.run(&["show", "register@dirhome@tripwire"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.contains("dirhome: (the tree holds neither shape)"),
+        "{out}"
+    );
+}
+
 /// The claim, per `design@model@planned-path-form`: `show` on a planned reference resolves whether
 /// or not the target exists, says which, and lists the plans that cite it, which are the sites a
 /// conversion edits; one the check refuses resolves to nothing with the check's finding, its
@@ -10809,16 +10834,18 @@ fn install_agent_skills_refuses_a_manifest_holding_a_refused_declaration() {
 }
 
 /// The claim: a file at the path of a home's other shape is no home: a file beside a file
-/// register's directory, named as a heading home's file would be, and a file at a heading
-/// register's directory path. Mutations checked, in `anchors` of `path@query@src/anchors.rs`:
-/// `if register.shape == Shape::Heading && listed(&home.file) {` made
+/// register's directory, or beside a plan register's, named as a heading home's file would be,
+/// and a file at a heading register's directory path. Mutations checked, in `anchors` of
+/// `path@query@src/anchors.rs`: `if register.shape == Shape::Heading && listed(&home.file) {` made
 /// `if listed(&home.file) {`, which prints `docs/open-issues.md` as the issue register's home;
-/// and `l.starts_with(p) && l != p` made `l.starts_with(p)`, which prints `docs/tripwires/` as the
-/// tripwire register's; each caught.
+/// the same line made `if register.shape != Shape::File && listed(&home.file) {`, which prints
+/// `docs/plans/milestones.md` as the milestone register's; and `l.starts_with(p) && l != p` made
+/// `l.starts_with(p)`, which prints `docs/tripwires/` as the tripwire register's; each caught.
 #[test]
 fn anchors_takes_no_file_at_a_home_s_other_path_for_the_home() {
     let sandbox = Sandbox::new("anchors-other-shape", "dirhome");
     sandbox.write("docs/open-issues.md", "# Not the issue home\n");
+    sandbox.write("docs/plans/milestones.md", "# Not the milestone home\n");
     sandbox.write("docs/tripwires", "not the tripwire home\n");
     sandbox.stage();
     let (out, stderr, code) = sandbox.run(&["anchors"]);
@@ -10826,6 +10853,12 @@ fn anchors_takes_no_file_at_a_home_s_other_path_for_the_home() {
     assert!(
         out.lines()
             .any(|l| l.split_whitespace().eq(["issue", "docs/open-issues/"])),
+        "{out}"
+    );
+    assert!(
+        out.lines().any(|l| l
+            .split_whitespace()
+            .eq(["milestone", "docs/plans/milestones/"])),
         "{out}"
     );
     assert!(
@@ -10900,11 +10933,14 @@ fn tripwires_filters_by_anchor_and_text_and_takes_a_reference_in_backticks() {
 /// The claim: `show` takes a reference in backticks, as one is written in a document; a path
 /// reference naming no anchor is a negative answer, exit 1, naming the anchors; and the citations
 /// of a Component's home of a register, named and through `*`, are listed in the order of their
-/// sites. Mutations checked, in `path@query@src/show.rs`: in `show`,
+/// sites, by file then by line. Mutations checked, in `path@query@src/show.rs`: in `show`,
 /// `let reference = reference.trim_matches('`');` made `let reference: &str = reference;`, which
 /// refuses the reference as not one; the `no anchor is named` arm's `ExitCode::FAILURE` made
-/// `ExitCode::SUCCESS`; and in `cited_at`, the `sort_by` of the sites removed, which lists the named
-/// citation before the one through `*` above it; each caught.
+/// `ExitCode::SUCCESS`; in `cited_at`, the `sort_by` of the sites removed, which lists the named
+/// citation before the one through `*` above it; and
+/// `sites.sort_by(|a, b| (&a.file, a.line).cmp(&(&b.file, b.line)));` made
+/// `sites.sort_by(|a, b| a.line.cmp(&b.line));`, which lists `docs/rejected.md:3` before
+/// `README.md:6`; each caught.
 #[test]
 fn show_takes_backticks_answers_no_anchor_with_one_and_orders_its_citations() {
     let sandbox = Sandbox::new("show-forms", "dirhome");
@@ -10913,14 +10949,22 @@ fn show_takes_backticks_answers_no_anchor_with_one_and_orders_its_citations() {
         "# Rejected alternatives\n\nEvery component's tripwires sit in `register@*@tripwire`.\n\n\
          This one's sit in `register@dirhome@tripwire`.\n",
     );
+    // A later line in a file whose path sorts first: the order is by file before line.
+    let readme = std::fs::read_to_string(sandbox.path("README.md")).expect("the README");
+    assert_eq!(readme.lines().count(), 4, "{readme}");
+    sandbox.write(
+        "README.md",
+        &format!("{readme}\nIts tripwires sit in `register@dirhome@tripwire`.\n"),
+    );
     sandbox.stage();
     let (out, err, code) = sandbox.run(&["show", "`register@dirhome@tripwire`"]);
     assert_eq!(code, 0, "{out}{err}");
+    let first = out.find("README.md:6").expect("the README's citation");
     let star = out
         .find("docs/rejected.md:3")
         .expect("the citation through `*`");
     let named = out.find("docs/rejected.md:5").expect("the named citation");
-    assert!(star < named, "{out}");
+    assert!(first < star && star < named, "{out}");
 
     let (out, err, code) = sandbox.run(&["show", "path@no-such-anchor@README.md"]);
     assert_eq!(code, 1, "{out}{err}");
