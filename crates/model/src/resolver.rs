@@ -2331,13 +2331,13 @@ mod tests {
     }
 
     /// The claim: the repair of a missing target names the repair and no cause, and a suffixed
-    /// cause's repair ends with the sentence on the suffix. Each text is told by a fragment only it
-    /// holds and by the values it carries, never by its words whole, per
-    /// `design@model@cause-words-unpinned`: the statement names the span
-    /// and the target, the repair opens with the repair, and the cause the missing target's repair
-    /// once named, that a path which does not resolve is a guess, is absent. A suffixed cause keeps
-    /// the statement of the cause it wraps, and its repair is the wrapped repair followed by the
-    /// sentence on the suffix.
+    /// cause's repair ends with the sentence on the suffix. That the repair names no cause is a
+    /// claim that the text holds nothing of a kind, in any words, per
+    /// `design@check@finding-names-the-repair`, so the repair is compared whole, as
+    /// `design@model@cause-words-unpinned` says of such a claim: a fragment test passes on a
+    /// repair that keeps its fragment and adds a cause. The statement is told by the values it
+    /// carries, the span and the target. A suffixed cause keeps the statement of the cause it
+    /// wraps, and its repair is the wrapped repair followed by the sentence on the suffix.
     #[test]
     fn the_texts_of_a_missing_target_and_a_suffixed_cause() {
         let missing = Cause::Missing {
@@ -2346,8 +2346,7 @@ mod tests {
         let (what, action) = missing.texts("x");
         assert!(what.starts_with("`x` "), "{what}");
         assert!(what.contains("`crates/one/z.rs`"), "{what}");
-        assert!(action.starts_with("repair the pointer"), "{action}");
-        assert!(!action.contains("guess"), "{action}");
+        assert_eq!(action, "repair the pointer, or delete it");
         let (suffixed_what, suffixed_action) = Cause::Suffixed(Box::new(missing)).texts("x");
         assert_eq!(suffixed_what, what);
         assert_eq!(suffixed_action, format!("{action}. {DROP_THE_SUFFIX}"));
@@ -2372,10 +2371,32 @@ mod tests {
         }
     }
 
+    /// The claim: a fragment is the shape of a heading anchor or of a Rust item, letters, digits,
+    /// hyphens and underscores, and is stripped whatever it opens on; a hash sign followed by any
+    /// other character is no fragment, and the path is left as written. Mutation checked: in
+    /// `without_suffix`, the inner `fragment`, `|| c == '_'` dropped from the accepted characters.
+    #[test]
+    fn a_fragment_of_letters_digits_hyphens_and_underscores_is_stripped() {
+        for (written, bare) in [
+            ("src/lib.rs#a_b", "src/lib.rs"),
+            ("docs/design.md#1-intro", "docs/design.md"),
+            ("docs/design.md#a.b", "docs/design.md#a.b"),
+            ("docs/design.md#", "docs/design.md#"),
+        ] {
+            assert_eq!(
+                without_suffix(written),
+                (bare, written != bare),
+                "{written}"
+            );
+        }
+    }
+
     /// The claim: an escaped path with a leading `/` is read from the root alone, so a path that
-    /// only an anchor's directory holds resolves to nothing here; written with no slash, the same
-    /// path is read from that anchor and is refused. Mutation checked: in `resolved_here`,
-    /// `if !bare.starts_with('/')` made `if true`.
+    /// only an anchor's directory holds resolves to nothing here, and one the root holds is
+    /// refused; written with no slash, the path an anchor's directory holds is read from that
+    /// anchor and is refused. Mutations checked: in `resolved_here`, `if !bare.starts_with('/')`
+    /// made `if true`; and `bases.push(Path::new(""));` removed, which reads a leading `/` from no
+    /// base and accepts a path the root holds.
     #[test]
     fn an_escaped_path_with_a_leading_slash_is_read_from_the_root_alone() {
         let files = ["crates/one/src/a.rs"];
@@ -2383,6 +2404,18 @@ mod tests {
         assert_eq!(
             path_over("elsewhere", "/src/a.rs", &files, &directories, &[]),
             Ok(Target::Elsewhere)
+        );
+        assert_eq!(
+            path_over(
+                "elsewhere",
+                "/crates/one/src/a.rs",
+                &files,
+                &directories,
+                &[]
+            ),
+            Err(Cause::ResolvesHere {
+                form: "path@one@src/a.rs".to_string()
+            })
         );
         assert_eq!(
             path_over("elsewhere", "src/a.rs", &files, &directories, &[]),
