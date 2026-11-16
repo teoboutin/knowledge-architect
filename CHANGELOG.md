@@ -46,9 +46,9 @@ an empty subsection is omitted.
   after the pin move as `skill@knowledge-architect-setup@moving-the-pin` says.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
   `test`, which runs `cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D`
-  and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation of public
-  items fails it, a link that names nothing among them. A project whose public documentation gives
-  a rustdoc warning fails the gate once its pin moves, and fixes the warning or drops the gate from
+  and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation it builds fails
+  it, a link that names nothing among them: a library's public items, and a binary's private items,
+  which cargo documents by default. A project whose documentation gives a rustdoc warning there fails the gate once its pin moves, and fixes the warning or drops the gate from
   its own list. Cargo reads that variable first of its sources of rustdoc flags and, while it is
   set, ignores a `RUSTDOCFLAGS` the caller exported and a `build.rustdocflags` the project
   configured, so neither reaches rustdoc in that gate: a project whose documentation needs a rustdoc

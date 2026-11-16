@@ -126,14 +126,17 @@ The costs accepted:
   fails both `clippy` and `doc`. `-A missing_docs` in the gate would avoid the second report, and
   is gate logic only for that.
 
-### The `doc` gate leaves out `--document-private-items`, so it documents a library's public items alone, the text docs.rs renders `##doc-gate-item-scope`
+### The `doc` gate leaves out `--document-private-items` and `--lib`, so it documents a library's public items, the text docs.rs renders, and a binary's private items `##doc-gate-item-scope`
 
 The doc gate runs without `--document-private-items`, so a broken link in the documentation of a
 library's private item passes it. Cargo enables the flag by default for a binary target it
 documents, as the reference of `cargo doc` says of the flag, so a broken link in the documentation
 of such a binary's private item fails the gate; the same reference's Target Selection skips a
 binary named as its package's library, one with `doc = false`, and one missing its required
-features. Two scopes were weighed for a library: public items alone, the text docs.rs renders, which a consumer of the crate reads; and
+features. For a binary, two scopes were weighed: its private items, as cargo documents them
+by default, since rust-analyzer resolves a private doc comment's links on hover; and `--lib`, which
+leaves binaries out, the text docs.rs renders being a library's. The session chose the binaries'
+private items over `--lib`, which no goal ranks; the owner approved it. For a library, two scopes were weighed: public items alone, the text docs.rs renders, which a consumer of the crate reads; and
 private items too, since rust-analyzer resolves the links of a private doc comment on hover, so a
 broken one misleads a developer the same way, at the cost, at each adopting project's pin move, of
 whatever warnings its private documentation gives. The session chose public items alone over
