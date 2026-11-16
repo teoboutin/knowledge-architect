@@ -63,7 +63,7 @@ On the full path, the design-conformance reviewer reads the verdict files of the
 search, in the directory its brief names, beside the goals, design and rejected homes, per
 `design@agent-skills@plan-read-against-the-record`, and reports a verdict the plan document leaves
 unanswered. Since the verdict files sit in a scratch space that may be gone by the review, it also
-reads a plan document's committed `search/discussion.txt`, the search's generated lines, per
+reads a plan document's committed `search/discussion-<n>.txt` files, the searches' generated lines, per
 `design@agent-skills@plan-commits-the-generated-lines`, and runs `show` on each entry a line gives a
 verdict other than `constrains` and `unrelated`, reporting such a verdict the work answers by a
 change that the document's "What is already decided" does not record with that outcome. On the in-change path and for bounded work, the commit message carries the generated

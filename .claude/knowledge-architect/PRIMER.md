@@ -439,7 +439,7 @@ whose act does not apply it whole.
 | directions about what to find where in a directory | a `README.md` in that directory | the directory's content changes |
 | what a caller must respect to use a type or a function | that item's doc comment | its contract changes |
 | why a piece of code is shaped the way it is, and where that holds | an inline comment at that code | that code changes |
-| work that is designed and not built: a spec or a milestone, with the deliberation, the record search's generated lines and the transcript of the discussion that produced it | the plans directory, docs/plans/ at the project's root: a spec's directory in docs/plans/specs/, a milestone's in docs/plans/milestones/, as `skill@knowledge-architect-planning@plans-layout` says | the work lands; a slice's spec, when its slice lands, moves under its milestone's `harvested/`, and leaves with the milestone |
+| work that is designed and not built: a spec or a milestone, with the deliberation, the record searches' generated lines and the transcripts of the design discussions that produced it | the plans directory, docs/plans/ at the project's root: a spec's directory in docs/plans/specs/, a milestone's in docs/plans/milestones/, as `skill@knowledge-architect-planning@plans-layout` says | the work lands; a slice's spec, when its slice lands, moves under its milestone's `harvested/`, and leaves with the milestone |
 | the evidence of one pass of a project audit, and the owner's ruling on each of its items | one file per pass in docs/audit-reports/ at the project's root, as `skill@knowledge-architect-project-audit@record-of-an-audit` says | the commit that carries out its last outcome, or a later commit of the same branch, deletes it |
 | the record of a goal-setting batch of more than three goals, a review of the whole goal set included, and the owner's answers in it | one file per batch in docs/goal-reviews/ at the project's root, as `skill@knowledge-architect-goal-setting@drawing-out-intent` and `skill@knowledge-architect-goal-setting@whole-set-review` say | the commit that writes the goals the owner ruled last, or a later commit of the same branch, deletes it |
 | the analysis of a retrospective's project file, the outcome of each of its findings, and the owner's ruling on each one the owner holds | one file per analysed file in docs/retrospective-reports/ at the project's root, as `skill@knowledge-architect-retrospective-intake@analysis-and-ruling` says | the commit that carries out its last outcome, or a later commit of the same branch, deletes it |
@@ -634,8 +634,8 @@ intent that states a purpose, a scope or a ranking is a goal to draft.
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
 commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words
-verbatim. The verbatim words stay in a plan document's committed transcript, and in a committed
-file that leaves once its outcomes are carried out. An issue entry holds them only where the owner
+verbatim. The verbatim words of a design discussion stay in its plan document's committed
+transcripts, and in a committed file that leaves once its outcomes are carried out. An issue entry holds them only where the owner
 asks it to keep them, marked as quoted on the owner's request, as input to a later discussion and
 never as the ground of a ruling; the rest of the entry attributes. An attribution keeps the scope
 and the hedges of the owner's words, and is checked, like a quotation, against the question it

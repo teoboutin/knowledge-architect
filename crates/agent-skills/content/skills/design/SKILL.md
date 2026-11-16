@@ -771,8 +771,8 @@ choices whose option space genuinely is closed and consequence-free.
 The plan document is the full account of the
 discussion, assembled from its transcript: every thread with its proposer
 and final state, the arguments on each side as items, the owner's
-rulings attributed with their round, the verbatim words in its
-committed transcript, the losing alternatives with their reasons, and the
+rulings attributed with their round, the verbatim words of its design
+discussions in its committed transcripts, the losing alternatives with their reasons, and the
 causes the premortem named, each with its outcome once the work has judged it.
 The decision record is the durable harvest of that account, written when
 the work that implements each decision lands, under

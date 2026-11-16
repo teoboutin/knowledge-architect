@@ -39,7 +39,7 @@ reads, and it re-enters at each slice's audit and at each landing.
 | **frozen** | no commit modifies the file |
 | **item** | a thread, an argument, a criterion or an acceptance criterion, defined in a plan document as a level-three heading ending with its slug, under the section of its kind (`skill@knowledge-architect-planning@spec-contents`) |
 | **roadmap** | docs/roadmap.md at the project's root, optional: the order in which the owner wants known work done (`skill@knowledge-architect-planning@spec-or-milestone`) |
-| **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction. A plan document's committed copy of it is its `transcript.txt` |
+| **transcript** | the harness's log of a session, on disk. It keeps the records from before a compaction. A plan document's committed copy of a design discussion's sessions is a file of its `transcripts/` |
 | **assembly** | writing a plan document from the discussion's transcript (`skill@knowledge-architect-planning@spec-contents`) |
 | **converged** | convergence holds, as loop step 6 of `skill@knowledge-architect-design@discussion-loop` defines it |
 | **thread** | one open question or proposal of a design discussion, the unit that carries a state, as `skill@knowledge-architect-design@discussion-overview` defines it; a thread closed `approved` or `argued` is a decision |
@@ -127,7 +127,7 @@ docs/plans/
 │     ├─ README.md         the document the searches read
 │     ├─ deliberation.md   its Threads and Arguments
 │     ├─ search/           the generated lines of its searches
-│     └─ transcript.txt    the discussion's trimmed transcript
+│     └─ transcripts/      the trimmed transcripts of its design discussions
 └─ milestones/
    ├─ README.md
    ├─ index.md             generated
@@ -136,7 +136,7 @@ docs/plans/
       ├─ index.md          generated: its slices, live and harvested
       ├─ deliberation.md
       ├─ search/
-      ├─ transcript.txt
+      ├─ transcripts/
       ├─ <slice>/          the spec of one live slice, laid out as a spec
       └─ harvested/
          └─ <slice>/       the spec of a landed slice, frozen
@@ -148,16 +148,19 @@ docs/plans/
 | --- | --- | --- |
 | `README.md` | the document the searches read: every section of `skill@knowledge-architect-planning@spec-contents` but Threads and Arguments | always |
 | `deliberation.md` | the sections Threads and Arguments, whose items record the argument of the discussion | where the document has a thread or an argument |
-| `search/discussion.txt` | the generated lines of the discussion's record search, as `skill@knowledge-architect-planning@spec-contents` says | where that search ran for this document |
-| `search/design-audit.txt` | the fit lines of its design audit, as `skill@knowledge-architect-planning@working-a-slice` says | where that audit ran |
-| `transcript.txt` | the trimmed transcript of the discussion, as `skill@knowledge-architect-planning@spec-contents` says | where the document was assembled from a transcript and the owner approved it |
+| `search/discussion-<n>.txt` | the generated lines of the record search of its n-th design discussion, as `skill@knowledge-architect-planning@spec-contents` says | where that search ran for this document |
+| `search/design-audit-<n>.txt` | the fit lines of its n-th design audit, as `skill@knowledge-architect-planning@working-a-slice` says | where that audit ran |
+| `transcripts/<n>.txt` | the trimmed transcript of its n-th design discussion, as `skill@knowledge-architect-planning@spec-contents` says | where that discussion reached a convergence checkpoint on the full path for this document |
+
+`<n>` is a number counted from 1, with no leading zero: a discussion's search file and its
+transcript take the same number, and the design audits are numbered apart.
 
 - The checker refuses any other file or directory in a plan document's directory; a milestone's
   directory admits besides its generated `index.md`, its slice directories and `harvested/`. A
   spec written as one file, `docs/plans/specs/<id>.md`, is a finding whose repair names the
   directory.
 - The checker reads `README.md` and `deliberation.md`. It never parses a `.txt` file, so a
-  reference, a slug or a commit SHA in `transcript.txt` or in `search/` is no citation and raises no
+  reference, a slug or a commit SHA in `transcripts/` or in `search/` is no citation and raises no
   finding.
 - **Every file under a milestone's `harvested/` is frozen, and out of the walk**: the checker reads
   it for the items it defines alone, so an item it defines still resolves from inside its
@@ -174,7 +177,7 @@ docs/plans/
   working tree, `cargo klarch index --staged` writes them into git's index from what is staged, and
   `cargo klarch check --staged` checks what the commit will record.
 - **A `README.md` reaches the files beside it by relative navigation links**, such as
-  `[deliberation](deliberation.md)` and `[the discussion's search](search/discussion.txt)`, and an
+  `[deliberation](deliberation.md)` and `[the discussion's search](search/discussion-1.txt)`, and an
   item of `deliberation.md` by its item reference. The milestone document links each live slice's
   spec as a navigation row, `[<slice title>](<slice>/README.md)`. The checker resolves a relative
   link only in a `README.md` or an `index.md`, to a target under its own directory, so a slice's
@@ -213,7 +216,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | How the work is done | in a milestone document: a pointer to `skill@knowledge-architect-planning@working-a-slice`, with an instruction to read it whole before each slice, and any addition the milestone's work needs. In a spec: one line naming this skill |
 | Names | every project shorthand the document uses, expanded to the file, function or command it names |
 | What the work is | what exists today at each site the work touches; what is outside the work and why, each exclusion naming the work or the decision that owns it |
-| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text the reversal will repair, as the repair bullet of `skill@knowledge-architect-decision-recording@reversal-check` finds them, those `cargo klarch show` lists as referencing it and those a grep of its wording returns (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; the heads its harvest will touch without reversing or rewriting them, as `skill@knowledge-architect-planning@cutting-steps-and-slices` lists them; and each entry the discussion's search gave a verdict whose outcome changed something, the design, a thread or the work, with that outcome, and a link to `search/discussion.txt` for the other verdicts |
+| What is already decided | the recorded decisions the design rests on and does not argue again, as references; and each recorded decision the work reverses or rewrites, with every text the reversal will repair, as the repair bullet of `skill@knowledge-architect-decision-recording@reversal-check` finds them, those `cargo klarch show` lists as referencing it and those a grep of its wording returns (a tripwire, an issue, a restatement in a `CLAUDE.md` or a skill, a README, a comment), and the step, slice or harvest that judges or updates each; the heads its harvest will touch without reversing or rewriting them, as `skill@knowledge-architect-planning@cutting-steps-and-slices` lists them; and each entry the discussion's search gave a verdict whose outcome changed something, the design, a thread or the work, with that outcome, and a link to each discussion's `search/discussion-<n>.txt` for the other verdicts |
 | Criteria | one item per criterion, ``### <criterion> `##<id>` ``: its kind, its source and its satisfaction |
 | Threads | in `deliberation.md`: one item per thread, ``### <resolution> `##<id>` ``: who proposed it and in which round, its final state, the arguments that moved it, the section that carries its shape, the durable home that will harvest it, and the owner's ruling that closed it, attributed, with its round, or, for a thread closed `argued`, the argument that closed it |
 | Arguments | in `deliberation.md`: one item per argument of the discussion, ``### <argument> `##arg-<n>` ``: its round, who gave it, the threads it bears on, and its key words, the session's verbatim and the owner's attributed |
@@ -314,26 +317,34 @@ transcript, assemble from the conversation, and say so, and why, in the commit t
 document.
 
 - **The owner's words are attributed in the items**, as `primer@design-heads` says of a durable
-  record, each citing its round; the verbatim words are in `transcript.txt`.
+  record, each citing its round; the verbatim words of a design discussion are in its transcript, a
+  file of `transcripts/`.
 - **The discussion's record search** leaves, of what `cargo klarch worklist` writes, only
   `generated-lines.md`, copied after `cargo klarch worklist --verify` passes, as
-  `search/discussion.txt` beside the `README.md` of the document whose draft the search read. Its
-  verdict files, `shown.md`, its agent directories, `agents.txt` and `work.txt` stay in the scratch
-  space: their quotations go stale as the record changes, and "What is already decided" carries the
-  outcome of every verdict that changed something.
-- **The transcript** is committed as `transcript.txt` beside the `README.md` of the milestone
-  document or the spec, for each session the discussion spans in order: the output of
+  `search/discussion-<n>.txt` beside the `README.md` of the document whose draft the search read,
+  `<n>` the number the discussion's transcript takes. A second search inside the same discussion,
+  for a thread opened after the first, appends its `generated-lines.md` to that file, after a line
+  naming that search. Its verdict files, `shown.md`, its agent directories, `agents.txt` and
+  `work.txt` stay in the scratch space: their quotations go stale as the record changes, and "What
+  is already decided" carries the outcome of every verdict that changed something.
+- **The transcript of each design discussion that reaches a convergence checkpoint on the full
+  path** is committed as `transcripts/<n>.txt` beside the `README.md` of the milestone document,
+  the spec or the slice it was held for, `<n>` the next number of that `transcripts/`, from 1: for
+  each session the discussion spans in order, the output of
   `cargo klarch transcript show <session> --from "<opening words>"`, without `--tools`, from the
-  message where the discussion begins to the owner's last message before the branch that adds the
-  plan document merges, so that the rulings given at its reviews are in it: it is committed after
-  the review before that merge.
+  message where the discussion begins to the owner's word on the last checkpoint table it showed,
+  the one `skill@knowledge-architect-design@threads-and-states` shows before the hand-off to
+  planning. It goes in the commit that adds or rewrites the plan document. The discussion that
+  produced the document is one; a later one that reaches a checkpoint, such as a design session
+  opened at a slice's or a spec's design audit or a rediscussion of a milestone before a slice's
+  turn, is another, filed under the slice it rewrites, or under the milestone where it rewrites
+  several slices or the milestone's `README.md`. An implementation, a design audit that reopens
+  nothing, and a material finding settled on one word of the owner commit none. Where a plan
+  review reopens a thread before the branch merges, a new checkpoint follows: extract the same
+  discussion's file again, to it. A ruling given after the last checkpoint is in no transcript, so
+  its attribution in the items is its whole record.
 - **Before that commit, read the transcript whole and remove** every path under a home directory,
-  every e-mail address, every credential and token, and the pasted material the owner marks. Then
-  show the owner the transcript, and push no commit that holds it before the owner's word for that
-  transcript: once pushed, it cannot be taken back, so a word on committing transcripts in general,
-  or on another transcript, does not stand for it. A transcript the owner does not approve is
-  removed from the branch before any push, and a commit message of the branch says that none is
-  committed.
+  every e-mail address, every credential and token, and the pasted material the owner marks.
 
 ## Cutting the steps and the slices `##cutting-steps-and-slices`
 
@@ -591,7 +602,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    `README.md` and the slice's `README.md`, and no other file, `subjects` `slice-audit`,
    `seedsFrom` the slice's `README.md`, and `since` the commit that last changed the slice's
    `README.md`, `git log -1 --format=%H -- <slice>/README.md`; for a spec, `work` and `seedsFrom`
-   the spec's `README.md`, `subjects` `spec-audit` and `since` the commit that last changed it. `deliberation.md`, `search/` and `transcript.txt` are never the
+   the spec's `README.md`, `subjects` `spec-audit` and `since` the commit that last changed it. `deliberation.md`, `search/` and `transcripts/` are never the
    search's work: the decided design carries every condition the search checks. `seedsFrom` takes as
    seeds the design entries and the declared-register entries the `README.md`'s section "What is already
    decided" cites. The search's check writes, beside the verdict file of its subject, `gaps.md`, each verdict other than `constrains` and
@@ -601,8 +612,8 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    spec did. The audit's record is `fit-lines.md`, whole, the line of each
    entry given a verdict other than `unrelated`: in the message of the audit's commit, or, where the
    audit applies nothing in place, in the message of the slice's first commit; and, in that same
-   commit, copied as `search/design-audit.txt` beside the audited `README.md`, the slice's or the
-   spec's. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
+   commit, copied as `search/design-audit-<n>.txt` beside the audited `README.md`, the slice's or the
+   spec's, `<n>` the next number of the design audits that `search/` holds, from 1. Nothing else the search wrote is committed, `gaps.md` included. A firing found at the audit is
    ruled before the code is written, where one found only by the review of the harvest reopens the
    harvest.
    Dispatch `agent@knowledge-architect-code-split-scout`, as its description says, with the
@@ -622,7 +633,7 @@ design the gap defeats or on the ruling the documents reserve to the owner.
    - **Applied in place.** The gap has one answer the document's decisions already imply, or is a
      choice among shapes the document rules out all but one of. Apply the answer in place, in the
      milestone document or the slice's spec, wherever the shape it changes is written. Commit the
-     amended documents and `search/design-audit.txt` alone, with a subject that names the slice's design audit in those words,
+     amended documents and `search/design-audit-<n>.txt` alone, with a subject that names the slice's design audit in those words,
      and a message listing each finding: the gap, the answer and the decision it follows from, and
      the lines of `fit-lines.md`. Where the slice's first change sets what the per-commit gate
      requires, the amended documents end in that change's commit, committed with it or folded into
@@ -741,7 +752,7 @@ these four:
   It reports a shape, an acceptance criterion, a default, a step or a harvest row that contradicts
   a goal, that contradicts or widens a head the document does not list as reversed or rewritten,
   or that brings back a rejected design, and reads beside them the verdict files of the discussion's
-  record search, whose directory its brief names, and the document's `search/discussion.txt`,
+  record search, whose directory its brief names, and the document's `search/discussion-<n>.txt` files,
   reporting a verdict the document leaves unanswered. A conflict with a goal goes to the owner.
 - `agent@knowledge-architect-transcript-reviewer` reads the discussion's transcripts and checks that
   everything the discussion established that must outlive it is in the document or has another

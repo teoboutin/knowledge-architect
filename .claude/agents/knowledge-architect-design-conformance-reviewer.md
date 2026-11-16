@@ -51,7 +51,7 @@ every design entry the document cites, to read the entry and every text that ref
 
 Then read the verdicts of the record search that grounded the document: the verdict files,
 `verdicts-<subject>.md`, in the directory the brief names, where it names one, its act verdicts
-each with its entry's text, then its light verdicts each as its line with its quotation and reason; for a plan document, its `search/discussion.txt`, the search's generated lines,
+each with its entry's text, then its light verdicts each as its line with its quotation and reason; for a plan document, its `search/discussion-<n>.txt` files, the searches' generated lines,
 and `cargo klarch show` on each entry a line gives a verdict other than `constrains` and
 `unrelated`; and, at the review before a merge, `cargo klarch show` on each entry a generated
 line of the commit message gives a verdict other than `constrains` and `unrelated`, a line
