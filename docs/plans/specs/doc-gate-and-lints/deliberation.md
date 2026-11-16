@@ -19,9 +19,10 @@ messages.
   `argument@doc-gate-and-lints@arg-10`, `argument@doc-gate-and-lints@arg-30`,
   `argument@doc-gate-and-lints@arg-32`, `argument@doc-gate-and-lints@arg-33`.
 - **Shape:** the README's section "Decided design, doc gate home".
-- **Harvest:** the rewrite in place of `design@gates@a-project-holds-its-gate-list` and
-  `design@gates@distill-over-full-logs`, and the list of gates in `skill@knowledge-architect-setup`,
-  per the Harvest section of the README.
+- **Harvest:** the head of `thread@doc-gate-and-lints@recommended-gate-list`, which step 3 writes from
+  `design@gates@a-project-holds-its-gate-list` and `design@gates@distill-over-full-logs`, per the
+  Harvest section of the README; the setup skill's list and the other restatements of the list are
+  repaired at step 1.
 - **Ruling:** in round 2 the owner said they favoured A, as the agent did. The agent held that
   word as presumed-settled until the record search had run. In round 3 the owner agreed with every
   proposal of the reply to round 2. The search defeated nothing, and the agent closed the thread
@@ -100,7 +101,7 @@ messages.
   `argument@doc-gate-and-lints@arg-25`, `argument@doc-gate-and-lints@arg-26`,
   `argument@doc-gate-and-lints@arg-27`, `argument@doc-gate-and-lints@arg-34`.
 - **Shape:** the README's section "Decided design, doc pass split".
-- **Harvest:** the issues opened on the branch, per the Harvest section of the README.
+- **Harvest:** the issues of step 5, per the Harvest section of the README; their kind is D2.
 - **Ruling:** in round 4 the owner chose shape (a) of Q1, the agent's default, over (b), no split
   and no issue, and (c), a split as steps before the doc pass, and gave an argument for it,
   `argument@doc-gate-and-lints@arg-34`. The agent's replies named the kind of each issue `todo`.
@@ -140,10 +141,27 @@ messages.
   `argument@doc-gate-and-lints@arg-40`.
 - **Shape:** the README's section "Decided design, split not needed is an issue", and D1 in its
   section "Defaults awaiting the owner".
-- **Harvest:** the rewrite of `design@agent-skills@splits-planned-before-work`, the two skill
-  sentences and a `CHANGELOG.md` entry, per the Harvest section of the README.
+- **Harvest:** `design@agent-skills@splits-planned-before-work` edited and the head of
+  `thread@doc-gate-and-lints@split-not-needed-is-an-issue` written at step 4, with the installed text, per the Harvest section
+  of the README. The shape was revised after the reviews of the spec into two heads, on
+  `argument@doc-gate-and-lints@arg-42`, `argument@doc-gate-and-lints@arg-43` and
+  `argument@doc-gate-and-lints@arg-44`.
 - **Ruling:** none yet. The agent put it in scope as D1 on `argument@doc-gate-and-lints@arg-39`,
-  and the owner's ruling on D1 is awaited before the merge.
+  and the issue kind as D2 on `argument@doc-gate-and-lints@arg-45`; the owner's ruling on each is
+  awaited before the merge.
+
+### The library offers the recommended gate list in a head of its own, argued from the goal on generic tools `##recommended-gate-list`
+
+- **Proposed by:** the agent, at planning, on the report of the design-record auditor dispatched
+  over the two gates heads the harvest touches.
+- **Final state:** argued.
+- **Arguments that moved it:** `argument@doc-gate-and-lints@arg-41`.
+- **Shape:** the README's section "Decided design, recommended gate list".
+- **Harvest:** the new head of `thread@doc-gate-and-lints@recommended-gate-list`, at step 3, per the Harvest section of the
+  README.
+- **Closed by:** `argument@doc-gate-and-lints@arg-41`: the incumbent head joins two decisions with
+  two rivals, and nothing argues the recommended list; `goal@generic-tools-and-procedures-are-shipped`
+  defeats its nearest rival, no recommended list.
 
 ## Arguments
 
@@ -166,12 +184,13 @@ messages.
   (`design@agent-skills@documentation-presence-is-linted`), so a broken-link check fits the same
   ask."
 
-### A generic tool is shipped to every project, by the goal on generic tools `##arg-3`
+### A generic tool reaches each target project once the owner takes it in, by the goal on generic tools `##arg-3`
 
 - **Round:** 1, the agent's reply.
 - **Threads:** `thread@doc-gate-and-lints@doc-gate-home`.
 - **Key words:** "`goal@generic-tools-and-procedures-are-shipped` says a generic tool is shipped to
-  every project."
+  every project." The goal ships it once knowledge-architect's owner takes it in, and to each target
+  project that carries out its activity; the agent's words overstated its reach.
 
 ### Shape A costs each adopting project one more `cargo doc` in its gate run `##arg-4`
 
@@ -373,15 +392,19 @@ messages.
   "Moving the tests out is enough for `resolver.rs` alone. `entity.rs` (2322 before its tests) and
   `manifest.rs` (2020) need a real cut." "Two or three cut designs, with their own grounding, added
   to this branch. No count of the parts that change apart exists today." "My default is (a): the
-  work does not need the split, and an issue keeps the signal where (b) loses it."
+  work does not need the split, and an issue keeps the signal where (b) loses it." Unverified: that
+  moving the tests out brings `resolver.rs` within one read; its 1582 lines before the tests hold
+  67985 bytes, near the Read's cap in tokens, as the code-claims review of the spec measured.
 
-### The issue on `worklist.rs` keeps its trigger, which this work does not meet `##arg-27`
+### The issue on `worklist.rs` keeps its closing condition, which this work does not meet `##arg-27`
 
 - **Round:** 3, the agent's reply.
 - **Threads:** `thread@doc-gate-and-lints@doc-pass-split`.
 - **Key words:** "`worklist.rs` (3118 lines) gets one `# Errors` section. Its existing issue's
   trigger is 'the work that next changes the writer', which this work does not meet, so it stays as
-  it is." The issue is `issue@query@worklist-rs-holds-a-writer-and-a-judge-past-one-read`.
+  it is." The issue is `issue@query@worklist-rs-holds-a-writer-and-a-judge-past-one-read`, a `todo`,
+  which has no trigger: the quoted words are from its "What would close it", which reads in full "the
+  work that next changes the writer of `worklist.rs` or a format both halves read".
 
 ### A doc gate in the recommended list meets the re-entry point of the issue on asks `##arg-28`
 
@@ -445,7 +468,10 @@ messages.
   Dropped." Broken links in private docs: "This is what that decision accepts, so it fails
   condition 3. Dropped." Empty boilerplate docs: "It concerns the quality of this work, not the
   decision. The code-claims review judges it." The double report: "Loud, and accepted in round 1.
-  Dropped." "No cause becomes a tripwire and no acceptance criterion is needed".
+  Dropped." "No cause becomes a tripwire and no acceptance criterion is needed". The quoted "round 1"
+  is the agent's title for its reply to the owner's round 2. The argument predates
+  `thread@doc-gate-and-lints@split-not-needed-is-an-issue`, whose silent cause the README's premortem
+  adds.
 
 ### What matters in the head on splits is when a split is considered, at planning and not at implementation or review, so an issue on a split the work does not need is acceptable `##arg-34`
 
@@ -512,3 +538,59 @@ messages.
 - **Threads:** `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
 - **Key words:** "Two `check-reversal` verdicts came back, both on the wording of the rewrite." The
   transcript records no more of them; their outcome is the README's.
+
+### The gates head joins two decisions, and the recommended list stands on the goal on generic tools `##arg-41`
+
+- **Round:** 4, at planning, from the design-record auditor's report on the heads the harvest touches.
+- **Threads:** `thread@doc-gate-and-lints@recommended-gate-list`, `thread@doc-gate-and-lints@doc-gate-home`.
+- **Key words:** "a project holds its gate list" loses to a list the library fixes, and "the library
+  offers a recommended one" loses to no recommended list; five citing texts use the second alone.
+  The per-gate distillers of `design@gates@distill-over-full-logs` answer the recommended list's
+  question, and that list omits the rebase check's `Distiller::Ancestry`. The fact against that
+  head's nearest rival: `grep -c ' \.\.\. ok$' target/gates/test.log` counts 1254 of 2226 lines.
+
+### A split the work needs and a split it does not need are two decisions, so the issue route takes a head of its own `##arg-42`
+
+- **Round:** 4, the decision-record review of the spec.
+- **Threads:** `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
+- **Key words:** the first rule loses to the split left to whoever meets it while writing the code,
+  the second to "no split and no issue" and to a `todo` or `deferred` entry; two statements that lose
+  to different nearest rivals are two decisions. The incumbent keeps its title.
+
+### A split signal met at implementation or review keeps the routing of the table of things met outside the task `##arg-43`
+
+- **Round:** 4, the design-conformance review of the spec.
+- **Threads:** `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
+- **Key words:** sending every such signal to an issue bypasses rows 1 and 4 of
+  `primer@met-outside-the-task`, against `design@agent-skills@met-outside-the-task-outcomes` and the
+  incumbent's second paragraph; and a signal over code the range writes is a departure the review
+  weighs, per `design@agent-skills@code-shape-axis`. So the new head covers code the work does not
+  write, a doc comment not counting as writing it, and gives the issue's shape where the routing
+  opens one.
+
+### A signal outweighed by the signals against a split makes no split stand and owes no issue `##arg-44`
+
+- **Round:** 4, the transcript review of the spec, on the code-split scout's signal on
+  `path@gates@src/gates.rs`.
+- **Threads:** `thread@doc-gate-and-lints@split-not-needed-is-an-issue`, `thread@doc-gate-and-lints@doc-pass-split`.
+- **Key words:** the scout found that two parts change apart "holds weakly", against three signals
+  against a split it named; an issue is owed only where a split stands and the work does not need it.
+
+### A split no discussion has weighed for a work that changes the code is an open design question, so its issue is of kind `design` `##arg-45`
+
+- **Round:** 4, the session, on the second search's verdicts and the design-conformance review of the
+  spec.
+- **Threads:** `thread@doc-gate-and-lints@doc-pass-split`, `thread@doc-gate-and-lints@split-not-needed-is-an-issue`.
+- **Key words:** a `todo` has no re-entry point for the search to grade `trigger-met`, and a
+  `deferred` trigger is read at every merge, which brings the split back to review time; against
+  `design@agent-skills@undesigned-work-is-an-issue`, the split is not known undesigned work, since
+  whether and where to split is open, as the project-audit skill already records a split too large
+  for its branch as a `design` issue. The owner's ruling of round 4 was on a `todo`; the kind is D2.
+
+### The size signal is a Read that does not return the file whole, never a count of lines `##arg-46`
+
+- **Round:** 4, the self-consistency and code-claims reviews of the spec.
+- **Threads:** `thread@doc-gate-and-lints@doc-pass-split`.
+- **Key words:** `design@agent-skills@module-split-guidelines` says "no number of lines is a signal";
+  `path@git@src/git.rs`, 1949 lines, is past one read already: a Read with no range returned lines
+  1 to 1293 and named a cap of 25000 tokens.
