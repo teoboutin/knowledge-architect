@@ -36,6 +36,14 @@ exported, a crate whose configuration file, or a `--config` argument, sets `["-D
 documents a broken link with a warning and exits 0, observed on cargo 1.98.0. The deny is lost with
 no sign. The runs that show it are rows 5 and 6 of the script of `design@gates@doc-gate-denial`.
 
+### The deny passed through `RUSTDOCFLAGS` in the gate's environment `##deny-through-rustdocflags`
+
+`live`. An exported `CARGO_ENCODED_RUSTDOCFLAGS` replaces `RUSTDOCFLAGS`, even empty: with it
+exported empty, `RUSTDOCFLAGS="-D warnings"` documents a broken link with a warning and exits 0,
+observed on cargo 1.98.0, and a gate's child inherits every variable its caller exported but
+`RUSTC_BOOTSTRAP` and the ones the gate sets. The deny is lost with no sign. The run that shows it
+is row 8 of the script of `design@gates@doc-gate-denial`.
+
 ### The link check carried by the `test` gate, through its doc tests `##link-check-in-the-test-gate`
 
 `live`. `cargo test --doc` does not report a link that names nothing, and exits 0, with

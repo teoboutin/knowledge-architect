@@ -48,12 +48,18 @@ the owner's word, which is that taking-in: the owner took the documentation buil
 rival, no recommended list, leaves each project to write its own list, so no gate the owner took in
 reaches a target project.
 
-### The `doc` gate denies every rustdoc warning by setting `RUSTDOCFLAGS="-D warnings"` in its own environment `##doc-gate-denial`
+### The `doc` gate denies every rustdoc warning through the source of rustdoc flags cargo reads first, set in its own environment `##doc-gate-denial`
 
 The `doc` gate of the recommended list, `design@gates@recommended-gate-list`, runs
-`cargo doc --workspace --no-deps` with `RUSTDOCFLAGS="-D warnings"` in its `envs`, so every rustdoc
-warning fails it, a link that names nothing among them, and the project declares nothing for it,
-as the clippy gate denies its warnings by its `-- -D warnings`.
+`cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` in its `envs`, set to `-D` and
+`warnings` joined by the byte 0x1f, so every rustdoc warning fails it, a link that names nothing
+among them, and the project declares nothing for it, as the clippy gate denies its warnings by its
+`-- -D warnings`. Cargo has four sources of rustdoc flags and uses the first one set:
+`CARGO_ENCODED_RUSTDOCFLAGS`, then `RUSTDOCFLAGS`, then every matching
+`target.<triple>.rustdocflags` and `target.<cfg>.rustdocflags` of the configuration, joined, then
+its `build.rustdocflags`, as the cargo reference's entry on `build.rustdocflags` says. The gate's variable replaces in its child one of the same name the
+caller exported, as the doc comment of `Gate::envs` says of any variable it names, so it is the
+source cargo uses.
 
 The standing argument is how cargo and rustdoc behave, observed on cargo and rustdoc 1.98.0 over a
 crate whose one doc comment links to an item that does not exist:
@@ -67,10 +73,14 @@ crate whose one doc comment links to an item that does not exist:
 | 5 | that configuration, with `RUSTDOCFLAGS="--cfg foo"` exported | a warning | 0 |
 | 6 | `--config 'build.rustdocflags=["-D","warnings"]'`, with `RUSTDOCFLAGS="--cfg foo"` exported | a warning | 0 |
 | 7 | `cargo test --doc`, with `RUSTDOCFLAGS="-D warnings"` | not reported | 0 |
+| 8 | `RUSTDOCFLAGS="-D warnings"`, with `CARGO_ENCODED_RUSTDOCFLAGS` exported empty | a warning | 0 |
+| 9 | `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D` and `warnings` joined by 0x1f | an error | 101 |
+| 10 | that variable, with `RUSTDOCFLAGS="--cfg foo"` exported and `--config 'build.rustdocflags=["--cfg","bar"]'` | an error | 101 |
 
 Each row is re-taken by this script, run in a new empty directory, under the toolchain rustup
-selects there, or the one `RUSTUP_TOOLCHAIN=<version>` names; each line after the crate's creation
-prints the exit code of one row:
+selects there, or the one `RUSTUP_TOOLCHAIN=<version>` names. Each line that ends in
+`echo "row <n>: $?"` prints the exit code of its row; each other line after the first two prepares
+the crate for the next row:
 
 ```sh
 cargo new -q --lib probe && cd probe
@@ -86,39 +96,52 @@ RUSTDOCFLAGS="--cfg foo" cargo doc --no-deps -q; echo "row 5: $?"
 rm -r .cargo
 RUSTDOCFLAGS="--cfg foo" cargo doc --no-deps -q --config 'build.rustdocflags=["-D","warnings"]'; echo "row 6: $?"
 RUSTDOCFLAGS="-D warnings" cargo test --doc -q; echo "row 7: $?"
+CARGO_ENCODED_RUSTDOCFLAGS= RUSTDOCFLAGS="-D warnings" cargo doc --no-deps -q; echo "row 8: $?"
+CARGO_ENCODED_RUSTDOCFLAGS="$(printf '%s\037%s' -D warnings)" cargo doc --no-deps -q; echo "row 9: $?"
+CARGO_ENCODED_RUSTDOCFLAGS="$(printf '%s\037%s' -D warnings)" RUSTDOCFLAGS="--cfg foo" cargo doc --no-deps -q --config 'build.rustdocflags=["--cfg","bar"]'; echo "row 10: $?"
 ```
 
 Row 1 defeats the nearest rival, a plain `cargo doc` with an ask that each project declares its
 `[lints.rustdoc]` levels: a project that has not yet followed the ask gets a gate that passes on a
 broken link, `rejected@gates@plain-cargo-doc-with-a-lints-ask`. Rows 5 and 6 defeat the deny
 passed through cargo's configuration, which an exported `RUSTDOCFLAGS` drops with no sign,
-`rejected@gates@deny-through-build-rustdocflags`. Row 7 rules out the `test` gate as the carrier of
-the check, `rejected@gates@link-check-in-the-test-gate`.
+`rejected@gates@deny-through-build-rustdocflags`. Row 8 defeats the deny passed through
+`RUSTDOCFLAGS` in the gate's environment, which an exported `CARGO_ENCODED_RUSTDOCFLAGS`, even
+empty, drops with no sign, `rejected@gates@deny-through-rustdocflags`; rows 9 and 10 show that the
+deny through `CARGO_ENCODED_RUSTDOCFLAGS` holds over an exported `RUSTDOCFLAGS` and a configured
+flag. Row 7 rules out the `test` gate as the carrier of the check,
+`rejected@gates@link-check-in-the-test-gate`.
 
 The costs accepted:
 
-- in the gate's child, the variable replaces a `RUSTDOCFLAGS` the caller exported, as the doc
-  comment of `Gate::envs` says of any variable it names, and with it a `build.rustdocflags` the
-  project configured, rows 5 and 6; a project whose documentation needs a rustdoc flag adds it to the doc gate's
-  `envs` in its own list, per `design@gates@a-project-holds-its-gate-list`;
+- in the gate's child, no rustdoc flag the caller exported or the project configured is used, by
+  the order the cargo reference states, which rows 5, 6 and 8 show for three of its sources; a project whose documentation needs a rustdoc flag adds it to the doc gate's
+  variable in its own list, after `warnings`, separated by the byte 0x1f, per
+  `design@gates@a-project-holds-its-gate-list`;
+- the variable's value cannot be typed as plain text in a shell: a reader who runs the gate's
+  command by hand writes the separator, as `CARGO_ENCODED_RUSTDOCFLAGS="$(printf '%s\037%s' -D warnings)"`;
 - alternating a plain `cargo doc` with the gate documents the workspace's crates again, since the
   flags differ;
 - rustdoc reports `missing_docs` too, where the project's lints warn on it, so one missing doc
   fails both `clippy` and `doc`. `-A missing_docs` in the gate would avoid the second report, and
   is gate logic only for that.
 
-### The `doc` gate documents public items alone, the text docs.rs renders `##doc-gate-item-scope`
+### The `doc` gate leaves out `--document-private-items`, so it documents a library's public items alone, the text docs.rs renders `##doc-gate-item-scope`
 
 The doc gate runs without `--document-private-items`, so a broken link in the documentation of a
-private item passes it. Two scopes were weighed: public items alone, the text docs.rs renders,
-which a consumer of the crate reads; and private items too, since rust-analyzer resolves the links
-of a private doc comment on hover, so a broken one misleads a developer the same way, at the cost,
-at each adopting project's pin move, of whatever warnings its private documentation gives. The
-session chose public items alone over private items too, which no goal ranks; the owner approved
-it. A project that wants its private documentation checked adds the flag to the doc gate in its
-own list, per `design@gates@a-project-holds-its-gate-list`. What the wider scope adds in a tree is
-re-taken by running `cargo doc --workspace --no-deps --document-private-items --message-format=short`
-and the same command without the flag, and comparing their warnings.
+library's private item passes it. Cargo enables the flag by default for a binary target it
+documents, as the reference of `cargo doc` says of the flag, so a broken link in the documentation
+of such a binary's private item fails the gate; the same reference's Target Selection skips a
+binary named as its package's library, one with `doc = false`, and one missing its required
+features. Two scopes were weighed for a library: public items alone, the text docs.rs renders, which a consumer of the crate reads; and
+private items too, since rust-analyzer resolves the links of a private doc comment on hover, so a
+broken one misleads a developer the same way, at the cost, at each adopting project's pin move, of
+whatever warnings its private documentation gives. The session chose public items alone over
+private items too, which no goal ranks; the owner approved it. A project that wants its private
+documentation checked adds the flag to the doc gate in its own list, per
+`design@gates@a-project-holds-its-gate-list`. What the wider scope adds in a tree is re-taken by
+running `cargo doc --workspace --no-deps --document-private-items --message-format=short` and the
+same command without the flag, and comparing their warnings.
 
 ### The library owns the gates' flags `##the-library-owns-the-flags`
 
