@@ -169,44 +169,118 @@ mod planted {
         LINES.get_or_init(|| as_lines(current())).clone()
     }
 
-    /// Every planted defect this project carries, by the check that reports it: the check,
-    /// how many findings it produces, and a fragment of one. `every_check_has_a_row` reads
-    /// `CHECKS` and demands a row for each, so a check with no planted defect fails there.
+    /// Every planted defect this project carries, by the check that reports it: the check, and
+    /// the start of each finding it produces, its location and then its text, so the row's count
+    /// is its list's length. Each fragment starts exactly one finding of the run over `none`, and
+    /// each finding exactly one fragment, which `every_check_has_a_row_and_the_run_is_their_sum`
+    /// asserts, with a row for each check `CHECKS` reads, so a check with no planted defect fails
+    /// there. A fragment starts with its location because a location can hold another: the
+    /// index of `widget`'s issue home ends with the root's.
+    ///
+    /// A finding carries no name of the check that raised it, so what the test holds is the set
+    /// of findings, not which check raised each: a fragment written in another check's row
+    /// passes, and the row it sits in is this table's word.
     ///
     /// The definition-site findings are not here: whether a home EXISTS is phase 2, and a slug
     /// or an entry id where none may sit is phase 3, and both are `unsound`'s.
-    const PLANTED: [(&str, usize, &str); 3] = [
-        // One reference of each shape the resolver tells apart — dangling, unknown anchor,
-        // two and four segments, an anchor and a reserved anchor in kind position — and the path shapes: a dangling one, the unanchored bare form,
-        // a wrong kind claim, an escape that resolves here, a root pointer reaching inside the
-        // component, a generic pointer nothing carries, a dangling tripwire reference, a link
-        // outside a navigation home, and the retired `@` escape with its empty head. Then the
-        // five refusals of the plans layout, in notes/plans.md: a spec, a milestone directory,
-        // a slice spec cited by path, a milestone named as a path's anchor, and a pointer from
-        // the root reaching inside `plans`.
-        // And an item of a plan cited from outside it, which the scoped resolution refuses, a
-        // harvested slice and an item it defines cited from outside its milestone, and
-        // a `rejected` entry no design entry cites, which the orphan check reports. Then, in
-        // notes/ids.md, a defined id written outside its reference form, once per lint. And, in
-        // docs/goals.md, a design head cited from a goals home, which resolves and is refused
-        // there, per `design@check@goals-home-cites-only-goals-and-root-homes`. And, in this copy that holds no
-        // generated file, the three READMEs' links to an index that is not there.
-        ("references", 31, "is referenced"),
-        // One defect per shape assertion over what is there: an undeclared kind, a missing owed
-        // subsection, an undeclared group, a file of another suffix, and frontmatter that does not
-        // parse; and, in this copy that holds no generated file, a missing index for each of the
-        // six homes.
-        ("registers", 11, "issue register"),
-        // Six register indexes: three issue homes, the two plans homes and the one milestone.
-        // This copy holds none of them, so each is reported missing.
-        ("generated", 6, "the generated file is missing"),
+    const PLANTED: [(&str, &[&str]); 3] = [
+        (
+            "references",
+            &[
+                // In notes/structure.md, one reference of each shape the resolver tells apart:
+                // dangling, unknown anchor, two and four segments, an anchor and a reserved
+                // anchor in kind position.
+                "notes/structure.md:5  `design@planted@dangling-anchor` is referenced",
+                "notes/structure.md:7  `design@nowhere@twice-defined` names `nowhere`",
+                "notes/structure.md:9  `design@planted` is malformed",
+                "notes/structure.md:11  `design@planted@twice@defined` is malformed",
+                "notes/structure.md:13  `planted@notes/p.md` opens with",
+                "notes/structure.md:15  `*@notes/p.md` opens with",
+                // Then the path shapes: a dangling one, the unanchored bare form, a wrong kind
+                // claim, an escape that resolves here, a root pointer reaching inside the
+                // component, a generic pointer nothing carries; a dangling tripwire reference, a
+                // link outside a navigation home, and the retired `@` escape with its empty head.
+                "notes/structure.md:25  `path@planted@notes/missing.md` does not exist",
+                "notes/structure.md:27  `notes/missing.md` is shaped like a path",
+                "notes/structure.md:29  `path@planted@notes` claims a file and names a directory",
+                "notes/structure.md:31  `path@elsewhere@notes/p.md` resolves in this tree",
+                "notes/structure.md:33  `path@planted@parts/widget/README.md` reaches inside",
+                "notes/structure.md:35  `path@*@notes/void.md` resolves in no component",
+                "notes/structure.md:37  `tripwire@planted@nothing` is referenced",
+                "notes/structure.md:39  `p.md` is linked from a file that is not a navigation home",
+                "notes/structure.md:43  `@notes/p.md` is malformed",
+                // In notes/plans.md, the five refusals of the plans layout: a spec, a milestone
+                // directory, a slice spec cited by path, a milestone named as a path's anchor,
+                // and a pointer from the root reaching inside `plans`.
+                "notes/plans.md:6  `path@plans@specs/a-spec/README.md` cites a plan document",
+                "notes/plans.md:7  `path@planted@docs/plans/milestones/m-one/` cites a plan document",
+                "notes/plans.md:8  `path@plans@milestones/m-one/a-step/README.md` cites a plan document",
+                "notes/plans.md:9  `path@m-one@a-step/README.md` names the milestone `m-one`",
+                "notes/plans.md:10  `path@planted@docs/plans/README.md` reaches inside",
+                // And an item of a plan cited from outside it, which the scoped resolution
+                // refuses, and a harvested slice and an item it defines cited from outside its
+                // milestone.
+                "notes/plans.md:12  `thread@m-one@planted-thread` cites an item",
+                "notes/plans.md:14  `spec@m-one@a-landed-step` cites the harvested slice",
+                "notes/plans.md:15  `thread@m-one@landed-thread` cites an item",
+                // A `rejected` entry no design entry cites, which the orphan check reports.
+                "docs/rejected.md:3  the `rejected` entry `uncited-design`",
+                // In notes/ids.md, a defined id written outside its reference form, once per lint.
+                "notes/ids.md:5  `goal@planted-goal` is a reference written without backticks",
+                "notes/ids.md:7  `planted-goal` is written in backticks without its kind",
+                "notes/ids.md:9  `planted-goal` is written as a plain word",
+                // In docs/goals.md, a design head cited from a goals home, which resolves and is
+                // refused there, per `design@check@goals-home-cites-only-goals-and-root-homes`.
+                "docs/goals.md:7  `design@planted@twice-defined` is cited in the goals home",
+                // And, in this copy that holds no generated file, the three READMEs' links to an
+                // index that is not there.
+                "docs/plans/milestones/README.md:3  `index.md` does not exist",
+                "docs/plans/milestones/m-one/README.md:3  `index.md` does not exist",
+                "docs/plans/specs/README.md:3  `index.md` does not exist",
+            ],
+        ),
+        (
+            "registers",
+            &[
+                // One defect per shape assertion over what is there: an undeclared kind, a
+                // missing owed subsection, an undeclared group, a file of another suffix, and
+                // frontmatter that does not parse.
+                "docs/open-issues/a-wrong-kind.md  `kind: nonesuch` is no accepted value",
+                "docs/open-issues/a-missing-subsection.md  this issue entry carries no level-three subsection",
+                "docs/open-issues/an-undeclared-group  `an-undeclared-group` is a subdirectory",
+                "docs/open-issues/nonsense.txt  `docs/open-issues/nonsense.txt` is not an entry",
+                "docs/open-issues/two-kinds.md  the frontmatter of this issue entry does not parse",
+                // And, in this copy that holds no generated file, a missing index for each of
+                // the six homes.
+                "docs/open-issues/index.md  the issue directory `docs/open-issues`",
+                "parts/widget/docs/open-issues/index.md  the issue directory `parts/widget/docs/open-issues`",
+                "agent-config/open-issues/index.md  the issue directory `agent-config/open-issues`",
+                "docs/plans/specs/index.md  the spec directory `docs/plans/specs`",
+                "docs/plans/milestones/index.md  the milestone directory `docs/plans/milestones`",
+                "docs/plans/milestones/m-one/index.md  the spec directory `docs/plans/milestones/m-one`",
+            ],
+        ),
+        (
+            "generated",
+            &[
+                // Six register indexes: three issue homes, the two plans homes and the one
+                // milestone. This copy holds none of them, so each is reported missing.
+                "docs/open-issues/index.md  the generated file is missing",
+                "parts/widget/docs/open-issues/index.md  the generated file is missing",
+                "agent-config/open-issues/index.md  the generated file is missing",
+                "docs/plans/specs/index.md  the generated file is missing",
+                "docs/plans/milestones/index.md  the generated file is missing",
+                "docs/plans/milestones/m-one/index.md  the generated file is missing",
+            ],
+        ),
     ];
 
     #[test]
     fn every_check_has_a_row_and_the_run_is_their_sum() {
         // Read off `CHECKS` rather than off `PLANTED`, so a check added to the library with no
         // planted defect fails here instead of being absent from both. And nothing is invented
-        // by running them together: the whole run is the sum of the rows.
+        // by running them together: each fragment starts one finding and each finding starts
+        // with one fragment, so the whole run is the rows' findings and nothing else.
         for name in CHECKS {
             // Every mock but `unsound` declares no harness, so `agents` finds nothing here: its
             // defects are built by its unit tests and by the binary tests in a copy, since a binary
@@ -215,19 +289,27 @@ mod planted {
                 continue;
             }
             assert!(
-                PLANTED.iter().any(|(n, _, _)| *n == name),
+                PLANTED.iter().any(|(n, _)| *n == name),
                 "{name} has no row: every check owes a planted defect"
             );
         }
         let whole = none();
-        let planted: usize = PLANTED.iter().map(|(_, n, _)| n).sum();
-        assert_eq!(whole.len(), planted, "{whole:#?}");
-        for (name, n, fragment) in PLANTED {
-            let hits = whole.iter().filter(|f| f.contains(fragment)).count();
-            assert!(
-                (1..=n).contains(&hits),
-                "{name}: {hits} of {fragment:?}, expected 1 to {n}, in {whole:#?}"
-            );
+        for (name, fragments) in PLANTED {
+            for fragment in fragments {
+                let hits = whole.iter().filter(|f| f.starts_with(fragment)).count();
+                assert_eq!(
+                    hits, 1,
+                    "{name}: {fragment:?} matches {hits} findings, in {whole:#?}"
+                );
+            }
+        }
+        for finding in &whole {
+            let matched: Vec<(&str, &str)> = PLANTED
+                .iter()
+                .flat_map(|(name, fragments)| fragments.iter().map(move |f| (*name, *f)))
+                .filter(|(_, f)| finding.starts_with(f))
+                .collect();
+            assert_eq!(matched.len(), 1, "{finding:?} is matched by {matched:#?}");
         }
     }
 
@@ -465,7 +547,8 @@ mod planted {
     fn a_reference_across_a_component_boundary_resolves() {
         // Line 23 of that document points at the decision the component below the root
         // records, and the component's own design document points back. Neither is a
-        // finding, and the count in `PLANTED` is what asserts that they produce none.
+        // finding, and every finding matching a fragment of `PLANTED` is what asserts that
+        // they produce none.
         let all = findings();
         assert!(
             !all.iter().any(|f| f.contains("widget-decision")),
