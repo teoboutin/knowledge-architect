@@ -61,6 +61,12 @@ From `goal@serves-one-kind-of-project`, which no longer holds them:
   for a merge, is a design decision of knowledge-architect; how one project meets the rest is its
   own." It bound where the shape of an ask is decided.
 
+An instance of a quality tool taken in: the gate `doc` of the recommended list, `rust_project` in
+`path@gates@src/gates.rs`, which builds a workspace's documentation with rustdoc's warnings denied,
+reaches every target project that runs the list, on the owner's word. It takes the status every gate
+of that list holds, a project editing the list it receives; the branch that added it decided no kind
+of ask, and the owner put this discussion off there, as larger than that branch's.
+
 Suspected mechanism: these statements were scope held in two goals, and the goals now state a
 direction and leave to design what a head can argue. No head was argued for them when they left,
 since no rival and no fact that defeats it were found for the rule that a quality tool taken in

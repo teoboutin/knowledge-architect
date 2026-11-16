@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-31 entries
+32 entries
 
 | kind | title |
 | --- | --- |
@@ -21,6 +21,7 @@
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [A quotation beside a reference is not checked against the entry it cites](a-quotation-beside-a-reference-is-not-checked-against-its-entry.md) |
 | design | [Heads of `check` and `create` bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
+| design | [`history.rs` is past one read](history-rs-is-past-one-read.md) |
 | design | [After `index --staged` and the commit, the working tree's generated file is stale](index-staged-leaves-the-working-tree-s-generated-file-stale.md) |
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
