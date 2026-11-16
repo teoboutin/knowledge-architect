@@ -106,7 +106,7 @@ Each plan document, a spec, a milestone document or a slice's spec, is a directo
 `design@model@plan-document-directory`: its `README.md` is the document the searches read; its
 `deliberation.md` holds the Threads and Arguments items; its `search/` holds the generated lines of
 its searches, per `design@agent-skills@plan-commits-the-generated-lines`; and its `transcripts/` holds
-the trimmed transcript of each of its design discussions, per `design@agent-skills@committed-transcript`. A slice's
+the trimmed transcript of each of its design discussions that reached a convergence checkpoint, per `design@agent-skills@committed-transcript`. A slice's
 design audit searches the record with the milestone's `README.md` and the slice's own as its work,
 never the files beside them, per `design@agent-skills@record-searched-before-the-work`, so every
 condition of a decided thread is written in the decided design of a `README.md`, and
