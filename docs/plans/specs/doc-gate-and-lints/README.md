@@ -42,6 +42,7 @@ named by the opening words of each of the owner's messages:
 | 4 | "Q1 a is right." |
 | 5 | "D1 D2 agreed, proceed with the work" |
 | 6 | "q3 default" |
+| 7 | "Q4 default" |
 
 The threads and the arguments are in [the deliberation](deliberation.md). The generated lines of
 the discussion's two record searches are in [the discussion's search](search/discussion.txt).
@@ -662,6 +663,10 @@ with its source. Each step writes the entries in `path@knowledge-architect@CHANG
   re-entry point this spec's steps 3 and 4 met: the session's default (a), this spec a second
   instance in the issue, which stays open with its re-entry point as written, against (b), that
   discussion held before the merge. Ruled: the owner chose the default, round 6.
+- **Q4**, put to the owner after the review before the merge, on
+  `thread@doc-gate-and-lints@doc-gate-item-scope`: cargo documents a binary's private items by
+  default, so the gate checks them; the session chose that over `--lib`, which no goal ranks.
+  Ruled: the owner approved it, round 7, and `design@gates@doc-gate-item-scope` records it.
 
 ## Harvest
 
