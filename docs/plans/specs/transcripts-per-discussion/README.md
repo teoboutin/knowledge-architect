@@ -170,7 +170,7 @@ The decisions the design rests on and does not argue again:
 | `transcript-pushed-on-the-owner-s-word`, now `design@agent-skills@transcript-pushed-with-the-branch` | reversed by `thread@transcripts-per-discussion@transcript-push-approval` | the planning skill's sentence on the owner's word before a push, deleted; `issue@transcript@an-option-anonymizes-what-transcript-prints`, its "Why it matters" |
 | `design@agent-skills@attribution-replaces-quotation` | reworded: the verbatim words of a design discussion stay in its transcript, and a ruling after its last checkpoint is attributed only | the design skill, the primer's row of plan documents, and the head-ground fragment, which ships in the primer, the decision-recording and design skills, the decision-record reviewer and the design-record auditor; `issue@agent-skills@the-quick-fixes-spec-quotes-the-owner-in-its-items`, which names the transcript in words |
 | `design@model@plan-document-directory` | rewritten to the numbered names, in commit 1 | in commit 1: the regime table of `design@model@a-harvested-slice-is-frozen`, `rejected@model@spec-as-one-file`, `path@check@README.md`, and the comments and fixtures that named the single-file names |
-| `goal@the-owner-decides` | rewritten in commit 3, on the owner's ruling: two sentences added, that a push to the project's repository is no action that cannot be undone the owner decides, and that an action the push sets off is judged on its own, per `thread@transcripts-per-discussion@push-reading-in-goal` | none: `design@knowledge-architect@owner-pushes-the-release-tag` reads the goal on a push, that a push can be undone, and agrees with the two sentences |
+| `goal@the-owner-decides` | rewritten in commit 3 and reworded at the review before the merge, on the owner's rulings: one sentence added, that a push to the project's repository is no action that cannot be undone the owner decides, and that an action the push sets off stays the owner's where it cannot be undone, beyond notifying what the push holds, per `thread@transcripts-per-discussion@push-reading-in-goal` | none: `design@knowledge-architect@owner-pushes-the-release-tag` reads the goal on a push, that a push can be undone, and agrees with the sentence |
 
 **Departures the wrong path produced**, from heads that stand and are not reversed:
 
@@ -373,13 +373,25 @@ session's answer, which the owner approved.
 
 ### The goal's sentence on a push
 
-For `thread@transcripts-per-discussion@push-reading-in-goal`. Two sentences at the end of the second
-paragraph of `goal@the-owner-decides`, as the owner approved them in round 6:
+For `thread@transcripts-per-discussion@push-reading-in-goal`. One sentence at the end of the second
+paragraph of `goal@the-owner-decides`, as the owner approved it at the review before the merge:
 
 > A push to the project's repository is not among the actions that cannot be undone the owner
-> decides, whatever it holds. An action the push sets off is judged on its own: where it cannot be
-> undone and the push is its only gate, such as a publish to a package registry, the push waits for
-> the owner's word.
+> decides, whatever it holds and whoever it notifies; an action the push sets off stays the owner's
+> to decide where it cannot be undone, beyond notifying what the push holds.
+
+Commit 3 wrote an earlier wording, which the owner approved in round 6: "… whatever it holds. An
+action the push sets off is judged on its own: where it cannot be undone and the push is its only
+gate, such as a publish to a package registry, the push waits for the owner's word." The goal
+reviewer's merge mode found "gate" read two ways, since the project uses the word for a check; two
+further draft-mode rounds found that each condition written on what a push sets off opened a new
+reading, so the sentence now leaves what a push sets off to the paragraph's opening clause. The
+owner approved the session's defaults on each case those rounds raised: a publish gated only by a
+reviewer who is not the owner, or by checks, is not the owner's decision; a standing word of the
+owner deciding a kind of action is admitted; a notification only spreads what the push holds. The
+last round's two edge cases, a changelog posted to a public list from a private repository and a
+release whose notes the host derives, were shown to the owner beside the wording and left to a
+project's design.
 
 The rival, the reading recorded in the reversed head alone, would leave a session that weighs
 another push without it. The sentence was drafted under `skill@knowledge-architect-goal-setting`,
