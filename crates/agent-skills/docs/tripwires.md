@@ -36,6 +36,23 @@ merges two heads back.
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.
 
+## Guarding `design@agent-skills@title-misleads-bar`: a title held to not misleading stays within what its head decides `##misleading-title-found-on-main`
+
+The decision rests on the premise that the test of a misleading title, which replaces the tests of
+the argument's reach and of the decision's full scope, keeps a title from stating a rule its body
+does not argue. The suspected mechanism of the earlier recurrence: a title moved from the members
+to the rule states the rule in terms the session chooses, and those terms reach further than the
+argument the body carries.
+
+**Fires when:** an audit, or the review of a branch that did not write or retitle the head, finds on
+the main branch a title that misleads, in a head written or retitled after the decision.
+**Response:** reopen `design@agent-skills@title-misleads-bar`; the title found is repaired as the
+instance.
+**Re-entry:** each pass of the design-record axis of a project audit, and the review of a branch
+that touches a head written or retitled after the decision.
+**Watches until:** the second report of the design-record axis in
+`path@knowledge-architect@docs/audit-reports/` after the decision.
+
 ## Guarding `design@agent-skills@workflow-axis-finding-standard`: auditors report predicted gaps as provable ones across passes `##audit-drafts-mostly-noise`
 
 The decision rests on the premise that the finding standard keeps auditors from reporting predicted

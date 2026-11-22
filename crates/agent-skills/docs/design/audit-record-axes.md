@@ -45,7 +45,7 @@ decision gone, horizon passed or fired, per
 `design@agent-skills@session-removes-an-excluded-tripwire`, and the report lists the deletions
 grouped by outcome and, for a removal, by the condition failed, so the owner reads them and
 contests any with a goal, a fact or an argument. A removal where no condition clearly excludes the entry rests on the owner's weight
-on a doubt that `design@agent-skills@tripwire-admission-test` states, a failure the owner would see
+on a doubt that `design@agent-skills@doubt-keeps-the-cause` states, a failure the owner would see
 anyway: those removals go on the owner list as one group, with a default, per
 `design@agent-skills@audit-outcomes`.
 
@@ -156,8 +156,8 @@ of the report and folds the repairs into the pass's commit.
 The application writes text the run never read: the edits of the owner's rulings, a check's repair,
 and every entry a split or a retitle touches. In the first pass of the axis in thaum, on
 knowledge-architect 0.6.0, the application touched about 200 heads and entries, and four auditors
-judging every changed entry found 19 failures the run's checks could not see, among them a retitle
-that made a title true of a recorded rival and an attribution wider than the owner's argument. W1
+judging every changed entry found 19 failures the run's checks could not see under the rules of
+that version, among them an attribution wider than the owner's argument. W1
 of the analysis of thaum's retrospective file reports these counts, and the commit "The analyses of
 seven retrospective files, with the owner's ruling on each" added that analysis. The re-check of
 the audit method runs only when a pass follows, and not when the owner stops the audit. The

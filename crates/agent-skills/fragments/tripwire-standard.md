@@ -1,4 +1,6 @@
-%% The decisions: `design@agent-skills@tripwire-admission-test`, `design@agent-skills@tripwire-horizon`.
+%% The decisions: `design@agent-skills@tripwire-admission-test`,
+%% `design@agent-skills@tripwire-horizon`; the rule on slips:
+%% `design@agent-skills@slip-is-no-firing`; the doubt: `design@agent-skills@doubt-keeps-the-cause`.
 A tripwire watches one premise of a recorded decision: a failure that would show the decision
 wrong and that nothing else in the project reports. Most causes a premortem names are not that,
 and are not written.

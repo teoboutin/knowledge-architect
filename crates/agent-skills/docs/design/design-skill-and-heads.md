@@ -142,29 +142,95 @@ writing, per `design@agent-skills@one-home-for-head-rules`.
 
 The design this decision did not keep: `rejected@agent-skills@every-decision-through-design-skill`.
 
-### A head's title states the rule that decided, and its body names the members built `##title-states-the-rule`
+### A head's title states the rule that decided, and its body names the members built, unless the set is closed on purpose and the title lists it `##title-states-the-rule`
 
 When a decision admits members, such as fixes, kinds, verbs, sections or consumers, or picks a
 mechanism to meet a requirement, the head's title states the property that admits a member, in its
 argument's own terms, and its body names the members built as what the rule admits today. A set
 closed on purpose keeps its list in the title, with the sentence that argues the closure in the
-body. A title states no more than its argument argues.
+body.
 
 A count or a list in a title goes stale at the next member, and every later member then reads as a
 change of the decision, with its reversal, its slug rename and its tripwire rename, against
-`goal@agents-get-a-complete-workflow`, which is there to raise the
-efficiency of the agents' work: a decision reversed by accident costs a reversal the workflow could
-have spared. The nearest rival, the instance
-in the title, has that cost: an audit of this repository's design heads at commit eee5176f, reading
-every head and its history, finds the instance stated as the rule in 27 of its 189 heads, and its
-history holds rewrites of such heads that a member the argument already admitted forced. The figure
-is re-taken by a fresh read-only audit of the heads at that commit against this rule. A review
-repair that moves a member into a title makes the defect: "the title now states it". The opposite
-defect, a title wider than its argument, caused reversals too, which the last sentence of the rule
-guards. A title stating a rule alone would let a session add members the owner never saw, so it
-holds only with the routing of `design@agent-skills@extension-follows-the-ground`.
+`goal@agents-get-a-complete-workflow`, which is there to raise the efficiency of the agents' work: a
+decision reversed by accident costs a reversal the workflow could have spared. The nearest rival,
+the instance in the title, has that cost: an audit of this repository's design heads at commit
+eee5176f, reading every head and its history, finds the instance stated as the rule in 27 of its 189
+heads, and its history holds rewrites of such heads that a member the argument already admitted
+forced. The figure is re-taken by a fresh read-only audit of the heads at that commit against this
+rule. A review repair that moves a member into a title makes the defect: "the title now states it".
+The opposite defect, a title wider than its argument, caused reversals too, which
+`design@agent-skills@title-misleads-bar` guards. A title stating a rule alone would let a session
+add members the owner never saw, so it holds only with the routing of
+`design@agent-skills@extension-follows-the-ground`.
 
 The design this decision did not keep: `rejected@agent-skills@title-states-built-instance`.
+
+### A head's title and its slug must not mislead about the decision `##title-misleads-bar`
+
+A title misleads when a session acting on the title alone would do what the body excludes: add a
+member the body does not admit, or take a scope its argument does not argue. A title wider than its
+argument misleads, and is a finding. A title that leaves something out misleads only where what it
+leaves out narrows what the title admits, as an exception or a limit does: the title states the core
+of the decision, and the conditions that do not narrow it are in the body. A title true of its
+nearest rival is vague: it states no member and no scope a session would act on against the body,
+and vagueness alone does not mislead. The slug is held to the same test, since it is often the only
+part of the head a reader sees, in a citing document or in code, and a slug or a title that misleads
+is renamed, whatever references the rename rewrites. The text is the shape fragment,
+`path@agent-skills@fragments/head-shape.md`, beside the rule of
+`design@agent-skills@title-states-the-rule`.
+
+It serves three goals. `goal@design-is-recorded-with-its-arguments`: a title states no rule its body
+does not argue, and a title wider than its argument states one. `goal@agents-work-without-drift`: a
+session that acts on titles alone, as an outline or a citation shows them, does not act against the
+body. `goal@only-needed-instructions`: no rule on titles where judgement does well enough, and one
+test does the work of two.
+
+The nearest rival holds a title to two more tests: a title states no more than its argument argues,
+and the slug and the title stay aligned with the full scope of the decision. The test of the full
+scope asks a title to cover its body, so each gap a review finds adds a clause. Where a title must
+also be false of its nearest rival, a test that `design@agent-skills@nearest-rival-title-is-advice`
+makes advice, every clause that test asks for adds to the same push: two heads' titles reached 51
+and 54 words, under both tests binding, in the commit "[review] Repairs of the review before the
+merge of the spec on when a default enters a head: the fork's choice split, titles to their
+decisions, and the old form converted in the heads the work touched", counted over the `###` lines
+that `git show c811787e --format= -- '*docs/design*'` adds, the slug removed. The defect that costs
+a reader, acting on a rule the body does not decide, is the one the test of the argument's reach
+catches, and the test of misleading catches it too, so the rival's two tests add no finding a reader
+needs, and add the push.
+
+### That a title is false of the nearest rival it beat is advice that binds neither the writer nor a review `##nearest-rival-title-is-advice`
+
+The shape fragment, `path@agent-skills@fragments/head-shape.md`, advises that a title false of the
+nearest rival it beat tells the reader most, and binds no one with it: a title true of its rival is
+vague, and vagueness alone does not mislead, per `design@agent-skills@title-misleads-bar`. It serves
+`goal@only-needed-instructions`, which gives no instruction to a case judgement handles well
+enough: a title that does not mislead is such a case for the reader's safety, and whether a review
+should still push a title to be false of its rival is the fork below, which the goal does not
+settle.
+
+Binding the writer alone loses on `design@agent-skills@reviews-judge-by-the-writer-s-criteria`: a
+review judges by the writer's criteria, so a criterion that binds the writer binds the review. The
+nearest rival keeps the test a binding criterion of the writer and of the review, reported only
+where the title reads as the rival's decision. Advice over that criterion: the session ranked one
+title rule fewer, and titles kept short, above titles that reviews push to be false of their rival,
+which no goal ranks. That push is the pressure toward restating the body that
+`design@agent-skills@title-misleads-bar` measures.
+
+### No word bound limits a head's title `##no-title-word-bound`
+
+A head's title has no bound on its words. What keeps it short is the rule of
+`design@agent-skills@title-misleads-bar`: the title states the core of the decision, and the
+conditions that do not narrow it are in the body.
+
+It serves `goal@only-needed-instructions`: no rule on titles where the writer's judgement keeps
+them far below a restatement of their body. Over the design homes of this repository at commit
+28f369b5, a title's words are a median of 8.9 % of its body's, measured by the title script of the
+commit "[plans] Repairs of the plan reviews of the spec on head titles that must not mislead",
+which its message holds whole, run from the repository's root as `python3 -I <script> <commit> .`;
+a median that moves toward the length of a body reopens this decision. The rival, a word bound,
+has no argument that places its value, and a bound blocks the title of a set closed on purpose,
+which lists its members, per `design@agent-skills@title-states-the-rule`.
 
 ### A head holds one decision, and parts that lose to different nearest rivals are separate heads `##one-decision-per-head`
 
