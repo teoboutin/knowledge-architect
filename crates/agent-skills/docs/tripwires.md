@@ -13,25 +13,28 @@ or a retrospective file the intake receives, finds on the main branch a decision
 bounded path that passes an entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
 **Re-entry:** the decision-record review of a branch whose diff touches code that a commit made on
-the bounded path by another branch introduced, which reads that commit's message.
+the bounded path by another branch introduced, which reads that commit's message; the intake of a
+retrospective file, which reads every tripwire against the file it receives; and each pass of a
+project audit, whose report marks a finding that bears on a tripwire.
 **Watches until:** three commits on the main branch that implement work proposed on the bounded
-path, each message carrying the proposal, and for each of them a later commit on the main branch,
-from another branch, that changes a file it changed, counted from the commit that writes this
-line.
+path, each message carrying the proposal, and for each of them a later commit on the main branch
+that changes a file it changed and that the first release tag containing it does not contain,
+counted from the commit that writes this line: a release tag is set on the main branch after a
+merge, so a commit it does not contain came from another branch.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
 The decision rests on the premise that the nearest-rival test keeps a rule's exception with the
 rule.
 
-**Fires when:** a commit merges back two heads split under the decision; or an audit, or the
-review of a branch that did not write the head, finds on the main branch an exception split from
-its rule.
+**Fires when:** a commit on the main branch that merges back two heads that another branch split
+under the decision; or an audit, or the review of a branch that did not write the head, finds on
+the main branch an exception split from its rule.
 **Response:** reopen `design@agent-skills@one-decision-per-head`, with the reversal test among the
 candidates.
 **Re-entry:** each pass of the design-record axis of a project audit, the decision-record review of
 a change that touches a head it did not write, and the standing-state review, for a commit that
-merges two heads back.
+merges back two heads that another branch split.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.
@@ -42,7 +45,10 @@ The decision rests on the premise that the test of a misleading title, which rep
 the argument's reach and of the decision's full scope, keeps a title from stating a rule its body
 does not argue. The suspected mechanism of the earlier recurrence: a title moved from the members
 to the rule states the rule in terms the session chooses, and those terms reach further than the
-argument the body carries.
+argument the body carries. That recurrence is a title wider than its argument, found and repaired
+by the reviews of five branches merged from 2026-10-24, which the issue that the commit "[plans]
+The spec on head titles that must not mislead and on tripwires that fire on a defect found on main"
+closed recorded, read at the parent of that commit under `register@agent-skills@issue`.
 
 **Fires when:** an audit, or the review of a branch that did not write or retitle the head, finds on
 the main branch a title that misleads, in a head written or retitled after the decision.
@@ -255,8 +261,9 @@ evidence, owed by a test of logic, is not skipped by naming the test another kin
 passes every procedure, the code-shape reviewer's included where the label looks plausible.
 
 **Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`,
-or a review's finding on the main branch, reports a test of pure logic classed as golden, mocked,
-integrated or external and carrying no recorded mutation, in two separate pieces of work.
+or the review of a branch that did not write the test, reports on the main branch a test of pure
+logic classed as golden, mocked, integrated or external and carrying no recorded mutation, in two
+separate pieces of work.
 **Response:** reopen `design@agent-skills@test-economy` on how a test's kind is decided, with the
 instances.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
