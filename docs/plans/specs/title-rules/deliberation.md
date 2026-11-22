@@ -34,25 +34,28 @@ corrections followed the record search, in the reply to round 3:
 
 - a title that leaves out a condition misleads where the condition narrows what the title admits,
   replacing the drafted list of safe omissions, `argument@title-rules@arg-18`;
-- the nearest-rival test becomes advice that binds no one, shape A, over shape B, a binding
-  criterion reported only where the title reads as the rival's decision, since a test that binds
-  the writer and no review contradicts `design@agent-skills@reviews-judge-by-the-writer-s-criteria`,
-  `argument@title-rules@arg-19`.
+- the session's round-2 default, the nearest-rival test binding the writer alone, contradicts
+  `design@agent-skills@reviews-judge-by-the-writer-s-criteria`, since a test that binds the writer
+  and no review is a writer's criterion no review judges; the session then put shape A, the test as
+  advice that binds no one, against shape B, a binding criterion of the writer and of the review
+  reported only where the title reads as the rival's decision, and held A on its ranking: one rule
+  fewer, and no review pushing titles to rule out their rival, the pressure toward longer titles the
+  owner raised, `argument@title-rules@arg-19`.
 
-Shape: README.md, Decided design, #title-misleads-bar. Harvest:
-`design@agent-skills@title-states-the-rule`, with the title rules of the shape fragment. The owner's
+Shape: README.md, Decided design, #title-misleads-bar. Harvest: a new head under the thread's slug,
+with the title rules of the shape fragment. The owner's
 rulings: in round 2, the owner approved the direction; in round 4, the owner approved the
 checkpoint table, which held both corrections.
 
-### No word cap on titles; a title states the core of the decision and its conditions go in the body `##title-length-bound`
+### No word cap on titles; a title states the core of the decision, and the conditions that do not narrow it go in the body `##title-length-bound`
 
 Proposed by the session in the reply to round 1, on the owner's concern of round 1 that the title
 rules must not end up requiring a title that restates its head, and the owner's question on the
 length of titles. Final state: approved. Arguments: `argument@title-rules@arg-1`,
 `argument@title-rules@arg-4`, `argument@title-rules@arg-5`, `argument@title-rules@arg-7`,
 `argument@title-rules@arg-11`, `argument@title-rules@arg-25`. Rival: a word cap based on the
-measurement. Shape: README.md, Decided design, #title-length-bound. Harvest:
-`design@agent-skills@title-states-the-rule`, with the title rules of the shape fragment. The owner's
+measurement. Shape: README.md, Decided design, #title-length-bound. Harvest: a new head under the thread's
+slug, a head of absence. The owner's
 rulings: in round 2, the owner ruled for no bound and agreed to the addition that a title states
 the core of the decision; in round 4, the owner approved the checkpoint table.
 
@@ -74,8 +77,8 @@ counts review findings across branches, `tripwire@agent-skills@a-shortcut-decisi
 `tripwire@agent-skills@split-rule-from-exception` and
 `tripwire@agent-skills@rejected-entry-cited-by-the-wrong-head`;
 `tripwire@agent-skills@record-check-misses-a-head` keeps its clause. Shape: README.md, Decided
-design, #review-finding-is-no-firing. Harvest: `design@agent-skills@tripwire-admission-test`, with
-the tripwire standard's rule on slips. The owner's rulings: in round 3, the owner judged the
+design, #review-finding-is-no-firing. Harvest: a new head under the thread's slug, cited by
+`design@agent-skills@tripwire-admission-test`, with the tripwire standard's rule on slips. The owner's rulings: in round 3, the owner judged the
 direction right and gave the refinement above; in round 4, the owner approved the checkpoint
 table, which held the position with that refinement.
 
@@ -112,14 +115,15 @@ from the argument in `argument@title-rules@arg-22`.
 ### The measured title lengths: titles are not restatements today `##arg-4`
 
 The reply to round 1, the session. Bears on `thread@title-rules@title-length-bound`,
-`thread@title-rules@title-misleads-bar`. Measured by the session's script over every design home
-file of the repository, the test mock projects excluded, titles without their slug: 612 design
-heads at HEAD; title median 17 words, 90th percentile 27, longest 53; body median 199 words; title
-length as a share of body length, median 9 %. By title length: under 10 words, 63 heads; 10-19,
-323; 20-29, 200; 30-39, 29; 40 or more, 9. Median title length over time: 14 words before the
-head-rules harvest (2026-10-09), 16 at 2026-10-24, 17 at the time of the discussion; the
-agent-skills Component has the longest titles, median 20. "So titles are not restatements today; a
-typical one is about a tenth of its body."
+`thread@title-rules@title-misleads-bar`. The figures below are those of the title script, which
+the README's Names section defines, re-taken at main `28f369b5` by the plan reviews, which found the
+session's figures in part inconsistent: 613 design heads; title median 17 words, 90th percentile
+27, longest 53; body median 202 words; title length as a share of body length, median 8.9 %. By
+title length: under 10 words, 52 heads; 10-19, 323; 20-29, 200; 30-39, 29; 40 or more, 9. Median
+title length over time: 14 words before the head-rules harvest (2026-10-09), 16 at 2026-10-24, 17 at
+the time of the discussion; the longest median of a Component is query's, 21, and agent-skills' is
+20. The session's conclusion, verbatim: "So titles are not restatements today; a typical one is
+about a tenth of its body."
 
 ### The pressure toward restatement comes from the nearest-rival test and the full-scope test together `##arg-5`
 
@@ -170,7 +174,9 @@ The reply to round 2, the session. Bears on `thread@title-rules@title-tripwire-v
 `thread@title-rules@review-finding-is-no-firing`. "You're right, and it corrects one of my claims.
 "None reached main" is unverified. No pass of the design-record audit has run since the tripwire
 was written, so a title wider than its argument that a review missed would be invisible. All I can
-say is that none is known."
+say is that none is known." The plan reviews found the claim true only from the clause's rewrite of
+2026-10-24: a pass of the design-record axis ran on 2026-10-12, after the tripwire was first written
+on 2026-10-09; the README states the claim from 2026-10-24.
 
 ### The owner holds that titles are healthy today `##arg-11`
 
@@ -221,7 +227,9 @@ only on an instance that reached the main branch with no procedure reporting it.
 reviews, checks or retrospectives report, however often they recur, show the procedure working, and
 fire nothing." / "**Rival:** keep the recurrence branch as a measure of review cost. That cost is
 not silent: you see every review and its findings, which condition 1 excludes." / "**Cost:**
-tripwires fire later, and only once an audit or later work finds the defect on main."
+tripwires fire later, and only once an audit or later work finds the defect on main." The plan
+reviews corrected the rival's ground: the reviews report those findings, which condition 1
+excludes; that the owner sees them is no ground of condition 1.
 
 ### The title tripwire is rewritten to watch a misleading title found on main, over no tripwire `##arg-16`
 
@@ -238,9 +246,11 @@ decision on what it found."
 Round 3, the owner, and the reply to round 3, the session. Bears on
 `thread@title-rules@review-finding-is-no-firing`, `thread@title-rules@title-tripwire-verdict`. The
 owner judged the direction right, and argued that what reaches main with no report is hard to
-measure, since by definition nothing reported it; that a later audit is what can surface it, and so
-is what should be watched; or a later review that inspects the same item and finds the defect in
-text already on main. The session took it: "A clause on how sessions follow an instruction fires
+measure, since by definition nothing reported it; that, the owner guessed, a later audit is what
+can surface it, and so probably what should be watched; or a later review that inspects the same
+item and finds the defect in text already on main. The hedges, "I guess" and "probably", are
+restored on the plan reviews' finding, awaiting the owner's word as D2 of the README. The session
+took it: "A clause on how sessions follow an instruction fires
 only on a defect that a later procedure finds in text already on main: an audit, or the review of a
 later branch that reads that text without having written it. A finding a review reports on the
 work it reviews fires nothing, however often it recurs."
@@ -322,11 +332,17 @@ as "only imprecise", and misleading titles reach main. This stresses #title-misl
 defect on main. With no audit, nothing fires. This stresses #review-finding-is-no-firing.
 **Outcome:** named as a cause for the harvest to judge as a tripwire. Each such tripwire's horizon
 already counts audit passes, so an unrun audit shows as a horizon not reached rather than as a
-pass."
+pass." The plan reviews found the premise false for
+`tripwire@agent-skills@a-shortcut-decision-earns-a-head`, whose horizon counted only commits; the
+README's premortem restates cause 2 on the horizons as step 3 edits them, each counting a report of
+the design-record axis.
 
 ### Premortem cause 3: titles keep growing, dropped since the owner sees titles in every review `##arg-25`
 
 The reply to round 3, the session. Bears on `thread@title-rules@title-length-bound`. "**Titles keep
 growing anyway.** This stresses #title-length-bound. **Outcome:** dropped. You see titles in every
 review, so the failure is not silent, which condition 1 excludes. The median is re-taken with the
-script over every [design home file's] heading."
+script over every [design home file's] heading." The plan reviews corrected the ground: under
+#title-length-bound no review reports a long title, so condition 1 does not exclude the cause; it is
+dropped under the standard's doubt paragraph, since the owner sees titles while carrying work with
+the project's agents.
