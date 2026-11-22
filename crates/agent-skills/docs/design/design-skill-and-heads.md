@@ -186,8 +186,9 @@ session that acts on titles alone, as an outline or a citation shows them, does 
 body. `goal@only-needed-instructions`: no rule on titles where judgement does well enough, and one
 test does the work of two.
 
-The nearest rival holds a title to two more tests: a title states no more than its argument argues,
-and the slug and the title stay aligned with the full scope of the decision. The test of the full
+The nearest rival holds a title to two more tests, `rejected@agent-skills@title-tests-of-reach-and-full-scope`:
+a title states no more than its argument argues, and the slug and the title stay aligned with the
+full scope of the decision. The test of the full
 scope asks a title to cover its body, so each gap a review finds adds a clause. Where a title must
 also be false of its nearest rival, a test that `design@agent-skills@nearest-rival-title-is-advice`
 makes advice, every clause that test asks for adds to the same push: two heads' titles reached 51

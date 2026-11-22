@@ -14,27 +14,29 @@ bounded path that passes an entry test of `design@agent-skills@a-head-is-owed-by
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
 **Re-entry:** the decision-record review of a branch whose diff touches code that a commit made on
 the bounded path by another branch introduced, which reads that commit's message; the intake of a
-retrospective file, which reads every tripwire against the file it receives; and each pass of a
-project audit, whose report marks a finding that bears on a tripwire.
-**Watches until:** three commits on the main branch that implement work proposed on the bounded
-path, each message carrying the proposal, and for each of them a later commit on the main branch
-that changes a file it changed and that the first release tag containing it does not contain,
-counted from the commit that writes this line: a release tag is set on the main branch after a
-merge, so a commit it does not contain came from another branch.
+retrospective file, which reads each tripwire whose firing evidence the file carries; and each pass
+of a project audit, whose report marks a finding that bears on a tripwire.
+**Watches until:** three commits on the main branch whose message says its proposal was put to the
+owner as bounded work, found by `git log -i --grep='as bounded work'` and confirmed by reading each,
+and for each of them a later commit on the main branch that changes a file it changed and that the
+first release tag containing it does not contain, counted from the commit that writes this line: a
+release tag is set on the main branch after a merge, so a commit it does not contain came from
+another branch.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
 The decision rests on the premise that the nearest-rival test keeps a rule's exception with the
 rule.
 
-**Fires when:** a commit on the main branch that merges back two heads that another branch split
-under the decision; or an audit, or the review of a branch that did not write the head, finds on
-the main branch an exception split from its rule.
+**Fires when:** a commit on the main branch merges back two heads that another branch split under
+the decision, on the ground that they were one decision when split, such as a rule and its own
+exception; or an audit, or the review of a branch that did not write the head, finds on the main
+branch an exception split from its rule.
 **Response:** reopen `design@agent-skills@one-decision-per-head`, with the reversal test among the
 candidates.
 **Re-entry:** each pass of the design-record axis of a project audit, the decision-record review of
 a change that touches a head it did not write, and the standing-state review, for a commit that
-merges back two heads that another branch split.
+merges back two heads that another branch split, on that ground.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.

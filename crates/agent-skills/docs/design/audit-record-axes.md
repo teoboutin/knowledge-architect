@@ -142,7 +142,7 @@ has it. The session verifies the drafts.
   together do not read a rule alike, whatever dispatched them; a head created by a split, judged
   only as part of the split, is the edit most often undone.
 
-### Every entry whose text the application of a design-record pass changes, beyond a re-pointed reference, is judged after the application, against every rule `##application-judged-by-diff`
+### Every head and rejected entry whose text the application of a design-record pass changes, beyond a re-pointed reference, is judged after the application, against every rule `##application-judged-by-diff`
 
 After the owner's ruling, the session commits its application of a pass of the design-record axis,
 and every head and rejected alternative whose text the application changed, a retitle and a body
@@ -157,9 +157,11 @@ The application writes text the run never read: the edits of the owner's rulings
 and every entry a split or a retitle touches. In the first pass of the axis in thaum, on
 knowledge-architect 0.6.0, the application touched about 200 heads and entries, and four auditors
 judging every changed entry found 19 failures the run's checks could not see under the rules of
-that version, among them an attribution wider than the owner's argument. W1
-of the analysis of thaum's retrospective file reports these counts, and the commit "The analyses of
-seven retrospective files, with the owner's ruling on each" added that analysis. The re-check of
+that version, among them an attribution wider than the owner's argument. W1 of the analysis of
+thaum's workflow file on its pin move and design-record audit,
+`path@elsewhere@docs/retrospective-reports/2026-10-12-thaum-pin-move-and-design-record-audit-klarch-workflow.md`,
+reports these counts, and the commit "The analyses of seven retrospective files, with the owner's
+ruling on each" added that analysis. The re-check of
 the audit method runs only when a pass follows, and not when the owner stops the audit. The
 standing-state review before the merge reads the tripwires and the issues against the change, not
 each changed entry against every rule.
@@ -170,8 +172,10 @@ The judge of `design@agent-skills@application-judged-by-diff` reads each tripwir
 cites a head the application changed, clause by clause, against the head that now holds what each
 clause guards. In the first pass of the axis in thaum, on knowledge-architect 0.6.0, the
 standing-state review found two tripwires the application left false while they still resolved, as
-W3 of the analysis of thaum's retrospective file reports, in the commit "The analyses of seven
-retrospective files, with the owner's ruling on each". The cross-check's reading of tripwires runs
+W3 of the analysis of thaum's workflow file on its pin move and design-record audit,
+`path@elsewhere@docs/retrospective-reports/2026-10-12-thaum-pin-move-and-design-record-audit-klarch-workflow.md`,
+reports, in the commit "The analyses of seven retrospective files, with the owner's ruling on
+each". The cross-check's reading of tripwires runs
 before the application, and can only predict what the edits will do.
 
 ### The judgement of a design-record pass's application is a mode of the axis's saved workflow, one auditor per group `##application-judge-in-workflow`

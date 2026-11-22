@@ -538,6 +538,17 @@ the tripwire on a member beyond a head's argument, which the counterfactual over
 deleted spec on the tripwire standard judged to need the tripwire, and the rule kept fires only once
 a later procedure reads the text.
 
+### A head's title held to two more tests, stating no more than its argument argues and aligned with the full scope of the decision `##title-tests-of-reach-and-full-scope`
+
+`live`. The test of the full scope asks a title to cover its body, so each gap a review finds adds
+a clause: two heads' titles reached 51 and 54 words under it and the test of a title false of its
+nearest rival, both binding, counted over the `###` lines that
+`git show c811787e --format= -- '*docs/design*'` adds, the slug removed. The defect the test of the
+argument's reach catches, a title stating a rule its body does not argue, is caught by the test of
+a title that misleads, per `design@agent-skills@title-misleads-bar`. Kept on a doubt: reviewers may
+read "misleads" more narrowly than the two tests, so that a title wider than its argument reaches
+the main branch, which `tripwire@agent-skills@misleading-title-found-on-main` watches.
+
 ### Two searchers, one for the design entries of a Component and one for the issues and tripwires `##searches-split-by-kind`
 
 `live`. A cluster holds a head beside the `rejected` entries it cites and the issues and tripwires

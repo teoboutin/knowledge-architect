@@ -150,7 +150,7 @@ keeps it working. The delivery to a judge by a pointer loses to the fragment by
 `design@agent-skills@shared-text-fragment`. The design this decision did not keep:
 `rejected@check@split-enforced-by-a-check`.
 
-### A design thread's slug becomes its entry's slug `##thread-slug-is-entry-id`
+### A design thread's slug becomes its entry's slug, unless it misleads about the decision as approved `##thread-slug-is-entry-id`
 
 A thread of a design discussion is named by a slug minted in the entry-id grammar and checked for
 a collision with the design entries and the `rejected` entries of the Component before it is used,

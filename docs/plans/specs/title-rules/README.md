@@ -45,9 +45,9 @@ whole before the first edit. The Rust change of step 2 follows
 - **a later procedure**: a procedure that reads the work after the procedures of the work itself
   have passed it, such as an audit, the review of a later branch that reads the text without having
   written it, or a retrospective file the intake receives. The property decides, not the list.
-- **the plain-word repair**: the repair text of `id_finding` in
-  `path@check@src/check/references.rs`, lines 605-640, with its comment at lines 609-613, and the
-  tests that assert it, lines 1045-1113 of the same file.
+- **the plain-word repair**: the repair text of the function `id_finding` in
+  `path@check@src/check/references.rs`, with its comment, and the tests of that file's `tests`
+  module that assert it.
 - **the title script**: the Python script of the commit that repairs this spec after its plan
   reviews, named by its subject, "[plans] Repairs of the plan reviews of the spec on head titles
   that must not mislead"; its message holds it whole, since no tree does. It is run from the
@@ -201,11 +201,16 @@ text and its history:
   turns the second into a reference to that head; neither changes a word of the owner.
 - `design@agent-skills@application-judged-by-diff`: fails the title test, since its title admits an
   entry whose only change is a re-pointed reference, which the body leaves out; and what a head
-  stands on, since its thaum counts name no source. Step 4 retitles it, its slug kept, to "Every
-  entry whose text the application of a design-record pass changes, beyond a re-pointed reference,
-  is judged after the application, in a second run of the axis's saved workflow", and names the
-  source: W1 to W3 of the analysis of thaum's retrospective file, in the commit d18f3e6a, "The
-  analyses of seven retrospective files, with the owner's ruling on each".
+  stands on, since its thaum counts name no source. Step 4 retitles it, its slug kept, and names
+  the source: the analysis of thaum's workflow file on its pin move and design-record audit,
+  `path@elsewhere@docs/retrospective-reports/2026-10-12-thaum-pin-move-and-design-record-audit-klarch-workflow.md`,
+  in the commit d18f3e6a, "The analyses of seven retrospective files, with the owner's ruling on
+  each". The design-record auditor that checked the retitle found that the head bundles three
+  threads, so step 4 split it into
+  `design@agent-skills@application-judged-by-diff`,
+  `design@agent-skills@application-judge-reads-tripwires` and
+  `design@agent-skills@application-judge-in-workflow`, the first citing the file's W1 and the second
+  its W3.
 
 What the harvest then changes in each, step 5:
 
@@ -269,13 +274,15 @@ Weighed, stated in the discussion. Met by #title-length-bound.
 
 ## New names, in one place
 
-Each new head takes its thread's slug, so each is written here by its thread's name.
+Each new name is written here by its thread's name. The slug each entry takes is in the Harvest
+table, which departs from the thread's slug where that slug misleads about the decision as
+approved.
 
 ```
-#title-misleads-bar               crates/agent-skills/docs/design/design-skill-and-heads.md, a design head, at the harvest
+#title-misleads-bar               crates/agent-skills/docs/design/design-skill-and-heads.md, design heads, at the harvest
 #title-length-bound               crates/agent-skills/docs/design/design-skill-and-heads.md, a design head, at the harvest
 #review-finding-is-no-firing      crates/agent-skills/docs/design/premortem-and-tripwires.md, a design head, at the harvest
-#misleading-title-found-on-main  crates/agent-skills/docs/tripwires.md, a tripwire, at the harvest
+#title-tripwire-verdict           crates/agent-skills/docs/tripwires.md, a tripwire, at the harvest
 ```
 
 No name in code: step 2 changes a message and a comment.
@@ -338,9 +345,8 @@ The standard fragment's rule on slips, lines 33-37, becomes:
 
 "**A slip is no firing.** A slip is a failure to follow an instruction that the review of the work
 itself, or a check run on that work, reports. A clause on how sessions follow an instruction never
-fires on a slip, however often slips recur in separate pieces of work: one slip is no firing, and
-neither are many, since each is that procedure working, and the failures it misses are what the
-clause can watch. The clause fires only on a failure that passed the procedures of its own work and
+fires on a slip, however often slips recur in separate pieces of work, since each slip is that
+procedure working, and the failures it misses are what the clause can watch. The clause fires only on a failure that passed the procedures of its own work and
 that a later procedure reports, such as an audit, the review of a later branch that reads the text
 without having written it, or a retrospective file the intake receives. A clause that watches
 whether an earlier procedure catches what it exists to catch, or what a decision gives in real use,
@@ -352,26 +358,34 @@ repository only that way, per `goal@the-workflow-improves-through-real-use`. The
 term, so the texts that apply it keep their words. The table of "What the work is" gives each
 tripwire's outcome under the rule.
 
-The three tripwires in the rule lose their recurrence clause. Their new lines, each horizon naming
-an occasion that can occur under the new clause, a pass of the design-record axis:
+The three tripwires in the rule lose their recurrence clause. Their lines, as built, the lines of
+`tripwire@agent-skills@a-shortcut-decision-earns-a-head` and the merge-back clause of
+`tripwire@agent-skills@split-rule-from-exception` as the tripwire auditor's judgement of step 3 and
+the review before the merge gave them:
 
 - `tripwire@agent-skills@a-shortcut-decision-earns-a-head`:
-  - "**Fires when:** an audit, or the review of a branch that did not make it, finds on the main
-    branch a decision taken on the bounded path that passes an entry test of
+  - "**Fires when:** a later procedure, such as an audit, the review of a branch that did not make
+    it, or a retrospective file the intake receives, finds on the main branch a decision taken on
+    the bounded path that passes an entry test of
     `design@agent-skills@a-head-is-owed-by-an-entry-test`."
-  - "**Re-entry:** each pass of the design-record axis of a project audit, and the decision-record
-    review of a branch that reads a commit made on the bounded path by another branch."
-  - "**Watches until:** the later of two occasions, counted from the commit that writes this line:
-    three commits on the main branch that implement work proposed on the bounded path, each message
-    carrying the proposal; and the first report file of the design-record axis added under
-    `path@knowledge-architect@docs/audit-reports/` on the main branch."
+  - "**Re-entry:** the decision-record review of a branch whose diff touches code that a commit made
+    on the bounded path by another branch introduced, which reads that commit's message; the intake
+    of a retrospective file, which reads each tripwire whose firing evidence the file carries; and
+    each pass of a project audit, whose report marks a finding that bears on a tripwire."
+  - "**Watches until:** three commits on the main branch whose message says its proposal was put to
+    the owner as bounded work, found by `git log -i --grep='as bounded work'` and confirmed by
+    reading each, and for each of them a later commit on the main branch that changes a file it
+    changed and that the first release tag containing it does not contain, counted from the commit
+    that writes this line", with the reason that a commit no later tag contains came from another
+    branch.
 - `tripwire@agent-skills@split-rule-from-exception`:
-  - "**Fires when:** a commit merges back two heads split under the decision; or an audit, or the
-    review of a branch that did not write the head, finds on the main branch an exception split
-    from its rule."
+  - "**Fires when:** a commit on the main branch merges back two heads that another branch split
+    under the decision, on the ground that they were one decision when split, such as a rule and
+    its own exception; or an audit, or the review of a branch that did not write the head, finds on
+    the main branch an exception split from its rule."
   - "**Re-entry:** each pass of the design-record axis of a project audit, the decision-record
     review of a change that touches a head it did not write, and the standing-state review, for a
-    commit that merges two heads back."
+    commit that merges back two heads that another branch split, on that ground."
   - "**Watches until:**" kept: "20 commits on the main branch that add a level-three heading to a
     design home, and one pass of the design-record axis", with its sentence on a relocation.
 - `tripwire@agent-skills@rejected-entry-cited-by-the-wrong-head`:
@@ -466,9 +480,12 @@ The work reads no external specification.
    #title-misleads-bar. Watched by the tripwire of #title-tripwire-verdict.
 2. **Tripwires on how instructions are followed stop firing, audits being rare.** Stresses
    #review-finding-is-no-firing. Each of the three tripwires step 3 edits, and the new one, can fire
-   only on a later procedure, and its horizon now counts a report of the design-record axis, so an
-   audit not run shows as a horizon not reached rather than as a pass. Named as a cause for the
-   harvest to judge by the standard.
+   only on a later procedure. The horizons of `tripwire@agent-skills@split-rule-from-exception`,
+   `tripwire@agent-skills@rejected-entry-cited-by-the-wrong-head` and the new one count a pass or a
+   report of the design-record axis, so an audit not run shows as a horizon not reached rather than
+   as a pass; that of `tripwire@agent-skills@a-shortcut-decision-earns-a-head` counts later commits
+   that change a file a bounded-path commit changed. Named as a cause for the harvest to judge by
+   the standard.
 3. **Titles keep growing anyway.** Stresses #title-length-bound. No condition clearly excludes it:
    under #title-length-bound no review reports a long title, so condition 1 holds. Dropped under the
    standard's doubt paragraph: the owner sees titles while carrying work with the project's agents,
@@ -515,8 +532,9 @@ None: the work changes text and one message, and no built code can apply a check
 5. **The harvest.** Builds: the heads of #title-misleads-bar
    and #title-length-bound in `path@agent-skills@docs/design/design-skill-and-heads.md`, and that of
    #review-finding-is-no-firing in `path@agent-skills@docs/design/premortem-and-tripwires.md`, each
-   under its thread's slug;
-   `design@agent-skills@title-states-the-rule` keeping test 2, its title and slug kept;
+   under the slug the Harvest table gives;
+   `design@agent-skills@title-states-the-rule` keeping test 2, its slug kept, its title given the
+   exception of a set closed on purpose;
    `design@agent-skills@tripwire-admission-test` without the rule on slips, its last paragraph per
    D3; the other heads the table of "What is already decided" gives to step 5; the `%%` comments of the shape and
    standard fragments naming the new heads; the tripwire `tripwire@agent-skills@misleading-title-found-on-main`; the
@@ -575,6 +593,31 @@ the judgements per firing were not kept; the dropped `member-beyond-the-argument
 the ranking, which put the value of the tripwires admitted above keeping every past useful one.
 **Rival**: the work re-judges the 49 firings, from their commits in this repository and in thaum,
 under the new case before the harvest. Ruled: the owner accepted the default.
+
+### D4: a received retrospective file counts as a later procedure
+
+Bears on #review-finding-is-no-firing. The position the owner agreed to in round 4 fires a clause
+only on a defect that a later audit, or the review of a branch that did not write the text, finds
+on main. The plan-review repair of this spec, the session's, added a retrospective file the intake
+receives as a later procedure, which widens that "only". It rests on
+`goal@the-workflow-improves-through-real-use`: a consumer's real use reaches this repository only
+through such files, and `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see`
+asks for them to be kept as evidence. **Default**, built: keep it, in
+`design@agent-skills@slip-is-no-firing` and the standard fragment. **Rival**: remove it; the two
+tripwires that fire on retrospective analyses, `tripwire@agent-skills@shape-findings-fragment-code`
+and `tripwire@agent-skills@logic-tests-relabelled`, then lose that clause. The review before the
+merge put it to the owner; the branch merges once the owner rules.
+
+### D5: a clause that watches what a decision gives in real use is outside the rule
+
+Bears on #review-finding-is-no-firing. The same plan-review repair added that a clause watching
+what a decision gives in real use stays outside the rule and keeps counting, which narrows the
+rule's scope. Such a clause watches whether the decision is wrong, not a session's lapse; without
+the exception the rule would strike the clauses of `tripwire@agent-skills@audit-drafts-mostly-noise`,
+`tripwire@agent-skills@duplicate-auditors-add-nothing` and the two tripwires of D4. **Default**,
+built: keep it, in `design@agent-skills@slip-is-no-firing`, its title and the standard fragment.
+**Rival**: remove it, and judge those four tripwires again under the rule. The review before the
+merge put it to the owner; the branch merges once the owner rules.
 
 ## Harvest
 

@@ -135,19 +135,22 @@ an HTML comment inside a line hold no word. The value of a frontmatter `name` li
 skill or an agent is defined by, not a mention, and is not read. Its repair names the reference, and
 adds what to do where the word is meant as an ordinary term: the entry, a design entry as any other,
 is renamed so that its slug is not an ordinary word, since a slug that is an ordinary word collides
-with the prose that uses the word; on the owner's word, a slug has no reason to be used as an
-ordinary word, and that is the only way the lint reports a wrong use reliably. The owner's ruling
-covers the slugs of the installed text too, which a consuming project cannot rename: such a slug met
-there as an ordinary word is reported upstream, by the project's retrospective.
+with the prose that uses the word; a goal is renamed by the owner, through its project's
+goal-setting, since a goal changes only through the owner, per `goal@the-owner-decides`. A slug has
+no reason to be used as an ordinary word, and that is the only way the lint reports a wrong use
+reliably. The rule covers the slugs of the installed text too, which a consuming project cannot
+rename: such a slug met there as an ordinary word is reported upstream, by the project's
+retrospective, since an exemption would leave a wrong use of such a slug unreported, which is the
+reliability the rule rests on.
 
-**The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
-meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the
-owner's view. The census of the design discussion, kept in its spec,
+A word meant as an ordinary term probably shows a slug wrongly chosen and not specific enough. The
+census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, bore it out in thaum, where it
 sorted the hits: every plain hit that was no pointer came from a subject slug, and every other hit
-was a pointer written in words. A listing would leave those pointers unchecked: `rejected@check@plain-word-mention`. A slug kept as a concept index, so
-that a term's mentions read as its pointers, is not the intended use of the workflow, in the
-owner's view, and `show` lists every citation of an entry.
+was a pointer written in words. The rival, a listing of such words in `show`, would
+leave those pointers unchecked: `rejected@check@plain-word-mention`. A slug kept as a concept index,
+so that a term's mentions read as its pointers, buys little: the primer asks a pointer to be a
+reference, and `show` lists every citation of an entry.
 
 **CHANGELOG.md is read by none of the lints**: it is outside the walk, per
 `design@knowledge-architect@the-changelog-is-outside-the-walk`.
