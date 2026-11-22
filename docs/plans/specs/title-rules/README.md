@@ -400,8 +400,8 @@ the review before the merge gave them:
 
 The argument: the owner's, in rounds 2 and 3: a finding a review reports on its own branch shows the
 review working; counting such findings suffers from survivor bias, since a lapse no review caught
-is not known; what makes such a lapse observable is a later procedure reading the same text on
-main. The session's reading against the standard, from round 2: counting such findings fires on
+is not known; what probably makes such a lapse observable, as the owner guessed, is a later
+procedure reading the same text on main. The session's reading against the standard, from round 2: counting such findings fires on
 the procedure working, which condition 3 excludes. It reverses the sentence of
 `design@agent-skills@tripwire-admission-test` "That a recurrence fires is the session's argument,
 since a recurrence is how such a premise shows false"; the owner's "one slip is no firing" stays.

@@ -49,3 +49,10 @@ reference, each title judged by `design@agent-skills@title-misleads-bar`, and ea
 `rejected` entry that still holds an older attribution converted to the form `primer@design-heads`
 gives: an argument or an approval named with no source, and a fork's choice as the ranking it made,
 with that ranking's source.
+
+### Leads
+
+- The subject "The design skill and the rules on heads" of `register@agent-skills@design` holds both
+  heads on the design skill and heads on a head's shape. `cargo klarch worklist` names no cluster of
+  it above the bound; whether its heads answer questions about parts that change apart, the subject
+  standard's second ground, is for the pass to judge.

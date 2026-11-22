@@ -251,7 +251,7 @@ a signal of the module guidelines whose parts are read against one reference and
 in every later change that touched them.
 **Response:** reopen `design@agent-skills@default-code-shape` on how the fragmentation clause is
 worded and delivered, or `design@agent-skills@module-split-guidelines` on its signals against a
-split, with the instances.
+split, with the instance found.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
 the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
