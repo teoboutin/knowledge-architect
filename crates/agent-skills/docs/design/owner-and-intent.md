@@ -200,11 +200,13 @@ an approval of a default put at a fork as the owner's choice, which
 wider form, citing every ruling of the owner, is `rejected@agent-skills@head-cites-every-owner-ruling`,
 which an audit measured.
 
-### A choice at a fork is recorded in a weak form, which reopens without the owner on an argument or a fact the fork's record does not hold `##fork-choice-in-weak-form`
+### A choice at a fork is recorded in a weak form, which names the rivals and the costs weighed and reopens without the owner on an argument or a fact the fork's record does not hold `##fork-choice-in-weak-form`
 
-A fork's choice reopens without the owner on an argument or a fact that ranks the shapes, since the
+A fork's choice names the rivals and the costs that were weighed. It reopens without the owner on an argument or a fact that ranks the shapes, since the
 question is then no fork, through the design skill and reported under "Decided"; an argument or a
-fact the fork's record already holds reopens nothing. A goal changes only through the owner.
+fact the fork's record already holds reopens nothing. A goal changes only through the owner. The
+rivals and the costs are named because the reopening test reads them: a record that names no costs
+leaves that test nothing to read.
 
 The weak form rests on the argument that an intent about a mechanism is always settled by an argument
 or is a fork, whose free choice is stated with no strong ruling, so that a new argument found later
@@ -217,9 +219,10 @@ The nearest rival, a fork's choice reversed by the owner alone, protects a weigh
 and did not state; a weighing the owner states is an argument or a goal, which the record keeps.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
-### A fork's choice names the rivals, the costs weighed and whose ranking it was, the owner's where the owner picked and the session's where the owner approved its default `##fork-choice-names-whose-ranking-it-was`
+### A fork's choice names whose ranking it was, the owner's where the owner picked and the session's where the owner approved its default `##fork-choice-names-whose-ranking-it-was`
 
-A fork's choice names the rivals, the costs that were weighed, and whose ranking it was: "X over Y:
+A fork's choice, recorded in the weak form of `design@agent-skills@fork-choice-in-weak-form`, names
+whose ranking it was: "X over Y:
 the owner ranked <cost> above <cost>, which no goal ranks", or "the session ranked". The ranking is
 the owner's where the owner picked, against the session's default or with none offered, and the
 session's where the owner approved the session's default. Where the record of the fork names no
@@ -232,10 +235,7 @@ default is given without analysing the proposal deeply. The ranking keeps its so
 later moves depend on it: a new member is routed by whose choice the fork was, per
 `design@agent-skills@extension-follows-the-ground`, and a defeated premise by its source, per
 `primer@owner-word-premise`, an owner's ranking whose premise proves false going back to the owner
-as `goal@the-owner-decides` asks. The rivals and the costs are named because the weak form reopens
-only on an argument or a fact the fork's record does not hold, per
-`design@agent-skills@fork-choice-in-weak-form`, and a record that names no costs leaves that test
-nothing to read.
+as `goal@the-owner-decides` asks.
 
 The nearest rival, an approval at a fork recorded as the owner's choice, attributes to the owner a
 weighing the owner did not make. A choice stated with no source, "X over Y: <cost> weighed against
@@ -265,7 +265,7 @@ move, since the weak form reopens alike whoever chose, so the approval is kept i
 items and the commit message, where the transcript reviewer matches it against the transcript. The
 rival, the approval kept in heads, records what no later move reads.
 
-### A head, a rejected entry, a tripwire, an issue entry, a plan document's items and a commit message never quote the owner, whose words verbatim stay in a design discussion's committed transcript, up to its last checkpoint, in a file that leaves, or in an issue entry that the owner asks to keep them `##attribution-replaces-quotation`
+### The owner's words verbatim stay only in a record that leaves once its work is done, and every other record attributes the owner without quoting `##attribution-replaces-quotation`
 
 `primer@design-heads` states it: a design head, a `rejected` entry, a tripwire, an issue entry, a
 plan document's items and a commit message attribute what

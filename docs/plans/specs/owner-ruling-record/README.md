@@ -589,6 +589,19 @@ reviews; each is marked as ruled.
   premise: the verifier found it plausible, not confirmed. Default: keep it, attributed as the
   owner's ranking, in the head that keeps the slug.
 
+- **D6, on `design@agent-skills@tripwire-stands-on-the-standard`, awaiting the owner.** D5 kept
+  "That a tripwire grounded on the owner's word gets no standing the standard does not give it is
+  the owner's ranking" on a premise the session supplied and had not checked: that it records the
+  owner's weighing at a fork. The review before the merge found, in the commit that decided it, an
+  owner's proposal approved, its rival ruled out by the session on its argument: no fork. D5 holds
+  only as far as that premise, per `primer@owner-word-premise`. Default: drop the sentence, which
+  the head argues on its merits. The rival: rewrite it as an argument, naming no source.
+- **D7, on the same head, awaiting the owner.** "The owner named the wording and the small changes of
+  scope of tripwires among the rulings a clearer standard should let the session's judgement
+  cover" names the owner as the source of an argument; it began as a quotation of the owner's aim.
+  Default: rewrite it as an argument, naming no source. The rival: "the owner reported", read as a
+  fact about the owner's aim.
+
 ## Harvest
 
 | thread | home |
