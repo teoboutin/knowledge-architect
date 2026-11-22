@@ -46,7 +46,7 @@ Before your first entry, read whole:
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
 
-- remove the owner's own words together with an approval cited as a ground;
+- remove a ranking or a fact the owner holds together with an approval cited as a ground;
 - split a rule from its own exception, its parameter or its delivery;
 - move a title to a rule wider than the head's argument;
 - add a member the argument does not cover;
@@ -109,14 +109,14 @@ order. `{{command}} model` prints every heading and slug definition with its fil
 
 - run `{{command}} show design@<component>@<slug>`, and read every tripwire guarding the head and
   every issue naming it that its `referenced at:` part lists;
-- where the head cites the owner, or rests on an approval, read the history that recorded the
+- where the head cites the owner, or attributes a ranking or a fact to the owner, read the history that recorded the
   ruling: `git log -G'<slug>'` for the commits that touched the slug, and the plan documents that
   carried it, found with `git log --diff-filter=D --name-only -- docs/plans/`. Whether a ground is
   the owner's is decided from that history, never from the head's text alone;
 - judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, the
   owner's intent sent to a goal included;
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
-  and its alignment; present tense; and fidelity to what the owner approved, read by its direction. A head that argues
+  and its alignment; present tense; and fidelity to the position the owner was shown, read by its direction. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
 - judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
   another Component fails, and its draft names the Component they place it in;

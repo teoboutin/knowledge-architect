@@ -21,8 +21,8 @@ registers, `skill@knowledge-architect-setup`; **recording the decision**,
 
 %% The criteria are guidelines that real use corrects, through the retrospective's question, per
 %% `design@agent-skills@component-criteria-are-guidelines`.
-%% The domain criterion is stated here alone, so no head: the owner's argument that a Component takes
-%% decisions about one main matter, with smaller side ones allowed; the word is "domain" because a
+%% The domain criterion is stated here alone, so no head: a Component takes decisions about one
+%% main matter, with smaller side ones allowed; the word is "domain" because a
 %% subject is a part of a design home, per `design@agent-skills@subject-split-standard`.
 These criteria are guidelines: a Component that departs from one does not fail on that alone. A
 Component that holds Rust code in its own files, by default:
@@ -41,9 +41,8 @@ Component that holds Rust code in its own files, by default:
 Such a Component is, for example, a published package, a service or a maintenance tool. The root,
 which is the whole project, and an intermediate Component are outside these criteria.
 
-%% Stated here alone, so no head: the owner's argument that subcommands sharing most of their design
-%% and one purpose differ only in subject and application, and the session's, that they change
-%% together where that design changes; its rival, the test of two changes applied to each command,
+%% Stated here alone, so no head: subcommands sharing most of their design and one purpose differ
+%% only in subject and application, and they change together where that design changes; its rival, the test of two changes applied to each command,
 %% passes for every command and splits a design that changes as one.
 **Commands, subcommands or functions that share one purpose and one design are one Component**,
 each command or subcommand in a module of its own: the test of two changes is applied to the
@@ -87,10 +86,10 @@ A split that would show any of these is probably cut in the wrong place:
 **A Component that holds Rust code in its own files is one crate**, so a split creates one crate for
 each Component it cuts out. What that crate costs depends on whether the project publishes:
 
-%% The weight of a crate's use by others is stated here alone, so no head: the owner argued that it
-%% is little more than a lead and pushes in one direction only, and the session added that, read
-%% both ways, it would keep a Component inside another on a ground no default criterion asks; the
-%% owner chose to call it minor over a weight equal to the default criteria, which no goal ranks.
+%% The weight of a crate's use by others is stated here alone, so no head: it is little more than a
+%% lead and pushes in one direction only, and, read both ways, it would keep a Component inside
+%% another on a ground no default criterion asks; minor over a weight equal to the default
+%% criteria, which no goal ranks: the owner's ranking.
 | the project | the cost of the crate a split creates |
 | --- | --- |
 | publishes, or plans to | a low cost, since Rust practice accepts many small published crates: every crate a published crate depends on is published too, since crates.io refuses a dependency given only by a path, a dev-dependency excepted, and each is released in dependency order and bumped on its own. A minor weight, in one direction: a crate that others could use alone is an argument for the split; a crate no one would use alone is no argument against it |
@@ -113,8 +112,7 @@ the project's policy on publishing; it never sets it.
   unclear which crate is responsible for what; and a dev-dependency from A back onto B builds A
   twice in A's unit tests, where the types of the two copies do not match and the errors read as
   mismatched types.
-%% Stated here alone, so no head: the owner's argument that the mocking tools must be published
-%% because the project supports writing extensions, whether as a module or as a crate of their own.
+%% Stated here alone, so no head: the mocking tools must be published because the project supports writing extensions, whether as a module or as a crate of their own.
 - **A Component that supports extensions publishes the tools an extension's tests need**, its test
   harness, as a module of that Component or as a crate of its own, the project's choice. The
   fixtures of the shared test Component stay outside every published package.

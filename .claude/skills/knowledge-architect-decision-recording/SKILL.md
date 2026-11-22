@@ -30,9 +30,10 @@ recorded when it is made: there is no implementing change to wait for. The secon
 `skill@knowledge-architect-decision-recording@what-earns-a-head` admits it, as a decision that no code and no text of the project states.
 
 **A default awaiting the owner is built as written, per
-`skill@knowledge-architect-planning@working-a-slice`, and enters a design head once the owner rules
-on it.** Until then it is no approved decision, and a head is read against the owner's approval
-before it is written, per `skill@knowledge-architect-decision-recording@head-shape`.
+`skill@knowledge-architect-planning@working-a-slice`, and recorded at the harvest like any other
+decision**: a head's text does not depend on the owner's ruling, since an approval is no ground. A
+ruling that picks another shape is a repair, landed as
+`skill@knowledge-architect-review@what-review-leaves` says.
 
 ## Does it reverse something already recorded? `##reversal-check`
 
@@ -187,11 +188,11 @@ If none of these fits, **ask the owner before writing it anywhere.**
 ## A decision approved with no argument `##unargued-approval`
 
 **A decision approved with no argument is argued before it is recorded.** Before a head is written
-from an approval that no argument for the decision, no rival and no cost stand behind, such as a
-default approved in a batch, search for the arguments for and against it, its costs and its rivals,
+from a decision that no argument for it, no rival and no cost stand behind, such as a default
+approved in a batch, search for the arguments for and against it, its costs and its rivals,
 and record what the search finds. When the search leaves the rivals equal, put the fork to the
-owner as a tie. The owner's choice is then recorded in the weak form of a fork's choice, per
-`skill@knowledge-architect-decision-recording@head-shape`.
+owner as a tie. The owner's choice is then recorded as the owner's ranking, in the weak form of a
+fork's choice, per `skill@knowledge-architect-decision-recording@head-shape`.
 
 ## Three homes, split by function `##three-homes`
 

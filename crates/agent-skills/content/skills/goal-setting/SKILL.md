@@ -57,8 +57,8 @@ heading register.
 
 %% The head restates no rule of this skill, since a restatement there drifted from the skill and an
 %% agent that edits a goal loads the skill anyway. The definitions are shared there because most
-%% goals of a home use them: the session chose a paragraph of definitions in the head over a goal
-%% per definition, which no goal ranks; the owner approved it.
+%% goals of a home use them: a paragraph of definitions in the head over a goal per definition,
+%% which no goal ranks: the session's ranking.
 The head of the root's goals home, in a directory its `README.md`, states what the project is for
 as a whole, which the owner rules like a goal. It also holds the definitions its goals share: a few
 general words for what several goals name, each passing rule 2, in a paragraph of their own. A
