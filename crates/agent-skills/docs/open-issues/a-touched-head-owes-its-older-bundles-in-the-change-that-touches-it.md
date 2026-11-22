@@ -44,7 +44,7 @@ Instances, from retrospective files of this repository and of thaum:
   adding a member to a head led the first decision-record review to retitle it, and the re-review
   asked for a third title; "Each title was a defensible reading of the body";
 - the branch on committed transcripts per discussion, 2026-11, at its decision-record re-review:
-  the branch retitled `design@agent-skills@attribution-replaces-quotation`, which still bundles the
+  the branch retitled `design@agent-skills@attribution-replaces-quotation`, which then bundled the
   exception that lets an issue entry keep the owner's words verbatim on the owner's request, a
   decision older than the branch with its own nearest rival, an issue entry that never quotes the
   owner; the head was not split, on the owner's direction that the branch takes in correctness

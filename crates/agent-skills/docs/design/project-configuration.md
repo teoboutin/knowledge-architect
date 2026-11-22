@@ -352,8 +352,8 @@ decided ends with a section titled "Decided", one line per decision with its gro
 outside the task" where both are owed. A design thread closed on its argument, a default the record
 answered, a source applied over an answer of the owner, a premortem cause recorded as a tripwire or
 dropped, per `design@agent-skills@tripwire-recording-authority`, and a tripwire's wording or scope
-changed or a tripwire removed, per `design@agent-skills@tripwire-stands-on-the-standard`,
-are such decisions; an implementation choice a commit message records is not, unless it turns on a
+changed or a tripwire removed, per `design@agent-skills@tripwire-stands-on-the-standard` and
+`design@agent-skills@session-removes-an-excluded-tripwire`, are such decisions; an implementation choice a commit message records is not, unless it turns on a
 reading of a goal. A subagent reports its decisions under the same title, and the dispatching
 session carries them into its own.
 
@@ -405,16 +405,16 @@ of writing a head. A text whose act applies a rule on design heads, a text that 
 head among them, hosts the fragment that holds the rule rather than pointing to it, and a new rule
 on heads joins a fragment whose every host applies it whole, an existing one or a new one. Every
 other text points to the rules, or restates one sentence of them with its pointer, per
-`design@agent-skills@restatement-size-test`. The fragments are also the home of four
+`design@agent-skills@restatement-size-test`. The fragments are also the home of three
 rules on heads that have no head of their own: present tense, the alignment of the slug and the
-title, a decision worth a slug has its own level-three heading, and fidelity to what the owner
-approved, read by its direction, per `design@agent-skills@transcript-reviewer-agent`.
+title, and a decision worth a slug has its own level-three heading; and of fidelity to what the
+owner approved, read by its direction, whose head is
+`design@agent-skills@ruling-read-by-its-direction`.
 
-The centralization is the owner's proposal: the rules on what a design head records and how are
-kept consistent with each other and applicable, partial restatements of them are avoided at all
-cost, and they are read whole where they are needed. The owner's proposal put them in a single
-location; the split by act below keeps one home per rule instead, one file the build copies into
-each host, so no copy is written by hand, and no two statements of a rule come to contradict, per
+The rules on what a design head records and how are kept consistent with each other and
+applicable, and are read whole where they are needed: one home per rule, one file the build copies
+into each host, so no copy is written by hand, no restatement longer than one sentence exists, per
+`design@agent-skills@restatement-size-test`, and no two statements of a rule come to contradict, per
 `design@agent-skills@no-two-installed-instructions-contradict`.
 The rival, restating the rules wherever they are delivered, gives partial copies that drift: an
 inventory of the installed text at commit eee5176f, re-taken by a fresh read-only subagent listing

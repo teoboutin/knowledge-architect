@@ -250,7 +250,7 @@ excludes. The nearest rival is a reviewer with a standard of its own, stricter t
 the reviewer's preference, such as a style no criterion states. A finding it raises has no repair
 that the writer's instructions give, so the next round raises it again. One was observed: a check
 of scope that reported a clause added within the owner's ruling made a stricter acceptance
-criterion a major finding, per `design@agent-skills@transcript-reviewer-agent`. Divergent verdicts
+criterion a major finding, per `design@agent-skills@ruling-read-by-its-direction`. Divergent verdicts
 that a review standard and an audit standard give over one text are a defect provable by reading,
 per `design@agent-skills@behaviour-additions-need-real-use`.
 
@@ -293,31 +293,17 @@ an issue, or judged to need nothing with the reason written where the owner read
 only in a conversation is lost when the session ends or is compacted. Second, that no ruling of the
 owner is recorded reversed, relaxed, a check, a claim, a criterion or the scope of the work made
 weaker, turned from its direction, or attributed to the owner where the owner did not decide. A
-refinement within the ruling's direction, stricter, more detailed or reworded, is no finding, and
-"approved", "accepted" and "agreed" approve the idea, not the wording. An attribution still keeps
+refinement within the ruling's direction is no finding, per
+`design@agent-skills@ruling-read-by-its-direction`. An attribution still keeps
 the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
 dropped records a firmer ruling than the owner gave, minor on a detail that is not load-bearing and
 major otherwise, per `design@agent-skills@misstated-ruling-rated-by-what-it-changes`. The owner
-argued that the reviewer's weight belongs on whether something from the transcript was forgotten or
-not handled durably, and that a small addition, even a clearly sane deviation, is no finding. A
-ruling is a word of the owner on a question `primer@question-authority` reserves to the owner; an
+ranked where the reviewer's weight goes: more on whether something from the transcript was
+forgotten or not handled durably than on flagging every small addition as a finding, even a clearly
+sane deviation. A ruling is a word of the owner on a question `primer@question-authority` reserves to the owner; an
 answer on a reading or a fact is checked against its source, per
 `design@agent-skills@answer-keeps-its-authority`. The reviewer assumes no shape of the work: a plan
 document is one home among the others.
-
-The reading by direction is the owner's report: an acceptance or an agreement of the owner is rarely
-about the exact wording, but about the idea and the direction, so a refinement the agent later
-judges relevant is likely acceptable, unless it relaxes a claim or a criterion so that unfinished
-work passes. A check of scope that also reported a clause added within the ruling, "no obligation
-added", made a stricter acceptance criterion a major finding. The same reading applies wherever
-fidelity to an approval is judged, in the rules on heads, the record reviewers and auditors, the
-plan reviews and the retrospective, with one exception: a goal's wording that rules out what the
-owner has not ruled out knowingly is a finding, since a goal binds outright and rules work out, so a
-wording stricter than the ruling is no refinement there; the transcript reviewer, the planning
-skill's plan reviews and the retrospective each state it, and the case is new against
-`rejected@agent-skills@transcript-reviewer-reports-every-clause` on that fact. The reading holds in
-all of them, since each judges by the criteria that bind the writer, so that the criteria of the
-reviews and of the audits agree, per `design@agent-skills@reviews-judge-by-the-writer-s-criteria`.
 
 It is an agent, not a line in a skill, because its standard is fixed. Its extraction is the
 checker's, per `design@agent-skills@transcript-extraction-is-the-checker-s`. It serves
@@ -333,6 +319,30 @@ the review's six axes and its finding.
 
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
+
+### Wherever fidelity to an approval of the owner is judged, a refinement within its direction is no finding, except a goal's wording stricter than the ruling `##ruling-read-by-its-direction`
+
+An acceptance, an agreement or an approval of the owner approves the idea and the direction, not
+the wording. A refinement within the ruling's direction, stricter, more detailed or reworded, is no
+finding; a clause that relaxes the ruling, so that a check, a claim, a criterion or the scope of the
+work gets weaker, or that turns it from its direction, is one. The reading by direction is the
+owner's report: an acceptance or an agreement of the owner is rarely about the exact wording, but
+about the idea and the direction, so a refinement the agent later judges relevant is likely
+acceptable, unless it relaxes a claim or a criterion so that unfinished work passes. A check of
+scope that also reported a clause added within the ruling, "no obligation added", made a stricter
+acceptance criterion a major finding.
+
+The reading applies wherever fidelity to an approval is judged, in the rules on heads, the
+transcript reviewer, the record reviewers and auditors, the plan reviews and the retrospective,
+with one exception: a goal's wording that rules out what the owner has not ruled out knowingly is a
+finding, since a goal binds outright and rules work out, so a wording stricter than the ruling is no
+refinement there; the transcript reviewer, the planning skill's plan reviews and the retrospective
+each state it, and the case is new against
+`rejected@agent-skills@transcript-reviewer-reports-every-clause` on that fact. The reading holds in
+all of them, since each judges by the criteria that bind the writer, so that the criteria of the
+reviews and of the audits agree, per `design@agent-skills@reviews-judge-by-the-writer-s-criteria`.
+How a misstatement this reading finds is rated is
+`design@agent-skills@misstated-ruling-rated-by-what-it-changes`.
 
 ### A session is extracted with the checker's `transcript show`, and no installed text holds an extraction rule of its own `##transcript-extraction-is-the-checker-s`
 
@@ -368,7 +378,7 @@ make, and a ruling turned from its direction, are major. A ruling recorded a lit
 firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
 attributed to the owner that is not the owner's, are minor and still go to the owner; a minor ruling
 is no finding of the retrospective once caught before the merge; a refinement within the ruling's
-direction is none at all, per `design@agent-skills@transcript-reviewer-agent`, except in a goal: a goal recorded stricter than what the owner ruled out knowingly is major: it rules out work the owner did not rule out, a change of the ruling's direction short of a reversal, and it reaches no work before the owner's next ruling on that goal shows it. The cut is what the misstatement would build: a reversal, or a
+direction is none at all, per `design@agent-skills@ruling-read-by-its-direction`, except in a goal: a goal recorded stricter than what the owner ruled out knowingly is major: it rules out work the owner did not rule out, a change of the ruling's direction short of a reversal, and it reaches no work before the owner's next ruling on that goal shows it. The cut is what the misstatement would build: a reversal, or a
 change of what is built or of a decision others rest on, produces wrong work if it merges, where a
 slip on a detail that bears on nothing built produces none, and is repaired once the owner sees it.
 That such a slip is no critical defect is the owner's weighing, from the owner's observation of real
@@ -377,7 +387,7 @@ transcript reviewer catches them reliably in the owner's view, the owner does no
 instruction would do better since agents are trained to take a human's input seriously, and a
 reviewer flagging such a slip once in a while, for a decision that is not among the most critical
 and with only a small deviation from the owner's word, short of a reversal, is no critical defect.
-The rival, every misstated ruling rated critical, made a reviewer's report of a slip read as a
+The rival, every misstated ruling rated critical, makes a reviewer's report of a slip read as a
 critical defect, which the owner judged it is not; the slip is still repaired, and it is no defect
 of the workflow.
 

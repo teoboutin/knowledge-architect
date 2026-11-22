@@ -6,23 +6,23 @@ The measurements and incidents these entries cite were taken in the designing-to
 whose record is docs/decisions.md on its branch next. A figure is taken again from that record with
 `git show next:docs/decisions.md`, run in that repository.
 
-### The record of the installed text keeps intent and coherence, not wording `##instruction-record-is-minimal`
+### A decision about the installed text earns a head only by an entry test or by keeping two parts of the workflow consistent, and a rewording earns none `##instruction-record-is-minimal`
 
-A decision about the installed text is recorded only where it keeps the owner's intent on record,
-since `goal@design-is-recorded-with-its-arguments` has each decision a project
-records carry its intent and its argument, and has the reason of any other decision recorded beside
-its text; or where it keeps two parts of the workflow consistent, which
-`design@agent-skills@no-two-installed-instructions-contradict` requires; or where another entry
-test admits it, such as a reason several installed texts must respect. A rewording, and the rationale for how one instruction
+A decision about the installed text is recorded only where an entry test of `primer@design-heads`
+admits it, such as a reason several installed texts must respect, or where it keeps two parts of
+the workflow consistent, which `design@agent-skills@no-two-installed-instructions-contradict`
+requires, an instance of the second entry test, since each of the two parts respects the reason;
+the reason of any other decision is recorded beside its text, as
+`goal@design-is-recorded-with-its-arguments` asks. A rewording, and the rationale for how one instruction
 is phrased, is not recorded. Such proposals can be made without bound, unlike a technical decision,
 which costs implementation work. The commit message carries a rewording's argument.
 
-The owner's intent is on record in a goal, drafted under `skill@knowledge-architect-goal-setting`
-where it states a purpose of the project, a scope that bounds one or a ranking between two, per
-`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; in a head, as an argument the owner
-made; and as the owner's choice at a fork in its weak form, per
-`design@agent-skills@fork-choice-in-weak-form`. An approval of the agent's proposal is none of
-these.
+The owner's intent earns no head of its own: it is a goal where it states a purpose of the
+project, a scope that bounds one or a ranking between two, per
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; an argument the owner made, or the
+owner's choice at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`, is
+recorded in the head an entry test admits, and beside its instruction otherwise. An approval of the
+agent's proposal is no ground.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree
 with, as the planning skill's sections agree with what `check` checks; a decision of this
 repository alone is not one, since the installed text names none of this repository's conventions.
