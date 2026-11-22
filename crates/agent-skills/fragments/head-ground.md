@@ -38,8 +38,9 @@ at a fork is a fork's choice in the weak form, an approval cited as a ground is 
 that cites the owner's argument is an argument, recorded on its merits, and an intent that states a
 purpose, a scope or a ranking is a goal to draft.
 
-%% Plan items attribute, the verbatim words in a committed transcript, and only an underivable
-%% premise attributed in a durable record: `design@agent-skills@attribution-replaces-quotation`.
+%% Only an underivable premise attributed in a durable record, plan items attributing:
+%% `design@agent-skills@only-underivable-premise-attributed`; the verbatim words in a committed
+%% transcript: `design@agent-skills@attribution-replaces-quotation`.
 %% Provenance routes a defeated premise, per `primer@owner-word-premise`, and a new member, per
 %% `design@agent-skills@extension-follows-the-ground`; a choice and an argument need none.
 **A design head, a `rejected` entry, a tripwire and an issue entry name no one as the source of an

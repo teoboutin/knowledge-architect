@@ -187,7 +187,7 @@ does, or its record, whenever the discussion opened, for a decision recorded whe
 `design@agent-skills@design-home-is-built-intent`. It writes no plan document. The message of the
 commit that writes the decision's design entry, or that implements a decision that earns none,
 carries what a plan document would: every thread with its final state, the ground of each closure,
-the owner's ruling attributed per `design@agent-skills@attribution-replaces-quotation` or the
+the owner's ruling attributed per `design@agent-skills@only-underivable-premise-attributed` or the
 argument of a thread closed `argued`, the rivals that lost with their reasons, every premortem cause
 with its outcome, and the acceptance criteria. The premortem runs when a later reversal of the
 decision would touch any of the four things the skill names: stored data, a consumed interface,

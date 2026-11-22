@@ -292,7 +292,9 @@ each thing met outside the task has a durable outcome: recorded in its home, act
 an issue, or judged to need nothing with the reason written where the owner reads it. What lives
 only in a conversation is lost when the session ends or is compacted. Second, that no ruling of the
 owner is recorded reversed, relaxed, a check, a claim, a criterion or the scope of the work made
-weaker, turned from its direction, or attributed to the owner where the owner did not decide. A
+weaker, turned from its direction, or attributed to the owner where the owner did not decide, and
+that a design head, a `rejected` entry, a tripwire or an issue entry names no one as the source of
+an argument or of an approval, per `design@agent-skills@only-underivable-premise-attributed`. A
 refinement within the ruling's direction is no finding, per
 `design@agent-skills@ruling-read-by-its-direction`. An attribution still keeps
 the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
@@ -375,8 +377,9 @@ which is why it has this home. The listing is computed from the transcripts, per
 A misstated ruling is critical only when it is reversed, or relaxed or put in a state that changes
 what is built or a load-bearing decision. A decision attributed to the owner that the owner did not
 make, and a ruling turned from its direction, are major. A ruling recorded a little relaxed, or
-firmer than its hedges, on a detail that is not load-bearing, and an argument or a reading
-attributed to the owner that is not the owner's, are minor and still go to the owner; a minor ruling
+firmer than its hedges, on a detail that is not load-bearing, an argument or a reading
+attributed to the owner that is not the owner's, and an argument or an approval that a design head,
+a `rejected` entry, a tripwire or an issue entry attributes to anyone, are minor and still go to the owner; a minor ruling
 is no finding of the retrospective once caught before the merge; a refinement within the ruling's
 direction is none at all, per `design@agent-skills@ruling-read-by-its-direction`, except in a goal: a goal recorded stricter than what the owner ruled out knowingly is major: it rules out work the owner did not rule out, a change of the ruling's direction short of a reversal, and it reaches no work before the owner's next ruling on that goal shows it. The cut is what the misstatement would build: a reversal, or a
 change of what is built or of a decision others rest on, produces wrong work if it merges, where a

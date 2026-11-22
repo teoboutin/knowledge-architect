@@ -226,8 +226,8 @@ change no plan document plans, and for a head a plan's list missed, it is brough
 change that touches it; in planned work, by a step before the harvest, per
 `design@agent-skills@pre-harvest-conformance`.
 
-Where bringing a head to the rules would relax what the owner's words in it approved, or turn it
-from its direction, as a title moved from the members the owner named to a rule that admits others,
+Where bringing a head to the rules would relax or turn a ranking or a report the head attributes to
+the owner, as a title moved from the members the owner named to a rule that admits others,
 the change goes to the owner as one proposal, per `design@agent-skills@ruling-read-by-its-direction`.
 
 **Re-pointing a reference in a head does not touch it.** The edit states nothing new in the head,
