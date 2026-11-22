@@ -44,6 +44,14 @@ an empty subsection is omitted.
   brings its existing Component heads to the rule by a pass of the design-record axis,
   `skill@knowledge-architect-project-audit@design-record-axis`, whose rules hold that section, run
   after the pin move as `skill@knowledge-architect-setup@moving-the-pin` says.
+- `agent-skills`, patch: a design head, a `rejected` entry and a tripwire name no one as the source
+  of an argument or of an approval, and record a fork's choice with whose ranking it was, rules of
+  `skill@knowledge-architect-decision-recording@head-shape`. A project converts the older
+  attributions of its heads and `rejected` entries by a pass of the design-record axis,
+  `skill@knowledge-architect-project-audit@design-record-axis`, and of its tripwires by a pass of
+  the tripwire axis, `skill@knowledge-architect-project-audit@tripwire-axis`, run after the pin move
+  as `skill@knowledge-architect-setup@moving-the-pin` says; a head a change touches is converted in
+  that change.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
   `test`, which runs `cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D`
   and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation it builds fails
@@ -188,6 +196,16 @@ an empty subsection is omitted.
   in the project `blocks` only where its report names the act an agent taking the other meaning
   would take, and `minor` where the report names no such act, which the stop of a goal review's
   rounds, counting `blocks` findings alone, no longer counts.
+- `agent-skills`, patch: a default awaiting the owner is recorded at the harvest like any other
+  decision, without waiting for the owner's ruling, since an approval is no ground: a ruling that
+  picks another shape is a repair after the harvest. A design head, a `rejected` entry, a tripwire
+  and an issue entry name no one as the source of an argument or of an approval, and attribute only
+  what a session could not derive from inside the project, a fact, a judgement of what is plausible
+  or of expected use, the ranking of a cost no goal ranks, a choice among the readings a source
+  permits and an act a goal reserves to the owner, each by where it first came from; a fork's
+  choice is written "X over Y: the owner ranked <cost> above <cost>, which no goal ranks", or "the
+  session ranked". A plan document's items and a commit message still attribute the owner's
+  rulings and arguments.
 
 ## 0.10.0
 

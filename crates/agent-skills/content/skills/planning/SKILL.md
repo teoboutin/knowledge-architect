@@ -335,8 +335,8 @@ document.
 %% The verbatim words in a committed transcript, and attributions in the items:
 %% `design@agent-skills@committed-transcript` and `design@agent-skills@attribution-replaces-quotation`;
 %% the generated lines alone committed: `design@agent-skills@plan-commits-the-generated-lines`.
-- **The owner's words are attributed in the items**, as `primer@design-heads` says of a durable
-  record, each citing its round; the verbatim words of a design discussion are in its transcript, a
+- **The owner's words are attributed in the items**, as `primer@design-heads` says of a plan
+  document's items and a commit message, each citing its round; the verbatim words of a design discussion are in its transcript, a
   file of `transcripts/`.
 %% A discussion's search takes its transcript's number so that one number finds both; the rival,
 %% numbering the searches on their own, breaks that, and so would a second search of one discussion
@@ -471,7 +471,7 @@ not touch a head, as `skill@knowledge-architect-decision-recording@head-shape` s
   work. An edit that must write what the head's argument does not hold, a missing argument, the
   constraint it takes from a goal, or a member or a citation its argument does not cover, is a
   decision: it goes to `skill@knowledge-architect-design`, and the step waits for it. An
-  edit that would relax what the owner's words in the head approved, or turn it from its direction,
+  edit that would relax or turn a ranking or a report the head attributes to the owner
   goes to the owner as one proposal, as `skill@knowledge-architect-decision-recording@head-shape`
   says. Each head a split, a merge, a rename, a move or a retitle of the step creates is judged
   alone, by the auditor briefed to check, before the step's commit: its brief names, in place of a
@@ -538,8 +538,8 @@ already reports it.
 
 Where the basis of a number in a criterion leaves a range of values, the choice among them is a
 fork: the session lists its value under the defaults awaiting the owner, and
-`primer@design-heads` records the owner's approval of it as the session's choice, and a value the
-owner sets as the owner's.
+`primer@design-heads` records the value with the provenance of its ranking: the session's where the
+owner approved it, the owner's where the owner set it.
 
 - **At each landing**, the messages of the commits that land it report on every criterion judged
   there, one line each, naming it as #<id> beside a citation of the whole plan document, per
@@ -854,8 +854,8 @@ Before deleting a plan document or harvesting a slice:
 - each of its later consequences is in the issue entry or the plan document of the later work it
   names, or in a `todo` issue opened for it where that work has neither, or a `deferred` one if an
   event gates it;
-- every default the document lists as awaiting the owner is ruled, since a design head records such
-  a default only once the owner has ruled on it;
+- every default the document lists as awaiting the owner is ruled, since the branch merges only once
+  the owner has ruled on each;
 - its row of the roadmap, if it has one, is removed (`skill@knowledge-architect-planning@spec-or-milestone`).
 
 **A citation of the leaving document from another plan document dangles**, and so does a

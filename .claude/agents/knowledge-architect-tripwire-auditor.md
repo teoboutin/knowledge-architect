@@ -43,9 +43,9 @@ Before your first entry, read whole:
 - `agent@knowledge-architect-tripwire-auditor@outcome-table` and
   `skill@knowledge-architect-project-audit@tripwire-axis`, for the proposed outcome.
 
-A tripwire's text attributes a decision to the owner as a head's does: a durable record attributes
-a decision to the owner and never quotes the owner, keeping the scope and the hedges of the owner's
-words, per `primer@design-heads`.
+A tripwire attributes only what a session could not derive from inside the project, as a head
+does, and never quotes the owner, keeping the scope and
+the hedges of the owner's words, per `primer@design-heads`.
 
 **Keep in view the failure modes of an edit.** A proposed edit must not:
 

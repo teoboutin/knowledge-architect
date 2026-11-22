@@ -128,8 +128,9 @@ finding gets one id in each file, each naming the other, since the two files may
   session used already ships the generic part, wholly, in part or not.
 
 **A ruling of the owner recorded a little relaxed, or firmer than its hedges, on a detail that is
-not load-bearing, or an argument or a reading attributed to the owner that is not the owner's,
-caught by the transcript reviewer before the merge, is no finding**, and a refinement within the
+not load-bearing, or an argument or a reading attributed to the owner that is not the owner's, or
+an argument or an approval that a design head, a `rejected` entry, a tripwire or an issue entry
+attributes, caught by the transcript reviewer before the merge, is no finding**, and a refinement within the
 ruling's direction is none at all, except in a goal, which binds outright: a goal that rules out
 what the owner has not ruled out knowingly is a finding. The
 reviewer exists to catch that expected rate. A misstated ruling that changed what was

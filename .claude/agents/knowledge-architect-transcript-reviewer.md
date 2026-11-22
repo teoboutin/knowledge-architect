@@ -112,7 +112,9 @@ For each ruling of the owner that the tree or the history records:
   no finding: "approved", "accepted" and "agreed" approve the idea, not the wording. A goal is the
   exception: a goal binds outright, so a wording stricter than the ruling rules out work, and a goal
   that rules out what the owner has not ruled out knowingly is a finding, per rule 4 of `skill@knowledge-architect-goal-setting@goal-or-not`, which goes to `skill@knowledge-architect-goal-setting@drawing-out-intent`;
-- **an argument attributed to the owner** is the owner's;
+- **an argument a plan document's items or a commit message attribute to the owner** is the
+  owner's; a design head, a `rejected` entry, a tripwire and an issue entry name no one as the source
+  of an argument or of an approval, and attribute each ranking and each fact to its source;
 - **its attribution**, where a durable record attributes it rather than quotes it, as
   `primer@design-heads` asks, states what the owner's words decided and how far they reach.
 
@@ -124,8 +126,10 @@ Findings, each with:
   what is built or a load-bearing decision; **major** for an item of `agent@knowledge-architect-transcript-reviewer@list-what-outlives` with no durable outcome,
   for a decision attributed to the owner that the owner did not make, and for a ruling turned from
   its direction; **minor** for a ruling recorded relaxed, or firmer than the owner's hedges, on a
-  detail that is not load-bearing, and for an argument attributed to the owner that is not the
-  owner's. A misstated ruling that is neither critical nor minor is major. A minor misstated ruling still goes to the owner: the owner's words weigh heavily on any
+  detail that is not load-bearing, for an argument a plan document's items or a commit message
+  attribute to the owner that is not the owner's, and for an argument or an approval a design head,
+  a `rejected` entry, a tripwire or an issue entry attributes to anyone; a ranking attributed to the
+  owner that the owner did not make is a decision attributed to the owner. A misstated ruling that is neither critical nor minor is major. A minor misstated ruling still goes to the owner: the owner's words weigh heavily on any
   agent that records them, so such slips recur at a low rate, and this review is where they are
   caught;
 - the quotation from the transcript, and for `agent@knowledge-architect-transcript-reviewer@check-recorded-rulings` the quotation from the tree or the history;
