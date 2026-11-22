@@ -15,8 +15,8 @@ standing-state review found both tripwires the application left false.
 
 ### What
 
-The issue `the-design-record-cross-check-misses-a-tripwire-a-split-or-retitle-leaves-false`, closed
-by the commit "The design-record axis judges every entry the session's application changes, in a
+The issue on the design-record cross-check missing a tripwire that a split or a retitle leaves
+false, closed by the commit "The design-record axis judges every entry the session's application changes, in a
 second run of its workflow", named two rivals to a reading by the application's judge: a fix in the
 cross-check, "clause by clause, against the head that now holds what each clause guards"; "or no
 change, with the standing-state review of the audit's branch as the catch, which found both here".

@@ -101,16 +101,15 @@ exception, lives in a design head, which the tripwire cites.
 
 **A slip is no firing.** A slip is a failure to follow an instruction that the review of the work
 itself, or a check run on that work, reports. A clause on how sessions follow an instruction never
-fires on a slip, however often slips recur in separate pieces of work: one slip is no firing, and
-neither are many, since each is that procedure working, and the failures it misses are what the
-clause can watch. The clause fires only on a failure that passed the procedures of its own work and
+fires on a slip, however often slips recur in separate pieces of work, since each slip is that
+procedure working, and the failures it misses are what the clause can watch. The clause fires only on a failure that passed the procedures of its own work and
 that a later procedure reports, such as an audit, the review of a later branch that reads the text
 without having written it, or a retrospective file the intake receives. A clause that watches
 whether an earlier procedure catches what it exists to catch, or what a decision gives in real use,
 is outside this rule. Where a clause fires on both a slip and something more, strike the slip.
 
-**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
-short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
+**A doubt keeps the cause, briefly.** A cause that no condition clearly excludes and that the
+conditions do not clearly admit is recorded with a short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for
 good, unless the owner would see the failure anyway, by using the project or by carrying work with
 its agents: then a wrong drop costs little, and a cause in doubt may be dropped. That weighs a
 doubt only; it never drops a cause the four conditions admit.

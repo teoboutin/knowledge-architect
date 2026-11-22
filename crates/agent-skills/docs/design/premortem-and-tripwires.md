@@ -108,13 +108,13 @@ The rival, the falsifiability bar alone with the owner filtering, kept every cau
 fire, whatever it watched: the owner dropped 23 of 66 ruled causes, and about 45 of 64 standing
 entries watched a failure caught anyway, per `rejected@agent-skills@owner-rules-each-tripwire`. The
 owner ranked the value of the tripwires admitted above keeping every past useful one admitted, even
-at the loss of a few useful ones, unless a small refinement admits them, which no goal ranks. A
-refinement that admits a dropped useful firing is kept only where it admits none of the 25 found
-anyway, the session's measure of a refinement small enough. The refinement kept is the case of a
-failure that a later procedure reports, per `design@agent-skills@slip-is-no-firing`, and it exists
-for thaum's commit-message tripwire, whose one firing was a single message on the main branch that
-no review had reported. Whether that case admits this firing, or any of the 25, is not known: the
-judgements per firing were not kept, and the record does not say which procedure found the message.
+at the loss of a few useful ones, unless a small refinement admits them, which no goal ranks. The
+session measures a refinement small enough by whether it admits none of the 25 found anyway. The
+refinement the standard holds is the case of a failure that a later procedure reports, per
+`design@agent-skills@slip-is-no-firing`. Whether it meets that measure, admitting none of the 25,
+and whether it admits the one firing of thaum's commit-message tripwire, a single message on the
+main branch that no review had reported, is not known: the judgements per firing were not kept, and
+the record does not say which procedure found the message.
 The case does not admit the firing of the tripwire on a member beyond a head's argument, whose
 instances reviews repaired as slips, which `rejected@agent-skills@recurrence-of-slips-fires`
 admitted: that loss is within the ranking.
@@ -132,7 +132,7 @@ with its agents: the owner ranked the reading such a cause costs until its horiz
 its evidence, which no goal ranks. It weighs a doubt, never a reason to refuse a cause the
 conditions admit.
 
-### A clause on how sessions follow an instruction fires only on a failure that a later procedure reports, never on what the review or a check of its own work reports, however often that recurs, unless it watches whether an earlier procedure catches what it exists to catch `##slip-is-no-firing`
+### A clause on how sessions follow an instruction fires only on a failure that a later procedure reports, never on what the review or a check of its own work reports, however often that recurs, unless it watches whether an earlier procedure catches what it exists to catch, or what a decision gives in real use `##slip-is-no-firing`
 
 A slip is a failure to follow an instruction that the review of the work itself, or a check run on
 that work, reports. A tripwire's clause on how sessions follow an instruction never fires on a slip,
