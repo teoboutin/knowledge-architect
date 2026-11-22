@@ -544,9 +544,10 @@ Then the review before the merge, and the deletion of this spec.
 
 Each is a finding of the design-record auditor on a head this work touches, verified by a second
 auditor, whose outcome is the owner's, per `skill@knowledge-architect-planning@cutting-steps-and-slices`.
-Step 1 builds each default as written.
+Step 1 builds each default as written. The owner accepted D1 to D5 as written, after the plan
+reviews; each is marked as ruled.
 
-- **D1, on `design@agent-skills@unargued-approval-is-argued` and
+- **D1, ruled: accepted as written. On `design@agent-skills@unargued-approval-is-argued` and
   `design@agent-skills@instruction-record-is-minimal`.** The first fails every entry test: the
   decision-recording skill's `skill@knowledge-architect-decision-recording@unargued-approval` alone
   states it, and nothing cites it. The second admits a decision "where it keeps the owner's intent
@@ -558,24 +559,24 @@ Step 1 builds each default as written.
   an entry test or by keeping two parts of the workflow consistent, and a rewording earns none",
   reading the consistency case as an instance of entry test 2. The rival keeps the first head on the
   owner's request, recorded in the head-rules spec, that the provenance of design heads be recorded.
-- **D2, on `design@agent-skills@default-ruled-before-merge`.** Its ground "which the owner does not
+- **D2, ruled: accepted as written. On `design@agent-skills@default-ruled-before-merge`.** Its ground "which the owner does not
   want" cites the owner's intent against the rival in which the work waits for each answer. Default:
   ground it on `goal@agents-work-without-drift`, which serves it. The rival reading: the owner's
   words in the commit "A default put to the owner is built, and its branch merges once the owner has
   ruled on it" give a reason, not interrupting the work, so the choice is the owner's ranking at a
   fork, kept in the weak form as "the owner ranked".
-- **D3, on `design@agent-skills@transcript-reviewer-agent`.** "The owner argued that the reviewer's
+- **D3, ruled: accepted as written. On `design@agent-skills@transcript-reviewer-agent`.** "The owner argued that the reviewer's
   weight belongs on …" drops the owner's "focus more", turns a wish into an argument, and widens
   "clearly sane deviations" to every small addition. The commit that wrote it chose "argued" so that
   the head records an argument rather than a ruling. Default: under the new rule, the sentence
   becomes the owner's ranking of where the reviewer's weight goes, with the hedge "more" and the
   scope "clearly sane deviations" kept.
-- **D4, on `design@agent-skills@one-home-for-head-rules`.** "The centralization is the owner's
+- **D4, ruled: accepted as written. On `design@agent-skills@one-home-for-head-rules`.** "The centralization is the owner's
   proposal … avoided at all cost" cites an intent that recorded heads already serve, and the head
   tells how the design departed from the owner's proposal. Default: the attribution and the account
   of the departure leave; the head stands on the heads that serve it; its wording "no restatement
   longer than one sentence exists".
-- **D5, on `design@agent-skills@tripwire-stands-on-the-standard`.** Its sentence "The owner ruled
+- **D5, ruled: accepted as written. On `design@agent-skills@tripwire-stands-on-the-standard`.** Its sentence "The owner ruled
   that a tripwire grounded on the owner's word gets no standing …" may be deliberation rather than a
   premise: the verifier found it plausible, not confirmed. Default: keep it, attributed as the
   owner's ranking, in the head that keeps the slug.
