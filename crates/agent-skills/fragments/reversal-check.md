@@ -31,7 +31,7 @@ change:
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** where the Component is the incumbent's (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
-  title stay aligned with the full scope of the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
+  title do not mislead about the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
   cheap, and the checker lists every reference it leaves dangling in the files it reads, per
   `primer@where-knowledge-goes`.
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
