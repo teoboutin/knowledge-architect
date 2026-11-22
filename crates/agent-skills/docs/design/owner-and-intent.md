@@ -422,7 +422,7 @@ merging with a default unruled puts on the main branch a choice the owner has no
 `skill@knowledge-architect-planning@plan-document-leaves` catches it only when the document
 leaves, which for a milestone is its last slice.
 
-### A head that records a default awaiting the owner is written at the harvest like any other, and a ruling that picks another shape is a repair `##head-written-with-the-code`
+### A head that records a default awaiting the owner is written at the harvest like any other, and a ruling that picks another shape is a repair `##unruled-default-recorded-at-the-harvest`
 
 A default put to the owner is built as written, per `design@agent-skills@default-ruled-before-merge`,
 and the harvest records it in a design head with the work's other decisions, whether or not the

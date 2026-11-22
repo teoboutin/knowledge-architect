@@ -263,7 +263,7 @@ Weighed, stated in the discussion, in a weak form, since a repair after the revi
 
 No name in code. New design heads, in `path@agent-skills@docs/design/owner-and-intent.md`:
 
-- a head whose slug is the thread's, #head-written-with-the-code, at the harvest;
+- `design@agent-skills@unruled-default-recorded-at-the-harvest`, at the harvest, for the thread #head-written-with-the-code, whose name reads as shape A of #harvest-timing;
 - a head whose slug is the thread's, #harvest-timing, at the harvest;
 - a head whose slug is the thread's, #review-timing, at the harvest;
 - `design@agent-skills@owner-words-kept-in-an-issue-on-request`,
@@ -586,7 +586,7 @@ reviews; each is marked as ruled.
 
 | thread | home |
 | --- | --- |
-| #head-written-with-the-code | the new head #head-written-with-the-code |
+| #head-written-with-the-code | `design@agent-skills@unruled-default-recorded-at-the-harvest` |
 | #harvest-timing | the new head #harvest-timing, in the weak form with the owner's ranking |
 | #review-timing | the new head #review-timing |
 | #approval-left-unrecorded | `design@agent-skills@heads-stand-on-argument`, `design@agent-skills@fork-choice-in-weak-form`, `design@agent-skills@attribution-replaces-quotation`, and the other heads the "Rewritten" table names |
