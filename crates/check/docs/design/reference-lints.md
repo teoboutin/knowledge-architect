@@ -174,7 +174,12 @@ is the exception for a quotation of `design@agent-skills@plain-text-is-no-repair
 The lints on ids are `design@check@reference-shape-outside-span`, `design@check@backticked-bare-id`
 and `design@check@plain-word-lint`. **They cost little time.** The bound is re-taken with
 `klarch check` over this repository, release build, median of five runs on one machine, against the
-same commit built with the lints' arms and the scanner's reading for them removed, as the commit
-"[core] A defined id written outside its reference form is a finding, every id has two segments,
-and the spec's design audit" measured it: a run that takes more than 10% longer than that one
-reopens the scan. The bound of 10% over another, which no goal ranks: the session's ranking.
+same commit built with the lints' arms and the scanner's reading for them removed: a run that takes
+more than 10% longer than that one reopens the scan. That baseline is the second of the two that
+the commit "[core] A defined id written outside its reference form is a finding, every id has two
+segments, and the spec's design audit" took, the one it marks as outside its acceptance criterion's
+observable, which removed the arms alone. No tree holds its patch; it removes, in `judge_part` in
+`path@check@src/check/references.rs`, the arm on `Observation::BareName`, `Observation::PlainWord`
+and `Observation::UnquotedReference`, and, in `scan` in `path@model@src/scan.rs`, the call to
+`outside_backticks`, its result replaced by an empty list. The bound of 10% over another, which no
+goal ranks: the session's ranking.
