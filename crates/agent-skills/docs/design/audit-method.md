@@ -128,8 +128,8 @@ the sample to judgement. The owner list, the owner's word and the application fo
 at its report, and the application is the session's, per
 `design@agent-skills@apply-stays-with-the-session`. The design-record axis then runs its workflow
 once more on the application, in the mode `application`, per
-`design@agent-skills@application-judged-by-diff`: the owner's ruling and the session's application
-sit between the two runs, so no single run can hold both.
+`design@agent-skills@application-judge-in-workflow`: the owner's ruling and the session's
+application sit between the two runs, so no single run can hold both.
 
 The shape is the owner's: the main power of a saved workflow is to organize several complex steps
 into one complete result, such as a report, as ready as possible for the main session to discuss
