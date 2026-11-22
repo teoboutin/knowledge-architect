@@ -8,16 +8,16 @@ file by an exit of `skill@knowledge-architect-issue-tracking@movement-instructio
 The decision rests on the premise that a session classifies work as bounded only when every
 decision it makes fails the entry tests, and does not use the path to skip a discussion.
 
-**Fires when:** an audit, or the review of a branch that did not make it, finds on the main
-branch a decision taken on the bounded path that passes an entry test of
-`design@agent-skills@a-head-is-owed-by-an-entry-test`.
+**Fires when:** a later procedure, such as an audit, the review of a branch that did not make it,
+or a retrospective file the intake receives, finds on the main branch a decision taken on the
+bounded path that passes an entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`.
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
-**Re-entry:** each pass of the design-record axis of a project audit, and the decision-record
-review of a branch that reads a commit made on the bounded path by another branch.
-**Watches until:** the later of two occasions, counted from the commit that writes this line:
-three commits on the main branch that implement work proposed on the bounded path, each message
-carrying the proposal; and the first report file of the design-record axis added under
-`path@knowledge-architect@docs/audit-reports/` on the main branch.
+**Re-entry:** the decision-record review of a branch whose diff touches code that a commit made on
+the bounded path by another branch introduced, which reads that commit's message.
+**Watches until:** three commits on the main branch that implement work proposed on the bounded
+path, each message carrying the proposal, and for each of them a later commit on the main branch,
+from another branch, that changes a file it changed, counted from the commit that writes this
+line.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
