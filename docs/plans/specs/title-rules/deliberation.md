@@ -249,7 +249,7 @@ owner judged the direction right, and argued that what reaches main with no repo
 measure, since by definition nothing reported it; that, the owner guessed, a later audit is what
 can surface it, and so probably what should be watched; or a later review that inspects the same
 item and finds the defect in text already on main. The hedges, "I guess" and "probably", are
-restored on the plan reviews' finding, awaiting the owner's word as D2 of the README. The session
+restored on the plan reviews' finding, which the owner accepted as D2 of the README. The session
 took it: "A clause on how sessions follow an instruction fires
 only on a defect that a later procedure finds in text already on main: an audit, or the review of a
 later branch that reads that text without having written it. A finding a review reports on the
