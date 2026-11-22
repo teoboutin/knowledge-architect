@@ -606,12 +606,11 @@ fn defined_pairs(id: &str, tables: &[IdTable], rel: &Path) -> Vec<(String, Strin
 /// The finding on an id written outside its reference form, or `None` where no entity this
 /// document may cite has that id.
 fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) -> Option<Finding> {
-    // A design head's slug states its decision, so a word meant as an ordinary term shows it
-    // names a subject; any other entry's slug has no reason to be a word a sentence uses, on the
-    // owner's word, per `design@check@plain-word-lint`. A goal changes only through the owner,
-    // per `goal@the-owner-decides`, so its renaming goes through goal-setting, as the goals
-    // home's repair says.
-    let designs = forms.iter().filter(|f| f.starts_with("design@")).count();
+    // A slug that is an ordinary word collides with the prose that uses the word, so an entry
+    // of any kind, a design head included, is renamed so that its slug is not one, per
+    // `design@check@plain-word-lint`. A goal changes only through the owner, per
+    // `goal@the-owner-decides`, so its renaming goes through goal-setting, as the goals home's
+    // repair says.
     let goal = if forms.iter().any(|f| f.starts_with("goal@")) {
         "; a goal is renamed by the owner, through its project's goal-setting"
     } else {
@@ -619,21 +618,10 @@ fn id_finding(rel: &Path, line: u32, id: &str, forms: &[String], how: IdForm) ->
     };
     let (written, rename) = match how {
         IdForm::Bare => ("in backticks without its kind", ""),
-        IdForm::Plain if designs == forms.len() => (
-            "as a plain word",
-            "; where the word is meant as an ordinary term, rename the entry so that its slug \
-             states its decision",
-        ),
-        IdForm::Plain if designs == 0 => (
+        IdForm::Plain => (
             "as a plain word",
             "; where the word is meant as an ordinary term, rename what it names so that its slug \
              is not an ordinary word",
-        ),
-        IdForm::Plain => (
-            "as a plain word",
-            "; where the word is meant as an ordinary term, rename what it names: a design entry \
-             so that its slug states its decision, anything else so that its slug is not an \
-             ordinary word",
         ),
     };
     let word = match how {
@@ -1041,18 +1029,18 @@ mod tests {
         assert_eq!(counts.entities, 2);
     }
 
-    /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks a
-    /// design head to be renamed so that its slug states its decision, anything else to be
-    /// renamed so its slug is not an ordinary word, and gives both where the forms mix kinds, per
-    /// `design@check@plain-word-lint`; a goal's renaming is the owner's, through goal-setting,
-    /// per `goal@the-owner-decides`. Mutations: the decision branch given whatever the kind
-    /// fails the issue entry's case; `all` read as `any` fails the mixed case; the goal clause's
-    /// test `forms.iter().any(|f| f.starts_with("goal@"))` replaced by `false` fails the goal's
-    /// case, and by `true` the issue entry's; and the bare form given the goal clause,
-    /// `IdForm::Bare => String::new(),` replaced by `IdForm::Bare => goal.to_string(),`, fails
-    /// the bare goal's case, since the clause answers a plain word alone.
+    /// The claim: the plain-word finding's repair for a word meant as an ordinary term asks the
+    /// entry to be renamed so that its slug is not an ordinary word, whatever its kind, a design
+    /// head included, per `design@check@plain-word-lint`; a goal's renaming is the owner's,
+    /// through goal-setting, per `goal@the-owner-decides`. Mutations: the repair text replaced by
+    /// the one that asked a design head's slug to state its decision fails the design case, the
+    /// first the test reaches; the goal clause's test `forms.iter().any(|f| f.starts_with("goal@"))`
+    /// replaced by `false` fails the goal's case, and by `true` the design entry's; and the bare
+    /// form given the goal clause, `IdForm::Bare => String::new(),` replaced by
+    /// `IdForm::Bare => goal.to_string(),`, fails the bare goal's case, since the clause answers a
+    /// plain word alone.
     #[test]
-    fn the_plain_word_repair_is_given_by_the_kind_of_the_entry() {
+    fn the_plain_word_repair_is_one_rename_whatever_the_kind_of_the_entry() {
         let (found, _) = checked_docs(
             &manifest(),
             vec![
@@ -1079,18 +1067,14 @@ mod tests {
                 .unwrap_or_else(|| panic!("{found:#?}"))
                 .clone()
         };
+        let rename = "rename what it names so that its slug is not an ordinary word";
         let design = plain("a-decision");
-        assert!(
-            design.contains("rename the entry so that its slug states its decision"),
-            "{design}"
-        );
-        assert!(!design.contains("names a subject"), "{design}");
+        assert!(design.contains(rename), "{design}");
+        assert!(!design.contains("its decision"), "{design}");
+        assert!(!design.contains("goal-setting"), "{design}");
         let issue = plain("an-issue");
-        assert!(
-            issue.contains("rename what it names so that its slug is not an ordinary word"),
-            "{issue}"
-        );
-        assert!(!issue.contains("state its decision"), "{issue}");
+        assert!(issue.contains(rename), "{issue}");
+        assert!(!issue.contains("its decision"), "{issue}");
         assert!(!issue.contains("goal-setting"), "{issue}");
         // A bare id's repair is its reference form alone: the renaming, and a goal's clause with
         // it, answer a word meant as an ordinary term, which a span in backticks is not.
@@ -1109,11 +1093,10 @@ mod tests {
         );
         let mixed = plain("a-mixed-slug");
         assert!(
-            mixed.contains(
-                "a design entry so that its slug states its decision, anything else so that its slug"
-            ),
-            "both branches where the forms mix kinds: {mixed}"
+            mixed.contains(rename),
+            "one repair where the forms mix kinds: {mixed}"
         );
+        assert!(!mixed.contains("its decision"), "{mixed}");
     }
 
     /// The claim, per `design@check@orphan-rejected-entry`:
