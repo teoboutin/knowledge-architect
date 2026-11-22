@@ -157,6 +157,21 @@ one: it serves `goal@the-workflow-improves-through-real-use`, which needs a cons
 reach this repository, and a consumer's real use of the installed text reaches it only through such
 a file.
 
+Each of the two exceptions has one nearest rival: no exception, so that the rule strikes the clauses
+each one names. A clause that watches whether an earlier procedure catches what it exists to catch watches
+a premise of the decision that set that procedure up, not a session's lapse: where the review of
+the work reports what an earlier check of the same work missed, the review works and the check
+fails, and the check's failure is what that decision says must not happen.
+`tripwire@agent-skills@record-check-misses-a-head` is the case: it fires on the reviews of audits'
+branches that find a repair which the check of its proposal did not name, a failure of the premise
+of `design@agent-skills@repairs-read-against-the-record`; under the rival it would be struck as
+findings of a review on its own work, and that premise would go unwatched. A clause that watches
+what a decision gives in real use watches whether the decision is wrong, not a session's lapse;
+under the rival the rule would strike the clauses of
+`tripwire@agent-skills@audit-drafts-mostly-noise` and
+`tripwire@agent-skills@duplicate-auditors-add-nothing`, which count what the passes of an audit
+yield.
+
 The nearest rival keeps a recurrence of slips in separate pieces of work as a firing,
 `rejected@agent-skills@recurrence-of-slips-fires`, as a measure of what the reviews cost: that cost
 is not silent, since the reviews report those findings, which condition 1 of the standard excludes.

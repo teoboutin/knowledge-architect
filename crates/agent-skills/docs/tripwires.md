@@ -21,7 +21,8 @@ owner as bounded work, found by `git log -i --grep='as bounded work'` and confir
 and for each of them a later commit on the main branch that changes a file it changed and that the
 first release tag containing it does not contain, counted from the commit that writes this line: a
 release tag is set on the main branch after a merge, so a commit it does not contain came from
-another branch.
+another branch. No instruction asks a bounded-path commit for that phrase, so the search can miss
+one worded otherwise: the watch then runs longer than three such commits, and no firing is lost.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
