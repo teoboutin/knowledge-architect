@@ -41,6 +41,7 @@ The statement comes first and the slug last, with no bold and no em dash between
 document outline reads as a list of decisions rather than a list of identifiers. The body follows as
 ordinary prose.
 
+%% Advice that binds no one: `design@agent-skills@nearest-rival-title-is-advice`.
 **A title false of the nearest rival it beat tells the reader most.** A title that the losing
 alternative would make true names a subject, not a decision: "The configuration is read once, at
 start-up" is false of a configuration read again on every request, and "The configuration is read
@@ -55,6 +56,7 @@ stale at the next member, and every later member then reads as a change of the d
 closed on purpose keeps its list in the title, with the sentence that argues the closure in the
 body.
 
+%% The test of a misleading title: `design@agent-skills@title-misleads-bar`.
 **A title must not mislead.** A title misleads when a session acting on the title alone would do
 what the body excludes: add a member the body does not admit, or take a scope its argument does not
 argue. A title that leaves something out misleads only where what it leaves out narrows what the
@@ -92,6 +94,7 @@ that relaxes it, drops part of it or turns it can still meet every title test, a
 not the position the owner was shown: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
 
+%% The rule: `design@agent-skills@title-misleads-bar`.
 **The slug and the title do not mislead about the decision**: the slug is often the only part a
 reader sees, in a citing document or in code, and the title is what a document outline shows. A
 slug or a title that misleads misinforms every reader, or undermines the decision it names, so

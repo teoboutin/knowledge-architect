@@ -169,12 +169,14 @@ inside the plan's directory only, a milestone's slices included, live or harvest
 
 A thread is named by the decision it would record if approved, not by the change it proposes. A
 thread's slug is minted in the round it opens, and the approved shape can drift from the proposal,
-so the rule has one exception: when the thread's slug misdescribes the decision as approved, the
+so the rule has one exception: when the thread's slug misleads about the decision as approved, the
 entry takes a slug that names the decision, and the plan document's harvest row, or the commit
-message on the in-change path, states the pair. A slug that misdescribes its decision misinforms
-every reader of every citation, and the alignment rule of `skill@knowledge-architect-decision-recording@head-shape` orders a rename
-in that case; without the exception, the two rules would give opposite orders, a pair no session
-can both obey, per `design@agent-skills@no-two-installed-instructions-contradict`. The rival, renaming the thread during the discussion
-once it drifts, lost: every earlier delta carries the old slug, and the assembly that reads them
-from the transcript, per `design@agent-skills@ledger-from-transcript`, would read one thread as
-two.
+message on the in-change path, states the pair. A slug that misleads about its decision misinforms
+every reader of every citation, and the rule of
+`skill@knowledge-architect-decision-recording@head-shape` on a slug that misleads, per
+`design@agent-skills@title-misleads-bar`, orders a rename in that case; without the exception, the
+two rules would give opposite orders, a pair no session can both obey, per
+`design@agent-skills@no-two-installed-instructions-contradict`. The rival, renaming the thread
+during the discussion once it drifts, lost: every earlier delta carries the old slug, and the
+assembly that reads them from the transcript, per `design@agent-skills@ledger-from-transcript`,
+would read one thread as two.

@@ -405,9 +405,9 @@ of writing a head. A text whose act applies a rule on design heads, a text that 
 head among them, hosts the fragment that holds the rule rather than pointing to it, and a new rule
 on heads joins a fragment whose every host applies it whole, an existing one or a new one. Every
 other text points to the rules, or restates one sentence of them with its pointer, per
-`design@agent-skills@restatement-size-test`. The fragments are also the home of three
-rules on heads that have no head of their own: present tense, the alignment of the slug and the
-title, and a decision worth a slug has its own level-three heading; and of fidelity to the position
+`design@agent-skills@restatement-size-test`. The fragments are also the home of two
+rules on heads that have no head of their own: present tense, and a decision worth a slug has its
+own level-three heading; and of fidelity to the position
 the owner was shown, read by its direction, whose head is
 `design@agent-skills@ruling-read-by-its-direction`.
 

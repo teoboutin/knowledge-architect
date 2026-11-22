@@ -125,21 +125,20 @@ hand-written file is among the fixes `design@check@fix-scope` admits, per
 ### A plain word that is exactly a defined id is a finding `##plain-word-lint`
 
 A word outside every backtick span and every quotation, per
-`design@check@quotation-read-by-no-id-lint`, in every prose region the checker reads, that is exactly
-a defined id, as `design@check@backticked-bare-id` defines one, an id a harvested slice defines
-included, per `design@model@a-harvested-slice-is-frozen`, is a finding. A word is bounded
-as an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.`
-followed by a letter or a digit after it, so a file name, a path, a reference, a slug with its
-hashes and a template's placeholder holding an id are no word, and an id that ends a sentence is
-one. A URL and an HTML comment inside a line hold no word. The value of a frontmatter `name` line is
-the name a skill or an agent is defined by, not a mention, and is not read. Its repair names the
-reference, and adds what to do where the word is meant as an ordinary term: a design entry's slug
-then names a subject, and the entry is renamed to state its decision, as `skill@knowledge-architect-decision-recording@head-shape` asks
-of a slug; any other entry is renamed so that its slug is not an ordinary word, since, on the
-owner's word, a slug has no reason to be used as an ordinary word, and that is the only way the
-lint reports a wrong use reliably. The owner's ruling covers the slugs of the installed text too,
-which a consuming project cannot rename: such a slug met there as an ordinary word is reported
-upstream, by the project's retrospective.
+`design@check@quotation-read-by-no-id-lint`, in every prose region the checker reads, that is
+exactly a defined id, as `design@check@backticked-bare-id` defines one, an id a harvested slice
+defines included, per `design@model@a-harvested-slice-is-frozen`, is a finding. A word is bounded as
+an id is: no letter, digit, hyphen, `/`, `@`, `#` or brace on either side, and no `.` followed by a
+letter or a digit after it, so a file name, a path, a reference, a slug with its hashes and a
+template's placeholder holding an id are no word, and an id that ends a sentence is one. A URL and
+an HTML comment inside a line hold no word. The value of a frontmatter `name` line is the name a
+skill or an agent is defined by, not a mention, and is not read. Its repair names the reference, and
+adds what to do where the word is meant as an ordinary term: the entry, a design entry as any other,
+is renamed so that its slug is not an ordinary word, since a slug that is an ordinary word collides
+with the prose that uses the word; on the owner's word, a slug has no reason to be used as an
+ordinary word, and that is the only way the lint reports a wrong use reliably. The owner's ruling
+covers the slugs of the installed text too, which a consuming project cannot rename: such a slug met
+there as an ordinary word is reported upstream, by the project's retrospective.
 
 **The rule is the owner's**, given against the session's proposal of a listing in `show`: a word
 meant as an ordinary term probably shows a slug wrongly chosen and not specific enough, in the

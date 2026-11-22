@@ -528,6 +528,16 @@ tripwires it then held watched a failure caught anyway, by a review, a test, the
 owner, a subagent's reading of each entry, whose count the spec of the tripwire standard keeps,
 deleted at its landing and found with `git log --diff-filter=D --name-only -- docs/plans/`; the owner also spent rulings on the wording and scope of tripwires.
 
+### A recurrence of slips in separate pieces of work fires a tripwire `##recurrence-of-slips-fires`
+
+`live`. Each slip shows the review or the check of its own work doing its job, so a count of slips
+fires on that procedure working, which condition 3 of the tripwire standard excludes, and the cost
+it would measure, the reviews' findings, is reported by the reviews themselves, which condition 1
+excludes, per `design@agent-skills@slip-is-no-firing`. Kept on a doubt: it admitted the firing of
+the tripwire on a member beyond a head's argument, which the counterfactual over 49 firings of the
+deleted spec on the tripwire standard judged to need the tripwire, and the rule kept fires only once
+a later procedure reads the text.
+
 ### Two searchers, one for the design entries of a Component and one for the issues and tripwires `##searches-split-by-kind`
 
 `live`. A cluster holds a head beside the `rejected` entries it cites and the issues and tripwires

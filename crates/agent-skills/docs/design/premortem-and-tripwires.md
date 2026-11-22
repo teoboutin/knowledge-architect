@@ -57,7 +57,7 @@ a horizon, and 20 leave" lists. A ruling on the decision itself, such as the exp
 primer, lives in that head, and a narrowing of the tripwire that dropped it would make its clause
 fire on the decision working, which condition 3 excludes. A ruling on what fires one tripwire, such
 as a ruling that a rule a review finds and its own branch removes does not fire the tripwire it
-would match, is a case of the rule on slips that `design@agent-skills@tripwire-admission-test`
+would match, is a case of the rule on slips that `design@agent-skills@slip-is-no-firing`
 states. So a narrowing or a removal of a tripwire changes no ruling of the owner, unlike a head,
 which can record the owner's ranking at a fork, per `design@agent-skills@heads-stand-on-argument`.
 Giving the owner's word a standing of its own brings back part of
@@ -86,36 +86,85 @@ with the owner brings back part of `rejected@agent-skills@owner-rules-each-tripw
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`
 
 The standard is one text, the fragment `path@agent-skills@fragments/tripwire-standard.md`: four
-conditions, all owed; a rule that a slip is no firing, a clause on how sessions follow an
-instruction firing on a recurrence in separate pieces of work or on one instance that reached the
-main branch with no procedure reporting it; and a doubt that keeps the cause with a short horizon,
-unless the owner would see the failure anyway.
+conditions, all owed; a rule that a slip is no firing, per `design@agent-skills@slip-is-no-firing`;
+and a doubt that keeps the cause with a short horizon, per
+`design@agent-skills@doubt-keeps-the-cause`.
 
 A tripwire earns its reading only by delivering a fact no other procedure delivers. Condition 1,
-silence, is the session's reading of the question the owner asked of past firings: whether the
-facts that made a tripwire fire would have been found without it. Read in hindsight over the 12 firings of this repository and the 37 of thaum, 25 were
-found and acted on anyway, through a test, a gate, a review doing its own job, a request or the plan
-itself, and 8 needed the tripwire, each a failure every procedure counted as success, by a
-subagent's hindsight judgement per firing with its commit; the spec this decision landed from keeps
-the counts and names the 8, and the judgements per firing were not kept. Condition 2 is the owner's cost of watching: a tripwire whose evidence no reading occasion
-holds is read at every merge for nothing; a received retrospective file counts, since the intake
-reads every tripwire against it. Condition 3 removes the clause that counts what the decision
-instructs, which can fire only on the decision working: the three false alarms of the 49 firings.
-Condition 4 removes the number written to make a clause specific, which fires on noise or never:
-thaum's `t-event-payload` fired five times, the last three only moving its own bound, inside the
-noise of its instrument. That one slip is no firing is the owner's: an agent not following an
-instruction once or twice in a session is normal, and reviews exist to catch it. That a recurrence
-fires is the session's argument, since a recurrence is how such a premise shows false. The doubt keeps the cause because horizons make the two errors
-unequal: a wrong keep costs reading until its horizon, a wrong drop loses the evidence for good.
-That a wrong drop costs little where the owner would see the failure anyway is the owner's weight on
-a doubt, never a reason to refuse a cause the conditions admit.
+silence, asks in advance the question asked of past firings: whether the facts that made a tripwire
+fire would have been found without it. Read in hindsight over the 12 firings of this repository and
+the 37 of thaum, 25 were found and acted on anyway, through a test, a gate, a review doing its own
+job, a request or the plan itself, and 8 needed the tripwire, each a failure every procedure counted
+as success, by a subagent's hindsight judgement per firing with its commit; the spec this decision
+landed from keeps the counts and names the 8, and the judgements per firing were not kept. Condition 2
+is the cost of watching: a tripwire whose evidence no reading occasion holds is read at every
+merge for nothing; a received retrospective file counts, since the intake reads every tripwire
+against it. Condition 3 removes the clause that counts what the decision instructs, which can fire
+only on the decision working: the three false alarms of the 49 firings. Condition 4 removes the
+number written to make a clause specific, which fires on noise or never: thaum's `t-event-payload`
+fired five times, the last three only moving its own bound, inside the noise of its instrument.
 
-The rival, the falsifiability bar alone with the owner filtering, kept every cause precise enough
-to fire, whatever it watched: the owner dropped 23 of 66 ruled causes, and about 45 of 64 standing
-entries watched a failure caught anyway, per `rejected@agent-skills@owner-rules-each-tripwire`.
-The owner ranked the result: that the tripwires admitted are valuable matters more than that every
-past useful one stays admitted, so a refinement admitting a dropped useful firing was taken only
-where it admitted none of the 25 found anyway, which is the rule on slips' second case.
+The rival, the falsifiability bar alone with the owner filtering, kept every cause precise enough to
+fire, whatever it watched: the owner dropped 23 of 66 ruled causes, and about 45 of 64 standing
+entries watched a failure caught anyway, per `rejected@agent-skills@owner-rules-each-tripwire`. The
+owner ranked the value of the tripwires admitted above keeping every past useful one admitted, even
+at the loss of a few useful ones, unless a small refinement admits them, which no goal ranks. A
+refinement that admits a dropped useful firing is kept only where it admits none of the 25 found
+anyway, the session's measure of a refinement small enough. The refinement kept is the case of a
+failure that a later procedure reports, per `design@agent-skills@slip-is-no-firing`, and it exists
+for thaum's commit-message tripwire, whose one firing was a single message on the main branch that
+no review had reported. Whether that case admits this firing, or any of the 25, is not known: the
+judgements per firing were not kept, and the record does not say which procedure found the message.
+The case does not admit the firing of the tripwire on a member beyond a head's argument, whose
+instances reviews repaired as slips, which `rejected@agent-skills@recurrence-of-slips-fires`
+admitted: that loss is within the ranking.
+
+### A cause the four conditions of the standard leave in doubt is kept with a short horizon, unless the owner would see its failure anyway `##doubt-keeps-the-cause`
+
+A cause in doubt is one that no condition clearly excludes and that the conditions do not clearly
+admit. The doubt is part of the standard, the fragment
+`path@agent-skills@fragments/tripwire-standard.md`, beside the four conditions that
+`design@agent-skills@tripwire-admission-test` argues. It keeps the cause because horizons make the
+two errors unequal: a wrong keep costs reading until its horizon, a wrong drop loses the evidence
+for good. The rival, dropping a cause in doubt, makes the costlier error. Dropping over keeping a
+cause in doubt whose failure the owner would see anyway, by using the project or by carrying work
+with its agents: the owner ranked the reading such a cause costs until its horizon above the loss of
+its evidence, which no goal ranks. It weighs a doubt, never a reason to refuse a cause the
+conditions admit.
+
+### A clause on how sessions follow an instruction fires only on a failure that a later procedure reports, never on what the review or a check of its own work reports, however often that recurs, unless it watches whether an earlier procedure catches what it exists to catch `##slip-is-no-firing`
+
+A slip is a failure to follow an instruction that the review of the work itself, or a check run on
+that work, reports. A tripwire's clause on how sessions follow an instruction never fires on a slip,
+however often slips recur in separate pieces of work, and fires only on a failure that passed the
+procedures of its own work and that a later procedure reports, such as an audit, the review of a
+later branch that reads the text without having written it, or a retrospective file the intake
+receives: the property decides, a procedure later than the work, and the list gives examples. A
+clause that watches whether an earlier procedure catches what it exists to catch, or what a
+decision gives in real use, is outside the rule, and where a clause fires on both a slip and
+something more, the slip is struck. The text is the rule on slips of the standard,
+`path@agent-skills@fragments/tripwire-standard.md`, beside the four conditions that
+`design@agent-skills@tripwire-admission-test` argues.
+
+That one slip is no firing rests on the owner's report that an agent not following an instruction
+once or twice in a session is normal; catching such a failure is what the review of the work is
+for. Many slips fire nothing either. A finding a review reports on its own work shows that review
+working, so a clause that counts such findings fires on the procedure working, which condition 3 of
+the standard excludes; and a count of such findings says nothing of the failures no review caught,
+which are the ones a tripwire can watch. What makes such a failure observable is a later procedure
+that reads the same text after its own work passed it. A retrospective file the intake receives is
+one: it serves `goal@the-workflow-improves-through-real-use`, which needs a consumer's real use to
+reach this repository, and a consumer's real use of the installed text reaches it only through such
+a file.
+
+The nearest rival keeps a recurrence of slips in separate pieces of work as a firing,
+`rejected@agent-skills@recurrence-of-slips-fires`, as a measure of what the reviews cost: that cost
+is not silent, since the reviews report those findings, which condition 1 of the standard excludes.
+A count of reviews that find nothing, as a sign of blind reviews, cannot tell clean work from a
+blind review, and a blind review shows as a failure that a later procedure reports, which the rule
+admits. The cost: such a clause fires later, only once a later procedure reads the text, so it fires
+rarely while audits are rare; a horizon that counts the occasions of a later procedure then shows an
+audit not run as a horizon not reached, not as a pass.
 
 ### Every tripwire names the occasions after which, unfired, it leaves `##tripwire-horizon`
 

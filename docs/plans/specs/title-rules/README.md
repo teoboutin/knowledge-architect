@@ -275,7 +275,7 @@ Each new head takes its thread's slug, so each is written here by its thread's n
 #title-misleads-bar               crates/agent-skills/docs/design/design-skill-and-heads.md, a design head, at the harvest
 #title-length-bound               crates/agent-skills/docs/design/design-skill-and-heads.md, a design head, at the harvest
 #review-finding-is-no-firing      crates/agent-skills/docs/design/premortem-and-tripwires.md, a design head, at the harvest
-misleading-title-found-on-main    crates/agent-skills/docs/tripwires.md, a tripwire, at the harvest
+#misleading-title-found-on-main  crates/agent-skills/docs/tripwires.md, a tripwire, at the harvest
 ```
 
 No name in code: step 2 changes a message and a comment.
@@ -396,11 +396,12 @@ reviews report those findings, which condition 1 excludes. A count of reviews th
 a sign of blind reviews, lost: it cannot tell clean work from a blind review, and a defect a later
 procedure finds on main shows a blind review.
 
-The harvest writes the rule as a head of its own, under the slug of #review-finding-is-no-firing, in
+The harvest writes the rule as a head of its own, `design@agent-skills@slip-is-no-firing`, in
 `path@agent-skills@docs/design/premortem-and-tripwires.md`, since its nearest rival, the recurrence
 branch, is not the nearest rival of the four conditions, per
 `design@agent-skills@one-decision-per-head`; `design@agent-skills@tripwire-admission-test` keeps the
-four conditions and the doubt, and cites it.
+four conditions, and cites it and `design@agent-skills@doubt-keeps-the-cause`, the doubt, which the
+harvest splits out on the same test.
 
 ### #title-tripwire-verdict
 
@@ -518,7 +519,7 @@ None: the work changes text and one message, and no built code can apply a check
    `design@agent-skills@title-states-the-rule` keeping test 2, its title and slug kept;
    `design@agent-skills@tripwire-admission-test` without the rule on slips, its last paragraph per
    D3; the other heads the table of "What is already decided" gives to step 5; the `%%` comments of the shape and
-   standard fragments naming the new heads; the tripwire `misleading-title-found-on-main`; the
+   standard fragments naming the new heads; the tripwire `tripwire@agent-skills@misleading-title-found-on-main`; the
    losing alternatives judged by `skill@knowledge-architect-decision-recording@losing-alternatives`;
    premortem cause 2 judged by the standard; a paragraph in
    `issue@agent-skills@this-repository-s-heads-await-the-design-record-axis` that its pass also
@@ -579,10 +580,10 @@ under the new case before the harvest. Ruled: the owner accepted the default.
 
 | thread | home |
 | --- | --- |
-| #title-misleads-bar | a new head under the thread's slug in `register@agent-skills@design`, design-skill-and-heads.md |
-| #title-length-bound | a new head under the thread's slug in `register@agent-skills@design`, design-skill-and-heads.md: a head of absence |
-| #review-finding-is-no-firing | a new head under the thread's slug in `register@agent-skills@design`, premortem-and-tripwires.md, cited by `design@agent-skills@tripwire-admission-test` |
-| #title-tripwire-verdict | the tripwire `misleading-title-found-on-main` |
+| #title-misleads-bar | #title-misleads-bar → `design@agent-skills@title-misleads-bar` and `design@agent-skills@nearest-rival-title-is-advice`, two heads in `register@agent-skills@design`, design-skill-and-heads.md, since test 1 as advice loses to a nearest rival of its own |
+| #title-length-bound | #title-length-bound → `design@agent-skills@no-title-word-bound`, a head of absence in `register@agent-skills@design`, design-skill-and-heads.md, since the thread's slug names the rival |
+| #review-finding-is-no-firing | #review-finding-is-no-firing → `design@agent-skills@slip-is-no-firing`, a new head in `register@agent-skills@design`, premortem-and-tripwires.md, cited by `design@agent-skills@tripwire-admission-test`, since the thread's slug misleads about a later branch's review finding, which fires |
+| #title-tripwire-verdict | the tripwire `tripwire@agent-skills@misleading-title-found-on-main` |
 
 ## Later consequences
 

@@ -26,6 +26,11 @@ owner's word" over the design homes lists the rest. The heads that cite a goal a
 this repository touched since the rule was written states the constraint already, and the others
 do not.
 
+The same pass judges every title by `design@agent-skills@title-misleads-bar`, which replaced the
+test that a slug and a title stay aligned with the full scope of the decision. A title that test
+grew by a clause that does not narrow what the title admits may then be shortened, each as a change
+of its head's wording.
+
 ### Why it matters
 
 A head whose ground names an intent no goal states reads, under the new rule, as a goal to draft
@@ -40,6 +45,7 @@ against
 A pass of the design-record axis over this repository, its outcomes applied: each head re-grounded
 on its argument, a fork's choice in its weak form, each intent of the three kinds put on the owner
 list as a goal to draft, each standing head that cites a goal stating its constraint beside the
-reference, and each head and `rejected` entry that still holds an older attribution converted to
-the form `primer@design-heads` gives: an argument or an approval named with no source, and a fork's
-choice as the ranking it made, with that ranking's source.
+reference, each title judged by `design@agent-skills@title-misleads-bar`, and each head and
+`rejected` entry that still holds an older attribution converted to the form `primer@design-heads`
+gives: an argument or an approval named with no source, and a fork's choice as the ranking it made,
+with that ranking's source.
