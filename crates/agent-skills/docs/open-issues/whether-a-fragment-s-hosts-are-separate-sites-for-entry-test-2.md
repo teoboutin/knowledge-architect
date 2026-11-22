@@ -15,7 +15,9 @@ the fragment, or as one each, so whether a decision stated by a fragment alone e
 
 ### What
 
-A design-record auditor checking the heads of the work of `spec@plans@title-rules` raised it, on
+A design-record auditor checking the heads of the work on head titles that must not mislead raised it, at the review before the
+merge of the commit "[plans] The spec on head titles that must not mislead leaves, its work landed
+and its review before the merge read", on
 the heads the shape fragment, `path@agent-skills@fragments/head-shape.md`, states: that fragment is
 included in three installed texts, decision-recording, the decision-record reviewer and the
 design-record auditor. The rule in `primer@where-knowledge-goes` that "A whole text that the
