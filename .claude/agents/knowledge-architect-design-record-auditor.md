@@ -232,10 +232,10 @@ resolves to nothing.
 The slug is an id, unique in the design home.
 
 **When the decision was a thread of a design discussion, its slug is the thread's name**, unless
-that name misdescribes the decision as approved, as a name for the change it proposed does. The
+that name misleads about the decision as approved, as a name for the change it proposed does. The
 discussion minted it in the same grammar and checked it for a collision with the Component's
-entries before using it, for that reason. When the name misdescribes the decision, the entry takes
-a slug that names the decision, by the alignment rule below, and the text that keeps the
+entries before using it, for that reason. When the name misleads about the decision, the entry takes
+a slug that names the decision, by the rule below on a slug that misleads, and the text that keeps the
 deliberation states the pair, `#<thread> → <entry slug>`: the plan document's harvest row, or the
 commit message on the in-change path. `git log --grep` on either name then finds a commit message
 that states the pair, and `git log -G` a plan document's diff that does.
@@ -249,10 +249,11 @@ The statement comes first and the slug last, with no bold and no em dash between
 document outline reads as a list of decisions rather than a list of identifiers. The body follows as
 ordinary prose.
 
-**A title states a decision only while it is false of the nearest rival it beat.** A title that the
-losing alternative would make true names a subject, not a decision: "The configuration is read
-once, at start-up" is false of a configuration read again on every request, and "The configuration
-is read with care" is true of nearly any rival.
+**A title false of the nearest rival it beat tells the reader most.** A title that the losing
+alternative would make true names a subject, not a decision: "The configuration is read once, at
+start-up" is false of a configuration read again on every request, and "The configuration is read
+with care" is true of nearly any rival. This binds no one: a title true of its rival is vague, and
+vagueness alone does not mislead.
 
 **A title states the rule that decided, not the list of what it admits today.** When a decision
 admits members (fixes, kinds, verbs, sections, consumers), or picks a mechanism to meet a
@@ -260,7 +261,13 @@ requirement, the title states the property that admits a member, in the argument
 the body names the members built as what the rule admits today. A count or a list in a title goes
 stale at the next member, and every later member then reads as a change of the decision. A set
 closed on purpose keeps its list in the title, with the sentence that argues the closure in the
-body. A title states no more than its argument argues.
+body.
+
+**A title must not mislead.** A title misleads when a session acting on the title alone would do
+what the body excludes: add a member the body does not admit, or take a scope its argument does not
+argue. A title that leaves something out misleads only where what it leaves out narrows what the
+title admits, as an exception or a limit does. A title states the core of the decision, and the
+conditions that do not narrow it are in the body.
 
 **A head holds one decision.** Two statements are one decision when they answer one question and
 lose to the same nearest rival. Before a head is written, or judged to hold one decision, each of
@@ -286,14 +293,14 @@ defeat.
 
 **A head is read against the position the owner was shown before it is written.** The title and
 the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The position is read by its direction: a clause
-that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
+that relaxes it, drops part of it or turns it can still meet every title test, and is still
 not the position the owner was shown: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
 
-**The slug and the title stay aligned with the full scope of the decision**: the slug is often the
-only part a reader sees, in a citing document or in code, and the title is what a document outline
-shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
-decision it names, so rename it even when that means rewriting every reference in the project.
+**The slug and the title do not mislead about the decision**: the slug is often the only part a
+reader sees, in a citing document or in code, and the title is what a document outline shows. A
+slug or a title that misleads misinforms every reader, or undermines the decision it names, so
+rename it even when that means rewriting every reference in the project.
 
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
@@ -499,7 +506,7 @@ order. `cargo klarch model` prints every heading and slug definition with its fi
 - judge the head against every rule of `agent@knowledge-architect-design-record-auditor@design-head-rules`: what earns a head, the
   owner's intent sent to a goal included;
   the standing argument and the ground; the title tests; one decision per head; the slug, its level
-  and its alignment; present tense; and fidelity to the position the owner was shown, read by its direction. A head that argues
+  and whether it misleads; present tense; and fidelity to the position the owner was shown, read by its direction. A head that argues
   from a goal's words without naming the goal is the common miss of the standing argument;
 - judge the Component the head sits in by the questions of `agent@knowledge-architect-design-record-auditor@record-rules`. A head those questions place in
   another Component fails, and its draft names the Component they place it in;

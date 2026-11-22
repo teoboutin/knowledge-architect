@@ -63,7 +63,7 @@ change:
   decide whether a _new_ decision earns an entry, not whether a false one may stand.
 - **Rewrite the head in place** where the Component is the incumbent's (`skill@knowledge-architect-decision-recording@current-design`), and give the new statement its own slug when it is a new
   statement. Keep the old slug only where it still names the same decision. The slug and the
-  title stay aligned with the full scope of the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
+  title do not mislead about the decision, per `skill@knowledge-architect-decision-recording@head-shape`. A rename is
   cheap, and the checker lists every reference it leaves dangling in the files it reads, per
   `primer@where-knowledge-goes`.
 - **Move the incumbent into the `register@*@rejected` of the successor's Component** (`skill@knowledge-architect-decision-recording@losing-alternatives`) with its reason and a
@@ -325,10 +325,10 @@ resolves to nothing.
 The slug is an id, unique in the design home.
 
 **When the decision was a thread of a design discussion, its slug is the thread's name**, unless
-that name misdescribes the decision as approved, as a name for the change it proposed does. The
+that name misleads about the decision as approved, as a name for the change it proposed does. The
 discussion minted it in the same grammar and checked it for a collision with the Component's
-entries before using it, for that reason. When the name misdescribes the decision, the entry takes
-a slug that names the decision, by the alignment rule below, and the text that keeps the
+entries before using it, for that reason. When the name misleads about the decision, the entry takes
+a slug that names the decision, by the rule below on a slug that misleads, and the text that keeps the
 deliberation states the pair, `#<thread> → <entry slug>`: the plan document's harvest row, or the
 commit message on the in-change path. `git log --grep` on either name then finds a commit message
 that states the pair, and `git log -G` a plan document's diff that does.
@@ -342,10 +342,11 @@ The statement comes first and the slug last, with no bold and no em dash between
 document outline reads as a list of decisions rather than a list of identifiers. The body follows as
 ordinary prose.
 
-**A title states a decision only while it is false of the nearest rival it beat.** A title that the
-losing alternative would make true names a subject, not a decision: "The configuration is read
-once, at start-up" is false of a configuration read again on every request, and "The configuration
-is read with care" is true of nearly any rival.
+**A title false of the nearest rival it beat tells the reader most.** A title that the losing
+alternative would make true names a subject, not a decision: "The configuration is read once, at
+start-up" is false of a configuration read again on every request, and "The configuration is read
+with care" is true of nearly any rival. This binds no one: a title true of its rival is vague, and
+vagueness alone does not mislead.
 
 **A title states the rule that decided, not the list of what it admits today.** When a decision
 admits members (fixes, kinds, verbs, sections, consumers), or picks a mechanism to meet a
@@ -353,7 +354,13 @@ requirement, the title states the property that admits a member, in the argument
 the body names the members built as what the rule admits today. A count or a list in a title goes
 stale at the next member, and every later member then reads as a change of the decision. A set
 closed on purpose keeps its list in the title, with the sentence that argues the closure in the
-body. A title states no more than its argument argues.
+body.
+
+**A title must not mislead.** A title misleads when a session acting on the title alone would do
+what the body excludes: add a member the body does not admit, or take a scope its argument does not
+argue. A title that leaves something out misleads only where what it leaves out narrows what the
+title admits, as an exception or a limit does. A title states the core of the decision, and the
+conditions that do not narrow it are in the body.
 
 **A head holds one decision.** Two statements are one decision when they answer one question and
 lose to the same nearest rival. Before a head is written, or judged to hold one decision, each of
@@ -379,14 +386,14 @@ defeat.
 
 **A head is read against the position the owner was shown before it is written.** The title and
 the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The position is read by its direction: a clause
-that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
+that relaxes it, drops part of it or turns it can still meet every title test, and is still
 not the position the owner was shown: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
 
-**The slug and the title stay aligned with the full scope of the decision**: the slug is often the
-only part a reader sees, in a citing document or in code, and the title is what a document outline
-shows. A slug or a title that misdescribes its decision misinforms every reader, or undermines the
-decision it names, so rename it even when that means rewriting every reference in the project.
+**The slug and the title do not mislead about the decision**: the slug is often the only part a
+reader sees, in a citing document or in code, and the title is what a document outline shows. A
+slug or a title that misleads misinforms every reader, or undermines the decision it names, so
+rename it even when that means rewriting every reference in the project.
 
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its
@@ -580,11 +587,15 @@ owner's words, is judged by these conditions like any other, and a tripwire that
 kept, whoever proposed it. A ruling of the owner that a tripwire restates, such as a bound or an
 exception, lives in a design head, which the tripwire cites.
 
-**A slip is no firing.** A clause on how sessions follow an instruction never fires on one instance
-that a review, a check or a retrospective reported under its own procedure: one slip is the review
-working. It fires on the same failure recurring in separate pieces of work, or on one instance that
-reached the main branch with no procedure reporting it. Where a clause fires on both a slip and
-something more, strike the slip.
+**A slip is no firing.** A slip is a failure to follow an instruction that the review of the work
+itself, or a check run on that work, reports. A clause on how sessions follow an instruction never
+fires on a slip, however often slips recur in separate pieces of work: one slip is no firing, and
+neither are many, since each is that procedure working, and the failures it misses are what the
+clause can watch. The clause fires only on a failure that passed the procedures of its own work and
+that a later procedure reports, such as an audit, the review of a later branch that reads the text
+without having written it, or a retrospective file the intake receives. A clause that watches
+whether an earlier procedure catches what it exists to catch, or what a decision gives in real use,
+is outside this rule. Where a clause fires on both a slip and something more, strike the slip.
 
 **A doubt keeps the cause, briefly.** A cause that no condition clearly excludes is recorded with a
 short horizon. A wrong keep costs reading until its horizon; a wrong drop loses the evidence for

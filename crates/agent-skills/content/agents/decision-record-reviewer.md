@@ -108,7 +108,7 @@ rather than by slug.
 **Does each head the diff writes meet every rule of `agent@knowledge-architect-decision-record-reviewer@design-head-rules`?** Judge each against
 the whole section: what earns a head, the owner's intent sent to a goal included; the standing
 argument and the ground; the
-title tests; one decision per head; the slug, its level and its alignment; present
+title tests; one decision per head; the slug, its level and whether it misleads; present
 tense; fidelity to the position the owner was shown, read by its direction; and the backstop, for a decision that should have gone
 to the design skill.
 A head that argues from a goal's words without naming the goal is the common miss of the standing

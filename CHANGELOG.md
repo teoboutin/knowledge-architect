@@ -52,6 +52,27 @@ an empty subsection is omitted.
   the tripwire axis, `skill@knowledge-architect-project-audit@tripwire-axis`, run after the pin move
   as `skill@knowledge-architect-setup@moving-the-pin` says; a head a change touches is converted in
   that change.
+- `agent-skills`, patch: a head's title and its slug must not mislead, a rule of
+  `skill@knowledge-architect-decision-recording@head-shape`: a title misleads when a session acting
+  on it alone would do what the body excludes, adding a member the body does not admit or taking a
+  scope its argument does not argue, and a title that leaves something out misleads only where what
+  it leaves out narrows what it admits. That rule replaces the tests that a title states no more
+  than its argument argues and that the slug and the title stay aligned with the full scope of the
+  decision, and a title false of the nearest rival it beat is advice that binds no one, no longer a
+  finding. A project judges its titles by the rule in a pass of the design-record axis,
+  `skill@knowledge-architect-project-audit@design-record-axis`, run after the pin move as
+  `skill@knowledge-architect-setup@moving-the-pin` says, where a title grown to cover a body may be
+  shortened.
+- `agent-skills`, patch: a tripwire's clause on how sessions follow an instruction no longer fires
+  on the same slip recurring in separate pieces of work: a slip, a failure the review of the work
+  itself or a check run on that work reports, never fires, however often it recurs, and the clause
+  fires only on a failure that passed the procedures of its own work and that a later procedure
+  reports, such as an audit, the review of a later branch that reads the text without having
+  written it, or a retrospective file the intake receives, a rule of
+  `skill@knowledge-architect-decision-recording@ruled-tripwires`. A project strikes a clause that
+  counts recurring slips by a pass of the tripwire axis,
+  `skill@knowledge-architect-project-audit@tripwire-axis`, run after the pin move as
+  `skill@knowledge-architect-setup@moving-the-pin` says.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
   `test`, which runs `cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D`
   and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation it builds fails
