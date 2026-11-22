@@ -78,9 +78,8 @@ criterion named with no reason, or a fact stated with no reason it pays, is not 
 later session that weighs a split or a merge of the Component then meets the argument it has to
 defeat.
 
-**A head written from a decision the owner approved is read against that approval before it is
-written.** The title and the body state the position as the owner saw it, in a plan document's
-thread or in the discussion of the in-change path. The approval is read by its direction: a clause
+**A head is read against the position the owner was shown before it is written.** The title and
+the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The approval is read by its direction: a clause
 that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
 not what was approved: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
@@ -99,7 +98,6 @@ rewriting its decision is listed in the plan and brought to them by a step befor
 `skill@knowledge-architect-planning@cutting-steps-and-slices` says; a head the list missed, and a
 head any other change touches, in the change that touches it. Re-pointing a
 reference in a head, to a renamed entry or a migrated form, does not touch it; adding or removing
-one does. Where bringing it
-to the rule would relax or turn what the owner's words in it approved, as a title moved from the
-members the owner named to a rule that admits others, the change goes to the owner as one proposal,
+one does. Where bringing it to the rule would relax or turn a ranking or a report the head
+attributes to the owner, as a title moved from the members the owner named to a rule that admits others, the change goes to the owner as one proposal,
 as a new member does.
