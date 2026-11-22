@@ -299,8 +299,10 @@ direction, stricter, more detailed or reworded, is the head's to state.
 
 **The slug and the title do not mislead about the decision**: the slug is often the only part a
 reader sees, in a citing document or in code, and the title is what a document outline shows. A
-slug or a title that misleads misinforms every reader, or undermines the decision it names, so
-rename it even when that means rewriting every reference in the project.
+slug names the decision and need not carry its exceptions: it misleads only where it names the
+rival, or a decision the head does not take. A slug or a title that misleads misinforms every
+reader, or undermines the decision it names, so rename it even when that means rewriting every
+reference in the project.
 
 **A head that a change touches is brought to the rules on design heads before the change lands**:
 its title to the rule it argues, each decision it bundles to a head of its own, its ground to its

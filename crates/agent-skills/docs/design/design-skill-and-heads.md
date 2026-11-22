@@ -176,7 +176,9 @@ of the decision, and the conditions that do not narrow it are in the body. A tit
 nearest rival is vague: it states no member and no scope a session would act on against the body,
 and vagueness alone does not mislead. The slug is held to the same test, since it is often the only
 part of the head a reader sees, in a citing document or in code, and a slug or a title that misleads
-is renamed, whatever references the rename rewrites. The text is the shape fragment,
+is renamed, whatever references the rename rewrites. A slug names the decision and need not carry
+its exceptions: it misleads only where it names the rival, or a decision the head does not take.
+The text is the shape fragment,
 `path@agent-skills@fragments/head-shape.md`, beside the rule of
 `design@agent-skills@title-states-the-rule`.
 
@@ -199,6 +201,11 @@ that `git show c811787e --format= -- '*docs/design*'` adds, the slug removed. Th
 a reader, acting on a rule the body does not decide, is the one the test of the argument's reach
 catches, and the test of misleading catches it too, so the rival's two tests add no finding a reader
 needs, and add the push.
+
+The rival for the slug holds it to the title's test of what it leaves out, so that a slug carries
+every exception that narrows what it admits. A slug held to that test grows toward restating the
+head, the same push toward restating the body that the paragraph above argues against for a title,
+and a slug is cited, not read as the rule: the exceptions it leaves out are in the head it names.
 
 ### That a title is false of the nearest rival it beat is advice that binds neither the writer nor a review `##nearest-rival-title-is-advice`
 
