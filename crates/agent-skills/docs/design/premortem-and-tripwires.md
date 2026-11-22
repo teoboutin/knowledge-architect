@@ -43,8 +43,9 @@ response, re-entry point and horizon change on the session's judgement under the
 `design@agent-skills@tripwire-admission-test`, while it watches the same cause, each change listed
 in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the
 owner reads each change and contests it with a goal, a fact or an argument, per
-`goal@the-owner-decides`. The owner named the wording and the small changes of scope of tripwires among the rulings a clearer
-standard should let the session's judgement cover.
+`goal@the-owner-decides`. The wording and the small changes of scope of a tripwire are what a
+clear standard lets the session's judgement cover, since the standard, not the proposer, ranks
+them.
 
 A tripwire is no decision: it watches one premise of a decision, and its only value is the fact it
 delivers, which the standard measures whoever proposed it. A ruling of the owner bears on a
@@ -59,8 +60,7 @@ tripwire, such as a ruling that a rule a review finds and its own branch removes
 tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's ranking at a
-fork, per `design@agent-skills@heads-stand-on-argument`. That a tripwire grounded on the owner's
-word gets no standing the standard does not give it is the owner's ranking. Giving the
+fork, per `design@agent-skills@heads-stand-on-argument`. Giving the
 owner's word a standing of its own brings back part of
 `rejected@agent-skills@owner-rules-each-tripwire`.
 
