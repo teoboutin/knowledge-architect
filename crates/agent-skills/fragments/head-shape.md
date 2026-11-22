@@ -23,6 +23,7 @@ Outside a fenced block, `{{command}} check` reports it as a misplaced definition
 resolves to nothing.
 The slug is an id, unique in the design home.
 
+%% The rule and its exception: `design@agent-skills@thread-slug-is-entry-id`.
 **When the decision was a thread of a design discussion, its slug is the thread's name**, unless
 that name misleads about the decision as approved, as a name for the change it proposed does. The
 discussion minted it in the same grammar and checked it for a collision with the Component's

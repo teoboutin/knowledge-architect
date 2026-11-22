@@ -264,14 +264,16 @@ not #shorten-retention. A slug is never changed during the discussion, since
 every earlier delta carries it. Before using a slug, check that no entry of
 the Component that will own the decision already holds it: a thread that
 loses may become a `rejected` entry under its own name.
+%% The rule and its exception are `design@agent-skills@thread-slug-is-entry-id`'s.
 `{{command}} id <slug>...` lists, for every candidate in one call, each
 entity the project defines under it, and only a design or a `rejected`
 entry of that Component refuses the slug. In prose, write it plain with a
 `#` before it, as in #retention-window, never in backticks: backticks
 mark a checked reference, and no check reads a backticked `#<slug>`, so it
 would look checked while nothing resolves it.
-%% The reason is `design@agent-skills@thread-slug-is-entry-id`'s, per
-%% `design@check@hash-slug-span-read-by-no-lint`.
+%% No check reads a backticked `#<slug>`, per `design@check@hash-slug-span-read-by-no-lint`, and
+%% once an entry carries the slug it would dangle unseen: a review reading the text is what catches
+%% one.
 In the plan document the
 thread becomes an item, which the plan document cites by its checked form,
 from inside its own plan only, per `skill@knowledge-architect-planning`;

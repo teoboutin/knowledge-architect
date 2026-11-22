@@ -2,6 +2,9 @@
 
 ## Reference spans and their lints
 
+**CHANGELOG.md is read by none of the lints**: it is outside the walk, per
+`design@knowledge-architect@the-changelog-is-outside-the-walk`.
+
 ### A slug written with a hash sign in backticks, `#<id>` or `<word>#<id>`, is read by no lint `##hash-slug-span-read-by-no-lint`
 
 A backticked `#<id>` or `<word>#<id>` is text. It holds no `@`, so it is no reference, and no lint
@@ -150,15 +153,8 @@ sorted the hits: every plain hit that was no pointer came from a subject slug, a
 was a pointer written in words. The rival, a listing of such words in `show`, would
 leave those pointers unchecked: `rejected@check@plain-word-mention`. A slug kept as a concept index,
 so that a term's mentions read as its pointers, buys little: the primer asks a pointer to be a
-reference, and `show` lists every citation of an entry.
-
-**CHANGELOG.md is read by none of the lints**: it is outside the walk, per
-`design@knowledge-architect@the-changelog-is-outside-the-walk`.
-
-**The lints cost little time.** Re-take it with `klarch check` over this repository, release
-build, median of five runs on one machine, against the same commit built with the lints' arms and
-the scanner's reading for them removed: a run that takes more than 10% longer than that one reopens
-the scan.
+reference, and `show` lists every citation of an entry. Its cost is bounded by
+`design@check@id-lints-cost-bound`.
 
 ### A quotation is read by none of the lints on ids `##quotation-read-by-no-id-lint`
 
@@ -172,3 +168,13 @@ a fence's edge, a list item or a table row, the blocks a renderer shows apart, s
 the rest of a file. A pointer someone writes inside a quotation goes unchecked, which is what the
 exemption costs. The nearest rival, no exemption, would report words the writer may not change. It
 is the exception for a quotation of `design@agent-skills@plain-text-is-no-repair`.
+
+### The lints on ids make a check over this repository no more than 10% slower than one without them `##id-lints-cost-bound`
+
+The lints on ids are `design@check@reference-shape-outside-span`, `design@check@backticked-bare-id`
+and `design@check@plain-word-lint`. **They cost little time.** The bound is re-taken with
+`klarch check` over this repository, release build, median of five runs on one machine, against the
+same commit built with the lints' arms and the scanner's reading for them removed, as the commit
+"[core] A defined id written outside its reference form is a finding, every id has two segments,
+and the spec's design audit" measured it: a run that takes more than 10% longer than that one
+reopens the scan. The bound of 10% over another, which no goal ranks: the session's ranking.
