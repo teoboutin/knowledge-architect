@@ -10,6 +10,10 @@ an empty subsection is omitted.
 
 ### Migration
 
+- `checks`, patch: the repair of the finding on an id written as a plain word, where the word is
+  meant as an ordinary term, asks for the entry to be renamed so that its slug is not an ordinary
+  word whatever its kind, a design entry included, where it asked a design entry's slug to state its
+  decision. A consumer whose tests pin that repair text changes them.
 - `checks`, major: every plan document is a directory. A spec `docs/plans/specs/<id>.md`, in a group
   of specs/ or not, moves to `docs/plans/specs/<id>/README.md`, and a slice
   `docs/plans/milestones/<milestone>/<slice>.md` to `docs/plans/milestones/<milestone>/<slice>/README.md`;
