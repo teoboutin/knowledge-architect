@@ -145,7 +145,7 @@ Outside the work:
 - `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps` stays
   open: this spec lists the heads its steps rewrite apart from those its harvest touches. The issue
   holds no default; the default is the session's, from the discussion, and whether the owner's
-  "agreed on this table" covered it is D1, awaiting the owner.
+  "agreed on this table" covered it is D1, which the owner ruled: the default.
 - `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`: its trigger is not met, since no
   decision of this spec turns on review cost.
 - Heads whose titles the new test would judge differently: converted when a change touches them,
@@ -546,14 +546,14 @@ The session put it to the owner in the reply to round 3, as item 3, outside the 
 answered with "agreed on this table". **Default**, built: the issue stays open, and this spec lists
 the heads its steps rewrite apart from those its harvest touches. **Rival**: hold that discussion
 inside this spec, which would also rewrite the planning skill's definition and two more heads.
-Awaiting the owner.
+Ruled: the owner accepted the default.
 
 ### D2: the owner's hedges of round 3 restored
 
 Bears on #review-finding-is-no-firing. The attribution of round 3 in
 `argument@title-rules@arg-17` had dropped "I guess" and "probably"; it now keeps them, as
 `primer@design-heads` asks of an attribution. **Default**: the attribution as `argument@title-rules@arg-17` now words it.
-**Rival**: the owner rewords it. Awaiting the owner's word.
+**Rival**: the owner rewords it. Ruled: the owner accepted the default.
 
 ### D3: the owner's ranking of the standard and the new rule on slips
 
@@ -573,7 +573,7 @@ procedure reports, and says that whether the new case admits any of the 25 is no
 the judgements per firing were not kept; the dropped `member-beyond-the-argument` firing is within
 the ranking, which put the value of the tripwires admitted above keeping every past useful one.
 **Rival**: the work re-judges the 49 firings, from their commits in this repository and in thaum,
-under the new case before the harvest. Awaiting the owner.
+under the new case before the harvest. Ruled: the owner accepted the default.
 
 ## Harvest
 
