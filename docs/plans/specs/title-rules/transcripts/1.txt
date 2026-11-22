@@ -1,0 +1,285 @@
+# files read: 1; harness versions: 2.1.328
+# session 15beee78: <transcript file>
+[L948 owner 2026-11-22 10:51]
+can you start the design discussion on the fired tripwire ?
+Explain the problem in detail to me. TBH i'm not yet convinced there is any problem yet. 
+Also, a key point to consider is that the strictness of rules about head titles must not end up requiring titles that are exact restatement of the heads, or that would end up with far too much duplicated text. what is the length of head titles right now ?
+Head titles that are not perfectly precise should not be much of a problem , as long as they do not mislead.
+
+[L978 agent 2026-11-22 10:53]
+## The problem, as the record states it
+
+**The rule**, `design@agent-skills@title-states-the-rule` with the shape fragment (`fragments/head-shape.md:44-55` and `:88-91`), holds four tests for a title:
+
+1. "A title states a decision only while it is false of the nearest rival it beat."
+2. It states the rule that admits members, not the list of members.
+3. "A title states no more than its argument argues."
+4. "The slug and the title stay aligned with the full scope of the decision."
+
+**The tripwire** watched test 3. It was to fire if the reviews of two separate branches each found a title wider than its argument in a head their own branch wrote. Since it was rewritten on 2026-10-24, five merged branches had that finding: PRs #38, #39, #43, #57 and #73. Two of these I checked against the commit that wrote the head; the other three rest on what their review messages say. Example: in #38, the title of `design@agent-skills@component-split-signals` still named the nested Components, which its body no longer argued.
+
+**The issue's suspected mechanism**: a session that moves a title from members to a rule picks its own words for the rule, and those words reach further than the argument the body carries.
+
+## Why I don't think that is a problem with the decision
+
+**Every instance was caught by the review of its own branch, and none reached main.** That makes the tripwire unsound by its own standard. Condition 1 of the tripwire standard says a cause becomes a tripwire only where the failure is silent, meaning no review reports it. All five were reported. What the firing shows is the review working, not the rule failing.
+
+**What remains is cost, and it is real.** Since 2026-10-24:
+
+- 246 `[review]` commits landed; 87 of them mention titles in their message (`git log --since=2026-10-24 --grep='^\[review\]'`, with and without `-i --grep=title --all-match`).
+- 64 PRs merged in the same period.
+- The findings go both ways: titles wider than the body, titles narrower than the body, and titles true of their rival.
+
+## Your concern about restatement: the measurements
+
+The data: 612 design heads at HEAD, excluding the test mock projects (my script over every `docs/design*.md`, titles without their slug):
+
+| | words |
+| --- | --- |
+| title, median | 17 |
+| title, 90th percentile | 27 |
+| title, longest | 53 |
+| body, median | 199 |
+| title length as a share of body length, median | 9 % |
+
+| title length | heads |
+| --- | --- |
+| under 10 words | 63 |
+| 10-19 | 323 |
+| 20-29 | 200 |
+| 30-39 | 29 |
+| 40 or more | 9 |
+
+Median title length over time: 14 words before the head-rules harvest (2026-10-09), 16 at 2026-10-24, and 17 now. The agent-skills Component has the longest titles, with a median of 20.
+
+So titles are not restatements today; a typical one is about a tenth of its body. But the pressure you describe exists, and it comes from tests 1 and 4 together. Test 1 requires the title to rule out the rival; test 4 requires it to cover the whole scope. A review that applies both adds a clause each time it finds a gap. This very branch did that three times. The transcript-reviewer head's title went to 51 words:
+
+> A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded reversed, relaxed, turned from its direction or falsely attributed, nor an argument or an approval attributed in a head, a rejected entry, a tripwire or an issue entry
+
+## Criteria
+
+| criterion | kind | satisfied by |
+| --- | --- | --- |
+| `goal@design-is-recorded-with-its-arguments`: a title does not state a rule its body does not argue | binding | open |
+| `goal@agents-work-without-drift`: a session that reads only titles (an outline, a grep, `klarch show` listings) does not act against what the body decided | binding | open |
+| `goal@only-needed-instructions`: no title rule where judgement does well enough | binding | open |
+| title length stays far below a restatement of the body | weighed | open |
+| review findings on titles cost less than they do now | weighed | open |
+
+## Threads
+
+**#title-tripwire-verdict**: what becomes of the firing.
+
+- **My position:** the decision has no defect. The tripwire fails condition 1 of the tripwire standard, so the issue closes, with "a title wider than its argument recurs and the review catches it" recorded as a cost in the head. That is the issue's second exit.
+- **Rival:** treat the recurrence as a defect and add a check at writing time, such as a writer-side test. That is one more instruction, aimed at a failure that is already caught.
+
+**#title-misleads-bar**: your proposal. A title may be imprecise; it must not mislead. I would define "mislead" so a reviewer can apply it:
+
+> A title misleads when a session that acts on the title alone would do something the body excludes. For example, it would add a member the body does not admit, or take a scope the body does not argue.
+
+Under that test:
+
+- **Still a finding:** a title wider than its argument. It admits what the body excludes, so test 3 survives as the case of misleading.
+- **No longer a finding:**
+  - a title narrower than the body;
+  - a title that omits a condition the body states, which replaces test 4's "full scope";
+  - a title whose wording is general, as long as it does not admit too much.
+- **Open: whether test 1, false of the nearest rival, survives.** It keeps an outline readable as a list of decisions rather than subjects. A title true of its rival tells the reader less, but does not mislead.
+  - My default is to keep it as a rule for whoever writes the title, but not as a review finding: a reviewer reports it only where the title reads as the rival's decision.
+  - Rival: drop it entirely.
+
+Cost: one test replaces two of the four (3 and 4), and test 1 turns from a review finding into guidance for writing the title. Gain: no further clause is added to "cover" a body.
+
+**#title-length-bound**: whether a number caps titles.
+
+- **My position: no number.** The 90th percentile is 27 words, but no argument puts a bound at any particular value, and a cap would block the case a closed set needs, which lists its members in the title.
+- **Instead,** the rule says the title states the core of the decision, and its conditions and exceptions go in the body.
+- **Rival:** a word cap, with its basis in the measurement above.
+
+## Questions for you
+
+1. **What "mislead" covers.** Is my definition yours, "a session that acts on the title alone would do something the body excludes"? Or do you also count a title that is merely too vague to tell what was decided?
+2. **Test 1, false of the nearest rival.** Keep it as a writer's rule only, as I propose, or drop it?
+
+## Grounding
+
+**Read:**
+- `design@agent-skills@title-states-the-rule`;
+- the shape fragment's title rules;
+- `issue@agent-skills@titles-wider-than-their-argument-recur-across-branches`;
+- the commit messages counted above.
+
+**Not yet read:** the goals home and the other heads on titles, beyond the one above. The record search has not run either; it runs once the shapes settle, and no thread closes before it.
+
+## Delta
+
+| thread | state | position |
+| --- | --- | --- |
+| #title-tripwire-verdict | new | the decision has no defect; the tripwire fails condition 1 of its own standard; record the cost and close the issue |
+| #title-misleads-bar | new | your proposal, filled in: "must not mislead" replaces tests 3 and 4; test 1 becomes a writer's rule |
+| #title-length-bound | new | no word cap; the title states the core of the decision, the conditions go in the body |
+
+[L985 owner 2026-11-22 11:00]
+you say "Every instance was caught by the review of its own branch, and none reached main" there might be survivor bias there. If one was not caught we are not aware it exists. I think this might be a more general defect of the way tripwires are worded, watching review findings. If reviews are catching things, this is actually a metric that proves things are working rather than the opposite I think, because then we can trust reviews to detect those kind of lapses and violations of instructions. If nothing was found at all instead, it would be worrysome.
+I think it is important to carry these informations in the future ways we watch design success through tripwires.
+
+title-tripwire-verdict: I also think there does not seem to be a defect.
+
+title-misleads-bar looks right.
+
+title-length-bound: no bound, things look healthy right now already. agreed on your addition about stating the core of the decision.
+
+[L992 agent 2026-11-22 11:01]
+## Your point on survivor bias
+
+You're right, and it corrects one of my claims. "None reached main" is unverified. No pass of the design-record audit has run since the tripwire was written, so a title wider than its argument that a review missed would be invisible. All I can say is that none is known.
+
+Your general point holds against the tripwire standard as written. Condition 3 says "A clause that counts what the decision instructs or endorses fires on the decision working". A review that reports a lapse is the workflow doing what it instructs. Yet the rule on slips still lets a clause fire "on the same failure recurring in separate pieces of work", even when every instance was reported. That is the inversion you describe: the more reliably reviews catch a lapse, the sooner the tripwire fires.
+
+The signal that something is wrong is the opposite: a lapse that reached main with no procedure reporting it, found later by an audit, by another branch's review, or in use. That is also what the survivor bias hides, so it is exactly what a tripwire should watch.
+
+**The pattern is not limited to the title tripwire.** At least three standing tripwires have a clause that counts review findings across branches (my script over the "Fires when" lines of every tripwires home):
+
+| tripwire | the clause that counts reported findings |
+| --- | --- |
+| `tripwire@agent-skills@a-shortcut-decision-earns-a-head` | "a decision-record review finds … at instances in two separate pieces of work" |
+| `tripwire@agent-skills@split-rule-from-exception` | "the reviews of two separate branches each find an exception split from its rule" |
+| `tripwire@agent-skills@rejected-entry-cited-by-the-wrong-head` | "or the reviews of two separate branches …" |
+
+Each also has a second clause, an audit finding the defect on main, which the change keeps. `tripwire@agent-skills@record-check-misses-a-head` also counts findings in two branches' reviews, but of a check that should have caught them earlier. That is a procedure failing, not a review working, so it stays as it is.
+
+## On "if nothing was found, it would be worrying"
+
+I'd argue against making zero findings a signal of its own. A run of reviews that find nothing has two causes: clean work, or blind reviews, and the count cannot tell them apart. The evidence that separates them is the same as above: a defect of the kind the review exists to catch, later found on main. A blind review shows up as exactly that.
+
+So my proposal records your principle in the standard, and adds no separate watch on zero counts:
+
+> A clause on how sessions follow an instruction fires only on an instance that reached the main branch with no procedure reporting it. Findings that reviews, checks or retrospectives report, however often they recur, show the procedure working, and fire nothing.
+
+## Threads
+
+- **#review-finding-is-no-firing** (new, from your point): the rule on slips loses its "recurring in separate pieces of work" branch, and gets the sentence above in its place.
+  - The four `agent-skills` tripwires above are re-judged in the same work: three lose their review-count clause; the fourth keeps its clause, since the reviews there catch a check that should already have caught the defect.
+  - **Rival:** keep the recurrence branch as a measure of review cost. That cost is not silent: you see every review and its findings, which condition 1 excludes.
+  - **Cost:** tripwires fire later, and only once an audit or later work finds the defect on main.
+- **#title-tripwire-verdict**: no defect in the decision; you agree. What changes is the tripwire's shape, which follows from #review-finding-is-no-firing. **My default:** rewrite it as "an audit, or the review of a branch that did not write the head, finds on main a title that misleads, in a head written or retitled after the decision". The issue closes with that tripwire in its place. **Rival:** no tripwire. Titles would still be read by the next design-record audit, but nothing would reopen the decision on what it found.
+- **#title-misleads-bar**: you approved it. Your two questions are still open, so I'm taking my defaults: "mislead" means a session that acts on the title alone would do something the body excludes; being merely vague is not misleading. The "false of the nearest rival" test becomes a rule for whoever writes the title, not a review finding.
+- **#title-length-bound**: no number; the title states the core of the decision, and its conditions go in the body. You agreed.
+
+**Path:** this changes installed text (the shape fragment's title rules, the tripwire standard's rule on slips), their heads, and four tripwires. No change is under way, so it takes the full path: a spec on a branch of its own.
+
+## Next
+
+Unless you contest a shape, I write the draft spec and run the record search on it next turn. No thread closes before the search.
+
+## Delta
+
+| thread | state | position |
+| --- | --- | --- |
+| #title-tripwire-verdict | presumed-settled | no defect; the tripwire is rewritten to watch titles that mislead, found on main, and the issue closes |
+| #title-misleads-bar | presumed-settled | "must not mislead" replaces tests 3 and 4; test 1 becomes a rule for the writer only |
+| #title-length-bound | presumed-settled | no number; the title states the core of the decision |
+| #review-finding-is-no-firing | new | a clause on how an instruction is followed fires only on an instance on main that no procedure reported; three tripwires lose their review-count clause |
+
+[L999 owner 2026-11-22 11:05]
+review-finding-is-no-firing looks like the right direction, but it is quite hard to measure that something reaches main without report, because as the sentence says, nothing has reported it. Though I guess a later audit is what can surface it, so this is probably what should be watched. Or a later review inspecting the same item with a finding on text already on main
+
+[L1014 agent 2026-11-22 11:05]
+The record search is running on the draft spec. Until it returns I'm editing nothing in the tree, and no thread closes.
+
+I took your refinement into #review-finding-is-no-firing. A clause on how sessions follow an instruction fires only on a defect that a later procedure finds in text already on main: an audit, or the review of a later branch that reads that text without having written it. A finding a review reports on the work it reviews fires nothing, however often it recurs.
+
+The draft is at `<scratch>/title-rules/draft/README.md`. It holds the four threads:
+
+| thread | state | position |
+| --- | --- | --- |
+| #title-misleads-bar | presumed-settled | A title misleads when a session acting on the title alone would do what the body excludes; a title wider than its argument still does. A narrower or vaguer title is no finding. "False of the nearest rival" is guidance for the writer, not a review finding. |
+| #title-length-bound | presumed-settled | No word cap. The title states the core of the decision, and its conditions go in the body. |
+| #review-finding-is-no-firing | presumed-settled | The rule on slips loses its "recurring in separate pieces of work" branch. Three tripwires lose their clause that counts review findings across branches, and keep their clause on a defect found on main. |
+| #title-tripwire-verdict | presumed-settled | The title decision has no defect. The issue closes, and a new tripwire watches for a misleading title found on main by an audit or by the review of a branch that did not write it. |
+
+When the search returns, I'll go through each verdict that asks for action, with its outcome. Then the premortem and the checkpoint table for your confirmation.
+
+[L1017 injected task-notification 2026-11-22 11:10]
+<task-notification>
+<task-id>wt5dy3roh</task-id>
+<tool-use-id>toolu_01QWNJ2St54NNx9HtaTvCs2W</tool-use-id>
+<output-file><session-tmp>/tasks/wt5dy3roh.output</output-file>
+<status>completed</status>
+<summary>Dynamic workflow "The record search, from the work list to a passing check of every report; the session edits nothing in the tree until it returns" completed</summary>
+<result>{"notices":"the work holds 702 words, which leaves 39298 of the 40000-word bound\nagent-1  28185 words  unit transcript (12248 words); unit mutate (6742 words); unit xtask (6646 words); unit testing (4374 words)\nagent-2  26316 words  unit create (11230 words); unit git (8558 words); unit gates (6369 words); unit cli (2698 words); unit agent-config (1721 words)\nagent-3  34550 words  agent-skills :: The configuration a project holds (34550 words)\nagent-4  38613 words  agent-skills :: The audit method (31619 words); agent-skills :: (remainder) (7314 words)\nagent-5  36725 words  agent-skills :: The record search (29355 words); agent-skills :: The design-record and tripwire axes (8978 words)\nagent-6  34110 words  agent-skills :: Reviews (27099 words); agent-skills :: Dispatching work (11721 words)\nagent-7  37019 words  agent-skills :: The design skill and the rules on heads (24628 words); agent-skills :: The agentic-workflow axis (13027 words)\nagent-8  32648 words  agent-skills :: The retrospective (23952 words); agent-skills :: The shipped set (12217 words)\nagent-9  34521 words  agent-skills :: Plan documents (23472 words); agent-skills :: Creating or splitting a Component (11369 words)\nagent-10  33805 words  agent-skills :: Goals (21162 words); agent-skills :: What earns a record (10048 words); agent-skills :: Premortems and tripwires (6849 words)\nagent-11  35109 words  agent-skills :: Intent and the owner's ground (19713 words); agent-skills :: How the installed text changes (18483 words)\nagent-12  23179 words  agent-skills :: Splitting code and the design record (8869 words); agent-skills :: How documents point at each other (8573 words); agent-skills :: The developing activity (8309 words)\nagent-13  28351 words  check :: The model, the phases and the findings (14793 words); check :: Registers and their homes (7678 words); check :: The agent configuration (6252 words); check :: Git and the walk (3827 words)\nagent-14  28075 words  check :: Extensions and the library API (10136 words); check :: Commit messages (8654 words); check :: Entities, ids and headings (6389 words); check :: What is prose (6130 words); check :: Plan documents (1712 words)\nagent-15  26658 words  check :: Reference spans and their lints (9947 words); check :: (remainder) (8778 words); check :: Generated files and fixes (7120 words); check :: Paths, homes and links (5599 words)\nagent-16  30729 words  knowledge-architect :: 1. The Components and how they depend on each other (19301 words); knowledge-architect :: 2. Naming, facades and what a package ships (8000 words); knowledge-architect :: 5. This repository's agent configuration (3654 words); knowledge-architect :: 6. What the tools and the workflow hold to together (3140 words)\nagent-17  30930 words  knowledge-architect :: (remainder) (15537 words); knowledge-architect :: 3. Versions and releases (10325 words); knowledge-architect :: 4. How work reaches main (6353 words)\nagent-18  25091 words  model :: Entities, ids and headings (15419 words); model :: Anchors and Components (7298 words); model :: The walk (5834 words); model :: Reading a file (650 words)\nagent-19  25859 words  model :: Plan documents (11383 words); model :: Registers and their homes (7591 words); model :: The crate and its interface (6657 words); model :: The agent configuration as entities (2995 words)\nagent-20  25691 words  model :: Reference spans (8909 words); model :: Paths and homes (8669 words); model :: (remainder) (6678 words); model :: What is prose (3172 words); model :: Generated files (2935 words)\nagent-21  24201 words  unit query (24201 words)\nagent-22  2863 words  unit knowledge-architect (2863 words)\n22 agents in <scratch>/title-rules/search-1; run `cargo klarch worklist --verify <scratch>/title-rules/search-1` on their reports","verdictFiles":["<scratch>/title-rules/search-1/verdicts-title-misleads-bar.md","<scratch>/title-rules/search-1/verdicts-title-length-bound.md","<scratch>/title-rules/search-1/verdicts-review-finding-is-no-firing.md","<scratch>/title-rules/search-1/verdicts-title-tripwire-verdict.md"],"generatedLines":"<scratch>/title-rules/search-1/generated-lines.md","closingSections":"<scratch>/title-rules/search-1/closing-sections.md","statement":"The searchers read the tree as it stood when each read it: the session edits nothing in the tree until the workflow returns, since an edit made meanwhile is read by some verdicts and missed by others."}</result>
+<diagnostics>Per-agent results: <home>/.claude/projects/<project>/<session>/subagents/workflows/wf_0e94ad06-f80/journal.jsonl — one {"type":"result",...} line per completed agent with its full return value.
+If the result above is empty or unexpected, Read this file BEFORE diagnosing — do not assume agents returned non-empty results.
+To re-run with edited post-processing: Workflow({scriptPath: '<home>/.claude/projects/<project>/<session>/workflows/scripts/knowledge-architect-record-search-wf_0e94ad06-f80.js', resumeFromRunId: 'wf_0e94ad06-f80', args: {"scratch":"<scratch>/title-rules/search-1","work":["<scratch>/title-rules/draft/README.md"],"subjects":["title-misleads-bar","title-length-bound","review-finding-is-no-firing","title-tripwire-verdict"],"seeds":["design@agent-skills@title-states-the-rule","design@agent-skills@tripwire-admission-test","design@agent-skills@one-decision-per-head","design@agent-skills@existing-heads-on-touch","design@agent-skills@extension-follows-the-ground","design@agent-skills@tripwire-stands-on-the-standard","design@agent-skills@tripwire-horizon"]}}) — agent() calls replay from cache up to the first one that failed or no longer matches (edited, added, removed, or in a different call order); that call and every later one run again. A call a usage limit refused usually runs again without ending reuse: finished calls after it still come from cache.</diagnostics>
+<usage><agent_count>24</agent_count><agents_done>24</agents_done><agents_error>0</agents_error><agents_skipped>0</agents_skipped><agents_empty_result>0</agents_empty_result><subagent_tokens>2992146</subagent_tokens><tool_uses>268</tool_uses><duration_ms>322219</duration_ms></usage>
+</task-notification>
+
+[L1028 agent 2026-11-22 11:11]
+## The record search has run: 98 verdicts, 6 that ask for action
+
+**1. A correction of the shape I drafted for #title-misleads-bar (material).** The finding is on `design@agent-skills@title-states-the-rule`. My draft said a title "that leaves out a condition the body states does not mislead". That contradicts my own definition. When the condition left out narrows what the rule admits, such as an exception or a limit, the title admits members the body excludes. That is exactly the wider title that misleads.
+
+Corrected: the definition stands alone, with no list of safe omissions.
+
+> A title misleads when a session acting on the title alone would do what the body excludes. A title that leaves something out misleads only where what it leaves out narrows what the title admits.
+
+**Unless you say otherwise, I build this.**
+
+**2. The "false of the nearest rival" test can't be writer-only.** The finding is from `design@agent-skills@reviews-judge-by-the-writer-s-criteria`, which says a review "judges a text by the criteria that bind its writer". So a rule that binds the writer but that no review judges contradicts that head. Two shapes survive:
+
+- **A, my default:** the test becomes advice that binds no one, stated as "a title false of the nearest rival tells the reader most". It is no criterion, so no review reports it. A title true of its rival is only vague, and you have said vague is not misleading.
+- **B:** the test stays a binding criterion of the writer, and therefore of the review, and is reported only where the title reads as the rival's decision.
+
+A leaves `design@agent-skills@reviews-judge-by-the-writer-s-criteria` untouched and costs one less rule. B keeps reviews pushing titles to rule out their rival, the pressure toward longer titles that you raised. So I hold A.
+
+**3. Your question: the issue `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`.** Its re-entry point is met. This spec's steps rewrite `design@agent-skills@title-states-the-rule` and `design@agent-skills@tripwire-admission-test` before the harvest. The issue asks whether such heads count as touched by the harvest or by the steps. The searcher sets out two shapes:
+
+- **Default:** keep the issue open. This spec lists the heads its steps rewrite separately from those its harvest touches, as the doc-gate spec did on your choice. The scope stays as it is.
+- **Rival:** hold that discussion inside this spec. It would then also rewrite the planning skill's definition and two more heads.
+
+**4. The reversal needs an argument; it has yours.** In `design@agent-skills@tripwire-admission-test`, the sentence "That a recurrence fires is the session's argument" is reversed. Your argument defeats it: a finding the review reports shows the review working, while a lapse that no review caught is invisible. What can be seen is a later procedure finding the defect on main. The part of the rule you ruled on, "one slip is no firing", stays.
+
+**5. `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`: trigger judged not met.** The trigger is a decision that turns on review cost. None of these does:
+
+- #title-misleads-bar is argued on your proposal and on the pressure toward restating the body. The count "87 of 246" was supporting only, and I drop it from the argument.
+- #review-finding-is-no-firing is argued on conditions 1 and 3 of the tripwire standard and on survivor bias, not on cost. I reword the rival's loss so it does not rest on cost: the review findings are not silent.
+
+**6. `issue@agent-skills@titles-wider-than-their-argument-recur-across-branches`.** This work closes it, by one of the two outcomes its "What would close it" names.
+
+The other verdicts constrain the work and are respected. All of them are in `<scratch>/title-rules/search-1/generated-lines.md`.
+
+## Premortem
+
+Assume this shipped and failed:
+
+1. **Reviewers read "misleads" too narrowly.** They stop reporting titles wider than their argument as "only imprecise", and misleading titles reach main. This stresses #title-misleads-bar. **Outcome:** the new tripwire of #title-tripwire-verdict watches exactly this, on main.
+2. **Tripwires on how instructions are followed stop firing, because audits are rare.** After #review-finding-is-no-firing, they fire only when an audit, or another branch's review, finds a defect on main. With no audit, nothing fires. This stresses #review-finding-is-no-firing. **Outcome:** named as a cause for the harvest to judge as a tripwire. Each such tripwire's horizon already counts audit passes, so an unrun audit shows as a horizon not reached rather than as a pass.
+3. **Titles keep growing anyway.** This stresses #title-length-bound. **Outcome:** dropped. You see titles in every review, so the failure is not silent, which condition 1 excludes. The median is re-taken with the script over every `docs/design*.md` heading.
+
+## Checkpoint: contest any of these
+
+| criterion | kind | satisfied by |
+| --- | --- | --- |
+| `goal@design-is-recorded-with-its-arguments` | binding | met: #title-misleads-bar keeps "a title wider than its argument" a finding |
+| `goal@agents-work-without-drift` | binding | met: a title that would make a session act against its body is still a finding |
+| `goal@only-needed-instructions` | binding | met: one test replaces two, test 1 stops binding, and the rule on slips loses one branch |
+| title length far below a restatement | weighed | met: #title-length-bound, the core of the decision in the title |
+| review cost on titles | weighed | met: narrower and vaguer titles are no longer findings |
+
+| thread | state | position |
+| --- | --- | --- |
+| #title-misleads-bar | presumed-settled | a title misleads when a session acting on it alone would do what the body excludes; leaving something out misleads only where it narrows what the title admits; test 1 becomes advice that binds no one (A) |
+| #title-length-bound | presumed-settled | no number; the title states the core of the decision |
+| #review-finding-is-no-firing | presumed-settled | a clause on how an instruction is followed fires only on a defect that a later audit, or the review of a branch that did not write the text, finds on main; three tripwires lose their review-count clause |
+| #title-tripwire-verdict | presumed-settled | no defect; the issue closes; a new tripwire watches titles that mislead, found on main |
+
+Item 3, the touched-head issue, stays open on my default unless you choose the rival. If you confirm the table, convergence holds. I then load the planning skill and write the spec on a new branch, with this discussion's transcript and the search's generated lines.
+
+## Decided
+
+- `issue@agent-skills@the-review-cost-counts-are-not-compared-yet` is not triggered. Ground: no decision here turns on review cost, and the one count is dropped from the argument.
+- The material correction to #title-misleads-bar. Ground: the contradiction the search found under `design@agent-skills@title-states-the-rule`.
+- Premortem cause 3 is dropped. Ground: condition 1 of the tripwire standard, since you see titles in every review.
+
+[L1031 owner 2026-11-22 11:15]
+agreed on this table
