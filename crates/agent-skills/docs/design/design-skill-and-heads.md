@@ -234,7 +234,8 @@ the change goes to the owner as one proposal, per `design@agent-skills@ruling-re
 and a change that re-points references across the record, as a renamed entry or a migrated
 reference form does, would otherwise owe the repair of every head it passes through, which is a
 project audit's scope, not that change's. Adding a reference, or rewording a sentence, is more
-than re-pointing, and so is removing one, on the owner's word.
+than re-pointing, and so is removing one: a removed reference counted as a touch over one exempted
+as re-pointing is, which no goal ranks: the owner's ranking.
 
 It serves `goal@design-is-recorded-with-its-arguments`: a head the record keeps states its decision
 and the argument for it, so one that a change edits leaves the change doing so. In a change no plan

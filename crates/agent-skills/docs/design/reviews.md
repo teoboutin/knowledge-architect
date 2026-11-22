@@ -135,6 +135,21 @@ trigger leaves out still goes to the owner, per
 `skill@knowledge-architect-decision-recording@head-shape`, and the last transcript review checks it
 against the owner's rulings.
 
+### The review before the merge does not wait for the owner's rulings, the merge alone waiting for them `##review-timing`
+
+The review before the merge runs once the work and its harvest are done, whether or not the owner
+has ruled on the defaults the plan document lists. The merge waits for every ruling, per
+`design@agent-skills@default-ruled-before-merge`, and a ruling that changes the work is a repair,
+landed as `skill@knowledge-architect-review@what-review-leaves` says. No text gates the review on
+the rulings.
+
+The rival, the review run after every ruling, lost on two facts. The review gives defaults of its
+own, the findings it puts to the owner, so a review that waits for every ruling waits for its own.
+And a second full review would be owed whenever the first gives findings, where a repair is judged
+as a repair, per `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`. A ruling
+recorded after the last transcript review is read by no reviewer, a gap that
+`issue@agent-skills@a-repair-of-the-last-transcript-review-can-make-another-axis-owed` records.
+
 ### Subagents dispatched together each get a scratch directory of their own `##a-scratch-directory-per-subagent`
 
 A dispatcher that sends several subagents together names in each brief a scratch directory distinct
@@ -283,7 +298,7 @@ definition. The nearest rival, a general-purpose subagent briefed with the axis'
 dispatching session write the procedure into its brief anew, and a procedure rewritten per brief
 drifts; every other review axis with a fixed standard has an agent of its own.
 
-### A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded reversed, relaxed, turned from its direction or falsely attributed `##transcript-reviewer-agent`
+### A transcript reviewer checks that what a work's sessions established has a durable outcome, and that no ruling of the owner is recorded reversed, relaxed, turned from its direction or falsely attributed, nor an argument or an approval attributed in a head, a rejected entry, a tripwire or an issue entry `##transcript-reviewer-agent`
 
 The installed agent `agent@knowledge-architect-transcript-reviewer` reads the transcripts of the
 sessions that produced a piece of work, named as a commit range, and checks two things. First, that
@@ -294,13 +309,15 @@ only in a conversation is lost when the session ends or is compacted. Second, th
 owner is recorded reversed, relaxed, a check, a claim, a criterion or the scope of the work made
 weaker, turned from its direction, or attributed to the owner where the owner did not decide, and
 that a design head, a `rejected` entry, a tripwire or an issue entry names no one as the source of
-an argument or of an approval, per `design@agent-skills@only-underivable-premise-attributed`. A
+an argument or of an approval, per `design@agent-skills@only-underivable-premise-attributed`: only
+the transcript shows whether the owner's words were an argument, an approval, a pick at a fork or a
+fact the owner holds, which the record alone does not show. A
 refinement within the ruling's direction is no finding, per
 `design@agent-skills@ruling-read-by-its-direction`. An attribution still keeps
 the owner's scope and hedges, per `design@agent-skills@attribution-replaces-quotation`: a hedge
 dropped records a firmer ruling than the owner gave, minor on a detail that is not load-bearing and
 major otherwise, per `design@agent-skills@misstated-ruling-rated-by-what-it-changes`. The owner
-ranked where the reviewer's weight goes: more on whether something from the transcript was
+ranked where the reviewer's weight goes, which no goal ranks: more on whether something from the transcript was
 forgotten or not handled durably than on flagging every small addition as a finding, even a clearly
 sane deviation. A ruling is a word of the owner on a question `primer@question-authority` reserves to the owner; an
 answer on a reading or a fact is checked against its source, per
@@ -322,10 +339,13 @@ the review's six axes and its finding.
 The design this decision did not keep:
 `rejected@agent-skills@transcript-reviewer-reports-every-clause`.
 
-### Wherever fidelity to an approval of the owner is judged, a refinement within its direction is no finding, except a goal's wording stricter than the ruling `##ruling-read-by-its-direction`
+### Wherever fidelity to the position the owner was shown is judged, approved or not yet ruled, a refinement within its direction is no finding, except a goal's wording stricter than the ruling `##ruling-read-by-its-direction`
 
 An acceptance, an agreement or an approval of the owner approves the idea and the direction, not
-the wording. A refinement within the ruling's direction, stricter, more detailed or reworded, is no
+the wording. A position the owner was shown and has not yet ruled on, a default awaiting the owner
+that the harvest records, per `design@agent-skills@unruled-default-recorded-at-the-harvest`, is
+read the same way, since the owner's ruling will be on that position: a head that relaxes or turns
+it records a choice the owner is not asked about. A refinement within the ruling's direction, stricter, more detailed or reworded, is no
 finding; a clause that relaxes the ruling, so that a check, a claim, a criterion or the scope of the
 work gets weaker, or that turns it from its direction, is one. The reading by direction is the
 owner's report: an acceptance or an agreement of the owner is rarely about the exact wording, but
@@ -334,7 +354,7 @@ acceptable, unless it relaxes a claim or a criterion so that unfinished work pas
 scope that also reported a clause added within the ruling, "no obligation added", made a stricter
 acceptance criterion a major finding.
 
-The reading applies wherever fidelity to an approval is judged, in the rules on heads, the
+The reading applies wherever fidelity to the position the owner was shown is judged, in the rules on heads, the
 transcript reviewer, the record reviewers and auditors, the plan reviews and the retrospective,
 with one exception: a goal's wording that rules out what the owner has not ruled out knowingly is a
 finding, since a goal binds outright and rules work out, so a wording stricter than the ruling is no

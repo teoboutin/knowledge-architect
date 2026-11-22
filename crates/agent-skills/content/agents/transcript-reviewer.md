@@ -113,9 +113,10 @@ For each ruling of the owner that the tree or the history records:
   exception: a goal binds outright, so a wording stricter than the ruling rules out work, and a goal
   that rules out what the owner has not ruled out knowingly is a finding, per rule 4 of `skill@knowledge-architect-goal-setting@goal-or-not`, which goes to `skill@knowledge-architect-goal-setting@drawing-out-intent`;
 - **an argument a plan document's items or a commit message attribute to the owner** is the
-  owner's; a design head, a `rejected` entry, a tripwire and an issue entry name no one as the source
-  of an argument or of an approval, and attribute each ranking and each fact to its source;
-- **its attribution**, where a durable record attributes it rather than quotes it, as
+  owner's, and a design head, a `rejected` entry, a tripwire or an issue entry names no one as the
+  source of an argument or of an approval, per `primer@design-heads`;
+- **its attribution**, where a design head, a `rejected` entry, a tripwire, an issue entry, a plan
+  document's items or a commit message attributes it rather than quotes it, as
   `primer@design-heads` asks, states what the owner's words decided and how far they reach.
 
 ## Report {{slug:how-to-report}}

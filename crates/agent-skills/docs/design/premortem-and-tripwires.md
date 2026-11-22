@@ -41,8 +41,9 @@ tripwire and keeps none. A ruling of the owner that a tripwire restates, a bound
 lives in a design head, which the tripwire cites. A recorded tripwire's premise, firing clause,
 response, re-entry point and horizon change on the session's judgement under the standard of
 `design@agent-skills@tripwire-admission-test`, while it watches the same cause, each change listed
-in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`. The
-owner named the wording and the small changes of scope of tripwires among the rulings a clearer
+in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the
+owner reads each change and contests it with a goal, a fact or an argument, per
+`goal@the-owner-decides`. The owner named the wording and the small changes of scope of tripwires among the rulings a clearer
 standard should let the session's judgement cover.
 
 A tripwire is no decision: it watches one premise of a decision, and its only value is the fact it
@@ -59,7 +60,7 @@ tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's ranking at a
 fork, per `design@agent-skills@heads-stand-on-argument`. That a tripwire grounded on the owner's
-word gets no standing the standard does not give it is also the owner's ranking. Giving the
+word gets no standing the standard does not give it is the owner's ranking. Giving the
 owner's word a standing of its own brings back part of
 `rejected@agent-skills@owner-rules-each-tripwire`.
 

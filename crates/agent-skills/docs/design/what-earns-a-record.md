@@ -24,8 +24,8 @@ since each of the two parts respects the reason.
 
 The tests keep the decisions recorded few, as long as no critical intent or argument is lost. Every
 grounding reads the design homes whole, and a human overseer reviews them, so each head costs every
-later session and every review. The owner stated the trade-off: more records, which over time bloat
-the design homes and make them harder for human overseers to review and for agents to ground on, or
+later session and every review. The trade-off is between more records, which over time bloat
+the design homes and make them harder for human overseers to review and for agents to ground on, and
 fewer, kept to the decisions that bear load, which leave to the agents' judgement what is not argued
 in them. Every session that changes local code reads the comment at that code, where a head reaches
 it through the reading that `design@agent-skills@code-change-reads-its-record` asks for or through a
@@ -33,8 +33,8 @@ citation in the comment. The decision serves
 `goal@design-is-recorded-with-its-arguments`: a later session can tell what it
 may change and what a change costs from the head where one is owed, and from the comment where none
 is. The nearest rival of keeping the recorded decisions few, a head for every decision discussed
-with the owner, records a mechanism carried at one site by its comments, whose intent, on the
-owner's word, local code comments carry easily.
+with the owner, records a mechanism carried at one site by its comments, whose intent local code
+comments carry easily, as the owner reported.
 Whether the heads cost a session more than they save is not measured:
 `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`.
 
@@ -56,14 +56,14 @@ one module would pass no test. Test 3 counts a tool's behaviour measured as well
 measurement costs as much to take again as a documentation reading to derive again, and a
 documented-only test 3 fails where the documentation is silent. The rival of a fourth test, the
 owner's own intent confirmed when asked, admits nothing a goal, an argument or a fork does not
-hold: on the owner's argument, an intent that states a purpose, a scope or a ranking is a goal,
+hold: an intent that states a purpose, a scope or a ranking is a goal,
 which a goal-setting draft puts to the owner, and any other intent, a preference about a mechanism
 included, is an argument or a choice at a fork.
 Any recorded ruling of the owner as a test, a wider rival, admits nearly every head harvested from
 a discussion, since the workflow asks the owner to confirm most decisions. The design this
 decision did not keep: `rejected@agent-skills@owner-intent-entry-test`. Within test 2, "the same statement at more than one site"
-admits a path repeated for consistency, which on the owner's word has no reason to change, its
-repetition being basic self-consistency. The wider test 2, "constrains work that has not been
+admits a path repeated for consistency, which nothing argues for changing, its repetition being
+basic self-consistency. The wider test 2, "constrains work that has not been
 built", admitted nearly every head under a wide reading and almost none under a narrow one, and the
 design homes hold built intent, per `design@agent-skills@design-home-is-built-intent`.
 

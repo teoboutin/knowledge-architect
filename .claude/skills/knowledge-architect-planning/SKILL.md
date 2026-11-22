@@ -840,8 +840,8 @@ Before deleting a plan document or harvesting a slice:
 - each of its later consequences is in the issue entry or the plan document of the later work it
   names, or in a `todo` issue opened for it where that work has neither, or a `deferred` one if an
   event gates it;
-- every default the document lists as awaiting the owner is ruled, since the branch merges only once
-  the owner has ruled on each;
+- every default the document lists as awaiting the owner is ruled, since a choice the owner has not
+  made must not stay on the main branch, per `primer@question-authority`;
 - its row of the roadmap, if it has one, is removed (`skill@knowledge-architect-planning@spec-or-milestone`).
 
 **A citation of the leaving document from another plan document dangles**, and so does a

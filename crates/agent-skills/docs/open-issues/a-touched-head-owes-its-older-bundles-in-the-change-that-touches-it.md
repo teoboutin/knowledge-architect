@@ -57,7 +57,8 @@ Instances, from retrospective files of this repository and of thaum:
   `design@agent-skills@tripwire-stands-on-the-standard`, each re-pointing every citing site; the
   check of its harvest found `design@agent-skills@fork-choice-in-weak-form`, which the harvest
   rewrote, still bundling its reopening rule with whose ranking a choice is, older than the branch,
-  and left it for the owner;
+  and its review before the merge took that split too, cutting out
+  `design@agent-skills@fork-choice-names-whose-ranking-it-was` and re-pointing every citing site;
 - a slice in thaum on 0.6.0, from `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`:
   one finding of the decision-record axis cost three reviews of that axis, through the same head.
 

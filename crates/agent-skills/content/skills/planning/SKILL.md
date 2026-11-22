@@ -332,8 +332,9 @@ its round. Where the harness keeps no
 transcript, assemble from the conversation, and say so, and why, in the commit that adds the
 document.
 
-%% The verbatim words in a committed transcript, and attributions in the items:
-%% `design@agent-skills@committed-transcript` and `design@agent-skills@attribution-replaces-quotation`;
+%% The verbatim words in a committed transcript: `design@agent-skills@committed-transcript` and
+%% `design@agent-skills@attribution-replaces-quotation`; attributions in the items:
+%% `design@agent-skills@only-underivable-premise-attributed`;
 %% the generated lines alone committed: `design@agent-skills@plan-commits-the-generated-lines`.
 - **The owner's words are attributed in the items**, as `primer@design-heads` says of a plan
   document's items and a commit message, each citing its round; the verbatim words of a design discussion are in its transcript, a
@@ -854,8 +855,8 @@ Before deleting a plan document or harvesting a slice:
 - each of its later consequences is in the issue entry or the plan document of the later work it
   names, or in a `todo` issue opened for it where that work has neither, or a `deferred` one if an
   event gates it;
-- every default the document lists as awaiting the owner is ruled, since the branch merges only once
-  the owner has ruled on each;
+- every default the document lists as awaiting the owner is ruled, since a choice the owner has not
+  made must not stay on the main branch, per `primer@question-authority`;
 - its row of the roadmap, if it has one, is removed (`skill@knowledge-architect-planning@spec-or-milestone`).
 
 **A citation of the leaving document from another plan document dangles**, and so does a
