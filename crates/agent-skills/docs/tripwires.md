@@ -18,21 +18,6 @@ if one came, the owner's answer.
 **Watches until:** three commits on the main branch that implement work proposed on the bounded
 path, each message carrying the proposal, counted from the commit that writes this line.
 
-## Guarding `design@agent-skills@title-states-the-rule`: a rule title wider than its argument `##rule-title-wider-than-its-argument`
-
-The decision rests on the premise that a title moved to the rule stays within what its argument
-argues.
-
-**Fires when:** the reviews of two separate branches each find a title wider than its argument in a
-head their branch writes or rewrites, or an audit finds one on the main branch in a head written or
-rewritten after the decision.
-**Response:** reopen `design@agent-skills@title-states-the-rule`; the title found is repaired as the
-instance.
-**Re-entry:** the decision-record review of every change that writes a head.
-**Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
-and one pass of the design-record axis. A commit whose
-added level-three heading lines are all lines it also removes, a relocation, is not counted.
-
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
 The decision rests on the premise that the nearest-rival test keeps a rule's exception with the
