@@ -10,7 +10,8 @@ reducing what goes to the owner. Final state: withdrawn. Arguments:
 `argument@owner-ruling-record@arg-5`, `argument@owner-ruling-record@arg-8`,
 `argument@owner-ruling-record@arg-9`, `argument@owner-ruling-record@arg-14`. Shape: none, since
 the thread is withdrawn. Harvest: nothing, as the Harvest section of README.md says. The owner
-withdrew it in round 3: each refinement the session put in round 2, where a real fork ends and what
+considered dropping it in round 3, and approved its withdrawal with the checkpoint table in round
+6: each refinement the session put in round 2, where a real fork ends and what
 counts as a lead, opened a question with no good answer, so none of them was better than the
 current routing.
 
@@ -28,8 +29,10 @@ the harvest step of a plan document be factored in, which opened
 4: the harvest stays at the end of the branch and no longer waits for the owner's rulings. The
 record search, read in round 5, kept planning's check that every default is ruled before a plan
 document leaves, with its reason changed (`argument@owner-ruling-record@arg-28`). Shape: Decided
-design, #head-written-with-the-code. Harvest: `design@agent-skills@default-ruled-before-merge`,
-rewritten. Ruling: approved by the owner's word on the checkpoint table, in round 6.
+design, #head-written-with-the-code. Harvest: a head of its own, #head-written-with-the-code, since it
+loses to another rival than `design@agent-skills@default-ruled-before-merge`, per
+`design@agent-skills@one-decision-per-head`; the plan reviews found the first harvest row, into
+that head, wrong. Ruling: approved by the owner's word on the checkpoint table, in round 6.
 
 ### One harvest at the end of the branch, shape B `##harvest-timing`
 
@@ -41,9 +44,10 @@ Final state: approved, shape B. Arguments: `argument@owner-ruling-record@arg-12`
 `argument@owner-ruling-record@arg-17`, `argument@owner-ruling-record@arg-18`,
 `argument@owner-ruling-record@arg-20`, `argument@owner-ruling-record@arg-23`. In round 4 the owner
 weighed the costs of the two shapes (`argument@owner-ruling-record@arg-20`), and the session took B
-on that weighing and withdrew its default A. Shape: Decided design, #harvest-timing. Harvest: no
-head, as the Harvest section of README.md says: `design@agent-skills@design-home-is-built-intent`
-already states it. Ruling: the owner ranked the costs at the fork in round 4; B was approved by the
+on that weighing and withdrew its default A. Shape: Decided design, #harvest-timing. Harvest: a head of
+its own, #harvest-timing, in the weak form with the owner's ranking: the plan reviews found that
+`design@agent-skills@design-home-is-built-intent`, first named as its home, admits both shapes, as
+`argument@owner-ruling-record@arg-17` argues. Ruling: the owner ranked the costs at the fork in round 4; B was approved by the
 owner's word on the checkpoint table, in round 6.
 
 ### The review before the merge runs before the owner's rulings, and the merge waits for them `##review-timing`
@@ -54,8 +58,10 @@ perhaps always wait for the owner's word. Final state: approved. Arguments:
 `argument@owner-ruling-record@arg-10`, `argument@owner-ruling-record@arg-11`. The owner agreed with
 the session's position in round 3, and in the same round weakened the criterion that the review
 judges each head "in its final text", which the session rewrote as the text the head has when the
-review runs. Shape: Decided design, #review-timing. Harvest: no head:
-`design@agent-skills@default-ruled-before-merge` already states it. Ruling: approved by the owner's
+review runs. Shape: Decided design, #review-timing. Harvest: a head of its own,
+#review-timing: the plan reviews found that
+`design@agent-skills@default-ruled-before-merge`, first named as its home, does not order the review
+against the rulings. Ruling: approved by the owner's
 word on the checkpoint table, in round 6.
 
 ### A durable record attributes no argument and no approval, only an underivable premise, by where it first came from `##approval-left-unrecorded`
@@ -157,7 +163,9 @@ Round 2, the session. Bears on `thread@owner-ruling-record@approval-left-unrecor
 reopens in the same way whoever chose, so the attribution changes no later move.
 `rejected@agent-skills@fork-choice-reversed-only-by-the-owner` already argues that an approval does
 not show a weighing you made." Cost: "the transcript reviewer can no longer check that an approval
-was recorded. It still checks that no pick of yours is recorded wrong."
+was recorded. It still checks that no pick of yours is recorded wrong." The plan review of code
+claims found the citation misplaced: the argument is in the last paragraph of
+`design@agent-skills@fork-choice-in-weak-form`, not in the `rejected` entry.
 
 ### Every fork is already the weighing of an unranked cost `##arg-8`
 
