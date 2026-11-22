@@ -266,7 +266,8 @@ No name in code. New design heads, in `path@agent-skills@docs/design/owner-and-i
 - a head whose slug is the thread's, #head-written-with-the-code, at the harvest;
 - a head whose slug is the thread's, #harvest-timing, at the harvest;
 - a head whose slug is the thread's, #review-timing, at the harvest;
-- `owner-words-kept-in-an-issue-on-request`, at step 1.
+- `owner-words-kept-in-an-issue-on-request`, `ruling-read-by-its-direction` and
+  `session-removes-an-excluded-tripwire`, at step 1.
 
 ## Decided design
 
@@ -477,16 +478,35 @@ None: the work changes text, and no built code can apply a check on its decision
 
 ## Implementation sequence
 
-1. **Conform the touched heads.** Builds: the head `owner-words-kept-in-an-issue-on-request`, split
-   out of `design@agent-skills@attribution-replaces-quotation`, with its rival, an issue entry that
-   never quotes the owner, written in the new form; every citing site re-pointed, as
-   `cargo klarch show` lists them; and each conformance that a verified draft of the
-   design-record auditor dispatched at the planning of this spec finds on the heads listed in "What
-   is already decided" (the drafts' outcomes are in the commit that applies them). Claims: the new
-   head passes the rules on heads, judged alone by the auditor briefed to check, per
-   `skill@knowledge-architect-planning@cutting-steps-and-slices`; the head it leaves
-   no longer holds the exception. Fails alone on: a citing site that still names the exception in
-   `design@agent-skills@attribution-replaces-quotation`.
+1. **Conform the touched heads.** Builds, from the drafts of the design-record auditor dispatched
+   at the planning of this spec and their verification, each outcome in the commit that records
+   them:
+   - the head `owner-words-kept-in-an-issue-on-request`, split out of
+     `design@agent-skills@attribution-replaces-quotation`, with its rival, an issue entry that never
+     quotes the owner, written in the new form, and every citing site re-pointed, as
+     `cargo klarch show` lists them;
+   - `design@agent-skills@transcript-reviewer-agent` split: the reading of a ruling by its direction,
+     wherever fidelity is judged, with its goal exception, moves to a head of its own,
+     `ruling-read-by-its-direction`, the sentence on the observed case with no obligation added moved
+     unchanged in the past tense; design-skill-and-heads.md:231 and owner-and-intent.md:245
+     re-pointed;
+   - `design@agent-skills@tripwire-stands-on-the-standard` split: the session's removal of a recorded
+     tripwire that a condition of the standard excludes moves to a head of its own,
+     `session-removes-an-excluded-tripwire`, titled "The session removes a recorded tripwire that a
+     condition of the standard excludes, in an audit as elsewhere, but for a removal on the doubt's
+     weight", the pair #removal-outside-the-exits → `session-removes-an-excluded-tripwire` in the
+     commit; the rewording and the rescoping by the session, and the sentence on the owner naming the
+     wording, stay in the head that keeps the slug;
+   - `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: "made" becomes "makes";
+   - `rejected@agent-skills@transcript-reviewer-reports-every-clause`: its verbatim quotation of the
+     owner becomes an attribution that keeps the hedge;
+   - each default D1 to D5 below, as written, unless the owner rules otherwise.
+
+   `design@agent-skills@audit-outcomes` needs nothing: the verification refuted its draft, since its
+   closing paragraph is an attribution that keeps the owner's hedges. Claims: each created head
+   passes the rules on heads, judged alone by the auditor briefed to check, per
+   `skill@knowledge-architect-planning@cutting-steps-and-slices`; the head it leaves no longer holds
+   what moved. Fails alone on: a citing site that still names the moved part in the head it left.
 2. **The fragments.** Builds: the edits of the fragment and the shape fragment that "Decided design"
    lists. Claims: at every text that includes the fragment, the derivability test is stated beside
    the attribution rule, and no sentence of an including text names anyone as the source of an
@@ -522,7 +542,43 @@ Then the review before the merge, and the deletion of this spec.
 
 ## Defaults awaiting the owner
 
-None.
+Each is a finding of the design-record auditor on a head this work touches, verified by a second
+auditor, whose outcome is the owner's, per `skill@knowledge-architect-planning@cutting-steps-and-slices`.
+Step 1 builds each default as written.
+
+- **D1, on `design@agent-skills@unargued-approval-is-argued` and
+  `design@agent-skills@instruction-record-is-minimal`.** The first fails every entry test: the
+  decision-recording skill's `skill@knowledge-architect-decision-recording@unargued-approval` alone
+  states it, and nothing cites it. The second admits a decision "where it keeps the owner's intent
+  on record", against "The owner's intent earns no head of its own"; its other case, keeping two
+  parts of the workflow consistent, reads two ways against entry test 2: an instance of the test, or
+  "a value repeated for consistency", which the test excludes. Default: remove
+  `design@agent-skills@unargued-approval-is-argued`, its reason moved to a `%%` line beside the
+  skill's instruction; retitle the second "A decision about the installed text earns a head only by
+  an entry test or by keeping two parts of the workflow consistent, and a rewording earns none",
+  reading the consistency case as an instance of entry test 2. The rival keeps the first head on the
+  owner's request, recorded in the head-rules spec, that the provenance of design heads be recorded.
+- **D2, on `design@agent-skills@default-ruled-before-merge`.** Its ground "which the owner does not
+  want" cites the owner's intent against the rival in which the work waits for each answer. Default:
+  ground it on `goal@agents-work-without-drift`, which serves it. The rival reading: the owner's
+  words in the commit "A default put to the owner is built, and its branch merges once the owner has
+  ruled on it" give a reason, not interrupting the work, so the choice is the owner's ranking at a
+  fork, kept in the weak form as "the owner ranked".
+- **D3, on `design@agent-skills@transcript-reviewer-agent`.** "The owner argued that the reviewer's
+  weight belongs on …" drops the owner's "focus more", turns a wish into an argument, and widens
+  "clearly sane deviations" to every small addition. The commit that wrote it chose "argued" so that
+  the head records an argument rather than a ruling. Default: under the new rule, the sentence
+  becomes the owner's ranking of where the reviewer's weight goes, with the hedge "more" and the
+  scope "clearly sane deviations" kept.
+- **D4, on `design@agent-skills@one-home-for-head-rules`.** "The centralization is the owner's
+  proposal … avoided at all cost" cites an intent that recorded heads already serve, and the head
+  tells how the design departed from the owner's proposal. Default: the attribution and the account
+  of the departure leave; the head stands on the heads that serve it; its wording "no restatement
+  longer than one sentence exists".
+- **D5, on `design@agent-skills@tripwire-stands-on-the-standard`.** Its sentence "The owner ruled
+  that a tripwire grounded on the owner's word gets no standing …" may be deliberation rather than a
+  premise: the verifier found it plausible, not confirmed. Default: keep it, attributed as the
+  owner's ranking, in the head that keeps the slug.
 
 ## Harvest
 
