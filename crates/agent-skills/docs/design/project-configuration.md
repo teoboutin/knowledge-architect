@@ -407,8 +407,8 @@ on heads joins a fragment whose every host applies it whole, an existing one or 
 other text points to the rules, or restates one sentence of them with its pointer, per
 `design@agent-skills@restatement-size-test`. The fragments are also the home of three
 rules on heads that have no head of their own: present tense, the alignment of the slug and the
-title, and a decision worth a slug has its own level-three heading; and of fidelity to what the
-owner approved, read by its direction, whose head is
+title, and a decision worth a slug has its own level-three heading; and of fidelity to the position
+the owner was shown, read by its direction, whose head is
 `design@agent-skills@ruling-read-by-its-direction`.
 
 The rules on what a design head records and how are kept consistent with each other and
@@ -426,7 +426,7 @@ the start of a session and can dilute in a long one, a pointer costs a lookup th
 and the shape rules are applied only by a writer or a judge of a head.
 `issue@agent-skills@the-claim-check-of-a-commit-message-is-read-at-the-start-and-needed-at-each-commit`
 records that mechanism in real use for another rule of the primer. What stays in the primer stands
-on the owner's arguments that the rules are useful to interpret recorded design and to identify in
+on the arguments that the rules are useful to interpret recorded design and to identify in
 advance what kind of decision may need to enter a design home, and that nearly every piece of work
 adds or rewrites recorded design. Reading a head loads no skill, and every subagent holds the
 primer in its initial context, which a probe measures in one harness, re-taken by dispatching a

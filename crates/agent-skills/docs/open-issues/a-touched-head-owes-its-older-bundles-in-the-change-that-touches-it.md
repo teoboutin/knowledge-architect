@@ -49,6 +49,15 @@ Instances, from retrospective files of this repository and of thaum:
   decision older than the branch with its own nearest rival, an issue entry that never quotes the
   owner; the head was not split, on the owner's direction that the branch takes in correctness
   changes only;
+- the branch on what a durable record attributes, 2026-11: a step before its harvest took the
+  split, cutting the exception for issue entries out of
+  `design@agent-skills@attribution-replaces-quotation` as
+  `design@agent-skills@owner-words-kept-in-an-issue-on-request`, the reading by direction out of
+  `design@agent-skills@transcript-reviewer-agent` and the session's removal of a tripwire out of
+  `design@agent-skills@tripwire-stands-on-the-standard`, each re-pointing every citing site; the
+  check of its harvest found `design@agent-skills@fork-choice-in-weak-form`, which the harvest
+  rewrote, still bundling its reopening rule with whose ranking a choice is, older than the branch,
+  and left it for the owner;
 - a slice in thaum on 0.6.0, from `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`:
   one finding of the decision-record axis cost three reviews of that axis, through the same head.
 

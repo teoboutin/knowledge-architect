@@ -299,11 +299,10 @@ ruling of the owner is applied in the audit's branch: a rewording, a tense, a re
 that moves no word of the owner, a rejected alternative repaired in place, a factual error, a
 pointer whose target exists under another name, a drifted restatement brought back to its home, an
 instruction read two ways reworded to the reading a design head or another instruction states. An
-approval cited as a head's ground is removed in the branch where the head stands on its argument, or
-recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
-recorded in the weak form, per `design@agent-skills@fork-choice-in-weak-form`, since each repair
-removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved or
-turns it from its direction, per `design@agent-skills@ruling-read-by-its-direction`, the removal of an
+approval or an argument attributed in a head is removed in the branch, and a fork's choice is
+recorded with the provenance of its ranking, per `design@agent-skills@fork-choice-in-weak-form`,
+since each repair removes a false ground and relaxes nothing. A change that relaxes or turns a
+ranking or a report a head attributes to the owner, per `design@agent-skills@ruling-read-by-its-direction`, the removal of an
 entry, but for a tripwire the standard or its lifecycle removes, per
 `design@agent-skills@session-removes-an-excluded-tripwire`, an intent of the owner cited as a ground,
 drafted as a goal where it states a purpose, a scope or a ranking, which side of a contradiction wins where no design head, goal or source settles
@@ -414,8 +413,8 @@ The design this decision did not keep: `rejected@agent-skills@one-generic-audito
 
 Beside the repair of a head a change touches, `design@agent-skills@existing-heads-on-touch`, a
 project audit brings every head and every rejected alternative to the rules at once, under
-`design@agent-skills@audit-method`, a change that relaxes or turns the owner's words going to the
-owner on one list, on the occasions of `design@agent-skills@audit-triggers`. Its premise is the
+`design@agent-skills@audit-method`, a change that relaxes or turns a ranking or a report a head
+attributes to the owner going to the owner on one list, on the occasions of `design@agent-skills@audit-triggers`. Its premise is the
 owner's: with the changes then made to the conditions and the shapes of decision records, the owner
 predicted that projects migrating at the next pin would need to bring their design homes to them, a
 need each later change of those rules renews. A repair on touch never reaches a head no change

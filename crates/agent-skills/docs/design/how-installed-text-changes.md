@@ -19,8 +19,8 @@ which costs implementation work. The commit message carries a rewording's argume
 
 The owner's intent earns no head of its own: it is a goal where it states a purpose of the
 project, a scope that bounds one or a ranking between two, per
-`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; an argument the owner made, or the
-owner's choice at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`, is
+`design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`; an argument, on its merits, or the
+owner's ranking at a fork in its weak form, per `design@agent-skills@fork-choice-in-weak-form`, is
 recorded in the head an entry test admits, and beside its instruction otherwise. An approval of the
 agent's proposal is no ground.
 Two parts of the workflow are installed texts, or an installed text and the checker it must agree

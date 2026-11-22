@@ -57,7 +57,7 @@ its clause fire on the decision working, which condition 3 excludes. A ruling on
 tripwire, such as a ruling that a rule a review finds and its own branch removes does not fire the
 tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
-a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
+a tripwire changes no ruling of the owner, unlike a head, which can record the owner's ranking at a
 fork, per `design@agent-skills@heads-stand-on-argument`. That a tripwire grounded on the owner's
 word gets no standing the standard does not give it is also the owner's ranking. Giving the
 owner's word a standing of its own brings back part of
@@ -78,9 +78,9 @@ the owner's word.
 A narrowing or a removal of a tripwire changes no ruling of the owner, per
 `design@agent-skills@tripwire-stands-on-the-standard`. The owner rules only on what the argument
 leaves open, and is informed of each removal and can contest it with a goal, a fact or an
-argument, per `goal@the-owner-decides`. Of the two shapes that meet that goal, the owner chose that
-the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an
-audit's removals on the owner's list, a removal on the doubt's weight excepted. Keeping each removal
+argument, per `goal@the-owner-decides`. The session's removal of a tripwire a condition excludes
+wherever it is found, a removal on the doubt's weight excepted, over a split that keeps an audit's
+removals on the owner's list, both meeting that goal, which ranks neither: the owner's ranking. Keeping each removal
 with the owner brings back part of `rejected@agent-skills@owner-rules-each-tripwire`.
 
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`

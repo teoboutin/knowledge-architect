@@ -151,25 +151,29 @@ A head records a decision that was proposed, argued over its costs and rivals an
 argument, with its costs and rivals in its body or in the `rejected` entries it cites. What the
 owner brings lands by its kind, as the head-ground fragment's table states:
 
-- a fact only the owner holds, a doubt included, is a premise, attributed as the owner's report and
-  open to challenge;
+- a fact only the owner holds, a doubt included, and a judgement of what is plausible or of
+  expected use, are a premise, attributed as the owner's report and open to challenge;
 - an intent that states a purpose of the project, a scope that bounds one or a ranking between
   two, per `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`, and that no goal and no
   recorded decision already serves against every rival it is cited to defeat, is a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head
   cites;
 - an argument, one that weighs a cost included, is argued and recorded on its merits;
-- an approval of the session's default, threshold or weighing is no ground;
+- an approval of the session's default, threshold or weighing is no ground, and leaves no mark in
+  the head;
 - a reading of a source is the source;
 - a choice the argument leaves open is first asked whether it shows a ranking between two purposes
   that holds across decisions, which is then a goal to draft, and is otherwise a fork's choice,
-  recorded per `design@agent-skills@fork-choice-in-weak-form`. The session chose this over a pick at
-  a fork always recorded in the weak form, which no goal ranks; the owner approved it. The first
+  recorded per `design@agent-skills@fork-choice-in-weak-form`. That first question over a pick at
+  a fork always recorded in the weak form, which no goal ranks: the session's ranking. The first
   question keeps a route to a ranking, and no goal is proposed to settle one fork, per
   `design@agent-skills@a-goal-is-a-purpose-the-project-exists-for`.
 
 A preference about a mechanism, or an intent that is none of the three kinds, is no case of its
 own: it is an argument, or a choice at a fork. A head whose ground cites the owner's words is read
-by the same table.
+by the same table: a ground that cites the owner's argument is an argument, recorded on its merits.
+A head names no one as the source of an argument or of an approval, and attributes only what a
+session could not derive from inside the project, per
+`design@agent-skills@only-underivable-premise-attributed`.
 
 An intent that is a goal and an argument are told apart by two things a session can establish: the
 statement's kind, a purpose of the project, a scope that bounds one or a ranking between two, or a
@@ -179,55 +183,85 @@ follow from the decision and the record, per `design@agent-skills@questions-go-t
 The rival, putting each doubtful reading to the owner, costs one question per reading that the
 record answers. The intent row drafts no goal for an outcome a recorded decision already serves
 against every rival it is cited to defeat, against the rival that such an outcome is then left with
-no goal, on the owner's argument: goals bind strongly, so the owner wants to avoid having too many,
-above all for what can rest on argument, since what a goal states is never questioned and so never
-improves, where a reversal can improve a head.
+no goal, since goals bind strongly: what a goal states is never questioned and so never improves,
+where a reversal can improve a head, so goals are kept few, above all for what can rest on argument.
 
-The rule of a head on the arguments discussed, not on the ground that the owner ruled, is the
-owner's proposal: the owner judged this provenance to matter a lot for agents that weigh any change
-or addition to the design. Its table is the owner's argument: going through challenge and
-discussion makes the decision likely to have been selected from argument, so nothing or nearly
-nothing in a head stands on the owner's word, and what does is a fact the owner holds or a wider
-intent, which probably belongs in a goal. It serves `goal@the-owner-decides`,
+A head stands on the arguments discussed, not on the ground that the owner ruled: the owner reported
+that what a head stands on matters a lot to agents that weigh any change or addition to the
+design. Going through challenge and discussion makes the decision likely to have been selected from
+argument, so nothing or nearly nothing in a head stands on the owner's word, and what does is a
+premise a session could not derive or a wider intent, which probably belongs in a goal. It serves `goal@the-owner-decides`,
 under which the owner decides only what the argument leaves open, so a decision the owner approved
 stands on its argument.
 
 The nearest rival, the owner's words as a ground wherever the decision came from the owner, admits
 an approval of a default put at a fork as the owner's choice, which
-`design@agent-skills@fork-choice-in-weak-form` records as the session's on the owner's report. Its
+`design@agent-skills@fork-choice-in-weak-form` records as the session's ranking on the owner's report. Its
 wider form, citing every ruling of the owner, is `rejected@agent-skills@head-cites-every-owner-ruling`,
 which an audit measured.
 
-### A choice at a fork is recorded in a weak form, the owner's where the owner picked and the session's where the owner approved its default, and reopens on an argument the fork's record does not hold `##fork-choice-in-weak-form`
+### A choice at a fork is recorded in a weak form, as the ranking of whoever made it, the owner's where the owner picked and the session's where the owner approved its default, and reopens on an argument the fork's record does not hold `##fork-choice-in-weak-form`
 
-A fork's choice names the rivals and the costs that were weighed. It is the owner's where the owner
-picked, against the session's default or with none offered, and the session's where the owner
-approved the session's default. It reopens without the owner on an argument or a fact that ranks
+A fork's choice names the rivals, the costs that were weighed, and whose ranking it was: "X over Y:
+the owner ranked <cost> above <cost>, which no goal ranks", or "the session ranked". The ranking is
+the owner's where the owner picked, against the session's default or with none offered, and the
+session's where the owner approved the session's default. Where the record of the fork names no
+costs, a conversion of an older attribution writes "X over Y, which no goal ranks: the owner's
+ranking", or "the session's", after reading the head's history and the plan document that carried
+the fork, never costs it has to invent. It reopens without the owner on an argument or a fact that ranks
 the shapes, since the question is then no fork, through the design skill and reported under
 "Decided"; an argument or a fact the fork's record already holds reopens nothing. A goal changes
 only through the owner.
 
-The weak form is the owner's argument: an intent about a mechanism is always settled by an argument
+The weak form rests on the argument that an intent about a mechanism is always settled by an argument
 or is a fork, whose free choice is stated with no strong ruling, so that a new argument found later
 can reopen it freely. The guard against reversals back and forth is the planning skill's test of a
 material finding, applied to a fork's choice: two sessions could otherwise flip a choice on
-arguments of equal weight, each costing a rebuild. An approval at a fork is the session's choice
-on the owner's report: an approval of a default is given without analysing the proposal deeply, and
-is not to be attributed to the owner long term. It serves
+arguments of equal weight, each costing a rebuild. An approval at a fork leaves the ranking the
+session's, on the owner's report that an approval of a default is given without analysing the
+proposal deeply. The ranking keeps its source because two later moves depend on it: a new member
+is routed by whose choice the fork was, per `design@agent-skills@extension-follows-the-ground`, and
+a defeated premise by its source, per `primer@owner-word-premise`. It serves
 `goal@the-owner-decides`, under which the owner rules only on what the argument
 leaves open.
 
 The nearest rival, a fork's choice reversed by the owner alone, protects a weighing the owner made
 and did not state; a weighing the owner states is an argument or a goal, which the record keeps.
 The rival of its second half, an approval at a fork recorded as the owner's choice, attributes to
-the owner a weighing the owner did not make.
+the owner a weighing the owner did not make. A choice stated with no source, "X over Y: <cost>
+weighed against <cost>", leaves a later session finding who chose only in the commits and the plan
+documents, which is `rejected@agent-skills@member-routed-by-approval-scope`.
 The design this decision did not keep: `rejected@agent-skills@fork-choice-reversed-only-by-the-owner`.
 
-### A durable record attributes a decision to the owner, and the owner's words verbatim stay in a design discussion's committed transcript, up to its last checkpoint, or in a file that leaves `##attribution-replaces-quotation`
+### A head, a rejected entry, a tripwire and an issue entry attribute only what a session could not derive, to where it first came from `##only-underivable-premise-attributed`
 
-`primer@design-heads` states it: a design head, a commit message, a tripwire, a `rejected` entry,
-an issue entry and a plan document's items state what the owner decided and how far the decision
-reaches, never the owner's words verbatim. The verbatim words of a design discussion, up to the
+`primer@design-heads` states it: a design head, a `rejected` entry, a tripwire and an issue entry
+name no one as the source of an argument or of an approval, and attribute, to the owner or to the
+session, only what a session could not derive from inside the project, from its goals, its record,
+its code, its measurements and the sources it follows, by where it first came from and not by who
+approved it: a fact, or a judgement of what is plausible or of expected use; the ranking of a cost
+no goal ranks, which a fork's choice is, per `design@agent-skills@fork-choice-in-weak-form`; a
+choice among the readings a source permits, per `design@agent-skills@answer-keeps-its-authority`;
+and an act a goal reserves to the owner. A plan document's items and a commit message attribute the
+owner's rulings and arguments.
+
+It serves `goal@design-is-recorded-with-its-arguments`, whose text asks a recorded decision for
+its intent, its argument and the alternatives that lost, and names no provenance: an argument is
+recorded on its merits, whoever made it. Provenance is kept where a later move depends on it. A
+defeated premise is routed by its source, per `primer@owner-word-premise`: the owner's gives way to
+its source and the owner is told, a ranking of intent defeated is a contradiction put to the owner,
+and the session's is corrected and listed under "Decided". A new member is routed by whose choice
+the fork was, per `design@agent-skills@extension-follows-the-ground`. An approval changes no later
+move, since the weak form reopens alike whoever chose, so the approval is kept in a plan document's
+items and the commit message, where the transcript reviewer matches it against the transcript. The
+rival, the approval kept in heads, records what no later move reads.
+
+### A head, a rejected entry, a tripwire, an issue entry, a plan document's items and a commit message never quote the owner, whose words verbatim stay in a design discussion's committed transcript, up to its last checkpoint, or in a file that leaves `##attribution-replaces-quotation`
+
+`primer@design-heads` states it: a design head, a `rejected` entry, a tripwire, an issue entry, a
+plan document's items and a commit message attribute what
+`design@agent-skills@only-underivable-premise-attributed` says they attribute, and none of them
+quotes the owner. The verbatim words of a design discussion, up to the
 owner's word on its last convergence checkpoint, stay in the plan document's committed transcript of
 it, per `design@agent-skills@committed-transcript`; a ruling given after that checkpoint, at a plan
 review or at the review before the merge, is attributed only. The owner's words verbatim also stay
@@ -244,8 +278,8 @@ quotation already in a head is converted when a change touches the head, per
 `design@agent-skills@existing-heads-on-touch`; the reference a rename sets beside a quotation does
 not count, per `design@agent-skills@a-past-sentence-is-rewritten`.
 
-It serves `goal@design-is-recorded-with-its-arguments`: the attribution records a choice
-the owner made as the owner's, and the record shows the owner's choices.
+It serves `goal@design-is-recorded-with-its-arguments`, whose text asks a recorded decision for
+its intent, its argument and the alternatives that lost, which an attribution keeps.
 The owner judged verbatim quotations of little value most of the time, as long as the attribution is
 correct, and, as a hedged view, out of place in design heads. A verbatim quotation also costs the checker's syntax: two sessions bent one to get it past
 the checker, one by writing spans of reference kinds still to come as placeholders, in the
@@ -387,3 +421,60 @@ merging with a default unruled puts on the main branch a choice the owner has no
 `goal@the-owner-decides`; the check of a plan document's deletion in
 `skill@knowledge-architect-planning@plan-document-leaves` catches it only when the document
 leaves, which for a milestone is its last slice.
+
+### A head that records a default awaiting the owner is written at the harvest like any other, and a ruling that picks another shape is a repair `##head-written-with-the-code`
+
+A default put to the owner is built as written, per `design@agent-skills@default-ruled-before-merge`,
+and the harvest records it in a design head with the work's other decisions, whether or not the
+owner has ruled on it. The head's text does not depend on the ruling: an approval is no ground,
+per `design@agent-skills@heads-stand-on-argument`, and a ranking of the session that the owner
+approves stays the session's, per `design@agent-skills@fork-choice-in-weak-form`. A ruling that
+picks another shape reverses the head, or the part of it that records the default, so it is a
+repair after the harvest, reviewed again per `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`. The
+decision-recording skill states it at the moment of recording, the rules on a head's shape read a
+head against the position the owner was shown, and the planning skill's check before a plan
+document leaves keeps the condition that every default is ruled, since the branch merges only once
+the owner has ruled on each.
+
+The head lands in the branch of its code, as `design@agent-skills@design-home-is-built-intent`
+asks, and the review before the merge judges it in the text it has when the review runs, per
+`design@agent-skills@review-timing`. The nearest rival, a head deferred until the owner rules,
+keeps nothing out of the record, since a head's text does not depend on the owner's words, and
+costs a head that lands after its code and a review that either does not see it or judges it as
+unruled. The deferral was also not followed in three pieces of work of this repository, each lapse
+found by a review: an in-change decision's default written into a head in its implementing commit,
+removed by the decision-record re-review and written back after the ruling; in the slice that built
+the `model` crate, the content of its default D4 written into a head before the ruling; and in
+slice 1 of the milestone on split guidelines and plan directories, a head that stated its default
+D2 while D2 awaited the owner. The issue that recorded them is read with
+`git log --diff-filter=D -- crates/agent-skills/docs/open-issues/a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md`.
+
+### The harvest is one step at the end of a branch's work, not a head written with each step's code `##harvest-timing`
+
+The decisions of a plan document are written into the design homes by one harvest, at the end of
+the branch's work, once every step has settled the shape, as
+`skill@knowledge-architect-planning@working-a-slice` states in its points 4 to 7 and
+`skill@knowledge-architect-decision-recording@when-recording-happens` states of the harvest, which
+happens in the change that lands the work. The rival, each head written in the commit of the step
+that builds its code, meets `design@agent-skills@design-home-is-built-intent` as well, since that
+head excludes a head written before its code exists, not one written during the work, and no fact
+defeats either shape.
+
+One harvest at the end over a head with each step's code: the owner ranked a decision written once,
+rather than amended at each step that changes it, the better heads that record work done at once
+may give, and an implementer kept to the code, above the review of the work seeing the heads, judging
+that the plan document should already give that review most of what it needs, which no goal
+ranks.
+
+### The review before the merge does not wait for the owner's rulings, the merge alone waiting for them `##review-timing`
+
+The review before the merge runs once the work and its harvest are done, whether or not the owner
+has ruled on the defaults the plan document lists. The merge waits for every ruling, per
+`design@agent-skills@default-ruled-before-merge`, and a ruling that changes the work is a repair,
+landed as `skill@knowledge-architect-review@what-review-leaves` says. No text gates the review on
+the rulings.
+
+The rival, the review run after every ruling, lost on two facts. The review gives defaults of its
+own, the findings it puts to the owner, so a review that waits for every ruling waits for its own.
+And a second full review would be owed whenever the first gives findings, where a repair is judged
+as a repair, per `design@agent-skills@only-a-head-changing-repair-is-reviewed-again`.
