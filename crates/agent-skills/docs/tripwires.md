@@ -8,27 +8,30 @@ file by an exit of `skill@knowledge-architect-issue-tracking@movement-instructio
 The decision rests on the premise that a session classifies work as bounded only when every
 decision it makes fails the entry tests, and does not use the path to skip a discussion.
 
-**Fires when:** a decision-record review finds, in a commit made on the bounded path, a decision
-that passes an entry test of `design@agent-skills@a-head-is-owed-by-an-entry-test`, at instances in
-two separate pieces of work; or such a decision is found once on the main branch with no review
-having reported it.
+**Fires when:** an audit, or the review of a branch that did not make it, finds on the main
+branch a decision taken on the bounded path that passes an entry test of
+`design@agent-skills@a-head-is-owed-by-an-entry-test`.
 **Response:** reopen `design@agent-skills@bounded-path-in-design` on its three conditions.
-**Re-entry:** the decision-record review before every merge: the commit carries the proposal and,
-if one came, the owner's answer.
-**Watches until:** three commits on the main branch that implement work proposed on the bounded
-path, each message carrying the proposal, counted from the commit that writes this line.
+**Re-entry:** each pass of the design-record axis of a project audit, and the decision-record
+review of a branch that reads a commit made on the bounded path by another branch.
+**Watches until:** the later of two occasions, counted from the commit that writes this line:
+three commits on the main branch that implement work proposed on the bounded path, each message
+carrying the proposal; and the first report file of the design-record axis added under
+`path@knowledge-architect@docs/audit-reports/` on the main branch.
 
 ## Guarding `design@agent-skills@one-decision-per-head`: a split that separates a rule from its own exception `##split-rule-from-exception`
 
 The decision rests on the premise that the nearest-rival test keeps a rule's exception with the
 rule.
 
-**Fires when:** a commit merges back two heads split under the decision; or the reviews of two
-separate branches each find an exception split from its rule in a head their branch writes, or an
-audit finds one on the main branch.
+**Fires when:** a commit merges back two heads split under the decision; or an audit, or the
+review of a branch that did not write the head, finds on the main branch an exception split from
+its rule.
 **Response:** reopen `design@agent-skills@one-decision-per-head`, with the reversal test among the
 candidates.
-**Re-entry:** the decision-record review of every change that writes a head.
+**Re-entry:** each pass of the design-record axis of a project audit, the decision-record review of
+a change that touches a head it did not write, and the standing-state review, for a commit that
+merges two heads back.
 **Watches until:** 20 commits on the main branch that add a level-three heading to a design home,
 and one pass of the design-record axis. A commit whose
 added level-three heading lines are all lines it also removes, a relocation, is not counted.
@@ -150,12 +153,12 @@ covers it, so that a session reading that head meets the design.
 
 **Fires when:** an audit, or the review of a branch that did not add the citation, finds on the
 main branch a `rejected` entry whose only citing heads decide a question other than the one the
-design it records answered; or the reviews of two separate branches each find one that their
-branch added.
+design it records answered.
 **Response:** reopen `design@agent-skills@rejected-citation-direction` on how the citing head is
 chosen.
-**Re-entry:** the decision-record review of every branch that adds a `rejected` entry, and the
-design-record axis of `skill@knowledge-architect-project-audit`.
+**Re-entry:** the design-record axis of `skill@knowledge-architect-project-audit`, and the
+decision-record review of a branch that touches a head citing a `rejected` entry it did not
+add.
 **Watches until:** 15 commits on the main branch that add a level-three heading to a `rejected`
 home, and one pass of the design-record axis.
 
