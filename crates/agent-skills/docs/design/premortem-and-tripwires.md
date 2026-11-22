@@ -48,20 +48,19 @@ clear standard lets the session's judgement cover, since the standard, not the p
 them.
 
 A tripwire is no decision: it watches one premise of a decision, and its only value is the fact it
-delivers, which the standard measures whoever proposed it. A ruling of the owner bears on a
-tripwire in one of three ways, and none lives only in the tripwire. A ruling to watch a cause is
-the question the standard ranks: the first pass of the tripwire axis on this repository removed
-entries the owner had ruled kept, with the owner's approval, as the commit "[audit] Pass 1 of the
-tripwire axis applied: every tripwire kept has a horizon, and 20 leave" lists. A ruling on the decision itself, such
-as the explanation of `check --fix`'s refusal that `design@agent-skills@rarer-checker-rules-by-findings`
-keeps in the primer, lives in that head, and a narrowing of the tripwire that dropped it would make
-its clause fire on the decision working, which condition 3 excludes. A ruling on what fires one
-tripwire, such as a ruling that a rule a review finds and its own branch removes does not fire the
-tripwire it would match, is a case of the rule on slips, which the
-standard states as the owner's. So a narrowing or a removal of
-a tripwire changes no ruling of the owner, unlike a head, which can record the owner's ranking at a
-fork, per `design@agent-skills@heads-stand-on-argument`. Giving the
-owner's word a standing of its own brings back part of
+delivers, which the standard measures whoever proposed it. A ruling of the owner bears on a tripwire
+in one of three ways, and none lives only in the tripwire. A ruling to watch a cause is the question
+the standard ranks: the first pass of the tripwire axis on this repository removed entries the owner
+had ruled kept, as the commit "[audit] Pass 1 of the tripwire axis applied: every tripwire kept has
+a horizon, and 20 leave" lists. A ruling on the decision itself, such as the explanation of
+`check --fix`'s refusal that `design@agent-skills@rarer-checker-rules-by-findings` keeps in the
+primer, lives in that head, and a narrowing of the tripwire that dropped it would make its clause
+fire on the decision working, which condition 3 excludes. A ruling on what fires one tripwire, such
+as a ruling that a rule a review finds and its own branch removes does not fire the tripwire it
+would match, is a case of the rule on slips that `design@agent-skills@tripwire-admission-test`
+states. So a narrowing or a removal of a tripwire changes no ruling of the owner, unlike a head,
+which can record the owner's ranking at a fork, per `design@agent-skills@heads-stand-on-argument`.
+Giving the owner's word a standing of its own brings back part of
 `rejected@agent-skills@owner-rules-each-tripwire`.
 
 ### The session removes a recorded tripwire that a condition of the standard excludes, in an audit as elsewhere, but for a removal on the doubt's weight `##session-removes-an-excluded-tripwire`
