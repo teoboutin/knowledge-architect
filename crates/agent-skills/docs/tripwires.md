@@ -244,7 +244,7 @@ of the result sees the cost.
 
 **Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`
 reports, in answer to the standing question on rules about code and splitting, a split that bought
-nothing, in two separate pieces of work: one made to satisfy the default shape, a function with one
+nothing: one made to satisfy the default shape, a function with one
 caller, no test of its own and a name that says no more than its body; or a module split planned on
 a signal of the module guidelines whose parts are read against one reference and changed together
 in every later change that touched them.
@@ -264,8 +264,7 @@ passes every procedure, the code-shape reviewer's included where the label looks
 
 **Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`,
 or the review of a branch that did not write the test, reports on the main branch a test of pure
-logic classed as golden, mocked, integrated or external and carrying no recorded mutation, in two
-separate pieces of work.
+logic classed as golden, mocked, integrated or external and carrying no recorded mutation.
 **Response:** reopen `design@agent-skills@test-economy` on how a test's kind is decided, with the
 instances.
 **Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and

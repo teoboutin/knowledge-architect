@@ -60,7 +60,9 @@ an empty subsection is omitted.
   `skill@knowledge-architect-decision-recording@head-shape`: a title misleads when a session acting
   on it alone would do what the body excludes, adding a member the body does not admit or taking a
   scope its argument does not argue, and a title that leaves something out misleads only where what
-  it leaves out narrows what it admits. That rule replaces the tests that a title states no more
+  it leaves out narrows what it admits; a slug names the decision and need not carry its
+  exceptions, and misleads only where it names the rival, or a decision the head does not take.
+  That rule replaces the tests that a title states no more
   than its argument argues and that the slug and the title stay aligned with the full scope of the
   decision, and a title false of the nearest rival it beat is advice that binds no one, no longer a
   finding. A project judges its titles by the rule in a pass of the design-record axis,

@@ -97,8 +97,10 @@ direction, stricter, more detailed or reworded, is the head's to state.
 %% The rule: `design@agent-skills@title-misleads-bar`.
 **The slug and the title do not mislead about the decision**: the slug is often the only part a
 reader sees, in a citing document or in code, and the title is what a document outline shows. A
-slug or a title that misleads misinforms every reader, or undermines the decision it names, so
-rename it even when that means rewriting every reference in the project.
+slug names the decision and need not carry its exceptions: it misleads only where it names the
+rival, or a decision the head does not take. A slug or a title that misleads misinforms every
+reader, or undermines the decision it names, so rename it even when that means rewriting every
+reference in the project.
 
 %% The rule: `design@agent-skills@existing-heads-on-touch`; planned before the harvest in planned
 %% work: `design@agent-skills@pre-harvest-conformance`.

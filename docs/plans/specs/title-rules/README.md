@@ -113,7 +113,7 @@ What exists today, each read at main `28f369b5`:
   | `tripwire@agent-skills@overlap-missed` | the application meeting a collision the cross-check missed | outside: an earlier procedure's misses |
   | `tripwire@agent-skills@audit-drafts-mostly-noise` | drafts the reading of a pass rejects | outside: the decision's outcome in use, the reading a pass spends |
   | `tripwire@agent-skills@duplicate-auditors-add-nothing` | what a second agent of a lens adds | outside: the decision's outcome in use |
-  | `tripwire@agent-skills@shape-findings-fragment-code`, `tripwire@agent-skills@logic-tests-relabelled` | received retrospective files reporting the decision's result in two pieces of work | outside: the decision's outcome in real use, as the owner ruled; a received file is also a later procedure |
+  | `tripwire@agent-skills@shape-findings-fragment-code`, `tripwire@agent-skills@logic-tests-relabelled` | received retrospective files reporting the decision's result | outside: the decision's outcome in real use, as the owner ruled; a received file is also a later procedure |
   | `tripwire@check@phases-gate-the-report-two`, `tripwire@check@private-item-needed`, `tripwire@check@fix-makes-a-choice` | an event: a flag added, a consumer's need, a fix added | outside: no clause on how sessions follow an instruction |
   | `tripwire@model@candidate-rule-silence` | a span the check left silent | outside: an earlier procedure's misses |
   | `tripwire@model@walked-count-differs-between-machines` | a count measured on two machines | outside: a measurement |
@@ -605,8 +605,8 @@ through such files, and `issue@agent-skills@a-tripwire-on-agent-behaviour-fires-
 asks for them to be kept as evidence. **Default**, built: keep it, in
 `design@agent-skills@slip-is-no-firing` and the standard fragment. **Rival**: remove it; the two
 tripwires that fire on retrospective analyses, `tripwire@agent-skills@shape-findings-fragment-code`
-and `tripwire@agent-skills@logic-tests-relabelled`, then lose that clause. The review before the
-merge put it to the owner; the branch merges once the owner rules.
+and `tripwire@agent-skills@logic-tests-relabelled`, then lose that clause. Ruled: the owner accepted
+the default.
 
 ### D5: a clause that watches what a decision gives in real use is outside the rule
 
@@ -616,8 +616,29 @@ rule's scope. Such a clause watches whether the decision is wrong, not a session
 the exception the rule would strike the clauses of `tripwire@agent-skills@audit-drafts-mostly-noise`,
 `tripwire@agent-skills@duplicate-auditors-add-nothing` and the two tripwires of D4. **Default**,
 built: keep it, in `design@agent-skills@slip-is-no-firing`, its title and the standard fragment.
-**Rival**: remove it, and judge those four tripwires again under the rule. The review before the
-merge put it to the owner; the branch merges once the owner rules.
+**Rival**: remove it, and judge those four tripwires again under the rule. Ruled: the owner
+accepted the default.
+
+### D6: a slug need not carry its exceptions
+
+Bears on #title-misleads-bar. Its text holds the slug to the same test as the title, and the test
+of a title that leaves something out could be read to ask a slug for every exception that narrows
+what it admits. **Default**, built: a slug names the decision and need not carry its exceptions; a
+slug misleads only where it names the rival, or a decision the head does not take. It is stated in
+one sentence of the shape fragment's paragraph on the slug and the title, and in
+`design@agent-skills@title-misleads-bar` with its argument: a slug held to a title's narrowing test
+grows toward restating the head, the pressure toward restatement that the owner raised in round 1
+and #title-length-bound answers, and a slug is cited, not read as the rule. **Rival**: a slug carries every exception that narrows what it
+admits, like a title. Ruled: the owner accepted the default.
+
+### D7: two tripwires name their event with no count
+
+Bears on #review-finding-is-no-firing, whose table keeps
+`tripwire@agent-skills@logic-tests-relabelled` and `tripwire@agent-skills@shape-findings-fragment-code`
+outside the rule on slips. Each counted its event "in two separate pieces of work", a count no
+measurement and no argument of its decision's record places, which condition 4 of the tripwire
+standard refuses. **Default**, built: both drop the count and name the event with no count.
+**Rival**: keep the count and give it a basis. Ruled: the owner accepted the default.
 
 ## Harvest
 
