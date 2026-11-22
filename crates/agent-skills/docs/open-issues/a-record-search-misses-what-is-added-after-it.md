@@ -70,6 +70,10 @@ so that no rule asked for a search:
   thread, backed by a newly exported library function. A rejected design that argues against a
   function exported for one caller had been graded `unrelated` against the earlier shape. The
   design-conformance review found it before the merge, and the export was reversed.
+- The discussion of `spec@plans@title-rules`, in this repository: its search graded no line on
+  `design@check@plain-word-lint`, a head of the `check` Component, which the draft did not name.
+  The plan reviews then added a step that changes that Component's repair text and its head, and no
+  second search ran; the design-conformance plan review found the head.
 
 The rewordings of loop step 1 the files propose: a search whenever the work gains a subject or a
 site its draft did not hold, by a new thread or a widened one (W2 of

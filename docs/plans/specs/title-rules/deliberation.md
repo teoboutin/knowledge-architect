@@ -16,7 +16,7 @@ no tripwire, and the reply to round 3 took the owner's refinement of round 3 on 
 such a title. Shape: README.md, Decided design, #title-tripwire-verdict. Harvest:
 `titles-wider-than-their-argument-recur-across-branches` closes, and a new
 tripwire lands in `register@agent-skills@tripwire`. The owner's rulings: in round 2, the owner
-agreed that the title decision shows no defect; in round 4, the owner approved the checkpoint
+said that there does not seem to be a defect in the title decision; in round 4, the owner approved the checkpoint
 table, which held this thread's position.
 
 ### A title must not mislead, and the nearest-rival test becomes advice that binds no one `##title-misleads-bar`
@@ -64,7 +64,7 @@ the core of the decision; in round 4, the owner approved the checkpoint table.
 Came from the owner's argument of round 2: a review that finds a lapse shows the procedure working,
 and counting such findings suffers from survivor bias, since a lapse no review caught is not known.
 The session made it a thread in the reply to round 2, with the sentence for the tripwire standard
-and the re-judgement of four tripwires. The owner refined it in round 3: what can be observed is a
+and the re-judgement of four tripwires. The owner refined it in round 3, as a guess: what can probably be observed is a
 later audit, or a later review that reads the same item, already on main, and finds the defect;
 the reply to round 3 took that refinement. Final state: approved. Arguments:
 `argument@title-rules@arg-8`, `argument@title-rules@arg-9`, `argument@title-rules@arg-10`,
@@ -241,7 +241,7 @@ retitled after the decision". The issue closes with that tripwire in its place. 
 tripwire. Titles would still be read by the next design-record audit, but nothing would reopen the
 decision on what it found."
 
-### What a tripwire can observe is a later audit, or a later review that finds the defect in text already on main `##arg-17`
+### What a tripwire can probably observe is a later audit, or a later review that finds the defect in text already on main `##arg-17`
 
 Round 3, the owner, and the reply to round 3, the session. Bears on
 `thread@title-rules@review-finding-is-no-firing`, `thread@title-rules@title-tripwire-verdict`. The

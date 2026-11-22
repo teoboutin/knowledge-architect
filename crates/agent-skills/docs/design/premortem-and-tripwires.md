@@ -70,7 +70,7 @@ naming the condition, as it drops a cause at recording, per
 `design@agent-skills@tripwire-recording-authority`; in a project audit the removal is applied in
 the branch and listed in the report, grouped by condition. Each removal is listed in the turn's
 "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the owner reads it
-and contests any of them with a goal, a fact or an argument. A removal on the doubt's weight alone
+and contests any of them with a goal, a fact or an argument. A removal on the doubt's weight alone, per `design@agent-skills@doubt-keeps-the-cause`,
 is the owner's, since it rests on the owner's own weighing of what the owner would see. A tripwire
 also leaves by the other exits of its lifecycle, per `design@agent-skills@tripwire-horizon`, and on
 the owner's word.

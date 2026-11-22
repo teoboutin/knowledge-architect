@@ -105,7 +105,7 @@ listing of such spans, leaves every such pointer silent: `rejected@check@bare-id
 entry has left are silent, so the lint reports no span that names nothing here. Every id has two
 segments or more, per `design@model@two-segment-ids`, so no ordinary word in backticks is a
 defined id; a hyphenated term that is, such as a project skill named like a command, is renamed,
-as `design@check@plain-word-lint` says of a subject slug. Whether a skill's name meets such a term
+as `design@check@plain-word-lint` says. Whether a skill's name meets such a term
 rests on the names: the installed ones carry the installer's prefix, and a project's own carry its
 prefix, per `design@agent-skills@project-name-prefix`, which nothing checks yet, per
 `issue@check@tooling-for-project-skills`. The census of the design discussion found few spans that
