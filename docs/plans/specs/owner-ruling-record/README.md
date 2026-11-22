@@ -261,11 +261,17 @@ Weighed, stated in the discussion, in a weak form, since a repair after the revi
 
 ## New names, in one place
 
-No name in code. New design heads, in `path@agent-skills@docs/design/owner-and-intent.md`:
+No name in code. New design heads of `register@agent-skills@design`:
 
 - `design@agent-skills@unruled-default-recorded-at-the-harvest`, at the harvest, for the thread #head-written-with-the-code, whose name reads as shape A of #harvest-timing;
-- a head whose slug is the thread's, #harvest-timing, at the harvest;
-- a head whose slug is the thread's, #review-timing, at the harvest;
+- `design@agent-skills@harvest-timing`, at the harvest, in `path@agent-skills@docs/design/plan-documents.md`
+  since the review before the merge;
+- `design@agent-skills@review-timing`, at the harvest, in `path@agent-skills@docs/design/reviews.md`
+  since the review before the merge;
+- `design@agent-skills@only-underivable-premise-attributed`, at the harvest, for the thread
+  #approval-left-unrecorded;
+- `design@agent-skills@fork-choice-names-whose-ranking-it-was`, split out of
+  `design@agent-skills@fork-choice-in-weak-form` at the review before the merge;
 - `design@agent-skills@owner-words-kept-in-an-issue-on-request`,
   `design@agent-skills@ruling-read-by-its-direction` and
   `design@agent-skills@session-removes-an-excluded-tripwire`, at step 1.
@@ -293,7 +299,7 @@ shape is a repair after the harvest: it reverses or changes a head, so it is rev
   default is ruled stays; its reason becomes "since the branch merges only once the owner has ruled
   on each". The milestone's sentence on a default still unruled after its last slice stays.
 
-The head #head-written-with-the-code states this decision. Its nearest rival, the deferral, lost
+The head `design@agent-skills@unruled-default-recorded-at-the-harvest` states this decision. Its nearest rival, the deferral, lost
 because a head's text no longer depends on the owner's words. It passes entry test 2: the reason is
 respected at decision-recording, at the shape fragment and at planning's leaving check.
 
@@ -523,8 +529,9 @@ None: the work changes text, and no built code can apply a check on its decision
    change is named in the commit; no installed text states the deferral (a search for "enters a
    design head once" returns nothing). Fails alone on: an installed sentence that still states the
    old rule.
-4. **The harvest.** Builds: the three heads created (#head-written-with-the-code,
-   #harvest-timing, #review-timing); the rewrites the "Rewritten" table names; the old form
+4. **The harvest.** Builds: the four heads created
+   (`design@agent-skills@unruled-default-recorded-at-the-harvest`, `design@agent-skills@harvest-timing`,
+   `design@agent-skills@review-timing` and `design@agent-skills@only-underivable-premise-attributed`); the rewrites the "Rewritten" table names; the old form
    converted in every head the work touches; the losing alternatives judged as `rejected` entries by
    `skill@knowledge-architect-decision-recording@losing-alternatives`; premortem cause 2 judged by
    the tripwire standard; this branch added to the instances of
@@ -587,9 +594,9 @@ reviews; each is marked as ruled.
 | thread | home |
 | --- | --- |
 | #head-written-with-the-code | `design@agent-skills@unruled-default-recorded-at-the-harvest` |
-| #harvest-timing | the new head #harvest-timing, in the weak form with the owner's ranking |
-| #review-timing | the new head #review-timing |
-| #approval-left-unrecorded | `design@agent-skills@heads-stand-on-argument`, `design@agent-skills@fork-choice-in-weak-form`, `design@agent-skills@attribution-replaces-quotation`, and the other heads the "Rewritten" table names |
+| #harvest-timing | `design@agent-skills@harvest-timing`, in the weak form with the owner's ranking |
+| #review-timing | `design@agent-skills@review-timing` |
+| #approval-left-unrecorded | `design@agent-skills@only-underivable-premise-attributed`, `design@agent-skills@heads-stand-on-argument`, `design@agent-skills@fork-choice-in-weak-form` and `design@agent-skills@fork-choice-names-whose-ranking-it-was`, `design@agent-skills@attribution-replaces-quotation`, and the other heads the "Rewritten" table names |
 | #what-takes-a-built-default | nothing: withdrawn |
 
 ## Later consequences

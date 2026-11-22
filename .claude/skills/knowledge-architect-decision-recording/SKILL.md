@@ -247,7 +247,7 @@ rivals in its body or in the `rejected` entries it cites. What the owner brings 
 | a judgement of what is plausible or of expected use | a premise, attributed as the owner's report and open to challenge |
 | an intent that states a purpose of the project, a scope that bounds one or a ranking between two, as `skill@knowledge-architect-goal-setting@goal-or-not` tests them, and that no goal and no recorded decision already serves against every rival it is cited to defeat | a goal, drafted under `skill@knowledge-architect-goal-setting`, which the head cites |
 | an argument, one that weighs a cost included | argued, and recorded on its merits |
-| an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in the deliberation records, a plan document's items and the commit message; at a fork, the session's ranking, in the weak form below |
+| an approval of the session's default, threshold or weighing, whatever its words ("approved", "agreed", "all defaults approved", "accepted the cost") | no ground: the session's decision, kept in a plan document's items and the commit message; at a fork, the session's ranking, in the weak form below |
 | a reading of a source | the source |
 | a choice the argument leaves open, made by the owner: a pick at a fork against the session's default or with none offered, a threshold the owner sets, a local cost the owner accepts | first, ask whether the choice shows a ranking between two purposes that holds across decisions, which is then a goal to draft; otherwise, the weak form: "X over Y: the owner ranked <cost> above <cost>, which no goal ranks" |
 
@@ -278,12 +278,11 @@ and the sources it follows, and attribute it to where it first came from, not to
   permits";
 - an act a goal reserves to the owner: "on the owner's word".
 
-The test: could a session derive it from inside the project? If yes, it is an argument, recorded on
-its merits, and no one is named as its source. Where the record of a fork names no costs, a
+Where the record of a fork names no costs, a
 conversion of an older attribution writes "X over Y, which no goal ranks: the owner's ranking", or
 "the session's", after reading the head's history, `git log -L`, and the plan document that carried
 the fork, and never costs it has to invent. A plan document's items and a commit message attribute
-the owner's rulings and arguments, as `skill@knowledge-architect-planning@spec-contents` asks.
+the owner's rulings and arguments.
 None of these texts quotes the owner: the verbatim words of a design discussion stay in its plan
 document's committed transcripts, and in a committed file that leaves once its outcomes are carried
 out. An attribution keeps the scope and the hedges of the owner's words, and is checked, like a
@@ -379,9 +378,9 @@ later session that weighs a split or a merge of the Component then meets the arg
 defeat.
 
 **A head is read against the position the owner was shown before it is written.** The title and
-the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The approval is read by its direction: a clause
+the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The position is read by its direction: a clause
 that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
-not what was approved: it goes to the owner, as a change of the decision. A refinement within its
+not the position the owner was shown: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
 
 **The slug and the title stay aligned with the full scope of the decision**: the slug is often the

@@ -156,6 +156,23 @@ branch no longer held. Extending the briefs to read the document from history wa
 closes neither the pair's case nor the stale SHA. The design this decision did not keep:
 `rejected@agent-skills@plan-document-deleted-with-its-harvest`.
 
+### The harvest is one step at the end of a branch's work, not a head written with each step's code `##harvest-timing`
+
+The decisions of a plan document are written into the design homes by one harvest, at the end of
+the branch's work, once every step has settled the shape, as
+`skill@knowledge-architect-planning@working-a-slice` states in its points 4 to 7 and
+`skill@knowledge-architect-decision-recording@when-recording-happens` states of the harvest, which
+happens in the change that lands the work. The rival, each head written in the commit of the step
+that builds its code, meets `design@agent-skills@design-home-is-built-intent` as well, since that
+head excludes a head written before its code exists, not one written during the work, and no fact
+defeats either shape.
+
+One harvest at the end over a head with each step's code: the owner ranked a decision written once,
+rather than amended at each step that changes it, the better heads that record work done at once
+may give, and an implementer kept to the code, above the review of the work seeing the heads, judging
+that the plan document should already give that review most of what it needs, which no goal
+ranks.
+
 ### A slice's spec is kept under its milestone's `harvested/` once its slice lands, frozen, until the milestone leaves `##harvested-slice-kept`
 
 When a slice lands, its spec's directory is moved under its milestone's `harvested/`, the move being

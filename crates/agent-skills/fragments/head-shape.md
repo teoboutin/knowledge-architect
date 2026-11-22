@@ -78,10 +78,11 @@ criterion named with no reason, or a fact stated with no reason it pays, is not 
 later session that weighs a split or a merge of the Component then meets the argument it has to
 defeat.
 
+%% The reading by direction: `design@agent-skills@ruling-read-by-its-direction`.
 **A head is read against the position the owner was shown before it is written.** The title and
-the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The approval is read by its direction: a clause
+the body state the position as the owner saw it, in a plan document's thread or in the discussion of the in-change path. The position is read by its direction: a clause
 that relaxes it, drops part of it or turns it can still be false of the nearest rival, and is still
-not what was approved: it goes to the owner, as a change of the decision. A refinement within its
+not the position the owner was shown: it goes to the owner, as a change of the decision. A refinement within its
 direction, stricter, more detailed or reworded, is the head's to state.
 
 **The slug and the title stay aligned with the full scope of the decision**: the slug is often the

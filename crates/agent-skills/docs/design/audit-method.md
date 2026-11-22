@@ -300,7 +300,7 @@ that moves no word of the owner, a rejected alternative repaired in place, a fac
 pointer whose target exists under another name, a drifted restatement brought back to its home, an
 instruction read two ways reworded to the reading a design head or another instruction states. An
 approval or an argument attributed in a head is removed in the branch, and a fork's choice is
-recorded with the provenance of its ranking, per `design@agent-skills@fork-choice-in-weak-form`,
+recorded with the provenance of its ranking, per `design@agent-skills@fork-choice-names-whose-ranking-it-was`,
 since each repair removes a false ground and relaxes nothing. A change that relaxes or turns a
 ranking or a report a head attributes to the owner, per `design@agent-skills@ruling-read-by-its-direction`, the removal of an
 entry, but for a tripwire the standard or its lifecycle removes, per

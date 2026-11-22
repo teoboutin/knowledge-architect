@@ -29,6 +29,7 @@ A decision that no work implements, such as a policy, and that is not part of an
 recorded when it is made: there is no implementing change to wait for. The second entry test of
 `skill@knowledge-architect-decision-recording@what-earns-a-head` admits it, as a decision that no code and no text of the project states.
 
+%% Its reason: `design@agent-skills@unruled-default-recorded-at-the-harvest`.
 **A default awaiting the owner is built as written, per
 `skill@knowledge-architect-planning@working-a-slice`, and recorded at the harvest like any other
 decision**: a head's text does not depend on the owner's ruling, since an approval is no ground. A

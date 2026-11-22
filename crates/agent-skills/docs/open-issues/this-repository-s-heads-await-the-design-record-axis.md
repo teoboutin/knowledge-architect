@@ -39,5 +39,7 @@ against
 
 A pass of the design-record axis over this repository, its outcomes applied: each head re-grounded
 on its argument, a fork's choice in its weak form, each intent of the three kinds put on the owner
-list as a goal to draft, and each standing head that cites a goal stating its constraint beside the
-reference.
+list as a goal to draft, each standing head that cites a goal stating its constraint beside the
+reference, and each head and `rejected` entry that still holds an older attribution converted to
+the form `primer@design-heads` gives: an argument or an approval named with no source, and a fork's
+choice as the ranking it made, with that ranking's source.
