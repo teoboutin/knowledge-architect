@@ -15,8 +15,10 @@ with the owner; this entry holds the firing and its evidence until that discussi
 
 ### What
 
-The tripwire, `rule-title-wider-than-its-argument`, was written in the commit "[audit] Pass 1 of
-the tripwire axis applied: every tripwire kept has a horizon, and 20 leave" (2026-10-24). Its clause:
+The tripwire, `rule-title-wider-than-its-argument`, was written in the commit "The harvest of the
+head-rules work" (2026-10-09), and its clause and response were rewritten in the commit "[audit]
+Pass 1 of the tripwire axis applied: every tripwire kept has a horizon, and 20 leave" (2026-10-24),
+from which the firing is counted. Its clause:
 "the reviews of two separate branches each find a title wider than its argument in a head their
 branch writes or rewrites, or an audit finds one on the main branch in a head written or rewritten
 after the decision". Its response: "reopen `design@agent-skills@title-states-the-rule`; the title
