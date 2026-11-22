@@ -228,7 +228,7 @@ change that touches it; in planned work, by a step before the harvest, per
 
 Where bringing a head to the rules would relax what the owner's words in it approved, or turn it
 from its direction, as a title moved from the members the owner named to a rule that admits others,
-the change goes to the owner as one proposal, per `design@agent-skills@transcript-reviewer-agent`.
+the change goes to the owner as one proposal, per `design@agent-skills@ruling-read-by-its-direction`.
 
 **Re-pointing a reference in a head does not touch it.** The edit states nothing new in the head,
 and a change that re-points references across the record, as a renamed entry or a migrated

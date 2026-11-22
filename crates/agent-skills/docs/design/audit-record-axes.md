@@ -42,7 +42,7 @@ Component, a shared calibration sample, one verifier per group on every draft, a
 report, and a run judging the application; it has no checker step, since it creates no head. Every
 outcome is applied in the branch, a deletion included, converted, absorbed, removed on a condition,
 decision gone, horizon passed or fired, per
-`design@agent-skills@tripwire-stands-on-the-standard`, and the report lists the deletions
+`design@agent-skills@session-removes-an-excluded-tripwire`, and the report lists the deletions
 grouped by outcome and, for a removal, by the condition failed, so the owner reads them and
 contests any with a goal, a fact or an argument. A removal where no condition clearly excludes the entry rests on the owner's weight
 on a doubt that `design@agent-skills@tripwire-admission-test` states, a failure the owner would see

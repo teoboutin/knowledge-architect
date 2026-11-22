@@ -174,7 +174,7 @@ site whose statement the rewrite makes false.
 | `design@agent-skills@attribution-replaces-quotation` | the fragment's attribution paragraph; the tripwire auditor, lines 46-48; planning `skill@knowledge-architect-planning@spec-contents`, "The owner's words are attributed in the items" (lines 337-338) | 1, 2, 3, harvest |
 | `design@agent-skills@transcript-reviewer-agent` | the transcript reviewer, lines 115 and 127-128; retrospective, lines 150-152 | 3, harvest |
 | `design@agent-skills@misstated-ruling-rated-by-what-it-changes` | the transcript reviewer's severities, lines 127-128 | 3, harvest |
-| `design@agent-skills@unargued-approval-is-argued` | decision-recording `skill@knowledge-architect-decision-recording@unargued-approval` | 3, harvest |
+| `unargued-approval-is-argued`, removed at step 1 by D1, its reason in a `%%` line of the section | decision-recording `skill@knowledge-architect-decision-recording@unargued-approval` | 3 |
 | `design@agent-skills@existing-heads-on-touch`, its second paragraph | the shape fragment, lines 102-105; planning, line 474; project-audit, line 212 | 2, 3, harvest |
 | the deferral in decision-recording `skill@knowledge-architect-decision-recording@when-recording-happens`, which no head states | decision-recording, lines 32-35; the shape fragment, lines 81-82; planning `skill@knowledge-architect-planning@plan-document-leaves`, its reason only | 2, 3 |
 
@@ -192,7 +192,7 @@ rewrites it, their decisions unchanged:
   and as the owner's choice at a fork in its weak form".
 
 Created by the harvest, each a thread of this discussion: #head-written-with-the-code,
-#harvest-timing, #review-timing; created by step 1: `owner-words-kept-in-an-issue-on-request`.
+#harvest-timing, #review-timing; created by step 1: `design@agent-skills@owner-words-kept-in-an-issue-on-request`.
 `cargo klarch id` reports each free at the commit that adds this spec.
 
 Entries of the record search whose outcome changed something:
@@ -266,8 +266,9 @@ No name in code. New design heads, in `path@agent-skills@docs/design/owner-and-i
 - a head whose slug is the thread's, #head-written-with-the-code, at the harvest;
 - a head whose slug is the thread's, #harvest-timing, at the harvest;
 - a head whose slug is the thread's, #review-timing, at the harvest;
-- `owner-words-kept-in-an-issue-on-request`, `ruling-read-by-its-direction` and
-  `session-removes-an-excluded-tripwire`, at step 1.
+- `design@agent-skills@owner-words-kept-in-an-issue-on-request`,
+  `design@agent-skills@ruling-read-by-its-direction` and
+  `design@agent-skills@session-removes-an-excluded-tripwire`, at step 1.
 
 ## Decided design
 
@@ -481,21 +482,21 @@ None: the work changes text, and no built code can apply a check on its decision
 1. **Conform the touched heads.** Builds, from the drafts of the design-record auditor dispatched
    at the planning of this spec and their verification, each outcome in the commit that records
    them:
-   - the head `owner-words-kept-in-an-issue-on-request`, split out of
+   - the head `design@agent-skills@owner-words-kept-in-an-issue-on-request`, split out of
      `design@agent-skills@attribution-replaces-quotation`, with its rival, an issue entry that never
      quotes the owner, written in the new form, and every citing site re-pointed, as
      `cargo klarch show` lists them;
    - `design@agent-skills@transcript-reviewer-agent` split: the reading of a ruling by its direction,
      wherever fidelity is judged, with its goal exception, moves to a head of its own,
-     `ruling-read-by-its-direction`, the sentence on the observed case with no obligation added moved
-     unchanged in the past tense; design-skill-and-heads.md:231 and owner-and-intent.md:245
+     `design@agent-skills@ruling-read-by-its-direction`, the sentence on the observed case with no
+     obligation added moved unchanged in the past tense; design-skill-and-heads.md:231 and owner-and-intent.md:245
      re-pointed;
    - `design@agent-skills@tripwire-stands-on-the-standard` split: the session's removal of a recorded
      tripwire that a condition of the standard excludes moves to a head of its own,
-     `session-removes-an-excluded-tripwire`, titled "The session removes a recorded tripwire that a
-     condition of the standard excludes, in an audit as elsewhere, but for a removal on the doubt's
-     weight", the pair #removal-outside-the-exits → `session-removes-an-excluded-tripwire` in the
-     commit; the rewording and the rescoping by the session, and the sentence on the owner naming the
+     `design@agent-skills@session-removes-an-excluded-tripwire`, titled "The session removes a
+     recorded tripwire that a condition of the standard excludes, in an audit as elsewhere, but for a
+     removal on the doubt's weight", the pair #removal-outside-the-exits →
+     `design@agent-skills@session-removes-an-excluded-tripwire` in the commit; the rewording and the rescoping by the session, and the sentence on the owner naming the
      wording, stay in the head that keeps the slug;
    - `design@agent-skills@misstated-ruling-rated-by-what-it-changes`: "made" becomes "makes";
    - `rejected@agent-skills@transcript-reviewer-reports-every-clause`: its verbatim quotation of the
@@ -547,14 +548,14 @@ auditor, whose outcome is the owner's, per `skill@knowledge-architect-planning@c
 Step 1 builds each default as written. The owner accepted D1 to D5 as written, after the plan
 reviews; each is marked as ruled.
 
-- **D1, ruled: accepted as written. On `design@agent-skills@unargued-approval-is-argued` and
+- **D1, ruled: accepted as written. On `unargued-approval-is-argued` and
   `design@agent-skills@instruction-record-is-minimal`.** The first fails every entry test: the
   decision-recording skill's `skill@knowledge-architect-decision-recording@unargued-approval` alone
   states it, and nothing cites it. The second admits a decision "where it keeps the owner's intent
   on record", against "The owner's intent earns no head of its own"; its other case, keeping two
   parts of the workflow consistent, reads two ways against entry test 2: an instance of the test, or
   "a value repeated for consistency", which the test excludes. Default: remove
-  `design@agent-skills@unargued-approval-is-argued`, its reason moved to a `%%` line beside the
+  `unargued-approval-is-argued`, its reason moved to a `%%` line beside the
   skill's instruction; retitle the second "A decision about the installed text earns a head only by
   an entry test or by keeping two parts of the workflow consistent, and a rewording earns none",
   reading the consistency case as an instance of entry test 2. The rival keeps the first head on the

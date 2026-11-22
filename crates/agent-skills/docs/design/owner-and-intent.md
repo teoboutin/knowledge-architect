@@ -231,18 +231,15 @@ reaches, never the owner's words verbatim. The verbatim words of a design discus
 owner's word on its last convergence checkpoint, stay in the plan document's committed transcript of
 it, per `design@agent-skills@committed-transcript`; a ruling given after that checkpoint, at a plan
 review or at the review before the merge, is attributed only. The owner's words verbatim also stay
-in a committed file that leaves once its outcomes are carried out, per `design@agent-skills@committed-audit-report`. An issue
-entry holds the owner's words verbatim only where the owner asks it to keep them, marked as quoted
-on the owner's request, as input to a later discussion and never as the ground of a ruling, the rest
-of the entry attributing: an issue entry leaves when it closes, as those files leave once their
-outcomes are carried out. The session chose that exception over an issue entry that never quotes
-the owner, which no goal ranks; the owner approved it. An attribution is checked against
+in a committed file that leaves once its outcomes are carried out, per `design@agent-skills@committed-audit-report`,
+and in an issue entry where the owner asks it to keep them, per
+`design@agent-skills@owner-words-kept-in-an-issue-on-request`. An attribution is checked against
 the question it answered, as a quotation is: by its writer, with the owner's words beside it, at
 the close of the decision-recording skill,
 `skill@knowledge-architect-decision-recording@before-you-finish`, and by the transcript reviewer,
 the decision-record reviewer and the auditors' verifiers, and it keeps the scope and the hedges of
 the words: a hedge dropped records a firmer ruling than the owner gave, which the reading of a
-ruling by its direction, `design@agent-skills@transcript-reviewer-agent`, does not excuse. A
+ruling by its direction, `design@agent-skills@ruling-read-by-its-direction`, does not excuse. A
 quotation already in a head is converted when a change touches the head, per
 `design@agent-skills@existing-heads-on-touch`; the reference a rename sets beside a quotation does
 not count, per `design@agent-skills@a-past-sentence-is-rewritten`.
@@ -267,21 +264,14 @@ met: `rejected@agent-skills@owner-words-verbatim-in-plan-items`.
 
 The design this decision did not keep: `rejected@agent-skills@owner-words-quoted-in-head`.
 
-### A decision approved with no argument is argued before it is recorded `##unargued-approval-is-argued`
+### An issue entry keeps the owner's words verbatim where the owner asks it to, and only there, marked as quoted and never as the ground of a ruling `##owner-words-kept-in-an-issue-on-request`
 
-Before a head is written from an approval that no argument, rival or cost stands behind, such as a
-default approved in a batch, the session searches for the arguments for and against it, its costs
-and its rivals, and records what it finds. Where the rivals come out equal, the fork goes to the
-owner as a tie, and the owner's choice is recorded as a fork's choice in its weak form, per
-`design@agent-skills@fork-choice-in-weak-form`. It is
-the decision-recording skill's, `skill@knowledge-architect-decision-recording@unargued-approval`,
-since recording is the last point before a head exists.
-
-The rule is the owner's proposal: a decision approved with no argument always goes through a search
-for the arguments for and against it, its costs and its rivals. Without it, a batch approval
-of an unargued default gives a head with neither an argument nor, under
-`design@agent-skills@heads-stand-on-argument`, a ground. The nearest rival, recording the
-approval as it stands, is that head. The cost is one search per unargued default.
+An issue entry holds the owner's words verbatim only where the owner asks it to keep them, marked
+as quoted on the owner's request, as input to a later discussion and never as the ground of a
+ruling; the rest of the entry attributes, per `design@agent-skills@attribution-replaces-quotation`.
+An issue entry leaves when it closes, as the committed files that leave once their outcomes are
+carried out do, per `design@agent-skills@committed-audit-report`. The exception is chosen over an
+issue entry that never quotes the owner, which no goal ranks: the session's ranking.
 
 ### A fork closes on the owner's word, and a thread with one shape standing closes on its argument `##owner-rules-at-a-fork`
 
@@ -390,9 +380,9 @@ decision the goals and the record leave open in: the owner reads the proposal, i
 consequences, and can challenge it, add an argument or a fact, or change its direction before it
 reaches the main branch, where a report alone, read after the merge, gives no such point.
 
-The timing is the owner's: the work goes on with no interruption, and the owner's approval is asked
-at the merge at the latest. Two rivals lost. The work waiting for each answer of the owner
-interrupts the work, which the owner does not want, and makes a default no default. A branch
+Two rivals lost. The work waiting for each answer of the owner interrupts the work, against
+`goal@agents-work-without-drift`, under which agents carry the work with less supervision, and
+makes a default no default. A branch
 merging with a default unruled puts on the main branch a choice the owner has not made, against
 `goal@the-owner-decides`; the check of a plan document's deletion in
 `skill@knowledge-architect-planning@plan-document-leaves` catches it only when the document

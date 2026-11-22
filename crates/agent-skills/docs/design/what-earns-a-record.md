@@ -18,8 +18,9 @@ owner made earns a head by the three tests, per `design@agent-skills@heads-stand
 Every other
 decision lives in a comment at its code, a `%%` line for the installed text, and in the commit that
 argued it, where it binds as intent at that scale, per `design@agent-skills@local-intent-binds`.
-For a decision about the installed text, `design@agent-skills@instruction-record-is-minimal` admits
-one case the three tests do not: one that keeps two parts of the workflow consistent.
+For a decision about the installed text, `design@agent-skills@instruction-record-is-minimal` reads
+one case as an instance of the second test: one that keeps two parts of the workflow consistent,
+since each of the two parts respects the reason.
 
 The tests keep the decisions recorded few, as long as no critical intent or argument is lost. Every
 grounding reads the design homes whole, and a human overseer reviews them, so each head costs every

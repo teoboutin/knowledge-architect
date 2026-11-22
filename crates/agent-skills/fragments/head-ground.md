@@ -36,8 +36,9 @@ already holds reopens nothing: this guards a choice from reversals back and fort
 at a fork is a fork's choice in the weak form, an approval cited as a ground is no ground, and an
 intent that states a purpose, a scope or a ranking is a goal to draft.
 
-%% Plan items attribute, the verbatim words in a committed transcript, and an issue entry quotes
-%% only on the owner's request: `design@agent-skills@attribution-replaces-quotation`.
+%% Plan items attribute, and the verbatim words in a committed transcript:
+%% `design@agent-skills@attribution-replaces-quotation`; an issue entry quotes only on the owner's
+%% request: `design@agent-skills@owner-words-kept-in-an-issue-on-request`.
 **A durable record attributes a decision to the owner; it does not quote the owner.** A head, a
 commit message, a tripwire, a `rejected` entry, an issue entry and a plan document's items state what the owner decided and how far the
 decision reaches, as "the owner chose X over Y" or "on the owner's word", never the owner's words

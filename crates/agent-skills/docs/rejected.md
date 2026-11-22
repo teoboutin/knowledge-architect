@@ -115,8 +115,8 @@ file is not measured. The figures are those of the issue the intake's shipping c
 
 `live`. It protected the owner's rulings down to their wording, at the cost of a list of additions
 in every review. The owner, who had meant the reviewer to check durability from the start, judged
-from its reports in real sessions that it was "focusing more on the wrong side, the small deviations
-from what I approved", and ruled that a detail or a better wording inside a ruling needs no report.
+from its reports in real sessions that it was focusing more on the wrong side, on the small
+deviations from what the owner approved, and ruled that a detail or a better wording inside a ruling needs no report.
 
 ### A milestone document holding the design of every slice, with slice specs holding only their entry `##milestone-holds-every-slice-design`
 

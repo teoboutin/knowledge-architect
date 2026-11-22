@@ -33,21 +33,17 @@ excludes. This is no grant of judgement within a boundary, which
 `primer@question-authority` applied once the record ranks the question. The design this decision
 did not keep: `rejected@agent-skills@owner-rules-each-tripwire`.
 
-### A tripwire stands on the standard whoever proposed it, and the session removes one a condition excludes `##tripwire-stands-on-the-standard`
+### A tripwire stands on the standard whoever proposed it, so its wording and its scope change on the session's judgement under that standard while it watches the same cause `##tripwire-stands-on-the-standard`
 
-A recorded tripwire's premise, firing clause, response, re-entry point and horizon change on the
-session's judgement under the standard of `design@agent-skills@tripwire-admission-test`, while it
-watches the same cause. The session removes a recorded tripwire that a condition of the standard
-excludes, the commit naming the condition, as it drops a cause at recording, per
-`design@agent-skills@tripwire-recording-authority`; in a project audit the removal is applied in
-the branch and listed in the report, grouped by condition. Each change and each removal is listed
-in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the
-owner reads it and contests any of them with a goal, a fact or an argument. A removal on the doubt's weight alone is the owner's, since it rests
-on the owner's own weighing of what the owner would see. A cause the owner proposes, or one derived
-from the owner's words, is judged by the standard like any other: the owner's word alone admits no
+A cause the owner proposes, or one derived from the owner's words, is judged by the standard of
+`design@agent-skills@tripwire-admission-test` like any other: the owner's word alone admits no
 tripwire and keeps none. A ruling of the owner that a tripwire restates, a bound or an exception,
-lives in a design head, which the tripwire cites. A tripwire also leaves by the other exits of its
-lifecycle, per `design@agent-skills@tripwire-horizon`, and on the owner's word.
+lives in a design head, which the tripwire cites. A recorded tripwire's premise, firing clause,
+response, re-entry point and horizon change on the session's judgement under the standard of
+`design@agent-skills@tripwire-admission-test`, while it watches the same cause, each change listed
+in the turn's "Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`. The
+owner named the wording and the small changes of scope of tripwires among the rulings a clearer
+standard should let the session's judgement cover.
 
 A tripwire is no decision: it watches one premise of a decision, and its only value is the fact it
 delivers, which the standard measures whoever proposed it. A ruling of the owner bears on a
@@ -62,16 +58,30 @@ tripwire, such as a ruling that a rule a review finds and its own branch removes
 tripwire it would match, is a case of the rule on slips, which the
 standard states as the owner's. So a narrowing or a removal of
 a tripwire changes no ruling of the owner, unlike a head, which can record the owner's choice at a
-fork, per `design@agent-skills@heads-stand-on-argument`. The owner rules only on what the argument
-leaves open, and is informed of each removal and can contest it with a goal, a fact or an
-argument, per `goal@the-owner-decides`. The owner named the
-wording and the small changes of scope of tripwires among the rulings a clearer standard should
-let the session's judgement cover. Of the two shapes that meet these goals, the owner chose that
-the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an
-audit's removals on the owner's list, a removal on the doubt's weight excepted, and ruled
-that a tripwire grounded on the owner's word gets no standing the standard does not give it.
-Keeping each removal with the owner brings back part of
+fork, per `design@agent-skills@heads-stand-on-argument`. That a tripwire grounded on the owner's
+word gets no standing the standard does not give it is also the owner's ranking. Giving the
+owner's word a standing of its own brings back part of
 `rejected@agent-skills@owner-rules-each-tripwire`.
+
+### The session removes a recorded tripwire that a condition of the standard excludes, in an audit as elsewhere, but for a removal on the doubt's weight `##session-removes-an-excluded-tripwire`
+
+The session removes a recorded tripwire that a condition of the standard excludes, the commit
+naming the condition, as it drops a cause at recording, per
+`design@agent-skills@tripwire-recording-authority`; in a project audit the removal is applied in
+the branch and listed in the report, grouped by condition. Each removal is listed in the turn's
+"Decided" section, per `design@agent-skills@decisions-reported-to-the-owner`, and the owner reads it
+and contests any of them with a goal, a fact or an argument. A removal on the doubt's weight alone
+is the owner's, since it rests on the owner's own weighing of what the owner would see. A tripwire
+also leaves by the other exits of its lifecycle, per `design@agent-skills@tripwire-horizon`, and on
+the owner's word.
+
+A narrowing or a removal of a tripwire changes no ruling of the owner, per
+`design@agent-skills@tripwire-stands-on-the-standard`. The owner rules only on what the argument
+leaves open, and is informed of each removal and can contest it with a goal, a fact or an
+argument, per `goal@the-owner-decides`. Of the two shapes that meet that goal, the owner chose that
+the session removes a tripwire a condition excludes wherever it is found, over a split that keeps an
+audit's removals on the owner's list, a removal on the doubt's weight excepted. Keeping each removal
+with the owner brings back part of `rejected@agent-skills@owner-rules-each-tripwire`.
 
 ### A cause becomes a tripwire only where its failure is silent, its evidence lands where tripwires are read, it is what the decision forbids, and its numbers have a basis `##tripwire-admission-test`
 

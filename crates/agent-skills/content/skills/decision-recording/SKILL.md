@@ -48,6 +48,10 @@ before it is written, per `skill@knowledge-architect-decision-recording@head-sha
 
 ## A decision approved with no argument {{slug:unargued-approval}}
 
+%% Without the search, a batch approval of an unargued default gives a head with neither an argument
+%% nor a ground, per `design@agent-skills@heads-stand-on-argument`; the nearest rival, recording the
+%% approval as it stands, is that head. The cost is one search per unargued default. It is this
+%% skill's, since recording is the last point before a head exists.
 **A decision approved with no argument is argued before it is recorded.** Before a head is written
 from an approval that no argument for the decision, no rival and no cost stand behind, such as a
 default approved in a batch, search for the arguments for and against it, its costs and its rivals,

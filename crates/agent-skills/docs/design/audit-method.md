@@ -303,9 +303,9 @@ approval cited as a head's ground is removed in the branch where the head stands
 recorded as the session's choice at a fork, and the owner's pick at a fork cited as a ground is
 recorded in the weak form, per `design@agent-skills@fork-choice-in-weak-form`, since each repair
 removes a false ground and relaxes nothing. A change that relaxes what the owner's words approved or
-turns it from its direction, per `design@agent-skills@transcript-reviewer-agent`, the removal of an
+turns it from its direction, per `design@agent-skills@ruling-read-by-its-direction`, the removal of an
 entry, but for a tripwire the standard or its lifecycle removes, per
-`design@agent-skills@tripwire-stands-on-the-standard`, an intent of the owner cited as a ground,
+`design@agent-skills@session-removes-an-excluded-tripwire`, an intent of the owner cited as a ground,
 drafted as a goal where it states a purpose, a scope or a ranking, which side of a contradiction wins where no design head, goal or source settles
 it, a verdict where a rule reads two ways and no record states the reading, a head
 in the wrong Component and a conflict with a goal go to the owner, per
