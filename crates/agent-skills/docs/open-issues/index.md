@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-78 entries
+77 entries
 
 | kind | title |
 | --- | --- |
@@ -16,7 +16,6 @@
 | deferred | [How parallel work is partitioned among agents, who commits and how the parts are merged, is not designed](how-parallel-work-is-partitioned-among-agents.md) |
 | deferred | [No mechanical check reads that a change to a declared performance path records its figures](no-mechanical-check-reads-a-declared-path-s-figures.md) |
 | deferred | [The review-cost counts that retrospectives report are not compared across branches yet](the-review-cost-counts-are-not-compared-yet.md) |
-| design | [A built default awaiting the owner enters a design head only once the owner rules, where the owner wants agents more autonomous](a-built-default-awaiting-the-owner-enters-a-head-only-once-the-owner-rules.md) |
 | design | [A commit or a push chained after a failing check recurs, in compound commands that run it whatever the check found](a-command-chained-after-a-failing-check-recurs.md) |
 | design | [A committed transcript cuts the reports of the agents its discussion dispatched](a-committed-transcript-cuts-the-reports-of-agents.md) |
 | design | [An acceptance criterion admitted without condition 2 can have its evidence in no record at the leaving](a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving.md) |
