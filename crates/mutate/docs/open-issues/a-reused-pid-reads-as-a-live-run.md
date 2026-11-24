@@ -19,6 +19,16 @@ run, its `owner-pid` replaced by the pid of an unrelated `sleep 300`; both `rest
 `restore --discard` refused, exit 2. A real reuse needs the pid space to wrap, or a container with a
 small one.
 
+A lead, not verified in `mutate`: a lock on a file, held by the run and tried by the reader with
+`std::fs::File::try_lock`, could replace the function `process_is_alive` of
+`path@mutate@src/harness.rs`, named in prose per
+`issue@model@a-rust-item-named-in-prose-has-no-checked-form`, and would read as free once the run is
+gone, whatever process has its pid. A prototype on Linux, on the pinned toolchain,
+read such a lock as held while its owner ran and as free after `kill -9`, with a child of the owner
+still running; the message of the commit "[knowledge-architect] A head records that a test holds each
+directory it makes in a guard, with the rivals that lost, and one of them becomes a rejected design"
+records it. Not established: a zombie's lock, and any other platform.
+
 ### Why it matters
 
 While it lasts, the tool offers no way to restore the file, and its exit code, 2, says the run never

@@ -17,8 +17,9 @@ next work that changes the file's code, per `design@agent-skills@split-issue-ree
 - **Size.** A Read of the file with no range returned lines 1 to 1410 of 3512, with the message
   "showing lines 1-1410 of 3512 total (52899 tokens, cap 25000)", measured after the pass that
   documented every public item, on the branch that added the doc gate.
-- **The signals against.** Not weighed: no work has counted the parts of the file that change apart,
-  nor what every change reads together.
+- **The signals against.** None counted: no work has counted the parts of the file that change apart,
+  nor what every change reads together. The branch that made the tests hold their scratch directories
+  in guards weighed the size signal alone, and found that its work needs no split.
 
 The instance: the commit "[model] Every public item the documentation lints name is documented"
 added doc comments to the file and changed no code of it. The plan of that branch decided no split

@@ -18,8 +18,9 @@ weighed again at the design or the planning of the next work that changes the fi
 - **Size.** A Read of the file with no range returned lines 1 to 1320 of 1980, with the message
   "showing lines 1-1320 of 1980 total (31860 tokens, cap 25000)", measured after the pass that
   documented every public item, on the branch that added the doc gate.
-- **The signals against.** Not weighed: no work has counted the parts of the file that change apart,
-  nor what every change reads together. A lead, not established: the module's documentation names
+- **The signals against.** None counted: no work has counted the parts of the file that change apart,
+  nor what every change reads together. The branch that made the tests hold their scratch directories
+  in guards weighed the size signal alone, and found that its work needs no split. A lead, not established: the module's documentation names
   two parts, the judging of commit messages over a range and the snapshot of a tree read from git
   objects, which `check --staged`, `index --staged` and `check --fix` read too.
 

@@ -43,9 +43,12 @@ uses of `std::os::unix` sit behind `cfg(unix)`, with another arm for the other p
   these tests find it there is not established.
 - **The liveness of a run**: `process_is_alive` of `path@mutate@src/harness.rs` runs `kill -0` outside
   Linux. Where no `kill` program answers, a live run reads as gone, which `path@mutate@README.md`
-  states, so `restore` can write over the file of a run that is still going.
+  states, so `restore` can write over the file of a run that is still going. A lead, not verified: the
+  file lock that `issue@mutate@a-reused-pid-reads-as-a-live-run` names could replace the function, on
+  Windows too.
 - **A directory may not be removable there** while a file in it is open, which the `tempfile` guards
-  of the tests do not report. Not established for any test.
+  of the tests do not report. Not established for any test. A lead, not verified: git makes the files
+  of its objects read-only, which may also block the removal of a directory that holds a repository.
 
 ### Why it matters
 
