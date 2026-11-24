@@ -138,9 +138,10 @@ fn run_with_env(dir: &Path, args: &[&str], env: &[(&str, &Path)]) -> (String, St
 /// wrong reason. `git init` and `git add -A` are what make the copied files live, and anything
 /// a test wants staged — a `.gitignore` above all — is written by `seeded` BEFORE the add.
 ///
-/// **It sits in the temporary directory**, under a random name, so it is outside every worktree,
-/// this repository's included, and two runs do not meet. The project is a directory of the
-/// sandbox's own, so a test has a place outside the project that goes with it, `outside`.
+/// **It sits in the temporary directory**, under a random name, so two runs do not meet, and it is
+/// outside every worktree, this repository's included, as long as that directory is. The project is
+/// a directory of the sandbox's own, so a test has a place outside the project that goes with it,
+/// `outside`.
 struct Sandbox {
     scratch: tempfile::TempDir,
     dir: PathBuf,
@@ -8743,7 +8744,7 @@ fn worklist_verify_at_an_audit_writes_the_gaps_and_the_fit_lines() {
 /// `CLAUDE_CONFIG_DIR`, which goes with it.
 fn transcript_case(case: &str, tag: &str) -> (Sandbox, PathBuf) {
     let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
-    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let root = sandbox.dir.canonicalize().expect("the copy exists");
     let config = sandbox.outside("config");
     let from = transcript_dir().join("tests/transcripts").join(case);
     copy_rendered(&from, &config, &root.display().to_string());
@@ -8773,7 +8774,7 @@ fn copy_rendered(from: &Path, to: &Path, root: &str) {
     }
 }
 
-/// One `transcript` run over a case, in the mock `core`.
+/// One `transcript` run over a case, in a copy of the mock `core`.
 fn transcript(case: &str, tag: &str, args: &[&str]) -> (String, String, i32) {
     let (sandbox, config) = transcript_case(case, tag);
     let mut all = vec!["transcript"];
@@ -9804,7 +9805,7 @@ fn transcript_from_matches_no_line_the_agent_wrote() {
 #[test]
 fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
     let sandbox = project("core");
-    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let root = sandbox.dir.canonicalize().expect("the copy exists");
     let config = sandbox.outside("config");
     let projects = config.join("projects/-linked");
     std::fs::create_dir_all(&projects).expect("a transcript directory");
@@ -9880,7 +9881,7 @@ fn transcript_a_subagent_s_tool_lines_show_under_tools_alone() {
 /// hand as `CLAUDE_CONFIG_DIR`, which goes with it.
 fn transcript_config(tag: &str, files: &[(&str, &str)]) -> (Sandbox, PathBuf) {
     let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
-    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let root = sandbox.dir.canonicalize().expect("the copy exists");
     let config = sandbox.outside("config");
     for (rel, text) in files {
         let path = config.join(rel);
@@ -9891,7 +9892,8 @@ fn transcript_config(tag: &str, files: &[(&str, &str)]) -> (Sandbox, PathBuf) {
     (sandbox, config)
 }
 
-/// One chain line of a session the owner opens with `text`, in the mock `core`.
+/// One chain line of a session the owner opens with `text`, in the copy whose root replaces
+/// `{{root}}`.
 fn transcript_line(uuid: &str, session_id: &str, text: &str) -> String {
     format!(
         r#"{{"type":"user","uuid":"{uuid}","parentUuid":null,"sessionId":"{session_id}","timestamp":"2026-03-01T10:00:00.000Z","cwd":"{{{{root}}}}","version":"2.1.316","message":{{"role":"user","content":"{text}"}},"origin":{{"kind":"human"}}}}"#
