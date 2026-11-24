@@ -1,0 +1,4 @@
+# Read by clippy for every package of the workspace, each target of it, the tests included.
+disallowed-methods = [
+    { path = "std::env::temp_dir", reason = "hold a `tempfile::TempDir::with_prefix(\"klarch-...\")` instead: the directory goes when the test ends, a failed one included" },
+]
