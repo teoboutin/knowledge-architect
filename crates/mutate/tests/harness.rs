@@ -7,31 +7,18 @@
 //! plausibly and applies to nothing.
 
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::Command;
-use std::sync::atomic::{AtomicUsize, Ordering};
-use std::time::{SystemTime, UNIX_EPOCH};
 
 use knowledge_architect_mutate::{
     plan_replace, record_dir, restore_verdict, single_hunk_diff, target_is_mutable, PlanError,
     Record, RestoreVerdict,
 };
 
-static COUNTER: AtomicUsize = AtomicUsize::new(0);
-
-fn temp_dir(tag: &str) -> PathBuf {
-    let nanos = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .expect("clock")
-        .subsec_nanos();
-    let n = COUNTER.fetch_add(1, Ordering::SeqCst);
-    let mut p = std::env::temp_dir();
-    p.push(format!(
-        "mutate-test-{tag}-{}-{nanos}-{n}",
-        std::process::id()
-    ));
-    fs::create_dir_all(&p).expect("creating the temp dir");
-    p
+/// A directory of the test's own, removed when dropped.
+fn temp_dir(tag: &str) -> tempfile::TempDir {
+    tempfile::TempDir::with_prefix(format!("klarch-mutate-harness-{tag}-"))
+        .expect("creating the temp dir")
 }
 
 // ---- plan_replace: the mutation names exactly one site ----
@@ -111,11 +98,12 @@ fn plan_replace_refuses_an_empty_pattern() {
 /// Writes `pre` into a fresh git repository, applies the generated patch, and reverses it.
 /// Returns (text after apply, text after reverse).
 fn apply_and_reverse(pre: &str, post: &str) -> (String, String) {
-    let dir = temp_dir("patch");
+    let scratch = temp_dir("patch");
+    let dir = scratch.path();
     let git = |args: &[&str]| {
         let out = Command::new("git")
             .args(args)
-            .current_dir(&dir)
+            .current_dir(dir)
             .output()
             .expect("running git");
         assert!(
@@ -137,7 +125,6 @@ fn apply_and_reverse(pre: &str, post: &str) -> (String, String) {
     git(&["apply", "-R", "m.patch"]);
     let after_reverse = fs::read_to_string(&target).expect("reading after reverse");
 
-    fs::remove_dir_all(&dir).ok();
     (after_apply, after_reverse)
 }
 
@@ -286,7 +273,8 @@ fn restore_refuses_when_the_file_changed_under_the_harness() {
 
 #[test]
 fn the_record_round_trips() {
-    let dir = temp_dir("record");
+    let scratch = temp_dir("record");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     assert!(!record.exists());
 
@@ -304,7 +292,6 @@ fn the_record_round_trips() {
 
     record.clear().expect("clearing the record");
     assert!(!record.exists());
-    fs::remove_dir_all(&dir).ok();
 }
 
 #[test]
@@ -312,7 +299,8 @@ fn a_half_written_record_does_not_read_as_present() {
     // What `cargo mutate restore` rests on: a record reporting itself present has its pre-image.
     // Testing the write order directly would need to observe an interruption, so the guarantee
     // is carried by `exists()` requiring every file instead.
-    let dir = temp_dir("partial");
+    let scratch = temp_dir("partial");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     fs::create_dir_all(&record.dir).expect("creating the record dir");
 
@@ -336,8 +324,6 @@ fn a_half_written_record_does_not_read_as_present() {
         !record.exists(),
         "a record without its pre-image protects nothing"
     );
-
-    fs::remove_dir_all(&dir).ok();
 }
 
 #[test]
@@ -345,7 +331,8 @@ fn the_record_holds_the_pre_image_before_it_is_complete() {
     // Every file the record needs is on disk once `write` returns, which is what makes a record
     // found after a hard kill usable. `exists()` is what enforces completeness, per the test
     // above; this one checks that `write` produces all of it.
-    let dir = temp_dir("order");
+    let scratch = temp_dir("order");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     record.claim().expect("claiming the record");
     record
@@ -358,7 +345,6 @@ fn the_record_holds_the_pre_image_before_it_is_complete() {
     // No patch was supplied, so none is recorded and `read` reports its absence rather than
     // inventing one.
     assert_eq!(record.read().expect("reading").patch, None);
-    fs::remove_dir_all(&dir).ok();
 }
 
 // ---- what may be mutated ----
@@ -380,13 +366,13 @@ fn a_path_climbing_out_of_the_repository_is_refused() {
 fn a_symlinked_target_is_refused() {
     // `fs::write` follows a symlink, so a restore would write the pre-image over whatever sits at
     // the far end rather than over the mutation.
-    let dir = temp_dir("symlink");
+    let scratch = temp_dir("symlink");
+    let dir = scratch.path();
     fs::write(dir.join("real.rs"), "content\n").expect("writing");
     std::os::unix::fs::symlink(dir.join("real.rs"), dir.join("link.rs")).expect("linking");
 
-    assert!(target_is_mutable(&dir, "link.rs").is_err());
-    assert!(target_is_mutable(&dir, "real.rs").is_ok());
-    fs::remove_dir_all(&dir).ok();
+    assert!(target_is_mutable(dir, "link.rs").is_err());
+    assert!(target_is_mutable(dir, "real.rs").is_ok());
 }
 
 // ---- claiming the record ----
@@ -396,31 +382,32 @@ fn a_second_claim_on_one_record_fails() {
     // The guarantee is atomicity, not politeness: two runs that both got past a check-then-write
     // leave four files mixing two runs, and a restore then writes one run's pre-image into the
     // other run's file.
-    let dir = temp_dir("claim");
+    let scratch = temp_dir("claim");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     record.claim().expect("the first claim");
     assert!(record.claim().is_err(), "the second claim must fail");
 
     record.clear().expect("clearing");
     record.claim().expect("claiming again after a clear");
-    fs::remove_dir_all(&dir).ok();
 }
 
 #[test]
 fn a_claim_is_visible_before_the_record_is_complete() {
-    let dir = temp_dir("claimed");
+    let scratch = temp_dir("claimed");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     record.claim().expect("claiming");
     assert!(record.claimed(), "the directory is taken");
     assert!(!record.exists(), "but no record has been written into it");
-    fs::remove_dir_all(&dir).ok();
 }
 
 #[test]
 fn a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run() {
     // `owner_is_alive` gates `restore`. Reporting the calling process as a live owner would make
     // every restore refuse.
-    let dir = temp_dir("owner");
+    let scratch = temp_dir("owner");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     record.claim().expect("claiming");
     assert!(!record.owner_is_alive());
@@ -433,21 +420,21 @@ fn a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run() {
         !record.owner_is_alive(),
         "an unreadable owner permits the restore"
     );
-    fs::remove_dir_all(&dir).ok();
 }
 
 // The claim: the record lives in the git directory of the repository that holds the root, where
 // neither `cargo clean` nor `git clean` reaches and the checker's walk never looks.
 #[test]
 fn the_record_lives_in_the_git_directory() {
-    let dir = temp_dir("gitdir");
+    let scratch = temp_dir("gitdir");
+    let dir = scratch.path();
     let init = Command::new("git")
         .args(["init", "-q", "."])
-        .current_dir(&dir)
+        .current_dir(dir)
         .status()
         .expect("running git init");
     assert!(init.success());
-    let record = record_dir(&dir).expect("git names the path");
+    let record = record_dir(dir).expect("git names the path");
     // The record does not exist yet, so its parent, which does, is what is compared.
     let parent = record.parent().expect("a parent");
     assert_eq!(
@@ -456,18 +443,17 @@ fn the_record_lives_in_the_git_directory() {
         "found {record:?}"
     );
     assert!(record.ends_with("knowledge-architect-mutate"));
-    fs::remove_dir_all(&dir).ok();
 }
 
 // The claim: completeness is checked per file: a record with its manifest and pre-image but no
 // mutant does not read as present.
 #[test]
 fn a_record_without_its_mutant_does_not_read_as_present() {
-    let dir = temp_dir("nomutant");
+    let scratch = temp_dir("nomutant");
+    let dir = scratch.path();
     let record = Record::at(dir.join("current"));
     record.claim().expect("claiming");
     fs::write(record.dir.join("manifest"), "f.rs").expect("manifest");
     fs::write(record.dir.join("pre-image"), "pre").expect("pre-image");
     assert!(!record.exists());
-    fs::remove_dir_all(&dir).ok();
 }

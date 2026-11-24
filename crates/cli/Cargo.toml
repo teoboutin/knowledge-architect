@@ -39,6 +39,8 @@ knowledge-architect-transcript = { path = "../transcript", version = "=0.10.0" }
 [dev-dependencies]
 # The manifest `init` writes, which its tests parse.
 toml = "1.1.4"
+# The directories the tests make, each removed when its test ends, a failed test's included.
+tempfile = "3"
 
 [lints]
 workspace = true

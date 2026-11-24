@@ -1014,27 +1014,24 @@ mod tests {
     use std::path::{Path, PathBuf};
 
     /// A fresh directory under the system's temporary directory, removed when dropped.
-    struct Scratch(PathBuf);
+    struct Scratch(tempfile::TempDir);
 
     impl Scratch {
         fn new(tag: &str) -> Self {
-            let dir =
-                std::env::temp_dir().join(format!("knowledge-pin-{tag}-{}", std::process::id()));
-            let _ = std::fs::remove_dir_all(&dir);
-            std::fs::create_dir_all(&dir).expect("a scratch directory");
-            Scratch(dir)
+            Scratch(
+                tempfile::TempDir::with_prefix(format!("klarch-pin-{tag}-"))
+                    .expect("a scratch directory"),
+            )
+        }
+
+        fn path(&self, rel: &str) -> PathBuf {
+            self.0.path().join(rel)
         }
 
         fn dir(&self, rel: &str) -> PathBuf {
-            let dir = self.0.join(rel);
+            let dir = self.path(rel);
             std::fs::create_dir_all(&dir).expect("a directory");
             dir
-        }
-    }
-
-    impl Drop for Scratch {
-        fn drop(&mut self) {
-            let _ = std::fs::remove_dir_all(&self.0);
         }
     }
 
@@ -1148,10 +1145,10 @@ mod tests {
         let tree = scratch.dir("tree");
         let own = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
-        let link = scratch.0.join("link-to-mock");
+        let link = scratch.path("link-to-mock");
         std::os::unix::fs::symlink(&mock, &link).expect("a symlink");
         assert!(is_a_library_fixture(&link, &own, &[]));
-        let own_link = scratch.0.join("link-to-check");
+        let own_link = scratch.path("link-to-check");
         std::os::unix::fs::symlink(&own, &own_link).expect("a symlink");
         let registry = scratch.dir("registry/knowledge-architect-0.2.0");
         assert!(is_a_library_fixture(&mock, &own_link, &[]));
@@ -1160,7 +1157,7 @@ mod tests {
             &registry,
             &[own_link.as_path()]
         ));
-        let tree_link = scratch.0.join("link-to-tree");
+        let tree_link = scratch.path("link-to-tree");
         std::os::unix::fs::symlink(&tree, &tree_link).expect("a symlink");
         assert!(is_its_own_build(&tree, &own_link, &always));
         assert!(is_its_own_build(&tree_link, &own, &always));

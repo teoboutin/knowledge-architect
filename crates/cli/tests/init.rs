@@ -6,32 +6,28 @@ use std::process::Command;
 
 /// A scratch directory under the system's temporary directory, outside every git worktree,
 /// removed when dropped.
-struct Scratch {
-    dir: PathBuf,
-}
+struct Scratch(tempfile::TempDir);
 
 impl Scratch {
     fn new(tag: &str) -> Self {
-        let dir = std::env::temp_dir().join(format!("klarch-init-{tag}-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).expect("a scratch directory");
-        Scratch { dir }
+        Scratch(
+            tempfile::TempDir::with_prefix(format!("klarch-init-{tag}-"))
+                .expect("a scratch directory"),
+        )
+    }
+
+    fn dir(&self) -> &Path {
+        self.0.path()
     }
 
     fn path(&self, rel: &str) -> PathBuf {
-        self.dir.join(rel)
+        self.dir().join(rel)
     }
 
     fn write(&self, rel: &str, text: &str) {
         let path = self.path(rel);
         std::fs::create_dir_all(path.parent().expect("a parent")).expect("a parent directory");
         std::fs::write(path, text).expect("a written file");
-    }
-}
-
-impl Drop for Scratch {
-    fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.dir);
     }
 }
 
@@ -92,7 +88,7 @@ fn listing(dir: &Path) -> Vec<PathBuf> {
 #[test]
 fn the_manifest_is_named_after_path_and_pinned_to_this_version() {
     let scratch = Scratch::new("pin");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "probe"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "probe"]);
     assert_eq!(code, 0, "{out}{err}");
     let manifest =
         std::fs::read_to_string(scratch.path("probe/knowledge-architect.toml")).expect("written");
@@ -113,7 +109,7 @@ fn the_manifest_is_named_after_path_and_pinned_to_this_version() {
 fn name_and_command_are_written_as_given() {
     let scratch = Scratch::new("named");
     let (out, err, code) = klarch(
-        &scratch.dir,
+        scratch.dir(),
         &[
             "init",
             "dir",
@@ -139,17 +135,17 @@ fn name_and_command_are_written_as_given() {
 #[test]
 fn a_manifest_at_path_refuses_and_one_above_does_not() {
     let scratch = Scratch::new("existing");
-    let (_, _, code) = klarch(&scratch.dir, &["init", "outer"]);
+    let (_, _, code) = klarch(scratch.dir(), &["init", "outer"]);
     assert_eq!(code, 0);
-    let before = listing(&scratch.dir);
-    let (out, err, code) = klarch(&scratch.dir, &["init", "outer"]);
+    let before = listing(scratch.dir());
+    let (out, err, code) = klarch(scratch.dir(), &["init", "outer"]);
     assert_eq!(code, 2, "{out}{err}");
     assert!(
         err.contains("already holds knowledge-architect.toml"),
         "{err}"
     );
     assert_eq!(
-        listing(&scratch.dir),
+        listing(scratch.dir()),
         before,
         "a refused run writes nothing"
     );
@@ -169,18 +165,18 @@ fn a_manifest_at_path_refuses_and_one_above_does_not() {
 fn a_refused_name_writes_nothing() {
     let scratch = Scratch::new("names");
     for name in ["design", "plans", "elsewhere", "knowledge-architect-x"] {
-        let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--name", name]);
+        let (out, err, code) = klarch(scratch.dir(), &["init", "p", "--name", name]);
         assert_eq!(code, 2, "{name}: {out}{err}");
         assert!(!scratch.path("p").exists(), "{name}: PATH was created");
     }
     // A name taken from PATH reaches no declaration, so `init` refuses it itself.
     for path in ["knowledge-architect-x", "plans"] {
-        let (out, err, code) = klarch(&scratch.dir, &["init", path]);
+        let (out, err, code) = klarch(scratch.dir(), &["init", path]);
         assert_eq!(code, 2, "{path}: {out}{err}");
         assert!(!scratch.path(path).exists(), "{path}: PATH was created");
     }
     let (out, err, code) = klarch(
-        &scratch.dir,
+        scratch.dir(),
         &["init", "p", "--name", "knowledge-architect"],
     );
     assert_eq!(code, 0, "{out}{err}");
@@ -195,13 +191,13 @@ fn a_refused_name_writes_nothing() {
 fn a_name_refused_by_its_form_is_refused_while_parsing() {
     let scratch = Scratch::new("name-parse");
     scratch.write("knowledge-architect.toml", "held\n");
-    let before = listing(&scratch.dir);
+    let before = listing(scratch.dir());
     for name in ["knowledge-architect-x", "*", "plans"] {
-        let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", name]);
+        let (out, err, code) = klarch(scratch.dir(), &["init", ".", "--name", name]);
         assert_eq!(code, 2, "{name}: {out}{err}");
         assert!(err.starts_with("error: invalid value"), "{name}: {err}");
     }
-    assert_eq!(listing(&scratch.dir), before);
+    assert_eq!(listing(scratch.dir()), before);
     assert_eq!(
         std::fs::read_to_string(scratch.path("knowledge-architect.toml")).expect("kept"),
         "held\n"
@@ -216,22 +212,25 @@ fn the_git_rule_holds_in_every_case() {
     let repo = |rel: &str| scratch.path(rel).join(".git").exists();
 
     // Outside every worktree.
-    assert_eq!(klarch(&scratch.dir, &["init", "new"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "new"]).2, 0);
     assert!(repo("new"), "a new directory gets a repository");
     std::fs::create_dir_all(scratch.path("empty")).unwrap();
-    assert_eq!(klarch(&scratch.dir, &["init", "empty"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "empty"]).2, 0);
     assert!(repo("empty"), "an empty directory gets a repository");
     scratch.write("full/notes.txt", "mine");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "full"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "full"]);
     assert_eq!(code, 2, "{out}{err}");
     assert!(err.contains("--vcs git"), "{err}");
     assert!(!scratch.path("full/knowledge-architect.toml").exists());
     assert!(!repo("full"));
-    assert_eq!(klarch(&scratch.dir, &["init", "full", "--vcs", "git"]).2, 0);
+    assert_eq!(
+        klarch(scratch.dir(), &["init", "full", "--vcs", "git"]).2,
+        0
+    );
     assert!(repo("full"));
     scratch.write("bare/notes.txt", "mine");
     assert_eq!(
-        klarch(&scratch.dir, &["init", "bare", "--vcs", "none"]).2,
+        klarch(scratch.dir(), &["init", "bare", "--vcs", "none"]).2,
         0
     );
     assert!(!repo("bare") && scratch.path("bare/knowledge-architect.toml").is_file());
@@ -257,7 +256,7 @@ fn the_git_rule_holds_in_every_case() {
 #[test]
 fn init_then_check_passes_at_the_root() {
     let scratch = Scratch::new("ac3-root");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "probe"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "probe"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.contains("PASSED: no findings"), "{out}");
     let (out, err, code) = klarch(&scratch.path("probe"), &["check"]);
@@ -275,7 +274,7 @@ fn init_then_check_passes_at_the_root() {
 #[test]
 fn init_writes_a_plans_directory_a_first_spec_leaves_true() {
     let scratch = Scratch::new("plans-layout");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "probe"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "probe"]);
     assert_eq!(code, 0, "{out}{err}");
     let root = scratch.path("probe");
     for home in [
@@ -335,10 +334,10 @@ fn init_writes_a_plans_directory_a_first_spec_leaves_true() {
 #[test]
 fn existing_documents_are_kept() {
     let scratch = Scratch::new("kept");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     scratch.write("README.md", "# Mine\n\nMy own words.\n");
     scratch.write("CLAUDE.md", "# Mine\n\nMy own instructions.\n");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "--name", "mine"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "--name", "mine"]);
     assert_eq!(code, 1, "{out}{err}");
     assert!(out.contains("kept     README.md"), "{out}");
     assert!(out.contains("kept     CLAUDE.md"), "{out}");
@@ -365,10 +364,10 @@ fn existing_documents_are_kept() {
 #[test]
 fn an_unwritable_destination_refuses_before_any_write() {
     let scratch = Scratch::new("unwritable");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     std::fs::create_dir_all(scratch.path("a/README.md")).unwrap();
     let before = listing(&scratch.path("a"));
-    let (out, err, code) = klarch(&scratch.dir, &["init", "a"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "a"]);
     assert_eq!(code, 2, "{out}{err}");
     assert_eq!(listing(&scratch.path("a")), before);
 
@@ -379,7 +378,7 @@ fn an_unwritable_destination_refuses_before_any_write() {
         scratch.path("b/docs/goals.md"),
     )
     .unwrap();
-    let (out, err, code) = klarch(&scratch.dir, &["init", "b"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "b"]);
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("b/knowledge-architect.toml").exists());
     assert_eq!(
@@ -393,7 +392,7 @@ fn an_unwritable_destination_refuses_before_any_write() {
 #[test]
 fn outside_a_worktree_the_run_stops_before_the_indexes() {
     let scratch = Scratch::new("no-vcs");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--vcs", "none"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "p", "--vcs", "none"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.contains("git init"), "{out}");
     assert!(scratch.path("p/docs/goals.md").is_file());
@@ -410,7 +409,10 @@ fn outside_a_worktree_the_run_stops_before_the_indexes() {
 fn outside_a_worktree_a_removed_namespace_file_is_listed() {
     let scratch = Scratch::new("no-vcs-removed");
     scratch.write(".claude/agents/knowledge-architect-mine.md", "mine\n");
-    let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", "p", "--vcs", "none"]);
+    let (out, err, code) = klarch(
+        scratch.dir(),
+        &["init", ".", "--name", "p", "--vcs", "none"],
+    );
     assert_eq!(code, 0, "{out}{err}");
     assert!(
         !scratch
@@ -441,7 +443,10 @@ fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
         scratch.path(".claude/agents/knowledge-architect-mine.md"),
     )
     .unwrap();
-    let (out, err, code) = klarch(&scratch.dir, &["init", ".", "--name", "p", "--vcs", "none"]);
+    let (out, err, code) = klarch(
+        scratch.dir(),
+        &["init", ".", "--name", "p", "--vcs", "none"],
+    );
     assert_eq!(code, 1, "{out}{err}");
     assert!(err.contains("symbolic link"), "{err}");
     // What the install wrote before the refusal is listed all the same, since no git holds it.
@@ -460,7 +465,7 @@ fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
 #[test]
 fn new_component_over_a_clean_index_says_nothing_of_staged_changes() {
     let scratch = Scratch::new("clean-component");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let p = scratch.path("p");
     git(&p, &["add", "-A"]);
     git(
@@ -514,7 +519,7 @@ fn comment_lines(text: &str) -> Vec<String> {
 #[test]
 fn new_component_over_staged_changes_says_why_it_stops_and_how_to_finish() {
     let scratch = Scratch::new("staged-component");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let p = scratch.path("p");
     git(&p, &["add", "-A"]);
     git(
@@ -579,7 +584,7 @@ fn new_component_over_staged_changes_says_why_it_stops_and_how_to_finish() {
 #[test]
 fn new_component_keeps_every_comment_of_the_manifest() {
     let scratch = Scratch::new("ac1");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let path = scratch.path("p/knowledge-architect.toml");
     let text = std::fs::read_to_string(&path).unwrap();
     let text = format!("# above the project table\n{text}")
@@ -611,7 +616,7 @@ fn new_component_keeps_every_comment_of_the_manifest() {
     {
         let project = format!("q{case}");
         let args = ["init", &project, "--component", "a", "--component", "b"];
-        assert_eq!(klarch(&scratch.dir, &args).2, 0);
+        assert_eq!(klarch(scratch.dir(), &args).2, 0);
         let path = scratch.path(&format!("{project}/knowledge-architect.toml"));
         let written = std::fs::read_to_string(&path).unwrap();
         let line = written
@@ -645,7 +650,7 @@ fn new_component_keeps_every_comment_of_the_manifest() {
 #[test]
 fn a_component_added_either_way_passes_the_check() {
     let scratch = Scratch::new("ac3-component");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let (out, err, code) = klarch(&scratch.path("p"), &["new-component", "crates/check"]);
     assert_eq!(code, 0, "{out}{err}");
     // The root alone carries the goals home, so `new-component` writes the Component's other
@@ -654,7 +659,7 @@ fn a_component_added_either_way_passes_the_check() {
     assert!(!scratch.path("p/crates/check/docs/goals.md").exists());
     assert_eq!(klarch(&scratch.path("p"), &["check"]).2, 0);
 
-    let (out, err, code) = klarch(&scratch.dir, &["init", "q", "--component", "svc"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "q", "--component", "svc"]);
     assert_eq!(code, 0, "{out}{err}");
     let manifest = std::fs::read_to_string(scratch.path("q/knowledge-architect.toml")).unwrap();
     assert_eq!(manifest.matches("\"svc\"").count(), 1, "{manifest}");
@@ -667,7 +672,7 @@ fn a_component_added_either_way_passes_the_check() {
 #[test]
 fn new_component_refuses_before_any_write() {
     let scratch = Scratch::new("nc-refuse");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let manifest = scratch.path("p/knowledge-architect.toml");
     let before = std::fs::read_to_string(&manifest).unwrap();
 
@@ -697,7 +702,7 @@ fn new_component_refuses_before_any_write() {
 #[test]
 fn init_rust_then_check_passes() {
     let scratch = Scratch::new("ac3-rust");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "my-proj", "--rust"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "my-proj", "--rust"]);
     assert_eq!(code, 0, "{out}{err}");
     assert_eq!(klarch(&scratch.path("my-proj"), &["check"]).2, 0);
     let read = |rel: &str| std::fs::read_to_string(scratch.path("my-proj").join(rel)).unwrap();
@@ -726,7 +731,7 @@ fn init_rust_then_check_passes() {
 fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
     let scratch = Scratch::new("rust-ignore");
     scratch.write("a/.gitignore", "mine");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "a", "--rust", "--vcs", "git"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "a", "--rust", "--vcs", "git"]);
     assert_eq!(code, 0, "{out}{err}");
     assert_eq!(
         std::fs::read_to_string(scratch.path("a/.gitignore")).unwrap(),
@@ -734,7 +739,7 @@ fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
     );
 
     scratch.write("b/.gitignore", "target/\n");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "b", "--rust", "--vcs", "git"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "b", "--rust", "--vcs", "git"]);
     assert_eq!(code, 0, "{out}{err}");
     assert_eq!(
         std::fs::read_to_string(scratch.path("b/.gitignore")).unwrap(),
@@ -743,7 +748,7 @@ fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
 
     scratch.write("c/Cargo.toml", "[package]\nname = \"c\"\n");
     let before = listing(&scratch.path("c"));
-    let (out, err, code) = klarch(&scratch.dir, &["init", "c", "--rust", "--vcs", "git"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "c", "--rust", "--vcs", "git"]);
     assert_eq!(code, 2, "{out}{err}");
     assert_eq!(listing(&scratch.path("c")), before);
 }
@@ -756,13 +761,13 @@ fn rust_keeps_the_gitignore_and_refuses_an_existing_cargo_toml() {
 fn rust_refuses_a_component_its_ignore_rule_would_ignore() {
     let scratch = Scratch::new("rust-target");
     for dir in ["target", "target/sub"] {
-        let (out, err, code) = klarch(&scratch.dir, &["init", "p", "--rust", "--component", dir]);
+        let (out, err, code) = klarch(scratch.dir(), &["init", "p", "--rust", "--component", dir]);
         assert_eq!(code, 2, "{out}{err}");
         assert!(err.contains("lies at or under `target`"), "{err}");
         assert!(!scratch.path("p").exists(), "nothing is written for {dir}");
     }
     let (out, err, code) = klarch(
-        &scratch.dir,
+        scratch.dir(),
         &["init", "p", "--rust", "--component", "targets"],
     );
     assert_eq!(code, 0, "{out}{err}");
@@ -814,7 +819,7 @@ fn the_git_rule_holds_at_its_edges() {
 
     std::fs::create_dir_all(scratch.path("root")).unwrap();
     git(&scratch.path("root"), &["init", "-q"]);
-    let (out, err, code) = klarch(&scratch.dir, &["init", "root", "--vcs", "git"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "root", "--vcs", "git"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(!out.contains("created  a git repository"), "{out}");
 
@@ -838,7 +843,7 @@ fn the_git_rule_holds_at_its_edges() {
     // An index named by the caller is refused; a variable selecting another repository is
     // removed, so `init` creates the new directory's own repository and leaves host's alone.
     let (out, err, code) = klarch_env(
-        &scratch.dir,
+        scratch.dir(),
         &["init", "indexed"],
         &[(
             "GIT_INDEX_FILE",
@@ -855,7 +860,7 @@ fn the_git_rule_holds_at_its_edges() {
     ] {
         let dir = format!("hooked-{}", variable.to_lowercase().replace('_', "-"));
         let (out, err, code) = klarch_env(
-            &scratch.dir,
+            scratch.dir(),
             &["init", &dir],
             &[(variable, scratch.path(value).to_str().unwrap())],
         );
@@ -873,13 +878,13 @@ fn the_git_rule_holds_at_its_edges() {
 #[test]
 fn rust_refuses_what_it_would_overwrite_or_nest_in() {
     let scratch = Scratch::new("rust-refuse");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     let refused = |rel: &str| {
-        let before = listing(&scratch.dir);
-        let (out, err, code) = klarch(&scratch.dir, &["init", rel, "--rust"]);
+        let before = listing(scratch.dir());
+        let (out, err, code) = klarch(scratch.dir(), &["init", rel, "--rust"]);
         assert_eq!(code, 2, "{rel}: {out}{err}");
         assert_eq!(
-            listing(&scratch.dir),
+            listing(scratch.dir()),
             before,
             "{rel}: a refused run writes nothing"
         );
@@ -912,7 +917,7 @@ fn the_gitignore_rule_follows_what_git_ignores() {
     let scratch = Scratch::new("ignore");
     let after = |rel: &str, given: &str, vcs: &str| -> String {
         scratch.write(&format!("{rel}/.gitignore"), given);
-        let (out, err, code) = klarch(&scratch.dir, &["init", rel, "--rust", "--vcs", vcs]);
+        let (out, err, code) = klarch(scratch.dir(), &["init", rel, "--rust", "--vcs", vcs]);
         assert_eq!(code, 0, "{rel}: {out}{err}");
         std::fs::read_to_string(scratch.path(rel).join(".gitignore")).unwrap()
     };
@@ -954,9 +959,9 @@ fn the_gitignore_rule_follows_what_git_ignores() {
 fn a_failure_after_the_first_write_exits_one() {
     use std::os::unix::fs::PermissionsExt;
     let scratch = Scratch::new("late-failure");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     scratch.write("a/.claude", "a file where a directory is due");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "a"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "a"]);
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("a/knowledge-architect.toml").exists());
 
@@ -991,7 +996,7 @@ fn a_failure_after_the_first_write_exits_one() {
         std::fs::Permissions::from_mode(0o555),
     )
     .unwrap();
-    let (out, err, code) = klarch(&scratch.dir, &["init", "b"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "b"]);
     std::fs::set_permissions(
         scratch.path("b/docs"),
         std::fs::Permissions::from_mode(0o755),
@@ -1008,7 +1013,7 @@ fn a_failure_after_the_first_write_exits_one() {
         std::fs::Permissions::from_mode(0o555),
     )
     .unwrap();
-    let (out, err, code) = klarch(&scratch.dir, &["init", "c"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "c"]);
     std::fs::set_permissions(
         scratch.path("c/.claude"),
         std::fs::Permissions::from_mode(0o755),
@@ -1017,7 +1022,7 @@ fn a_failure_after_the_first_write_exits_one() {
     assert_eq!(code, 1, "{out}{err}");
 
     // `new-component` writes the manifest, then fails on a read-only Component directory.
-    assert_eq!(klarch(&scratch.dir, &["init", "d"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "d"]).2, 0);
     std::fs::create_dir_all(scratch.path("d/svc")).unwrap();
     std::fs::set_permissions(
         scratch.path("d/svc"),
@@ -1043,12 +1048,12 @@ fn a_failure_after_the_first_write_exits_one() {
 #[test]
 fn init_refuses_every_destination_it_cannot_write_safely() {
     let scratch = Scratch::new("destinations");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     let refused = |args: &[&str], dir: &str| {
-        let before = listing(&scratch.dir);
-        let (out, err, code) = klarch(&scratch.dir, args);
+        let before = listing(scratch.dir());
+        let (out, err, code) = klarch(scratch.dir(), args);
         assert_eq!(code, 2, "{args:?}: {out}{err}");
-        assert_eq!(listing(&scratch.dir), before, "{args:?}: nothing written");
+        assert_eq!(listing(scratch.dir()), before, "{args:?}: nothing written");
         let _ = dir;
     };
     std::fs::create_dir_all(scratch.path("a1")).unwrap();
@@ -1089,7 +1094,7 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     let nogit = scratch.path("no-git-bin");
     std::fs::create_dir_all(&nogit).unwrap();
     let (out, err, code) = klarch_env(
-        &scratch.dir,
+        scratch.dir(),
         &["init", "ng", "--vcs", "none"],
         &[("PATH", nogit.to_str().unwrap())],
     );
@@ -1116,7 +1121,7 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     refused(&["init", "cb", "--component", "build"], "cb");
 
     scratch.write("ks/docs/design/README.md", "# Our design\n");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "ks"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "ks"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.contains("kept     docs/design/README.md"), "{out}");
     assert!(!scratch.path("ks/docs/design.md").exists());
@@ -1127,12 +1132,12 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
 #[test]
 fn init_refuses_a_foreign_build_over_path() {
     let scratch = Scratch::new("foreign");
-    git(&scratch.dir, &["init", "-q"]);
+    git(scratch.dir(), &["init", "-q"]);
     scratch.write(
         "copy/crates/cli/Cargo.toml",
         "[package]\nname = \"knowledge-architect\"\n",
     );
-    let (out, err, code) = klarch(&scratch.dir, &["init", "copy", "--name", "copy"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "copy", "--name", "copy"]);
     assert_eq!(code, 2, "{out}{err}");
     // The refusal names what to clean, every package the binary links.
     assert!(err.contains("-p knowledge-architect-check"), "{err}");
@@ -1145,7 +1150,7 @@ fn init_refuses_a_foreign_build_over_path() {
 #[test]
 fn new_component_keeps_the_manifest_whole() {
     let scratch = Scratch::new("nc-whole");
-    assert_eq!(klarch(&scratch.dir, &["init", "p"]).2, 0);
+    assert_eq!(klarch(scratch.dir(), &["init", "p"]).2, 0);
     let manifest = scratch.path("p/knowledge-architect.toml");
     let before = std::fs::read_to_string(&manifest).unwrap();
     std::fs::create_dir_all(scratch.path("p/svc/README.md")).unwrap();
@@ -1192,7 +1197,7 @@ fn a_closed_stdout_leaves_every_document_written() {
     };
     let status = Command::new(env!("CARGO_BIN_EXE_klarch"))
         .args(["init", "p"])
-        .current_dir(&scratch.dir)
+        .current_dir(scratch.dir())
         .stdin(std::process::Stdio::null())
         .stdout(full())
         .stderr(std::process::Stdio::null())
@@ -1238,7 +1243,7 @@ fn a_closed_stdout_leaves_every_document_written() {
 fn a_component_over_an_installed_file_refuses_before_any_write() {
     let scratch = Scratch::new("over-installed");
     let (out, err, code) = klarch(
-        &scratch.dir,
+        scratch.dir(),
         &[
             "init",
             "p",
@@ -1259,7 +1264,7 @@ fn a_component_over_an_installed_file_refuses_before_any_write() {
 #[test]
 fn init_lists_the_repository_the_kept_gitignore_and_the_enclosing_project() {
     let scratch = Scratch::new("listed");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "outer"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "outer"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(
         out.lines().any(|l| l == "created  a git repository"),
@@ -1279,7 +1284,7 @@ fn init_lists_the_repository_the_kept_gitignore_and_the_enclosing_project() {
     );
 
     scratch.write("r/.gitignore", "target/\n");
-    let (out, err, code) = klarch(&scratch.dir, &["init", "r", "--rust", "--vcs", "git"]);
+    let (out, err, code) = klarch(scratch.dir(), &["init", "r", "--rust", "--vcs", "git"]);
     assert_eq!(code, 0, "{out}{err}");
     assert!(out.lines().any(|l| l == "kept     .gitignore"), "{out}");
 }

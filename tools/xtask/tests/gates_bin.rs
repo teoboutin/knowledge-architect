@@ -7,7 +7,7 @@
 // `design@knowledge-architect@a-build-is-tied-to-its-checkout`.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::{Command, Stdio};
 
 /// A directory holding the checker's manifest (so the tool accepts it as a project root) and,
@@ -15,8 +15,10 @@ use std::process::{Command, Stdio};
 /// `RUSTC_BOOTSTRAP`, `KNOWLEDGE_ARCHITECT_CI` and `CARGO_ENCODED_RUSTDOCFLAGS` it received — sleeps
 /// briefly so the caller can act while gates are
 /// still running, and fails when `FAIL_ON` names a substring of its arguments.
-fn fake_project(name: &str) -> PathBuf {
-    let dir = std::env::temp_dir().join(format!("xtask-gates-bin-{name}-{}", std::process::id()));
+fn fake_project(name: &str) -> tempfile::TempDir {
+    let scratch = tempfile::TempDir::with_prefix(format!("klarch-gates-bin-{name}-"))
+        .expect("a scratch directory");
+    let dir = scratch.path();
     let bin = dir.join("bin");
     std::fs::create_dir_all(&bin).expect("the fake project can be created");
     std::fs::write(dir.join("knowledge-architect.toml"), "")
@@ -37,7 +39,7 @@ exit 0
     use std::os::unix::fs::PermissionsExt;
     permissions.set_mode(0o755);
     std::fs::set_permissions(&cargo, permissions).expect("the stub can be made executable");
-    dir
+    scratch
 }
 
 fn xtask_in(project: &Path, fail_on: &str) -> Command {
@@ -102,15 +104,15 @@ fn with_history(project: &Path, origin_at: &str) {
 // `abort` made `ExitCode::FAILURE` fails it.
 #[test]
 fn outside_a_project_the_gates_exit_two() {
-    let project = fake_project("outside");
+    let scratch = fake_project("outside");
+    let project = scratch.path();
     std::fs::remove_file(project.join("knowledge-architect.toml")).expect("the marker removed");
-    let output = xtask_in(&project, "")
+    let output = xtask_in(project, "")
         .output()
         .expect("the built xtask binary runs");
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert_eq!(output.status.code(), Some(2), "{stderr}");
     assert!(stderr.contains("not inside the project"), "{stderr}");
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim behind `design@gates@gates-refuse-a-pipe`: a pipe on stdout is
@@ -120,8 +122,9 @@ fn outside_a_project_the_gates_exit_two() {
 // gate run and pass, and both assertions name it.
 #[test]
 fn a_piped_stdout_is_refused_before_any_gate_runs() {
-    let project = fake_project("pipe");
-    let output = xtask_in(&project, "")
+    let scratch = fake_project("pipe");
+    let project = scratch.path();
+    let output = xtask_in(project, "")
         .stdout(Stdio::piped())
         .output()
         .expect("the built xtask binary runs");
@@ -136,7 +139,6 @@ fn a_piped_stdout_is_refused_before_any_gate_runs() {
         !project.join("target/gates/fmt.log").is_file(),
         "no gate may run before the refusal"
     );
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: a failing gate fails the run while the gates after it still run and log —
@@ -144,13 +146,13 @@ fn a_piped_stdout_is_refused_before_any_gate_runs() {
 // later gates is caught by the exit assertion and the test.log presence.
 #[test]
 fn a_failing_gate_fails_the_run_and_the_rest_still_log() {
-    let project = fake_project("redgate");
-    let (status, stdout, _) = gates_output(&project, "clippy");
+    let scratch = fake_project("redgate");
+    let project = scratch.path();
+    let (status, stdout, _) = gates_output(project, "clippy");
     assert!(!status.success());
     assert!(stdout.contains("clippy     FAILED"));
     assert!(stdout.contains("induced failure"), "the extract is shown");
     assert!(project.join("target/gates/test.log").is_file());
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: a gate's child never inherits a caller-exported RUSTC_BOOTSTRAP either — a
@@ -160,15 +162,16 @@ fn a_failing_gate_fails_the_run_and_the_rest_still_log() {
 // `xtask_in` exports the hostile value.
 #[test]
 fn gate_children_never_inherit_a_caller_exported_bootstrap() {
-    let project = fake_project("scrubbed");
-    let (status, stdout, stderr) = gates_output(&project, "");
+    let scratch = fake_project("scrubbed");
+    let project = scratch.path();
+    let (status, stdout, stderr) = gates_output(project, "");
     // The run failed once in a full gates run and never on demand, per
     // `issue@xtask@gates-binary-tests-fail-when-a-fake-program-they-wrote-is-busy`: a failure prints
     // what the run said and every gate log it left, so the next one can be read.
     assert!(
         status.success(),
         "{status:?}\nstdout:\n{stdout}\nstderr:\n{stderr}\nlogs:\n{}",
-        gate_logs(&project)
+        gate_logs(project)
     );
     let log = std::fs::read_to_string(project.join("target/gates/test.log"))
         .expect("the test gate log was written");
@@ -176,7 +179,6 @@ fn gate_children_never_inherit_a_caller_exported_bootstrap() {
         log.contains("bootstrap=[]"),
         "the export was scrubbed: {log}"
     );
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim, per the doc comment of `Gate::envs`: a gate's own variable replaces one of the same
@@ -187,9 +189,10 @@ fn gate_children_never_inherit_a_caller_exported_bootstrap() {
 // assertion on the doc gate's log.
 #[test]
 fn a_gate_s_own_variable_replaces_a_caller_exported_one() {
-    let project = fake_project("replaced");
+    let scratch = fake_project("replaced");
+    let project = scratch.path();
     let (status, stdout, _) = gates_output_with(
-        &project,
+        project,
         "",
         &[],
         &[("CARGO_ENCODED_RUSTDOCFLAGS", "--cfg\u{1f}x")],
@@ -210,7 +213,6 @@ fn a_gate_s_own_variable_replaces_a_caller_exported_one() {
         "{}",
         log("test")
     );
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: `--locked` reaches every gate that resolves dependencies, before any `--`, and
@@ -219,8 +221,9 @@ fn a_gate_s_own_variable_replaces_a_caller_exported_one() {
 // check and clippy assertions; dropping it from one gate fails that gate's assertion.
 #[test]
 fn locked_reaches_every_gate_that_resolves_dependencies() {
-    let project = fake_project("locked");
-    let (status, stdout, _) = gates_output_with(&project, "", &["--locked"], &[]);
+    let scratch = fake_project("locked");
+    let project = scratch.path();
+    let (status, stdout, _) = gates_output_with(project, "", &["--locked"], &[]);
     assert!(status.success(), "{stdout}");
     let log = |gate: &str| {
         std::fs::read_to_string(project.join(format!("target/gates/{gate}.log")))
@@ -255,9 +258,8 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
     // `--locked` sets no other flag's variable.
     assert!(log("test").contains("ci=[]"), "{}", log("test"));
     // Without the flag, no gate receives it.
-    let (_, _, _) = gates_output_with(&project, "", &[], &[]);
+    let (_, _, _) = gates_output_with(project, "", &[], &[]);
     assert!(!log("test").contains("--locked"), "{}", log("test"));
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: `--ci` sets `KNOWLEDGE_ARCHITECT_CI` in every gate's environment, the test gate's
@@ -266,22 +268,22 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
 // fails the assertion on `ci=[1]` in the loop over the gates.
 #[test]
 fn ci_reaches_every_gate() {
-    let project = fake_project("ci");
+    let scratch = fake_project("ci");
+    let project = scratch.path();
     let log = |gate: &str| {
         std::fs::read_to_string(project.join(format!("target/gates/{gate}.log")))
             .unwrap_or_else(|_| panic!("the {gate} log was written"))
     };
-    let (status, stdout, _) = gates_output_with(&project, "", &["--ci"], &[]);
+    let (status, stdout, _) = gates_output_with(project, "", &["--ci"], &[]);
     assert!(status.success(), "{stdout}");
     for gate in ["fmt", "check", "commits", "clippy", "doc", "test"] {
         assert!(log(gate).contains("ci=[1]"), "{}", log(gate));
     }
-    let (status, stdout, _) = gates_output_with(&project, "", &[], &[]);
+    let (status, stdout, _) = gates_output_with(project, "", &[], &[]);
     assert!(status.success(), "{stdout}");
     for gate in ["fmt", "check", "commits", "clippy", "doc", "test"] {
         assert!(log(gate).contains("ci=[]"), "{}", log(gate));
     }
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: under `--require-rebased`, a HEAD that does not contain origin/main fails the
@@ -289,49 +291,49 @@ fn ci_reaches_every_gate() {
 // check: inverting the ancestry arguments passes the unrebased case and fails the rebased one.
 #[test]
 fn require_rebased_fails_a_branch_main_has_moved_past() {
-    let project = fake_project("unrebased");
-    with_history(&project, "side");
-    let (status, stdout, _) = gates_output_with(&project, "", &["--require-rebased"], &[]);
+    let scratch = fake_project("unrebased");
+    let project = scratch.path();
+    with_history(project, "side");
+    let (status, stdout, _) = gates_output_with(project, "", &["--require-rebased"], &[]);
     assert!(!status.success(), "{stdout}");
     assert!(stdout.contains("rebased    FAILED"), "{stdout}");
     assert!(
         stdout.contains("does not contain origin/main"),
         "the extract says why: {stdout}"
     );
-    let _ = std::fs::remove_dir_all(&project);
 
-    let project = fake_project("rebased");
-    with_history(&project, "base");
-    let (status, stdout, _) = gates_output_with(&project, "", &["--require-rebased"], &[]);
+    let scratch = fake_project("rebased");
+    let project = scratch.path();
+    with_history(project, "base");
+    let (status, stdout, _) = gates_output_with(project, "", &["--require-rebased"], &[]);
     assert!(status.success(), "{stdout}");
     assert!(stdout.contains("rebased    ok"), "{stdout}");
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 #[test]
 fn without_require_rebased_no_rebased_gate_runs() {
-    let project = fake_project("norebase");
-    with_history(&project, "side");
-    let (status, stdout, _) = gates_output_with(&project, "", &[], &[]);
+    let scratch = fake_project("norebase");
+    let project = scratch.path();
+    with_history(project, "side");
+    let (status, stdout, _) = gates_output_with(project, "", &[], &[]);
     assert!(status.success(), "{stdout}");
     assert!(!stdout.contains("rebased"), "{stdout}");
     assert!(!project.join("target/gates/rebased.log").exists());
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: the variable must say `true`; any other value leaves the refusal in place.
 // Mutation check: reading the variable's presence alone is caught here.
 #[test]
 fn a_piped_stdout_is_refused_when_the_actions_variable_is_not_true() {
-    let project = fake_project("actions-false");
-    let output = xtask_in(&project, "")
+    let scratch = fake_project("actions-false");
+    let project = scratch.path();
+    let output = xtask_in(project, "")
         .env("GITHUB_ACTIONS", "false")
         .stdout(Stdio::piped())
         .output()
         .expect("the built xtask binary runs");
     assert!(!output.status.success());
     assert!(!project.join("target/gates/fmt.log").is_file());
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: under Actions, a pipe on stdout is accepted, because the reader there is the
@@ -339,8 +341,9 @@ fn a_piped_stdout_is_refused_when_the_actions_variable_is_not_true() {
 // `under_actions` condition from the refusal is caught by the success assertion.
 #[test]
 fn a_piped_stdout_is_accepted_under_actions() {
-    let project = fake_project("actions-pipe");
-    let output = xtask_in(&project, "")
+    let scratch = fake_project("actions-pipe");
+    let project = scratch.path();
+    let output = xtask_in(project, "")
         .env("GITHUB_ACTIONS", "true")
         .stdout(Stdio::piped())
         .output()
@@ -351,7 +354,6 @@ fn a_piped_stdout_is_accepted_under_actions() {
         String::from_utf8_lossy(&output.stderr)
     );
     assert!(project.join("target/gates/test.log").is_file());
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 // The claim: under Actions each gate is wrapped in a group and a failed gate prints one error
@@ -359,9 +361,10 @@ fn a_piped_stdout_is_accepted_under_actions() {
 // annotations unconditionally is caught by the second half.
 #[test]
 fn annotations_appear_under_actions_alone() {
-    let project = fake_project("annotations");
+    let scratch = fake_project("annotations");
+    let project = scratch.path();
     let (status, stdout, _) =
-        gates_output_with(&project, "clippy", &[], &[("GITHUB_ACTIONS", "true")]);
+        gates_output_with(project, "clippy", &[], &[("GITHUB_ACTIONS", "true")]);
     assert!(!status.success());
     assert!(stdout.contains("::group::fmt\n"), "{stdout}");
     // The verdict line follows the group's end, so it stays visible with the group folded.
@@ -372,10 +375,9 @@ fn annotations_appear_under_actions_alone() {
     assert_eq!(stdout.matches("::error ").count(), 1, "{stdout}");
     assert!(stdout.contains("::error title=clippy::"), "{stdout}");
 
-    let (_, stdout, _) = gates_output_with(&project, "clippy", &[], &[]);
+    let (_, stdout, _) = gates_output_with(project, "clippy", &[], &[]);
     assert!(!stdout.contains("::group::"), "{stdout}");
     assert!(!stdout.contains("::error"), "{stdout}");
-    let _ = std::fs::remove_dir_all(&project);
 }
 
 /// Every gate log a run left in the fake project, each under its file name, for a failure's message.

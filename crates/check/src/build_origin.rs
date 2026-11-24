@@ -129,21 +129,22 @@ mod tests {
     use super::*;
 
     /// A fresh directory under the system's temporary directory, removed when dropped.
-    struct Scratch(PathBuf);
+    struct Scratch(tempfile::TempDir);
 
     impl Scratch {
         fn new(tag: &str) -> Self {
-            let dir = std::env::temp_dir().join(format!(
-                "knowledge-build-origin-{tag}-{}",
-                std::process::id()
-            ));
-            let _ = std::fs::remove_dir_all(&dir);
-            std::fs::create_dir_all(&dir).expect("a scratch directory");
-            Scratch(dir)
+            Scratch(
+                tempfile::TempDir::with_prefix(format!("klarch-build-origin-{tag}-"))
+                    .expect("a scratch directory"),
+            )
+        }
+
+        fn path(&self, rel: &str) -> PathBuf {
+            self.0.path().join(rel)
         }
 
         fn crate_at(&self, rel: &str, package: &str) -> PathBuf {
-            let dir = self.0.join(rel);
+            let dir = self.path(rel);
             std::fs::create_dir_all(&dir).expect("a crate directory");
             std::fs::write(
                 dir.join("Cargo.toml"),
@@ -151,12 +152,6 @@ mod tests {
             )
             .expect("a crate manifest");
             dir
-        }
-    }
-
-    impl Drop for Scratch {
-        fn drop(&mut self) {
-            let _ = std::fs::remove_dir_all(&self.0);
         }
     }
 
@@ -172,7 +167,7 @@ mod tests {
         let scratch = Scratch::new("second-checkout");
         let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
         let copy = scratch.crate_at("two/tools/tool/lib", "a-tool");
-        let found = foreign_copy(&scratch.0.join("two"), &[library(built)]);
+        let found = foreign_copy(&scratch.path("two"), &[library(built)]);
         assert_eq!(
             found.map(|(_, dir)| dir.canonicalize().expect("the copy")),
             Some(copy.canonicalize().expect("the copy"))
@@ -185,21 +180,21 @@ mod tests {
         let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
         // The ordinary case: the tree holds the compiled directory.
         assert_eq!(
-            foreign_copy(&scratch.0.join("one"), &[library(built.clone())]),
+            foreign_copy(&scratch.path("one"), &[library(built.clone())]),
             None
         );
         // A mock project under the tool's own directory holds no copy.
-        let mock = scratch.0.join("one/tools/tool/lib/tests/projects/mock");
+        let mock = scratch.path("one/tools/tool/lib/tests/projects/mock");
         std::fs::create_dir_all(&mock).expect("a mock");
         assert_eq!(foreign_copy(&mock, &[library(built.clone())]), None);
         // A project consuming the library from elsewhere holds no copy either.
-        let other = scratch.0.join("elsewhere");
+        let other = scratch.path("elsewhere");
         std::fs::create_dir_all(&other).expect("a project");
         assert_eq!(foreign_copy(&other, &[library(built.clone())]), None);
         // A crate at the same place under another package name is someone else's.
         scratch.crate_at("three/tools/tool/lib", "another-tool");
         assert_eq!(
-            foreign_copy(&scratch.0.join("three"), &[library(built)]),
+            foreign_copy(&scratch.path("three"), &[library(built)]),
             None
         );
     }
@@ -209,7 +204,7 @@ mod tests {
         let scratch = Scratch::new("nested");
         // A worktree nested in the tree: its compiled directory sits under the root, and the
         // root holds the crate at the same trailing run.
-        let tree = scratch.0.join("tree");
+        let tree = scratch.path("tree");
         let nested = scratch.crate_at("tree/.worktrees/inner/tools/tool/lib", "a-tool");
         let copy = scratch.crate_at("tree/tools/tool/lib", "a-tool");
         let found = foreign_copy(&tree, &[library(nested)]);
@@ -220,13 +215,13 @@ mod tests {
         // Five components deep.
         let deep = scratch.crate_at("one/a/b/c/d/lib", "a-tool");
         scratch.crate_at("two/a/b/c/d/lib", "a-tool");
-        assert!(foreign_copy(&scratch.0.join("two"), &[library(deep)]).is_some());
+        assert!(foreign_copy(&scratch.path("two"), &[library(deep)]).is_some());
         // A project whose root package shares the name is not taken for a copy: the empty
         // trailing run is not tried.
         let elsewhere = scratch.crate_at("built/a-tool", "a-tool");
         scratch.crate_at("unrelated", "a-tool");
         assert_eq!(
-            foreign_copy(&scratch.0.join("unrelated"), &[library(elsewhere)]),
+            foreign_copy(&scratch.path("unrelated"), &[library(elsewhere)]),
             None
         );
     }
@@ -246,7 +241,7 @@ mod tests {
             .filter(|c| matches!(c, Component::Normal(_)))
             .collect();
         let copy = scratch.crate_at(&format!("mirror/{}", whole.display()), "a-tool");
-        let found = foreign_copy(&scratch.0.join("mirror"), &[library(built)]);
+        let found = foreign_copy(&scratch.path("mirror"), &[library(built)]);
         assert_eq!(
             found.map(|(_, dir)| dir.canonicalize().expect("the copy")),
             Some(copy.canonicalize().expect("the copy"))
@@ -258,31 +253,25 @@ mod tests {
         // `cargo build --manifest-path` through a symlinked path compiles that path in.
         let scratch = Scratch::new("compiled-symlink");
         scratch.crate_at("one/tools/tool/lib", "a-tool");
-        let link = scratch.0.join("link");
-        std::os::unix::fs::symlink(scratch.0.join("one"), &link).expect("a symlink");
+        let link = scratch.path("link");
+        std::os::unix::fs::symlink(scratch.path("one"), &link).expect("a symlink");
         let through = library(link.join("tools/tool/lib"));
-        assert_eq!(foreign_copy(&scratch.0.join("one"), &[through]), None);
+        assert_eq!(foreign_copy(&scratch.path("one"), &[through]), None);
     }
 
     #[test]
     fn a_tree_reached_through_a_symlink_is_not_its_own_copy() {
         let scratch = Scratch::new("symlink");
         let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
-        let link = scratch.0.join("link");
-        std::os::unix::fs::symlink(scratch.0.join("one"), &link).expect("a symlink");
+        let link = scratch.path("link");
+        std::os::unix::fs::symlink(scratch.path("one"), &link).expect("a symlink");
         assert_eq!(foreign_copy(&link, &[library(built)]), None);
         // A symlink inside the tree that resolves to the compiled directory is the same
         // directory, not a copy.
         let real = scratch.crate_at("tree/real/tool/lib", "a-tool");
-        std::os::unix::fs::symlink(
-            scratch.0.join("tree/real/tool"),
-            scratch.0.join("tree/tool"),
-        )
-        .expect("a symlink");
-        assert_eq!(
-            foreign_copy(&scratch.0.join("tree"), &[library(real)]),
-            None
-        );
+        std::os::unix::fs::symlink(scratch.path("tree/real/tool"), scratch.path("tree/tool"))
+            .expect("a symlink");
+        assert_eq!(foreign_copy(&scratch.path("tree"), &[library(real)]), None);
     }
 
     #[test]
@@ -291,7 +280,7 @@ mod tests {
         let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
         scratch.crate_at("two/tools/tool/lib", "a-tool");
         let why = refuse_a_foreign_build(
-            &scratch.0.join("two"),
+            &scratch.path("two"),
             &[library(built.clone())],
             &["a-binary", "a-tool"],
         )
@@ -309,7 +298,7 @@ mod tests {
         );
         assert!(why.contains("tie each build to its checkout"), "{why}");
         assert_eq!(
-            refuse_a_foreign_build(&scratch.0.join("one"), &[library(built)], &["a-tool"]),
+            refuse_a_foreign_build(&scratch.path("one"), &[library(built)], &["a-tool"]),
             Ok(())
         );
     }

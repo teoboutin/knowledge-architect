@@ -1,7 +1,7 @@
 //! `cargo x transcript-kinds` run as a binary over transcripts this test writes, in a directory of
-//! its own that it removes.
+//! its own, removed when the test ends.
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::Command;
 
 // This target links no library of its package, so it reads the variable itself, per
@@ -9,19 +9,17 @@ use std::process::Command;
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
 /// A transcript directory holding `files`, each a path under `projects/` and its lines.
-fn config(tag: &str, files: &[(&str, &[&str])]) -> PathBuf {
-    let dir = std::env::temp_dir().join(format!(
-        "xtask-transcript-kinds-{tag}-{}",
-        std::process::id()
-    ));
-    let _ = std::fs::remove_dir_all(&dir);
+fn config(tag: &str, files: &[(&str, &[&str])]) -> tempfile::TempDir {
+    let scratch = tempfile::TempDir::with_prefix(format!("klarch-transcript-kinds-{tag}-"))
+        .expect("a scratch directory");
+    let dir = scratch.path();
     std::fs::create_dir_all(dir.join("projects")).expect("a transcript directory");
     for (path, lines) in files {
         let path = dir.join("projects").join(path);
         std::fs::create_dir_all(path.parent().expect("a parent")).expect("a project directory");
         std::fs::write(&path, lines.join("\n") + "\n").expect("a transcript");
     }
-    dir
+    scratch
 }
 
 fn run(config: &Path, args: &[&str]) -> (String, i32) {
@@ -32,7 +30,6 @@ fn run(config: &Path, args: &[&str]) -> (String, i32) {
         .env("CLAUDE_CONFIG_DIR", config)
         .output()
         .expect("the binary runs");
-    let _ = std::fs::remove_dir_all(config);
     (
         String::from_utf8_lossy(&out.stdout).into_owned(),
         out.status.code().unwrap_or(-1),
@@ -57,7 +54,7 @@ fn the_inventory_counts_each_kind_of_every_file_the_reader_reads() {
             ("-q/o/subagents/agent-a2.jsonl", &[SUB]),
         ],
     );
-    let (stdout, code) = run(&dir, &[]);
+    let (stdout, code) = run(dir.path(), &[]);
     assert_eq!(code, 0, "{stdout}");
     assert!(
         stdout.starts_with("# files read: 4; harness versions: 2.1.316\n"),
@@ -83,7 +80,7 @@ fn the_inventory_counts_each_kind_of_every_file_the_reader_reads() {
 #[test]
 fn the_inventory_prints_json_under_its_flag() {
     let dir = config("json", &[("-p/s.jsonl", &[OWNER])]);
-    let (stdout, code) = run(&dir, &["--json"]);
+    let (stdout, code) = run(dir.path(), &["--json"]);
     assert_eq!(code, 0, "{stdout}");
     assert!(
         stdout.starts_with(r#"{"files":1,"header":"read","versions":["2.1.316"]}"#),
@@ -99,7 +96,7 @@ fn the_inventory_prints_json_under_its_flag() {
 #[test]
 fn the_inventory_of_no_line_exits_one() {
     let dir = config("empty", &[]);
-    let (stdout, code) = run(&dir, &[]);
+    let (stdout, code) = run(dir.path(), &[]);
     assert_eq!(code, 1, "{stdout}");
     assert_eq!(stdout, "# files read: 0; harness versions: none\n");
 }
@@ -107,11 +104,9 @@ fn the_inventory_of_no_line_exits_one() {
 /// The claim: transcripts that cannot be read exit 2, the command could not run, never 1.
 #[test]
 fn the_inventory_of_no_transcript_directory_exits_two() {
-    let missing = std::env::temp_dir().join(format!(
-        "xtask-transcript-kinds-missing-{}",
-        std::process::id()
-    ));
-    let _ = std::fs::remove_dir_all(&missing);
+    let scratch = tempfile::TempDir::with_prefix("klarch-transcript-kinds-missing-")
+        .expect("a scratch directory");
+    let missing = scratch.path().join("missing");
     let (stdout, code) = run(&missing, &[]);
     assert_eq!(code, 2, "{stdout}");
 }

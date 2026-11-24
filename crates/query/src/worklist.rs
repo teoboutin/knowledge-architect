@@ -3092,16 +3092,16 @@ mod tests {
     /// `for (written, _) in &files[..0] {`, which leaves the first file; caught.
     #[test]
     fn write_all_writes_every_file_or_leaves_none() {
-        let dir = std::env::temp_dir().join(format!("worklist-write-all-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).expect("a directory");
+        let scratch = tempfile::TempDir::with_prefix("klarch-worklist-write-all-")
+            .expect("a scratch directory");
+        let dir = scratch.path();
         let files = |second: &str| {
             vec![
                 ("first.md".to_string(), "one".to_string()),
                 (second.to_string(), "two".to_string()),
             ]
         };
-        assert_eq!(write_all(&dir, &files("second.md")), Ok(()));
+        assert_eq!(write_all(dir, &files("second.md")), Ok(()));
         assert_eq!(
             std::fs::read_to_string(dir.join("second.md"))
                 .as_deref()
@@ -3109,7 +3109,7 @@ mod tests {
             Some("two")
         );
         std::fs::remove_file(dir.join("first.md")).expect("the first file removed");
-        let failed = write_all(&dir, &files("missing/second.md"));
+        let failed = write_all(dir, &files("missing/second.md"));
         assert!(
             failed
                 .as_ref()
@@ -3117,6 +3117,5 @@ mod tests {
             "{failed:?}"
         );
         assert!(!dir.join("first.md").exists());
-        let _ = std::fs::remove_dir_all(&dir);
     }
 }

@@ -2071,22 +2071,9 @@ mod tests {
     }
 
     /// A scratch directory of its own under the system's temporary directory, removed when dropped.
-    struct Scratch(PathBuf);
-
-    impl Scratch {
-        fn new(tag: &str) -> Scratch {
-            let dir =
-                std::env::temp_dir().join(format!("klarch-reader-{tag}-{}", std::process::id()));
-            let _ = std::fs::remove_dir_all(&dir);
-            std::fs::create_dir_all(&dir).expect("a scratch directory");
-            Scratch(dir)
-        }
-    }
-
-    impl Drop for Scratch {
-        fn drop(&mut self) {
-            let _ = std::fs::remove_dir_all(&self.0);
-        }
+    fn scratch_dir(tag: &str) -> tempfile::TempDir {
+        tempfile::TempDir::with_prefix(format!("klarch-reader-{tag}-"))
+            .expect("a scratch directory")
     }
 
     /// The claim: a root handed in through a symbolic link names the sessions that ran in the
@@ -2100,12 +2087,12 @@ mod tests {
     /// `.map(|r| r.clone())`; caught.
     #[test]
     fn a_root_through_a_symlink_names_the_sessions_of_the_directory_it_reaches() {
-        let scratch = Scratch::new("root-link");
-        let real = scratch.0.join("real");
+        let scratch = scratch_dir("root-link");
+        let real = scratch.path().join("real");
         std::fs::create_dir_all(&real).expect("the project's directory");
-        let link = scratch.0.join("link");
+        let link = scratch.path().join("link");
         std::os::unix::fs::symlink(&real, &link).expect("a symlink");
-        let projects = scratch.0.join("projects");
+        let projects = scratch.path().join("projects");
         std::fs::create_dir_all(projects.join("-real")).expect("a project directory");
         let line = json!({
             "type": "user",
@@ -2126,19 +2113,19 @@ mod tests {
     /// caught.
     #[test]
     fn a_projects_that_is_no_directory_is_refused_as_such() {
-        let scratch = Scratch::new("projects-file");
-        let file = scratch.0.join("file");
+        let scratch = scratch_dir("projects-file");
+        let file = scratch.path().join("file");
         std::fs::create_dir_all(&file).expect("a configuration directory");
         std::fs::write(file.join("projects"), "").expect("a file named projects");
         let err = projects_dir(&file).expect_err("a file is refused");
         assert!(err.ends_with("projects is not a directory"), "{err}");
-        let missing = scratch.0.join("missing");
+        let missing = scratch.path().join("missing");
         let err = projects_dir(&missing).expect_err("a missing directory is refused");
         assert!(
             err.starts_with("cannot read the transcript directory"),
             "{err}"
         );
-        let dir = scratch.0.join("dir");
+        let dir = scratch.path().join("dir");
         std::fs::create_dir_all(dir.join("projects")).expect("a projects directory");
         assert_eq!(projects_dir(&dir), Ok(dir.join("projects")));
     }
@@ -2150,10 +2137,10 @@ mod tests {
     /// `attach_subagents`: `if pending.is_empty() || !progress {` made `if true {`; caught.
     #[test]
     fn a_nested_agent_placed_after_its_dispatcher_goes_to_its_dispatcher_s_session() {
-        let scratch = Scratch::new("nested-agent");
+        let scratch = scratch_dir("nested-agent");
         let id = "abcd0000-0000-0000-0000-000000000001";
-        let top = scratch.0.join(format!("{id}.jsonl"));
-        let subagents = scratch.0.join(id).join("subagents");
+        let top = scratch.path().join(format!("{id}.jsonl"));
+        let subagents = scratch.path().join(id).join("subagents");
         std::fs::create_dir_all(&subagents).expect("a subagents directory");
         let lines = |lines: &[Value]| lines.iter().map(|l| format!("{l}\n")).collect::<String>();
         let owner = |uuid: &str, time: &str, text: &str| {
@@ -2205,7 +2192,7 @@ mod tests {
         for (path, text) in files {
             std::fs::write(path, text).expect("a transcript file");
         }
-        let corpus = Corpus::read(&scratch.0, &[top], true).expect("the files read");
+        let corpus = Corpus::read(scratch.path(), &[top], true).expect("the files read");
         let placed: Vec<Vec<&str>> = corpus
             .sessions
             .iter()

@@ -359,8 +359,9 @@ mod tests {
     /// filesystem rather than from the listing puts the swap file in `delete`.
     #[test]
     fn the_repairs_are_what_the_check_reports_and_nothing_else() {
-        let root = std::env::temp_dir().join(format!("ka-repairs-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-repairs-").expect("a scratch directory");
+        let root = scratch.path();
         std::fs::create_dir_all(root.join(".claude/agents")).unwrap();
         std::fs::write(root.join(".claude/agents/.swap.swp"), "unsaved").unwrap();
         let shipped = vec![
@@ -391,7 +392,7 @@ mod tests {
                 Outside::Text("unshipped".to_string()),
             ),
         ];
-        let found = repairs(&root, &shipped, &installed);
+        let found = repairs(root, &shipped, &installed);
         assert_eq!(
             found,
             Repairs {
@@ -402,7 +403,6 @@ mod tests {
                 delete: vec![PathBuf::from(".claude/agents/knowledge-architect-old.md")],
             }
         );
-        let _ = std::fs::remove_dir_all(&root);
     }
 
     /// The claim, per `design@check@fix-scope`: a shipped copy git lists as deleted or as binary
@@ -419,8 +419,9 @@ mod tests {
     /// for a directory and leaves it out.
     #[test]
     fn the_repairs_restore_a_deleted_or_binary_copy_and_leave_a_current_one_and_a_directory() {
-        let root = std::env::temp_dir().join(format!("ka-repairs-states-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-repairs-states-").expect("a scratch directory");
+        let root = scratch.path();
         std::fs::create_dir_all(root.join(".claude/agents")).unwrap();
         let ignored_current = ".claude/agents/knowledge-architect-ignored-current.md";
         let ignored_stale = ".claude/agents/knowledge-architect-ignored-stale.md";
@@ -471,7 +472,7 @@ mod tests {
                 Outside::Directory,
             ),
         ];
-        let found = repairs(&root, &shipped, &installed);
+        let found = repairs(root, &shipped, &installed);
         assert_eq!(
             found,
             Repairs {
@@ -484,7 +485,6 @@ mod tests {
                 delete: vec![PathBuf::from(".claude/agents/knowledge-architect-blob.bin")],
             }
         );
-        let _ = std::fs::remove_dir_all(&root);
     }
 
     /// The claim: an install writes a shipped workflow and removes a prefixed one the version does
@@ -492,8 +492,9 @@ mod tests {
     /// workflows directory left out of `owned_on_disk` keeps the old workflow.
     #[test]
     fn an_install_owns_the_prefixed_workflows_alone() {
-        let root = std::env::temp_dir().join(format!("ka-install-wf-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-install-wf-").expect("a scratch directory");
+        let root = scratch.path();
         let write = |rel: &str, text: &str| {
             let p = root.join(rel);
             std::fs::create_dir_all(p.parent().unwrap()).unwrap();
@@ -505,7 +506,7 @@ mod tests {
             PathBuf::from(".claude/workflows/knowledge-architect-w.js"),
             "fresh".to_string(),
         )];
-        let done = install(&root, &shipped).expect("the install runs");
+        let done = install(root, &shipped).expect("the install runs");
         assert_eq!(
             done.written,
             vec![PathBuf::from(".claude/workflows/knowledge-architect-w.js")]
@@ -517,15 +518,15 @@ mod tests {
             )]
         );
         assert!(root.join(".claude/workflows/project-own.js").exists());
-        std::fs::remove_dir_all(&root).unwrap();
     }
 
     /// The claim: an install writes what is missing or differs, removes an unshipped file of the
     /// namespace with its emptied skill directory, and touches nothing outside the namespace.
     #[test]
     fn an_install_writes_the_shipped_set_and_removes_the_rest_of_the_namespace() {
-        let root = std::env::temp_dir().join(format!("ka-install-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-install-").expect("a scratch directory");
+        let root = scratch.path();
         let write = |rel: &str, text: &str| {
             let p = root.join(rel);
             std::fs::create_dir_all(p.parent().unwrap()).unwrap();
@@ -542,7 +543,7 @@ mod tests {
             ),
             (PathBuf::from(PRIMER), "primer".to_string()),
         ];
-        let done = install(&root, &shipped).expect("the install runs");
+        let done = install(root, &shipped).expect("the install runs");
         assert_eq!(
             done.written,
             vec![
@@ -562,9 +563,8 @@ mod tests {
             std::fs::read_to_string(root.join("CLAUDE.md")).unwrap(),
             "# P\n"
         );
-        let again = install(&root, &shipped).expect("a second install runs");
+        let again = install(root, &shipped).expect("a second install runs");
         assert!(again.written.is_empty() && again.deleted.is_empty());
-        let _ = std::fs::remove_dir_all(&root);
     }
 
     /// The claim: an install refuses a symbolic link on an owned path before touching anything,
@@ -572,8 +572,8 @@ mod tests {
     #[cfg(unix)]
     #[test]
     fn an_install_refuses_a_symlinked_namespace() {
-        let base = std::env::temp_dir().join(format!("ka-link-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&base);
+        let scratch = tempfile::TempDir::with_prefix("klarch-link-").expect("a scratch directory");
+        let base = scratch.path();
         let shared = base.join("shared/knowledge-architect-other");
         std::fs::create_dir_all(&shared).unwrap();
         std::fs::write(shared.join("SKILL.md"), "keep").unwrap();
@@ -583,7 +583,6 @@ mod tests {
         let e = install(&root, &[]).expect_err("a link is refused");
         assert!(e.contains(".claude/skills is a symbolic link"), "{e}");
         assert!(shared.join("SKILL.md").exists());
-        let _ = std::fs::remove_dir_all(&base);
     }
 
     /// The claim: an unshipped file under the installer's own directory is removed, and a
@@ -592,18 +591,17 @@ mod tests {
     /// prefix test, each fail a case.
     #[test]
     fn the_install_scans_its_own_directory_and_spares_the_projects() {
-        let root = std::env::temp_dir().join(format!("ka-scan-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
+        let scratch = tempfile::TempDir::with_prefix("klarch-scan-").expect("a scratch directory");
+        let root = scratch.path();
         std::fs::create_dir_all(root.join(".claude/knowledge-architect")).unwrap();
         std::fs::write(root.join(".claude/knowledge-architect/OLD.md"), "old").unwrap();
         std::fs::create_dir_all(root.join(".claude/skills/project-empty")).unwrap();
-        let done = install(&root, &[]).expect("the install runs");
+        let done = install(root, &[]).expect("the install runs");
         assert_eq!(
             done.deleted,
             vec![PathBuf::from(".claude/knowledge-architect/OLD.md")]
         );
         assert!(root.join(".claude/skills/project-empty").is_dir());
-        let _ = std::fs::remove_dir_all(&root);
     }
 }
 
