@@ -654,7 +654,9 @@ fn a_run_killed_mid_mutation_is_restored_byte_for_byte() {
             "--",
             "sh",
             "-c",
-            "while [ ! -e stop ]; do sleep 0.05; done",
+            // It outlives the run, so it stops on the target too: the test can end, and its
+            // directory go, before the loop next looks for `stop`.
+            "while [ -e src/f.rs ] && [ ! -e stop ]; do sleep 0.05; done",
         ],
     )
     .stdout(std::process::Stdio::null())
