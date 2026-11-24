@@ -3,7 +3,6 @@
 //! The exit codes are the table of the crate's documentation: 2 where the run never started, 1 where
 //! it acted and something is owed on the tree, 0 for any completed run whatever its verdict.
 
-use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
@@ -131,7 +130,7 @@ pub(crate) fn run_hand_mutation(root: &Path, args: &RunArgs) -> ExitCode {
                 let _ = record.clear();
                 return ExitCode::from(2);
             }
-            match apply_to_scratch(&pre_image, &file, &text) {
+            match apply_to_scratch(&record, &pre_image, &file, &text) {
                 Ok(m) if m == pre_image => {
                     complain!("the patch does not change {file}; the run would measure the unmutated tree");
                     let _ = record.clear();
@@ -496,8 +495,18 @@ pub(crate) fn restore_record(root: &Path, discard: bool) -> ExitCode {
 
 /// Applies `patch` to `pre_image` in a scratch repository and returns the result, so the mutant
 /// is known before the real file is touched.
-fn apply_to_scratch(pre_image: &str, rel_path: &str, patch: &str) -> Result<String, String> {
-    let dir = env::temp_dir().join(format!("mutate-apply-{}", std::process::id()));
+///
+/// The scratch is a directory of the record's, which the run has claimed: no other run meets it,
+/// and a run killed here leaves it in the claim that `restore --discard` drops whole. Its name is
+/// none of the record's files, and the patched path sits below it, so no target's name is taken
+/// for one of them.
+fn apply_to_scratch(
+    record: &Record,
+    pre_image: &str,
+    rel_path: &str,
+    patch: &str,
+) -> Result<String, String> {
+    let dir = record.dir.join("scratch");
     let result = apply_in(&dir, pre_image, rel_path, patch);
     let _ = fs::remove_dir_all(&dir);
     result
@@ -532,8 +541,7 @@ fn patch_paths(patch: &str) -> Vec<String> {
 
 /// The body of [`apply_to_scratch`], whose caller removes `dir` on every path.
 fn apply_in(dir: &Path, pre_image: &str, rel_path: &str, patch: &str) -> Result<String, String> {
-    let _ = fs::remove_dir_all(dir);
-    fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+    fs::create_dir(dir).map_err(|e| e.to_string())?;
 
     let staged = dir.join(rel_path);
     if let Some(parent) = staged.parent() {
@@ -556,11 +564,7 @@ fn apply_in(dir: &Path, pre_image: &str, rel_path: &str, patch: &str) -> Result<
         .output()
         .map_err(|e| e.to_string())?;
     if !out.status.success() {
-        let e = String::from_utf8_lossy(&out.stderr).into_owned();
-        let _ = fs::remove_dir_all(dir);
-        return Err(e);
+        return Err(String::from_utf8_lossy(&out.stderr).into_owned());
     }
-    let mutant = fs::read_to_string(&staged).map_err(|e| e.to_string())?;
-    let _ = fs::remove_dir_all(dir);
-    Ok(mutant)
+    fs::read_to_string(&staged).map_err(|e| e.to_string())
 }

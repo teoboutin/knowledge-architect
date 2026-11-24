@@ -878,6 +878,150 @@ fn a_patch_mutation_runs_and_restores() {
     assert_eq!(s.read(FILE), BODY);
 }
 
+/// A patch that deletes the line `SITE` of [`BODY`].
+const DELETE_SITE: &str =
+    "--- a/src/f.rs\n+++ b/src/f.rs\n@@ -1,5 +1,4 @@\n line1\n line2\n-SITE\n line4\n line5\n";
+
+/// The arguments of a `--patch` run over a command that passes.
+const RUN_PATCH: [&str; 7] = ["run", "--file", FILE, "--patch", "m.diff", "--", "true"];
+
+// The claim: a `--patch` run makes nothing in the temporary directory, so one that names a
+// directory that does not exist neither stops the run nor is made by it.
+#[test]
+fn a_patch_run_makes_nothing_in_the_temporary_directory() {
+    let s = Sandbox::new("patch-tmpdir");
+    s.write(FILE, BODY);
+    s.write("m.diff", DELETE_SITE);
+    let absent = s.root.join("absent");
+    let out = child(&s.root, &RUN_PATCH)
+        .env("TMPDIR", &absent)
+        .output()
+        .expect("running the child");
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(!absent.exists(), "the run made its temporary directory");
+    assert!(!s.record().exists());
+    assert_eq!(s.read(FILE), BODY);
+}
+
+// The claim: in a linked worktree, whose `.git` is a file and whose git directory is elsewhere, a
+// `--patch` run plans its mutant, restores the file and leaves no record.
+#[test]
+fn a_patch_run_works_in_a_linked_worktree() {
+    let s = Sandbox::new("patch-worktree");
+    s.write(FILE, BODY);
+    for args in [
+        &["add", "-A"][..],
+        &[
+            "-c",
+            "user.name=fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "commit",
+            "-qm",
+            "base",
+        ],
+        &["worktree", "add", "-q", "linked"],
+    ] {
+        let git = Command::new("git")
+            .args(args)
+            .current_dir(&s.root)
+            .status()
+            .expect("running git");
+        assert!(git.success(), "git {args:?}");
+    }
+    let linked = s.root.join("linked");
+    assert!(linked.join(".git").is_file());
+    s.write("linked/m.diff", DELETE_SITE);
+    let out = child(&linked, &RUN_PATCH)
+        .output()
+        .expect("running the child");
+    let text = String::from_utf8_lossy(&out.stdout);
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{text}{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(text.contains("SURVIVED"), "{text}");
+    assert_eq!(s.read("linked/src/f.rs"), BODY);
+    let record = knowledge_architect_mutate::record_dir(&linked).expect("a repository");
+    assert!(record.starts_with(s.root.join(".git/worktrees")));
+    assert!(!record.exists());
+}
+
+// The claim: a run killed while it plans its patch leaves its scratch in the record's claim, where
+// no reader takes it for a record and `restore --discard` removes it, and nothing in the temporary
+// directory. The target is named as a file of the record, and `git apply` is a program that kills
+// the run that started it.
+#[test]
+fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone() {
+    let s = Sandbox::new("patch-killed");
+    s.write("manifest", BODY);
+    s.write("m.diff", &DELETE_SITE.replace("src/f.rs", "manifest"));
+    s.write("tmp/kept", "");
+    // Written by a process of its own: a program this process holds open for writing while another
+    // test starts a child cannot be run.
+    let stub = "mkdir bin && cat > bin/git && chmod +x bin/git";
+    let mut write = Command::new("sh")
+        .args(["-c", stub])
+        .current_dir(&s.root)
+        .stdin(std::process::Stdio::piped())
+        .spawn()
+        .expect("running sh");
+    use std::io::Write;
+    write
+        .stdin
+        .take()
+        .expect("its stdin")
+        .write_all(
+            b"#!/bin/sh\nif [ \"$1\" = apply ]; then kill -9 $PPID; exit 1; fi\n\
+              PATH=${PATH#*:} exec git \"$@\"\n",
+        )
+        .expect("the program is written");
+    assert!(write.wait().expect("sh").success());
+    let path = std::env::var("PATH").expect("PATH is set");
+    let out = child(
+        &s.root,
+        &[
+            "run", "--file", "manifest", "--patch", "m.diff", "--", "true",
+        ],
+    )
+    .env("PATH", format!("{}:{path}", s.root.join("bin").display()))
+    .env("TMPDIR", s.root.join("tmp"))
+    .output()
+    .expect("running the child");
+    assert_eq!(out.status.code(), None, "the run is killed: {out:?}");
+    assert_eq!(
+        fs::read_dir(s.root.join("tmp")).expect("readable").count(),
+        1,
+        "only the file the test wrote"
+    );
+
+    let scratch = fs::read_dir(s.record())
+        .expect("the claim stands")
+        .filter(|e| {
+            e.as_ref()
+                .expect("an entry")
+                .path()
+                .join("manifest")
+                .is_file()
+        })
+        .count();
+    assert_eq!(scratch, 1, "the scratch is in the claim");
+    let (_, out, code) = s.run_coded(&["restore"]);
+    assert_eq!(code, 1, "{out}");
+    assert!(out.contains("incomplete"), "{out}");
+    let (_, out, code) = s.run_coded(&["restore", "--discard"]);
+    assert_eq!(code, 0, "{out}");
+    assert!(!s.record().exists(), "{out}");
+    assert_eq!(s.read("manifest"), BODY);
+}
+
 // The claim: a build probe that cannot be spawned reaches no verdict, exits 1 and restores the
 // file; an empty probe is a bad argument, refused with 2 before anything is claimed.
 #[test]
@@ -1133,4 +1277,8 @@ fn a_patch_run_records_its_patch_for_the_reverse() {
     assert_eq!(code, 1, "{out}");
     assert!(out.contains("git apply -R"), "{out}");
     assert!(s.record().join("mutation.patch").is_file(), "{out}");
+    assert!(
+        !s.record().join("scratch").exists(),
+        "the record that stands holds no scratch"
+    );
 }
