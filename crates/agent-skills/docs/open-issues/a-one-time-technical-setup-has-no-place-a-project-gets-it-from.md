@@ -15,16 +15,28 @@ are asked.
 ### What
 
 The instance: this repository's tests hold their scratch directories in guards of the `tempfile`
-crate, and a `disallowed-methods` row of `path@knowledge-architect@clippy.toml` refuses
-`std::env::temp_dir`. The problem it answers, test runs that fill the temporary directory, was met
+crate, per `design@knowledge-architect@scratch-removed-by-a-guard`, and a `disallowed-methods` row of
+`path@knowledge-architect@clippy.toml` refuses `std::env::temp_dir`. The problem it answers, test runs that fill the temporary directory, was met
 in this repository's sessions before the practice was found, and nothing in the installed text
 names it.
 
-The owner wants such solutions inherited by the owner's projects that use knowledge-architect, and
-reported that the development skill does not fit a setup done once, and that the setup skill is not
-where it would be read when it is needed.
+The owner reported a hedged wish: that this project kind of delivers such generalisable solutions, so
+that the owner's projects that use knowledge-architect inherit them. The owner reported also that no
+place for such information is properly worked out right now; that the setup skill is maybe one, but
+is not really where the owner expects it to be read when needed; and that an open issue could maybe
+keep the question for now.
 
-What exists, each of which carries one practice to a project at another moment:
+An installed skill serves one activity, per `design@agent-skills@one-skill-per-activity`. A setup done
+once belongs to no change of code, the activity of the development skill; it is an act of the setup,
+whose skill an agent reads at the adoption and at each move of the pin, where the problem the setup
+answers is not met. So the setup skill stays open as a place, and what it lacks is the moment.
+
+What exists, each of which carries one practice to a project at another moment. The recorded precedent
+of a one-time setting is `design@agent-skills@harness-shell-fails-on-a-pipe`, which uses two of them:
+the setup skill writes the setting at a setup, and a Migration entry tells existing projects to add
+it. It is carried to a project whether or not that project has met the problem, which is what an
+instance of this entry could do too; it does not answer how a session finds the practice when the
+problem appears, since neither is read then.
 
 - the section `skill@knowledge-architect-setup@rust-project`, which asks lints, the documentation
   ones per `design@agent-skills@documentation-presence-is-linted`, and is read at a setup;

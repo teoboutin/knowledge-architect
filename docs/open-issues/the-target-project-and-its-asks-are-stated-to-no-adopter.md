@@ -23,11 +23,11 @@ conditions and the asks; and no design head names the command and its merge invo
 
 ### What
 
-- The setup skill states three asks in its section on a Rust project: the maintenance crate of every
-  Rust target project, per `design@agent-skills@maintenance-crate-ask`; the documentation lints of a
-  crate the project publishes, per `design@agent-skills@documentation-presence-is-linted`; and the
-  lint on `unsafe` code of every crate, per `design@agent-skills@no-security-axis`. It states none of the
-  others as an ask; it says that the checker needs a project inside a git repository.
+- The setup skill states three asks: in its section on the checker's pin, the maintenance crate of
+  every Rust target project, per `design@agent-skills@maintenance-crate-ask`; in its section on a Rust
+  project, the documentation lints of a crate the project publishes, per
+  `design@agent-skills@documentation-presence-is-linted`, and the lint on `unsafe` code of every crate,
+  per `design@agent-skills@no-security-axis`. It states none of the others as an ask; it says that the checker needs a project inside a git repository.
 - The setup skill proposes to a project the shape of its maintenance crate as two design heads
   the project records, one of them that the one command gives the one verdict on a merge; it
   states the command's invocation for a merge as no ask.
@@ -48,8 +48,8 @@ conditions and the asks; and no design head names the command and its merge invo
 
 `goal@serves-one-kind-of-project` guarantees knowledge-architect's working only
 as far as a project follows what it asks, and `goal@adoption-is-easy` has an
-adopter find what to do in the documentation. While the conditions and the asks are stated nowhere
-an adopter reads, an adopter cannot tell whether a project is served, nor which ask an installed
+adopter find what to do in the documentation. While the conditions and the asks reach an adopter in the seven READMEs and, for three asks, in the
+setup skill alone, an adopter cannot tell whether a project is served, nor which ask an installed
 instruction relies on when it fails in a project that does not follow it.
 
 ### What would close it

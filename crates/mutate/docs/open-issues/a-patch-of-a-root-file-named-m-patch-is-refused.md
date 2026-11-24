@@ -15,7 +15,8 @@ unchanged.
 
 ### What
 
-`apply_in` in `path@mutate@src/run.rs` joins the scratch directory with the target's path, writes the
+`apply_in` in `path@mutate@src/run.rs`, named in prose per
+`issue@model@a-rust-item-named-in-prose-has-no-checked-form`, joins the scratch directory with the target's path, writes the
 pre-image there, then writes the patch at `m.patch` in the same directory, and runs `git apply m.patch`.
 
 The reproduction, in a new git repository holding an empty knowledge-architect.toml, run with the

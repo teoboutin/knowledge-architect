@@ -7,8 +7,8 @@ kind: design
 
 `path@transcript@src/reader.rs` is more than a session reads whole in one pass: a Read with no range
 returns it cut short. The size signal for a split of `design@agent-skills@module-split-guidelines`
-holds. No work has weighed a split, so it is weighed at the design or the planning of the next work
-that changes the file's code, per `design@agent-skills@split-issue-reenters-at-planning`.
+holds. No work has yet needed the split, so it is weighed again at the design or the planning of the
+next work that changes the file's code, per `design@agent-skills@split-issue-reenters-at-planning`.
 
 ## Details
 
@@ -21,8 +21,11 @@ that changes the file's code, per `design@agent-skills@split-issue-reenters-at-p
   nor what every change reads together.
 
 The instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
-guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
-branch's design discussion did not name the file among those past one read.
+guard of `tempfile`, which removes it when the test ends" changed the file's test code. Its branch
+weighed a split after the change, since its design discussion had not named the file, and found that
+the work needs none, which the commit "[clippy] A test or a tool that calls `std::env::temp_dir`
+fails the clippy gate, which names the guard to hold instead" argues. The weighing passes to the
+next work that changes the file's code after it.
 
 ### Why it matters
 

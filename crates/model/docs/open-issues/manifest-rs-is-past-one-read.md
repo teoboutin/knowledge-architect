@@ -15,8 +15,8 @@ next work that changes the file's code, per `design@agent-skills@split-issue-ree
 ### What
 
 - **Size.** A Read of the file with no range returned lines 1 to 1410 of 3512, with the message
-  "showing lines 1-1410 of 3512 total (52899 tokens, cap 25000)", measured after that documentation
-  pass, on the branch that added the doc gate.
+  "showing lines 1-1410 of 3512 total (52899 tokens, cap 25000)", measured after the pass that
+  documented every public item, on the branch that added the doc gate.
 - **The signals against.** Not weighed: no work has counted the parts of the file that change apart,
   nor what every change reads together.
 
@@ -32,9 +32,10 @@ work that changes the file's code after it.
 
 A later instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
 guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
-branch weighed a split in its design discussion. The work needs none: it changes how a test makes a
-directory, one pattern at each site, and moves no subject, so a split would not shorten what its
-review reads. The weighing passes to the next work that changes the file's code after it.
+branch weighed a split in its design discussion and found that the work needs none, which the commit
+"[clippy] A test or a tool that calls `std::env::temp_dir` fails the clippy gate, which names the
+guard to hold instead" argues. The weighing passes to the next work that changes the file's code
+after it.
 
 ### Why it matters
 

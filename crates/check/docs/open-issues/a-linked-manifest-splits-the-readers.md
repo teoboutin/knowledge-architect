@@ -69,7 +69,8 @@ project is asked to do.
   a symlink at a generated path in `declarations` of `path@model@src/tree.rs`.
 - The owner's reason that the owner's projects build on Windows needs no goal of its own: it is read
   from `goal@every-target-project-can-adopt-it` and `goal@serves-one-kind-of-project`, neither of
-  which names a platform.
+  which excludes a platform. The rival reading, that a platform is one more thing knowledge-architect
+  may ask of a project, finds no such ask in their text.
 
 ### Why it matters
 

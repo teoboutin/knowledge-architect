@@ -15,8 +15,8 @@ work that changes the file's code, per `design@agent-skills@split-issue-reenters
 ### What
 
 - **Size.** A Read of the file with no range returned lines 1 to 1298 of 2048, with the message
-  "showing lines 1-1298 of 2048 total (33506 tokens, cap 25000)", measured after that documentation
-  pass, on the branch that added the doc gate.
+  "showing lines 1-1298 of 2048 total (33506 tokens, cap 25000)", measured after the pass that
+  documented every public item, on the branch that added the doc gate.
 - **The signals against.** One owner per external effect:
   `design@git@git-is-asked-through-one-module` makes one module the owner of git, so a split that
   spread git over two modules would leave it with no owner; a split that keeps one owner is not
@@ -28,9 +28,10 @@ in that work, on the owner's word, and an issue for each file of the pass past o
 
 A later instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
 guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
-branch weighed a split in its design discussion. The work needs none: it changes how a test makes a
-directory, one pattern at each site, and moves no subject, so a split would not shorten what its
-review reads. The weighing passes to the next work that changes the file's code after it.
+branch weighed a split in its design discussion and found that the work needs none, which the commit
+"[clippy] A test or a tool that calls `std::env::temp_dir` fails the clippy gate, which names the
+guard to hold instead" argues. The weighing passes to the next work that changes the file's code
+after it.
 
 ### Why it matters
 

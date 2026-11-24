@@ -7,8 +7,8 @@ kind: defect
 
 Several test helpers of `check`, `cli` and `testing` run git with the machine's own configuration. A global
 `commit.gpgsign` that cannot sign, or a global `core.hooksPath` whose `pre-commit` hook fails,
-fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files two
-helpers stage. Only `Sandbox::git_command` in `path@testing@tests/binary.rs` is isolated, and only for
+fails dozens of tests on a correct tree, and a per-user ignore file decides which fixture files one
+helper stages. Only `Sandbox::git_command` in `path@testing@tests/binary.rs` is isolated, and only for
 the identity.
 
 ## Details
@@ -30,9 +30,8 @@ configuration untouched: each probe set `GIT_CONFIG_GLOBAL` to a file of its own
   brought `path@testing@tests/binary.rs` down to 43 failures under either probe; the other 43 run git through
   `History::git` and other direct `Command::new("git")` calls.
 - The per-user ignore file: `Sandbox::stage` pins `core.excludesFile=/dev/null`, and so do
-  `History::commit` and the helper of `path@testing@tests/extension_api.rs`. Two `git add -A` calls of
-  `path@testing@tests/binary.rs` do not: one through the free function `git`, one through `History::git`. Found
-  by reading by the self-consistency reviewer of the same review; no test was shown failing.
+  `History::commit` and the helper of `path@testing@tests/extension_api.rs`. One `git add -A` call of
+  `path@testing@tests/binary.rs`, through `History::git`, does not. Found by reading by the self-consistency reviewer of the same review; no test was shown failing.
 - Not established: which other settings a test reads, and how the library's unit-test repositories
   in `path@git@src/git.rs` and `path@check@src/commands/history.rs` are configured. The failure counts
   above were not re-run by the session that opened this entry.
