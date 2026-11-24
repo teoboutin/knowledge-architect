@@ -33,10 +33,12 @@ The other 8 tests of the file passed in that run. Then, with nothing changed:
 
 It does not reproduce on demand: one failure in six runs of the test. The failing run was the
 first build of the test binary after a `git worktree remove` and a push, and ran beside the other
-test binaries of the workspace; the passing runs were warm. The test removes its fake project only on success, so the failing run left it under the system's
-temporary directory. Its `target/gates/` holds `clippy.log` and `test.log`, each one line of the
-fake cargo, and no log of `fmt`, `check` or `commits`. So the first gates of that run wrote no log,
-and the later ones ran. Not established: why. A lead, not checked: the test writes its fake
+test binaries of the workspace; the passing runs were warm. The test removed its fake project only on
+success then, so the failing run left it under the system's temporary directory. Its `target/gates/`
+held `clippy.log` and `test.log`, each one line of the fake cargo, and no log of `fmt`, `check` or
+`commits`. So the first gates of that run wrote no log, and the later ones ran. A failed run leaves
+no directory now, per `design@knowledge-architect@scratch-removed-by-a-guard`, and what it can be
+read from is the output and the logs the test prints. Not established: why. A lead, not checked: the test writes its fake
 programs and runs them at once, while the other tests of the file do the same in other threads,
 and a program just written cannot be run while another thread's child still holds it open for
 writing; the failing run printed neither the run's output nor its error, which the test now
