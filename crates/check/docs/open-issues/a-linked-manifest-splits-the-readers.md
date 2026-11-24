@@ -67,8 +67,9 @@ project is asked to do.
 - **What leaves with it**: repair texts this branch wrote become unreachable: the symbolic-link case
   of `read_tree`'s refusal of a manifest held as a link, its gitlink case staying, and the finding on
   a symlink at a generated path in `declarations` of `path@model@src/tree.rs`.
-- The owner's reason that the owner's projects build on Windows may be a purpose of the project: it
-  is drafted under `skill@knowledge-architect-goal-setting` when the work starts, if it is one.
+- The owner's reason that the owner's projects build on Windows needs no goal of its own: it is read
+  from `goal@every-target-project-can-adopt-it` and `goal@serves-one-kind-of-project`, neither of
+  which names a platform.
 
 ### Why it matters
 

@@ -39,6 +39,11 @@ of a commit's tree, a change of the manifest format or a change of what a genera
 **No test may run the gates over this repository**, since the test gate would run the suite that is
 running it: `path@gates@CLAUDE.md` and `path@xtask@CLAUDE.md`.
 
+**A directory a test makes is a `tempfile::TempDir` whose name opens with `klarch-`, held for the
+test's life and never in a `static`, under `CARGO_TARGET_TMPDIR` too**, since the lint of
+`path@knowledge-architect@clippy.toml` sees a call of `std::env::temp_dir` and none of these: the
+name, what holds the guard, or a directory made from another path.
+
 ## A mutation or a review in another checkout `##other-checkouts`
 
 Every build here is tied to its checkout, per

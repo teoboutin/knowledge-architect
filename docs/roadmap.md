@@ -43,7 +43,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@create@a-new-register-home-still-says-no-entry-yet-after-its-first-entry`
 - `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 - `issue@mutate@a-mutation-of-several-files`
-- `issue@testing@a-test-run-leaves-directories-in-the-temporary-directory`
 - `issue@knowledge-architect@path-quickfixes-read-against-the-renamed-checker`
 - `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`
 - `issue@xtask@the-reword-the-fold-and-the-merge-predicate-have-no-command`

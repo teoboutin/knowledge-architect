@@ -39,6 +39,12 @@ weighed the second signal, not the size. The branch that wrote
 `design@agent-skills@split-not-needed-is-an-issue` added one `# Errors` section to the file and
 weighed no split, since a doc comment is no change of its code.
 
+A later instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
+guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
+branch weighed a split in its design discussion. The work needs none: it changes how a test makes a
+directory, one pattern at each site, and moves no subject, so a split would not shorten what its
+review reads. The weighing passes to the next work that changes the file's code after it.
+
 ### Why it matters
 
 A review of a change to either half reads code outside its subject, or judges in parts a file it

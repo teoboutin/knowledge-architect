@@ -36,6 +36,12 @@ and its branch weighed the size signal against no signal against a split, on the
 that work built before its spec takes in correctness changes only. The weighing passes to the next
 work that changes the file's code after it.
 
+A later instance: the commit "[testing] Each test over a mock owns its copy, and every scratch
+directory of `testing` goes when its test ends" changed the file's code, and its branch weighed a
+split in its design discussion. The work needs none: it changes how a test makes a directory, one
+pattern at each site, and moves no subject, so a split would not shorten what its review reads. The
+weighing passes to the next work that changes the file's code after it.
+
 ### Why it matters
 
 A review of a change to the tests of one command reads in parts a file it cannot read whole, which

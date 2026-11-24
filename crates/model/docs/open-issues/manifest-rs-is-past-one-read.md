@@ -7,10 +7,8 @@ kind: design
 
 `path@model@src/manifest.rs` is more than a session reads whole in one pass: a Read with no range
 returns it cut short. The size signal for a split of `design@agent-skills@module-split-guidelines`
-holds. The work that last wrote into it, the pass that documented every public item the
-documentation lints name, wrote only documentation and weighed no split, so the split is weighed at
-the design or the planning of the next work that changes the file's code, per
-`design@agent-skills@split-issue-reenters-at-planning`.
+holds. No work has yet needed the split, so it is weighed again at the design or the planning of the
+next work that changes the file's code, per `design@agent-skills@split-issue-reenters-at-planning`.
 
 ## Details
 
@@ -31,6 +29,12 @@ search files numbered, one per design discussion and per design audit" changed t
 and its branch weighed the size signal against no signal against a split, on the owner's direction
 that work built before its spec takes in correctness changes only. The weighing passes to the next
 work that changes the file's code after it.
+
+A later instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
+guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
+branch weighed a split in its design discussion. The work needs none: it changes how a test makes a
+directory, one pattern at each site, and moves no subject, so a split would not shorten what its
+review reads. The weighing passes to the next work that changes the file's code after it.
 
 ### Why it matters
 
