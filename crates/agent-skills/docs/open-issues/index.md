@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-81 entries
+82 entries
 
 | kind | title |
 | --- | --- |
@@ -21,6 +21,7 @@
 | design | [An acceptance criterion admitted without condition 2 can have its evidence in no record at the leaving](a-criterion-admitted-without-condition-two-can-have-no-record-at-the-leaving.md) |
 | design | [A section of an intake's analysis that the session decides repeats its outcome as its default](a-decided-intake-section-repeats-its-outcome-as-its-default.md) |
 | design | [A deferred issue's trigger, or a re-entry point, brings unrelated work into a design's scope at a bad moment](a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment.md) |
+| design | [A demand a light verdict of the record search makes on the work can be left unanswered, and no check reports it](a-light-verdict-s-demand-can-be-left-unanswered.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
 | design | [A one-time technical setup that every target project would gain from has no worked-out place from which a project gets it](a-one-time-technical-setup-has-no-place-a-project-gets-it-from.md) |

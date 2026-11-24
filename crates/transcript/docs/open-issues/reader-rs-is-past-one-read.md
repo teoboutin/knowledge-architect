@@ -17,8 +17,9 @@ next work that changes the file's code, per `design@agent-skills@split-issue-ree
 - **Size.** A Read of the file with no range returned lines 1 to 1332 of 2336, with the message
   "showing lines 1-1332 of 2336 total (37240 tokens, cap 25000)", measured on the branch that made
   its tests hold their scratch directories in guards.
-- **The signals against.** Not weighed: no work has counted the parts of the file that change apart,
-  nor what every change reads together.
+- **The signals against.** None counted: no work has counted the parts of the file that change apart,
+  nor what every change reads together. The branch that made the tests hold their scratch directories
+  in guards weighed the size signal alone, and found that its work needs no split.
 
 The instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
 guard of `tempfile`, which removes it when the test ends" changed the file's test code. Its branch
