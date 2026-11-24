@@ -12,7 +12,7 @@ keywords.workspace = true
 include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
 
 [dev-dependencies]
-# The directories the tests make, each removed when its test ends, a failed test's included.
+# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]

@@ -22,7 +22,7 @@ knowledge-architect-git = { path = "../git", version = "=0.10.0" }
 knowledge-architect-model = { path = "../model", version = "=0.10.0" }
 
 [dev-dependencies]
-# The directories the tests make, each removed when its test ends, a failed test's included.
+# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]

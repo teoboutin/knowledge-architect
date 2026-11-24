@@ -27,7 +27,7 @@ knowledge-architect-git = { path = "../git", version = "=0.10.0" }
 # The shipped text the tests of `shipped_set` hold to the entity table. By path alone, which cargo
 # strips when it packages the crate, so `model` depends on nothing of `agent-skills` for a consumer.
 knowledge-architect-agent-skills = { path = "../agent-skills" }
-# The directories the tests make, each removed when its test ends, a failed test's included.
+# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]
