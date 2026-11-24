@@ -66,15 +66,16 @@ fn git(dir: &Path, args: &[&str]) {
 /// checked: `extension_refusal` returning the reason alone fails both cases.
 #[test]
 fn an_extension_that_cannot_prepare_is_refused_with_its_repair() {
-    let root = std::env::temp_dir().join(format!("ka-unpreparable-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-unpreparable-").expect("a scratch directory");
+    let root = scratch.path();
     copy_tree(
         &PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/projects/dirhome"),
-        &root,
+        root,
     );
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let commands = [
         cli::Command::Check(cli::CheckArgs {
             fix: false,
@@ -92,5 +93,4 @@ fn an_extension_that_cannot_prepare_is_refused_with_its_repair() {
              run again"
         );
     }
-    let _ = std::fs::remove_dir_all(&root);
 }

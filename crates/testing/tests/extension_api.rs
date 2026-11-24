@@ -285,12 +285,13 @@ fn git(dir: &std::path::Path, args: &[&str]) {
 /// and the run fails.
 #[test]
 fn check_fix_writes_an_extensions_generated_file_and_the_run_passes() {
-    let root = std::env::temp_dir().join(format!("ka-fix-extension-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-fix-extension-").expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Listing)];
     let check = |fix: bool, extensions: &mut Vec<Box<dyn Extension>>| {
         cli::run(
@@ -315,7 +316,6 @@ fn check_fix_writes_an_extensions_generated_file_and_the_run_passes() {
         check(false, &mut extensions),
         std::process::ExitCode::SUCCESS
     );
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The claim: once `check --fix` has written a file, a final check that cannot run exits 1, not
@@ -323,12 +323,13 @@ fn check_fix_writes_an_extensions_generated_file_and_the_run_passes() {
 /// error through makes `cli::run` return it, which a binary exits 2 on.
 #[test]
 fn check_fix_after_a_write_never_reports_could_not_run() {
-    let root = std::env::temp_dir().join(format!("ka-fix-unpreparable-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-fix-unpreparable-").expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(ListingThenFails)];
     let outcome = cli::run(
         cli::Command::Check(cli::CheckArgs {
@@ -344,7 +345,6 @@ fn check_fix_after_a_write_never_reports_could_not_run() {
         root.join("listing.md").exists(),
         "the file was written first"
     );
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// An extension that claims a table and holds no check.
@@ -386,15 +386,16 @@ impl Extension for ClaimsRules {
 /// Mutation checked: `configure` removed from `cli::run` refuses the table with the extension too.
 #[test]
 fn a_command_over_the_record_reads_an_extensions_table_as_the_checker_does() {
-    let root = std::env::temp_dir().join(format!("ka-query-table-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-query-table-").expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
     let path = root.join("knowledge-architect.toml");
     let text = std::fs::read_to_string(&path).expect("the copy's manifest");
     std::fs::write(&path, format!("{text}\n[rules]\nkept = true\n")).expect("the table is added");
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let id = || {
         cli::Command::Id(cli::IdArgs {
             ids: vec!["a-free-id".to_string()],
@@ -405,7 +406,6 @@ fn a_command_over_the_record_reads_an_extensions_table_as_the_checker_does() {
     assert!(with.is_ok(), "{with:?}");
     let without = cli::run(id(), &manifest, &[], &mut []);
     assert!(without.is_err(), "no extension claims the table");
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// An extension whose generated file sits in a directory the tree does not hold.
@@ -471,12 +471,13 @@ impl Prepared for NowherePrepared {
 /// the refusal's own contribution is a message naming the directory.
 #[test]
 fn check_fix_refuses_a_destination_whose_directory_is_missing() {
-    let root = std::env::temp_dir().join(format!("ka-fix-nowhere-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-fix-nowhere-").expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(ListingNowhere)];
     let outcome = cli::run(
         cli::Command::Check(cli::CheckArgs {
@@ -489,7 +490,6 @@ fn check_fix_refuses_a_destination_whose_directory_is_missing() {
     );
     assert_eq!(outcome, Ok(std::process::ExitCode::from(2)));
     assert!(!root.join("nowhere").exists());
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The claim: a binary that flattens `check`'s commands and describes nothing of itself shows no
@@ -524,9 +524,9 @@ fn a_copied_mock_pinned_to_the_exported_version_is_accepted() {
     let mock = mocks().join("core");
     let text = std::fs::read_to_string(mock.join(knowledge_architect::MANIFEST_NAME))
         .expect("the mock's manifest");
-    let root = std::env::temp_dir().join(format!("knowledge-api-version-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    std::fs::create_dir_all(&root).expect("a temporary project");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-api-version-").expect("a scratch directory");
+    let root = scratch.path();
     assert!(text.contains("checker-version = \"fixture\""), "{text}");
     let write = |version: &str| {
         let pinned = text.replace(
@@ -535,12 +535,11 @@ fn a_copied_mock_pinned_to_the_exported_version_is_accepted() {
         );
         std::fs::write(root.join(knowledge_architect::MANIFEST_NAME), pinned)
             .expect("the copied manifest");
-        Manifest::find(&root).expect("the copied manifest parses")
+        Manifest::find(root).expect("the copied manifest parses")
     };
     assert!(cli::refuse_another_version(&write("fixture"), &[]).is_err());
     let accepted = cli::refuse_another_version(&write(knowledge_architect::CHECKER_VERSION), &[]);
     assert_eq!(accepted, Ok(()));
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The same generated file, from an extension that prepares over the checkout and refuses a
@@ -583,13 +582,14 @@ impl Extension for ListingCheckoutOnly {
 /// exit 2, and writes no generated file, rather than skipping the comparison in silence.
 #[test]
 fn check_fix_refuses_when_the_staged_side_cannot_be_computed() {
-    let root = std::env::temp_dir().join(format!("ka-fix-no-snapshot-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-fix-no-snapshot-").expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
     git(
-        &root,
+        root,
         &[
             "-c",
             "user.name=fixture",
@@ -602,8 +602,8 @@ fn check_fix_refuses_when_the_staged_side_cannot_be_computed() {
     );
     let readme = std::fs::read_to_string(root.join("README.md")).expect("the README");
     std::fs::write(root.join("README.md"), format!("{readme}\nStaged.\n")).expect("an edit");
-    git(&root, &["add", "README.md"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    git(root, &["add", "README.md"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(ListingCheckoutOnly)];
     let outcome = cli::run(
         cli::Command::Check(cli::CheckArgs {
@@ -619,19 +619,19 @@ fn check_fix_refuses_when_the_staged_side_cannot_be_computed() {
         !root.join("listing.md").exists(),
         "no generated file is written"
     );
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The claim: `index --staged` refuses, staging nothing, a generated file whose directory the
 /// staged tree does not hold, as `index` refuses one the working tree does not hold.
 #[test]
 fn index_staged_refuses_a_destination_whose_directory_is_not_staged() {
-    let root = std::env::temp_dir().join(format!("ka-index-staged-nowhere-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch = tempfile::TempDir::with_prefix("klarch-index-staged-nowhere-")
+        .expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(ListingNowhere)];
     let outcome = cli::run(
         cli::Command::Index(cli::IndexArgs { staged: true }),
@@ -648,11 +648,10 @@ fn index_staged_refuses_a_destination_whose_directory_is_not_staged() {
     );
     let staged = std::process::Command::new("git")
         .args(["ls-files", "nowhere"])
-        .current_dir(&root)
+        .current_dir(root)
         .output()
         .expect("git runs");
     assert!(staged.stdout.is_empty(), "nothing is staged");
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// `init`'s arguments for a project at `path`, with no flag.
@@ -675,10 +674,9 @@ fn init_args(path: &Path) -> cli::InitArgs {
 /// exit 1 with the same finding.
 #[test]
 fn init_and_new_component_configure_the_manifest_they_wrote() {
-    let scratch = std::env::temp_dir().join(format!("ka-init-extension-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&scratch);
-    std::fs::create_dir_all(&scratch).expect("a scratch directory");
-    let root = scratch.join("p");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-init-extension-").expect("a scratch directory");
+    let root = scratch.path().join("p");
     let mut extensions: Vec<Box<dyn Extension>> = vec![Box::new(Listing)];
     let code = cli::init(init_args(&root), &[], &[], &[], &mut extensions).expect("init runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
@@ -708,7 +706,6 @@ fn init_and_new_component_configure_the_manifest_they_wrote() {
     )
     .expect("the check runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
-    let _ = std::fs::remove_dir_all(&scratch);
 }
 
 /// The claim: `new-component` over a manifest loaded from a relative root adds the Component, as
@@ -716,10 +713,9 @@ fn init_and_new_component_configure_the_manifest_they_wrote() {
 /// unresolved, refuses it as outside the project.
 #[test]
 fn new_component_accepts_a_relative_root() {
-    let scratch = std::env::temp_dir().join(format!("ka-relative-root-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&scratch);
-    std::fs::create_dir_all(&scratch).expect("a scratch directory");
-    let root = scratch.join("p");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-relative-root-").expect("a scratch directory");
+    let root = scratch.path().join("p");
     let code = cli::init(init_args(&root), &[], &[], &[], &mut []).expect("init runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
 
@@ -747,7 +743,6 @@ fn new_component_accepts_a_relative_root() {
     .expect("new-component runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
     assert!(root.join("svc/README.md").is_file());
-    let _ = std::fs::remove_dir_all(&scratch);
 }
 
 /// The tool's source the tests of the checker directories plant: one unbound string literal,
@@ -828,20 +823,21 @@ impl Prepared for ToolLiteralsPrepared {
 }
 
 /// A copy of `dirhome` under the temporary directory, `tag` naming it, with [`TOOL`] citing an
-/// entry, every file staged.
-fn dirhome_with_a_tool(tag: &str) -> PathBuf {
-    let root = std::env::temp_dir().join(format!("ka-{tag}-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&root);
-    copy_tree(&mocks().join("dirhome"), &root);
+/// entry, every file staged. It is removed when dropped.
+fn dirhome_with_a_tool(tag: &str) -> tempfile::TempDir {
+    let scratch =
+        tempfile::TempDir::with_prefix(format!("klarch-{tag}-")).expect("a scratch directory");
+    let root = scratch.path();
+    copy_tree(&mocks().join("dirhome"), root);
     std::fs::create_dir_all(root.join("tool/src")).expect("the tool's directory");
     std::fs::write(
         root.join(TOOL),
         "pub fn f() {\n    println!(\"{}\", \"`design@dirhome@dir-anchor`\");\n}\n",
     )
     .expect("the tool's source");
-    git(&root, &["init", "-q"]);
-    git(&root, &["add", "-A"]);
-    root
+    git(root, &["init", "-q"]);
+    git(root, &["add", "-A"]);
+    scratch
 }
 
 /// The claim: `cli::run` hands `index` the checker directories it is given, so an extension
@@ -851,8 +847,9 @@ fn dirhome_with_a_tool(tag: &str) -> PathBuf {
 /// `commands::index(manifest, mode, &[], extensions)`; caught.
 #[test]
 fn run_hands_index_the_checker_directories() {
-    let root = dirhome_with_a_tool("run-checker-index");
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch = dirhome_with_a_tool("run-checker-index");
+    let root = scratch.path();
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let tool = root.join("tool");
     let index = |checker: &[&Path]| {
         let mut extensions: Vec<Box<dyn Extension>> = vec![Box::<ToolLiterals>::default()];
@@ -868,7 +865,6 @@ fn run_hands_index_the_checker_directories() {
     };
     assert_eq!(index(&[&tool]), "Data\n");
     assert_eq!(index(&[]), "Prose\n");
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The claim: `cli::run` hands `model` the checker directories it is given, so the model it
@@ -878,8 +874,9 @@ fn run_hands_index_the_checker_directories() {
 /// `Command::Model => commands::model(manifest, &[], extensions),`; caught.
 #[test]
 fn run_hands_model_the_checker_directories() {
-    let root = dirhome_with_a_tool("run-checker-model");
-    let manifest = Manifest::load(&root).expect("the copy's manifest");
+    let scratch = dirhome_with_a_tool("run-checker-model");
+    let root = scratch.path();
+    let manifest = Manifest::load(root).expect("the copy's manifest");
     let tool = root.join("tool");
     let dumped = |checker: &[&Path]| {
         let extension = ToolLiterals::default();
@@ -893,7 +890,6 @@ fn run_hands_model_the_checker_directories() {
     };
     assert_eq!(dumped(&[&tool]), "Data\n");
     assert_eq!(dumped(&[]), "Prose\n");
-    let _ = std::fs::remove_dir_all(&root);
 }
 
 /// The claim: `cli::run` hands `new-component` the checker directories it is given, so the check
@@ -904,10 +900,9 @@ fn run_hands_model_the_checker_directories() {
 /// `knowledge_architect_create::new_component(manifest, &args.dir, &[], extensions)`; caught.
 #[test]
 fn run_hands_new_component_the_checker_directories() {
-    let scratch = std::env::temp_dir().join(format!("ka-run-checker-new-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&scratch);
-    std::fs::create_dir_all(&scratch).expect("a scratch directory");
-    let root = scratch.join("p");
+    let scratch =
+        tempfile::TempDir::with_prefix("klarch-run-checker-new-").expect("a scratch directory");
+    let root = scratch.path().join("p");
     let code = cli::init(init_args(&root), &[], &[], &[], &mut []).expect("init runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
     std::fs::create_dir_all(root.join("tool/src")).expect("the tool's directory");
@@ -931,5 +926,4 @@ fn run_hands_new_component_the_checker_directories() {
     };
     assert_eq!(add("covered", &[&tool]), std::process::ExitCode::SUCCESS);
     assert_eq!(add("live", &[]), std::process::ExitCode::FAILURE);
-    let _ = std::fs::remove_dir_all(&scratch);
 }

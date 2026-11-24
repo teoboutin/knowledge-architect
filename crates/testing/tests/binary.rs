@@ -7,7 +7,7 @@
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::sync::{Arc, OnceLock};
+use std::sync::OnceLock;
 
 /// The real binary, built from this checkout once per run of this test file.
 ///
@@ -85,33 +85,10 @@ fn source(name: &str) -> PathBuf {
         .join(name)
 }
 
-/// A copy of a mock project pinned to this binary's version, a git repository of its own, shared by
-/// the tests that only read it, so each mock is copied once per run.
-///
-/// It sits in the target directory under this process's id, so two runs over one target directory do
-/// not meet, and nothing is left outside the target directory. A copy that fails fails the tests over
-/// that mock alone.
-fn project(name: &str) -> PathBuf {
-    static COPIES: OnceLock<
-        std::sync::Mutex<std::collections::HashMap<String, Arc<OnceLock<PathBuf>>>>,
-    > = OnceLock::new();
-    let slot = COPIES
-        .get_or_init(Default::default)
-        .lock()
-        .unwrap_or_else(|e| e.into_inner())
-        .entry(name.to_string())
-        .or_default()
-        .clone();
-    slot.get_or_init(|| {
-        let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
-            .join(format!("mock-copies-{}", std::process::id()))
-            .join(name);
-        copy_dir(&source(name), &dir);
-        git(&dir, &["init", "-q"]);
-        git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-        dir
-    })
-    .clone()
+/// A copy of a mock project, a [`Sandbox`] its caller owns, for a test that needs nothing of its own
+/// in it: each call makes a copy, so no two tests share one.
+fn project(name: &str) -> Sandbox {
+    Sandbox::new(name, name)
 }
 
 /// Stdout, stderr and the exit code of one run in a directory.
@@ -130,7 +107,8 @@ fn run_in(dir: &Path, args: &[&str]) -> (String, String, i32) {
 
 /// Stdout, stderr and the exit code of one run in one mock project.
 fn run(name: &str, args: &[&str]) -> (String, String, i32) {
-    run_in(&project(name), args)
+    let project = project(name);
+    project.run(args)
 }
 
 /// The same, with `PATH` replaced, which is how the missing-`git` case is stated.
@@ -153,17 +131,18 @@ fn run_with_env(dir: &Path, args: &[&str], env: &[(&str, &Path)]) -> (String, St
     )
 }
 
-/// A throwaway copy of a mock project, for the tests whose command writes.
-///
-/// A test that only reads shares the copy `project` gives, which works only while a run leaves the
-/// tree alone. `index` writes, so it gets a copy of its own: writing into a shared one would leave the
-/// next run comparing against the previous run's output rather than against the fixture.
+/// A throwaway copy of a mock project, pinned to this binary's version, removed when dropped.
 ///
 /// **The copy is a git repository of its own.** The walk is `git ls-files` from the project
 /// root, so a copy outside any worktree walks nothing and every test over it passes for the
 /// wrong reason. `git init` and `git add -A` are what make the copied files live, and anything
 /// a test wants staged — a `.gitignore` above all — is written by `seeded` BEFORE the add.
+///
+/// **It sits in the temporary directory**, under a random name, so it is outside every worktree,
+/// this repository's included, and two runs do not meet. The project is a directory of the
+/// sandbox's own, so a test has a place outside the project that goes with it, `outside`.
 struct Sandbox {
+    scratch: tempfile::TempDir,
     dir: PathBuf,
 }
 
@@ -174,10 +153,7 @@ impl Sandbox {
 
     /// The same, with extra files written into the copy before it is staged.
     fn seeded(tag: &str, from: &str, files: &[(&str, &str)]) -> Self {
-        let dir = std::env::temp_dir().join(format!("knowledge-{tag}-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        copy_dir(&source(from), &dir);
-        let sandbox = Sandbox { dir };
+        let sandbox = Self::without_git(tag, from);
         for (rel, text) in files {
             sandbox.write(rel, text);
         }
@@ -190,10 +166,11 @@ impl Sandbox {
 
     /// A copy that is NOT a git repository, for the tests about a project outside a worktree.
     fn without_git(tag: &str, from: &str) -> Self {
-        let dir = std::env::temp_dir().join(format!("knowledge-{tag}-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch =
+            tempfile::TempDir::with_prefix(format!("klarch-{tag}-")).expect("a scratch directory");
+        let dir = scratch.path().join("project");
         copy_dir(&source(from), &dir);
-        Sandbox { dir }
+        Sandbox { scratch, dir }
     }
 
     /// Stage whatever the copy holds now.
@@ -253,6 +230,12 @@ impl Sandbox {
         self.dir.join(rel)
     }
 
+    /// A path outside the project, under the sandbox's own directory. It holds nothing until the test
+    /// writes it.
+    fn outside(&self, rel: &str) -> PathBuf {
+        self.scratch.path().join(rel)
+    }
+
     /// Write a file into the copy; a manifest is written pinned to this binary's version.
     fn write(&self, rel: &str, text: &str) {
         let path = self.path(rel);
@@ -288,12 +271,6 @@ impl Sandbox {
             &format!("@.claude/knowledge-architect/PRIMER.md\n\n{claude}"),
         );
         self.stage();
-    }
-}
-
-impl Drop for Sandbox {
-    fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.dir);
     }
 }
 
@@ -353,11 +330,6 @@ fn pinned(text: &str) -> String {
     joined
 }
 
-/// The smallest conformant mock, which declares no table `check` does not own.
-fn mock() -> PathBuf {
-    project("core")
-}
-
 fn check(dir: &Path) -> (i32, String) {
     let out = Command::new(klarch())
         .arg("check")
@@ -386,7 +358,9 @@ fn git(dir: &Path, args: &[&str]) {
 
 #[test]
 fn the_binary_passes_over_a_project_that_declares_only_what_it_reads() {
-    let (code, out) = check(&mock());
+    // The smallest conformant mock, which declares no table `check` does not own.
+    let mock = project("core");
+    let (code, out) = check(&mock.dir);
     assert_eq!(code, 0, "{out}");
     assert!(
         out.contains("checked: generated, registers, references\n"),
@@ -446,22 +420,16 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
 
 #[test]
 fn the_binary_refuses_a_table_no_extension_of_it_claims() {
-    // A copy, so the table is added to nothing another test reads. The walk is git's listing,
-    // so the copy is its own repository.
-    let dir = std::env::temp_dir().join(format!("knowledge-check-claims-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&dir);
-    copy_dir(&mock(), &dir);
-    let manifest = dir.join("knowledge-architect.toml");
+    let sandbox = project("core");
+    let manifest = sandbox.path("knowledge-architect.toml");
     let mut text = std::fs::read_to_string(&manifest).expect("the mock manifest");
     text.push_str(
         "\n[rules]\ndir = \"r\"\ntext = \"t\"\nbody-starts-at = 0\nversion = \"v\"\n\
          past = \"p\"\nmanifest = \"m\"\n",
     );
     std::fs::write(&manifest, text).expect("the manifest written");
-    git(&dir, &["init", "-q"]);
-    git(&dir, &["add", "-A"]);
-    let (code, out) = check(&dir);
-    let _ = std::fs::remove_dir_all(&dir);
+    sandbox.stage();
+    let (code, out) = check(&sandbox.dir);
     assert_eq!(code, 1, "{out}");
     assert!(out.contains("phase 1: 1 finding(s)"), "{out}");
     assert!(
@@ -545,8 +513,9 @@ const DANGLING: &str = "# Another mock document\n\nIt points at `design@minimal@
 struct History {
     /// The project's own directory, which is where every command is run.
     dir: PathBuf,
-    /// The repository's root, which is `dir` unless the project is vendored under it.
-    repo: PathBuf,
+    /// The repository's root, which is `dir` unless the project is vendored under it. It is removed
+    /// when dropped.
+    repo: tempfile::TempDir,
 }
 
 impl History {
@@ -560,12 +529,12 @@ impl History {
     /// git question the per-commit read asks has to be answered project-relative rather than
     /// repository-relative.
     fn at(tag: &str, under: &str) -> Self {
-        let repo = std::env::temp_dir().join(format!("knowledge-{tag}-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&repo);
+        let repo =
+            tempfile::TempDir::with_prefix(format!("klarch-{tag}-")).expect("a scratch directory");
         let dir = if under.is_empty() {
-            repo.clone()
+            repo.path().to_path_buf()
         } else {
-            repo.join(under)
+            repo.path().join(under)
         };
         std::fs::create_dir_all(&dir).expect("a temporary directory");
         let history = History { dir, repo };
@@ -582,7 +551,7 @@ impl History {
     fn git(&self, args: &[&str]) {
         let out = Command::new("git")
             .args(args)
-            .current_dir(&self.repo)
+            .current_dir(self.repo.path())
             .output()
             .expect("git runs");
         assert!(
@@ -632,7 +601,7 @@ impl History {
         self.git(&["-c", "core.excludesFile=/dev/null", "add", "-A"]);
         self.run(&["index"]);
         self.git(&["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-        let file = self.repo.join("message.txt");
+        let file = self.repo.path().join("message.txt");
         std::fs::write(&file, message).expect("a message file");
         let path = file.to_string_lossy().into_owned();
         // `--allow-empty`, because a test commits a message over a tree it did not change:
@@ -649,16 +618,10 @@ impl History {
         std::fs::remove_file(&file).expect("the message file leaves the tree");
         let out = Command::new("git")
             .args(["rev-parse", "--short=7", "HEAD"])
-            .current_dir(&self.repo)
+            .current_dir(self.repo.path())
             .output()
             .expect("git runs");
         String::from_utf8_lossy(&out.stdout).trim().to_string()
-    }
-}
-
-impl Drop for History {
-    fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.repo);
     }
 }
 
@@ -1327,8 +1290,8 @@ fn anchors_marks_a_missing_home_and_exits_one() {
 /// The claim: `--group` keeps the rows whose entry sits in the group it names, and drops the
 /// ungrouped ones.
 ///
-/// The only grouped ISSUE instance in any mock is `dirhome`'s, and it is read in the shared
-/// copy: the command writes nothing. Both directions are asserted, because a filter that
+/// The only grouped ISSUE instance in any mock is `dirhome`'s, and it is read in a copy
+/// of it. Both directions are asserted, because a filter that
 /// dropped every row would satisfy a test that only checked the grouped entry was gone.
 #[test]
 fn issues_group_filter_keeps_the_entries_of_the_group_it_names() {
@@ -1865,14 +1828,13 @@ fn a_nested_gitignore_is_honoured() {
 /// nothing wrong, which is the failure class this tool exists to prevent.
 #[test]
 fn a_run_with_no_git_on_the_path_is_exit_two_naming_git() {
-    let empty = std::env::temp_dir().join(format!("knowledge-no-git-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&empty);
+    let sandbox = project("minimal");
+    let empty = sandbox.outside("empty");
     std::fs::create_dir_all(&empty).expect("a directory holding no git");
-    let (stdout, stderr, code) = run_with_path(&project("minimal"), &["check"], &empty);
+    let (stdout, stderr, code) = run_with_path(&sandbox.dir, &["check"], &empty);
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(stderr.contains("git is not on the PATH"), "{stderr}");
     assert!(!stdout.contains("PASSED"), "{stdout}");
-    let _ = std::fs::remove_dir_all(&empty);
 }
 
 /// The claim: a project directory outside any git worktree is exit 2 carrying git's own reason.
@@ -1978,8 +1940,7 @@ fn a_per_user_ignore_file_does_not_decide_the_walk() {
     // pass over the pin without touching it.
     let sandbox = Sandbox::new("global-ignore", "minimal");
     sandbox.write("notes/scratch.md", DANGLING);
-    let home = std::env::temp_dir().join(format!("knowledge-home-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&home);
+    let home = sandbox.outside("home");
     std::fs::create_dir_all(home.join(".config/git")).expect("a fake home");
     std::fs::write(home.join(".config/git/ignore"), "scratch.md\n").expect("a global rule");
     std::fs::write(
@@ -1997,7 +1958,6 @@ fn a_per_user_ignore_file_does_not_decide_the_walk() {
     // The same run without the fake home, so the count is the same either way.
     let (plain, _, _) = sandbox.run(&["check"]);
     assert_eq!(walked_count(&out), walked_count(&plain));
-    let _ = std::fs::remove_dir_all(&home);
 }
 
 /// The claim: a project written this way has nothing wrong with it, so a commit over it is
@@ -3257,13 +3217,14 @@ fn a_commit_whose_walked_blob_is_missing_names_the_object_store() {
     let sha = history.commit("A note is added\n");
     let out = Command::new("git")
         .args(["rev-parse", "HEAD:docs/gone.md"])
-        .current_dir(&history.repo)
+        .current_dir(history.repo.path())
         .output()
         .expect("git runs");
     let blob = String::from_utf8_lossy(&out.stdout).trim().to_string();
     std::fs::remove_file(
         history
             .repo
+            .path()
             .join(".git/objects")
             .join(&blob[..2])
             .join(&blob[2..]),
@@ -3297,13 +3258,14 @@ fn a_commit_whose_unwalked_blob_is_missing_is_told_to_restore_it() {
     let sha = history.commit("A note is added\n");
     let out = Command::new("git")
         .args(["rev-parse", "HEAD:notes/gone.txt"])
-        .current_dir(&history.repo)
+        .current_dir(history.repo.path())
         .output()
         .expect("git runs");
     let blob = String::from_utf8_lossy(&out.stdout).trim().to_string();
     std::fs::remove_file(
         history
             .repo
+            .path()
             .join(".git/objects")
             .join(&blob[..2])
             .join(&blob[2..]),
@@ -3561,7 +3523,7 @@ fn a_project_vendored_under_its_repository_is_judged_from_its_own_paths() {
     let history = History::at("commit-nested", "vendored");
     tiny_project(&history, false);
     // A file at the repository root, outside the project: nothing about it may reach the walk.
-    std::fs::write(history.repo.join("outside.md"), "# Outside\n").expect("a file outside");
+    std::fs::write(history.repo.path().join("outside.md"), "# Outside\n").expect("a file outside");
     let base = history.commit("The project is created\n");
     let sha = history.commit("A subject line\n\nIt records `design@tiny@tiny-anchor`.\n");
 
@@ -3606,11 +3568,12 @@ fn a_range_that_does_not_resolve_could_not_run() {
 /// standard print macros raise on a broken pipe made that idiom print a backtrace hint.
 #[test]
 fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
+    let project = project("planted");
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
     let out = Command::new(klarch())
         .args(["model"])
-        .current_dir(project("planted"))
+        .current_dir(&project.dir)
         .stdout(writer)
         .output()
         .expect("the binary runs");
@@ -3626,11 +3589,12 @@ fn a_closed_stdout_ends_the_run_quietly_with_exit_2() {
 /// `design@cli@exit-code-ladder`. Mutation checked: exit 0 in that copy.
 #[test]
 fn a_closed_stdout_ends_a_command_over_the_record_with_exit_2() {
+    let project = project("planted");
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
     let out = Command::new(klarch())
         .args(["anchors"])
-        .current_dir(project("planted"))
+        .current_dir(&project.dir)
         .stdout(writer)
         .output()
         .expect("the binary runs");
@@ -3646,12 +3610,12 @@ fn a_closed_stdout_ends_a_command_over_the_record_with_exit_2() {
 /// `design@cli@exit-code-ladder`. Mutation checked: exit 0 in that copy.
 #[test]
 fn a_closed_stdout_ends_transcript_with_exit_2() {
-    let config = transcript_case("kinds", "closed-stdout");
+    let (project, config) = transcript_case("kinds", "closed-stdout");
     let (reader, writer) = std::io::pipe().expect("a pipe");
     drop(reader);
     let out = Command::new(klarch())
         .args(["transcript", "list", "--all-projects"])
-        .current_dir(project("core"))
+        .current_dir(&project.dir)
         .env("CLAUDE_CONFIG_DIR", &config)
         .stdout(writer)
         .output()
@@ -3862,7 +3826,8 @@ fn index_over_an_incomplete_model_refuses_and_writes_nothing() {
 /// project's pin. Shown to fail before the flag existed: clap refused the argument and exited 2.
 #[test]
 fn the_binary_reports_its_version_from_anywhere() {
-    let (out, err, code) = run_in(&std::env::temp_dir(), &["--version"]);
+    let nowhere = tempfile::TempDir::with_prefix("klarch-version-").expect("a scratch directory");
+    let (out, err, code) = run_in(nowhere.path(), &["--version"]);
     assert_eq!(code, 0, "{err}");
     assert_eq!(
         out.trim(),
@@ -4314,7 +4279,7 @@ fn check_fix_leaves_a_directory_at_a_shipped_path_and_names_it() {
 #[test]
 fn check_fix_refuses_a_symlinked_destination_and_writes_nothing() {
     let sandbox = stale_index("fix-symlink");
-    let outside = std::env::temp_dir().join(format!("ka-fix-outside-{}", std::process::id()));
+    let outside = sandbox.outside("outside.md");
     std::fs::write(&outside, "outside the project\n").expect("a file outside the project");
     std::fs::remove_file(sandbox.path(FIX_INDEX)).expect("the index is removed");
     std::os::unix::fs::symlink(&outside, sandbox.path(FIX_INDEX)).expect("a symlinked index");
@@ -4335,7 +4300,6 @@ fn check_fix_refuses_a_symlinked_destination_and_writes_nothing() {
         std::fs::read_to_string(&outside).expect("the outside file"),
         "outside the project\n"
     );
-    let _ = std::fs::remove_file(&outside);
 }
 
 /// The claim: a manifest holding a refused declaration makes `check --fix` write nothing, not even
@@ -5029,31 +4993,16 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     }
 
     // A linked worktree, whose hook git also gives `GIT_DIR`: each form refuses a failing tree
-    // and passes a sound one. The guard removes the worktree whatever the assertions do.
-    struct Linked<'a>(&'a Sandbox, PathBuf);
-    impl Drop for Linked<'_> {
-        fn drop(&mut self) {
-            let path = self.1.to_string_lossy().into_owned();
-            let _ = self
-                .0
-                .git_command(&["worktree", "remove", "--force", &path])
-                .output();
-            let _ = std::fs::remove_dir_all(&self.1);
-        }
-    }
-    let linked = Linked(
-        &sandbox,
-        std::env::temp_dir().join(format!("knowledge-staged-hook-wt-{}", std::process::id())),
-    );
-    let _ = std::fs::remove_dir_all(&linked.1);
+    // and passes a sound one.
+    let linked = sandbox.outside("linked");
     sandbox.git(&[
         "worktree",
         "add",
         "-q",
         "--detach",
-        &linked.1.to_string_lossy(),
+        &linked.to_string_lossy(),
     ]);
-    let readme_at = linked.1.join("README.md");
+    let readme_at = linked.join("README.md");
     let stage = |dir: &Path| {
         let out = sandbox
             .git_command(&["add", "README.md"])
@@ -5073,11 +5022,11 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         let run = |subject: &str| {
             let mut args = vec!["-m", subject];
             args.extend_from_slice(form);
-            commit_in(&linked.1, &args)
+            commit_in(&linked, &args)
         };
         std::fs::write(&readme_at, &dangling).expect("the linked README");
         if form.is_empty() {
-            stage(&linked.1);
+            stage(&linked);
         }
         let (passed, out) = run("linked, failing");
         assert!(!passed, "{form:?} in a linked worktree refuses: {out}");
@@ -5085,7 +5034,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         std::fs::write(&readme_at, format!("{readme}\nLinked sentence {n}.\n"))
             .expect("the linked README");
         if form.is_empty() {
-            stage(&linked.1);
+            stage(&linked);
         }
         let (passed, out) = run("linked, sound");
         assert!(passed, "{form:?} in a linked worktree passes: {out}");
@@ -5098,9 +5047,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
 #[test]
 fn a_git_dir_in_the_environment_does_not_redirect_the_walk() {
     let sandbox = Sandbox::new("git-dir-env", "dirhome");
-    let other =
-        std::env::temp_dir().join(format!("knowledge-git-dir-other-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&other);
+    let other = sandbox.outside("other");
     std::fs::create_dir_all(&other).expect("the other directory");
     for args in [&["init", "-q"][..], &["add", "f"][..]] {
         if args[0] == "add" {
@@ -5129,7 +5076,6 @@ fn a_git_dir_in_the_environment_does_not_redirect_the_walk() {
     }
     let (out, stderr, code) = run_with_env(&sandbox.dir, &["check"], &[("GIT_WORK_TREE", &other)]);
     assert_eq!(code, 0, "GIT_WORK_TREE names another tree: {out}{stderr}");
-    let _ = std::fs::remove_dir_all(&other);
 }
 
 /// The claim: a required document missing at the root Component names the one repair that
@@ -5832,8 +5778,8 @@ fn fix_refuses_after_the_installed_repairs_with_exit_one() {
 /// project is, it is clap that answers.
 #[test]
 fn fix_with_staged_is_refused_before_anything_is_read() {
-    let nowhere = std::env::temp_dir();
-    let (out, stderr, code) = run_in(&nowhere, &["check", "--fix", "--staged"]);
+    let nowhere = tempfile::TempDir::with_prefix("klarch-nowhere-").expect("a scratch directory");
+    let (out, stderr, code) = run_in(nowhere.path(), &["check", "--fix", "--staged"]);
     assert_eq!(code, 2, "{out}{stderr}");
     assert!(stderr.contains("cannot be used with"), "{stderr}");
 }
@@ -6613,8 +6559,7 @@ fn worklist_project(tag: &str) -> (Sandbox, PathBuf) {
     let (stdout, stderr, code) = sandbox.run(&["index"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
     sandbox.stage();
-    let out = std::env::temp_dir().join(format!("knowledge-{tag}-out-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&out);
+    let out = sandbox.outside("out");
     (sandbox, out)
 }
 
@@ -7080,7 +7025,6 @@ fn worklist_takes_the_work_s_words_out_of_the_bound() {
         sandbox.run(&["worklist", "--out", &refused_text, "--subject", "Not An Id"]);
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(!refused.exists());
-    let _ = std::fs::remove_file(&work);
 }
 
 /// The claim: the default bound is 40,000 words: a cluster whose own entries hold more is named by
@@ -7621,7 +7565,6 @@ fn worklist_verify_holds_seeds_and_their_citers() {
 fn worklist_refuses_a_new_directory_under_a_link_into_the_project() {
     let (sandbox, out) = worklist_project("worklist-link");
     let link = out.with_extension("link");
-    let _ = std::fs::remove_file(&link);
     std::os::unix::fs::symlink(sandbox.path(""), &link).expect("a link to the project");
     let target = link.join("new-list");
     let target_text = target.to_string_lossy().into_owned();
@@ -7629,7 +7572,6 @@ fn worklist_refuses_a_new_directory_under_a_link_into_the_project() {
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(stderr.contains("inside the project"), "{stderr}");
     assert!(!sandbox.path("new-list").exists());
-    std::fs::remove_file(&link).expect("the link removed");
 }
 
 /// Each entry's body is fenced in `entries.md`, so a line of it that reads as an entry's opening
@@ -7781,7 +7723,6 @@ fn worklist_verify_leaves_no_output_of_a_previous_run_when_it_fails() {
         assert_eq!(code, want, "{stdout}{stderr}");
         assert!(outputs().is_empty(), "{:?}", outputs());
     }
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The claim: a passing `--verify` writes `closing-sections.md`, every agent of `agents.txt` once,
@@ -7847,7 +7788,6 @@ fn worklist_verify_writes_the_closing_sections_of_every_report() {
             "{agent}: {sections}"
         );
     }
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// Every file under `dir` with its bytes, by its path relative to `dir`.
@@ -7957,7 +7897,6 @@ fn worklist_check_judges_one_report_and_writes_nothing() {
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--check", &unknown]);
     assert_eq!(code, 2, "{stdout}{stderr}");
     assert!(stderr.contains("names no agent `agent-999`"), "{stderr}");
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The outputs are the snapshot's text, not the tree's: an entry edited after `--out`, given an
@@ -8224,7 +8163,6 @@ fn worklist_counts_and_lists_a_file_of_the_work_once() {
         listed,
         format!("work {}\nsubject whole-work\n", real.display())
     );
-    let _ = std::fs::remove_file(&work);
 }
 
 /// The claim: a group alone above the bound is named by a notice only where its own entries
@@ -8399,11 +8337,7 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
             .all(|l| !l.ends_with("changed-since")),
         "{entries}"
     );
-    let head = std::env::temp_dir().join(format!(
-        "knowledge-worklist-since-head-{}",
-        std::process::id()
-    ));
-    let _ = std::fs::remove_dir_all(&head);
+    let head = sandbox.outside("head");
     let head_text = head.to_string_lossy().into_owned();
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "HEAD"]);
     assert_eq!(code, 0, "{stdout}{stderr}");
@@ -8416,7 +8350,7 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
             "issue@widget@on-the-root-moved",
         ]
     );
-    let _ = std::fs::remove_dir_all(&head);
+    std::fs::remove_dir_all(&head).expect("cleared");
     // A branch named like a directory at the project's root: the revision is resolved once, and
     // every later question names the commit by its full object name, which git never reads as a
     // path.
@@ -8428,7 +8362,7 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         stdout.contains("5 entries changed since the commit \"The base of the audit\""),
         "{stdout}"
     );
-    let _ = std::fs::remove_dir_all(&head);
+    std::fs::remove_dir_all(&head).expect("cleared");
     // One entry changed: the count takes the singular.
     worklist_commit(&sandbox, "The later base");
     sandbox.write(
@@ -8445,7 +8379,7 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         stdout.contains("1 entry changed since the commit \"The later base\""),
         "{stdout}"
     );
-    let _ = std::fs::remove_dir_all(&head);
+    std::fs::remove_dir_all(&head).expect("cleared");
     // No entry changed: the count takes the plural.
     worklist_commit(&sandbox, "The last base");
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &head_text, "--since", "HEAD"]);
@@ -8455,8 +8389,6 @@ fn worklist_since_marks_exactly_the_entries_of_the_files_changed_since_the_commi
         stdout.contains("0 entries changed since the commit \"The last base\""),
         "{stdout}"
     );
-    let _ = std::fs::remove_dir_all(&head);
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The claim: a `--since` git cannot resolve to one commit, a name of none or a range, stops the
@@ -8583,15 +8515,14 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
     );
     // A slice is a plan document too, its own README.md holding its section, given by its
     // directory or by its README.md.
-    for slice in [
-        "docs/plans/milestones/a-milestone/a-slice",
-        "docs/plans/milestones/a-milestone/a-slice/README.md",
+    for (list, slice) in [
+        ("slice", "docs/plans/milestones/a-milestone/a-slice"),
+        (
+            "slice-readme",
+            "docs/plans/milestones/a-milestone/a-slice/README.md",
+        ),
     ] {
-        let at = std::env::temp_dir().join(format!(
-            "knowledge-worklist-seeds-slice-{}",
-            std::process::id()
-        ));
-        let _ = std::fs::remove_dir_all(&at);
+        let at = sandbox.outside(list);
         let at_text = at.to_string_lossy().into_owned();
         let (stdout, stderr, code) =
             sandbox.run(&["worklist", "--out", &at_text, "--seeds-from", slice]);
@@ -8608,13 +8539,8 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
             .map(|(reference, _)| reference)
             .collect();
         assert_eq!(seeds, ["design@widget@springs-coil"], "{slice}");
-        let _ = std::fs::remove_dir_all(&at);
     }
-    let refused = std::env::temp_dir().join(format!(
-        "knowledge-worklist-seeds-refused-{}",
-        std::process::id()
-    ));
-    let _ = std::fs::remove_dir_all(&refused);
+    let refused = sandbox.outside("refused");
     let refused_text = refused.to_string_lossy().into_owned();
     let (stdout, stderr, code) = sandbox.run(&[
         "worklist",
@@ -8636,7 +8562,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
             .any(|marks| marks.first().is_some_and(|m| m == "seed")),
         "no seed"
     );
-    let _ = std::fs::remove_dir_all(&refused);
+    std::fs::remove_dir_all(&refused).expect("cleared");
     // A section that cites nothing a seed can be gives no seed, and the count takes the plural.
     sandbox.write(
         "docs/plans/specs/no-seed/README.md",
@@ -8658,7 +8584,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         stdout.contains("spec@plans@no-seed: 0 seeds from its section \"What is already decided\""),
         "{stdout}"
     );
-    let _ = std::fs::remove_dir_all(&refused);
+    std::fs::remove_dir_all(&refused).expect("cleared");
     for path in ["docs/design.md", "docs/plans/specs/missing/README.md"] {
         let (stdout, stderr, code) =
             sandbox.run(&["worklist", "--out", &refused_text, "--seeds-from", path]);
@@ -8692,7 +8618,6 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         );
         assert!(!refused.exists(), "nothing written");
     }
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The claim: `--out` refuses, with exit 2 and nothing written, a file of the work and a plan
@@ -8803,26 +8728,26 @@ fn worklist_verify_at_an_audit_writes_the_gaps_and_the_fit_lines() {
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--verify", &out_text]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(!out.join("gaps.md").exists() && !out.join("fit-lines.md").exists());
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 // ---- `transcript` ------------------------------------------------------------------------------
 //
 // The fixtures under `path@testing@tests/transcripts/` are Claude Code transcript directories, one per
-// case, whose `cwd` fields hold `{{root}}`. Each test writes its case into a directory of its own,
-// with `{{root}}` replaced by the mock `core`'s root, and runs the binary there with
-// `CLAUDE_CONFIG_DIR` pointed at it, so no test reads the machine's own transcripts. The mock gains
-// no file: `transcript` reads nothing of the project but its root.
+// case, whose `cwd` fields hold `{{root}}`. Each run writes its case into a directory of its own,
+// with `{{root}}` replaced by the root of its copy of the mock `core`, and runs the binary in that
+// copy with `CLAUDE_CONFIG_DIR` pointed at the directory, so no test reads the machine's own
+// transcripts. The mock gains no file: `transcript` reads nothing of the project but its root.
 
-/// The case `case` written for the test `tag`, its `{{root}}` replaced; the directory to hand as
-/// `CLAUDE_CONFIG_DIR`.
-fn transcript_case(case: &str, tag: &str) -> PathBuf {
-    let root = project("core").canonicalize().expect("the mock exists");
-    let dir = std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&dir);
+/// A copy of the mock `core` for the test `tag`, with the case `case` written outside it, its
+/// `{{root}}` replaced by the copy's root; the copy, and the directory to hand as
+/// `CLAUDE_CONFIG_DIR`, which goes with it.
+fn transcript_case(case: &str, tag: &str) -> (Sandbox, PathBuf) {
+    let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
+    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let config = sandbox.outside("config");
     let from = transcript_dir().join("tests/transcripts").join(case);
-    copy_rendered(&from, &dir, &root.display().to_string());
-    dir
+    copy_rendered(&from, &config, &root.display().to_string());
+    (sandbox, config)
 }
 
 fn copy_rendered(from: &Path, to: &Path, root: &str) {
@@ -8850,10 +8775,10 @@ fn copy_rendered(from: &Path, to: &Path, root: &str) {
 
 /// One `transcript` run over a case, in the mock `core`.
 fn transcript(case: &str, tag: &str, args: &[&str]) -> (String, String, i32) {
-    let config = transcript_case(case, tag);
+    let (sandbox, config) = transcript_case(case, tag);
     let mut all = vec!["transcript"];
     all.extend_from_slice(args);
-    run_with_env(&project("core"), &all, &[("CLAUDE_CONFIG_DIR", &config)])
+    run_with_env(&sandbox.dir, &all, &[("CLAUDE_CONFIG_DIR", &config)])
 }
 
 /// A session opens where the `sessionId` changes and at a root that is no compaction; a compaction
@@ -9052,8 +8977,9 @@ fn transcript_exit_codes_follow_the_ladder() {
         ),
         1
     );
+    let sandbox = project("core");
     let (_, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "list"],
         &[("CLAUDE_CONFIG_DIR", Path::new("/nonexistent/klarch-config"))],
     );
@@ -9067,13 +8993,14 @@ fn transcript_exit_codes_follow_the_ladder() {
 /// each caught.
 #[test]
 fn transcript_refuses_a_date_or_a_pattern_while_parsing() {
+    let sandbox = project("core");
     for args in [
         &["transcript", "list", "--since", "2026-13-45"][..],
         &["transcript", "search", "x", "--since", "2026-02-30"],
         &["transcript", "search", "("],
     ] {
         let (stdout, stderr, code) = run_with_env(
-            &project("core"),
+            &sandbox.dir,
             args,
             &[("CLAUDE_CONFIG_DIR", Path::new("/nonexistent/klarch-config"))],
         );
@@ -9468,9 +9395,7 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
     let worktree = sandbox.path("linked");
     sandbox.git(&["worktree", "add", "-q", "--detach", "linked"]);
     let root = sandbox.dir.canonicalize().expect("the sandbox exists");
-    let config =
-        std::env::temp_dir().join(format!("klarch-transcript-worktree-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&config);
+    let config = sandbox.outside("config");
     copy_rendered(
         &transcript_dir().join("tests/transcripts/places"),
         &config,
@@ -9498,8 +9423,7 @@ fn transcript_from_a_subdirectory_reads_the_sessions_of_the_project() {
     let sub = sandbox.path("sub");
     std::fs::create_dir(&sub).expect("a subdirectory");
     let root = sandbox.dir.canonicalize().expect("the sandbox exists");
-    let config = std::env::temp_dir().join(format!("klarch-transcript-sub-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&config);
+    let config = sandbox.outside("config");
     copy_rendered(
         &transcript_dir().join("tests/transcripts/places"),
         &config,
@@ -9879,10 +9803,9 @@ fn transcript_from_matches_no_line_the_agent_wrote() {
 /// project's, since both sides are canonicalised before they are compared.
 #[test]
 fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
-    let root = project("core").canonicalize().expect("the mock exists");
-    let config =
-        std::env::temp_dir().join(format!("klarch-transcript-symlink-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&config);
+    let sandbox = project("core");
+    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let config = sandbox.outside("config");
     let projects = config.join("projects/-linked");
     std::fs::create_dir_all(&projects).expect("a transcript directory");
     let link = config.join("link");
@@ -9897,11 +9820,10 @@ fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
     )
     .expect("a transcript");
     let (stdout, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "list"],
         &[("CLAUDE_CONFIG_DIR", &config)],
     );
-    let _ = std::fs::remove_dir_all(&config);
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(stdout.contains("5e5e5e5e "), "{stdout}");
 }
@@ -9953,20 +9875,20 @@ fn transcript_a_subagent_s_tool_lines_show_under_tools_alone() {
     assert!(stdout.contains(call), "{stdout}");
 }
 
-/// A transcript directory for the test `tag`, holding each `(path, text)` of `files`, `{{root}}`
-/// replaced by the mock `core`'s root; the directory to hand as `CLAUDE_CONFIG_DIR`.
-fn transcript_config(tag: &str, files: &[(&str, &str)]) -> PathBuf {
-    let root = project("core").canonicalize().expect("the mock exists");
-    let config =
-        std::env::temp_dir().join(format!("klarch-transcript-{tag}-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&config);
+/// A copy of the mock `core` for the test `tag`, with a transcript directory outside it holding each
+/// `(path, text)` of `files`, `{{root}}` replaced by the copy's root; the copy, and the directory to
+/// hand as `CLAUDE_CONFIG_DIR`, which goes with it.
+fn transcript_config(tag: &str, files: &[(&str, &str)]) -> (Sandbox, PathBuf) {
+    let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
+    let root = sandbox.dir.canonicalize().expect("the mock exists");
+    let config = sandbox.outside("config");
     for (rel, text) in files {
         let path = config.join(rel);
         std::fs::create_dir_all(path.parent().expect("a parent")).expect("a directory");
         std::fs::write(path, text.replace("{{root}}", &root.display().to_string()))
             .expect("a file");
     }
-    config
+    (sandbox, config)
 }
 
 /// One chain line of a session the owner opens with `text`, in the mock `core`.
@@ -9987,7 +9909,7 @@ fn transcript_line(uuid: &str, session_id: &str, text: &str) -> String {
 fn transcript_the_walk_passes_over_what_is_no_transcript() {
     let id = "a7a7a7a7-0000-0000-0000-000000000041";
     let session = transcript_line("w1", id, "the walked session");
-    let config = transcript_config(
+    let (sandbox, config) = transcript_config(
         "walk",
         &[
             (&format!("projects/-p/{id}.jsonl"), &session),
@@ -10001,11 +9923,10 @@ fn transcript_the_walk_passes_over_what_is_no_transcript() {
         ],
     );
     let (stdout, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "list", "--all-projects"],
         &[("CLAUDE_CONFIG_DIR", &config)],
     );
-    let _ = std::fs::remove_dir_all(&config);
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(stdout.starts_with("# files read: 1;"), "{stdout}");
     assert!(!stdout.contains("not JSON"), "{stdout}");
@@ -10023,7 +9944,7 @@ fn transcript_the_walk_passes_over_what_is_no_transcript() {
 #[test]
 fn transcript_a_subagent_no_session_carries_goes_to_its_file_s_last_session() {
     let id = "f1f1f1f1-0000-0000-0000-000000000040";
-    let config = transcript_config(
+    let (sandbox, config) = transcript_config(
         "stray-agent",
         &[
             (
@@ -10041,11 +9962,10 @@ fn transcript_a_subagent_no_session_carries_goes_to_its_file_s_last_session() {
         ],
     );
     let (stdout, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "show", "f1f1f1f1", "--subagents"],
         &[("CLAUDE_CONFIG_DIR", &config)],
     );
-    let _ = std::fs::remove_dir_all(&config);
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(stdout.contains("# subagent f1f1f1f1/0000000a"), "{stdout}");
     assert!(stdout.contains("the brief of the stray agent"), "{stdout}");
@@ -10059,7 +9979,7 @@ fn transcript_a_subagent_no_session_carries_goes_to_its_file_s_last_session() {
 #[test]
 fn transcript_an_empty_config_dir_or_home_reads_as_unset() {
     let id = "b8b8b8b8-0000-0000-0000-000000000043";
-    let home = transcript_config(
+    let (sandbox, home) = transcript_config(
         "home",
         &[(
             &format!(".claude/projects/-p/{id}.jsonl"),
@@ -10067,15 +9987,14 @@ fn transcript_an_empty_config_dir_or_home_reads_as_unset() {
         )],
     );
     let (stdout, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "list"],
         &[("CLAUDE_CONFIG_DIR", Path::new("")), ("HOME", &home)],
     );
-    let _ = std::fs::remove_dir_all(&home);
     assert_eq!(code, 0, "{stdout}{stderr}");
     assert!(stdout.contains("b8b8b8b8 "), "{stdout}");
     let (stdout, stderr, code) = run_with_env(
-        &project("core"),
+        &sandbox.dir,
         &["transcript", "list"],
         &[
             ("CLAUDE_CONFIG_DIR", Path::new("")),
@@ -10129,13 +10048,10 @@ fn refused_with_an_untouched_tree(sandbox: &Sandbox, args: &[&str]) {
 /// otherwise write. So the refusal is the only thing that can make these runs exit 2.
 fn with_a_work_list(tag: &str) -> (Sandbox, String, PathBuf) {
     let sandbox = Sandbox::new(tag, "dirhome");
-    let outside = std::env::temp_dir().join(format!("{tag}-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&outside);
-    std::fs::create_dir_all(&outside).expect("a directory outside the project");
-    let written = outside.join("written");
+    let written = sandbox.outside("written");
     let (out, stderr, code) = sandbox.run(&["worklist", "--out", written.to_str().unwrap()]);
     assert_eq!(code, 0, "{out}{stderr}");
-    let fresh = outside.join("fresh");
+    let fresh = sandbox.outside("fresh");
     (sandbox, written.to_str().unwrap().to_string(), fresh)
 }
 
@@ -10723,11 +10639,8 @@ fn run_hands_worklist_the_checker_directories() {
     );
     assert!(!covered.contains("tool/src/lib.rs"), "{covered}");
     let live_dir = out.with_extension("live");
-    let _ = std::fs::remove_dir_all(&live_dir);
     let live = shown(&live_dir, &[]);
     assert!(live.contains("tool/src/lib.rs:2"), "{live}");
-    let _ = std::fs::remove_dir_all(&out);
-    let _ = std::fs::remove_dir_all(&live_dir);
 }
 
 /// The claim: a directory given inside the project is refused where the project's manifest was
@@ -10740,7 +10653,6 @@ fn run_hands_worklist_the_checker_directories() {
 fn worklist_refuses_a_directory_inside_a_project_found_through_a_link() {
     let (sandbox, out) = worklist_project("worklist-linked-root");
     let link = out.with_extension("root-link");
-    let _ = std::fs::remove_file(&link);
     std::os::unix::fs::symlink(&sandbox.dir, &link).expect("a link to the project");
     let manifest = knowledge_architect::Manifest::find(&link).expect("the manifest");
     let command =
@@ -10756,7 +10668,6 @@ fn worklist_refuses_a_directory_inside_a_project_found_through_a_link() {
             seeds_from: None,
         });
     let refused = knowledge_architect::cli::run(command, &manifest, &[], &mut []);
-    std::fs::remove_file(&link).expect("the link removed");
     let refusal = refused.expect_err("a directory inside the project");
     assert!(refusal.contains("inside the project"), "{refusal}");
     assert!(!sandbox.path("new-list").exists());
@@ -10779,7 +10690,6 @@ fn worklist_takes_a_seed_in_backticks() {
     assert_eq!(code, 0, "{stdout}{stderr}");
     let agents = std::fs::read_to_string(out.join("agents.txt")).expect("agents.txt");
     assert!(agents.contains("design@core-mock@first-head"), "{agents}");
-    let _ = std::fs::remove_dir_all(&out);
 }
 
 /// The claim: a working directory that no longer exists is exit 2, naming the working directory
@@ -10789,9 +10699,9 @@ fn worklist_takes_a_seed_in_backticks() {
 #[cfg(target_os = "linux")]
 #[test]
 fn a_working_directory_that_is_gone_is_exit_two_naming_it() {
-    let dir = std::env::temp_dir().join(format!("knowledge-gone-cwd-{}", std::process::id()));
-    let _ = std::fs::remove_dir_all(&dir);
-    std::fs::create_dir_all(&dir).expect("the directory");
+    let scratch = tempfile::TempDir::with_prefix("klarch-gone-cwd-").expect("a scratch directory");
+    let dir = scratch.path().join("gone");
+    std::fs::create_dir(&dir).expect("the directory");
     // The shell enters the directory and removes it, so the binary starts in a working directory
     // that is gone, which `current_dir` cannot read.
     let out = Command::new("sh")

@@ -601,13 +601,12 @@ mod checker {
     #[test]
     fn a_symlinked_root_still_finds_the_checker_directory_inside_it() {
         let real = mock("planted").root().to_path_buf();
-        let link =
-            std::env::temp_dir().join(format!("knowledge-symlinked-root-{}", std::process::id()));
-        let _ = std::fs::remove_file(&link);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-symlinked-root-").expect("a scratch directory");
+        let link = scratch.path().join("link");
         std::os::unix::fs::symlink(&real, &link).expect("a symlink to the mock project");
         let manifest = Manifest::load(&link).expect("the manifest through the symlink");
         let model = Model::build(&manifest, &[real.join("code").as_path()]).expect("a model");
-        let _ = std::fs::remove_file(&link);
         assert!(model.checker_files() >= 1, "{:?}", model.checker_sources());
     }
 }
