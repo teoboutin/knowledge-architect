@@ -56,18 +56,26 @@ fn copy_tree(from: &Path, to: &Path) {
     }
 }
 
-/// A copy of a mock in the target directory, under this process's id so two runs do not meet, whose
-/// generated files `state` writes before git lists them.
-fn copy(tag: &str, name: &str, state: impl FnOnce(&Path)) -> Manifest {
-    let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
-        .join(format!("checks-over-mocks-{}", std::process::id()))
-        .join(tag);
-    copy_tree(&source(name), &dir);
-    git(&dir, &["init", "-q"]);
-    git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-    state(&dir);
-    git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-    Manifest::load(&dir).expect("the copy's manifest")
+/// A copy of a mock whose generated files `state` writes before git lists them, with its manifest.
+/// The copy is removed when its guard is dropped.
+///
+/// It sits in the target directory under a random name, so two runs over one target directory do
+/// not meet.
+fn copy(tag: &str, name: &str, state: impl FnOnce(&Path)) -> (tempfile::TempDir, Manifest) {
+    // Cargo makes this directory when it builds the test, and not again once it is removed.
+    let target_tmp = Path::new(env!("CARGO_TARGET_TMPDIR"));
+    std::fs::create_dir_all(target_tmp).expect("the target's directory for tests");
+    let scratch =
+        tempfile::TempDir::with_prefix_in(format!("klarch-checks-over-mocks-{tag}-"), target_tmp)
+            .expect("a scratch directory");
+    let dir = scratch.path();
+    copy_tree(&source(name), dir);
+    git(dir, &["init", "-q"]);
+    git(dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+    state(dir);
+    git(dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+    let manifest = Manifest::load(dir).expect("the copy's manifest");
+    (scratch, manifest)
 }
 
 fn findings(manifest: &Manifest) -> Vec<Finding> {
@@ -128,45 +136,50 @@ mod planted {
     }
 
     /// A copy with every generated file current but `ABSENT`, whose absence is the registers check's
-    /// planted defect, shared by the tests that only read it.
-    fn current() -> &'static Manifest {
-        static COPY: OnceLock<Manifest> = OnceLock::new();
-        COPY.get_or_init(|| {
-            copy("current", "planted", |dir| {
-                let mut want = current_indexes(&Manifest::load(dir).expect("the manifest"));
-                want.remove(Path::new(ABSENT));
-                write_all(dir, &want);
-            })
+    /// planted defect.
+    fn current() -> (tempfile::TempDir, Manifest) {
+        copy("current", "planted", |dir| {
+            let mut want = current_indexes(&Manifest::load(dir).expect("the manifest"));
+            want.remove(Path::new(ABSENT));
+            write_all(dir, &want);
         })
     }
 
-    /// A copy with every generated file current but for what `edit` does to the set.
+    /// The findings over a copy with every generated file current but for what `edit` does to the set.
     fn edited(tag: &str, edit: impl FnOnce(&mut HashMap<PathBuf, String>)) -> Vec<String> {
-        as_lines(&copy(tag, "planted", |dir| {
+        let (_scratch, manifest) = copy(tag, "planted", |dir| {
             let mut want = current_indexes(&Manifest::load(dir).expect("the manifest"));
             edit(&mut want);
             write_all(dir, &want);
-        }))
+        });
+        as_lines(&manifest)
     }
 
-    /// A copy whose tree holds no generated file.
+    /// The findings over a copy whose tree holds no generated file, computed once per run.
     fn none() -> Vec<String> {
         static LINES: OnceLock<Vec<String>> = OnceLock::new();
         LINES
             .get_or_init(|| {
-                as_lines(&copy("none", "planted", |dir| {
+                let (_scratch, manifest) = copy("none", "planted", |dir| {
                     let manifest = Manifest::load(dir).expect("the manifest");
                     for rel in current_indexes(&manifest).keys() {
                         let _ = std::fs::remove_file(dir.join(rel));
                     }
-                }))
+                });
+                as_lines(&manifest)
             })
             .clone()
     }
 
+    /// The findings over the copy `current` makes, computed once per run.
     fn findings() -> Vec<String> {
         static LINES: OnceLock<Vec<String>> = OnceLock::new();
-        LINES.get_or_init(|| as_lines(current())).clone()
+        LINES
+            .get_or_init(|| {
+                let (_scratch, manifest) = current();
+                as_lines(&manifest)
+            })
+            .clone()
     }
 
     /// Every planted defect this project carries, by the check that reports it: the check, and
@@ -403,7 +416,8 @@ mod planted {
     /// pointer from the root at a file of `plans` that is no plan document reaches inside it.
     #[test]
     fn a_plan_document_cited_by_its_path_is_refused_with_the_form_that_resolves() {
-        let here: Vec<(u32, String, String)> = super::findings(current())
+        let (_scratch, manifest) = current();
+        let here: Vec<(u32, String, String)> = super::findings(&manifest)
             .into_iter()
             .filter(|f| f.file == Path::new("notes/plans.md"))
             .map(|f| (f.line.unwrap_or(0), f.what, f.action))

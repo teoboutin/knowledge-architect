@@ -5,7 +5,7 @@
 //! each cause; this one holds what a finding prints, and the answers of the ignore batch the run
 //! gathers from git.
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::Command;
 
 use knowledge_architect_check::commands::Gathered;
@@ -52,38 +52,45 @@ fn write(dir: &Path, rel: &str, text: &str) {
 /// A copy of `core` that serves the default harness, with a skill holding one section, a section
 /// of the root CLAUDE.md, an ignored file, and the documents given. The installed set is not
 /// there, so the run reports it missing; the tests read the findings of their own documents.
-fn project(tag: &str, documents: &[(&str, &str)]) -> Manifest {
-    let dir: PathBuf = Path::new(env!("CARGO_TARGET_TMPDIR"))
-        .join(format!("suffixed-references-{}", std::process::id()))
-        .join(tag);
+/// The copy is removed when its guard is dropped. It sits in the target directory under a random
+/// name, so two runs over one target directory do not meet.
+fn project(tag: &str, documents: &[(&str, &str)]) -> (tempfile::TempDir, Manifest) {
+    // Cargo makes this directory when it builds the test, and not again once it is removed.
+    let target_tmp = Path::new(env!("CARGO_TARGET_TMPDIR"));
+    std::fs::create_dir_all(target_tmp).expect("the target's directory for tests");
+    let scratch =
+        tempfile::TempDir::with_prefix_in(format!("klarch-suffixed-references-{tag}-"), target_tmp)
+            .expect("a scratch directory");
+    let dir = scratch.path();
     copy_tree(
         &Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/projects/core"),
-        &dir,
+        dir,
     );
     let manifest = std::fs::read_to_string(dir.join("knowledge-architect.toml")).expect("read");
     let served = manifest
         .split_once("[agents]")
         .map_or(manifest.as_str(), |(head, _)| head);
-    write(&dir, "knowledge-architect.toml", served);
+    write(dir, "knowledge-architect.toml", served);
     write(
-        &dir,
+        dir,
         ".claude/skills/demo-x/SKILL.md",
         "---\nname: demo-x\ndescription: A demo.\n---\n\n# Demo\n\n## A part `##a-part`\n\nText.\n",
     );
     let claude = std::fs::read_to_string(dir.join("CLAUDE.md")).expect("read");
     write(
-        &dir,
+        dir,
         "CLAUDE.md",
         &format!("{claude}\n## Some rules `##some-rules`\n\nText.\n"),
     );
-    write(&dir, ".gitignore", "gen/\n");
-    write(&dir, "gen/out.md", "Built.\n");
+    write(dir, ".gitignore", "gen/\n");
+    write(dir, "gen/out.md", "Built.\n");
     for (rel, text) in documents {
-        write(&dir, rel, text);
+        write(dir, rel, text);
     }
-    git(&dir, &["init", "-q"]);
-    git(&dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
-    Manifest::load(&dir).expect("the copy's manifest")
+    git(dir, &["init", "-q"]);
+    git(dir, &["-c", "core.excludesFile=/dev/null", "add", "-A"]);
+    let manifest = Manifest::load(dir).expect("the copy's manifest");
+    (scratch, manifest)
 }
 
 /// The findings of a run over `manifest` on the document `rel`, each as its statement and its
@@ -132,7 +139,7 @@ fn each_resolution_path_names_the_repair_of_a_suffix() {
         .iter()
         .map(|(span, _)| format!("See `{span}`.\n"))
         .collect();
-    let m = project("located", &[("notes.md", &format!("# Notes\n\n{text}"))]);
+    let (_scratch, m) = project("located", &[("notes.md", &format!("# Notes\n\n{text}"))]);
     let found = findings_in(&m, "notes.md");
     assert_eq!(found.len(), spans.len(), "{found:#?}");
     for ((what, action), (span, form)) in found.iter().zip(spans) {
@@ -160,7 +167,7 @@ fn each_resolution_path_names_the_repair_of_a_suffix() {
 fn a_suffixed_reference_whose_written_form_resolves_passes() {
     let plans = "# Plans\n\nIt writes `planned@core-mock@new.md#a-head`.\n\
                  It edits `planned@core-mock@README.md:3`.\n";
-    let m = project(
+    let (_scratch, m) = project(
         "resolves",
         &[
             ("docs/plans/README.md", plans),
@@ -191,7 +198,7 @@ fn a_suffixed_reference_whose_written_form_resolves_passes() {
 /// makes the gathering fail with git's `outside repository`.
 #[test]
 fn a_suffixed_upward_segment_is_a_finding_and_no_failed_run() {
-    let m = project(
+    let (_scratch, m) = project(
         "upward",
         &[(
             "notes.md",
