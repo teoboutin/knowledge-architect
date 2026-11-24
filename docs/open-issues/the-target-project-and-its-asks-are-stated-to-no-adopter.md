@@ -23,9 +23,10 @@ conditions and the asks; and no design head names the command and its merge invo
 
 ### What
 
-- The setup skill states three asks: in its section on the checker's pin, the maintenance crate of
-  every Rust target project, per `design@agent-skills@maintenance-crate-ask`; in its section on a Rust
-  project, the documentation lints of a crate the project publishes, per
+- The setup skill states three asks: in `skill@knowledge-architect-setup@pin-the-checker`, the
+  maintenance crate of every Rust target project, per `design@agent-skills@maintenance-crate-ask`; in
+  `skill@knowledge-architect-setup@rust-project`, the documentation lints of a crate the project
+  publishes, per
   `design@agent-skills@documentation-presence-is-linted`, and the lint on `unsafe` code of every crate,
   per `design@agent-skills@no-security-axis`. It states none of the others as an ask; it says that the checker needs a project inside a git repository.
 - The setup skill proposes to a project the shape of its maintenance crate as two design heads
