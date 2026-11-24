@@ -3,7 +3,7 @@
 //! manifest and the cargo configuration must build and run the checker, and the CI workflow's
 //! gates command must parse as the gates library declares its flags.
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::{Command, ExitCode};
 
 use clap::Parser;
@@ -13,33 +13,12 @@ use knowledge_architect_gates::GatesArgs;
 // This target links no library of its package, so it reads the variable itself.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
-/// A scratch directory outside every git worktree, removed when dropped.
-struct Scratch(PathBuf);
-
-impl Scratch {
-    fn new(tag: &str) -> Self {
-        let dir = std::env::temp_dir().join(format!("xtask-{tag}-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).expect("a scratch directory");
-        Scratch(dir)
-    }
-}
-
-impl Drop for Scratch {
-    fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.0);
-    }
-}
-
-/// A cargo command in `dir`, offline, building into `dir/target`, with none of the variables
-/// cargo set for this test's own build, which would describe this workspace rather than the
-/// scaffold. The toolchain this test runs under is kept, through rustup's own variable.
-fn cargo(dir: &Path, args: &[&str]) -> std::process::Output {
-    cargo_into(dir, &dir.join("target"), args)
-}
-
-/// The same, building into `target`: a command run from a subdirectory of the scaffold builds
-/// into the scaffold's own `target/`, which its `.gitignore` covers, or the check walks the build.
+/// A cargo command in `dir`, offline, building into `target`, with none of the variables cargo set
+/// for this test's own build, which would describe this workspace rather than the scaffold. The
+/// toolchain this test runs under is kept, through rustup's own variable.
+///
+/// `target` sits outside the scaffold: a build in a directory the scaffold's `.gitignore` does not
+/// cover is walked by the check, as the default one of a command run from a subdirectory would be.
 fn cargo_into(dir: &Path, target: &Path, args: &[&str]) -> std::process::Output {
     let mut command = Command::new(std::env::var_os("CARGO").unwrap_or("cargo".into()));
     for (key, _) in std::env::vars_os() {
@@ -64,8 +43,17 @@ fn cargo_into(dir: &Path, target: &Path, args: &[&str]) -> std::process::Output 
 // threshold the owner accepted; past it, it is marked ignored and where it runs goes to the owner.
 #[test]
 fn a_project_written_by_init_rust_builds_and_checks() {
-    let scratch = Scratch::new("scaffold");
-    let root = scratch.0.join("probe");
+    // The project sits in the temporary directory, outside every git worktree, and its build in the
+    // target directory, on disk: the temporary directory is often held in memory, and the build
+    // takes hundreds of megabytes of it. A fresh directory, so two runs do not meet.
+    let scratch = tempfile::TempDir::with_prefix("klarch-scaffold-").expect("a scratch directory");
+    let root = scratch.path().join("probe");
+    // Cargo makes this directory when it builds the test, and not again once it is removed.
+    let target_tmp = Path::new(env!("CARGO_TARGET_TMPDIR"));
+    std::fs::create_dir_all(target_tmp).expect("the target's directory for tests");
+    let target = tempfile::TempDir::with_prefix_in("klarch-scaffold-", target_tmp)
+        .expect("a target directory");
+    let cargo = |dir: &Path, args: &[&str]| cargo_into(dir, target.path(), args);
     #[derive(Parser)]
     struct Init {
         #[command(flatten)]
@@ -120,7 +108,7 @@ fn a_project_written_by_init_rust_builds_and_checks() {
     // And it reaches the library's `run`: from a subdirectory, `restore` finds the project's root
     // and reports no record.
     let sub = root.join("xtask");
-    let restore = cargo_into(&sub, &root.join("target"), &["x", "mutate", "restore"]);
+    let restore = cargo(&sub, &["x", "mutate", "restore"]);
     assert!(
         restore.status.success()
             && String::from_utf8_lossy(&restore.stdout).contains("no mutation record"),
