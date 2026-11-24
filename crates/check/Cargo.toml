@@ -23,7 +23,7 @@ knowledge-architect-model = { path = "../model", version = "=0.10.0" }
 
 [dev-dependencies]
 # The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`: for tests
-# alone.
+# alone, per `design@knowledge-architect@tempfile-for-tests-alone`, since `testing` builds this crate.
 tempfile = "3"
 
 [lints]

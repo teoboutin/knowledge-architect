@@ -143,22 +143,22 @@ the workspace's own tools, as `design@model@model-facade` says of `model`, is ou
 
 ### The crate mod-tempdir in place of `tempfile`, for its sweep of a killed run's files `##mod-tempdir-for-its-sweep`
 
-`live`. Refuted by a survey of crates that read their sources,
-`path@knowledge-architect@docs/grounding/temporary-directory-crates.md`. The names it gives by default
-carry the process id and need no prefix of ours, so its sweep is available to the project; a directory
-under a caller's prefix is outside the sweep. The sweep decides by process id, so an orphan whose id a
-live process has taken is kept until that process exits, and a program calls it itself, at its start,
-where a sweep by a lock file asks nothing of an id. Adopting it also ties the tests to a crate that is
-young and little used, a cost:
+`live`. It loses to a ranking, which `design@knowledge-architect@nothing-sweeps-a-killed-run` states:
+adopting it ties the tests to a crate that is young and little used, a cost that
 `curl -s -A curl https://crates.io/api/v1/crates/mod-tempdir | jq '.crate | .created_at, .downloads'`
-shows it, and the cost is gone where the use it shows reaches that of `tempfile`.
+shows, and that falls as the crate ages and its use grows. No fact defeats it. The names it gives by
+default carry the process id and need no prefix of ours, so its sweep is available to the project; a
+directory under a caller's prefix is outside the sweep. That sweep is not complete: it decides by
+process id, so an orphan whose id a live process has taken is kept until that process exits. Both are
+read in its source,
+`path@knowledge-architect@docs/grounding/temporary-directory-crates.md`.
 
 ### The crate testdir in place of `tempfile`, which removes by count `##testdir-for-test-directories`
 
 `live`. Refuted by a survey of crates that read their sources,
 `path@knowledge-architect@docs/grounding/temporary-directory-crates.md`. It keeps the directories of
 the last runs, eight by default and at least one by the type of its count, and has no removal at the
-drop, so a run that passes leaves its files, which the measurement of
+drop, so a run that passes leaves its files, which
 `design@knowledge-architect@scratch-removed-by-a-guard` excludes. Its default place is the target
 directory, inside this worktree, where a test whose project must lie outside every worktree cannot
 work. It brings `cargo_metadata` and `sysinfo` into each package's tests.

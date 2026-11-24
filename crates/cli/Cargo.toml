@@ -39,8 +39,7 @@ knowledge-architect-transcript = { path = "../transcript", version = "=0.10.0" }
 [dev-dependencies]
 # The manifest `init` writes, which its tests parse.
 toml = "1.1.4"
-# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`: for tests
-# alone.
+# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]
