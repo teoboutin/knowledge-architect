@@ -302,6 +302,7 @@ dependencies = [
  "knowledge-architect-check",
  "knowledge-architect-gates",
  "knowledge-architect-model",
+ "tempfile",
  "toml",
 ]
 
