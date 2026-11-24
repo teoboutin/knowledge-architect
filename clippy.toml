@@ -1,5 +1,6 @@
 # Read by clippy for every package of the workspace, each target of it, the tests included. The row on
-# `temp_dir` is of `design@knowledge-architect@scratch-removed-by-a-guard`.
+# `temp_dir` is of `design@knowledge-architect@scratch-removed-by-a-guard`, and what its reason says of
+# code that is no test of `design@knowledge-architect@tempfile-for-tests-alone`.
 disallowed-methods = [
-    { path = "std::env::temp_dir", reason = "a test holds a `tempfile::TempDir::with_prefix(\"klarch-...\")` instead, which goes when the test ends, a failed one included; code that ships or a tool writes in a directory it owns, since `tempfile` is a dev-dependency only" },
+    { path = "std::env::temp_dir", reason = "a test holds a `tempfile::TempDir::with_prefix(\"klarch-...\")` instead, which goes when the test ends, a failed one included; other code has no `tempfile`, a dependency of tests alone, so its directory is argued where it is needed, as `mutate` writes in its recovery record" },
 ]

@@ -141,11 +141,24 @@ crate whose public items serve consumers outside the workspace, as
 `design@git@an-operation-in-git-s-terms-is-the-library-s` argue; a crate whose public items serve
 the workspace's own tools, as `design@model@model-facade` says of `model`, is outside it.
 
-### The crate mod-tempdir in place of `tempfile`, for its sweep of a killed run's files `##temporary-directory-crate-with-a-sweep`
+### The crate mod-tempdir in place of `tempfile`, for its sweep of a killed run's files `##mod-tempdir-for-its-sweep`
 
-`live`. Refuted by a survey of crates that read their sources: mod-tempdir 1.2.0 sweeps only the
-entries its default prefixes name, and its documentation says that an entry made with a
-caller's prefix is never touched, so a common prefix and its sweep exclude each other. It also takes
-the owner of an entry as alive while any process has its id, so it keeps an orphan whose id is
-reused. The figures that weigh a dependency were taken on 2026-11-24 from crates.io: 226 downloads,
-created 2026-05-13, one crate depending on it.
+`live`. Refuted by a survey of crates that read their sources,
+`path@knowledge-architect@docs/grounding/temporary-directory-crates.md`. The names it gives by default
+carry the process id and need no prefix of ours, so its sweep is available to the project; a directory
+under a caller's prefix is outside the sweep. The sweep decides by process id, so an orphan whose id a
+live process has taken is kept until that process exits, and a program calls it itself, at its start,
+where a sweep by a lock file asks nothing of an id. Adopting it also ties the tests to a crate that is
+young and little used, a cost:
+`curl -s -A curl https://crates.io/api/v1/crates/mod-tempdir | jq '.crate | .created_at, .downloads'`
+shows it, and the cost is gone where the use it shows reaches that of `tempfile`.
+
+### The crate testdir in place of `tempfile`, which removes by count `##testdir-for-test-directories`
+
+`live`. Refuted by a survey of crates that read their sources,
+`path@knowledge-architect@docs/grounding/temporary-directory-crates.md`. It keeps the directories of
+the last runs, eight by default and at least one by the type of its count, and has no removal at the
+drop, so a run that passes leaves its files, which the measurement of
+`design@knowledge-architect@scratch-removed-by-a-guard` excludes. Its default place is the target
+directory, inside this worktree, where a test whose project must lie outside every worktree cannot
+work. It brings `cargo_metadata` and `sysinfo` into each package's tests.
