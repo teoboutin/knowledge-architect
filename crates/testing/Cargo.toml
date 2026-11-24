@@ -27,7 +27,7 @@ knowledge-architect-model = { path = "../model" }
 knowledge-architect-gates = { path = "../gates" }
 clap = { version = "4", features = ["derive"] }
 toml = "1.1.4"
-# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
+# For tests alone, per `design@knowledge-architect@tempfile-for-tests-alone`.
 tempfile = "3"
 
 [lints]
