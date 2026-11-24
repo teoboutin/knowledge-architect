@@ -4,8 +4,8 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-/// A scratch directory under the system's temporary directory, outside every git worktree,
-/// removed when dropped.
+/// A scratch directory under the system's temporary directory, removed when dropped. It is outside
+/// every git worktree as long as the temporary directory is.
 struct Scratch(tempfile::TempDir);
 
 impl Scratch {

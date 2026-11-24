@@ -17,8 +17,8 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 /// for this test's own build, which would describe this workspace rather than the scaffold. The
 /// toolchain this test runs under is kept, through rustup's own variable.
 ///
-/// `target` sits outside the scaffold: a build in a directory the scaffold's `.gitignore` does not
-/// cover is walked by the check, as the default one of a command run from a subdirectory would be.
+/// `target` is the caller's, since the scaffold's own one, which its `.gitignore` covers, would put
+/// the build in the temporary directory with the scaffold.
 fn cargo_into(dir: &Path, target: &Path, args: &[&str]) -> std::process::Output {
     let mut command = Command::new(std::env::var_os("CARGO").unwrap_or("cargo".into()));
     for (key, _) in std::env::vars_os() {
@@ -43,7 +43,7 @@ fn cargo_into(dir: &Path, target: &Path, args: &[&str]) -> std::process::Output 
 // threshold the owner accepted; past it, it is marked ignored and where it runs goes to the owner.
 #[test]
 fn a_project_written_by_init_rust_builds_and_checks() {
-    // The project sits in the temporary directory, outside every git worktree, and its build in the
+    // The project sits in the temporary directory, outside this repository, and its build in the
     // target directory, on disk: the temporary directory is often held in memory, and the build
     // takes hundreds of megabytes of it. A fresh directory, so two runs do not meet.
     let scratch = tempfile::TempDir::with_prefix("klarch-scaffold-").expect("a scratch directory");
