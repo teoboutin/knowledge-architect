@@ -14,16 +14,20 @@ in every target project. `goal@the-owner-decides` gives knowledge-architect's
 owner each addition, tightening or removal of a condition or an ask of the scope goal; the owner
 chose to read that narrowly, as the asks the scope goal itself names, so an ask a design head holds,
 these two and the maintenance crate among them, is changed on argument and reported. The setup
-skill states one ask, the
-maintenance crate of every Rust target project, and no other; only the READMEs of `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` among the published crates state the
+skill states the maintenance crate of every Rust target project, the documentation lints of a crate a
+project publishes and the lint on `unsafe` code of every crate, and neither of those two further asks; only the
+READMEs of `model`, `check`, `cli`, `query`, `transcript`, `create` and `testing` among the published crates state the
 conditions and the asks; and no design head names the command and its merge invocation.
 
 ## Details
 
 ### What
 
-- The installed text states one ask, the maintenance crate of every Rust target project, per
-  `design@agent-skills@maintenance-crate-ask`, in the setup skill, and none of the others.
+- The setup skill states three asks in its section on a Rust project: the maintenance crate of every
+  Rust target project, per `design@agent-skills@maintenance-crate-ask`; the documentation lints of a
+  crate the project publishes, per `design@agent-skills@documentation-presence-is-linted`; and the
+  lint on `unsafe` code of every crate, per `design@agent-skills@no-security-axis`. It states none of the
+  others as an ask; it says that the checker needs a project inside a git repository.
 - The setup skill proposes to a project the shape of its maintenance crate as two design heads
   the project records, one of them that the one command gives the one verdict on a merge; it
   states the command's invocation for a merge as no ask.
