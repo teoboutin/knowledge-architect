@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-79 entries
+81 entries
 
 | kind | title |
 | --- | --- |
@@ -23,6 +23,7 @@
 | design | [A deferred issue's trigger, or a re-entry point, brings unrelated work into a design's scope at a bad moment](a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment.md) |
 | design | [A lighter pass of the record search for the Components a piece of work does not touch](a-lighter-pass-for-untouched-components.md) |
 | design | [A member recorded directly, as covered by its head's argument, lay beyond that argument](a-member-recorded-directly-lies-beyond-its-head-s-argument.md) |
+| design | [A one-time technical setup that every target project would gain from has no worked-out place from which a project gets it](a-one-time-technical-setup-has-no-place-a-project-gets-it-from.md) |
 | design | [A record search misses what bears on a part of the work added after it ran](a-record-search-misses-what-is-added-after-it.md) |
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
 | design | [A touched head is defined by what a plan's harvest changes, not by what its steps change](a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps.md) |
@@ -81,5 +82,6 @@
 | todo | [The counts a project audit's passes are compared by, fixed on one branch](the-audit-s-convergence-checks-on-one-branch.md) |
 | todo | [The shape and the life of a retrospective intake's analysis, fixed on one branch](the-intake-analysis-s-sections-on-one-branch.md) |
 | todo | [The design skill's duty to bring back a material finding has no design head](the-material-finding-duty-has-no-head.md) |
+| todo | [The head on the roadmap's order names two edits that need no word, where the planning skill names three](the-roadmap-head-names-two-edits-where-the-skill-names-three.md) |
 | todo | [This repository's design heads that cite the owner's words await a pass of the design-record axis under the rule on what a head stands on](this-repository-s-heads-await-the-design-record-axis.md) |
 | todo | [What a project audit puts on the owner's list, narrowed to the closed list, on one branch](what-the-audit-sends-the-owner-on-one-branch.md) |
