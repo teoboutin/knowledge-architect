@@ -264,7 +264,8 @@ pub fn restore_verdict(current: &str, recorded_mutant: &str, recorded_pre: &str)
 /// Whether one is complete is [`Record::exists`]'s question, and it is answered per file.
 pub struct Record {
     /// The directory that holds the record's files: `owner-pid`, `pre-image`, `mutant`,
-    /// `manifest`, and `mutation.patch` when the run had a patch to record.
+    /// `manifest`, and `mutation.patch` when the run had a patch to record. A `--patch` run also
+    /// keeps a directory `scratch` there while it plans its mutant, which is no part of the record.
     pub dir: PathBuf,
 }
 
