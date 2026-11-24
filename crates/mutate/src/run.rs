@@ -550,21 +550,36 @@ fn apply_in(dir: &Path, pre_image: &str, rel_path: &str, patch: &str) -> Result<
     fs::write(&staged, pre_image).map_err(|e| e.to_string())?;
     fs::write(dir.join("m.patch"), patch).map_err(|e| e.to_string())?;
 
-    let init = Command::new("git")
-        .args(["init", "-q", "."])
-        .current_dir(dir)
-        .output()
-        .map_err(|e| e.to_string())?;
-    if !init.status.success() {
-        return Err(String::from_utf8_lossy(&init.stderr).into_owned());
+    git_in(dir, &["init", "-q", "."])?;
+    git_in(dir, &["apply", "m.patch"])?;
+    fs::read_to_string(&staged).map_err(|e| e.to_string())
+}
+
+/// The variables that point git at another repository's files, the list of
+/// `design@git@repository-variables-dropped`, whose wrapper this call is past, per
+/// `issue@git@tools-run-git-past-the-wrapper`.
+const REPOSITORY_VARIABLES: [&str; 5] = [
+    "GIT_DIR",
+    "GIT_WORK_TREE",
+    "GIT_COMMON_DIR",
+    "GIT_OBJECT_DIRECTORY",
+    "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+];
+
+/// Runs git in `dir`, the scratch, about the repository `dir` holds. Git started from a hook, an
+/// alias or a rebase exports the variables of its own repository: under them `init` writes to that
+/// repository's configuration, and in a linked worktree marks it bare, and `apply` takes its paths
+/// from that repository's work tree. `GIT_INDEX_FILE` needs no removal, since neither call reads an
+/// index.
+fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
+    let mut command = Command::new("git");
+    command.args(args).current_dir(dir);
+    for variable in REPOSITORY_VARIABLES {
+        command.env_remove(variable);
     }
-    let out = Command::new("git")
-        .args(["apply", "m.patch"])
-        .current_dir(dir)
-        .output()
-        .map_err(|e| e.to_string())?;
+    let out = command.output().map_err(|e| e.to_string())?;
     if !out.status.success() {
         return Err(String::from_utf8_lossy(&out.stderr).into_owned());
     }
-    fs::read_to_string(&staged).map_err(|e| e.to_string())
+    Ok(())
 }

@@ -51,7 +51,10 @@ knows nothing of the workflow is argued by no head, per
 
 A tool that cannot reach an invocation through the library keeps a wrapper of git of its own, and
 the environment the library sets for every invocation, per
-`design@git@repository-variables-dropped`, reaches none of it. That no tool needs a wrapper of its
+`design@git@repository-variables-dropped`, reaches none of it. `path@mutate@src/run.rs` removes the
+same variables by a copy of the library's list, since the library offers neither call; without that,
+a `--patch` run started by git in a linked worktree wrote `core.bare = true` into the main
+repository's configuration. `path@mutate@src/harness.rs` removes none. That no tool needs a wrapper of its
 own is a reason for the crate that no head argues yet, per
 `issue@git@whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head`.
 

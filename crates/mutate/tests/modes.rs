@@ -898,12 +898,8 @@ fn a_patch_run_makes_nothing_in_the_temporary_directory() {
     assert_eq!(s.read(FILE), BODY);
 }
 
-// The claim: in a linked worktree, whose `.git` is a file and whose git directory is elsewhere, a
-// `--patch` run plans its mutant, restores the file and leaves no record.
-#[test]
-fn a_patch_run_works_in_a_linked_worktree() {
-    let s = Sandbox::new("patch-worktree");
-    s.write(FILE, BODY);
+/// A linked worktree of the sandbox, at `linked`, holding a commit of what the sandbox holds.
+fn linked_worktree(s: &Sandbox) -> PathBuf {
     for args in [
         &["add", "-A"][..],
         &[
@@ -926,6 +922,16 @@ fn a_patch_run_works_in_a_linked_worktree() {
     }
     let linked = s.root().join("linked");
     assert!(linked.join(".git").is_file());
+    linked
+}
+
+// The claim: in a linked worktree, whose `.git` is a file and whose git directory is elsewhere, a
+// `--patch` run plans its mutant, restores the file and leaves no record.
+#[test]
+fn a_patch_run_works_in_a_linked_worktree() {
+    let s = Sandbox::new("patch-worktree");
+    s.write(FILE, BODY);
+    let linked = linked_worktree(&s);
     s.write("linked/m.diff", DELETE_SITE);
     let out = child(&linked, &RUN_PATCH)
         .output()
@@ -942,6 +948,110 @@ fn a_patch_run_works_in_a_linked_worktree() {
     let record = knowledge_architect_mutate::record_dir(&linked).expect("a repository");
     assert!(record.starts_with(s.root().join(".git/worktrees")));
     assert!(!record.exists());
+}
+
+// The claim: `GIT_DIR` and an absolute `GIT_WORK_TREE` in the caller's environment, as git sets both
+// for an alias run through `--git-dir` and `--work-tree`, do not stop a `--patch` run.
+#[test]
+fn a_patch_run_ignores_a_work_tree_the_environment_names() {
+    let s = Sandbox::new("patch-work-tree");
+    s.write(FILE, BODY);
+    s.write("m.diff", DELETE_SITE);
+    let out = child(s.root(), &RUN_PATCH)
+        .env("GIT_DIR", s.root().join(".git"))
+        .env("GIT_WORK_TREE", s.root())
+        .output()
+        .expect("running the child");
+    let text = String::from_utf8_lossy(&out.stdout);
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{text}{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(text.contains("SURVIVED"), "{text}");
+    assert_eq!(s.read(FILE), BODY);
+}
+
+// The claim: a `--patch` run that git started in a linked worktree, with the `GIT_DIR` git exports
+// there, writes nothing to the repository's configuration, so the main repository is not made bare.
+#[test]
+fn a_patch_run_started_by_git_leaves_the_main_repository_as_it_was() {
+    let s = Sandbox::new("patch-by-git");
+    s.write(FILE, BODY);
+    let linked = linked_worktree(&s);
+    s.write("linked/m.diff", DELETE_SITE);
+    let config = s.read(".git/config");
+    let run = child(&linked, &RUN_PATCH);
+    let mut git = Command::new("git");
+    git.args([
+        "-c",
+        "alias.mm=!\"$RUN\" --exact child_entry --nocapture",
+        "mm",
+    ])
+    .env("RUN", run.get_program())
+    .current_dir(&linked);
+    for (name, value) in run.get_envs() {
+        git.env(name, value.expect("a value"));
+    }
+    let out = git.output().expect("running git");
+    let text = String::from_utf8_lossy(&out.stdout);
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{text}{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(text.contains("SURVIVED"), "{text}");
+    assert_eq!(s.read(".git/config"), config);
+    assert_eq!(s.read("linked/src/f.rs"), BODY);
+}
+
+/// A patch that gives the line `SITE` of [`BODY`] two trailing spaces, which `apply.whitespace=fix`
+/// takes away, and the arguments of a run of it whose command passes only over the two spaces.
+const ADD_SPACES: &str = "--- a/src/f.rs\n+++ b/src/f.rs\n@@ -1,5 +1,5 @@\n line1\n line2\n-SITE\n+SITE  \n line4\n line5\n";
+const RUN_ADD_SPACES: [&str; 11] = [
+    "run",
+    "--file",
+    FILE,
+    "--patch",
+    "m.diff",
+    "--no-baseline",
+    "--",
+    "grep",
+    "-q",
+    "SITE  $",
+    FILE,
+];
+
+// The claim: `GIT_COMMON_DIR` and `GIT_OBJECT_DIRECTORY` in the caller's environment reach neither
+// git call that plans the mutant: the configuration of the one does not rewrite the mutant, and
+// nothing is written in the other.
+#[test]
+fn a_patch_run_ignores_the_common_and_object_directories_the_environment_names() {
+    let s = Sandbox::new("patch-common-dir");
+    s.write(FILE, BODY);
+    s.write("m.diff", ADD_SPACES);
+    s.write("other.git/config", "[apply]\n\twhitespace = fix\n");
+    fs::create_dir_all(s.root().join("other.git/refs")).expect("made");
+    let objects = s.root().join("objects");
+    fs::create_dir(&objects).expect("made");
+
+    let out = child(s.root(), &RUN_ADD_SPACES)
+        .env("GIT_COMMON_DIR", s.root().join("other.git"))
+        .env("GIT_OBJECT_DIRECTORY", &objects)
+        .output()
+        .expect("running the child");
+    let text = String::from_utf8_lossy(&out.stdout);
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{text}{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    assert!(text.contains("SURVIVED"), "{text}");
+    assert_eq!(fs::read_dir(&objects).expect("readable").count(), 0);
+    assert_eq!(s.read(FILE), BODY);
 }
 
 // The claim: a run killed while it plans its patch leaves its scratch in the record's claim, where
