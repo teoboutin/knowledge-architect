@@ -3501,11 +3501,11 @@ pub(crate) mod tests {
     fn an_unknown_key_is_rejected_rather_than_ignored() {
         // A misspelled key that parsed and did nothing would be an exclusion silently not
         // applied, which is the failure mode this whole file exists to make impossible.
-        let dir = std::env::temp_dir().join("knowledge-manifest-unknown-key");
-        std::fs::create_dir_all(&dir).expect("a temp dir");
+        let scratch = tempfile::TempDir::with_prefix("klarch-manifest-unknown-key-")
+            .expect("a scratch directory");
+        let dir = scratch.path();
         std::fs::write(dir.join(MANIFEST_NAME), "[walk]\nsuffix = []\n").expect("write");
-        let e = Manifest::load(&dir).expect_err("unknown key");
+        let e = Manifest::load(dir).expect_err("unknown key");
         assert!(e.contains("suffix"), "{e}");
-        let _ = std::fs::remove_dir_all(&dir);
     }
 }

@@ -1232,42 +1232,36 @@ mod tests {
 
     #[test]
     fn a_directory_outside_a_worktree_is_an_error_carrying_gits_own_reason() {
-        let dir = std::env::temp_dir().join(format!(
-            "knowledge-git-nonrepo-{}-{:?}",
-            std::process::id(),
-            std::thread::current().id()
-        ));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).expect("a temporary directory");
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-nonrepo-").expect("a scratch directory");
+        let dir = scratch.path();
         // A temporary directory is not inside any worktree, so git refuses. The message is
         // git's own, because a reworded one goes stale against the version installed.
-        let e = entries(&dir).expect_err("not a worktree").to_string();
+        let e = entries(dir).expect_err("not a worktree").to_string();
         assert!(e.contains("ls-files"), "{e}");
         assert!(e.to_lowercase().contains("not a git repository"), "{e}");
-        let _ = std::fs::remove_dir_all(&dir);
     }
 
     /// The claim: in the main working tree there is no other checkout to point at, so the answer
     /// is `None`, in its top and in a directory below it, and never the directory itself.
     #[test]
     fn the_main_working_tree_has_no_main_worktree_path() {
-        let dir = std::env::temp_dir().join(format!(
-            "knowledge-git-main-worktree-{}",
-            std::process::id()
-        ));
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch = tempfile::TempDir::with_prefix("klarch-git-main-worktree-")
+            .expect("a scratch directory");
+        let dir = scratch.path();
         std::fs::create_dir_all(dir.join("sub")).expect("a temporary directory");
-        init_repository(&dir).expect("git init");
-        assert_eq!(main_worktree_path(&dir), None);
+        init_repository(dir).expect("git init");
+        assert_eq!(main_worktree_path(dir), None);
         assert_eq!(main_worktree_path(&dir.join("sub")), None);
-        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
     fn an_empty_batch_asks_git_nothing_and_answers_nothing() {
         // No path reference in the tree means no process, and it must not mean a failure
         // either: this runs in a directory git may refuse.
-        let dir = std::env::temp_dir().join(format!("knowledge-git-empty-{}", std::process::id()));
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-empty-").expect("a scratch directory");
+        let dir = scratch.path().join("absent");
         assert_eq!(
             ignored(&dir, &[]).expect("no process, no failure"),
             HashSet::new()
@@ -1284,15 +1278,15 @@ mod tests {
         // writes the whole input before reading a byte of output stops moving as soon as the
         // answers pass that. Before the input was written by its own thread, this hung
         // forever; the recv timeout is what turns a hang into a failing test.
-        let dir = std::env::temp_dir().join(format!("knowledge-git-batch-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).expect("a temporary directory");
-        assert!(git(&dir).args(["init", "-q"]).output().is_ok_and(|_| true));
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-batch-").expect("a scratch directory");
+        let dir = scratch.path();
+        assert!(git(dir).args(["init", "-q"]).output().is_ok_and(|_| true));
         std::fs::write(dir.join(".gitignore"), "*.gen\n").expect("an ignore rule");
         let count = 50_000;
         let queries: Vec<String> = (0..count).map(|i| format!("f{i}.gen")).collect();
         let (tx, rx) = std::sync::mpsc::channel();
-        let probe = dir.clone();
+        let probe = dir.to_path_buf();
         std::thread::spawn(move || {
             let _ = tx.send(ignored(&probe, &queries).map(|s| s.len()));
         });
@@ -1301,7 +1295,6 @@ mod tests {
             Ok(Err(e)) => panic!("{e}"),
             Err(_) => panic!("the batch never returned"),
         }
-        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
@@ -1309,20 +1302,21 @@ mod tests {
         // A project vendored as a subdirectory of its repository is the case: without
         // `--relative` git answers with repository-relative names, which match no
         // project-relative key and leave every row's last-change column empty.
-        let repo = std::env::temp_dir().join(format!("knowledge-git-log-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&repo);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-log-").expect("a scratch directory");
+        let repo = scratch.path();
         let project = repo.join("nested");
         std::fs::create_dir_all(project.join("notes")).expect("a nested project");
         std::fs::write(project.join("notes/a.md"), "# A\n").expect("a document");
-        git(&repo)
+        git(repo)
             .args(["init", "-q"])
             .output()
             .expect("a repository");
-        git(&repo)
+        git(repo)
             .args(["add", "-A"])
             .output()
             .expect("the document staged");
-        git(&repo)
+        git(repo)
             .args([
                 "-c",
                 "user.name=fixture",
@@ -1341,7 +1335,6 @@ mod tests {
             vec![&PathBuf::from("notes/a.md")],
             "project-relative, not `nested/notes/a.md`"
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     #[test]
@@ -1468,30 +1461,29 @@ mod tests {
     /// so nothing downstream reports it: the model is simply built out of the wrong bytes.
     #[test]
     fn a_newline_in_a_tracked_name_does_not_shift_the_answers_after_it() {
-        let repo =
-            std::env::temp_dir().join(format!("knowledge-git-newline-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-newline-").expect("a scratch directory");
+        let repo = scratch.path();
         for args in [
             vec!["init", "-q"],
             vec!["config", "user.name", "fixture"],
             vec!["config", "user.email", "fixture@example.invalid"],
         ] {
-            git(&repo).args(args).output().expect("a repository");
+            git(repo).args(args).output().expect("a repository");
         }
         let odd = PathBuf::from("aa\nbb.md");
         let plain = PathBuf::from("zz.md");
         std::fs::write(repo.join(&odd), "# Odd\n").expect("a document with an odd name");
         std::fs::write(repo.join(&plain), "# Plain\n").expect("a plain document");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-q", "-m", "two documents"])
             .output()
             .expect("a commit");
-        let sha = rev_parse(&repo, "HEAD").expect("the head");
+        let sha = rev_parse(repo, "HEAD").expect("the head");
 
         let read =
-            blobs(&repo, Source::Commit(&sha), &[odd.clone(), plain.clone()]).expect("both blobs");
+            blobs(repo, Source::Commit(&sha), &[odd.clone(), plain.clone()]).expect("both blobs");
         assert_eq!(read.get(&odd).map(String::as_str), Some("# Odd\n"));
         assert_eq!(
             read.get(&plain).map(String::as_str),
@@ -1504,17 +1496,12 @@ mod tests {
         // prefix `blob_bytes` sends.
         let missing = PathBuf::from("mm\nnn.md");
         for source in [Source::Commit(&sha), Source::Index] {
-            let read = blobs(
-                &repo,
-                source,
-                &[missing.clone(), odd.clone(), plain.clone()],
-            )
-            .expect("the held blobs");
+            let read = blobs(repo, source, &[missing.clone(), odd.clone(), plain.clone()])
+                .expect("the held blobs");
             assert_eq!(read.get(&missing), None, "a miss contributes no entry");
             assert_eq!(read.get(&odd).map(String::as_str), Some("# Odd\n"));
             assert_eq!(read.get(&plain).map(String::as_str), Some("# Plain\n"));
         }
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: a commit's message comes back as it was written, and the walk over a range
@@ -1524,37 +1511,37 @@ mod tests {
     /// parent tree: an order that is not the chain resolves a message against the wrong tree.
     #[test]
     fn a_range_walks_the_parent_chain_and_each_message_comes_back_whole() {
-        let repo = std::env::temp_dir().join(format!("knowledge-git-range-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-git-range-").expect("a scratch directory");
+        let repo = scratch.path();
         for args in [
             vec!["init", "-q"],
             vec!["config", "user.name", "fixture"],
             vec!["config", "user.email", "fixture@example.invalid"],
         ] {
-            git(&repo).args(args).output().expect("a repository");
+            git(repo).args(args).output().expect("a repository");
         }
         let mut shas = Vec::new();
         for (n, subject) in ["the first", "the second", "the third"].iter().enumerate() {
             std::fs::write(repo.join(format!("{n}.md")), "# A\n").expect("a document");
-            git(&repo).args(["add", "-A"]).output().expect("staged");
-            git(&repo)
+            git(repo).args(["add", "-A"]).output().expect("staged");
+            git(repo)
                 .args(["commit", "-q", "-m", &format!("{subject}\n\nA body.")])
                 .output()
                 .expect("a commit");
-            shas.push(rev_parse(&repo, "HEAD").expect("the new head"));
+            shas.push(rev_parse(repo, "HEAD").expect("the new head"));
         }
-        let walked = rev_list(&repo, &format!("{}..HEAD", shas[0])).expect("a range");
+        let walked = rev_list(repo, &format!("{}..HEAD", shas[0])).expect("a range");
         assert_eq!(walked, shas[1..], "oldest first, along the parent chain");
-        let message = commit_message(&repo, &shas[1]).expect("a message");
+        let message = commit_message(repo, &shas[1]).expect("a message");
         assert!(message.starts_with("the second\n\nA body."), "{message:?}");
-        assert_eq!(rev_parse(&repo, "nowhere-at-all"), None);
+        assert_eq!(rev_parse(repo, "nowhere-at-all"), None);
         assert_eq!(
-            rev_parse(&repo, &format!("{}^", shas[0])),
+            rev_parse(repo, &format!("{}^", shas[0])),
             None,
             "a root commit has no first parent"
         );
-        let listed: Vec<PathBuf> = snapshot_entries(&repo, Source::Commit(&shas[2]))
+        let listed: Vec<PathBuf> = snapshot_entries(repo, Source::Commit(&shas[2]))
             .expect("a tree listing")
             .into_iter()
             .map(|e| e.rel)
@@ -1567,32 +1554,28 @@ mod tests {
                 PathBuf::from("2.md")
             ]
         );
-        let read = blobs(&repo, Source::Commit(&shas[2]), &listed).expect("its blobs");
+        let read = blobs(repo, Source::Commit(&shas[2]), &listed).expect("its blobs");
         assert_eq!(read.len(), 3);
         assert_eq!(
             read.get(Path::new("1.md")).map(String::as_str),
             Some("# A\n")
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
-    /// A repository under the temporary directory, configured to commit, with nothing in it.
-    fn scratch_repository(tag: &str) -> PathBuf {
-        let repo = std::env::temp_dir().join(format!(
-            "knowledge-git-{tag}-{}-{:?}",
-            std::process::id(),
-            std::thread::current().id()
-        ));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+    /// A repository under the temporary directory, configured to commit, with nothing in it,
+    /// removed when dropped.
+    fn scratch_repository(tag: &str) -> tempfile::TempDir {
+        let scratch = tempfile::TempDir::with_prefix(format!("klarch-git-{tag}-"))
+            .expect("a scratch directory");
+        let repo = scratch.path();
         for args in [
             vec!["init", "-q"],
             vec!["config", "user.name", "fixture"],
             vec!["config", "user.email", "fixture@example.invalid"],
         ] {
-            git(&repo).args(args).output().expect("a repository");
+            git(repo).args(args).output().expect("a repository");
         }
-        repo
+        scratch
     }
 
     fn write(dir: &Path, rel: &str, text: &str) {
@@ -1613,23 +1596,24 @@ mod tests {
     /// staged ones; a symlink; and a gitlink.
     #[test]
     fn the_index_snapshot_is_the_tree_a_commit_would_record() {
-        let repo = scratch_repository("staged");
+        let scratch = scratch_repository("staged");
+        let repo = scratch.path();
         let project = repo.join("proj");
         write(&project, "keep.md", "# Keep\n");
         write(&project, "gone.md", "# Gone\n");
         write(&project, "changed.md", "# Committed\n");
-        write(&repo, "other/o.md", "# Other\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        write(repo, "other/o.md", "# Other\n");
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-qm", "the base"])
             .output()
             .expect("a commit");
-        let head = rev_parse(&repo, "HEAD").expect("the head");
+        let head = rev_parse(repo, "HEAD").expect("the head");
 
         write(&project, "changed.md", "# Staged\n");
         write(&project, "empty.md", "");
         write(&project, "ita.md", "# Intent to add\n");
-        write(&repo, "other/o.md", "# Other, staged\n");
+        write(repo, "other/o.md", "# Other, staged\n");
         git(&project)
             .args(["add", "changed.md", "empty.md", "../other/o.md"])
             .output()
@@ -1716,23 +1700,23 @@ mod tests {
             read.get(Path::new("keep.md")).map(String::as_str),
             Some("# Keep\n")
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: a path the index holds as a directory, or as a symlink, is refused with the
     /// index unchanged, and each refusal names the change to the index that lifts it.
     #[test]
     fn a_path_staged_as_another_kind_is_refused_naming_its_repair() {
-        let repo = scratch_repository("stage-refused");
-        write(&repo, "dir/index.md/inner.md", "# Inner\n");
+        let scratch = scratch_repository("stage-refused");
+        let repo = scratch.path();
+        write(repo, "dir/index.md/inner.md", "# Inner\n");
         std::os::unix::fs::symlink("target.md", repo.join("link.md")).expect("a symlink");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        let before = git(&repo)
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        let before = git(repo)
             .args(["ls-files", "-s"])
             .output()
             .expect("a listing");
         let refusal = |rel: &str| {
-            stage_generated(&repo, &[(PathBuf::from(rel), "# New\n".to_string())])
+            stage_generated(repo, &[(PathBuf::from(rel), "# New\n".to_string())])
                 .expect_err("refused")
                 .to_string()
         };
@@ -1750,12 +1734,11 @@ mod tests {
             link.ends_with(": remove that entry from the index with `git rm --cached`"),
             "{link}"
         );
-        let after = git(&repo)
+        let after = git(repo)
             .args(["ls-files", "-s"])
             .output()
             .expect("a listing");
         assert_eq!(before, after, "the index is as it was");
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: staging a generated file keeps the skip-worktree bit of an entry that carries
@@ -1766,18 +1749,19 @@ mod tests {
     /// tag dropped from the match, which tags the second entry `h`.
     #[test]
     fn staging_a_generated_file_keeps_its_skip_worktree_bit() {
-        let repo = scratch_repository("stage-skip-worktree");
+        let scratch = scratch_repository("stage-skip-worktree");
+        let repo = scratch.path();
         let project = repo.join("proj");
         write(&project, "docs/g.md", "# Old\n");
         write(&project, "docs/h.md", "# Old\n");
         write(&project, "docs/both.md", "# Old\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
+        git(repo).args(["add", "-A"]).output().expect("staged");
         for args in [
             vec!["update-index", "--skip-worktree", "proj/docs/g.md"],
             vec!["update-index", "--skip-worktree", "proj/docs/both.md"],
             vec!["update-index", "--assume-unchanged", "proj/docs/both.md"],
         ] {
-            git(&repo).args(args).output().expect("a flagged entry");
+            git(repo).args(args).output().expect("a flagged entry");
         }
         stage_generated(
             &project,
@@ -1789,7 +1773,7 @@ mod tests {
         )
         .expect("staged");
         let tagged = String::from_utf8(
-            git(&repo)
+            git(repo)
                 .args(["ls-files", "-v"])
                 .output()
                 .expect("a listing"),
@@ -1805,7 +1789,6 @@ mod tests {
                 .any(|l| l == "S proj/docs/both.md" || l == "s proj/docs/both.md"),
             "{tagged}"
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: staging generated files from a project in a subdirectory of its repository
@@ -1813,11 +1796,12 @@ mod tests {
     /// one as a regular file, and leaves the working files as they were.
     #[test]
     fn generated_files_are_staged_at_the_projects_paths_with_their_modes() {
-        let repo = scratch_repository("stage-generated");
+        let scratch = scratch_repository("stage-generated");
+        let repo = scratch.path();
         let project = repo.join("proj");
         write(&project, "docs/g.md", "# Old\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["update-index", "--chmod=+x", "proj/docs/g.md"])
             .output()
             .expect("an executable entry");
@@ -1830,7 +1814,7 @@ mod tests {
         )
         .expect("staged");
         let listed = String::from_utf8(
-            git(&repo)
+            git(repo)
                 .args(["ls-files", "-s"])
                 .output()
                 .expect("a listing"),
@@ -1870,7 +1854,6 @@ mod tests {
             "the working file is untouched"
         );
         assert!(!project.join("docs/added.md").exists());
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: a staged submodule change is in the index's snapshot whatever the
@@ -1881,35 +1864,36 @@ mod tests {
     /// change outside the project is no change of the project.
     #[test]
     fn a_staged_submodule_change_is_listed_whatever_the_configuration_ignores() {
-        let repo = scratch_repository("submodule-ignored");
+        let scratch = scratch_repository("submodule-ignored");
+        let repo = scratch.path();
         let project = repo.join("proj");
         write(&project, "keep.md", "# Keep\n");
-        write(&repo, "other/o.md", "# Other\n");
+        write(repo, "other/o.md", "# Other\n");
         write(
             &project,
             ".gitmodules",
             "[submodule \"s\"]\n\tpath = sub\n\turl = ./x\n\tignore = all\n",
         );
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-qm", "base"])
             .output()
             .expect("a commit");
-        let head = rev_parse(&repo, "HEAD").expect("the head");
-        git(&repo)
+        let head = rev_parse(repo, "HEAD").expect("the head");
+        git(repo)
             .args(["config", "diff.ignoreSubmodules", "all"])
             .output()
             .expect("configured");
 
         // A sibling's change alone is staged: the project's part equals HEAD.
-        write(&repo, "other/o.md", "# Other, staged\n");
-        git(&repo)
+        write(repo, "other/o.md", "# Other, staged\n");
+        git(repo)
             .args(["add", "other/o.md"])
             .output()
             .expect("staged");
         assert!(!index_differs_from_head(&project).expect("an answer"));
 
-        git(&repo)
+        git(repo)
             .args([
                 "update-index",
                 "--add",
@@ -1928,69 +1912,68 @@ mod tests {
             Some(EntryKind::Gitlink),
             "{listed:?}"
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// Before the first commit there is no HEAD to overlay, and the snapshot is the index's
     /// additions alone, an intent-to-add entry still left out.
     #[test]
     fn the_index_snapshot_holds_the_additions_alone_before_any_commit() {
-        let repo = scratch_repository("unborn");
-        write(&repo, "a.md", "# A\n");
-        write(&repo, "n.md", "# N\n");
-        git(&repo).args(["add", "a.md"]).output().expect("staged");
-        git(&repo)
+        let scratch = scratch_repository("unborn");
+        let repo = scratch.path();
+        write(repo, "a.md", "# A\n");
+        write(repo, "n.md", "# N\n");
+        git(repo).args(["add", "a.md"]).output().expect("staged");
+        git(repo)
             .args(["add", "-N", "n.md"])
             .output()
             .expect("intent to add");
-        let names: Vec<PathBuf> = snapshot_entries(&repo, Source::Index)
+        let names: Vec<PathBuf> = snapshot_entries(repo, Source::Index)
             .expect("the index's snapshot")
             .into_iter()
             .map(|e| e.rel)
             .collect();
         assert_eq!(names, vec![PathBuf::from("a.md")]);
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// A conflicted path is named once, though the index holds it at three stages.
     #[test]
     fn an_unmerged_path_is_named_once() {
-        let repo = scratch_repository("unmerged");
-        write(&repo, "c.md", "base\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        let scratch = scratch_repository("unmerged");
+        let repo = scratch.path();
+        write(repo, "c.md", "base\n");
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-qm", "base"])
             .output()
             .expect("a commit");
-        git(&repo)
+        git(repo)
             .args(["checkout", "-qb", "side"])
             .output()
             .expect("a branch");
-        write(&repo, "c.md", "side\n");
-        git(&repo)
+        write(repo, "c.md", "side\n");
+        git(repo)
             .args(["commit", "-qam", "side"])
             .output()
             .expect("a commit");
-        git(&repo)
+        git(repo)
             .args(["checkout", "-q", "-"])
             .output()
             .expect("back");
-        write(&repo, "c.md", "main\n");
-        git(&repo)
+        write(repo, "c.md", "main\n");
+        git(repo)
             .args(["commit", "-qam", "main"])
             .output()
             .expect("a commit");
         // The merge conflicts and exits 1; the index it leaves is the subject.
-        let _ = git(&repo).args(["merge", "-q", "side"]).accept(1).output();
+        let _ = git(repo).args(["merge", "-q", "side"]).accept(1).output();
         assert_eq!(
-            unmerged(&repo).expect("a listing"),
+            unmerged(repo).expect("a listing"),
             vec![PathBuf::from("c.md")]
         );
         assert!(
-            snapshot_entries(&repo, Source::Index).is_err(),
+            snapshot_entries(repo, Source::Index).is_err(),
             "a `U` row is refused"
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: the paths changed since a commit are the project's, relative to it, in a
@@ -2002,21 +1985,22 @@ mod tests {
     /// alone; and `"--exclude-standard"` removed, which lists the ignored file; each caught.
     #[test]
     fn the_paths_changed_since_a_commit_are_the_project_s_own() {
-        let repo = scratch_repository("since");
+        let scratch = scratch_repository("since");
+        let repo = scratch.path();
         let project = repo.join("proj");
         write(&project, "a.md", "# A\n");
         write(&project, "b.md", "# B, renamed later\n");
         write(&project, "gone.md", "# Gone\n");
         write(&project, ".gitignore", "ignored.md\n");
-        write(&repo, "other/o.md", "# Other\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        write(repo, "other/o.md", "# Other\n");
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-qm", "the base"])
             .output()
             .expect("a commit");
-        let base = commit_of(&repo, "HEAD").expect("the base");
+        let base = commit_of(repo, "HEAD").expect("the base");
         write(&project, "a.md", "# A, changed by a later commit\n");
-        git(&repo)
+        git(repo)
             .args(["commit", "-qam", "later"])
             .output()
             .expect("a commit");
@@ -2027,12 +2011,11 @@ mod tests {
         std::fs::remove_file(project.join("gone.md")).expect("a deletion");
         write(&project, "new.md", "# New\n");
         write(&project, "ignored.md", "# Ignored\n");
-        write(&repo, "other/o.md", "# Other, changed\n");
+        write(repo, "other/o.md", "# Other, changed\n");
         assert_eq!(
             paths_changed_since(&project, &base).expect("a listing"),
             ["a.md", "b.md", "c.md", "gone.md", "new.md"].map(PathBuf::from)
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: `commit_of` gives the commit a revision names, `:/<text>` included, and refuses
@@ -2044,21 +2027,21 @@ mod tests {
     /// whose peel joins the `:/<text>` search; each caught.
     #[test]
     fn a_revision_resolves_to_its_one_commit_or_is_refused_with_git_s_reason() {
-        let repo = scratch_repository("commit-of");
-        write(&repo, "a.md", "# A\n");
-        git(&repo).args(["add", "-A"]).output().expect("staged");
-        git(&repo)
+        let scratch = scratch_repository("commit-of");
+        let repo = scratch.path();
+        write(repo, "a.md", "# A\n");
+        git(repo).args(["add", "-A"]).output().expect("staged");
+        git(repo)
             .args(["commit", "-qm", "the first commit"])
             .output()
             .expect("a commit");
-        let head = commit_of(&repo, "HEAD").expect("HEAD");
+        let head = commit_of(repo, "HEAD").expect("HEAD");
         assert_eq!(head.len(), 40, "{head}");
-        assert_eq!(commit_of(&repo, ":/the first").expect("a search"), head);
+        assert_eq!(commit_of(repo, ":/the first").expect("a search"), head);
         for refused in ["HEAD..HEAD", "nowhere-at-all", "HEAD^{tree}", "-q"] {
-            let e = commit_of(&repo, refused).expect_err(refused).to_string();
+            let e = commit_of(repo, refused).expect_err(refused).to_string();
             assert!(e.contains("Needed a single revision"), "{refused}: {e}");
         }
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     #[test]

@@ -1491,17 +1491,13 @@ mod tests {
     use super::*;
 
     /// A repository under the temporary directory, configured to commit, holding a manifest
-    /// committed and, as intent-to-add, a file nothing commits.
-    fn repository_with_an_intent_to_add_entry(tag: &str) -> PathBuf {
-        let repo = std::env::temp_dir().join(format!(
-            "knowledge-history-{tag}-{}-{:?}",
-            std::process::id(),
-            std::thread::current().id()
-        ));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+    /// committed and, as intent-to-add, a file nothing commits, removed when dropped.
+    fn repository_with_an_intent_to_add_entry(tag: &str) -> tempfile::TempDir {
+        let scratch = tempfile::TempDir::with_prefix(format!("klarch-history-{tag}-"))
+            .expect("a scratch directory");
+        let repo = scratch.path();
         let run = |args: &[&str]| {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         };
         run(&["init", "-q"]);
         run(&["config", "user.name", "fixture"]);
@@ -1511,7 +1507,7 @@ mod tests {
         run(&["add", MANIFEST_NAME]);
         run(&["commit", "-qm", "base"]);
         run(&["add", "-N", "ita.md"]);
-        repo
+        scratch
     }
 
     /// The claim: a manifest the index holds only as intent-to-add is no manifest of the staged
@@ -1519,37 +1515,34 @@ mod tests {
     /// empty blob git names for it, naming the staging as its repair.
     #[test]
     fn an_intent_to_add_manifest_is_no_manifest_of_the_staged_tree() {
-        let repo = repository_with_an_intent_to_add_entry("ita-manifest");
+        let scratch = repository_with_an_intent_to_add_entry("ita-manifest");
+        let repo = scratch.path();
         let run = |args: &[&str]| {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         };
         run(&["rm", "-q", "--cached", MANIFEST_NAME]);
         run(&["add", "-N", MANIFEST_NAME]);
-        let refused = read_tree(&repo, Source::Index, &[], &mut [])
+        let refused = read_tree(repo, Source::Index, &[], &mut [])
             .err()
             .expect("no manifest is staged");
         assert_eq!(refused.why, format!("its tree holds no {MANIFEST_NAME}"));
         assert_eq!(refused.repair, "stage knowledge-architect.toml");
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
-    /// A repository under the temporary directory, configured to commit, with nothing in it.
-    fn empty_repository(tag: &str) -> PathBuf {
-        let repo = std::env::temp_dir().join(format!(
-            "knowledge-history-{tag}-{}-{:?}",
-            std::process::id(),
-            std::thread::current().id()
-        ));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+    /// A repository under the temporary directory, configured to commit, with nothing in it,
+    /// removed when dropped.
+    fn empty_repository(tag: &str) -> tempfile::TempDir {
+        let scratch = tempfile::TempDir::with_prefix(format!("klarch-history-{tag}-"))
+            .expect("a scratch directory");
+        let repo = scratch.path();
         for args in [
             &["init", "-q"][..],
             &["config", "user.name", "fixture"],
             &["config", "user.email", "fixture@example.invalid"],
         ] {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         }
-        repo
+        scratch
     }
 
     /// The claim: a manifest the snapshot holds as a symbolic link or as a gitlink is told apart
@@ -1560,9 +1553,10 @@ mod tests {
     #[cfg(unix)]
     #[test]
     fn a_manifest_held_as_a_link_names_its_replacement_by_the_file() {
-        let repo = empty_repository("linked-manifest");
+        let scratch = empty_repository("linked-manifest");
+        let repo = scratch.path();
         let run = |args: &[&str]| {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         };
         std::fs::create_dir_all(repo.join("conf")).expect("a directory");
         std::fs::write(repo.join("conf").join(MANIFEST_NAME), "[project]\n").expect("a manifest");
@@ -1573,9 +1567,9 @@ mod tests {
         .expect("a symbolic link");
         run(&["add", "-A"]);
         run(&["commit", "-qm", "base"]);
-        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+        let head = crate::git::rev_parse(repo, "HEAD").expect("a commit");
 
-        let staged = read_tree(&repo, Source::Index, &[], &mut [])
+        let staged = read_tree(repo, Source::Index, &[], &mut [])
             .err()
             .expect("a linked manifest is refused");
         assert_eq!(
@@ -1586,7 +1580,7 @@ mod tests {
             staged.repair,
             "replace the link with the manifest file itself, and stage it"
         );
-        let committed = read_tree(&repo, Source::Commit(&head), &[], &mut [])
+        let committed = read_tree(repo, Source::Commit(&head), &[], &mut [])
             .err()
             .expect("a linked manifest is refused");
         assert!(
@@ -1601,14 +1595,13 @@ mod tests {
         run(&["rm", "-q", "--cached", MANIFEST_NAME]);
         let gitlink = format!("160000,{head},{MANIFEST_NAME}");
         run(&["update-index", "--add", "--cacheinfo", &gitlink]);
-        let submodule = read_tree(&repo, Source::Index, &[], &mut [])
+        let submodule = read_tree(repo, Source::Index, &[], &mut [])
             .err()
             .expect("a gitlink manifest is refused");
         assert_eq!(
             submodule.why,
             format!("its tree holds {MANIFEST_NAME} as a submodule")
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: a manifest the index holds that does not parse names its correction, not its
@@ -1616,13 +1609,14 @@ mod tests {
     /// absent arm's "stage knowledge-architect.toml".
     #[test]
     fn a_staged_manifest_that_does_not_parse_names_its_correction() {
-        let repo = empty_repository("refused-manifest");
+        let scratch = empty_repository("refused-manifest");
+        let repo = scratch.path();
         std::fs::write(repo.join(MANIFEST_NAME), "[project\n").expect("a manifest");
-        crate::git::git(&repo)
+        crate::git::git(repo)
             .args(["add", MANIFEST_NAME])
             .output()
             .expect("git");
-        let refused = read_tree(&repo, Source::Index, &[], &mut [])
+        let refused = read_tree(repo, Source::Index, &[], &mut [])
             .err()
             .expect("the manifest is refused");
         assert!(
@@ -1636,13 +1630,13 @@ mod tests {
             refused.repair,
             "correct knowledge-architect.toml as the reason says, and stage it"
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// A repository holding a project whose tree passes the first three phases, committed, with
-    /// HEAD's SHA and the loaded manifest.
-    fn committed_project(tag: &str) -> (PathBuf, String, Manifest) {
-        let repo = empty_repository(tag);
+    /// HEAD's SHA and the loaded manifest. The repository is removed when its guard is dropped.
+    fn committed_project(tag: &str) -> (tempfile::TempDir, String, Manifest) {
+        let scratch = empty_repository(tag);
+        let repo = scratch.path();
         for (rel, text) in [
             (
                 MANIFEST_NAME,
@@ -1669,15 +1663,15 @@ mod tests {
             std::fs::write(&path, text).expect("a file");
         }
         for args in [&["add", "-A"][..], &["commit", "-qm", "base"]] {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         }
-        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+        let head = crate::git::rev_parse(repo, "HEAD").expect("a commit");
         let manifest = Manifest::parse(
-            &repo,
+            repo,
             &std::fs::read_to_string(repo.join(MANIFEST_NAME)).expect("the manifest"),
         )
         .expect("a declaration");
-        (repo, head, manifest)
+        (scratch, head, manifest)
     }
 
     /// An extension that declares one generated file, `rel`, and prepares over a tree only where
@@ -1757,7 +1751,8 @@ mod tests {
     /// of the three sites' `super::EXTENSION_REPAIR` made `GIT_REPAIR` fails its case.
     #[test]
     fn an_extension_that_cannot_prepare_over_a_snapshot_names_its_repair() {
-        let (repo, head, mut manifest) = committed_project("unpreparable");
+        let (scratch, head, mut manifest) = committed_project("unpreparable");
+        let repo = scratch.path();
         let reason = format!(
             "the extension's own reason\n       {}",
             super::super::EXTENSION_REPAIR
@@ -1781,14 +1776,14 @@ mod tests {
         );
         let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         assert_eq!(
-            staged_generated(&repo, &[], &mut extensions),
+            staged_generated(repo, &[], &mut extensions),
             Err(format!(
                 "the staged tree's generated files cannot be computed: {reason}"
             ))
         );
         let mut extensions = configured(&mut manifest, "nowhere/listing.md", false);
         let refused = commit_tree(
-            &repo,
+            repo,
             Source::Commit(&head),
             &[],
             &mut extensions,
@@ -1799,7 +1794,6 @@ mod tests {
         .expect("the commit's tree does not load");
         assert_eq!(refused.why, "the extension's own reason");
         assert_eq!(refused.repair, super::super::EXTENSION_REPAIR);
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim, a regression guard: an extension's generated file outside the walk whose
@@ -1808,15 +1802,16 @@ mod tests {
     /// `generated_unreadable`, which tells the two apart.
     #[test]
     fn a_committed_generated_file_that_is_not_utf8_is_unreadable_and_not_missing() {
-        let (repo, _, mut manifest) = committed_project("generated-not-utf8");
+        let (scratch, _, mut manifest) = committed_project("generated-not-utf8");
+        let repo = scratch.path();
         std::fs::write(repo.join("listing.md"), b"caf\xe9\n").expect("a file");
         for args in [&["add", "listing.md"][..], &["commit", "-qm", "listing"]] {
-            crate::git::git(&repo).args(args).output().expect("git");
+            crate::git::git(repo).args(args).output().expect("git");
         }
-        let head = crate::git::rev_parse(&repo, "HEAD").expect("a commit");
+        let head = crate::git::rev_parse(repo, "HEAD").expect("a commit");
         let mut extensions = configured(&mut manifest, "listing.md", true);
         let tree = commit_tree(
-            &repo,
+            repo,
             Source::Commit(&head),
             &[],
             &mut extensions,
@@ -1832,7 +1827,6 @@ mod tests {
             .map(|f| f.what.as_str())
             .collect();
         assert_eq!(on, vec!["the generated file cannot be read as UTF-8 text"]);
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: `index --staged` refuses a generated file whose directory the staged tree does
@@ -1843,7 +1837,7 @@ mod tests {
     /// "stage a file under that directory" made "create that directory".
     #[test]
     fn index_staged_names_the_repair_of_a_destination_whose_directory_is_not_staged() {
-        let (repo, _, mut manifest) = committed_project("nowhere-staged");
+        let (_scratch, _, mut manifest) = committed_project("nowhere-staged");
         let mut extensions = configured(&mut manifest, "nowhere/listing.md", true);
         assert_eq!(
             index_staged(&manifest, &[], &mut extensions),
@@ -1855,39 +1849,34 @@ mod tests {
                     .to_string()
             )
         );
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The claim: a snapshot names a blob only for a path it holds; an intent-to-add entry, which
     /// git names with the empty blob, is not one.
     #[test]
     fn a_snapshot_names_no_blob_for_a_path_it_does_not_hold() {
-        let repo = repository_with_an_intent_to_add_entry("ita-object");
-        let listing: Vec<PathBuf> = crate::git::snapshot_entries(&repo, Source::Index)
+        let scratch = repository_with_an_intent_to_add_entry("ita-object");
+        let repo = scratch.path();
+        let listing: Vec<PathBuf> = crate::git::snapshot_entries(repo, Source::Index)
             .expect("the snapshot")
             .into_iter()
             .map(|e| e.entry().rel)
             .collect();
-        let snapshot = Snapshot::new(&repo, Source::Index, listing, Default::default());
+        let snapshot = Snapshot::new(repo, Source::Index, listing, Default::default());
         assert!(snapshot.object_id(Path::new(MANIFEST_NAME)).is_some());
         assert!(!snapshot.holds(Path::new("ita.md")));
         assert_eq!(snapshot.object_id(Path::new("ita.md")), None);
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     /// The staged assembly refuses an index holding an unmerged path, naming each path once,
     /// before it reads anything else: a conflicted merge has no tree to commit.
     #[test]
     fn an_unmerged_index_is_refused_naming_each_path_once() {
-        let repo = std::env::temp_dir().join(format!(
-            "knowledge-history-unmerged-{}-{:?}",
-            std::process::id(),
-            std::thread::current().id()
-        ));
-        let _ = std::fs::remove_dir_all(&repo);
-        std::fs::create_dir_all(&repo).expect("a repository directory");
+        let scratch = tempfile::TempDir::with_prefix("klarch-history-unmerged-")
+            .expect("a scratch directory");
+        let repo = scratch.path();
         let run = |args: &[&str]| {
-            let _ = crate::git::git(&repo).args(args).accept(1).output();
+            let _ = crate::git::git(repo).args(args).accept(1).output();
         };
         run(&["init", "-q"]);
         run(&["config", "user.name", "fixture"]);
@@ -1904,12 +1893,11 @@ mod tests {
             run(&["commit", "-qm", text.trim()]);
         }
         run(&["merge", "-q", "side"]);
-        let refused = read_tree(&repo, Source::Index, &[], &mut [])
+        let refused = read_tree(repo, Source::Index, &[], &mut [])
             .err()
             .expect("an unmerged index is refused");
         assert_eq!(refused.why, "the index holds unmerged paths: c.md, d.md");
         assert!(refused.repair.starts_with("resolve each conflict"));
-        let _ = std::fs::remove_dir_all(&repo);
     }
 
     // Every fixture is written as the bytes it means: the checker reads no string literal of

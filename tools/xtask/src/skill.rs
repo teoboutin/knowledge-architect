@@ -212,18 +212,17 @@ mod tests {
     // The claim: a name that matches two kinds is refused with both, rather than one picked.
     #[test]
     fn a_name_of_two_files_is_refused() {
-        let dir = std::env::temp_dir().join(format!("xtask-skill-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch = tempfile::TempDir::with_prefix("klarch-skill-").expect("a scratch directory");
+        let dir = scratch.path();
         std::fs::create_dir_all(dir.join("skills/x")).expect("a skill directory");
         std::fs::create_dir_all(dir.join("agents")).expect("an agents directory");
         std::fs::write(dir.join("skills/x/SKILL.md"), "").expect("a skill");
         std::fs::write(dir.join("agents/x.md"), "").expect("an agent");
-        let refused = resolve(&dir, "x").expect_err("two files");
+        let refused = resolve(dir, "x").expect_err("two files");
         assert!(
             refused.contains("skills/x/SKILL.md") && refused.contains("agents/x.md"),
             "{refused}"
         );
-        let _ = std::fs::remove_dir_all(&dir);
     }
 
     // The claim, over the checkout's own shipped text: every skill, agent, saved workflow and the

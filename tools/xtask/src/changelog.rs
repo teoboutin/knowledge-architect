@@ -134,8 +134,9 @@ mod tests {
     // read-only file without error, and a needless write would then pass unseen.
     #[test]
     fn sync_writes_what_differs_and_only_that() {
-        let dir = std::env::temp_dir().join(format!("xtask-changelog-{}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&dir);
+        let scratch =
+            tempfile::TempDir::with_prefix("klarch-changelog-").expect("a scratch directory");
+        let dir = scratch.path();
         for krate in ["a", "b", "c"] {
             std::fs::create_dir_all(dir.join("crates").join(krate)).expect("a crate directory");
         }
@@ -152,11 +153,11 @@ mod tests {
         permissions.set_readonly(true);
         std::fs::set_permissions(&current, permissions).expect("a read-only copy");
 
-        let written = sync(&dir).expect("the copies are written");
+        let written = sync(dir).expect("the copies are written");
         let flags: Vec<(String, bool)> = written
             .iter()
             .map(|(p, w)| {
-                let rel = p.strip_prefix(&dir).expect("under the root");
+                let rel = p.strip_prefix(dir).expect("under the root");
                 (rel.display().to_string(), *w)
             })
             .collect();
@@ -174,6 +175,5 @@ mod tests {
             assert_eq!(copy, "new\n");
         }
         assert!(!dir.join("crates/not-a-crate").join(CHANGELOG).exists());
-        let _ = std::fs::remove_dir_all(&dir);
     }
 }

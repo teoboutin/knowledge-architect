@@ -17,5 +17,9 @@ include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MI
 knowledge-architect-git = { path = "../git", version = "=0.10.0" }
 knowledge-architect-model = { path = "../model", version = "=0.10.0" }
 
+[dev-dependencies]
+# The directories the tests make, each removed when its test ends, a failed test's included.
+tempfile = "3"
+
 [lints]
 workspace = true

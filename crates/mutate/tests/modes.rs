@@ -6,48 +6,39 @@
 //! executable as its child: `child_entry` parses the arguments a maintenance binary would, runs
 //! the mode over its working directory, and exits with the mode's code.
 //!
-//! Every test builds its own sandbox, a git repository in the temporary directory, so a run's
-//! record and target stay inside it and never touch this repository. **The command under `--` is
-//! always a shell builtin or `sh -c`, never `cargo`**: a nested cargo would rebuild the workspace
-//! inside a test and contend for the same target directory.
+//! Every test builds its own sandbox, a git repository in the temporary directory, removed when
+//! the test ends, so a run's record and target stay inside it and never touch this repository.
+//! **The command under `--` is always a shell builtin or `sh -c`, never `cargo`**: a nested cargo
+//! would rebuild the workspace inside a test and contend for the same target directory.
 
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::sync::atomic::{AtomicUsize, Ordering};
-use std::time::{SystemTime, UNIX_EPOCH};
-
-static COUNTER: AtomicUsize = AtomicUsize::new(0);
 
 struct Sandbox {
-    root: PathBuf,
+    dir: tempfile::TempDir,
 }
 
 impl Sandbox {
     fn new(tag: &str) -> Self {
-        let nanos = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .expect("clock")
-            .subsec_nanos();
-        let n = COUNTER.fetch_add(1, Ordering::SeqCst);
-        let mut root = std::env::temp_dir();
-        root.push(format!(
-            "mutate-bin-{tag}-{}-{nanos}-{n}",
-            std::process::id()
-        ));
-        fs::create_dir_all(&root).expect("creating the sandbox");
+        let dir = tempfile::TempDir::with_prefix(format!("klarch-mutate-modes-{tag}-"))
+            .expect("creating the sandbox");
         // The record lives in the git directory, so the sandbox is a repository of its own.
         let init = Command::new("git")
             .args(["init", "-q", "."])
-            .current_dir(&root)
+            .current_dir(dir.path())
             .status()
             .expect("running git init");
         assert!(init.success(), "git init");
-        Sandbox { root }
+        Sandbox { dir }
+    }
+
+    fn root(&self) -> &Path {
+        self.dir.path()
     }
 
     fn write(&self, rel: &str, content: &str) -> PathBuf {
-        let p = self.root.join(rel);
+        let p = self.root().join(rel);
         if let Some(parent) = p.parent() {
             fs::create_dir_all(parent).expect("creating a parent directory");
         }
@@ -56,7 +47,7 @@ impl Sandbox {
     }
 
     fn read(&self, rel: &str) -> String {
-        fs::read_to_string(self.root.join(rel)).expect("reading a sandbox file")
+        fs::read_to_string(self.root().join(rel)).expect("reading a sandbox file")
     }
 
     /// Runs the binary in the sandbox. Returns (success, stdout and stderr together).
@@ -68,20 +59,16 @@ impl Sandbox {
     /// The same, keeping the exit code. Success alone cannot tell 1 from 2, and the whole
     /// point of the ladder is that those two say different things about the tree.
     fn run_coded(&self, args: &[&str]) -> (bool, String, i32) {
-        let out = child(&self.root, args).output().expect("running the child");
+        let out = child(self.root(), args)
+            .output()
+            .expect("running the child");
         let mut text = String::from_utf8_lossy(&out.stdout).into_owned();
         text.push_str(&String::from_utf8_lossy(&out.stderr));
         (out.status.success(), text, out.status.code().unwrap_or(-1))
     }
 
     fn record(&self) -> PathBuf {
-        self.root.join(".git/knowledge-architect-mutate")
-    }
-}
-
-impl Drop for Sandbox {
-    fn drop(&mut self) {
-        fs::remove_dir_all(&self.root).ok();
+        self.root().join(".git/knowledge-architect-mutate")
     }
 }
 
@@ -179,7 +166,8 @@ fn an_absolute_target_is_refused() {
 fn a_symlinked_target_is_refused() {
     let s = Sandbox::new("symlink");
     s.write("real.txt", "real\n");
-    std::os::unix::fs::symlink(s.root.join("real.txt"), s.root.join("link.txt")).expect("linking");
+    std::os::unix::fs::symlink(s.root().join("real.txt"), s.root().join("link.txt"))
+        .expect("linking");
     let (ok, out) = s.run(&[
         "run",
         "--file",
@@ -653,7 +641,7 @@ fn a_run_killed_mid_mutation_is_restored_byte_for_byte() {
     let body = "uncommitted edit\nline2\nSITE\nline4\nno newline at the end";
     s.write(FILE, body);
     let mut run = child(
-        &s.root,
+        s.root(),
         &[
             "run",
             "--file",
@@ -815,11 +803,11 @@ fn the_mutation_is_shown_present_before_the_command_runs() {
 #[test]
 fn outside_a_repository_the_run_exits_two() {
     let s = Sandbox::new("nogit");
-    fs::remove_dir_all(s.root.join(".git")).expect("removing the repository");
+    fs::remove_dir_all(s.root().join(".git")).expect("removing the repository");
     s.write(FILE, BODY);
     // GIT_CEILING_DIRECTORIES keeps git from finding a repository above the temporary directory.
     let out = child(
-        &s.root,
+        s.root(),
         &[
             "run",
             "--file",
@@ -834,7 +822,7 @@ fn outside_a_repository_the_run_exits_two() {
     )
     .env(
         "GIT_CEILING_DIRECTORIES",
-        s.root.parent().expect("a parent"),
+        s.root().parent().expect("a parent"),
     )
     .output()
     .expect("running the child");
@@ -892,8 +880,8 @@ fn a_patch_run_makes_nothing_in_the_temporary_directory() {
     let s = Sandbox::new("patch-tmpdir");
     s.write(FILE, BODY);
     s.write("m.diff", DELETE_SITE);
-    let absent = s.root.join("absent");
-    let out = child(&s.root, &RUN_PATCH)
+    let absent = s.root().join("absent");
+    let out = child(s.root(), &RUN_PATCH)
         .env("TMPDIR", &absent)
         .output()
         .expect("running the child");
@@ -929,12 +917,12 @@ fn a_patch_run_works_in_a_linked_worktree() {
     ] {
         let git = Command::new("git")
             .args(args)
-            .current_dir(&s.root)
+            .current_dir(s.root())
             .status()
             .expect("running git");
         assert!(git.success(), "git {args:?}");
     }
-    let linked = s.root.join("linked");
+    let linked = s.root().join("linked");
     assert!(linked.join(".git").is_file());
     s.write("linked/m.diff", DELETE_SITE);
     let out = child(&linked, &RUN_PATCH)
@@ -950,7 +938,7 @@ fn a_patch_run_works_in_a_linked_worktree() {
     assert!(text.contains("SURVIVED"), "{text}");
     assert_eq!(s.read("linked/src/f.rs"), BODY);
     let record = knowledge_architect_mutate::record_dir(&linked).expect("a repository");
-    assert!(record.starts_with(s.root.join(".git/worktrees")));
+    assert!(record.starts_with(s.root().join(".git/worktrees")));
     assert!(!record.exists());
 }
 
@@ -969,7 +957,7 @@ fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone()
     let stub = "mkdir bin && cat > bin/git && chmod +x bin/git";
     let mut write = Command::new("sh")
         .args(["-c", stub])
-        .current_dir(&s.root)
+        .current_dir(s.root())
         .stdin(std::process::Stdio::piped())
         .spawn()
         .expect("running sh");
@@ -986,18 +974,20 @@ fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone()
     assert!(write.wait().expect("sh").success());
     let path = std::env::var("PATH").expect("PATH is set");
     let out = child(
-        &s.root,
+        s.root(),
         &[
             "run", "--file", "manifest", "--patch", "m.diff", "--", "true",
         ],
     )
-    .env("PATH", format!("{}:{path}", s.root.join("bin").display()))
-    .env("TMPDIR", s.root.join("tmp"))
+    .env("PATH", format!("{}:{path}", s.root().join("bin").display()))
+    .env("TMPDIR", s.root().join("tmp"))
     .output()
     .expect("running the child");
     assert_eq!(out.status.code(), None, "the run is killed: {out:?}");
     assert_eq!(
-        fs::read_dir(s.root.join("tmp")).expect("readable").count(),
+        fs::read_dir(s.root().join("tmp"))
+            .expect("readable")
+            .count(),
         1,
         "only the file the test wrote"
     );
@@ -1119,10 +1109,10 @@ fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
         ]);
         assert_eq!(code, 2, "{patch}: {out}");
         assert!(
-            !s.root.join("ran").exists(),
+            !s.root().join("ran").exists(),
             "{patch}: the baseline ran: {out}"
         );
-        assert!(!s.root.join("src/g.rs").exists(), "{patch}: {out}");
+        assert!(!s.root().join("src/g.rs").exists(), "{patch}: {out}");
         assert_eq!(s.read(FILE), BODY);
     }
 }
@@ -1133,9 +1123,9 @@ fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
 fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
     let s = Sandbox::new("odd-targets");
     s.write("real/f.rs", BODY);
-    std::os::unix::fs::symlink(s.root.join("real"), s.root.join("link")).expect("linking");
+    std::os::unix::fs::symlink(s.root().join("real"), s.root().join("link")).expect("linking");
     let fifo = Command::new("mkfifo")
-        .arg(s.root.join("pipe"))
+        .arg(s.root().join("pipe"))
         .status()
         .expect("mkfifo runs");
     assert!(fifo.success());
@@ -1183,7 +1173,7 @@ fn the_restore_writes_through_no_symlink_the_command_left() {
     let (_, out, code) = t.run_coded(&args(&["--no-baseline", "--", "sh", "-c", dangling]));
     assert_eq!(code, 1, "{out}");
     assert!(
-        !t.root.join("far.rs").exists(),
+        !t.root().join("far.rs").exists(),
         "nothing was written through the link"
     );
     assert!(t.record().join("pre-image").is_file());
@@ -1224,9 +1214,9 @@ fn a_refusal_before_the_write_leaves_no_record() {
     assert!(!s.record().exists(), "unspawnable baseline: {out}");
 
     for mode in [0o000, 0o444] {
-        fs::set_permissions(s.root.join(FILE), fs::Permissions::from_mode(mode)).expect("chmod");
+        fs::set_permissions(s.root().join(FILE), fs::Permissions::from_mode(mode)).expect("chmod");
         let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--", "true"]));
-        fs::set_permissions(s.root.join(FILE), fs::Permissions::from_mode(0o644)).expect("chmod");
+        fs::set_permissions(s.root().join(FILE), fs::Permissions::from_mode(0o644)).expect("chmod");
         assert_eq!(code, 2, "mode {mode:o}: {out}");
         assert!(!s.record().exists(), "mode {mode:o}: {out}");
         assert_eq!(s.read(FILE), BODY);
