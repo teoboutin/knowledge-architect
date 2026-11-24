@@ -15,6 +15,8 @@ Observed by two reviewers of the slice that moved the commands out of the checke
 
 A further instance: W6 of the retrospective of the slice that holds the fixtures and the integrated tests, 2026-11-07. Eleven reviewers each built into a target directory of their own, 0.7 to 2.3 GB each, on a shared tmpfs that hit its quota; one mutation read `caught` on the full disk, and its reviewer discarded the verdict.
 
+A further instance: on a machine whose /tmp, a tmpfs, had run out of inodes, builds failed with `No space left on device`, and a mutation run read such a failure as `caught`.
+
 ### Why it matters
 
 `design@mutate@report-not-gate` makes the verdict what a session records as evidence that a test discriminates, so a false `caught` is a false claim in a commit message.

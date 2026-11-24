@@ -51,10 +51,10 @@ Instances, from retrospective files of this repository's sessions:
   batch may run at once.
 
 The cost per reviewer is one full build, since a worktree with a target directory of its own builds
-from empty. The two disk failures have causes recorded elsewhere: the location the session chose,
-/tmp, which the owner's user-level instructions now exclude, and the leak of
-`issue@testing@a-test-run-leaves-directories-in-the-temporary-directory`. A shared build directory
-is ruled out by the invariant's own reason and by `design@check@a-foreign-build-is-refused`.
+from empty. The two disk failures have two causes: the location the session chose, /tmp, which the
+owner's user-level instructions exclude, and the directories the test helpers left there, a leak
+that is closed. A shared build directory is ruled out by the invariant's own reason and by
+`design@check@a-foreign-build-is-refused`.
 
 ### Why it matters
 

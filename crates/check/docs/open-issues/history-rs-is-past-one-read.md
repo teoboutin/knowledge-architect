@@ -7,10 +7,9 @@ kind: design
 
 `path@check@src/commands/history.rs` is more than a session reads whole in one pass: a Read with no
 range returns it cut short. The size signal for a split of
-`design@agent-skills@module-split-guidelines` holds. The work that last wrote into it, the pass that
-documented every public item the documentation lints name, wrote only documentation and weighed no
-split, so the split is weighed at the design or the planning of the next work that changes the
-file's code, per `design@agent-skills@split-issue-reenters-at-planning`.
+`design@agent-skills@module-split-guidelines` holds. No work has yet needed the split, so it is
+weighed again at the design or the planning of the next work that changes the file's code, per
+`design@agent-skills@split-issue-reenters-at-planning`.
 
 ## Details
 
@@ -28,6 +27,12 @@ The instance: the commit "[check] Every public item and every Result-returning f
 facade is documented" added doc comments to the file and changed no code of it. The plan of that
 branch decided no split in that work, on the owner's word, and an issue for each file of the pass
 past one read.
+
+A later instance: the commit "[tests] The tests outside `testing` hold each scratch directory in a
+guard of `tempfile`, which removes it when the test ends" changed the file's test code, and its
+branch weighed a split in its design discussion. The work needs none: it changes how a test makes a
+directory, one pattern at each site, and moves no subject, so a split would not shorten what its
+review reads. The weighing passes to the next work that changes the file's code after it.
 
 ### Why it matters
 
