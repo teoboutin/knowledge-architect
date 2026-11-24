@@ -264,8 +264,8 @@ pub fn restore_verdict(current: &str, recorded_mutant: &str, recorded_pre: &str)
 /// Whether one is complete is [`Record::exists`]'s question, and it is answered per file.
 pub struct Record {
     /// The directory that holds the record's files: `owner-pid`, `pre-image`, `mutant`,
-    /// `manifest`, and `mutation.patch` when the run had a patch to record. A `--patch` run also
-    /// keeps a directory `scratch` there while it plans its mutant, which is no part of the record.
+    /// `manifest`, and `mutation.patch` when the run had a patch to record. While a `--patch` run
+    /// plans its mutant it also holds a directory, which is no part of the record.
     pub dir: PathBuf,
 }
 
@@ -286,6 +286,12 @@ impl Record {
     /// The record whose directory is `dir`. It touches no file: the directory need not exist.
     pub fn at(dir: impl Into<PathBuf>) -> Self {
         Record { dir: dir.into() }
+    }
+
+    /// The directory inside the claim where a `--patch` run plans its mutant. Its name is none of
+    /// the record's files, so no file below it is taken for one of them.
+    pub(crate) fn scratch(&self) -> PathBuf {
+        self.dir.join("scratch")
     }
 
     /// Whether a complete record is present. All three required files are checked rather than

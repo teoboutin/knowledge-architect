@@ -496,17 +496,16 @@ pub(crate) fn restore_record(root: &Path, discard: bool) -> ExitCode {
 /// Applies `patch` to `pre_image` in a scratch repository and returns the result, so the mutant
 /// is known before the real file is touched.
 ///
-/// The scratch is a directory of the record's, which the run has claimed: no other run meets it,
-/// and a run killed here leaves it in the claim that `restore --discard` drops whole. Its name is
-/// none of the record's files, and the patched path sits below it, so no target's name is taken
-/// for one of them.
+/// The scratch is [`Record::scratch`], inside the claim: no other run meets it, and a run killed
+/// here leaves it in the claim that `restore --discard` drops whole. A removal that fails leaves it
+/// there too, until the record is cleared.
 fn apply_to_scratch(
     record: &Record,
     pre_image: &str,
     rel_path: &str,
     patch: &str,
 ) -> Result<String, String> {
-    let dir = record.dir.join("scratch");
+    let dir = record.scratch();
     let result = apply_in(&dir, pre_image, rel_path, patch);
     let _ = fs::remove_dir_all(&dir);
     result
@@ -582,4 +581,25 @@ fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
         return Err(String::from_utf8_lossy(&out.stderr).into_owned());
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // The claim: the scratch goes whether the patch applies or not. A failed plan clears the whole
+    // record after it, so only the function itself shows that the removal is its own.
+    #[test]
+    fn the_scratch_is_removed_whether_the_patch_applies_or_not() {
+        let base =
+            tempfile::TempDir::with_prefix("klarch-mutate-scratch-").expect("creating the sandbox");
+        let record = Record::at(base.path().join("record"));
+        record.claim().expect("claiming");
+        let patch = "--- a/f\n+++ b/f\n@@ -1 +1 @@\n-SITE\n+MUT\n";
+        let applied = apply_to_scratch(&record, "SITE\n", "f", patch);
+        assert_eq!(applied, Ok("MUT\n".to_string()));
+        assert!(!record.scratch().exists(), "after a patch that applies");
+        assert!(apply_to_scratch(&record, "other\n", "f", patch).is_err());
+        assert!(!record.scratch().exists(), "after a patch that does not");
+    }
 }

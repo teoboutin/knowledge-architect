@@ -1024,6 +1024,21 @@ const RUN_ADD_SPACES: [&str; 11] = [
     FILE,
 ];
 
+// The claim: a patch is planned in a repository of its own, so the project's own git configuration
+// does not rewrite the mutant.
+#[test]
+fn the_project_s_git_configuration_does_not_rewrite_the_mutant() {
+    let s = Sandbox::new("patch-config");
+    s.write(FILE, BODY);
+    s.write("m.diff", ADD_SPACES);
+    let config = format!("{}[apply]\n\twhitespace = fix\n", s.read(".git/config"));
+    s.write(".git/config", &config);
+    let (_, out, code) = s.run_coded(&RUN_ADD_SPACES);
+    assert_eq!(code, 0, "{out}");
+    assert!(out.contains("SURVIVED"), "{out}");
+    assert_eq!(s.read(FILE), BODY);
+}
+
 // The claim: `GIT_COMMON_DIR` and `GIT_OBJECT_DIRECTORY` in the caller's environment reach neither
 // git call that plans the mutant: the configuration of the one does not rewrite the mutant, and
 // nothing is written in the other.
@@ -1054,10 +1069,10 @@ fn a_patch_run_ignores_the_common_and_object_directories_the_environment_names()
     assert_eq!(s.read(FILE), BODY);
 }
 
-// The claim: a run killed while it plans its patch leaves its scratch in the record's claim, where
-// no reader takes it for a record and `restore --discard` removes it, and nothing in the temporary
-// directory. The target is named as a file of the record, and `git apply` is a program that kills
-// the run that started it.
+// The claim: a run killed while it plans its patch leaves its scratch in the record's claim, which
+// `restore` refuses as incomplete and `restore --discard` removes, and nothing in the temporary
+// directory. The target is named as a file of the record, so the claim is shown to hold it in a
+// directory of its own, and `git apply` is a program that kills the run that started it.
 #[test]
 fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone() {
     let s = Sandbox::new("patch-killed");
@@ -1192,10 +1207,10 @@ fn an_edit_saved_during_the_baseline_is_kept() {
     assert!(!s.record().exists(), "{out}");
 }
 
-// The claim: a patch that names another file than `--file`, or that changes nothing, is refused
-// with 2 before the baseline runs.
+// The claim: a patch that names another file than `--file`, that does not apply, or that changes
+// nothing, is refused with 2 and its own reason before the baseline runs, and leaves no record.
 #[test]
-fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
+fn a_patch_naming_another_file_not_applying_or_changing_nothing_is_refused() {
     let s = Sandbox::new("patch-odd");
     s.write(FILE, BODY);
     s.write(
@@ -1207,7 +1222,12 @@ fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
         "empty.diff",
         "diff --git a/src/f.rs b/src/f.rs\nold mode 100644\nnew mode 100755\n",
     );
-    for patch in ["other.diff", "empty.diff"] {
+    s.write("moved.diff", &DELETE_SITE.replace("line2", "line9"));
+    for (patch, says) in [
+        ("other.diff", "the patch names src/g.rs"),
+        ("moved.diff", "the patch does not apply to src/f.rs"),
+        ("empty.diff", "the patch does not change src/f.rs"),
+    ] {
         let (_, out, code) = s.run_coded(&[
             "run",
             "--file",
@@ -1220,6 +1240,8 @@ fn a_patch_naming_another_file_or_changing_nothing_is_refused() {
             "touch ran",
         ]);
         assert_eq!(code, 2, "{patch}: {out}");
+        assert!(out.contains(says), "{patch}: {out}");
+        assert!(!s.record().exists(), "{patch}: {out}");
         assert!(
             !s.root().join("ran").exists(),
             "{patch}: the baseline ran: {out}"
@@ -1354,8 +1376,9 @@ fn a_record_over_an_unmutated_file_is_cleared_by_restore() {
     assert!(!s.record().exists(), "{out}");
 }
 
-// The claim: the patch form records its patch, so a restore that refuses a changed file prints the
-// reverse of the caller's own patch.
+// The claims: the patch form records its patch, so a restore that refuses a changed file prints the
+// reverse of the caller's own patch; and the record that stands holds its own files alone, nothing
+// of the planning of its mutant.
 #[test]
 fn a_patch_run_records_its_patch_for_the_reverse() {
     let s = Sandbox::new("patch-record");
@@ -1378,9 +1401,23 @@ fn a_patch_run_records_its_patch_for_the_reverse() {
     ]);
     assert_eq!(code, 1, "{out}");
     assert!(out.contains("git apply -R"), "{out}");
-    assert!(s.record().join("mutation.patch").is_file(), "{out}");
-    assert!(
-        !s.record().join("scratch").exists(),
-        "the record that stands holds no scratch"
+    let mut held: Vec<String> = fs::read_dir(s.record())
+        .expect("the record stands")
+        .map(|e| {
+            let name = e.expect("an entry").file_name();
+            name.to_string_lossy().into_owned()
+        })
+        .collect();
+    held.sort();
+    assert_eq!(
+        held,
+        [
+            "manifest",
+            "mutant",
+            "mutation.patch",
+            "owner-pid",
+            "pre-image"
+        ],
+        "{out}"
     );
 }
