@@ -140,3 +140,12 @@ crate whose public items serve consumers outside the workspace, as
 `design@check@the-facade-publishes-what-a-consumer-needs` and
 `design@git@an-operation-in-git-s-terms-is-the-library-s` argue; a crate whose public items serve
 the workspace's own tools, as `design@model@model-facade` says of `model`, is outside it.
+
+### The crate mod-tempdir in place of `tempfile`, for its sweep of a killed run's files `##temporary-directory-crate-with-a-sweep`
+
+`live`. Refuted by a survey of crates that read their sources: mod-tempdir 1.2.0 sweeps only the
+entries its default prefixes name, and its documentation says that an entry made with a
+caller's prefix is never touched, so a common prefix and its sweep exclude each other. It also takes
+the owner of an entry as alive while any process has its id, so it keeps an orphan whose id is
+reused. The figures that weigh a dependency were taken on 2026-11-24 from crates.io: 226 downloads,
+created 2026-05-13, one crate depending on it.

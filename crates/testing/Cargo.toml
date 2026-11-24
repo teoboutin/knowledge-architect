@@ -27,7 +27,7 @@ knowledge-architect-model = { path = "../model" }
 knowledge-architect-gates = { path = "../gates" }
 clap = { version = "4", features = ["derive"] }
 toml = "1.1.4"
-# The directories the tests make, each removed when its test ends, a failed test's included.
+# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]

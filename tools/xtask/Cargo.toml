@@ -27,7 +27,7 @@ serde_json = "1"
 serde_json = "1"
 # The cargo configuration, whose `[env]` entry the checkout test reads.
 toml = "1"
-# The directories the tests make, each removed when its test ends, a failed test's included.
+# For tests alone, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]

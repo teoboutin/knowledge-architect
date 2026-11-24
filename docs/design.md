@@ -1142,6 +1142,52 @@ Observed on cargo 1.98.0, and re-taken by a workspace whose one member declares
 `[lints] workspace = true` and, beside it, `[lints.rust] missing_docs = "warn"`: `cargo check` fails
 to load the member's manifest, with "cannot override `workspace.lints` in `lints`".
 
+### A test holds each directory it makes in a guard, so a run that ends, passing or failing, leaves nothing in the temporary directory `##scratch-removed-by-a-guard`
+
+A directory a test makes, in the temporary directory or elsewhere, is a `tempfile::TempDir` whose
+name opens with `klarch-`, held by the test or by the value it works through, and removed when that
+value is dropped. The lint of `path@knowledge-architect@clippy.toml` refuses a call of
+`std::env::temp_dir`, so the gate stops a directory made by hand, and the sentence of
+`skill@klarch-development@gate-in-this-repository` holds what the lint does not see.
+
+A failed assertion unwinds the test, which drops the guard and skips every statement after the
+assertion, so a removal written at the end of the test, the nearest rival, is not run by the test
+that fails. A guard in a `static` is never dropped, so a copy that the tests of one process share
+through one stays after them, and a `static` holds computed results alone. A killed process drops
+nothing: what it leaves is found by the prefix, and nothing removes it, since each rival below that
+would costs more than that gains.
+
+The measurement: with a `TMPDIR` that names a new directory, `cargo test --workspace` leaves that
+directory empty, and so does a run in which tests are made to fail. An entry left by either reopens
+the decision.
+
+A full temporary directory fails the builds and the tests of every session on the machine, and a
+mutation run reads such a failure as `caught`, per
+`issue@mutate@an-environment-failure-reads-as-caught`. Leaving the cleaning to the machine loses to
+the failure met: directories of the suite's accumulated until the inode table of a temporary
+directory was full, and builds failed there for lack of space.
+
+`tempfile` is a dependency of tests alone. The tests of an extension depend on `testing`, per
+`design@knowledge-architect@testing-crate`, and a maintenance crate that carries the hand mutation
+depends on `mutate`, per `design@knowledge-architect@mutation-command-host`, so a normal dependency of either enters a
+project's build. `cargo tree -i tempfile --workspace -e normal --target all` prints no package, which
+checks it. Shipped code writes its scratch in a directory it owns, as a `--patch` run does in its
+recovery record, per `design@mutate@record-lives-in-the-git-directory`: `tempfile` there would leave
+a killed run's files, where the record's `--discard` removes them.
+
+The other rivals. Each buys the removal of what a killed run leaves, or a common place for it:
+
+- a directory `/tmp/klarch` shared by every run needs writing rights arranged between the users of a
+  machine, and gathers little once the files are removed, which the prefix gathers without it;
+- a crate of ours around `tempfile`, published or not, adds the sweep of a killed run's files alone,
+  and the sweep by a lock file, or of the older copies of a mock, buys the same: what a killed run
+  leaves is the directories it held when it was killed, at most a few small copies and the scaffold
+  test's build, which is on disk and which `cargo clean` removes;
+- the crate mod-tempdir has a sweep, which never touches a directory named by a prefix of ours,
+  `rejected@knowledge-architect@temporary-directory-crate-with-a-sweep`;
+- every directory in the target directory, `CARGO_TARGET_TMPDIR`, fails for a test whose project must
+  lie outside every worktree, since that directory is inside this one.
+
 ### Every build that cargo starts inside a checkout is tied to that checkout `##a-build-is-tied-to-its-checkout`
 
 The `[env]` table of the cargo configuration sets `KNOWLEDGE_ARCHITECT_CHECKOUT` to the checkout's
