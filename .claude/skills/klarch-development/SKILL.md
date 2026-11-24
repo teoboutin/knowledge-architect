@@ -39,7 +39,7 @@ of a commit's tree, a change of the manifest format or a change of what a genera
 **No test may run the gates over this repository**, since the test gate would run the suite that is
 running it: `path@gates@CLAUDE.md` and `path@xtask@CLAUDE.md`.
 
-**A directory a test makes is a `tempfile::TempDir` whose name opens with `klarch-`, so what a killed
+**A directory a test makes is a `tempfile::TempDir` whose name opens with `klarch-`, so one that a killed
 run leaves is found by its name, and it is held as long as the directory is used, never in a
 `static`, which is never dropped, under `CARGO_TARGET_TMPDIR` too**, per
 `design@knowledge-architect@scratch-removed-by-a-guard`: the lint of

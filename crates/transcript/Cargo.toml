@@ -21,8 +21,7 @@ serde_json = "1"
 knowledge-architect-git = { path = "../git", version = "=0.10.0" }
 
 [dev-dependencies]
-# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`: for tests
-# alone.
+# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`.
 tempfile = "3"
 
 [lints]

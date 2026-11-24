@@ -47,5 +47,6 @@ None was run on Windows.
 
 ## test-temp-dir 0.9.1
 
-- **It wraps tempfile**: `TestTempDir` of `path@elsewhere@test-temp-dir-0.9.1/src/lib.rs` holds a
-  `tempfile::TempDir`. It has no sweep.
+- **It wraps tempfile by default**: `TestTempDir` of `path@elsewhere@test-temp-dir-0.9.1/src/lib.rs` is an
+  enum, whose variant `Ephemeral` holds a `tempfile::TempDir`. The other, `Persistent`, holds a path that
+  nothing removes at the drop. It has no sweep.

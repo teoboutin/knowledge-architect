@@ -1151,19 +1151,21 @@ that value is dropped. The lint of `path@knowledge-architect@clippy.toml` refuse
 `skill@klarch-development@gate-in-this-repository` holds what the lint does not see.
 
 The directory a guard is made in, where it is not the temporary directory, is no scratch directory: a
-test makes it when it is absent and leaves it, inside a build directory that git ignores. Four tests
-make one: `CARGO_TARGET_TMPDIR` in `path@testing@tests/checks_over_mocks.rs`,
+test makes it when it is absent and leaves it, inside a build directory that git ignores. Four test
+files make one: `CARGO_TARGET_TMPDIR` in `path@testing@tests/checks_over_mocks.rs`,
 `path@testing@tests/suffixed_references.rs` and `path@testing@tests/scaffold.rs`, and
 `path@elsewhere@crates/cli/target` in `path@cli@tests/fixture_pin.rs`.
 
 A failed assertion unwinds the test, which drops the guard and skips every statement after the
 assertion, so a removal written at the end of the test, the nearest rival, is not run by the test
 that fails. A guard in a `static` is never dropped, so a copy that the tests of one process share
-through one stays after them, and a `static` holds computed results alone. A killed process drops
-nothing: what it leaves is `design@knowledge-architect@nothing-sweeps-a-killed-run`, and the prefix is
-how it is found. The name `tempfile` gives by default says nothing of whose a directory is. A
-directory `/tmp/klarch` shared by every run needs writing rights arranged between the users of a
-machine, and gathers little once a guard removes the files, which the prefix gathers without it.
+through one stays after them, and a `static` holds computed results alone. The crate testdir,
+`rejected@knowledge-architect@testdir-for-test-directories`, holds no guard and keeps the directories of
+the last runs. A killed process drops nothing: what it leaves is
+`design@knowledge-architect@nothing-sweeps-a-killed-run`, and the prefix is how a directory its tests
+made is found. The name `tempfile` gives by default says nothing of whose a directory is. A directory
+`/tmp/klarch` shared by every run needs writing rights arranged between the users of a machine, and
+gathers little once a guard removes the files, which the prefix gathers without it.
 
 The measurement: with a `TMPDIR` that names a new directory, `cargo test --workspace` leaves that
 directory empty, and a run of the tests of `testing` in which some are made to fail leaves it empty
@@ -1177,59 +1179,65 @@ directory was full, and builds failed there for lack of space. Every scratch dir
 directory, `CARGO_TARGET_TMPDIR`, fails for a test whose project must lie outside every worktree,
 since that directory is inside this one.
 
-### `testing` and `mutate` take `tempfile` as a dependency of their tests alone `##tempfile-for-tests-alone`
+### No normal dependency brings `tempfile` into the build of `testing` or of `mutate` `##tempfile-for-tests-alone`
 
 The tests of an extension depend on `testing`, per `design@knowledge-architect@testing-crate`, and a
 maintenance crate that carries the hand mutation depends on `mutate`, per
-`design@knowledge-architect@mutation-command-host`, so a normal dependency of either enters the build
-of each such project. `tempfile` is a dev-dependency of both, and
+`design@knowledge-architect@mutation-command-host`, so a normal dependency of either, or of a crate in
+the build of either, enters the build of each such project. `tempfile` is a dev-dependency of both, and
+of the crates of this workspace in those builds that take it, such as `check`, and
 `cargo tree -i tempfile -p knowledge-architect-testing -p knowledge-architect-mutate -e normal --target all`
-prints no package, which checks it.
+prints no package, which checks the whole of each build.
 
-No code of `testing` outside its tests makes a directory in the temporary directory. `mutate` has one
-site that could, the scratch in which a `--patch` run plans its mutant, and the nearest rival is
-`tempfile` as a normal dependency for it. The scratch is inside the recovery record that the run
-claims before it makes one, `path@mutate@src/run.rs`, so a run killed there, or one that panics,
-leaves it in a claim that `restore --discard` drops, per `design@mutate@discard-is-the-callers-word`.
-`tempfile` would remove its directory on a panic and leave it in the temporary directory after a kill.
+The nearest rival is `tempfile` as a normal dependency of `mutate`, for the one site of our code in
+those builds that could make a directory in the temporary directory: the scratch in which a `--patch`
+run plans its mutant. The scratch is inside the recovery record that the run claims before it makes
+one, `path@mutate@src/run.rs`, so a run killed there, or one that panics, leaves it in a claim that
+`restore --discard` drops, per `design@mutate@discard-is-the-callers-word`. `tempfile` would remove its
+directory on a panic and leave it in the temporary directory after a kill.
 
-The argument covers that one site. Other code that needs a directory is not decided here: a site with
-no directory of its own to write in is argued when it is met. The other packages that hold `tempfile`
-take it as a dev-dependency too, for the tests of each alone; none of their code outside the tests
-makes such a directory, and `xtask` is never published, so it enters no consumer's build.
+That argument covers that one site. Other code that needs a directory is not decided here, nor is a
+package outside those builds: a site with no directory of its own to write in is argued when it is met.
 
 ### Nothing of this repository sweeps what a killed test run leaves `##nothing-sweeps-a-killed-run`
 
-A killed process drops no guard, per `design@knowledge-architect@scratch-removed-by-a-guard`. What a
-killed run of the tests leaves in the temporary directory is found by its prefix and removed by hand,
-or by the machine. No test looks for an earlier run's directories, and no crate of this repository
-wraps `tempfile`.
+A killed process drops no guard, per `design@knowledge-architect@scratch-removed-by-a-guard`. The
+directories that the tests of a killed run made stay in the temporary directory, where their prefix
+finds them, and are removed by hand or by the machine. No test looks for an earlier run's directories,
+and no crate of this repository is made to remove them.
 
-What it leaves is the directories its running tests held, so their number grows with the number of
-test threads. Each holds a copy of a mock or a project that a test wrote. The scaffold test's build
-is in `CARGO_TARGET_TMPDIR`, on disk, where a killed run leaves it until `cargo clean`. The command
-that re-takes it: start `TMPDIR=<a new directory> cargo test --workspace` in a process group of its own, send the group `SIGKILL` with `kill -9 -- -<group>` while its tests run,
-then read the directory with `ls` and `du`. A directory whose name does not open with the prefix, or a
-test that holds a build there, reopens the decision.
+They are the directories its running tests held, so their number grows with the number of test
+threads. Each holds a copy of a mock or a project that a test wrote. The scaffold test's build is in
+`CARGO_TARGET_TMPDIR`, on disk, where a killed run leaves it until `cargo clean`. A toolchain that the
+tests start, a linker or rustdoc, keeps files of its own in the temporary directory while it works, and
+a kill can leave them there, under names that do not open with the prefix; no shape weighed here
+removes them.
 
-The nearest rival is a sweep by a lock file: each process holds a lock on a file for as long as it
-lives, and a later one that takes the lock removes that process's directory. It works on Linux, and
-needs code of ours:
+The command that re-takes it: start `TMPDIR=<a new directory> cargo test --workspace` in a process
+group of its own, send the group `SIGKILL` with `kill -9 -- -<group>` while its tests run, then read
+the directory with `ls` and `du`. A directory made by a test whose name does not open with the prefix,
+or a test that holds a build there, reopens the decision.
 
-- about 100 lines, in a crate of ours around `tempfile`, published or not, since each package that
-  makes such a directory needs it;
-- a race between the moment a process creates its lock file and the moment it locks it, when another
-  process's sweep could take the lock and remove a directory in use, which needs a retry and a test.
+The rivals that remove a killed run's files:
 
-No fact defeats the rival. `tempfile` alone over a crate of ours around it: the owner ranked shipping
-a very small wrapper crate, which the owner thought of little value, most of the work being the use of
-`tempfile`, above the loss of what it would add, which no goal ranks. No sweep over a sweep by a lock
-file: the session ranked the lines and the race above a killed run's files left, which no goal ranks.
+- `rejected@knowledge-architect@mod-tempdir-for-its-sweep`, the nearest: it needs no code of ours, and
+  ties the tests to a crate that is young and little used;
+- a sweep by a lock file: each process holds a lock on a file for as long as it lives, and a later one
+  that takes the lock removes that process's directory. It works on Linux, and needs code of ours:
+  - about 100 lines, in a crate of ours around `tempfile`, published or not, since each package that
+    makes such a directory needs it. That crate would add the sweep alone, since `tempfile` does the
+    rest of its work. The owner, asked whether another of the owner's projects would use such a crate
+    soon, reported having no need of it soon;
+  - a race between the moment a process creates its lock file and the moment it locks it, when another
+    process's sweep could take the lock and remove a directory in use, which needs a retry and a test;
+- `rejected@knowledge-architect@testdir-for-test-directories`, which removes by count, and loses to
+  `design@knowledge-architect@scratch-removed-by-a-guard`.
 
-Two crates remove a killed run's files and lost to what their sources show, which
-`path@knowledge-architect@docs/grounding/temporary-directory-crates.md` holds:
-`rejected@knowledge-architect@mod-tempdir-for-its-sweep` and
-`rejected@knowledge-architect@testdir-for-test-directories`.
+No fact defeats mod-tempdir or the sweep by a lock file. `tempfile` alone over mod-tempdir: the session
+ranked that crate's youth and low use above a killed run's files left, which no goal ranks. `tempfile`
+alone over a sweep by a lock file: the session ranked the lines, the crate that holds them and the race
+above a killed run's files left, which no goal ranks. The readings of the two crates are in
+`path@knowledge-architect@docs/grounding/temporary-directory-crates.md`.
 
 ### Every build that cargo starts inside a checkout is tied to that checkout `##a-build-is-tied-to-its-checkout`
 
