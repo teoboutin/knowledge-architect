@@ -2284,7 +2284,10 @@ mod tests {
             &tree(),
         );
         assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("now exists"), "{found:#?}");
+        assert!(
+            found[0].contains("now exists, at `parts/a-part/notes/real/a.md`"),
+            "{found:#?}"
+        );
         let action = found[0].split_once("\n    → ").map(|(_, a)| a);
         assert_eq!(
             action,

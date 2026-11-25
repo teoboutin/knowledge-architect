@@ -275,7 +275,7 @@ pub trait Prepared {
     /// The rules a commit message is judged by, against this tree.
     fn check_message(&self, message: &Document) -> Vec<Finding>;
 
-    /// The files the extension generates, with the bytes they must hold for this tree.
+    /// The files the extension generates, with the text they must hold for this tree.
     fn generated(&self, model: &Model, manifest: &Manifest) -> Vec<Generated>;
 }
 

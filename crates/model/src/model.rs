@@ -639,6 +639,24 @@ fn describe(what: &Observation) -> (&'static str, String) {
 mod tests {
     use super::*;
 
+    /// The claim: an extension's row of the dump names the document the extension gave, spelled with
+    /// `/`. Mutation checked, in `canonical_with`: `self.docs[row.doc]` made `self.docs[0]`; caught.
+    #[test]
+    fn an_extension_s_dump_row_names_its_document() {
+        let model = Model::from_documents(
+            ["docs", "notes"]
+                .map(|dir| (Path::new(dir).join("a.md"), String::new()))
+                .to_vec(),
+        );
+        let row = DumpRow {
+            doc: 1,
+            line: 3,
+            kind: "k",
+            value: "v".to_string(),
+        };
+        assert_eq!(model.canonical_with(&[row]), "notes/a.md\t3\tk\tv\n");
+    }
+
     /// The claim: of a project's files, the model parses a frozen one only where it is markdown,
     /// and no file outside a milestone's `harvested/`. Mutations checked, in `frozen_document`:
     /// the extension test dropped, which parses a frozen transcript, `transcripts/1.txt`; and `&&` made `||`,

@@ -259,6 +259,7 @@ pub(crate) fn is_beside_readme(name: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::finding::slashed;
 
     fn paths(list: &[&str]) -> Vec<PathBuf> {
         list.iter().map(PathBuf::from).collect()
@@ -280,7 +281,7 @@ mod tests {
         ]);
         let found: Vec<(String, String)> = spec_dirs_all(&tree)
             .into_iter()
-            .map(|s| (s.name, s.path.display().to_string()))
+            .map(|s| (s.name, slashed(&s.path)))
             .collect();
         assert_eq!(
             found,

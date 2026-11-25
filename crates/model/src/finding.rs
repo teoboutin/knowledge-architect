@@ -10,7 +10,9 @@ use std::path::{Path, PathBuf};
 /// it is where they disagree.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct Finding {
-    /// Repository-relative, so a finding reads the same from any working directory.
+    /// Repository-relative, so a finding reads the same from any working directory. It is printed
+    /// as it stands: [`Finding::at`] and [`Finding::in_file`] spell it as [`slashed`] does, and code
+    /// that sets this field spells it itself.
     pub file: PathBuf,
     /// One-based, as an editor counts. `None` where the defect is the file itself — a
     /// missing tracker, a stale generated file — and there is no line to point at.
@@ -30,7 +32,7 @@ impl Finding {
         action: impl Into<String>,
     ) -> Self {
         Self {
-            file: file.as_ref().to_path_buf(),
+            file: spelled(file.as_ref()),
             line: Some(line),
             what: what.into(),
             action: action.into(),
@@ -44,7 +46,24 @@ impl Finding {
         action: impl Into<String>,
     ) -> Self {
         Self {
-            file: file.as_ref().to_path_buf(),
+            file: spelled(file.as_ref()),
+            line: None,
+            what: what.into(),
+            action: action.into(),
+        }
+    }
+
+    /// A finding about a file whose name is the subject, printed as git listed it.
+    ///
+    /// On Windows a name can hold `\` as a character of its own where git lists it from a commit or
+    /// an index written on another system. Spelled as [`slashed`] does, it would be another file's.
+    pub(crate) fn of_a_listed_name(
+        file: &Path,
+        what: impl Into<String>,
+        action: impl Into<String>,
+    ) -> Self {
+        Self {
+            file: file.to_path_buf(),
             line: None,
             what: what.into(),
             action: action.into(),
@@ -62,7 +81,7 @@ impl Finding {
     /// a name, so the one finding that reports the refusal is the ordinary way a path
     /// reaches here; `Display` escapes the statement the same way.
     pub fn location(&self) -> String {
-        let file = escaped(&slashed(&self.file));
+        let file = escaped(&self.file.to_string_lossy());
         match self.line {
             Some(n) => format!("{file}:{n}"),
             None => file,
@@ -93,6 +112,16 @@ impl fmt::Display for Finding {
 /// system writes it. A name that is not UTF-8 is decoded with replacement characters.
 pub fn slashed(path: &Path) -> String {
     respelled(&path.to_string_lossy(), cfg!(windows))
+}
+
+/// The path as [`slashed`] spells it. Elsewhere than on Windows it is the path itself, so a name that
+/// is not UTF-8 stays the bytes it has.
+fn spelled(path: &Path) -> PathBuf {
+    if cfg!(windows) {
+        PathBuf::from(slashed(path))
+    } else {
+        path.to_path_buf()
+    }
 }
 
 /// The text of a path, with `/` for the separator `\` where `windows`. Elsewhere `\` is a character
@@ -155,6 +184,30 @@ mod tests {
         assert_eq!(respelled(mixed, true), "docs/design/a/b.md");
         assert_eq!(respelled(mixed, false), mixed);
         assert_eq!(respelled("docs/a b.md", true), "docs/a b.md");
+    }
+
+    /// The claim: a printed path follows the rule of the system it runs on, and so does a finding's
+    /// file, but that of a finding about a listed name, which is printed as git listed it. Each test
+    /// machine shows its own half. Mutations: `cfg!(windows)` of `slashed` made `true`, caught where
+    /// `\` is a character of a name.
+    #[test]
+    fn a_finding_s_file_is_spelled_by_the_system_s_rule_unless_its_name_is_the_subject() {
+        let path = Path::new(r"docs\a.md");
+        let printed = if cfg!(windows) {
+            "docs/a.md"
+        } else {
+            r"docs\a.md"
+        };
+        assert_eq!(slashed(path), printed);
+        assert_eq!(
+            Finding::at(path, 1, "", "").location(),
+            format!("{printed}:1")
+        );
+        assert_eq!(Finding::in_file(path, "", "").location(), printed);
+        assert_eq!(
+            Finding::of_a_listed_name(path, "", "").location(),
+            r"docs\a.md"
+        );
     }
 
     #[test]

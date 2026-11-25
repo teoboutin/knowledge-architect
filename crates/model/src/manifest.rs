@@ -2419,6 +2419,12 @@ pub(crate) mod tests {
             "[]",
         );
         let whats = whats(&m);
+        assert!(
+            whats.iter().any(|w| w.starts_with(
+                "[project] components row `parts/design` gives the anchor the name `design`"
+            )),
+            "{whats:#?}"
+        );
         for name in ["design", "skill", "primer", "note"] {
             assert!(
                 whats.iter().any(|w| w.contains(&format!("the name `{name}`, which is the name of a kind"))),

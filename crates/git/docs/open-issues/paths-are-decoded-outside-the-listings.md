@@ -1,14 +1,14 @@
 ---
 kind: defect
 ---
-# Public functions of the git library decode a path, so a path that is not plain UTF-8 or ASCII loses its answer
+# Public functions of the git library decode a path, so a path that is not plain UTF-8 or ASCII, or that holds a backslash on Windows, loses its answer
 
 ## Summary
 
 On Unix the listings carry a path as git's bytes, per `design@git@a-path-is-bytes`, but `object_name`,
 `ignore_query` and `last_changed` in `path@git@src/git.rs` decode one, and the path they answer
 for no longer matches the path the listing gave. On the other systems the listings decode one too,
-and a listed name that is not UTF-8 is lost.
+and a listed name that is not UTF-8, or that holds `\` on Windows, is lost.
 
 ## Details
 
@@ -36,6 +36,11 @@ hold a name that is not UTF-8, where it was committed on Linux: such a name is l
 replacement character, `path_bytes` names it back to git so, and `blob_bytes` answers no bytes for it.
 Read in the code, not run.
 
+On Windows a listed name that holds `\` as a character, such as `notes\b.md` committed on Linux, is
+named back to git by `path_bytes` as `notes/b.md`, another file's name, so the bytes of that other file,
+or none, are answered for it. The checker's walk refuses the name before it asks for the bytes, but for a
+name a `skip-files` row keeps. Read in the code, not run.
+
 ### Why it matters
 
 A path the listing gives is answered for under another name, with no error:
@@ -49,4 +54,4 @@ document under such a name reach no check, against `goal@documentation-stays-con
 Each of the three builds or reads the path as bytes: `object_name` and `ignore_query` from the
 path's bytes, and `last_changed` with `-z`; a unit test per function over a name holding a
 non-ASCII byte, each shown to fail against its current body. Outside Unix, a listed name that is not
-UTF-8 is an error, or reaches the caller as a name that git answers for.
+UTF-8, or that holds `\` on Windows, is an error, or reaches the caller as a name that git answers for.

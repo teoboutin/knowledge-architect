@@ -1111,7 +1111,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
     // one backticked span, so nothing can point at it either.
     for path in inputs.refused {
         let why = crate::walk::refusal(path).unwrap_or_else(|| "is refused".to_string());
-        out.push(Finding::in_file(
+        out.push(Finding::of_a_listed_name(
             path,
             format!("this file's name {why}, and no check read it"),
             "rename the file; a name with a line break in it fits on no output line and in no \
@@ -1430,7 +1430,8 @@ mod plans_tests {
                 vec![],
                 "docs/plans/specs/a-spec.md",
                 "is a spec file, and a spec is a directory  → move it to \
-                 `docs/plans/specs/a-spec/README.md`",
+                 `docs/plans/specs/a-spec/README.md`, and its Threads and Arguments sections into \
+                 `docs/plans/specs/a-spec/deliberation.md`",
             ),
             (
                 vec![
@@ -1439,7 +1440,9 @@ mod plans_tests {
                 ],
                 vec![],
                 "docs/plans/milestones/m-one/a-slice.md",
-                "a slice is a directory: move it to `docs/plans/milestones/m-one/a-slice/README.md`",
+                "a slice is a directory: move it to \
+                 `docs/plans/milestones/m-one/a-slice/README.md`, and its Threads and Arguments \
+                 sections into `docs/plans/milestones/m-one/a-slice/deliberation.md`",
             ),
             (
                 vec![
@@ -1899,6 +1902,7 @@ mod plans_tests {
             PathBuf::from("docs/a\nb.md"),
             PathBuf::from("docs/c\rd.md"),
             PathBuf::from("docs/e:f.md"),
+            PathBuf::from("docs/g\\h.md"),
         ];
         let inputs = TreeInputs {
             present: &present,
@@ -1910,11 +1914,14 @@ mod plans_tests {
             links: &[],
         };
         let found = check(&Model::from_documents(Vec::new()), &manifest, &inputs);
-        assert_eq!(found.len(), 3, "{found:#?}");
+        assert_eq!(found.len(), 4, "{found:#?}");
         for (finding, (head, why)) in found.iter().zip([
             ("docs/a\\nb.md  ", "holds a line break"),
             ("docs/c\\rd.md  ", "holds a line break"),
             ("docs/e:f.md  ", "holds `:`, which Windows forbids"),
+            // Never respelled, as a path the checker joined is on Windows: the name would be another
+            // file's.
+            ("docs/g\\h.md  ", "holds `\\`, which Windows forbids"),
         ]) {
             assert!(finding.what.contains(why), "{found:#?}");
             assert_eq!(finding.to_string().lines().count(), 2, "{finding}");
