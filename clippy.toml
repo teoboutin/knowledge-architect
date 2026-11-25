@@ -2,5 +2,5 @@
 # `temp_dir` is of `design@knowledge-architect@scratch-removed-by-a-guard`, and what its reason says of
 # code that is no test of `design@knowledge-architect@tempfile-for-tests-alone`.
 disallowed-methods = [
-    { path = "std::env::temp_dir", reason = "a test holds a `tempfile::TempDir::with_prefix(\"klarch-...\")` instead, which goes when the test ends, a failed one included; other code has no `tempfile`, a dependency of tests alone, so its directory is argued where it is needed, as `mutate` writes in its recovery record" },
+    { path = "std::env::temp_dir", reason = "a test holds a `tempfile::TempDir::with_prefix(\"klarch-...\")` instead, which goes when the test ends, a failed one included; outside the tests, no normal dependency brings `tempfile` into the build of `testing` or of `mutate`, so a directory there is argued where it is needed, as `mutate` writes in its recovery record" },
 ]

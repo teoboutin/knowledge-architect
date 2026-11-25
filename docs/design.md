@@ -1169,7 +1169,7 @@ gathers little once a guard removes the files, which the prefix gathers without 
 
 The measurement: with a `TMPDIR` that names a new directory, `cargo test --workspace` leaves that
 directory empty, and a run of the tests of `testing` in which some are made to fail leaves it empty
-too. An entry left by either reopens the decision.
+too. An entry left by either, or by a failed test of any package, reopens the decision.
 
 A full temporary directory fails the builds and the tests of every session on the machine, and a
 mutation run reads such a failure as `caught`, per
@@ -1192,7 +1192,8 @@ prints no package, which checks the whole of each build.
 The nearest rival is `tempfile` as a normal dependency of `mutate`, for the one site of our code in
 those builds that could make a directory in the temporary directory: the scratch in which a `--patch`
 run plans its mutant. The scratch is inside the recovery record that the run claims before it makes
-one, `path@mutate@src/run.rs`, so a run killed there, or one that panics, leaves it in a claim that
+one, `path@mutate@src/run.rs`, in the git directory, per
+`design@mutate@record-lives-in-the-git-directory`, so a run killed there, or one that panics, leaves it in a claim that
 `restore --discard` drops, per `design@mutate@discard-is-the-callers-word`. `tempfile` would remove its
 directory on a panic and leave it in the temporary directory after a kill.
 

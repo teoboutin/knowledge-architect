@@ -16,7 +16,8 @@ include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APA
 clap = { version = "4", features = ["derive"] }
 
 [dev-dependencies]
-# For tests alone, per `design@knowledge-architect@tempfile-for-tests-alone`.
+# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`: for tests
+# alone, per `design@knowledge-architect@tempfile-for-tests-alone`.
 tempfile = "3"
 
 [lints]
