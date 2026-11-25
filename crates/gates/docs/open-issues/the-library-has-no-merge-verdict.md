@@ -10,7 +10,7 @@ the same invocation in every target project. No design head names that command a
 invocation yet, per
 `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`. The library holds a rebase gate,
 run behind `--require-rebased`, and a `--locked` flag (`GatesArgs` and `rust_project` in
-`path@gates@src/gates.rs`), and this repository's xtask runs that list unchanged. It holds no
+`path@gates@src/gates.rs`), and this repository's xtask adds one gate to that list. It holds no
 clean-tree gate, and no single flag that runs every gate a merge owes. thaum keeps its own runner,
 whose `--merge-ready` flag adds a rebase gate and a clean-tree gate and passes `--locked` to every
 gate that resolves dependencies, per thaum's xtask README.

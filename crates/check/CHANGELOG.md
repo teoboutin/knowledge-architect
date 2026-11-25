@@ -121,6 +121,8 @@ an empty subsection is omitted.
   `knowledge-architect-model`.
 - `library`, minor: every published crate compiles for Windows, where `knowledge-architect-git`, and
   each crate that depends on it, did not.
+- `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which
+  runs clippy for another target, such as `x86_64-pc-windows-gnu`, with no cross compiler.
 
 ### Workflow
 

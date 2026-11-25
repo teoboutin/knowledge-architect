@@ -36,6 +36,9 @@
 //! }
 //! ```
 //!
+//! [`cross_clippy`] is a gate beside that list, clippy for another system than the machine's, which a
+//! project adds to its own list.
+//!
 //! [`process`] is the spawn helper the gates use, for a project's other commands.
 
 // Read so that cargo rebuilds this crate when the checkout building it changes, per
@@ -43,8 +46,10 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
+mod cross;
 mod gates;
 pub mod process;
 
+pub use cross::cross_clippy;
 pub use gates::{run, rust_project, Checker, Distiller, Gate, GatesArgs, CI_VAR};
 pub use process::project_root;

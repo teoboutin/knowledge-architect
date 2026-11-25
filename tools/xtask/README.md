@@ -44,6 +44,7 @@ The gates, in cost order:
 | `check` | `cargo run -q --release -p knowledge-architect -- check` |
 | `commits` | `cargo run -q --release -p knowledge-architect -- commits origin/main..HEAD` |
 | `clippy` | `cargo clippy --workspace --all-targets -- -D warnings` |
+| `clippy-x86_64-pc-windows-gnu`, except on Windows | `cargo clippy --workspace --all-targets --target x86_64-pc-windows-gnu -- -D warnings`, with `CC`, `CXX` and `AR` for the target set to `true` and `RUSTC_WRAPPER` empty, as `cross_clippy` of the gates library says; by hand, `RUSTC_WRAPPER= CC_x86_64_pc_windows_gnu=true CXX_x86_64_pc_windows_gnu=true AR_x86_64_pc_windows_gnu=true cargo clippy --workspace --all-targets --target x86_64-pc-windows-gnu -- -D warnings` |
 | `doc` | `cargo doc --workspace --no-deps`, with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D` and `warnings` joined by the byte 0x1f; by hand, `CARGO_ENCODED_RUSTDOCFLAGS="$(printf '%s\037%s' -D warnings)" cargo doc --workspace --no-deps` |
 | `test` | `cargo test --workspace` |
 

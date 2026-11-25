@@ -124,9 +124,14 @@ pub fn complain(line: &str) {
 pub fn announce(name: &str) {
     use std::io::IsTerminal;
     if std::io::stdout().is_terminal() {
-        say(&format!("{name:<10} ...\r"));
+        say(&format!("{}\r", announcement(name)));
         let _ = std::io::stdout().flush();
     }
+}
+
+/// The line `announce` writes for a step, which the step's own line is printed over.
+pub(crate) fn announcement(name: &str) -> String {
+    format!("{name:<10} ...")
 }
 
 /// The project root: the nearest ancestor of `start` holding a file named `marker`, such as the

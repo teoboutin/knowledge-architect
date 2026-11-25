@@ -363,19 +363,18 @@ fn a_piped_stdout_is_accepted_under_actions() {
 fn annotations_appear_under_actions_alone() {
     let scratch = fake_project("annotations");
     let project = scratch.path();
-    let (status, stdout, _) =
-        gates_output_with(project, "clippy", &[], &[("GITHUB_ACTIONS", "true")]);
+    let (status, stdout, _) = gates_output_with(project, "doc", &[], &[("GITHUB_ACTIONS", "true")]);
     assert!(!status.success());
     assert!(stdout.contains("::group::fmt\n"), "{stdout}");
     // The verdict line follows the group's end, so it stays visible with the group folded.
     assert!(
-        stdout.contains("::endgroup::\nclippy     FAILED"),
+        stdout.contains("::endgroup::\ndoc        FAILED"),
         "{stdout}"
     );
     assert_eq!(stdout.matches("::error ").count(), 1, "{stdout}");
-    assert!(stdout.contains("::error title=clippy::"), "{stdout}");
+    assert!(stdout.contains("::error title=doc::"), "{stdout}");
 
-    let (_, stdout, _) = gates_output_with(project, "clippy", &[], &[]);
+    let (_, stdout, _) = gates_output_with(project, "doc", &[], &[]);
     assert!(!stdout.contains("::group::"), "{stdout}");
     assert!(!stdout.contains("::error"), "{stdout}");
 }

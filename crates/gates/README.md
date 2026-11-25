@@ -34,6 +34,46 @@ line naming it.
 | `--require-rebased` | run the rebase checks: HEAD must contain the main branch |
 | `--ci` | set `KNOWLEDGE_ARCHITECT_CI=1` in every gate's environment, `CI_VAR`, so a test that needs a tool a machine may lack fails without it instead of skipping |
 
+## Clippy for another system
+
+The recommended list judges the code of the system it runs on. Beside that list, the library offers
+`cross_clippy(target)`, a gate that runs clippy for another target on the machine at hand, with no cross
+compiler. A project adds it to its own list, and one that never does is not concerned:
+
+```rust
+let mut gates = rust_project(checker, "origin/main");
+gates.extend(cross_clippy("x86_64-pc-windows-gnu"));
+```
+
+It gives the gate `clippy-<target>`, or nothing on a machine whose own system is the target's. The target's
+standard library must be in the toolchain: `rustup target add <target>`, or `targets` in the project's
+`rust-toolchain.toml`, which rustup installs on first use.
+
+What it reports is compile errors and lints, and no failure of a test. Its limits:
+
+- **It rests on the `cc` crate accepting objects that were never made**, which nothing documents. Clippy
+  links nothing, so the gate names the program `true` as the target's C compiler, C++ compiler and archiver,
+  and a build script that compiles C succeeds with nothing compiled. A build script for which that is not
+  enough fails the gate, as those behind `openssl` and `aws-lc-rs` did when it was measured.
+- **A build script that runs the compiler to choose a feature can be answered wrongly**, so the code the
+  gate judges can differ from what the target builds. CI on that system judges the rest.
+- **An `-msvc` target fails**, so code particular to `-msvc` is not judged: name the `-gnu` target.
+- The gate empties `RUSTC_WRAPPER`, since `sccache` refuses that compiler, so its builds use no wrapper's
+  cache.
+- Every toolchain that reads the project's `targets` downloads the target, CI's jobs included; each target
+  directory holds a build for the target; and a lint in code the systems share is reported twice.
+
+A project for which it comes to fail on something of its own build drops the gate from its list, and one
+with a real cross compiler removes the variables from the gate's `envs`.
+
+## On Windows and macOS
+
+The gates run on Linux, Windows and macOS, with the same command. The cargo alias
+`cargo x` runs the maintenance crate in the release profile, `run -q --release -p xtask --`, since a gate
+that builds in the dev profile can replace the program that runs the gates, and Windows refuses to replace
+a program that runs. Developing a project on Windows is not covered yet: a run does not refuse a pipe on
+stdout there.
+
 ## License
 
 Licensed under either of the MIT license (LICENSE-MIT) or the Apache License 2.0
