@@ -79,8 +79,8 @@ crates/mutate/src/harness.rs: caught
 - **One mutation at a time.** A `run` claims the record by creating its directory, so of two
   concurrent runs exactly one proceeds. `restore` refuses while the run that claimed the record is
   alive, since putting the pre-image back underneath it would have its command measured over
-  unmutated code; the owner is read from `/proc` on Linux and with `kill -0` on another Unix, and
-  elsewhere a run reads as gone.
+  unmutated code; the owner is read from `/proc` on Linux and with `kill -0` on every other
+  system, and where neither answers a run reads as gone.
 - **The target is one regular file of the working tree, reached through no symlink.** An absolute
   path, a path holding `..`, a path through a symlink, a path inside the git directory and a file
   that is not regular are refused. A `--patch` that names any other file is refused, and so is one
