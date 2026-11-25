@@ -20,7 +20,7 @@ const WINDOWS: &str = "x86_64-pc-windows-gnu";
 /// after clippy, except on Windows, where clippy judges the same code. CI runs it through
 /// `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`: `--locked` is a
 /// flag because locally a legitimately updated `Cargo.lock` must not fail a gate, while in CI lock
-/// drift is exactly what must fail.
+/// drift is exactly what must fail, per `design@xtask@ci-differs-by-flags`.
 fn gates() -> Vec<Gate> {
     let mut gates = rust_project(
         Checker {

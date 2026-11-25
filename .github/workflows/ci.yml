@@ -1,8 +1,9 @@
 # The merge check for a pull request.
 #
 # ONE STEP RUNS THE GATES: `cargo x gates`, whose list in tools/xtask/src/gates.rs is the one
-# gate list. Why each flag is CI's is `design@xtask@gates-list-primary-home`; the log groups and
-# the error annotation are `design@gates@annotations-under-actions`.
+# gate list, per `design@xtask@gates-list-primary-home`. Why each flag is CI's is
+# `design@xtask@ci-differs-by-flags`; the log groups and the error annotation are
+# `design@gates@annotations-under-actions`.
 #
 # The job `gates` runs that step on each system, and the job `check` gathers what the systems
 # answered into the one status context that the ruleset on main requires.
@@ -83,7 +84,8 @@ jobs:
 
       - name: gates
         # `cargo --locked x`: the `x` alias resolves the workspace before the tool starts, and
-        # without cargo's own flag it rewrites a drifted Cargo.lock before any gate sees it.
+        # without cargo's own flag it rewrites a drifted Cargo.lock before any gate sees it, per
+        # `design@xtask@ci-passes-locked-ahead-of-the-alias`.
         run: cargo --locked x gates --locked --fail-fast --require-rebased --full --ci
 
       - name: gate logs
