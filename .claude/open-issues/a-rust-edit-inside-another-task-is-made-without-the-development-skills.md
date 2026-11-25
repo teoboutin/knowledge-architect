@@ -5,8 +5,8 @@ kind: design
 
 ## Summary
 
-Three sessions made a small edit of this repository's Rust source inside another task, two of them
-one-line edits inside text work, and none loaded `skill@knowledge-architect-development` and
+Four sessions made a small edit of this repository's Rust source inside another task, the fourth by
+a dispatched agent, two of them one-line edits inside text work, and none loaded `skill@knowledge-architect-development` and
 `skill@klarch-development`.
 The instruction is delivered at the session's start; the edit comes later, inside the other task.
 Where to deliver it at the moment of the edit is a design question with three rivals.
@@ -40,6 +40,11 @@ The instances, from this repository's retrospective project files:
   "[model] Plan documents as directories, with model types of their own, and the tree's plan
   documents migrated", so that this edit was made inside a task that looked like text work is an
   assumption, not established.
+- the branch that built the record search's saved workflow, 2026-11-16, its workflow file's
+  standing answer: one implementer of that branch's work did not load `skill@klarch-development` for
+  two comment lines in Rust; nothing followed from it, as the file reports. This instance meets the
+  entry's re-entry point, "the next instance", and the edit was made by a dispatched agent under a
+  brief, one of the homes the second rival names.
 
 The suspected mechanism, in one sentence: an instruction read at the session's start is not
 recalled at an edit of Rust made inside a task that looks like text work.

@@ -29,6 +29,22 @@ names the section
 leaves the prompt pointing to nothing, with no finding. The fifth pass of the agentic-workflow
 audit found one such pointer already broken, a prompt naming a point the section no longer had.
 
+- An instance, from the branch that built the record search's saved workflow, 2026-11-16, C1 of its
+  workflow file: a `%%` line of a shipped workflow script under
+  `path@agent-skills@content/workflows/` held a `path` reference, which no check read; two review
+  axes found it, and it was removed. The scoped rule of `path@agent-skills@CLAUDE.md`, that such a
+  script "cites none", stood and was not followed. The same file kind leaves the claim of
+  `design@agent-skills@content-is-in-the-walk`, that the references of the comments of content/ are
+  checked, false for its saved workflows, whose `%%` lines the walk does not read.
+- A further instance, in this repository's port of the gates to Windows and macOS: the spec's list
+  of the texts citing the decisions its work rewrote, taken from `show`, missed the comments of
+  `path@knowledge-architect@.github/workflows/ci.yml` at two heads and of
+  `path@knowledge-architect@rust-toolchain.toml` at one, whose claims the work made false; four
+  reviewers found them by grep. The retrospective proposed a shape narrower than reading another
+  language: `show` printing, after its list, the number or the names of the tracked files it does
+  not read that hold the entry's slug, which would reach YAML and TOML files as well, per C3 of the
+  retrospective file 2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow.
+
 ### Why it matters
 
 Every target project's code is Rust, per `goal@serves-one-kind-of-project`, but

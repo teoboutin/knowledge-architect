@@ -30,7 +30,17 @@ Instances:
   the harness:" for subagent transcripts of other sessions, one naming "/t/x.output", before the one
   row that answered;
 - the slice on the conformance check before the harvest, 2026-11-14, C1(b) of its workflow file:
-  the same notices about other sessions' subagent files, "which the reader must skip".
+  the same notices about other sessions' subagent files, "which the reader must skip";
+- the branch that built the record search's saved workflow, 2026-11-16, C2 of its workflow file:
+  each run of `transcript list` printed 19 lines opening "cut by the harness" for unrelated
+  sessions;
+- the branch that removed the test helpers' leftovers, 2026-11-25, C1 of its workflow file: the
+  output of `list --branch` carried a line for each cut text of every session's subagent files, and
+  the rows were read with `tail`; it proposes the cuts counted in one line, or only those of the
+  sessions listed;
+- the branch that let agents establish an intake's items, 2026-11-25, C1 of its workflow file:
+  `transcript list --branch <branch>` printed 36 lines opening "# cut by the harness:" before the
+  one session it listed.
 
 The question the discussion answers is what a header is about. An unrecognised value is a fact
 about the reader, true whichever session holds it, which argues for a header over every file read;

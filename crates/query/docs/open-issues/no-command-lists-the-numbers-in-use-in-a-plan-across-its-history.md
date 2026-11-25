@@ -27,6 +27,12 @@ searching the plan's files by hand. No command lists the highest number in use p
   searching `git log -p` over the milestone's directory.
   Reported in that session's retrospective, analysed at the intake of 2026-10-24. `cargo klarch
   --help` lists no such command.
+- A further instance, in this repository's port of the gates to Windows and macOS: the session's
+  questions to the owner took `Q1` and `Q2` more than once, for different items, across messages
+  of the design discussion that all reached the plan's record, per the standing answers of the
+  retrospective file 2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow. The
+  labels were given in the conversation before the plan document existed, so a command over the
+  plan's files would list them only once its transcript is committed.
 
 ### Why it matters
 
