@@ -9,6 +9,7 @@
 
 use std::path::Path;
 
+use crate::agents::{current, lf};
 use crate::extension::Generated;
 use crate::model::generated;
 use crate::model::Finding;
@@ -86,6 +87,10 @@ pub(crate) fn is_generated_finding(finding: &Finding) -> bool {
     [MISSING, UNREADABLE, DIRECTORY, OUT_OF_DATE].contains(&finding.what.as_str())
 }
 
+/// Compare one generated file with `expected`, the text it would be generated as.
+///
+/// A file that differs by its line endings alone is current, as `current` says, and the line of one
+/// that differs otherwise is counted over the two texts with their line endings made one.
 fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut Vec<Finding>) {
     let committed = inputs.committed.get(path).map(String::as_str);
     match committed {
@@ -99,8 +104,8 @@ fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut
             out.push(Finding::in_file(path, UNREADABLE, action))
         }
         None => out.push(Finding::in_file(path, MISSING, action)),
-        Some(current) if current != expected => {
-            let line = first_difference(current, expected);
+        Some(on_disk) if !current(on_disk, expected) => {
+            let line = first_difference(&lf(on_disk), &lf(expected));
             out.push(Finding::at(path, line, OUT_OF_DATE, action));
         }
         Some(_) => {}
@@ -111,10 +116,11 @@ fn compare(path: &Path, expected: &str, inputs: &Inputs, action: &str, out: &mut
 ///
 /// A file-level *this is stale* sends a reader to diff the whole thing; a line sends them to
 /// the change. Both files are generated, so the first disagreement is where the content
-/// actually moved.
+/// actually moved. The texts hold LF line endings, so a carriage return left in one is content:
+/// `str::lines` would drop it and count past the line.
 fn first_difference(a: &str, b: &str) -> u32 {
     let mut n = 1;
-    for (x, y) in a.lines().zip(b.lines()) {
+    for (x, y) in a.split('\n').zip(b.split('\n')) {
         if x != y {
             return n;
         }
@@ -234,6 +240,61 @@ mod tests {
             assert_eq!(found[0].what, what, "{present:?}");
             assert_eq!(found[0].action, action, "{present:?}");
             assert!(is_generated_finding(&found[0]), "{found:?}");
+        }
+    }
+
+    /// The findings on one generated file that holds `on_disk` and would be generated as
+    /// `expected`.
+    fn compared(on_disk: &str, expected: &str) -> Vec<Finding> {
+        use std::collections::{HashMap, HashSet};
+        use std::path::PathBuf;
+
+        let path = Path::new("docs/index.md");
+        let committed: HashMap<PathBuf, String> = [(path.to_owned(), on_disk.to_owned())].into();
+        let configs = HashMap::new();
+        let present: HashSet<PathBuf> = HashSet::new();
+        let inputs = Inputs {
+            committed: &committed,
+            configs: &configs,
+            configs_not_text: &HashSet::new(),
+            generated_unreadable: &HashSet::new(),
+            present: &present,
+            directories: &HashSet::new(),
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+            installed: &[],
+            shipped: &[],
+            judged: crate::check::Judged::WorkingTree,
+        };
+        let mut out = Vec::new();
+        compare(path, expected, &inputs, "regenerate", &mut out);
+        out
+    }
+
+    /// The claim: a generated file that differs from what it would be generated as by its line
+    /// endings alone is current, whichever of the two holds CRLF, and one that differs otherwise is
+    /// out of date at the line that differs, line endings apart. Mutations: normalising only one
+    /// side of the comparison, or of the texts the line is counted over, each fail it.
+    #[test]
+    fn a_generated_file_that_differs_by_line_endings_alone_is_current() {
+        let lf = "a\nb\nc\n";
+        let crlf = "a\r\nb\r\nc\r\n";
+        for (on_disk, expected) in [(lf, lf), (crlf, lf), (lf, crlf), (crlf, crlf)] {
+            assert_eq!(compared(on_disk, expected), [], "{on_disk:?} {expected:?}");
+        }
+        for (on_disk, expected) in [
+            ("a\r\nB\r\nc\r\n", lf),
+            ("a\nB\nc\n", crlf),
+            // A carriage return that ends no line is content.
+            ("a\nb\r\r\nc\n", lf),
+        ] {
+            let found = compared(on_disk, expected);
+            assert_eq!(found.len(), 1, "{on_disk:?}: {found:?}");
+            assert_eq!(found[0].what, OUT_OF_DATE);
+            assert_eq!(found[0].line, Some(2), "{on_disk:?} {expected:?}");
         }
     }
 

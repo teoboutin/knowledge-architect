@@ -16,6 +16,9 @@
 //! than at install, where the project's command is filled, because a snippet does not vary by
 //! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for `create` to write.
 //!
+//! Every file is read with its line endings made LF, so what a checkout that converts line endings
+//! ships is what any other ships, `SNIPPETS` included.
+//!
 //! Before those, four passes, in this order. A line whose first two characters are `%%` is a
 //! comment for this repository's maintainers: it is removed whole, so it may cite design heads and
 //! issues that the walk checks and no installing project holds. A `%%` line inside a fenced block,
@@ -46,7 +49,8 @@ use std::path::{Path, PathBuf};
 #[allow(dead_code)]
 mod render;
 use render::{
-    check_workflow_name, render_fragments, render_slugs, snippet_placeholder, strip_comments,
+    check_workflow_name, lf, render_fragments, render_slugs, snippet_list, snippet_placeholder,
+    strip_comments,
 };
 
 /// The prefix every installed skill directory, agent file and workflow file carries in the
@@ -114,8 +118,7 @@ fn main() {
     let mut substituted = vec![false; SUBSTITUTIONS.len()];
     let mut list = String::from("&[\n");
     for (install, file) in &entries {
-        let text = std::fs::read_to_string(file)
-            .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", file.display()));
+        let text = read(file);
         // The rendered copy sits under OUT_DIR at the install path, so the list still names one
         // file per entry and `include_str!` keeps the text out of the generated source.
         let rendered = out.join("rendered").join(install);
@@ -157,11 +160,20 @@ fn main() {
         "substitution rows no text of content/ uses: {unused:?}"
     );
     std::fs::write(out.join("files.rs"), list).expect("OUT_DIR is writable");
-    std::fs::write(
-        out.join("snippets.rs"),
-        snippets.listing(&root.join("snippets")),
-    )
-    .expect("OUT_DIR is writable");
+    let snippets: Vec<(&str, &str)> = snippets
+        .0
+        .iter()
+        .map(|(n, t, _)| (n.as_str(), t.as_str()))
+        .collect();
+    std::fs::write(out.join("snippets.rs"), snippet_list(&snippets)).expect("OUT_DIR is writable");
+}
+
+/// The text of a file the build ships from, with LF line endings. Every such file is read through
+/// it, so the passes meet no other line ending.
+fn read(file: &Path) -> String {
+    let text = std::fs::read_to_string(file)
+        .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", file.display()));
+    lf(&text)
 }
 
 /// The files under snippets/, by name, each with whether a placeholder has named it.
@@ -185,9 +197,7 @@ impl Snippets {
                     .and_then(|n| n.to_str())
                     .expect("a UTF-8 file name")
                     .to_owned();
-                let text = std::fs::read_to_string(&path)
-                    .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", path.display()));
-                snippets.push((name, text, false));
+                snippets.push((name, read(&path), false));
             }
         }
         Snippets(snippets)
@@ -214,21 +224,6 @@ impl Snippets {
             rendered.push_str(&line[bare.len()..]);
         }
         rendered
-    }
-
-    /// Every snippet as a Rust slice of its file name and its text, in name order, the text
-    /// included from `dir` so the generated source holds no copy of it.
-    fn listing(&self, dir: &Path) -> String {
-        let mut names: Vec<&str> = self.0.iter().map(|(n, _, _)| n.as_str()).collect();
-        names.sort();
-        let mut list = String::from("&[\n");
-        for name in names {
-            let path = dir.join(name);
-            let path = path.to_str().expect("a UTF-8 path");
-            writeln!(list, "    ({name:?}, include_str!({path:?})),").expect("a String");
-        }
-        list.push(']');
-        list
     }
 
     /// Fails the build on a snippet no placeholder named: it would be checked and never shipped.
@@ -263,9 +258,7 @@ fn read_fragments(dir: &Path) -> Vec<(String, String)> {
                 .and_then(|n| n.to_str())
                 .expect("a UTF-8 file name")
                 .to_owned();
-            let text = std::fs::read_to_string(&path)
-                .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", path.display()));
-            fragments.push((name, text));
+            fragments.push((name, read(&path)));
         }
     }
     fragments

@@ -166,7 +166,8 @@ and none can be created inside the walk.
 
 Running it to look therefore costs nothing, not even an mtime. **Whether a generated file is
 current is not this command's question** — that is `cargo klarch check`, whose `generated` check
-is a gate and names the first line at which the committed file and the regenerated one disagree.
+is a gate and names the first line at which the committed file and the regenerated one disagree; a
+file that differs by its line endings alone is current there, and `index` rewrites it.
 The two halves are `design@check@index-takes-no-dry-run` and `design@check@one-question-one-command`.
 
 **`index --staged` writes into git's index instead, for a commit of part of the working tree**,
@@ -175,7 +176,8 @@ It generates each file from the tree git's index would commit, which is HEAD's t
 staged changes, and sets the staged entry of each one whose bytes differ. No working-tree file
 changes: after it, `check --staged` passes on what will be committed, and the working tree keeps
 the rows of the working tree for a later commit. Each generated file whose working copy is out of
-date for the working tree is named, with `index`, which rewrites it.
+date for the working tree is named, with `index`, which rewrites it; one that differs by its line
+endings alone is not out of date.
 
 ```
 $ cargo klarch index --staged

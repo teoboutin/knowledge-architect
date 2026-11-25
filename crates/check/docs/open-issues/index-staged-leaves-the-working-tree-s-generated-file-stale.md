@@ -31,7 +31,11 @@ Instances:
   spec deleted with `git rm`; `index --staged` and `check --staged` passed and the commit was made;
   the working tree's copy of `path@plans@specs/index.md` still held the deleted spec's row, so
   `cargo klarch check` failed with "the generated file is out of date" until a plain
-  `cargo klarch index` ran.
+  `cargo klarch index` ran;
+- this repository, 2026-11-25, the work that has the gates run on Windows and macOS, whose change of
+  the line on a working copy out of date met the re-entry point below: the line compares with the
+  line endings apart, so it names no copy that `check` calls current. It decides none of the shapes, and the
+  discussion stays open.
 
 The suspected mechanism, in one sentence: the head leaves the working-tree file as it was, so after
 the commit it holds the rows of the tree before the staged change.

@@ -18,7 +18,7 @@
 use std::path::{Path, PathBuf};
 
 use super::Inputs;
-use crate::agents::{imports_primer, lf, IMPORT_LINE, PRIMER};
+use crate::agents::{current, imports_primer, IMPORT_LINE, PRIMER};
 use crate::model::declared::{Pin, AGENT_DOCUMENT, OWNED_PREFIX};
 use crate::model::listing::Outside;
 use crate::model::{Finding, Manifest, Model};
@@ -75,7 +75,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
                 ),
                 super::generated::directory_action(&install),
             )),
-            Some(Outside::Text(text)) if lf(text) == *expected => {}
+            Some(Outside::Text(text)) if current(text, expected) => {}
             Some(_) => out.push(Finding::in_file(
                 rel,
                 format!(

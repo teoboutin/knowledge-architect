@@ -1019,7 +1019,7 @@ pub(super) fn index_staged(
     for rel in super::working_generated(manifest, checker, extensions)
         .unwrap_or_default()
         .into_iter()
-        .filter(|(rel, text)| std::fs::read_to_string(root.join(rel)).ok().as_ref() != Some(text))
+        .filter(|(rel, text)| !super::is_current(&root.join(rel), text))
         .map(|(rel, _)| rel)
     {
         outln!(
