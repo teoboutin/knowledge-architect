@@ -9,7 +9,7 @@ A retrospective intake receives a batch of files, each holding findings on unrel
 grounds them in one search of the whole record. The owner doubts that one verdict file per cluster
 of findings, which `design@query@occasion-shaped-output` states, is enough, and believes the intake
 may need a different procedure with more steps to partition its work. The doubt waits for the next
-intake the owner runs.
+intake the owner runs, the first whose items any agent may establish.
 
 ## Details
 
@@ -31,13 +31,29 @@ record; one verdict file per subject of the work may not fully solve it, and a s
 different procedure, with more steps to partition the work, might be needed; the scope of that
 discussion stayed limited, to see how the situation improves at the next intake.
 
+The intake of forty-seven files, 2026-11-14, the first run on one verdict file per cluster, as the
+commit "[intake] The analyses of forty-seven received retrospective files, five outcomes for the
+owner" and the workflow file of its retrospective record it: 184 findings in 120 subjects, and 18
+searchers. The received files held 46,922 words, above the search's default bound of 40,000, so the
+session raised the bound to 90,000, and several searchers read the files through an inventory and
+the findings bearing on their entries rather than whole, so an `unrelated` verdict rests on that
+reading. Nine checking agents took the analysis by group of subjects, ten verified and repaired
+their drafts, and the session bore every agent's report.
+
+The partition that the intake's text gives: agents may establish any of the items a to h of
+`skill@knowledge-architect-retrospective-intake@what-to-establish`, briefed with the search's verdict
+files, and the session decides each outcome, per
+`skill@knowledge-architect-retrospective-intake@intake-subagents`. Not measured: what an intake
+carried so loads the session with. The search itself is not partitioned: every received file is the
+work of every searcher.
+
 The suspected mechanism, in one sentence: an intake's work is the union of its findings'
 neighbourhoods, so whatever the search's shape, everything the batch touches reaches the one session
-that holds the batch.
+that holds the batch, or the one work that every searcher reads.
 
-Re-entry point: the retrospective of the first intake the owner runs after the commit "[harvest] The
-record search packed by search unit, its verdicts, the session acting on them, the draft searched and
-the audit's fit recorded" reaches the main branch, or the owner's word.
+Re-entry point: the retrospective of the first intake the owner runs after the commit "[agent-skills]
+A retrospective intake's items a to h may be established by agents, divided by judgement" reaches the
+main branch, or the owner's word.
 
 ### Why it matters
 

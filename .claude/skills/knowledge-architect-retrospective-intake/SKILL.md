@@ -17,11 +17,11 @@ Not covered here:
   the analysis file owes meanwhile is `skill@knowledge-architect-retrospective-intake@after-the-ruling`.
 
 **The session decides each finding's outcome as `primer@question-authority` routes it**: it
-establishes the facts, argues the action, and decides what the goals, the record, the code and the
-sources settle. The owner rules on the rest: most often a goal the finding would change, which goes
-to `skill@knowledge-architect-goal-setting`; a fact only the owner holds, such as what a session
-would have lacked without an addition about how an agent behaves; two fixes that both survive with
-nothing ranking them; and a publication, as the outcome "sent upstream" says.
+decides what the goals, the record, the code and the sources settle. The owner rules on the rest:
+most often a goal the finding would change, which goes to
+`skill@knowledge-architect-goal-setting`; a fact only the owner holds, such as what a session would
+have lacked without an addition about how an agent behaves; two fixes that both survive with nothing
+ranking them; and a publication, as the outcome "sent upstream" says.
 
 ## What it takes `##what-it-takes`
 
@@ -317,14 +317,15 @@ not a decision.
 
 ## Subagents `##intake-subagents`
 
-The checks a to c read text, and fresh subagents may run them, one per file or per cluster. Brief
-each with the findings, the files to read, the entries the search of
-`skill@knowledge-architect-retrospective-intake@ground-before-judging` returned, and a scratch
-directory of its own, never shared. The agent checks c against those entries, and does not
-search the registers again. Each returns, per finding: the quotation,
-its file and line, and its verdict. The session itself establishes d to h, and re-checks every
-verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
-behaviour.
+Agents may establish any of the items a to h, the work divided as `primer@dispatching-work` says.
+Brief each with the findings, the files to read,
+`skill@knowledge-architect-retrospective-intake@what-to-establish` to read whole, with
+`skill@knowledge-architect-retrospective-intake@admission-rules` where it establishes d or f, the
+verdict files that the search of
+`skill@knowledge-architect-retrospective-intake@ground-before-judging` wrote for those findings, and
+a scratch directory of its own, never shared. Item c is checked against those verdicts, with no new
+search of the registers. The session reads the goals home, `register@goal`, itself, whichever agent
+establishes e. No subagent replays the reported session or builds a scenario of agent behaviour.
 
 ## The analysis file and who holds each outcome `##analysis-and-ruling`
 
