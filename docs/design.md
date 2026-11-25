@@ -1112,6 +1112,8 @@ main the other six. A pull request holding an empty commit re-takes it:
 `gh api repos/teoboutin/knowledge-architect/pulls/<n>/commits --jq length` against the commits main
 received. So a record carried by a message alone rides on a commit that changes a file.
 
+## 5. How the workspace builds and is tested
+
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`
 
 rust-toolchain.toml at the root names one Rust release, with rustfmt and clippy, and rustup
@@ -1292,7 +1294,7 @@ switch between checkouts that share a target directory. A single checkout pays n
 The design this decision did not keep:
 `rejected@knowledge-architect@build-tied-to-cargo-manifest-dir`.
 
-## 5. This repository's agent configuration
+## 6. This repository's agent configuration
 
 ### Every finding on the workflow that this repository's own use of it produces stays in this repository, never on GitHub `##workflow-findings-stay-here`
 
@@ -1353,7 +1355,7 @@ on a file whose findings all end in no change: that commit changes no file, and 
 drops a commit that changes no file, per
 `design@knowledge-architect@a-record-rides-on-a-commit-that-changes-a-file`.
 
-## 6. What the tools and the workflow hold to together
+## 7. What the tools and the workflow hold to together
 
 ### A project's record lives in its repository, as files and commit messages, never in an external tracker `##the-record-lives-in-the-repository`
 
