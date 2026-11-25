@@ -1225,18 +1225,27 @@ The rivals that remove a killed run's files:
 - a sweep by a lock file: each process holds a lock on a file for as long as it lives, and a later one
   that takes the lock removes that process's directory. It works on Linux, and needs code of ours:
   - about 100 lines, in a crate of ours around `tempfile`, published or not, since each package that
-    makes such a directory needs it. That crate would add the sweep alone, since `tempfile` does the
-    rest of its work. The owner, asked whether another of the owner's projects would use such a crate
-    soon, reported having no need of it soon;
+    makes such a directory needs it;
   - a race between the moment a process creates its lock file and the moment it locks it, when another
     process's sweep could take the lock and remove a directory in use, which needs a retry and a test;
 - `rejected@knowledge-architect@testdir-for-test-directories`, which removes by count, and loses to
   `design@knowledge-architect@scratch-removed-by-a-guard`.
 
+The sweep is all that a crate of ours would factor, so its cost falls on the sweep alone. `tempfile`
+creates, names and removes a directory, and a test asks for one with one call, which
+`grep -rnoE 'TempDir::(with_prefix_in|with_prefix)\(' --include=*.rs crates tools` lists. The helpers
+around those calls build the fixtures of their own file's tests. The lines that some of them repeat
+prepare a git repository, join a path or write a file, and neither make nor remove the directory. The
+lines that make `CARGO_TARGET_TMPDIR` sit in one package, `testing`. So a crate with no sweep would hold a
+function of one line, which writes the prefix, for the cost of a Component with its documents that takes
+no decision, against `skill@knowledge-architect-component-creation@component-criteria`. Code that several
+packages repeat to make or to remove their directories would reopen that. The owner reported having no
+need soon, for the owner's other projects, of a published crate of ours with a prefix and cleanup on drop.
+
 No fact defeats mod-tempdir or the sweep by a lock file. `tempfile` alone over mod-tempdir: the session
 ranked that crate's youth and low use above a killed run's files left, which no goal ranks. `tempfile`
-alone over a sweep by a lock file: the session ranked the lines, the crate that holds them and the race
-above a killed run's files left, which no goal ranks. The readings of the two crates are in
+alone over a sweep by a lock file: the owner ranked the hassle of implementing it above the files a killed
+run leaves, which no goal ranks. The readings of the two crates are in
 `path@knowledge-architect@docs/grounding/temporary-directory-crates.md`.
 
 ### Every build that cargo starts inside a checkout is tied to that checkout `##a-build-is-tied-to-its-checkout`
