@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-83 entries
+84 entries
 
 | kind | title |
 | --- | --- |
@@ -56,6 +56,7 @@
 | question | [An issue's re-entry point is read by no review, for a design issue or any kind that carries one](an-issue-s-re-entry-point-is-read-by-no-review.md) |
 | question | [After a version upgrade, nothing re-reads a project's restatements of installed directives, a project skill whose activity an installed skill now covers, or the session's own copy of the new text, nor the agent types it adds](an-upgrade-re-reads-no-root-restatement.md) |
 | question | [The application judge's reading of tripwires names no fact against the standing-state review as the catch](the-application-judge-s-tripwire-reading-names-no-fact-against-the-standing-state-review.md) |
+| question | [Does the CI workflow that the setup skill shows run on three systems, and with `--ci`?](the-ci-workflow-a-project-is-shown-runs-on-linux-and-without-ci.md) |
 | question | [The audit that ends the move of an adopting project's documents is stated where the move's sessions do not read](the-closing-audit-of-a-move-reaches-no-planning-text.md) |
 | question | [The retrospective intake's searches of the history assume a full clone](the-intake-s-history-searches-assume-a-full-clone.md) |
 | question | [Does the design skill's open-space test leave bounded work almost unreachable?](the-open-space-test-may-admit-every-problem.md) |
