@@ -54,6 +54,19 @@ runs the design-conformance check before the harvest gave a head a member its ar
 cover, in its answer to a search verdict, which the review before the merge found. Each was
 repaired before its merge.
 
+A further instance, in the files of the intake of twenty retrospective files of 2026-11-14 to
+2026-11-25, of this repository: W2 of
+2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-workflow, the same act on a
+ruling held in a plan rather than a head. The plan-review repair of the spec on head titles added,
+to a rule the owner had stated, a third later procedure and an exception, and applied both as gaps
+with one answer; the decision-record review before the merge found that no ruling covered them, and
+they went to the owner as two defaults. The file proposed that the planning skill call every member
+added to what the owner named a relaxation, which conflicts with
+`design@agent-skills@ruling-read-by-its-direction` and with
+`design@agent-skills@extension-follows-the-ground`; whether the primer's
+routing of a new member by the owner's words governs a ruling held in a plan is a candidate for
+the discussion this entry asks for.
+
 ### Why it matters
 
 A member beyond the argument enters a head with no deliberation, against
