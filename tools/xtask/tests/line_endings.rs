@@ -1,6 +1,7 @@
 //! This repository's `.gitattributes` gives every checkout LF and takes CRLF into no commit, whatever
 //! the machine's git says. Every file of this repository is compared, embedded or parsed as the bytes
-//! its commit holds, and Git for Windows checks out CRLF by default.
+//! its commit holds, and Git for Windows checks out CRLF by default, per
+//! `design@knowledge-architect@line-endings-of-this-repository`.
 
 use std::path::Path;
 use std::process::Command;

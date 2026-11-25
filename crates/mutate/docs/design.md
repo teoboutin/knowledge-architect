@@ -51,6 +51,20 @@ edit never applied and one because the verdict was read off a grep that matched 
 line, as thaum's commit "1f unit 10: who answers a question is one value, so the fabrication is
 unrepresentable" records.
 
+### Git converts no line ending of a file that the mutation or a test of it compares `##git-converts-no-line-ending`
+
+`git_in` of `path@mutate@src/run.rs`, which runs git in the scratch that plans a `--patch` run, runs it
+under `core.autocrlf=false`, and so do `apply_and_reverse` of `path@mutate@tests/harness.rs` and
+`linked_worktree` of `path@mutate@tests/modes.rs`. Under `true`, the default of Git for Windows,
+`git apply` writes the mutant with CRLF whatever the target's line endings, so the mutation is another
+than the patch names, and a patch that changes nothing gives a mutant, whose verdict is `SURVIVED`. The
+test `a_patch_run_converts_no_line_ending_whatever_the_machine_s_git_says` of
+`path@mutate@tests/modes.rs` holds it, and fails with the setting of `git_in` made `true`.
+
+The nearest rival, the setting of the machine, gives the mutation's author the line endings they chose
+for their checkouts, and a verdict that depends on the machine. A verdict is about the one mutation its caller names, per
+`design@mutate@mutation-command`.
+
 ## How a run gives its verdict
 
 ### A verdict is never the tool's exit code, which says only whether the run started and whether the tree is owed a look `##report-not-gate`

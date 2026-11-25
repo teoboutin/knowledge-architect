@@ -1194,6 +1194,50 @@ or in what it tests.
 The nearest rival leaves out a test wherever it fails on a system: the job of that system then passes
 over a behaviour that a project meets there, and the coverage of the system shrinks with no sign.
 
+### A test that makes a symbolic link fails where the machine refuses links `##no-skip-where-links-are-refused`
+
+A test that makes a link panics where the machine refuses it, and never skips, under
+`KNOWLEDGE_ARCHITECT_CI` or without it. The nearest rival skips there, and fails under that variable.
+`design@gates@ci-flag-for-ci-only-requirements` gives such a skip to a test that needs a tool a machine
+may lack. The right to make a link is read here as no such tool: no system of
+`design@knowledge-architect@platforms-served`, as CI runs it, lacks the right, and the skip's rule would
+be a copy in each package of `design@knowledge-architect@symlink-helper-home`, for a machine that is
+not served. The other reading, under which the right is a tool that a machine may lack, is the rival's. A Windows
+machine on which the tests are to run without that right reopens this.
+
+### Each package whose tests make a symbolic link holds its own copy of the helper that makes one `##symlink-helper-home`
+
+`check`, `cli`, `git`, `mutate`, `testing` and `transcript` each hold, in their test code, the functions
+they use of `link_file` and `link_dir`, which make a link on the three systems. The nearest rival is
+one copy, in a crate that the six depend on for their tests. It has no place to be: no crate depends on
+`testing`, per `design@knowledge-architect@no-crate-depends-on-testing`; making a link is no operation
+on a repository, so it is none of `git`'s, per
+`design@git@an-operation-in-git-s-terms-is-the-library-s`; and a crate of its own takes no decision, and
+owes a Component's documents, for two short functions, against
+`skill@knowledge-architect-component-creation@component-criteria`. The cost is a copy in six packages,
+which a change of one leaves behind in the others.
+
+### Every file of this repository is checked out with LF, and one added with CRLF is committed with LF `##line-endings-of-this-repository`
+
+`path@knowledge-architect@.gitattributes` holds `* text=auto eol=lf`. Under `text=auto` git judges by its
+content whether a file is text, and converts the line endings of one that is, unless git already holds it
+with CRLF; `eol=lf` gives its working copy LF whatever `core.autocrlf` says, as gitattributes(5) says of
+both. The test of `path@xtask@tests/line_endings.rs` asserts the two directions with that setting true
+and false.
+
+A file of this repository is compared, embedded or parsed as the bytes its commit holds, and Git for
+Windows checks out CRLF by default: in a clone made under `core.autocrlf=true` with that file emptied,
+tests of `model`, `testing` and `xtask` fail, by the script in the message of the commit
+"[knowledge-architect, mutate] The line endings of this repository and of the hand mutation's git, and the link helper's copies, are recorded".
+
+The nearest rival, `* -text`, checks out every file as committed. It differs only for a file added later
+with CRLF, which it takes in as it is, where a test file that needs its carriage returns is marked as an
+exception under this one. `* text=auto eol=lf` over `* -text`: the session ranked the entry of CRLF into the
+history, which a later development on Windows would meet, above that exception, which no goal ranks.
+
+A project without such a file meets the conversion, and
+`design@check@generated-text-compared-without-line-endings` is for it: its test clones under that setting a project that has none.
+
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`
 
 rust-toolchain.toml at the root names one Rust release, with rustfmt and clippy, and the target of the

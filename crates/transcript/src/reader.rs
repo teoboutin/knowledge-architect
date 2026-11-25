@@ -1606,9 +1606,10 @@ fn render_answers(result: &Value) -> String {
 mod tests {
     use super::*;
 
-    // A copy of the helper each package whose tests make a link holds, since no crate depends on
-    // `testing`, per `design@knowledge-architect@no-crate-depends-on-testing`, inside this module
-    // since xtask compiles this file by its path.
+    // A copy of the helper each package whose tests make a link holds, per
+    // `design@knowledge-architect@symlink-helper-home`, inside this module since xtask compiles this file
+    // by its path. No test skips where the machine refuses a link, per
+    // `design@knowledge-architect@no-skip-where-links-are-refused`.
     /// Makes `link` a symbolic link to `target`, a directory or nothing yet. A relative target is written with
     /// the system's separator, since Windows follows no link whose relative target holds `/`.
     ///

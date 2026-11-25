@@ -1,10 +1,10 @@
 //! Symbolic links for the tests, on every system they run on.
 //!
 //! On Windows a link is made to a file or to a directory, and a target that does not exist has no
-//! kind to read, so the caller names it. Each package whose tests make a link holds its own copy,
-//! since no crate depends on `testing`, per
-//! `design@knowledge-architect@no-crate-depends-on-testing`. No test skips where the machine refuses
-//! a link.
+//! kind to read, so the caller names it. Each package whose tests make a link holds its own copy, per
+//! `design@knowledge-architect@symlink-helper-home`, so an edit of this one goes to the others. No test
+//! skips where the machine refuses a link, per
+//! `design@knowledge-architect@no-skip-where-links-are-refused`.
 
 use std::path::{Path, PathBuf};
 

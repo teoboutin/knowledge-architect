@@ -1243,8 +1243,9 @@ mod tests {
         assert_eq!(named(Path::new(mixed)), here);
     }
 
-    // A copy of the helper each package whose tests make a link holds, since no crate depends on
-    // `testing`, per `design@knowledge-architect@no-crate-depends-on-testing`.
+    // A copy of the helper each package whose tests make a link holds, per
+    // `design@knowledge-architect@symlink-helper-home`. No test skips where the machine refuses a link,
+    // per `design@knowledge-architect@no-skip-where-links-are-refused`.
     /// Makes `link` a symbolic link to `target`, a file or nothing yet. A relative target is written with
     /// the system's separator, since Windows follows no link whose relative target holds `/`.
     ///

@@ -107,7 +107,8 @@ fn apply_and_reverse(pre: &str, post: &str) -> (String, String) {
     let dir = scratch.path();
     let git = |args: &[&str]| {
         let out = Command::new("git")
-            // The patch is compared byte for byte, and `apply` converts under the machine's setting.
+            // The patch is compared byte for byte, and `apply` converts under the machine's setting, per
+            // `design@mutate@git-converts-no-line-ending`.
             .args(["-c", "core.autocrlf=false"])
             .args(args)
             .current_dir(dir)
