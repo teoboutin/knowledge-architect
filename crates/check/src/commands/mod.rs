@@ -597,12 +597,7 @@ fn fix_then_check(
             // clear.
             let written_here: Vec<(std::path::PathBuf, String)> = generated
                 .iter()
-                .filter(|(rel, text)| {
-                    std::fs::read_to_string(manifest.root().join(rel))
-                        .ok()
-                        .as_deref()
-                        != Some(text.as_str())
-                })
+                .filter(|(rel, text)| !is_current(&manifest.root().join(rel), text))
                 .cloned()
                 .collect();
             let differing: Vec<String> = differing_paths(&generated, &staged)
@@ -633,7 +628,7 @@ fn fix_then_check(
     }
     for (rel, text) in generated {
         let path = manifest.root().join(&rel);
-        if std::fs::read_to_string(&path).ok().as_deref() == Some(text.as_str()) {
+        if is_current(&path, &text) {
             continue;
         }
         if let Err(e) = std::fs::write(&path, &text) {
@@ -651,6 +646,12 @@ fn fix_then_check(
         Err(e) => failed(written, e),
         outcome => outcome,
     }
+}
+
+/// Whether the working-tree file at `path` is current for `text`, the generated file's text: one that
+/// is absent, or that cannot be read as text, is not.
+fn is_current(path: &std::path::Path, text: &str) -> bool {
+    std::fs::read_to_string(path).is_ok_and(|on_disk| crate::agents::current(&on_disk, text))
 }
 
 /// The summary first, the findings under it, then the note on untracked files when one is owed,

@@ -13,11 +13,33 @@
 //! - **The fragment pass.** A line that is a fragment placeholder, `{{fragment:<file>}}`, is replaced
 //!   with a file of shared text from fragments/, so one text applied whole at several places has
 //!   one home and every host ships it, per `design@agent-skills@content-mirrors-the-install-layout`.
+//! - **The snippet list.** The snippets' texts as the source of the `SNIPPETS` the library holds.
 //! - **The source view.** A file of content/ with its fragments and snippets inlined and every
 //!   comment and placeholder but theirs kept, for a maintainer who edits the source and reads it
 //!   whole. It ships nothing.
 
+use std::fmt::Write as _;
 use std::path::Path;
+
+/// `text` with every CRLF line ending made LF: what the build reads of each file, before any pass,
+/// so a checkout that converts line endings ships the text another ships.
+pub(crate) fn lf(text: &str) -> String {
+    text.replace("\r\n", "\n")
+}
+
+/// The source of a Rust slice of `snippets`, each a file name and its text, in name order. It holds
+/// the texts as literals, and includes no file, since a file of the checkout can hold other line
+/// endings than the text the build read of it.
+pub(crate) fn snippet_list(snippets: &[(&str, &str)]) -> String {
+    let mut sorted = snippets.to_vec();
+    sorted.sort();
+    let mut list = String::from("&[\n");
+    for (name, text) in sorted {
+        writeln!(list, "    ({name:?}, {text:?}),").expect("a String");
+    }
+    list.push(']');
+    list
+}
 
 /// What opens a comment line of the shipped text.
 pub(crate) const COMMENT: &str = "%%";
@@ -439,8 +461,45 @@ fn is_id(id: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::{check_workflow_name, render_fragments, render_slugs, strip_comments};
+    use super::{
+        check_workflow_name, lf, render_fragments, render_slugs, snippet_list, strip_comments,
+    };
     use std::path::Path;
+
+    /// What the passes ship of a host and its one fragment, as the build reads and runs them.
+    fn shipped(host: &str, fragment: &str) -> String {
+        let (host, fragment) = (lf(host), lf(fragment));
+        let file = Path::new("t.md");
+        let text = render_slugs(&strip_comments(&host, file), file);
+        render_fragments(&text, &[("f.md", &fragment)], file).0
+    }
+
+    // The claim: the text shipped from a checkout that holds CRLF is the text shipped from one that
+    // holds LF, whichever of the host and the fragment holds it; a carriage return that ends no line
+    // is content. Mutation: `lf` returning its text as it is.
+    #[test]
+    fn a_crlf_checkout_ships_the_text_of_an_lf_one() {
+        let host = "# T\n%% why\n## A {{slug:a-section}}\n  {{fragment:f.md}}\nend\r.\n";
+        let fragment = "%% why\none\n\n- two\n";
+        let expected = "# T\n## A `##a-section`\n  one\n\n  - two\nend\r.\n";
+        let crlf = |text: &str| text.replace('\n', "\r\n");
+        assert_eq!(shipped(host, fragment), expected);
+        assert_eq!(shipped(&crlf(host), fragment), expected);
+        assert_eq!(shipped(host, &crlf(fragment)), expected);
+        assert_eq!(shipped(&crlf(host), &crlf(fragment)), expected);
+    }
+
+    // The claim: the list of snippets holds the texts it is given, in name order, as literals, so
+    // what it holds of a CRLF checkout, read by `lf`, is what it holds of an LF one. Mutations: `lf`
+    // returning its text as it is; the sort removed.
+    #[test]
+    fn the_snippet_list_holds_the_texts_read_in_name_order() {
+        let expected = "&[\n    (\"a.toml\", \"x = \\\"1\\\"\\n\"),\n    (\"b.rs\", \"b\\n\"),\n]";
+        let (b, a) = ("b\n", "x = \"1\"\n");
+        assert_eq!(snippet_list(&[("b.rs", b), ("a.toml", a)]), expected);
+        let (b, a) = (lf("b\r\n"), lf("x = \"1\"\r\n"));
+        assert_eq!(snippet_list(&[("b.rs", &b), ("a.toml", &a)]), expected);
+    }
 
     fn fragments(text: &str, shared: &[(&'static str, &str)]) -> (String, Vec<&'static str>) {
         render_fragments(text, shared, Path::new("t.md"))

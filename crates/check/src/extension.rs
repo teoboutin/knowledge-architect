@@ -161,11 +161,12 @@ impl Snapshot {
     }
 }
 
-/// A file an extension generates, and what its bytes must be now.
+/// A file an extension generates, and the text it must hold now.
 pub struct Generated {
     /// Where the file is generated, relative to the project's root.
     pub rel: PathBuf,
-    /// The bytes the file must hold now.
+    /// The text the file must hold now. `check` takes a file that differs from it by line endings
+    /// alone as current, and a command that writes the file writes it as it is here.
     pub text: String,
     /// What the `generated` check tells a reader to do when the committed file differs.
     pub action: &'static str,

@@ -10,12 +10,13 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
-/// Every file the installer writes, as its install path and its text, in path order.
+/// Every file the installer writes, as its install path and its text, in path order. A text holds LF
+/// line endings, whatever those of the checkout it was built from.
 pub static FILES: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/files.rs"));
 
 /// Every file of the snippets the setup skill inlines, as its file name and its text, in name
 /// order: `klarch init --rust` writes every one of them but `ci.yml`, so a project gets what the
-/// skill shows.
+/// skill shows. A text holds LF line endings, as those of [`FILES`] do.
 pub static SNIPPETS: &[(&str, &str)] = include!(concat!(env!("OUT_DIR"), "/snippets.rs"));
 
 /// This crate's directory, compiled in, so a binary that links it can refuse a build made from
@@ -43,7 +44,8 @@ mod tests {
             .find(|(path, _)| *path == ".claude/skills/knowledge-architect-setup/SKILL.md")
             .expect("the setup skill is shipped");
         // The build drops the snippet's own final line break and keeps the placeholder line's.
-        let snippet = include_str!("../snippets/xtask-main.rs").trim_end_matches('\n');
+        let snippet = crate::render::lf(include_str!("../snippets/xtask-main.rs"));
+        let snippet = snippet.trim_end_matches('\n');
         assert!(
             setup.contains(&format!("```rust\n{snippet}\n```\n")),
             "the setup skill does not hold snippets/xtask-main.rs as a fenced block"
@@ -125,7 +127,7 @@ mod tests {
                 .and_then(|n| n.to_str())
                 .expect("a UTF-8 name");
             let text = std::fs::read_to_string(&path).expect("a fragment is UTF-8");
-            fragments.push((name.to_owned(), text));
+            fragments.push((name.to_owned(), crate::render::lf(&text)));
         }
         let shared: Vec<(&str, &str)> = fragments
             .iter()

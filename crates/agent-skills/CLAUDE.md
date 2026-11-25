@@ -19,7 +19,7 @@ per `design@gates@ci-flag-for-ci-only-requirements`. The build's passes run over
 removed, even inside a template literal, so a line of a prompt never opens with `%%`.
 
 This repository installs its own skills, and its check compares each installed file with the shipped
-text byte for byte. After editing content/, snippets/ or fragments/, run `cargo klarch install-agent-skills` and
+text byte for byte, line endings apart. After editing content/, snippets/ or fragments/, run `cargo klarch install-agent-skills` and
 commit the installed copies under .claude with the change, or the check fails.
 
 **content/ is in the walk, and every reference in it is checked against this repository.** So a

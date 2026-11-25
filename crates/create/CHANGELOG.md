@@ -31,6 +31,11 @@ an empty subsection is omitted.
   per `primer@branch-commits`. This holds for every project the consumer's tests build, mock
   projects included. `init` writes the homes of specs/ and milestones/ with a text that states the
   new layout.
+- `checks`, patch: the check named `generated` reports less: a generated file that differs from what
+  it would be generated as by its line endings alone is current, as an installed file already was, so
+  a clone under `core.autocrlf=true` passes with no declaration of its own. `check --fix` neither
+  writes nor refuses over such a file, and `index --staged` does not name its working copy; `index`
+  still writes where the bytes differ. A consumer whose tests pin the finding on such a file changes them.
 - `library`, major: `declared::Shape` gains the variant `Plan(PlanKind)`, which the registers `spec`
   and `milestone` now have, where they had `File` and `Directory`; `table::Constructed::Spec` is
   replaced by `Constructed::Plan(PlanKind)`, which a milestone's anchor also is, where it was

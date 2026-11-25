@@ -591,7 +591,7 @@ impl History {
 
     /// Regenerate the indexes, stage everything, and commit with this message.
     ///
-    /// The indexes are regenerated first because the `generated` family compares bytes: a
+    /// The indexes are regenerated first because the `generated` family compares their text: a
     /// commit that adds or deletes a register entry and leaves the index alone has a tree
     /// that fails, and every such commit would fail the range for its tree rather than for
     /// what the test planted.
@@ -5886,6 +5886,53 @@ fn fix_refuses_nothing_where_it_would_write_nothing() {
     let (out, stderr, code) = sandbox.run(&["check", "--fix"]);
     assert_eq!(code, 0, "{out}{stderr}");
     assert!(!out.contains("fixed:"), "{out}");
+}
+
+/// The claim: in a clone under `core.autocrlf=true`, whose every text file holds CRLF, `check`
+/// passes, `check --fix` writes no generated file and refuses nothing, over a partial commit
+/// included, and `index --staged` names no working copy out of date, since a generated file that
+/// differs by its line endings alone is current at each place that asks.
+#[test]
+fn a_clone_that_converts_line_endings_holds_current_generated_files() {
+    let source = Sandbox::new("autocrlf", "dirhome");
+    source.git(&["config", "core.autocrlf", "false"]);
+    commit_all(&source, "the base");
+    let clone = source.outside("clone");
+    let to = clone.to_str().expect("a UTF-8 path");
+    source.git(&["clone", "-q", "-c", "core.autocrlf=true", ".", to]);
+    let index = "docs/open-issues/index.md";
+    let text = std::fs::read_to_string(clone.join(index)).expect("the clone's index");
+    assert!(text.contains("\r\n"), "the clone converts: {text:?}");
+
+    let (out, stderr, code) = run_in(&clone, &["check"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, stderr, code) = run_in(&clone, &["check", "--fix"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(!out.contains("fixed:"), "{out}");
+    let (out, stderr, code) = run_in(&clone, &["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(!out.contains("working copy"), "{out}");
+
+    // A partial commit: the staged tree loses an entry that the working tree keeps, so the two
+    // need different indexes, and the one on disk is current for the working tree.
+    git(
+        &clone,
+        &[
+            "rm",
+            "-q",
+            "--cached",
+            "docs/open-issues/an-ungrouped-entry.md",
+        ],
+    );
+    let (out, stderr, code) = run_in(&clone, &["check", "--fix"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(!out.contains("fixed:"), "{out}");
+    let (out, stderr, code) = run_in(&clone, &["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(out.lines().any(|l| l.ends_with(" staged")), "{out}");
+    assert!(!out.contains("working copy"), "{out}");
+    let text_after = std::fs::read_to_string(clone.join(index)).expect("the clone's index");
+    assert_eq!(text_after, text, "the working copy is left as it was");
 }
 
 /// The manifest of a project that declares a Directory register at a location's own path, each

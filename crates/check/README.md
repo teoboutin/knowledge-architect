@@ -114,7 +114,8 @@ bytes are determined by the tree and the pinned version, and it writes or remove
 the installer's namespace or of the generated list. Two pass: the agent files the check reports missing,
 differing or no longer shipped, judged from git's listing as the check judges them, so a file git
 does not list, such as an ignored swap file, is never removed; and every stale or missing generated
-file. Each file written or removed is listed on a line `fixed: wrote <path> (<kind>)` or
+file. An installed or generated file that differs by its line endings alone, as a checkout under
+`core.autocrlf` makes it, is current, for `check` and for `--fix`. Each file written or removed is listed on a line `fixed: wrote <path> (<kind>)` or
 `fixed: removed <path> (installed)`, before the report. Every other finding's repair is a choice,
 or touches git or a hand-written file, and stays the reader's.
 

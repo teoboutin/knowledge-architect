@@ -32,6 +32,17 @@ pub(crate) fn lf(text: &str) -> String {
     text.replace("\r\n", "\n")
 }
 
+/// Whether a file that holds `on_disk` is current, where this version would write `expected`: the
+/// two differ by their line endings at most, which a checkout under `core.autocrlf` converts.
+///
+/// **It is the one comparison of currency**, of an installed file and of a generated one, so what
+/// `check` calls current is what `check --fix` neither writes nor refuses over, and what
+/// `index --staged` does not name. What asks to write, `index`, the entries `index --staged` stages
+/// and the install, compares bytes.
+pub(crate) fn current(on_disk: &str, expected: &str) -> bool {
+    lf(on_disk) == lf(expected)
+}
+
 /// Every file this version installs into the project, at its install path, rendered. Empty when
 /// the project serves no agent harness.
 pub fn shipped(manifest: &Manifest) -> Vec<(PathBuf, String)> {
@@ -177,7 +188,7 @@ pub(crate) fn repairs(
             .find(|(p, _)| p == rel)
             .map(|(_, state)| state)
         {
-            Some(Outside::Text(text)) if lf(text) == lf(expected) => {}
+            Some(Outside::Text(text)) if current(text, expected) => {}
             // A directory in the file's place is reported, and replacing it is no safe fix.
             Some(Outside::Directory) => {}
             // Not listed: missing, an ignore rule covers it, or an untracked directory stands in
@@ -188,9 +199,9 @@ pub(crate) fn repairs(
             None => {
                 let path = root.join(rel);
                 let directory = std::fs::symlink_metadata(&path).is_ok_and(|m| m.is_dir());
-                let current = std::fs::read_to_string(&path)
-                    .is_ok_and(|on_disk| lf(&on_disk) == lf(expected));
-                if !directory && !current {
+                let up_to_date =
+                    std::fs::read_to_string(&path).is_ok_and(|on_disk| current(&on_disk, expected));
+                if !directory && !up_to_date {
                     out.write.push(rel.clone());
                 }
             }
