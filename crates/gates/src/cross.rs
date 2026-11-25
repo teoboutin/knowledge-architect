@@ -1,7 +1,8 @@
 //! Clippy for another system than the machine's, as a gate a project adds to its list.
 //!
 //! A module of its own: its ground is how the `cc` crate and clippy behave for a target the machine
-//! cannot link, which nothing else of the gates rests on.
+//! cannot link, which nothing else of the gates rests on, per `design@gates@cross-clippy-stub`. Why it
+//! is offered, and outside the recommended list, is `design@gates@cross-clippy-gate`.
 
 use crate::gates::{Distiller, Gate};
 

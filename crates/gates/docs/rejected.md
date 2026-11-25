@@ -49,3 +49,17 @@ is row 8 of the script of `design@gates@doc-gate-denial`.
 `live`. `cargo test --doc` does not report a link that names nothing, and exits 0, with
 `RUSTDOCFLAGS="-D warnings"` exported, observed on cargo 1.98.0. The run that shows
 it is row 7 of the script of `design@gates@doc-gate-denial`.
+
+### Clippy for another system in one project's list alone, the library offering no gate for it `##cross-clippy-in-one-list-alone`
+
+`live`. The gate's function would join no public API, and the library would hold nothing that rests
+on the `cc` crate. It lost because each project that wants the gate would find again that a stub
+serves as the compiler, in which spelling of its variables, and that `sccache` refuses it. It is
+recorded because it would change an interface others consume, the library's public functions.
+
+### Clippy for another system in the recommended list `##cross-clippy-in-the-recommended-list`
+
+`live`. Every project that takes the list would get the gate with no edit. It lost because it would
+fail in each project until the target's standard library is installed, and in each whose crates
+refuse the stub, as `openssl` and `aws-lc-rs` did when it was measured. It is recorded because it
+would change an interface others consume, the list.

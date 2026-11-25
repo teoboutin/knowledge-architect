@@ -44,9 +44,60 @@ Where two gates' costs do not separate, the reason for their order is a comment 
 The list is the generic part of a Rust project's gates, and
 `goal@generic-tools-and-procedures-are-shipped` ships such a part to each target project that
 carries out its activity once knowledge-architect's owner takes it in. So a gate enters the list on
-the owner's word, which is that taking-in: the owner took the documentation build in. The nearest
-rival, no recommended list, leaves each project to write its own list, so no gate the owner took in
-reaches a target project.
+the owner's word, which is that taking-in: the owner took the documentation build in. A gate taken
+in can also be offered beside the list, for a project to add, as `design@gates@cross-clippy-gate`
+is. The nearest rival, no recommended list, leaves each project to write its own list, so no gate
+the owner took in reaches a target project.
+
+### The library offers clippy for another system as a gate a project adds to its list, outside the recommended list `##cross-clippy-gate`
+
+`cross_clippy` takes a target and returns one gate, `clippy-<target>`, which runs clippy for that
+target over the whole workspace with its warnings denied, or nothing on a machine whose own system
+is the target's, where the recommended `clippy` runs for that system. A project adds it to its list,
+per `design@gates@a-project-holds-its-gate-list`, so it is opt-in and no flag is added. Code under a
+`cfg` of another system is compiled by no gate of the machine that writes it. With the gate, its
+compile errors and its lints are reported there, where the continuous integration of that system
+reports them once the branch reaches it. No failure of a test is. A warning in code the systems
+share is reported twice. Each toolchain that builds the project downloads the target, and each
+target directory holds a build for it.
+
+It is the generic part that `goal@generic-tools-and-procedures-are-shipped` has shipped once
+knowledge-architect's owner takes it in, which the owner did, as a gate a project opts in to. A
+project for which it comes to fail on something outside knowledge-architect drops it from its list,
+and loses little: what it reports, the other system's own gates report later.
+
+The nearest rival keeps the gate in this repository's list alone, so each project that wants one
+finds again what `design@gates@cross-clippy-stub` holds,
+`rejected@gates@cross-clippy-in-one-list-alone`. In the recommended list it would fail in every
+project until the target is installed, and in every project whose crates refuse the stub,
+`rejected@gates@cross-clippy-in-the-recommended-list`.
+
+### The cross clippy gate names a stub as the target's compiler, so a machine needs no cross compiler `##cross-clippy-stub`
+
+The gate of `design@gates@cross-clippy-gate` sets `CC`, `CXX` and `AR` for its target to the program
+`true`, and `RUSTC_WRAPPER` to the empty string. A build script that compiles C then succeeds with
+nothing compiled, and clippy links nothing, so nothing it needs is missing. Each variable is set in
+two spellings, the target with its hyphens and with underscores: the `cc` crate reads the one with
+hyphens first (`target_envs` of cc 1.5.1), so a gate that set the other alone would give way to a
+compiler the caller exported, as `design@gates@doc-gate-denial` argues of rustdoc's flags. The
+wrapper is emptied since `sccache` refuses the stub: `sccache true -c a.c` ends with "Compiler not
+supported" and exit 2.
+
+Measured on Linux under Rust 1.98.0 over 16 crates that build C, at the versions crates.io gave on
+2026-11-25, each the one dependency of a new library under
+`cargo check --target x86_64-pc-windows-gnu`: 13 pass with the stub and 1, `blake3`, without it.
+`openssl`, with and without `vendored`, and `aws-lc-rs` fail with it. The script that takes it again
+is in the message of the commit "[gates] The cross clippy gate and its stub are recorded, beside the
+recommended list".
+
+The nearest rival asks a real cross compiler of every machine that runs the gates, CI's included: an
+installation on each, for a gate that links nothing. A project that has one removes the variables,
+since a gate's fields are public.
+
+The costs accepted: that the `cc` crate takes objects that were never made is documented nowhere, so
+the gate can come to fail; a build script that runs the compiler to choose a feature can be answered
+wrongly, which the gates of that system report; and an `-msvc` target fails under the stub, so code
+particular to it is not judged.
 
 ### The `doc` gate denies every rustdoc warning through the source of rustdoc flags cargo reads first, set in its own environment `##doc-gate-denial`
 
