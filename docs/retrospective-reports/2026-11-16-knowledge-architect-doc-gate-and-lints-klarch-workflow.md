@@ -233,9 +233,9 @@ answer on judgement-free tasks, the line-joining search.
 - **g. Its route.** An issue, the work needing a branch of its own under `skill@klarch-development`,
   once the task is taken in.
 - **h. The proposal.** The owner takes the task in, and the issue is opened in `query`, kind `todo`,
-  id `no-command-searches-a-phrase-across-line-breaks`, from the draft
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/no-command-searches-a-phrase-across-line-breaks.md.
-  If the owner does not take it in, nothing is opened and the primer's rule stands.
+  `issue@query@no-command-searches-a-phrase-across-line-breaks`, opened on this default in a commit
+  of its own. If the owner does not take it in, that commit leaves the branch and the primer's rule
+  stands.
 
 Default: the task taken in, and the issue opened in `query` from the draft.
 Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): pending
