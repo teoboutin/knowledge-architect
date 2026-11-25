@@ -946,3 +946,12 @@ workflow's spec: a step 0 that conforms its heads, the workflow's result and out
 Q2 and D2 awaiting the owner"; the three
 that changed the design lay in the searchers' own reasons, which a verdict file keeps, and the
 session still reads every light line to keep the work within it.
+
+### The alias `x` running the maintenance crate in the dev profile `##maintenance-crate-in-the-dev-profile`
+
+`live`. It builds the maintenance crate faster after an edit, under the profile its tests use, with
+debug assertions. Refuted by a run on GitHub's Windows runner: where the builds of the maintenance crate
+by `cargo run` and by `cargo test --workspace` differ, as here, the gate `test` replaces the program that
+runs the gates, and Windows refuses, "failed to remove file", "Access is denied. (os error 5)". On Linux
+the replacement passes with no sign. The workflow of the run is in the message of the commit that
+`design@agent-skills@release-maintenance-build` names.

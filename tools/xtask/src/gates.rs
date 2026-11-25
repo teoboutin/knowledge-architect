@@ -213,7 +213,8 @@ mod tests {
     /// The claim: the alias `x` runs the maintenance crate in release, here and in the configuration a
     /// project is given, so no gate replaces the binary that runs the gates where the gate's cargo
     /// reads the inputs of the cargo that built it, which a caller's `RUSTC_BOOTSTRAP` changes, since
-    /// the gates library removes it from every child. The snippet is no TOML
+    /// the gates library removes it from every child, per
+    /// `design@agent-skills@release-maintenance-build`. The snippet is no TOML
     /// before its placeholder is filled, so the lines are read. Mutations checked: `--release` removed
     /// from either; each caught.
     #[test]

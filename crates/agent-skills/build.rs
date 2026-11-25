@@ -17,7 +17,8 @@
 //! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for `create` to write.
 //!
 //! Every file is read with its line endings made LF, so what a checkout that converts line endings
-//! ships is what any other ships, `SNIPPETS` included.
+//! ships is what any other ships, `SNIPPETS` included, per
+//! `design@agent-skills@one-shipped-text-from-any-checkout`.
 //!
 //! Before those, four passes, in this order. A line whose first two characters are `%%` is a
 //! comment for this repository's maintainers: it is removed whole, so it may cite design heads and

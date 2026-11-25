@@ -5,7 +5,7 @@
 # `cargo x <command>` runs the maintenance tool in release mode, so no gate replaces the binary that
 # runs the gates: `clippy`, `doc` and `test` write in the dev profile's directory alone, and the tests
 # build that binary there with other features than `cargo run` does. Windows refuses to replace a
-# program that runs.
+# program that runs. The decision is `design@agent-skills@release-maintenance-build`.
 [alias]
 klarch = "run -q --release -p knowledge-architect --"
 x = "run -q --release -p xtask --"

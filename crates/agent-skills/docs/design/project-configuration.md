@@ -650,11 +650,48 @@ commands, the gates and the hand mutation among them, and `cargo klarch` for the
 which it carries under a command of its own through the library of the package `knowledge-architect`, per
 `design@cli@the-commands-are-a-library-module`. The gates run through the published library, per
 `design@knowledge-architect@gates-crate`, and the checker they run is the one this crate pins; the hand mutation
-runs through its own, per `design@knowledge-architect@mutation-command-host`. One crate does what a
+runs through its own, per `design@knowledge-architect@mutation-command-host`. Both aliases run it in
+release mode, as `design@agent-skills@release-maintenance-build` argues of `cargo x`. One crate does what a
 crate per tool would otherwise do, and gives the project's other repeated tasks a place, so that
 every target project gets its gates and its maintenance commands in one shape, per
-`goal@generic-tools-and-procedures-are-shipped`. The cost accepted: building the gates builds
-the checker, which the check gate needs anyway, and the mutation library.
+`design@agent-skills@maintenance-crate-ask`, where the generic parts that
+`goal@generic-tools-and-procedures-are-shipped` has shipped serve it. The cost accepted: building the
+gates builds the checker, which the check gate needs anyway, and the mutation library.
+
+### The alias `x` runs the maintenance crate in the release profile, apart from what the gates `clippy`, `doc` and `test` build `##release-maintenance-build`
+
+`x = "run -q --release -p xtask --"`, in `path@knowledge-architect@.cargo/config.toml` and in the snippet
+of `design@agent-skills@rust-templates-one-home` that gives a project its aliases. Those three gates write
+in the dev profile's directory, so none replaces the program that runs them.
+
+In the dev profile one does, wherever two builds of the maintenance crate at one path differ. Here
+`cargo build -p xtask` and `cargo test --workspace --no-run` build two, since the features of a dependency
+differ between the two selections, and each puts its own there, as
+`stat -c %i target/debug/xtask` after each re-takes: two inodes, in turn. Windows refuses to replace a
+program that runs, so there the gate `test` fails on "failed to remove file" and "Access is denied",
+`rejected@agent-skills@maintenance-crate-in-the-dev-profile`, and under the release profile it passes that
+point. A project of the scaffold's shape passes its gates under either alias on the three systems, so the
+replacement reaches a project only where its builds differ so. The workflow and the script that take both
+are in the message of the commit
+"[agent-skills] The maintenance crate's release profile and the one shipped text are recorded, and the maintenance crate's head cites what its one shape stands on".
+
+The claim has a condition. In a project of that shape the gates `check` and `commits` run the maintenance
+crate itself, in release: cargo finds it fresh, and leaves it in place, where the gate's cargo reads the
+inputs of the cargo that built it. Where it does not, the gate builds it again and replaces it, as two inputs do: a
+profile setting given by `--config` to the cargo that built it alone, and an exported `RUSTC_BOOTSTRAP`,
+which `design@gates@gates-scrub-rustc-bootstrap` removes from every child. No test of this repository
+builds its release `xtask`: `path@testing@tests/scaffold.rs` builds into a target directory of its own.
+
+The costs accepted: a release build of the maintenance crate after an edit of it or of a crate it links;
+the project's own release settings, where they are slow; and no debug assertions in the project's own
+maintenance commands.
+
+The nearest rival is a cargo profile for the maintenance crate, which keeps a project's release settings
+out and builds its dependencies once more. It loses since the alias `klarch` builds that crate in release
+already, in every project of this shape. A target directory of its own lost: cargo reads the path that
+`--target-dir` gives from the working directory. A library that renames or copies the program that runs
+lost: the file has two hard links, the second being where cargo links it, as
+`stat -c %h target/release/xtask` shows.
 
 ### Every target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
 
