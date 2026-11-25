@@ -196,17 +196,19 @@ Rewritten by the harvest, with every text that references each, which the harves
 
 | decision | what changes | texts that reference it |
 | --- | --- | --- |
-| `design@xtask@gates-list-primary-home` | split in step 8, since it bundles the list's home with the rule that CI and a local run differ by flags alone; the list gains the cross gate; CI runs on three systems behind a gathering job; the cross gate is absent on a machine of the target's own system | `skill@klarch-development@gate-in-this-repository`, `path@knowledge-architect@CLAUDE.md`, `path@knowledge-architect@README.md`, `register@gates@design`, `design@knowledge-architect@ci-skips-a-draft`, `path@xtask@README.md`, `path@xtask@src/gates.rs` |
+| `design@xtask@gates-list-primary-home` | split in step 8, since it bundles the list's home, the rule that CI and a local run differ by flags alone, and cargo's own `--locked` ahead of the alias; the list gains the cross gate; CI runs on three systems behind a gathering job; the cross gate is absent on a machine of the target's own system | `skill@klarch-development@gate-in-this-repository`, `path@knowledge-architect@CLAUDE.md`, `path@knowledge-architect@README.md`, `register@gates@design`, `design@knowledge-architect@ci-skips-a-draft`, `path@xtask@README.md`, `path@xtask@src/gates.rs` |
 | `design@gates@recommended-gate-list` | a gate of the list is told from a gate the library offers beside it | `register@agent-skills@design`, `register@check@design`, `register@create@design`, `register@gates@design`, `register@xtask@design` |
 | `design@knowledge-architect@ci-skips-a-draft` | its cost is restated: a failure of two systems is found only once the pull request is ready, reduced by the cross gate and the probe | `path@knowledge-architect@CLAUDE.md`, `register@knowledge-architect@design`, `issue@knowledge-architect@the-git-flow-head-bundles-unargued-statements` |
-| `design@agent-skills@xtask-pins-checker` | the aliases' profile, its argument and its cost | `path@agent-skills@content/skills/setup/SKILL.md`, `register@agent-skills@design`, `register@create@design`, `register@knowledge-architect@design`, `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` |
-| `design@knowledge-architect@toolchain-is-pinned` | the file names a target too | `issue@knowledge-architect@the-subject-on-how-work-reaches-main-holds-tooling-heads` |
-| `design@check@generated-files-are-pure` | a file that differs by line endings alone is current | `register@check@design`, `path@cli@README.md`, `register@model@design`, `register@model@rejected`, `issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand` |
-| `design@model@a-file-register-index-is-rows` | its bytes are the contract but for line endings | `register@check@design`, `path@cli@README.md`, `register@model@design`, `path@model@src/index.rs`, `issue@knowledge-architect@command-output-is-not-declared-a-contract` |
-| `design@git@a-path-is-bytes` | outside Unix a path is text, named to git with `/` | `issue@git@paths-are-decoded-outside-the-listings`, `path@git@src/git.rs` |
+| `design@agent-skills@xtask-pins-checker` | a pointer to the head on the release build, and its accepted cost read again | `path@agent-skills@content/skills/setup/SKILL.md`, `register@agent-skills@design`, `register@create@design`, `register@knowledge-architect@design`, `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` |
+| `design@knowledge-architect@toolchain-is-pinned` | a pointer to the head on the cross gate, which holds the target's reason | `issue@knowledge-architect@the-subject-on-how-work-reaches-main-holds-tooling-heads` |
+| `design@check@generated-files-are-pure` | a pointer to the head on the comparison without line endings, which holds that decision | `register@check@design`, `path@cli@README.md`, `register@model@design`, `register@model@rejected`, `issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand` |
+| `design@model@a-file-register-index-is-rows` | its part on the byte comparison leaves it, reversed by the head of `check` on the comparison without line endings | `register@check@design`, `path@cli@README.md`, `register@model@design`, `path@model@src/index.rs`, `issue@knowledge-architect@command-output-is-not-declared-a-contract` |
+| `design@git@a-path-is-bytes` | outside Unix a path is read as text, and a name that is not UTF-8 is lost, per `issue@git@paths-are-decoded-outside-the-listings`, which gains that instance; naming a path to git is a head of its own | `issue@git@paths-are-decoded-outside-the-listings`, `path@git@src/git.rs` |
 
-Touched by the harvest without reversing or rewriting their decisions: none known; step 8 is filled
-by the design-record audit over the eight heads above.
+Touched by the harvest without reversing or rewriting their decisions: none beside the eight above,
+of which the design-record audit, run at the spec's commit, found `design@gates@recommended-gate-list`
+and `design@knowledge-architect@toolchain-is-pinned` conformant and the six others not; step 8 brings
+those to the rules.
 
 Entries of the record search whose outcome changed something:
 
@@ -365,7 +367,8 @@ resolving dependencies, with the distiller `WithoutProgress`. Its `envs` set `CC
 `RUSTC_WRAPPER` to the empty string, since `sccache` refuses the stub. Clippy never links, so nothing
 compiled is missed. A project adds the gate to its list, so it is opt-in and no flag is added; the
 fields are public, so a project with a real cross compiler removes the variables. It sits in a module
-of its own.
+of its own. It stays out of the recommended list: there, it would fail in every project until the
+target is installed, and in every project whose crates refuse the stub.
 
 This repository's list gains the gate for `x86_64-pc-windows-gnu`, after `clippy`, and
 `path@knowledge-architect@rust-toolchain.toml` declares that target, which rustup installs on first
@@ -480,6 +483,22 @@ names, in the product, a change of `mutate`'s behaviour that the purpose does no
   its own.
 
 The owner ruled the first in round 5 and, on the session's question, the second in round 8. Nearest rival: an issue for each test lacked by nature, which no work could close.
+
+### #drafts-stay-unchecked
+
+CI does not check a draft pull request. Two shapes: that one, and a run on each push of a draft
+without `--require-rebased`. With three systems, a failure that a session's machine cannot show,
+found after the review rather than during it, is more frequent, which the cross gate reduces to
+failures of tests, and a probe branch finds earlier where a work is about the systems. Nothing
+defeats either. The session ranked a run of three jobs per draft push, and the change of the
+procedures of `instructions@git-workflow` that read the draft flag, above a failure found late. D1.
+
+### #ci-differs-by-flags
+
+Where CI and a local run differ in what they run, the difference is a flag CI passes. Nearest rival: a
+run that reads a variable CI sets. No goal ranks them. A command copied from CI then reproduces CI's
+verdict on a machine of the same system. The session ranked that above a flag per difference, as the
+owner ranked it for `--ci` in `design@gates@ci-flag-for-ci-only-requirements`. D2.
 
 ### #platforms-served
 
@@ -659,9 +678,32 @@ before step 7 starts.
    systems, by the probe; every skip is listed, with its reason or its issue, in the commit's message;
    `--patch` under `core.autocrlf=true` gives the mutant the patch names: the five tests of
    `path@mutate@tests/modes.rs` that fail under it, observed. Fails alone on: the probe's test run.
-8. **The heads conform.** Builds: the split of `design@xtask@gates-list-primary-home`, and what the
-   design-record audit over the eight heads of "What is already decided" finds. The audit's result
-   fills this step before it starts.
+8. **The heads conform.** Builds, each from the design-record audit's draft, with no word of the owner
+   changed and no argument written that the head lacks, but where D1 and D2 say:
+   - `design@xtask@gates-list-primary-home` is split: the list's home keeps the slug, the title and the
+     first paragraph; the rule that CI and a local run differ by flags alone goes to a head that takes
+     the slug of `thread@gates-on-windows-and-macos@ci-differs-by-flags`, in the weak form stated
+     there; cargo's own `--locked` ahead of
+     the alias, whose argument is measured, goes to one with slug `ci-passes-locked-ahead-of-the-alias`;
+   - `design@knowledge-architect@ci-skips-a-draft`: its last sentence names the ranking in the weak form
+     and no approval, per #drafts-stay-unchecked;
+   - `design@agent-skills@xtask-pins-checker`: retitled "A Rust project runs the tools of
+     knowledge-architect it pins, and its other repeated tasks, from one maintenance crate", with
+     `design@agent-skills@exact-pin` and `design@knowledge-architect@version-lockstep` cited for the
+     pin;
+   - `design@check@generated-files-are-pure`: the closing line that cites
+     `rejected@model@index-last-change-date`, which loses to it;
+   - `design@model@a-file-register-index-is-rows`: the rows from the walked entries go to a head with
+     slug `index-rows-from-walked-entries`, and the head is retitled "A register's generated index is a
+     banner, a count and one row per entry, with no summary and no date"; its part on the byte
+     comparison stays until the harvest, whose head of `check` reverses it;
+   - `design@git@a-path-is-bytes`: the goal it stands on, `goal@documentation-stays-consistent`, with the constraint its
+     sibling `design@git@failed-git-is-an-error` states of it.
+
+   Each head the step creates or retitles is judged alone by the auditor briefed to check, and the
+   sites citing a moved part are re-pointed. Claims: `cargo klarch check` passes, and each citing site
+   the audit's drafts list reads right against the head it now names. Fails alone on: a citation left
+   on a head that no longer holds what it cites.
 9. **The harvest**, below, with the probe branch's deletion and the pull request marked ready once the
    review is done.
 
@@ -679,19 +721,24 @@ before step 7 starts.
 
 ## Defaults awaiting the owner
 
-None.
+Each is built as written; the branch merges once the owner has ruled on it.
+
+- **D1**, #drafts-stay-unchecked: CI keeps not checking a draft. A fork the session had ranked, whose
+  accepted cost grows with three systems.
+- **D2**, #ci-differs-by-flags: the rule keeps its shape, recorded in the weak form.
 
 ## Harvest
 
 | what | home |
 | --- | --- |
-| #gates-on-three-systems, #blocking-jobs | `design@xtask@gates-list-primary-home` and the head step 8 splits from it |
+| #gates-on-three-systems, #blocking-jobs | `design@xtask@gates-list-primary-home`, and the head of step 8 that takes the slug of `thread@gates-on-windows-and-macos@ci-differs-by-flags`, which says that a gate absent on one system is absent there in CI and locally alike |
+| #ci-differs-by-flags, #drafts-stay-unchecked | the heads step 8 writes, by the owner's answer to D1 and D2 |
 | #one-required-context | a head of the root, its argument resting on how GitHub counts a skipped job |
-| #release-maintenance-build | `design@agent-skills@xtask-pins-checker` |
-| #cross-clippy-gate | a head of `register@gates@design`, `design@gates@recommended-gate-list`, `design@knowledge-architect@toolchain-is-pinned` |
+| #release-maintenance-build | a head of `register@agent-skills@design`, with a pointer from `design@agent-skills@xtask-pins-checker` |
+| #cross-clippy-gate | a head of `register@gates@design`, with pointers from `design@gates@recommended-gate-list`, which says that a gate taken in can be offered beside the list, and from `design@knowledge-architect@toolchain-is-pinned` |
 | #line-endings-of-this-repository | a comment in `.gitattributes`, or a head of the root if its argument on Git for Windows' default earns one |
-| #generated-text-compared-without-line-endings | `design@check@generated-files-are-pure`, `design@model@a-file-register-index-is-rows` |
-| #paths-to-git-with-slashes | `design@git@a-path-is-bytes` |
+| #generated-text-compared-without-line-endings | a head of `register@check@design`, reversing the byte comparison of `design@model@a-file-register-index-is-rows`, with a pointer from `design@check@generated-files-are-pure` |
+| #paths-to-git-with-slashes | a head of `register@git@design`, and the rewritten `design@git@a-path-is-bytes` |
 | #printed-paths-with-slashes, #path-spelling-home | a head of `register@model@design` |
 | #symlink-helper-home | a comment at each copy |
 | #no-module-split-in-the-port | the instances of step 7; no head |
