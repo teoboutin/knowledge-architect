@@ -13,6 +13,8 @@ comparing rather than by writing the file and reading it back.
 timestamp, a hostname, or anything the walk does not see would break both consequences at once: the
 check would report a file stale that nobody had changed, and `index` would rewrite on every run.
 
+The design this decision did not keep: `rejected@model@index-last-change-date`.
+
 ### `index` takes no dry-run flag, since writing a generated file destroys nothing `##index-takes-no-dry-run`
 
 **Writing a generated file destroys nothing**, since its content is a function of the walked tree,

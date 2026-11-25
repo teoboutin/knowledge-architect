@@ -640,10 +640,11 @@ commit, named what a session does instead: "the recommended action would be to r
 accept running on staged changes)". The rival, the skills naming only the working-tree forms, leaves
 that action undelivered.
 
-### A Rust project's maintenance crate pins the checker and the libraries, and runs the gates and the project's other repeated tasks `##xtask-pins-checker`
+### A Rust project runs the tools of knowledge-architect it pins, and its other repeated tasks, from one maintenance crate `##xtask-pins-checker`
 
 The maintenance crate of a Rust project depends on the checker, the gates library and the mutation
-library, all pinned exactly, at the version `[project] checker-version` declares, per
+library, all pinned exactly, per `design@agent-skills@exact-pin`, at the one version of
+`design@knowledge-architect@version-lockstep`, which `[project] checker-version` declares, per
 `design@check@installed-binary-version-check`, and serves two cargo aliases: `cargo x` for its own
 commands, the gates and the hand mutation among them, and `cargo klarch` for the checker's commands,
 which it carries under a command of its own through the library of the package `knowledge-architect`, per

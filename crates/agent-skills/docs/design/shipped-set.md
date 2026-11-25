@@ -17,9 +17,8 @@ build. A skill is `skills/<skill>/` with its files, an agent is `agents/<agent>.
 workflow of Claude Code's Workflow tool is `workflows/<workflow>.js`, and the primer is `PRIMER.md`;
 the build asserts a saved workflow's name, per
 `design@agent-skills@saved-workflow-name-is-its-file-stem`. The build script,
-`path@agent-skills@build.rs`, walks the directory, renders each file, removing its comments, filling
-its delivery substitutions and inlining its snippets, and generates `FILES`, each entry the install
-path and the text. It adds the installer's prefix to each skill directory, agent file and workflow
+`path@agent-skills@build.rs`, walks the directory, renders each file as above, and generates `FILES`,
+each entry the install path and the text. It adds the installer's prefix to each skill directory, agent file and workflow
 file on the way out, so the installed names are the namespace of
 `design@check@owned-namespace-check`. A file the layout does not map fails the build.
 

@@ -204,7 +204,7 @@ so. That first line is exactly an at sign followed by .claude/knowledge-architec
 space before or after it, and the import line anywhere else does not count.
 
 Commit what it writes. `check` compares each installed file with what the version ships, byte for
-byte, and fails in its last phase on a missing, differing or unshipped file, so a project that moves
+byte, line endings apart, and fails in its last phase on a missing, differing or unshipped file, so a project that moves
 to a new version runs the install with the move. A reference to what a missing file defined is
 reported beside it, and the install repairs both. The commands that write a generated file do not
 wait for it. The decisions are `design@check@installed-files-committed` and `design@check@installed-files-compared-by-bytes`.
