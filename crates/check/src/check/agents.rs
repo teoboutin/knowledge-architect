@@ -18,7 +18,8 @@
 use std::path::{Path, PathBuf};
 
 use super::Inputs;
-use crate::agents::{current, imports_primer, IMPORT_LINE, PRIMER};
+use crate::agents::{imports_primer, IMPORT_LINE, PRIMER};
+use crate::currency::current;
 use crate::model::declared::{Pin, AGENT_DOCUMENT, OWNED_PREFIX};
 use crate::model::listing::Outside;
 use crate::model::{Finding, Manifest, Model};

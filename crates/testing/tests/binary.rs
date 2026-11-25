@@ -1639,6 +1639,77 @@ fn a_missing_file_and_a_nested_repository_outside_the_walk_are_named_for_what_th
     );
 }
 
+/// The claim: a name the walk refuses is printed as git lists it, by `check --staged` and by the label
+/// of `commits`, a link's as a file's, and is reported beside a file whose path differs from it by the
+/// separator alone. The index and the commit hold the names, so every system runs it, though Windows
+/// alone can take one for the other. Mutations, each caught: the label of `commits` respelling `\`;
+/// and, on Windows alone, the links printed by `Finding::in_file`, the covered set asked before the
+/// refusal.
+#[test]
+fn a_refused_name_of_an_index_or_a_commit_is_printed_as_listed() {
+    let history = History::new("refused-listed");
+    tiny_project(&history, false);
+    history.write("notes/b.md", "# B\n\nA note.\n");
+    let base = history.commit("The project is created\n");
+    // Git for Windows refuses such a name otherwise.
+    history.git(&["config", "core.protectNTFS", "false"]);
+    let blob = {
+        let out = Command::new("git")
+            .args(["rev-parse", "HEAD:notes/b.md"])
+            .current_dir(&history.dir)
+            .output()
+            .expect("git runs");
+        String::from_utf8_lossy(&out.stdout).trim().to_string()
+    };
+    for entry in [
+        format!("100644,{blob},notes\\b.md"),
+        format!("120000,{blob},notes\\link.md"),
+    ] {
+        history.git(&["update-index", "--add", "--cacheinfo", &entry]);
+    }
+    let named = |out: &str, prefix: &str, name: &str, what: &str| {
+        let line = format!("{prefix}notes\\{name}  ");
+        assert!(
+            out.lines()
+                .any(|l| l.starts_with(&line) && l.contains(what)),
+            "no `{line}` with `{what}` in {out}"
+        );
+        assert!(!out.contains(&format!("{prefix}notes/{name}")), "{out}");
+    };
+    let (out, stderr, code) = history.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    named(&out, "", "b.md", "Windows forbids in a name");
+    named(&out, "", "link.md", "is a symlink");
+    history.git(&["commit", "-q", "-m", "The names are committed"]);
+    let (out, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    let sha = out
+        .lines()
+        .find_map(|l| l.strip_prefix("commit ")?.split(':').next())
+        .expect("a finding of a commit")
+        .to_string();
+    let prefix = format!("commit {sha}: ");
+    named(&out, &prefix, "b.md", "Windows forbids in a name");
+    named(&out, &prefix, "link.md", "is a symlink");
+}
+
+/// The claim: an untracked file whose name is not UTF-8 and that is no text is named in the note on
+/// untracked files, which asks git's listing for the finding's file by the bytes the name has. Windows
+/// and macOS refuse the name, per `design@knowledge-architect@platform-skips`. Mutation:
+/// `spelled` of `path@model@src/finding.rs` giving the text of `slashed` on every system; caught.
+#[cfg(target_os = "linux")]
+#[test]
+fn an_untracked_file_whose_name_is_not_utf_eight_is_named_as_untracked() {
+    use std::os::unix::ffi::OsStrExt;
+    let sandbox = Sandbox::new("untracked-bytes", "minimal");
+    sandbox.stage();
+    let name = std::ffi::OsStr::from_bytes(b"notes/b\xff.md");
+    std::fs::write(sandbox.path("").join(name), b"\xff\xfe").expect("the file");
+    let (out, stderr, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{stderr}");
+    assert!(out.contains("1 file above is untracked: notes/b"), "{out}");
+}
+
 /// The claim: a symlink whose name the walk refuses is one finding, the link's, and not a second
 /// for its name. Windows refuses the name.
 #[cfg(unix)]

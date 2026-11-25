@@ -155,7 +155,10 @@ pub fn from_listing(
             present.insert(ancestor.to_path_buf());
             directories.insert(ancestor.to_path_buf());
         }
-        if covered.contains(rel.as_path()) {
+        // A name the walk refuses is no document's. On Windows a listed `a\b.md` is the same path as
+        // the document `a/b.md`, so the set alone would take the one for the other.
+        let refused_name = crate::walk::refused(rel);
+        if !refused_name && covered.contains(rel.as_path()) {
             continue;
         }
         // An installed file is read for its bytes, which the installed-file check compares;
@@ -177,13 +180,13 @@ pub fn from_listing(
         }
         // A symlink or a gitlink is no file to read: each is reported, or kept by a row, as a
         // link below, and reading or refusing one would report it a second time.
-        if links.iter().any(|e| e.rel == *rel) {
+        if links.iter().any(|e| e.rel.as_os_str() == rel.as_os_str()) {
             continue;
         }
         // A name the walk refuses is a file no check reads, and one finding names it. It
         // stays in `present`: the refusal is about the file's contents, not its existence.
         // After the skips, so that a `skip-files` row is the declared way to keep one.
-        if crate::walk::refused(rel) {
+        if refused_name {
             refused.push(rel.clone());
             continue;
         }
@@ -262,6 +265,30 @@ mod tests {
         );
         assert!(survey.present.contains(&PathBuf::from("notes/a\nb.md")));
         assert!(survey.directories.contains(&PathBuf::from("notes")));
+    }
+
+    // The claim: a listed name the walk refuses is reported though a document stands at the same path,
+    // which on Windows `a\b.md` and `a/b.md` are, and a path elsewhere only in this test. Mutation: the
+    // set of documents asked first.
+    #[test]
+    fn a_refused_name_is_refused_where_a_document_stands_at_the_same_path() {
+        let manifest = Manifest::parse(
+            Path::new("/nowhere"),
+            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = []\n\n[walk]\nskip-dirs = []\n\
+             skip-files = []\nexclude = []\n",
+        )
+        .expect("a declaration");
+        let name = PathBuf::from(r"notes\b.md");
+        let document = if cfg!(windows) {
+            PathBuf::from("notes/b.md")
+        } else {
+            name.clone()
+        };
+        let model = Model::from_documents(vec![(document, "# B\n".to_string())]);
+        let survey = from_listing(&manifest, &model, std::slice::from_ref(&name), &[], |_| {
+            Outside::Text("text".to_string())
+        });
+        assert_eq!(survey.refused, vec![name]);
     }
 
     #[test]

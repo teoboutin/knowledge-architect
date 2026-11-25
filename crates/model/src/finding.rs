@@ -24,7 +24,9 @@ pub struct Finding {
 }
 
 impl Finding {
-    /// A finding at a one-based line of a file.
+    /// A finding at a one-based line of a file, spelled as [`slashed`] spells it. On Windows a `\` in a
+    /// name that git lists from a commit or an index is lost by it: a caller whose subject is such a
+    /// name sets the field [`Finding::file`] itself.
     pub fn at(
         file: impl AsRef<Path>,
         line: u32,
@@ -39,7 +41,8 @@ impl Finding {
         }
     }
 
-    /// A finding about a file as a whole, with no line to point at.
+    /// A finding about a file as a whole, with no line to point at, its file spelled as
+    /// [`Finding::at`] spells it.
     pub fn in_file(
         file: impl AsRef<Path>,
         what: impl Into<String>,
@@ -108,9 +111,12 @@ impl fmt::Display for Finding {
 /// segments on every system, as git, a reference and a markdown link spell it, so a repair written
 /// on one system resolves on every other.
 ///
-/// It takes a project-relative path. An absolute path, or one the user gave, is printed as the
-/// system writes it, per `design@knowledge-architect@printed-paths-with-slashes`. A name that is not
-/// UTF-8 is decoded with replacement characters. Why it is here is `design@model@path-spelling-home`.
+/// Give it a project-relative path alone. On Windows it rewrites every `\` of the text it is given, so a
+/// caller prints an absolute path, or one the user gave, as the system writes it, per
+/// `design@knowledge-architect@printed-paths-with-slashes`; and so a name that holds `\` as a character,
+/// which git can list there from a commit or an index written on another system, is spelled as another
+/// file's. A name that is not UTF-8 is decoded with replacement characters. Why it is here is
+/// `design@model@path-spelling-home`.
 pub fn slashed(path: &Path) -> String {
     respelled(&path.to_string_lossy(), cfg!(windows))
 }

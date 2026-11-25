@@ -36,6 +36,7 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod agents;
 mod build_origin;
 mod check;
+mod currency;
 #[cfg(test)]
 mod links;
 

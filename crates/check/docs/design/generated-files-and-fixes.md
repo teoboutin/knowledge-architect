@@ -19,7 +19,7 @@ The design this decision did not keep: `rejected@model@index-last-change-date`.
 
 ### A generated or an installed file that differs from its text by line endings alone is current `##generated-text-compared-without-line-endings`
 
-One function, `current` of `path@check@src/agents.rs`, answers at each place that asks whether a file
+One function, `current` of `path@check@src/currency.rs`, answers at each place that asks whether a file
 is current, a generated one or an installed one: the check `generated`, what `check --fix` writes and
 what it refuses over, the line by which `index --staged` names a working copy out of date, and the
 check of the installed files. A command asked to write compares bytes: `index`, per

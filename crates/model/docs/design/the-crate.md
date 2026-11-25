@@ -72,8 +72,8 @@ holds what it reads. The nearest rival is `rejected@model@ignore-batch-in-the-ch
 generated files of an extension spell a path as the checker's do, per
 `goal@projects-add-their-own-checks`, under which a project's checks report with the checker's own.
 
-The nearest rival is one public function of `git`, which each of these crates depends on,
-`rejected@model@path-spelling-in-git`. It loses to
+The nearest rival is one public function of `git`, which `check`, `query` and `create` depend on and
+`xtask` reaches through them, `rejected@model@path-spelling-in-git`. It loses to
 `design@git@an-operation-in-git-s-terms-is-the-library-s`: who calls a function is no ground for a place
 there, and printing a path is no operation on a repository.
 

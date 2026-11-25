@@ -1019,7 +1019,7 @@ pub(super) fn index_staged(
     for rel in super::working_generated(manifest, checker, extensions)
         .unwrap_or_default()
         .into_iter()
-        .filter(|(rel, text)| !super::is_current(&root.join(rel), text))
+        .filter(|(rel, text)| !crate::currency::is_current(&root.join(rel), text))
         .map(|(rel, _)| rel)
     {
         outln!(
