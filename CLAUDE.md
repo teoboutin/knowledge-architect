@@ -135,8 +135,8 @@ cargo test --workspace
 ```
 
 **Which gates you owe depends on what you touched.** Anything that writes a reference or touches a
-register entry owes `cargo klarch check`. Any change to the Rust source owes fmt, clippy, the
-documentation build and the test suite. Every commit owes `commits`: its message and its tree. **Its range, after each commit, is the
+register entry owes `cargo klarch check`. Any change to the Rust source owes fmt, clippy, clippy for
+Windows, the documentation build and the test suite. Every commit owes `commits`: its message and its tree. **Its range, after each commit, is the
 whole branch, `cargo klarch commits origin/main..HEAD`.** The range is the whole branch because this repository refuses citations of its branch's own
 commits by SHA, and `commits` sees a citation only of a commit in the range it judges, per
 `design@check@branch-shas-are-refused`; the checker-side fix is

@@ -14,8 +14,8 @@ read in the code and not run.
 
 ### What
 
-- `init` of `path@create@src/command.rs` asks `symlink_metadata` whether a document stands at its path,
-  which answers yes for another case on such a disk, and the document is kept. The check compares the
+- `init` keeps a document for which `is_file`, in `owed_documents` of `path@create@src/command.rs`, answers
+  yes, as it does for another case on such a disk. The check compares the
   required path with git's listing byte for byte, which holds `Readme.md`.
 - `new_component` of the same file compares `lexical(cwd.join(root))` with `lexical(cwd.join(dir))`. The
   working directory is the resolved one, such as /private/tmp/p on macOS, and an absolute `/tmp/p/svc`

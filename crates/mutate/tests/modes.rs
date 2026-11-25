@@ -458,7 +458,8 @@ fn a_second_run_is_refused_while_a_record_stands() {
     );
 }
 
-// The liveness of a process on Windows is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
+// Left out on Windows, per `design@knowledge-architect@platform-skips`: the liveness of a
+// process there is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
 #[test]
 #[cfg_attr(
     windows,
@@ -1215,7 +1216,8 @@ fn a_patch_run_ignores_the_common_and_object_directories_the_environment_names()
 // directory. The target is named as a file of the record, so the claim is shown to hold it in a
 // directory of its own, and `git apply` is a program that kills the run that started it. That program is
 // a shell script, which Windows does not find as `git`, per
-// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
+// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`, so it is left out there, per
+// `design@knowledge-architect@platform-skips`.
 #[test]
 #[cfg_attr(
     windows,
@@ -1411,7 +1413,7 @@ fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
         (".git/HEAD", "git directory"),
         ("dir", "not a regular file"),
     ];
-    // Windows has no named pipe in a directory.
+    // Windows has no named pipe in a directory, per `design@knowledge-architect@platform-skips`.
     if cfg!(unix) {
         let fifo = Command::new("mkfifo")
             .arg(s.root().join("pipe"))
@@ -1440,7 +1442,8 @@ fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
 
 // The claim: the restore writes through no symlink the command left at the target, dangling or
 // not, and exits 1 with the record standing. The `ln -s` of Git for Windows copies the file instead, per
-// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
+// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`, so it is left out there, per
+// `design@knowledge-architect@platform-skips`.
 #[test]
 #[cfg_attr(
     windows,
@@ -1504,7 +1507,8 @@ fn a_refusal_before_the_write_leaves_no_record() {
     assert_eq!(code, 2, "{out}");
     assert!(!s.record().exists(), "unspawnable baseline: {out}");
 
-    // Windows has no Unix mode bits, so the two modes are for the systems that have them.
+    // Windows has no Unix mode bits, so the two modes are for the systems that have them, per
+    // `design@knowledge-architect@platform-skips`.
     #[cfg(unix)]
     for mode in [0o000, 0o444] {
         use std::os::unix::fs::PermissionsExt;

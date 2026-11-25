@@ -449,9 +449,7 @@ design kept is `design@check@a-frozen-file-is-guarded-by-the-review`.
 
 ### A generated file compared with its text byte for byte, line endings included `##generated-file-compared-by-exact-bytes`
 
-`live`. A listing then cannot drift by a character without being named, and a change of the index's
-shape fails the gate on every committed index at once, which is the cost of an exact comparison. It is
-refuted by a run on Linux: in a project that declares no line endings, a clone made with
+`live`. A drift of line endings alone is then named too. It is refuted by a run on Linux: in a project that declares no line endings, a clone made with
 `git clone -c core.autocrlf=true`, which holds CRLF where the commit holds LF, fails the check at every
 index, with nothing changed. Git for Windows sets
 `core.autocrlf` to `true` by default.

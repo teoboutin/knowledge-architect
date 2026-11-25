@@ -13,7 +13,10 @@ kinds admits, whatever reason or issue stands beside it.
 **Response:** repair the test, and reopen the decision on what holds it: a check that lists each mark
 with its kind, in place of the review alone.
 **Re-entry:** the standing-state axis of a review before a merge, over
-`git grep -nE 'cfg\((unix|not|target_os)|cfg_attr\(windows|^ +windows,$' -- '*.rs'`, whose last part finds a
-`cfg_attr` broken over lines.
+`git grep -nE '(cfg|cfg_attr)!?\(.*(unix|windows|target_os|target_family)|^ +(unix|windows|target_os.*|not\(.*\)),$' -- '*.rs'`,
+which finds every form of such a condition, one broken over lines included, and product code's beside a
+test's.
 **Watches until:** the fifth commit on main, after the one that wrote this entry, that adds or removes such
-a mark, as `git log --oneline -G'cfg\((unix|not|target_os)|cfg_attr\(windows|^ +windows,$' -- '*.rs'` lists them.
+a condition over a test, read among those that
+`git log --oneline -G'(cfg|cfg_attr)!?\(.*(unix|windows|target_os|target_family)' -- '*.rs'` lists: the
+command counts product code's too, and the reader leaves those out.

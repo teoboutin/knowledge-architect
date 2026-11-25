@@ -47,7 +47,7 @@ is compared by its segments. Read in the code, not run.
 ### Why it matters
 
 A path the listing gives is answered for under another name, with no error:
-`design@git@a-path-is-bytes` holds of the listings on Unix only, and every question the checker's tools
+the code departs from `design@git@a-path-is-bytes` in the listings outside Unix, and every question the checker's tools
 ask git goes through these functions, per
 `design@knowledge-architect@checker-asks-git-through-the-crate`. Outside Unix, the bytes of a
 document under such a name reach no check, against `goal@documentation-stays-consistent`.

@@ -18,24 +18,29 @@ The function `process_is_alive` of `path@mutate@src/harness.rs`, called by `owne
 same file, asks `/proc` on Linux and runs `kill -0 <pid>` elsewhere, and reads any failure of the
 program as "gone", as its doc comment says.
 
-Observed on GitHub's hosted runners, on main's code with rough repairs, under which it compiles on
-Windows and names a path to git with slashes, and with every file checked out as committed, by
-`cargo test --locked --workspace --no-fail-fast`:
+Observed on GitHub's hosted runners, over the tests of main at 9f1efd7b and that code with rough repairs,
+under which it compiles on Windows and names a path to git with slashes, and with every file checked out as
+committed, by `cargo test --locked --workspace --no-fail-fast`:
 
-- on macOS and on Windows, three tests fail: `a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run`
-  of `path@mutate@tests/harness.rs`, which writes pid 1 and panics with "pid 1 is always running", and
+- on macOS and on Windows, three tests failed: `a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run`
+  of `path@mutate@tests/harness.rs`, which wrote pid 1 and panicked with "pid 1 is always running", and
   `restore_refuses_while_the_owning_run_is_alive` and `a_record_over_an_unmutated_file_is_cleared_by_restore`
   of `path@mutate@tests/modes.rs`;
-- on Windows, with a Git for Windows `kill` on the search path, the last of the three, which writes
-  pid 0, prints "is still going".
+- on Windows, with a Git for Windows `kill` on the search path, the last of the three, which wrote
+  pid 0, printed "is still going".
 
-Forced on Linux, with the condition on Linux replaced by `false`, the same three fail. The causes
+Forced on Linux, with the condition on Linux replaced by `false`, the same three failed. The causes
 read: `kill -0 1` as a user who is not root fails with a permission error, and `kill -0 0` signals the
 caller's own group, which is alive. On Windows the `kill` of Git for Windows takes an MSYS pid, not the
 Windows pid that `std::process::id` gives (assumption, from the MSYS pid space; not run). No live run's
-pid was asked there: the tests write pid 1, which Windows has not, and pid 0.
+pid was asked there.
 
-Ruled out: nothing else of the three tests' paths differs by system, since each passes on Linux.
+The tests write the pid of a child of their own since, live or ended, and pass on Linux and macOS. Skipped
+on Windows for this entry: `a_record_a_live_process_claimed_reads_as_owned_by_a_live_run` of
+`path@mutate@tests/harness.rs` and `restore_refuses_while_the_owning_run_is_alive` of
+`path@mutate@tests/modes.rs`.
+
+Ruled out: nothing else of the three tests' paths differed by system, since each passed on Linux.
 
 A lead: the file lock that `issue@mutate@a-reused-pid-reads-as-a-live-run` names replaces the pid, on
 the three systems if the lock behaves as it does on Linux, which is not established.
@@ -52,4 +57,4 @@ mutation is to work, its tests included.
 ### What would close it
 
 A liveness check that gives the right answer on Linux, Windows and macOS, by the lock or another
-means, with tests that hold a live owner of the test's own on each.
+means, for another user's process and for pid 0 too, and the two tests above run on Windows.

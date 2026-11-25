@@ -50,7 +50,9 @@ The shapes:
    branch". The line stands in an open divergence from
    `design@check@one-question-one-command`, under which whether a generated file is current is
    `check`'s question: which of the two is the defect no head argues, and
-   `design@check@index-staged-write` does not state the line;
+   `design@check@index-staged-write` does not state the line.
+   `design@check@generated-text-compared-without-line-endings` names the line among the places that ask,
+   so a removal of the line rewrites that head;
 2. `index --staged` also writes the working tree's copy where that copy equals HEAD's, the dispatch
    judgement's proposal; it brings back `rejected@check@index-staged-writes-working-file`, whose
    reason it answers only in part: where an unstaged change undoes the staged one for that

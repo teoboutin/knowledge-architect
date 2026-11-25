@@ -41,12 +41,14 @@ each milestone's `index.md` lists its slices, a live slice ungrouped and a harve
 heading `harvested`, the subdirectory it sits in, titled from its frozen `README.md`, per
 `design@model@a-harvested-slice-is-frozen`.
 
-Which entries a file register's rows list is `design@model@index-rows-from-walked-entries`. How an index
-on disk is compared with this shape is `design@check@generated-text-compared-without-line-endings`.
+Which entries the rows of a file register, and of specs/, list is
+`design@model@index-rows-from-walked-entries`. How an index on disk is compared with this shape is
+`design@check@generated-text-compared-without-line-endings`: a change of the shape fails the check on every
+committed index at once, and a listing cannot drift by a character, line endings apart, without being named.
 
 The design this decision did not keep: `rejected@model@lines-flag-on-interpretation-index`.
 
-### A file register's index takes its rows from the walked entries, not from the instance's declarations `##index-rows-from-walked-entries`
+### The index of a file register, and of specs/, takes its rows from the walked entries, not from the instance's declarations `##index-rows-from-walked-entries`
 
 A group is the subdirectory an entry sits in, so an undeclared group still lists its entries and a
 declared group holding none prints no heading; an entry whose id, title or metadata the shape check refuses is

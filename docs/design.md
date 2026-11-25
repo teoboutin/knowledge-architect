@@ -1041,8 +1041,10 @@ Windows or macOS alone blocks the merge. `goal@every-target-project-can-adopt-it
 project adopt what knowledge-architect provides and move to a version of it when it chooses, and no
 condition of a target project excludes a platform, as
 `design@knowledge-architect@platforms-served` reads the goals. So a state of main that fails on one
-system is one a target project on that system cannot take. The nearest rival, a job on another system that the ruleset does not
-require, as a run on main after the merge is, lets such a state reach main.
+system is one a target project on that system cannot take. The nearest rival, a run on main after the
+merge, lets such a state reach main. A job of the pull request's run that the ruleset does not require is
+guarded by the merge predicate alone, which a session runs, per
+`design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head`.
 
 A job that blocks only while it ends within a fixed time is that rival for a slower job. The jobs run in parallel, so
 a merge waits for the slowest alone, and the suite grows with the project, so a fixed time would come
@@ -1154,7 +1156,7 @@ received. So a record carried by a message alone rides on a commit that changes 
 
 ## 5. How the workspace builds and is tested
 
-### The workspace builds, and its gates run, on Linux, Windows and macOS `##platforms-served`
+### The workspace builds, and its gates run, on each system the owner has asked a job for, beside Linux: Windows and macOS `##platforms-served`
 
 The build of the workspace and the gates of `design@xtask@gates-list-primary-home` run on the three
 systems, and CI blocks a merge on each, per `design@knowledge-architect@blocking-jobs`. Which tests a
@@ -1162,14 +1164,19 @@ system leaves out is `design@knowledge-architect@platform-skips`.
 
 Two goals are read so. `goal@every-target-project-can-adopt-it` has every target project able to adopt
 what knowledge-architect provides, and `goal@serves-one-kind-of-project` lists the conditions of a
-target project: neither excludes a platform, so a target project developed or delivered on Windows is
+target project: neither excludes a platform, so a target project developed or delivered on any is
 served. The rival reading, that a platform is one more thing knowledge-architect may ask of a project,
-finds no such ask in their text. The owner reported a consumer project that the owner wants to start
-building on Windows soon.
+finds no such ask in their text. The reading admits every system alike, and a job runs for one that the
+owner has asked for: the owner reported a consumer project that the owner wants to start building on
+Windows soon, and asked for macOS beside it. A system that a project needs to build on joins by a job of
+its own.
 
-The nearest rival, the gates on Linux alone, lets a crate that does not compile for Windows reach such a
-project: where it takes the shape that `skill@knowledge-architect-setup@rust-project` offers, its
-workspace links the checker, the gates library and the hand mutation, through its maintenance crate.
+The nearest rival, the gates on Linux alone, lets a crate that does not compile for another system reach
+such a project: where it takes the shape that `skill@knowledge-architect-setup@rust-project` offers, its
+workspace links the checker, the gates library and the hand mutation, through its maintenance crate. It
+loses on Windows, where the library that asks git compiled for no project that depends on it. On macOS the
+workspace compiled and five tests failed. Windows and macOS over Windows alone, which no goal ranks: the
+owner's choice.
 
 ### A test is left out on a system only where it covers development workflow on Windows, or a behaviour the system lacks by nature `##platform-skips`
 
@@ -1179,16 +1186,19 @@ or in what it tests.
 
 - **Development workflow** is what a person or an agent does while developing a project, such as the
   hand mutation, the transcript reader, the work list of the record search and a pre-commit hook.
-  Building a project, running its gates and what the gates run are not. A test of it may be left out on
+  Building a project, running its gates and what the gates run are not, but for the refusal of a pipe on
+  stdout, per `design@gates@gates-refuse-a-pipe`: it holds only outside GitHub Actions, where it protects
+  a person or an agent who pipes the output by hand, and a run on Windows outside Actions is a
+  developer's. A test of it may be left out on
   Windows, and only there. The owner reported that development workflow would not happen on Windows yet,
   and that the owner wants it to be followable there later. So what such a test covers is outstanding, and its
   mark names the issue that holds it: `#[cfg_attr(windows, ignore = "...")]`, under which the test still
-  compiles there, with the issue's reference in a comment.
+  compiles there, with the issue's reference, and this head's, in a comment.
 - **A behaviour lacked by nature** is one a system does not have at all. Five kinds are admitted: Unix
   mode bits, a named pipe, and a file name the system refuses, one that is not UTF-8 among them; and,
   on Windows and macOS, the device /dev/full and a working directory that is removed. The test is under
-  `cfg` for the systems that have it, with the reason in a comment and no issue: running it elsewhere
-  brings nothing, and no work could close the issue. Where one test holds several cases, the case
+  `cfg` for the systems that have it, with the reason and this head's reference in a comment, and no issue:
+  running it elsewhere brings nothing, and no work could close the issue. Where one test holds several cases, the case
   lacked is left out alone.
 
 The nearest rival leaves out a test wherever it fails on a system: the job of that system then passes
@@ -1205,10 +1215,11 @@ be a copy in each package of `design@knowledge-architect@symlink-helper-home`, f
 does not hold. The other reading, under which the right is a tool that a machine may lack, is the rival's.
 A Windows machine on which the tests are to run without that right reopens this.
 
-### Each package whose tests make a symbolic link holds its own copy of the helper that makes one `##symlink-helper-home`
+### Each package whose tests make a symbolic link on every system holds its own copy of the helper that makes one `##symlink-helper-home`
 
 `check`, `cli`, `git`, `mutate`, `testing` and `transcript` each hold, in their test code, the functions
-they use of `link_file` and `link_dir`, which make a link on the three systems. The nearest rival is
+they use of `link_file` and `link_dir`, which make a link on the three systems. A link made on Unix alone,
+as that of `path@xtask@tests/gates_bin.rs`, which copies its program elsewhere, needs none. The nearest rival is
 one copy, in a crate that the six depend on for their tests. It has no place to be: no crate depends on
 `testing`, per `design@knowledge-architect@no-crate-depends-on-testing`; making a link is no operation
 on a repository, so it is none of `git`'s, per
@@ -1217,7 +1228,7 @@ owes a Component's documents, for two short functions, against
 `skill@knowledge-architect-component-creation@component-criteria`. The cost is a copy in six packages,
 which a change of one leaves behind in the others.
 
-### Every file of this repository is checked out with LF, and one added with CRLF is committed with LF `##line-endings-of-this-repository`
+### Every text file of this repository is checked out with LF, and one added with CRLF is committed with LF `##line-endings-of-this-repository`
 
 `path@knowledge-architect@.gitattributes` holds `* text=auto eol=lf`. Under `text=auto` git judges by its
 content whether a file is text, and converts the line endings of one that is, unless git already holds it
@@ -1225,7 +1236,9 @@ with CRLF; `eol=lf` gives its working copy LF whatever `core.autocrlf` says, as 
 both. The test of `path@xtask@tests/line_endings.rs` asserts the two directions with that setting true
 and false.
 
-A file of this repository is compared, embedded or parsed as the bytes its commit holds, and Git for
+A file of this repository is compared, embedded or parsed as the bytes its commit holds, but for the
+generated and installed files, of `design@check@generated-text-compared-without-line-endings`, and what the
+build of `agent-skills` reads, of `design@agent-skills@one-shipped-text-from-any-checkout`. Git for
 Windows checks out CRLF by default: in a clone made under `core.autocrlf=true` with that file emptied,
 tests of `model`, `testing` and `xtask` fail, by the script in the message of the commit
 "[knowledge-architect, mutate] The line endings of this repository and of the hand mutation's git, and the link helper's copies, are recorded".
@@ -1549,7 +1562,7 @@ The owner held, of `init`, that removing such a file where the project wrote it 
 the run refuses before it writes. `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 holds the work that reconciles the two.
 
-### A project-relative path is printed with `/` on every system `##printed-paths-with-slashes`
+### The checker's commands and the maintenance tool print a project-relative path with `/` on every system `##printed-paths-with-slashes`
 
 A project-relative path that `model`, `check`, `query`, `create` or `xtask` prints, or writes in a repair
 it suggests, is spelled with `/` on every system the tools run on, per
@@ -1558,8 +1571,8 @@ it suggests, is spelled with `/` on every system the tools run on, per
 or one the user gave, is printed as the system writes it, as the paths of the `--out` directory of
 `worklist` are, and a manifest row or a listed name that the model refuses is printed as it was written.
 `git` spells the paths it prints by a function of its own, per
-`design@git@paths-to-git-with-slashes`. `transcript` and `mutate` are development workflow, as
-`design@knowledge-architect@platform-skips` draws it, and print a path as the system writes it.
+`design@git@paths-to-git-with-slashes`. `transcript` and `mutate` are outside it: what `mutate` prints on
+Windows is outstanding, in `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
 
 A reference and a markdown link are spelled with `/`, and a path that Rust joins holds `\` on Windows. So
 a repair such as `path@<anchor>@<dir>\<file>`, followed there, passes the check there and fails it on

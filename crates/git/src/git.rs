@@ -1284,12 +1284,13 @@ mod tests {
         assert_eq!(nul_paths(b"\0"), Vec::<PathBuf>::new());
     }
 
+    // A path on Windows is text, per `design@knowledge-architect@platform-skips`.
+    #[cfg(unix)]
     #[test]
     fn a_name_that_is_not_utf_eight_is_carried_as_bytes() {
         // A filename holding a byte no UTF-8 decoding accepts is legal here and git reports it
         // verbatim under `-z`. Decoded lossily it becomes a path nothing on disk answers to,
-        // and the file leaves every check while the run stays green. A path on Windows is text.
-        #[cfg(unix)]
+        // and the file leaves every check while the run stays green.
         {
             use std::os::unix::ffi::OsStrExt;
             let found = nul_paths(b"notes/re\xffadme.txt\0plain.md\0");
@@ -1543,7 +1544,7 @@ mod tests {
     /// Under a newline-terminated batch input such a name is two requests, git answers both,
     /// and each answer after it is paired with the wrong path. The map still comes back full,
     /// so nothing downstream reports it: the model is simply built out of the wrong bytes. Windows
-    /// refuses the name.
+    /// refuses the name, per `design@knowledge-architect@platform-skips`.
     #[cfg(unix)]
     #[test]
     fn a_newline_in_a_tracked_name_does_not_shift_the_answers_after_it() {

@@ -965,7 +965,7 @@ fn a_failure_after_the_first_write_exits_one() {
     assert!(!scratch.path("a/knowledge-architect.toml").exists());
 
     // Windows has no Unix mode bits, so the cases that take the write bit from a directory are for
-    // the systems that have them.
+    // the systems that have them, per `design@knowledge-architect@platform-skips`.
     #[cfg(unix)]
     {
         use std::os::unix::fs::PermissionsExt;
@@ -1072,7 +1072,7 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     scratch.write("a6/docs/open-issues/index.md", "# Our own table\n");
     refused(&["init", "a6"], "a6");
 
-    // Windows has no named pipe in a directory.
+    // Windows has no named pipe in a directory, per `design@knowledge-architect@platform-skips`.
     #[cfg(unix)]
     {
         std::fs::create_dir_all(scratch.path("a8")).unwrap();
@@ -1192,7 +1192,7 @@ fn new_component_keeps_the_manifest_whole() {
 
 /// The claim: a stdout that cannot be written ends `init` with 2, as every command, only once
 /// every document is written, so `check --fix` completes the project; and `new-component` the
-/// same. Linux alone has the device /dev/full.
+/// same. Linux alone has the device /dev/full, per `design@knowledge-architect@platform-skips`.
 #[cfg(target_os = "linux")]
 #[test]
 fn a_closed_stdout_leaves_every_document_written() {

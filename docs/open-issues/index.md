@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-27 entries
+28 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | design | [The head on how work reaches main bundles statements that each lose to a rival of their own, with no argument](the-git-flow-head-bundles-unargued-statements.md) |
 | design | [No head argues the rule that every tool of knowledge-architect is a command of one program](the-rule-of-one-program-for-the-tools-is-argued-by-no-head.md) |
 | observation | [On Windows a working directory spelled another way may rebuild the crates tied to their checkout, and on macOS `cargo run` copies a binary while another runs](a-cargo-run-rebuilds-or-replaces-a-binary-by-the-system.md) |
+| observation | [Whether a test's scratch directory is removed on Windows is not established](a-directory-a-test-holds-may-stay-on-windows.md) |
 | question | [A conflict in a generated file, met when commits are replayed, is resolved by hand](a-conflict-in-a-generated-file-is-resolved-by-hand.md) |
 | question | [Does a command find each test's recorded mutation whose quoted code has left the source?](no-command-finds-a-recorded-mutation-whose-code-left-the-source.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |

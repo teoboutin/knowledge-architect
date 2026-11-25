@@ -45,8 +45,8 @@ branch merged.
 
 A third instance: `spec@plans@gates-on-windows-and-macos`, whose step 8 brings to the rules, before its
 harvest writes into them, the heads that the design-record audit found to fail, and splits two bundles. It
-lists the heads its harvest touches by the definition and reads the step's heads by its reason, so every head
-whose text the step changes is one its harvest rewrites or touches. The spec's search met the
+lists the heads its harvest touches by the definition and reads the step's heads by its reason. The text of
+one, `design@xtask@ci-builds-the-tip-alone`, the step alone changed. The spec's search met the
 re-entry point, and the entry stays open.
 
 The suspected mechanism, in one sentence: the definition names the harvest, while a project whose

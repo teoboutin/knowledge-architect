@@ -69,7 +69,7 @@ struct Row {
 /// `design@check@generated-text-compared-without-line-endings`.
 ///
 /// The shape is a contract, not a rendering choice: `design@model@a-file-register-index-is-rows`
-/// states it, and a generator that disagreed with the committed bytes would fail the gate on
+/// states it, and a generator that disagreed with the committed text would fail the gate on
 /// every entry edit.
 ///
 /// **The rows come from the walked entries, not from the instance's declarations**, per

@@ -431,7 +431,8 @@ fn a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run() {
     );
 }
 
-// The liveness of a process on Windows is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
+// Left out on Windows, per `design@knowledge-architect@platform-skips`: the liveness of a
+// process there is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
 #[test]
 #[cfg_attr(
     windows,
