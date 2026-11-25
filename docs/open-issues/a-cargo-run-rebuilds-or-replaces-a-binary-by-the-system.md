@@ -7,8 +7,8 @@ kind: observation
 
 Two behaviours of cargo were read and not run: the value that ties a build to its checkout follows how the
 working directory is spelled, so on Windows two spellings of one directory may rebuild the crates at each
-change of spelling; and on macOS cargo copies a built binary into place rather than linking it, so a parallel
-`cargo klarch` can meet a moment with no binary.
+change of spelling; and on macOS cargo copies a built binary into place at each run, a fresh one included, so a
+parallel `cargo klarch` can meet a moment with no binary.
 
 ## Details
 
@@ -19,12 +19,15 @@ change of spelling; and on macOS cargo copies a built binary into place rather t
   `design@knowledge-architect@a-build-is-tied-to-its-checkout`. On Windows one directory can be reached as
   `C:\x` and `c:\x`, or through a short file name, and each target that reads the variable then rebuilds.
   Not run; whether cargo normalises the spelling is not established.
-- On macOS cargo is taken to copy the executable at each uplift, where Linux hard-links it, so that a second
-  `cargo run` started meanwhile can find the file absent or partly written. Read in a discussion of cargo's
-  behaviour, not in its source, and not run.
+- On macOS cargo copies the executable at each uplift, where Linux hard-links it, since its `_link_or_copy`
+  takes `fs::copy` there, and `link_targets`, which calls it, runs on a fresh unit as on a rebuilt one. The copy
+  is no hard link of its source, so the check that skips a link already in place does not hold, and the destination
+  is removed first, then copied: a second `cargo run` started meanwhile can find the file absent or partly
+  written, with no change to the source. Read in cargo's source at commit 797e8a9bc, the pinned 1.98.0's,
+  in the copies an agent of this work fetched, and not run.
 
 What would make each reproduce: on Windows, `cargo klarch check` run alternately from the two spellings, with
-the rebuilds counted; on macOS, a loop of parallel `cargo klarch` calls after a change.
+the rebuilds counted; on macOS, a loop of parallel `cargo klarch` calls.
 
 ### Why it matters
 

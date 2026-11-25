@@ -1,7 +1,7 @@
 //! The last phase: the installed agent configuration against what this version ships.
 //!
 //! Under the `claude` harness, each shipped file must be present at its install path with the
-//! bytes of its template rendered for the project; no file of the installer's namespace may be
+//! text of its template rendered for the project, line endings apart; no file of the installer's namespace may be
 //! one this version does not ship; and the root CLAUDE.md's first line must import the primer when
 //! the primer is shipped. The decisions are `design@check@installed-files-compared-by-bytes`,
 //! `design@check@primer-import-line`, `design@check@import-on-first-line` and `design@check@agents-table`. The repair of a missing, differing or unshipped file is the

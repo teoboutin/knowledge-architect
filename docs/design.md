@@ -1193,10 +1193,11 @@ or in what it tests.
   mark names the issue that holds it: `#[cfg_attr(windows, ignore = "...")]`, under which the test still
   compiles there, with the issue's reference, and this head's, in a comment.
 - **A behaviour lacked by nature** is one a system does not have at all. Five kinds are admitted: Unix
-  mode bits, a named pipe, and a file name the system refuses, one that is not UTF-8 among them; and,
+  mode bits, a named pipe, and a file name the system refuses; and,
   on Windows and macOS, the device /dev/full and a working directory that is removed. The test is under
   `cfg` for the systems that have it, with the reason and this head's reference in a comment, and no issue:
-  running it elsewhere brings nothing, and no work could close the issue. Where one test holds several cases, the case
+  running it elsewhere brings nothing, and no work could close the issue. A mark over which the product
+  holds an open defect on that system names its issue too. Where one test holds several cases, the case
   lacked is left out alone.
 
 The nearest rival leaves out a test wherever it fails on a system: the job of that system then passes

@@ -59,7 +59,8 @@ entry to 40, and `path@xtask@tests/line_endings.rs` did too and passed. Both dro
 `GIT_WORK_TREE` now, as do the helpers of `path@testing@tests/extension_api.rs`, `path@xtask@tests/gates_bin.rs` and
 `path@xtask@tests/mutate_bin.rs`. Under the first two variables the test of extension_refusals.rs still fails, since it
 runs the checker in process, which keeps `GIT_INDEX_FILE` as `design@git@index-file-variable-kept` asks, and
-leaves that index as it was. `git` of `path@cli@tests/init.rs`, and `Sandbox` and `linked_worktree` of
+leaves that index as it was. `path@testing@tests/extension_api.rs` fails 10 of its 14 tests under the three together,
+for the same reason, and leaves the index as it was. `git` of `path@cli@tests/init.rs`, and `Sandbox` and `linked_worktree` of
 `path@mutate@tests/modes.rs`, drop none; read, not run.
 
 ### Why it matters
