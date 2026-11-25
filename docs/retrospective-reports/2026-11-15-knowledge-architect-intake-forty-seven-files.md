@@ -125,7 +125,7 @@ addition missed.
   `skill@knowledge-architect-decision-recording`.
 - **h. The proposal.** Add the four misses to the issue's "What bears on it", replacing "One
   instance;" since the count changes, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, and leave the sentence where it
+  the intake's draft instances-B (not committed; its text is in the issue), and leave the sentence where it
   is until the issue's discussion places it. The owner can instead take that discussion now: the
   question the search put, reading 1 (instances, the sentence in place) against reading 2 (the
   discussion now). No text for the forty-seven-file P1, a lapse met once.
