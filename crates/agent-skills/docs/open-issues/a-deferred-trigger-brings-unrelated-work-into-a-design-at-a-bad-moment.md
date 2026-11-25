@@ -61,6 +61,18 @@ took the first and closed the thread with no search of its own, against
 argument and the re-entry was rewritten so that a change of a host list no longer meets it, per W4
 of the retrospective file `2026-11-14-knowledge-architect-planned-splits-slice-klarch-workflow`.
 
+A further instance, on the bounded path: W1 of
+2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow. The search graded an issue
+`trigger-met`, `rule-before-work`, with an owner-question, to take a wider discussion now or leave
+it. The design skill's action says "ruled before the work is designed further or built", while the
+bounded path's one message builds its default and `primer@question-authority` builds a default put
+to the owner and waits for the ruling before the merge; the session ruled the question itself,
+built, and put it as contestable, and the owner answered after the build, before the merge. Two
+reviewers could not tell from the record whether it was answered. The intake that received the
+file reworded the action to name the authority `primer@question-authority` gives each question,
+which says what waits; whether a met trigger is ruled before the work at all stays this entry's
+question.
+
 `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review` asks the opposite question,
 whether more reviews should read a re-entry point against a change; a decision on either entry
 bears on the other.

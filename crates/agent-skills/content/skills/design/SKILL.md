@@ -573,7 +573,9 @@ choices whose option space genuinely is closed and consequence-free.
      the work's commit closes it, per
      `skill@knowledge-architect-issue-tracking`;
    - `rule-before-work`: ruled before the work is designed further or
-     built: a firing by
+     built, by the authority `primer@question-authority` names, which
+     also says what of the work waits for a question it gives the
+     owner: a firing by
      `skill@knowledge-architect-issue-tracking@movement-instruction`, and
      a dependency, a trigger or a re-entry point in this discussion.
 
