@@ -257,11 +257,12 @@ an empty subsection is omitted.
   session ranked". A plan document's items and a commit message still attribute the owner's
   rulings and arguments.
 - `agent-skills`, patch: at a retrospective intake, agents may establish any of the items a to h of a
-  finding, its kind, its scope, a better fix, its route and the proposal included, where only a to c
-  could be dispatched, the work divided as the primer says of any dispatched work, and the session's
-  re-check of every verdict a proposal rests on is the independent verification the primer asks of a
-  returned conclusion, which an agent may make too. The session still decides each outcome and reads
-  the goals home itself.
+  finding, its kind, its scope, a better fix, its route and the proposal included, the work divided as
+  the primer says of any dispatched work, where only a to c could be dispatched and the session
+  re-checked every verdict a proposal rests on. Each agent loads the intake skill whole, with each
+  skill of the project that adds to it. An agent's verdict gets the independent verification the
+  primer asks of a returned conclusion, by the session or by another agent. The session still decides
+  each outcome, and reads itself the goal each finding serves or threatens.
 
 ## 0.10.0
 
