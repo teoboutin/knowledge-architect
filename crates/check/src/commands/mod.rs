@@ -996,6 +996,7 @@ fn counts(report: &Report, tree: Option<&str>) -> String {
 #[cfg(test)]
 mod tests {
     use super::{is_a_library_fixture, is_its_own_build, refuse_another_version_built_at};
+    use crate::links::{link_dir, link_file};
 
     /// The claim: a path one list holds and the other does not differs, as two lists' different
     /// bytes for one path do, and each path is named once, sorted.
@@ -1146,10 +1147,10 @@ mod tests {
         let own = scratch.dir("tree/crates/check");
         let mock = scratch.dir("tree/crates/check/tests/projects/m");
         let link = scratch.path("link-to-mock");
-        std::os::unix::fs::symlink(&mock, &link).expect("a symlink");
+        link_dir(&mock, &link);
         assert!(is_a_library_fixture(&link, &own, &[]));
         let own_link = scratch.path("link-to-check");
-        std::os::unix::fs::symlink(&own, &own_link).expect("a symlink");
+        link_dir(&own, &own_link);
         let registry = scratch.dir("registry/knowledge-architect-0.2.0");
         assert!(is_a_library_fixture(&mock, &own_link, &[]));
         assert!(is_a_library_fixture(
@@ -1158,7 +1159,7 @@ mod tests {
             &[own_link.as_path()]
         ));
         let tree_link = scratch.path("link-to-tree");
-        std::os::unix::fs::symlink(&tree, &tree_link).expect("a symlink");
+        link_dir(&tree, &tree_link);
         assert!(is_its_own_build(&tree, &own_link, &always));
         assert!(is_its_own_build(&tree_link, &own, &always));
     }
@@ -1260,7 +1261,6 @@ mod tests {
     /// moving the file, and one that is a symlink names removing the symlink; each repair is the
     /// one of its arm. Mutations checked: the symlink's repair cut to "run again: the run writes a
     /// regular file in its place", and the directory's arm given the symlink's repair, each fail.
-    #[cfg(unix)]
     #[test]
     fn a_refused_destination_names_the_repair_of_its_cause() {
         let scratch = Scratch::new("destinations");
@@ -1281,7 +1281,7 @@ mod tests {
         );
 
         std::fs::write(tree.join("target.md"), "kept\n").expect("a file");
-        std::os::unix::fs::symlink("target.md", tree.join("listing.md")).expect("a symlink");
+        link_file("target.md", tree.join("listing.md"));
         let (what, repair) = super::check_destinations(&manifest, &[file("listing.md")])
             .expect_err("a symlink is refused");
         assert!(

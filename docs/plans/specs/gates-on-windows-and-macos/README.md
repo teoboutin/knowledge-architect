@@ -615,7 +615,7 @@ since a link to a target that does not exist has no kind to read, copied in the 
 package that uses it: `check`, `cli`, `git`, `mutate`, `testing`, `transcript`. Where a package's uses
 are in its library, the copy is in one `cfg(test)` module; in `transcript` it is inside the test module
 of `reader.rs`, which `xtask` compiles by path; where they are in integration tests, it is one file,
-`planned@testing@tests/links/mod.rs` in `testing` and the same file in `cli` and `mutate`. It fails where the machine refuses links; nothing is skipped. A relative target
+`path@testing@tests/links/mod.rs` in `testing` and the same file in `cli` and `mutate`. It fails where the machine refuses links; nothing is skipped. A relative target
 is written with `\` on Windows. Argument: no crate may depend on `testing`, making a link is no
 operation in git's terms, `mutate` depends on no crate of the workspace, and a crate for it would take
 no decision and owe a Component's documents for two short functions. Nearest rival: a skip where links

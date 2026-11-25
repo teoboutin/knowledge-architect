@@ -114,6 +114,8 @@ an empty subsection is omitted.
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
   `knowledge-architect-model`.
+- `library`, minor: every published crate compiles for Windows, where `knowledge-architect-git`, and
+  each crate that depends on it, did not.
 
 ### Workflow
 

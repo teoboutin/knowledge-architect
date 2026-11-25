@@ -11,6 +11,8 @@
 //! staged, an ignore rule is what takes one out, and a deletion has to be staged or the path
 //! stays in the listing with no bytes behind it.
 
+mod links;
+
 use std::path::{Path, PathBuf};
 
 use km::document::Observation;
@@ -591,20 +593,20 @@ mod unsound {
 }
 
 mod checker {
+    use super::links::link_dir;
     use super::*;
 
     /// The root is canonicalised before the prefix test, so a checkout reached through a
     /// symlink still finds the checker's directory inside it. Without the canonicalisation
     /// the joined path starts with the link and the real directory starts with its target,
     /// and nothing is exempt.
-    #[cfg(unix)]
     #[test]
     fn a_symlinked_root_still_finds_the_checker_directory_inside_it() {
         let real = mock("planted").root().to_path_buf();
         let scratch =
             tempfile::TempDir::with_prefix("klarch-symlinked-root-").expect("a scratch directory");
         let link = scratch.path().join("link");
-        std::os::unix::fs::symlink(&real, &link).expect("a symlink to the mock project");
+        link_dir(&real, &link);
         let manifest = Manifest::load(&link).expect("the manifest through the symlink");
         let model = Model::build(&manifest, &[real.join("code").as_path()]).expect("a model");
         assert!(model.checker_files() >= 1, "{:?}", model.checker_sources());

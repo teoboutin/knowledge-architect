@@ -8,6 +8,7 @@
 //! listing asks for `-z` output, so the paths it returns are relative to that directory and hold
 //! no escaping, per `design@git@a-path-is-bytes`.
 
+use std::borrow::Cow;
 use std::collections::{BTreeMap, HashSet};
 use std::ffi::{OsStr, OsString};
 use std::io;
@@ -279,7 +280,7 @@ fn nul_separated(bytes: &[u8]) -> Vec<&[u8]> {
 /// The same, read as project-relative paths.
 ///
 /// **A path is bytes, not text**, per `design@git@a-path-is-bytes`. A filename holding a byte
-/// sequence that is not UTF-8 is legal on this platform and git reports it as it is under `-z`; decoding it lossily would
+/// sequence that is not UTF-8 is legal on Unix and git reports it as it is under `-z`; decoding it lossily would
 /// substitute a replacement character and produce a path nothing on disk answers to. The file
 /// would then read as unreadable — or, where nothing reports that, leave every check while the
 /// run stayed green, which is the failure `design@model@git-supplies-the-walk` exists against.
@@ -293,8 +294,10 @@ fn as_path(bytes: &[u8]) -> PathBuf {
     PathBuf::from(OsStr::from_bytes(bytes))
 }
 
-/// Everywhere else the platform has no bytes-to-path conversion, and a name it cannot spell is
-/// a name git could not have produced there.
+/// Everywhere else a path is text, so a listed name is decoded as UTF-8. A name that is not UTF-8,
+/// which an index can hold where the name was committed on Unix, is lost: it holds a replacement
+/// character, and git answers no bytes for it, as
+/// `issue@git@paths-are-decoded-outside-the-listings` says.
 #[cfg(not(unix))]
 fn as_path(bytes: &[u8]) -> PathBuf {
     PathBuf::from(String::from_utf8_lossy(bytes).into_owned())
@@ -427,7 +430,7 @@ pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// Asking by the claim rather than by what is on disk is what makes the answer identical on a
 /// fresh clone and a built tree.
 pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
-    let mut out = target.to_string_lossy().into_owned();
+    let mut out = named(target);
     if claims_dir && !out.ends_with('/') {
         out.push('/');
     }
@@ -809,14 +812,14 @@ fn overlay(listing: &mut BTreeMap<PathBuf, SnapshotEntry>, raw: &[u8]) -> io::Re
             "U" => {
                 return Err(io::Error::other(format!(
                     "the index holds an unmerged path: {}",
-                    rel.display()
+                    named(&rel)
                 )))
             }
             other => {
                 return Err(io::Error::other(format!(
                     "`git diff --cached --raw` reported a change of kind `{other}` at {}, \
                      which this tool does not read",
-                    rel.display()
+                    named(&rel)
                 )))
             }
         }
@@ -940,7 +943,7 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
                 "{} is a directory in the index, and staging a file there would replace its \
                  entries: move the entries under it to another path, or remove them from the \
                  index with `git rm -r --cached`",
-                rel.display()
+                named(rel)
             )));
         }
         if let Some(mode) = modes
@@ -950,7 +953,7 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
             return Err(io::Error::other(format!(
                 "{} is staged as a symlink or a gitlink, mode {mode}, and a generated file's text \
                  would be put under it: remove that entry from the index with `git rm --cached`",
-                rel.display()
+                named(rel)
             )));
         }
     }
@@ -964,7 +967,7 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
         let mode = modes.get(rel).map(String::as_str).unwrap_or("100644");
         info.extend_from_slice(format!("{mode} {oid}\t").as_bytes());
         info.extend_from_slice(&prefix);
-        info.extend_from_slice(path_bytes(rel).as_ref());
+        info.extend_from_slice(&path_bytes(rel));
         info.push(0);
     }
     // `--index-info` writes each entry with no flags, so an entry a sparse checkout marked
@@ -1003,8 +1006,8 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
 /// the index's stage-0 blob the same way.
 pub fn object_name(source: Source, rel: &Path) -> String {
     match source {
-        Source::Commit(sha) => format!("{sha}:./{}", rel.display()),
-        Source::Index => format!(":./{}", rel.display()),
+        Source::Commit(sha) => format!("{sha}:./{}", named(rel)),
+        Source::Index => format!(":./{}", named(rel)),
     }
 }
 
@@ -1090,7 +1093,7 @@ pub fn blob_bytes(
     let prefix = object_name(source, Path::new(""));
     for rel in paths {
         stdin.extend_from_slice(prefix.as_bytes());
-        stdin.extend_from_slice(path_bytes(rel));
+        stdin.extend_from_slice(&path_bytes(rel));
         stdin.push(0);
     }
     // **`-z`, so a request is NUL-terminated.** A tracked filename may hold a newline; under
@@ -1128,7 +1131,7 @@ fn read_batch(raw: &[u8], prefix: &[u8], paths: &[PathBuf]) -> BTreeMap<PathBuf,
         // `-Z`, which ends every answer with a NUL as well, would remove the hazard, but it
         // needs git 2.42, above the floor `design@git@git-floor-for-commit-trees` sets.
         if let Some(rel) = wanted.peek() {
-            let miss = [prefix, path_bytes(rel), b" missing\n"].concat();
+            let miss = [prefix, &path_bytes(rel)[..], b" missing\n"].concat();
             if raw[at..].starts_with(&miss) {
                 at += miss.len();
                 wanted.next();
@@ -1174,19 +1177,66 @@ pub fn commit_message(root: &Path, sha: &str) -> io::Result<String> {
 
 /// A path as the bytes git wrote, so a name no UTF-8 decoding accepts survives the round trip.
 #[cfg(unix)]
-fn path_bytes(path: &Path) -> &[u8] {
+fn path_bytes(path: &Path) -> Cow<'_, [u8]> {
     use std::os::unix::ffi::OsStrExt;
-    path.as_os_str().as_bytes()
+    Cow::Borrowed(path.as_os_str().as_bytes())
 }
 
+/// Everywhere else a path is text, spelled as git spells it.
 #[cfg(not(unix))]
-fn path_bytes(path: &Path) -> Vec<u8> {
-    path.to_string_lossy().into_owned().into_bytes()
+fn path_bytes(path: &Path) -> Cow<'_, [u8]> {
+    Cow::Owned(named(path).into_bytes())
+}
+
+/// A project-relative path as git spells it, decoded where it is not UTF-8.
+fn named(path: &Path) -> String {
+    named_to_git(&path.to_string_lossy(), cfg!(windows))
+}
+
+/// A path's text as git spells it, on the system `windows` says. Git separates with `/` everywhere,
+/// and refuses a `\` from `update-index --index-info` on Windows, where no name holds one. On the
+/// other systems `\` is a character of a name, and the text stays byte for byte.
+fn named_to_git(text: &str, windows: bool) -> String {
+    if windows {
+        text.replace('\\', "/")
+    } else {
+        text.to_owned()
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: a path is named to git with `/` on Windows, whichever separator it was built with,
+    /// and byte for byte on every other system, where `\` is a character of a name. Mutation checked:
+    /// the replacement removed; caught.
+    #[test]
+    fn a_path_is_named_to_git_with_slashes_on_windows_and_as_it_is_elsewhere() {
+        let mixed = r"docs\design/a b\é.md";
+        assert_eq!(named_to_git(mixed, true), "docs/design/a b/é.md");
+        assert_eq!(named_to_git(mixed, false), mixed);
+        assert_eq!(named_to_git("docs/a.md", true), "docs/a.md");
+        assert_eq!(named_to_git("", true), "");
+    }
+
+    // A copy of the helper each package whose tests make a link holds, since no crate depends on
+    // `testing`, per `design@knowledge-architect@no-crate-depends-on-testing`.
+    /// Makes `link` a symbolic link to `target`, a file or nothing yet. A relative target is written with
+    /// the system's separator, since Windows follows no link whose relative target holds `/`.
+    ///
+    /// # Panics
+    ///
+    /// Where the machine refuses the link.
+    #[track_caller]
+    fn link_file(target: impl AsRef<Path>, link: impl AsRef<Path>) {
+        let target: PathBuf = target.as_ref().components().collect();
+        #[cfg(unix)]
+        let made = std::os::unix::fs::symlink(target, link);
+        #[cfg(windows)]
+        let made = std::os::windows::fs::symlink_file(target, link);
+        made.expect("a symbolic link");
+    }
 
     #[test]
     fn a_nul_list_drops_the_trailing_separator_and_keeps_every_name() {
@@ -1709,7 +1759,7 @@ mod tests {
         let scratch = scratch_repository("stage-refused");
         let repo = scratch.path();
         write(repo, "dir/index.md/inner.md", "# Inner\n");
-        std::os::unix::fs::symlink("target.md", repo.join("link.md")).expect("a symlink");
+        link_file("target.md", repo.join("link.md"));
         git(repo).args(["add", "-A"]).output().expect("staged");
         let before = git(repo)
             .args(["ls-files", "-s"])

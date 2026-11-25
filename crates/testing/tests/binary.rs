@@ -5,6 +5,9 @@
 //! one, since `"fixture"` is refused here: `klarch` links nothing of this crate, per
 //! `design@check@checked-sentinel-values`.
 
+mod links;
+
+use links::{link_dir, link_file};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::sync::OnceLock;
@@ -780,7 +783,7 @@ fn a_definition_site_defect_stops_the_run_at_phase_three() {
 #[test]
 fn a_symlink_is_a_phase_two_finding_in_both_readers_and_a_skip_row_keeps_it() {
     let sandbox = Sandbox::new("symlink", "minimal");
-    std::os::unix::fs::symlink("a.md", sandbox.path("notes/link.md")).expect("a symlink");
+    link_file("a.md", sandbox.path("notes/link.md"));
     sandbox.stage();
     let (stdout, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{stdout}{stderr}");
@@ -790,7 +793,7 @@ fn a_symlink_is_a_phase_two_finding_in_both_readers_and_a_skip_row_keeps_it() {
     );
     // Untracked, the same: the kind is read off the working tree where the index has none.
     let untracked = Sandbox::new("symlink-untracked", "minimal");
-    std::os::unix::fs::symlink("a.md", untracked.path("notes/link.md")).expect("a symlink");
+    link_file("a.md", untracked.path("notes/link.md"));
     let (stdout, _, code) = untracked.run(&["check"]);
     assert_eq!(code, 1, "{stdout}");
     assert!(stdout.contains("`notes/link.md` is a symlink"), "{stdout}");
@@ -819,7 +822,7 @@ fn a_symlink_at_a_generated_path_is_told_to_make_way_for_the_generated_file() {
     commit_all(&sandbox, "the base");
     let index = sandbox.path("docs/open-issues/index.md");
     std::fs::remove_file(&index).expect("the index removed");
-    std::os::unix::fs::symlink("README.md", &index).expect("a symlink");
+    link_file("README.md", &index);
     sandbox.stage();
     for args in [&["check"][..], &["check", "--staged"][..]] {
         let (out, _, code) = sandbox.run(args);
@@ -900,7 +903,7 @@ fn a_committed_symlink_is_one_phase_two_finding_in_commits() {
     let history = History::new("commit-symlink");
     tiny_project(&history, false);
     let base = history.commit("The project is created\n");
-    std::os::unix::fs::symlink("design.md", history.dir.join("docs/link.md")).expect("a symlink");
+    link_file("design.md", history.dir.join("docs/link.md"));
     let sha = history.commit("A symlink is added\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 1, "{stdout}{stderr}");
@@ -1577,7 +1580,7 @@ fn an_unreadable_file_outside_the_walk_is_a_phase_two_finding_naming_it() {
     let sandbox = Sandbox::seeded("unreadable-outside", "minimal", &[("notes/old.txt", "x\n")]);
     let path = sandbox.path("notes/old.txt");
     std::fs::remove_file(&path).expect("the file");
-    std::os::unix::fs::symlink("old.txt", &path).expect("a symlink to itself");
+    link_file("old.txt", &path);
     assert!(
         std::fs::read(&path).is_err(),
         "the loop must fail every read, or this test asserts nothing"
@@ -1637,7 +1640,7 @@ fn a_missing_file_and_a_nested_repository_outside_the_walk_are_named_for_what_th
 #[test]
 fn a_symlink_with_a_refused_name_is_one_finding() {
     let sandbox = Sandbox::new("symlink-refused", "minimal");
-    std::os::unix::fs::symlink("README.md", sandbox.path("a:b")).expect("a symlink");
+    link_file("README.md", sandbox.path("a:b"));
     sandbox.stage();
     let (out, stderr, code) = sandbox.run(&["check"]);
     assert_eq!(code, 1, "{out}{stderr}");
@@ -2513,14 +2516,13 @@ fn a_message_s_ignored_spans_are_judged_in_each_tree_with_its_own_anchors() {
 /// The claim: a message's span that git refuses to be asked about, one beyond a symbolic link,
 /// fails its commit alone, naming git's reason, and the run judges the range rather than stopping.
 /// Mutation checked: the refusal propagated with `?` again exits 2 with no commit judged.
-#[cfg(unix)]
 #[test]
 fn a_message_span_git_refuses_to_ask_about_fails_its_commit_alone() {
     let history = History::new("commit-message-beyond-link");
     tiny_project(&history, false);
     let base = history.commit("The project is created\n");
     history.commit("A subject line\n\nIt is not `path@tiny@link/design.md`.\n");
-    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    link_dir("docs", history.dir.join("link"));
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(stdout.contains("1 commit, 0 passed, 1 failed"), "{stdout}");
@@ -2536,7 +2538,6 @@ fn a_message_span_git_refuses_to_ask_about_fails_its_commit_alone() {
 /// directory, so the span resolves; the working tree then holds that directory as a symbolic
 /// link, which git refuses to be asked through. The repair names the case of a correct span
 /// first, since the span is correct here.
-#[cfg(unix)]
 #[test]
 fn a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong() {
     let history = History::new("commit-message-refused-alone");
@@ -2545,7 +2546,7 @@ fn a_refused_message_ignore_batch_fails_a_commit_that_has_nothing_else_wrong() {
     history.write("link/data.txt", "data\n");
     let sha = history.commit("A subject line\n\nIt adds `path@tiny@link/data.txt`.\n");
     std::fs::remove_dir_all(history.dir.join("link")).expect("the directory");
-    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    link_dir("docs", history.dir.join("link"));
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
     assert_eq!(code, 1, "{stdout}{stderr}");
     assert!(stdout.contains("1 commit, 0 passed, 1 failed"), "{stdout}");
@@ -2577,7 +2578,6 @@ const CORRECT_SPAN_REPAIR: &str = "where a tree the span is judged in holds the 
 /// tree and the tip passes `check`; the finding's repair names that case as a correct span, which
 /// no reword of the message repairs. Mutation checked: `IGNORE_REPAIR` given its former text,
 /// which named a reword of the span for a path beyond a symbolic link, fails the repair's assertion.
-#[cfg(unix)]
 #[test]
 fn a_span_correct_in_its_commit_and_refused_through_the_tip_s_link_names_no_reword() {
     let history = History::new("commit-message-tip-link");
@@ -2586,7 +2586,7 @@ fn a_span_correct_in_its_commit_and_refused_through_the_tip_s_link_names_no_rewo
     history.write("link/data.txt", "data\n");
     let added = history.commit("A file is added\n\nIt adds `path@tiny@link/data.txt`.\n");
     std::fs::remove_dir_all(history.dir.join("link")).expect("the directory");
-    std::os::unix::fs::symlink("docs", history.dir.join("link")).expect("a symbolic link");
+    link_dir("docs", history.dir.join("link"));
     let manifest = history.dir.join("knowledge-architect.toml");
     let text = std::fs::read_to_string(&manifest).expect("the manifest");
     std::fs::write(
@@ -2733,7 +2733,7 @@ fn a_bare_path_through_a_tracked_symlink_is_a_finding_and_not_an_error() {
         text.replace("skip-files = []", "skip-files = [\"lnk\"]"),
     )
     .expect("the manifest is rewritten");
-    std::os::unix::fs::symlink("docs", history.dir.join("lnk")).expect("a symlink");
+    link_dir("docs", history.dir.join("lnk"));
     let base = history.commit("The project is created\n");
     history.commit("A subject line\n\nIt reads `lnk/design.md`.\n");
     let (stdout, stderr, code) = history.run(&["commits", &format!("{base}..HEAD")]);
@@ -4283,7 +4283,7 @@ fn check_fix_refuses_a_symlinked_destination_and_writes_nothing() {
     let outside = sandbox.outside("outside.md");
     std::fs::write(&outside, "outside the project\n").expect("a file outside the project");
     std::fs::remove_file(sandbox.path(FIX_INDEX)).expect("the index is removed");
-    std::os::unix::fs::symlink(&outside, sandbox.path(FIX_INDEX)).expect("a symlinked index");
+    link_file(&outside, sandbox.path(FIX_INDEX));
     let manifest =
         std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
     sandbox.write(
@@ -4873,8 +4873,16 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         format!("#!/bin/sh\nexec '{}' check --staged\n", klarch().display()),
     )
     .expect("the hook");
-    use std::os::unix::fs::PermissionsExt;
-    std::fs::set_permissions(&hook, std::fs::Permissions::from_mode(0o755)).expect("executable");
+    // Windows has no Unix mode bits, and git runs a script there without one.
+    let make_executable = |_script: &Path| {
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            std::fs::set_permissions(_script, std::fs::Permissions::from_mode(0o755))
+                .expect("executable");
+        }
+    };
+    make_executable(&hook);
     // The hooks directory is named on the command line, so a machine's own `core.hooksPath`
     // decides nothing here. It lies outside the walk only once ignored; it is ignored before
     // the hook runs, as an untracked file the walk would read.
@@ -4953,7 +4961,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     std::fs::write(&message, "from a file\n").expect("the message file");
     let editor = hooks.join("editor.sh");
     std::fs::write(&editor, "#!/bin/sh\necho 'from the editor' > \"$1\"\n").expect("the editor");
-    std::fs::set_permissions(&editor, std::fs::Permissions::from_mode(0o755)).expect("executable");
+    make_executable(&editor);
     let loud = |args: &[&str]| {
         let mut all = vec!["-c", hooks_path.as_str(), "commit"];
         all.extend_from_slice(args);
@@ -5229,7 +5237,7 @@ fn check_staged_compares_an_installed_file_a_walk_row_skips() {
 fn a_link_in_the_installers_namespace_a_skip_row_keeps_is_still_judged() {
     let sandbox = harnessed("owned-link");
     let link = ".claude/agents/knowledge-architect-linked.md";
-    std::os::unix::fs::symlink("../../notes/a.md", sandbox.path(link)).expect("a symlink");
+    link_file("../../notes/a.md", sandbox.path(link));
     let manifest =
         std::fs::read_to_string(sandbox.path("knowledge-architect.toml")).expect("the manifest");
     sandbox.write(
@@ -7561,12 +7569,11 @@ fn worklist_verify_holds_seeds_and_their_citers() {
 /// inside the project, and is refused. Mutation checked: the walk up to the deepest existing
 /// ancestor removed from `absolute`, which compares the new path by its spelling and writes into
 /// the project.
-#[cfg(unix)]
 #[test]
 fn worklist_refuses_a_new_directory_under_a_link_into_the_project() {
     let (sandbox, out) = worklist_project("worklist-link");
     let link = out.with_extension("link");
-    std::os::unix::fs::symlink(sandbox.path(""), &link).expect("a link to the project");
+    link_dir(sandbox.path(""), &link);
     let target = link.join("new-list");
     let target_text = target.to_string_lossy().into_owned();
     let (stdout, stderr, code) = sandbox.run(&["worklist", "--out", &target_text]);
@@ -9810,7 +9817,7 @@ fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
     let projects = config.join("projects/-linked");
     std::fs::create_dir_all(&projects).expect("a transcript directory");
     let link = config.join("link");
-    std::os::unix::fs::symlink(&root, &link).expect("a symlink");
+    link_dir(&root, &link);
     let line = format!(
         r#"{{"type":"user","uuid":"l1","parentUuid":null,"sessionId":"5e5e5e5e-0000-0000-0000-000000000030","timestamp":"2026-02-01T10:00:00.000Z","cwd":"{}","version":"2.1.316","message":{{"role":"user","content":"through the link"}},"origin":{{"kind":"human"}}}}"#,
         link.display()
@@ -10650,12 +10657,11 @@ fn run_hands_worklist_the_checker_directories() {
 /// project's real root. Mutation checked: in `write` of `path@query@src/worklist.rs`,
 /// `if dir.starts_with(&root) || dir.starts_with(manifest.root()) {` made
 /// `if false || dir.starts_with(manifest.root()) {`, which writes into the project; caught.
-#[cfg(unix)]
 #[test]
 fn worklist_refuses_a_directory_inside_a_project_found_through_a_link() {
     let (sandbox, out) = worklist_project("worklist-linked-root");
     let link = out.with_extension("root-link");
-    std::os::unix::fs::symlink(&sandbox.dir, &link).expect("a link to the project");
+    link_dir(&sandbox.dir, &link);
     let manifest = knowledge_architect::Manifest::find(&link).expect("the manifest");
     let command =
         knowledge_architect::cli::Command::Worklist(knowledge_architect::cli::WorklistArgs {

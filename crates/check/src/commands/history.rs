@@ -1489,6 +1489,7 @@ fn verdict(n: usize) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::links::link_file;
 
     /// A repository under the temporary directory, configured to commit, holding a manifest
     /// committed and, as intent-to-add, a file nothing commits, removed when dropped.
@@ -1550,7 +1551,6 @@ mod tests {
     /// or by a history edit, never staging a file the index already lists. Mutations checked: the
     /// lookup of the link made to find nothing gives the index the absent arm's "stage
     /// knowledge-architect.toml"; the gitlink's arm named "a symbolic link" fails the last case.
-    #[cfg(unix)]
     #[test]
     fn a_manifest_held_as_a_link_names_its_replacement_by_the_file() {
         let scratch = empty_repository("linked-manifest");
@@ -1560,11 +1560,10 @@ mod tests {
         };
         std::fs::create_dir_all(repo.join("conf")).expect("a directory");
         std::fs::write(repo.join("conf").join(MANIFEST_NAME), "[project]\n").expect("a manifest");
-        std::os::unix::fs::symlink(
+        link_file(
             Path::new("conf").join(MANIFEST_NAME),
             repo.join(MANIFEST_NAME),
-        )
-        .expect("a symbolic link");
+        );
         run(&["add", "-A"]);
         run(&["commit", "-qm", "base"]);
         let head = crate::git::rev_parse(repo, "HEAD").expect("a commit");
