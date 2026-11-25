@@ -1017,16 +1017,57 @@ the ruleset of `design@knowledge-architect@main-is-guarded-by-a-ruleset` require
 pushed from a checkout is a direct push, which that ruleset refuses, and GitHub offers no fast-forward merge
 method.
 
+### One job gathers the verdicts of the systems into the one status check the ruleset requires `##one-required-context`
+
+In `path@knowledge-architect@.github/workflows/ci.yml` the job `gates` runs in a matrix over the
+systems of `design@knowledge-architect@platforms-served`, and the job `check` needs it and passes when
+its result is `success` alone, which a matrix that was cancelled or skipped is not. The ruleset of
+`design@knowledge-architect@main-is-guarded-by-a-ruleset` requires the context `check`. Off a draft,
+`check` runs on `always()`: GitHub skips a job that needs a job that failed, unless its condition makes
+it continue, as its workflow syntax says of `jobs.<job_id>.needs`, and it counts a skipped job as
+passing, per `design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head`. So without
+`always()` a system that fails leaves the required context passing. A test of
+`path@xtask@src/gates.rs` reads the workflow for each of these conditions.
+
+The nearest rival, one required context per system, puts the list of systems in a setting of GitHub,
+which the owner changes in step with the workflow. The pull request that changes the list reports none
+of the contexts required before it that it removes, so the old setting refuses it.
+
+### The gates block a merge on each system they run on, whatever time a system's job takes `##blocking-jobs`
+
+Each system of `design@knowledge-architect@platforms-served` is part of the status check that a ready
+pull request needs, per `design@knowledge-architect@one-required-context`, so a gate that fails on
+Windows or macOS alone blocks the merge. `goal@every-target-project-can-adopt-it` has each target
+project adopt what knowledge-architect provides and move to a version of it when it chooses, and no
+condition of a target project excludes a platform, as
+`design@knowledge-architect@platforms-served` reads the goals. So a state of main that fails on one
+system is one a target project on that system cannot take. The nearest rival, a job on another system that the ruleset does not
+require, as a run on main after the merge is, lets such a state reach main.
+
+A job that blocks only while it ends within a fixed time is that rival for a slower job. The jobs run in parallel, so
+a merge waits for the slowest alone, and the suite grows with the project, so a fixed time would come
+to exclude a system with no change in what it finds. The time limit in the workflow stops a job that
+hangs.
+
 ### CI does not check a draft pull request `##ci-skips-a-draft`
 
-The CI job runs only on a pull request marked ready. A session runs every gate of
+The CI jobs run only on a pull request marked ready. A session runs every gate of
 `design@xtask@gates-list-primary-home` before the merge, `cargo x gates --require-rebased`, so the
-gates themselves are not given up; what is given up is a failure only CI's machine shows, found
-after the review rather than during it. The nearest rival, CI on every push of a draft, run
+gates themselves are not given up; what is given up is a failure only CI's machines show, found
+after the review rather than during it. With the three systems of
+`design@knowledge-architect@platforms-served` such a failure is more frequent, since a session runs on
+one of them; on Linux, the gate of that list that runs clippy for Windows reports the compile errors and
+the lints of Windows, and leaves the failures of tests.
+
+The nearest rival, CI on every push of a draft, run
 without `--require-rebased` since that gate fails a draft each time main moves until the branch's
-last rebase, finds such a failure during the review, at the cost of a run per draft push and a change of
+last rebase, finds such a failure during the review. It loses to what its runs judge: a branch is
+pushed from its first commit on, per `design@knowledge-architect@git-flow`, and several times while its
+work is under way, so a run judges a state in the middle of the work, whose verdict has little value,
+and each run is one more thing an agent watches. It also costs a run per draft push and a change of
 the CI file, of the gate-list head and of the procedures of `instructions@git-workflow` that read
-the draft flag.
+the draft flag. A skipped run reads as passing, which
+`issue@knowledge-architect@a-ci-run-skipped-on-a-draft-reads-as-passing` holds.
 
 ### No operation can lose content in a checkout that holds work, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
 
@@ -1113,9 +1154,50 @@ received. So a record carried by a message alone rides on a commit that changes 
 
 ## 5. How the workspace builds and is tested
 
+### The workspace builds, and its gates run, on Linux, Windows and macOS `##platforms-served`
+
+The build of the workspace and the gates of `design@xtask@gates-list-primary-home` run on the three
+systems, and CI blocks a merge on each, per `design@knowledge-architect@blocking-jobs`. Which tests a
+system leaves out is `design@knowledge-architect@platform-skips`.
+
+Two goals are read so. `goal@every-target-project-can-adopt-it` has every target project able to adopt
+what knowledge-architect provides, and `goal@serves-one-kind-of-project` lists the conditions of a
+target project: neither excludes a platform, so a target project developed or delivered on Windows is
+served. The rival reading, that a platform is one more thing knowledge-architect may ask of a project,
+finds no such ask in their text. The owner reported a consumer project that the owner wants to start
+building on Windows soon.
+
+The nearest rival, the gates on Linux alone, lets a crate that does not compile for Windows reach such a
+project: where it takes the shape that `skill@knowledge-architect-setup@rust-project` offers, its
+workspace links the checker, the gates library and the hand mutation, through its maintenance crate.
+
+### A test is left out on a system only where it covers development workflow on Windows, or a behaviour the system lacks by nature `##platform-skips`
+
+Every other test of the workspace runs on the three systems of
+`design@knowledge-architect@platforms-served`, and one that fails on a system is repaired, in the test
+or in what it tests.
+
+- **Development workflow** is what a person or an agent does while developing a project, such as the
+  hand mutation, the transcript reader, the work list of the record search and a pre-commit hook.
+  Building a project, running its gates and what the gates run are not. A test of it may be left out on
+  Windows, and only there. The owner reported that development workflow would not happen on Windows yet,
+  and that the owner wants it to be followable there later. So what such a test covers is outstanding, and its
+  mark names the issue that holds it: `#[cfg_attr(windows, ignore = "...")]`, under which the test still
+  compiles there, with the issue's reference in a comment.
+- **A behaviour lacked by nature** is one a system does not have at all. Five kinds are admitted: Unix
+  mode bits, a named pipe, and a file name the system refuses, one that is not UTF-8 among them; and,
+  on Windows and macOS, the device /dev/full and a working directory that is removed. The test is under
+  `cfg` for the systems that have it, with the reason in a comment and no issue: running it elsewhere
+  brings nothing, and no work could close the issue. Where one test holds several cases, the case
+  lacked is left out alone.
+
+The nearest rival leaves out a test wherever it fails on a system: the job of that system then passes
+over a behaviour that a project meets there, and the coverage of the system shrinks with no sign.
+
 ### Every component builds under one pinned toolchain `##toolchain-is-pinned`
 
-rust-toolchain.toml at the root names one Rust release, with rustfmt and clippy, and rustup
+rust-toolchain.toml at the root names one Rust release, with rustfmt and clippy, and the target of the
+gate that runs clippy for Windows, whose reason is `design@xtask@gates-list-primary-home`, and rustup
 applies it to every cargo invocation in the tree, locally and in CI. fmt and clippy are gates, and
 their verdict is a property of the toolchain as much as of the tree: on floating stable, a release
 adding a clippy lint fails CI on a tree that passes locally, or the reverse, with no change in the

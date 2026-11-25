@@ -12,7 +12,8 @@ use knowledge_architect_gates::{
 use std::process::ExitCode;
 
 /// The target of the cross gate: the code particular to Windows is judged on the machine that writes
-/// it, and not by CI alone. The `-gnu` target, since the gate's stub fails for an `-msvc` one.
+/// it, and not by CI alone. The `-gnu` target, since the gate's stub fails for an `-msvc` one, per
+/// `design@xtask@gates-list-primary-home`.
 const WINDOWS: &str = "x86_64-pc-windows-gnu";
 
 /// This repository's gates: the recommended list of a Rust project that uses the checker, with

@@ -45,7 +45,8 @@ the three systems if the lock behaves as it does on Linux, which is not establis
 `restore` over a run that is still going un-mutates its file underneath it, and a live run read from
 another user's pid is cleared the same way. It strains `design@mutate@discard-is-the-callers-word`
 and `design@mutate@restore-by-comparison` only in that the refusal guarding a live run cannot tell one.
-Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`; on macOS the hand
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves; on macOS the hand
 mutation is to work, its tests included.
 
 ### What would close it

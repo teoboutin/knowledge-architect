@@ -34,7 +34,9 @@ makes the worktree's directory on Windows, for this entry.
 
 A retrospective or a review of transcripts on Windows reads nothing, or misses the sessions of removed
 worktrees, the ordinary place of a dispatched agent, with no line saying so, against
-`design@transcript@transcript-directory-resolution`. Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`.
+`design@transcript@transcript-directory-resolution`.
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves.
 
 ### What would close it
 

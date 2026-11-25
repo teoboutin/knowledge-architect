@@ -38,7 +38,9 @@ zsh, each following a section above.
 ### Why it matters
 
 An instruction a session cannot run as written stops the procedure it belongs to, against
-`goal@agents-get-a-complete-workflow`. Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`.
+`goal@agents-get-a-complete-workflow`.
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves.
 
 ### What would close it
 

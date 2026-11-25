@@ -53,13 +53,26 @@ of each other and of `gates`.
 
 The list in `path@xtask@src/gates.rs` is the one home of what the project's gates are: the
 recommended list of the gates library, `design@gates@recommended-gate-list`, with this
-repository's own package as the checker. A local run is `cargo x gates`, and
-`path@knowledge-architect@.github/workflows/ci.yml` runs the same tool in one step, on every push to a ready pull
-request: `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. A list restated as
-workflow steps drifts from this one, and a gate added to one list and not the other makes a
-local run pass what CI fails, or the reverse. The job UI names the failing gate through
+repository's own package as the checker, and, after `clippy`, clippy for Windows, per
+`design@gates@cross-clippy-gate`, its target `x86_64-pc-windows-gnu`, since the stub of
+`design@gates@cross-clippy-stub` fails for an `-msvc` one. No code here is particular to macOS, so no
+gate is for it.
+
+A local run is `cargo x gates`, and
+`path@knowledge-architect@.github/workflows/ci.yml` runs the same tool in one step of the job of each
+system of `design@knowledge-architect@platforms-served`, on every push to a ready pull
+request: `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. The step names no
+gate. A list restated as workflow steps drifts from this one, and a gate added to one list and not the
+other makes a local run pass what CI fails, or the reverse. A subset of the gates named for the two
+other systems, the nearest rival there, is such a second list. What it would save is small: on each
+system the gates other than `test` take less time together than `test` alone, and the jobs run in
+parallel, as the times between the groups that `gh run view <run id> --log | grep '##\[group\]'`
+prints re-take. Gates that come to take as long as `test` there would reopen the subset. `cargo test` run directly in place of
+the tool hides what the tool itself does on that system.
+
+The job UI names the failing gate through
 `design@gates@annotations-under-actions`, and the logs reach the reader as the workflow's
-`gate-logs` artifact, uploaded when the job fails.
+artifact `gate-logs-<system>`, uploaded when the job of that system fails.
 
 The flags CI passes are `design@xtask@ci-differs-by-flags`.
 
