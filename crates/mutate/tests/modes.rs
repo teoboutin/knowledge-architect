@@ -11,6 +11,9 @@
 //! **The command under `--` is always a shell builtin or `sh -c`, never `cargo`**: a nested cargo
 //! would rebuild the workspace inside a test and contend for the same target directory.
 
+mod links;
+
+use links::{link_dir, link_file};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -166,8 +169,7 @@ fn an_absolute_target_is_refused() {
 fn a_symlinked_target_is_refused() {
     let s = Sandbox::new("symlink");
     s.write("real.txt", "real\n");
-    std::os::unix::fs::symlink(s.root().join("real.txt"), s.root().join("link.txt"))
-        .expect("linking");
+    link_file(s.root().join("real.txt"), s.root().join("link.txt"));
     let (ok, out) = s.run(&[
         "run",
         "--file",
@@ -1257,7 +1259,7 @@ fn a_patch_naming_another_file_not_applying_or_changing_nothing_is_refused() {
 fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
     let s = Sandbox::new("odd-targets");
     s.write("real/f.rs", BODY);
-    std::os::unix::fs::symlink(s.root().join("real"), s.root().join("link")).expect("linking");
+    link_dir(s.root().join("real"), s.root().join("link"));
     let fifo = Command::new("mkfifo")
         .arg(s.root().join("pipe"))
         .status()
@@ -1340,14 +1342,16 @@ fn a_probe_makes_a_failure_a_catch_and_an_unspawnable_command_no_verdict() {
 // baseline, an unreadable target, a read-only target.
 #[test]
 fn a_refusal_before_the_write_leaves_no_record() {
-    use std::os::unix::fs::PermissionsExt;
     let s = Sandbox::new("refusals");
     s.write(FILE, BODY);
     let (_, out, code) = s.run_coded(&args(&["--", "no-such-program-to-run"]));
     assert_eq!(code, 2, "{out}");
     assert!(!s.record().exists(), "unspawnable baseline: {out}");
 
+    // Windows has no Unix mode bits, so the two modes are for the systems that have them.
+    #[cfg(unix)]
     for mode in [0o000, 0o444] {
+        use std::os::unix::fs::PermissionsExt;
         fs::set_permissions(s.root().join(FILE), fs::Permissions::from_mode(mode)).expect("chmod");
         let (_, out, code) = s.run_coded(&args(&["--no-baseline", "--", "true"]));
         fs::set_permissions(s.root().join(FILE), fs::Permissions::from_mode(0o644)).expect("chmod");

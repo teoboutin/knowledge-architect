@@ -127,6 +127,7 @@ fn declares(manifest: &Path, package: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::links::link_dir;
 
     /// A fresh directory under the system's temporary directory, removed when dropped.
     struct Scratch(tempfile::TempDir);
@@ -254,7 +255,7 @@ mod tests {
         let scratch = Scratch::new("compiled-symlink");
         scratch.crate_at("one/tools/tool/lib", "a-tool");
         let link = scratch.path("link");
-        std::os::unix::fs::symlink(scratch.path("one"), &link).expect("a symlink");
+        link_dir(scratch.path("one"), &link);
         let through = library(link.join("tools/tool/lib"));
         assert_eq!(foreign_copy(&scratch.path("one"), &[through]), None);
     }
@@ -264,13 +265,12 @@ mod tests {
         let scratch = Scratch::new("symlink");
         let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
         let link = scratch.path("link");
-        std::os::unix::fs::symlink(scratch.path("one"), &link).expect("a symlink");
+        link_dir(scratch.path("one"), &link);
         assert_eq!(foreign_copy(&link, &[library(built)]), None);
         // A symlink inside the tree that resolves to the compiled directory is the same
         // directory, not a copy.
         let real = scratch.crate_at("tree/real/tool/lib", "a-tool");
-        std::os::unix::fs::symlink(scratch.path("tree/real/tool"), scratch.path("tree/tool"))
-            .expect("a symlink");
+        link_dir(scratch.path("tree/real/tool"), scratch.path("tree/tool"));
         assert_eq!(foreign_copy(&scratch.path("tree"), &[library(real)]), None);
     }
 

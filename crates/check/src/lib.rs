@@ -36,6 +36,8 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 mod agents;
 mod build_origin;
 mod check;
+#[cfg(test)]
+mod links;
 
 // Every git invocation is the `git` crate's, per
 // `design@knowledge-architect@checker-asks-git-through-the-crate`. Named `git` here, so the modules that ask it

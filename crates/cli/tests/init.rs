@@ -1,6 +1,9 @@
 //! `klarch init` and `klarch new-component`, run as a caller runs them, in scratch directories
 //! outside this repository, per `design@create@init-command` and `design@create@component-command`.
 
+mod links;
+
+use links::{link_dir, link_file};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -373,11 +376,10 @@ fn an_unwritable_destination_refuses_before_any_write() {
 
     scratch.write("elsewhere.md", "not this project's");
     std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
-    std::os::unix::fs::symlink(
+    link_file(
         scratch.path("elsewhere.md"),
         scratch.path("b/docs/goals.md"),
-    )
-    .unwrap();
+    );
     let (out, err, code) = klarch(scratch.dir(), &["init", "b"]);
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("b/knowledge-architect.toml").exists());
@@ -438,11 +440,10 @@ fn outside_a_worktree_an_install_refused_after_a_write_exits_one() {
     let scratch = Scratch::new("no-vcs-link");
     scratch.write("target.md", "elsewhere\n");
     std::fs::create_dir_all(scratch.path(".claude/agents")).unwrap();
-    std::os::unix::fs::symlink(
+    link_file(
         scratch.path("target.md"),
         scratch.path(".claude/agents/knowledge-architect-mine.md"),
-    )
-    .unwrap();
+    );
     let (out, err, code) = klarch(
         scratch.dir(),
         &["init", ".", "--name", "p", "--vcs", "none"],
@@ -897,8 +898,7 @@ fn rust_refuses_what_it_would_overwrite_or_nest_in() {
     refused("xf");
     scratch.write("elsewhere.txt", "not this project's");
     std::fs::create_dir_all(scratch.path("sl")).unwrap();
-    std::os::unix::fs::symlink(scratch.path("elsewhere.txt"), scratch.path("sl/.gitignore"))
-        .unwrap();
+    link_file(scratch.path("elsewhere.txt"), scratch.path("sl/.gitignore"));
     refused("sl");
     std::fs::create_dir_all(scratch.path("dg/.gitignore")).unwrap();
     refused("dg");
@@ -957,7 +957,6 @@ fn the_gitignore_rule_follows_what_git_ignores() {
 /// the manifest is written, and makes the run exit 1, never 2.
 #[test]
 fn a_failure_after_the_first_write_exits_one() {
-    use std::os::unix::fs::PermissionsExt;
     let scratch = Scratch::new("late-failure");
     git(scratch.dir(), &["init", "-q"]);
     scratch.write("a/.claude", "a file where a directory is due");
@@ -965,77 +964,83 @@ fn a_failure_after_the_first_write_exits_one() {
     assert_eq!(code, 2, "{out}{err}");
     assert!(!scratch.path("a/knowledge-architect.toml").exists());
 
-    // The cases below make a write fail with a read-only directory: of the failures `init`'s
-    // refusals before the first write cannot see, the one a test can build. A process that writes
-    // into a read-only directory anyway, as one running as root does, cannot build them, so they
-    // are skipped there. The skip line shows only under `--nocapture`, since the harness captures
-    // a passing test's output: under root, a pass says nothing of cases b, c and d.
-    std::fs::create_dir_all(scratch.path("probe")).unwrap();
-    std::fs::set_permissions(
-        scratch.path("probe"),
-        std::fs::Permissions::from_mode(0o555),
-    )
-    .unwrap();
-    let writes_through = std::fs::write(scratch.path("probe/file"), "").is_ok();
-    std::fs::set_permissions(
-        scratch.path("probe"),
-        std::fs::Permissions::from_mode(0o755),
-    )
-    .unwrap();
-    if writes_through {
-        eprintln!(
-            "skipped: this process writes into a read-only directory, as root does, so a write \
-             failure after the first write cannot be built"
-        );
-        return;
+    // Windows has no Unix mode bits, so the cases that take the write bit from a directory are for
+    // the systems that have them.
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        // The cases below make a write fail with a read-only directory: of the failures `init`'s
+        // refusals before the first write cannot see, the one a test can build. A process that writes
+        // into a read-only directory anyway, as one running as root does, cannot build them, so they
+        // are skipped there. The skip line shows only under `--nocapture`, since the harness captures
+        // a passing test's output: under root, a pass says nothing of cases b, c and d.
+        std::fs::create_dir_all(scratch.path("probe")).unwrap();
+        std::fs::set_permissions(
+            scratch.path("probe"),
+            std::fs::Permissions::from_mode(0o555),
+        )
+        .unwrap();
+        let writes_through = std::fs::write(scratch.path("probe/file"), "").is_ok();
+        std::fs::set_permissions(
+            scratch.path("probe"),
+            std::fs::Permissions::from_mode(0o755),
+        )
+        .unwrap();
+        if writes_through {
+            eprintln!(
+                "skipped: this process writes into a read-only directory, as root does, so a write \
+                 failure after the first write cannot be built"
+            );
+            return;
+        }
+
+        std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
+        std::fs::set_permissions(
+            scratch.path("b/docs"),
+            std::fs::Permissions::from_mode(0o555),
+        )
+        .unwrap();
+        let (out, err, code) = klarch(scratch.dir(), &["init", "b"]);
+        std::fs::set_permissions(
+            scratch.path("b/docs"),
+            std::fs::Permissions::from_mode(0o755),
+        )
+        .unwrap();
+        assert_eq!(code, 1, "{out}{err}");
+        assert!(scratch.path("b/knowledge-architect.toml").is_file());
+
+        // The install, run by the code `check --fix` runs, fails having written nothing of its own,
+        // which `--fix` reports as 2; this run had written, so it exits 1.
+        std::fs::create_dir_all(scratch.path("c/.claude")).unwrap();
+        std::fs::set_permissions(
+            scratch.path("c/.claude"),
+            std::fs::Permissions::from_mode(0o555),
+        )
+        .unwrap();
+        let (out, err, code) = klarch(scratch.dir(), &["init", "c"]);
+        std::fs::set_permissions(
+            scratch.path("c/.claude"),
+            std::fs::Permissions::from_mode(0o755),
+        )
+        .unwrap();
+        assert_eq!(code, 1, "{out}{err}");
+
+        // `new-component` writes the manifest, then fails on a read-only Component directory.
+        assert_eq!(klarch(scratch.dir(), &["init", "d"]).2, 0);
+        std::fs::create_dir_all(scratch.path("d/svc")).unwrap();
+        std::fs::set_permissions(
+            scratch.path("d/svc"),
+            std::fs::Permissions::from_mode(0o555),
+        )
+        .unwrap();
+        let (out, err, code) = klarch(&scratch.path("d"), &["new-component", "svc"]);
+        std::fs::set_permissions(
+            scratch.path("d/svc"),
+            std::fs::Permissions::from_mode(0o755),
+        )
+        .unwrap();
+        assert_eq!(code, 1, "{out}{err}");
     }
-
-    std::fs::create_dir_all(scratch.path("b/docs")).unwrap();
-    std::fs::set_permissions(
-        scratch.path("b/docs"),
-        std::fs::Permissions::from_mode(0o555),
-    )
-    .unwrap();
-    let (out, err, code) = klarch(scratch.dir(), &["init", "b"]);
-    std::fs::set_permissions(
-        scratch.path("b/docs"),
-        std::fs::Permissions::from_mode(0o755),
-    )
-    .unwrap();
-    assert_eq!(code, 1, "{out}{err}");
-    assert!(scratch.path("b/knowledge-architect.toml").is_file());
-
-    // The install, run by the code `check --fix` runs, fails having written nothing of its own,
-    // which `--fix` reports as 2; this run had written, so it exits 1.
-    std::fs::create_dir_all(scratch.path("c/.claude")).unwrap();
-    std::fs::set_permissions(
-        scratch.path("c/.claude"),
-        std::fs::Permissions::from_mode(0o555),
-    )
-    .unwrap();
-    let (out, err, code) = klarch(scratch.dir(), &["init", "c"]);
-    std::fs::set_permissions(
-        scratch.path("c/.claude"),
-        std::fs::Permissions::from_mode(0o755),
-    )
-    .unwrap();
-    assert_eq!(code, 1, "{out}{err}");
-
-    // `new-component` writes the manifest, then fails on a read-only Component directory.
-    assert_eq!(klarch(scratch.dir(), &["init", "d"]).2, 0);
-    std::fs::create_dir_all(scratch.path("d/svc")).unwrap();
-    std::fs::set_permissions(
-        scratch.path("d/svc"),
-        std::fs::Permissions::from_mode(0o555),
-    )
-    .unwrap();
-    let (out, err, code) = klarch(&scratch.path("d"), &["new-component", "svc"]);
-    std::fs::set_permissions(
-        scratch.path("d/svc"),
-        std::fs::Permissions::from_mode(0o755),
-    )
-    .unwrap();
-    assert_eq!(code, 1, "{out}{err}");
 }
 
 /// The claims of the destination check, each a refusal before the first write, exit 2: a
@@ -1057,11 +1062,10 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
         let _ = dir;
     };
     std::fs::create_dir_all(scratch.path("a1")).unwrap();
-    std::os::unix::fs::symlink(
+    link_file(
         scratch.path("outside.toml"),
         scratch.path("a1/knowledge-architect.toml"),
-    )
-    .unwrap();
+    );
     refused(&["init", "a1"], "a1");
     assert!(!scratch.path("outside.toml").exists());
 
@@ -1105,14 +1109,14 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     refused(&["init", "a7"], "a7");
 
     std::fs::create_dir_all(scratch.path("a9")).unwrap();
-    std::os::unix::fs::symlink(scratch.path("elsewhere"), scratch.path("a9/.cargo")).unwrap();
+    link_dir(scratch.path("elsewhere"), scratch.path("a9/.cargo"));
     refused(&["init", "a9", "--rust"], "a9");
     assert!(!scratch.path("elsewhere").exists());
 
     scratch.write("plain", "a file at PATH");
     refused(&["init", "plain"], "plain");
     refused(&["init", "plain/p"], "plain/p");
-    std::os::unix::fs::symlink(scratch.path("nowhere"), scratch.path("dangling")).unwrap();
+    link_dir(scratch.path("nowhere"), scratch.path("dangling"));
     refused(&["init", "dangling"], "dangling");
     refused(&["init", ".git/proj"], ".git/proj");
 

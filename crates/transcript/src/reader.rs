@@ -1606,6 +1606,25 @@ fn render_answers(result: &Value) -> String {
 mod tests {
     use super::*;
 
+    // A copy of the helper each package whose tests make a link holds, since no crate depends on
+    // `testing`, per `design@knowledge-architect@no-crate-depends-on-testing`, inside this module
+    // since xtask compiles this file by its path.
+    /// Makes `link` a symbolic link to `target`, a directory or nothing yet. A relative target is written with
+    /// the system's separator, since Windows follows no link whose relative target holds `/`.
+    ///
+    /// # Panics
+    ///
+    /// Where the machine refuses the link.
+    #[track_caller]
+    fn link_dir(target: impl AsRef<Path>, link: impl AsRef<Path>) {
+        let target: PathBuf = target.as_ref().components().collect();
+        #[cfg(unix)]
+        let made = std::os::unix::fs::symlink(target, link);
+        #[cfg(windows)]
+        let made = std::os::windows::fs::symlink_dir(target, link);
+        made.expect("a symbolic link");
+    }
+
     /// A file read from these lines, as `File::read` parses them.
     fn file(lines: &[&str]) -> File {
         File {
@@ -2091,7 +2110,7 @@ mod tests {
         let real = scratch.path().join("real");
         std::fs::create_dir_all(&real).expect("the project's directory");
         let link = scratch.path().join("link");
-        std::os::unix::fs::symlink(&real, &link).expect("a symlink");
+        link_dir(&real, &link);
         let projects = scratch.path().join("projects");
         std::fs::create_dir_all(projects.join("-real")).expect("a project directory");
         let line = json!({

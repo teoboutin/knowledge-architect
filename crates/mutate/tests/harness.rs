@@ -6,6 +6,9 @@
 //! that consumes it accepts it: hunk arithmetic that is wrong by one produces a patch that reads
 //! plausibly and applies to nothing.
 
+mod links;
+
+use links::link_file;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
@@ -369,7 +372,7 @@ fn a_symlinked_target_is_refused() {
     let scratch = temp_dir("symlink");
     let dir = scratch.path();
     fs::write(dir.join("real.rs"), "content\n").expect("writing");
-    std::os::unix::fs::symlink(dir.join("real.rs"), dir.join("link.rs")).expect("linking");
+    link_file(dir.join("real.rs"), dir.join("link.rs"));
 
     assert!(target_is_mutable(dir, "link.rs").is_err());
     assert!(target_is_mutable(dir, "real.rs").is_ok());

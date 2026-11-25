@@ -337,6 +337,7 @@ fn is_empty_tree(dir: &Path) -> std::io::Result<bool> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::links::link_dir;
 
     /// The claim: every file this version ships is installed inside the owned namespace, so the
     /// install edits nothing a project owns. The install paths come from the build script of
@@ -432,8 +433,7 @@ mod tests {
         // A link is no directory here: it goes to the write, which `apply` refuses.
         let linked_directory = ".claude/agents/knowledge-architect-linked-directory.md";
         std::fs::create_dir_all(root.join("elsewhere")).unwrap();
-        #[cfg(unix)]
-        std::os::unix::fs::symlink(root.join("elsewhere"), root.join(linked_directory)).unwrap();
+        link_dir(root.join("elsewhere"), root.join(linked_directory));
         let shipped: Vec<(PathBuf, String)> = [
             (".claude/agents/knowledge-architect-binary.md", "text\n"),
             (".claude/agents/knowledge-architect-deleted.md", "deleted\n"),
@@ -569,7 +569,6 @@ mod tests {
 
     /// The claim: an install refuses a symbolic link on an owned path before touching anything,
     /// and names it. Mutation: following the link deletes the other directory's file.
-    #[cfg(unix)]
     #[test]
     fn an_install_refuses_a_symlinked_namespace() {
         let scratch = tempfile::TempDir::with_prefix("klarch-link-").expect("a scratch directory");
@@ -579,7 +578,7 @@ mod tests {
         std::fs::write(shared.join("SKILL.md"), "keep").unwrap();
         let root = base.join("proj");
         std::fs::create_dir_all(root.join(".claude")).unwrap();
-        std::os::unix::fs::symlink(base.join("shared"), root.join(".claude/skills")).unwrap();
+        link_dir(base.join("shared"), root.join(".claude/skills"));
         let e = install(&root, &[]).expect_err("a link is refused");
         assert!(e.contains(".claude/skills is a symbolic link"), "{e}");
         assert!(shared.join("SKILL.md").exists());
