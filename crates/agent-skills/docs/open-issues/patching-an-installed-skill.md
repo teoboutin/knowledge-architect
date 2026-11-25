@@ -83,4 +83,17 @@ the work, 2026-11-14, a dispatched implementer met a fix in the installed text a
 the workflow's file, by `primer@met-outside-the-task`, missing the root's supersession of that
 route, which `instructions@repository-skills` states as its paragraph's second bolded sentence;
 the dispatching session routed it by the supersession. The retrospective proposed lifting the
-sentence to the head of the section. One instance; the shape decided here settles where it goes.
+sentence to the head of the section.
+
+Further instances, from the retrospective files received at the intake of twenty files: the
+session on committed transcripts, 2026-11-16, recorded two such items as kept for the workflow's
+file, in a turn's closing section and in a review record, which the routing reviewer caught (P1 of
+2026-11-16-knowledge-architect-committed-transcripts); the session on the owner's rulings and title
+rules, 2026-11-22, kept a record-search miss for its retrospective, which the last transcript
+review caught (P1 of 2026-11-22-knowledge-architect-owner-rulings-and-title-rules); the session on
+the test temporary directories, 2026-11-25, sent one to the workflow's file, which the transcript
+review caught (P1 of 2026-11-25-knowledge-architect-tmp-cleanup). Four sessions in eleven days, each
+routing by the primer's paragraph at a turn's closing section while the supersession sits in the
+root's section on skills. The leads they propose: a row of the root's knowledge table; the sentence
+moved to a section of the root named for the moment; no change, the sentence being in context. The
+shape decided here settles where it goes.
