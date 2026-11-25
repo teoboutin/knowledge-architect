@@ -45,6 +45,13 @@ How it differs from the two entries on reports:
   the lines `klarch worklist --out` wrote for it, a mechanical task; this entry is about a report
   whose content the agent decides.
 
+A case near the trigger, which does not meet it: in the branch on committed transcripts,
+2026-11-16, the repairer of a re-review returned one item in part, and its report was lost to a
+container restart before the session read it; the session checked the tree, not a report, and
+missed the gap. No returned report was shown incomplete, so the trigger's report is not named; a
+report file written as the agent works would have survived the restart, a property of the shape
+this entry holds that its summary does not name.
+
 The shape does not bring back `rejected@agent-skills@ledger-written-during-discussion`: that entry
 refused a file of the whole discussion's state, which an agent must update every round and whose
 only corroborant is the conversation. A report file here is written by one agent for its own piece,

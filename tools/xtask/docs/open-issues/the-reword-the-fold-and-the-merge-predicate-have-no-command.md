@@ -81,6 +81,22 @@ resolve the conflict and finish the stopped commit as point 3 of the root `CLAUD
 `design@knowledge-architect@a-stopped-rebase-keeps-its-message`, then run the fold's checks; a
 command of the fold states what it does when the autosquash stops.
 
+Further instances, from the retrospective files received at the intake of twenty files, in five
+sessions of this repository of 2026-11-15 to 2026-11-25: five rewords through subagents by
+`filter-branch --msg-filter` scripts, and two folds by autosquash, one followed by a second,
+wrap-only `filter-branch` (the intake of forty-seven files, C3 of its workflow file); four runs, two
+by the session for 4 messages and 1 and one by each of two repair agents, each script a list of
+literal replacements asserting that each pattern matches once (the branch on mutation survivors,
+P2 of its project file and C2 of its workflow file); three runs, scripts of about 10 to 40 lines,
+one forced because uncommitted edits barred an amend after `commits` refused a message (the intake
+that divided items a to h, C2 of its workflow file); several passes (the branch on the test
+leftovers in the temporary directory, its answer on scripts); and about seven runs, one cut short
+by an interruption of the owner that showed nothing of what had run, beside a fold of the
+harvest's repairs that the harness's permission check refused to the agent before it ran, which
+left the repairs as a commit of their own (the gates on Windows and macOS, P1 and P2 of its project
+file). That file proposes that the command print what it checked, so that an interrupted run shows
+its state.
+
 ### Why it matters
 
 Each procedure is run by hand at each reword, each repair folded and each merge, and a step missed

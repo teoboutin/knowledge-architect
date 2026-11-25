@@ -72,6 +72,27 @@ nine of this repository's ten begun after the restatement among them.
   modules in thaum was Rust work on 0.9.0, which ships no development skill. The analysis is the
   section `message-claims-written-unchecked` of the analyses of the intake of forty-seven files,
   in the commit that adds them under `path@knowledge-architect@docs/retrospective-reports/`.
+- Further instances, in the intake of twenty retrospective files of 2026-11-14 to 2026-11-25: ten
+  of its eleven workflow files report the lapse, all nine of this repository's and one of thaum's
+  two, at least twenty instances. By file: a drafted message naming the wrong head, found by a
+  grep before the commit (thaum's announced-store slice);
+  a default put to the owner other than the analysis's, and a net instruction figure told as none
+  removed where the commits removed four (the intake of forty-seven files); six repairs told to the
+  owner as in place after a line count, one repaired in part (committed transcripts); a head named
+  under the wrong Component in the grounding and the search's draft, and in the spec a head placed
+  in the wrong file and a file's size past one read measured by lines (the doc gate and lints); a
+  premise of a question to the owner, unchecked and false, against `primer@owner-word-premise`
+  (mutation survivors); three counts or orders told or written unchecked (the record search's
+  workflow); a carrier briefed with two timing figures older than the commit's optimisation, and a
+  counting command printed without the option it was run with (owner rulings and title rules); an
+  origin written into a commit message from a search cut by a pipe, a head cited for a wider
+  reading than its words, and an instruction count that omitted two additions and one removal (the
+  intake that divided items a to h); a light-verdict claim told to the owner unchecked and a wrong
+  premise the owner ruled on, beside a merge planned on a silence (the test leftovers); a statement
+  to the owner that rustup would stay untouched, and a message saying tests passed on Windows that
+  were not run, three of which failed (the gates on Windows and macOS). The analysis is the section
+  `verify-before-relying-lapses` of the analyses of the intake of twenty files, in the commit that
+  adds them under `path@knowledge-architect@docs/retrospective-reports/`.
 - The count after the restatement in the development skill's commit step: of this repository's
   ten files whose session began after that restatement shipped, nine report the lapse; the one
   without is that of the slice that put `cli` on top. At least one lapse was in a message about

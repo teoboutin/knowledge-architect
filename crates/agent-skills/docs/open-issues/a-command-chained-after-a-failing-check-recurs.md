@@ -8,8 +8,8 @@ kind: design
 The installed primer asks that a failing staged check be repaired before the commit, and this
 repository's root asks that a push follow a passing `commits` check. Sessions keep joining the
 check and the commit or the push in one command whose separator runs the second whatever the check
-found: ten instances in seven sessions of this repository, one in thaum. Each is a lapse of a
-clear instruction; the recurrence is the argument for moving where it is delivered.
+found: eleven instances in eight sessions of this repository, two in two sessions of thaum. Each
+is a lapse of a clear instruction; the recurrence is the argument for moving where it is delivered.
 
 ## Details
 
@@ -58,6 +58,16 @@ That is three pushes and seven commits in this repository, from 2026-11-01 to 20
 thaum. A further lapse of the push rule, of another shape, in the slice that moved the consumers
 out: after a `git rebase --onto` that detached HEAD, the session ran `commits` on the detached
 commits and pushed the branch's name, which still held the commit that had failed.
+
+Two more, from the retrospective files of the intake of twenty files: in thaum, 2026-11-14, a staged
+check redirected to a file, then the commit in the same command line, run after the check whatever
+it found; the check had failed on an index not regenerated, and a history edit repaired the
+commit's tree (the standing answers of 2026-11-14-thaum-announced-store-slice-klarch-workflow,
+which read the slip as sequencing, outside the words of the rule on a piped verdict and inside its
+intent). In this repository, 2026-11-16, a repair subagent pushed after a failed `commits` check in
+a command chained with `;`, so a message with a bare slug reached origin, repaired by an amend and a
+force push (the standing answers of
+2026-11-16-knowledge-architect-committed-transcripts-klarch-workflow).
 
 No hook is installed in this repository's checkout (its hooks directory holds samples only, and
 `git config --get core.hooksPath` exits 1), and the installed setup skill names none.
