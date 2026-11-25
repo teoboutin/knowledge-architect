@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-82 entries
+83 entries
 
 | kind | title |
 | --- | --- |
@@ -46,6 +46,7 @@
 | design | [The installed review names neither of two questions of meaning that a passing check leaves open](the-review-does-not-ask-whether-items-are-cited-where-they-bear.md) |
 | design | [The record of a whole-set goal review must hold reviewers' material that is not in checked forms](the-whole-set-record-cannot-hold-its-reviewers-material-in-checked-forms.md) |
 | design | [The workflow assumes one owner, unnamed, which a project with several contributors does not have](the-workflow-assumes-one-unnamed-owner.md) |
+| observation | [The installed text's shell commands assume a POSIX shell, where Claude Code on Windows can run PowerShell](the-installed-shell-commands-assume-a-posix-shell.md) |
 | observation | [The repairs the re-review rule exempts held every record defect of one review](the-repairs-the-re-review-rule-exempts-held-every-record-defect-of-one-review.md) |
 | question | [May a `%%` line of the installed text's source copy the argument of the head it cites?](a-comment-line-may-copy-the-argument-of-the-head-it-cites.md) |
 | question | [A head in the wrong Component goes to the owner, though the record settles the Component](a-head-in-the-wrong-component-goes-to-the-owner-though-the-record-settles-the-component.md) |

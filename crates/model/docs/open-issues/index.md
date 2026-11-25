@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-22 entries
+23 entries
 
 | kind | title |
 | --- | --- |
+| defect | [A pointer or a manifest row holding a backslash or a drive prefix is read by the system's rules, so it passes on Windows and fails on Linux](a-backslash-or-a-drive-prefix-in-a-pointer-is-read-by-the-system.md) |
 | defect | [The refusal of a `\[project\] components` row naming the project's root shows the anchor's name as an empty span, not the row as written](a-components-row-naming-the-root-shows-an-empty-name.md) |
 | defect | [A heading-shaped line that markdown reads as no heading still defines an entry](a-heading-line-markdown-renders-as-no-heading-defines-an-entry.md) |
 | defect | [A path reference that git reads as a pathspec it refuses stops the whole run, and one it reads as the repository's top is misjudged](a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads.md) |

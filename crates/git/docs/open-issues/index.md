@@ -1,12 +1,13 @@
 **Generated — do not edit.** `cargo klarch index`
 
-8 entries
+9 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A shallow clone that holds the base shortens the range `commits` judges, with no error](a-shallow-clone-shortens-the-range-commits-judges.md) |
 | defect | [Public functions of the git library decode a path, so a path that is not plain UTF-8 or ASCII, or that holds a backslash on Windows, loses its answer](paths-are-decoded-outside-the-listings.md) |
 | defect | [`rev_parse` answers `None` for every failure of git, though its contract says only a missing revision does](rev-parse-answers-none-for-every-git-failure.md) |
+| defect | [git's ignore match ignores case where the repository says so, so a reference passes on one machine and fails on another](the-ignore-match-follows-the-case-of-the-disk.md) |
 | design | [`git.rs` is past one read](git-rs-is-past-one-read.md) |
 | design | [Whom the git library serves, and why no tool wraps git itself, are argued by no head](whom-the-git-library-serves-and-why-no-tool-wraps-git-have-no-argued-head.md) |
 | observation | [A path or a revision a caller hands the git library can reach git as an option, and a directory reads as a blob](arguments-reach-git-unchecked.md) |
