@@ -49,6 +49,12 @@ Instances, from retrospective files of this repository's sessions:
   the restart, with the owner's other processes stopped, each reviewer was told to set
   `CARGO_BUILD_JOBS=3`, and the eleven ran to the end. Nothing tells a dispatcher how many builds a
   batch may run at once.
+- the branch that removed the test helpers' leftovers under the system's temporary directory,
+  2026-11-25: the worktrees and scratch directories of its reviewers were made by shell loops;
+- the branch that ran the gates on Windows and macOS, 2026-11-25: the worktrees were made and
+  removed by hand, and the builds left in the session's scratch directory came to 32 GB, which only
+  the owner's deletion removes; the build output under a scratch directory is the second half of
+  this entry's task, the disk a command could report and remove.
 
 The cost per reviewer is one full build, since a worktree with a target directory of its own builds
 from empty. The two disk failures have two causes: the location the session chose, /tmp, which the
