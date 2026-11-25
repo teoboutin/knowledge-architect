@@ -550,6 +550,11 @@ fn apply_in(dir: &Path, pre_image: &str, rel_path: &str, patch: &str) -> Result<
     fs::write(dir.join("m.patch"), patch).map_err(|e| e.to_string())?;
 
     git_in(dir, &["init", "-q", "."])?;
+    // `info/attributes` goes before the machine's attributes and before the target's own, where it is a
+    // `.gitattributes`. The directory is the template's, which a machine can leave without it.
+    let info = dir.join(".git/info");
+    fs::create_dir_all(&info).map_err(|e| e.to_string())?;
+    fs::write(info.join("attributes"), ATTRIBUTES).map_err(|e| e.to_string())?;
     git_in(dir, &["apply", "m.patch"])?;
     fs::read_to_string(&staged).map_err(|e| e.to_string())
 }
@@ -565,20 +570,27 @@ const REPOSITORY_VARIABLES: [&str; 5] = [
     "GIT_ALTERNATE_OBJECT_DIRECTORIES",
 ];
 
+/// The attributes of the scratch: every file is the bytes it holds, with no conversion. A file that is
+/// no text takes none under `core.autocrlf` either.
+const ATTRIBUTES: &str = "* -text -ident -filter -working-tree-encoding\n";
+
 /// Runs git in `dir`, the scratch, about the repository `dir` holds. Git started from a hook, an
 /// alias or a rebase exports the variables of its own repository: under them `init` writes to that
 /// repository's configuration, and in a linked worktree marks it bare, and `apply` takes its paths
 /// from that repository's work tree. `GIT_INDEX_FILE` needs no removal, since neither call reads an
 /// index.
 ///
-/// It runs without `core.autocrlf`, which Git for Windows sets to `true` by default: `apply` would then
-/// write the mutant with CRLF whatever the target's line endings, so the mutation would be another than
-/// the patch names, and a patch that changes nothing would give a mutant, whose verdict is `SURVIVED`, per
-/// `design@mutate@git-converts-no-line-ending`.
+/// It converts nothing that the machine's git is set to convert, per
+/// `design@mutate@git-converts-no-line-ending`: under [`ATTRIBUTES`], no line ending, neither by an
+/// attribute nor by `core.autocrlf`, which Git for Windows sets to `true` by default; and no whitespace,
+/// which `apply.whitespace=fix` strips from an added line. `apply` would otherwise write a mutant other
+/// than the one the patch names, and a patch that changes nothing would give one, whose verdict is
+/// `SURVIVED`.
 fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
     let mut command = Command::new("git");
     command
-        .args(["-c", "core.autocrlf=false"])
+        .args(["-c", "apply.whitespace=nowarn"])
+        .args(["-c", "apply.ignoreWhitespace=no"])
         .args(args)
         .current_dir(dir);
     for variable in REPOSITORY_VARIABLES {

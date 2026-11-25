@@ -8,8 +8,8 @@
 //!
 //! Every test builds its own sandbox, a git repository in the temporary directory, removed when
 //! the test ends, so a run's record and target stay inside it and never touch this repository.
-//! **The command under `--` is always a shell builtin or `sh -c`, never `cargo`**: a nested cargo
-//! would rebuild the workspace inside a test and contend for the same target directory.
+//! **The command under `--` is never `cargo`**: a nested cargo would rebuild the workspace inside a
+//! test and contend for the same target directory.
 
 mod links;
 mod live;
@@ -970,56 +970,125 @@ fn a_patch_run_works_in_a_linked_worktree() {
     assert!(!record.exists());
 }
 
-// The claim: the mutant of a `--patch` run is the one the patch names, whatever the machine's
-// `core.autocrlf`, as Git for Windows sets it: the file keeps its LF, which the command reads, and a
-// patch that changes nothing is refused. Mutation checked: `core.autocrlf=false` of `git_in` made
-// `core.autocrlf=true`; caught.
+/// What git calls the bytes of `content`, with nothing converted.
+fn blob(root: &Path, file: &str) -> String {
+    let out = Command::new("git")
+        .args(["hash-object", "--no-filters", "--", file])
+        .current_dir(root)
+        .output()
+        .expect("running git");
+    assert!(out.status.success(), "git hash-object");
+    String::from_utf8(out.stdout).expect("a hash").trim().into()
+}
+
+// The claim: the mutant of a `--patch` run is the one the patch names, and one that changes nothing is
+// refused, whatever the machine's git is set to convert: a line ending by `core.autocrlf`, as Git for
+// Windows sets it, or by the machine's attributes or the target's own, where it is a `.gitattributes`,
+// and the trailing spaces of a patch's line by `apply.whitespace`. Both ways: LF stays, and CRLF does.
+// Mutations checked, each caught: `-text` of `ATTRIBUTES` dropped, made `text=auto`, and made
+// `text eol=lf`; the file of attributes written elsewhere; `apply.whitespace=nowarn` made `fix`.
 #[test]
-fn a_patch_run_converts_no_line_ending_whatever_the_machine_s_git_says() {
-    let s = Sandbox::new("patch-autocrlf");
-    s.write(FILE, BODY);
-    s.write("m.diff", DELETE_SITE);
-    s.write(
-        "empty.diff",
-        "diff --git a/src/f.rs b/src/f.rs\nold mode 100644\nnew mode 100755\n",
-    );
-    s.write("expected", &BODY.replace("SITE\n", ""));
-    for (patch, code, says) in [
-        ("m.diff", 0, "SURVIVED"),
-        ("empty.diff", 2, "does not change"),
+fn a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert() {
+    let crlf = BODY.replace('\n', "\r\n");
+    let attributes = "* text eol=crlf\n*.x -text\n";
+    let empty = "diff --git a/src/f.rs b/src/f.rs\nold mode 100644\nnew mode 100755\n";
+    let spaces = DELETE_SITE
+        .replace("-SITE\n", "-SITE\n+MUT  \n")
+        .replace("+1,4", "+1,5");
+    let to_crlf: &[(&str, &str)] = &[
+        ("core.attributesFile", "{root}/machine-attributes"),
+        ("core.eol", "crlf"),
+    ];
+    let autocrlf: &[(&str, &str)] = &[("core.autocrlf", "true")];
+    let fix: &[(&str, &str)] = &[("apply.whitespace", "fix")];
+    // Each: the target, its content, the patch, the configuration, and the mutant, or none where the
+    // patch is refused.
+    for (file, body, patch, config, mutant) in [
+        (FILE, BODY, DELETE_SITE, autocrlf, Some(BODY.replace("SITE\n", ""))),
+        (FILE, BODY, DELETE_SITE, to_crlf, Some(BODY.replace("SITE\n", ""))),
+        (
+            FILE,
+            &crlf,
+            &crlf_hunk(DELETE_SITE),
+            autocrlf,
+            Some(crlf.replace("SITE\r\n", "")),
+        ),
+        (FILE, &crlf, DELETE_SITE, &[][..], None),
+        (FILE, BODY, &spaces, fix, Some(BODY.replace("SITE\n", "MUT  \n"))),
+        (
+            ".gitattributes",
+            attributes,
+            "--- a/.gitattributes\n+++ b/.gitattributes\n@@ -1,2 +1,2 @@\n * text eol=crlf\n-*.x -text\n+*.y -text\n",
+            &[][..],
+            Some(attributes.replace("*.x", "*.y")),
+        ),
+        (FILE, BODY, empty, autocrlf, None),
+        (FILE, BODY, empty, to_crlf, None),
     ] {
-        let out = child(
+        let s = Sandbox::new("patch-conversion");
+        s.write(file, body);
+        s.write("m.diff", patch);
+        s.write("machine-attributes", "* text=auto\n");
+        s.write("expected", mutant.as_deref().unwrap_or_default());
+        let mut run = child(
             s.root(),
             &[
                 "run",
                 "--file",
-                FILE,
+                file,
                 "--patch",
-                patch,
+                "m.diff",
                 "--no-baseline",
                 "--",
                 "git",
-                "diff",
-                "--no-index",
-                "--exit-code",
-                "expected",
-                FILE,
+                "hash-object",
+                "--no-filters",
+                "--",
+                file,
             ],
-        )
-        .env("GIT_CONFIG_COUNT", "1")
-        .env("GIT_CONFIG_KEY_0", "core.autocrlf")
-        .env("GIT_CONFIG_VALUE_0", "true")
-        .output()
-        .expect("running the child");
+        );
+        let root = s.root().to_string_lossy().replace('\\', "/");
+        // Nothing of the machine's own git enters, so each case is the configuration it names.
+        run.env("GIT_CONFIG_NOSYSTEM", "1")
+            .env("GIT_CONFIG_GLOBAL", s.root().join("no-such-file"))
+            .env("GIT_CONFIG_COUNT", config.len().to_string());
+        for (i, (key, value)) in config.iter().enumerate() {
+            run.env(format!("GIT_CONFIG_KEY_{i}"), key)
+                .env(format!("GIT_CONFIG_VALUE_{i}"), value.replace("{root}", &root));
+        }
+        let out = run.output().expect("running the child");
         let text = format!(
             "{}{}",
             String::from_utf8_lossy(&out.stdout),
             String::from_utf8_lossy(&out.stderr)
         );
-        assert_eq!(out.status.code(), Some(code), "{patch}: {text}");
-        assert!(text.contains(says), "{patch}: {text}");
-        assert_eq!(s.read(FILE), BODY);
+        let case = format!("{file:?} {body:?} {patch:?} {config:?}: {text}");
+        match mutant {
+            Some(_) => {
+                assert_eq!(out.status.code(), Some(0), "{case}");
+                assert!(text.contains(&blob(s.root(), "expected")), "{case}");
+            }
+            None => assert_eq!(out.status.code(), Some(2), "{case}"),
+        }
+        assert_eq!(s.read(file), body, "{case}");
     }
+}
+
+/// `patch` with CRLF at the end of each line of a hunk's content, as a patch over a CRLF file is.
+fn crlf_hunk(patch: &str) -> String {
+    patch
+        .split_inclusive('\n')
+        .map(|line| match line.strip_suffix('\n') {
+            Some(bare)
+                if line.starts_with([' ', '-', '+'])
+                    && !line.starts_with("---")
+                    && !line.starts_with("+++") =>
+            {
+                format!("{bare}\r\n")
+            }
+            _ => line.to_string(),
+        })
+        .collect()
 }
 
 // The claim: `GIT_DIR` and an absolute `GIT_WORK_TREE` in the caller's environment, as git sets both
@@ -1172,7 +1241,7 @@ fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone()
         .take()
         .expect("its stdin")
         .write_all(
-            b"#!/bin/sh\nif [ \"$3\" = apply ]; then kill -9 $PPID; exit 1; fi\n\
+            b"#!/bin/sh\nfor a; do if [ \"$a\" = apply ]; then kill -9 $PPID; exit 1; fi; done\n\
               PATH=${PATH#*:} exec git \"$@\"\n",
         )
         .expect("the program is written");
