@@ -16,7 +16,7 @@
 //! than at install, where the project's command is filled, because a snippet does not vary by
 //! project. The snippets are also listed whole, by file name, as `SNIPPETS`, for `create` to write.
 //!
-//! Every file is read with its line endings made LF, so what a checkout that converts line endings
+//! Every pass reads a file with its line endings made LF, so what a checkout that converts line endings
 //! ships is what any other ships, `SNIPPETS` included, per
 //! `design@agent-skills@one-shipped-text-from-any-checkout`.
 //!
@@ -49,10 +49,7 @@ use std::path::{Path, PathBuf};
 #[path = "src/render.rs"]
 #[allow(dead_code)]
 mod render;
-use render::{
-    check_workflow_name, lf, render_fragments, render_slugs, snippet_list, snippet_placeholder,
-    strip_comments,
-};
+use render::{check_workflow_name, inline_snippets, shipped_text, snippet_list};
 
 /// The prefix every installed skill directory, agent file and workflow file carries in the
 /// project.
@@ -131,8 +128,7 @@ fn main() {
         {
             check_workflow_name(&text, stem, file);
         }
-        let text = render_slugs(&strip_comments(&text, file), file);
-        let (text, used) = render_fragments(&text, &shared, file);
+        let (text, used) = shipped_text(&text, &shared, file);
         fragments_used.extend(used);
         let text = substitute(&text, &mut substituted);
         std::fs::write(&rendered, snippets.render(&text, file)).expect("OUT_DIR is writable");
@@ -169,12 +165,11 @@ fn main() {
     std::fs::write(out.join("snippets.rs"), snippet_list(&snippets)).expect("OUT_DIR is writable");
 }
 
-/// The text of a file the build ships from, with LF line endings. Every such file is read through
-/// it, so the passes meet no other line ending.
+/// The text of a file the build ships from, as the checkout holds it: the passes of `render` make its
+/// line endings LF.
 fn read(file: &Path) -> String {
-    let text = std::fs::read_to_string(file)
-        .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", file.display()));
-    lf(&text)
+    std::fs::read_to_string(file)
+        .unwrap_or_else(|e| panic!("{} is readable as UTF-8: {e}", file.display()))
 }
 
 /// The files under snippets/, by name, each with whether a placeholder has named it.
@@ -204,25 +199,17 @@ impl Snippets {
         Snippets(snippets)
     }
 
-    /// `text` with each line that is a placeholder replaced by its snippet. A snippet's final line
-    /// break is the placeholder line's own, so the surrounding lines are unchanged.
+    /// `text` with each line that is a placeholder replaced by its snippet, each named one marked used.
     fn render(&mut self, text: &str, file: &Path) -> String {
-        let mut rendered = String::with_capacity(text.len());
-        for line in text.split_inclusive('\n') {
-            let bare = line.trim_end_matches(['\n', '\r']);
-            let Some(name) = snippet_placeholder(bare) else {
-                rendered.push_str(line);
-                continue;
-            };
-            let Some((_, snippet, used)) = self.0.iter_mut().find(|(n, _, _)| n == name) else {
-                panic!(
-                    "{} names snippets/{name}, which does not exist",
-                    file.display()
-                )
-            };
-            *used = true;
-            rendered.push_str(snippet.strip_suffix('\n').unwrap_or(snippet));
-            rendered.push_str(&line[bare.len()..]);
+        let texts: Vec<(&str, &str)> = self
+            .0
+            .iter()
+            .map(|(n, t, _)| (n.as_str(), t.as_str()))
+            .collect();
+        let (rendered, named) = inline_snippets(text, &texts, file);
+        let named: Vec<String> = named.into_iter().map(str::to_owned).collect();
+        for (name, _, used) in &mut self.0 {
+            *used |= named.contains(name);
         }
         rendered
     }

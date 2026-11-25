@@ -30,9 +30,9 @@ namespace, since an install path outside it would write a file the project owns.
 
 ### The build ships one text whatever the line endings of the checkout it runs in `##one-shipped-text-from-any-checkout`
 
-`path@agent-skills@build.rs` reads each file it ships from with every CRLF made LF, through `lf` of
-`path@agent-skills@src/render.rs`, before any pass, and `SNIPPETS` holds the text so read, as literals, and no
-file of the checkout. Without it, a build in a checkout that holds CRLF ships another text: a snippet or a
+The functions of `path@agent-skills@src/render.rs` that `path@agent-skills@build.rs` gives the files it ships from
+make every CRLF of a host, a fragment and a snippet LF, through `lf`, before any pass, and `SNIPPETS` holds the
+text so made, as literals, and no file of the checkout. Without it, a build in a checkout that holds CRLF ships another text: a snippet or a
 fragment loses its last line feed and keeps the carriage return before it, so each text that holds one is
 installed with a CRLF there among LF lines, which the check, whose comparison
 `design@check@generated-text-compared-without-line-endings` leaves line endings out of, does not report. Run
@@ -40,7 +40,8 @@ in a checkout of CRLF with `lf` made to return its text: the install writes such
 that holds a fragment or a snippet, and the check passes; the script is in the message of the commit
 "[agent-skills] The maintenance crate's release profile and the one shipped text are recorded, and the maintenance crate's head cites what its one shape stands on". The tests
 `a_crlf_checkout_ships_the_text_of_an_lf_one` and `the_snippet_list_holds_the_texts_read_in_name_order`
-of `path@agent-skills@src/render.rs` hold it, and the first fails when `lf` returns its text unchanged.
+of `path@agent-skills@src/render.rs` hold it over those functions, and the first fails when `lf` is dropped from
+the host, the fragments or the snippets.
 
 The nearest rival is `design@knowledge-architect@line-endings-of-this-repository` alone, under which git
 checks every file out with LF: a checkout made by another tool than git, or a later edit of that file,
