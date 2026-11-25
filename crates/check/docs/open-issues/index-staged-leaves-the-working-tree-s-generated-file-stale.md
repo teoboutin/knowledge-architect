@@ -8,7 +8,7 @@ kind: design
 `index --staged` writes the generated files the staged tree needs into git's index and leaves the
 working-tree files as they are. After the commit, a working-tree generated file still holds the old
 rows, and the next plain `check` fails until `index` runs. Two sessions met it; each recovered with
-one run. Every fix reverses part of `design@check@index-staged-write`.
+one run. Shapes 2 and 3 below reverse part of `design@check@index-staged-write`.
 
 ## Details
 
@@ -38,13 +38,15 @@ the commit it holds the rows of the tree before the staged change.
 
 The shapes:
 
-1. `index --staged` prints each working-tree generated file that is out of date for the working
-   tree, with `index` as the repair, thaum's proposal: it is built, and `path@cli@README.md` states
-   it. It names the file and leaves it stale: the second instance above is dated after the
+1. `index --staged` prints each working-tree generated file that now differs from the staged one,
+   with `index` as the repair, thaum's proposal. A variant of it is built, and `path@cli@README.md`
+   states it: the line names each working copy out of date for the working tree, since in a partial
+   commit the working copy rightly differs from the staged file. It names the file and leaves it stale: the second instance above is dated after the
    commit that holds the line, "[review] Repairs of the review before the merge of the pre-release
-   branch". Whether the line contradicts
+   branch". The line stands in an open divergence from
    `design@check@one-question-one-command`, under which whether a generated file is current is
-   `check`'s question, no head argues, and `design@check@index-staged-write` does not state the line;
+   `check`'s question: which of the two is the defect no head argues, and
+   `design@check@index-staged-write` does not state the line;
 2. `index --staged` also writes the working tree's copy where that copy equals HEAD's, the dispatch
    judgement's proposal; it brings back `rejected@check@index-staged-writes-working-file`, whose
    reason it answers only in part: where an unstaged change undoes the staged one for that

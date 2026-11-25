@@ -67,6 +67,9 @@ Further instances, from retrospective files received at the intake of 2026-11-14
 - a fourth session, 2026-11-11: one searcher's script overwrote the preamble of its report, which
   the check does not read, so nothing was refused.
 
+The search at the design discussion on the gates on Windows and macOS, 2026-11-25, 23 agents: a script
+of its own stands in the directory of each, named `fill.py` or `fill2.py` in 22 of them.
+
 The harness's edit tool replaces one exact string per call, so filling a report of 90 lines by it
 costs 90 calls. Not established: whether another harness offers a cheaper edit.
 

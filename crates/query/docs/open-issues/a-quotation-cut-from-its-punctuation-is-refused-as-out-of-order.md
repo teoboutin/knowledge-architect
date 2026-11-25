@@ -64,6 +64,9 @@ searchers' first
 2 to 50 per report, and that nearly every searcher wrote a script of its own to extend each
 quotation to whole words, then ran the check 2 to 4 times. The scripts follow a right message as
 well as a wrong one, so a repair of the message alone leaves the round trip.
+Another, 2026-11-25, the search at the design discussion on the gates on Windows and macOS: one of its
+searchers reported that 30 of its 50 quotations failed the first `--check`, most of them cut before
+their punctuation, and that a script extended them.
 The files propose three shapes: the finding prints the whole-word run it would accept, punctuation
 included, which keeps every head; `--check --fix` writes that run, against
 `design@query@worklist-check-judges-one-report`; or the check accepts a quotation that differs only
