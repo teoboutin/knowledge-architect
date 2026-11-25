@@ -163,7 +163,7 @@ were predicted by the simulation and 10 by reading:
 
 | cause | tests | where |
 | --- | --- | --- |
-| a printed path holds `\` | 62 simulated, 60 of them failed on Windows | the product, but for one test of `path@xtask@src/changelog.rs` |
+| a printed path holds `\` | 62 simulated, 60 of them failed on Windows | the product, but for one test of `path@xtask@src/changelog.rs` and three of `model` |
 | a path written raw into a JSON string | 29 | the helpers `transcript_case`, `copy_rendered` and `transcript_config` of `path@testing@tests/binary.rs` |
 | `core.autocrlf` in a repository a test or the product makes | 14 simulated, 12 failed on Windows | 8 tests through `apply_and_reverse` of `path@mutate@tests/harness.rs`, 1 in `path@mutate@src/run.rs`, 5 in `path@mutate@tests/modes.rs`, of which two passed on Windows, where its `grep` matches over CRLF; one printed `SURVIVED` for a patch that changes nothing |
 | a path joined, then compared as text | 2 | two tests of `resolver::tests`, through `ignore_query` |
@@ -466,8 +466,12 @@ the jobs: the owner's argument of round 2, that they run in parallel and the sui
 The alias is `x = "run -q --release -p xtask --"`, in this repository and in the snippet that
 `init --rust` writes and the setup skill shows. The gates `test`, `clippy` and `doc` write to the dev
 profile's directory alone, so none replaces the running binary. In a project of the scaffold's shape
-`check` and `commits` run the running binary itself, which cargo finds fresh: the probe ran such a
-project's whole gates on the three systems. Costs: a release rebuild of the maintenance crate after an
+`check` and `commits` run the running binary itself, which cargo finds fresh where the gate's cargo reads
+the inputs of the cargo that built it: the probe ran such a project's whole gates on the three systems.
+Where it does not, the gate builds the binary again and replaces it, which Windows refuses. Two inputs
+were observed to do so on Linux, each replacing the binary in a run that passed there: a profile setting given by `--config` to the
+cargo that built it alone, and an exported `RUSTC_BOOTSTRAP`, which the gates library removes from every
+child. Costs: a release rebuild of the maintenance crate after an
 edit of it or of a crate it links, and, in a project whose release settings are slow, those settings.
 The setup skill's sentence that `cargo klarch` alone runs in release mode is repaired in the same
 edit. Nearest rival: a cargo profile for the maintenance crate, which keeps a project's release
@@ -850,7 +854,7 @@ before step 7 starts.
    `path@testing@tests/scaffold.rs`, and a Migration entry of the changelog. Claims:
    - both aliases name `--release`: a test of `path@xtask@src/gates.rs` reads the cargo configuration
      and the snippet; mutation: `--release` removed from either;
-   - no gate replaces the running binary: a new run of the probe on Windows ends its `test` gate with no
+   - no gate replaces the running binary, under the condition #release-maintenance-build states: a new run of the probe on Windows ends its `test` gate with no
      removal refused, where the dev profile fails.
 
    Fails alone on: "Access is denied" on the running binary.

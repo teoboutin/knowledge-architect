@@ -90,7 +90,9 @@ an empty subsection is omitted.
   `skill@knowledge-architect-setup@moving-the-pin` says.
 - `agent-skills`, patch: the alias `x` that the setup skill shows and `init --rust` writes runs the
   maintenance crate in the release profile, `x = "run -q --release -p xtask --"`, since a gate that
-  builds in the dev profile can replace the binary that runs the gates, which Windows refuses. A
+  builds in the dev profile can replace the binary that runs the gates, which Windows refuses. A gate
+  that runs the maintenance crate leaves that binary in place where its cargo reads the inputs of the
+  cargo that built it; under an exported `RUSTC_BOOTSTRAP`, which no gate's child inherits, it does not. A
   project changes that line of its `.cargo/config.toml`; its own commands under the alias then run
   with no debug assertions.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before

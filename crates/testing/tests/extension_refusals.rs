@@ -50,11 +50,15 @@ fn copy_tree(from: &Path, to: &Path) {
     }
 }
 
-/// Run git in `dir`, with the per-user ignore file pinned away, as the binary tests do.
+/// Run git in `dir`, with the per-user ignore file pinned away, and the variables that would point it
+/// at another repository removed, as the binary tests do.
 fn git(dir: &Path, args: &[&str]) {
     let status = std::process::Command::new("git")
         .args(["-c", "core.excludesFile=/dev/null"])
         .args(args)
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .status()
         .expect("git runs");

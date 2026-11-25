@@ -9,9 +9,11 @@ use crate::gates::{Distiller, Gate};
 const STUB: &str = "true";
 
 /// The gate that runs clippy, warnings denied, for `target`, a target triple such as
-/// `x86_64-pc-windows-gnu`, over the whole workspace and every cargo target of it. It answers `None`
-/// on a machine whose own system is the target's, where the recommended list's `clippy` judges the
-/// same code. A project that wants it adds it to its list:
+/// `x86_64-pc-windows-gnu`, over the whole workspace and every cargo target of it. It is a gate for
+/// another system, so it answers `None` on a machine whose own system is the target's, whatever the
+/// target's architecture and its C library: on an `x86_64` Linux machine,
+/// `aarch64-unknown-linux-gnu` and `x86_64-unknown-linux-musl` get no gate, and the code particular to
+/// them is judged by none. A project that wants it adds it to its list:
 ///
 /// ```
 /// use knowledge_architect_gates::{cross_clippy, rust_project, Checker};
@@ -133,6 +135,19 @@ mod tests {
         );
         assert!(gate.resolves && !gate.rebased_only);
         assert_eq!(gate.distiller, Distiller::WithoutProgress);
+    }
+
+    /// The claim: the machine asked about is the one that runs. Mutation checked: `gate_on(target, "windows")`
+    /// and `gate_on(target, "")` in `cross_clippy`; caught on Linux.
+    #[test]
+    fn the_gate_is_asked_for_the_machine_that_runs() {
+        for (target, own) in [
+            ("x86_64-pc-windows-gnu", cfg!(target_os = "windows")),
+            ("aarch64-apple-darwin", cfg!(target_os = "macos")),
+            ("x86_64-unknown-linux-gnu", cfg!(target_os = "linux")),
+        ] {
+            assert_eq!(cross_clippy(target).is_none(), own, "{target}");
+        }
     }
 
     /// The claim: the gate is absent exactly on a machine of the target's own system, and present on

@@ -15,7 +15,13 @@ fn git(repo: &Path, autocrlf: &str, args: &[&str]) -> Vec<u8> {
         .args(["-c", &format!("core.autocrlf={autocrlf}")])
         // Both warn or refuse on a conversion by the machine's own configuration.
         .args(["-c", "core.safecrlf=false", "-c", "core.eol=native"])
+        .args(["-c", "core.excludesFile=/dev/null"])
         .args(args)
+        // A suite run from a commit hook inherits them, and would otherwise write into the outer
+        // repository, whose index `add -A` would replace.
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(repo)
         .output()
         .expect("git runs");
@@ -27,21 +33,42 @@ fn git(repo: &Path, autocrlf: &str, args: &[&str]) -> Vec<u8> {
     out.stdout
 }
 
-/// The claim: under this repository's `.gitattributes` a file is checked out with LF, and a file that
-/// holds CRLF is committed with LF, whether the machine's git converts or not. Mutations checked: the
-/// file emptied, `* -text` in its line's place, and `eol=lf` removed; each caught.
+/// The claim: under this repository's `.gitattributes` every text file is checked out with LF, and one
+/// that holds CRLF is committed with LF, whether the machine's git converts or not, and a file that is
+/// no text is left as it is. Mutations checked: the file emptied; `* -text` in its line's place;
+/// `eol=lf` removed; `auto` removed, `* text eol=lf`; the line made one of `*.md` and one of `*.rs`;
+/// each caught. That the repository variables are dropped was run: with `GIT_DIR` and
+/// `GIT_INDEX_FILE` naming another repository, its index is left as it was.
 #[test]
-fn a_file_is_checked_out_with_lf_and_committed_with_lf() {
+fn every_text_file_is_checked_out_with_lf_and_committed_with_lf() {
     for autocrlf in ["true", "false"] {
         let scratch = tempfile::TempDir::with_prefix("klarch-line-endings-").expect("a directory");
         let repo = scratch.path();
         git(repo, autocrlf, &["init", "-q"]);
         let attributes = include_str!("../../../.gitattributes");
         std::fs::write(repo.join(".gitattributes"), attributes).expect("the attributes");
-        std::fs::write(repo.join("lf.md"), "one\ntwo\n").expect("a file with LF");
-        std::fs::write(repo.join("crlf.rs"), "one\r\ntwo\r\n").expect("a file with CRLF");
+        // One name git's own attributes know nothing of, and one with no extension at all.
+        for file in ["lf.md", "lf.unnamed", "Lf"] {
+            std::fs::write(repo.join(file), "one\ntwo\n").expect("a file with LF");
+        }
+        for file in ["crlf.rs", "crlf.unnamed", "Crlf"] {
+            std::fs::write(repo.join(file), "one\r\ntwo\r\n").expect("a file with CRLF");
+        }
+        let binary = b"one\0\r\ntwo\n";
+        std::fs::write(repo.join("binary"), binary).expect("a file that is no text");
         git(repo, autocrlf, &["add", "-A"]);
-        for file in ["lf.md", "crlf.rs"] {
+        assert_eq!(
+            git(repo, autocrlf, &["cat-file", "blob", ":binary"]),
+            binary
+        );
+        for file in [
+            "lf.md",
+            "lf.unnamed",
+            "Lf",
+            "crlf.rs",
+            "crlf.unnamed",
+            "Crlf",
+        ] {
             let staged = git(repo, autocrlf, &["cat-file", "blob", &format!(":{file}")]);
             assert_eq!(staged, b"one\ntwo\n", "{file} staged, autocrlf={autocrlf}");
             std::fs::remove_file(repo.join(file)).expect("the file");
