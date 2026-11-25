@@ -25,7 +25,10 @@ changes the file's code, per `design@agent-skills@split-issue-reenters-at-planni
   `generated_list`, `check_destinations` and `print_report`.
 
 The instance: the branch that made the gates run on Linux, Windows and macOS changed the file, nearly every
-edit replacing one call at one site, and split nothing. Its review before the merge asked for this entry.
+edit replacing one call at one site, and split nothing. Its plan weighed the signals and opened no issue;
+its review before the merge asked for this entry, since the signal here is of parts that change apart, by
+the counts above, where the other modules the plan weighed, `references.rs`, `registers.rs` and `tree.rs`,
+hold one of size.
 
 ### Why it matters
 
@@ -35,3 +38,13 @@ against `goal@projects-are-split-into-modular-units`.
 ### What would close it
 
 The split, or an argument that none pays against the signals, in the work that weighs it.
+
+### Suspected mechanism
+
+The refusal of a checker at another version grew beside the runs it guards, by works that each added to one
+of them and weighed no split.
+
+### Re-entry point
+
+The design discussion or the planning of the next work that changes the code of
+`path@check@src/commands/mod.rs`.

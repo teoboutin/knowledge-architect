@@ -13,10 +13,9 @@ kinds admits, whatever reason or issue stands beside it.
 **Response:** repair the test, and reopen the decision on what holds it: a check that lists each mark
 with its kind, in place of the review alone.
 **Re-entry:** the standing-state axis of a review before a merge, over
-`git grep -nE '(cfg|cfg_attr)!?\(.*(unix|windows|target_os|target_family)|^ +(unix|windows|target_os.*|not\(.*\)),$' -- '*.rs'`,
-which finds every form of such a condition, one broken over lines included, and product code's beside a
-test's.
-**Watches until:** the fifth commit on main, after the one that wrote this entry, that adds or removes such
-a condition over a test, read among those that
-`git log --oneline -G'(cfg|cfg_attr)!?\(.*(unix|windows|target_os|target_family)' -- '*.rs'` lists: the
-command counts product code's too, and the reader leaves those out.
+`git grep -nwE 'unix|windows|target_os|target_family|target_vendor' -- '*.rs'`, a lead: a condition in
+`cfg`, `cfg_attr` or `cfg!`, on one line or broken over several, names a system by one of these words, and
+so do product code and prose.
+**Watches until:** the fifth commit on main, after the one that wrote this entry, that
+`git log --oneline -G'(^|[^A-Za-z0-9_])(unix|windows|target_os|target_family|target_vendor)([^A-Za-z0-9_]|$)' -- '*.rs'`
+lists. A commit that changes such a line of product code or of a comment counts too.

@@ -21,8 +21,7 @@ Read in `path@agent-skills@snippets/ci.yml`, which `skill@knowledge-architect-se
   for or against it there.
 
 The question has two parts. Whether a project is shown three systems is a choice of what a project is
-offered: asked on the branch that gave this repository's CI its three systems, the owner left the workflow as
-it is for now, and the choice stays open here. Its costs either way: a project that takes three
+offered, and the workflow stays as it is for now. Its costs either way: a project that takes three
 systems runs three jobs per push, needs its tests to pass on each, and takes the gathering job, or
 changes the contexts its ruleset requires; a project that takes one system and delivers on another meets
 there what its gates would have reported. `--ci` is argued by `design@gates@ci-flag-for-ci-only-requirements`

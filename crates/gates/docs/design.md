@@ -97,8 +97,10 @@ since a gate's fields are public.
 
 The costs accepted: that the `cc` crate takes objects that were never made is documented nowhere, so
 the gate can come to fail; a build script that runs the compiler to choose a feature can be answered
-wrongly, which the gates of that system report; and an `-msvc` target failed under the stub, observed once on
-2026-11-25 in this workspace and not taken again, so code particular to it is not judged.
+wrongly, which the gates of that system report; and an `-msvc` target fails under the stub, on "Could not copy or create a hard-link to the
+generated lib file" of the `cc` crate, so code particular to it is not judged. The command that takes it
+again is in the message of the commit "[review] Repairs of the second review of the record of the gates on
+Windows and macOS".
 
 ### The `doc` gate denies every rustdoc warning through the source of rustdoc flags cargo reads first, set in its own environment `##doc-gate-denial`
 
