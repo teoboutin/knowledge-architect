@@ -109,7 +109,8 @@ impl fmt::Display for Finding {
 /// on one system resolves on every other.
 ///
 /// It takes a project-relative path. An absolute path, or one the user gave, is printed as the
-/// system writes it. A name that is not UTF-8 is decoded with replacement characters.
+/// system writes it, per `design@knowledge-architect@printed-paths-with-slashes`. A name that is not
+/// UTF-8 is decoded with replacement characters. Why it is here is `design@model@path-spelling-home`.
 pub fn slashed(path: &Path) -> String {
     respelled(&path.to_string_lossy(), cfg!(windows))
 }

@@ -1504,3 +1504,24 @@ and so does `check --fix`, per `design@check@fix-scope`, on which `init` and `ne
 The owner held, of `init`, that removing such a file where the project wrote it is a loss, which
 the run refuses before it writes. `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 holds the work that reconciles the two.
+
+### A project-relative path is printed with `/` on every system `##printed-paths-with-slashes`
+
+A project-relative path that `model`, `check`, `query`, `create` or `xtask` prints, or writes in a repair
+it suggests, is spelled with `/` on every system the tools run on, per
+`design@knowledge-architect@platforms-served`, whatever call prints it, through the function of
+`design@model@path-spelling-home`. That the path is project-relative is what decides. An absolute path,
+or one the user gave, is printed as the system writes it, as the paths of the `--out` directory of
+`worklist` are, and a manifest row or a listed name that the model refuses is printed as it was written.
+`git` spells the paths it prints by a function of its own, per
+`design@git@paths-to-git-with-slashes`. `transcript` and `mutate` are development workflow, as
+`design@knowledge-architect@platform-skips` draws it, and print a path as the system writes it.
+
+A reference and a markdown link are spelled with `/`, and a path that Rust joins holds `\` on Windows. So
+a repair such as `path@<anchor>@<dir>\<file>`, followed there, passes the check there and fails it on
+Linux. A test that compares a printed text fails where the two spellings mix, so the gates on Windows
+hold the rule for each text a test reads.
+
+The nearest rival builds every `PathBuf` with `/`: its sites are each `join` and each `push`, more than
+the sites that print, and each is one to forget. A change of `Finding` alone lost: other sites print a
+path, and a finding's text can hold `\` as a character of its own.

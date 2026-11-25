@@ -64,6 +64,19 @@ target the rules cover as absent, against `design@model@ignored-targets-are-not-
 tree git holds gathers its own in `check`, per `design@check@staged-tree-source`, since no working tree
 holds what it reads. The nearest rival is `rejected@model@ignore-batch-in-the-checks`.
 
+### The function that spells a printed project-relative path is `model`'s `##path-spelling-home`
+
+`slashed`, public beside `escaped`, spells a path as
+`design@knowledge-architect@printed-paths-with-slashes` has it, and `check`, `query`, `create` and
+`xtask` call it. `check`'s module `extension` publishes it beside `rel_from`, so the findings and the
+generated files of an extension spell a path as the checker's do, per
+`goal@projects-add-their-own-checks`, under which a project's checks report with the checker's own.
+
+The nearest rival is one public function of `git`, which each of these crates depends on,
+`rejected@model@path-spelling-in-git`. It loses to
+`design@git@an-operation-in-git-s-terms-is-the-library-s`: who calls a function is no ground for a place
+there, and printing a path is no operation on a repository.
+
 ### An extension's phase-1 contribution reaches the model as data `##contribution-is-data`
 
 `model::extension::Contribution` holds the tables a binary's extensions claim, their complaints, their

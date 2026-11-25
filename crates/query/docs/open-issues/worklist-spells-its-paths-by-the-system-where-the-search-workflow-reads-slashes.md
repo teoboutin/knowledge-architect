@@ -24,8 +24,8 @@ Read: `path@agent-skills@content/workflows/record-search.js` reads the output wi
 `/(agent-[0-9]+)\/report\.md/` and a directory with `/(?:^|\/)(agent-[0-9]+)(?=\/|$)/`, neither of which
 matches a `\`. Not run on Windows.
 
-The paths are outside the project, so they are printed as the system writes them, by the decision of
-`spec@plans@gates-on-windows-and-macos`; the two tests compare them so.
+The paths are outside the project, so they are printed as the system writes them, per
+`design@knowledge-architect@printed-paths-with-slashes`; the two tests compare them so.
 
 ### Why it matters
 
