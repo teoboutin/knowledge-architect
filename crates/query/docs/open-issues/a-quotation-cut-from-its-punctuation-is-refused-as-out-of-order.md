@@ -67,6 +67,9 @@ well as a wrong one, so a repair of the message alone leaves the round trip.
 Another, 2026-11-25, the search at the design discussion on the gates on Windows and macOS: one of its
 searchers reported that 30 of its 50 quotations failed the first `--check`, most of them cut before
 their punctuation, and that a script extended them.
+Another, 2026-11-25, the search at the change of the retrospective intake's division of its items: one
+searcher reported that the first `--check` refused 31 of its 51 quotations, all cut before the
+punctuation of their last word or at a mark, and that a script of its own extended them.
 The files propose three shapes: the finding prints the whole-word run it would accept, punctuation
 included, which keeps every head; `--check --fix` writes that run, against
 `design@query@worklist-check-judges-one-report`; or the check accepts a quotation that differs only
