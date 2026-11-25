@@ -4,15 +4,22 @@
 # gate list. Why each flag is CI's is `design@xtask@gates-list-primary-home`; the log groups and
 # the error annotation are `design@gates@annotations-under-actions`.
 #
+# The job `gates` runs that step on each system, and the job `check` gathers what the systems
+# answered into the one status context that the ruleset on main requires.
+#
 # The merge procedure it serves is root CLAUDE.md `Git`: a pull request is merged through GitHub
-# once this job passed on its current head, which a ruleset on main requires up to date with main.
+# once `check` passed on its current head, which the ruleset requires up to date with main.
 #
 name: ci
 
 on:
   pull_request:
     # No `push` trigger: `main` receives the tested tree, the branch being up to date with it,
-    # and a push trigger beside this one bills every push to an open pull request twice.
+    # and a push trigger beside this one bills every push to an open pull request twice. None on
+    # a branch under way either: that checks a draft's commits, against
+    # `design@knowledge-architect@ci-skips-a-draft`; the fields of the pull request this file reads,
+    # the draft flag, the number and the head, are empty on a push; and its successful run would be
+    # a successful run on the head, which the merge predicate would take for the merge check.
     types: [opened, synchronize, reopened, ready_for_review]
 
 # Read-only: nothing here writes to the repository, comments on the pull request, or
@@ -30,15 +37,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
+  gates:
+    # The whole list of the project on each system: which gates run on one is for the list to say,
+    # and nothing here names a gate.
+    strategy:
+      # Each system's verdict is reported, whichever fails first.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     # A draft is not checked, per `design@knowledge-architect@ci-skips-a-draft`. A job skipped by
     # `if:` reports `skipped`, which GitHub counts as passing, so the merge predicate reads the
     # draft flag itself and asks for a successful run, per
     # `design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head`.
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     # A hung job runs up to the default 360 minutes, so the limit stays explicit.
     timeout-minutes: 30
+    # The one shell every runner has; a Windows runner's own default is PowerShell.
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v5
@@ -52,12 +70,10 @@ jobs:
 
       - name: toolchains
         # Named separately so a runner image that cannot provide the toolchain pinned in
-        # rust-toolchain.toml fails here, with the missing thing in the step name. `nproc`
-        # puts the runner's CPU count in every log.
+        # rust-toolchain.toml fails here, with the missing thing in the step name.
         run: |
-          nproc
           cargo --version
-          rustc --version
+          rustc -vV
 
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         # Pinned by commit: a third-party action in a job holding a token. Its default
@@ -74,5 +90,21 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: gate-logs
+          # One run refuses two artifacts of one name, so each system's has its own.
+          name: gate-logs-${{ matrix.os }}
           path: target/gates/
+
+  check:
+    # The context the ruleset requires, so the list of systems changes with no change of a setting.
+    # `always()`: without it this job is skipped when the job it needs fails, and GitHub counts a
+    # skipped job as passing.
+    needs: gates
+    if: ${{ !github.event.pull_request.draft && always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: the gates passed on every system
+        # `success` alone passes: a matrix that was cancelled or skipped answers neither `success`
+        # nor `failure`.
+        run: test '${{ needs.gates.result }}' = success
