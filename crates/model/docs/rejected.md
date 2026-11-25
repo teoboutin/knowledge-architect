@@ -341,3 +341,10 @@ anchor owns the definitions of the files under it, per `design@model@an-entity-b
 so a slice's items would leave the milestone's namespace and its citation forms, and a slice's name
 would sit in the anchor position, where two milestones' slices of one name collide, per
 `design@model@a-placed-name-reads-as-nothing-else`. It would change how every slice's items are cited.
+
+### One public function of `git` that spells a path, for what is printed and for what git is asked `##path-spelling-in-git`
+
+`live`. It would hold the spelling once, where `git` keeps a private function of its own beside
+`model`'s. It lost because the functions of `git` are operations on a repository, per
+`design@git@an-operation-in-git-s-terms-is-the-library-s`, and printing a path is none. It is recorded
+because it would change an interface others consume, the public functions of two libraries.
