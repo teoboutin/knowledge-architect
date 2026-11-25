@@ -68,11 +68,11 @@ struct Row {
 /// states it, and a generator that disagreed with the committed bytes would fail the gate on
 /// every entry edit.
 ///
-/// **The rows come from the walked entries, not from the instance's declarations.** A group is
-/// the subdirectory an entry sits in, so a group nobody declared still lists its entries and
-/// a declared group holding none prints no heading. `check::registers` is what reports the
-/// declaration, and an index that hid an entry because of it would be a listing that stops
-/// listing.
+/// **The rows come from the walked entries, not from the instance's declarations**, per
+/// `design@model@index-rows-from-walked-entries`. A group is the subdirectory an entry sits in, so
+/// a group nobody declared still lists its entries and a declared group holding none prints no
+/// heading. `check::registers` is what reports the declaration, and an index that hid an entry
+/// because of it would be a listing that stops listing.
 pub(crate) fn file_register_index(
     model: &Model,
     register: &Register,

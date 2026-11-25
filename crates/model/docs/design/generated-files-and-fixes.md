@@ -2,7 +2,7 @@
 
 ## Generated files
 
-### A file register's index is a banner, a count and one row per entry, and its bytes are the contract `##a-file-register-index-is-rows`
+### A register's generated index is a banner, a count and one row per entry, with no summary and no date `##a-file-register-index-is-rows`
 
 The generated `index.md` of a file-register instance, in order:
 
@@ -45,14 +45,17 @@ each milestone's `index.md` lists its slices, a live slice ungrouped and a harve
 heading `harvested`, the subdirectory it sits in, titled from its frozen `README.md`, per
 `design@model@a-harvested-slice-is-frozen`.
 
-**The rows come from the walked entries, not from the instance's declarations.** A group is the
-subdirectory an entry sits in, so an undeclared group still lists its entries and a declared group
-holding none prints no heading; an entry whose id, title or metadata the shape check refuses is
+Which entries the rows list is `design@model@index-rows-from-walked-entries`.
+
+The design this decision did not keep: `rejected@model@lines-flag-on-interpretation-index`.
+
+### An index's rows come from the walked entries, not from the instance's declarations `##index-rows-from-walked-entries`
+
+A group is the subdirectory an entry sits in, so an undeclared group still lists its entries and a
+declared group holding none prints no heading; an entry whose id, title or metadata the shape check refuses is
 still listed, under its basename and an empty cell. A listing that hid what the directory holds
 because a declaration disagreed would be a listing that stops listing, and the declaration is
 `check::registers`' to report.
-
-The design this decision did not keep: `rejected@model@lines-flag-on-interpretation-index`.
 
 ### The writer and the `generated` check take the generated files from one list `##one-list-of-generated-files`
 

@@ -933,8 +933,8 @@ before step 7 starts.
      past the goal's: rewording it would write the constraint taken from a goal;
    - `design@check@generated-files-are-pure`: the closing line that cites
      `rejected@model@index-last-change-date`, which its words cover and which says that it loses to it;
-   - `design@model@a-file-register-index-is-rows`: the rows from the walked entries go to a head with
-     slug `index-rows-from-walked-entries`, and the head is retitled "A register's generated index is a
+   - `design@model@a-file-register-index-is-rows`: the rows from the walked entries go to
+     `design@model@index-rows-from-walked-entries`, and the head is retitled "A register's generated index is a
      banner, a count and one row per entry, with no summary and no date"; its part on the byte
      comparison stays until the harvest. Of the texts above, the paragraph "The rows come from the walked
      entries" of `path@model@src/index.rs` is re-pointed;
