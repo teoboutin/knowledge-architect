@@ -61,17 +61,26 @@ local run pass what CI fails, or the reverse. The job UI names the failing gate 
 `design@gates@annotations-under-actions`, and the logs reach the reader as the workflow's
 `gate-logs` artifact, uploaded when the job fails.
 
-**Where CI and a local run differ in what they run, the difference is a flag that CI passes and a
+The flags CI passes are `design@xtask@ci-differs-by-flags`.
+
+### CI and a local run differ in what they run by flags alone `##ci-differs-by-flags`
+
+Where CI and a local run differ in what they run, the difference is a flag that CI passes and a
 local run does not: a flag of the gates library, per `design@gates@the-library-owns-the-flags`, or
-cargo's own `--locked`, below.** How the
+cargo's own `--locked`, per `design@xtask@ci-passes-locked-ahead-of-the-alias`. The nearest rival, a
+run that reads a variable CI sets, loses: the command copied from CI then no longer reproduces CI's
+verdict exactly, a possible source of unexpected results, as
+`design@gates@ci-flag-for-ci-only-requirements` argues of the variable `CI` for `--ci`. How many
+flags carry the differences is that head's question. A gate that the list leaves out on a machine of
+one system, as clippy for another target on a machine of that target's own system, is left out in CI
+and locally alike, so it is no difference between them. How the
 run reports differs with no flag: under Actions the library accepts a pipe on stdout and wraps each
 gate in workflow commands, per `design@gates@gates-refuse-a-pipe` and
-`design@gates@annotations-under-actions`, which change no gate and no verdict. `--locked`: locally a
+`design@gates@annotations-under-actions`, which change no gate and no verdict.
+
+`--locked`: locally a
 legitimately updated `Cargo.lock` must not fail a gate, while in CI lock drift is exactly what
-must fail. The tool's flag reaches its children alone: the `x` alias resolves the workspace
-before the tool starts and rewrites a drifted lock, so CI also passes cargo's own `--locked`
-ahead of the alias. Re-taken by deleting one package block from `Cargo.lock`: `cargo x --help`
-exits 0 and restores the block, and `cargo --locked x --help` exits 101. `--fail-fast`: CI's deliverable is a verdict, a local run's is the complete work list,
+must fail. `--fail-fast`: CI's deliverable is a verdict, a local run's is the complete work list,
 per `design@gates@gates-run-all`. `--require-rebased`, per `design@gates@rebase-checks-behind-a-flag`: the merge predicate in root
 `CLAUDE.md` asks the same ancestry question with git before the merge, and CI's full-depth
 checkout has fetched origin/main before the gate reads it.
@@ -80,6 +89,14 @@ alone, and a hung gate must show which one it is. `--ci`, per
 `design@gates@ci-flag-for-ci-only-requirements`: a test that needs a tool a machine may lack, such as
 the parse test of the saved workflows with `node`, skips without it locally and fails without it in
 CI.
+
+### CI passes `--locked` to cargo ahead of the `x` alias, as well as to the tool `##ci-passes-locked-ahead-of-the-alias`
+
+In CI lock drift must fail, per `design@xtask@ci-differs-by-flags`. The tool's flag alone, the
+nearest rival, reaches its children alone: the `x` alias resolves the workspace
+before the tool starts and rewrites a drifted lock, so CI also passes cargo's own `--locked`
+ahead of the alias. Re-taken by deleting one package block from `Cargo.lock`: `cargo x --help`
+exits 0 and restores the block, and `cargo --locked x --help` exits 101.
 
 ### CI builds and tests the branch's tip alone `##ci-builds-the-tip-alone`
 

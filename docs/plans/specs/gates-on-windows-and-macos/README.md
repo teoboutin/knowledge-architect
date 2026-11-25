@@ -920,7 +920,7 @@ before step 7 starts.
      what reporting does with no flag, goes to a head that takes
      the slug of `thread@gates-on-windows-and-macos@ci-differs-by-flags`, argued as that thread says;
      cargo's own `--locked` ahead of
-     the alias, whose argument is measured, goes to one with slug `ci-passes-locked-ahead-of-the-alias`.
+     the alias, whose argument is measured, goes to `design@xtask@ci-passes-locked-ahead-of-the-alias`.
      Of the texts above, `path@knowledge-architect@CLAUDE.md` and the opening comment of
      `path@knowledge-architect@.github/workflows/ci.yml` cite the flags, and are re-pointed; the others
      cite the list;

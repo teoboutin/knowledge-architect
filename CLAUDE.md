@@ -104,8 +104,9 @@ gate, and its exit code is trustworthy:**
 cargo x gates
 ```
 
-Which gates it runs, and the flags CI passes, are `design@xtask@gates-list-primary-home`, read
-whole before relying on either; `path@xtask@README.md` is the usage, with the command of each gate.
+Which gates it runs is `design@xtask@gates-list-primary-home`, and the flags CI passes are
+`design@xtask@ci-differs-by-flags`, each read whole before relying on it; `path@xtask@README.md` is
+the usage, with the command of each gate.
 CI runs the same tool on every ready pull request, as
 `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`. It does not stop at a
 failure unless `--fail-fast` asks for it, per `design@gates@gates-run-all`. It writes each gate's
