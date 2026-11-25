@@ -268,6 +268,9 @@ an empty subsection is omitted.
   skill of the project that adds to it. An agent's verdict gets the independent verification the
   primer asks of a returned conclusion, by the session or by another agent. The session still decides
   each outcome, and reads itself the goal each finding serves or threatens.
+- `agent-skills`, patch: a thread's item in a plan document's `deliberation.md` no longer names the
+  durable home that will harvest it; the Harvest section of the `README.md` alone holds each
+  thread's home.
 
 ## 0.10.0
 
