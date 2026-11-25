@@ -158,6 +158,20 @@ by the probe branch, which the owner allowed to be pushed in round 2; the owner 
 checkpoint table in round 8. Shape: README.md, "Losing alternatives", #iteration-before-ready.
 Harvest: `design@knowledge-architect@ci-skips-a-draft`.
 
+### CI keeps not checking a draft pull request `##drafts-stay-unchecked`
+
+Opened by the session after round 8, on the design-record audit of
+`design@knowledge-architect@ci-skips-a-draft`. Final state: open, a default awaiting the owner, D1.
+Arguments: `argument@gates-on-windows-and-macos@arg-37`. Shape: README.md, Decided design,
+#drafts-stay-unchecked. Harvest: `design@knowledge-architect@ci-skips-a-draft`.
+
+### CI and a local run differ in what they run by flags alone `##ci-differs-by-flags`
+
+Opened by the session after round 8, on the design-record audit of
+`design@xtask@gates-list-primary-home`, which bundles the rule with no rival argued. Final state: open,
+a default awaiting the owner, D2. Arguments: `argument@gates-on-windows-and-macos@arg-38`. Shape:
+README.md, Decided design, #ci-differs-by-flags. Harvest: a head of `register@xtask@design`.
+
 ## Arguments
 
 ### The Windows runners may be weaker, and the jobs must not slow a merge, so gates whose verdict does not depend on the system may be left out there `##arg-1`
@@ -396,3 +410,13 @@ the scratch repository's `git apply` rewrote the file's line endings.
 
 Given by the owner, in round 8. Bears on `thread@gates-on-windows-and-macos@platform-skips`. The
 owner's reason for admitting the skip, with its reason written and no issue.
+
+### With three systems, a failure only CI shows is more frequent, and nothing ranks a run per draft push against it `##arg-37`
+
+After round 8, the session, on `thread@gates-on-windows-and-macos@drafts-stay-unchecked`. "The cost the
+choice accepted grows", from the search's verdict on `design@knowledge-architect@ci-skips-a-draft`.
+
+### A command copied from CI reproduces its verdict when every difference is a flag of it `##arg-38`
+
+After round 8, the session, on `thread@gates-on-windows-and-macos@ci-differs-by-flags`, from the ground of
+`design@gates@ci-flag-for-ci-only-requirements`.
