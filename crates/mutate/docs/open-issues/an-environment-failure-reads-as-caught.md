@@ -15,7 +15,7 @@ Observed by two reviewers of the slice that moved the commands out of the checke
 
 A further instance: W6 of the retrospective of the slice that holds the fixtures and the integrated tests, 2026-11-07. Eleven reviewers each built into a target directory of their own, 0.7 to 2.3 GB each, on a shared tmpfs that hit its quota; one mutation read `caught` on the full disk, and its reviewer discarded the verdict.
 
-A further instance: on a machine whose /tmp, a tmpfs, had run out of inodes, builds failed with `No space left on device`, and a mutation run read such a failure as `caught`.
+A further instance: on a machine whose /tmp, a tmpfs of 1,048,576 inodes, held 68,118 entries `klarch-transcript-*` and 9,350 `knowledge-worklist-*` left by the tests of this repository, builds failed with `No space left on device` at 1,048,465 inodes in use, and a mutation run read such a failure as `caught`.
 
 ### Why it matters
 
