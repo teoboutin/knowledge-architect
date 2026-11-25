@@ -7,6 +7,7 @@
 
 use std::path::{Path, PathBuf};
 
+use crate::currency::{current, is_current, lf};
 use crate::model::declared::owned_path;
 use crate::model::listing::Outside;
 use crate::model::{slashed, Manifest};
@@ -24,24 +25,6 @@ pub const IMPORT_LINE: &str = "@.claude/knowledge-architect/PRIMER.md";
 /// A shipped template with the project's command filled in, with LF line endings.
 pub(crate) fn render(template: &str, command: &str) -> String {
     lf(&template.replace(PLACEHOLDER, command))
-}
-
-/// The text with every CRLF line ending made LF, so a checkout that converts line endings holds
-/// the same installed text as one that does not.
-pub(crate) fn lf(text: &str) -> String {
-    text.replace("\r\n", "\n")
-}
-
-/// Whether a file that holds `on_disk` is current, where this version would write `expected`: the
-/// two differ by their line endings at most, which a checkout under `core.autocrlf` converts.
-///
-/// **It is the one comparison of currency**, of an installed file and of a generated one, so what
-/// `check` calls current is what `check --fix` neither writes nor refuses over, and what
-/// `index --staged` does not name. What asks to write, `index`, the entries `index --staged` stages
-/// and the install, compares bytes. The decision is
-/// `design@check@generated-text-compared-without-line-endings`.
-pub(crate) fn current(on_disk: &str, expected: &str) -> bool {
-    lf(on_disk) == lf(expected)
 }
 
 /// Every file this version installs into the project, at its install path, rendered. Empty when
@@ -200,9 +183,7 @@ pub(crate) fn repairs(
             None => {
                 let path = root.join(rel);
                 let directory = std::fs::symlink_metadata(&path).is_ok_and(|m| m.is_dir());
-                let up_to_date =
-                    std::fs::read_to_string(&path).is_ok_and(|on_disk| current(&on_disk, expected));
-                if !directory && !up_to_date {
+                if !directory && !is_current(&path, expected) {
                     out.write.push(rel.clone());
                 }
             }

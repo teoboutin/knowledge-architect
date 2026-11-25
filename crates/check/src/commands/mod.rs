@@ -598,16 +598,15 @@ fn fix_then_check(
             // clear.
             let written_here: Vec<(std::path::PathBuf, String)> = generated
                 .iter()
-                .filter(|(rel, text)| !is_current(&manifest.root().join(rel), text))
+                .filter(|(rel, text)| {
+                    !crate::currency::is_current(&manifest.root().join(rel), text)
+                })
                 .cloned()
                 .collect();
             let differing: Vec<String> = differing_paths(&generated, &staged)
                 .into_iter()
-                .filter(|path| {
-                    written_here
-                        .iter()
-                        .any(|(rel, _)| crate::model::escaped(&slashed(rel)) == *path)
-                })
+                .filter(|path| written_here.iter().any(|(rel, _)| rel == path))
+                .map(|rel| crate::model::escaped(&slashed(&rel)))
                 .collect();
             if !differing.is_empty() {
                 let command = manifest.command();
@@ -629,7 +628,7 @@ fn fix_then_check(
     }
     for (rel, text) in generated {
         let path = manifest.root().join(&rel);
-        if is_current(&path, &text) {
+        if crate::currency::is_current(&path, &text) {
             continue;
         }
         if let Err(e) = std::fs::write(&path, &text) {
@@ -647,12 +646,6 @@ fn fix_then_check(
         Err(e) => failed(written, e),
         outcome => outcome,
     }
-}
-
-/// Whether the working-tree file at `path` is current for `text`, the generated file's text: one that
-/// is absent, or that cannot be read as text, is not.
-fn is_current(path: &std::path::Path, text: &str) -> bool {
-    std::fs::read_to_string(path).is_ok_and(|on_disk| crate::agents::current(&on_disk, text))
 }
 
 /// The summary first, the findings under it, then the note on untracked files when one is owed,
@@ -819,11 +812,11 @@ fn generated_list(
 ///
 /// A text an extension builds from a document's own lines holds CRLF in a working tree that
 /// `core.autocrlf` converted and LF in a snapshot, and the two are one text, as
-/// [`crate::agents::current`] judges it.
+/// [`crate::currency::current`] judges it.
 fn differing_paths(
     working: &[(std::path::PathBuf, String)],
     staged: &[(std::path::PathBuf, String)],
-) -> Vec<String> {
+) -> Vec<std::path::PathBuf> {
     let working: std::collections::BTreeMap<_, _> = working.iter().cloned().collect();
     let staged: std::collections::BTreeMap<_, _> = staged.iter().cloned().collect();
     let mut paths: std::collections::BTreeSet<&std::path::PathBuf> = working.keys().collect();
@@ -831,10 +824,10 @@ fn differing_paths(
     paths
         .into_iter()
         .filter(|rel| match (working.get(*rel), staged.get(*rel)) {
-            (Some(working), Some(staged)) => !crate::agents::current(working, staged),
+            (Some(working), Some(staged)) => !crate::currency::current(working, staged),
             (working, staged) => working != staged,
         })
-        .map(|rel| crate::model::escaped(&slashed(rel)))
+        .cloned()
         .collect()
 }
 
@@ -1034,30 +1027,9 @@ mod tests {
         ];
         assert_eq!(
             super::differing_paths(&working, &staged),
-            vec!["b.md", "c.md", "d.md"]
+            ["b.md", "c.md", "d.md"].map(std::path::PathBuf::from)
         );
         assert!(super::differing_paths(&working, &working).is_empty());
-    }
-
-    /// The claim: a working copy is current where it holds the text, line endings apart, and not where
-    /// it is absent or is no text. Mutation checked: `.is_ok_and(` made `.map_or(path.exists(), `, under
-    /// which a file that is no text is current; caught.
-    #[test]
-    fn a_working_copy_that_is_absent_or_no_text_is_not_current() {
-        let scratch = Scratch::new("current");
-        for (name, bytes, current) in [
-            ("same.md", Some(&b"a\nb\n"[..]), true),
-            ("crlf.md", Some(&b"a\r\nb\r\n"[..]), true),
-            ("other.md", Some(&b"a\nc\n"[..]), false),
-            ("binary.md", Some(&b"\xff\xfe"[..]), false),
-            ("absent.md", None, false),
-        ] {
-            let path = scratch.path(name);
-            if let Some(bytes) = bytes {
-                std::fs::write(&path, bytes).expect("a file");
-            }
-            assert_eq!(super::is_current(&path, "a\nb\n"), current, "{name}");
-        }
     }
 
     /// The claim: the checker's directories are named with `/` where they are the project's, and as the

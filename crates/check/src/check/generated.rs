@@ -10,7 +10,7 @@
 
 use std::path::Path;
 
-use crate::agents::{current, lf};
+use crate::currency::{current, lf};
 use crate::extension::Generated;
 use crate::model::generated;
 use crate::model::Finding;

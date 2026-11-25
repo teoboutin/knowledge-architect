@@ -29,6 +29,9 @@ pub fn label(doc: &Document) -> String {
 /// The relative path from `dir` to `target`, the way a renderer resolves a link in a file
 /// inside `dir`.
 ///
+/// The path is joined with the system's separator, so a caller that prints it, or writes it into a
+/// generated file, spells it with [`slashed`](crate::slashed).
+///
 /// The upward segments this produces are legal here and nowhere else: both generated
 /// indexes sit outside the walk, and generated text cannot go stale, which is what the
 /// upward ban in hand-written links exists against.

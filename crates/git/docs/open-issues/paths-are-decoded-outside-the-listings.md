@@ -38,8 +38,11 @@ Read in the code, not run.
 
 On Windows a listed name that holds `\` as a character, such as `notes\b.md` committed on Linux, is
 named back to git by `path_bytes` as `notes/b.md`, another file's name, so the bytes of that other file,
-or none, are answered for it. The checker's walk refuses the name before it asks for the bytes, but for a
-name a `skip-files` row keeps. Read in the code, not run.
+or none, are answered for it. The checker's walk refuses the name before it asks for the bytes, and
+reports it where a document stands at `notes/b.md`, as the test
+`a_refused_name_is_refused_where_a_document_stands_at_the_same_path` of `path@model@src/survey.rs` holds,
+but for a name a `skip-files` row keeps; there, a row for `notes/b.md` keeps `notes\b.md` too, since a path
+is compared by its segments. Read in the code, not run.
 
 ### Why it matters
 

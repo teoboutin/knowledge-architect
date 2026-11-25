@@ -1040,34 +1040,27 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
         command = manifest.command()
     );
     for entry in inputs.links {
+        // Printed as git lists it: a link's name can be one the walk refuses.
+        let name = entry.rel.to_string_lossy();
         let (what, action) = match entry.kind {
             EntryKind::Symlink if generated.contains(&entry.rel) => (
-                format!(
-                    "`{}` is a symlink where a generated file belongs",
-                    slashed(&entry.rel)
-                ),
+                format!("`{name}` is a symlink where a generated file belongs"),
                 regenerate.as_str(),
             ),
             EntryKind::Symlink => (
-                format!(
-                    "`{}` is a symlink, and the walk reads no document through one",
-                    slashed(&entry.rel)
-                ),
+                format!("`{name}` is a symlink, and the walk reads no document through one"),
                 "replace it with the file it points at, or with a reference to that file; a \
                  checkout without symlinks holds the target's path as text here, so two readers \
                  of this tree would judge two documents. Name it in [walk] skip-files to keep it",
             ),
             EntryKind::Gitlink => (
-                format!(
-                    "`{}` is a submodule, and the walk reads nothing under it",
-                    slashed(&entry.rel)
-                ),
+                format!("`{name}` is a submodule, and the walk reads nothing under it"),
                 "name it in [walk] exclude to declare the silence; the tool models no \
                  submodule, and the checker's open issues hold the question",
             ),
             EntryKind::File => continue,
         };
-        out.push(Finding::in_file(&entry.rel, what, action));
+        out.push(Finding::of_a_listed_name(&entry.rel, what, action));
     }
 
     // **A file outside the walk that could not be read is a finding naming it.** An extension

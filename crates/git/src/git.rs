@@ -429,6 +429,9 @@ pub fn tracked_and_ignored(root: &Path) -> io::Result<Vec<PathBuf>> {
 /// only if the spelling says so.
 /// Asking by the claim rather than by what is on disk is what makes the answer identical on a
 /// fresh clone and a built tree.
+///
+/// On Windows the path is named with `/`, per `design@git@paths-to-git-with-slashes`. A name that is not
+/// UTF-8 is decoded with replacement characters.
 pub fn ignore_query(target: &Path, claims_dir: bool) -> String {
     let mut out = named(target);
     if claims_dir && !out.ends_with('/') {
@@ -1004,6 +1007,10 @@ pub fn stage_generated(root: &Path, files: &[(PathBuf, String)]) -> io::Result<(
 /// `<rev>:./<path>` resolves relative to the working directory, where `<rev>:<path>` resolves
 /// from the repository root. The first is what a project-relative path needs. `:./<path>` names
 /// the index's stage-0 blob the same way.
+///
+/// On Windows the path is named with `/`, per `design@git@paths-to-git-with-slashes`, so a name that holds
+/// `\` as a character is named as another. A name that is not UTF-8 is decoded with replacement
+/// characters.
 pub fn object_name(source: Source, rel: &Path) -> String {
     match source {
         Source::Commit(sha) => format!("{sha}:./{}", named(rel)),
@@ -1078,6 +1085,9 @@ pub fn blobs(
 
 /// The bytes of many blobs of one snapshot, in one process, as [`blobs`] reads them and
 /// with no decoding. A path the snapshot does not hold contributes no entry.
+///
+/// On Windows a path is named to git with `/`, per `design@git@paths-to-git-with-slashes`, so one that
+/// holds `\` as a character is given the bytes of the path that `/` spells, where the snapshot holds it.
 ///
 /// # Errors
 ///

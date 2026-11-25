@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-34 entries
+35 entries
 
 | kind | title |
 | --- | --- |
@@ -20,6 +20,7 @@
 | design | [A message that fails `commits` while work is uncommitted waits for a history edit](a-failing-message-waits-for-a-history-edit-while-work-is-uncommitted.md) |
 | design | [A plan item named as a plain `#<id>`, inside its plan or outside it, is read by no check](a-plain-hash-item-name-is-read-by-nothing.md) |
 | design | [A quotation beside a reference is not checked against the entry it cites](a-quotation-beside-a-reference-is-not-checked-against-its-entry.md) |
+| design | [`commands/mod.rs` holds two parts that change apart, and is near one read](commands-mod-rs-holds-two-parts-that-change-apart.md) |
 | design | [Heads of `check` and `create` bundle decisions that lose to different rivals, and each has many citing sites](core-heads-bundle-decisions-with-many-citing-sites.md) |
 | design | [`history.rs` is past one read](history-rs-is-past-one-read.md) |
 | design | [After `index --staged` and the commit, the working tree's generated file is stale](index-staged-leaves-the-working-tree-s-generated-file-stale.md) |
