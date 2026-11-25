@@ -205,7 +205,10 @@ an empty subsection is omitted.
   the split of a Component's code into modules and of a design home into subjects, beside the split
   into Components.
 - `agent-skills`, patch: the heads a harvest will touch are listed in the plan document's "What is
-  already decided", a milestone's in each slice's spec; once the list exists, one
+  already decided", a milestone's in each slice's spec, drawn from a search, not from memory: of
+  the heads `show` lists as citing each decision the work changes, and those a grep of the changed
+  rule's wording returns in every Component's design home, the list keeps each whose text the
+  harvest will change, and a list that keeps none names the search it ran; once the list exists, one
   `agent@knowledge-architect-design-record-auditor` judges them, as a drafter scoped to the list,
   never the axis's saved workflow, a list of more than 60 heads cut into groups that share a
   calibrated sample; each head it finds non-conformant gets a step that conforms it before the

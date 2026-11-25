@@ -403,7 +403,11 @@ one whose text it changes without reversing or rewriting its decision; re-pointi
 not touch a head, as `skill@knowledge-architect-decision-recording@head-shape` says.
 
 - **The list.** The section "What is already decided" of a spec lists the heads its harvest will
-  touch, each as a reference, apart from the decisions it reverses or rewrites; in a milestone, each
+  touch, each as a reference, apart from the decisions it reverses or rewrites; the list is drawn
+  from a search, not from memory, per `primer@verify-before-relying`: of the heads that
+  `cargo klarch show` lists as citing each decision the work changes, and those a grep of the changed
+  rule's wording returns in the design homes of every Component, it keeps each whose text the
+  harvest will change, and a list that keeps none names the search it ran; in a milestone, each
   slice's spec lists those its own harvest will touch, since its design audit takes them as seeds.
 - **The judgement.** Once the list exists, dispatch `agent@knowledge-architect-design-record-auditor`
   as a drafter, never the design-record axis's saved workflow, which audits the whole record, since
