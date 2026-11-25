@@ -56,7 +56,8 @@ decides whether its JSON becomes one.
 
 Two READMEs state an output contract: `path@check@README.md`, for `check`, the order
 of the summary, the findings and the verdict line; and `path@cli@README.md`, for a generated file-register index, written
-by `index` and `check --fix`, its bytes, per `design@model@a-file-register-index-is-rows`. Nothing
+by `index` and `check --fix`, its shape, per `design@model@a-file-register-index-is-rows`, whose text
+`check` compares, line endings apart, per `design@check@generated-text-compared-without-line-endings`. Nothing
 states whether the words of a printed summary are one.
 
 Suspected mechanism: the policy names commands as a surface, and a command has several parts (its

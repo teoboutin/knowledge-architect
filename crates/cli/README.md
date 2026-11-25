@@ -136,8 +136,9 @@ docs/open-issues/index.md                rewritten
 crates/check/docs/open-issues/index.md    already current
 ```
 
-**A file-register index is a fixed shape, and its bytes are a contract**, per
-`design@model@a-file-register-index-is-rows`:
+**A file-register index is a fixed shape**, per `design@model@a-file-register-index-is-rows`, **and
+`check` compares its text, line endings apart**, per
+`design@check@generated-text-compared-without-line-endings`:
 
 ```markdown
 **Generated — do not edit.** `<command> index`
