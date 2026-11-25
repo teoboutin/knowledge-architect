@@ -51,6 +51,13 @@ which practices are offered and which asked, for which the rule of what becomes 
 `design@agent-skills@the-workflow-teaches-no-rust-idiom` keeps instructions on idiom out of the
 installed text, and admits a mechanical gate on it once knowledge-architect's owner takes it in.
 
+A later instance: the work of `spec@plans@gates-on-windows-and-macos` carries two practices to a project, a gate that
+runs clippy for another system and the alias `cargo x` in the release profile. A project meets the gate in
+`path@gates@README.md`, in the documentation of `cross_clippy` and in the changelog, so it finds it where it
+looks for a gate, and not when code for another system first fails; it meets the alias in the snippet that
+`klarch init --rust` writes, in the setup skill and in a Migration entry. The work weighed a sentence on the
+gate in the setup skill and wrote none, on `goal@only-needed-instructions`.
+
 Suspected mechanism: the places that carry a practice are tied to an activity, a setup, a pin move or
 a change of code, and the problem a one-time setup answers is met during any of them.
 

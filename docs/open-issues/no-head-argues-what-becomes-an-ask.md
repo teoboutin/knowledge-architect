@@ -67,6 +67,12 @@ reaches every target project that runs the list, on the owner's word. It takes t
 of that list holds, a project editing the list it receives; the branch that added it decided no kind
 of ask, and the owner put this discussion off there, as larger than that branch's.
 
+An instance of a quality tool taken in as opt-in: `cross_clippy` of `path@gates@src/cross.rs`, clippy for
+another system than the machine's, which the gates library offers beside the recommended list on the owner's
+word, and which a project adds to its own list. Its work, `spec@plans@gates-on-windows-and-macos`, met this
+entry's re-entry point, since the gate judges a project's quality, and the owner put the discussion off
+there: the gate is opt-in and asks nothing.
+
 Suspected mechanism: these statements were scope held in two goals, and the goals now state a
 direction and leave to design what a head can argue. No head was argued for them when they left,
 since no rival and no fact that defeats it were found for the rule that a quality tool taken in

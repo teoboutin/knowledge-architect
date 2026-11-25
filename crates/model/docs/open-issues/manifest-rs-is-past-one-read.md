@@ -38,6 +38,12 @@ branch weighed a split in its design discussion and found that the work needs no
 guard to hold instead" argues. The weighing passes to the next work that changes the file's code
 after it.
 
+A later instance: the work of `spec@plans@gates-on-windows-and-macos` changed the file's code, the calls that print a path. It
+weighed a split and made none, since nearly every edit replaces one call at one site and a move beside such
+edits would hide them, which the commit "[model, check, query, create, xtask] A project-relative path is
+printed with slashes on every system, by one function of the model" argues. The weighing passes to the next
+work that changes the file's code after it.
+
 ### Why it matters
 
 A review of a change to the file reads in parts a file it cannot read whole, which
