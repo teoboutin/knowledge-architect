@@ -69,7 +69,7 @@ deletion, which the check names until it is staged. The rival, a record of insta
 The install edits nothing outside the namespace. A change a project needs to an installed skill belongs in a
 skill of its own, per `design@agent-skills@overlay-by-separate-skills`.
 
-### The installed agent files are compared with the shipped text byte for byte `##installed-files-compared-by-bytes`
+### The installed agent files are compared with the shipped text byte for byte, line endings normalised `##installed-files-compared-by-bytes`
 
 Under `claude`, the family `agents` of the last phase reports each shipped file missing or whose bytes differ
 from its rendered template, line endings normalised, and each file of the namespace the version does not ship.
