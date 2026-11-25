@@ -1209,7 +1209,8 @@ fn named(path: &Path) -> String {
 /// and refuses a `\` from `update-index --index-info` on Windows, where no name on disk holds one. A
 /// listing there can give such a name, committed on another system, and this spells it as another
 /// file's, per `issue@git@paths-are-decoded-outside-the-listings`. On the other systems `\` is a
-/// character of a name, and the text stays byte for byte.
+/// character of a name, and the text stays byte for byte. The decision is
+/// `design@git@paths-to-git-with-slashes`.
 fn named_to_git(text: &str, windows: bool) -> String {
     if windows {
         text.replace('\\', "/")
