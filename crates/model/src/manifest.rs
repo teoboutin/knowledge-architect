@@ -2181,8 +2181,9 @@ pub(crate) mod tests {
         ] {
             assert!(!owned_path(Path::new(other)), "{other}");
         }
-        // A name that is not UTF-8, which a path on Windows cannot hold, per
-        // `design@knowledge-architect@platform-skips`.
+        // A name that is not UTF-8, which Windows refuses, per
+        // `design@knowledge-architect@platform-skips`; what the git library does of one that a listing
+        // gives there is `issue@git@paths-are-decoded-outside-the-listings`.
         #[cfg(unix)]
         {
             use std::os::unix::ffi::OsStrExt;

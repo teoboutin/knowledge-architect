@@ -23,8 +23,10 @@ concluded `skipped` and 5 `success`.
 
 `design@knowledge-architect@the-merge-waits-for-a-successful-run-on-the-head` answers the confusion at
 the merge, by reading the draft flag and asking for a successful run. The owner reported that the
-skipped runs pollute the history and are sometimes taken for runs that passed, and ruled that the
-question can wait.
+skipped runs often pollute the history, and thinks that they are sometimes taken for jobs that passed, and ruled
+that the question can wait. The owner also said that the owner would keep skipping, or else change the workflow, which
+asks for a push at several points of a branch whose work is under way; a workflow that asks for fewer pushes
+was not discussed.
 
 A lead, read in GitHub's documentation and not run: no filter of the `pull_request` event reads the
 draft state, and `types: [ready_for_review]` alone starts no run for a push to a draft, and none for a

@@ -1284,7 +1284,9 @@ mod tests {
         assert_eq!(nul_paths(b"\0"), Vec::<PathBuf>::new());
     }
 
-    // A path on Windows is text, per `design@knowledge-architect@platform-skips`.
+    // Windows refuses such a name, per `design@knowledge-architect@platform-skips`; what the library
+    // does of one that a listing gives there is
+    // `issue@git@paths-are-decoded-outside-the-listings`.
     #[cfg(unix)]
     #[test]
     fn a_name_that_is_not_utf_eight_is_carried_as_bytes() {

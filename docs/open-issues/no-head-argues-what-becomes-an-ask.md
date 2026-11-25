@@ -71,7 +71,7 @@ An instance of a quality tool taken in as opt-in: `cross_clippy` of `path@gates@
 another system than the machine's, which the gates library offers beside the recommended list on the owner's
 word, and which a project adds to its own list. Its work, `spec@plans@gates-on-windows-and-macos`, met this
 entry's re-entry point, since the gate judges a project's quality, and the owner put the discussion off
-there: the gate is opt-in and asks nothing.
+there. The gate is opt-in and asks nothing of a project.
 
 Suspected mechanism: these statements were scope held in two goals, and the goals now state a
 direction and leave to design what a head can argue. No head was argued for them when they left,

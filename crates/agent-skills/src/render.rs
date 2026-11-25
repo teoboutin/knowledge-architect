@@ -12,7 +12,7 @@
 //!   by its file's name, so the name must carry the installer's prefix as the file does.
 //! - **The fragment pass.** A line that is a fragment placeholder, `{{fragment:<file>}}`, is replaced
 //!   with a file of shared text from fragments/, so one text applied whole at several places has
-//!   one home and every host ships it, per `design@agent-skills@content-mirrors-the-install-layout`.
+//!   one home and every host ships it, per `design@agent-skills@shared-text-fragment`.
 //! - **The shipped text and the snippet pass.** The passes over a host file in their order, and the
 //!   snippets inlined, which the build script calls with the texts as the checkout holds them.
 //! - **The snippet list.** The snippets' texts as the source of the `SNIPPETS` the library holds.

@@ -36,7 +36,9 @@ A retrospective or a review of transcripts on Windows reads nothing, or misses t
 worktrees, the ordinary place of a dispatched agent, with no line saying so, against
 `design@transcript@transcript-directory-resolution`.
 The owner left development on Windows for later, while a project developed there is one that
-`design@knowledge-architect@platforms-served` serves.
+`design@knowledge-architect@platforms-served` serves. The owner reported having no Windows development machine,
+and not knowing what Claude Code does on Windows, so how `transcript` can work there needs a design first; the owner
+judges that making development on Windows possible probably needs developing it from Claude Code there.
 
 ### What would close it
 
