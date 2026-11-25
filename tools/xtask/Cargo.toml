@@ -6,6 +6,17 @@ edition.workspace = true
 license.workspace = true
 # A maintenance tool of this repository, never published.
 publish = false
+# The package holds a second program, which its tests run.
+default-run = "xtask"
+
+[[bin]]
+name = "xtask"
+path = "src/main.rs"
+
+# The `cargo` of the tests of the gates, never run by a person.
+[[bin]]
+name = "fake-cargo"
+path = "src/bin/fake_cargo.rs"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }

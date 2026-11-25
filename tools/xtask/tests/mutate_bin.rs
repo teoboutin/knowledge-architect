@@ -1,7 +1,6 @@
 //! End-to-end runs of the built `xtask` binary's `mutate` subcommand over a scratch project: the
 //! subcommand reaches the library's two modes. What the modes do is tested in the library's own
 //! suite, `path@mutate@tests/modes.rs`.
-#![cfg(unix)]
 
 // This target links no library of its package, so it reads the variable itself, per
 // `design@knowledge-architect@a-build-is-tied-to-its-checkout`.
@@ -20,6 +19,8 @@ fn scratch_project(name: &str) -> tempfile::TempDir {
     std::fs::write(dir.join("f.txt"), "one\nSITE\nthree\n").expect("the target");
     let init = Command::new("git")
         .args(["init", "-q", "."])
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .status()
         .expect("git init runs");
@@ -31,6 +32,9 @@ fn xtask(project: &Path, args: &[&str]) -> (Output, String) {
     let out = Command::new(env!("CARGO_BIN_EXE_xtask"))
         .arg("mutate")
         .args(args)
+        // A suite run from a commit hook inherits them, and the run would read another repository.
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(project)
         .output()
         .expect("the xtask binary runs");

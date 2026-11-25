@@ -12,8 +12,10 @@
 //! would rebuild the workspace inside a test and contend for the same target directory.
 
 mod links;
+mod live;
 
 use links::{link_dir, link_file};
+use live::Live;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -456,10 +458,15 @@ fn a_second_run_is_refused_while_a_record_stands() {
     );
 }
 
+// The liveness of a process on Windows is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
 #[test]
+#[cfg_attr(
+    windows,
+    ignore = "the liveness of a run is read wrongly on Windows, which is development workflow"
+)]
 fn restore_refuses_while_the_owning_run_is_alive() {
-    // Built by hand rather than by racing two runs: the guard is what is under test, and pid 1 is
-    // always running. A restore here would put the pre-image back underneath a live run, whose
+    // Built by hand rather than by racing two runs: the guard is what is under test, and the owner is
+    // a child of this test. A restore here would put the pre-image back underneath a live run, whose
     // command would then be measured over unmutated code.
     let s = Sandbox::new("alive");
     s.write(FILE, BODY);
@@ -477,7 +484,8 @@ fn restore_refuses_while_the_owning_run_is_alive() {
         "-c",
         "printf 'x\\n' >> src/f.rs",
     ]);
-    fs::write(s.record().join("owner-pid"), "1").expect("writing a live owner");
+    let live = Live::start();
+    fs::write(s.record().join("owner-pid"), live.pid().to_string()).expect("writing a live owner");
 
     let (ok, out) = s.run(&["restore"]);
     assert!(!ok, "{out}");
@@ -886,7 +894,10 @@ fn a_patch_run_makes_nothing_in_the_temporary_directory() {
     s.write("m.diff", DELETE_SITE);
     let absent = s.root().join("absent");
     let out = child(s.root(), &RUN_PATCH)
+        // Windows reads the two others.
         .env("TMPDIR", &absent)
+        .env("TMP", &absent)
+        .env("TEMP", &absent)
         .output()
         .expect("running the child");
     assert_eq!(
@@ -916,6 +927,9 @@ fn linked_worktree(s: &Sandbox) -> PathBuf {
         &["worktree", "add", "-q", "linked"],
     ] {
         let git = Command::new("git")
+            // The worktree's file is compared byte for byte, and the checkout converts under the
+            // machine's setting.
+            .args(["-c", "core.autocrlf=false"])
             .args(args)
             .current_dir(s.root())
             .status()
@@ -948,8 +962,64 @@ fn a_patch_run_works_in_a_linked_worktree() {
     assert!(text.contains("SURVIVED"), "{text}");
     assert_eq!(s.read("linked/src/f.rs"), BODY);
     let record = knowledge_architect_mutate::record_dir(&linked).expect("a repository");
-    assert!(record.starts_with(s.root().join(".git/worktrees")));
+    // Git resolves the links and the short names of the path it answers. The record does not exist, so
+    // its parent, which does, is what is compared.
+    let canonical = |path: &Path| path.canonicalize().expect("the directory exists");
+    assert!(canonical(record.parent().expect("a parent"))
+        .starts_with(canonical(&s.root().join(".git/worktrees"))));
     assert!(!record.exists());
+}
+
+// The claim: the mutant of a `--patch` run is the one the patch names, whatever the machine's
+// `core.autocrlf`, as Git for Windows sets it: the file keeps its LF, which the command reads, and a
+// patch that changes nothing is refused. Mutation checked: `core.autocrlf=false` of `git_in` made
+// `core.autocrlf=true`; caught.
+#[test]
+fn a_patch_run_converts_no_line_ending_whatever_the_machine_s_git_says() {
+    let s = Sandbox::new("patch-autocrlf");
+    s.write(FILE, BODY);
+    s.write("m.diff", DELETE_SITE);
+    s.write(
+        "empty.diff",
+        "diff --git a/src/f.rs b/src/f.rs\nold mode 100644\nnew mode 100755\n",
+    );
+    s.write("expected", &BODY.replace("SITE\n", ""));
+    for (patch, code, says) in [
+        ("m.diff", 0, "SURVIVED"),
+        ("empty.diff", 2, "does not change"),
+    ] {
+        let out = child(
+            s.root(),
+            &[
+                "run",
+                "--file",
+                FILE,
+                "--patch",
+                patch,
+                "--no-baseline",
+                "--",
+                "git",
+                "diff",
+                "--no-index",
+                "--exit-code",
+                "expected",
+                FILE,
+            ],
+        )
+        .env("GIT_CONFIG_COUNT", "1")
+        .env("GIT_CONFIG_KEY_0", "core.autocrlf")
+        .env("GIT_CONFIG_VALUE_0", "true")
+        .output()
+        .expect("running the child");
+        let text = format!(
+            "{}{}",
+            String::from_utf8_lossy(&out.stdout),
+            String::from_utf8_lossy(&out.stderr)
+        );
+        assert_eq!(out.status.code(), Some(code), "{patch}: {text}");
+        assert!(text.contains(says), "{patch}: {text}");
+        assert_eq!(s.read(FILE), BODY);
+    }
 }
 
 // The claim: `GIT_DIR` and an absolute `GIT_WORK_TREE` in the caller's environment, as git sets both
@@ -1074,8 +1144,14 @@ fn a_patch_run_ignores_the_common_and_object_directories_the_environment_names()
 // The claim: a run killed while it plans its patch leaves its scratch in the record's claim, which
 // `restore` refuses as incomplete and `restore --discard` removes, and nothing in the temporary
 // directory. The target is named as a file of the record, so the claim is shown to hold it in a
-// directory of its own, and `git apply` is a program that kills the run that started it.
+// directory of its own, and `git apply` is a program that kills the run that started it. That program is
+// a shell script, which Windows does not find as `git`, per
+// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
 #[test]
+#[cfg_attr(
+    windows,
+    ignore = "a shell script stands for git, which Windows does not run, and the hand mutation is development workflow"
+)]
 fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone() {
     let s = Sandbox::new("patch-killed");
     s.write("manifest", BODY);
@@ -1096,7 +1172,7 @@ fn a_run_killed_while_planning_its_patch_leaves_its_scratch_in_the_claim_alone()
         .take()
         .expect("its stdin")
         .write_all(
-            b"#!/bin/sh\nif [ \"$1\" = apply ]; then kill -9 $PPID; exit 1; fi\n\
+            b"#!/bin/sh\nif [ \"$3\" = apply ]; then kill -9 $PPID; exit 1; fi\n\
               PATH=${PATH#*:} exec git \"$@\"\n",
         )
         .expect("the program is written");
@@ -1260,16 +1336,22 @@ fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
     let s = Sandbox::new("odd-targets");
     s.write("real/f.rs", BODY);
     link_dir(s.root().join("real"), s.root().join("link"));
-    let fifo = Command::new("mkfifo")
-        .arg(s.root().join("pipe"))
-        .status()
-        .expect("mkfifo runs");
-    assert!(fifo.success());
-    for (file, says) in [
+    fs::create_dir(s.root().join("dir")).expect("a directory");
+    let mut cases = vec![
         ("link/f.rs", "symlink"),
         (".git/HEAD", "git directory"),
-        ("pipe", "not a regular file"),
-    ] {
+        ("dir", "not a regular file"),
+    ];
+    // Windows has no named pipe in a directory.
+    if cfg!(unix) {
+        let fifo = Command::new("mkfifo")
+            .arg(s.root().join("pipe"))
+            .status()
+            .expect("mkfifo runs");
+        assert!(fifo.success());
+        cases.push(("pipe", "not a regular file"));
+    }
+    for (file, says) in cases {
         let (_, out, code) = s.run_coded(&[
             "run",
             "--file",
@@ -1288,8 +1370,13 @@ fn a_target_through_a_symlink_in_git_or_not_a_file_is_refused() {
 }
 
 // The claim: the restore writes through no symlink the command left at the target, dangling or
-// not, and exits 1 with the record standing.
+// not, and exits 1 with the record standing. The `ln -s` of Git for Windows copies the file instead, per
+// `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
 #[test]
+#[cfg_attr(
+    windows,
+    ignore = "`ln -s` makes a copy under Git for Windows, and the hand mutation is development workflow"
+)]
 fn the_restore_writes_through_no_symlink_the_command_left() {
     let s = Sandbox::new("symlink-left");
     s.write(FILE, BODY);
@@ -1373,7 +1460,14 @@ fn a_record_over_an_unmutated_file_is_cleared_by_restore() {
     knowledge_architect_mutate::Record::at(s.record())
         .write(FILE, BODY, "mutant\n", None)
         .expect("writing the record");
-    fs::write(s.record().join("owner-pid"), "0").expect("no live owner");
+    // A process of the test's own that has ended, whose pid names no live run.
+    let mut ended = Command::new("git")
+        .arg("--version")
+        .stdout(std::process::Stdio::null())
+        .spawn()
+        .expect("running git");
+    assert!(ended.wait().expect("git").success());
+    fs::write(s.record().join("owner-pid"), ended.id().to_string()).expect("no live owner");
     let (_, out, code) = s.run_coded(&["restore"]);
     assert_eq!(code, 0, "{out}");
     assert!(out.contains("already held its pre-image"), "{out}");

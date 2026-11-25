@@ -570,9 +570,16 @@ const REPOSITORY_VARIABLES: [&str; 5] = [
 /// repository's configuration, and in a linked worktree marks it bare, and `apply` takes its paths
 /// from that repository's work tree. `GIT_INDEX_FILE` needs no removal, since neither call reads an
 /// index.
+///
+/// It runs without `core.autocrlf`, which Git for Windows sets to `true` by default: `apply` would then
+/// write the mutant with CRLF whatever the target's line endings, so the mutation would be another than
+/// the patch names, and a patch that changes nothing would give a mutant, whose verdict is `SURVIVED`.
 fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
     let mut command = Command::new("git");
-    command.args(args).current_dir(dir);
+    command
+        .args(["-c", "core.autocrlf=false"])
+        .args(args)
+        .current_dir(dir);
     for variable in REPOSITORY_VARIABLES {
         command.env_remove(variable);
     }

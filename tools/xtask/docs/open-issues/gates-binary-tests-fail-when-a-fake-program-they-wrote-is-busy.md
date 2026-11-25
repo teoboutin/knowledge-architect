@@ -11,7 +11,8 @@ failed once inside `cargo x gates`, on a branch that changes no Rust source, and
 first gate reporting "could not run: Text file busy (os error 26)". Each passed in every run after.
 The second failure establishes the cause the first left as a lead: a fake program the test has
 just written is run while another thread's child still holds it open for writing, so the kernel
-refuses the run with ETXTBSY.
+refuses the run with ETXTBSY. The tests now write no program on Unix; that the failure is gone is not
+established.
 
 ## Details
 
@@ -63,6 +64,6 @@ one.
 
 ### What would close it
 
-The tests of `path@xtask@tests/gates_bin.rs` write each fake program so that no thread's child holds
-it open for writing when it runs, for example written under another name and renamed into place,
-and no gates run fails on ETXTBSY over the gates runs of the next three merged branches.
+The repair is made: on Unix a fake project of `path@xtask@tests/gates_bin.rs` links to a program cargo
+built, `path@xtask@src/bin/fake_cargo.rs`, so no thread of the test opens it for writing. What is left is
+that no gates run fails on ETXTBSY over the gates runs of the next three merged branches.

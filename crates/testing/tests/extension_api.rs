@@ -273,6 +273,9 @@ fn git(dir: &std::path::Path, args: &[&str]) {
     let status = std::process::Command::new("git")
         .args(["-c", "core.excludesFile=/dev/null"])
         .args(args)
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .status()
         .expect("git runs");
@@ -713,23 +716,27 @@ fn init_and_new_component_configure_the_manifest_they_wrote() {
 /// unresolved, refuses it as outside the project.
 #[test]
 fn new_component_accepts_a_relative_root() {
+    // On the drive of the working directory, since no relative path leads to another one, where the
+    // temporary directory can be on Windows. A repository of its own, since this one ignores the place.
     let scratch =
-        tempfile::TempDir::with_prefix("klarch-relative-root-").expect("a scratch directory");
+        tempfile::TempDir::with_prefix_in("klarch-relative-root-", env!("CARGO_TARGET_TMPDIR"))
+            .expect("a scratch directory");
+    git(scratch.path(), &["init", "-q"]);
     let root = scratch.path().join("p");
     let code = cli::init(init_args(&root), &[], &[], &[], &mut []).expect("init runs");
     assert_eq!(code, std::process::ExitCode::SUCCESS);
 
     // The same root, relative to the working directory the test runs in.
     let cwd = std::env::current_dir().expect("the working directory");
-    let up: PathBuf = cwd
-        .components()
-        .skip(1)
-        .map(|_| std::path::Component::ParentDir)
+    let named = |path: &Path| -> Vec<std::ffi::OsString> {
+        path.components()
+            .filter(|c| matches!(c, std::path::Component::Normal(_)))
+            .map(|c| c.as_os_str().to_owned())
+            .collect()
+    };
+    let relative: PathBuf = std::iter::repeat_n("..".into(), named(&cwd).len())
+        .chain(named(&root))
         .collect();
-    let relative = up.join(
-        root.strip_prefix("/")
-            .expect("an absolute temporary directory"),
-    );
     assert!(relative.is_relative() && relative.join("knowledge-architect.toml").is_file());
     let manifest = Manifest::load(&relative).expect("the manifest, from a relative root");
     let code = cli::run(

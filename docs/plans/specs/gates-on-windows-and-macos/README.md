@@ -678,7 +678,8 @@ names, in the product, a change of `mutate`'s behaviour that the purpose does no
   loses its own.
 - `path@xtask@tests/gates_bin.rs` loses its own: its stub `cargo` becomes the binary `fake-cargo`, copied
   as `cargo` with the system's executable suffix into the directory put first on a path joined by
-  `std::env::join_paths`. Ten of its tests run on the three systems. The two that assert the refusal of a
+  `std::env::join_paths`. On Unix it is linked, not copied, for
+  `issue@xtask@gates-binary-tests-fail-when-a-fake-program-they-wrote-is-busy`. Ten of its tests run on the three systems. The two that assert the refusal of a
   pipe, `a_piped_stdout_is_refused_before_any_gate_runs` and
   `a_piped_stdout_is_refused_when_the_actions_variable_is_not_true`, are skipped on Windows naming the
   issue on that refusal: it holds only outside GitHub Actions, where it protects a person or an agent
