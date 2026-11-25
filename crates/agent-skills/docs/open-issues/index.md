@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-84 entries
+85 entries
 
 | kind | title |
 | --- | --- |
@@ -27,6 +27,7 @@
 | design | [A one-time technical setup that every target project would gain from has no worked-out place from which a project gets it](a-one-time-technical-setup-has-no-place-a-project-gets-it-from.md) |
 | design | [A record search misses what bears on a part of the work added after it ran](a-record-search-misses-what-is-added-after-it.md) |
 | design | [A repair of the last transcript review can meet another axis's condition, and the review skill reads two ways on whether that axis is owed](a-repair-of-the-last-transcript-review-can-make-another-axis-owed.md) |
+| design | [A record searcher grades `unrelated` or `constrains` an entry the work contradicts](a-searcher-misjudges-an-entry-the-work-contradicts.md) |
 | design | [A touched head is defined by what a plan's harvest changes, not by what its steps change](a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps.md) |
 | design | [A head a change touches owes its whole conformance, older debts included, at any edit](a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it.md) |
 | design | [A tripwire on agent behaviour under the workflow fires in sessions this project does not see](a-tripwire-on-agent-behaviour-fires-where-this-project-cannot-see.md) |

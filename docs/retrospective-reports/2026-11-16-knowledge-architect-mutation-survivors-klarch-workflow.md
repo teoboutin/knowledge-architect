@@ -399,13 +399,12 @@ retrospectives.
   analyses: the tripwire graded `unrelated` in the cluster `tripwire-reentry-graded-unrelated` is a
   miss of the same cause.
 - **g. Its route.** An issue only.
-- **h. The proposal.** Open an issue of kind `design` in agent-skills, `a-searcher-misjudges-an-entry-the-work-contradicts`,
+- **h. The proposal.** Open an issue of kind `design` in agent-skills, `issue@agent-skills@a-searcher-misjudges-an-entry-the-work-contradicts`,
   with both instances, the mechanism as an assumption, and a re-entry point at the next discussion
-  of the searcher's grading or of the bound, or a third instance; its draft is
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/a-searcher-misjudges-an-entry-the-work-contradicts.md.
+  of the searcher's grading or of the bound, or a third instance.
 
-Default: open the issue `a-searcher-misjudges-an-entry-the-work-contradicts`, kind `design`, in agent-skills.
-Outcome: decided by the session: open an issue, `a-searcher-misjudges-an-entry-the-work-contradicts`, kind `design`, in agent-skills. Ground: `design@agent-skills@premortem-as-watch-points` names a searcher's judgement as a cause of a missed entry that no entry collects, and `design@query@worklist-bound-is-40000-words` asks real sessions to measure the recall no measurement stands behind; the record search branch's own cause is repaired by `design@query@light-line-keeps-its-reason`.
+Default: open the issue `issue@agent-skills@a-searcher-misjudges-an-entry-the-work-contradicts`, kind `design`, in agent-skills.
+Outcome: decided by the session: open an issue, `issue@agent-skills@a-searcher-misjudges-an-entry-the-work-contradicts`, kind `design`, in agent-skills. Ground: `design@agent-skills@premortem-as-watch-points` names a searcher's judgement as a cause of a missed entry that no entry collects, and `design@query@worklist-bound-is-40000-words` asks real sessions to measure the recall no measurement stands behind; the record search branch's own cause is repaired by `design@query@light-line-keeps-its-reason`.
 
 ## reword-and-fold-have-no-command: rewording an older message is a script each time
 
