@@ -928,7 +928,7 @@ fn linked_worktree(s: &Sandbox) -> PathBuf {
     ] {
         let git = Command::new("git")
             // The worktree's file is compared byte for byte, and the checkout converts under the
-            // machine's setting.
+            // machine's setting, per `design@mutate@git-converts-no-line-ending`.
             .args(["-c", "core.autocrlf=false"])
             .args(args)
             .current_dir(s.root())

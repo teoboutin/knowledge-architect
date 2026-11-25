@@ -573,7 +573,8 @@ const REPOSITORY_VARIABLES: [&str; 5] = [
 ///
 /// It runs without `core.autocrlf`, which Git for Windows sets to `true` by default: `apply` would then
 /// write the mutant with CRLF whatever the target's line endings, so the mutation would be another than
-/// the patch names, and a patch that changes nothing would give a mutant, whose verdict is `SURVIVED`.
+/// the patch names, and a patch that changes nothing would give a mutant, whose verdict is `SURVIVED`, per
+/// `design@mutate@git-converts-no-line-ending`.
 fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
     let mut command = Command::new("git");
     command
