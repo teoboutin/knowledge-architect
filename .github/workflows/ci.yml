@@ -5,8 +5,9 @@
 # `design@xtask@ci-differs-by-flags`; the log groups and the error annotation are
 # `design@gates@annotations-under-actions`.
 #
-# The job `gates` runs that step on each system, and the job `check` gathers what the systems
-# answered into the one status context that the ruleset on main requires.
+# The job `gates` runs that step on each system of `design@knowledge-architect@platforms-served`, and
+# each system blocks a merge, per `design@knowledge-architect@blocking-jobs`. The job `check` gathers
+# what the systems answered into the one status context that the ruleset on main requires.
 #
 # The merge procedure it serves is root CLAUDE.md `Git`: a pull request is merged through GitHub
 # once `check` passed on its current head, which the ruleset requires up to date with main.
@@ -40,7 +41,7 @@ concurrency:
 jobs:
   gates:
     # The whole list of the project on each system: which gates run on one is for the list to say,
-    # and nothing here names a gate.
+    # and nothing here names a gate, per `design@xtask@gates-list-primary-home`.
     strategy:
       # Each system's verdict is reported, whichever fails first.
       fail-fast: false
@@ -99,7 +100,7 @@ jobs:
   check:
     # The context the ruleset requires, so the list of systems changes with no change of a setting.
     # `always()`: without it this job is skipped when the job it needs fails, and GitHub counts a
-    # skipped job as passing.
+    # skipped job as passing. The decision is `design@knowledge-architect@one-required-context`.
     needs: gates
     if: ${{ !github.event.pull_request.draft && always() }}
     runs-on: ubuntu-latest

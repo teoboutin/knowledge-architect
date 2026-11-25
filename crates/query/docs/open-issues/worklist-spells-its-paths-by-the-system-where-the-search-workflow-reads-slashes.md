@@ -30,7 +30,9 @@ The paths are outside the project, so they are printed as the system writes them
 ### Why it matters
 
 A record search on Windows whose reports fail would return with no agent to send back, or would stop at the
-worklist step, against `goal@agents-get-a-complete-workflow`. Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`.
+worklist step, against `goal@agents-get-a-complete-workflow`.
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves.
 
 ### What would close it
 

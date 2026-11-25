@@ -32,7 +32,9 @@ Ruled out: under GitHub Actions a pipe is accepted on every system, so CI is not
 
 The refusal protects a person or an agent who filters the report from taking the filter's exit code for the
 gates' verdict. On Windows that protection is missing, so `design@gates@gates-refuse-a-pipe` does not hold
-there. Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`.
+there.
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves.
 
 ### What would close it
 

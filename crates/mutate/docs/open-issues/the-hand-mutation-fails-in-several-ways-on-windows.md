@@ -54,7 +54,9 @@ set to `false` in `git_in` of `path@mutate@src/run.rs`. The liveness of a run is
 ### Why it matters
 
 A mutant that is not the one the caller named gives a verdict over another mutation, against what
-`design@mutate@mutation-command` is for, and a refusal with no right reason stops a claim's check. Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`.
+`design@mutate@mutation-command` is for, and a refusal with no right reason stops a claim's check.
+The owner left development on Windows for later, while a project developed there is one that
+`design@knowledge-architect@platforms-served` serves.
 
 ### What would close it
 
