@@ -37,6 +37,18 @@ files, is the rival `design@agent-skills@reviewer-returns-its-report-whole` defe
 issue's second closing shape added: closing the issue by that shape would also decide whether a
 reviewer still returns its report whole, and weigh the context the returned reports fill.
 
+A third instance, in this repository: the branch on the gates for Windows and macOS, 2026-11-25,
+returned 23 reports whole, about 316 KB, which the session read and the repairing fork read again;
+its proposal is the same rival, the reviewer returning its path, its finding count and its two
+closing sections while the transcript reviewer reads the files (W5 of
+2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow). The intakes of forty-seven
+files, 2026-11-14, and of the items divided by judgement, 2026-11-25, report the same weight: the
+first for agents other than reviewers, 18 searchers' and 20 checking and verifying agents' reports
+relayed through the session; the second for six reviewers' reports, which the session reconciled
+itself, and the search's light lines, about 30,000 tokens, which it read (the standing answers of
+2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow and
+2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow).
+
 ### Why it matters
 
 The transcript reviewer is the one axis that can see whether the other axes' findings were acted on,

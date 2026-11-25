@@ -29,7 +29,9 @@ Instances:
   conversation, or in a file the session names where they exceed what a message holds, with a
   count per outcome kind in the message;
 - the intake of forty-seven files, 2026-11-14, meets the same case: 307 sections, 172 with an
-  outcome.
+  outcome. The session generated the lines, about 400, into a file by a script; the harness could
+  not deliver the file to the owner, since the session was on no project thread, so the lines were
+  never shown (W4 of 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow).
 
 The suspected mechanism, in one sentence: a fixed place for the lines, chosen for a batch of a few
 files, does not scale with the count of sections.

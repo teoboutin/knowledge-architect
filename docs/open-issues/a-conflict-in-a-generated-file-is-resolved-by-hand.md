@@ -28,6 +28,11 @@ script: take either side, run `cargo klarch index`, stage, continue. The conflic
 since under `design@agent-skills@move-lands-in-move-only-commits` each move commit passes its
 checks, so each regenerates the index.
 
+A second instance, in this repository: the intake of forty-seven files, 2026-11-14, stacked the
+commits of four appliers, each made in a worktree of its own, by cherry-pick in a fixed order; one
+cherry-pick conflicted in a generated `index.md`, resolved by `cargo klarch index` (C4 of
+2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow).
+
 Bounds on a fix:
 
 - the file's proposal, a `.gitattributes` entry and a merge driver shipped by

@@ -26,7 +26,8 @@ The installed text that asks each task, in the source of the skills:
 
 `klarch --help` lists no command that renames or moves anything.
 
-Instances, from retrospective files of this repository's sessions, 2026-11-01 to 2026-11-06:
+Instances, from retrospective files of this repository's sessions and of thaum's, 2026-11-01 to
+2026-11-15:
 
 - the session that planned the development milestone: an issue entry and a goal renamed by
   `git mv`, a `sed` over the files a grep found, and a script;
@@ -49,6 +50,9 @@ Instances, from retrospective files of this repository's sessions, 2026-11-01 to
 - a design discussion in thaum on 0.10.0, 2026-11-14: the citations of an issue its plan document
   replaced, re-pointed by a dispatched agent by hand over 33 files, 79 rows of a census among them;
   `check` listed each dangling citation once the issue's file was gone, and wrote none.
+- a slice of a milestone in thaum on 0.10.0, 2026-11-15: a slug renamed in a repair, each reference
+  rewritten by hand; `check` found the ones missed (the standing answers of
+  2026-11-15-thaum-cast-permissions-klarch-workflow).
 
 
 What a command may not rewrite, per the record:

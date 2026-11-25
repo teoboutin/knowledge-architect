@@ -32,6 +32,21 @@ or at the review before the merge, are counted apart: such a ruling is in no com
 per `design@agent-skills@committed-transcript`, so its attribution has no verbatim copy to be
 checked against.
 
+Instances before the trigger, from the retrospective files received at the intake of twenty files,
+each caught before its merge. Under the new regime, four workflow files of this repository's
+sessions built from source after 518cf47c: an approval recorded as a ruling, 1 (a default
+recorded as ruled, 2026-11-16-knowledge-architect-record-search-workflow-klarch-workflow); an act or
+a reading of the session attributed to the owner, 1
+(2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-workflow); a hedge widened, in
+2 files: the owner's hedged words stated without their hedges in the owner-rulings file, and
+"would have", "a lot more" and the past scope of an owner's report dropped in three agents' drafts
+of one branch (2026-11-16-knowledge-architect-doc-gate-and-lints-klarch-workflow); a quotation of
+the owner in a commit message, 2 (the record-search file and
+2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow). Under the old regime, one
+file of thaum on 0.10.0: "the owner chose" written for approvals of the session's default four
+times in commit messages and at six places of a milestone document
+(2026-11-15-thaum-cast-permissions-klarch-workflow).
+
 ### Why it matters
 
 `design@agent-skills@attribution-replaces-quotation` now holds for a plan document's items, on the
