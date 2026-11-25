@@ -51,19 +51,27 @@ edit never applied and one because the verdict was read off a grep that matched 
 line, as thaum's commit "1f unit 10: who answers a question is one value, so the fabrication is
 unrepresentable" records.
 
-### Git converts nothing of the file that a `--patch` run plans, whatever the machine's git is set to `##git-converts-no-line-ending`
+### Git converts nothing of the file that a `--patch` run plans, or that a test of the hand mutation compares, whatever the machine's git is set to `##git-converts-no-line-ending`
 
 `apply_in` of `path@mutate@src/run.rs`, which plans the mutant in a scratch repository, gives that
 repository the attributes `* -text -ident -filter -working-tree-encoding`, in the file of it that git
 reads before the machine's attributes and before the target's own, where the target is a
-`.gitattributes`; and `git_in` runs git there under `apply.whitespace=nowarn`. Under
-`core.autocrlf=true`, the default of Git for Windows, or an attribute that gives the target CRLF,
-`git apply` writes the mutant with other line endings than the target's, and `apply.whitespace=fix`
-strips the trailing spaces of an added line. The mutation is then another than the patch names, and a patch that changes
-nothing gives a mutant, whose verdict is `SURVIVED`. The test
+`.gitattributes`; and `git_in` runs git there under `apply.whitespace=nowarn` and
+`apply.ignoreWhitespace=no`. Each turns off one way in which `git apply` writes a mutant other than the
+one the patch names, or takes a patch that names another text:
+
+- `-text`: the line endings, under `core.autocrlf=true`, the default of Git for Windows, or an attribute
+  that gives the target CRLF;
+- `-ident`: the keyword `$Id$`, which an attribute of the machine expands;
+- `-filter`: the content, which a filter of the machine's configuration rewrites;
+- `-working-tree-encoding`: the encoding, in which git would read and write the target, or refuse it;
+- `apply.whitespace=nowarn`: the trailing spaces of an added line, which `fix` strips;
+- `apply.ignoreWhitespace=no`: a context line that differs by its spaces, which `change` takes.
+
+A patch that changes nothing then gives a mutant, whose verdict is `SURVIVED`. The test
 `a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert` of
-`path@mutate@tests/modes.rs` holds each, both ways of a line ending, and fails with an attribute or the
-setting taken out. The tests that compare a file a git command wrote run it under
+`path@mutate@tests/modes.rs` holds each, both ways of a line ending, and fails with any attribute or
+either setting taken out. The tests that compare a file a git command wrote run it under
 `core.autocrlf=false`: `apply_and_reverse` of `path@mutate@tests/harness.rs` and `linked_worktree` of
 `path@mutate@tests/modes.rs`.
 

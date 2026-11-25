@@ -984,10 +984,13 @@ fn blob(root: &Path, file: &str) -> String {
 
 // The claim: the mutant of a `--patch` run is the one the patch names, and one that changes nothing is
 // refused, whatever the machine's git is set to convert: a line ending by `core.autocrlf`, as Git for
-// Windows sets it, or by the machine's attributes or the target's own, where it is a `.gitattributes`,
-// and the trailing spaces of a patch's line by `apply.whitespace`. Both ways: LF stays, and CRLF does.
-// Mutations checked, each caught: `-text` of `ATTRIBUTES` dropped, made `text=auto`, and made
-// `text eol=lf`; the file of attributes written elsewhere; `apply.whitespace=nowarn` made `fix`.
+// Windows sets it, or by the machine's attributes or the target's own, where it is a `.gitattributes`;
+// a keyword, a filter's content and an encoding by the machine's attributes; the trailing spaces of a
+// patch's line by `apply.whitespace`; and a context line that differs by its spaces, by
+// `apply.ignoreWhitespace`. Both ways: LF stays, and CRLF does. Mutations checked, each caught: `-text` of
+// `ATTRIBUTES` dropped, made `text=auto`, and made `text eol=lf`; `-ident`, `-filter` and
+// `-working-tree-encoding` dropped, each alone; the file of attributes written elsewhere;
+// `apply.whitespace=nowarn` made `fix`; the line of `apply.ignoreWhitespace` dropped.
 #[test]
 fn a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert() {
     let crlf = BODY.replace('\n', "\r\n");
@@ -1002,6 +1005,15 @@ fn a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert() {
     ];
     let autocrlf: &[(&str, &str)] = &[("core.autocrlf", "true")];
     let fix: &[(&str, &str)] = &[("apply.whitespace", "fix")];
+    let ident: &[(&str, &str)] = &[("core.attributesFile", "{root}/ident-attributes")];
+    let filter: &[(&str, &str)] = &[
+        ("core.attributesFile", "{root}/filter-attributes"),
+        ("filter.upper.smudge", "tr a-z A-Z"),
+    ];
+    let encoding: &[(&str, &str)] = &[("core.attributesFile", "{root}/encoding-attributes")];
+    let spaced: &[(&str, &str)] = &[("apply.ignoreWhitespace", "change")];
+    let keyword = format!("{BODY}$Id$\n");
+    let wide = BODY.replace("line2", "line 2");
     // Each: the target, its content, the patch, the configuration, and the mutant, or none where the
     // patch is refused.
     for (file, body, patch, config, mutant) in [
@@ -1025,11 +1037,18 @@ fn a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert() {
         ),
         (FILE, BODY, empty, autocrlf, None),
         (FILE, BODY, empty, to_crlf, None),
+        (FILE, &keyword, DELETE_SITE, ident, Some(keyword.replace("SITE\n", ""))),
+        (FILE, BODY, DELETE_SITE, filter, Some(BODY.replace("SITE\n", ""))),
+        (FILE, BODY, DELETE_SITE, encoding, Some(BODY.replace("SITE\n", ""))),
+        (FILE, &wide, &DELETE_SITE.replace("line2", "line  2"), spaced, None),
     ] {
         let s = Sandbox::new("patch-conversion");
         s.write(file, body);
         s.write("m.diff", patch);
         s.write("machine-attributes", "* text=auto\n");
+        s.write("ident-attributes", "* ident\n");
+        s.write("filter-attributes", "* filter=upper\n");
+        s.write("encoding-attributes", "* working-tree-encoding=UTF-16\n");
         s.write("expected", mutant.as_deref().unwrap_or_default());
         let mut run = child(
             s.root(),

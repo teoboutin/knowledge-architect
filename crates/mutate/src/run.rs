@@ -582,8 +582,10 @@ const ATTRIBUTES: &str = "* -text -ident -filter -working-tree-encoding\n";
 ///
 /// It converts nothing that the machine's git is set to convert, per
 /// `design@mutate@git-converts-no-line-ending`: under [`ATTRIBUTES`], no line ending, neither by an
-/// attribute nor by `core.autocrlf`, which Git for Windows sets to `true` by default; and no whitespace,
-/// which `apply.whitespace=fix` strips from an added line. `apply` would otherwise write a mutant other
+/// attribute nor by `core.autocrlf`, which Git for Windows sets to `true` by default, no keyword, no
+/// filter and no encoding; no whitespace, which `apply.whitespace=fix` strips from an added line; and no
+/// context line that differs by its spaces, which `apply.ignoreWhitespace=change` takes. `apply` would
+/// otherwise write a mutant other
 /// than the one the patch names, and a patch that changes nothing would give one, whose verdict is
 /// `SURVIVED`.
 fn git_in(dir: &Path, args: &[&str]) -> Result<(), String> {
