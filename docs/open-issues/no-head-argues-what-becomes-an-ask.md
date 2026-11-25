@@ -69,7 +69,7 @@ of ask, and the owner put this discussion off there, as larger than that branch'
 
 An instance of a quality tool taken in as opt-in: `cross_clippy` of `path@gates@src/cross.rs`, clippy for
 another system than the machine's, which the gates library offers beside the recommended list on the owner's
-word, and which a project adds to its own list. Its work, `spec@plans@gates-on-windows-and-macos`, met this
+word, and which a project adds to its own list. Its work met this
 entry's re-entry point, since the gate judges a project's quality, and the owner put the discussion off
 there. The gate is opt-in and asks nothing of a project.
 

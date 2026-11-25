@@ -27,7 +27,7 @@ added doc comments to the file and changed no code of it but one reformatting of
 `cargo fmt` wrapped once the variant gained documentation. The plan of that branch decided no split
 in that work, on the owner's word, and an issue for each file of the pass past one read.
 
-A later instance: the work of `spec@plans@gates-on-windows-and-macos` changed the file's code, the calls that print a path. It
+A later instance: the work that had the gates run on Windows and macOS changed the file's code, the calls that print a path. It
 weighed a split and made none, since nearly every edit replaces one call at one site and a move beside such
 edits would hide them, which the commit "[model, check, query, create, xtask] A project-relative path is
 printed with slashes on every system, by one function of the model" argues. The weighing passes to the next

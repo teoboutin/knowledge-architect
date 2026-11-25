@@ -61,10 +61,10 @@ Instances, from retrospective files of this repository and of thaum:
   `design@agent-skills@fork-choice-names-whose-ranking-it-was` and re-pointing every citing site;
 - a slice in thaum on 0.6.0, from `issue@agent-skills@the-review-cost-counts-are-not-compared-yet`:
   one finding of the decision-record axis cost three reviews of that axis, through the same head;
-- `spec@plans@gates-on-windows-and-macos`, 2026-11: its harvest writes into two heads that bundle
+- the work that had the gates run on Windows and macOS, 2026-11: its harvest wrote into two heads that bundled
   decisions older than the branch, `design@xtask@gates-list-primary-home` and
-  `design@model@a-file-register-index-is-rows`, and its step 8 splits both, the first into three heads, and
-  re-points the citing sites, which the spec lists.
+  `design@model@a-file-register-index-is-rows`, and a step before it split both, the first into three heads, and
+  re-pointed the citing sites.
 
 Two entries already hold touched heads left unsplit:
 `issue@knowledge-architect@the-git-flow-head-bundles-unargued-statements`, on the owner's word, and

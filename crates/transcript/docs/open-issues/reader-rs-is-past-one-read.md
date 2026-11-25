@@ -28,7 +28,7 @@ the work needs none, which the commit "[clippy] A test or a tool that calls `std
 fails the clippy gate, which names the guard to hold instead" argues. The weighing passes to the
 next work that changes the file's code after it.
 
-A later instance: the work of `spec@plans@gates-on-windows-and-macos` changed the file's test code, the helper that makes a symbolic link. It
+A later instance: the work that had the gates run on Windows and macOS changed the file's test code, the helper that makes a symbolic link. It
 weighed a split and made none, since nearly every edit replaces one call at one site and a move beside such
 edits would hide them, which the commit "[model, check, query, create, xtask] A project-relative path is
 printed with slashes on every system, by one function of the model" argues. The weighing passes to the next
