@@ -318,14 +318,14 @@ not a decision.
 ## Subagents `##intake-subagents`
 
 Agents may establish any of the items a to h, the work divided as `primer@dispatching-work` says.
-Brief each with the findings, the files to read,
-`skill@knowledge-architect-retrospective-intake@what-to-establish` to read whole, with
-`skill@knowledge-architect-retrospective-intake@admission-rules` where it establishes d or f, the
-verdict files that the search of
+Brief each with the findings, the files to read, this skill and each skill of the project that adds
+to it, to load whole, the verdict files that the search of
 `skill@knowledge-architect-retrospective-intake@ground-before-judging` wrote for those findings, and
-a scratch directory of its own, never shared. Item c is checked against those verdicts, with no new
-search of the registers. The session reads the goals home, `register@goal`, itself, whichever agent
-establishes e. No subagent replays the reported session or builds a scenario of agent behaviour.
+a scratch directory of its own, never shared. An agent checks item c against those verdicts, and does
+not search the registers again for it; the search for a proposed fix on a subject the files did not
+raise is the session's. The session itself reads the goal each finding serves or threatens, whichever
+agent establishes e. No subagent replays the reported session or builds a scenario of agent
+behaviour.
 
 ## The analysis file and who holds each outcome `##analysis-and-ruling`
 

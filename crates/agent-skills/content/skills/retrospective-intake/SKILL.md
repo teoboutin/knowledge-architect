@@ -196,20 +196,21 @@ rule on a text's size cost that the standard places after the shape of a repair.
 ## Subagents {{slug:intake-subagents}}
 
 Agents may establish any of the items a to h, the work divided as `primer@dispatching-work` says.
-Brief each with the findings, the files to read,
-`skill@knowledge-architect-retrospective-intake@what-to-establish` to read whole, with
-`skill@knowledge-architect-retrospective-intake@admission-rules` where it establishes d or f, the
-verdict files that the search of
+Brief each with the findings, the files to read, this skill and each skill of the project that adds
+to it, to load whole, the verdict files that the search of
 `skill@knowledge-architect-retrospective-intake@ground-before-judging` wrote for those findings, and
-a scratch directory of its own, never shared. Item c is checked against those verdicts, with no new
-search of the registers. The session reads the goals home, `register@goal`, itself, whichever agent
-establishes e. No subagent replays the reported session or builds a scenario of agent behaviour.
+a scratch directory of its own, never shared. An agent checks item c against those verdicts, and does
+not search the registers again for it; the search for a proposed fix on a subject the files did not
+raise is the session's. The session itself reads the goal each finding serves or threatens, whichever
+agent establishes e. No subagent replays the reported session or builds a scenario of agent
+behaviour.
 %% No item is fixed to a carrier, per `design@agent-skills@work-divided-by-judgement`: an intake takes
-%% any number of files, so a mapping of items to the session has no bound. An agent's verdict gets its
-%% independent verification as the primer says, per
-%% `design@agent-skills@at-least-one-independent-verification`. The session's own reading of the goals
-%% is `design@agent-skills@searcher-grades-goals`. No synthetic evidence is built, per
-%% `design@agent-skills@synthetic-evidence-not-built`.
+%% any number of files, so a mapping of items to the session has no bound. An agent loads the whole
+%% skill, since the items apply most of its sections, the admission standard it hosts among them, per
+%% `design@agent-skills@admission-rules-home`. An agent's verdict gets its independent verification as
+%% the primer says, per `design@agent-skills@at-least-one-independent-verification`. The session's own
+%% reading of the goals is `design@agent-skills@searcher-grades-goals`. No synthetic evidence is built,
+%% per `design@agent-skills@synthetic-evidence-not-built`.
 
 ## The analysis file and who holds each outcome {{slug:analysis-and-ruling}}
 
