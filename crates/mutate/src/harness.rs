@@ -426,7 +426,7 @@ pub fn record_dir(root: &Path) -> Option<PathBuf> {
     Some(root.join(path))
 }
 
-/// Whether a process with this pid is running. On Linux `/proc` answers; on another Unix,
+/// Whether a process with this pid is running. On Linux `/proc` answers; on every other system,
 /// `kill -0`. Where neither answers, the process reads as gone, which permits a restore.
 fn process_is_alive(pid: u32) -> bool {
     if cfg!(target_os = "linux") {
