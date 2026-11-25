@@ -77,6 +77,28 @@ so that no rule asked for a search:
   The plan reviews then added a step that changes that Component's repair text and its head, and no
   second search ran; the design-conformance plan review found the head.
 
+Four more, in the files of the intake of twenty received files, 2026-11-14 to 2026-11-25, each a
+part of the work added after the search ran, with no search of its own:
+
+- The standing answer of 2026-11-14-thaum-announced-store-slice-klarch-workflow: a design head of
+  thaum, on what its invariant checks read, made false by a check the slice's design audit added to
+  the slice after the audit's search; the code-claims reviewer found it.
+- The standing answer of 2026-11-16-knowledge-architect-committed-transcripts-klarch-workflow:
+  `design@agent-skills@plan-landing-is-not-tied-to-its-work` and
+  `design@agent-skills@pre-harvest-conformance`. The search had read the draft of an in-change
+  commit message, and the spec, written after it, bore on both; the spec's design-conformance
+  review found them.
+- W1 and the standing answer of 2026-11-16-knowledge-architect-doc-gate-and-lints-klarch-workflow:
+  the head auditor's findings added a conforming step that split a head, after the search had run
+  on the draft; the spec's steps then met the re-entry point of
+  `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`, which
+  the standing-state reviewer found at the review before the merge, after the work was built. The
+  file proposes that a conforming step the auditor adds counts as a thread opened after the search,
+  so that loop step 1's rule runs a search for it, adding one instruction.
+- The standing answer of 2026-11-16-knowledge-architect-record-search-workflow-klarch-workflow:
+  `design@agent-skills@report-written-through-the-shell`, bearing on a clause the premortem added
+  after the search; the plan review found it.
+
 The rewordings of loop step 1 the files propose: a search whenever the work gains a subject or a
 site its draft did not hold, by a new thread or a widened one (W2 of
 2026-11-11-knowledge-architect-searcher-check-reviewer-reports-klarch-workflow, the second instance
