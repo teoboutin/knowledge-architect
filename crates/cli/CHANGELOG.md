@@ -79,6 +79,11 @@ an empty subsection is omitted.
   counts recurring slips by a pass of the tripwire axis,
   `skill@knowledge-architect-project-audit@tripwire-axis`, run after the pin move as
   `skill@knowledge-architect-setup@moving-the-pin` says.
+- `agent-skills`, patch: the alias `x` that the setup skill shows and `init --rust` writes runs the
+  maintenance crate in the release profile, `x = "run -q --release -p xtask --"`, since a gate that
+  builds in the dev profile can replace the binary that runs the gates, which Windows refuses. A
+  project changes that line of its `.cargo/config.toml`; its own commands under the alias then run
+  with no debug assertions.
 - `gates`, minor: the recommended list `rust_project` gains a gate `doc`, after `clippy` and before
   `test`, which runs `cargo doc --workspace --no-deps` with `CARGO_ENCODED_RUSTDOCFLAGS` set to `-D`
   and `warnings` joined by the byte 0x1f, so every rustdoc warning in the documentation it builds fails

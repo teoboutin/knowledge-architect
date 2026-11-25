@@ -148,6 +148,31 @@ mod tests {
         }
     }
 
+    /// The claim: the alias `x` runs the maintenance crate in release, here and in the configuration a
+    /// project is given, so no gate replaces the binary that runs the gates. The snippet is no TOML
+    /// before its placeholder is filled, so the lines are read. Mutations checked: `--release` removed
+    /// from either; each caught.
+    #[test]
+    fn the_x_alias_runs_the_maintenance_crate_in_release() {
+        for (file, text) in [
+            (
+                "the cargo configuration",
+                include_str!("../../../.cargo/config.toml"),
+            ),
+            (
+                "the snippet",
+                include_str!("../../../crates/agent-skills/snippets/cargo-config.toml"),
+            ),
+        ] {
+            let aliases: Vec<&str> = text.lines().filter(|l| l.starts_with("x = ")).collect();
+            assert_eq!(
+                aliases,
+                ["x = \"run -q --release -p xtask --\""],
+                "in {file}"
+            );
+        }
+    }
+
     /// The claim: the parse test of the saved workflows reads the variable the library's `--ci`
     /// sets, though it spells it by hand, since its crate depends on no other. Mutation checked:
     /// the spelling in `path@agent-skills@src/workflow_parse.rs` changed by one letter; caught.

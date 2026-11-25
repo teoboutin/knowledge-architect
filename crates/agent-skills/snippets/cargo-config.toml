@@ -1,5 +1,5 @@
 [alias]
-x = "run -q -p xtask --"
+x = "run -q --release -p xtask --"
 klarch = "run -q --release -p xtask -- klarch"
 
 [env]
