@@ -854,7 +854,7 @@ before step 7 starts.
      removal refused, where the dev profile fails.
 
    Fails alone on: "Access is denied" on the running binary.
-4. **The cross gate.** Builds: #cross-clippy-gate in `planned@gates@src/cross.rs`, this repository's
+4. **The cross gate.** Builds: #cross-clippy-gate in `path@gates@src/cross.rs`, this repository's
    list, `path@knowledge-architect@rust-toolchain.toml`, `path@gates@README.md`, the crate's
    documentation, and a changelog entry. Claims:
    - the gate's arguments, variables and name, for a target with hyphens: a unit test; mutations: a

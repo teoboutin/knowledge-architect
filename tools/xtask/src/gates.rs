@@ -6,22 +6,35 @@
 
 use knowledge_architect::MANIFEST_NAME;
 use knowledge_architect_gates::GatesArgs;
-use knowledge_architect_gates::{process::complain, project_root, rust_project, Checker, Gate};
+use knowledge_architect_gates::{
+    cross_clippy, process::complain, project_root, rust_project, Checker, Gate,
+};
 use std::process::ExitCode;
 
+/// The target of the cross gate: the code particular to Windows is judged on the machine that writes
+/// it, and not by CI alone. The `-gnu` target, since the gate's stub fails for an `-msvc` one.
+const WINDOWS: &str = "x86_64-pc-windows-gnu";
+
 /// This repository's gates: the recommended list of a Rust project that uses the checker, with
-/// the checker being this repository's own package, built from the checkout. CI runs it through
+/// the checker being this repository's own package, built from the checkout, and clippy for Windows
+/// after clippy, except on Windows, where clippy judges the same code. CI runs it through
 /// `cargo --locked x gates --locked --fail-fast --require-rebased --full --ci`: `--locked` is a
 /// flag because locally a legitimately updated `Cargo.lock` must not fail a gate, while in CI lock
 /// drift is exactly what must fail.
 fn gates() -> Vec<Gate> {
-    rust_project(
+    let mut gates = rust_project(
         Checker {
             package: "knowledge-architect",
             prefix: &[],
         },
         "origin/main",
-    )
+    );
+    let after_clippy = gates
+        .iter()
+        .position(|gate| gate.name == "clippy")
+        .map_or(gates.len(), |clippy| clippy + 1);
+    gates.splice(after_clippy..after_clippy, cross_clippy(WINDOWS));
+    gates
 }
 
 pub fn run(args: &GatesArgs) -> ExitCode {
@@ -51,17 +64,20 @@ fn abort(message: &str) -> ExitCode {
 mod tests {
     use super::*;
 
-    /// The claim: this repository runs the recommended list unchanged, with its own package as
-    /// the checker and origin/main as the base. Mutation check: another package or base fails
-    /// the commits gate's assertion.
+    /// The claim: this repository runs the recommended list, with its own package as the checker and
+    /// origin/main as the base, and, after `clippy`, the cross gate where the library gives it, so
+    /// not on Windows. Mutation check: another package or base fails the commits gate's assertion;
+    /// the insertion of the cross gate removed fails the names.
     #[test]
-    fn this_repository_runs_the_recommended_list_over_its_own_checker() {
+    fn this_repository_runs_the_recommended_list_over_its_own_checker_and_the_cross_gate() {
         let gates = gates();
         let names: Vec<&str> = gates.iter().map(|gate| gate.name.as_str()).collect();
-        assert_eq!(
-            names,
-            ["rebased", "fmt", "check", "commits", "clippy", "doc", "test"]
-        );
+        let mut expected = vec!["rebased", "fmt", "check", "commits", "clippy"];
+        if cross_clippy(WINDOWS).is_some() {
+            expected.push("clippy-x86_64-pc-windows-gnu");
+        }
+        expected.extend(["doc", "test"]);
+        assert_eq!(names, expected);
         assert_eq!(
             gates[3].args,
             [

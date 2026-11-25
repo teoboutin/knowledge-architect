@@ -5,7 +5,7 @@
 //! `design@gates@a-refusal-exits-two` and `design@gates@distill-over-full-logs`. Which gates a project runs is its own list, per
 //! `design@gates@a-project-holds-its-gate-list`.
 
-use crate::process::{announce, complain, run_captured, say, Completed, Spec};
+use crate::process::{announce, announcement, complain, run_captured, say, Completed, Spec};
 use clap::Args;
 use std::path::Path;
 use std::process::ExitCode;
@@ -344,8 +344,7 @@ pub fn run(root: &Path, gates: &[Gate], args: &GatesArgs) -> ExitCode {
             if actions {
                 say("::endgroup::\n");
             }
-            // Padded past the announce line's width, so overwriting it leaves no tail.
-            say(&format!("{:<14}\n", verdict_line(outcome)));
+            say(&printed_verdict(outcome));
             if actions && !outcome.success {
                 say(&error_annotation(outcome.name()));
             }
@@ -451,6 +450,13 @@ fn verdict_line(outcome: &Outcome) -> String {
             outcome.name()
         )
     }
+}
+
+/// A gate's verdict line as it is printed, padded to the width of the announce line of that gate, so
+/// overwriting it leaves no tail whatever the length of the name.
+fn printed_verdict(outcome: &Outcome) -> String {
+    let width = announcement(outcome.name()).chars().count();
+    format!("{:<width$}\n", verdict_line(outcome))
 }
 
 /// What a failed gate shows on stdout: the gate's distiller over the full text, headed by
@@ -632,6 +638,20 @@ mod tests {
             gate,
             success,
             output: output.as_bytes().to_vec(),
+        }
+    }
+
+    // The claim: a printed verdict covers the announce line of its gate, whatever the length of the
+    // gate's name. Mutation checked: the width made 14, the width of a name of ten characters or
+    // fewer; caught by the long name.
+    #[test]
+    fn a_printed_verdict_covers_the_announce_line() {
+        for name in ["fmt", "clippy-x86_64-pc-windows-gnu"] {
+            let gate = gate(name, Distiller::Whole);
+            let printed = printed_verdict(&fake(&gate, true, ""));
+            let line = printed.strip_suffix('\n').expect("a line");
+            assert!(line.starts_with(&format!("{name:<10} ok")), "{printed:?}");
+            assert!(line.len() >= announcement(name).len(), "{printed:?}");
         }
     }
 

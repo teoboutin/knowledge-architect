@@ -121,8 +121,9 @@ file.
 `cargo klarch` runs the checker built from this checkout, in release mode. A single gate is still
 run by hand when that is cheaper, by its command in the table "The gates, in cost order" of
 `path@xtask@README.md`, read there before relying on one; `cargo klarch` stands for the
-`cargo run` of its `check` and `commits` rows, and the `doc` row gives the documentation build with
-the variable that denies its warnings. The others:
+`cargo run` of its `check` and `commits` rows, the `doc` row gives the documentation build with the
+variable that denies its warnings, and the `clippy-x86_64-pc-windows-gnu` row clippy for Windows with
+its variables. The others:
 
 ```sh
 cargo fmt --all --check
