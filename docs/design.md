@@ -1,8 +1,8 @@
 # knowledge-architect — design
 
 Recorded intent for the project as a whole: how the repository is laid out, how its parts are
-versioned and released, how work reaches main, and what the tools and the workflow hold to
-together. Present tense, each decision carrying a slug,
+versioned and released, how work reaches main, how the workspace builds and is tested, and what the
+tools and the workflow hold to together. Present tense, each decision carrying a slug,
 cited as `design@knowledge-architect@<slug>`. The designs the project did not keep are
 `register@knowledge-architect@rejected`, each cited by the heads whose argument covers it. The goals
 these decisions serve are `register@goal`.
@@ -1026,8 +1026,7 @@ after the review rather than during it. The nearest rival, CI on every push of a
 without `--require-rebased` since that gate fails a draft each time main moves until the branch's
 last rebase, finds such a failure during the review, at the cost of a run per draft push and a change of
 the CI file, of the gate-list head and of the procedures of `instructions@git-workflow` that read
-the draft flag. The session chose to keep drafts unchecked over that rival, which no goal ranks;
-the owner approved it.
+the draft flag.
 
 ### No operation can lose content in a checkout that holds work, and the branch's own history is edited only with a clean tree `##no-operation-loses-content`
 
