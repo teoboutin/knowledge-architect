@@ -51,17 +51,23 @@ edit never applied and one because the verdict was read off a grep that matched 
 line, as thaum's commit "1f unit 10: who answers a question is one value, so the fabrication is
 unrepresentable" records.
 
-### Git converts no line ending of a file that the mutation or a test of it compares `##git-converts-no-line-ending`
+### Git converts nothing of the file that a `--patch` run plans, whatever the machine's git is set to `##git-converts-no-line-ending`
 
-`git_in` of `path@mutate@src/run.rs`, which runs git in the scratch that plans a `--patch` run, runs it
-under `core.autocrlf=false`, and so do `apply_and_reverse` of `path@mutate@tests/harness.rs` and
-`linked_worktree` of `path@mutate@tests/modes.rs`. Under `true`, the default of Git for Windows,
-`git apply` writes the mutant with CRLF whatever the target's line endings, so the mutation is another
-than the patch names, and a patch that changes nothing gives a mutant, whose verdict is `SURVIVED`. The
-test `a_patch_run_converts_no_line_ending_whatever_the_machine_s_git_says` of
-`path@mutate@tests/modes.rs` holds it, and fails with the setting of `git_in` made `true`.
+`apply_in` of `path@mutate@src/run.rs`, which plans the mutant in a scratch repository, gives that
+repository the attributes `* -text -ident -filter -working-tree-encoding`, in the file of it that git
+reads before the machine's attributes and before the target's own, where the target is a
+`.gitattributes`; and `git_in` runs git there under `apply.whitespace=nowarn`. Under
+`core.autocrlf=true`, the default of Git for Windows, or an attribute that gives the target CRLF,
+`git apply` writes the mutant with other line endings than the target's, and `apply.whitespace=fix`
+strips the trailing spaces of an added line. The mutation is then another than the patch names, and a patch that changes
+nothing gives a mutant, whose verdict is `SURVIVED`. The test
+`a_patch_run_converts_nothing_that_the_machine_s_git_is_set_to_convert` of
+`path@mutate@tests/modes.rs` holds each, both ways of a line ending, and fails with an attribute or the
+setting taken out. The tests that compare a file a git command wrote run it under
+`core.autocrlf=false`: `apply_and_reverse` of `path@mutate@tests/harness.rs` and `linked_worktree` of
+`path@mutate@tests/modes.rs`.
 
-The nearest rival, the setting of the machine, gives the mutation's author the line endings they chose
+The nearest rival, the settings of the machine, gives the mutation's author the conversions they chose
 for their checkouts, and a verdict that depends on the machine. A verdict is about the one mutation its caller names, per
 `design@mutate@mutation-command`.
 

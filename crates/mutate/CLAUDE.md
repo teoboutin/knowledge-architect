@@ -59,5 +59,5 @@ a test under mutation that never returns is a catch, ended by killing it.
 
 `path@mutate@tests/modes.rs` runs each mode as a child process, so a kill is observable: the
 child is the test executable itself, started on its test `child_entry` with the arguments in an
-environment variable. The command under `--` in a test is a shell builtin or `sh -c`, never
-`cargo`, which would rebuild the workspace inside a test.
+environment variable. The command under `--` in a test is never `cargo`, which would
+rebuild the workspace inside a test.

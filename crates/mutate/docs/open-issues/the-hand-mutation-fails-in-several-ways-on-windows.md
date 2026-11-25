@@ -47,8 +47,8 @@ which Windows does not find as `git`; and `the_restore_writes_through_no_symlink
 command runs `ln -s`: on a Windows runner the run printed `SURVIVED` and exited 0 where the test expects 1,
 since MSYS2's `ln -s` copies the file by default (assumption, from its documentation as remembered).
 
-Ruled out: `core.autocrlf` in the scratch repository of a `--patch` run, which gave a false `SURVIVED`, is
-set to `false` in `git_in` of `path@mutate@src/run.rs`. The liveness of a run is
+Ruled out: what the machine's git converts in the scratch repository of a `--patch` run, which gave a
+false `SURVIVED`, per `design@mutate@git-converts-no-line-ending`. The liveness of a run is
 `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
 
 ### Why it matters
