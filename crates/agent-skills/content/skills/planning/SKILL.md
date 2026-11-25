@@ -440,6 +440,10 @@ becomes an issue or none as loop step 1 of `skill@knowledge-architect-design@dis
 %% scoped auditor, its bound, its sample and its check: `design@agent-skills@scoped-auditor-on-touched-heads`.
 %% A move to the Component the record settles is no question for the owner, per
 %% `primer@question-authority`.
+%% The list is drawn from a search because an empty list written from memory read as a result and
+%% dispatched no drafter, twice in one session, and a third list fell short at the same point: the
+%% claim check of `primer@verify-before-relying` is read at the start and needed here, so the lapse
+%% rule of `skill@knowledge-architect-agent-configuration@admission-standard` delivers it here.
 **A head the harvest touches is brought to the rules on design heads by a step before the
 harvest**, so that the harvest writes into heads that already conform, and the review before the
 merge judges the harvest's change rather than a head's older defects. A head the harvest touches is
@@ -447,7 +451,11 @@ one whose text it changes without reversing or rewriting its decision; re-pointi
 not touch a head, as `skill@knowledge-architect-decision-recording@head-shape` says.
 
 - **The list.** The section "What is already decided" of a spec lists the heads its harvest will
-  touch, each as a reference, apart from the decisions it reverses or rewrites; in a milestone, each
+  touch, each as a reference, apart from the decisions it reverses or rewrites; the list is drawn
+  from a search, not from memory, per `primer@verify-before-relying`: of the heads that
+  `{{command}} show` lists as citing each decision the work changes, and those a grep of the changed
+  rule's wording returns in the design homes of every Component, it keeps each whose text the
+  harvest will change, and a list that keeps none names the search it ran; in a milestone, each
   slice's spec lists those its own harvest will touch, since its design audit takes them as seeds.
 - **The judgement.** Once the list exists, dispatch `agent@knowledge-architect-design-record-auditor`
   as a drafter, never the design-record axis's saved workflow, which audits the whole record, since
