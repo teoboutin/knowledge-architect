@@ -9,7 +9,7 @@ use std::path::{Path, PathBuf};
 
 use crate::model::declared::owned_path;
 use crate::model::listing::Outside;
-use crate::model::Manifest;
+use crate::model::{slashed, Manifest};
 
 /// What the shipped text writes where the project's declared command goes.
 const PLACEHOLDER: &str = "{{command}}";
@@ -125,7 +125,7 @@ pub fn install_into(
             refuse_link(root, ancestor)?;
         }
     }
-    let at = |rel: &Path, e: std::io::Error| format!("{}: {e}", rel.display());
+    let at = |rel: &Path, e: std::io::Error| format!("{}: {e}", slashed(rel));
     for (rel, text) in shipped {
         let path = root.join(rel);
         if std::fs::read(&path).ok().as_deref() == Some(text.as_bytes()) {
@@ -242,7 +242,7 @@ pub(crate) fn apply(
             refuse_link(root, ancestor)?;
         }
     }
-    let at = |rel: &Path, e: std::io::Error| format!("{}: {e}", rel.display());
+    let at = |rel: &Path, e: std::io::Error| format!("{}: {e}", slashed(rel));
     for rel in &repairs.write {
         let Some((_, text)) = shipped.iter().find(|(s, _)| s == rel) else {
             continue;
@@ -271,7 +271,7 @@ fn refuse_link(root: &Path, rel: &Path) -> Result<(), String> {
         Ok(m) if m.file_type().is_symlink() => Err(format!(
             "{} is a symbolic link: the install writes and deletes only inside the project, so \
              it refuses to follow one",
-            rel.display()
+            slashed(rel)
         )),
         _ => Ok(()),
     }
@@ -295,7 +295,7 @@ fn owned_on_disk(root: &Path) -> Result<Vec<PathBuf>, String> {
 
 /// Every file under a directory, without following a symbolic link: an owned link is refused.
 fn files_under(root: &Path, rel: &Path, out: &mut Vec<PathBuf>) -> Result<(), String> {
-    let at = |e: std::io::Error| format!("{}: {e}", rel.display());
+    let at = |e: std::io::Error| format!("{}: {e}", slashed(rel));
     let entries = match std::fs::read_dir(root.join(rel)) {
         Ok(entries) => entries,
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(()),

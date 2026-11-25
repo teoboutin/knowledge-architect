@@ -11,7 +11,7 @@
 use std::path::{Path, PathBuf};
 
 use crate::entity::{self, Anchor, Anchors, Constructed, Home};
-use crate::finding::Finding;
+use crate::finding::{slashed, Finding};
 use crate::git::EntryKind;
 use crate::manifest::{
     Manifest, Register, Shape, MANIFEST_NAME, MILESTONE_REGISTER, PLANS_DIR, SPEC_REGISTER,
@@ -105,7 +105,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 &anchor.path,
                 format!(
                     "the plans directory `{}` does not exist",
-                    anchor.path.display()
+                    slashed(&anchor.path)
                 ),
                 "create it with a README.md, specs/ and milestones/; the tool constructs the \
                  anchor `plans` there in every project, and its two homes are where plan \
@@ -118,7 +118,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                 &anchor.path,
                 format!(
                     "`{}` is declared an anchor and does not exist",
-                    anchor.path.display()
+                    slashed(&anchor.path)
                 ),
                 format!("create it, or stop declaring it in {MANIFEST_NAME}"),
             ));
@@ -158,7 +158,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                         &path,
                         format!(
                             "`{}` is a directory wearing the document's name",
-                            path.display()
+                            slashed(&path)
                         ),
                         "the component documents are files; move the directory aside and \
                          create the file",
@@ -184,7 +184,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
                     &readme,
                     format!(
                         "the plans directory has no README.md: `{}` is a directory",
-                        readme.display()
+                        slashed(&readme)
                     ),
                     "move the directory aside and create the file; it says what the plans \
                      directory holds",
@@ -319,7 +319,7 @@ fn plans_layout(
             format!(
                 "`{}` sits in the plans directory, which holds its README.md, specs/ and \
                  milestones/ and nothing else",
-                path.display()
+                slashed(path)
             ),
             format!(
                 "move a spec into a directory of {PLANS_DIR}/specs/ and a milestone into a \
@@ -408,12 +408,12 @@ fn unheaded_plan(out: &mut Vec<Finding>, dir: &Path, inputs: &TreeInputs) -> boo
             format!(
                 "`{}` holds the files of a plan document and no README.md, so it is a spec \
                  missing its head",
-                dir.display()
+                slashed(dir)
             ),
             format!(
                 "create `{}` as a file, the spec document; a spec's directory holds its \
                  README.md beside its deliberation.md, its search/ and its transcripts/",
-                dir.join(crate::plan::README).display()
+                slashed(&dir.join(crate::plan::README))
             ),
         ));
     }
@@ -430,14 +430,14 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
             path,
             format!(
                 "`{}` is a spec file, and a spec is a directory",
-                path.display()
+                slashed(path)
             ),
             format!(
                 "move it to `{}/README.md`, and its Threads and Arguments sections into `{}/{}` \
                  beside it; a spec's directory holds its README.md and the files of its \
                  discussion",
-                dir.display(),
-                dir.display(),
+                slashed(&dir),
+                slashed(&dir),
                 crate::manifest::DELIBERATION_FILE
             ),
         ));
@@ -447,7 +447,7 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
             path,
             format!(
                 "`{}` sits in {place}, which holds {}one directory per spec",
-                path.display(),
+                slashed(path),
                 if place == "specs/" {
                     "its README.md, its index.md, its register.toml, its groups and "
                 } else {
@@ -497,7 +497,7 @@ fn specs_layout(out: &mut Vec<Finding>, specs: &Home, inputs: &TreeInputs) {
                     inner,
                     format!(
                         "`{}` holds no README.md, so it is no spec, and groups are one level deep",
-                        inner.display()
+                        slashed(inner)
                     ),
                     "create its README.md, the spec document, or move its specs into a group \
                      of their own beside this one",
@@ -575,7 +575,7 @@ fn plan_directory(
                         inner,
                         format!(
                             "`{}` sits in a {name}/ directory, which holds {alone}",
-                            inner.display()
+                            slashed(inner)
                         ),
                         repair,
                     ));
@@ -592,7 +592,7 @@ fn plan_directory(
                         format!(
                             "`{}` is no harvested slice: harvested/ holds one directory per \
                              landed slice, each holding its README.md",
-                            inner.display()
+                            slashed(inner)
                         ),
                         "move it out of harvested/; a landed slice's whole directory is moved \
                          there, in a commit of its own",
@@ -620,7 +620,7 @@ fn plan_directory(
             } else {
                 out.push(Finding::in_file(
                     path,
-                    format!("`{}` holds no README.md, so it is no slice", path.display()),
+                    format!("`{}` holds no README.md, so it is no slice", slashed(path)),
                     "create its README.md, the slice's spec, or move the directory out of the \
                      milestone",
                 ));
@@ -632,15 +632,15 @@ fn plan_directory(
             path,
             format!(
                 "`{}` sits in the {noun} directory `{}`, which holds {holds}, and nothing else",
-                path.display(),
-                dir.display()
+                slashed(path),
+                slashed(dir)
             ),
             if slice_file {
                 format!(
                     "a slice is a directory: move it to `{}/README.md`, and its Threads and \
                      Arguments sections into `{}/{}` beside it",
-                    path.with_extension("").display(),
-                    path.with_extension("").display(),
+                    slashed(&path.with_extension("")),
+                    slashed(&path.with_extension("")),
                     crate::manifest::DELIBERATION_FILE
                 )
             } else {
@@ -703,10 +703,7 @@ fn directory_layout(
             match placed(&name) {
                 None => out.push(Finding::in_file(
                     path,
-                    format!(
-                        "`{}` holds no README.md, so it is no {noun}",
-                        path.display()
-                    ),
+                    format!("`{}` holds no README.md, so it is no {noun}", slashed(path)),
                     if milestone {
                         "create its README.md, the milestone document, or move the directory \
                          out of milestones/"
@@ -753,7 +750,7 @@ fn directory_layout(
                         for inner in inner {
                             out.push(Finding::in_file(
                                 inner,
-                                format!("`{}` is a subdirectory of a {noun}", inner.display()),
+                                format!("`{}` is a subdirectory of a {noun}", slashed(inner)),
                                 "move its files up beside the entry's README; an entry holds \
                                  its README and the files of what it carries, ungrouped",
                             ));
@@ -788,7 +785,7 @@ fn directory_layout(
             format!(
                 "`{}` sits in {listing}/, which holds its README.md, its index.md and one \
                  directory per {noun}",
-                path.display()
+                slashed(path)
             ),
             if milestone {
                 "a milestone is a directory holding its README.md; move a single-file plan into \
@@ -824,8 +821,8 @@ fn heading_home(
             format!(
                 "create `{}`, or `{}/` with a README.md; a heading register keeps its entries \
                  in exactly one of the two",
-                home.file.display(),
-                home.dir.display()
+                slashed(&home.file),
+                slashed(&home.dir)
             ),
         )),
         (true, true) => out.push(Finding::in_file(
@@ -833,8 +830,8 @@ fn heading_home(
             format!(
                 "the anchor `{}` carries both `{}` and `{}`",
                 anchor.name,
-                home.file.display(),
-                home.dir.display()
+                slashed(&home.file),
+                slashed(&home.dir)
             ),
             "keep exactly one home; with two, an entry lands in either and the reader who \
              finds the other acts on half the register",
@@ -849,7 +846,7 @@ fn heading_home(
                     format!(
                         "the {} directory `{}` has no README.md",
                         register.name,
-                        home.dir.display()
+                        slashed(&home.dir)
                     ),
                     "create it; the README is the directory home's head — an introduction, \
                      and a bullet list of markdown links naming every subdocument",
@@ -861,8 +858,8 @@ fn heading_home(
                     format!(
                         "the {} directory `{}` has no README.md: `{}` is a directory",
                         register.name,
-                        home.dir.display(),
-                        home.readme.display()
+                        slashed(&home.dir),
+                        slashed(&home.readme)
                     ),
                     "move the directory aside and create the file; the README is the directory \
                      home's head — an introduction, and a bullet list of markdown links naming \
@@ -889,12 +886,12 @@ fn file_home(
             &home.file,
             format!(
                 "`{}` is the retired file shape of the {} register",
-                home.file.display(),
+                slashed(&home.file),
                 register.name
             ),
             format!(
                 "split it into `{}/`, one file per entry, with a README.md and an index.md",
-                home.dir.display()
+                slashed(&home.dir)
             ),
         ));
     }
@@ -939,7 +936,7 @@ fn outside_the_walk(
             MANIFEST_NAME,
             format!(
                 "`{}` in {list} takes the {} register of `{}` out of the walk",
-                path.display(),
+                slashed(&path),
                 register.name,
                 anchor.name
             ),
@@ -959,7 +956,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
                 MANIFEST_NAME,
                 format!(
                     "[locations.{name}] names `{}`, which is a file",
-                    decl.path.display()
+                    slashed(&decl.path)
                 ),
                 "a location is a directory carrying register homes; point it at one",
             ));
@@ -999,7 +996,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
                 MANIFEST_NAME,
                 format!(
                     "`{}` is declared in {list} and does not exist",
-                    path.display()
+                    slashed(path)
                 ),
                 "delete the row, or restore what it names; a declaration nothing checks \
                  silently covers whatever is created at that path next. What git ignores is \
@@ -1047,14 +1044,14 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
             EntryKind::Symlink if generated.contains(&entry.rel) => (
                 format!(
                     "`{}` is a symlink where a generated file belongs",
-                    entry.rel.display()
+                    slashed(&entry.rel)
                 ),
                 regenerate.as_str(),
             ),
             EntryKind::Symlink => (
                 format!(
                     "`{}` is a symlink, and the walk reads no document through one",
-                    entry.rel.display()
+                    slashed(&entry.rel)
                 ),
                 "replace it with the file it points at, or with a reference to that file; a \
                  checkout without symlinks holds the target's path as text here, so two readers \
@@ -1063,7 +1060,7 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
             EntryKind::Gitlink => (
                 format!(
                     "`{}` is a submodule, and the walk reads nothing under it",
-                    entry.rel.display()
+                    slashed(&entry.rel)
                 ),
                 "name it in [walk] exclude to declare the silence; the tool models no \
                  submodule, and the checker's open issues hold the question",
@@ -1170,7 +1167,7 @@ fn foreign_root_homes(
             let what = format!(
                 "`{}` is a home of the {} register in the component `{}`, which the project's \
                  root alone carries",
-                home.display(),
+                slashed(&home),
                 register.name,
                 anchor.name
             );

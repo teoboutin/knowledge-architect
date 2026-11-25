@@ -36,8 +36,8 @@ use serde::Deserialize;
 use crate::model::declared::{Register, Shape};
 use crate::model::document::Observation;
 use crate::model::table::{Anchor, Anchors, Home};
-use crate::model::Finding;
 use crate::model::Manifest;
+use crate::model::{slashed, Finding};
 use crate::model::{Document, Model};
 
 use super::Inputs;
@@ -136,7 +136,7 @@ fn heading_home(
             &home.config,
             format!(
                 "`{}` sits beside the {} register, which is a heading register",
-                home.config.display(),
+                slashed(&home.config),
                 register.name
             ),
             "delete it; per-instance options belong to a file register, and a heading \
@@ -173,7 +173,7 @@ fn heading_home(
                         &home.readme,
                         format!(
                             "`{}` is not linked from its {} README",
-                            subdocument.display(),
+                            slashed(subdocument),
                             register.name
                         ),
                         "link it — [title](file.md), relative to the README — or delete the \
@@ -372,7 +372,7 @@ fn plan_home(
                         "move or write the group's first spec under `{}/`, or remove the group \
                          from the instance's register.toml; the declaration is the grouping, so \
                          changing it is its own decision",
-                        home.dir.join(&group).display()
+                        slashed(&home.dir.join(&group))
                     ),
                 ));
             }
@@ -428,7 +428,7 @@ fn deliberation_in_readme(
             format!(
                 "move the section, with its items, into `{}` beside it; a plan's README.md holds \
                  the design it decided, and its deliberation.md the threads and the arguments",
-                beside.display()
+                slashed(&beside)
             ),
         ));
     }
@@ -476,7 +476,7 @@ fn navigation(
             format!(
                 "the {} directory `{}` has no {what}",
                 register.name,
-                home.dir.display()
+                slashed(&home.dir)
             ),
             action,
         ));
@@ -571,7 +571,7 @@ fn directory_contents(
             } else {
                 out.push(Finding::in_file(
                     path,
-                    format!("`{}` nests a group inside a group", path.display()),
+                    format!("`{}` nests a group inside a group", slashed(path)),
                     "groups are one level deep; move the entries into a group of their own \
                      beside this one",
                 ));
@@ -586,7 +586,7 @@ fn directory_contents(
                 path,
                 format!(
                     "`{}` is not an entry of the {} register",
-                    path.display(),
+                    slashed(path),
                     register.name
                 ),
                 // An entry written with another extension is read as no entry, so its repair
@@ -610,7 +610,7 @@ fn directory_contents(
                     "move or write the group's first entry under `{}/`, or remove the group from \
                      the instance's register.toml; the declaration is the grouping, so changing \
                      it is its own decision",
-                    home.dir.join(group).display()
+                    slashed(&home.dir.join(group))
                 ),
             ));
         }

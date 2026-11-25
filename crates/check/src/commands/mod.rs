@@ -24,6 +24,7 @@ use output::{out, outln};
 
 use crate::check::{Phase, Report};
 use crate::extension::{Extension, Prepared, Purpose, Tree};
+use crate::model::slashed;
 use crate::Manifest;
 
 mod history;
@@ -164,10 +165,10 @@ pub fn install_agent_skills(manifest: &Manifest) -> Result<ExitCode, String> {
     let shipped = crate::agents::shipped(manifest);
     let done = crate::agents::install(manifest.root(), &shipped)?;
     for rel in &done.written {
-        outln!("wrote    {}", rel.display());
+        outln!("wrote    {}", slashed(rel));
     }
     for rel in &done.deleted {
-        outln!("deleted  {}", rel.display());
+        outln!("deleted  {}", slashed(rel));
     }
     if done.written.is_empty() && done.deleted.is_empty() {
         outln!("the installed set is already the shipped one");
@@ -521,10 +522,10 @@ fn fix_then_check(
             let outcome =
                 crate::agents::apply(manifest.root(), inputs.shipped, &repairs, &mut done);
             for rel in &done.written {
-                outln!("fixed: wrote {} (installed)", rel.display());
+                outln!("fixed: wrote {} (installed)", slashed(rel));
             }
             for rel in &done.deleted {
-                outln!("fixed: removed {} (installed)", rel.display());
+                outln!("fixed: removed {} (installed)", slashed(rel));
             }
             written += done.written.len() + done.deleted.len();
             if let Err(e) = outcome {
@@ -605,7 +606,7 @@ fn fix_then_check(
                 .filter(|path| {
                     written_here
                         .iter()
-                        .any(|(rel, _)| crate::model::escaped(&rel.display().to_string()) == *path)
+                        .any(|(rel, _)| crate::model::escaped(&slashed(rel)) == *path)
                 })
                 .collect();
             if !differing.is_empty() {
@@ -635,7 +636,7 @@ fn fix_then_check(
             return failed(written, format!("{}: {e}", path.display()));
         }
         written += 1;
-        outln!("fixed: wrote {} (regenerated)", rel.display());
+        outln!("fixed: wrote {} (regenerated)", slashed(&rel));
     }
     if written > 0 {
         outln!();
@@ -698,7 +699,7 @@ fn untracked_note(
     }
     let names: Vec<String> = files
         .iter()
-        .map(|file| crate::model::escaped(&file.display().to_string()))
+        .map(|file| crate::model::escaped(&slashed(file)))
         .collect();
     let (count, verb) = match names.len() {
         1 => ("1 file".to_string(), "is"),
@@ -757,7 +758,7 @@ fn index_working(
     for (rel, text) in generated {
         let path = manifest.root().join(&rel);
         if std::fs::read_to_string(&path).ok().as_deref() == Some(text.as_str()) {
-            outln!("{:<40} already current", rel.display());
+            outln!("{:<40} already current", slashed(&rel));
             continue;
         }
         if let Err(e) = std::fs::write(&path, &text) {
@@ -773,7 +774,7 @@ fn index_working(
             });
         }
         written += 1;
-        outln!("{:<40} rewritten", rel.display());
+        outln!("{:<40} rewritten", slashed(&rel));
     }
     Ok(ExitCode::SUCCESS)
 }
@@ -826,7 +827,7 @@ fn differing_paths(
     paths
         .into_iter()
         .filter(|rel| working.get(*rel) != staged.get(*rel))
-        .map(|rel| crate::model::escaped(&rel.display().to_string()))
+        .map(|rel| crate::model::escaped(&slashed(rel)))
         .collect()
 }
 
@@ -899,7 +900,14 @@ fn verdict(report: &Report) -> String {
 /// The checker's directories as the summary line names them, comma-separated.
 fn sources(dirs: &[std::path::PathBuf]) -> String {
     dirs.iter()
-        .map(|d| d.display().to_string())
+        .map(|d| {
+            // One outside the project is named by its absolute path, as the system writes it.
+            if d.is_absolute() {
+                d.display().to_string()
+            } else {
+                slashed(d)
+            }
+        })
         .collect::<Vec<_>>()
         .join(", ")
 }

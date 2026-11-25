@@ -13,6 +13,7 @@
 //! It is a subcommand of this tool rather than of the checker, per
 //! `design@xtask@source-view-in-the-tool`.
 
+use knowledge_architect::extension::slashed;
 use knowledge_architect::MANIFEST_NAME;
 use knowledge_architect_gates::process::{complain, say};
 use knowledge_architect_gates::project_root;
@@ -69,7 +70,7 @@ fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
             "`{name}` names several files: {}",
             several
                 .iter()
-                .map(|p| p.display().to_string())
+                .map(|p| slashed(p))
                 .collect::<Vec<_>>()
                 .join(", ")
         )),
@@ -79,12 +80,7 @@ fn resolve(content: &Path, name: &str) -> Result<PathBuf, String> {
 /// Every file directly under `dir`, as its name and its text; none when `dir` is absent. An error
 /// names the file or the directory it met, from `root`.
 fn files(root: &Path, dir: &Path) -> Result<Vec<(String, String)>, String> {
-    let shown = |path: &Path| {
-        path.strip_prefix(root)
-            .unwrap_or(path)
-            .display()
-            .to_string()
-    };
+    let shown = |path: &Path| slashed(path.strip_prefix(root).unwrap_or(path));
     let mut out = Vec::new();
     if !dir.is_dir() {
         return Ok(out);
@@ -125,9 +121,9 @@ fn view(root: &Path, name: &str) -> Result<String, String> {
     let fragments = files(root, &krate.join("fragments"))?;
     let snippets = files(root, &krate.join("snippets"))?;
     let text = std::fs::read_to_string(content.join(&rel))
-        .map_err(|error| format!("{CRATE}/content/{} is unreadable: {error}", rel.display()))?;
+        .map_err(|error| format!("{CRATE}/content/{} is unreadable: {error}", slashed(&rel)))?;
     render::source_view(&text, &borrowed(&fragments), &borrowed(&snippets))
-        .map_err(|why| format!("{CRATE}/content/{}: {why}", rel.display()))
+        .map_err(|why| format!("{CRATE}/content/{}: {why}", slashed(&rel)))
 }
 
 pub fn run(name: &str) -> ExitCode {

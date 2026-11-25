@@ -34,7 +34,7 @@ fn walked(model: &Model) -> Vec<String> {
     let mut names: Vec<String> = model
         .documents()
         .iter()
-        .map(|d| d.rel.display().to_string())
+        .map(|d| km::slashed(&d.rel))
         .collect();
     names.sort();
     names
@@ -126,7 +126,7 @@ fn a_generated_index_is_outside_the_walk_and_outside_the_inverse_assertion() {
     let walked = walked(&model);
     let survey = km::listing::survey(&manifest, &model).expect("a survey of the mock");
     for rel in &generated {
-        let name = rel.display().to_string();
+        let name = km::slashed(rel);
         assert!(
             std::path::Path::new(&manifest.root().join(rel)).exists(),
             "{name} should be a file the mock carries"

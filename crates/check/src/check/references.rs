@@ -32,9 +32,9 @@ use std::path::Path;
 
 use crate::model::document::Observation;
 use crate::model::table::{self, Anchors, Candidate, Entities, Kind};
-use crate::model::Finding;
 use crate::model::Manifest;
 use crate::model::Model;
+use crate::model::{slashed, Finding};
 
 use super::Inputs;
 use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
@@ -792,7 +792,7 @@ fn link(
         let repair = match beside {
             Some(plain) => format!(
                 "link as `{}{}{}`, the same target written relative to this file",
-                plain.to_string_lossy(),
+                slashed(&plain),
                 if names_a_directory { "/" } else { "" },
                 target.find('#').map_or("", |at| &target[at..])
             ),

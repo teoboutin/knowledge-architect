@@ -36,6 +36,10 @@ an empty subsection is omitted.
   a clone under `core.autocrlf=true` passes with no declaration of its own. `check --fix` neither
   writes nor refuses over such a file, and `index --staged` does not name its working copy; `index`
   still writes where the bytes differ. A consumer whose tests pin the finding on such a file changes them.
+- `checks`, patch: a project-relative path that the checker or a command prints, or writes in a repair it
+  suggests, is spelled with `/` on every system, where one built from its segments would hold `\` on
+  Windows. An extension that writes such a path with `Path::display` into a finding or a generated file
+  calls `slashed` instead, or its text differs on Windows. Nothing changes on other systems.
 - `library`, major: `declared::Shape` gains the variant `Plan(PlanKind)`, which the registers `spec`
   and `milestone` now have, where they had `File` and `Directory`; `table::Constructed::Spec` is
   replaced by `Constructed::Plan(PlanKind)`, which a milestone's anchor also is, where it was
@@ -124,6 +128,9 @@ an empty subsection is omitted.
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
   `knowledge-architect-model`.
+- `library`, minor: `slashed` in `knowledge-architect-model`, and in the module `extension` of
+  `knowledge-architect-check` and `knowledge-architect`, spells a project-relative path with `/` on
+  every system.
 - `library`, minor: every published crate compiles for Windows, where `knowledge-architect-git`, and
   each crate that depends on it, did not.
 - `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which

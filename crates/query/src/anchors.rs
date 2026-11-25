@@ -3,6 +3,7 @@
 use std::path::Path;
 use std::process::ExitCode;
 
+use crate::model::slashed;
 use crate::model::table::Anchors;
 use crate::output::outln;
 use crate::Manifest;
@@ -45,7 +46,7 @@ pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Strin
         let path = if anchor.path.as_os_str().is_empty() {
             ".".to_string()
         } else {
-            anchor.path.display().to_string()
+            slashed(&anchor.path)
         };
         outln!("{}  {kind}  {path}", anchor.name);
         // A plan's items have their homes in the plan's own documents: nothing to locate. Any
@@ -60,7 +61,7 @@ pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Strin
             let home = anchor.home_of(register);
             let mut held = Vec::new();
             if register.shape == Shape::Heading && listed(&home.file) {
-                held.push(home.file.display().to_string());
+                held.push(slashed(&home.file));
             }
             // A home is held where `check` finds it, `heading_home` of phase 2 and its kin: a
             // register's directory, of any shape, is its home with or without its README, whose
@@ -72,7 +73,7 @@ pub fn anchors(manifest: &Manifest, checker: &[&Path]) -> Result<ExitCode, Strin
                 Shape::Section => continue,
             };
             if dir_held {
-                held.push(format!("{}/", home.dir.display()));
+                held.push(format!("{}/", slashed(&home.dir)));
             }
             if held.is_empty() {
                 missing = true;
