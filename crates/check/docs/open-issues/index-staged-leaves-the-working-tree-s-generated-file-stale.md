@@ -38,10 +38,13 @@ the commit it holds the rows of the tree before the staged change.
 
 The shapes:
 
-1. `index --staged` prints each working-tree generated file that now differs from the staged one,
-   with "run `cargo klarch index`", thaum's proposal; `design@check@one-question-one-command`
-   defeats it: whether a generated file is current is `check`'s question, and `check` already
-   answers it, with the repair `index`;
+1. `index --staged` prints each working-tree generated file that is out of date for the working
+   tree, with `index` as the repair, thaum's proposal: it is built, and `path@cli@README.md` states
+   it. It names the file and leaves it stale: the second instance above is dated after the
+   commit that holds the line, "[review] Repairs of the review before the merge of the pre-release
+   branch". Whether the line contradicts
+   `design@check@one-question-one-command`, under which whether a generated file is current is
+   `check`'s question, no head argues, and `design@check@index-staged-write` does not state the line;
 2. `index --staged` also writes the working tree's copy where that copy equals HEAD's, the dispatch
    judgement's proposal; it brings back `rejected@check@index-staged-writes-working-file`, whose
    reason it answers only in part: where an unstaged change undoes the staged one for that
