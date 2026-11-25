@@ -23,7 +23,7 @@ use crate::extension::{Extension, Prepared, Purpose, Snapshot, Tree};
 use crate::git::Source;
 use crate::model::listing::Survey;
 use crate::model::table::{Anchors, Entities};
-use crate::model::MANIFEST_NAME;
+use crate::model::{slashed, MANIFEST_NAME};
 use crate::{Finding, Manifest, Model};
 
 // ---------------------------------------------------------------------------------------
@@ -432,7 +432,7 @@ fn read_tree(
         if !unmerged.is_empty() {
             let names: Vec<String> = unmerged
                 .iter()
-                .map(|p| crate::model::escaped(&p.display().to_string()))
+                .map(|p| crate::model::escaped(&slashed(p)))
                 .collect();
             return Err(Unloadable {
                 why: format!("the index holds unmerged paths: {}", names.join(", ")),
@@ -985,14 +985,14 @@ pub(super) fn index_staged(
                  Nothing was written.\n       stage a file under that directory, or configure \
                  the extension that generates this file to write it into a directory the staged \
                  tree holds",
-                dir.display()
+                slashed(dir)
             ));
         }
     }
     let mut stale = Vec::new();
     for (rel, text) in generated {
         if assembly.committed.get(&rel) == Some(&text) {
-            outln!("{:<40} already current", rel.display());
+            outln!("{:<40} already current", slashed(&rel));
         } else {
             stale.push((rel, text));
         }
@@ -1007,7 +1007,7 @@ pub(super) fn index_staged(
         )
     })?;
     for (rel, _) in &stale {
-        outln!("{:<40} staged", rel.display());
+        outln!("{:<40} staged", slashed(rel));
     }
     // **A working copy out of date for the working tree is named.** No working-tree file is
     // written, per `design@check@index-staged-write`, so after an entry removed with `git rm` the
@@ -1024,7 +1024,7 @@ pub(super) fn index_staged(
     {
         outln!(
             "{:<40} the working copy is out of date for the working tree: `{} index` rewrites it",
-            rel.display(),
+            slashed(&rel),
             manifest.command()
         );
     }
@@ -1230,7 +1230,7 @@ pub fn commits(
             // **Every commit of the range must pass under the tip checker**, so the tree's own
             // findings are the run's, each named by the commit and by the file inside it.
             findings.extend(tree.trouble.iter().cloned().map(|mut f| {
-                f.file = PathBuf::from(format!("commit {short}: {}", f.file.display()));
+                f.file = PathBuf::from(format!("commit {short}: {}", slashed(&f.file)));
                 f
             }));
             if let Some(phase) = tree.stopped {
@@ -1383,7 +1383,7 @@ pub fn commits(
         outln!(
             "  {}: {count} commits fail on this generated file; regenerate it at each of them and \
              fold each regeneration into its commit",
-            path.display()
+            slashed(path)
         );
     }
     if !findings.is_empty() {
@@ -1472,7 +1472,7 @@ fn branch_sha_findings(
         out.extend(
             branch_sha_citations(&doc.text, shas)
                 .into_iter()
-                .map(|c| finding(format!("commit {short}: {}", doc.rel.display()), c)),
+                .map(|c| finding(format!("commit {short}: {}", slashed(&doc.rel)), c)),
         );
     }
     out

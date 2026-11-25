@@ -24,6 +24,7 @@ use std::path::{Path, PathBuf};
 use crate::entity::{
     self, Anchors, Candidate, Constructed, Entities, Kind, Resolution, ESCAPE_ANCHOR, PLANS_ANCHOR,
 };
+use crate::finding::slashed;
 use crate::manifest::{Scope, Shape, MANIFEST_NAME};
 use crate::model::Model;
 use crate::scan::Observation;
@@ -683,11 +684,11 @@ impl Cause {
                 format!("write `{form}`, and name the function or the heading in prose"),
             ),
             NowExists { target, form } => (
-                format!("`{span}` now exists, at `{}`", target.display()),
+                format!("`{span}` now exists, at `{}`", slashed(target)),
                 format!("write `{form}`; the planned form names a path that does not exist yet"),
             ),
             Missing { target } => (
-                format!("`{span}` does not exist, at `{}`", target.display()),
+                format!("`{span}` does not exist, at `{}`", slashed(target)),
                 "repair the pointer, or delete it".to_string(),
             ),
             Located { form } => (
@@ -1204,7 +1205,7 @@ fn path_written(
                     } else {
                         ""
                     };
-                    format!("path@{}@{}{slash}", owner.name, under.display())
+                    format!("path@{}@{}{slash}", owner.name, slashed(under))
                 }
             };
             Err(Cause::ResolvesHere { form })

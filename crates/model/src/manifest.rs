@@ -22,7 +22,7 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
-use crate::finding::Finding;
+use crate::finding::{slashed, Finding};
 
 /// The file that both marks a project root and declares its conformance surface.
 pub const MANIFEST_NAME: &str = "knowledge-architect.toml";
@@ -1360,7 +1360,7 @@ fn resolve_anchors(
             name,
             path: path.clone(),
             is_component: true,
-            declared_at: format!("[project] components row `{}`", path.display()),
+            declared_at: format!("[project] components row `{}`", slashed(path)),
             tool_built: false,
             is_root: false,
         });
@@ -1582,7 +1582,7 @@ fn place(candidate: &Candidate) -> String {
     if candidate.path.as_os_str().is_empty() {
         "the project root".to_string()
     } else {
-        format!("`{}`", candidate.path.display())
+        format!("`{}`", slashed(&candidate.path))
     }
 }
 
@@ -1596,7 +1596,7 @@ fn renamed(candidate: &Candidate) -> String {
     } else if candidate.is_component {
         format!(
             "the directory `{}` and its row in [project] components",
-            candidate.path.display()
+            slashed(&candidate.path)
         )
     } else {
         format!("the table {}", candidate.declared_at)
@@ -1612,7 +1612,7 @@ fn collides(outer: &Candidate, inner: &Candidate) -> Option<(String, &'static st
         return Some((
             format!(
                 "two anchors sit at `{}`: `{}`, `{}`",
-                inner.path.display(),
+                slashed(&inner.path),
                 outer.name,
                 inner.name
             ),
@@ -1638,7 +1638,7 @@ fn collides(outer: &Candidate, inner: &Candidate) -> Option<(String, &'static st
                     "the {} `{}` sits inside the {register} register's directory `{}` of `{}`",
                     inner.kind(),
                     inner.name,
-                    home.display(),
+                    slashed(home),
                     outer.name
                 ),
                 "move it out; the directory is the register's home in one shape and reserved \
@@ -1658,7 +1658,7 @@ fn collides(outer: &Candidate, inner: &Candidate) -> Option<(String, &'static st
             "the {} `{}` at `{}` holds the {} of `{}`",
             inner.kind(),
             inner.name,
-            inner.path.display(),
+            slashed(&inner.path),
             list_homes(&held),
             outer.name
         ),

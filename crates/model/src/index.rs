@@ -12,16 +12,18 @@ use std::collections::HashSet;
 use std::path::PathBuf;
 
 use crate::entity::{entry_id, Anchor, Anchors, Home};
+use crate::finding::slashed;
 use crate::manifest::{Manifest, Register, Shape};
 use crate::model::{Document, Model};
 use crate::scan::Observation;
 
-/// How a document is named in an index: its project-relative path, whatever holds it.
+/// How a document is named in an index: its project-relative path, whatever holds it, as
+/// [`slashed`](crate::slashed) spells it.
 ///
 /// One naming for every document. The shortened form thaum's interpretation register had was a
 /// second one, and it named a file the reader could not grep for.
 pub fn label(doc: &Document) -> String {
-    doc.rel.display().to_string()
+    slashed(&doc.rel)
 }
 
 /// The relative path from `dir` to `target`, the way a renderer resolves a link in a file

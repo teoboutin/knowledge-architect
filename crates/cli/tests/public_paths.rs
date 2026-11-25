@@ -17,7 +17,7 @@ use knowledge_architect::document::{
     Trouble,
 };
 use knowledge_architect::extension::{
-    configure, label, normalise_list, normalise_one, rel_from, DumpRow, Entry, EntryKind,
+    configure, label, normalise_list, normalise_one, rel_from, slashed, DumpRow, Entry, EntryKind,
     Extension, ExtensionReport, Generated, Inputs, Outside, Prepared, Purpose, Resolution,
     Revision, Snapshot, Tree,
 };

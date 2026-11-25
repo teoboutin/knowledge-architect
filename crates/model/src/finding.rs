@@ -62,7 +62,7 @@ impl Finding {
     /// a name, so the one finding that reports the refusal is the ordinary way a path
     /// reaches here; `Display` escapes the statement the same way.
     pub fn location(&self) -> String {
-        let file = escaped(&self.file.display().to_string());
+        let file = escaped(&slashed(&self.file));
         match self.line {
             Some(n) => format!("{file}:{n}"),
             None => file,
@@ -82,6 +82,26 @@ impl fmt::Display for Finding {
             escaped(&self.what),
             self.action
         )
+    }
+}
+
+/// A project-relative path as the tools print it and write it in a repair: with `/` between its
+/// segments on every system, as git, a reference and a markdown link spell it, so a repair written
+/// on one system resolves on every other.
+///
+/// It takes a project-relative path. An absolute path, or one the user gave, is printed as the
+/// system writes it. A name that is not UTF-8 is decoded with replacement characters.
+pub fn slashed(path: &Path) -> String {
+    respelled(&path.to_string_lossy(), cfg!(windows))
+}
+
+/// The text of a path, with `/` for the separator `\` where `windows`. Elsewhere `\` is a character
+/// of a name, and the text stays as it is.
+fn respelled(text: &str, windows: bool) -> String {
+    if windows {
+        text.replace('\\', "/")
+    } else {
+        text.to_owned()
     }
 }
 
@@ -125,6 +145,16 @@ mod tests {
             2,
             "the location and the action, and nothing the path adds: {shown:?}"
         );
+    }
+
+    /// The claim: a path is spelled with `/` under Windows' rule, and as it is under Unix's, where `\`
+    /// is a character of a name. Mutation: the rule swapped.
+    #[test]
+    fn a_path_is_respelled_with_slashes_under_windows_rule_alone() {
+        let mixed = "docs\\design/a\\b.md";
+        assert_eq!(respelled(mixed, true), "docs/design/a/b.md");
+        assert_eq!(respelled(mixed, false), mixed);
+        assert_eq!(respelled("docs/a b.md", true), "docs/a b.md");
     }
 
     #[test]

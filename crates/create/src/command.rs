@@ -19,7 +19,7 @@ use crate::model::declared::{
 };
 use crate::model::table::{Anchor, Anchors, Constructed};
 use crate::model::Manifest;
-use crate::model::MANIFEST_NAME;
+use crate::model::{slashed, MANIFEST_NAME};
 use crate::output::outln;
 
 /// What `init` creates.
@@ -354,12 +354,12 @@ fn finish(
             let outcome =
                 crate::check::commands::install_into(manifest.root(), &shipped, &mut done);
             for rel in &done.written {
-                outln!("fixed: wrote {} (installed)", rel.display());
+                outln!("fixed: wrote {} (installed)", slashed(rel));
             }
             // No git holds a copy of a file removed here, so this line is what a session has of it,
             // per `design@check@owned-namespace-check`.
             for rel in &done.deleted {
-                outln!("fixed: removed {} (installed)", rel.display());
+                outln!("fixed: removed {} (installed)", slashed(rel));
             }
             if let Err(e) = outcome {
                 eprintln!("error: {e}");
@@ -488,8 +488,8 @@ fn refuse_overlaps(destinations: &[PathBuf]) -> Result<(), String> {
             if a.starts_with(b) || b.starts_with(a) {
                 return Err(format!(
                     "{} and {} would both be written: nothing was written",
-                    a.display(),
-                    b.display()
+                    slashed(a),
+                    slashed(b)
                 ));
             }
         }
@@ -519,7 +519,7 @@ fn refuse_present_indexes(
             return Err(format!(
                 "{} exists, and the index generated there would replace it: move it aside. \
                  Nothing was written.",
-                home.index.display()
+                slashed(&home.index)
             ));
         }
     }
@@ -552,7 +552,7 @@ fn write_documents(
 ) -> Result<(), String> {
     for doc in documents {
         if let Some(kept) = &doc.kept {
-            log.push(format!("kept     {}", kept.display()));
+            log.push(format!("kept     {}", slashed(kept)));
             continue;
         }
         let path = root.join(&doc.rel);
@@ -561,11 +561,11 @@ fn write_documents(
                 .map_err(|e| format!("cannot create {}: {e}", dir.display()))?;
         }
         log.push(if create_new(&path, &doc.text)? {
-            format!("wrote    {}", doc.rel.display())
+            format!("wrote    {}", slashed(&doc.rel))
         } else {
             format!(
                 "kept     {}, which appeared during the run",
-                doc.rel.display()
+                slashed(&doc.rel)
             )
         });
     }

@@ -74,7 +74,7 @@ use knowledge_architect_git as git;
 
 #[cfg(test)]
 mod shipped_set;
-pub use finding::{escaped, Finding};
+pub use finding::{escaped, slashed, Finding};
 pub use manifest::{Manifest, MANIFEST_NAME};
 pub use model::{Document, Model};
 

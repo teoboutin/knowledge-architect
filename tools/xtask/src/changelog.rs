@@ -5,6 +5,7 @@
 //! `design@knowledge-architect@the-changelog-ships-in-every-crate`. This writes the copies, and the test
 //! below fails while any copy differs.
 
+use knowledge_architect::extension::slashed;
 use knowledge_architect::MANIFEST_NAME;
 use knowledge_architect_gates::process::{complain, say};
 use knowledge_architect_gates::project_root;
@@ -70,7 +71,7 @@ pub fn run() -> ExitCode {
                 } else {
                     "already current"
                 };
-                say(&format!("{:<40} {what}\n", rel.display()));
+                say(&format!("{:<40} {what}\n", slashed(rel)));
             }
             ExitCode::SUCCESS
         }
@@ -158,7 +159,7 @@ mod tests {
             .iter()
             .map(|(p, w)| {
                 let rel = p.strip_prefix(dir).expect("under the root");
-                (rel.display().to_string(), *w)
+                (slashed(rel), *w)
             })
             .collect();
         assert_eq!(

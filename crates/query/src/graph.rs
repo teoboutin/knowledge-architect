@@ -32,7 +32,7 @@ use crate::model::declared::{
 use crate::model::document::Observation;
 use crate::model::table::{self, EntryKey, Record};
 use crate::model::table::{Anchors, Entities, Kind};
-use crate::model::{Document, Model};
+use crate::model::{slashed, Document, Model};
 
 /// What an entry is in a search: a member of a unit, or one of the four kinds a cluster gathers
 /// around its unit.
@@ -341,7 +341,7 @@ pub(crate) fn graph(model: &Model, anchors: &Anchors, entities: &Entities) -> Gr
     for (i, entry) in entries.iter().enumerate() {
         if entry.role == Role::Goal {
             goals
-                .entry((entry.unit.clone(), path_text(&entry.record.site.file)))
+                .entry((entry.unit.clone(), slashed(&entry.record.site.file)))
                 .or_default()
                 .push(i);
         } else if !held.contains(&i) {
@@ -452,7 +452,7 @@ fn unit_key(
     let home = anchors.by_name(anchor).and_then(|a| anchors.home(a, kind));
     let site = &entry.record.site;
     let whole = |path: &Path| {
-        let text = path_text(path);
+        let text = slashed(path);
         ((anchor.clone(), text.clone(), String::new()), text)
     };
     match register.map(|r| (r.shape, r.level)) {
@@ -465,7 +465,7 @@ fn unit_key(
         }
         Some((Shape::Directory, _)) => whole(&home.map(|h| h.dir).unwrap_or_default()),
         Some((_, Some(level))) if level >= 3 => {
-            let file = path_text(&site.file);
+            let file = slashed(&site.file);
             let above = by_path
                 .get(site.file.as_path())
                 .and_then(|doc| shallower_above(doc, site.line, level));
@@ -504,10 +504,6 @@ fn shallower_above(doc: &Document, line: u32, level: u8) -> Option<(u32, u8, Str
         .rev()
         .find(|(at, n, _)| *at < line && *n < level)
         .map(|&(at, n, text)| (at, n, text.clone(), Some(at) == first))
-}
-
-fn path_text(path: &Path) -> String {
-    path.to_string_lossy().replace('\\', "/")
 }
 
 fn sorted_by_reference(set: BTreeSet<usize>, entries: &[Entry]) -> Vec<usize> {

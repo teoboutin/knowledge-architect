@@ -3,6 +3,7 @@
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 
+use crate::finding::slashed;
 use crate::manifest::Manifest;
 use crate::scan::{self, Located, Observation};
 use crate::source::{self, Literals, Parsed, Trouble};
@@ -525,7 +526,7 @@ impl Model {
         // row first on a shared line, and the order keeps each source's own sequence.
         let mut rows: Vec<(usize, u32, u8, usize, String)> = Vec::new();
         for (i, doc) in self.docs.iter().enumerate() {
-            let rel = doc.rel.display();
+            let rel = slashed(&doc.rel);
             for (k, Located { line, what }) in doc.observations.iter().enumerate() {
                 let (kind, value) = describe(what);
                 if kind.is_empty() {
@@ -535,7 +536,7 @@ impl Model {
             }
         }
         for (k, row) in extra.iter().enumerate() {
-            let rel = self.docs[row.doc].rel.display();
+            let rel = slashed(&self.docs[row.doc].rel);
             rows.push((
                 row.doc,
                 row.line,

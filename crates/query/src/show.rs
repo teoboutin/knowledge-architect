@@ -4,6 +4,7 @@
 use std::path::Path;
 use std::process::ExitCode;
 
+use crate::model::slashed;
 use crate::model::table::{Anchors, Candidate, Entities};
 use crate::output::outln;
 use crate::Manifest;
@@ -110,7 +111,7 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
                 outln!("  → {action}");
                 return Ok(ExitCode::FAILURE);
             }
-            outln!("{reference}  {}", rel.display());
+            outln!("{reference}  {}", slashed(&rel));
             outln!();
             if present()? {
                 outln!("(the target now exists; each citation converts to the path form)");
@@ -119,7 +120,7 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
             }
             found = true;
         } else if let Some(doc) = model.documents().iter().find(|d| d.rel == rel) {
-            outln!("{reference}  {}", doc.rel.display());
+            outln!("{reference}  {}", slashed(&doc.rel));
             outln!();
             outln!("{}", doc.text.trim_end());
             found = true;
@@ -127,7 +128,7 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
             let survey =
                 crate::model::listing::survey(manifest, &model).map_err(|e| e.to_string())?;
             if survey.present.contains(&rel) {
-                outln!("{reference}  {}", rel.display());
+                outln!("{reference}  {}", slashed(&rel));
                 outln!();
                 outln!("(outside the walk; nothing to print)");
                 found = true;
@@ -171,9 +172,9 @@ pub fn show(manifest: &Manifest, reference: &str, checker: &[&Path]) -> Result<E
             let file = home.file.clone();
             let held = if register.shape == crate::model::declared::Shape::Heading && listed(&file)
             {
-                file.display().to_string()
+                slashed(&file)
             } else if holds_dir(&home.dir) {
-                format!("{}/", home.dir.display())
+                format!("{}/", slashed(&home.dir))
             } else {
                 "(the tree holds neither shape)".to_string()
             };

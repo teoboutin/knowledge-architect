@@ -32,7 +32,7 @@ use std::sync::{Arc, LazyLock};
 
 use regex::Regex;
 
-use crate::finding::Finding;
+use crate::finding::{slashed, Finding};
 use crate::manifest::{
     Manifest, PlanKind, Register, Registers, Shape, CARRIER_DIR, COMPONENT_DOCUMENTS,
     ITEM_REGISTERS, MILESTONES_HOME, MILESTONE_REGISTER, PLANS_DIR, SLICE_SECTIONS, SPEC_REGISTER,
@@ -943,7 +943,7 @@ pub struct Site {
 
 impl fmt::Display for Site {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}:{}", self.file.display(), self.line)
+        write!(f, "{}:{}", slashed(&self.file), self.line)
     }
 }
 
@@ -1441,14 +1441,14 @@ impl Entities {
                     Some(Err(dir)) => {
                         let f = misplaced(format!(
                             "in the README of the `{}` directory home",
-                            dir.display()
+                            slashed(dir)
                         ));
                         self.push_misplaced(f, id, None)
                     }
                     None => {
                         let f = misplaced(format!(
                             "in `{}`, which is no heading register home of `{}`",
-                            doc.rel.display(),
+                            slashed(&doc.rel),
                             owner.name
                         ));
                         self.push_misplaced(f, id, None)

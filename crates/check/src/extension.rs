@@ -24,6 +24,7 @@ pub use crate::model::declared::{normalise_list, normalise_one};
 use crate::model::extension::Contribution;
 pub use crate::model::generated::{label, rel_from};
 pub use crate::model::listing::Outside;
+pub use crate::model::slashed;
 pub use crate::model::table::DumpRow;
 use crate::model::Finding;
 use crate::model::Manifest;
