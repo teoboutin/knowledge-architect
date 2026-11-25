@@ -37,6 +37,13 @@ a regex replacing 100 home paths, and a grep for e-mail addresses and tokens. Th
 weighs a cut at a named message of the owner, where the planning skill's extraction ends,
 per C1 of the retrospective file `2026-11-13-knowledge-architect-plan-directories-slice-1-klarch-workflow`.
 
+Two further instances. The spec on committed transcripts: a subagent replaced by hand twenty
+home-directory paths on nine lines of the committed transcript, and the session file's name in its
+header, per C2 of the retrospective file
+`2026-11-16-knowledge-architect-committed-transcripts-klarch-workflow`. The spec on the doc gate and
+the documentation lints: the session wrote a regular-expression pass for the removal, per C2 of the
+retrospective file `2026-11-16-knowledge-architect-doc-gate-and-lints-klarch-workflow`.
+
 ### Why it matters
 
 A transcript pushed to a public repository with private data in it is readable there until a later

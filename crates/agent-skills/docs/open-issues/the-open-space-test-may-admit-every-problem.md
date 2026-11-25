@@ -37,6 +37,17 @@ main, "[cli] The checks of a date, a pattern and a project's name are made while
 classification, so the count's command does not find it, and the file does not say whether the
 owner accepted the classification.
 
+Two further uses, read at the intake of twenty files. The branch on the cleanup of what the tests
+leave in the temporary directory was classed bounded, and its review before the merge found three
+decisions that earned heads, per W1 of the retrospective file
+`2026-11-25-knowledge-architect-tmp-cleanup-klarch-workflow`; its table of three bounded uses,
+the branch of the two rootpoint commits above, the value checks above and that branch, has two
+classed bounded on a false second condition. The branch that let the intake's items be divided among agents was classed
+bounded, and its reviewers found no head owed and none contradicted, per W3 of the retrospective
+file `2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow`. Neither shows a second
+shape opened on work the owner judged bounded: the classifications that failed failed the other
+way, the failure `tripwire@agent-skills@a-shortcut-decision-earns-a-head` watches.
+
 ### Why it matters
 
 `design@agent-skills@bounded-path-in-design` exists so that bounded work costs one proposal, built on
