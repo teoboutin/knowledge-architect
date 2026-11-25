@@ -13,7 +13,7 @@ approved. Arguments: `argument@gates-on-windows-and-macos@arg-1`,
 `argument@gates-on-windows-and-macos@arg-13`, `argument@gates-on-windows-and-macos@arg-14`. The
 session's first shape, `cargo test` run directly, was withdrawn by its proposer. The owner's ruling:
 round 5, agreed, on the full gates; round 8, the checkpoint table. Shape: README.md, Decided design,
-#gates-on-three-systems. Harvest: the rewritten `design@xtask@gates-list-primary-home`.
+#gates-on-three-systems. Harvest: `design@xtask@gates-list-primary-home`.
 
 ### A job that gathers the matrix keeps the one status context the ruleset requires `##one-required-context`
 
@@ -28,8 +28,7 @@ Proposed by the session in the reply to round 1, as one of two shapes, and the o
 Final state: approved. Arguments: `argument@gates-on-windows-and-macos@arg-1`,
 `argument@gates-on-windows-and-macos@arg-2`, `argument@gates-on-windows-and-macos@arg-7`. The
 owner's rulings: round 2, the lean to blocking; round 5, agreed; round 7, the jobs land first,
-blocking. Shape: README.md, Decided design, #blocking-jobs. Harvest: the rewritten
-`design@xtask@gates-list-primary-home`.
+blocking. Shape: README.md, Decided design, #blocking-jobs. Harvest: a head of the root.
 
 ### The maintenance crate runs in the release profile `##release-maintenance-build`
 
@@ -37,7 +36,7 @@ Proposed by the session in the reply to round 4. Final state: approved. Argument
 `argument@gates-on-windows-and-macos@arg-3`, `argument@gates-on-windows-and-macos@arg-13`,
 `argument@gates-on-windows-and-macos@arg-15`, `argument@gates-on-windows-and-macos@arg-21`. The
 owner's ruling: round 5, the release build everywhere. Shape: README.md, Decided design,
-#release-maintenance-build. Harvest: `design@agent-skills@xtask-pins-checker`.
+#release-maintenance-build. Harvest: a head of `register@agent-skills@design`.
 
 ### The gates library offers clippy for another target as a gate a project opts in to `##cross-clippy-gate`
 
@@ -48,37 +47,50 @@ state: approved. Arguments: `argument@gates-on-windows-and-macos@arg-10`,
 `argument@gates-on-windows-and-macos@arg-19`, `argument@gates-on-windows-and-macos@arg-30`. The
 owner's rulings: round 5, inclined, asking for its costs; round 6, taken in and offered opt-in. The
 optional return came after the search and was confirmed with the checkpoint table in round 8. Shape:
-README.md, Decided design, #cross-clippy-gate. Harvest: a head of `register@gates@design`.
+README.md, Decided design, #cross-clippy-gate. The forms of its variables, and its place outside the
+recommended list, were settled by the review of the spec. Harvest: a head of `register@gates@design`,
+and `design@xtask@gates-list-primary-home` for this repository's target.
 
-### This repository checks out every file as committed `##line-endings-of-this-repository`
+### This repository checks out every file with LF, and commits with LF a file that holds CRLF `##line-endings-of-this-repository`
 
-Proposed by the session in the reply to round 1. Final state: argued. Arguments:
-`argument@gates-on-windows-and-macos@arg-5`. Closed on its argument; the owner confirmed it with the
-checkpoint table in round 8. Shape: README.md, Decided design, #line-endings-of-this-repository.
-Harvest: a comment, or a head of the root.
+Proposed by the session in the reply to round 1, as `* -text`, which the owner confirmed with the
+checkpoint table in round 8 without having been shown its rival; reopened by the session on the review
+of the spec, as D3, with the rival `* text=auto eol=lf` as its default. Final state: approved. Arguments:
+`argument@gates-on-windows-and-macos@arg-5`, `argument@gates-on-windows-and-macos@arg-41`. The owner's
+ruling: round 10, the default accepted; the ranking is the session's. Shape: README.md, Decided design,
+#line-endings-of-this-repository. Harvest: a head of the root.
 
 ### A generated file that differs by line endings alone is current, and the build gives one text whatever the checkout's `##generated-text-compared-without-line-endings`
 
 Proposed by the session in the reply to round 1. Final state: argued. Arguments:
-`argument@gates-on-windows-and-macos@arg-5`, `argument@gates-on-windows-and-macos@arg-28`. The shape
-under which the writing commands also leave such a file was ruled out after the search. The owner
-confirmed it with the checkpoint table in round 8. Shape: README.md, Decided design,
-#generated-text-compared-without-line-endings. Harvest: `design@check@generated-files-are-pure` and
-`design@model@a-file-register-index-is-rows`.
+`argument@gates-on-windows-and-macos@arg-5`, `argument@gates-on-windows-and-macos@arg-28`,
+`argument@gates-on-windows-and-macos@arg-43`. The shape
+under which `index` and the install also leave such a file was ruled out after the search; the shape of
+the checkpoint table, the comparison of the check alone, was widened by the session on the review of the
+spec to each place that asks whether a file is current. The owner
+confirmed the rest with the checkpoint table in round 8. Shape: README.md, Decided design,
+#generated-text-compared-without-line-endings. Harvest: a head of `register@check@design`, and the
+build's part in `register@agent-skills@design`.
 
 ### Outside Unix a path is named to git with slashes `##paths-to-git-with-slashes`
 
 Proposed by the session in the reply to round 1. Final state: argued. Arguments:
-`argument@gates-on-windows-and-macos@arg-6`. The owner's ruling: round 5, agreed with the product
-repairs; confirmed with the checkpoint table in round 8. Shape: README.md, Decided design,
-#paths-to-git-with-slashes. Harvest: `design@git@a-path-is-bytes`.
+`argument@gates-on-windows-and-macos@arg-6`. Confirmed by the owner with the checkpoint table in round
+8. Shape: README.md, Decided design, #paths-to-git-with-slashes. Harvest: a head of
+`register@git@design`.
+
+### Outside Unix a listed path is read as text, and a name that is not UTF-8 is lost, which an issue holds `##a-listed-path-outside-unix`
+
+Opened by the session after round 8, on the design-record audit of `design@git@a-path-is-bytes`. Final
+state: argued. Arguments: `argument@gates-on-windows-and-macos@arg-44`. Shape: README.md, Decided design,
+#a-listed-path-outside-unix. Harvest: `design@git@a-path-is-bytes`.
 
 ### A project-relative path is printed with slashes on every system `##printed-paths-with-slashes`
 
 Proposed by the session in the reply to round 1. Final state: argued. Arguments:
 `argument@gates-on-windows-and-macos@arg-6`. Agreed with the product repairs in round 5; confirmed
 with the checkpoint table in round 8. Shape: README.md, Decided design, #printed-paths-with-slashes.
-Harvest: a head of `register@model@design`.
+Harvest: a head of the root.
 
 ### The printing function is in `model`, and `git` keeps a private spelling of its own `##path-spelling-home`
 
@@ -92,7 +104,7 @@ Decided design, #path-spelling-home. Harvest: a head of `register@model@design`.
 Proposed by the session, after the code-split scout. Final state: argued. Arguments:
 `argument@gates-on-windows-and-macos@arg-23`, `argument@gates-on-windows-and-macos@arg-32`.
 Confirmed with the checkpoint table in round 8. Shape: README.md, Decided design,
-#symlink-helper-home. Harvest: a comment at each copy.
+#symlink-helper-home. Harvest: a head of the root.
 
 ### No module is split inside this work `##no-module-split-in-the-port`
 
@@ -103,23 +115,26 @@ Confirmed with the checkpoint table in round 8. Shape: README.md, Decided design
 
 ### The hand mutation's tests pass on macOS, and on Windows are repaired where cheap and otherwise skipped naming an issue `##mutate-tests-on-windows`
 
-Proposed by the session in the reply to round 1, within the scope the owner set in rounds 2 and 5.
+Proposed by the session in the reply to round 4, within the scope the owner set in rounds 2 and 5.
 Final state: argued. Arguments: `argument@gates-on-windows-and-macos@arg-16`,
 `argument@gates-on-windows-and-macos@arg-35`. The owner's ruling: round 5, that a skip on Windows is
 for development workflow; confirmed with the checkpoint table in round 8. Shape: README.md, Decided
-design, #mutate-tests-on-windows. Harvest: comments.
+design, #mutate-tests-on-windows. Harvest: a head of `register@mutate@design` on `core.autocrlf`, and
+comments.
 
 ### A test is skipped on Windows for development workflow, naming its issue, or for a behaviour lacked by nature, with its reason `##platform-skips`
 
 Proposed by the owner in round 5, and the session in the reply to round 7 for the second case. Final
 state: approved. Arguments: `argument@gates-on-windows-and-macos@arg-8`,
 `argument@gates-on-windows-and-macos@arg-16`, `argument@gates-on-windows-and-macos@arg-32`,
-`argument@gates-on-windows-and-macos@arg-33`, `argument@gates-on-windows-and-macos@arg-36`. The
-owner's rulings: round 5, skips for development workflow only; round 8, the three kinds lacked by
-nature admitted, with a reason and no issue. Shape: README.md, Decided design, #platform-skips.
-Harvest: a head of the root.
+`argument@gates-on-windows-and-macos@arg-33`, `argument@gates-on-windows-and-macos@arg-36`,
+`argument@gates-on-windows-and-macos@arg-42`. The
+owner's rulings: round 5, a skip permitted only for development workflow; round 8, the three kinds lacked by
+nature admitted, with a reason and no issue; round 10, two more, D4. That a skip names its issue, that
+the pipe refusal is development workflow on Windows, and the mark a skip takes are the session's, from
+the review of the spec. Shape: README.md, Decided design, #platform-skips. Harvest: a head of the root.
 
-### The build and the gates run on three systems, the goals exclude no platform, and development on Windows is outstanding work `##platforms-served`
+### The build and the gates run on three systems, and the goals exclude no platform `##platforms-served`
 
 Proposed by the session in the reply to round 7, on the search's finding. Final state: argued.
 Arguments: `argument@gates-on-windows-and-macos@arg-8`,
@@ -144,10 +159,10 @@ leaves with the spec.
 ### The refusal of a backslash in a reference or a manifest row leaves the work and becomes an issue `##backslash-in-a-pointer`
 
 Proposed by the session in the reply to round 4, agreed by the owner in round 5 with the product
-repairs; its withdrawal by the session in the reply to round 7, as a finding against that agreement.
-Final state: withdrawn. Arguments: `argument@gates-on-windows-and-macos@arg-27`. The withdrawal's
-default was put to the owner at the top of the reply to round 7; the owner contested nothing in
-round 8. Shape: README.md, "Losing alternatives", #backslash-in-a-pointer. Harvest: an issue of
+repairs; put back to the owner by the session in the reply to round 7, as a finding against that
+agreement, with its argument and the default that it leaves the work. Final state: ruled-out, on the
+session's argument, closed by the owner's word of round 8 on the checkpoint table. Arguments:
+`argument@gates-on-windows-and-macos@arg-27`. Shape: README.md, "Losing alternatives", #backslash-in-a-pointer. Harvest: an issue of
 `model`.
 
 ### A push trigger on the branch lets CI run while the pull request is a draft `##iteration-before-ready`
@@ -156,21 +171,25 @@ Proposed by the session in the reply to round 1. Final state: superseded. Argume
 `argument@gates-on-windows-and-macos@arg-20`, `argument@gates-on-windows-and-macos@arg-29`. Absorbed
 by the probe branch, which the owner allowed to be pushed in round 2; the owner confirmed the
 checkpoint table in round 8. Shape: README.md, "Losing alternatives", #iteration-before-ready.
-Harvest: `design@knowledge-architect@ci-skips-a-draft`.
+Harvest: the comment of the CI workflow on its triggers.
 
 ### CI keeps not checking a draft pull request `##drafts-stay-unchecked`
 
 Opened by the session after round 8, on the design-record audit of
-`design@knowledge-architect@ci-skips-a-draft`. Final state: open, a default awaiting the owner, D1.
-Arguments: `argument@gates-on-windows-and-macos@arg-37`. Shape: README.md, Decided design,
+`design@knowledge-architect@ci-skips-a-draft`, as D1. Final state: approved. Arguments:
+`argument@gates-on-windows-and-macos@arg-37`, `argument@gates-on-windows-and-macos@arg-39`. The owner's
+ruling: round 9, kept, with the owner's argument. Shape: README.md, Decided design,
 #drafts-stay-unchecked. Harvest: `design@knowledge-architect@ci-skips-a-draft`.
 
 ### CI and a local run differ in what they run by flags alone `##ci-differs-by-flags`
 
 Opened by the session after round 8, on the design-record audit of
-`design@xtask@gates-list-primary-home`, which bundles the rule with no rival argued. Final state: open,
-a default awaiting the owner, D2. Arguments: `argument@gates-on-windows-and-macos@arg-38`. Shape:
-README.md, Decided design, #ci-differs-by-flags. Harvest: a head of `register@xtask@design`.
+`design@xtask@gates-list-primary-home`, whose text names no rival to the rule, as D2. Final state: argued.
+Arguments: `argument@gates-on-windows-and-macos@arg-38`, `argument@gates-on-windows-and-macos@arg-40`. The
+owner pointed out in round 9 that the variable had been argued as a rival; the session had told the
+owner that none was, and that the owner had ranked the rule for `--ci`, which
+`design@gates@ci-flag-for-ci-only-requirements` does not say. Shape: README.md, Decided design,
+#ci-differs-by-flags. Harvest: a head of `register@xtask@design`.
 
 ## Arguments
 
@@ -297,7 +316,7 @@ Given by the session, in the reply to round 5. Bears on
 `thread@gates-on-windows-and-macos@cross-clippy-gate`. The rival to offering it, stated with the
 maintenance it brings: the stub rests on behaviour of the `cc` crate that nothing documents.
 
-### A consumer the gate starts failing for opts out and loses little `##arg-19`
+### A consumer for which the gate comes to fail on something external to this project can opt out, and loses little `##arg-19`
 
 Given by the owner, in round 6. Bears on `thread@gates-on-windows-and-macos@cross-clippy-gate`. It
 only catches some failures of Windows slightly earlier. The owner took the gate in, opt-in.
@@ -418,5 +437,38 @@ choice accepted grows", from the search's verdict on `design@knowledge-architect
 
 ### A command copied from CI reproduces its verdict when every difference is a flag of it `##arg-38`
 
-After round 8, the session, on `thread@gates-on-windows-and-macos@ci-differs-by-flags`, from the ground of
-`design@gates@ci-flag-for-ci-only-requirements`.
+After round 8, the session, on `thread@gates-on-windows-and-macos@ci-differs-by-flags`, from
+`design@gates@ci-flag-for-ci-only-requirements`, which argues it of the variable `CI` for `--ci`.
+
+### A run of CI over a state pushed in the middle of the work has little value, and is one more thing to watch `##arg-39`
+
+Given by the owner, in round 9, on `thread@gates-on-windows-and-macos@drafts-stay-unchecked`. The workflow
+asks a branch to be pushed at several points while its work is under way.
+
+### Under a variable, the copied command is no longer enough to reproduce CI exactly, a possible source of unexpected results `##arg-40`
+
+Given by the owner, in round 9, on `thread@gates-on-windows-and-macos@ci-differs-by-flags`, as the flaw of a
+rival that had been argued; the owner called the flaw small.
+
+### The two attributes differ only for a file added later with CRLF, which one takes in as it is and the other converts `##arg-41`
+
+Given by the session, in the reply to round 9, on
+`thread@gates-on-windows-and-macos@line-endings-of-this-repository`. The conversion suits a later
+development on Windows; a test file that needs carriage returns is marked as an exception.
+
+### The two tests for Linux alone fit the owner's reason for a skip by nature `##arg-42`
+
+Given by the session, in the reply to round 9, on `thread@gates-on-windows-and-macos@platform-skips`. One
+writes to /dev/full, the other runs from a removed working directory.
+
+### One comparison of currency keeps `check`, `check --fix` and `index --staged` in agreement `##arg-43`
+
+After round 9, the session, on
+`thread@gates-on-windows-and-macos@generated-text-compared-without-line-endings`, from the review of the
+spec: under the comparison of the check alone, `index --staged` calls out of date a file that `check`
+calls current, reproduced on Linux in a clone under `core.autocrlf=true`, and `check --fix` writes one.
+
+### A name that is not UTF-8 is lost outside Unix, and a development machine there is not served `##arg-44`
+
+After round 9, the session, on `thread@gates-on-windows-and-macos@a-listed-path-outside-unix`, from the
+design-record audit, which read the loss in the code and did not run it.

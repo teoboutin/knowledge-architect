@@ -7,8 +7,8 @@ kind: defect
 
 Outside Linux, `restore` reads whether the run that owns the record still goes on by running
 `kill -0` with the pid the record holds. On macOS the pid of another user's process reads as gone,
-and pid 0 as alive. On Windows a live run's pid reads as gone, so `restore` can write over the file
-of a run that is still going.
+and pid 0 as alive. On Windows pid 0 reads as alive, and whether a live run's pid reads as alive is not
+established: where it reads as gone, `restore` writes over the file of a run that is still going.
 
 ## Details
 
@@ -16,11 +16,11 @@ of a run that is still going.
 
 The function `process_is_alive` of `path@mutate@src/harness.rs`, called by `owner_is_alive` of the
 same file, asks `/proc` on Linux and runs `kill -0 <pid>` elsewhere, and reads any failure of the
-program as "gone". `path@mutate@README.md` states that a live run reads as gone where no `kill`
-answers.
+program as "gone", as its doc comment says.
 
-Observed on GitHub's hosted runners, on main's code but for repairs that only make it compile on
-Windows, `cargo test --locked --workspace --no-fail-fast`:
+Observed on GitHub's hosted runners, on main's code with rough repairs, under which it compiles on
+Windows and names a path to git with slashes, and with every file checked out as committed, by
+`cargo test --locked --workspace --no-fail-fast`:
 
 - on macOS and on Windows, three tests fail: `a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run`
   of `path@mutate@tests/harness.rs`, which writes pid 1 and panics with "pid 1 is always running", and
@@ -32,7 +32,8 @@ Windows, `cargo test --locked --workspace --no-fail-fast`:
 Forced on Linux, with the condition on Linux replaced by `false`, the same three fail. The causes
 read: `kill -0 1` as a user who is not root fails with a permission error, and `kill -0 0` signals the
 caller's own group, which is alive. On Windows the `kill` of Git for Windows takes an MSYS pid, not the
-Windows pid that `std::process::id` gives (assumption, from the MSYS pid space; not run).
+Windows pid that `std::process::id` gives (assumption, from the MSYS pid space; not run). No live run's
+pid was asked there: the tests write pid 1, which Windows has not, and pid 0.
 
 Ruled out: nothing else of the three tests' paths differs by system, since each passes on Linux.
 
@@ -44,7 +45,8 @@ the three systems if the lock behaves as it does on Linux, which is not establis
 `restore` over a run that is still going un-mutates its file underneath it, and a live run read from
 another user's pid is cleared the same way. It strains `design@mutate@discard-is-the-callers-word`
 and `design@mutate@restore-by-comparison` only in that the refusal guarding a live run cannot tell one.
-Development on Windows is outstanding work; on macOS the hand mutation is meant to work today.
+Development on Windows is left for later by `spec@plans@gates-on-windows-and-macos`; on macOS the hand
+mutation is to work, its tests included.
 
 ### What would close it
 

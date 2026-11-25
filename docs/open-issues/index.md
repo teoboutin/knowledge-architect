@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -14,6 +14,7 @@
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
 | question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
+| todo | [A CI run skipped on a draft pull request fills the run history and reads as passing](a-ci-run-skipped-on-a-draft-reads-as-passing.md) |
 | todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
