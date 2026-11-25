@@ -48,6 +48,21 @@ The facts a design starts from:
   files, and five items needed a file another agent owned; each came back with its evidence and was
   carried by a later agent, and the main session assembled each wave by cherry-picks (the standing
   answers of 2026-11-12-knowledge-architect-finding-repairs-klarch-workflow).
+- Four more sessions of this repository combined parallel agents' branches by cherry-pick, each
+  procedure written for its session: the intake of forty-seven files, 2026-11-14, four appliers in
+  worktrees of their own, stacked in a fixed order, one cherry-pick conflicting in a generated
+  `index.md`; the branch on the documentation gate, 2026-11-16, commits copied with
+  `git cherry-pick -x`, whose trailer cites the source commit, a SHA no merge keeps, removed by a
+  history edit before any check ran; the branch on mutation survivors, 2026-11-16, repairs split
+  over three agents by area, then cherry-picked in order with a per-file check that each agent's
+  files landed as written; the branch on the record search's workflow, 2026-11-16, three
+  implementers on sibling branches, combined with no conflict and every gate passing (the
+  standing answers of 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow,
+  2026-11-16-knowledge-architect-doc-gate-and-lints-klarch-workflow and
+  2026-11-16-knowledge-architect-mutation-survivors-klarch-workflow, and P2 of
+  2026-11-16-knowledge-architect-record-search-workflow). The doc-gate branch and the record-search
+  branch each worked from a spec whose work dispatched agents in parallel, which this entry's
+  trigger names, and neither retrospective file reports a partition designed by its discussion.
 
 Two entries partition work among agents too:
 `issue@agent-skills@the-intake-s-search-lands-a-batch-s-whole-neighbourhood-on-one-session` and
