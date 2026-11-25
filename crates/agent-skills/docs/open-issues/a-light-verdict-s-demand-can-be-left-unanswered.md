@@ -54,6 +54,19 @@ What reads a light verdict, and where each reading stops:
   entry whose verdict is `constrains`, so it meets those demands only where the verdict files still
   stand and its brief names their directory, as here.
 
+A second and a third instance, in two other pieces of work, from the intake of twenty retrospective
+files, both of this repository and of 2026-11-25. W2 of
+2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow: the session read about 230
+light lines whole and left two demands unanswered, the meaning of a verdict's actions and the second
+search for a fix on a new subject, which the design-conformance and self-consistency reviewers
+found. W3 of 2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow: of 329
+verdicts, the session read the act verdicts and the first lines of the light ones, and told the owner
+the rest asked only that the design stay within a head; the spec's design-conformance reviewer
+reported seven groups unanswered, and five verdicts on one point that changed a shape. That file
+proposes that the design skill's round state the outcome of the act verdicts, and the plan document
+or the commit carry the light ones, which narrows `design@agent-skills@session-acts-on-the-verdicts`;
+another candidate is the lead below, an agent given the light lines with the work's diff.
+
 ### Why it matters
 
 A demand left unanswered is found after the work is built, where it costs rework, or is not found. It

@@ -15,7 +15,7 @@ should follow a thread to the head its harvest writes goes stale silently.
 
 ### What
 
-Instances seen, in three retrospectives of two projects:
+Instances seen, in four retrospectives of two projects:
 
 - This repository, the agent-configuration-entities milestone: a wrong slug written as an
   acceptance criterion's name in a harvest message passed every gate, and a reviewer caught it.
@@ -30,6 +30,12 @@ Instances seen, in three retrospectives of two projects:
   document cited a milestone's thread as a plain `#<thread>`. When the harvest gave the decision its
   design head, nothing reported that those citations should now name the head. The routing reviewer
   found three such sites by reading.
+- This repository, the spec on head titles that must not mislead, 2026-11-22: heads still to be
+  created were named inside the spec as a plain `#<slug>` equal to their threads' ids, so the
+  plain form named the thread and was read by no check; the spec has left, and the parent of the
+  commit "[plans] The spec on head titles that must not mislead leaves, its work landed and its
+  review before the merge read", on main, holds its last tree. C2 of
+  2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-workflow.
 
 The forms and checks as they stand:
 

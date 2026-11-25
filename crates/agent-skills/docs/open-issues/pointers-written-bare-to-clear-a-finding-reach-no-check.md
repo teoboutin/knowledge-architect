@@ -7,8 +7,8 @@ kind: design
 
 `design@agent-skills@plain-text-is-no-repair` refuses plain text as the repair of a finding. Its
 tripwire fired at its second instance, so the decision is reopened, with a mechanical check for
-plain-text pointers among the candidates. Eight instances are known, and the re-entry point has
-been met five times with no discussion. Of the first three, the finding on a reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
+plain-text pointers among the candidates. Nine instances are known, and the re-entry point has
+been met six times with no discussion. Of the first three, the finding on a reference-shaped token outside backticks, `design@check@reference-shape-outside-span`, reports the
 first, references in the checker's syntax with their backticks removed, and neither of the other
 two: a bare path, and the bare name of a skill still to be created, which no table defines.
 
@@ -103,6 +103,15 @@ reads this one as malformed; a copy of the minimal mock project still passes wit
 0.10.0. A candidate for the discussion, from that file: the lint also reports a token of a known
 kind in a shape the backticked form refuses, with the backticked form's repair. The checked form
 the case needed already existed: a sentence that names the form in words.
+
+A further instance, meeting the re-entry point again, from the retrospective files of the intake
+of twenty files: C2 of 2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-workflow.
+In the spec on head titles that must not mislead, heads still to be created whose slugs their
+threads hold were written as a plain hash sign and the slug, after the bare slug in backticks was
+reported as the thread written without its kind; the plain form names the thread, not the head,
+and is read by no check, per `issue@check@a-plain-hash-item-name-is-read-by-nothing`. The checked
+form existed: the thread's reference, which names the decision, since the head takes the thread's
+slug, per `design@agent-skills@thread-slug-is-entry-id`, and which the finding names as its repair.
 
 ### Why it matters
 

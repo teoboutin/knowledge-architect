@@ -35,6 +35,11 @@ Instances:
 - C1 of the workflow file of the retrospective of the release of 0.10.0, 2026-11-12: the
   standing-state reviewer counted every horizon by hand, with `git log -S` on its line,
   `git tag --contains` on the commit that search found, and a relocation commit excluded by hand.
+- C3 of the workflow file of the retrospective of the session on owner rulings and title rules,
+  2026-11-22: the standing-state reviewers of two branches counted every horizon with hand-written
+  loops over `git rev-list`; the file reports one horizon countable only with GitHub's pull-request
+  data, where the horizon of `tripwire@agent-skills@a-shortcut-decision-earns-a-head` on main counts
+  by release tags.
 
 The shapes, per `skill@knowledge-architect-issue-tracking@tripwire-entry`: commits on the main
 branch that change a named path or the guarded head's text, release tags, audit reports of an axis,
