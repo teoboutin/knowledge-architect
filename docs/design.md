@@ -1156,27 +1156,25 @@ received. So a record carried by a message alone rides on a commit that changes 
 
 ## 5. How the workspace builds and is tested
 
-### The workspace builds, and its gates run, on each system the owner has asked a job for, beside Linux: Windows and macOS `##platforms-served`
+### The workspace builds, and its gates run, on Linux, Windows and macOS `##platforms-served`
 
 The build of the workspace and the gates of `design@xtask@gates-list-primary-home` run on the three
-systems, and CI blocks a merge on each, per `design@knowledge-architect@blocking-jobs`. Which tests a
-system leaves out is `design@knowledge-architect@platform-skips`.
+systems, and CI blocks a merge on each, per `design@knowledge-architect@blocking-jobs`, which argues what
+a state of main that fails on one costs. Which tests a system leaves out is
+`design@knowledge-architect@platform-skips`.
 
 Two goals are read so. `goal@every-target-project-can-adopt-it` has every target project able to adopt
 what knowledge-architect provides, and `goal@serves-one-kind-of-project` lists the conditions of a
 target project: neither excludes a platform, so a target project developed or delivered on any is
 served. The rival reading, that a platform is one more thing knowledge-architect may ask of a project,
-finds no such ask in their text. The reading admits every system alike, and a job runs for one that the
-owner has asked for: the owner reported a consumer project that the owner wants to start building on
-Windows soon, and asked for macOS beside it. A system that a project needs to build on joins by a job of
-its own.
+finds no such ask in their text. The reading admits every system. The list holds the two that the owner
+asked a job for, beside Linux: Windows, where the owner reported a
+consumer project that the owner wants to start building soon, and macOS. Another system is added by a
+decision, when a project served needs it.
 
 The nearest rival, the gates on Linux alone, lets a crate that does not compile for another system reach
 such a project: where it takes the shape that `skill@knowledge-architect-setup@rust-project` offers, its
-workspace links the checker, the gates library and the hand mutation, through its maintenance crate. It
-loses on Windows, where the library that asks git compiled for no project that depends on it. On macOS the
-workspace compiled and five tests failed. Windows and macOS over Windows alone, which no goal ranks: the
-owner's choice.
+workspace links the checker, the gates library and the hand mutation, through its maintenance crate.
 
 ### A test is left out on a system only where it covers development workflow on Windows, or a behaviour the system lacks by nature `##platform-skips`
 
@@ -1562,7 +1560,7 @@ The owner held, of `init`, that removing such a file where the project wrote it 
 the run refuses before it writes. `issue@create@init-outside-a-worktree-deletes-an-owned-file-silently`
 holds the work that reconciles the two.
 
-### The checker's commands and the maintenance tool print a project-relative path with `/` on every system `##printed-paths-with-slashes`
+### `model`, `check`, `query`, `create` and `xtask` print a project-relative path with `/` on every system `##printed-paths-with-slashes`
 
 A project-relative path that `model`, `check`, `query`, `create` or `xtask` prints, or writes in a repair
 it suggests, is spelled with `/` on every system the tools run on, per
@@ -1571,8 +1569,10 @@ it suggests, is spelled with `/` on every system the tools run on, per
 or one the user gave, is printed as the system writes it, as the paths of the `--out` directory of
 `worklist` are, and a manifest row or a listed name that the model refuses is printed as it was written.
 `git` spells the paths it prints by a function of its own, per
-`design@git@paths-to-git-with-slashes`. `transcript` and `mutate` are outside it: what `mutate` prints on
-Windows is outstanding, in `issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
+`design@git@paths-to-git-with-slashes`. Two other crates print a path. Those of `transcript` are no
+project's: they are absolute, or relative to the transcript directory, as `Corpus::name` of
+`path@transcript@src/reader.rs` gives them. What `mutate` prints on Windows is outstanding, in
+`issue@mutate@the-hand-mutation-fails-in-several-ways-on-windows`.
 
 A reference and a markdown link are spelled with `/`, and a path that Rust joins holds `\` on Windows. So
 a repair such as `path@<anchor>@<dir>\<file>`, followed there, passes the check there and fails it on

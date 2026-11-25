@@ -688,9 +688,9 @@ maintenance commands.
 
 The nearest rival is a cargo profile for the maintenance crate, which keeps a project's release settings
 out and builds its dependencies once more, `rejected@agent-skills@maintenance-crate-in-a-profile-of-its-own`. It loses since the alias `klarch` builds that crate in release
-already, in every project of this shape. A target directory of its own lost: cargo reads the path that
-`--target-dir` gives from the working directory, `rejected@agent-skills@maintenance-crate-in-a-target-directory-of-its-own`. A library that renames or copies the program that runs
-lost: the file has two hard links, the second being where cargo links it, as
+already, in every project of this shape. Two others lost. A target directory of its own is
+`rejected@agent-skills@maintenance-crate-in-a-target-directory-of-its-own`. A library that renames or copies the program that runs
+loses since the file has two hard links, the second being where cargo links it, as
 `stat -c %h target/release/xtask` shows.
 
 ### Every target project has a maintenance crate whose commands run as `cargo x <command>` `##maintenance-crate-ask`
