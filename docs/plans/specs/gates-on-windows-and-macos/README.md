@@ -938,10 +938,15 @@ before step 7 starts.
      banner, a count and one row per entry, with no summary and no date"; its part on the byte
      comparison stays until the harvest. Of the texts above, the paragraph "The rows come from the walked
      entries" of `path@model@src/index.rs` is re-pointed;
-   - `design@check@installed-files-compared-by-bytes`: its title says that line endings are normalised.
+   - `design@check@installed-files-compared-by-bytes`: its title says that line endings are normalised, and so
+     does the sentence of `path@cli@README.md` on the comparison;
+   - `design@agent-skills@content-mirrors-the-install-layout`: the sentence that lists some passes of the build
+     loses the list, which its first sentence holds; the build's normalisation is the harvest's;
+   - `design@xtask@ci-builds-the-tip-alone`: its command, which names the job beside the step and gives the
+     times; what its argument leaves undefeated is
+     `issue@xtask@the-head-on-the-tip-alone-defeats-no-build-of-each-commit`.
 
-   The auditor reads that last head, `design@agent-skills@content-mirrors-the-install-layout` and
-   `design@xtask@ci-builds-the-tip-alone` first. Each head the step creates or retitles is judged alone by
+   The auditor read those last three first. Each head the step creates or retitles is judged alone by
    the auditor briefed to check. Claims: `cargo klarch check` passes, and each text listed above reads
    right against the head it now names. Fails alone on: a citation left on a head that no longer holds
    what it cites.
@@ -998,7 +1003,6 @@ All are ruled.
 | #platforms-served | a head of the root, to which `issue@check@a-linked-manifest-splits-the-readers` and `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux` are re-pointed |
 | #asks-discussion-put-off | the instance in `issue@knowledge-architect@no-head-argues-what-becomes-an-ask`; no head |
 | #single-branch-spec, #backslash-in-a-pointer, #iteration-before-ready | no home: the first leaves with the spec, the second is an issue, and the third's argument is the comment of the CI workflow |
-| `design@xtask@ci-builds-the-tip-alone` | its command |
 | the losing alternatives, and each rival that "Decided design" names | judged by `skill@knowledge-architect-decision-recording@losing-alternatives` |
 | premortem causes 1 and 6 | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires` |
 

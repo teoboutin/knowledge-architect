@@ -101,9 +101,9 @@ exits 0 and restores the block, and `cargo --locked x --help` exits 101.
 ### CI builds and tests the branch's tip alone `##ci-builds-the-tip-alone`
 
 `commits` judges every commit's message and tree, and nothing compiles or tests a commit before
-the tip: the suite takes minutes per run on the runner, and a range holds several commits. The
-job's step times re-take it, `gh run view <run id> --json jobs --jq '.jobs[].steps[] | [.name, .startedAt, .completedAt]'`,
-where the `gates` step holds every gate. A
+the tip: the suite takes minutes per run on the runners, and a range holds several commits. The
+jobs' step times re-take it, `gh api 'repos/{owner}/{repo}/actions/runs/<run id>/jobs' --jq '.jobs[] | .name as $job | .steps[] | [$job, .name, .started_at, .completed_at]'`,
+where the `gates` step of a job holds every gate that job runs. A
 commit before the tip that does not compile passes CI, and is found only by whoever builds it
 later.
 
