@@ -255,6 +255,14 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
         "{}",
         log("test")
     );
+    // A verdict line is padded to the width of the announce line it covers on a terminal. Mutation
+    // check: the line printed from `verdict_line` itself in `run` of `path@gates@src/gates.rs`.
+    assert!(
+        stdout
+            .lines()
+            .any(|l| l == format!("{:<14}", "doc        ok")),
+        "{stdout:?}"
+    );
     // `--locked` sets no other flag's variable.
     assert!(log("test").contains("ci=[]"), "{}", log("test"));
     // Without the flag, no gate receives it.

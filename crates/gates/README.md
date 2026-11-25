@@ -45,8 +45,10 @@ let mut gates = rust_project(checker, "origin/main");
 gates.extend(cross_clippy("x86_64-pc-windows-gnu"));
 ```
 
-It gives the gate `clippy-<target>`, or nothing on a machine whose own system is the target's. The target's
-standard library must be in the toolchain: `rustup target add <target>`, or `targets` in the project's
+It gives the gate `clippy-<target>`, or nothing on a machine whose own system is the target's. It is a gate
+for another system alone: another architecture or another C library of the machine's own system, such as
+`aarch64-unknown-linux-gnu` or `x86_64-unknown-linux-musl` on an `x86_64` Linux machine, gets nothing. The
+target's standard library must be in the toolchain: `rustup target add <target>`, or `targets` in the project's
 `rust-toolchain.toml`, which rustup installs on first use.
 
 What it reports is compile errors and lints, and no failure of a test. Its limits:
@@ -71,7 +73,10 @@ with a real cross compiler removes the variables from the gate's `envs`.
 The gates run on Linux, Windows and macOS, with the same command. The cargo alias
 `cargo x` runs the maintenance crate in the release profile, `run -q --release -p xtask --`, since a gate
 that builds in the dev profile can replace the program that runs the gates, and Windows refuses to replace
-a program that runs. Developing a project on Windows is not covered yet: a run does not refuse a pipe on
+a program that runs. Where a gate runs the maintenance crate itself, as `check` and `commits` do in the
+scaffold's list, that program is left in place while the gate's cargo reads the inputs of the cargo that
+built it. A caller who exports `RUSTC_BOOTSTRAP` breaks that, since no gate's child inherits the variable: the
+gate then builds the program again, which Windows refuses. Developing a project on Windows is not covered yet: a run does not refuse a pipe on
 stdout there.
 
 ## License

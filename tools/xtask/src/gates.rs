@@ -65,15 +65,16 @@ mod tests {
     use super::*;
 
     /// The claim: this repository runs the recommended list, with its own package as the checker and
-    /// origin/main as the base, and, after `clippy`, the cross gate where the library gives it, so
-    /// not on Windows. Mutation check: another package or base fails the commits gate's assertion;
-    /// the insertion of the cross gate removed fails the names.
+    /// origin/main as the base, and, after `clippy`, the cross gate, but on Windows. Mutation check:
+    /// another package or base fails the commits gate's assertion; the insertion of the cross gate
+    /// removed fails the names, and so does `cross_clippy` asked for the machine `windows` elsewhere.
     #[test]
     fn this_repository_runs_the_recommended_list_over_its_own_checker_and_the_cross_gate() {
         let gates = gates();
         let names: Vec<&str> = gates.iter().map(|gate| gate.name.as_str()).collect();
         let mut expected = vec!["rebased", "fmt", "check", "commits", "clippy"];
-        if cross_clippy(WINDOWS).is_some() {
+        // The machine, never the library's answer, which is what the test judges.
+        if !cfg!(windows) {
             expected.push("clippy-x86_64-pc-windows-gnu");
         }
         expected.extend(["doc", "test"]);
@@ -125,18 +126,37 @@ mod tests {
             .collect()
     }
 
+    /// The claim: the toolchain file declares the cross gate's target, or the gate fails on a machine
+    /// whose toolchain does not hold it, which CI's are. Mutation checked: `targets = []`; caught.
+    #[test]
+    fn the_toolchain_file_declares_the_cross_gate_s_target() {
+        let toolchain = include_str!("../../../rust-toolchain.toml");
+        let line = format!("targets = [\"{WINDOWS}\"]");
+        assert!(toolchain.lines().any(|l| l == line), "no `{line}`");
+    }
+
+    /// The conditions a job or one of its steps carries: the lines that open with `if:`.
+    fn conditions<'a>(job: &[&'a str]) -> Vec<&'a str> {
+        job.iter()
+            .map(|l| l.trim_start_matches("- "))
+            .filter(|l| l.starts_with("if:"))
+            .collect()
+    }
+
     /// The claims: one matrix job runs CI's gates command on each of the three systems, on the pull
     /// request's head with its history, off a draft, under a timeout, with one artifact per system;
     /// and the job `check`, the context the ruleset requires, runs whatever that job answered, off a
-    /// draft, and passes on `success` alone. Mutations checked, each caught: a system removed;
-    /// `fetch-depth` removed; the artifact's name without the system; the draft condition removed;
-    /// `always()` removed; the comparison changed to `!= failure`; the `needs` removed.
+    /// draft, and passes on `success` alone. No line added beside those takes a system out, lets a
+    /// failure pass, or leaves a step out on a system, and a pull request alone starts the workflow.
+    /// Mutations checked, each caught: a system removed; `fetch-depth` removed; the artifact's name
+    /// without the system; the draft condition removed; `always()` removed; the comparison changed to
+    /// `!= failure`; the `needs` removed; `continue-on-error` added to either job or to a step of it;
+    /// `exclude` added to the matrix; a condition added to the gates step; a `push` trigger added.
     #[test]
     fn ci_runs_the_gates_on_three_systems_behind_one_gathering_job() {
         let workflow = include_str!("../../../.github/workflows/ci.yml");
         let gates = job(workflow, "gates");
         for line in [
-            "if: ${{ !github.event.pull_request.draft }}",
             "fail-fast: false",
             "os: [ubuntu-latest, windows-latest, macos-latest]",
             "runs-on: ${{ matrix.os }}",
@@ -154,10 +174,35 @@ mod tests {
             [&"run: cargo --locked x gates --locked --fail-fast --require-rebased --full --ci"]
         );
 
+        assert_eq!(
+            conditions(&gates),
+            [
+                "if: ${{ !github.event.pull_request.draft }}",
+                "if: failure()"
+            ],
+            "the job's and the artifact step's"
+        );
+        assert!(!gates.contains(&"exclude:"), "{gates:#?}");
+
         let check = job(workflow, "check");
+        assert_eq!(
+            conditions(&check),
+            ["if: ${{ !github.event.pull_request.draft && always() }}"]
+        );
+        for line in gates.iter().chain(&check) {
+            let line = line.trim_start_matches("- ");
+            assert!(!line.starts_with("continue-on-error"), "{line}");
+        }
+        let triggers: Vec<_> = workflow
+            .lines()
+            .skip_while(|l| *l != "on:")
+            .skip(1)
+            .take_while(|l| l.starts_with(' ') || l.is_empty())
+            .filter(|l| l.starts_with("  ") && !l.starts_with("   "))
+            .collect();
+        assert_eq!(triggers, ["  pull_request:"]);
         for line in [
             "needs: gates",
-            "if: ${{ !github.event.pull_request.draft && always() }}",
             "run: test '${{ needs.gates.result }}' = success",
         ] {
             assert!(check.contains(&line), "no `{line}` in {check:#?}");
@@ -165,7 +210,9 @@ mod tests {
     }
 
     /// The claim: the alias `x` runs the maintenance crate in release, here and in the configuration a
-    /// project is given, so no gate replaces the binary that runs the gates. The snippet is no TOML
+    /// project is given, so no gate replaces the binary that runs the gates where the gate's cargo
+    /// reads the inputs of the cargo that built it, which a caller's `RUSTC_BOOTSTRAP` changes, since
+    /// the gates library removes it from every child. The snippet is no TOML
     /// before its placeholder is filled, so the lines are read. Mutations checked: `--release` removed
     /// from either; each caught.
     #[test]
