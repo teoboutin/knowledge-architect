@@ -257,19 +257,29 @@ fn locked_reaches_every_gate_that_resolves_dependencies() {
         "{}",
         log("test")
     );
-    // A verdict line is padded to the width of the announce line it covers on a terminal. Mutation
-    // check: the line printed from `verdict_line` itself in `run` of `path@gates@src/gates.rs`.
-    assert!(
-        stdout
-            .lines()
-            .any(|l| l == format!("{:<14}", "doc        ok")),
-        "{stdout:?}"
-    );
     // `--locked` sets no other flag's variable.
     assert!(log("test").contains("ci=[]"), "{}", log("test"));
     // Without the flag, no gate receives it.
     let (_, _, _) = gates_output_with(project, "", &[], &[]);
     assert!(!log("test").contains("--locked"), "{}", log("test"));
+}
+
+// The claim: `run` prints a verdict padded to cover the announce line it replaces on a terminal, so one
+// of a short name ends with spaces. Mutation check: the line printed from `verdict_line` itself in
+// `run` of `path@gates@src/gates.rs`.
+#[test]
+fn a_verdict_is_padded_over_its_announce_line() {
+    let scratch = fake_project("padded");
+    let (status, stdout, _) = gates_output_with(scratch.path(), "", &[], &[]);
+    assert!(status.success(), "{stdout}");
+    let verdict = |name: &str| {
+        stdout
+            .lines()
+            .find(|l| l.split_whitespace().eq([name, "ok"]))
+            .unwrap_or_else(|| panic!("no verdict of {name} in {stdout}"))
+            .len()
+    };
+    assert!(verdict("doc") > "doc        ok".len(), "{stdout:?}");
 }
 
 // The claim: `--ci` sets `KNOWLEDGE_ARCHITECT_CI` in every gate's environment, the test gate's

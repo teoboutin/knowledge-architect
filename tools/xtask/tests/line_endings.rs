@@ -1,6 +1,6 @@
 //! This repository's `.gitattributes` gives every checkout LF and takes CRLF into no commit, whatever
-//! the machine's git says. Every file of this repository is compared, embedded or parsed as the bytes
-//! its commit holds, and Git for Windows checks out CRLF by default, per
+//! the machine's git says. Most files of this repository are compared, embedded or parsed as the bytes
+//! their commit holds, and Git for Windows checks out CRLF by default, per
 //! `design@knowledge-architect@line-endings-of-this-repository`.
 
 use std::path::Path;
@@ -79,6 +79,30 @@ fn every_text_file_is_checked_out_with_lf_and_committed_with_lf() {
                 checked_out, b"one\ntwo\n",
                 "{file} checked out, autocrlf={autocrlf}"
             );
+        }
+    }
+}
+
+/// The claim: the attributes the first test tries on a few names are those of every file this repository
+/// tracks, whatever its extension, so none is left to the machine's git. Mutations checked: a second line,
+/// `*.toml -text`; a second line, `*.txt text eol=crlf`; each caught.
+#[test]
+fn every_tracked_file_takes_the_attributes() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let files = git(&root, "false", &["ls-files", "-z"]);
+    let list = String::from_utf8(files).expect("UTF-8 names");
+    let names: Vec<&str> = list.split_terminator('\0').collect();
+    assert!(names.len() > 1, "{names:?}");
+    // No machine's attributes file: it goes below the repository's, so it could only hide a line.
+    let mut args = vec!["-c", "core.attributesFile=/dev/null", "check-attr", "-z"];
+    args.extend(["text", "eol", "--"]);
+    for chunk in names.chunks(200) {
+        let args: Vec<&str> = args.iter().chain(chunk).copied().collect();
+        let out = String::from_utf8(git(&root, "false", &args)).expect("UTF-8");
+        let fields: Vec<&str> = out.split_terminator('\0').collect();
+        for field in fields.chunks(3) {
+            let expected = if field[1] == "text" { "auto" } else { "lf" };
+            assert_eq!(field[2], expected, "{field:?}");
         }
     }
 }
