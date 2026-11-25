@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-11 entries
+12 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | defect | [A `--patch` run whose patch replaces the target by a symlink mutates the target to the content of the file the link points at](a-patch-that-makes-the-target-a-symlink-mutates-from-the-file-it-points-at.md) |
 | defect | [The liveness of a run is read wrongly outside Linux](a-run-s-liveness-is-read-wrongly-outside-linux.md) |
 | defect | [A test command that fails for its environment reads as `caught`](an-environment-failure-reads-as-caught.md) |
+| defect | [The hand mutation refuses, misreads or mutates wrongly in several ways on Windows](the-hand-mutation-fails-in-several-ways-on-windows.md) |
 | design | [The hand mutation runs one mutation per invocation, so a list of mutations is a loop each session writes](a-list-of-mutations-runs-as-a-loop-of-the-session.md) |
 | observation | [A reused process id reads as a live run, and blocks `restore` and `--discard`](a-reused-pid-reads-as-a-live-run.md) |
 | todo | [A mutation spanning several files cannot be applied in one run](a-mutation-of-several-files.md) |

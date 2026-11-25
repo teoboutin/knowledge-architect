@@ -1,8 +1,9 @@
 **Generated — do not edit.** `cargo klarch index`
 
-2 entries
+3 entries
 
 | kind | title |
 | --- | --- |
+| defect | [Outside Unix a gates run refuses no pipe, and on a Windows console a cut character can lose the live echo](no-pipe-is-refused-outside-unix.md) |
 | design | [No head argues what gate behaviour a project may keep in its own code, and when that copy goes](no-head-argues-when-a-project-s-copy-of-a-gate-behaviour-goes.md) |
 | todo | [The gates library has no single merge mode in the general form of thaum's merge-ready flag](the-library-has-no-merge-verdict.md) |

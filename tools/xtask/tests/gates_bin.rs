@@ -1,7 +1,6 @@
-//! End-to-end runs of the built `xtask` binary against a fake project whose `cargo` is a
-//! shell stub. The stub is what keeps these tests off the real gates: no test here may
+//! End-to-end runs of the built `xtask` binary against a fake project whose `cargo` is the program
+//! fake-cargo. It is what keeps these tests off the real gates: no test here may
 //! invoke the real `cargo x gates`, per `path@xtask@CLAUDE.md`, or the suite would run itself.
-#![cfg(unix)]
 
 // This target links no library of its package, so it reads the variable itself, per
 // `design@knowledge-architect@a-build-is-tied-to-its-checkout`.
@@ -11,10 +10,8 @@ use std::path::Path;
 use std::process::{Command, Stdio};
 
 /// A directory holding the checker's manifest (so the tool accepts it as a project root) and,
-/// in its `bin`, a `cargo` stub that prints one line per invocation — with the value of
-/// `RUSTC_BOOTSTRAP`, `KNOWLEDGE_ARCHITECT_CI` and `CARGO_ENCODED_RUSTDOCFLAGS` it received — sleeps
-/// briefly so the caller can act while gates are
-/// still running, and fails when `FAIL_ON` names a substring of its arguments.
+/// in its `bin`, the program fake-cargo under the name `cargo`, which `path@xtask@src/bin/fake_cargo.rs`
+/// says what it does.
 fn fake_project(name: &str) -> tempfile::TempDir {
     let scratch = tempfile::TempDir::with_prefix(format!("klarch-gates-bin-{name}-"))
         .expect("a scratch directory");
@@ -23,32 +20,25 @@ fn fake_project(name: &str) -> tempfile::TempDir {
     std::fs::create_dir_all(&bin).expect("the fake project can be created");
     std::fs::write(dir.join("knowledge-architect.toml"), "")
         .expect("the root marker can be written");
-    let stub = r#"#!/bin/sh
-sleep 0.2
-echo "fake cargo: $* bootstrap=[$RUSTC_BOOTSTRAP] ci=[$KNOWLEDGE_ARCHITECT_CI] rustdocflags=[$CARGO_ENCODED_RUSTDOCFLAGS]"
-case "$*" in
-  *"$FAIL_ON"*) [ -n "$FAIL_ON" ] && { echo "induced failure"; exit 1; };;
-esac
-exit 0
-"#;
-    let cargo = bin.join("cargo");
-    std::fs::write(&cargo, stub).expect("the stub can be written");
-    let mut permissions = std::fs::metadata(&cargo)
-        .expect("the stub exists")
-        .permissions();
-    use std::os::unix::fs::PermissionsExt;
-    permissions.set_mode(0o755);
-    std::fs::set_permissions(&cargo, permissions).expect("the stub can be made executable");
+    let cargo = bin.join(format!("cargo{}", std::env::consts::EXE_SUFFIX));
+    // A link where a test may make one: a program this process wrote cannot run while another thread's
+    // child still holds it open for writing, per
+    // `issue@xtask@gates-binary-tests-fail-when-a-fake-program-they-wrote-is-busy`. Windows has no such
+    // refusal.
+    #[cfg(unix)]
+    std::os::unix::fs::symlink(env!("CARGO_BIN_EXE_fake-cargo"), cargo).expect("the fake cargo");
+    #[cfg(not(unix))]
+    std::fs::copy(env!("CARGO_BIN_EXE_fake-cargo"), cargo).expect("the fake cargo");
     scratch
 }
 
 fn xtask_in(project: &Path, fail_on: &str) -> Command {
     let mut command = Command::new(env!("CARGO_BIN_EXE_xtask"));
-    let path = format!(
-        "{}:{}",
-        project.join("bin").display(),
-        std::env::var("PATH").expect("PATH is set")
-    );
+    let inherited = std::env::var_os("PATH").expect("PATH is set");
+    let path = std::env::join_paths(
+        std::iter::once(project.join("bin")).chain(std::env::split_paths(&inherited)),
+    )
+    .expect("a path");
     command
         .arg("gates")
         .current_dir(project)
@@ -61,6 +51,10 @@ fn xtask_in(project: &Path, fail_on: &str) -> Command {
         .env_remove("GITHUB_ACTIONS")
         // Set only by `--ci`, which a test asserts reaches every gate.
         .env_remove("KNOWLEDGE_ARCHITECT_CI")
+        // A suite run from a commit hook inherits them, and the run would read another repository.
+        .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
+        .env_remove("GIT_WORK_TREE")
         .stdin(Stdio::null());
     command
 }
@@ -73,6 +67,9 @@ fn with_history(project: &Path, origin_at: &str) {
     let git = |args: &[&str]| {
         let out = Command::new("git")
             .args(args)
+            .env_remove("GIT_DIR")
+            .env_remove("GIT_INDEX_FILE")
+            .env_remove("GIT_WORK_TREE")
             .current_dir(project)
             .output()
             .expect("git runs");
@@ -120,7 +117,12 @@ fn outside_a_project_the_gates_exit_two() {
 // exists to deliver. A harness capturing through a pipe is exactly that shape, so this is the
 // one test that captures through one. Mutation check: dropping the refusal makes every fake
 // gate run and pass, and both assertions name it.
+// Outside Unix, `issue@gates@no-pipe-is-refused-outside-unix`.
 #[test]
+#[cfg_attr(
+    windows,
+    ignore = "no pipe is refused on Windows, where the refusal protects development alone"
+)]
 fn a_piped_stdout_is_refused_before_any_gate_runs() {
     let scratch = fake_project("pipe");
     let project = scratch.path();
@@ -331,7 +333,12 @@ fn without_require_rebased_no_rebased_gate_runs() {
 
 // The claim: the variable must say `true`; any other value leaves the refusal in place.
 // Mutation check: reading the variable's presence alone is caught here.
+// Outside Unix, `issue@gates@no-pipe-is-refused-outside-unix`.
 #[test]
+#[cfg_attr(
+    windows,
+    ignore = "no pipe is refused on Windows, where the refusal protects development alone"
+)]
 fn a_piped_stdout_is_refused_when_the_actions_variable_is_not_true() {
     let scratch = fake_project("actions-false");
     let project = scratch.path();

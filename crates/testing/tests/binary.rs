@@ -1640,7 +1640,8 @@ fn a_missing_file_and_a_nested_repository_outside_the_walk_are_named_for_what_th
 }
 
 /// The claim: a symlink whose name the walk refuses is one finding, the link's, and not a second
-/// for its name.
+/// for its name. Windows refuses the name.
+#[cfg(unix)]
 #[test]
 fn a_symlink_with_a_refused_name_is_one_finding() {
     let sandbox = Sandbox::new("symlink-refused", "minimal");
@@ -1756,7 +1757,8 @@ fn a_tree_holding_the_model_crate_at_another_path_than_the_binarys_is_refused() 
 }
 
 /// The claim: a name holding a line break is one finding, on one line, and the file is read by
-/// nothing; a `skip-files` row keeps it.
+/// nothing; a `skip-files` row keeps it. Windows refuses the name.
+#[cfg(unix)]
 #[test]
 fn a_name_holding_a_newline_is_one_finding_on_one_line_and_its_contents_are_read_by_nothing() {
     // The reproduction the issue named: a markdown file whose name holds a newline, holding a
@@ -4381,16 +4383,29 @@ fn a_finding_in_an_untracked_file_is_followed_by_a_note_naming_it() {
 /// and a line break in the untracked name is escaped, so the note stays one line.
 #[test]
 fn the_untracked_note_covers_a_phase_two_stop_and_escapes_the_name() {
-    let sandbox = Sandbox::new("untracked-note-phase-two", "core");
-    sandbox.write("nl\nname.md", "text\n");
-    let (out, stderr, code) = sandbox.run(&["check"]);
-    assert_eq!(code, 1, "{out}{stderr}");
-    assert!(out.contains("phase 2:"), "{out}");
-    assert!(
-        out.lines()
-            .any(|l| l == "1 file above is untracked: nl\\nname.md"),
-        "{out}"
-    );
+    let mut cases = vec![(
+        "bytes",
+        "bytes.md",
+        &b"\xff\xfe\n"[..],
+        "1 file above is untracked: bytes.md",
+    )];
+    // Windows refuses a name that holds a line break.
+    if cfg!(unix) {
+        cases.push((
+            "name",
+            "nl\nname.md",
+            b"text\n",
+            "1 file above is untracked: nl\\nname.md",
+        ));
+    }
+    for (tag, file, bytes, note) in cases {
+        let sandbox = Sandbox::new(&format!("untracked-note-phase-two-{tag}"), "core");
+        std::fs::write(sandbox.path(file), bytes).expect("an untracked file");
+        let (out, stderr, code) = sandbox.run(&["check"]);
+        assert_eq!(code, 1, "{out}{stderr}");
+        assert!(out.contains("phase 2:"), "{out}");
+        assert!(out.lines().any(|l| l == note), "{out}");
+    }
 }
 
 /// The claim: an untracked manifest brings no note, since it is read whatever git says of it
@@ -4966,6 +4981,10 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
     let editor = hooks.join("editor.sh");
     std::fs::write(&editor, "#!/bin/sh\necho 'from the editor' > \"$1\"\n").expect("the editor");
     make_executable(&editor);
+    // Git runs the editor through a shell, which reads a `\` as an escape, on Windows too.
+    let editor = editor
+        .to_string_lossy()
+        .replace(std::path::MAIN_SEPARATOR, "/");
     let loud = |args: &[&str]| {
         let mut all = vec!["-c", hooks_path.as_str(), "commit"];
         all.extend_from_slice(args);
@@ -7968,7 +7987,8 @@ fn worklist_check_judges_one_report_and_writes_nothing() {
             .map(str::to_string)
             .collect()
     };
-    let own = format!("{agent}/");
+    // The report is named as the system writes its path under the work list's directory.
+    let own = format!("{agent}{}", std::path::MAIN_SEPARATOR);
     assert!(!findings(&verified, &own).is_empty(), "{verified}");
     assert_eq!(findings(&checked, &own), findings(&verified, &own));
     assert_eq!(
@@ -8596,9 +8616,12 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
         .lines()
         .find(|l| l.starts_with("spec "))
         .unwrap_or_else(|| panic!("no spec line: {work}"));
+    let named = spec_line
+        .strip_prefix("spec spec@plans@an-audit ")
+        .map(Path::new)
+        .unwrap_or_else(|| panic!("no path: {spec_line}"));
     assert!(
-        spec_line.starts_with("spec spec@plans@an-audit /")
-            && spec_line.ends_with("docs/plans/specs/an-audit/README.md"),
+        named.is_absolute() && named.ends_with("docs/plans/specs/an-audit/README.md"),
         "{spec_line}"
     );
     // A slice is a plan document too, its own README.md holding its section, given by its
@@ -8714,6 +8737,9 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
 /// `path@query@src/worklist.rs`: in `write`, `refuse_a_line_break("the file of the work", &real)?;`
 /// removed, and `refuse_a_line_break("--seeds-from", &real)?;` removed; in `refuse_a_line_break`,
 /// `.contains(['\n', '\r'])` made `.contains(['\r'])`; each caught.
+///
+/// Windows refuses the name.
+#[cfg(unix)]
 #[test]
 fn worklist_refuses_a_path_of_the_work_holding_a_line_break() {
     let (sandbox, out) = worklist_audit_project("worklist-line\nbreak");
@@ -8831,11 +8857,33 @@ fn worklist_verify_at_an_audit_writes_the_gaps_and_the_fit_lines() {
 /// `CLAUDE_CONFIG_DIR`, which goes with it.
 fn transcript_case(case: &str, tag: &str) -> (Sandbox, PathBuf) {
     let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
-    let root = sandbox.dir.canonicalize().expect("the copy exists");
     let config = sandbox.outside("config");
     let from = transcript_dir().join("tests/transcripts").join(case);
-    copy_rendered(&from, &config, &root.display().to_string());
+    copy_rendered(&from, &config, &harness_root(&sandbox));
+    // On Windows the `cwd` of a session whose directory is gone matches no root, per
+    // `issue@transcript@the-transcripts-of-a-windows-machine-can-be-missed`, so the worktree that a case
+    // names is there.
+    #[cfg(windows)]
+    std::fs::create_dir_all(sandbox.path(".claude/worktrees/w1")).expect("a worktree's directory");
     (sandbox, config)
+}
+
+/// The root of a sandbox's project as the harness writes a `cwd`, in the text of a JSON string: with no
+/// symbolic link in it, and on Windows with none of the verbatim prefix a canonical path holds there.
+fn harness_root(sandbox: &Sandbox) -> String {
+    let root = sandbox.dir.canonicalize().expect("the copy exists");
+    let text = root.display().to_string();
+    json_path(Path::new(text.strip_prefix(r"\\?\").unwrap_or(&text)))
+}
+
+/// A path as the text of a JSON string, where each `\` of Windows is an escape.
+fn json_path(path: &Path) -> String {
+    path.display().to_string().replace('\\', "\\\\")
+}
+
+/// A path under the transcripts' directory as `transcript` prints it, which is as the system writes it.
+fn in_transcripts(rel: &str) -> String {
+    rel.replace('/', std::path::MAIN_SEPARATOR_STR)
 }
 
 fn copy_rendered(from: &Path, to: &Path, root: &str) {
@@ -8973,7 +9021,10 @@ fn transcript_each_line_takes_the_label_of_its_fields_and_the_unknown_is_reporte
     has("injected peer 2026-01-03 10:00]\na queued report");
     has("# unlabelled lines: 2");
     has("# lines skipped for a repeated uuid: 1");
-    has("# not JSON: -proj/eeeeeeee-0000-0000-0000-000000000005.jsonl:");
+    has(&format!(
+        "# not JSON: {}:",
+        in_transcripts("-proj/eeeeeeee-0000-0000-0000-000000000005.jsonl")
+    ));
     has("is a gap of this command");
     // The subagents: a field-less line of a subagent file is its dispatcher's.
     has("# subagent eeeeeeee/f00dcafe: general-purpose");
@@ -9173,7 +9224,10 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     has("owner-command 2026-02-01 10:00]\n/model opus");
     has("# unrecognised user content item \"image2\": 1");
     has("injected meta 2026-02-01 10:00]\nnotes: Base directory for this skill: inside");
-    has("# unrecognised attachment.type \"dup_thing\": 2, first at -proj/12345678-0000-0000-0000-000000000009.jsonl:17");
+    has(&format!(
+        "# unrecognised attachment.type \"dup_thing\": 2, first at {}:17",
+        in_transcripts("-proj/12345678-0000-0000-0000-000000000009.jsonl")
+    ));
     has("# files read: 1; harness versions: 2.1.310");
     assert_eq!(
         stdout.matches("# not JSON").count(),
@@ -9211,7 +9265,10 @@ fn transcript_the_remaining_rows_of_the_mapping_hold() {
     // A line of bytes that are no UTF-8 is a line that is no JSON, in either mode.
     let (stdout, _, code) = transcript("places", "places-utf8", &["list"]);
     assert_eq!(code, 0, "{stdout}");
-    assert!(stdout.contains("# not JSON: -wt/ffffffff"), "{stdout}");
+    assert!(
+        stdout.contains(&format!("# not JSON: {}", in_transcripts("-wt/ffffffff"))),
+        "{stdout}"
+    );
 }
 
 /// One `sessionId` in two files gives two handles; `list` is oldest first; `--since` keeps a session
@@ -9369,7 +9426,10 @@ fn transcript_shapes_rows_and_output_forms_hold() {
     has("# unrecognised queued_command shape \"no prompt\": 1");
     has("# unrecognised origin \"not an object: \\\"human\\\"\": 1");
     has("# unrecognised type \"(none)\": 1");
-    has("# not JSON: -proj/12345678-0000-0000-0000-000000000009.jsonl:");
+    has(&format!(
+        "# not JSON: {}:",
+        in_transcripts("-proj/12345678-0000-0000-0000-000000000009.jsonl")
+    ));
 
     let (stdout, _, _) = transcript("extras", "adv-list", &["list"]);
     assert!(
@@ -9482,12 +9542,11 @@ fn transcript_a_linked_worktree_reads_the_sessions_of_its_main_checkout() {
     sandbox.git(&["commit", "-q", "-m", "the mock"]);
     let worktree = sandbox.path("linked");
     sandbox.git(&["worktree", "add", "-q", "--detach", "linked"]);
-    let root = sandbox.dir.canonicalize().expect("the sandbox exists");
     let config = sandbox.outside("config");
     copy_rendered(
         &transcript_dir().join("tests/transcripts/places"),
         &config,
-        &root.display().to_string(),
+        &harness_root(&sandbox),
     );
     let (stdout, stderr, code) = run_with_env(
         &worktree,
@@ -9510,12 +9569,11 @@ fn transcript_from_a_subdirectory_reads_the_sessions_of_the_project() {
     let sandbox = Sandbox::new("transcript-subdirectory", "core");
     let sub = sandbox.path("sub");
     std::fs::create_dir(&sub).expect("a subdirectory");
-    let root = sandbox.dir.canonicalize().expect("the sandbox exists");
     let config = sandbox.outside("config");
     copy_rendered(
         &transcript_dir().join("tests/transcripts/places"),
         &config,
-        &root.display().to_string(),
+        &harness_root(&sandbox),
     );
     let (stdout, stderr, code) = run_with_env(
         &sub,
@@ -9723,7 +9781,7 @@ const GAPS_SESSION: &str = "9a9a9a9a-0000-0000-0000-000000000020";
 fn transcript_a_text_the_harness_cut_is_named_in_the_header() {
     let (stdout, _, code) = transcript("gaps", "gaps-cuts", &["show", GAPS_SESSION]);
     assert_eq!(code, 0, "{stdout}");
-    let file = "-proj/9a9a9a9a-0000-0000-0000-000000000020.jsonl";
+    let file = in_transcripts("-proj/9a9a9a9a-0000-0000-0000-000000000020.jsonl");
     assert!(
         stdout.contains(&format!(
             "# cut by the harness: {file}:3, 31934 chars not in the transcript, the whole in \
@@ -9748,8 +9806,11 @@ fn transcript_a_text_the_harness_cut_is_named_in_the_header() {
         "gaps-cuts-sub",
         &["show", GAPS_SESSION, "--subagents", "--json"],
     );
+    let subagent = in_transcripts(
+        "-proj/9a9a9a9a-0000-0000-0000-000000000020/subagents/agent-c0ffee000001.jsonl",
+    );
     assert!(
-        stdout.contains(r#""at":"-proj/9a9a9a9a-0000-0000-0000-000000000020/subagents/agent-c0ffee000001.jsonl:3""#),
+        stdout.contains(&format!(r#""at":"{}:3""#, json_path(Path::new(&subagent)))),
         "{stdout}"
     );
     assert!(
@@ -9765,10 +9826,10 @@ fn transcript_a_file_with_no_cwd_is_reported_where_it_is_left_out() {
     let (stdout, _, code) = transcript("gaps", "gaps-nocwd", &["list"]);
     assert_eq!(code, 0, "{stdout}");
     assert!(
-        stdout.contains(
-            "# unrecognised first chain line \"no cwd\": 1, first at \
-             -proj/7b7b7b7b-0000-0000-0000-000000000022.jsonl:2\n"
-        ),
+        stdout.contains(&format!(
+            "# unrecognised first chain line \"no cwd\": 1, first at {}:2\n",
+            in_transcripts("-proj/7b7b7b7b-0000-0000-0000-000000000022.jsonl")
+        )),
         "{stdout}"
     );
     assert!(stdout.contains("is a gap of this command"), "{stdout}");
@@ -9900,7 +9961,7 @@ fn transcript_a_cwd_through_a_symlink_is_the_project_s() {
     link_dir(&root, &link);
     let line = format!(
         r#"{{"type":"user","uuid":"l1","parentUuid":null,"sessionId":"5e5e5e5e-0000-0000-0000-000000000030","timestamp":"2026-02-01T10:00:00.000Z","cwd":"{}","version":"2.1.316","message":{{"role":"user","content":"through the link"}},"origin":{{"kind":"human"}}}}"#,
-        link.display()
+        json_path(&link)
     );
     std::fs::write(
         projects.join("5e5e5e5e-0000-0000-0000-000000000030.jsonl"),
@@ -9968,13 +10029,12 @@ fn transcript_a_subagent_s_tool_lines_show_under_tools_alone() {
 /// hand as `CLAUDE_CONFIG_DIR`, which goes with it.
 fn transcript_config(tag: &str, files: &[(&str, &str)]) -> (Sandbox, PathBuf) {
     let sandbox = Sandbox::new(&format!("transcript-{tag}"), "core");
-    let root = sandbox.dir.canonicalize().expect("the copy exists");
+    let root = harness_root(&sandbox);
     let config = sandbox.outside("config");
     for (rel, text) in files {
         let path = config.join(rel);
         std::fs::create_dir_all(path.parent().expect("a parent")).expect("a directory");
-        std::fs::write(path, text.replace("{{root}}", &root.display().to_string()))
-            .expect("a file");
+        std::fs::write(path, text.replace("{{root}}", &root)).expect("a file");
     }
     (sandbox, config)
 }
@@ -10783,7 +10843,8 @@ fn worklist_takes_a_seed_in_backticks() {
 /// The claim: a working directory that no longer exists is exit 2, naming the working directory
 /// as what could not be read. Mutation checked: in `locate` of `path@cli@src/cli/mod.rs`,
 /// `format!("cannot read the working directory: {e}")` made `{ let _ = e; String::new() }`,
-/// which prints `error: ` alone; caught.
+/// which prints `error: ` alone; caught. For Linux alone, where a program can start in a working directory
+/// that is removed and asking for its path fails.
 #[cfg(target_os = "linux")]
 #[test]
 fn a_working_directory_that_is_gone_is_exit_two_naming_it() {

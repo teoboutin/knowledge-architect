@@ -1,11 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-12 entries
+13 entries
 
 | kind | title |
 | --- | --- |
 | defect | [A quotation whose last word is cut from its punctuation is refused as words "not in this order"](a-quotation-cut-from-its-punctuation-is-refused-as-out-of-order.md) |
 | defect | [`show` answers otherwise than the check on some references, and `issues` calls a new file's date unknown](show-answers-otherwise-than-the-check-on-some-references.md) |
+| defect | [On Windows `worklist` names its reports with a backslash and its files with a verbatim prefix, which the record search's workflow does not read](worklist-spells-its-paths-by-the-system-where-the-search-workflow-reads-slashes.md) |
 | design | [`worklist.rs` is past one read and holds the work list's writer and its judge, which change apart](worklist-rs-holds-a-writer-and-a-judge-past-one-read.md) |
 | question | [Whether two heads of the query design home each bundle a second decision](two-query-heads-may-each-bundle-a-second-decision.md) |
 | todo | [A record searcher fills its report by a script or a whole rewrite of its own](a-searcher-fills-its-report-by-a-script-of-its-own.md) |

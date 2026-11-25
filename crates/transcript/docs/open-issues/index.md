@@ -1,11 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-9 entries
+10 entries
 
 | kind | title |
 | --- | --- |
 | defect | [`transcript list --branch` lists a session that did no work on the branch](list-branch-lists-a-session-that-did-no-work-on-the-branch.md) |
 | defect | [`transcript list --branch` misses a session that worked on the branch from a linked worktree](list-branch-misses-a-session-that-worked-in-a-worktree.md) |
+| defect | [On Windows the transcripts' directory is looked for through `HOME` alone, and a session of a removed directory is left out](the-transcripts-of-a-windows-machine-can-be-missed.md) |
 | design | [The prompt of a `claude -p` session, left unlabelled on purpose, asks for a finding in every header](a-claude-p-prompt-asks-for-a-finding-in-every-header.md) |
 | design | [`reader.rs` is past one read](reader-rs-is-past-one-read.md) |
 | design | [A filtered `transcript list` names in its header the cuts of sessions the filter left out](the-header-names-the-cuts-of-sessions-a-filter-left-out.md) |

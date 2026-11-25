@@ -1072,13 +1072,17 @@ fn init_refuses_every_destination_it_cannot_write_safely() {
     scratch.write("a6/docs/open-issues/index.md", "# Our own table\n");
     refused(&["init", "a6"], "a6");
 
-    std::fs::create_dir_all(scratch.path("a8")).unwrap();
-    assert!(Command::new("mkfifo")
-        .arg(scratch.path("a8/README.md"))
-        .status()
-        .unwrap()
-        .success());
-    refused(&["init", "a8"], "a8");
+    // Windows has no named pipe in a directory.
+    #[cfg(unix)]
+    {
+        std::fs::create_dir_all(scratch.path("a8")).unwrap();
+        assert!(Command::new("mkfifo")
+            .arg(scratch.path("a8/README.md"))
+            .status()
+            .unwrap()
+            .success());
+        refused(&["init", "a8"], "a8");
+    }
 
     scratch.write("fd/docs", "a file where a directory is due");
     refused(&["init", "fd"], "fd");
@@ -1188,7 +1192,7 @@ fn new_component_keeps_the_manifest_whole() {
 
 /// The claim: a stdout that cannot be written ends `init` with 2, as every command, only once
 /// every document is written, so `check --fix` completes the project; and `new-component` the
-/// same.
+/// same. Linux alone has the device /dev/full.
 #[cfg(target_os = "linux")]
 #[test]
 fn a_closed_stdout_leaves_every_document_written() {
@@ -1284,13 +1288,18 @@ fn init_lists_the_repository_the_kept_gitignore_and_the_enclosing_project() {
 
     let (out, err, code) = klarch(&scratch.path("outer"), &["init", "inner"]);
     assert_eq!(code, 0, "{out}{err}");
-    let outer = scratch.path("outer");
-    assert!(
-        out.contains(&format!(
-            "note: the project at {} walks this one too, unless its [walk] exclude names it",
-            outer.display()
-        )),
-        "{out}"
+    // The run prints its working directory as the system gives it, with no symbolic link in it, as the
+    // temporary directory holds on macOS, so each side is made canonical.
+    let named = out
+        .lines()
+        .find_map(|l| {
+            l.strip_prefix("note: the project at ")?
+                .strip_suffix(" walks this one too, unless its [walk] exclude names it")
+        })
+        .unwrap_or_else(|| panic!("no note: {out}"));
+    assert_eq!(
+        Path::new(named).canonicalize().unwrap(),
+        scratch.path("outer").canonicalize().unwrap()
     );
 
     scratch.write("r/.gitignore", "target/\n");

@@ -7,8 +7,10 @@
 //! plausibly and applies to nothing.
 
 mod links;
+mod live;
 
 use links::link_file;
+use live::Live;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
@@ -105,6 +107,8 @@ fn apply_and_reverse(pre: &str, post: &str) -> (String, String) {
     let dir = scratch.path();
     let git = |args: &[&str]| {
         let out = Command::new("git")
+            // The patch is compared byte for byte, and `apply` converts under the machine's setting.
+            .args(["-c", "core.autocrlf=false"])
             .args(args)
             .current_dir(dir)
             .output()
@@ -356,7 +360,11 @@ fn the_record_holds_the_pre_image_before_it_is_complete() {
 fn an_absolute_path_is_refused() {
     // `Path::join` discards the root when its argument is absolute, so this would mutate a file
     // outside the repository and the patch's `a/`/`b/` headers would name nothing.
-    assert!(target_is_mutable(Path::new("/repo"), "/etc/passwd").is_err());
+    // A file that exists, so the path alone refuses it, spelled as an absolute path of each system.
+    let outside = std::env::current_exe().expect("the test executable");
+    let why = target_is_mutable(Path::new("/repo"), outside.to_str().expect("a UTF-8 path"))
+        .expect_err("refused");
+    assert!(why.contains("is an absolute path"), "{why}");
 }
 
 #[test]
@@ -415,14 +423,27 @@ fn a_record_this_process_claimed_does_not_read_as_owned_by_a_live_run() {
     record.claim().expect("claiming");
     assert!(!record.owner_is_alive());
 
-    fs::write(record.dir.join("owner-pid"), "1").expect("writing a live pid");
-    assert!(record.owner_is_alive(), "pid 1 is always running");
-
     fs::write(record.dir.join("owner-pid"), "not a pid").expect("writing");
     assert!(
         !record.owner_is_alive(),
         "an unreadable owner permits the restore"
     );
+}
+
+// The liveness of a process on Windows is `issue@mutate@a-run-s-liveness-is-read-wrongly-outside-linux`.
+#[test]
+#[cfg_attr(
+    windows,
+    ignore = "the liveness of a run is read wrongly on Windows, which is development workflow"
+)]
+fn a_record_a_live_process_claimed_reads_as_owned_by_a_live_run() {
+    let scratch = temp_dir("live-owner");
+    let dir = scratch.path();
+    let record = Record::at(dir.join("current"));
+    record.claim().expect("claiming");
+    let live = Live::start();
+    fs::write(record.dir.join("owner-pid"), live.pid().to_string()).expect("writing a live pid");
+    assert!(record.owner_is_alive(), "the child is running");
 }
 
 // The claim: the record lives in the git directory of the repository that holds the root, where

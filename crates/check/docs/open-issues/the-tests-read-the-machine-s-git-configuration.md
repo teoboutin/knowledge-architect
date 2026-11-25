@@ -52,6 +52,16 @@ Probed by an adversarial reviewer over `path@testing@tests/binary.rs`, `path@tes
 - `init.defaultObjectFormat = sha256`: 1 failure, `a_gitlink_is_a_phase_two_finding_and_an_exclude_row_declares_the_silence`, whose `--cacheinfo` holds a 40-hex object id.
 - `GIT_INDEX_FILE=.git/index` over `path@testing@tests/binary.rs`, as a commit hook sets it: 3 failures, which were not inspected. The helpers `git` and `Sandbox::git_command` remove that variable, and a run of the binary keeps it, as `design@git@index-file-variable-kept` asks.
 
+The variables that name a repository are a setting of the same kind, which a commit hook gives a suite, and a
+helper that keeps them writes into the caller's repository. Reproduced by an adversarial reviewer: with
+`GIT_DIR` naming a throwaway repository, `path@testing@tests/extension_refusals.rs` replaced its index, from 1
+entry to 40, and `path@xtask@tests/line_endings.rs` did too and passed. Both drop `GIT_DIR`, `GIT_INDEX_FILE` and
+`GIT_WORK_TREE` now, as do the helpers of `path@testing@tests/extension_api.rs`, `path@xtask@tests/gates_bin.rs` and
+`path@xtask@tests/mutate_bin.rs`. Under the first two variables the test of extension_refusals.rs still fails, since it
+runs the checker in process, which keeps `GIT_INDEX_FILE` as `design@git@index-file-variable-kept` asks, and
+leaves that index as it was. `git` of `path@cli@tests/init.rs`, and `Sandbox` and `linked_worktree` of
+`path@mutate@tests/modes.rs`, drop none; read, not run.
+
 ### Why it matters
 
 A contributor or a CI runner with commit signing or a hooks directory set globally sees `check`'s
