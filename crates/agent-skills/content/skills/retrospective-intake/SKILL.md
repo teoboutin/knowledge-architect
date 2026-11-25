@@ -19,11 +19,11 @@ Not covered here:
 
 %% The session decides by authority, per `design@agent-skills@intake-outcome-authority`.
 **The session decides each finding's outcome as `primer@question-authority` routes it**: it
-establishes the facts, argues the action, and decides what the goals, the record, the code and the
-sources settle. The owner rules on the rest: most often a goal the finding would change, which goes
-to `skill@knowledge-architect-goal-setting`; a fact only the owner holds, such as what a session
-would have lacked without an addition about how an agent behaves; two fixes that both survive with
-nothing ranking them; and a publication, as the outcome "sent upstream" says.
+decides what the goals, the record, the code and the sources settle. The owner rules on the rest:
+most often a goal the finding would change, which goes to
+`skill@knowledge-architect-goal-setting`; a fact only the owner holds, such as what a session would
+have lacked without an addition about how an agent behaves; two fixes that both survive with nothing
+ranking them; and a publication, as the outcome "sent upstream" says.
 
 ## What it takes {{slug:what-it-takes}}
 
@@ -195,17 +195,21 @@ rule on a text's size cost that the standard places after the shape of a repair.
 
 ## Subagents {{slug:intake-subagents}}
 
-The checks a to c read text, and fresh subagents may run them, one per file or per cluster. Brief
-each with the findings, the files to read, the entries the search of
-`skill@knowledge-architect-retrospective-intake@ground-before-judging` returned, and a scratch
-directory of its own, never shared. The agent checks c against those entries, and does not
-search the registers again. Each returns, per finding: the quotation,
-its file and line, and its verdict. The session itself establishes d to h, and re-checks every
-verdict a proposal rests on. No subagent replays the reported session or builds a scenario of agent
-behaviour.
-%% No synthetic evidence is built, per `design@agent-skills@synthetic-evidence-not-built`. The
-%% session's re-check of a verdict is its independent verification, per
-%% `design@agent-skills@at-least-one-independent-verification`.
+Agents may establish any of the items a to h, the work divided as `primer@dispatching-work` says.
+Brief each with the findings, the files to read,
+`skill@knowledge-architect-retrospective-intake@what-to-establish` to read whole, with
+`skill@knowledge-architect-retrospective-intake@admission-rules` where it establishes d or f, the
+verdict files that the search of
+`skill@knowledge-architect-retrospective-intake@ground-before-judging` wrote for those findings, and
+a scratch directory of its own, never shared. Item c is checked against those verdicts, with no new
+search of the registers. The session reads the goals home, `register@goal`, itself, whichever agent
+establishes e. No subagent replays the reported session or builds a scenario of agent behaviour.
+%% No item is fixed to a carrier, per `design@agent-skills@work-divided-by-judgement`: an intake takes
+%% any number of files, so a mapping of items to the session has no bound. An agent's verdict gets its
+%% independent verification as the primer says, per
+%% `design@agent-skills@at-least-one-independent-verification`. The session's own reading of the goals
+%% is `design@agent-skills@searcher-grades-goals`. No synthetic evidence is built, per
+%% `design@agent-skills@synthetic-evidence-not-built`.
 
 ## The analysis file and who holds each outcome {{slug:analysis-and-ruling}}
 
