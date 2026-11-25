@@ -87,8 +87,8 @@ verdict exactly, a possible source of unexpected results, as
 flags carry the differences is that head's question. A gate that the list leaves out on a machine of
 one system, as clippy for another target on a machine of that target's own system, is left out in CI
 and locally alike, so it is no difference between them. How the
-run reports differs with no flag: under Actions the library accepts a pipe on stdout and wraps each
-gate in workflow commands, per `design@gates@gates-refuse-a-pipe` and
+run reports also differs with no flag, beside `--full`: under Actions the library accepts a pipe on
+stdout and wraps each gate in workflow commands, per `design@gates@gates-refuse-a-pipe` and
 `design@gates@annotations-under-actions`, which change no gate and no verdict.
 
 `--locked`: locally a
@@ -97,8 +97,9 @@ must fail. `--fail-fast`: CI's deliverable is a verdict, a local run's is the co
 per `design@gates@gates-run-all`. `--require-rebased`, per `design@gates@rebase-checks-behind-a-flag`: the merge predicate in root
 `CLAUDE.md` asks the same ancestry question with git before the merge, and CI's full-depth
 checkout has fetched origin/main before the gate reads it.
-`--full`: under Actions nothing else streams, since the announce line is written to a terminal
-alone, and a hung gate must show which one it is. `--ci`, per
+`--full`: the library writes a gate's log and its extract once the gate ends, so of a gate that hangs
+until the job's time limit, the job's log holds the output under this flag alone. Which gate it is, the
+group line says without it, per `design@gates@annotations-under-actions`. `--ci`, per
 `design@gates@ci-flag-for-ci-only-requirements`: a test that needs a tool a machine may lack, such as
 the parse test of the saved workflows with `node`, skips without it locally and fails without it in
 CI.
