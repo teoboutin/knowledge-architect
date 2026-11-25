@@ -55,6 +55,11 @@ commit with `commits`; in the slice that planned the splits, a repair agent comm
 apart from the others checked that commit's tree in a scratch worktree, and the slice's record
 searcher had graded this entry `unrelated` to the work.
 
+A further one, from the standing answers of
+2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow: a repair agent ran
+`check --staged`, which failed as an artifact of staging installed copies apart from their sources,
+and committed past it, the failure seen.
+
 ### Why it matters
 
 `design@check@staged-check-semantics` states that `check --staged` applies `check`'s rules "as on a

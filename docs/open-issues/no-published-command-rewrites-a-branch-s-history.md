@@ -38,6 +38,17 @@ of thaum, 2026-11-13, reworded earlier commits' messages with a hand-written loo
 proposed a command of the maintenance crate, which reaches no other project since that crate is
 never published.
 
+Further instances, from the retrospective files received at the intake of twenty files, 2026-11-14
+to 2026-11-25: a session of thaum, 2026-11-14, W3 and C1 of
+2026-11-14-thaum-announced-store-slice-klarch-workflow, repaired five earlier messages and one
+earlier tree by history edits, the harness refusing an interactive rebase and, in a subagent,
+`GIT_SEQUENCE_EDITOR` and compound git commands. Three agents wrote three procedures: a
+`--fixup=reword:` commit with a non-interactive autosquash, a rebuild of the branch by cherry-pick
+with `--cleanup=verbatim` and amended messages, and an edit stop for the tree. One run lost five
+heading lines of a message to git's comment cleanup before the agent noticed. The file proposes a
+command that refuses a dirty tree, keeps the message verbatim and shows the empty diff and the
+range-diff, which the review skill's sentence on a history edit would then name.
+
 A further task, not taken in: moving a commit to the branch's front, as a session of this
 repository did once, 2026-11-01, when a stricter check landed mid-branch; its scripted sequence
 editor stopped twice on a generated index and left a later commit's index stale, so the task
