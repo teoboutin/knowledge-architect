@@ -5,7 +5,8 @@
 //! release, and a stale work list decides what a renumbering breaks.
 //!
 //! **The comparison is against a string.** Nothing here writes the file and restores it, so a
-//! run that dies half-way leaves the tree exactly as it found it.
+//! run that dies half-way leaves the tree exactly as it found it. Line endings are left out of it, per
+//! `design@check@generated-text-compared-without-line-endings`.
 
 use std::path::Path;
 

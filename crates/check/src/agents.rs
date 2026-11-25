@@ -38,7 +38,8 @@ pub(crate) fn lf(text: &str) -> String {
 /// **It is the one comparison of currency**, of an installed file and of a generated one, so what
 /// `check` calls current is what `check --fix` neither writes nor refuses over, and what
 /// `index --staged` does not name. What asks to write, `index`, the entries `index --staged` stages
-/// and the install, compares bytes.
+/// and the install, compares bytes. The decision is
+/// `design@check@generated-text-compared-without-line-endings`.
 pub(crate) fn current(on_disk: &str, expected: &str) -> bool {
     lf(on_disk) == lf(expected)
 }

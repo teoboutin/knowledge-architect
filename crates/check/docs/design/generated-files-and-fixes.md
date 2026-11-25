@@ -7,13 +7,40 @@
 No generated file holds hand-written bytes: not a file-register `index.md`, and not a file an
 extension generates. Each is what its generator returns over the model, which is what lets
 `path@check@src/check/generated.rs` verify one by regenerating into a `String` and
-comparing rather than by writing the file and reading it back.
+comparing, line endings apart, per
+`design@check@generated-text-compared-without-line-endings`, rather than by writing the file and
+reading it back.
 
 **The purity is a property to preserve, not one to observe.** A generator that embedded a
 timestamp, a hostname, or anything the walk does not see would break both consequences at once: the
 check would report a file stale that nobody had changed, and `index` would rewrite on every run.
 
 The design this decision did not keep: `rejected@model@index-last-change-date`.
+
+### A generated or an installed file that differs from its text by line endings alone is current `##generated-text-compared-without-line-endings`
+
+One function, `current` of `path@check@src/agents.rs`, answers at each place that asks whether a file
+is current, a generated one or an installed one: the check `generated`, what `check --fix` writes and
+what it refuses over, the line by which `index --staged` names a working copy out of date, and the
+check of the installed files. A command asked to write compares bytes: `index`, per
+`design@check@index-takes-no-dry-run`, what `index --staged` stages, per
+`design@check@index-staged-write`, and the install.
+
+A checkout under `core.autocrlf=true`, the default of Git for Windows, holds with CRLF a text file that
+a commit holds with LF. Under an exact comparison the check of a project fails on a fresh clone there,
+at each generated index and each installed file, with nothing changed. The test
+`a_clone_that_converts_line_endings_holds_current_generated_files` of `path@testing@tests/binary.rs`
+clones a project under that setting, and fails when `current` compares exactly. What the comparison
+gives up is a drift of line endings alone, which `index` and the install write over. The exact
+comparison is `rejected@check@generated-file-compared-by-exact-bytes`.
+
+The nearest rival asks that each project declare its line endings: it adds an ask, and the check fails
+on such a clone until the ask is followed. Two other scopes lose to heads that stand. Under the check
+`generated` alone, `check --fix` writes, and refuses over, a file that `check` calls current, and
+`index --staged` calls it out of date, against `design@check@one-question-one-command`. With `index`
+and the install leaving such a file too, `design@check@index-takes-no-dry-run`,
+`design@check@index-staged-write` and `design@agent-skills@overlay-by-separate-skills` are reversed to
+avoid a harmless rewrite.
 
 ### `index` takes no dry-run flag, since writing a generated file destroys nothing `##index-takes-no-dry-run`
 

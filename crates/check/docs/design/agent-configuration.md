@@ -72,7 +72,8 @@ skill of its own, per `design@agent-skills@overlay-by-separate-skills`.
 ### The installed agent files are compared with the shipped text byte for byte, line endings normalised `##installed-files-compared-by-bytes`
 
 Under `claude`, the family `agents` of the last phase reports each shipped file missing or whose bytes differ
-from its rendered template, line endings normalised, and each file of the namespace the version does not ship.
+from its rendered template, line endings normalised, per
+`design@check@generated-text-compared-without-line-endings`, and each file of the namespace the version does not ship.
 No check reads these findings, and a model built over a stale copy or a missing one is complete, per
 `design@check@phases-gate-the-report`. The binary holds the text, so the rival, a digest, would add a dependency
 and nothing else. Only `check` compares, per `design@check@only-check-compares-installed-files`.
