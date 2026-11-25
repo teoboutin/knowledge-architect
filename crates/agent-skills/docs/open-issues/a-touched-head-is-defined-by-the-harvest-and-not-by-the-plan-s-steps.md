@@ -43,10 +43,10 @@ its reason. Its review before the merge found the re-entry point below met, and 
 keep the issue open with its re-entry point as written, rather than hold the discussion before that
 branch merged.
 
-A third instance: `spec@plans@gates-on-windows-and-macos`, whose step 8 brings to the rules, before its
-harvest writes into them, the heads that the design-record audit found to fail, and splits two bundles. It
-lists the heads its harvest touches by the definition and reads the step's heads by its reason. The text of
-one, `design@xtask@ci-builds-the-tip-alone`, the step alone changed. The spec's search met the
+A third instance: the plan of the work that had the gates run on Windows and macOS, whose step 8 brought to the rules, before its
+harvest wrote into them, the heads that the design-record audit found to fail, and split two bundles. It
+listed the heads its harvest touches by the definition and read the step's heads by its reason. The text of
+one, `design@xtask@ci-builds-the-tip-alone`, the step alone changed. The plan's search met the
 re-entry point, and the entry stays open.
 
 The suspected mechanism, in one sentence: the definition names the harvest, while a project whose

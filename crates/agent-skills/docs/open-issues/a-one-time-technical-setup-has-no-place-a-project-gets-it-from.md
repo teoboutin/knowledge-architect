@@ -51,7 +51,7 @@ which practices are offered and which asked, for which the rule of what becomes 
 `design@agent-skills@the-workflow-teaches-no-rust-idiom` keeps instructions on idiom out of the
 installed text, and admits a mechanical gate on it once knowledge-architect's owner takes it in.
 
-A later instance: the work of `spec@plans@gates-on-windows-and-macos` carries two practices to a project, a gate that
+A later instance: the work that had the gates run on Windows and macOS carried two practices to a project, a gate that
 runs clippy for another system and the alias `cargo x` in the release profile. A project meets the gate in
 `path@gates@README.md`, in the documentation of `cross_clippy` and in the changelog, so it finds it where it
 looks for a gate, and not when code for another system first fails; it meets the alias in the snippet that
