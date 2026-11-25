@@ -8245,6 +8245,29 @@ fn id_answers_free_defined_and_malformed_ids_and_refuses_an_incomplete_model() {
     assert!(!stderr.contains("Nothing was written"), "{stderr}");
 }
 
+/// `id` refuses an argument holding `@` with the repair of giving the id alone, beside the grammar,
+/// a goal's reference included, and refuses a malformed id without `@` with the grammar alone; the
+/// exit code stays 1. Mutation checked: in `id`, the condition `candidate.contains('@')` replaced by
+/// `true`, which adds the repair to `two`; and by `false`, which drops it from the references.
+#[test]
+fn id_names_the_repair_of_an_argument_given_as_a_reference() {
+    let (sandbox, _) = worklist_project("id-reference");
+    let (stdout, stderr, code) =
+        sandbox.run(&["id", "design@core-mock@first-head", "goal@top-goal", "two"]);
+    assert_eq!(code, 1, "{stdout}{stderr}");
+    let grammar = "not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+";
+    let repair = "; give the id alone, the part after the last `@`";
+    assert_eq!(
+        stdout,
+        format!(
+            "design@core-mock@first-head  {grammar}{repair}\n\
+             goal@top-goal                {grammar}{repair}\n\
+             two                          {grammar}\n"
+        ),
+        "{stdout}"
+    );
+}
+
 /// `id` prints a harness kind's entity in the form `show` takes, with no anchor for a skill and
 /// with its owner for a section. Mutation checked: in `id`, the empty-anchor branch made never to
 /// match, which prints `skill@@<name>`; caught.

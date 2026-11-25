@@ -8,7 +8,8 @@ use crate::output::outln;
 use crate::Manifest;
 
 /// Whether each id is free: every entity the table defines under it, as the reference `show`
-/// takes, or `free`, or that it is no id.
+/// takes, or `free`, or that it is no id, with, for an argument holding `@`, the repair of giving
+/// the id alone.
 ///
 /// **A `free` is an answer over the whole table**, so it is given only over a complete model: the
 /// run asks the first three phases as a writer does, per `design@check@phases-gate-the-report`,
@@ -52,7 +53,16 @@ pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<Exit
         let pad = " ".repeat(width - candidate.len());
         if !crate::model::table::is_entry_id(candidate) {
             all_free = false;
-            outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+");
+            // A candidate holding `@` was given as a whole reference, whose repair differs from a
+            // malformed id's, so the refusal names it. The clause names no kind and no anchor,
+            // since a goal's reference names none; it does not print the last segment as the id
+            // to try, since that segment may itself be outside the grammar.
+            let repair = if candidate.contains('@') {
+                "; give the id alone, the part after the last `@`"
+            } else {
+                ""
+            };
+            outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+{repair}");
             continue;
         }
         let mut forms: Vec<String> = by_id
