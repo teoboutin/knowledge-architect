@@ -38,6 +38,26 @@ discussion, not its conclusions.
    building its work on the same branch. Not established: whether that work's first commit changed
    what the per-commit gate checks, in which case the planning skill's rule did require the spec to
    merge first.
+5. **Bounded work classed after the owner's replies had returned the work to the loop, in this
+   repository.** The discussion on the cleanup of what the tests leave in the temporary directory
+   opened on a request with no work under way. The owner's replies brought arguments, new shapes
+   and doubts; the record search then ran, and the session classed the work bounded and built it.
+   One decision passed an entry test, so the second condition was false; the review before the
+   merge found it, after the code was written, and one head became three. By
+   `design@agent-skills@in-change-path` the work owed the full path. The owner reported that
+   everything that went wrong in that session, related to following the workflow, arose from the
+   choice of the bounded path, that the path may have intrinsic defects, and that without it a
+   reviewed spec before the work would have caught most of those issues. Per W1 of the
+   retrospective file `2026-11-25-knowledge-architect-tmp-cleanup-klarch-workflow`, which counts
+   three uses of the bounded path found by their commit messages and the archived retrospective
+   files, two of them classed bounded on a false second condition, each found only at the review
+   before the merge.
+6. **A spec written after its work, on the owner's direction, in this repository.** After instance
+   1, the owner directed that the spec be written, reviewed, and the implementation reviewed against
+   it. The plan reviews then read a document whose work existed, and the cold implementer's
+   completeness findings had nothing to change. No installed text covers a spec written after its
+   work, per W3 of the retrospective file
+   `2026-11-16-knowledge-architect-committed-transcripts-klarch-workflow`.
 
 **Suspected mechanism, in one sentence:** the condition that decides the path, whether the change
 was under way before the discussion opened, is stated in a subordinate clause beside examples named
@@ -78,6 +98,16 @@ chooses by the size or the kind of the work.
 - Three courses are chosen at different moments by different texts: bounded work after the
   grounding, by `skill@knowledge-architect-design@bounded-work`; the path, by `skill@knowledge-architect-design@decision-authority`,
   after the search; and the merge of a plan document, by the planning skill.
+- `skill@knowledge-architect-design@bounded-work` says "A reply that brings an argument, a new
+  shape or a doubt returns the work to the loop, on the in-change path or the full path", and loop
+  step 1 says "The classification after the search still decides the path". Read together they
+  admit two readings, whether a search run after such a reply may still class the work bounded; the
+  session of instance 5 took the second. That file's three proposals, input to the discussion: remove the
+  bounded path, the in-change and full paths covering the rest, with a spec for small changes as
+  the cost to weigh (the owner reported thinking of it too); keep it and narrow it, so that a
+  discussion in which a reply brought an argument, a shape or a doubt is never bounded, whatever the
+  search finds; or have the one message list each decision with the entry test it fails, so the
+  owner can contest the class.
 
 ### Why it matters
 

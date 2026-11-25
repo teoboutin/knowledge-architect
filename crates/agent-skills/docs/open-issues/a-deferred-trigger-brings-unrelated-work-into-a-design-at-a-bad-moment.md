@@ -61,6 +61,31 @@ took the first and closed the thread with no search of its own, against
 argument and the re-entry was rewritten so that a change of a host list no longer meets it, per W4
 of the retrospective file `2026-11-14-knowledge-architect-planned-splits-slice-klarch-workflow`.
 
+Further instances, on the issues a split signal opens, whose re-entry point loop step 1 of the
+design skill fixes as the design or the planning of the next work that changes that code, per
+`design@agent-skills@split-issue-reenters-at-planning`:
+
+- the port of the gates to Windows and macOS changed by one call at each site the code of seven of
+  the eight past-one-read issues that file counts; the search graded each `trigger-met`,
+  `rule-before-work`, the reviewers read each, a review reading a `design` issue's re-entry point
+  against the premise `design@agent-skills@split-issue-reenters-at-planning` names, each gained an
+  instance line saying no split there, and no split was made, per W4 of the retrospective file
+  `2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow`, whose cause is that the
+  re-entry point is met by any edit, so a port owes a weighing per file;
+- the work on committed transcripts wrote one line each into three modules whose split issues it
+  then reopened; the session reworded the three issues to defer the weighing, and the scout and two
+  reviewers reported size signals on modules the work touched by a line, per the standing answer on
+  code rules of the retrospective file
+  `2026-11-16-knowledge-architect-committed-transcripts-klarch-workflow`;
+- `issue@testing@binary-rs-is-past-one-read` has been met by five works, the record search's saved
+  workflow, the mutation survivors of three suites, the plan directories' numbered files, the
+  cleanup of the temporary directory and the port of the gates, each of which weighed a split and
+  made none, its instance lines say; the mutation survivors' session reported that the next branch
+  adding a test meets the same occasion with the same argument, per P1 of the retrospective file
+  `2026-11-16-knowledge-architect-mutation-survivors` and the standing answer on code rules of its
+  workflow file. Three of that branch's reviewers reported the occasion of the entry's closing
+  condition met, while the entry was still of kind `todo`.
+
 A further instance, on the bounded path: W1 of
 2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow. The search graded an issue
 `trigger-met`, `rule-before-work`, with an owner-question, to take a wider discussion now or leave

@@ -39,6 +39,14 @@ The statements, verbatim from the goal on the instructions the workflow needs as
 Suspected mechanism: the statements were held as goal text, which no argument had to defend, so no
 head gave any of them a rival and a fact.
 
+An occasion where the question arose: W4 of the retrospective file
+`2026-11-25-knowledge-architect-windows-and-macos-gates-klarch-workflow` names as "a structure the
+work did not need" the re-entry point loop step 1 of the design skill fixes for an issue on a split,
+the next work that changes that code, met by any edit. Whether the rule bears on a fixed occasion
+of a weighing, which the agent then carries out by its judgement, is the question of statements 1
+and 2; the intake of twenty files left it to this entry, since no outcome of it removed that
+occasion.
+
 The re-entry point: a review or an audit finding judged by whether a fixed sequence, count or
 mapping in the installed text is one the rule bears on.
 
