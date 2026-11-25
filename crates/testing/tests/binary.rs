@@ -1711,7 +1711,7 @@ fn an_untracked_file_whose_name_is_not_utf_eight_is_named_as_untracked() {
 }
 
 /// The claim: a symlink whose name the walk refuses is one finding, the link's, and not a second
-/// for its name. Windows refuses the name.
+/// for its name. Windows refuses the name, per `design@knowledge-architect@platform-skips`.
 #[cfg(unix)]
 #[test]
 fn a_symlink_with_a_refused_name_is_one_finding() {
@@ -1828,7 +1828,8 @@ fn a_tree_holding_the_model_crate_at_another_path_than_the_binarys_is_refused() 
 }
 
 /// The claim: a name holding a line break is one finding, on one line, and the file is read by
-/// nothing; a `skip-files` row keeps it. Windows refuses the name.
+/// nothing; a `skip-files` row keeps it. Windows refuses the name, per
+/// `design@knowledge-architect@platform-skips`.
 #[cfg(unix)]
 #[test]
 fn a_name_holding_a_newline_is_one_finding_on_one_line_and_its_contents_are_read_by_nothing() {
@@ -4460,7 +4461,7 @@ fn the_untracked_note_covers_a_phase_two_stop_and_escapes_the_name() {
         &b"\xff\xfe\n"[..],
         "1 file above is untracked: bytes.md",
     )];
-    // Windows refuses a name that holds a line break.
+    // Windows refuses a name that holds a line break, per `design@knowledge-architect@platform-skips`.
     if cfg!(unix) {
         cases.push((
             "name",
@@ -4963,7 +4964,7 @@ fn check_staged_as_a_pre_commit_hook_judges_the_index_the_commit_records() {
         format!("#!/bin/sh\nexec '{}' check --staged\n", klarch().display()),
     )
     .expect("the hook");
-    // Windows has no Unix mode bits, and git runs a script there without one.
+    // Windows has no Unix mode bits, per `design@knowledge-architect@platform-skips`, and git runs a script there without one.
     let make_executable = |_script: &Path| {
         #[cfg(unix)]
         {
@@ -8809,7 +8810,7 @@ fn worklist_seeds_from_takes_the_decided_section_s_design_and_declared_entries()
 /// removed, and `refuse_a_line_break("--seeds-from", &real)?;` removed; in `refuse_a_line_break`,
 /// `.contains(['\n', '\r'])` made `.contains(['\r'])`; each caught.
 ///
-/// Windows refuses the name.
+/// Windows refuses the name, per `design@knowledge-architect@platform-skips`.
 #[cfg(unix)]
 #[test]
 fn worklist_refuses_a_path_of_the_work_holding_a_line_break() {
@@ -10915,7 +10916,7 @@ fn worklist_takes_a_seed_in_backticks() {
 /// as what could not be read. Mutation checked: in `locate` of `path@cli@src/cli/mod.rs`,
 /// `format!("cannot read the working directory: {e}")` made `{ let _ = e; String::new() }`,
 /// which prints `error: ` alone; caught. For Linux alone, where a program can start in a working directory
-/// that is removed and asking for its path fails.
+/// that is removed and asking for its path fails, per `design@knowledge-architect@platform-skips`.
 #[cfg(target_os = "linux")]
 #[test]
 fn a_working_directory_that_is_gone_is_exit_two_naming_it() {

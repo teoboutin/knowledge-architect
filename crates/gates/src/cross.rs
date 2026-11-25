@@ -11,8 +11,9 @@ const STUB: &str = "true";
 
 /// The gate that runs clippy, warnings denied, for `target`, a target triple such as
 /// `x86_64-pc-windows-gnu`, over the whole workspace and every cargo target of it. It is a gate for
-/// another system, so it answers `None` on a machine whose own system is the target's, whatever the
-/// target's architecture and its C library: on an `x86_64` Linux machine,
+/// another system, so it answers `None` on a machine whose own system, one of Linux, macOS and Windows, is
+/// the target's, whatever the target's architecture and its C library; a target of any other system gets
+/// the gate on every machine. On an `x86_64` Linux machine,
 /// `aarch64-unknown-linux-gnu` and `x86_64-unknown-linux-musl` get no gate, and the code particular to
 /// them is judged by none. A project that wants it adds it to its list:
 ///
@@ -28,8 +29,8 @@ const STUB: &str = "true";
 /// library: `rustup target add <target>`, or the `targets` of the project's `rust-toolchain.toml`.
 ///
 /// No cross compiler is needed: clippy links nothing, so the gate's `envs` name the program `true`,
-/// which must be on the path, as the target's C compiler, C++ compiler and archiver, in each spelling
-/// the `cc` crate reads, and empty `RUSTC_WRAPPER`, since a wrapper such as `sccache` can refuse it. A
+/// which must be on the path, as the target's C compiler, C++ compiler and archiver, in the two spellings
+/// that name the target, which the `cc` crate reads before any other, and empty `RUSTC_WRAPPER`, since a wrapper such as `sccache` can refuse it. A
 /// build script that compiles C then succeeds with nothing compiled; one that looks for a library or
 /// runs the compiler to choose a feature can fail, or be answered wrongly. A project with a real cross
 /// compiler removes those variables from the gate's `envs`. An `-msvc` target fails under the stub.
@@ -96,7 +97,7 @@ mod tests {
 
     /// The claim: the gate is named for its target, runs clippy for it with warnings denied over every
     /// cargo target, resolves dependencies, and sets the compilers and the archiver in both spellings
-    /// the `cc` crate reads, and no wrapper. Mutations checked: `AR` dropped; the spelling with
+    /// that name the target, and no wrapper. Mutations checked: `AR` dropped; the spelling with
     /// hyphens dropped, and the one with underscores; `RUSTC_WRAPPER` dropped; `-D warnings` dropped;
     /// each caught.
     #[test]

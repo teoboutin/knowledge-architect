@@ -53,31 +53,30 @@ target's standard library must be in the toolchain: `rustup target add <target>`
 
 What it reports is compile errors and lints, and no failure of a test. Its limits:
 
-- **It rests on the `cc` crate accepting objects that were never made**, which nothing documents. Clippy
-  links nothing, so the gate names the program `true` as the target's C compiler, C++ compiler and archiver,
-  and a build script that compiles C succeeds with nothing compiled. A build script for which that is not
-  enough fails the gate, as those behind `openssl` and `aws-lc-rs` did when it was measured.
+- **It names a program that does nothing as the target's C compiler, C++ compiler and archiver**, per
+  `design@gates@cross-clippy-stub`, so a build script for which that is not enough fails the gate, such as
+  those behind `openssl` and `aws-lc-rs`.
 - **A build script that runs the compiler to choose a feature can be answered wrongly**, so the code the
   gate judges can differ from what the target builds. CI on that system judges the rest.
 - **An `-msvc` target fails**, so code particular to `-msvc` is not judged: name the `-gnu` target.
-- The gate empties `RUSTC_WRAPPER`, since `sccache` refuses that compiler, so its builds use no wrapper's
-  cache.
+- The gate empties `RUSTC_WRAPPER`, so its builds use no wrapper's cache.
 - Every toolchain that reads the project's `targets` downloads the target, CI's jobs included; each target
   directory holds a build for the target; and a lint in code the systems share is reported twice.
 
-A project for which it comes to fail on something of its own build drops the gate from its list, and one
+Why it is offered beside the list is `design@gates@cross-clippy-gate`. A project for which it comes to fail
+on something of its own build drops the gate from its list, and one
 with a real cross compiler removes the variables from the gate's `envs`.
 
 ## On Windows and macOS
 
-The gates run on Linux, Windows and macOS, with the same command. The cargo alias
-`cargo x` runs the maintenance crate in the release profile, `run -q --release -p xtask --`, since a gate
-that builds in the dev profile can replace the program that runs the gates, and Windows refuses to replace
-a program that runs. Where a gate runs the maintenance crate itself, as `check` and `commits` do in the
-scaffold's list, that program is left in place while the gate's cargo reads the inputs of the cargo that
-built it. A caller who exports `RUSTC_BOOTSTRAP` breaks that, since no gate's child inherits the variable: the
-gate then builds the program again, which Windows refuses. Developing a project on Windows is not covered yet: a run does not refuse a pipe on
-stdout there.
+The gates run on Linux, Windows and macOS, with the same command. The cargo alias `cargo x` runs the
+maintenance crate in the release profile, `run -q --release -p xtask --`, and must: in the dev profile a gate
+can replace the program that runs the gates, which Windows refuses, per
+`design@agent-skills@release-maintenance-build`. A gate that runs the maintenance crate itself, as `check` and
+`commits` do in the scaffold's list, leaves that program in place while the gate's cargo reads the inputs of
+the cargo that built it: a `RUSTC_BOOTSTRAP` that the caller exports, and a profile setting given by
+`--config` to one of the two, break that, and the gate fails there on Windows. Developing a project on Windows is
+not covered yet: a run does not refuse a pipe on stdout there.
 
 ## License
 

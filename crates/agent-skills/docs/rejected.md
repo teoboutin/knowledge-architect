@@ -955,3 +955,15 @@ by `cargo run` and by `cargo test --workspace` differ, as here, the gate `test` 
 runs the gates, and Windows refuses, "failed to remove file", "Access is denied. (os error 5)". On Linux
 the replacement passes with no sign. The workflow of the run is in the message of the commit that
 `design@agent-skills@release-maintenance-build` names.
+
+### A cargo profile of its own for the maintenance crate `##maintenance-crate-in-a-profile-of-its-own`
+
+`live`. It would keep a project's slow release settings out of that crate. It builds the maintenance crate's
+dependencies once more than
+`design@agent-skills@release-maintenance-build`, under which the alias `klarch` and the gates `check` and
+`commits` build that crate in release already, in every project of that shape.
+
+### A target directory of its own for the maintenance crate `##maintenance-crate-in-a-target-directory-of-its-own`
+
+`live`. Cargo reads the path that `--target-dir` gives from the working directory, so an alias run from a
+subdirectory builds elsewhere.

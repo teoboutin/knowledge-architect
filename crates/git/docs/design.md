@@ -86,19 +86,17 @@ project can run the checker from that hook is argued by no head, which
 `init` alone refuses it: `init` belongs to no commit, and with the variable set git would
 list and stage the project it writes through an index no commit of that project records.
 
-### On Unix a listed path is read as git's bytes, never decoded `##a-path-is-bytes`
+### A listed path is read as git's bytes, never decoded `##a-path-is-bytes`
 
 **A path is bytes, not text.** The `-z` output is split on NUL and turned into paths byte for
-byte. A name holding a byte no UTF-8 decoding accepts is legal there, and decoding it lossily
+byte. A name holding a byte no UTF-8 decoding accepts is legal here, and decoding it lossily
 produces a path nothing on disk answers to — so the file leaves every check, and where nothing
 reports the failed read the run stays green, against `goal@documentation-stays-consistent`: a tree
 that passes the checker conforms, in the texts the checker reads, to every rule it holds. That is
 the failure `design@model@git-supplies-the-walk` exists against.
 
-Outside Unix a path is text, so a listed name is decoded as UTF-8. A name that is not UTF-8, which an
-index can hold where it was committed on Linux, is lost there: it is decoded with a replacement
-character, named back to git so, and answered by no bytes, read in the code and not run. The loss is
-a defect against the same goal, held in `issue@git@paths-are-decoded-outside-the-listings`.
+Outside Unix the code diverges: `as_path` of `path@git@src/git.rs` decodes a listed name, and
+`issue@git@paths-are-decoded-outside-the-listings` holds the defect.
 
 ### On Windows a path is named to git with `/` `##paths-to-git-with-slashes`
 
@@ -113,6 +111,10 @@ Windows. There `git update-index --index-info` refuses a path holding `\`: `veri
 read-cache.c returns `PATH_INVALID` for one in a build for Windows, read at git 2.53.0 and not run. The
 nearest rival, the repair of what does not compile there alone, sends that path as it is joined, so
 `index --staged`, per `design@check@index-staged-write`, stages nothing there.
+
+The cost, on Windows: a listed name that holds `\` as a character, which a commit made on Linux can hold,
+is named to git as another file's, `notes\b.md` as `notes/b.md`, held in
+`issue@git@paths-are-decoded-outside-the-listings`.
 
 A pathspec given as an argument keeps the system's spelling, as that of `git_tracks` in
 `path@check@src/commands/mod.rs` and of `refuse_ignored` in `path@create@src/command.rs`: git for

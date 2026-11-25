@@ -117,7 +117,8 @@ fn outside_a_project_the_gates_exit_two() {
 // exists to deliver. A harness capturing through a pipe is exactly that shape, so this is the
 // one test that captures through one. Mutation check: dropping the refusal makes every fake
 // gate run and pass, and both assertions name it.
-// Outside Unix, `issue@gates@no-pipe-is-refused-outside-unix`.
+// Left out on Windows, per `design@knowledge-architect@platform-skips`:
+// `issue@gates@no-pipe-is-refused-outside-unix`.
 #[test]
 #[cfg_attr(
     windows,
@@ -343,7 +344,8 @@ fn without_require_rebased_no_rebased_gate_runs() {
 
 // The claim: the variable must say `true`; any other value leaves the refusal in place.
 // Mutation check: reading the variable's presence alone is caught here.
-// Outside Unix, `issue@gates@no-pipe-is-refused-outside-unix`.
+// Left out on Windows, per `design@knowledge-architect@platform-skips`:
+// `issue@gates@no-pipe-is-refused-outside-unix`.
 #[test]
 #[cfg_attr(
     windows,

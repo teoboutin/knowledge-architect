@@ -2181,7 +2181,8 @@ pub(crate) mod tests {
         ] {
             assert!(!owned_path(Path::new(other)), "{other}");
         }
-        // A name that is not UTF-8, which a path on Windows cannot hold.
+        // A name that is not UTF-8, which a path on Windows cannot hold, per
+        // `design@knowledge-architect@platform-skips`.
         #[cfg(unix)]
         {
             use std::os::unix::ffi::OsStrExt;

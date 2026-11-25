@@ -37,7 +37,9 @@ comparison is `rejected@check@generated-file-compared-by-exact-bytes`.
 The nearest rival asks that each project declare its line endings: it adds an ask, and the check fails
 on such a clone until the ask is followed. Two other scopes lose to heads that stand. Under the check
 `generated` alone, `check --fix` writes, and refuses over, a file that `check` calls current, and
-`index --staged` calls it out of date, against `design@check@one-question-one-command`. With `index`
+`index --staged` calls it out of date, against `design@check@one-question-one-command`, beside which the
+line itself is an open divergence, in
+`issue@check@index-staged-leaves-the-working-tree-s-generated-file-stale`. With `index`
 and the install leaving such a file too, `design@check@index-takes-no-dry-run`,
 `design@check@index-staged-write` and `design@agent-skills@overlay-by-separate-skills` are reversed to
 avoid a harmless rewrite.

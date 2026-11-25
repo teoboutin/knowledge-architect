@@ -20,6 +20,7 @@ fn scratch_project(name: &str) -> tempfile::TempDir {
     let init = Command::new("git")
         .args(["init", "-q", "."])
         .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
         .env_remove("GIT_WORK_TREE")
         .current_dir(dir)
         .status()
@@ -34,6 +35,7 @@ fn xtask(project: &Path, args: &[&str]) -> (Output, String) {
         .args(args)
         // A suite run from a commit hook inherits them, and the run would read another repository.
         .env_remove("GIT_DIR")
+        .env_remove("GIT_INDEX_FILE")
         .env_remove("GIT_WORK_TREE")
         .current_dir(project)
         .output()

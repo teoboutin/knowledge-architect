@@ -367,7 +367,7 @@ To move to another version:
 %% The section is for Rust because every target project is a Rust project, per
 %% `goal@serves-one-kind-of-project`, and Rust is the language whose comments the
 %% checker reads. The maintenance crate is `design@agent-skills@xtask-pins-checker`, the profile of its
-%% aliases `design@agent-skills@release-maintenance-build`, and its gates
+%% alias `x` `design@agent-skills@release-maintenance-build`, and its gates
 %% command `design@agent-skills@gates-convention`: with them every target project gets the generic
 %% part of its gates, as `goal@generic-tools-and-procedures-are-shipped` asks of
 %% a part taken in.

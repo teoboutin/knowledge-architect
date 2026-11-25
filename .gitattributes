@@ -1,4 +1,4 @@
-# Every file is checked out with LF, whatever the machine's git says, and a file added with CRLF is
+# Every text file is checked out with LF, whatever the machine's git says, and a file added with CRLF is
 # committed with LF. A file that needs its carriage returns is marked here as an exception. The decision
 # is `design@knowledge-architect@line-endings-of-this-repository`.
 * text=auto eol=lf

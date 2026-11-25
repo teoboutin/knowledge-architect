@@ -5,7 +5,7 @@ kind: todo
 
 ## Summary
 
-Each push to a draft pull request starts a run of the CI workflow whose job is skipped. Most runs of
+Each push to a draft pull request starts a run of the CI workflow whose jobs are skipped. Most runs of
 the workflow's history are such runs, and GitHub counts a job that `if:` skips as passing, so a run
 that checked nothing can be taken for one that passed.
 
@@ -14,8 +14,9 @@ that checked nothing can be taken for one that passed.
 ### What
 
 `path@knowledge-architect@.github/workflows/ci.yml` triggers on `pull_request`, on `opened`,
-`synchronize`, `reopened` and `ready_for_review`, and its job holds
-`if: ${{ !github.event.pull_request.draft }}`, per `design@knowledge-architect@ci-skips-a-draft`.
+`synchronize`, `reopened` and `ready_for_review`, and both its jobs hold the draft flag in their
+condition, `check` beside `always()`, per `design@knowledge-architect@ci-skips-a-draft` and
+`design@knowledge-architect@one-required-context`.
 
 Measured on 2026-11-25, `gh run list --workflow ci.yml --limit 60 --json conclusion`: 55 runs
 concluded `skipped` and 5 `success`.

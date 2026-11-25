@@ -52,8 +52,9 @@ the owner took in reaches a target project.
 ### The library offers clippy for another system as a gate a project adds to its list, outside the recommended list `##cross-clippy-gate`
 
 `cross_clippy` takes a target and returns one gate, `clippy-<target>`, which runs clippy for that
-target over the whole workspace with its warnings denied, or nothing on a machine whose own system
-is the target's, where the recommended `clippy` runs for that system. A project adds it to its list,
+target over the whole workspace with its warnings denied, or nothing on a machine whose own system,
+one of Linux, macOS and Windows, is the target's, where the recommended `clippy` runs for that system; a
+target of that system with another architecture or C library gets nothing either. A project adds it to its list,
 per `design@gates@a-project-holds-its-gate-list`, so it is opt-in and no flag is added. Code under a
 `cfg` of another system is compiled by no gate of the machine that writes it. With the gate, its
 compile errors and its lints are reported there, where the continuous integration of that system
@@ -96,8 +97,8 @@ since a gate's fields are public.
 
 The costs accepted: that the `cc` crate takes objects that were never made is documented nowhere, so
 the gate can come to fail; a build script that runs the compiler to choose a feature can be answered
-wrongly, which the gates of that system report; and an `-msvc` target fails under the stub, so code
-particular to it is not judged.
+wrongly, which the gates of that system report; and an `-msvc` target failed under the stub, observed once on
+2026-11-25 in this workspace and not taken again, so code particular to it is not judged.
 
 ### The `doc` gate denies every rustdoc warning through the source of rustdoc flags cargo reads first, set in its own environment `##doc-gate-denial`
 

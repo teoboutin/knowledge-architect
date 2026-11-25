@@ -19,8 +19,8 @@ Run at this entry's opening, over a project of `klarch init`: a commit whose mes
 such a message are checked all the same: a reference to no entry on its second line is a finding at line 2.
 
 It reproduces. What is read of a message is `path@check@src/commands/history.rs`, per
-`register@check@design`, whose subject on commit messages says that a message is parsed as one markdown
-document, "its subject line, its blank line and its" body.
+`design@check@a-commit-message-is-a-document`, which says that a message is parsed as one markdown
+document, with "its subject line, its blank line and its body".
 
 ### Why it matters
 
