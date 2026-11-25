@@ -53,8 +53,11 @@ Instances, from retrospective files of this repository's sessions:
 The cost per reviewer is one full build, since a worktree with a target directory of its own builds
 from empty. The two disk failures have two causes: the location the session chose, /tmp, which the
 owner's user-level instructions exclude, and the directories the test helpers left there, which a
-test no longer leaves, per `design@knowledge-architect@scratch-removed-by-a-guard`. A shared build directory is ruled out by the invariant's own reason and by
-`design@check@a-foreign-build-is-refused`.
+test no longer leaves, per `design@knowledge-architect@scratch-removed-by-a-guard`. A shared build
+directory is ruled out by the invariant's own reason: here every target is tied to its checkout, per
+`design@knowledge-architect@a-build-is-tied-to-its-checkout`, so a shared directory costs a rebuild
+at each switch between checkouts and a wait on the build lock; an untied project would run another
+checkout's build, which `design@check@a-foreign-build-is-refused` detects.
 
 ### Why it matters
 
