@@ -93,6 +93,61 @@ mod tests {
         assert!(command.split_whitespace().any(|w| w == "--ci"), "{step}");
     }
 
+    /// The lines of one job of a workflow, trimmed, without its comments: the lines indented under
+    /// `  <name>:`, which is how this repository's workflow is written. YAML reads ` #` in a plain
+    /// scalar as the start of a comment too, and no scalar of the file holds one otherwise.
+    fn job<'a>(workflow: &'a str, name: &str) -> Vec<&'a str> {
+        let header = format!("  {name}:");
+        workflow
+            .lines()
+            .map(|l| l.split(" #").next().unwrap_or(l).trim_end())
+            .filter(|l| !l.is_empty() && !l.trim_start().starts_with('#'))
+            .skip_while(|l| *l != header)
+            .skip(1)
+            .take_while(|l| l.starts_with("   "))
+            .map(str::trim)
+            .collect()
+    }
+
+    /// The claims: one matrix job runs CI's gates command on each of the three systems, on the pull
+    /// request's head with its history, off a draft, under a timeout, with one artifact per system;
+    /// and the job `check`, the context the ruleset requires, runs whatever that job answered, off a
+    /// draft, and passes on `success` alone. Mutations checked, each caught: a system removed;
+    /// `fetch-depth` removed; the artifact's name without the system; the draft condition removed;
+    /// `always()` removed; the comparison changed to `!= failure`; the `needs` removed.
+    #[test]
+    fn ci_runs_the_gates_on_three_systems_behind_one_gathering_job() {
+        let workflow = include_str!("../../../.github/workflows/ci.yml");
+        let gates = job(workflow, "gates");
+        for line in [
+            "if: ${{ !github.event.pull_request.draft }}",
+            "fail-fast: false",
+            "os: [ubuntu-latest, windows-latest, macos-latest]",
+            "runs-on: ${{ matrix.os }}",
+            "timeout-minutes: 30",
+            "shell: bash",
+            "ref: ${{ github.event.pull_request.head.sha }}",
+            "fetch-depth: 0",
+            "name: gate-logs-${{ matrix.os }}",
+        ] {
+            assert!(gates.contains(&line), "no `{line}` in {gates:#?}");
+        }
+        let steps: Vec<_> = gates.iter().filter(|l| l.contains("x gates")).collect();
+        assert_eq!(
+            steps,
+            [&"run: cargo --locked x gates --locked --fail-fast --require-rebased --full --ci"]
+        );
+
+        let check = job(workflow, "check");
+        for line in [
+            "needs: gates",
+            "if: ${{ !github.event.pull_request.draft && always() }}",
+            "run: test '${{ needs.gates.result }}' = success",
+        ] {
+            assert!(check.contains(&line), "no `{line}` in {check:#?}");
+        }
+    }
+
     /// The claim: the parse test of the saved workflows reads the variable the library's `--ci`
     /// sets, though it spells it by hand, since its crate depends on no other. Mutation checked:
     /// the spelling in `path@agent-skills@src/workflow_parse.rs` changed by one letter; caught.
