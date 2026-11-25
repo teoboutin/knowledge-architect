@@ -70,7 +70,7 @@ project is asked to do.
 - The owner's reason that the owner's projects build on Windows needs no goal of its own: it is read
   from `goal@every-target-project-can-adopt-it` and `goal@serves-one-kind-of-project`, neither of
   which excludes a platform. That reading, with its rival, is argued in
-  `issue@knowledge-architect@the-workspace-does-not-build-or-run-its-tests-on-windows`.
+  `spec@plans@gates-on-windows-and-macos`, under #platforms-served.
 
 ### Why it matters
 
