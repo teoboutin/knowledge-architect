@@ -22,7 +22,8 @@ use std::fmt::Write as _;
 use std::path::Path;
 
 /// `text` with every CRLF line ending made LF: what the build reads of each file, before any pass,
-/// so a checkout that converts line endings ships the text another ships.
+/// so a checkout that converts line endings ships the text another ships, per
+/// `design@agent-skills@one-shipped-text-from-any-checkout`.
 pub(crate) fn lf(text: &str) -> String {
     text.replace("\r\n", "\n")
 }

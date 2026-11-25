@@ -17,7 +17,8 @@ build. A skill is `skills/<skill>/` with its files, an agent is `agents/<agent>.
 workflow of Claude Code's Workflow tool is `workflows/<workflow>.js`, and the primer is `PRIMER.md`;
 the build asserts a saved workflow's name, per
 `design@agent-skills@saved-workflow-name-is-its-file-stem`. The build script,
-`path@agent-skills@build.rs`, walks the directory, renders each file as above, and generates `FILES`,
+`path@agent-skills@build.rs`, walks the directory, reads each file as
+`design@agent-skills@one-shipped-text-from-any-checkout` says, renders it as above, and generates `FILES`,
 each entry the install path and the text. It adds the installer's prefix to each skill directory, agent file and workflow
 file on the way out, so the installed names are the namespace of
 `design@check@owned-namespace-check`. A file the layout does not map fails the build.
@@ -26,6 +27,24 @@ The list is generated because a list written by hand drifts from the directory i
 drift ships: a skill missing from the list is never installed, and nothing reports it. `check`'s
 test `every_shipped_file_is_installed_in_the_owned_namespace` holds the build script to the
 namespace, since an install path outside it would write a file the project owns.
+
+### The build ships one text whatever the line endings of the checkout it runs in `##one-shipped-text-from-any-checkout`
+
+`path@agent-skills@build.rs` reads each file it ships from with every CRLF made LF, through `lf` of
+`path@agent-skills@src/render.rs`, before any pass, and `SNIPPETS` holds the text so read, as literals, and no
+file of the checkout. Without it, a build in a checkout that holds CRLF ships another text: a snippet or a
+fragment loses its last line feed and keeps the carriage return before it, so each text that holds one is
+installed with a CRLF there among LF lines, which the check, whose comparison
+`design@check@generated-text-compared-without-line-endings` leaves line endings out of, does not report. Run
+in a checkout of CRLF with `lf` made to return its text: the install writes such a line in every shipped text
+that holds a fragment or a snippet, and the check passes; the script is in the message of the commit
+"[agent-skills] The maintenance crate's release profile and the one shipped text are recorded, and the maintenance crate's head cites what its one shape stands on". The tests
+`a_crlf_checkout_ships_the_text_of_an_lf_one` and `the_snippet_list_holds_the_texts_read_in_name_order`
+of `path@agent-skills@src/render.rs` hold it, and the first fails when `lf` returns its text unchanged.
+
+The nearest rival is `design@knowledge-architect@line-endings-of-this-repository` alone, under which git
+checks every file out with LF: a checkout made by another tool than git, or a later edit of that file,
+undoes it, and what ships is wrong in every project that installs it.
 
 ### A text several installed texts apply whole is one file the build copies into each of them `##shared-text-fragment`
 
