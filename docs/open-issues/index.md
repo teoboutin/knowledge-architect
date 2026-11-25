@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+27 entries
 
 | kind | title |
 | --- | --- |
@@ -28,7 +28,6 @@
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |
 | todo | [The passes that build and bundle installable agent text are tied to this project's own skills, so no other project can reuse them](the-skill-bundling-passes-are-tied-to-this-project-s-skills.md) |
-| todo | [The design home's subject "How work reaches main" holds heads on how the code builds and is tested, which change apart from its branch and merge heads](the-subject-on-how-work-reaches-main-holds-tooling-heads.md) |
 | todo | [The four conditions of a target project and what knowledge-architect asks of one are stated to no adopter](the-target-project-and-its-asks-are-stated-to-no-adopter.md) |
 | todo | [The installed set has no skill for work on a branch under a linear history, or for releasing](the-workflow-has-no-skill-for-branch-work-or-releasing.md) |
 | todo | [This repository's own skills, agents and commands are not checked for a generic part to ship](this-repository-s-own-tools-are-not-checked-for-a-generic-part.md) |

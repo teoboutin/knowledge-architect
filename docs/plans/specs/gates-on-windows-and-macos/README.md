@@ -308,7 +308,7 @@ Entries of the record search whose outcome changed something:
   cross gate, and `path@gates@README.md` says what a project on Windows and macOS reads.
 - `design@agent-skills@no-untested-snippet-is-authority`: each code fragment of "Decided design" is an
   illustration of a shape.
-- `issue@knowledge-architect@the-subject-on-how-work-reaches-main-holds-tooling-heads`: step 8 makes the
+- `the-subject-on-how-work-reaches-main-holds-tooling-heads`, an issue of the root: step 8 makes the
   split, since the harvest writes into that subject, and closes the issue.
 - `design@agent-skills@splits-planned-before-work`: `lf` is called where it is and is not moved.
 - `design@check@every-path-names-its-anchor`, `design@model@git-supplies-the-walk`,
@@ -913,7 +913,7 @@ before step 7 starts.
 8. **The heads conform.** Builds, with no word of the owner changed and no argument written that the head
    lacks; an edit that would write one is the harvest's, from its thread:
    - the subject "4. How work reaches main" of `register@knowledge-architect@design` gives the six heads
-     that `issue@knowledge-architect@the-subject-on-how-work-reaches-main-holds-tooling-heads` lists to a
+     that the issue of the root `the-subject-on-how-work-reaches-main-holds-tooling-heads` lists to a
      subject of their own, in a commit that moves headings alone, which closes the issue;
    - `design@xtask@gates-list-primary-home` is split, in `register@xtask@design`: the list's home keeps the slug, the title and the
      first paragraph; the rule that CI and a local run differ by flags alone, with the reason of each flag and
