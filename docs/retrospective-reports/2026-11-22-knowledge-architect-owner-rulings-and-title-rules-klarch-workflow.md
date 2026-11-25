@@ -148,7 +148,7 @@ Members: 2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-wor
   a head, and whether it governs a ruling held in a plan is the question the issue carries.
 - **g. Its route.** An instance added to a recorded issue.
 - **h. The proposal.** Add the paragraph written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-E.md under
+  the intake's draft instances-E (not committed; its text is in the issue) under
   `issue@agent-skills@a-member-recorded-directly-lies-beyond-its-head-s-argument`, at the end of its
   "What".
 
@@ -351,7 +351,7 @@ Members: 2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-wor
   and the first meets no need the status quo leaves, so no fork remains.
 - **g. Its route.** Two instances added to recorded issues; nothing else.
 - **h. The proposal.** Add the paragraphs written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-E.md under
+  the intake's draft instances-E (not committed; its text is in the issue) under
   `issue@check@a-plain-hash-item-name-is-read-by-nothing` and
   `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check`, the second with its
   Summary's count updated, as that file says.
@@ -423,7 +423,7 @@ Members: 2026-11-22-knowledge-architect-owner-rulings-and-title-rules-klarch-wor
   and that taking in the task is the owner's by the goal. An instance asks nothing of either.
 - **g. Its route.** An instance added to a recorded issue.
 - **h. The proposal.** Add the paragraph written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-E.md under
+  the intake's draft instances-E (not committed; its text is in the issue) under
   `issue@query@no-command-counts-a-tripwire-s-horizon`. The goal's owner-question, which recurring
   tasks the owner takes in, spans several subjects of this intake and is the dispatching session's
   to put once; this outcome rests on no answer to it.

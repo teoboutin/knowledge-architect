@@ -291,7 +291,7 @@ Members: C1 of 2026-11-16-knowledge-architect-record-search-workflow-klarch-work
   one. The scoped instruction is the chosen rival and stands. The fix that would make the claim of
   `design@agent-skills@content-is-in-the-walk` hold for the saved workflows is the model issue's,
   a JavaScript grammar chosen by the manifest; its instance, with that head named, is the line for
-  the issue in /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-D.md.
+  the issue in the intake's draft instances-D (not committed; its text is in the issue).
 - **g. Its route.** An issue only: the instance line.
 - **h. The proposal.** No change to the checker; the instance added to the model issue.
 
@@ -323,7 +323,7 @@ Members: C2 of 2026-11-16-knowledge-architect-record-search-workflow-klarch-work
   `transcript`; the instances add three runs to its evidence, five instances and one measurement in
   all once added.
 - **g. Its route.** An issue only: three instance lines, in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-D.md.
+  the intake's draft instances-D (not committed; its text is in the issue).
 - **h. The proposal.** The three instances added; no change now.
 
 Default: the three instances added to `issue@transcript@the-header-names-the-cuts-of-sessions-a-filter-left-out`.

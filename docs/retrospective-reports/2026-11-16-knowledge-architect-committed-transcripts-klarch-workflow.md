@@ -170,7 +170,7 @@ member.
   the tmp-cleanup W1 as instance 5, with its two sentences and three proposals as a lead, and W3 as
   instance 6; add to `issue@agent-skills@the-open-space-test-may-admit-every-problem` the counts of
   the tmp-cleanup table and of the intake-items W3. The texts are block 1 and block 2 of
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-C.md. Nothing for the tmp-cleanup
+  the intake's draft instances-C (not committed; its text is in the issue). Nothing for the tmp-cleanup
   project file's remark: no project rule exists to change. The search's owner questions on which of
   the tmp-cleanup shapes to take, a fork no goal ranks, are questions of that discussion: they reach
   the owner with the owner item of standing-misread-course-reentry, below, and are ruled in the
@@ -353,7 +353,7 @@ judgement-free tasks, the anonymization. Two retrospectives hold a member.
   two instances. `design@agent-skills@transcript-removal-step` (`constrains`) says a script "could
   replace part of it": the step still reads the transcript whole.
 - **h. The proposal.** Add both instances to the issue: block 3 of
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-C.md. The issue then holds three
+  the intake's draft instances-C (not committed; its text is in the issue). The issue then holds three
   occurrences of the hand removal across three plan documents.
 
 Default: two instances added to the recorded issue.
@@ -435,7 +435,7 @@ Three retrospectives hold a member.
 - **g. Its route.** Instances added to a recorded issue.
 - **h. The proposal.** Add the three instances to
   `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`: block
-  4 of /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-C.md. No edit of the binary.rs
+  4 of the intake's draft instances-C (not committed; its text is in the issue). No edit of the binary.rs
   entry and no roadmap row.
 
 Default: three instances added to the deferred-trigger issue; no change to the re-entry point or to the binary.rs entry.
@@ -463,7 +463,7 @@ subjects analysed in their own files.
   over it is statement 1 and 2's open question.
 - **h. The proposal.** The intake does not rule the reach: no outcome waits on it. Add the occasion to
   the issue as evidence for its discussion: block 5 of
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-C.md.
+  the intake's draft instances-C (not committed; its text is in the issue).
 
 Default: the occasion added to the issue; the rule's reach left to that issue's discussion.
 Outcome: decided by the session: one occasion added to `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`; no outcome of this file waits on it. Ground: the outcome of past-one-read-trigger-met-by-any-edit removes no structure, and the reach of `design@agent-skills@capabilities-not-structure` is what the issue's closing argues.

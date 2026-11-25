@@ -127,7 +127,7 @@ Members: 2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow W1.
   `design@agent-skills@verdict-report` describes the action, and the changelog entry the branch
   owes; and an instance added to a recorded issue.
 - **h. The proposal.** Reword the action's line as item f gives it; add the paragraph written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-E.md under
+  the intake's draft instances-E (not committed; its text is in the issue) under
   `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`, after
   its last instance paragraph and before the one that names
   `issue@agent-skills@an-issue-s-re-entry-point-is-read-by-no-review`.
@@ -188,7 +188,7 @@ Members: 2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow W2;
   re-entry point names, whose order among the known work is the owner's, as the next section says.
 - **g. Its route.** Instances added to a recorded issue.
 - **h. The proposal.** Add the paragraph written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-E.md under
+  the intake's draft instances-E (not committed; its text is in the issue) under
   `issue@agent-skills@a-light-verdict-s-demand-can-be-left-unanswered`, at the end of its "What".
 
 Default: the two instances added to the recorded issue, with the gates file's proposal and the dispatched reader as candidates; no edit of the design skill.

@@ -214,7 +214,7 @@ Members: 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow
 - **d. Its kind.** A defect of the text, needless at scale; its question is the recorded issue's.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Extend the issue's instance with the fact the file adds, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 2.
+  the intake's draft instances-B (not committed; its text is in the issue), item 2.
 
 Default: the instance's fact added to the recorded issue; no change to the text.
 Outcome: decided by the session: the fact added to `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`. Ground: the issue holds the question and its rivals, and the undelivered file is evidence on its unmeasured premise; a change of the sentence goes through its design discussion, per `design@agent-skills@intake-outcome-authority`.
@@ -343,7 +343,7 @@ Members: 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow
 - **d. Its kind.** An instance of a recorded question, whose close is the owner's take-in word.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Add the instance, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 3.
+  the intake's draft instances-B (not committed; its text is in the issue), item 3.
 
 Default: the instance added to the recorded issue.
 Outcome: decided by the session: an instance added to `issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand`. Ground: the issue is the one the file means, and its question, whether the task is taken in, stays the owner's there.
@@ -451,7 +451,7 @@ agent could have carried.
   run by a workflow and the reports returned whole, in one place.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Add the instance, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 5. No change to the text.
+  the intake's draft instances-B (not committed; its text is in the issue), item 5. No change to the text.
 
 Default: the instance added to the recorded issue; no change to the review skill.
 Outcome: decided by the session: an instance added to `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript`; no change to the text. Ground: the proposal is the defeated rival of `design@agent-skills@reviewer-returns-its-report-whole`, which the issue's second closing shape reopens with the weight this file measures.
@@ -504,7 +504,7 @@ its standing answer on a procedure set up (repairs by area);
   occasions among them, and the design waits for the next.
 - **g. Its route.** Instances in the recorded issue; the take-in, the owner's word.
 - **h. The proposal.** Add the four instances, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 4, and put to the owner
+  the intake's draft instances-B (not committed; its text is in the issue), item 4, and put to the owner
   whether the procedure of appliers in worktrees combined by cherry-pick is taken in. Default: not
   taken in at this intake; its design stays the deferred issue's.
 

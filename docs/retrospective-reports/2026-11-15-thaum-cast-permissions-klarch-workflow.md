@@ -157,7 +157,7 @@ by hand or by script, its second item.
 - **d. Its kind.** An observation: an instance of a recorded task.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Add the instance, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 6. The search's question
+  the intake's draft instances-B (not committed; its text is in the issue), item 6. The search's question
   to the owner on this subject, which recurring tasks are taken in, is for this task the question
   the issue's close already waits on, so it stays there and is not put again here.
 
@@ -213,7 +213,7 @@ answer, its item on a fork quoting the owner.
 - **g. Its route.** Instances in the deferred issue, by kind and regime; nothing for the bundled
   heads.
 - **h. The proposal.** Add the instances, by the text in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-B.md, item 7. No text.
+  the intake's draft instances-B (not committed; its text is in the issue), item 7. No text.
 
 Default: the instances added to the deferred issue; no change to the text.
 Outcome: decided by the session: instances added to `issue@agent-skills@attribution-slips-are-not-counted-against-the-regime-of-committed-transcripts`; no change to the text. Ground: the slips are lapses caught before each merge, the issue's trigger is not met since no release follows v0.10.0, and `rejected@agent-skills@recurrence-of-slips-fires` rules out a tripwire on their recurrence.

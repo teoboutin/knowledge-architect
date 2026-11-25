@@ -214,7 +214,7 @@ P4 of 2026-11-25-knowledge-architect-windows-and-macos-gates. Three retrospectiv
   fix for the cluster: the issue's command, which makes the worktrees and scratch directories, bounds
   the jobs and reports and removes the disk, covers all four members. Two instance lines, the
   tmp-cleanup branch and the gates branch with its 32 GB, are in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-D.md. A shared build directory, which
+  the intake's draft instances-D (not committed; its text is in the issue). A shared build directory, which
   would cut both the memory and the disk, is no rival: here every target is tied to its checkout,
   and `design@knowledge-architect@a-build-is-tied-to-its-checkout` keeps the separate directory of
   the review invariant "for the rebuilds it saves and for the build lock". The issue's own
@@ -354,7 +354,7 @@ Members: the standing answer on a project skill's addition of
   `skill@knowledge-architect-design`. When it is held is the order of known work, which the roadmap
   holds and the owner sets; the intake schedules nothing.
 - **g. Its route.** An issue only: the instance line, written in
-  /home/teo/.cache/claude-tmp/intake-twenty/issues/instances-D.md; the discussion on a branch of its
+  the intake's draft instances-D (not committed; its text is in the issue); the discussion on a branch of its
   own.
 - **h. The proposal.** The instance added, with the re-entry point recorded as met; the discussion
   is held in a branch of its own, its fork, if one survives, put to the owner there.
