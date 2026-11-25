@@ -40,6 +40,11 @@ an empty subsection is omitted.
   suggests, is spelled with `/` on every system, where one built from its segments would hold `\` on
   Windows. An extension that writes such a path with `Path::display` into a finding or a generated file
   calls `slashed` instead, or its text differs on Windows. Nothing changes on other systems.
+- `cli`, patch: `id` refuses an argument holding `@`, a whole reference given for the id, with the
+  repair after the grammar:
+  ``not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+; give the id alone, the part after the last `@` ``.
+  The line of a malformed id without `@`, and the exit code 1, are unchanged. A consumer whose tests pin that line for such an argument
+  changes them.
 - `library`, major: `declared::Shape` gains the variant `Plan(PlanKind)`, which the registers `spec`
   and `milestone` now have, where they had `File` and `Directory`; `table::Constructed::Spec` is
   replaced by `Constructed::Plan(PlanKind)`, which a milestone's anchor also is, where it was
