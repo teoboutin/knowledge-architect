@@ -1256,7 +1256,13 @@ fn a_component_over_an_installed_file_refuses_before_any_write() {
         ],
     );
     assert_eq!(code, 2, "{out}{err}");
-    assert!(err.contains("would both be written"), "{err}");
+    let file = ".claude/agents/knowledge-architect-goal-reviewer.md";
+    assert!(
+        err.contains(&format!(
+            "{file}/README.md and {file} would both be written"
+        )),
+        "{err}"
+    );
     assert!(!scratch.path("p").exists(), "nothing is written");
 }
 

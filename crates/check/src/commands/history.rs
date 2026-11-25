@@ -1230,7 +1230,8 @@ pub fn commits(
             // **Every commit of the range must pass under the tip checker**, so the tree's own
             // findings are the run's, each named by the commit and by the file inside it.
             findings.extend(tree.trouble.iter().cloned().map(|mut f| {
-                f.file = PathBuf::from(format!("commit {short}: {}", slashed(&f.file)));
+                // The file is spelled as it is printed already, and a refused name is never respelled.
+                f.file = PathBuf::from(format!("commit {short}: {}", f.file.to_string_lossy()));
                 f
             }));
             if let Some(phase) = tree.stopped {

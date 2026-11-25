@@ -296,8 +296,8 @@ fn as_path(bytes: &[u8]) -> PathBuf {
 
 /// Everywhere else a path is text, so a listed name is decoded as UTF-8. A name that is not UTF-8,
 /// which an index can hold where the name was committed on Unix, is lost: it holds a replacement
-/// character, and git answers no bytes for it, as
-/// `issue@git@paths-are-decoded-outside-the-listings` says.
+/// character, and git answers no bytes for it; one that holds `\` is named back to git as another
+/// file's on Windows. Both are `issue@git@paths-are-decoded-outside-the-listings`.
 #[cfg(not(unix))]
 fn as_path(bytes: &[u8]) -> PathBuf {
     PathBuf::from(String::from_utf8_lossy(bytes).into_owned())
@@ -1033,6 +1033,18 @@ mod object_naming {
         );
         assert_eq!(object_name(Source::Index, Path::new("")), ":./");
     }
+
+    /// The claim: a path the caller joined is named with the separator git reads, on Windows too, where
+    /// the join writes `\`. Windows alone shows it: elsewhere the join writes `/`.
+    #[test]
+    fn a_snapshot_object_at_a_joined_path_is_named_with_slashes() {
+        let joined = Path::new("docs").join("a.md");
+        assert_eq!(
+            object_name(Source::Commit("abc"), &joined),
+            "abc:./docs/a.md"
+        );
+        assert_eq!(object_name(Source::Index, &joined), ":./docs/a.md");
+    }
 }
 
 /// The contents of many blobs of one snapshot, in one process.
@@ -1194,8 +1206,10 @@ fn named(path: &Path) -> String {
 }
 
 /// A path's text as git spells it, on the system `windows` says. Git separates with `/` everywhere,
-/// and refuses a `\` from `update-index --index-info` on Windows, where no name holds one. On the
-/// other systems `\` is a character of a name, and the text stays byte for byte.
+/// and refuses a `\` from `update-index --index-info` on Windows, where no name on disk holds one. A
+/// listing there can give such a name, committed on another system, and this spells it as another
+/// file's, per `issue@git@paths-are-decoded-outside-the-listings`. On the other systems `\` is a
+/// character of a name, and the text stays byte for byte.
 fn named_to_git(text: &str, windows: bool) -> String {
     if windows {
         text.replace('\\', "/")
@@ -1218,6 +1232,14 @@ mod tests {
         assert_eq!(named_to_git(mixed, false), mixed);
         assert_eq!(named_to_git("docs/a.md", true), "docs/a.md");
         assert_eq!(named_to_git("", true), "");
+        // The spelling follows the system it runs on: each test machine shows its own half. Mutation
+        // checked: `cfg!(windows)` of `named` made `true`; caught where `\` is a character of a name.
+        let here = if cfg!(windows) {
+            "docs/design/a b/é.md"
+        } else {
+            mixed
+        };
+        assert_eq!(named(Path::new(mixed)), here);
     }
 
     // A copy of the helper each package whose tests make a link holds, since no crate depends on
@@ -1772,14 +1794,18 @@ mod tests {
         };
         let directory = refusal("dir/index.md");
         assert!(
-            directory.ends_with(
-                ": move the entries under it to another path, or remove them from the index \
+            directory.starts_with("dir/index.md is a directory in the index")
+                && directory.ends_with(
+                    ": move the entries under it to another path, or remove them from the index \
                  with `git rm -r --cached`"
-            ),
+                ),
             "{directory}"
         );
         let link = refusal("link.md");
-        assert!(link.contains("mode 120000"), "{link}");
+        assert!(
+            link.starts_with("link.md is staged as a symlink or a gitlink, mode 120000"),
+            "{link}"
+        );
         assert!(
             link.ends_with(": remove that entry from the index with `git rm --cached`"),
             "{link}"

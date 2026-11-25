@@ -576,6 +576,13 @@ mod tests {
         );
         let again = install(root, &shipped).expect("a second install runs");
         assert!(again.written.is_empty() && again.deleted.is_empty());
+        // An install is asked to write, so it compares bytes: a copy the check calls current, which
+        // differs by its line endings alone, is written. Mutation checked, in `install_into`: the
+        // comparison of bytes made one of `current` over the file read as text; caught.
+        let with_lines = vec![(shipped[0].0.clone(), "one\ntwo\n".to_string())];
+        write(".claude/agents/knowledge-architect-a.md", "one\r\ntwo\r\n");
+        let over = install(root, &with_lines).expect("an install over CRLF runs");
+        assert_eq!(over.written, vec![with_lines[0].0.clone()]);
     }
 
     /// The claim: an install refuses a symbolic link on an owned path before touching anything,

@@ -686,7 +686,7 @@ mod tests {
         let mut paths: Vec<String> = generated_index_paths(&manifest, &tree)
             .into_iter()
             .filter(|p| p.starts_with("docs/plans"))
-            .map(|p| p.display().to_string())
+            .map(|p| slashed(&p))
             .collect();
         paths.sort();
         assert_eq!(
@@ -720,7 +720,7 @@ mod tests {
         .collect();
         let paths: Vec<String> = file_register_indexes(&model, &manifest, &dirs, &dirs)
             .into_iter()
-            .map(|(rel, _)| rel.display().to_string())
+            .map(|(rel, _)| slashed(&rel))
             .collect();
         assert_eq!(
             paths,

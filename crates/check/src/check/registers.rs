@@ -1092,7 +1092,13 @@ mod tests {
             &[("docs/design/register.toml", "groups = []\n")],
         );
         assert_eq!(found.len(), 1, "{found:#?}");
-        assert!(found[0].contains("is a heading register"), "{found:#?}");
+        assert!(
+            found[0].contains(
+                "`docs/design/register.toml` sits beside the design register, which is a heading \
+                 register"
+            ),
+            "{found:#?}"
+        );
     }
 
     #[test]
@@ -2181,7 +2187,8 @@ mod tests {
             ),
             (
                 "docs/plans/specs/gone",
-                "the spec register declares the group `gone` and there is no directory",
+                "the spec register declares the group `gone` and there is no directory  → move or \
+                 write the group's first spec under `docs/plans/specs/gone/`",
             ),
         ] {
             assert!(

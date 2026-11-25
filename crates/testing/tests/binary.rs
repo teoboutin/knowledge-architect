@@ -1500,6 +1500,10 @@ fn show_of_a_planned_path_lists_its_citations_and_says_whether_it_exists() {
     // The path the planned form converts to lists the planned citations: the sites to edit.
     let (path, _, code) = sandbox.run(&["show", "path@minimal@code/lib.rs"]);
     assert_eq!(code, 0, "{path}");
+    assert!(
+        path.starts_with("path@minimal@code/lib.rs  code/lib.rs\n"),
+        "{path}"
+    );
     assert!(path.contains("docs/plans/README.md:5"), "{path}");
 
     // A reference the check refuses resolves to nothing here too.
@@ -5490,8 +5494,11 @@ fn index_staged_stages_the_generated_files_and_touches_no_working_file() {
     let index_before = index_lines(&sandbox);
     let (out, stderr, code) = sandbox.run(&["index", "--staged"]);
     assert_eq!(code, 0, "{out}{stderr}");
-    assert!(out.contains("docs/open-issues/index.md"), "{out}");
-    assert!(out.lines().any(|l| l.ends_with(" staged")), "{out}");
+    assert!(
+        out.lines()
+            .any(|l| l.starts_with("docs/open-issues/index.md ") && l.ends_with(" staged")),
+        "{out}"
+    );
     let changed: Vec<String> = changed_lines(&index_before, &index_lines(&sandbox))
         .into_iter()
         .map(|l| l.split('\t').nth(1).unwrap_or_default().to_string())
@@ -5891,7 +5898,11 @@ fn fix_refuses_nothing_where_it_would_write_nothing() {
 /// The claim: in a clone under `core.autocrlf=true`, whose every text file holds CRLF, `check`
 /// passes, `check --fix` writes no generated file and refuses nothing, over a partial commit
 /// included, and `index --staged` names no working copy out of date, since a generated file that
-/// differs by its line endings alone is current at each place that asks.
+/// differs by its line endings alone is current at each place that asks. `index` and what
+/// `index --staged` stages are asked to write, so they compare bytes: such a file is rewritten, and
+/// such a blob staged again. Mutations checked: in `index_working`, the comparison made
+/// `is_current(&path, &text)`; in `index_staged`, the filter on the committed text made one of
+/// `current`; each caught.
 #[test]
 fn a_clone_that_converts_line_endings_holds_current_generated_files() {
     let source = Sandbox::new("autocrlf", "dirhome");
@@ -5933,6 +5944,28 @@ fn a_clone_that_converts_line_endings_holds_current_generated_files() {
     assert!(!out.contains("working copy"), "{out}");
     let text_after = std::fs::read_to_string(clone.join(index)).expect("the clone's index");
     assert_eq!(text_after, text, "the working copy is left as it was");
+
+    let (out, stderr, code) = run_in(&clone, &["index"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.starts_with(index) && l.ends_with(" rewritten")),
+        "{out}"
+    );
+    let text_after = std::fs::read_to_string(clone.join(index)).expect("the clone's index");
+    assert_eq!(text_after, text.replace("\r\n", "\n"));
+
+    source.write(index, &text);
+    source.git(&["add", index]);
+    let (out, stderr, code) = source.run(&["check", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    let (out, stderr, code) = source.run(&["index", "--staged"]);
+    assert_eq!(code, 0, "{out}{stderr}");
+    assert!(
+        out.lines()
+            .any(|l| l.starts_with(index) && l.ends_with(" staged")),
+        "{out}"
+    );
 }
 
 /// The manifest of a project that declares a Directory register at a location's own path, each
