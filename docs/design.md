@@ -1201,9 +1201,9 @@ A test that makes a link panics where the machine refuses it, and never skips, u
 `design@gates@ci-flag-for-ci-only-requirements` gives such a skip to a test that needs a tool a machine
 may lack. The right to make a link is read here as no such tool: no system of
 `design@knowledge-architect@platforms-served`, as CI runs it, lacks the right, and the skip's rule would
-be a copy in each package of `design@knowledge-architect@symlink-helper-home`, for a machine that is
-not served. The other reading, under which the right is a tool that a machine may lack, is the rival's. A Windows
-machine on which the tests are to run without that right reopens this.
+be a copy in each package of `design@knowledge-architect@symlink-helper-home`, for a machine that CI
+does not hold. The other reading, under which the right is a tool that a machine may lack, is the rival's.
+A Windows machine on which the tests are to run without that right reopens this.
 
 ### Each package whose tests make a symbolic link holds its own copy of the helper that makes one `##symlink-helper-home`
 

@@ -44,7 +44,7 @@ of `path@agent-skills@src/render.rs` hold it, and the first fails when `lf` retu
 
 The nearest rival is `design@knowledge-architect@line-endings-of-this-repository` alone, under which git
 checks every file out with LF: a checkout made by another tool than git, or a later edit of that file,
-undoes it, and what ships is wrong in every project that installs it.
+undoes it, and the text shipped then differs in every project that installs it.
 
 ### A text several installed texts apply whole is one file the build copies into each of them `##shared-text-fragment`
 
