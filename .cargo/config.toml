@@ -1,9 +1,14 @@
 # `cargo klarch <subcommand>` runs the checker built from this checkout, in release mode: it runs
 # many times per session, after each commit and in the gates, and a release build is paid once per
 # source change. `-q` keeps cargo's progress out of a checker's output, which is read as a report.
+#
+# `cargo x <command>` runs the maintenance tool in release mode, so no gate replaces the binary that
+# runs the gates: `clippy`, `doc` and `test` write in the dev profile's directory alone, and the tests
+# build that binary there with other features than `cargo run` does. Windows refuses to replace a
+# program that runs.
 [alias]
 klarch = "run -q --release -p knowledge-architect --"
-x = "run -q -p xtask --"
+x = "run -q --release -p xtask --"
 
 # Every build is tied to its checkout, per `design@knowledge-architect@a-build-is-tied-to-its-checkout`.
 # Each checkout's value is its own root, so a target directory shared with another checkout rebuilds

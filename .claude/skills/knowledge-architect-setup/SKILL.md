@@ -388,12 +388,12 @@ unsafe_code = "forbid"
 ```
 
 **The aliases**, in `<workspace-root>/.cargo/config.toml`: `cargo x` runs the crate's own commands, and
-`cargo klarch` runs the checker it pins, in release mode. Declare `cargo klarch` as the project's
+`cargo klarch` runs the checker it pins, both in release mode. Declare `cargo klarch` as the project's
 command (`skill@knowledge-architect-setup@declare-the-command`).
 
 ```toml
 [alias]
-x = "run -q -p xtask --"
+x = "run -q --release -p xtask --"
 klarch = "run -q --release -p xtask -- klarch"
 
 [env]

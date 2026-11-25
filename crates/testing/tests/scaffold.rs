@@ -78,13 +78,7 @@ fn a_project_written_by_init_rust_builds_and_checks() {
     ));
     std::fs::write(&manifest, text).expect("the patch is written");
 
-    let build = cargo(&root, &["build", "-q", "-p", "xtask"]);
-    assert!(
-        build.status.success(),
-        "{}",
-        String::from_utf8_lossy(&build.stderr)
-    );
-    // The `x` alias names the crate's own commands, which the CI workflow runs.
+    // The `x` alias builds the crate and names its own commands, which the CI workflow runs.
     let help = cargo(&root, &["x", "--help"]);
     assert!(
         help.status.success(),
