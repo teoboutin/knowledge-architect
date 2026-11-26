@@ -1,7 +1,7 @@
 # cargo-reader
 
 The library that reads what the tools of knowledge-architect need of Cargo. What it is for is
-argued in the root's design home, `register@knowledge-architect@design`; what it does for a user is
+`design@knowledge-architect@cargo-reader-crate`; what it does for a user is
 `path@cargo-reader@README.md`; why it is shaped this way is `register@cargo-reader@design`.
 
 **One module per format of Cargo's**: `path@cargo-reader@src/manifest.rs` reads a `Cargo.toml`'s
