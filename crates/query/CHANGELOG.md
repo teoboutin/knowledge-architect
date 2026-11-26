@@ -51,6 +51,10 @@ an empty subsection is omitted.
   `Constructed::Entry`; and `resolve::Cause` gains the variant `Harvested`. A program that matches
   any of the three exhaustively adds the new arms, and one that tells a plan register by its shape
   reads `Shape::Plan`.
+- `library`, major: `declared::Walk` gains a field private to the crate, the table
+  `[walk.citation-free]` as written, so a program that builds a `Walk` by a struct literal, or
+  destructures one without `..`, no longer compiles: it takes the value `Manifest::walk` returns, or
+  matches with `..`.
 - `agent-skills`, patch: a plan document under way when the pin moves, whose work is not yet
   harvested, adds to the section "What is already decided" of each live slice's spec, or of the
   spec, the heads its harvest will touch without reversing or rewriting them, each as a reference,
@@ -131,6 +135,16 @@ an empty subsection is omitted.
   `constrains` or `touches` with the action `respect` or `none` and an empty `owner-question`, as
   their lines under `## Light verdicts`, with no entry text; the line `--verify` prints per subject
   counts its act verdicts.
+- `manifest`, minor: `[walk.citation-free]` declares files free of citations, by two lists of
+  globs. A file `all` matches holds no reference: every span that parses as one is a finding,
+  whether or not it resolves, and every finding in the file names a rewrite in words or a
+  placeholder. A file `entries` matches, an installed copy under .claude included, holds no
+  reference to the project's own entries or anchors: it may cite a skill, an agent or a section of
+  the primer, a `path` or `register` reference under `*`, `plans` or `elsewhere`, and the root's
+  goals home. A placeholder in angle brackets passes at both levels. A glob's `*` matches within one path segment, a segment
+  `**` any number of segments, and a trailing `/` every file under a directory; a glob that matches
+  no file, and a file both levels match, are findings. A manifest that declares no such table is
+  checked as before.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
@@ -140,6 +154,8 @@ an empty subsection is omitted.
   every system.
 - `library`, minor: every published crate compiles for Windows, where `knowledge-architect-git`, and
   each crate that depends on it, did not.
+- `library`, minor: `Manifest::citation_free`, `declared::CitationFree`, `declared::Glob`,
+  `declared::Level` and `table::INSTRUCTIONS_KIND` in `knowledge-architect-model`.
 - `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which
   runs clippy for another target, such as `x86_64-pc-windows-gnu`, with no cross compiler.
 
@@ -274,6 +290,9 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a thread's item in a plan document's `deliberation.md` no longer names the
   durable home that will harvest it; the Harvest section of the `README.md` alone holds each
   thread's home.
+- `agent-skills`, patch: for a Rust project, the setup skill's proposal of a crate's CRATES-IO.md
+  proposes with it a glob matching each page under `all` in `[walk.citation-free]`, so the check
+  reports any reference a page holds.
 
 ## 0.10.0
 
