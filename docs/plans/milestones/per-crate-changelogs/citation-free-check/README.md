@@ -12,8 +12,8 @@
 - The findings of a citation-free file, in `check`, in a module of its own,
   `planned@check@src/check/citation_free.rs`, and the repair each names.
 - At the level `entries`, the read of the installed copies for references, and for nothing else,
-  where a glob of a project's `entries` matches them, on the owner's ruling of D2 of the milestone
-  document.
+  where a glob of a project's `entries` matches them, on D2 of the milestone document, closed by the
+  session on the owner's argument `argument@per-crate-changelogs@arg-60`.
 - The declaration in this repository's knowledge-architect.toml: `all` matching the 11
   CRATES-IO.md files of the crates, `entries` matching the installed copies: the primer, each
   installed skill and each installed agent, as the milestone document's Names define them.
@@ -147,7 +147,7 @@ and `design@check@check-reads-no-range-of-history`.
 Rewritten by this slice, as the milestone document's "Reversed or rewritten" lists them with the
 texts each repairs: `design@knowledge-architect@crates-io-page-file`, its rule enforced;
 `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree`,
-narrowed by the member of the level `entries`, on the owner's ruling of D2;
+narrowed by the member of the level `entries`, on D2, closed on `argument@per-crate-changelogs@arg-60`;
 `design@model@a-reference-is-live-in-every-prose`, narrowed: in a file at the level `all` no span is
 resolved, and at the level `entries` a span is resolved as anywhere else and refused where it names
 an entry or an anchor of the project.
@@ -176,7 +176,7 @@ From `thread@per-crate-changelogs@citation-free-paths`.
 
 - `[walk.citation-free]` holds two lists of globs, `all` and `entries`. `all` is matched against the
   paths the walk reads; `entries` against those and against the installed copies, which the walk
-  leaves out, on the owner's ruling of D2. An illustration of the shape:
+  leaves out, on D2, closed on `argument@per-crate-changelogs@arg-60`. An illustration of the shape:
 
   ```toml
   [walk.citation-free]
@@ -263,7 +263,7 @@ with the thread's slug, written in this slice because no work implements it.
 | what | thread | home |
 | --- | --- | --- |
 | the declaration, its two levels, its glob dialect, its findings and their repairs | `thread@per-crate-changelogs@citation-free-paths` | a head of `register@check@design` on the citation-free findings, and a head of `register@model@design` on the table, each by the tests of `skill@knowledge-architect-decision-recording`; the rewritten heads and the touched heads listed above |
-| the read of the installed copies at the level `entries` | `thread@per-crate-changelogs@citation-free-paths` | the members of `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree`, on the owner's ruling of D2 |
+| the read of the installed copies at the level `entries` | `thread@per-crate-changelogs@citation-free-paths` | the members of `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree`, on D2, closed on `argument@per-crate-changelogs@arg-60` |
 | the narrowing of the live references | `thread@per-crate-changelogs@citation-free-paths` | the rewritten `design@model@a-reference-is-live-in-every-prose` |
 | the crates.io page's rule enforced | `thread@per-crate-changelogs@citation-free-paths` | the rewritten `design@knowledge-architect@crates-io-page-file` |
 | the rival of one level, and the rival of the read over content/ | `thread@per-crate-changelogs@citation-free-paths` | `register@check@rejected`, if a recording test holds |

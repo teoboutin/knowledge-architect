@@ -286,7 +286,7 @@ move to the root changelog on GitHub, as the generic and natural place, which us
 without the workflow pointing them to it; no shape may misdirect a user; the changelog serves
 project owners deciding whether and when to move the pin, not only agents moving it; a consuming
 project must be able to set the assembled file's location, by path or by Component; and the owner
-refused keeping the assembled file both in `cli` and at the root, another large duplicated file
+objected to keeping the assembled file both in `cli` and at the root, not fully agreeing to it, as another large duplicated file
 that grows without bound.
 
 ### The assembled headings name the published packages `##arg-14`
@@ -424,7 +424,8 @@ R3, the owner. Bears on `thread@per-crate-changelogs@no-history-beyond-the-branc
 history creates a cost that grows without bound for every future piece of work, which the project
 has no way to control; that the owner does not want such ideas invited into the project; that
 handling every unexpected case of a consuming project's history needs excessive design and code;
-and that the value is low, since a review would flag a deviation even without being asked to look.
+and that the value is relatively low, since a review would, the owner believes, flag a deviation
+even without being asked to look.
 
 ### `cargo metadata` gives every dependency's source, for any project `##arg-31`
 
@@ -663,12 +664,15 @@ could then not be told apart from a failure in the conversion."
 
 ### The installed copies are read at the level `entries`, since no rule needs them out of the walk for this check `##arg-60`
 
-After the review of the milestone document, the owner, ruling D2, in the message that opens "I
-don't think there is any real reason"; no transcript holds it, so this attribution is its whole
+After the review of the milestone document, the owner, arguing D2 and leaving its weighing to
+the session, which closed it A on this argument, in the message that opens "I don't think there
+is any real reason"; no transcript holds it, so this attribution is its whole
 record. Bears on `thread@per-crate-changelogs@citation-free-paths`. The owner argued that no rule
 needs the installed text kept outside the walk for this check; that its one cost, a finding naming
 an installed file whose repair is in content/ and a re-install, is left to the agent's judgement,
-with a reminder in the root CLAUDE.md, the finding's message not adapted to this repository; and
+maybe with a reminder in the root CLAUDE.md, the finding's message not adapted to this repository;
+that the misdirected repair would apply as well to a check of a temporary copy of the installed
+text generated at a temporary location for the test, so that rival gains nothing on it; and
 that applying the level to content/ loses, since it must handle the fragments and a `%%` exemption
 that applies in this repository alone. The session added that the reason of
 `design@check@installed-files-outside-the-walk` keeps every other rule, since the level reads an

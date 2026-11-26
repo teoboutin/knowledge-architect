@@ -8,8 +8,8 @@ kind: todo
 `design@knowledge-architect@version-lockstep` gives every published crate one version, so each
 release publishes a new version of every crate. A crate that changes rarely, such as `gates`, still
 takes one each time. Versioning each crate on its own would publish only the crates a release
-changes. The owner wants the question discussed before the next release: a new published crate
-alone does not argue how crates are versioned, so no such crate is the occasion for it.
+changes. A new published crate alone does not argue how crates are versioned, so no such crate is the
+occasion for the question. On the owner's word, it is discussed before the next release.
 
 ## Details
 
