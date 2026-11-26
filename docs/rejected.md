@@ -50,7 +50,7 @@ a branch's merge, against the purpose `design@knowledge-architect@gates-crate` g
 ### The checker's git module made public, for the other tools that need git `##git-module-made-public`
 
 `live`. A tool that needs git would depend on the whole checker to reach it, and build the
-checker's parsers, tree-sitter, pulldown-cmark and toml_edit, which no question to git needs; the
+checker's parsers, tree-sitter, pulldown-cmark and toml, which no question to git needs; the
 module's interface would change with every release of the checker.
 
 ### Cargo read by a module of the model `##cargo-read-in-model`
