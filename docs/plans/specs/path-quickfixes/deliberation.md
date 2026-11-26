@@ -208,7 +208,7 @@ neither candidate is not pushed toward one".
 
 The reply to round 1. Bears on `thread@path-quickfixes@skill-cited-by-path`. "Today `path@agent-config@skills/<name>/SKILL.md`
 is **not a finding**", the skill's name written here as a placeholder, since the span is the
-finding step 3 adds. The argument of `design@check@every-path-names-its-anchor` for a plan document
+finding step 3 adds. The argument of `design@check@plan-document-path-citation-refused` for a plan document
 holds for a skill: "one name per document is what keeps `show` complete". `show` on a skill lists
 no `path` citation of it: of the 3 citations then in the tree, 2 cited `skill@klarch-release` and
 1 `skill@klarch-retrospective-intake`. A path to another file inside a skill's directory, and the
