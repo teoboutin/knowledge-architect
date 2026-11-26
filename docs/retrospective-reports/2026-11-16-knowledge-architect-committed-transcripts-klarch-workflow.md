@@ -357,7 +357,7 @@ judgement-free tasks, the anonymization. Two retrospectives hold a member.
   occurrences of the hand removal across three plan documents.
 
 Default: two instances added to the recorded issue; the task taken in, the issue staying open as the tool's work.
-Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner; the issue records that the owner proposed the option and left it for later, which is no taking in): pending
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner; the issue records that the owner proposed the option and left it for later, which is no taking in): the task taken in, the issue staying open as the tool's work, with the two instances. The owner: "for the question: taken in"
 
 ## past-one-read-trigger-met-by-any-edit: an issue on a split is met by any work that changes the file, so every such work owes a weighing
 

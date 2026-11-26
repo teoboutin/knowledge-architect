@@ -8,7 +8,9 @@ kind: todo
 A plan document commits the transcript of its discussion, per
 `design@agent-skills@committed-transcript`, extracted with `klarch transcript show`, after a step that reads it and removes
 private information by hand, per `design@agent-skills@transcript-removal-step`. The owner proposed an option of the command that anonymizes part of
-the output, such as the paths under the machine's home directory, and left it for later.
+the output, such as the paths under the machine's home directory, and left it for later; the
+owner took the task in at the intake of twenty files, per
+`goal@tasks-a-tool-does-better-are-the-tool-s`.
 
 ## Details
 
