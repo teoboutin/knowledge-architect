@@ -276,8 +276,7 @@ the crate that holds it, per `design@cli@command-parsing-home`; a project names 
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. A commands module in a crate that contributes a command would form a cycle with every other
 such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
-parser in them. It says nothing of which crates `check` may depend on, which
-`issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it` holds. `cli` flattens no command of `gates`,
+parser in them. It says nothing of which crates `check` may depend on. `cli` flattens no command of `gates`,
 per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
