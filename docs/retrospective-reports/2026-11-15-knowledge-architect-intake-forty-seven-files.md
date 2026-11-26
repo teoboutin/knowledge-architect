@@ -131,7 +131,7 @@ addition missed.
   discussion now). No text for the forty-seven-file P1, a lapse met once.
 
 Default: reading 1: the instances added to `issue@agent-skills@patching-an-installed-skill`, the sentence left in place until its discussion; no change for the unrouted item of P1.
-Outcome: for the owner (the order of known work, which no goal ranks: whether the discussion of `issue@agent-skills@patching-an-installed-skill` runs now, against the cost of the misses meanwhile): pending
+Outcome: for the owner (the order of known work, which no goal ranks: whether the discussion of `issue@agent-skills@patching-an-installed-skill` runs now, against the cost of the misses meanwhile): reading 1, the default: the instances added to `issue@agent-skills@patching-an-installed-skill`, the sentence left in place until its discussion. The owner: "defaults for all other items"
 
 ## restatement-edited-without-conversion: a restatement edited without its conversion to a pointer
 

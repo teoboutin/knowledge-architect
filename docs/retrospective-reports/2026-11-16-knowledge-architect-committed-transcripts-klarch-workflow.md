@@ -202,7 +202,7 @@ Members: `issue@agent-skills@sessions-misread-which-course-a-design-discussion-t
   it.
 
 Default: the discussion is not opened in this intake; the issue gains its instances and stays open.
-Outcome: for the owner (whether to open now the discussion the issue reserves to the owner's word): pending
+Outcome: for the owner (whether to open now the discussion the issue reserves to the owner's word): the discussion not opened in this intake, the default; the issue gains its instances and stays open. The owner: "defaults for all other items"
 
 ## standing-shortcut-decision-tripwire: whether the bounded-path tripwire fired
 

@@ -795,7 +795,7 @@ analysis of 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workf
   the admission standard's question, asked when a part is taken in.
 
 Default: none is taken in at this intake; the reports stay in this analysis and in history, and a part the owner takes in opens an issue in the Component that would ship it.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): pending
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): none is taken in at this intake, the default. The owner: "defaults for all other items"
 
 ## code-rules-held: rules on code, tests and splits reported as held
 
