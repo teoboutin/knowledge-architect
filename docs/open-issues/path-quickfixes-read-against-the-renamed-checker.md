@@ -25,7 +25,9 @@ numbers no longer match the code; the two tests it names still pin the whole lin
 glob of `[walk.citation-free]` matches, at either level, that finding names a rewrite in words
 instead, per `design@check@citation-free-paths`, since the file refuses the `path` form under an
 anchor of the project that a respelling of the raw path would write; at the level `all`, so does
-every finding a span or a link raises.
+every finding a span or a link raises. The spec's rows that say the grammar head gains the refusal of a `path` citation of a
+skill or an agent were written before that head's paragraph on a plan document became a head of
+its own, `design@model@plan-document-path-citation-refused`, which such a refusal may join instead.
 
 ### Why it matters
 

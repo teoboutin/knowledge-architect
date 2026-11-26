@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-24 entries
+25 entries
 
 | kind | title |
 | --- | --- |
@@ -23,6 +23,7 @@
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, where every other reference survives the move](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
+| todo | [The drop of an empty segment of a `\[walk\]` path is tested by nothing, and its head names only the `.` drop](an-empty-segment-of-a-walk-path-is-dropped-untested.md) |
 | todo | [References are read in Markdown and Rust files only](references-are-read-in-markdown-and-rust-only.md) |
 | todo | [The questions the walk and the path check ask git about ignored paths, fixed on one branch](the-ignore-questions-of-the-walk-on-one-branch.md) |
 | todo | [The scanner's reading of a span or a heading that differs from what the text means, fixed on one branch](the-scanner-s-reading-of-spans-and-headings-on-one-branch.md) |
