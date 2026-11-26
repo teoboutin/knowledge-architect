@@ -109,19 +109,14 @@ pub fn refuse_a_foreign_build(
     ))
 }
 
-/// Whether a `Cargo.toml` declares this package name.
+/// Whether a `Cargo.toml` declares this package name. A manifest that cannot be read, or that
+/// `cargo-reader` refuses, declares none.
 fn declares(manifest: &Path, package: &str) -> bool {
     let Ok(text) = std::fs::read_to_string(manifest) else {
         return false;
     };
-    let Ok(value) = text.parse::<toml::Table>() else {
-        return false;
-    };
-    value
-        .get("package")
-        .and_then(|p| p.get("name"))
-        .and_then(|n| n.as_str())
-        == Some(package)
+    knowledge_architect_cargo_reader::read_manifest(&text)
+        .is_ok_and(|read| read.package.is_some_and(|p| p.name == package))
 }
 
 #[cfg(test)]
@@ -251,8 +246,9 @@ mod tests {
 
     /// The claim: a candidate whose `Cargo.toml` cannot be read, is no TOML, or names no package,
     /// with a `[package]` and no `name` or with no `[package]`, is no copy, whatever else it holds,
-    /// so a read that fails is never taken for a match. Mutation checked: in `declares`, the `else`
-    /// of the TOML parse made `return true;`; caught.
+    /// so a read that fails is never taken for a match. Mutations checked in `declares`, each
+    /// caught: `.is_ok_and(|read|` made `.map_or(true, |read|`, and `read.package.is_some_and(`
+    /// made `read.package.is_none_or(`.
     #[test]
     fn a_candidate_whose_manifest_cannot_be_read_or_names_no_package_is_no_copy() {
         let scratch = Scratch::new("unreadable");
