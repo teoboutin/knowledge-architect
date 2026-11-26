@@ -202,9 +202,10 @@ goal ranks: the session's ranking.
 
 Which files a project declares, at which level, by which globs, is
 `design@model@citation-free-globs`. The rule over each level is this head's, written in
-`path@check@src/check/citation_free.rs` and asked where a span's finding is written: in
-`judge_part` of `path@check@src/check/references.rs` for a walked file, and in the read of the
-installed copies, per `design@check@installed-copies-read-at-the-level-entries`.
+`path@check@src/check/citation_free.rs`. In a walked file the level is asked in `judge_part` of
+`path@check@src/check/references.rs` twice: before a span is resolved, by `span_finding`, and once
+after each observation over the findings it raised, by `repairs_at`. In an installed copy it is
+asked by `installed`, per `design@check@installed-copies-read-at-the-level-entries`.
 
 **At the level `all`, every span that parses as a reference is a finding, whether or not it
 resolves, and no span of the file is resolved.** Such a file faces a reader that no reference
@@ -243,12 +244,16 @@ findings alone, per `design@check@installed-copies-read-at-the-level-entries`.
 the scanner does not read as a reference. A commit message is matched by no glob.
 
 **The lints on ids and the unanchored-path lint keep reading a citation-free file, and no repair a
-finding names there is a form the file's level refuses.** In a walked file a glob matches, at
-either level, the findings of the lints on ids, of the unanchored-path lint, of an anchor in the
-kind's position and of a link name a rewrite in words, or a placeholder where the sentence
-illustrates a form, in place of the reference form, the `path` form or the link their repairs name
-elsewhere. In a file at the level `all`, so does every other finding a span raises, a malformed
-span's and a wrapped span's included, since that level refuses every reference. The cost accepted:
+finding names there is a form the file's level refuses**, since following it would raise the
+level's own finding in place of the old one. In a file at the level `all`, every finding a span or
+a link raises names a rewrite in words, or a placeholder where the sentence illustrates a form,
+since that level refuses every reference. In a file at the level `entries`, so does every finding
+of a lint, of a malformed span, of an anchor in the kind's position and of a link, and that of an
+admitted `path` or `register` reference that resolves to nothing, each of whose repairs elsewhere
+names a form of the project's entries or anchors; the repair may also name a form the level
+admits. Three findings keep their repair there, since it names only admitted forms: a harness
+reference's that resolves to nothing, and a wrapped span's and a reference's outside backticks
+whose span the level admits. The cost accepted:
 a file at the level `all` cannot print an existing path of the tree in backticks, and one at the
 level `entries` only in a form the level admits. No repair is the span with its backticks removed,
 which `design@agent-skills@plain-text-is-no-repair` refuses and

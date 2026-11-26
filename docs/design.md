@@ -553,12 +553,16 @@ docs.rs. It restates no contract, so it cannot drift from the README, and it hol
 crates.io renders a backticked span as code and resolves none, so a reference names nothing to the
 page's reader, whether or not it resolves in the tree. The manifest enforces it, declaring every
 crate's page by one glob at the level `all` of `[walk.citation-free]`, under which a reference is a
-finding whether or not it resolves, per `design@check@citation-free-paths`. The README stays the crate's home for how a user uses it, per the knowledge table, with the references
-the checker resolves. The rival, a README rewritten for crates.io with its repository-facing text
-moved elsewhere, lost: it moves the most text, and it changes what a Component's required README
-holds, whose references the checker resolves and crates.io renders as code that names nothing. Every published crate gets the page, so the rule has no exception. This serves
-`goal@adoption-is-easy`: a user who looks for a crate on crates.io finds there what it is and
-where its documentation is, in text that names nothing the page cannot show.
+finding whether or not it resolves, per `design@check@citation-free-paths`.
+
+The README stays the crate's home for how a user uses it, per `primer@where-knowledge-goes`, with
+the references the checker resolves. The rival, a README rewritten for crates.io with its
+repository-facing text moved elsewhere, lost: it moves the most text, it changes what a
+Component's required README holds, and the README would lose its references, which the checker
+resolves and crates.io renders as code that names nothing. Every published crate gets the page,
+so the rule has no exception. This serves `goal@adoption-is-easy`: a person or an agent adopting
+a crate who looks for it on crates.io finds there what to do with it, where its documentation is,
+in plain words that name nothing the page cannot show.
 
 ### The checker carries the agent workflow and writes it into a project `##binary-bundles-workflow`
 
