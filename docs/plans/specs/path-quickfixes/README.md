@@ -203,7 +203,7 @@ The design rests on these decisions, and does not argue them again:
 - `design@model@trailing-slash-claims-directory`: "The kind claim sits in the span itself —
   greppable, visible to the reader, checkable — rather than inferred from what happens to exist."
   Per D3, no respelling changes a span's kind claim, so the work keeps this head.
-- `design@check@every-path-names-its-anchor`, `design@check@deepest-anchor-wins` and `design@model@plan-document-kinds`: the deepest
+- `design@check@every-path-names-its-anchor`, `design@check@plan-document-path-citation-refused`, `design@check@deepest-anchor-wins` and `design@model@plan-document-kinds`: the deepest
   anchor wins, a plan document is cited by its kind, and the path is plain. The respellings write
   the form these heads require.
 - `design@model@harness-kinds-cited-without-anchor`: a skill or an agent is cited `skill@<name>` or
