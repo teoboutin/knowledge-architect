@@ -2,14 +2,16 @@
 //! and the keys of `[workspace.package]` a package inherits them from.
 //!
 //! Cargo's manifest format is read as `path@cargo-reader@docs/grounding/cargo-manifest.md` records
-//! it. This module is the one reader of that format in the code of the published crates.
+//! it. This module is the one reader of that format in the library code of the published crates,
+//! per `design@knowledge-architect@tools-read-cargo-through-the-crate`.
 
 use std::fmt;
 
 /// What a manifest declares, of the tables the reader reads.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Manifest {
-    /// The `[package]` table, absent from a virtual workspace's manifest.
+    /// The `[package]` table, or the `[project]` table where the manifest holds no `[package]`, as
+    /// Cargo reads it; absent from a virtual workspace's manifest.
     pub package: Option<Package>,
     /// The `[workspace.package]` keys, present whenever the manifest holds a `[workspace]` table,
     /// each `None` where that table does not set it. `None` for a manifest with no `[workspace]`.
@@ -55,14 +57,16 @@ pub enum Field<T> {
     Absent,
     /// The manifest sets it to this value.
     Set(T),
-    /// The manifest sets it to `{ workspace = true }`, so its value is the workspace's.
+    /// The manifest sets it to a table whose `workspace` is `true`, such as `{ workspace = true }`,
+    /// so its value is the workspace's.
     Workspace,
 }
 
 /// The value of `publish`, as the manifest writes it.
 ///
-/// Cargo reads `false` and an empty list alike, as a package published to no registry, and
-/// `true` as a package with no restriction, the same as an absent `publish`.
+/// Cargo reads `false` and an empty list alike, as a package published to no registry. It reads
+/// `true` as a package with no restriction, the same as an absent `publish` when `version` is set;
+/// with no `version`, an absent `publish` is a package it does not publish, and `true` is refused.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Publish {
     /// `publish = true` or `publish = false`.
@@ -71,8 +75,8 @@ pub enum Publish {
     Registries(Vec<String>),
 }
 
-/// Why a manifest's text could not be read: no TOML, or a table or a field this reader reads of a
-/// shape Cargo refuses.
+/// Why a manifest's text could not be read: no TOML, or a table or a field this reader reads that
+/// holds a value of a type Cargo refuses.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ManifestError {
     message: String,
@@ -100,17 +104,23 @@ impl std::error::Error for ManifestError {}
 /// Cargo knows it or not. Inheritance is not resolved here: [`Package::inherit`] does it, given the
 /// workspace's manifest, which the caller finds.
 ///
+/// An `Ok` does not mean that Cargo accepts the manifest. The read checks the type of each field
+/// on its own, and no combination of fields or of values: `publish = true` with no `version`, or a
+/// `[project]` table under the 2024 edition, both refused by Cargo, are read without error.
+///
 /// # Errors
 ///
 /// Returns a [`ManifestError`] when the text is no TOML; when `[package]` or `[workspace]` is not
 /// a table, or `[workspace.package]` is not one; when `[package]` has no `name` that is a string;
-/// and when a field read here holds a value of a type Cargo refuses for it, a
-/// `{ workspace = false }` and a table holding another key than `workspace` included.
+/// and when a field read here holds a value of a type Cargo refuses for it, a table whose
+/// `workspace` is `false` and a table with no `workspace` key included.
 pub fn read_manifest(text: &str) -> Result<Manifest, ManifestError> {
     let table: toml::Table = text
         .parse()
         .map_err(|error: toml::de::Error| ManifestError::new(error.message().to_string()))?;
-    let package = match table.get("package") {
+    // Cargo reads the `[project]` table, the older name of `[package]`, where the manifest holds no
+    // `[package]`, as `path@cargo-reader@docs/grounding/cargo-manifest.md` records measured.
+    let package = match table.get("package").or_else(|| table.get("project")) {
         None => None,
         Some(value) => Some(package(value)?),
     };
@@ -171,8 +181,8 @@ fn workspace_key<T>(
         .transpose()
 }
 
-/// A field of `[package]`: absent, a value `read` accepts, or `{ workspace = true }`, the one table
-/// Cargo accepts for an inheritable field of `[package]`.
+/// A field of `[package]`: absent, a value `read` accepts, or a table whose `workspace` is `true`,
+/// the one table Cargo accepts for an inheritable field of `[package]`.
 fn field<T>(
     table: &toml::Table,
     key: &str,
@@ -182,9 +192,11 @@ fn field<T>(
         return Ok(Field::Absent);
     };
     if let Some(inline) = value.as_table() {
-        return match (inline.len(), inline.get("workspace")) {
-            (1, Some(toml::Value::Boolean(true))) => Ok(Field::Workspace),
-            (1, Some(toml::Value::Boolean(false))) => Err(ManifestError::new(format!(
+        // Cargo reads the table by its `workspace` key and ignores any other key beside it, as
+        // `path@cargo-reader@docs/grounding/cargo-manifest.md` records measured.
+        return match inline.get("workspace") {
+            Some(toml::Value::Boolean(true)) => Ok(Field::Workspace),
+            Some(toml::Value::Boolean(false)) => Err(ManifestError::new(format!(
                 "`package.{key}`: `workspace` cannot be false"
             ))),
             _ => Err(wrong_type("package", key)),
@@ -384,11 +396,11 @@ mod tests {
         );
     }
 
-    /// Claim 1, the shapes Cargo refuses are errors, never a fact read: no TOML, no name, a name
-    /// or a field of the wrong type, `{ workspace = false }`, and a table beside `workspace`.
-    /// Mutations checked, each caught: in `field`, `_ => Err(wrong_type("package", key)),` made
-    /// `_ => Ok(Field::Absent),`; in `package`, `None => return Err(ManifestError::new("missing
-    /// field `package.name`")),` made `None => String::new(),`.
+    /// Claim 1, a value of a type Cargo refuses is an error, never a fact read: no TOML, no name, a
+    /// name or a field of the wrong type, a table whose `workspace` is `false`, and a table with no
+    /// `workspace` key. Mutations checked, each caught: in `field`, the arm
+    /// `_ => Err(wrong_type("package", key)),` made `_ => Ok(Field::Absent),`; in `package`, the
+    /// arm for a missing name made `None => String::new(),`.
     #[test]
     fn a_shape_cargo_refuses_is_an_error() {
         for text in [
@@ -400,7 +412,8 @@ mod tests {
             "[package]\nname = \"a\"\npublish = [3]\n",
             "[package]\nname = \"a\"\nversion = 1\n",
             "[package]\nname = \"a\"\nversion.workspace = false\n",
-            "[package]\nname = \"a\"\nversion = { workspace = true, other = 1 }\n",
+            "[package]\nname = \"a\"\nversion = { workspace = false, other = 1 }\n",
+            "[package]\nname = \"a\"\nversion = { other = 1 }\n",
             "workspace = 3\n",
             "[workspace]\npackage = 3\n",
             "[workspace.package]\nversion = 1\n",
@@ -408,5 +421,63 @@ mod tests {
         ] {
             assert!(read_manifest(text).is_err(), "{text:?} was read");
         }
+    }
+
+    /// Claim 1, a table whose `workspace` is `true` inherits whatever other key it holds beside it,
+    /// as Cargo 1.98 reads it, and one whose `workspace` is `false` is refused whatever it holds.
+    /// Mutation checked: in `field`, `Some(toml::Value::Boolean(true)) => Ok(Field::Workspace),`
+    /// made `Some(toml::Value::Boolean(true)) if inline.len() == 1 => Ok(Field::Workspace),`;
+    /// caught.
+    #[test]
+    fn a_table_whose_workspace_is_true_inherits_whatever_else_it_holds() {
+        let package = package_of(&format!(
+            "{NAMED}version = {{ workspace = true, other = 1 }}
+publish.workspace = true
+             publish.x = \"y\"\n"
+        ));
+        assert_eq!(package.version, Field::Workspace);
+        assert_eq!(package.publish, Field::Workspace);
+    }
+
+    /// Claim 1, `publish.workspace = true` and `include.workspace = true` take the workspace's
+    /// value, and `[workspace.package]` holds `publish` and `include` as written. Mutations
+    /// checked, each caught: in `Package::inherit`, `&workspace.publish` made
+    /// `&workspace.publish.clone().map(|_| Publish::Flag(true))`, and
+    /// `include: inherited(&self.include, &workspace.include, "include")?,` made
+    /// `include: self.include.clone(),`; in `workspace_package`, the `publish` key's read followed
+    /// by `.map(|_| Publish::Flag(true))`, and the `include` key's by `.map(|_| vec![])`.
+    #[test]
+    fn publish_and_include_are_inherited_as_the_workspace_writes_them() {
+        let workspace = read_manifest(
+            "[workspace]\n\n[workspace.package]\npublish = [\"a-registry\"]\n\
+             include = [\"/src/**\", \"/README.md\"]\n",
+        )
+        .expect("the workspace manifest is read")
+        .workspace
+        .expect("it has a workspace");
+        let registries = Publish::Registries(vec!["a-registry".to_string()]);
+        let patterns = vec!["/src/**".to_string(), "/README.md".to_string()];
+        assert_eq!(workspace.publish, Some(registries.clone()));
+        assert_eq!(workspace.include, Some(patterns.clone()));
+        let member = package_of(&format!(
+            "{NAMED}publish.workspace = true\ninclude.workspace = true\n"
+        ));
+        let resolved = member.inherit(&workspace).expect("every key is set");
+        assert_eq!(resolved.publish, Field::Set(registries));
+        assert_eq!(resolved.include, Field::Set(patterns));
+    }
+
+    /// Claim 1, a `[project]` table is read as the package where the manifest holds no
+    /// `[package]`, and a `[package]` beside it is the one read, as Cargo 1.98 reads them.
+    /// Mutations checked, each caught: in `read_manifest`,
+    /// `table.get("package").or_else(|| table.get("project"))` made `table.get("package")`, and
+    /// made `table.get("project").or_else(|| table.get("package"))`.
+    #[test]
+    fn a_project_table_is_the_package_where_no_package_table_is() {
+        let package = package_of("[project]\nname = \"a-crate\"\nversion = \"1.0.0\"\n");
+        assert_eq!(package.name, "a-crate");
+        assert_eq!(package.version, Field::Set("1.0.0".to_string()));
+        let package = package_of("[package]\nname = \"a\"\n\n[project]\nname = \"b\"\n");
+        assert_eq!(package.name, "a");
     }
 }

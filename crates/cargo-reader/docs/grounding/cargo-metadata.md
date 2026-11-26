@@ -23,7 +23,8 @@ with the command given.
   specified", and "By default, this includes all dependencies for all target platforms. The
   `--filter-platform` flag may be used to narrow to a specific target triple." It holds `nodes`,
   each with `id` and `dependencies`, "an array of Package IDs", and `root`, "The package in the
-  current working directory ... null if there is a virtual workspace."
+  current working directory (if --manifest-path is not given). This is null if there is a virtual
+  workspace."
 - **A Package ID's form is opaque**: "fields related to “Source ID” are treated as opaque
   identifiers"; the reader compares IDs and never parses one.
 
@@ -38,3 +39,7 @@ with the command given.
   empty directory with no `Cargo.toml` above it: "error: could not find `Cargo.toml` in `<dir>` or
   any parent directory".
 - **A package with `publish = false` reports `"publish": []`**, measured for `xtask`.
+- **With `--manifest-path`, `root` is the package of that manifest**, measured in a scratch
+  workspace of two members `a` and `b`: run in `a` with `--manifest-path ../b/Cargo.toml`, `root`
+  is `b`'s ID; run at the virtual root with `--manifest-path a/Cargo.toml`, it is `a`'s, where the
+  same run without the flag gives `null`.

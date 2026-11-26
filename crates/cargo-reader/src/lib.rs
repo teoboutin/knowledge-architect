@@ -11,8 +11,8 @@
 //! Reading a manifest touches no file and runs nothing; the caller reads the text, and finds the
 //! workspace's manifest a package inherits from. Running `cargo metadata` needs Cargo, named by the
 //! variable `CARGO` or found on the path. Every failure is an error carrying the reason, never an
-//! empty answer: a manifest of a shape Cargo refuses, Cargo's own failure with its message, an
-//! output of another shape.
+//! empty answer: a manifest that is no TOML or holds a field of a type Cargo refuses, Cargo's own
+//! failure with its message, an output of another shape.
 //!
 //! ```
 //! use knowledge_architect_cargo_reader::{read_manifest, Field};
