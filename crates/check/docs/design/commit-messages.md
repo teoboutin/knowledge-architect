@@ -113,7 +113,9 @@ would let a reference that resolves in neither pass.
 A message is not a file of the tree, and a check whose verdict moved with the branch's history would be a check nobody could reproduce from a checkout:
 `git stash` alone would move it. `check --staged` reads HEAD's tree and the index, one tree and no
 range, per `design@check@staged-tree-source`. The range is always explicit, and the gates pass the range from the
-remote `main` to `HEAD`, so what is judged is the branch's own commits and never `main`'s.
+remote `main` to `HEAD`, so what is judged is the branch's own commits and never `main`'s. No
+check and no gate reads the history before that base, per
+`design@knowledge-architect@no-history-beyond-the-branch`, which this head serves for `check`.
 
 ### No check judges a change of a frozen file: the review before a merge does `##a-frozen-file-is-guarded-by-the-review`
 
