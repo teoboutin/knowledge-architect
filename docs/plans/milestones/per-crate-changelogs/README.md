@@ -262,7 +262,7 @@ document, and those the record search's triage found:
 | `design@knowledge-architect@changelog-entries` | rewritten: the surface is replaced by the crate's file, the subsection by the category tag, and a Migration entry names an audit axis by its section title | `agent@klarch-changelog-reviewer`, `skill@klarch-release`, the root CLAUDE.md `## Git` point 1, `design@knowledge-architect@versioning-policy`, `design@knowledge-architect@changelog-reviewed-at-the-release`, `design@agent-skills@audit-triggers`, `issue@agent-skills@a-one-time-technical-setup-has-no-place-a-project-gets-it-from` | 5 |
 | `design@agent-skills@audit-triggers` | rewritten: the trigger is a Migration entry that names an axis by its section title, not one that cites it | the installed pin move's step 2 and step 5, `skill@knowledge-architect-project-audit` (its description and its occasions list), the primer's line on the project audit in `primer@installed-skills` and its `primer@coined-terms` ("Migration entry: an entry of the checker's changelog"), `design@agent-skills@tripwire-audit-axis` (judged: its wording "names this axis in its Migration entry" may already hold) | 5 |
 | `design@knowledge-architect@crates-io-page-file` | rewritten: its rule is enforced by the citation-free level `all` | `design@agent-skills@setup-default-crates-io-page` and the setup skill's CRATES-IO.md proposal, which proposes the declaration | 1 |
-| `design@check@installed-files-outside-the-walk`, `design@model@installed-entities-from-the-tree` | rewritten, narrowed by a member, on D2, closed by the session on the owner's argument `argument@per-crate-changelogs@arg-60`: the installed copies stay outside the walk and raise no finding, except that the checker reads them for references at the level `entries` where a project declares a glob that matches them; the reason "reports those paths in a project that can repair none of them" keeps every other rule, since only a declaring project is read so | the doc comment of `installed` in `path@model@src/model.rs`, the module documentation of `path@model@src/shipped_set.rs`, `path@check@docs/design/run-model.md` ("An installed copy raises no finding of phase 3"), `path@model@docs/design/agent-configuration.md`, `design@agent-skills@shipped-text-cites-no-entry`, `path@agent-skills@CLAUDE.md` ("content/ is in the walk"), `skill@klarch-release` step 4 | 1 |
+| `design@check@installed-files-outside-the-walk`, `design@model@installed-entities-from-the-tree` | rewritten, narrowed by a member, on D2, closed by the session on the owner's argument `argument@per-crate-changelogs@arg-60`: the installed copies stay outside the walk and raise no finding, except that the checker reads them for references at the level `entries` where a project declares a glob that matches them; the reason "reports those paths in a project that can repair none of them" keeps every other rule, since only a declaring project is read so | the doc comment of `installed` in `path@model@src/model.rs`, the module documentation of `path@model@src/shipped_set.rs`, `path@check@docs/design/run-model.md` ("An installed copy raises no finding of phase 3", judged at slice 1's design audit to stay true, since a finding of the level `entries` is phase 4's), `path@model@docs/design/agent-configuration.md`, `design@agent-skills@shipped-text-cites-no-entry`, `path@agent-skills@CLAUDE.md` ("content/ is in the walk"), `skill@klarch-release` step 4 | 1 |
 | `design@model@a-reference-is-live-in-every-prose` | rewritten, narrowed: in a file at the level `all`, no span is resolved; at the level `entries`, a span is resolved as anywhere else and refused where it names an entry or an anchor of the project | the citers `cargo klarch show` lists, read at the slice's design audit for the sentence "In every file the walk reads" | 1 |
 | `design@model@git-supplies-the-walk` | rewritten, a member added: "No generated path is declared" admits the assembled path, the one generated path the manifest declares; `tree` does not assert it exists, since the head's premise, that a generated path cannot be asserted to exist, holds for it too, and the generated-files check reports it missing with its own finding, "the generated file is missing" (`MISSING` in `path@check@src/check/generated.rs`), or out of date | the citers `cargo klarch show` lists, read at the slice's design audit for the changed sentence, which a grep of "generated path is declared" finds in the head alone | 3 |
 | `design@model@registers-are-declared`, `design@check@nothing-of-a-project-is-compiled-in` | rewritten, a member added: the set of changelog crates is declared in the manifest by `[changelog]`, opt-in, as "the published crates", whose list each `Cargo.toml` already declares; a second list by hand drifts, and the drift it would hide, a new published crate with no changelog, is what the check exists to report. The grammar and the classes are the sixth compiled-in member | the citers `cargo klarch show` lists, read at the slice's design audit for "the manifest declares every list a check reads" | 3 |
@@ -292,7 +292,7 @@ each with its outcome. Every other verdict is in [the discussion's search](searc
 | `design@check@nothing-of-a-project-is-compiled-in` | the grammar and the classes are a sixth compiled-in member, `thread@per-crate-changelogs@changelog-grammar-compiled-in`; slice 3 |
 | `design@model@components-carry-the-same-documents` | the checks run only where `[changelog]` is declared, `thread@per-crate-changelogs@changelog-opt-in`; reading `publish` is no discovery by filename |
 | `design@model@registers-are-declared`, `design@check@nothing-of-a-project-is-compiled-in` | the set of changelog crates read from `publish` is a member of both, argued in "Reversed or rewritten"; slice 3 |
-| `design@check@an-extension-claims-its-manifest-tables` | `[changelog]` and `[walk.citation-free]` become built-in tables, so the name `changelog` is taken from every extension; slices 1 and 3 list it among the heads they touch |
+| `design@check@an-extension-claims-its-manifest-tables` | `[changelog]` becomes a built-in table, so the name `changelog` is taken from every extension; slice 3 lists it among the heads it touches. `[walk.citation-free]` is a subtable of the built-in `[walk]`, and an extension claims only top-level tables, so slice 1 does not touch the head, as its design audit found |
 | `design@check@safe-fix-definition`, `design@check@fix-scope` | `--fix` writes no byte of a crate's changelog: a preamble that differs is a finding whose message gives the expected text; slice 3 |
 | `design@model@a-reference-is-live-in-every-prose` | narrowed for the citation-free files, listed in "Reversed or rewritten"; slice 1 |
 | `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` | answered by the opt-in: the work asks nothing of a project that declares no `[changelog]` |
@@ -647,6 +647,42 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   other rule, since the level `entries` reads an installed copy only where a project declares a
   glob that matches it; so both heads are rewritten by a narrowing member, not reversed, as "What is
   already decided" lists them.
+- **D3**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
+  `design@agent-skills@setup-default-crates-io-page`, which slice 1's harvest touches, meets no
+  entry test of `primer@design-heads`: it is no interface others consume, its one site is
+  `skill@knowledge-architect-setup@rust-project`, which states the proposal with its reason, and it
+  turns on no external behaviour. It was removed by the commit "The design homes lose the heads no entry
+  test admits", and restored by the commit "[review] The last transcript review read the cleanup:
+  test 4 asks the owner, and the owner's answers decide which heads stand on the owner's intent",
+  under a test of the owner's intent that the current rules no longer hold, and
+  it quotes the owner twice. Default: the head leaves `register@agent-skills@design`, and its
+  citations in this milestone's documents are re-pointed to
+  `skill@knowledge-architect-setup@rust-project`. Rival: the head stays, without its second
+  paragraph, which holds the quotations. The default removes a head that rests on the owner's
+  word, so the owner rules on it.
+- **D4**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
+  `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` names as its re-entry point the next
+  branch that takes in a tool that judges a project's quality, and slice 1 adds such a check, with
+  the setup skill proposing its declaration. Default: the discussion is put off again, as it was
+  when the gate `cross_clippy` met the same point; the slice builds as planned, the declaration
+  opt-in, so it asks nothing of a project that declares nothing. Rival: hold that discussion before
+  slice 1 merges, which could argue whether the setup skill's proposal is an ask.
+- **D5**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
+  `issue@check@no-checked-form-cites-a-point-inside-a-section` names as its re-entry point the next
+  change to `design@model@section-homes-carry-slugs`, which slice 1's harvest narrows by the member
+  of the level `entries`. Default: the discussion that issue asks for is not held in this slice,
+  whose change bears on no citation of a point inside a section, and the issue stays open at its
+  re-entry point. Rival: hold that discussion before slice 1 merges.
+- **D6**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
+  `design@check@every-path-names-its-anchor`, which slice 1's harvest touches and splits, is
+  enforced by code of `model` alone: `path@model@src/resolver.rs` refuses `..`, computes the plan
+  document's form and is the one Rust file that cites the head. Read one way,
+  `skill@knowledge-architect-decision-recording@owning-component` places the head where the code
+  that enforces it lives; read the other, the cut divides the decision, since `check` renders the
+  finding. No record states which reading holds. Default: the head and the one its split creates
+  move to `register@model@design`, beside `design@model@path-to-a-home-is-reported`. Rival: both
+  stay in `register@check@design`. The same reading bears on `design@check@deepest-anchor-wins`,
+  which the slice does not touch.
 
 ## Harvest
 
@@ -696,4 +732,6 @@ Each slice's row is in its spec. The milestone document's own row:
   literal anchor is not one every installing project holds. The issue's census found no defect
   among 354 placeholder spans, so it is a guard on the text that teaches every installing project
   the grammar, not a repair. Slice 1's landing opens an issue entry for it, or argues in its commit
-  that none is needed.
+  that none is needed. Its design audit found it a design that
+  `rejected@model@placeholder-literal-part-check` records, scoped to the shipped text: an issue entry
+  for it needs a new argument against that entry.
