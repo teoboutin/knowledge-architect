@@ -1,12 +1,10 @@
 # knowledge-architect-cargo-reader
 
-Reads what the tools of knowledge-architect need of Cargo. Through it, the checker of a project's
-documents reads the facts of a `Cargo.toml`, the package name, its version with the inheritance from
-the workspace, `publish`, `repository` and `include`, and the resolved graph that `cargo metadata`
-reports, each package with its manifest path and its repository. A failure, of Cargo or of a text
-of a shape Cargo refuses, is an error carrying the reason, never an empty answer.
+Reads what the tools of knowledge-architect need of Cargo: the text of a `Cargo.toml`, and the
+output of `cargo metadata`.
 
-The checker depends on it; a project names the package `knowledge-architect` alone.
+The checker depends on it; a project names the package `knowledge-architect` alone. A Rust program
+can depend on it directly, with `cargo add knowledge-architect-cargo-reader`.
 
 ## Documentation
 

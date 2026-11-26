@@ -20,9 +20,10 @@ pub struct Manifest {
 
 /// The facts of a `[package]` table, each as the manifest states it.
 ///
-/// A field set to `{ workspace = true }` is [`Field::Workspace`] until [`Package::inherit`]
-/// replaces it with the workspace's value. No default of Cargo's is applied: an absent `version`
-/// is [`Field::Absent`], which Cargo reads as `0.0.0` and as a package it does not publish.
+/// A field set to a table whose `workspace` is `true`, such as `{ workspace = true }`, is
+/// [`Field::Workspace`] until [`Package::inherit`] replaces it with the workspace's value. No
+/// default of Cargo's is applied: an absent `version` is [`Field::Absent`], which Cargo reads as
+/// `0.0.0` and as a package it does not publish.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Package {
     /// `name`, which Cargo requires of every `[package]`.

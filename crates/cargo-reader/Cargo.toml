@@ -9,7 +9,7 @@ repository.workspace = true
 keywords.workspace = true
 # What the published package ships, as a whitelist: a new directory is shipped only once it is
 # listed here, so the tests over this repository and the design documents never reach the package.
-include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+include = ["/src/**", "/Cargo.toml", "/README.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
 
 [dependencies]
 # A `Cargo.toml` is TOML.
