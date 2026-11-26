@@ -663,6 +663,8 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   `skill@knowledge-architect-setup@rust-project`. Rival: the head stays, without its second
   paragraph, which holds the quotations. The default removes a head that rests on the owner's
   word, so the owner rules on it.
+  **Ruled**, after the review before the merge of slice 1: the default kept, on the owner's
+  approval.
 - **D4**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
   `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` names as its re-entry point the next
   branch that takes in a tool that judges a project's quality, and slice 1 adds such a check, with
@@ -670,12 +672,16 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   when the gate `cross_clippy` met the same point; the slice builds as planned, the declaration
   opt-in, so it asks nothing of a project that declares nothing. Rival: hold that discussion before
   slice 1 merges, which could argue whether the setup skill's proposal is an ask.
+  **Ruled**, after the review before the merge of slice 1: the default kept, on the owner's
+  approval.
 - **D5**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
   `issue@check@no-checked-form-cites-a-point-inside-a-section` names as its re-entry point the next
   change to `design@model@section-homes-carry-slugs`, which slice 1's harvest narrows by the member
   of the level `entries`. Default: the discussion that issue asks for is not held in this slice,
   whose change bears on no citation of a point inside a section, and the issue stays open at its
   re-entry point. Rival: hold that discussion before slice 1 merges.
+  **Ruled**, after the review before the merge of slice 1: the default kept, on the owner's
+  approval.
 - **D6**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
   `design@model@every-path-names-its-anchor`, which slice 1's harvest touches and splits, is
   enforced by code of `model` alone: `path@model@src/resolver.rs` refuses `..`, computes the plan
@@ -686,6 +692,8 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   move to `register@model@design`, beside `design@model@path-to-a-home-is-reported`. Rival: both
   stay in `register@check@design`. The same reading bears on `design@check@deepest-anchor-wins`,
   which the slice does not touch.
+  **Ruled**, after the review before the merge of slice 1: the default kept, on the owner's
+  approval.
 - **D7**, on `thread@per-crate-changelogs@citation-free-paths`, raised by the review before the
   merge of slice 1. A glob of `[walk.citation-free]` refuses a `.` segment, where a declared
   `[walk]` path drops one, as `design@model@citation-free-glob-spelling` records: one rule for
@@ -693,6 +701,8 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   ranks. The argument that a star beside an empty segment leaves its segment open covers the
   empty segment alone. Default, built: the `.` segment is refused with the empty one. Rival: a
   glob's `.` segment is dropped, as a `[walk]` path's is, and only the empty segment refused.
+  **Ruled**, after the review before the merge of slice 1: the default kept, on the owner's
+  approval.
 
 ## Harvest
 
