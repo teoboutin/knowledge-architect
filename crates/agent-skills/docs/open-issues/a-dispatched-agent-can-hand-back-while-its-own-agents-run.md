@@ -9,7 +9,7 @@ A dispatched agent that dispatches agents of its own in the background can end i
 hand back to its dispatcher, while those agents still run. Two retrospectives of this repository
 report five such hand-backs; after one of them the main session took two running auditors for
 stopped and removed their worktrees. Where a background child's result goes once its dispatcher has
-handed back is reported, not measured. The owner judges it a defect of the harness, and ruled out
+handed back is reproduced in the harness's own issue tracker: to the main session. The owner judges it a defect of the harness, and ruled out
 the fix of dispatching such children in the foreground.
 
 ## Details
@@ -25,11 +25,15 @@ the fix of dispatching such children in the foreground.
   steps, reporting two auditors "still running"; the main session found no result files, took them
   for stopped and removed both worktrees; both were still running, one finished in the main
   checkout, and their reports reached the main session directly.
-- What the files report of the mechanism, not measured: a child dispatched in the background keeps
-  running after its dispatcher's turn ends, and its result reaches the main session, not the
-  dispatcher. The session's reading, an assumption: an agent's turn ends when it replies without a
-  tool call, and an agent with background children and no tool that blocks until they return has
-  nothing to do but end it.
+- What the files report of the mechanism: a child dispatched in the background keeps running after
+  its dispatcher's turn ends, and its result reaches the main session, not the dispatcher.
+- The harness's issue tracker holds the mechanism, reproduced: anthropics/claude-code#108513, a
+  background subagent whose own background subagent waits on background work is told by the
+  harness's `[handback-send-enforce]` prompt to hand back, and the child's report then reaches the
+  main session; and anthropics/claude-code#103605, a hand-back accepted while the subagent's own
+  background children still run, whose comments name the trigger, the child's interim notice. The
+  two occurrences above were added to the first as a comment on the owner's word at the intake of
+  twenty files, with the removed worktrees as the cost the report did not hold.
 - `primer@dispatching-work` already has an agent report "what it acted on and what it did not, with
   why", and the implementer of 2026-11-22 reported its two auditors as still running; the loss there
   was the main session's reading of that report.
@@ -49,7 +53,5 @@ misbehaved on it.
 
 ### What would close it
 
-A measurement of the harness's mechanics, one dispatched agent that sends a child to the background
-and hands back, showing where the child's result goes; then either a report to the harness's
-maintainers, if it is the harness's defect, or an instruction that real use shows a session lacked,
-admitted under that head.
+The harness's fix of anthropics/claude-code#108513, which this entry then closes with; or an
+instruction that real use shows a session lacked meanwhile, admitted under that head.
