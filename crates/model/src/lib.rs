@@ -51,6 +51,7 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
+mod citation_free;
 mod contribution;
 mod entity;
 mod finding;
@@ -80,6 +81,7 @@ pub use model::{Document, Model};
 
 /// What a manifest declares.
 pub mod declared {
+    pub use crate::citation_free::{CitationFree, Glob, Level};
     pub use crate::manifest::{
         normalise_list, normalise_one, owned_path, LocationDecl, Pin, PlanKind, Register,
         Registers, Scope, Shape, Walk, AGENT_DOCUMENT, DELIBERATION_FILE, DELIBERATION_SECTIONS,

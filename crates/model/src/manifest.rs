@@ -22,6 +22,7 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+use crate::citation_free::CitationFree;
 use crate::finding::{slashed, Finding};
 
 /// The file that both marks a project root and declares its conformance surface.
@@ -631,6 +632,10 @@ pub struct Walk {
     /// Project-relative paths skipped by location rather than by name.
     #[serde(default)]
     pub exclude: Vec<PathBuf>,
+    /// The subtable `[walk.citation-free]` as written, which [`Manifest::citation_free`] returns
+    /// resolved.
+    #[serde(default)]
+    pub(crate) citation_free: crate::citation_free::Declared,
 }
 
 #[cfg(test)]
@@ -642,6 +647,7 @@ impl Walk {
             skip_dirs: vec![PathBuf::from(".git")],
             skip_files: Vec::new(),
             exclude: Vec::new(),
+            citation_free: Default::default(),
         }
     }
 }
@@ -695,6 +701,8 @@ pub struct Manifest {
     /// What `[project] checker-version` says; `None` only when the key is absent or holds none
     /// of the three forms, which is then a complaint.
     pin: Option<Pin>,
+    /// `[walk.citation-free]`, its refused globs removed.
+    citation_free: CitationFree,
 }
 
 impl Manifest {
@@ -760,6 +768,8 @@ impl Manifest {
         resolve_agents(&mut declared, &mut complaints);
         resolve_command(&mut declared, &mut complaints);
         let pin = resolve_checker(&declared, &mut complaints);
+        let citation_free =
+            crate::citation_free::resolve(&declared.walk.citation_free, &mut complaints);
         Ok(Self {
             root: root.to_path_buf(),
             declared,
@@ -769,6 +779,7 @@ impl Manifest {
             extension_paths: Vec::new(),
             extension_generated: Vec::new(),
             pin,
+            citation_free,
         })
     }
 
@@ -781,6 +792,12 @@ impl Manifest {
     /// The `[walk]` table, its paths normalised and its refused rows removed.
     pub fn walk(&self) -> &Walk {
         &self.declared.walk
+    }
+
+    /// The files `[walk.citation-free]` declares free of citations, each glob whose spelling the
+    /// resolve refused removed. A glob that matches no file is still here: phase 2 reports it.
+    pub fn citation_free(&self) -> &CitationFree {
+        &self.citation_free
     }
 
     /// What `[project] checker-version` says, or `None` while its complaint stands.
