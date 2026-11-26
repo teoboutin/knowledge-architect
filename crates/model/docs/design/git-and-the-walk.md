@@ -75,7 +75,11 @@ neither set, so no glob matches it: its findings are its sources'. The resolved 
 empty segment: a glob spelled otherwise matches nothing git lists. Such a glob is a complaint of
 the manifest's resolve, and declares nothing. A declared `[walk]` path is refused for a leading `/`
 or a `..` segment alike, per `design@model@git-supplies-the-walk`; its `.` segment and its empty
-segment are dropped when the manifest loads, where a glob's are refused.
+segment are dropped when the manifest loads, where a glob's are refused: a `[walk]` path names one
+path, which the drop leaves the same, while a `*` beside an empty segment, as in `a/*//b`, leaves
+open which segment the star was meant to cover, so the writer, not the loader, spells it again. A
+`.` segment is refused with it, so a glob holds one rule for every segment it must not spell, at
+the cost of one respelling where the drop would have been safe.
 
 **A glob is checkable, as every other declaration of the walk is**, per
 `design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
