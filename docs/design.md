@@ -151,7 +151,10 @@ projects' tests in `testing`, which pays because a rule changed is judged at its
 from the run over a whole project that the mock projects judge. It takes the decisions of one
 domain, the rules a document is held to, in `register@check@design`, which pays because a rule is
 read beside the other rules it must not contradict, apart from how a form is parsed. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `model`, `git` and
-`agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; a split of the
+`agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; the
+many-dependencies signal does not prevail, since each edge is one the checks need wherever they
+sit: they judge what the model reads, ask git through its crate and compare the installed text, and
+`create`, `testing` and `cli` each run them; a split of the
 checks from the commands that run them would have every new command cross the new boundary, and a
 split of the install would add a crate that depends on `model` and `agent-skills` for a side domain.
 
