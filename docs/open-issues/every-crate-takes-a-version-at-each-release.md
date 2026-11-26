@@ -1,5 +1,5 @@
 ---
-kind: deferred
+kind: todo
 ---
 # Every published crate takes a new version at each release, whether its code changed or not
 
@@ -8,8 +8,8 @@ kind: deferred
 `design@knowledge-architect@version-lockstep` gives every published crate one version, so each
 release publishes a new version of every crate. A crate that changes rarely, such as `gates`, still
 takes one each time. Versioning each crate on its own would publish only the crates a release
-changes. The owner deferred the question; the trigger is the design discussion of the next published
-crate, the first expected being the split of the skill-bundling passes out of agent-skills.
+changes. The owner wants the question discussed before the next release: a new published crate
+alone does not argue how crates are versioned, so no such crate is the occasion for it.
 
 ## Details
 
@@ -40,13 +40,18 @@ and its consumers see a new version to move to with nothing in it for them. It s
 `design@knowledge-architect@version-lockstep`, whose cost "a fix to one library alone is released as
 a version of every crate" grows with each crate the project splits off.
 
-### Trigger
+### What would close it
 
-The design discussion of a new published crate, the first expected being the split of the
-skill-bundling passes out of agent-skills that
-`issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills` records,
-whose crate the owner expects to change rarely. That discussion decides how its crate is versioned
-and released, and may reopen `design@knowledge-architect@version-lockstep` under
-`skill@knowledge-architect-design`, which a Component creation alone weighs and never sets. It cites
-this entry, and decides whether `design@agent-skills@split-cost-by-publication` names crates.io's
-limits on new crates among the costs a split weighs.
+A design discussion, under `skill@knowledge-architect-design`, of how the published crates are
+versioned, held before the next release, on the owner's word. It keeps
+`design@knowledge-architect@version-lockstep` or reverses it. Where it reverses it, its plan
+document schedules the work: the exact pins between the crates, the changelog sections and
+`skill@klarch-release`. Where it keeps it, the head records the argument against per-crate
+versions. Either way it decides whether `design@agent-skills@split-cost-by-publication` names
+crates.io's limits on new crates among the costs a split weighs.
+
+A new published crate is no occasion for it, such as the `cargo` crate that
+`milestone@plans@per-crate-changelogs` adds, or the split of the skill-bundling passes that
+`issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills` records:
+the owner ruled, in the discussion that produced that milestone, that adding a crate never argues
+versioning.

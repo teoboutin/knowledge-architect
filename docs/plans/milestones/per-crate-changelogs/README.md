@@ -1,0 +1,574 @@
+# Per-crate changelogs, a model of them with its checks, a command that assembles them from the registry, and files declared free of citations
+
+## Status and audience
+
+This milestone is the plan of the work that replaces the one changelog every crate ships with one
+changelog per published crate, reads those files into a model with checks over it, assembles the
+project's changelog from them, gives a consuming project a command that assembles the changelogs of
+its dependencies from the sources cargo fetched, and lets a manifest declare files that must hold
+no citation. It is written for a session that did not witness the design discussion that produced
+it. It leaves the repository, its directory whole, in a commit of its own, once its last slice has
+landed and every default it lists is ruled, per
+`skill@knowledge-architect-planning@plan-document-leaves`.
+
+- Where this document, or the spec of one of its slices, and a design home disagree on a point
+  that "What is already decided" does not list as reversed or rewritten, the design home wins, and
+  the disagreement is a defect of this document.
+- Every name it uses is defined in it, under Names or New names, or exists in the tree.
+- Where the owner's word is awaited, `skill@knowledge-architect-planning@working-a-slice` says what
+  waits.
+- Its line numbers name the tree at the commit that adds this document; each slice's design audit
+  takes them again.
+
+It was assembled from one session's transcript. The discussion begins at the owner's message that
+opens "I want to discuss changelog shape, and also shipping a structural model with scan and
+lint/checks for changelog". Find the session by that message, never by a session identifier. Its
+rounds, each an owner message and the replies to it, named by the message's opening words:
+
+| round | the owner's message opens |
+| --- | --- |
+| R1 | "I want to discuss changelog shape" |
+| R2 | "Agreed on changelog-per-component" |
+| R3 | "About changelog-the-pin-reads: this is not a question" |
+| R4 | "changelog-the-pin-reads agreed. If crates here" |
+| R5 | "About Requiring repository, why was" |
+| R6 | "agreed on dropping the ask" |
+| R7 | "Q1: if keeping the same trigger" |
+| R8 | "table confirmed", the owner's word on the last checkpoint table |
+| R9 | "agreed on a milestone with that order" |
+
+The committed transcript ends at R8's message, as
+`skill@knowledge-architect-planning@spec-contents` says. R9, the owner's approval of a milestone of
+five slices in the order of "Implementation sequence", came after the last checkpoint, so its
+attribution in this document's items is its whole record. The round's arguments are items of
+[deliberation](deliberation.md); the record search's generated lines are
+[the discussion's search](search/discussion-1.txt).
+
+## How the work is done
+
+Each slice is worked as `skill@knowledge-architect-planning@working-a-slice` says: read it whole
+before each slice. Additions this milestone's work needs:
+
+- Each slice is one branch, one pull request and one merge, in the order of "Implementation
+  sequence", each merged before the next begins.
+- Each slice's design audit dispatches `agent@knowledge-architect-design-record-auditor` over the
+  heads its spec lists under "Heads the harvest touches", as
+  `skill@knowledge-architect-planning@cutting-steps-and-slices` says. That audit was not run at
+  assembly: the lists below are drawn from the search that section names, and the judgement of
+  each listed head is owed at the slice's design audit.
+- A slice that changes the installed text writes it under
+  `skill@knowledge-architect-agent-configuration`, as `path@agent-skills@CLAUDE.md`, "Editing an
+  installed skill or agent", says, read whole.
+- Until slice 5 merges, this repository's changelog stays the one root CHANGELOG.md and its copies:
+  slices 1 to 4 write their entries there, under its current grammar, per
+  `design@knowledge-architect@changelog-entries`.
+
+## Names
+
+- **the shared changelog**: today's root CHANGELOG.md, 1892 lines and 155049 bytes (`wc -l -c
+  CHANGELOG.md`), copied byte for byte into each of the 11 directories under crates/ by `cargo x
+  changelog`, per `design@knowledge-architect@the-changelog-ships-in-every-crate`.
+- **`cargo x changelog`**: the subcommand of `path@xtask@src/changelog.rs`, whose functions
+  `copies` and `sync` write the copies, and whose test
+  `every_published_crate_carries_the_root_changelog` fails while one differs.
+- **a crate's changelog**: the `CHANGELOG.md` in the directory of a published crate, holding only
+  that crate's entries, per `thread@per-crate-changelogs@changelog-per-component`.
+- **a changelog crate**: a Component whose crate holds a changelog under
+  `thread@per-crate-changelogs@changelog-model-home`: one the `[changelog]` table lists, or, where
+  it lists none, one whose `Cargo.toml` has a `[package]` table that does not set `publish = false`.
+- **the assembled file**: the one changelog of the whole project, generated from every crate's
+  changelog at the path `[changelog] assembled` names, per
+  `thread@per-crate-changelogs@assembled-changelog-location`.
+- **a category**: what an entry's first tag names, one of the list the manifest declares, such as
+  Migration, New features and Workflow here; it replaces today's subsection, per
+  `thread@per-crate-changelogs@changelog-entry-categories`.
+- **a class**: patch, minor or major, the bump class of
+  `design@knowledge-architect@versioning-policy`.
+- **a surface**: today's first tag of an entry, one of checks, cli, manifest, library,
+  agent-skills, gates and mutate, per `design@knowledge-architect@changelog-entries`. The work
+  removes it.
+- **the preamble**: the lines of a crate's changelog above its first version heading, which the
+  checker determines, per `thread@per-crate-changelogs@category-order-in-preamble`.
+- **an unread line**: a line of a crate's changelog that the model's parse records as one it could
+  not read, per `thread@per-crate-changelogs@changelog-findings-in-check`.
+- **the pin move**: `skill@knowledge-architect-setup@moving-the-pin`, whose step 2 tells a
+  consuming project which changelog to read, at line 329 of its installed copy under .claude, from
+  its source `path@agent-skills@content/skills/setup/SKILL.md`, line 343.
+- **the registry sources**: the unpacked source of each package a consuming project depends on, as
+  `cargo metadata` reports its manifest path, in the cargo registry or at a path dependency.
+- **the resolved graph**: the packages of `cargo metadata`'s resolved dependency graph in the
+  consuming project.
+- **the installed copies**: the files `cargo klarch install-agent-skills` writes under .claude:
+  `path@agent-config@knowledge-architect/PRIMER.md`; the `SKILL.md` of each directory of
+  `path@agent-config@skills/` whose name begins with the installer's prefix, knowledge-architect-;
+  each file of `path@agent-config@agents/` with that prefix; and each saved workflow of
+  `path@agent-config@workflows/` with that prefix, which the walk does not read, since it reads `md`
+  and `rs` files alone (`LIVE_SUFFIXES` in `path@model@src/walk.rs`).
+- **a citation-free file**: a file a `[walk.citation-free]` glob matches, at the level `all` or
+  `entries`, per `thread@per-crate-changelogs@citation-free-paths`.
+
+## What the work is
+
+What exists today at each site the work touches:
+
+- **The changelog.** One root CHANGELOG.md. Its preamble says entries inside a subsection are
+  sorted by surface. It has one section per version, `## Next release` first, then `## 0.10.0` down
+  to `## 0.1.0`; the subsections are `### Migration`, `### New features` and `### Workflow`, an
+  empty one omitted (0.5.0 has no New features). An entry is ``- `<surface>`, <class>: <text>``,
+  except in 0.1.0, whose 24 entries carry a surface and no class and no subsection. Counted with
+  `grep -oE '^- \`[a-z-]+\`, (patch|minor|major)' CHANGELOG.md`: agent-skills 263, checks 54, cli
+  35, library 34, manifest 13, gates 3, mutate 1, so 101 classed entries carry a surface that is no
+  one crate (checks, manifest, library).
+- **The copies.** Every crate under crates/ lists `/CHANGELOG.md` in its `include`, and `cargo x
+  changelog` writes the copies. Each copy and the root file is a row of `[walk] skip-files` in
+  knowledge-architect.toml, 12 rows, per `design@knowledge-architect@the-changelog-is-outside-the-walk`:
+  no check reads any of them.
+- **Citations in the changelog.** 85 lines of CHANGELOG.md hold a backticked span shaped as a
+  reference with no angle bracket (`grep -E '\`[a-z]+@[^\`<]*\`' CHANGELOG.md | wc -l`), and line
+  101 holds a backticked span of the path `path@knowledge-architect@.cargo/config.toml`, which
+  `git ls-files .cargo` lists.
+- **The pin move.** Step 2 reads
+  `$CARGO_HOME/registry/src/<index>/knowledge-architect-<version>/CHANGELOG.md`, the binary
+  crate's copy, and lists each Migration entry that cites an axis's section of
+  `skill@knowledge-architect-project-audit` or
+  `skill@knowledge-architect-goal-setting@whole-set-review`, per `design@agent-skills@audit-triggers`.
+  The refusal of a binary at another version than the pin, in `path@check@src/commands/mod.rs`
+  line 304, tells the reader to "read the changelog of each version from {pinned} to {version}".
+- **The crates.io pages.** Each of the 11 crates holds a CRATES-IO.md, which
+  `design@knowledge-architect@crates-io-page-file` says holds no backticked reference. No code
+  enforces it.
+- **The installed copies.** They are in the walk, and every reference in them is checked against
+  this repository, so a reference to an entry of this repository passes here and would dangle in
+  an installing project, per `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`.
+- **Cargo.** No crate of the checker's tools reads Cargo's formats, but
+  `path@check@src/build_origin.rs`, which holds each linked library's package name as a compiled
+  constant; no crate runs `cargo metadata`. The walk reads `md` and `rs` files alone.
+- **Every crate sets `repository.workspace = true`**, and the workspace's `Cargo.toml` sets
+  `repository`. `path@cli@Cargo.toml`, the package `knowledge-architect`, depends on neither
+  `knowledge-architect-gates` nor `knowledge-architect-mutate`.
+- **`query`.** Its lib.rs opens "Tools over a project's scanned record", and its `id` and
+  `worklist` call `complete_working_tree` (`path@query@src/id.rs`, `path@query@src/worklist.rs`),
+  so a finding of phases 1 to 3 stops both.
+- **The release.** `agent@klarch-changelog-reviewer` judges the changelog at each release, per
+  `design@knowledge-architect@changelog-reviewed-at-the-release`; `skill@klarch-release` runs `cargo
+  x changelog` and checks the shipped text for references by hand.
+
+Outside the work, each with what owns it:
+
+- **The release procedure of a consuming project**, which the owner intends to ship later, R2: no
+  plan document yet. This work ships none of it; the model and the `cargo` crate are what it would
+  build on.
+- **How the crates are versioned**: `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`,
+  row 1 of docs/roadmap.md, on the owner's word at R7. This work keeps
+  `design@knowledge-architect@version-lockstep`, and the `cargo` crate takes the workspace version.
+- **References in a rendered changelog**: `issue@knowledge-architect@the-documents-do-not-render-as-a-site`.
+  The owner, R3, said a render site could make clickable references worth allowing; that changes
+  one line of the manifest, not this design.
+- **A check that reads a released section's content at its tag**: ruled out,
+  `thread@per-crate-changelogs@released-content-check`.
+- **A citation of one of this repository's own skills, `skill@<project skill>`, from the installed
+  copies**: the `entries` level admits it, since it is no entry and no anchor, and
+  `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` records it as not established
+  whether the checker's test refuses it. Slice 1 closes that issue; its closing commit carries this
+  candidate into a new issue entry or argues it needs none.
+- **A guard on the placeholder spans of the shipped text**, the issue's second candidate shape:
+  slice 1 closes the issue with the first shape; its closing commit carries the second into a new
+  issue entry or argues it needs none.
+
+## What is already decided
+
+Kept, and not argued again:
+
+- `design@knowledge-architect@version-lockstep`.
+- `design@knowledge-architect@versioning-policy`: the classes and their meaning.
+- `design@knowledge-architect@changelog-section-fixed-at-release`: a released section's content
+  never changes, its structure may. The owner's reading, R1 and R3: moving an entry into another
+  file under another heading, and rewriting a span in words, are structure.
+- `design@knowledge-architect@the-branch-writes-its-changelog-entries`.
+- `design@knowledge-architect@changelog-reviewed-at-the-release`, for what no check asserts:
+  whether a change owes an entry, its class, its category, its crate and the truth of its text.
+- `design@check@check-reads-no-range-of-history`, widened by
+  `thread@per-crate-changelogs@no-history-beyond-the-branch`.
+- `rejected@knowledge-architect@changelog-copies-written-at-packaging`: cargo refuses an ignored
+  file `include` lists, so the assembled file is committed.
+- `rejected@knowledge-architect@changelog-read-by-every-check`: the new checks read a changelog's
+  structure and refuse every reference in it; none resolves one.
+- `design@knowledge-architect@model-crate`: phases 1 to 3 say whether the model can be trusted,
+  which places every changelog finding in `check`.
+- `design@knowledge-architect@git-crate`: the precedent of the `cargo` crate.
+- `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote` and
+  `design@check@fix-before-the-checks`: the refusals of the assembled file's writer.
+- `design@agent-skills@plain-text-is-no-repair`: what "rewritten in words" means.
+- The goals: `goal@serves-one-kind-of-project` (Rust: Cargo's manifest and semver),
+  `goal@generic-tools-and-procedures-are-shipped`, `goal@documentation-has-a-structure-and-a-model`,
+  `goal@documentation-stays-consistent`, `goal@every-target-project-can-adopt-it`.
+
+Reversed or rewritten, with every text the change repairs and the slice that repairs it. The texts
+are those `cargo klarch show` lists as referencing each decision at the commit that adds this
+document, and those the record search's triage found:
+
+| decision | change | texts repaired | slice |
+| --- | --- | --- | --- |
+| `design@knowledge-architect@the-changelog-ships-in-every-crate` | reversed: each crate ships its own changelog | `skill@klarch-release` (its `cargo x changelog` step), the root CLAUDE.md (`## Git` point 1, the CHANGELOG.md row of the knowledge table, the `xtask` row of the Component table), `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`, the preamble of `register@xtask@design`, `path@xtask@src/changelog.rs` (removed), the heads `design@knowledge-architect@changelog-section-fixed-at-release`, `design@knowledge-architect@package-include-whitelist` and `design@knowledge-architect@the-changelog-is-outside-the-walk` | 5 |
+| `design@knowledge-architect@the-changelog-is-outside-the-walk` | rewritten: the changelog files are in the walk, read for structure, at the citation-free level `all`; the assembled file is outside the walk by construction. The owner, R3: the head was about its consequences, which this shape keeps | `agent@klarch-changelog-reviewer`, the preamble of `path@check@docs/design/reference-lints.md` ("CHANGELOG.md is read by none of the lints"), the `skip-files` rows and their comment in knowledge-architect.toml, `issue@knowledge-architect@the-changelog-holds-references-no-check-reads` (closed) | 5 |
+| `design@knowledge-architect@changelog-entries` | rewritten: the surface is replaced by the crate's file, the subsection by the category tag, and a Migration entry names an audit axis by its section title | `agent@klarch-changelog-reviewer`, `skill@klarch-release`, the root CLAUDE.md `## Git` point 1, `design@knowledge-architect@versioning-policy`, `design@knowledge-architect@changelog-reviewed-at-the-release`, `design@agent-skills@audit-triggers`, `issue@knowledge-architect@a-mechanical-changelog-check` (closed), `issue@agent-skills@a-one-time-technical-setup-has-no-place-a-project-gets-it-from` | 5 |
+| `design@agent-skills@audit-triggers` | rewritten: the trigger is a Migration entry that names an axis by its section title, not one that cites it | the installed pin move's step 2 and step 5, `skill@knowledge-architect-project-audit` (its description and its occasions list), the primer's line on the project audit in `primer@installed-skills` and its `primer@coined-terms` ("Migration entry: an entry of the checker's changelog"), `design@agent-skills@tripwire-audit-axis` (judged: its wording "names the axis" may already hold) | 5 |
+| `design@knowledge-architect@crates-io-page-file` | rewritten: its rule is enforced by the citation-free level `all` | `design@agent-skills@setup-default-crates-io-page` and the setup skill's CRATES-IO.md proposal, which proposes the declaration | 1 |
+
+The heads each slice's harvest touches without reversing or rewriting them are listed in that
+slice's spec. The lists are drawn from this search, run at the commit that adds this document:
+`cargo klarch show` on each decision above and on each head a slice's harvest adds a member to,
+keeping each citing head of a design home whose text the harvest changes; and a grep of every
+design home for the changed wording, `grep -n -i "changelog\|CRATES-IO\|range of history\|history
+before"` over docs/design.md, crates/\*/docs/design\* and tools/\*/docs/design\*. The search found
+these citing or matching heads whose text no harvest changes, each judged so:
+`design@knowledge-architect@capability-cost-before-migration`,
+`design@knowledge-architect@owner-pushes-the-release-tag`,
+`design@agent-skills@no-progress-record`, `design@agent-skills@knowledge-table-home`,
+`design@agent-skills@code-claims-scope`, `design@model@section-homes-carry-slugs`,
+`design@model@plan-document-directory`, `design@agent-skills@audit-repairs-the-whole-record`,
+`design@agent-skills@scoped-auditor-on-touched-heads`, `design@agent-skills@existing-heads-on-touch`
+and `design@agent-skills@tripwire-horizon`.
+
+Entries the record search gave a verdict whose outcome changed the design, a thread or the work,
+each with its outcome. Every other verdict is in [the discussion's search](search/discussion-1.txt).
+
+| entry | outcome |
+| --- | --- |
+| `design@check@nothing-of-a-project-is-compiled-in` | the grammar and the classes are a sixth compiled-in member, `thread@per-crate-changelogs@changelog-grammar-compiled-in`; slice 3 |
+| `design@model@components-carry-the-same-documents`, `design@model@registers-are-declared` | the checks run only where `[changelog]` is declared, `thread@per-crate-changelogs@changelog-opt-in`; reading `publish` is no discovery by filename |
+| `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` | answered by the opt-in: the work asks nothing of a project that declares no `[changelog]` |
+| `design@check@the-regime-has-no-opt-out`, `rejected@check@exempt-directory-manifest-row` | both new declarations add obligations and remove none; the id lints keep reading citation-free files; slices 1 and 3 add the members |
+| `design@agent-skills@plain-text-is-no-repair`, `design@check@reference-shape-outside-span`, `design@check@plain-word-lint`, `issue@agent-skills@pointers-written-bare-to-clear-a-finding-reach-no-check` | a reference is rewritten in words or as an angle-bracket placeholder, never with its backticks removed; slices 1 and 5 |
+| `design@check@unanchored-path-first-segment-here` | the lint stays in force in a citation-free file, where its repair is a rewrite in words; slice 1 |
+| `design@agent-skills@a-reference-claims-a-revisit` | argued against, `thread@per-crate-changelogs@axis-named-in-words`; slice 5 |
+| `design@knowledge-architect@model-crate` | every changelog finding is in `check`, `thread@per-crate-changelogs@changelog-findings-in-check`; its "depends on `git` alone" is repaired, slice 3 |
+| `design@check@fix-before-the-checks`, `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`, `design@create@init-asks-no-confirmation` | the assembled file's writer refuses, `thread@per-crate-changelogs@assembled-file-not-overwritten`; slice 3 |
+| `design@model@git-supplies-the-walk`, `design@model@one-list-of-generated-files` | the assembled file is a declared generated path outside the walk by construction; both heads gain it, slice 3 |
+| `design@knowledge-architect@xtask-crate` | `cargo x changelog` is removed, slice 5 |
+| `design@query@a-function-takes-a-configured-manifest`, `design@knowledge-architect@package-include-whitelist` | no crate ships knowledge-architect.toml, so the category order is written into each preamble, `thread@per-crate-changelogs@category-order-in-preamble`; slice 3 |
+| `design@agent-skills@xtask-pins-checker` | the closure of `knowledge-architect` misses `gates` and `mutate`, so the command selects over the resolved graph; slice 4 |
+| `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` | the command is placed in `klarch` on the argument of `thread@per-crate-changelogs@registry-changelog-command`; the general rule stays that issue's question, and slice 4's commit names the argument for that issue |
+| `issue@git@a-shallow-clone-shortens-the-range-commits-judges` | the head of `thread@per-crate-changelogs@no-history-beyond-the-branch` admits asking git about the base; slice 1 |
+| `design@knowledge-architect@query-crate` | its purpose widens and its dependency line changes, slice 4 |
+| `issue@knowledge-architect@every-crate-takes-a-version-at-each-release` | its trigger met by the `cargo` crate; the owner turned it into a `todo` at row 1 of the roadmap, R7, in the commit that adds this document |
+| `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` | the `entries` level closes it, slice 1, on the owner's word at R7 |
+| `issue@knowledge-architect@a-mechanical-changelog-check`, `issue@knowledge-architect@the-changelog-holds-references-no-check-reads` | closed by slice 5 |
+| `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment` | cites the two issues slice 5 closes; slice 5 repairs its citations |
+| `issue@knowledge-architect@the-publish-order-is-spelled-by-hand` | it points at `path@xtask@src/changelog.rs`, which slice 5 removes; slice 5 re-points it |
+| `issue@model@manifest-rs-is-past-one-read`, `issue@check@history-rs-is-past-one-read`, `issue@check@commands-mod-rs-holds-two-parts-that-change-apart`, `issue@testing@binary-rs-is-past-one-read` | weighed in the spec of the slice that changes each file: slices 1 and 3, 3, 4 and 4 |
+| `issue@agent-skills@a-touched-head-is-defined-by-the-harvest-and-not-by-the-plan-s-steps`, `issue@agent-skills@a-touched-head-owes-its-older-bundles-in-the-change-that-touches-it` | obligations of this plan: each slice's list of touched heads, and the audit of each at the slice's design audit |
+
+## Criteria
+
+### A project moving its pin finds every entry it must act on, from the sources cargo fetched `##pin-move-finds-every-entry`
+
+Binding. From `goal@every-target-project-can-adopt-it` and the head the work reverses,
+`design@knowledge-architect@the-changelog-ships-in-every-crate`, R1. Met by
+`thread@per-crate-changelogs@changelog-the-pin-reads`,
+`thread@per-crate-changelogs@registry-changelog-command` and
+`thread@per-crate-changelogs@category-order-in-preamble`.
+
+### No released entry's content changes `##released-entries-keep-their-content`
+
+Binding. From `design@knowledge-architect@changelog-section-fixed-at-release` and the owner's
+framing at R1, that the conversion is a change of structure only. Met by
+`thread@per-crate-changelogs@changelog-holds-no-citation`, the released spans rewritten in words or
+as placeholders.
+
+### A lower crate's consumer reads only that crate's entries `##lower-crate-reads-its-own-entries`
+
+Weighed. The owner's proposal, R1. Met by `thread@per-crate-changelogs@changelog-per-component` and
+the withdrawal of `thread@per-crate-changelogs@cross-crate-entries`.
+
+### A branch writes its entries where it changes code, with no copy step to forget `##entries-written-where-the-code-changes`
+
+Weighed. From `design@knowledge-architect@the-branch-writes-its-changelog-entries`, R1. Met by
+`thread@per-crate-changelogs@changelog-per-component`; `cargo x changelog` is removed.
+
+### The shape is checkable mechanically `##shape-checked-mechanically`
+
+Binding once decided. From `issue@knowledge-architect@a-mechanical-changelog-check`, R1. Met by
+`thread@per-crate-changelogs@changelog-model-home`,
+`thread@per-crate-changelogs@changelog-findings-in-check` and
+`thread@per-crate-changelogs@changelog-bump-check`.
+
+## New names, in one place
+
+Every name below is new unless marked existing. A key's or a flag's spelling is the illustration's,
+and the slice that builds it fixes it in its commit; the names of findings are the slices'.
+
+```text
+crates/cargo/                         the Component `cargo`, package knowledge-architect-cargo      slice 2
+[walk.citation-free] all = [<glob>]   knowledge-architect.toml; resolved in a module of its own      slice 1
+                                      under crates/model/src/manifest/ or beside manifest.rs
+[walk.citation-free] entries = [<glob>]   the same table                                             slice 1
+[changelog]                           knowledge-architect.toml; resolved in a module of its own      slice 3
+  components = [<Component>]          the changelog crates, in the manifest's Component order
+  assembled = "<path>"                the assembled file; default "CHANGELOG.md"
+  assembled-url = "<url>"             optional; a link the preamble prints
+  categories = [<category>]           the categories, in their assembled order
+  unclassed = [<version>]             versions whose entries carry no category and no class
+[changelog.category-components]       <category> = [<Component>]; a category absent: every Component
+klarch changelog <package> --from <version> [--to <version>] [--package <name>]...   crates/cli, logic in crates/query   slice 4
+crates/<dir>/CHANGELOG.md             existing paths, each a crate's changelog from slice 5 on
+CHANGELOG.md                          existing path, the assembled file from slice 5 on
+```
+
+## Decided design
+
+The threads whose shape more than one slice builds are below. Every other thread closed `approved`
+or `argued` has its decided design in the spec of the slice that builds it, as "Implementation
+sequence" maps them.
+
+### One changelog per published crate
+
+Decided by `thread@per-crate-changelogs@changelog-per-component`, approved.
+
+- Each changelog crate holds a `CHANGELOG.md` in its directory, listed in its `include`, holding
+  only that crate's entries: one section per version that has an entry in that crate, `## Next
+  release` first, then each released version in descending order.
+- An entry that concerns several crates is written in each crate whose consumers meet it, since
+  every crate can be consumed on its own (the owner, R3). No source file holds entries of no crate,
+  per `thread@per-crate-changelogs@cross-crate-entries`, withdrawn.
+- The project's changelog is the assembled file, one file at one path, generated; no crate ships
+  it, and no second copy of it exists. The owner, R2, refused a second copy of a large file that
+  grows without bound.
+- Argument: `argument@per-crate-changelogs@arg-1`, `argument@per-crate-changelogs@arg-12`,
+  `argument@per-crate-changelogs@arg-20`, `argument@per-crate-changelogs@arg-26`. Nearest rival: today's
+  shared changelog, defeated by the owner's argument that a consuming project that keeps and
+  publishes changelogs needs one per crate, R2, and by its size, 155049 bytes in 12 files.
+
+### What a project moving its pin reads
+
+Decided by `thread@per-crate-changelogs@changelog-the-pin-reads`, approved.
+
+- The pin move runs `klarch changelog` over the registry sources, which cargo unpacked when it
+  fetched the new version, and reads its output: the assembled layout of every crate of the
+  project, for the versions crossed. Slice 4 builds the command and rewrites step 2.
+- People read the assembled file at its path in the repository. No crate ships it, so the pin move
+  never reads a network host other than the one cargo fetched from.
+- Each crate's preamble says the file holds that crate's entries only, and names the assembled file
+  in words, "the changelog of the whole project is CHANGELOG.md at the root of its repository",
+  with the link `assembled-url` gives where the manifest sets one. No URL is built from
+  `repository`, and nothing requires a crate to set `repository` (R5, R6).
+- In the release that converts this repository, `cli`'s changelog carries a Migration entry
+  saying that the file now holds the binary's entries only, and to run `cargo klarch changelog
+  knowledge-architect --from <old>`; from premortem cause 1. Slice 5 writes it.
+- Argument: `argument@per-crate-changelogs@arg-3`, `argument@per-crate-changelogs@arg-13`,
+  `argument@per-crate-changelogs@arg-18`, `argument@per-crate-changelogs@arg-25`. Nearest rival: the pin move reading the root
+  file on GitHub, the owner's inclination at R2; defeated by a sandbox that reaches the registry
+  and no other host, and by the URL that a GitHub address needs and a registry path does not (R2,
+  R3). Rival shapes A and B, a crate shipping the assembled file, lost on the second copy.
+
+### Where the changelog's model and its checks live
+
+Decided by `thread@per-crate-changelogs@changelog-model-home`, approved, with
+`thread@per-crate-changelogs@changelog-opt-in`, `thread@per-crate-changelogs@changelog-grammar-compiled-in`
+and `thread@per-crate-changelogs@changelog-findings-in-check`, each built in slice 3.
+
+- The parse of a crate's changelog and the rendering of the assembled layout live in `model`; the
+  checks live in `check`; the facts read from Cargo live in `cargo` (slice 2). `query`'s command
+  calls the parse and the rendering of `model` (slice 4).
+- The changelog crates are those `[changelog] components` lists, or, where it lists none, every
+  Component whose `Cargo.toml` has a `[package]` table not setting `publish = false`.
+- Consuming projects are expected to use it, R2. The owner, R2, expects consuming projects that
+  maintain and publish such changelogs within weeks to months: a report of the owner.
+
+## Mapping tables
+
+The conversion's mapping, of every entry of the shared changelog to its place in a crate's
+changelog, is the one total function the work needs, and lives in the spec of slice 5,
+[the conversion](repository-conversion/README.md).
+
+## Losing alternatives
+
+Each with the thread it lost to and the fact that decided it.
+
+- **Today's shared changelog**: lost to `thread@per-crate-changelogs@changelog-per-component`. A
+  consuming project that keeps and publishes changelogs needs one per crate (the owner, R2); the
+  shared file is 155049 bytes in 12 files and gives a lower crate's reader every crate's entries.
+- **A root source file for entries of no single crate**, `thread@per-crate-changelogs@cross-crate-entries`:
+  withdrawn by the session at R2, superseded by one entry in each crate concerned, under
+  `thread@per-crate-changelogs@changelog-per-component`. A reader of one lower crate alone would
+  never see an entry kept there; and the root's name, `knowledge-architect`, is the binary's
+  package's, so its heading would collide with the binary's.
+- **The binary crate shipping the assembled file as its `CHANGELOG.md` (A), or as a second file
+  (B)**: lost to `thread@per-crate-changelogs@changelog-the-pin-reads`. Each is a second copy of a
+  file that grows without bound (the owner, R2).
+- **The pin move reading the assembled file on GitHub**: lost to
+  `thread@per-crate-changelogs@changelog-the-pin-reads`. A sandbox may reach the registry and no
+  other host; a GitHub address needs `repository` and a tag scheme, a registry path neither. The
+  owner, R3, rejected network independence as the argument, since fetching the crate and running
+  the model both need the network, and kept the sandbox argument.
+- **The assembled file located by Component**: lost to
+  `thread@per-crate-changelogs@assembled-changelog-location`. The root is no published crate here,
+  and a project with one crate has its crate's file only; a path covers both, a Component neither.
+- **Version › crate › category layout** (the owner's first proposal, R1): lost to
+  `thread@per-crate-changelogs@assembled-changelog-layout`. Its Migration entries of one version
+  scatter over every crate, where the pin move acts on them as one block.
+- **Crates ordered alphabetically by package name**: lost to
+  `thread@per-crate-changelogs@assembled-changelog-layout`. The manifest's order is a choice the
+  project makes with no new option (the owner, R3).
+- **An entry placed in the crate whose code changes**: lost to
+  `thread@per-crate-changelogs@entry-owning-component`. It shows the reader the checker's internal
+  layering, `model` against `check`.
+- **Category headings in each crate's file**: lost to
+  `thread@per-crate-changelogs@changelog-entry-categories`. A crate with three entries would carry
+  three headings, and Workflow would exist in one file only.
+- **Structural findings raised in phases 1 to 3**: lost to
+  `thread@per-crate-changelogs@changelog-findings-in-check`. `design@knowledge-architect@model-crate`
+  gives those phases whether the model can be trusted; and `id` and `worklist` of `query` call
+  `complete_working_tree`, so one misspelt category would stop them.
+- **The changelog checks on in every project with published crates**: lost to
+  `thread@per-crate-changelogs@changelog-opt-in`. Every adopter with its own changelog convention
+  would fail at its next pin move, against `goal@every-target-project-can-adopt-it`.
+- **The classes declared in the manifest**: lost to
+  `thread@per-crate-changelogs@changelog-grammar-compiled-in`. They are Cargo's semver, which
+  `goal@serves-one-kind-of-project` fixes.
+- **Reading Cargo in a module of `model`**: lost to `thread@per-crate-changelogs@cargo-crate`.
+  `model` would gain a second reason to change, Cargo's formats, and `query` would read
+  `cargo metadata` in a second Component.
+- **Opening per-crate versioning in this work**: lost to `thread@per-crate-changelogs@cargo-crate`
+  on the owner's word, R7: the question goes to its own discussion before the next release.
+- **The registry command's selection by the dependency closure of the named package**: lost to
+  `thread@per-crate-changelogs@registry-changelog-command`. Measured: `path@cli@Cargo.toml`
+  depends on neither `gates` nor `mutate`, so the closure of `knowledge-architect` misses both.
+- **A preamble URL built from `repository`, and `repository` required in a changelog crate**:
+  dropped at R5 and R6, under `thread@per-crate-changelogs@changelog-the-pin-reads`. The URL
+  assumed GitHub's `/blob/main/` layout, against
+  `design@agent-skills@installed-text-requires-no-ci-and-no-pull-request`, and neither the preamble
+  nor the selection needs the field. The owner's suggestion to require it, R4, rested on the
+  session's statement that the design needed it, which was false (R5, R6).
+- **A dedicated `Audit` category, or a structured trigger field, for audit triggers**: lost to
+  `thread@per-crate-changelogs@axis-named-in-words`. An entry is both a Migration and a trigger,
+  and a category is one; a trigger field is specific to this repository, so the generic grammar
+  would carry a field one project uses.
+- **One `citation-free` level that refuses every reference**: lost to
+  `thread@per-crate-changelogs@citation-free-paths`, on the owner's word at R7. The installed copies
+  may cite what every project holds, and that is useful.
+- **The changelogs at the level `entries`, citing installed text**: considered by the owner, R7,
+  and kept strict, `thread@per-crate-changelogs@changelog-holds-no-citation`: a released section is
+  frozen and cannot follow a citation that later changes.
+- **A check that a released section equals its content at the version's tag**: ruled out,
+  `thread@per-crate-changelogs@released-content-check`. Its comparison with a tag reads history
+  before the branch, against `thread@per-crate-changelogs@no-history-beyond-the-branch`; its rival
+  that compares within the branch alone is defeated by the owner's argument that a released text
+  may be reworded without a change of meaning (R2), which no comparison tells apart.
+- **One spec on one branch**: lost to the milestone, R9. It would put about six Components and the
+  conversion of a 1892-line file into one review, where a failure of the checks could not be told
+  from a failure of the conversion.
+
+## Readings
+
+The work reads three external sources, each recorded where the slice that reads it says:
+
+- **Cargo's semver compatibility**, the meaning of patch, minor and major, and that under 0.x a
+  major or a minor change both bump the second number: read by `thread@per-crate-changelogs@changelog-bump-check`,
+  recorded by slice 3 in a grounding file of `check`, per the root CLAUDE.md's knowledge row for a
+  finding read outside the project.
+- **Cargo's manifest format**: `[package]`, `publish`, `repository`, `include`, `version` and the
+  workspace inheritance of `version.workspace = true`; read by slice 2, recorded in
+  a grounding file of `cargo`.
+- **The output of `cargo metadata --format-version 1`**: the resolved graph, each package's
+  `manifest_path` and `repository`, and whether `--locked --offline` write `Cargo.lock` or reach the
+  network, which the discussion assumed and slice 4 measures; recorded in a grounding file of
+  `cargo`.
+
+## Premortem
+
+Assuming the work shipped and failed, the session named these causes at R7, before the owner's word
+on the checkpoint table:
+
+| # | cause | thread stressed | verdict |
+| --- | --- | --- | --- |
+| 1 | The first pin move across the conversion runs step 2 from the old installed setup skill, which step 3 replaces, so it reads the binary crate's file, now `cli`'s entries alone, and misses the Migration entries of `check`, `model` and `agent-skills` | `thread@per-crate-changelogs@changelog-the-pin-reads` | converted into a clause of the design: the Migration entry of `cli`'s changelog in the converting release, "What a project moving its pin reads" above; slice 5 |
+| 2 | `--locked` fails after the pin's edit and before `cargo fetch` | `thread@per-crate-changelogs@registry-changelog-command` | a claim of slice 4: run in the order the skill gives, the command succeeds over a mock consumer |
+| 3 | An entry is placed in the wrong crate, and that crate's consumers never see it | `thread@per-crate-changelogs@entry-owning-component` | named as a cause for slice 5's harvest to judge as a tripwire: no check tells a misplacement from a placement |
+| 4 | A pin move misses an audit trigger worded otherwise than the axis's section title | `thread@per-crate-changelogs@axis-named-in-words` | named as a cause for slice 5's harvest to judge as a tripwire; it shaped the thread: the entry names the axis by its section title, verbatim |
+| 5 | The level `entries` refuses a citation the installed copies hold on purpose | `thread@per-crate-changelogs@citation-free-paths` | a claim of slice 1: the current install passes the check |
+
+## Acceptance criteria
+
+The one acceptance criterion, on `thread@per-crate-changelogs@registry-changelog-command`, is
+judged by slice 4 and lives in its spec, [the command](changelog-command/README.md).
+
+## Implementation sequence
+
+1. [Files declared free of citations](citation-free-check/README.md): `[walk.citation-free]` with
+   its levels `all` and `entries`, applied to the 11 CRATES-IO.md files and to the installed copies;
+   the root head and the `rejected` entry that no work implements. Fails alone on a citation-free
+   file's finding.
+2. [The `cargo` crate](cargo-library/README.md): the library that reads Cargo's manifest and runs
+   `cargo metadata`, in lockstep, with nothing using it yet. Fails alone on a fact it reads wrong
+   from a fixture `Cargo.toml` or a fixture metadata output.
+3. [The changelog model and its checks](changelog-checks/README.md): the parse and the rendering in
+   `model`, the `[changelog]` table, and the checks in `check`, opt-in, tested over mock projects
+   alone. Fails alone on a mock project's finding or its assembled file.
+4. [`klarch changelog`](changelog-command/README.md): the command, the rewrite of the pin move's
+   step 2, and the pin refusal's message. Fails alone on the command's output over a mock consumer.
+5. [The conversion of this repository](repository-conversion/README.md): the per-crate files, the
+   declaration, the generated root file, the removal of `cargo x changelog`, and the rewrites of the
+   heads and texts listed above. Fails alone on this repository's own `cargo klarch check`.
+
+Threads by the slice whose spec carries their decided design: slice 1,
+`thread@per-crate-changelogs@citation-free-paths`, `thread@per-crate-changelogs@no-history-beyond-the-branch`,
+`thread@per-crate-changelogs@released-content-check`; slice 2, `thread@per-crate-changelogs@cargo-crate`;
+slice 3, `thread@per-crate-changelogs@changelog-entry-categories`,
+`thread@per-crate-changelogs@changelog-bump-check`, `thread@per-crate-changelogs@absent-version-section`,
+`thread@per-crate-changelogs@changelog-include-check`, `thread@per-crate-changelogs@assembled-changelog-location`,
+`thread@per-crate-changelogs@assembled-changelog-layout`,
+`thread@per-crate-changelogs@assembled-file-not-overwritten`,
+`thread@per-crate-changelogs@category-order-in-preamble`, with the three threads of "Where the
+changelog's model and its checks live"; slice 4, `thread@per-crate-changelogs@registry-changelog-command`;
+slice 5, `thread@per-crate-changelogs@entry-owning-component`,
+`thread@per-crate-changelogs@changelog-holds-no-citation`, `thread@per-crate-changelogs@axis-named-in-words`.
+The milestone document carries `thread@per-crate-changelogs@changelog-per-component` and
+`thread@per-crate-changelogs@changelog-the-pin-reads`.
+
+## Order rationale
+
+- Slice 1 before slice 2: slice 1 depends on nothing, and it must land before slice 5, which
+  declares the changelogs at the level `all`.
+- Slice 2 before slice 3: the `publish` default of the changelog crates, the bump check's lockstep
+  test and the `include` check read Cargo through `cargo`.
+- Slice 3 before slice 4: the command parses and renders with the model's functions.
+- Slice 4 before slice 5: the conversion uses every mechanism, and its Migration entry for the
+  pin move names the command.
+
+## Defaults awaiting the owner
+
+- **D1**, on `thread@per-crate-changelogs@changelog-the-pin-reads`, raised by the author at
+  assembly. Slice 4 rewrites the installed pin move's step 2 to run `klarch changelog`, which reads
+  per-crate changelogs; until slice 5 merges, the crates ship the shared changelog, which the
+  model's parse does not read. A release cut between the two merges would ship a pin move that a
+  consuming project cannot follow. Default: no release is cut between the merge of slice 4 and the
+  merge of slice 5. The rival, moving the rewrite of step 2 into slice 5, changes the order the
+  owner approved at R9, so it is not applied. Not ruled.
+
+## Harvest
+
+Each slice's row is in its spec. The milestone document's own row:
+
+| what | thread | home |
+| --- | --- | --- |
+| premortem causes 3 and 4 | `thread@per-crate-changelogs@entry-owning-component`, `thread@per-crate-changelogs@axis-named-in-words` | judged at slice 5's harvest by `skill@knowledge-architect-decision-recording@ruled-tripwires`, a tripwire of the root's tripwires home where admitted |
+| the decided design of "One changelog per published crate" and "What a project moving its pin reads" | `thread@per-crate-changelogs@changelog-per-component`, `thread@per-crate-changelogs@changelog-the-pin-reads` | the heads slice 5 writes in the root design home, in place of `design@knowledge-architect@the-changelog-ships-in-every-crate` |
+| the decided design of "Where the changelog's model and its checks live" | `thread@per-crate-changelogs@changelog-model-home` and its three threads | the heads slice 3 writes in the design homes of `model` and `check` |
+| the acceptance criterion | `thread@per-crate-changelogs@registry-changelog-command` | reported at slice 4's landing and at the deletion of this document; judged then as a recurring cause |
+
+## Later consequences
+
+- **The release procedure of a consuming project**, which the owner intends to ship later (R2),
+  builds on the changelog's model, the bump check and the `cargo` crate; its plan document says what
+  of `skill@klarch-release` it generalises.
+- **`issue@knowledge-architect@every-crate-takes-a-version-at-each-release`**, before the next
+  release: a reversal of the lockstep changes which branch of the bump check runs, and gives each
+  crate's changelog its own versions, which this work already supports.
+- **`issue@knowledge-architect@the-documents-do-not-render-as-a-site`**: a rendered changelog that
+  wants clickable references moves the changelogs from `all` to another level, one line of the
+  manifest, and that discussion weighs the frozen released sections the owner weighed at R7.
+- **`issue@knowledge-architect@the-publish-order-is-spelled-by-hand`** can read the published set
+  and the dependencies through `cargo`.
+- **`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`** keeps
+  its question; this work adds one instance placed in `klarch`, with its argument.

@@ -4,7 +4,6 @@
 
 | kind | title |
 | --- | --- |
-| deferred | [Every published crate takes a new version at each release, whether its code changed or not](every-crate-takes-a-version-at-each-release.md) |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [No head argues what becomes an ask of every target project, nor the asks that no goal states](no-head-argues-what-becomes-an-ask.md) |
 | design | [The head on how work reaches main bundles statements that each lose to a rival of their own, with no argument](the-git-flow-head-bundles-unargued-statements.md) |
@@ -21,6 +20,7 @@
 | todo | [A pull request's first CI run starts with no build cache, since nothing runs on main to fill one](a-pull-request-s-first-ci-run-starts-with-no-cache.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
+| todo | [Every published crate takes a new version at each release, whether its code changed or not](every-crate-takes-a-version-at-each-release.md) |
 | todo | [No command renames an entry or a Component, or moves entries between Components](no-command-renames-or-moves-an-entry-or-a-component.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [Two questions on how a saved workflow runs under the harness, answered on one branch](saved-workflows-under-the-harness-on-one-branch.md) |
