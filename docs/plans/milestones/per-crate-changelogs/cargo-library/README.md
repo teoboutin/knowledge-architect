@@ -180,7 +180,7 @@ From `thread@per-crate-changelogs@cargo-crate`, argued.
 
 | what | thread | home |
 | --- | --- | --- |
-| what the Component is for, with its reasoning over the default criteria and the split signals | `thread@per-crate-changelogs@cargo-crate` | a head of `register@knowledge-architect@design`, beside `design@knowledge-architect@git-crate` |
+| what the Component is for, with its reasoning over the default criteria and the split signals | `thread@per-crate-changelogs@cargo-crate` | a head of `register@knowledge-architect@design`, beside `design@knowledge-architect@git-crate`, under a slug that names the Component the owner named: #cargo-crate → `design@knowledge-architect@cargo-reader-crate`; the rule that the published crates read Cargo through it, a decision of its own, in `design@knowledge-architect@tools-read-cargo-through-the-crate` |
 | the rival, a module of `model` | `thread@per-crate-changelogs@cargo-crate` | `register@knowledge-architect@rejected`, if a recording test holds |
 | how it reads and runs Cargo | | the new Component's design home, by the tests of `skill@knowledge-architect-decision-recording`; the readings in its grounding files |
 | the dependency of `check` and the publish order | `thread@per-crate-changelogs@cargo-crate` | the touched `design@knowledge-architect@check-crate` and `design@knowledge-architect@partial-publish-rerun` |

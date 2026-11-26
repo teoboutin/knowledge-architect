@@ -500,7 +500,8 @@ depend on it, and no cycle forms. The rival is a module of `model`. It loses bec
 gain a second reason to change, Cargo's formats, and the `cargo metadata` output would then be read
 in a second Component as well." The scout's report named the one reader there is, `declares` in
 `path@check@src/build_origin.rs`, which reads a package name from a `Cargo.toml`; slice 2 moves that
-read into `cargo-reader`, so `cargo-reader` is the one reader of Cargo's formats.
+read into `cargo-reader`, so `cargo-reader` is the one reader of Cargo's formats in the code of the
+published crates.
 
 ### The command does not fit `query` as it is defined `##arg-39`
 

@@ -5,8 +5,8 @@ kind: todo
 
 ## Summary
 
-The release workflow lists the published crates, in publish order, twice, and
-`design@knowledge-architect@partial-publish-rerun` spells the same order in its body. Each list is
+The release workflow lists the published crates, in publish order, twice, and spells the order in
+a comment, and `design@knowledge-architect@partial-publish-rerun` spells the same order in its body. Each list is
 written by hand, so a crate added, renamed or given a new dependency leaves them stale until
 someone notices.
 
@@ -14,15 +14,13 @@ someone notices.
 
 ### What
 
-The three sites:
+The four sites:
 
 - `path@knowledge-architect@.github/workflows/release.yml`, the `publish` job's step `publish`: a
-  shell `for` loop over `knowledge-architect-git knowledge-architect-cargo-reader
-  knowledge-architect-agent-skills knowledge-architect-model knowledge-architect-check
-  knowledge-architect-testing knowledge-architect-query knowledge-architect-transcript
-  knowledge-architect-create knowledge-architect-gates knowledge-architect-mutate
-  knowledge-architect`, which publishes each
-  crate and, inside the same loop, skips a version crates.io already holds;
+  shell `for` loop over the package name of every published crate, twelve names, each crate before
+  the crates that depend on it and `knowledge-architect` last, which publishes each crate and,
+  inside the same loop, skips a version crates.io already holds;
+- the comment above that loop, which states which crates go first and which go before which;
 - the same file, the `verify` job's step "the tag is the version of every published crate": a
   second `for` loop over the same twelve names, in the same order;
 - `design@knowledge-architect@partial-publish-rerun`, whose body spells which crate goes before

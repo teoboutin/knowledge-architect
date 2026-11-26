@@ -56,9 +56,8 @@ module's interface would change with every release of the checker.
 ### Cargo read by a module of the model `##cargo-read-in-model`
 
 `live`. The model's interface would change with Cargo's formats as well as with the forms of a
-project's documents, two reasons to change in one crate, and a tool that needs a fact of Cargo and
-nothing of the model would build the model's parsers, tree-sitter, pulldown-cmark and regex, to
-reach it.
+project's documents, two reasons to change in one crate, so a change of Cargo's manifest format
+would ship as a change of the library that reads a project's record.
 
 ### The model left inside the checker `##model-inside-the-checker`
 
