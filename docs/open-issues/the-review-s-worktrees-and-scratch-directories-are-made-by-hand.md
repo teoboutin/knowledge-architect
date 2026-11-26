@@ -74,8 +74,7 @@ records why each subagent gets its own directory.
 
 ### What would close it
 
-The owner takes the task in or declines it. If taken in: a command that makes, for a commit and a
+The owner took the task in at the intake of twenty files. A command that makes, for a commit and a
 list of names, one detached worktree and one scratch directory per name, prints the paths for the
 briefs, can report the disk and bound the build jobs a batch of builds needs, and removes them all; with a test over a
-scratch repository; and the review skill naming it. If declined, this entry is deleted with that
-reason in the commit.
+scratch repository; and the review skill naming it.

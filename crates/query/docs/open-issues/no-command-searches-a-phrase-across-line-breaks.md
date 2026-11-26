@@ -41,11 +41,10 @@ record's entries by keywords: this one matches a given phrase exactly over given
 A claim of absence written on a vacuous search is a false claim the primer's rule exists to
 prevent, and nothing but a reviewer who runs the search again finds it. The task recurs in every
 session that writes such a claim, and a command gives each the same result, per
-`goal@tasks-a-tool-does-better-are-the-tool-s`, which the owner's taking the task in makes the
-tool's.
+`goal@tasks-a-tool-does-better-are-the-tool-s`; the owner took the task in at the intake of
+twenty files.
 
 ### What would close it
 
 The command, or the option, built with a test over a fixture holding a phrase wrapped over two lines
-and one split by emphasis marks, and the primer's sentence naming it; or the owner's decision not to
-take the task in, which closes this entry with that reason.
+and one split by emphasis marks, and the primer's sentence naming it.
