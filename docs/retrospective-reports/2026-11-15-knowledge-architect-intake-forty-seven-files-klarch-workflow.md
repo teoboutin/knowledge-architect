@@ -511,7 +511,7 @@ its standing answer on a procedure set up (repairs by area);
 Default: the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`; the procedure not taken in at this intake, its design left to that issue's trigger.
 Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): the procedure not taken in; the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`. The owner: "item 3: what would even be factorizablein this kind of task ? I agree it is mechanical, but it is also too "variable" for a script to fully take care of it. There is quite a high chance of failure due to conflicts too." (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 3)
 
-## reviewer-reports-enter-context-whole: the re-entry point of `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`
+## reviewer-reports-structure-reentry: the re-entry point of `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`
 
 Members: the act verdict of the search on that issue against this subject, `trigger-met`,
 `rule-before-work`.
@@ -523,7 +523,8 @@ Members: the act verdict of the search on that issue against this subject, `trig
 - **Whether it is met.** The letter names "a review or an audit finding", which a retrospective
   finding is not; the search's reading widens it to any finding whose cause is a structure the
   work did not need, since the issue's "Why it matters" holds of an intake's outcome too. That
-  reading is kept here. Under it, no, for this subject. The section above decides the finding on
+  reading is kept here. Under it, no, for this subject. The section
+  `reviewer-reports-enter-context-whole` decides the finding on
   `design@agent-skills@reviewer-returns-its-report-whole`, whose argument is the transcript
   reviewer's reading, and on the closing shape of
   `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript`; it judges
