@@ -63,11 +63,14 @@ with `cargo x mutate`, as `skill@knowledge-architect-development` says.
    and each admitted span is still resolved, so one that dangles is reported as dangling. The cases
    of the harness kinds, `skill@<shipped skill>`, `agent@<shipped agent>`, `primer@<slug>`, admitted, and
    `instructions@<slug>`, a finding, run in a sandbox copy that serves `claude`, as `Sandbox::serve_claude` in
-   `path@testing@tests/binary.rs` does, since every mock project but `unsound` declares
+   `path@testing@tests/support/mod.rs` does, since every mock project but `unsound` declares
    `harness = []`, under which those words name no kind.
 4. **The level `entries` reads an installed copy, and only where a glob matches it**: in that
    sandbox, a reference to an entry planted in an installed skill's copy is a finding with the glob
-   declared, and no finding without it; no other rule reports anything in the copy either way.
+   declared, and no finding without it; no rule of the walk reports anything in the copy either way.
+   The comparison of an installed copy's bytes with the shipped set,
+   `design@check@installed-files-compared-by-bytes`, reports the planted edit in both runs, as it
+   reports any edit of an installed copy.
 5. **The id lints keep reading a citation-free file**: a plain word and a backticked span that are
    exactly a defined id are reported in a matched file as in any other; in a file at the level
    `all`, the repair `design@check@backticked-bare-id` and `design@check@reference-shape-outside-span`
