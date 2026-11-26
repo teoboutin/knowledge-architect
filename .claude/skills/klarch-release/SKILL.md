@@ -52,12 +52,17 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    `issue@check@branch-sha-citations-are-judged-within-the-range-only`.
    Cargo refuses to package an uncommitted tree, so the commit comes before the next steps. Then
    push the branch and open a draft pull request, per `instructions@git-workflow`, point 1.
-4. **The shipped text cites no entry.** List every backticked span with an `@` in the installed
-   copies, which hold the text as it ships, its `%%` comments removed and its placeholders filled,
-   and read each one:
+4. **The shipped text cites no entry.** `cargo klarch check` judges this for the primer, the
+   skills and the agents, which knowledge-architect.toml declares at the level `entries` of
+   `[walk.citation-free]`, per `design@agent-skills@shipped-text-cites-no-entry`: its pass at step
+   3, `cargo klarch check --staged`, is this step's verdict for them, except for a span that names
+   `path@*@<path>`, which the level admits and which must be a path every conforming project holds. The saved workflows are
+   `.js` files no walk reads, so list every backticked span with an `@` in their installed copies,
+   which hold the text as it ships, and read each one:
 
    ```sh
-   grep -rnoE '`[^`]*@[^`]*`' .claude/knowledge-architect .claude/skills/knowledge-architect-* .claude/agents/knowledge-architect-* .claude/workflows/knowledge-architect-*
+   grep -noE '`[^`]*@[^`]*`' .claude/workflows/knowledge-architect-*
+   grep -rnoE 'path@[*]@[^[:space:]]*' .claude/knowledge-architect .claude/skills/knowledge-architect-* .claude/agents/knowledge-architect-*
    ```
 
    A span is a reference candidate when its head before the first `@` is a kind or an anchor, per
@@ -66,9 +71,7 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    register's home every conforming project holds, `path@*@<path>`, `path@plans@<path>`,
    `register@*@<register>`, `register@plans@<register>` or `register@goal`, or cites the shipped
    set's own skills, agents, primer and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the checker resolves
-   within the set. No candidate names an entry. This is done by hand until the first slice of
-   `milestone@plans@per-crate-changelogs` lands, per
-   `design@agent-skills@shipped-text-cites-no-entry`.
+   within the set. No candidate names an entry.
 5. **Every name the shipped text uses is shipped**, per `design@agent-skills@no-external-handoff`:
 
    ```sh
