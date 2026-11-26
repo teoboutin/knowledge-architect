@@ -36,7 +36,7 @@ register's heading and is reported as a misplaced definition anywhere else, per
 `design@model@a-slug-elsewhere-defines-nothing`. A slug with one hash sign, `#<id>` or
 `<word>#<id>`, is read by none of them, per `design@check@hash-slug-span-read-by-no-lint`.
 
-### A backticked span with no `@` is path-shaped when it holds two segments or more of path characters and no space, no angle bracket and no colon outside a line suffix, and keeps a line suffix or a heading fragment only after a file with an extension `##path-shaped-span`
+### A backticked span with no `@` is path-shaped when it holds two segments or more of path characters and no space, no angle bracket and no colon outside a line suffix, and keeps a line suffix, or a fragment opening with a letter, only after a file with an extension `##path-shaped-span`
 
 A backticked span with no `@` is path-shaped when it holds two segments or more of path
 characters. One segment is a name rather than a path, though the exact name of a skill or an agent
@@ -62,7 +62,8 @@ the span is not path-shaped.
 
 Each widening would be measured the way the two-segment clause was: a census of what the widened
 shape would report in a tree that is conformant. The census that kept these four outside is in the
-commit that recorded them, found with `git log -G'outside the lint on purpose'`.
+message of the commit "Polish before the split: four open issues handled, and the core's documents
+point only inside it".
 
 ### A backticked span that opens on one line and closes on the next is a finding where its halves join into a pointer `##a-span-is-one-line`
 
