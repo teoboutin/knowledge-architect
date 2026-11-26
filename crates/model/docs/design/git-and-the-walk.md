@@ -64,16 +64,12 @@ that level would hold findings that no edit of the project's own text removes. A
 is matched against the walked files and against the installed markdown copies git lists, which the
 walk leaves out, per `design@check@installed-files-outside-the-walk`, since the level `entries`
 reads the installed copies, per `design@check@installed-copies-read-at-the-level-entries`, and not
-their source, `rejected@check@citation-free-entries-over-the-source`. A copy is matched whether or
-not the checker can read it, since a glob that names a copy is no glob that matches nothing: a finding
-at the glob would send the writer to delete a correct glob. Under `check` and `check --staged`, the
-comparison of its bytes, `design@check@installed-files-compared-by-bytes`, reports a copy the
-checker cannot read, with the repair that reaches it; `commits` compares no installed file, per
-`design@check@only-check-compares-installed-files`, so under it such a copy is reported by
-nothing. A generated file is in
+their source, `rejected@check@citation-free-entries-over-the-source`. A generated file is in
 neither set, so no glob matches it: its findings are its sources'. The resolved table is
 `Manifest::citation_free`, and the library's `declared` module names `CitationFree`, `Glob` and
 `Level`.
+
+### A glob of `[walk.citation-free]` that matches nothing a level reads is a phase-2 finding at the manifest `##citation-free-glob-matches-nothing`
 
 **A glob is checkable, as every other declaration of the walk is**, per
 `design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
@@ -84,6 +80,15 @@ are not markdown, the saved workflows, is a phase-2 finding of its own, which sa
 reads them: it matches files, so the finding of a glob that matches nothing would be false of it.
 Each finding is phase 2's, since `Manifest::parse` reads no file, and the tree's phase alone holds
 the walked paths and the installed copies.
+
+A copy is matched whether or not the checker can read it, since a glob that names a copy is no glob
+that matches nothing: a finding at the glob would send the writer to delete a correct glob. Under
+`check` and `check --staged`, the comparison of its bytes,
+`design@check@installed-files-compared-by-bytes`, reports a copy the checker cannot read, with the
+repair that reaches it; `commits` compares no installed file, per
+`design@check@only-check-compares-installed-files`, so under it such a copy is reported by nothing.
+The rival, a glob that matches nothing passing in silence, is the dead row that
+`design@model@git-supplies-the-walk` refuses for every declared path.
 
 ### A walked file that a glob of each level of `[walk.citation-free]` matches is a phase-2 finding at the file `##citation-free-levels-overlap`
 
