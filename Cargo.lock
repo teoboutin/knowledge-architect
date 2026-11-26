@@ -238,6 +238,7 @@ name = "knowledge-architect-check"
 version = "0.10.0"
 dependencies = [
  "knowledge-architect-agent-skills",
+ "knowledge-architect-cargo-reader",
  "knowledge-architect-git",
  "knowledge-architect-model",
  "serde",
