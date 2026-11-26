@@ -274,9 +274,6 @@ an empty subsection is omitted.
 - `agent-skills`, patch: a thread's item in a plan document's `deliberation.md` no longer names the
   durable home that will harvest it; the Harvest section of the `README.md` alone holds each
   thread's home.
-- `agent-skills`, patch: an agent that dispatches agents whose results it needs before it reports
-  dispatches them in the foreground, since an agent sent to the background keeps running after its
-  dispatcher hands back, and its result reaches the main session.
 
 ## 0.10.0
 
