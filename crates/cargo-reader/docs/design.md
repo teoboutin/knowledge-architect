@@ -39,15 +39,28 @@ These items are named in prose, per `issue@model@a-rust-item-named-in-prose-has-
 Each field of `Package` but its `name`, which Cargo requires as a string, is `Absent`, `Set` to
 the value the manifest writes, or `Workspace` for a table whose `workspace` is `true`; no default of
 Cargo's is applied, and `Package::inherit` replaces each `Workspace` with the value of the
-`[workspace.package]` its caller hands it. A `[project]` table, the older name of `[package]`, is
-read as the package where the manifest holds no `[package]`, as Cargo reads it. These items are named in prose, per
-`issue@model@a-rust-item-named-in-prose-has-no-checked-form`. Both readings of Cargo are those
-`path@cargo-reader@docs/grounding/cargo-manifest.md` records. Cargo's defaults are a property of a
+`[workspace.package]` its caller hands it. These items are named in prose, per
+`issue@model@a-rust-item-named-in-prose-has-no-checked-form`. The reading of Cargo's fields is the
+one `path@cargo-reader@docs/grounding/cargo-manifest.md` records. Cargo's defaults are a property of a
 Cargo version, as that file reads in the `version` field,
 optional since Cargo 1.75: a reader that applied them would answer for one Cargo, whatever Cargo
 its caller runs. That is why `rejected@cargo-reader@cargo-defaults-applied` lost. What Cargo makes
 of the facts, such as whether it would publish a package, is the caller's, read from the same
 grounding file.
+
+### A `[project]` table is read as the package where the manifest holds no `[package]`, as Cargo reads it `##project-table-read-as-the-package`
+
+`read_manifest` reads a `[project]` table, the older name of `[package]`, as the package of a
+manifest that holds no `[package]`, and reads `[package]` where both are written, as Cargo 1.98
+reads them, measured in `path@cargo-reader@docs/grounding/cargo-manifest.md`; the item is named in
+prose, per `issue@model@a-rust-item-named-in-prose-has-no-checked-form`. Cargo builds such a
+manifest that sets no `edition`, as measured there, so a read of it as a manifest with no package would be an
+empty answer about a package Cargo builds, against `design@cargo-reader@failed-cargo-is-an-error`,
+and the checker's search for a second checkout of the same tool,
+`design@check@a-foreign-build-is-refused`, would miss one holding it. A refusal of the table loses
+for the same reason: it is an error on a manifest Cargo builds. Cargo's refusal of `[project]` under
+the 2024 edition depends on a second field, `edition`, so the read takes no account of it, per
+`design@cargo-reader@a-field-is-refused-by-its-type`.
 
 ### The caller finds the workspace's manifest, so the read of a manifest touches no file `##the-caller-finds-the-workspace-manifest`
 

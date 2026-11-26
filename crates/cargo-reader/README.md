@@ -9,8 +9,9 @@ never names this crate. A Rust program can depend on it directly; its interface 
 ## What it reads
 
 - **A `Cargo.toml`'s text**: the package name, and its `version`, `publish`, `repository` and
-  `include`, each as the manifest writes it, with no default of Cargo's applied; a field set to
-  `{ workspace = true }` takes the value of the workspace's `[workspace.package]` when the caller
+  `include`, each as the manifest writes it, with no default of Cargo's applied, from its
+  `[package]`, or from its `[project]` where it holds no `[package]`; a field set to a table whose
+  `workspace` is `true` takes the value of the workspace's `[workspace.package]` when the caller
   hands that table in.
 - **The output of `cargo metadata --format-version 1`**, run in a directory with the flags the
   caller passes: the resolved dependency graph, and each of its packages' name, version, manifest
