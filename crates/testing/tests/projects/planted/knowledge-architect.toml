@@ -24,6 +24,12 @@ skip-dirs = []
 skip-files = []
 exclude = []
 
+# The files under `free/` hold the spans of the citation-free levels, one case per file, each named
+# by the level its glob gives it; `free/unmatched.md` is matched by neither glob.
+[walk.citation-free]
+all = ["free/all-*.md"]
+entries = ["free/entries-*.md"]
+
 # This mock installs nothing. The shipped set changes with every version of the skills, and a
 # fixture that held its installed copy would change with them.
 [agents]

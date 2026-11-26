@@ -5,6 +5,7 @@
 //! a check be run against a model assembled in memory.
 
 pub(crate) mod agents;
+pub(crate) mod citation_free;
 pub(crate) mod generated;
 pub(crate) mod references;
 pub(crate) mod registers;
