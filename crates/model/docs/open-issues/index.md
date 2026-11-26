@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-23 entries
+24 entries
 
 | kind | title |
 | --- | --- |
@@ -19,6 +19,7 @@
 | design | [`scan.rs` is past one read](scan-rs-is-past-one-read.md) |
 | design | [Reading string literals in code as prose may cost more than it finds](string-literals-in-code-may-not-need-reading-at-all.md) |
 | design | [The plans layout is read in three units, which no test compares](the-plans-layout-is-read-in-three-units.md) |
+| design | [`tree.rs` is past one read](tree-rs-is-past-one-read.md) |
 | observation | [Plain `check` under a sparse checkout reports every file outside the cone as an unstaged deletion](check-under-a-sparse-checkout-reports-every-file-outside-the-cone.md) |
 | question | [A reference to an anchor's own directory breaks when the anchor moves, where every other reference survives the move](a-reference-to-an-anchor-s-own-directory-breaks-when-the-anchor-moves.md) |
 | question | [Would the model's structural findings be better checked at scan time?](the-structural-findings-might-be-checked-at-scan-time.md) |
