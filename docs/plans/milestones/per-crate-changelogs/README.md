@@ -212,8 +212,9 @@ Kept, and not argued again:
 - `design@knowledge-architect@version-lockstep`.
 - `design@knowledge-architect@versioning-policy`: the classes and their meaning.
 - `design@knowledge-architect@changelog-section-fixed-at-release`: a released section's content
-  never changes, its structure may. The owner's reading, R1 and R3: moving an entry into another
-  file under another heading, and rewriting a span in words, are structure.
+  never changes, its structure may. The head leaves open what counts as structure; the owner chose
+  among the readings it permits, R1 and R3: moving an entry into another file under another
+  heading, and rewriting a span in words, are structure.
 - `design@knowledge-architect@the-branch-writes-its-changelog-entries`.
 - `design@knowledge-architect@changelog-reviewed-at-the-release`, for what no check asserts:
   whether a change owes an entry, its class, its category, its crate and the truth of its text.
@@ -246,7 +247,8 @@ Rejected entries the work changes, each at slice 5's harvest:
   the changelog faces outward and holds no reference to real content, which the new checks keep by
   refusing every reference and resolving none. Its second reason, that a later change of the
   grammar would ask a released section for a repair that changes its content, is defeated by the
-  owner's reading at R3 that a rewrite of a span in words is a change of structure. It stays
+  owner's choice at R3, among the readings the head permits, that a rewrite of a span in words is a
+  change of structure. It stays
   `live`.
 
 Reversed or rewritten, with every text the change repairs and the slice that repairs it. The texts
@@ -260,7 +262,7 @@ document, and those the record search's triage found:
 | `design@knowledge-architect@changelog-entries` | rewritten: the surface is replaced by the crate's file, the subsection by the category tag, and a Migration entry names an audit axis by its section title | `agent@klarch-changelog-reviewer`, `skill@klarch-release`, the root CLAUDE.md `## Git` point 1, `design@knowledge-architect@versioning-policy`, `design@knowledge-architect@changelog-reviewed-at-the-release`, `design@agent-skills@audit-triggers`, `issue@agent-skills@a-one-time-technical-setup-has-no-place-a-project-gets-it-from` | 5 |
 | `design@agent-skills@audit-triggers` | rewritten: the trigger is a Migration entry that names an axis by its section title, not one that cites it | the installed pin move's step 2 and step 5, `skill@knowledge-architect-project-audit` (its description and its occasions list), the primer's line on the project audit in `primer@installed-skills` and its `primer@coined-terms` ("Migration entry: an entry of the checker's changelog"), `design@agent-skills@tripwire-audit-axis` (judged: its wording "names this axis in its Migration entry" may already hold) | 5 |
 | `design@knowledge-architect@crates-io-page-file` | rewritten: its rule is enforced by the citation-free level `all` | `design@agent-skills@setup-default-crates-io-page` and the setup skill's CRATES-IO.md proposal, which proposes the declaration | 1 |
-| `design@check@installed-files-outside-the-walk`, `design@model@installed-entities-from-the-tree` | rewritten, narrowed by a member, on the owner's ruling of D2: the installed copies stay outside the walk and raise no finding, except that the checker reads them for references at the level `entries` where a project declares a glob that matches them; the reason "reports those paths in a project that can repair none of them" keeps every other rule, since only a declaring project is read so | the doc comment of `installed` in `path@model@src/model.rs`, the module documentation of `path@model@src/shipped_set.rs`, `path@check@docs/design/run-model.md` ("An installed copy raises no finding of phase 3"), `path@model@docs/design/agent-configuration.md`, `design@agent-skills@shipped-text-cites-no-entry`, `path@agent-skills@CLAUDE.md` ("content/ is in the walk"), `skill@klarch-release` step 4 | 1 |
+| `design@check@installed-files-outside-the-walk`, `design@model@installed-entities-from-the-tree` | rewritten, narrowed by a member, on D2, closed by the session on the owner's argument `argument@per-crate-changelogs@arg-60`: the installed copies stay outside the walk and raise no finding, except that the checker reads them for references at the level `entries` where a project declares a glob that matches them; the reason "reports those paths in a project that can repair none of them" keeps every other rule, since only a declaring project is read so | the doc comment of `installed` in `path@model@src/model.rs`, the module documentation of `path@model@src/shipped_set.rs`, `path@check@docs/design/run-model.md` ("An installed copy raises no finding of phase 3"), `path@model@docs/design/agent-configuration.md`, `design@agent-skills@shipped-text-cites-no-entry`, `path@agent-skills@CLAUDE.md` ("content/ is in the walk"), `skill@klarch-release` step 4 | 1 |
 | `design@model@a-reference-is-live-in-every-prose` | rewritten, narrowed: in a file at the level `all`, no span is resolved; at the level `entries`, a span is resolved as anywhere else and refused where it names an entry or an anchor of the project | the citers `cargo klarch show` lists, read at the slice's design audit for the sentence "In every file the walk reads" | 1 |
 | `design@model@git-supplies-the-walk` | rewritten, a member added: "No generated path is declared" admits the assembled path, the one generated path the manifest declares; `tree` does not assert it exists, since the head's premise, that a generated path cannot be asserted to exist, holds for it too, and the generated-files check reports it missing with its own finding, "the generated file is missing" (`MISSING` in `path@check@src/check/generated.rs`), or out of date | the citers `cargo klarch show` lists, read at the slice's design audit for the changed sentence, which a grep of "generated path is declared" finds in the head alone | 3 |
 | `design@model@registers-are-declared`, `design@check@nothing-of-a-project-is-compiled-in` | rewritten, a member added: the set of changelog crates is declared in the manifest by `[changelog]`, opt-in, as "the published crates", whose list each `Cargo.toml` already declares; a second list by hand drifts, and the drift it would hide, a new published crate with no changelog, is what the check exists to report. The grammar and the classes are the sixth compiled-in member | the citers `cargo klarch show` lists, read at the slice's design audit for "the manifest declares every list a check reads" | 3 |
@@ -403,7 +405,7 @@ Decided by `thread@per-crate-changelogs@changelog-per-component`, approved.
   every crate can be consumed on its own (the owner, R3). No source file holds entries of no crate,
   per `thread@per-crate-changelogs@cross-crate-entries`, withdrawn.
 - The project's changelog is the assembled file, one file at one path, generated; no crate ships
-  it, and no second copy of it exists. The owner, R2, refused a second copy of a large file that
+  it, and no second copy of it exists. The owner, R2, objected to a second copy of a large file that
   grows without bound.
 - Argument: `argument@per-crate-changelogs@arg-1`, `argument@per-crate-changelogs@arg-12`,
   `argument@per-crate-changelogs@arg-6`, `argument@per-crate-changelogs@arg-26`. Nearest rival: today's
@@ -633,11 +635,12 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   `design@model@installed-entities-from-the-tree` keep them out, and no reference in them is read.
   Default A: the checker reads the installed copies for references at the level `entries` and for
   nothing else. Rival B: `entries` applied to crates/agent-skills/content/, with its `%%` comments
-  exempt. **Ruled A**, after the review of this document, in the owner's message that opens "I
-  don't think there is any real reason". The owner argued that no rule needs the installed text
+  exempt. **Closed A by the session**, on the owner's argument after the review of this document, in
+  the message that opens "I don't think there is any real reason", which ruled no shape and left
+  the weighing to the session: it is no ruling of the owner. The owner argued that no rule needs the installed text
   outside the walk for this check; that its one cost, a finding naming an installed file whose
-  repair is in content/ and a re-install, is left to the agent's judgement, with a reminder in the
-  root CLAUDE.md that slice 1 adds, the finding's message not adapted to this repository; and that
+  repair is in content/ and a re-install, is left to the agent's judgement, maybe with a reminder in
+  the root CLAUDE.md, which the session chose to add in slice 1; the finding's message not adapted to this repository; and that
   B loses because it must handle the fragments and a `%%` exemption that applies in this
   repository alone. The session's addition: the reason of `design@check@installed-files-outside-the-walk`,
   that a finding would report those paths in a project that can repair none of them, keeps every
@@ -677,8 +680,8 @@ Each slice's row is in its spec. The milestone document's own row:
   this milestone: the owner reported, after the review of this document, in the message that opens
   "About the bundler argument", a shape where a project bundles a skill only its consumers use,
   such as the usage instructions of a CLI tool it ships, and does not use the tool itself, so it
-  holds no installed copy for the level `entries` to read. The owner's judgement of expected use,
-  open to challenge: such a project installs the skill locally anyway, since its tests would likely
+  holds no installed copy for the level `entries` to read. The owner's recommendation, a judgement of
+  expected use open to challenge: such a project should install the skill locally anyway, since its tests would likely
   have agents use the tool under the skill's guidance.
 - **A citation of one of this repository's own skills, `skill@<project skill>`, from the installed
   copies**, the third candidate of the closed issue `shipped-text-citing-an-entry-is-unchecked`:
