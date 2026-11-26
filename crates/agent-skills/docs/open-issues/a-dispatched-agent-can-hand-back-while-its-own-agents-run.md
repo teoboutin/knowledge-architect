@@ -9,8 +9,9 @@ A dispatched agent that dispatches agents of its own in the background can end i
 hand back to its dispatcher, while those agents still run. Two retrospectives of this repository
 report five such hand-backs; after one of them the main session took two running auditors for
 stopped and removed their worktrees. Where a background child's result goes once its dispatcher has
-handed back is reproduced in the harness's own issue tracker: to the main session. The owner judges it a defect of the harness, and ruled out
-the fix of dispatching such children in the foreground.
+handed back is reproduced in the harness's own issue tracker: to the main session. It reads as a
+defect of the harness rather than of the workflow's text, and dispatching such children in the
+foreground is ruled out.
 
 ## Details
 
@@ -37,10 +38,15 @@ the fix of dispatching such children in the foreground.
 - `primer@dispatching-work` already has an agent report "what it acted on and what it did not, with
   why", and the implementer of 2026-11-22 reported its two auditors as still running; the loss there
   was the main session's reading of that report.
-- Ruled out, by the owner's argument at the intake of twenty files: an instruction that an agent
-  dispatches in the foreground the agents whose results it needs, since a foreground call blocks the
-  dispatcher and so prevents a side investigation while it works. The analysis of the
-  record-search workflow's file, section child-agents-outlive-parent-hand-back, under
+- Ruled out at the intake of twenty files: an instruction that an agent dispatches in the
+  foreground the agents whose results it needs. A foreground call blocks the dispatcher until the
+  child returns, so the dispatcher cannot run a side investigation, or go on working, meanwhile;
+  the instruction seemed to bring more problems than it solves. Several foreground calls sent in
+  one message do run at once, as the Agent tool's own description states (not measured), so it does
+  not prevent a parallel batch. An instruction aimed at dispatched agents alone also meets that an
+  agent has no explicit signal of whether it was itself dispatched: it usually starts from a brief
+  another agent wrote, and nothing more is known to tell it. The analysis of the record-search
+  workflow's file, section child-agents-outlive-parent-hand-back, under
   `path@knowledge-architect@docs/retrospective-reports/`, held that rival.
 
 ### Why it matters
@@ -48,8 +54,8 @@ the fix of dispatching such children in the foreground.
 A hand-back with children still running gives the main session a report that is not final, and a
 session that then removes their worktrees, or dispatches the same work again, loses or repeats it;
 an instruction about how an agent behaves is added only on evidence from real use, per
-`design@agent-skills@behaviour-additions-need-real-use`, and the owner reports that no session
-misbehaved on it.
+`design@agent-skills@behaviour-additions-need-real-use`, and the owner reported that, as far as
+the owner knows, no session misbehaved on it.
 
 ### What would close it
 

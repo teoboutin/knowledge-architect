@@ -23,9 +23,12 @@ twenty files.
 - The reports: the standing answers on scripted tasks and on tools of the workflow file of the
   intake of forty-seven files, 2026-11-15, a Python script of about 100 lines; the intake of twenty
   files, 2026-11-25, built its per-section list and its decided list by a script again. Analysed in
-  the section `intake-assembly-by-script` of
-  `path@knowledge-architect@docs/retrospective-reports/2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow.md`,
-  where the owner ruled it taken in.
+  the section `intake-assembly-by-script` of the analysis of the intake of forty-seven files'
+  workflow file, in the commit that adds the analyses of the intake of twenty files under
+  `path@knowledge-architect@docs/retrospective-reports/`, where the owner ruled it taken in.
+- A trap such a tool meets: an `Outcome` line copied into the commit message's list of decided
+  outcomes can point "above" to the section's item h, which the message does not hold; the intake of
+  twenty files carried two such lines.
 - Bearing on it: `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`,
   the lines such a tool would write; `goal@tasks-a-tool-does-better-are-the-tool-s`.
 
