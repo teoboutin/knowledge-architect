@@ -171,7 +171,7 @@ the workflow for its own text. The owner said of the installed files: "I don't w
 much to this use case in the installed files"; applying it to the checker is the session's argument.
 Taking content/ into the walk checks the comments with no new format. The reason is about a
 declaration serving this repository alone: a declaration of paths that must cite no entry, which
-`issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` considers, would serve any project
+`milestone@plans@per-crate-changelogs` builds, would serve any project
 that ships text, and is not covered by it.
 
 ### A checked form for a commit, resolved by its subject `##checked-commit-form-by-subject`

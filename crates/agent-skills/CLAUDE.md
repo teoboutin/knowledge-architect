@@ -25,7 +25,7 @@ commit the installed copies under .claude with the change, or the check fails.
 **content/ is in the walk, and every reference in it is checked against this repository.** So a
 reference to an entry of this repository passes here and would dangle in every installing project:
 the text cites no entry, per `design@agent-skills@shipped-text-cites-no-entry`, and nothing checks
-that yet, per `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`. It names no
+that yet; `milestone@plans@per-crate-changelogs` schedules the check. It names no
 Component and no convention of this repository; it writes only the forms
 `design@agent-skills@shipped-text-cites-no-entry` admits, read whole, and the project's command as the install placeholder. It may cite the shipped set's own skills, agents, primer and their sections,
 `skill@<name>@<slug>`, which every project serving `claude` holds. A level-two heading under

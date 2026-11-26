@@ -53,5 +53,6 @@ crates.io's limits on new crates among the costs a split weighs.
 A new published crate is no occasion for it, such as the `cargo` crate that
 `milestone@plans@per-crate-changelogs` adds, or the split of the skill-bundling passes that
 `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills` records:
-the owner ruled, in the discussion that produced that milestone, that adding a crate never argues
-versioning.
+adding a crate never argues versioning, since a Component's creation weighs how its crate is
+versioned and never sets it, so an occasion tied to a new crate would keep the discussion waiting
+for good.

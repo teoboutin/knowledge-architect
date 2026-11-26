@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-28 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -16,7 +16,6 @@
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
 | question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
 | todo | [A CI run skipped on a draft pull request fills the run history and reads as passing](a-ci-run-skipped-on-a-draft-reads-as-passing.md) |
-| todo | [CHANGELOG.md's shape is checked by a reviewer only, and no model of it exists](a-mechanical-changelog-check.md) |
 | todo | [A pull request's first CI run starts with no build cache, since nothing runs on main to fill one](a-pull-request-s-first-ci-run-starts-with-no-cache.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |
 | todo | [A typed command trusts its caller to have configured the manifest, and answers wrongly when it has not](a-typed-command-trusts-its-caller-to-have-configured-the-manifest.md) |
@@ -24,7 +23,6 @@
 | todo | [No command renames an entry or a Component, or moves entries between Components](no-command-renames-or-moves-an-entry-or-a-component.md) |
 | todo | [No published crate offers the history tasks the workflow asks of a session](no-published-command-rewrites-a-branch-s-history.md) |
 | todo | [Two questions on how a saved workflow runs under the harness, answered on one branch](saved-workflows-under-the-harness-on-one-branch.md) |
-| todo | [The changelog holds references that no check reads, where it is meant to hold none](the-changelog-holds-references-no-check-reads.md) |
 | todo | [The documents do not yet render as one linked site](the-documents-do-not-render-as-a-site.md) |
 | todo | [The order in which the release publishes the crates is spelled by hand in the release workflow and in a head](the-publish-order-is-spelled-by-hand.md) |
 | todo | [The worktrees and scratch directories of a review's subagents are made and removed by hand](the-review-s-worktrees-and-scratch-directories-are-made-by-hand.md) |

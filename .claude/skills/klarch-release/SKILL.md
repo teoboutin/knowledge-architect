@@ -66,8 +66,8 @@ On a branch of its own, `release-<version>`, under the Git rules of the root `CL
    register's home every conforming project holds, `path@*@<path>`, `path@plans@<path>`,
    `register@*@<register>`, `register@plans@<register>` or `register@goal`, or cites the shipped
    set's own skills, agents, primer and sections, as `skill@<name>@<slug>` or `primer@<slug>`, which a test of the checker resolves
-   within the set. No candidate names an entry. This is done by hand until
-   `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` closes, per
+   within the set. No candidate names an entry. This is done by hand until the first slice of
+   `milestone@plans@per-crate-changelogs` lands, per
    `design@agent-skills@shipped-text-cites-no-entry`.
 5. **Every name the shipped text uses is shipped**, per `design@agent-skills@no-external-handoff`:
 

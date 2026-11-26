@@ -19,14 +19,14 @@ the milestone on split guidelines and plan directories, attributed with its hedg
 view, these deferred issues are problematic, since they often bring unrelated work into scope at bad
 moments.
 
-The instance of that discussion: `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`,
-then a `design` entry, named as its re-entry point the next change that writes a Migration entry
+The instance of that discussion: the issue on the references the changelog holds where no check
+reads them, then a `design` entry, named as its re-entry point the next change that writes a Migration entry
 citing a section of the installed text. The milestone's first slice writes one. The record search
 graded the issue `trigger-met`, with the action `rule-before-work`, so the session put its design
 discussion into the milestone, at the first slice's design audit. The owner moved it out: the issue
-became a `todo`, with no re-entry point, to be designed with
-`issue@knowledge-architect@a-mechanical-changelog-check`, when the changelog gets a model and checks
-of its own.
+became a `todo`, with no re-entry point, to be designed with the issue on a mechanical check of the
+changelog, when the changelog gets a model and checks of its own. Both issues are closed, their
+work scheduled by `milestone@plans@per-crate-changelogs`.
 
 The suspected mechanism, in one sentence: the trigger test of
 `skill@knowledge-architect-issue-tracking@trigger-test` asks that a trigger name an occasion whose

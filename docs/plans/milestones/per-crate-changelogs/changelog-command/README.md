@@ -6,14 +6,23 @@
   its declaration and dispatch in `cli`, per `design@cli@command-parsing-home`, and its logic in
   `query`, behind a typed function, which `query` reaches through `cargo` for the registry sources
   and through `model` for the parse and the rendering.
-- `query` depending on `cargo`; its purpose widened, in `design@knowledge-architect@query-crate`,
-  in its README's first sentence and in its lib.rs's crate documentation, from the project's record
-  to the record of the project or of one of its dependencies.
+- `query` depending on `cargo`; its purpose widened from the project's record to the record of the
+  project or of one of its dependencies, in the rewritten `design@knowledge-architect@query-crate`
+  and in every text the milestone document's "Reversed or rewritten" lists beside it: the `query`
+  row of the root CLAUDE.md's Component table, `path@query@CLAUDE.md`, `path@query@CRATES-IO.md`,
+  the `description` of `path@query@Cargo.toml`, the crate documentation of `path@query@src/lib.rs`,
+  whose first two lines list the commands it holds, `path@query@README.md`'s first sentence, and
+  the command list of `path@cli@README.md`.
 - The installed setup skill's pin move, step 2: after the fetch, run `cargo klarch changelog
   <checker package> --from <old pin>` and read its output, in place of reading one file in the
-  registry. Its listing of the Migration entries that trigger an audit stays as it is until slice 5.
-- The message of the pin refusal in `path@check@src/commands/mod.rs` line 304, "read the changelog
-  of each version from {pinned} to {version}", which names the command.
+  registry, for a project that has a Cargo project for `cargo metadata` to read. A project with no
+  Rust, which the pin move's step 1 covers by "the version of the local install", keeps a reading by
+  hand: the `CHANGELOG.md` of each crate of the checker in the registry, listed by package name,
+  which step 2 names. Its listing of the Migration entries that trigger an audit stays as it is
+  until slice 5.
+- The message of the pin refusal in the function `refuse_another_version_built_at` of
+  `path@check@src/commands/mod.rs`, line 304, "read the changelog of each version from {pinned} to
+  {version}", which names the command.
 - The measurement of `cargo metadata` with and without `--locked` and `--offline`, recorded in
   a grounding file of `cargo`.
 - The entries of this slice in the shared changelog's `Next release` section, under its current
@@ -44,7 +53,12 @@ with `cargo x mutate`.
 
 ## Fixtures
 
-A mock consumer under `path@testing@tests/projects/`: a Cargo project whose dependencies are path
+A mock consumer, built by its test in a copy outside this repository's tree, or committed under
+`path@testing@tests/projects/` with a `[workspace]` table of its own: cargo searches the parent
+directories for a `Cargo.toml` with a `[workspace]` table, per the Cargo reference's chapter on
+workspaces, and the root `Cargo.toml` here lists its members and excludes nothing, so a nested
+project without its own table is read as part of this workspace. The consumer is a Cargo project
+whose dependencies are path
 dependencies on three mock published packages of one project, each holding a `Cargo.toml` with the
 same `repository` and a `CHANGELOG.md` in the model's format, standing for `knowledge-architect`,
 `-gates` and `-mutate`, where the first does not depend on the other two, as
@@ -76,7 +90,7 @@ measures before relying on it. The tests of the command go in a new file under
 - Until slice 5 merges, this repository's crates ship the shared changelog, which the model's parse
   does not read, so the rewritten step 2 cannot be followed against a version of this repository
   published before slice 5. What ends it: slice 5's merge. The guard is D1 of the milestone
-  document: no release is cut between this slice's merge and slice 5's.
+  document, ruled by the owner: no release is cut between this slice's merge and slice 5's.
 - The listing of the audit triggers in step 2 keeps its wording "cites an axis's section" until
   slice 5 rewrites it with `thread@per-crate-changelogs@axis-named-in-words`.
 
@@ -95,13 +109,24 @@ What this slice alone changes, beside what the milestone document's "What the wo
 
 ## What is already decided
 
-The entries this slice's audit takes as seeds are the audit subjects' design entries above.
+The seeds of this slice's design audit are the design entries this section cites, as
+`skill@knowledge-architect-planning@working-a-slice` takes them; those of "Audit subjects" it does
+not cite below are restated here: `design@query@query-depends-on-no-check`,
+`design@cli@command-parsing-home`, `design@cli@exit-code-ladder`,
+`design@knowledge-architect@a-typed-command-prints-and-returns-its-code` and
+`design@agent-skills@xtask-pins-checker`.
+
+Rewritten by this slice, as the milestone document's "Reversed or rewritten" lists it with the
+texts it repairs: `design@knowledge-architect@query-crate`. Its purpose widens to the record of the
+project or of one of its dependencies; its dependency line gains `cargo`; its reasoning over the
+default criteria gains a second reason to change, a dependency's changelog read through `cargo`,
+argued at this slice's design audit; and the placement of `klarch changelog` in `klarch` lands in
+it, or in a root head beside it.
 
 The heads this slice's harvest touches, without reversing or rewriting them, drawn from the search
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
 design audit:
 
-- `design@knowledge-architect@query-crate`: its purpose and its dependency line.
 - `design@query@a-function-takes-a-configured-manifest`: judged at the audit, since the command
   reads the changelogs of dependencies, which no manifest of the caller describes.
 - `design@agent-skills@pinned-binary-runs-inside-the-project`: judged at the audit, since the pin
@@ -157,7 +182,8 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
 
 | what | thread | home |
 | --- | --- | --- |
-| the command, its selection and its placement | `thread@per-crate-changelogs@registry-changelog-command` | a head of `register@query@design`; the rewritten `design@knowledge-architect@query-crate`; the rival selection in `register@query@rejected` if a recording test holds |
+| the command's placement in `klarch`, with its declaration in `cli` and its logic in `query` | `thread@per-crate-changelogs@registry-changelog-command` | the root's design home: the rewritten `design@knowledge-architect@query-crate`, or a root head beside it, since the placement constrains `cli` and `query` together |
+| the command's selection over the resolved graph | `thread@per-crate-changelogs@registry-changelog-command` | a head of `register@query@design`; the rival selection in `register@query@rejected` if a recording test holds |
 | the pin move's step 2 | `thread@per-crate-changelogs@changelog-the-pin-reads` | the installed setup skill's text, and a head of `register@agent-skills@design` where the tests of `skill@knowledge-architect-decision-recording` admit one |
 | the measurement of the flags | | a grounding file of `cargo` |
 | the acceptance criterion | `thread@per-crate-changelogs@registry-changelog-command` | reported in this slice's landing commit, as `skill@knowledge-architect-planning@acceptance-criteria` says |

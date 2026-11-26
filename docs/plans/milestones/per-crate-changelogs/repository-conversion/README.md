@@ -4,10 +4,11 @@
 
 - One `CHANGELOG.md` per published crate, 12 with `cargo`, each holding its crate's entries of
   every version, converted from the shared changelog by the mapping table below, with the preamble
-  `--fix` writes.
+  written by hand from the expected text that slice 3's preamble finding gives.
 - The `[changelog]` declaration in knowledge-architect.toml, as slice 3's spec illustrates it, and
   the `CHANGELOG.md` of every crate added to `[walk.citation-free] all`.
-- The 12 rows of `[walk] skip-files` that list the changelogs removed, with their comment.
+- The 13 rows of `[walk] skip-files` that list the changelogs removed, the root's and the 12
+  crates', `cargo`'s added by slice 2, with their comment.
 - The root CHANGELOG.md replaced by the assembled file, which `cargo klarch check --fix` writes once
   the shared changelog is removed from its path, since its writer refuses a file without the
   generated header.
@@ -18,9 +19,12 @@
   the binary crate's changelog now holds its own entries only, and that a project moving its pin
   runs `cargo klarch changelog knowledge-architect --from <old>`.
 - The rewrites and repairs of every text the milestone document's "What is already decided" lists
-  for slice 5, and those this spec lists below.
-- The closure of `issue@knowledge-architect@a-mechanical-changelog-check` and
-  `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`.
+  for slice 5, and those this spec lists below, among them:
+  - the root CLAUDE.md's "**Current reality only**: no changelogs outside CHANGELOG.md", in
+    `instructions@language-and-style`, which is false once each crate holds its changelog;
+  - step 6 of the on-hold `spec@plans@path-quickfixes`, which writes its entries with surfaces into
+    the shared changelog, runs `cargo x changelog` twice, and names as a failure "a changelog copy
+    that differs": slice 5 re-points it to the per-crate files and their checks.
 
 ## Claims
 
@@ -35,17 +39,24 @@
    the assembled file current.
 3. **The assembled file holds every released version**: each version heading of the shared
    changelog, `Next release` included, is a version heading of the assembled file.
-4. **The pin move across the conversion**: the Migration entry of claim "Builds" is in `cli`'s
-   changelog under `Next release`, and its command, run over a mock consumer of the converted
-   crates, prints the release's Migration entries of `check`, `model` and `agent-skills`.
+4. **The pin move across the conversion**: the Migration entry of "Builds" is in `cli`'s
+   changelog under `Next release`; and `klarch changelog knowledge-architect --from 0.10.0`, run
+   over the mock consumer of the fixture below, prints the release's Migration entries of `check`,
+   `model` and `agent-skills`. The command excludes `Next release`, as slice 4 decided, so the
+   fixture renames that section to the next version in its copies of the crates' files.
 5. **Every rewritten span is a rewrite in words or a placeholder**: no span of the shared changelog
    reappears in a crate file with its backticks removed. Tested by the same script, on each span the
    source holds that the target does not.
 
 ## Fixtures
 
-None: the slice converts this repository's own files, and its tests of the mechanism are slice 3's
-and slice 4's.
+One, for claim 4: the mock consumer of slice 4, built in a copy outside this repository's tree by
+the claim's run, its three stand-in packages replaced by copies of the converted `knowledge-architect`,
+`knowledge-architect-check`, `knowledge-architect-model` and `knowledge-architect-agent-skills`
+crates' `Cargo.toml` and `CHANGELOG.md`, each `## Next release` renamed to `## 0.11.0`, the version
+the next release would take. It is a run kept in the commit message, not a committed fixture: the
+slice converts this repository's own files, and its tests of the mechanism are slice 3's and
+slice 4's.
 
 ## Audit subjects
 
@@ -55,10 +66,9 @@ and slice 4's.
   it, and the heads listed below.
 - `skill@klarch-release`, `agent@klarch-changelog-reviewer`, the root CLAUDE.md's `## Git` point 1,
   its Component table and its knowledge table.
-- `issue@knowledge-architect@a-mechanical-changelog-check`,
-  `issue@knowledge-architect@the-changelog-holds-references-no-check-reads`,
-  `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`,
-  `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`, and
+- `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`,
+  `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`, `spec@plans@path-quickfixes`
+  step 6, and
   `path@xtask@docs/open-issues/the-reword-the-fold-and-the-merge-predicate-have-no-command.md`,
   which lists `changelog` among the commands of `path@xtask@src/`.
 
@@ -72,8 +82,20 @@ and slice 4's.
 
 ## What is already decided
 
-The entries this slice's audit takes as seeds are the decisions the milestone document lists as
-reversed or rewritten, and `design@knowledge-architect@changelog-section-fixed-at-release`.
+The seeds of this slice's design audit are the design entries this section cites, as
+`skill@knowledge-architect-planning@working-a-slice` takes them: those below, and the decisions the
+milestone document lists as reversed or rewritten for slice 5, restated here:
+`design@knowledge-architect@the-changelog-ships-in-every-crate`,
+`design@knowledge-architect@the-changelog-is-outside-the-walk`,
+`design@knowledge-architect@changelog-entries`, `design@agent-skills@audit-triggers` and
+`design@agent-skills@a-reference-claims-a-revisit`.
+
+Rejected entries this slice's harvest changes, as the milestone document's "What is already
+decided" says: `rejected@knowledge-architect@changelog-copies-written-at-packaging`, its citation
+moved to the successor head where the successor's argument covers it, or its leaving planned, as
+`skill@knowledge-architect-decision-recording` says of a reversal; and
+`rejected@knowledge-architect@changelog-read-by-every-check`, narrowed to its first reason, its
+second defeated by the owner's reading at R3, and kept `live`.
 
 The heads this slice's harvest touches, without reversing or rewriting them, drawn from the search
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
@@ -92,8 +114,8 @@ design audit:
   asserts, now that the shape is checked.
 - `design@knowledge-architect@the-branch-writes-its-changelog-entries`: the branch writes in the
   crate's file.
-- `design@agent-skills@tripwire-audit-axis`: judged at the audit, whether its "names the axis in its
-  Migration entry" needs a change.
+- `design@agent-skills@tripwire-audit-axis`: judged at the audit, whether its "names this axis in
+  its Migration entry" needs a change.
 
 ## Decided design
 
@@ -110,8 +132,7 @@ From `thread@per-crate-changelogs@entry-owning-component`, with the withdrawal o
 - The reviewer of this slice checks each placement of a `checks`, `manifest` or `library` entry
   against this rule, entry by entry.
 - Argument: `argument@per-crate-changelogs@arg-4`, `argument@per-crate-changelogs@arg-9`,
-  `argument@per-crate-changelogs@arg-20`, `argument@per-crate-changelogs@arg-26`. Nearest rival: the
-  crate whose code changes, defeated because it shows the reader the checker's internal layering.
+  Nearest rival: the crate whose code changes, defeated because it shows the reader the checker's internal layering.
 
 ### No changelog file holds a reference; the released spans are rewritten in words
 
@@ -142,10 +163,10 @@ From `thread@per-crate-changelogs@axis-named-in-words`.
   step 5 runs each, as today. `design@agent-skills@audit-triggers`, `design@knowledge-architect@changelog-entries`,
   `skill@knowledge-architect-project-audit` and the primer's lines on the Migration entry change to
   that wording.
-- A reference would be owed by `design@agent-skills@a-reference-claims-a-revisit`; it is not, since
-  the file is read in a consumer's registry, where no reference resolves, and a released section
-  could not follow a rename of the axis anyway. The `Next release` section is read by the release's
-  review.
+- `design@agent-skills@a-reference-claims-a-revisit` is rewritten with a member: a citation-free
+  file owes no reference, since it is read in a consumer's registry, where no reference resolves, a
+  released section could not follow a rename of the axis anyway, and the `Next release` section is
+  read by the release's review, which judges each entry's text.
 - Argument: `argument@per-crate-changelogs@arg-34`, `argument@per-crate-changelogs@arg-47`. Nearest
   rivals: a dedicated `Audit` category, defeated because one entry is both a Migration and a
   trigger; a structured trigger field, defeated because it is specific to this repository.
@@ -157,9 +178,13 @@ home, by the decided design of the milestone document's "One changelog per publi
 "What a project moving its pin reads", under the tests of
 `skill@knowledge-architect-decision-recording`, its reversal done as
 `skill@knowledge-architect-decision-recording@reversal-check` says.
-`design@knowledge-architect@the-changelog-is-outside-the-walk` is rewritten: the changelogs are in
-the walk, read for their structure, at the level `all`, and no span of them resolves, which keeps
-the consequence the head was about (the owner, R3).
+`design@knowledge-architect@the-changelog-is-outside-the-walk` is rewritten under the new slug
+`changelogs-hold-no-citation`, checked free with `cargo klarch id`, since the old slug and title
+would name the rival once every crate's changelog is in the walk: the changelogs are in the walk,
+read for their structure, at the level `all`, and no span of them resolves, which keeps the
+consequence the head was about (the owner, R3). The harvest commit states the pair
+`#changelog-holds-no-citation → changelogs-hold-no-citation`, and re-points every citation of the
+old slug.
 
 ## Mapping tables
 
@@ -191,8 +216,8 @@ Each subsection to its category:
 | --- | --- | --- |
 | one changelog per crate, the assembled file once, the pin move's reading | `thread@per-crate-changelogs@changelog-per-component`, `thread@per-crate-changelogs@changelog-the-pin-reads` | heads of `register@knowledge-architect@design` replacing the reversed head; the shared changelog and the shipped assembled file, A and B, in `register@knowledge-architect@rejected` where a recording test holds, and the root source file of `thread@per-crate-changelogs@cross-crate-entries` |
 | the entry's crate | `thread@per-crate-changelogs@entry-owning-component` | a head of `register@knowledge-architect@design`, beside the rewritten `design@knowledge-architect@changelog-entries` |
-| no citation in a changelog | `thread@per-crate-changelogs@changelog-holds-no-citation` | the rewritten `design@knowledge-architect@the-changelog-is-outside-the-walk` |
-| the axis named in words | `thread@per-crate-changelogs@axis-named-in-words` | the rewritten `design@agent-skills@audit-triggers` and `design@knowledge-architect@changelog-entries` |
+| no citation in a changelog | `thread@per-crate-changelogs@changelog-holds-no-citation` | the rewritten `design@knowledge-architect@the-changelog-is-outside-the-walk`, under the slug `changelogs-hold-no-citation`, the pair `#changelog-holds-no-citation → changelogs-hold-no-citation` |
+| the axis named in words | `thread@per-crate-changelogs@axis-named-in-words` | the rewritten `design@agent-skills@audit-triggers`, `design@knowledge-architect@changelog-entries` and `design@agent-skills@a-reference-claims-a-revisit` |
+| the two rejected entries | | `rejected@knowledge-architect@changelog-copies-written-at-packaging`, cited by the successor head or leaving; `rejected@knowledge-architect@changelog-read-by-every-check`, narrowed, `live` |
 | premortem causes 3 and 4 | `thread@per-crate-changelogs@entry-owning-component`, `thread@per-crate-changelogs@axis-named-in-words` | judged by `skill@knowledge-architect-decision-recording@ruled-tripwires`, a tripwire of `register@knowledge-architect@tripwire` where admitted |
 | premortem cause 1 | `thread@per-crate-changelogs@changelog-the-pin-reads` | the Migration entry of "Builds"; no tripwire |
-| the issues closed | | `issue@knowledge-architect@a-mechanical-changelog-check` and `issue@knowledge-architect@the-changelog-holds-references-no-check-reads` deleted, their live content moved first as `skill@knowledge-architect-issue-tracking@movement-instruction` says |

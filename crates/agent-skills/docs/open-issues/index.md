@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-88 entries
+87 entries
 
 | kind | title |
 | --- | --- |
@@ -83,7 +83,6 @@
 | todo | [No test runs the body of the record search's workflow: its round loop, its report writer and its outputs are untested](no-test-runs-the-record-search-workflow-s-body.md) |
 | todo | [No tool assembles an intake's analyses from its drafts, which the owner takes in](no-tool-assembles-an-intake-s-analyses.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
-| todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |
 | todo | [The agentic-workflow audit's cluster, merge and repair agents read the admission standard by a pointer](the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer.md) |
 | todo | [The counts a project audit's passes are compared by, fixed on one branch](the-audit-s-convergence-checks-on-one-branch.md) |
