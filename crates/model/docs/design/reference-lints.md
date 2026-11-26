@@ -66,8 +66,8 @@ shape would report in a tree that is conformant. The census that kept these four
 message of the commit "Polish before the split: four open issues handled, and the core's documents
 point only inside it", which states its method and its counts and holds no command. The command
 that takes it again is in the message of the commit "[model] The census of the four shapes kept
-outside a path-shaped span is taken again by a command": over the walked markdown and Rust
-comments, fences and frontmatter excluded, it lists the candidates of each shape, and a reader
+outside a path-shaped span is taken again by a command": over the walked files that hold an
+observation, their Rust comments alone, fences and frontmatter excluded, it lists the candidates of each shape, and a reader
 tells each a pointer from another notation, as the first census did.
 
 ### A backticked span that opens on one line and closes on the next is a finding where its halves join into a pointer `##a-span-is-one-line`

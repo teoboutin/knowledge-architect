@@ -686,6 +686,13 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   move to `register@model@design`, beside `design@model@path-to-a-home-is-reported`. Rival: both
   stay in `register@check@design`. The same reading bears on `design@check@deepest-anchor-wins`,
   which the slice does not touch.
+- **D7**, on `thread@per-crate-changelogs@citation-free-paths`, raised by the review before the
+  merge of slice 1. A glob of `[walk.citation-free]` refuses a `.` segment, where a declared
+  `[walk]` path drops one, as `design@model@citation-free-glob-spelling` records: one rule for
+  every segment a glob must not spell, over a respelling the drop would spare, which no goal
+  ranks. The argument that a star beside an empty segment leaves its segment open covers the
+  empty segment alone. Default, built: the `.` segment is refused with the empty one. Rival: a
+  glob's `.` segment is dropped, as a `[walk]` path's is, and only the empty segment refused.
 
 ## Harvest
 
