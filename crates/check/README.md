@@ -89,6 +89,43 @@ three, per `design@check@quotation-read-by-no-id-lint`.
 In the goals home, which the root alone carries, its goals and its head alike, `references`
 refuses every reference that is not a goal or a register's home of the root, per
 `design@check@goals-home-cites-only-goals-and-root-homes`.
+
+**A file that faces readers no reference reaches is declared free of citations**, in the
+manifest's `[walk.citation-free]` table, by two lists of globs, each empty when absent; a key other
+than these two is refused:
+
+```toml
+[walk.citation-free]
+all = ["crates/*/CRATES-IO.md"]
+entries = [".claude/knowledge-architect/PRIMER.md", ".claude/skills/knowledge-architect-*/"]
+```
+
+- **`all`**: the file holds no reference. Every span that parses as one is a finding, whether or
+  not it resolves, and no span of the file is resolved. Every other finding in the file, of a
+  lint, a malformed span, an anchor where the kind goes or a link, names a rewrite in words, so
+  such a file cannot print a path of the tree in backticks. Such a glob is matched against the
+  files the walk reads.
+- **`entries`**: the file holds no reference to an entry or to an anchor of the project. It may
+  cite a skill, an agent or a section of the primer, a path under the anchor `*`, `plans` or
+  `elsewhere`, a register's home under `*` or `plans`, and the goals home, `register@goal`; a
+  reference to an entry of any register, a `path` or `register` reference under an anchor the
+  project declares or constructs, a `planned` reference and an `instructions` reference are
+  findings. A refused span is not resolved; an admitted one is resolved as anywhere else. Every
+  other finding in the file names a rewrite in words, or a form the level admits. Such a glob is
+  matched against the files the walk reads and against the installed copies the project's git
+  lists, the primer, the skills and the agents: a copy a glob matches is read for its backticked
+  spans and for nothing else, and an admitted span there is not resolved. A saved workflow, which
+  is not markdown, is read by neither level.
+
+A placeholder in angle brackets passes at both levels, and a commit message is matched by no
+glob. The dialect has three rules: `*` matches any run of characters within one path segment,
+never a `/`; a segment that is exactly `**` matches any number of whole segments, none included;
+and a glob ending with `/` names every file under each directory it matches. Every other
+character is itself, `?` and `[` included. A glob is spelled as git lists a path, relative to the
+manifest's directory, with no leading `/`, no `.` or `..` segment and no empty segment; a glob
+spelled otherwise is a phase-1 finding, and declares nothing. Phase 2 reports a glob that matches
+no file it is matched against, and a walked file a glob of each level matches, which is read at
+`all` until one glob is narrowed.
 The directory of an anchor other than the root has no spelling under its own name, so a reference
 names it from the anchor above it, as `path@<parent-anchor>@<dir>/`, per
 `design@check@deepest-anchor-wins`. An illustration of a form writes its id as a placeholder

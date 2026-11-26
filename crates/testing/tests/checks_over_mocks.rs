@@ -248,7 +248,7 @@ mod planted {
                 // Under free/, the files `[walk.citation-free]` matches, one case each. At the
                 // level `all`: a reference that resolves and one that dangles, each the level's
                 // finding; an id lint, the unanchored path, a malformed span, an anchor in the
-                // kind's position and a link, each named a rewrite in words.
+                // kind's position, a link and a wrapped span, each named a rewrite in words.
                 "free/all-resolves.md:3  `design@planted@twice-defined` is a reference, in a file",
                 "free/all-dangles.md:3  `design@planted@no-such-decision` is a reference, in a file",
                 "free/all-ids.md:3  `goal@planted-goal` is a reference written without backticks",
@@ -258,8 +258,9 @@ mod planted {
                 "free/all-forms.md:3  `design@planted` is malformed",
                 "free/all-forms.md:5  `planted@notes/p.md` opens with",
                 "free/all-forms.md:7  `../notes/p.md` is linked from a file that is not a navigation home",
+                "free/all-forms.md:9  `design@planted@twice-defined` crosses a line break",
                 // At the level `entries`: what names an entry or an anchor of the project, and an
-                // admitted span that dangles; the id lints, as in any file.
+                // admitted span that dangles; the id lints and the other lints, as in any file.
                 "free/entries-refused.md:3  `design@planted@twice-defined` names an entry",
                 "free/entries-refused.md:5  `issue@planted@a-well-formed-one` names an entry",
                 "free/entries-refused.md:7  `planned@planted@free/later.md` is a `planned` reference",
@@ -268,6 +269,14 @@ mod planted {
                 "free/entries-admitted.md:15  `path@*@nowhere.md` resolves in no component",
                 "free/entries-ids.md:3  `planted-goal` is written in backticks without its kind",
                 "free/entries-ids.md:5  `planted-goal` is written as a plain word",
+                "free/entries-forms.md:3  `notes/p.md` is shaped like a path",
+                "free/entries-forms.md:5  `planted@notes/p.md` opens with",
+                "free/entries-forms.md:7  `../notes/p.md` is linked from a file that is not a navigation home",
+                "free/entries-forms.md:9  `design@planted` is malformed",
+                "free/entries-forms.md:11  `goal@planted-goal` is a reference written without backticks",
+                "free/entries-forms.md:13  `design@planted@twice-defined` crosses a line break",
+                "free/entries-forms.md:16  `path@elsewhere@another-project/README.md` crosses a line break",
+                "free/entries-forms.md:19  `path@elsewhere@another-project/README.md` is a reference written without backticks",
                 // And the dangling span of the file no glob matches.
                 "free/unmatched.md:5  `design@planted@no-such-decision` is referenced",
                 // And, in this copy that holds no generated file, the three READMEs' links to an
@@ -754,17 +763,24 @@ mod planted {
     }
 
     /// The claim, claim 5: the id lints read a citation-free file, a backticked span and a plain
-    /// word that are a defined id reported at both levels; at the level `entries` the repair names
-    /// the reference form, and at the level `all` a rewrite in words, which names no reference.
-    /// Mutation checked, caught: `id_lint_at` returning the finding as it is at every level.
+    /// word that are a defined id reported at both levels, and at both levels the repair is a
+    /// rewrite in words, which names no reference to the entry: at the level `entries` that
+    /// reference is what the file refuses too. Mutations checked, each caught, in
+    /// `citation_free::repairs_at`: its arm of the level `entries` made to leave every repair,
+    /// `(Level::Entries, _) => return,`; its arm of the level `all` the same,
+    /// `(Level::All, _) => return,`; and the advice to rename dropped from a plain word's repair.
     #[test]
-    fn the_id_lints_read_a_citation_free_file_and_name_a_rewrite_at_the_level_all() {
+    fn the_id_lints_read_a_citation_free_file_and_name_a_rewrite_at_both_levels() {
         let free = free_findings();
-        assert_eq!(
-            repair(&free, "free/entries-ids.md", 3),
-            "write `goal@planted-goal`"
-        );
-        assert!(repair(&free, "free/entries-ids.md", 5).starts_with("write `goal@planted-goal`"));
+        for line in [3, 5] {
+            let action = repair(&free, "free/entries-ids.md", line);
+            assert!(
+                action.starts_with("rewrite the sentence in words"),
+                "{line}: {action}"
+            );
+            assert!(!action.contains("goal@planted-goal"), "{line}: {action}");
+        }
+        assert!(repair(&free, "free/entries-ids.md", 5).contains("rename what it names"));
         for line in [3, 5, 7] {
             let action = repair(&free, "free/all-ids.md", line);
             assert!(
@@ -777,8 +793,10 @@ mod planted {
     }
 
     /// The claim, claim 6: the unanchored-path lint reads a citation-free file, and at the level
-    /// `all` its repair is a rewrite in words, not the `path` form. Mutation checked, caught: the
-    /// lint's test of the level `all` removed from `judge_part`, so it names the `path` form.
+    /// `all` its repair is a rewrite in words, not the `path` form. Mutation checked, caught: in
+    /// `citation_free::repairs_at`, the arm of the level `all` made to leave an unanchored path's
+    /// repair, `(Level::All, Observation::UnanchoredPath(_)) => return,` before the arm of every
+    /// other finding, so it names the `path` form.
     #[test]
     fn the_unanchored_path_lint_names_a_rewrite_in_an_all_file() {
         let free = free_findings();
@@ -796,10 +814,12 @@ mod planted {
 
     /// The claim, claim 7: no repair a finding under free/ names is the span with its backticks
     /// removed, and in a file at the level `all` each names a rewrite in words, a malformed
-    /// span's, an anchor in the kind's position's and a link's included. Tested on the repair
-    /// text of each finding. Mutations checked, each caught, in `judge_part`: the malformed arm's
-    /// test of the level `all` removed; the same for the anchor in the kind's position; and the
-    /// repair of a link's findings in an `all` file left as it is.
+    /// span's, an anchor in the kind's position's, a link's and a wrapped span's included, a
+    /// link's being the rewrite of the link. Tested on the repair text of each finding. Mutations
+    /// checked, each caught, in `citation_free::repairs_at`: a wrapped span's findings left as they
+    /// are at the level `all`, `(Level::All, Observation::WrappedSpan(_)) => return,` before the
+    /// arm of every other finding; and a link's findings named `ALL_REPAIR`, the arm of a link at
+    /// the level `all` removed.
     #[test]
     fn no_repair_of_a_citation_free_file_is_the_span_without_its_backticks() {
         let free = free_findings();
@@ -816,10 +836,97 @@ mod planted {
                 assert!(!f.action.contains("path@<anchor>"), "{f}");
             }
         }
-        for line in [3, 5, 7] {
+        for line in [3, 5, 9] {
             let action = repair(&free, "free/all-forms.md", line);
-            assert!(action.starts_with("rewrite the "), "{line}: {action}");
+            assert!(
+                action.starts_with("rewrite the sentence in words"),
+                "{line}: {action}"
+            );
         }
+        assert!(repair(&free, "free/all-forms.md", 7).starts_with("rewrite the link in words"));
+    }
+
+    /// The claim: at the level `entries` no repair names a form the level refuses, a reference to
+    /// an entry or to an anchor of the project, so following a repair never raises the level's own
+    /// finding. The unanchored path, an anchor in the kind's position, a malformed span, a
+    /// reference outside backticks or wrapped that the level refuses, and an admitted `path` span
+    /// that dangles name a rewrite in words, and a link the rewrite of the link; a wrapped span and
+    /// a reference outside backticks that the level admits keep their repair, which names the span
+    /// itself. Mutations checked, each caught, in `citation_free::repairs_at`: the arm of a link at
+    /// the level `entries` removed, so a link is named `ENTRIES_REPAIR`; the guard that keeps an
+    /// admitted wrapped span's repair made never to hold, `if false`; the same for a reference
+    /// outside backticks; and the test of the level in `admitted` made to admit every span,
+    /// `refused_at_entries(&candidate, anchors).is_none()` made `true`.
+    #[test]
+    fn no_repair_at_the_level_entries_names_a_form_it_refuses() {
+        let free = free_findings();
+        let rewritten = [
+            ("free/entries-forms.md", 3),
+            ("free/entries-forms.md", 5),
+            ("free/entries-forms.md", 9),
+            ("free/entries-forms.md", 11),
+            ("free/entries-forms.md", 13),
+            ("free/entries-admitted.md", 15),
+        ];
+        for (rel, line) in rewritten {
+            let action = repair(&free, rel, line);
+            assert!(
+                action.starts_with("rewrite the sentence in words"),
+                "{rel}:{line}: {action}"
+            );
+            for refused in [
+                "`path@<anchor>@",
+                "`path@planted@",
+                "`goal@planted",
+                "`design@planted",
+            ] {
+                assert!(!action.contains(refused), "{rel}:{line}: {action}");
+            }
+        }
+        assert!(repair(&free, "free/entries-forms.md", 7).starts_with("rewrite the link in words"));
+        assert!(repair(&free, "free/entries-forms.md", 16).starts_with("keep the span on one line"));
+        assert!(repair(&free, "free/entries-forms.md", 19)
+            .starts_with("write it in backticks, as `path@elsewhere@another-project/README.md`"));
+    }
+
+    /// The claim: a declaration of `[walk.citation-free]` changes no count of the summary line, a
+    /// span the level refuses counting as a reference judged as one it admits does. Measured as
+    /// the references counted over the mock with its table and over a copy without it. Mutation
+    /// checked, caught: in `judge_part`, the count of a span the level refuses removed.
+    #[test]
+    fn the_declaration_changes_no_count_of_references() {
+        let counted = |tag: &str, strip: bool| {
+            let (_scratch, manifest) = copy(tag, "planted", |dir| {
+                if strip {
+                    let path = dir.join("knowledge-architect.toml");
+                    let text = std::fs::read_to_string(&path).expect("the manifest");
+                    let kept: Vec<&str> = text
+                        .lines()
+                        .filter(|l| {
+                            !l.starts_with("[walk.citation-free]")
+                                && !l.starts_with("all = ")
+                                && !l.starts_with("entries = ")
+                        })
+                        .collect();
+                    assert_eq!(text.lines().count() - kept.len(), 3, "{text}");
+                    std::fs::write(&path, kept.join("\n")).expect("the manifest rewritten");
+                }
+            });
+            let model = Model::build(&manifest, &[]).expect("a model");
+            let gathered = Gathered::over(&manifest, &model).expect("what a run reads");
+            let report = run_with(&model, &manifest, &gathered.inputs(), &[]);
+            assert_eq!(
+                report.phase,
+                km::foundation::Phase::Content,
+                "{tag}: {:#?}",
+                report.findings
+            );
+            report.structure.references
+        };
+        assert_eq!(
+            counted("count-declared", false),
+            counted("count-undeclared", true)
+        );
     }
 
     #[test]

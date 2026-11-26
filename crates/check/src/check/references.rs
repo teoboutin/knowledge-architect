@@ -20,8 +20,8 @@
 //! this project's ids only, so another project's id, or one whose entry has left, is silent.
 //!
 //! **A file `[walk.citation-free]` matches is judged at its level**, `all` or `entries`: the level
-//! is asked in [`judge_part`] where a span's or a link's finding is written, and its rule is
-//! `super::citation_free`'s, as the goals home's rule is asked here and held apart.
+//! is asked in [`judge_part`] before a span is resolved and after each observation is judged, and
+//! its rule is `super::citation_free`'s, as the goals home's rule is asked here and held apart.
 //!
 //! **A `rejected` entry that no design entry cites is reported**, per
 //! `design@check@orphan-rejected-entry`: the one finding of this family raised over the entities
@@ -42,7 +42,7 @@ use crate::model::{slashed, Finding};
 
 use super::citation_free;
 use super::Inputs;
-use crate::model::declared::{CitationFree, Level};
+use crate::model::declared::CitationFree;
 use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 
 /// The finding at a site for a reference the resolver refuses, in the two texts of its cause.
@@ -178,12 +178,12 @@ pub(crate) fn judge_part(
     for doc in docs {
         let nav = is_navigation(&doc.rel);
         let goals_of = goals_home_owner(&doc.rel, anchors);
-        // In a file at the level `all`, every finding a span or a link raises names a rewrite in
-        // words, since the reference form and the `path` form its repair names elsewhere are what
-        // the file refuses.
+        // The file's level is asked twice per observation, both times through
+        // `citation_free`: whether it refuses a span, before the span is resolved; and, once the
+        // observation is judged, which repair each of its findings names.
         let level = free.level(&doc.rel);
-        let all = level == Some(Level::All);
         for l in &doc.observations {
+            let before = out.len();
             match &l.what {
                 Observation::Span(span) if references => {
                     let candidate = table::candidate(span, anchors);
@@ -251,9 +251,7 @@ pub(crate) fn judge_part(
                         &doc.rel,
                         l.line,
                         format!("`{span}` is malformed: {why}"),
-                        if all {
-                            citation_free::ALL_REPAIR
-                        } else if goals_of.is_some() && !names_a_goal_form(span, anchors) {
+                        if goals_of.is_some() && !names_a_goal_form(span, anchors) {
                             GOALS_HOME_REPAIR
                         } else {
                             repair
@@ -264,7 +262,6 @@ pub(crate) fn judge_part(
                         l.line,
                         format!("`{span}` opens with `{head}`, an anchor, where the kind goes"),
                         match goals_of {
-                            _ if all => citation_free::ALL_REPAIR.to_string(),
                             Some(_) => GOALS_HOME_REPAIR.to_string(),
                             None => format!(
                                 "prefix the kind, one of {}: a path is written `path@{head}@<path>`",
@@ -301,24 +298,19 @@ pub(crate) fn judge_part(
                     } else {
                         ""
                     };
-                    if goals_of.is_some() || all {
+                    if goals_of.is_some() {
                         out.push(Finding::at(
                             &doc.rel,
                             l.line,
                             format!("`{span}` is shaped like a path and names no anchor"),
-                            if all {
-                                citation_free::ALL_REPAIR
-                            } else {
-                                GOALS_HOME_REPAIR
-                            },
+                            GOALS_HOME_REPAIR,
                         ));
-                        continue;
-                    }
-                    out.push(Finding::at(
-                        &doc.rel,
-                        l.line,
-                        format!("`{span}` is shaped like a path and names no anchor"),
-                        format!(
+                    } else {
+                        out.push(Finding::at(
+                            &doc.rel,
+                            l.line,
+                            format!("`{span}` is shaped like a path and names no anchor"),
+                            format!(
                             "write `path@<anchor>@<path>`, `register@<anchor>@<register>` for a \
                              register's home, `path@elsewhere@<path>` for a path this tree does \
                              not hold, with the project's name as its first segment for a file \
@@ -331,17 +323,15 @@ pub(crate) fn judge_part(
                                 ""
                             }
                         ),
-                    ))
+                        ))
+                    }
                 }
                 Observation::BareName(_)
                 | Observation::PlainWord(_)
                 | Observation::UnquotedReference { .. }
                     if id_lints =>
                 {
-                    out.extend(
-                        id_lint(&doc.rel, l.line, &l.what, &tables)
-                            .map(|f| citation_free::id_lint_at(level, &l.what, f)),
-                    );
+                    out.extend(id_lint(&doc.rel, l.line, &l.what, &tables));
                 }
                 Observation::WrappedSpan(span) if references => out.push(Finding::at(
                     &doc.rel,
@@ -349,19 +339,14 @@ pub(crate) fn judge_part(
                     format!(
                         "`{span}` crosses a line break, so no check reads it as the pointer it is"
                     ),
-                    if all {
-                        citation_free::ALL_REPAIR
-                    } else {
-                        "keep the span on one line: a line break inside backticks is read as two \
-                         halves, and a renderer shows it as a space"
-                    },
+                    "keep the span on one line: a line break inside backticks is read as two \
+                     halves, and a renderer shows it as a space",
                 )),
                 // Markdown documents only: in Rust prose a markdown link is rustdoc's
                 // mechanism, resolved by rustdoc against the crate namespace, and this
                 // check reading those as index rows would report every intra-doc link.
                 Observation::Link(target) if references && doc.is_markdown() => {
                     let in_home = goals_of.is_some();
-                    let before = out.len();
                     link(
                         &mut out,
                         &mut counts,
@@ -373,14 +358,10 @@ pub(crate) fn judge_part(
                         anchors,
                         inputs,
                     );
-                    if all {
-                        for found in &mut out[before..] {
-                            found.action = citation_free::ALL_LINK_REPAIR.to_string();
-                        }
-                    }
                 }
                 _ => {}
             }
+            citation_free::repairs_at(level, &l.what, anchors, &mut out[before..]);
         }
     }
     (out, counts)
