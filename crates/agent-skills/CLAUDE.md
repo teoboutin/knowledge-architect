@@ -27,7 +27,7 @@ reference to an entry of this repository passes here and would dangle in every i
 the text cites no entry, per `design@agent-skills@shipped-text-cites-no-entry`, and the check
 judges that on the installed copies of the primer, the skills and the agents, which
 knowledge-architect.toml declares at the level `entries` of `[walk.citation-free]`: a finding names
-the installed copy, and its repair is here, then `cargo klarch install-agent-skills`. It names no
+the installed copy, and its repair is here. It names no
 Component and no convention of this repository; it writes only the forms
 `design@agent-skills@shipped-text-cites-no-entry` admits, read whole, and the project's command as the install placeholder. It may cite the shipped set's own skills, agents, primer and their sections,
 `skill@<name>@<slug>`, which every project serving `claude` holds. A level-two heading under
