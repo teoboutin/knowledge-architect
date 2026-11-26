@@ -143,12 +143,11 @@ unique within its document. A heading-shaped line inside the frontmatter block, 
 reads that block, is no heading.
 
 - **A section slug names a section apart from its position**, where a paragraph number goes stale
-  at every insertion. The rule, for a skill's sections, is the owner's proposal: "Better than
-  paragraph numbers, which might get stale at any time. Use this in the published skills to refer
-  between each other." A slug of the installed text is an interface: a rename dangles a consuming project's
-  citations of it, which `design@knowledge-architect@changelog-entries` owes a Migration entry for.
-  The owner, on that consequence: "The consequence you stated is accepted and positive in my view.
-  This is the fragility I mentionned at the beginning with using paragrap numbers."
+  at every insertion, so the published skills cite each other's sections by slug. A slug of the
+  installed text is an interface: a rename dangles a consuming project's citations of it, which
+  `design@knowledge-architect@changelog-entries` owes a Migration entry for. That dangling is the
+  staleness of a paragraph number made visible, and so is wanted: a renamed slug leaves a citation
+  that the consuming project's check reports.
 - **An installed copy defines its sections and raises no finding.** It is never the project's to
   repair, and under `commits` a commit holding an earlier version's set is judged by a later
   checker. The shipped set is held to the rule where it is written, by a test of the checker over the

@@ -210,8 +210,8 @@ and its home is named with no anchor, per `design@model@root-register-reference-
 `path@plans@README.md` and `register@plans@spec` name a file and a home of the one plans directory,
 whose path the checker fixes, per `design@model@plans-dir-fixed`. Each is true in every installing
 project, and it shows the syntax the checker enforces there. Writing a per-Component path in that
-syntax is the owner's proposal, on the argument that it promotes the same kind of syntax as what the
-checker enforces in projects holding the installed skills. The same argument holds of the plans directory's paths and
+syntax promotes the same kind of syntax as what the checker enforces in the projects that hold the
+installed skills. The same argument holds of the plans directory's paths and
 homes, since the checker fixes that directory's path, and of a home named by its register, since the
 checker refuses a home named by its path. A path that varies by project, and an illustration, are
 placeholders in angle brackets. The command a project runs is written as the placeholder that the
