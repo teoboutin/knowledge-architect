@@ -51,7 +51,9 @@ A refuting stage run by the workflow on every search is a rejected design,
 argument.
 
 Re-entry point: a design discussion that changes how a searcher grades, or the bound of
-`design@query@worklist-bound-is-40000-words`; or a third retrospective that reports such a miss.
+`design@query@worklist-bound-is-40000-words`. An intake of a retrospective file that reports such
+a miss adds its instance here and is no re-entry point, since an intake's own work does not include
+this discussion.
 
 ### Why it matters
 
