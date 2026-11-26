@@ -72,9 +72,10 @@ Three classes of finding differ, and only the first is a respelling:
   the bare name and a harvested head, and the fix would also need the staged tree, which `--fix`
   refuses.
 
-In a file at the level `all` of `[walk.citation-free]`, each of the three lints names a rewrite in
-words in place of the reference, per `design@check@citation-free-paths`, and the file refuses the
-reference a respelling would write, so a respelling of the first class must not reach such a file.
+In a file a glob of `[walk.citation-free]` matches, at either level, each of the three lints names a
+rewrite in words in place of the reference, per `design@check@citation-free-paths`, and the file
+refuses the reference to an entry a respelling would write, so a respelling of the first class must
+not reach such a file.
 
 The same repairs on a commit message are outside the spec, which says no `--fix` reaches a commit
 message; `issue@check@no-command-applies-the-repair-a-message-finding-names` records them.

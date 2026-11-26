@@ -241,7 +241,7 @@ tree that passes conforms in the texts the checker reads; a frozen file is read 
 alone, as an installed file is that no glob of `[walk.citation-free]` matches, and is none of those
 texts. The two classes differ in one respect, which the reading accepts: an installed file's source
 is judged on every run, and so are its own references where the project declares it at the level
-`entries`, per `design@check@citation-free-paths`, where a frozen file's citations are judged on
+`entries`, per `design@check@installed-copies-read-at-the-level-entries`, where a frozen file's citations are judged on
 none. The exemption names a location whose files leave the tree with their
 milestone, the case `design@check@the-regime-has-no-opt-out` admits: an exemption that names files
 leaving the tree expires with its subject. The generated lines of a search and the transcript are
