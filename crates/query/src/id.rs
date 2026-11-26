@@ -53,16 +53,7 @@ pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<Exit
         let pad = " ".repeat(width - candidate.len());
         if !crate::model::table::is_entry_id(candidate) {
             all_free = false;
-            // A candidate holding `@` was given as a whole reference, whose repair differs from a
-            // malformed id's, so the refusal names it. The clause names no kind and no anchor,
-            // since a goal's reference names none; it does not print the last segment as the id
-            // to try, since that segment may itself be outside the grammar.
-            let repair = if candidate.contains('@') {
-                "; give the id alone, the part after the last `@`"
-            } else {
-                ""
-            };
-            outln!("{candidate}{pad}  not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+{repair}");
+            outln!("{candidate}{pad}  {}", not_an_id(candidate));
             continue;
         }
         let mut forms: Vec<String> = by_id
@@ -94,9 +85,41 @@ pub fn id(manifest: &Manifest, ids: &[String], checker: &[&Path]) -> Result<Exit
     })
 }
 
+/// The refusal of a candidate outside the id grammar: the grammar, and, for a candidate holding
+/// `@`, the repair of giving the id alone.
+fn not_an_id(candidate: &str) -> String {
+    // A candidate holding `@` was given as a whole reference, whose repair differs from a
+    // malformed id's, so the refusal names it. The clause names no kind and no anchor, since a
+    // goal's reference names none; it does not print the last segment as the id to try, since
+    // that segment may itself be outside the grammar.
+    let repair = if candidate.contains('@') {
+        "; give the id alone, the part after the last `@`"
+    } else {
+        ""
+    };
+    format!("not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+{repair}")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The claim: a candidate holding `@`, a goal's reference included, is refused with the repair
+    /// of giving the id alone after the grammar, and one without `@` with the grammar alone.
+    /// Mutation checked: in `not_an_id`, the condition `candidate.contains('@')` replaced by
+    /// `true`, which adds the repair to `two`, and by `false`, which drops it from the references;
+    /// both caught.
+    #[test]
+    fn not_an_id_adds_the_repair_for_a_reference_alone() {
+        let grammar = "not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+";
+        let repair = "; give the id alone, the part after the last `@`";
+        assert_eq!(
+            not_an_id("design@core-mock@first-head"),
+            format!("{grammar}{repair}")
+        );
+        assert_eq!(not_an_id("goal@top-goal"), format!("{grammar}{repair}"));
+        assert_eq!(not_an_id("two"), grammar);
+    }
 
     /// The claim: `id` with no id is refused, where a loop over nothing would read as every id free.
     #[test]
