@@ -205,7 +205,7 @@ and each crate of the checker's tools depends on it, so no cycle forms; a new qu
 boundary as a function on one side and its call on the other, and a change of git itself changes
 this crate alone.
 
-### Cargo is read by a crate of its own, which the tools that need a fact of Cargo depend on, rather than by a module of the model `##cargo-reader-crate`
+### Cargo is read by a crate of its own, which the checker depends on, rather than by a module of the model `##cargo-reader-crate`
 
 `knowledge-architect-cargo-reader`, in crates/cargo-reader, reads what the tools of
 knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and the output of
@@ -240,8 +240,7 @@ code: every fact a tool needs of either is a function of
 `design@knowledge-architect@cargo-reader-crate`, so a change of either format, or of how a fact is
 read from it, changes that crate alone, and `register@cargo-reader@design` decides once what a
 failure of Cargo gives and whether a default of Cargo's is applied. The nearest rival, a crate
-keeping its own read of the fact it needs, as `check` parsed a package name with `toml::Table`,
-gives each format as many readers as there are tools, each deciding those two questions apart.
+keeping its own read of the fact it needs, gives each format as many readers as there are tools, each deciding those two questions apart.
 
 The rule names these two formats alone. `gates` and `mutate` run Cargo as the commands of a
 project's gates and mutations, and `gates` reads the lines Cargo prints, which no tool needs as a
