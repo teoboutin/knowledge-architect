@@ -78,7 +78,7 @@ exclude = [
     "crates/testing/tests",
 ]
 
-# The files declared free of citations, per `spec@per-crate-changelogs@citation-free-check`.
+# The files declared free of citations, per `design@check@citation-free-paths`.
 #
 # `all`: each crate's crates.io page, which holds no backticked reference, per
 # `design@knowledge-architect@crates-io-page-file`. `entries`: the installed copies, the primer, each

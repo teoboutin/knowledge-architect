@@ -53,8 +53,17 @@ where that text is written, and its illustration paths would otherwise be report
 project. The rival, walking them as any other document, reports those paths in a project that can repair
 none of them.
 
-The model holds them parsed for definitions, per `design@model@installed-entities-from-the-tree`: no check
-walks them for references, and they raise no finding of the section rule or of a slug defined twice.
+The model holds them parsed for definitions, per `design@model@installed-entities-from-the-tree`, and they
+raise no finding of the section rule or of a slug defined twice.
+
+**One read reaches them, and only where a project asks for it**: the level `entries` of
+`[walk.citation-free]` reads the references of each installed copy a glob of the project matches,
+for that level's findings and for nothing else, per `design@check@citation-free-paths`. The reason
+above keeps every other rule: no other rule reads a copy, and a project that declares the glob
+declares it to be told what its installed text cites. The cost accepted: the finding names the
+installed copy, not the source its repair edits, and its message is the same in every project,
+whether or not it holds that source. The rival of this read, the level applied to the source of the
+shipped text, is `rejected@check@citation-free-entries-over-the-source`.
 
 ### Ownership of an installed file is decided by a name, in a namespace the installer owns `##owned-namespace-check`
 

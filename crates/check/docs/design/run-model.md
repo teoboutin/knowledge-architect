@@ -166,9 +166,10 @@ carried out safely is the project's rule for that operation, not the finding's t
 
 ### Every rule over a document is enforced, and no declaration exempts a document from one `##the-regime-has-no-opt-out`
 
-The rules over documents are compiled in and the manifest declares nothing about them, so
-conformance of a document means the same thing in every tree this tool checks. There is no flag, no
-list and no severity: a rule either holds over a document or the run fails. The constraint derives
+The rules over documents are compiled in, and what the manifest declares about them adds to them and
+removes nothing, so conformance of a document means the same thing in every tree this tool checks.
+There is no flag, no list and no severity that holds a rule back: a rule either holds over a
+document or the run fails. The constraint derives
 from `goal@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
 `check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which the review before a merge judges a change of them, per `design@check@a-frozen-file-is-guarded-by-the-review`.
 
@@ -177,6 +178,11 @@ from `goal@documentation-stays-consistent`: a tree that passes the checker confo
 gives a project a kind, a shape and a home to be checked against; it cannot loosen the eleven built
 in, and it cannot exempt a document from anything. A manifest that declares no register is checked
 exactly as it was.
+
+**A file declared free of citations adds obligations and removes none.** `[walk.citation-free]`
+holds each file it matches to a rule over its spans that no other file meets, per
+`design@check@citation-free-paths`, so a matched file that passes would pass unmatched; a manifest
+that declares no such file is checked exactly as it was.
 
 **One declaration removes obligations, and they are the agent configuration's alone.** A project
 that declares no agent harness, per `design@check@agents-table`, owes no CLAUDE.md and no installed

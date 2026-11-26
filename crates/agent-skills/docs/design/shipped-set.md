@@ -220,14 +220,18 @@ install fills with the project's declared command, per `design@check@declared-co
 **The shipped set may cite its own skills, agents and primer, and their sections**, as
 `skill@<name>@<slug>` or `primer@<slug>`: every project serving `claude` holds them, installed, and
 they are defined from its installed copies, per `design@model@installed-entities-from-the-tree`. A
-test of the checker holds every such reference to resolve within the shipped set. It never cites
-`instructions@<slug>`, whose slugs are each project's own.
+test of the checker holds every such reference to resolve within the shipped set, so a citation of
+a skill or an agent the set does not ship, such as one of this repository's own, fails it. It never
+cites `instructions@<slug>`, whose slugs are each project's own.
 
 content/ and the snippets are in the walk, so every reference they hold is checked against this
-repository. A reference to an entry that resolves here passes the check and would dangle in every
-installing project: the reviews of each change, and the release's hand check over the installed
-copies, judge that, until a mechanical check exists, which
-`milestone@plans@per-crate-changelogs` schedules.
+repository, and a reference to an entry that resolves here would dangle in every installing
+project. This repository declares its installed copies of the primer, the skills and the agents at
+the level `entries` of `[walk.citation-free]`, so `check` reports such a reference in the installed
+copy, per `design@check@citation-free-paths`, and its repair is in the source. That level admits
+every `path@*@<path>`, so whether such a path is one every conforming project holds stays the
+reviews' and the release's to judge, and so does every reference of the saved workflows, which no
+walk reads.
 
 ### Each installed instruction can be followed, and gives the result it intends, with what the project that installs it holds `##installed-text-works-with-what-an-installing-project-holds`
 

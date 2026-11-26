@@ -74,7 +74,11 @@ section in an upgrade and repairs its citations passes `commits` on every commit
   per `design@check@installed-binary-version-check`, so definitions from the shipped set would fail
   every earlier commit citing a section the tip renamed. That is why
   `design@check@only-check-compares-installed-files` compares no installed copy under `commits`.
-- **An installed copy raises no finding**, per `design@model@section-homes-carry-slugs`.
+- **An installed copy raises no finding of the entity table**, per
+  `design@model@section-homes-carry-slugs`. Its references are read only at the level `entries`
+  of `[walk.citation-free]`, where a glob of the project matches it, per
+  `design@check@citation-free-paths`. Under `commits`, an earlier commit's installed copies are
+  read at that level by the tip's checker where the manifest that commit holds declares the glob.
 - **This repository's shipped text defines nothing in its walk**: content/ writes each section slug
   as a build placeholder, per `design@agent-skills@content-mirrors-the-install-layout`, so the
   definitions are the installed copies', which this repository installs with each change to

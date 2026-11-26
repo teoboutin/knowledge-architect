@@ -549,9 +549,11 @@ The design this decision did not keep:
 Each crate under crates/ names a CRATES-IO.md beside its README as its crates.io page, with
 `readme = "CRATES-IO.md"` in its Cargo.toml. The page says what the crate is, how to install or use
 it, and links, as absolute URLs on the main branch, to the crate's README in the repository and to
-docs.rs. It restates no contract, so it cannot drift from the README, and it holds no backticked
-reference: a reference that resolves passes the check, and crates.io renders it as dead code. The
-README stays the crate's home for how a user uses it, per the knowledge table, with the references
+docs.rs. It restates no contract, so it cannot drift from the README, and it holds no reference:
+crates.io renders a backticked span as code and resolves none, so a reference names nothing to the
+page's reader, whether or not it resolves in the tree. The manifest enforces it, declaring every
+crate's page by one glob at the level `all` of `[walk.citation-free]`, under which a reference is a
+finding whether or not it resolves, per `design@check@citation-free-paths`. The README stays the crate's home for how a user uses it, per the knowledge table, with the references
 the checker resolves. The rival, a README rewritten for crates.io with its repository-facing text
 moved elsewhere, lost: it moves the most text, and it changes what a Component's required README
 holds. Every published crate gets the page, so the rule has no exception. This serves

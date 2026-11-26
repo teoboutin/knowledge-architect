@@ -55,7 +55,9 @@ whitespace, at a `]`, which closes a link's text, or at an apostrophe, which ope
 less the punctuation that ends a sentence or a clause and the markdown that closes an emphasis or a
 quotation around it. A token holding an angle
 bracket is a placeholder, and is silent. The finding names its repair, the token in backticks, and,
-where the token names nothing of this project, a rewrite of the sentence; `check --fix` writes
+where the token names nothing of this project, a rewrite of the sentence; in a file at the level
+`all` of `[walk.citation-free]`, which refuses every reference, it names the rewrite in words alone,
+per `design@check@citation-free-paths`; `check --fix` writes
 nothing for it, as for the other lints on ids, per `design@check@id-lints-write-no-fix`.
 
 **Beside a backticked reference to an issue entry, in the same paragraph, the token is silent.** It
@@ -89,7 +91,9 @@ reports such a span when the entity table defines its id: a register entry's id,
 a slice's, a skill's or an agent's name, a section slug of a skill, an agent, the primer or the
 root CLAUDE.md, and an item's id inside its own plan, the only place an item may be cited, per
 `design@model@plan-item-scope`. An id a harvested slice's frozen files define is defined like any
-other, per `design@model@a-harvested-slice-is-frozen`. Its repair is the entry's reference. A section slug is in scope as a
+other, per `design@model@a-harvested-slice-is-frozen`. Its repair is the entry's reference, or, in a file at
+the level `all` of `[walk.citation-free]`, which refuses every reference, a rewrite in words, per
+`design@check@citation-free-paths`. A section slug is in scope as a
 register's id is: the census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, found 34 plain hits on 10
 section slugs in this repository, most of them pointers written in words. Under `harness = []` the table defines no harness
@@ -137,7 +141,9 @@ is renamed so that its slug is not an ordinary word, since a slug that is an ord
 with the prose that uses the word; a goal is renamed by the owner, through its project's
 goal-setting, since a goal changes only through the owner, per `goal@the-owner-decides`. A slug has
 no reason to be used as an ordinary word, and that is the only way the lint reports a wrong use
-reliably. The rule covers the slugs of the installed text too, which a consuming project cannot
+reliably. In a file at the level `all` of `[walk.citation-free]`, which refuses every reference,
+the repair names a rewrite in words in place of the reference, and adds the same rename, per
+`design@check@citation-free-paths`. The rule covers the slugs of the installed text too, which a consuming project cannot
 rename: such a slug met there as an ordinary word is reported upstream, by the project's
 retrospective, since an exemption would leave a wrong use of such a slug unreported, which is the
 reliability the rule rests on.
@@ -191,3 +197,58 @@ observable, which removed the arms alone. No tree holds its patch; it removes, i
 and `Observation::UnquotedReference`, and, in `scan` in `path@model@src/scan.rs`, the call to
 `outside_backticks`, its result replaced by an empty list. The bound of 10% over another, which no
 goal ranks: the session's ranking.
+
+### A file the manifest declares citation-free holds no reference at the level `all`, and none naming the project's own entries or anchors at the level `entries` `##citation-free-paths`
+
+Which files a project declares, at which level, by which globs, is
+`design@model@citation-free-globs`. The rule over each level is this head's, written in
+`path@check@src/check/citation_free.rs` and asked where a span's finding is written, in
+`judge_part` of `path@check@src/check/references.rs`.
+
+**At the level `all`, every span that parses as a reference is a finding, whether or not it
+resolves, and no span of the file is resolved.** Such a file faces a reader that no reference
+reaches, as a crate's crates.io page does, per `design@knowledge-architect@crates-io-page-file`: a
+reference that resolves in the tree names nothing where the file is read, so whether it resolves
+tells that reader nothing.
+
+**At the level `entries`, each span is resolved as anywhere else, and its kind and its anchor give
+its verdict:**
+
+| span | verdict |
+| --- | --- |
+| `skill@<name>`, `agent@<name>`, `primer@<slug>`, with a section where the kind takes one | admitted |
+| `instructions@<slug>` | a finding: it names a section of the project's own root CLAUDE.md |
+| a `path` or `register` reference under a reserved anchor, `*`, `plans` or `elsewhere`, and `register@goal` | admitted |
+| a `path` or `register` reference under an anchor the project declares or constructs | a finding |
+| `planned@<anchor>@<path>` | a finding: the form is legal only in a plan document |
+| a reference to an entry of any register, a plan item included | a finding |
+
+The level admits what every installing project holds, so that an installed copy of the shipped text
+may cite the shipped skills, agents and primer: a citation between installed texts reaches its
+target in every project that installs them, and the text cites them on purpose, per
+`design@agent-skills@shipped-text-cites-no-entry`. It enforces that head in part: it admits every
+`path@*@<path>`, where that head admits only a path every conforming project holds, which no
+checker can know of another project, so that part stays the reviews'. A refused span takes the
+level's finding alone and is not resolved: its repair rewrites it, so a second finding would name
+a repair the first undoes. An admitted span that resolves to nothing is reported, as anywhere else,
+in a walked file the level matches; an installed copy a glob of `entries` matches is read for this
+level's findings alone, per `design@check@installed-files-outside-the-walk`, and an admitted span
+there is not resolved, since its resolution within the shipped set is the shipped-set test's, per
+`design@model@section-homes-carry-slugs`.
+
+**At both levels a placeholder passes**: a span holding an angle bracket is an illustration, which
+the scanner does not read as a reference. A commit message is matched by no glob.
+
+**The lints on ids and the unanchored-path lint keep reading a citation-free file.** In a file at
+the level `all`, every finding a span or a link raises names a rewrite in words, or a placeholder
+where the sentence illustrates a form: the lints', a malformed span's, an anchor's in the kind's
+position and a link's alike, since the reference form and the `path` form that their repairs name
+elsewhere are what the file refuses. The cost accepted: such a file cannot print an existing path
+of the tree in backticks. No repair is the span with its backticks removed, which
+`design@agent-skills@plain-text-is-no-repair` refuses and
+`design@check@reference-shape-outside-span` would report.
+
+**The declaration adds obligations and removes none**, so it is a member of
+`design@check@the-regime-has-no-opt-out`: a matched file that passes would pass unmatched. This serves `goal@documentation-stays-consistent`: a file a project
+holds free of citations is held so by the check, not by a reading. The nearest rival, one level that
+refuses every reference, is `rejected@check@one-citation-free-level`.

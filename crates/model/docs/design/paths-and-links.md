@@ -149,7 +149,9 @@ A plan document is cited by its kind, never by its path, per
 
 **A fenced path reference is live**, as every reference is, per
 `design@model@a-reference-is-live-in-every-prose`: a sketch names its paths on purpose, and an
-illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder.
+illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder; in a
+file at the level `all` of `[walk.citation-free]`, which refuses the escape anchor as it refuses
+every reference, a placeholder alone, per `design@check@citation-free-paths`.
 
 The designs this decision did not keep: `rejected@model@bare-root-relative-path`,
 `rejected@model@path-without-kind-prefix`, `rejected@model@at-prefix-root-relative-path` and

@@ -420,3 +420,23 @@ design kept is `design@check@a-frozen-file-is-guarded-by-the-review`.
 `git clone -c core.autocrlf=true`, which holds CRLF where the commit holds LF, fails the check at every
 index, with nothing changed. Git for Windows sets
 `core.autocrlf` to `true` by default.
+
+### One citation-free level, refusing every reference `##one-citation-free-level`
+
+`live`. It keeps the declaration one list and its rule one sentence. It refuses the citations the
+installed copies hold on purpose, of the shipped skills, agents and primer, which every installing
+project holds and which a test of the checker holds to resolve within the shipped set, per
+`design@model@section-homes-carry-slugs`: under it, the installed copies cannot be declared, and a
+second declaration that does nearly the same would follow. The citations it would refuse are listed
+by `git grep -n -E '(skill|agent|primer)@' -- .claude/knowledge-architect .claude/agents .claude/skills`,
+counting the installed copies' lines alone.
+
+### The level `entries` applied to the source of the shipped text, with its `%%` comments exempt `##citation-free-entries-over-the-source`
+
+`live`. It keeps the installed copies out of every read. It loses on what the source holds: the
+build's placeholders and the fragments it inlines, which the read would have to render as the
+install does to judge the text an installing project reads; and its `%%` comment lines, which cite
+this repository's entries on purpose and which the build removes, so the read would need an
+exemption for a syntax that this repository's source alone holds, in a checker whose rules are the
+same in every tree, per `design@check@the-regime-has-no-opt-out`. The installed copies hold the
+text as an installing project reads it, with no such line.
