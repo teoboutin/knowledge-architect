@@ -2,7 +2,7 @@
 
 ## Reference spans
 
-### A backticked `@` span is a reference candidate when its head is a kind or an anchor, and every other `@` span is silent `##at-span-candidate-rule`
+### A backticked `@` span with no whitespace or angle bracket is a reference candidate when its head is a kind or an anchor, and every other `@` span is silent `##at-span-candidate-rule`
 
 The scanner records every backticked span that holds an `@` and no whitespace, backtick or
 angle bracket, as written; it has no manifest, so it cannot tell a kind from an email address.

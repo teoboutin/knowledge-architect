@@ -41,7 +41,7 @@ A bare `R` followed by digits, the entry number of an interpretation register, i
 were thaum's own, and a lint naming them would belong to thaum's extension rather than to `check`.
 Keeping that lint permanently is `rejected@check@permanent-interpretation-number-form`.
 
-### A reference-shaped token outside backticks is a finding in every prose region the checker reads `##reference-shape-outside-span`
+### A reference-shaped token outside backticks is a finding in every prose region the checker reads, unless a backticked reference to an issue entry stands in the same paragraph `##reference-shape-outside-span`
 
 A token outside every backtick span and every quotation, in a document, a Rust comment, an unbound
 string literal outside the checker's own source or a commit message, fenced blocks included, is a
@@ -69,12 +69,14 @@ The token is the same defect in any prose, so the check reads every region the s
 fenced blocks included, as `design@model@a-reference-is-live-in-every-prose` reads a fence. A
 harvested slice's files are read by none of the lints on ids: they are read for their definitions
 alone, per `design@model@a-harvested-slice-is-frozen`. The
-nearest rival, the check limited to the `%%` comment lines of the shipped text, which a
-retrospective proposed, adds a rule with no reason behind it: a token written without its backticks
-in a design home dangles as silently as one in a comment line. The census taken in the design
+nearest rival, the check limited to the `%%` comment lines of the shipped text, adds a rule with no
+reason behind it: a token written without its backticks in a design home dangles as silently as one in a comment line. The census taken in the design
 discussion, kept in its spec, `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`,
-found such tokens in this repository, every one a pointer, and none in thaum; the lint reports a
-token a writer stripped of its backticks, which is the evasion
+found such tokens in this repository, every one a pointer, and none in thaum. Re-take it with
+`cargo klarch check` over a tree that has not rewritten such tokens, such as another project's at
+its upgrade, counting this lint's findings: a finding on a token that is not meant as a pointer
+reopens the regions the lint reads. The lint reports a token a writer stripped of its backticks,
+which is the evasion
 `design@agent-skills@plain-text-is-no-repair` refuses, and serves
 `goal@documentation-stays-consistent`.
 
