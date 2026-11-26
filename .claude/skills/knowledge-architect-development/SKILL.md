@@ -159,9 +159,10 @@ Each signal is weighed against the signals against a split:
   no owner.
 
 **Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
-that reads it in parts judges code it has not read; a read that asks for the whole file, under the
-reader's usual size limit, and returns it cut short or refuses it shows the signal. No number of
-lines is a signal by itself.
+that reads it in parts judges code it has not read; a read that asks for every line of the file,
+under the reader's usual size limit, and is cut short by that limit or refused shows the signal. A
+read that stops at a default count of lines, as a read given no range can, does not show it. No
+number of lines is a signal by itself.
 
 **A split is a move before the work**, planned and committed as
 `skill@knowledge-architect-planning@cutting-steps-and-slices` says.

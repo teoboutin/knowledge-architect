@@ -189,15 +189,17 @@ against one reference is one that a review reads whole without reading outside i
 owner reported that without such guidance modules are in practice never split and grow to thousands
 of lines; that report is the real-use evidence `design@agent-skills@behaviour-additions-need-real-use`
 asks of an instruction about agent behaviour. The size signal rests on a measurement of the harness:
-the Read tool returns a file given with no range only up to a cap, and, asked with `allow_large`,
+the Read tool returns a file only up to a cap on its size in tokens, and, asked with `allow_large`,
 only up to what fits in the context the session has left, an option its description reserves for a
 need of the whole file; so a session meets files it cannot read whole in one pass, and a review that
-reads such a file in parts judges code it has not read. The figures are in the message of the
-commit "[review] Repairs of the review before the merge of the slice on splits planned before the
-work: the scout's scope, a split no fix of its own, the hook rival withdrawn, the host lists the
-session's, and the heads reshaped", taken again by two reads, with no range, of a file whose tokens exceed
-the cap, one plain and one with `allow_large`. Were a read to return any file whole in one pass,
-the size signal would leave the fragment.
+reads such a file in parts judges code it has not read. A read given no range also stops at a
+default count of lines, which is no such pass, since no number of lines is a signal. The figures are
+in the message of the commit "[review] Repairs of the review before the merge of the slice on splits
+planned before the work: the scout's scope, a split no fix of its own, the hook rival withdrawn, the
+host lists the session's, and the heads reshaped", taken again by two reads of a file whose tokens
+exceed the cap before its default count of lines is reached, one plain and one with `allow_large`,
+each cut short by size. Were a read to return any file whole in one pass, the size signal would
+leave the fragment.
 
 The nearest rival, a threshold of lines as the criterion, says nothing of what a review reads
 against: the design not kept is `rejected@agent-skills@module-split-at-a-size-threshold`.
