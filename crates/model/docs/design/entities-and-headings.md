@@ -6,7 +6,7 @@
 
 **A kind is a register's name, or `path`, or `planned`, or `register`, or, under the `claude`
 harness, a harness kind**: `skill`, `agent`, `primer` or `instructions`, which is no register and takes no anchor, per
-`design@model@harness-kinds`. The eleven built-in registers give the kinds `design`,
+`design@model@harness-kinds`. The built-in registers give the kinds `design`,
 `goal`, `tripwire`, `rejected`, `issue`, `spec`, `milestone`, `thread`, `argument`, `criterion` and
 `acceptance`, and a project's own declarations give the rest, so the kind set is
 data rather than a compiled enumeration. A heading register's entities are slugs defined in the
