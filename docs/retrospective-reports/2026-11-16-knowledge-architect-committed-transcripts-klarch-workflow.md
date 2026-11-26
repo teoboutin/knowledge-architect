@@ -169,7 +169,7 @@ member.
 - **h. The proposal.** Add to `issue@agent-skills@sessions-misread-which-course-a-design-discussion-takes`
   the tmp-cleanup W1 as instance 5, with its two sentences and three proposals as a lead, and W3 as
   instance 6; add to `issue@agent-skills@the-open-space-test-may-admit-every-problem` the counts of
-  the tmp-cleanup table and of the intake-items W3. The texts are block 1 and block 2 of
+  the tmp-cleanup table and of the intake-items W3. The texts are in
   the intake's draft instances-C (not committed; its text is in the issue). Nothing for the tmp-cleanup
   project file's remark: no project rule exists to change. The search's owner questions on which of
   the tmp-cleanup shapes to take, a fork no goal ranks, are questions of that discussion: they reach
@@ -202,7 +202,7 @@ Members: `issue@agent-skills@sessions-misread-which-course-a-design-discussion-t
   it.
 
 Default: the discussion is not opened in this intake; the issue gains its instances and stays open.
-Outcome: for the owner (whether to open now the discussion the issue reserves to the owner's word): the discussion not opened in this intake, the default; the issue gains its instances and stays open. The owner: "defaults for all other items"
+Outcome: for the owner (whether to open now the discussion the issue reserves to the owner's word): the discussion not opened in this intake, the default; the issue gains its instances and stays open. The owner: "defaults for all other items" (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 5)
 
 ## standing-shortcut-decision-tripwire: whether the bounded-path tripwire fired
 
@@ -225,7 +225,7 @@ carries"; the tmp-cleanup W1 carries such evidence.
   0f10f4e9 and 14d69c08, whose messages name the phrase in writing about this tripwire and the
   open-space issue, and no commit of a bounded-path proposal.
 - **h. The proposal.** No firing, no edit of the tripwire. Its evidence is the open-space issue's,
-  which block 2 of design-course-misread adds.
+  which the section design-course-misread adds.
 
 Default: not fired; the tripwire stays as it is.
 Outcome: decided by the session: not fired, no change. Ground: its firing clause asks a decision found on the main branch by a later procedure, and each decision the file reports was found by its own branch's review before the merge, per `design@agent-skills@slip-is-no-firing`.
@@ -330,7 +330,7 @@ answer on judgement-free tasks, the transcript cut at a message.
   as the tool's work; not taken in, it closes with that reason, and the cut by hand stays.
 
 Default: already recorded; the task taken in, the issue staying open as the tool's work.
-Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue staying open as the tool's work. The owner: "6,7,8 should be taken in."
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue staying open as the tool's work. The owner: "6,7,8 should be taken in." (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 6)
 
 ## transcript-anonymized-by-hand: the removal of home paths from a committed transcript is carried by hand
 
@@ -352,7 +352,7 @@ judgement-free tasks, the anonymization. Two retrospectives hold a member.
   the owner, per `design@agent-skills@transcript-pushed-with-the-branch`. It holds neither of these
   two instances. `design@agent-skills@transcript-removal-step` (`constrains`) says a script "could
   replace part of it": the step still reads the transcript whole.
-- **h. The proposal.** Add both instances to the issue: block 3 of
+- **h. The proposal.** Add both instances to the issue, by the text in
   the intake's draft instances-C (not committed; its text is in the issue). The issue then holds three
   occurrences of the hand removal across three plan documents.
 
@@ -434,8 +434,8 @@ Three retrospectives hold a member.
   would leave the eight other issues and the loop step's sentence as they are.
 - **g. Its route.** Instances added to a recorded issue.
 - **h. The proposal.** Add the three instances to
-  `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`: block
-  4 of the intake's draft instances-C (not committed; its text is in the issue). No edit of the binary.rs
+  `issue@agent-skills@a-deferred-trigger-brings-unrelated-work-into-a-design-at-a-bad-moment`, by the text in
+  the intake's draft instances-C (not committed; its text is in the issue). No edit of the binary.rs
   entry and no roadmap row.
 
 Default: three instances added to the deferred-trigger issue; no change to the re-entry point or to the binary.rs entry.
@@ -462,7 +462,7 @@ subjects analysed in their own files.
   the agent proposes, and the weighing it sets off stays the agent's judgement, so the rule's reach
   over it is statement 1 and 2's open question.
 - **h. The proposal.** The intake does not rule the reach: no outcome waits on it. Add the occasion to
-  the issue as evidence for its discussion: block 5 of
+  the issue as evidence for its discussion, by the text in
   the intake's draft instances-C (not committed; its text is in the issue).
 
 Default: the occasion added to the issue; the rule's reach left to that issue's discussion.

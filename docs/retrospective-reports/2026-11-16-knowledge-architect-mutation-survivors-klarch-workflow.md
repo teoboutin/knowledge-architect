@@ -227,7 +227,7 @@ P4 of 2026-11-25-knowledge-architect-windows-and-macos-gates. Three retrospectiv
   deleted with that reason, per its close.
 
 Default: the two instances added to `issue@knowledge-architect@the-review-s-worktrees-and-scratch-directories-are-made-by-hand`, which stays open on the roadmap; no text added now.
-Outcome: for the owner (whether the owner takes in the task of a command that makes a batch's worktrees and scratch directories, bounds its build jobs and removes them, which `goal@the-owner-decides` reserves to the owner): the task taken in, the issue staying open on the roadmap as the tool's work, with the two instances. The owner: "6,7,8 should be taken in."
+Outcome: for the owner (whether the owner takes in the task of a command that makes a batch's worktrees and scratch directories, bounds its build jobs and removes them, which `goal@the-owner-decides` reserves to the owner): the task taken in, the issue staying open on the roadmap as the tool's work, with the two instances. The owner: "6,7,8 should be taken in." (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 8)
 
 ## issue-entry-exempts-design-grounding: whether an issue entry's closing work exempts an owner's request from the design skill
 
