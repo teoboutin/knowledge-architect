@@ -5,12 +5,26 @@
 - The manifest table `[walk.citation-free]`, with two lists of globs, `all` and `entries`. `Walk`
   in `path@model@src/manifest.rs` carries `#[serde(deny_unknown_fields)]`, so it gains a field for
   the subtable, and `Manifest::parse` gains the call that dispatches its resolve, which goes in a
-  module of its own beside manifest.rs. `[walk.citation-free]` becomes a built-in table, so its name
-  is taken from every extension, under `design@check@an-extension-claims-its-manifest-tables`.
+  module of its own beside manifest.rs. `[walk]` is already a built-in table, and an extension
+  claims only top-level tables (`Declared.tables` flattens the top-level keys, which
+  `extension_tables` reads), so the subtable takes no name from the extensions, and
+  `design@check@an-extension-claims-its-manifest-tables` is not touched.
 - The glob matcher of the table, hand-written in `model`, with its unit tests there; no dependency
-  is added.
+  is added. The two findings of the dialect, a glob that matches no file and a path matched at both
+  levels, are phase 2's, in `declarations` of `path@model@src/tree.rs`, beside the finding of a
+  `skip-files` row that names no file: `Manifest::parse` reads no file system, and only phase 2
+  holds the walked paths and the installed copies.
 - The findings of a citation-free file, in `check`, in a module of its own,
-  `planned@check@src/check/citation_free.rs`, and the repair each names.
+  `planned@check@src/check/citation_free.rs`, and the repair each names. The arms of `judge_part`,
+  `id_lint`, `id_finding` and `link` in `path@check@src/check/references.rs` write the findings and
+  the repairs of a span today, so the work writes into them too: each asks the level of its file, and
+  in a file at the level `all` names a repair in words.
+- Before the tests of the sandbox, a move-only commit takes `klarch`, `Sandbox` and the helpers the
+  new test file needs out of `path@testing@tests/binary.rs` into a support module under
+  `path@testing@tests/`, which binary.rs and the new file share, as
+  `issue@testing@binary-rs-is-past-one-read` says of a support module.
+- Before the harvest, the conforming step of the heads the harvest touches, as "What is already
+  decided" lists their verdicts.
 - At the level `entries`, the read of the installed copies for references, and for nothing else,
   where a glob of a project's `entries` matches them, on D2 of the milestone document, closed by the
   session on the owner's argument `argument@per-crate-changelogs@arg-60`.
@@ -62,9 +76,12 @@ with `cargo x mutate`, as `skill@knowledge-architect-development` says.
    rewrite in words, not the `path` form.
 7. **No repair a finding of this slice names is the span with its backticks removed**: each names a
    rewrite in words, or a placeholder in angle brackets. Tested on the repair text of each finding.
+   In a file at the level `all`, so do the findings of a malformed span, of an anchor in the kind's
+   position and of a link, whose repairs name a reference form elsewhere.
 8. **The glob dialect**: unit tests beside the matcher in `model`, one per rule of the dialect under
-   "Decided design", a glob that matches no walked file and a path matched at both levels each a
-   finding of the manifest's resolve.
+   "Decided design"; a glob that matches no file it is matched against and a path matched at both
+   levels each a finding of phase 2, tested in `path@model@src/tree.rs` as the `skip-files` finding
+   is.
 9. **The current install passes**, premortem cause 5: the gate `cargo klarch check` of
    `cargo x gates` on this repository, with the declaration, reports nothing. Shown to fail by
    `cargo x mutate run --file crates/check/src/check/citation_free.rs`, replacing the test that
@@ -127,9 +144,23 @@ What this slice alone changes, beside what the milestone document's "What the wo
   design discussion, a report kept in that session's scratch space and not committed: the file has
   one reason to change, the manifest's grammar, read through one serde parse, which is the signal
   against a split (manifest.rs line 1 opens "`knowledge-architect.toml` — what a project
-  declares"); and the new table adds to its resolvers only the field and the dispatch. The slice's
-  design audit dispatches the scout again over the file, and either closes the issue on that argued
-  decision or plans the split as a step before the work.
+  declares"); and the new table adds to its resolvers only the field and the dispatch. Decided at
+  the slice's design audit: no split in this slice. The scout, dispatched again, found the size
+  signal holding on the code above the tests alone, and a second part that changes apart, the plan
+  layout's names; neither is pushed by this work, which adds a field and one call, while the table's
+  resolve goes in a module of its own. The issue stays open, at the same re-entry point, for a work
+  that adds more than a dispatch to the file.
+- **`issue@testing@binary-rs-is-past-one-read`, weighed at the design audit.** The tests of claims
+  3, 4 and 10 need `Sandbox::serve_claude` and `klarch`, private to
+  `path@testing@tests/binary.rs`. Decided: they go in a new test file, and the shared helpers move,
+  in a move-only commit before them, into a support module. The split by command the issue asks for
+  is not taken: this work adds no test of a command to binary.rs, so the issue stays open.
+- **`path@check@src/check/references.rs` and `path@model@src/tree.rs`, past one read**, as the
+  scout measured at the design audit, with no issue entry: the work writes into both. No split in
+  this slice: in references.rs, the citation-free rule changes the finding that one arm writes for
+  one observation, as the goals-home rule does, so a review of either rule reads that arm, and the
+  rule's own logic goes in `citation_free.rs`; in tree.rs, the glob findings are changes that
+  `declarations`, one process over the declared paths, applies. Each gets an issue entry.
 
 ## What is already decided
 
@@ -164,9 +195,51 @@ design audit:
 - `design@agent-skills@shipped-text-cites-no-entry`: the rule is now checked, over the installed
   copies.
 - `design@agent-skills@setup-default-crates-io-page`: the proposal includes the declaration.
-- `design@check@an-extension-claims-its-manifest-tables`: the built-in table takes its name from
-  the extensions.
 - `design@check@check-reads-no-range-of-history`: cites the new root head, which widens it.
+
+Added by the slice's design audit, from the verdicts of its record search, each a head whose text
+states a rule the slice narrows:
+
+- `design@model@section-homes-carry-slugs`: its bullet "An installed copy defines its sections and
+  raises no finding", narrowed by the level `entries`.
+- `design@check@plain-word-lint`: its repair in a file at the level `all`, a rewrite in words.
+- `design@check@every-path-names-its-anchor`: its paragraph on a fenced path reference, whose
+  escape-anchor repair a file at the level `all` refuses.
+- `design@model@an-unresolved-reference-is-reported` and
+  `design@model@an-unresolved-reference-is-never-dropped`: in a file at the level `all`, a span
+  that resolves to nothing takes the citation-free finding and its repair in words.
+- `design@model@at-span-candidate-rule`: "a known kind is segmented and resolved", which a file at
+  the level `all` narrows to segmented.
+- `design@model@a-harvested-slice-is-frozen`: its analogy, a frozen file read for its definitions
+  alone "as an installed file is", which a declaring project's level `entries` makes false.
+
+Judged untouched at the design audit:
+
+- `design@check@an-extension-claims-its-manifest-tables`: the subtable takes no name from the
+  extensions, as "Builds" says.
+- `design@check@phases-gate-the-report`: the sentence of `path@check@docs/design/run-model.md`
+  that the milestone document lists, "An installed copy raises no finding of phase 3", stays true,
+  since a finding of the level `entries` is phase 4's.
+
+The verdicts of `agent@knowledge-architect-design-record-auditor` on these heads, at the design
+audit, and the conforming step each owes before the harvest:
+
+| head | verdict | the step |
+| --- | --- | --- |
+| `design@check@the-regime-has-no-opt-out` | conforms | none |
+| `design@check@check-reads-no-range-of-history` | conforms | none |
+| `design@check@unanchored-path-first-segment-here` | two decisions: the first-segment rule, and what a path-shaped span is | split: the definition moves, unchanged but "so each is a finding" read "so each is path-shaped", into a new head of `register@model@design`, `path-shaped-span`, since `path_shaped` in `path@model@src/scan.rs` is `model`'s code; the citing sites re-pointed |
+| `design@check@backticked-bare-id` | two decisions: its last paragraph, that `check --fix` writes nothing for the three lints on ids | split: a new head of `register@check@design`, `id-lints-write-no-fix`, after `design@check@quotation-read-by-no-id-lint`; the citing sites re-pointed, those of `spec@plans@path-quickfixes` included |
+| `design@check@reference-shape-outside-span` | its title leaves out its exception beside an issue reference; its census names no command that re-takes it; it holds deliberation | retitled, slug kept; the re-take command added; "which a retrospective proposed" deleted |
+| `design@agent-skills@shipped-text-cites-no-entry` | names the owner as the source of an argument | the attribution removed, the argument kept |
+| `design@agent-skills@setup-default-crates-io-page` | no entry test admits it, and it quotes the owner | removed from the design home, its citations re-pointed to `skill@knowledge-architect-setup@rust-project`: D3 of the milestone document |
+| `design@model@section-homes-carry-slugs` | quotes the owner, and names the owner as the source of an argument | the quotations replaced by the arguments they made, unattributed |
+| `design@check@plain-word-lint` | its census names no command that re-takes it | the re-take command added |
+| `design@check@every-path-names-its-anchor` | two decisions: its paragraph that a plan document is cited by its kind, never by its path; and its code is `model`'s alone | split: a new head, `plan-document-path-citation-refused`, after it, its citing sites re-pointed; the Component of both heads is D6 of the milestone document |
+| `design@model@an-unresolved-reference-is-reported` | conforms | none |
+| `design@model@an-unresolved-reference-is-never-dropped` | conforms | none |
+| `design@model@at-span-candidate-rule` | its title leaves out that a span holding whitespace or an angle bracket is no candidate | retitled, slug kept |
+| `design@model@a-harvested-slice-is-frozen` | names the owner's approval of the session's reading of a goal, and tells how the decision came about | the history removed, the reading and its rival kept |
 
 ## Decided design
 
@@ -189,9 +262,12 @@ From `thread@per-crate-changelogs@citation-free-paths`.
   under that directory. A glob that matches no file it is matched against is a finding of the
   manifest's resolve, as a `skip-files` row that names no file is; so is a path matched by a glob
   of `all` and by one of `entries`. The matcher is hand-written in `model`, with no dependency, and
-  its tests are its unit tests there.
+  its tests are its unit tests there. The two findings are phase 2's, in `declarations` of
+  `path@model@src/tree.rs`, since the manifest's resolve reads no file.
 - **`all`**: a span that parses as a reference is a finding whether or not it resolves, and no span
-  of the file is resolved.
+  of the file is resolved. Every finding a span or a link raises in such a file names a repair in
+  words or a placeholder, a malformed span's, an anchor in the kind's position's and a link's
+  included.
 - **`entries`**: each span is resolved as anywhere else, and its kind gives its verdict:
 
   | span | verdict |
@@ -207,7 +283,14 @@ From `thread@per-crate-changelogs@citation-free-paths`.
 
   This serves the installed copies, which may cite what every installing project holds, on the
   owner's word at R7. The read of an installed copy at this level raises no finding of any other
-  rule, so the reason of `design@check@installed-files-outside-the-walk` keeps every other rule.
+  rule, so the reason of `design@check@installed-files-outside-the-walk` keeps every other rule: an
+  admitted span that dangles is reported in a walked file the level matches, as anywhere else, and
+  not in an installed copy, whose resolution within the shipped set is the shipped-set test's.
+  The level enforces `design@agent-skills@shipped-text-cites-no-entry` in part: it admits every
+  `path@*@<path>`, where that head admits only a path every conforming project holds, which no
+  checker can know of another project, so that part stays the release's review.
+  Under `commits`, an earlier commit's installed copies are read at this level by the tip's checker
+  where the manifest that commit holds declares the glob.
 - At both levels, a placeholder passes, as `primer@where-knowledge-goes` says of an illustration.
 - The id lints keep reading a matched file, and so does the unanchored-path lint. In a file at the
   level `all`, the repair each names is a rewrite in words, since the reference form and the `path`
@@ -269,4 +352,5 @@ with the thread's slug, written in this slice because no work implements it.
 | the rival of one level, and the rival of the read over content/ | `thread@per-crate-changelogs@citation-free-paths` | `register@check@rejected`, if a recording test holds |
 | the head on history, with the content check ruled out in its body | `thread@per-crate-changelogs@no-history-beyond-the-branch`, `thread@per-crate-changelogs@released-content-check` | `register@knowledge-architect@design`, in this slice's work |
 | premortem cause 5 | `thread@per-crate-changelogs@citation-free-paths` | claim 9; no tripwire |
-| the two candidates of the closed issue | | the milestone document's "Later consequences": each an issue entry, or argued in the landing commit to need none |
+| the two candidates of the closed issue | | the milestone document's "Later consequences": each an issue entry, or argued in the landing commit to need none; the guard on placeholder spans weighed against `rejected@model@placeholder-literal-part-check`, which it brings back unless a new argument is found |
+| the repairs in words of a file at the level `all`, which the respelling of `spec@plans@path-quickfixes` would refuse there | | a line in the What of `issue@knowledge-architect@path-quickfixes-read-against-the-lints-on-ids` and of `issue@knowledge-architect@path-quickfixes-read-against-the-renamed-checker`, added at the landing |
