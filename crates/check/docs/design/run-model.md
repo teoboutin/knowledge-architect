@@ -175,8 +175,8 @@ from `goal@documentation-stays-consistent`: a tree that passes the checker confo
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
-gives a project a kind, a shape and a home to be checked against; it cannot loosen the eleven built
-in, and it cannot exempt a document from anything. A manifest that declares no register is checked
+gives a project a kind, a shape and a home to be checked against; it cannot loosen the built-in
+ones, and it cannot exempt a document from anything. A manifest that declares no register is checked
 exactly as it was.
 
 **A file declared free of citations adds obligations and removes none.** `[walk.citation-free]`
