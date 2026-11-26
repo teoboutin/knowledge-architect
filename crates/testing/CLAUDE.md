@@ -7,7 +7,7 @@ this way is `register@testing@design`.
 **Nothing of the repository depends on this crate**, and it dev-depends on `cli` by path alone, per
 `design@knowledge-architect@no-crate-depends-on-testing`, which `path@testing@tests/dependency_rules.rs` holds for each crate of the workspace.
 
-**A test of the binary asks for it with `klarch()`**, in `path@testing@tests/binary.rs`, which builds it, per
+**A test of the binary asks for it with `klarch()`**, in `path@testing@tests/support/mod.rs`, which builds it, per
 `design@testing@nested-cargo-builds-the-binary`. A mutation of the binary's code owes a `--build` probe that
 builds it, such as `cargo build -p knowledge-architect --bin klarch`, or a mutant that does not compile
 reads as caught.
@@ -44,10 +44,10 @@ defects, which `index` and `check --fix` over a copy would rewrite to the curren
 of the skills, so a mock serving the `claude` harness would need the installed copy of that set,
 and would change with it. `unsound` keeps the default harness, which it never reaches the last phase
 to judge, since a run over it stops at phase 2. A test about the installed set
-declares the harness in its own copy, and imports the primer from its root CLAUDE.md, as `Sandbox::serve_claude` in `path@testing@tests/binary.rs` does.
+declares the harness in its own copy, and imports the primer from its root CLAUDE.md, as `Sandbox::serve_claude` in `path@testing@tests/support/mod.rs` does.
 
 **A test that copies a mock project runs `git init` and `git add -A` in the copy**, or the walk
-is empty and the test proves nothing; `Sandbox` in `path@testing@tests/binary.rs` does it. Two
+is empty and the test proves nothing; `Sandbox` in `path@testing@tests/support/mod.rs` does it. Two
 consequences a test about ignore behaviour has to choose between, because the ignore rules act on
 untracked files alone:
 
