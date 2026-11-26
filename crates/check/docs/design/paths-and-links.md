@@ -6,9 +6,9 @@
 
 A backticked span with no `@` that is path-shaped, per `design@model@path-shaped-span`, is a
 finding naming the grammar of `design@model@every-path-names-its-anchor` when its first segment
-names a file or a directory this tree's listing holds. In a file at the level `all` of
-`[walk.citation-free]`, which refuses the `path` form, the finding's repair is a rewrite in words,
-per `design@check@citation-free-paths`.
+names a file or a directory this tree's listing holds. In a file a glob of `[walk.citation-free]`
+matches, at either level, the finding's repair is a rewrite in words, per
+`design@check@citation-free-paths`.
 
 **A span whose first segment names nothing here is another tool's notation, and is silent**: a
 media type `application/json`, a unit `km/h`, a git ref `origin/main`, the fixture path of a test,
@@ -40,7 +40,8 @@ names something of this project". Reporting every path-shaped span
 is `rejected@check@every-path-shaped-span-reported`. This serves `goal@every-target-project-can-adopt-it`
 and `goal@adoption-is-easy`.
 
-The repair of a span that carries a line suffix or a fragment names the file and drops the suffix:
+Outside a file a glob of `[walk.citation-free]` matches, the repair of a span that carries a line
+suffix or a fragment names the file and drops the suffix:
 a reference is to a file, and a line number goes stale at the next edit.
 
 The design this decision did not keep: `rejected@check@ignored-first-segment-reported`.

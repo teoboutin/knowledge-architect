@@ -9,8 +9,8 @@ angle bracket, as written; it has no manifest, so it cannot tell a kind from an 
 The resolver reads the head — the text before the first `@` — and decides: a known kind is
 segmented and resolved, or, in a file at the level `all` of `[walk.citation-free]`, segmented and
 refused unresolved, per `design@check@citation-free-paths`; a declared anchor or a reserved anchor in that position is the old form
-and is reported with the repair "prefix the kind", a rewrite in words in a file at the level
-`all`; anything else is not a reference and reports
+and is reported with the repair "prefix the kind", a rewrite in words in a file a glob of
+`[walk.citation-free]` matches; anything else is not a reference and reports
 nothing, so an email address or a git remote in backticks is silent unless the word before its
 first `@` is a kind or an anchor. Every kind but `path`, `planned`, the harness kinds and a register the
 root alone carries takes exactly three non-empty segments; `path` and `planned` take an anchor and
@@ -36,7 +36,7 @@ register's heading and is reported as a misplaced definition anywhere else, per
 `design@model@a-slug-elsewhere-defines-nothing`. A slug with one hash sign, `#<id>` or
 `<word>#<id>`, is read by none of them, per `design@check@hash-slug-span-read-by-no-lint`.
 
-### A backticked span with no `@` is path-shaped when it holds two segments or more of path characters and no space or angle bracket, and keeps a line suffix or a heading fragment only after a file with an extension `##path-shaped-span`
+### A backticked span with no `@` is path-shaped when it holds two segments or more of path characters and no space, no angle bracket and no colon outside a line suffix, and keeps a line suffix or a heading fragment only after a file with an extension `##path-shaped-span`
 
 A backticked span with no `@` is path-shaped when it holds two segments or more of path
 characters. One segment is a name rather than a path, though the exact name of a skill or an agent
@@ -82,7 +82,8 @@ In every file the walk reads: a sketch names what it names on purpose, and an il
 brackets, which the tokenizer does not record. A file the manifest declares citation-free reads its
 spans at its level, per `design@check@citation-free-paths`: at the level `all` no span is resolved,
 since every span that parses as a reference is a finding there; at the level `entries` a span is
-resolved as anywhere else, and refused where it names an entry or an anchor of the project. The frozen files of a harvested slice leave the walk,
+refused where it names an entry or an anchor of the project, and takes the level's finding alone,
+and a span the level admits is resolved as anywhere else. The frozen files of a harvested slice leave the walk,
 and are parsed for their definitions alone, per `design@model@a-harvested-slice-is-frozen`. Reading a fenced slug reference as an illustration is
 `rejected@model@fenced-reference-as-illustration`. A string literal bound to a name in Rust yields no
 reference, per `design@model@grammars-not-prefixes`. Checking the literal parts of a placeholder
@@ -184,7 +185,7 @@ reads that block, is no heading.
 - **An installed copy defines its sections and raises no finding of the section rule.** It is
   never the project's to repair, and under `commits` a commit holding an earlier version's set is
   judged by a later checker. Its references are read only where the project declares it at the
-  level `entries` of `[walk.citation-free]`, per `design@check@citation-free-paths`, which the
+  level `entries` of `[walk.citation-free]`, per `design@check@installed-copies-read-at-the-level-entries`, which the
   project does to be told what its installed text cites. The shipped set is held to the rule where it is written, by a test of the checker over the
   shipped text, which also requires every reference of a harness kind in it to resolve within the
   set.

@@ -56,14 +56,36 @@ none of them.
 The model holds them parsed for definitions, per `design@model@installed-entities-from-the-tree`, and they
 raise no finding of the section rule or of a slug defined twice.
 
-**One read reaches them, and only where a project asks for it**: the level `entries` of
-`[walk.citation-free]` reads the references of each installed copy a glob of the project matches,
-for that level's findings and for nothing else, per `design@check@citation-free-paths`. The reason
-above keeps every other rule: no other rule reads a copy, and a project that declares the glob
-declares it to be told what its installed text cites. The cost accepted: the finding names the
-installed copy, not the source its repair edits, and its message is the same in every project,
-whether or not it holds that source. The rival of this read, the level applied to the source of the
-shipped text, is `rejected@check@citation-free-entries-over-the-source`.
+Beside the comparison of their bytes, per `design@check@installed-files-compared-by-bytes`, one read
+reaches them, and only where a project asks for it: the level `entries`, per
+`design@check@installed-copies-read-at-the-level-entries`.
+
+### The level `entries` reads an installed copy a glob of it matches, for its references alone, and not the source of the shipped text `##installed-copies-read-at-the-level-entries`
+
+Where a glob of `entries` of `[walk.citation-free]` matches an installed copy, the function `installed` of
+`path@check@src/check/citation_free.rs` reads the spans of that copy that parse as a reference,
+and gives each the verdict of the level, per `design@check@citation-free-paths`. No span there is
+resolved, since its resolution within the shipped set is the shipped-set test's, per
+`design@model@section-homes-carry-slugs`, and no rule of the walk reads the copy: the only other
+check that reads it is the comparison of its bytes with the shipped text,
+`design@check@installed-files-compared-by-bytes`. A glob of `all` is matched against the walked
+files alone, per `design@model@citation-free-globs`, so a copy is read at the level `entries` or
+not at all. Under `commits`, an earlier commit's installed copies are read at this level by the
+tip's checker where the manifest that commit holds declares the glob, per
+`design@model@installed-entities-from-the-tree`.
+
+The copies hold the shipped text as an installing project reads it: the fragments inlined, the
+placeholders filled, the `%%` comment lines removed. The rival, the level applied to the source of
+the shipped text with its `%%` comments exempt, is
+`rejected@check@citation-free-entries-over-the-source`: it would render the source as the build
+does, and exempt a syntax this repository's source alone holds, in a checker whose rules are the
+same in every tree, per `design@check@the-regime-has-no-opt-out`. The reason of
+`design@check@installed-files-outside-the-walk` keeps every other rule, since the copies are read
+only where a project declares a glob that matches them, and a project that declares it declares it
+to be told what its installed text cites.
+
+The cost accepted: the finding names the installed copy, not the source its repair edits, and its
+message is the same in every project, whether or not it holds that source.
 
 ### Ownership of an installed file is decided by a name, in a namespace the installer owns `##owned-namespace-check`
 
