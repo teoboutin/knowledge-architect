@@ -44,13 +44,9 @@ The designs this decision did not keep: `rejected@check@bare-root-relative-path`
 
 ### A backticked path-shaped span with no `@` is a finding only when its first segment names something this tree's listing holds `##unanchored-path-first-segment-here`
 
-A backticked span of path characters with two or more segments and no `@` is a finding naming the
-grammar of `design@check@every-path-names-its-anchor` when its first segment names a
-file or a directory this tree's listing holds. One segment is a name rather
-than a path, though the exact name of a skill or an agent is reported, per
-`design@check@backticked-bare-id`, and a span holding a space, an angle bracket, or a colon anywhere but in a line
-suffix is not path-shaped, which is what lets documentation of the syntax show a placeholder with no
-carve-out.
+A backticked span with no `@` that is path-shaped, per `design@model@path-shaped-span`, is a
+finding naming the grammar of `design@check@every-path-names-its-anchor` when its first segment
+names a file or a directory this tree's listing holds.
 
 **A span whose first segment names nothing here is another tool's notation, and is silent**: a
 media type `application/json`, a unit `km/h`, a git ref `origin/main`, the fixture path of a test,
@@ -82,26 +78,8 @@ names something of this project". Reporting every path-shaped span
 is `rejected@check@every-path-shaped-span-reported`. This serves `goal@every-target-project-can-adopt-it`
 and `goal@adoption-is-easy`.
 
-**A line suffix or a fragment keeps a span path-shaped, after a file with an extension.** A
-path followed by `:12`, the location an editor prints, and a path followed by a `#` and a
-heading fragment opening with a letter each point into a file, so each is a finding. Without an
-extension, or with a number after the `#`, the suffix is an image tag or an issue number, and
-the span is not path-shaped. Its repair names the file and drops the suffix: a reference is to a file,
-and a line number goes stale at the next edit.
-
-**Four shapes are outside the lint on purpose**, each silent:
-
-- a path in plain prose, with no backticks. The backticks are what mark a pointer, and plain
-  text stays free prose.
-- a span holding a space, such as a path with a space in a name. It is prose as much as a
-  path.
-- a span opening with `~/` or `$VAR/`. It names a path outside every tree this tool checks.
-- a span written with a backslash separator. No project this tool checks writes one, and the
-  census finds none.
-
-Each widening would be measured the way the two-segment clause was: a census of what it
-reports in a tree that is conformant. The census that kept these four outside is in the commit
-that recorded them, found with `git log -G'outside the lint on purpose'`.
+The repair of a span that carries a line suffix or a fragment names the file and drops the suffix:
+a reference is to a file, and a line number goes stale at the next edit.
 
 The design this decision did not keep: `rejected@check@ignored-first-segment-reported`.
 

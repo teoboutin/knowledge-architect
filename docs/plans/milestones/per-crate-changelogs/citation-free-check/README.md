@@ -227,7 +227,7 @@ audit, and the conforming step each owes before the harvest:
 | --- | --- | --- |
 | `design@check@the-regime-has-no-opt-out` | conforms | none |
 | `design@check@check-reads-no-range-of-history` | conforms | none |
-| `design@check@unanchored-path-first-segment-here` | two decisions: the first-segment rule, and what a path-shaped span is | split: the definition moves, unchanged but "so each is a finding" read "so each is path-shaped", into a new head of `register@model@design`, `path-shaped-span`, since `path_shaped` in `path@model@src/scan.rs` is `model`'s code; the citing sites re-pointed |
+| `design@check@unanchored-path-first-segment-here` | two decisions: the first-segment rule, and what a path-shaped span is | split: the definition moves, unchanged but "so each is a finding" read "so each is path-shaped", into a new head of `register@model@design`, `design@model@path-shaped-span`, since `path_shaped` in `path@model@src/scan.rs` is `model`'s code; the citing sites re-pointed |
 | `design@check@backticked-bare-id` | two decisions: its last paragraph, that `check --fix` writes nothing for the three lints on ids | split: a new head of `register@check@design`, `design@check@id-lints-write-no-fix`, after `design@check@quotation-read-by-no-id-lint`; the citing sites re-pointed, those of `spec@plans@path-quickfixes` included |
 | `design@check@reference-shape-outside-span` | its title leaves out its exception beside an issue reference; its census names no command that re-takes it; it holds deliberation | retitled, slug kept; the re-take command added; "which a retrospective proposed" deleted |
 | `design@agent-skills@shipped-text-cites-no-entry` | names the owner as the source of an argument | the attribution removed, the argument kept |

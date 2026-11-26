@@ -28,11 +28,39 @@ paragraph; re-take it with `git grep -n --untracked '＠' -- '*.md'`, and a span
 reference reopens the silence.
 
 **A span with no `@` is read by two lints and as a definition, and by nothing else**: a
-path-shaped span, per `design@check@unanchored-path-first-segment-here`, and a defined id written
+path-shaped span, per `design@model@path-shaped-span`, and a defined id written
 alone, per `design@check@backticked-bare-id`; and a slug, `##<id>`, which defines an entry at its
 register's heading and is reported as a misplaced definition anywhere else, per
 `design@model@a-slug-elsewhere-defines-nothing`. A slug with one hash sign, `#<id>` or
 `<word>#<id>`, is read by none of them, per `design@check@hash-slug-span-read-by-no-lint`.
+
+### A backticked span with no `@` is path-shaped when it holds two segments or more of path characters and no space or angle bracket, and keeps a line suffix or a heading fragment only after a file with an extension `##path-shaped-span`
+
+A backticked span with no `@` is path-shaped when it holds two segments or more of path
+characters. One segment is a name rather than a path, though the exact name of a skill or an agent
+is reported, per `design@check@backticked-bare-id`, and a span holding a space, an angle bracket,
+or a colon anywhere but in a line suffix is not path-shaped, which is what lets documentation of the
+syntax show a placeholder with no carve-out.
+
+**A line suffix or a fragment keeps a span path-shaped, after a file with an extension.** A
+path followed by `:12`, the location an editor prints, and a path followed by a `#` and a
+heading fragment opening with a letter each point into a file, so each is path-shaped. Without an
+extension, or with a number after the `#`, the suffix is an image tag or an issue number, and
+the span is not path-shaped.
+
+**Four shapes are not path-shaped, on purpose**, so each is silent:
+
+- a path in plain prose, with no backticks. The backticks are what mark a pointer, and plain
+  text stays free prose.
+- a span holding a space, such as a path with a space in a name. It is prose as much as a
+  path.
+- a span opening with `~/` or `$VAR/`. It names a path outside every tree this tool checks.
+- a span written with a backslash separator. No project this tool checks writes one, and the
+  census finds none.
+
+Each widening would be measured the way the two-segment clause was: a census of what the widened
+shape would report in a tree that is conformant. The census that kept these four outside is in the
+commit that recorded them, found with `git log -G'outside the lint on purpose'`.
 
 ### A backticked span that opens on one line and closes on the next is a finding where its halves join into a pointer `##a-span-is-one-line`
 

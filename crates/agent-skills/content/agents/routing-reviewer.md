@@ -56,7 +56,7 @@ reverse is a family of pointers about to dangle.
 | `is a reference written without backticks`; `is written in backticks without its kind`; `is written as a plain word` | a pointer to a live entry written outside its reference form, which no check resolves: when the entry moves or leaves, it goes stale unseen. A plain word meant as an ordinary term shows a slug wrongly chosen: the entry, of any kind, is renamed so that its slug is not an ordinary word, a goal by the owner, through `skill@knowledge-architect-goal-setting`. |
 | `is an id of one segment` | a slug of one word. Every id has two segments or more, so that no ordinary word is a defined id. |
 
-%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@check@hash-slug-span-read-by-no-lint`, `design@check@unanchored-path-first-segment-here` and `design@model@ignored-targets-are-not-asserted`.
+%% The paragraph below restates `design@model@at-span-candidate-rule`, `design@check@hash-slug-span-read-by-no-lint`, `design@check@unanchored-path-first-segment-here`, `design@model@path-shaped-span` and `design@model@ignored-targets-are-not-asserted`.
 **What the checks cannot see.** Some backticked spans are silent: a bare filename named in
 prose, a heading or a section title quoted from another document, a misspelt kind. A path-shaped
 span whose first
