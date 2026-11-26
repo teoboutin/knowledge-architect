@@ -57,10 +57,13 @@ read a snapshot instead, from git objects alone, per `design@check@staged-tree-s
 The table holds two lists of globs, `all` and `entries`; what a file at each level may hold, and
 the findings on what it holds, are `design@check@citation-free-paths`, and the rules a glob is
 written in are `design@model@citation-free-glob-dialect`. A glob of `all` is matched against the
-files the walk reads. A glob of `entries` is matched against those and against the installed
-copies, which the walk leaves out, per `design@check@installed-files-outside-the-walk`, since the
-level reads the copies there, per `design@check@installed-copies-read-at-the-level-entries`, and
-not their source, `rejected@check@citation-free-entries-over-the-source`. A generated file is in
+files the walk reads, and against no installed copy: the shipped text cites the shipped skills,
+agents and primer on purpose, per `design@agent-skills@shipped-text-cites-no-entry`, so a copy at
+that level would hold findings that no edit of the project's own text removes. A glob of `entries`
+is matched against the walked files and against the installed copies, which the walk leaves out,
+per `design@check@installed-files-outside-the-walk`, since the level `entries` reads the installed
+copies, per `design@check@installed-copies-read-at-the-level-entries`, and not their source,
+`rejected@check@citation-free-entries-over-the-source`. A generated file is in
 neither set, so no glob matches it: its findings are its sources'. The resolved table is
 `Manifest::citation_free`, and the library's `declared` module names `CitationFree`, `Glob` and
 `Level`.
@@ -75,13 +78,19 @@ segment are dropped when the manifest loads, where a glob's are refused.
 `design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
 `entries` that matches no walked file and no installed copy, is a phase-2 finding at the manifest:
 it declares nothing, and silently covers whatever file is next created at a matching path, the case
-of a `skip-files` row that names no file. A walked file that a glob of each level matches is a
-phase-2 finding at the file: the two levels admit different spans, so the declaration says two
-things of one file. The file is read at the level `all`, the stricter, while the finding stops the
-run. Both findings are phase 2's, since `Manifest::parse` reads no file, and the tree's phase alone
-holds the walked paths and the installed copies.
+of a `skip-files` row that names no file. The finding is phase 2's, since `Manifest::parse` reads
+no file, and the tree's phase alone holds the walked paths and the installed copies.
 
-### A glob of `[walk.citation-free]` is written in three rules, matched by a matcher of this crate, and in no glob library's dialect `##citation-free-glob-dialect`
+### A walked file that a glob of each level of `[walk.citation-free]` matches is a phase-2 finding at the file `##citation-free-levels-overlap`
+
+The two levels admit different spans, so a declaration that puts one file under both says two
+things of it, and no precedence between them is what the manifest declared: the rival, `all`
+taking precedence in silence, would leave the declaration's contradiction unreported. The finding
+is the tree's phase's, since `Manifest::parse` reads no file and the tree's phase alone holds the
+walked paths. While the finding stops the run, the file is read at the level `all`, the stricter,
+per `design@check@citation-free-paths`.
+
+### A glob of `[walk.citation-free]` is written in a dialect of three rules, and in no glob library's dialect `##citation-free-glob-dialect`
 
 `*` matches any run of characters within one path segment, never a `/`; a segment that is exactly
 `**` matches any number of whole segments, none included; and a glob ending with `/` names every

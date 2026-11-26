@@ -236,9 +236,8 @@ target in every project that installs them, and the text cites them on purpose, 
 checker can know of another project, so that part stays the reviews' and the release's. A refused
 span is not resolved: its repair rewrites it, so a second finding would name a repair the first
 undoes. An admitted span that resolves to nothing is reported in a walked file the level matches,
-as anywhere else. In an installed copy no span is resolved, since its resolution within the shipped
-set is the shipped-set test's, per `design@model@section-homes-carry-slugs`, and the copy is read
-for this level's findings alone, per `design@check@installed-copies-read-at-the-level-entries`.
+as anywhere else. In an installed copy no span is resolved, and the copy is read for this level's
+findings alone, per `design@check@installed-copies-read-at-the-level-entries`.
 
 **At both levels a placeholder passes**: a span holding an angle bracket is an illustration, which
 the scanner does not read as a reference. A commit message is matched by no glob.

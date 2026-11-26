@@ -556,8 +556,9 @@ crate's page by one glob at the level `all` of `[walk.citation-free]`, under whi
 finding whether or not it resolves, per `design@check@citation-free-paths`. The README stays the crate's home for how a user uses it, per the knowledge table, with the references
 the checker resolves. The rival, a README rewritten for crates.io with its repository-facing text
 moved elsewhere, lost: it moves the most text, and it changes what a Component's required README
-holds. Every published crate gets the page, so the rule has no exception. This serves
-`goal@adoption-is-easy`.
+holds, whose references the checker resolves and crates.io renders as code that names nothing. Every published crate gets the page, so the rule has no exception. This serves
+`goal@adoption-is-easy`: a user who looks for a crate on crates.io finds there what it is and
+where its documentation is, in text that names nothing the page cannot show.
 
 ### The checker carries the agent workflow and writes it into a project `##binary-bundles-workflow`
 
