@@ -116,9 +116,10 @@ slug, per `design@agent-skills@thread-slug-is-entry-id`, and which the finding n
 ### Why it matters
 
 A pointer written bare is read by no check, so it dangles unseen when its target moves, against
-`goal@documentation-stays-consistent`. The two later instances each had a
+`goal@documentation-stays-consistent`. Of the first three instances, the two later each had a
 repair in reach, a checked form or an admitted bare name, which the finding's message did not name
-or no text gave.
+or no text gave; so did the instances of the second slice of the goals' milestone and of the intake
+of twenty files, whose checked form already existed, while the fourth met a form the checker lacks.
 
 ### What would close it
 

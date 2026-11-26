@@ -5,9 +5,10 @@ kind: design
 
 ## Summary
 
-Four sessions made a small edit of this repository's Rust source inside another task, the fourth by
-a dispatched agent, two of them one-line edits inside text work, and none loaded `skill@knowledge-architect-development` and
-`skill@klarch-development`.
+Four small edits of this repository's Rust source were made inside another task, the first three by
+a session and the fourth by an agent a session dispatched, two of them one-line edits inside text
+work. None of the four loaded `skill@klarch-development`, and the first three did not load
+`skill@knowledge-architect-development` either; whether the fourth did is not established.
 The instruction is delivered at the session's start; the edit comes later, inside the other task.
 Where to deliver it at the moment of the edit is a design question with three rivals.
 
@@ -24,7 +25,8 @@ The instruction and its two deliveries, both read at the session's start:
   use, together with `skill@knowledge-architect-development`, ... before starting or iterating on
   any change to this repository's Rust source".
 
-The instances, from this repository's retrospective project files:
+The instances, from this repository's retrospective files, three project files and one workflow
+file:
 
 - the intake of seventeen files, 2026-10-31, P1: a row of a test constant edited in an
   installed-text repair; analysed then as a lapse of a clear instruction, once;
@@ -42,7 +44,8 @@ The instances, from this repository's retrospective project files:
   assumption, not established.
 - the branch that built the record search's saved workflow, 2026-11-16, its workflow file's
   standing answer: one implementer of that branch's work did not load `skill@klarch-development` for
-  two comment lines in Rust; nothing followed from it, as the file reports. This instance meets the
+  two comment lines in Rust; nothing followed from it, as the file reports, and the file does not
+  say whether the agent loaded `skill@knowledge-architect-development`. This instance meets the
   entry's re-entry point, "the next instance", and the edit was made by a dispatched agent under a
   brief, one of the homes the second rival names.
 

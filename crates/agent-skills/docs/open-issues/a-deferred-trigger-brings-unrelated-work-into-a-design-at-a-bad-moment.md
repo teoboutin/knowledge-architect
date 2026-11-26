@@ -89,8 +89,8 @@ design skill fixes as the design or the planning of the next work that changes t
 A further instance, on the bounded path: W1 of
 2026-11-25-knowledge-architect-intake-items-divided-klarch-workflow. The search graded an issue
 `trigger-met`, `rule-before-work`, with an owner-question, to take a wider discussion now or leave
-it. The design skill's action says "ruled before the work is designed further or built", while the
-bounded path's one message builds its default and `primer@question-authority` builds a default put
+it. The design skill's action then said "ruled before the work is designed further or built",
+while the bounded path's one message builds its default and `primer@question-authority` builds a default put
 to the owner and waits for the ruling before the merge; the session ruled the question itself,
 built, and put it as contestable, and the owner answered after the build, before the merge. Two
 reviewers could not tell from the record whether it was answered. The intake that received the
@@ -103,7 +103,8 @@ whether more reviews should read a re-entry point against a change; a decision o
 bears on the other.
 
 Re-entry point: a design discussion under `skill@knowledge-architect-design` on the owner's word,
-which the owner holds, since the instances are the owner's to report.
+which the owner holds, since the owner reported the pattern with instances in mind that this entry
+does not hold; the instances the retrospective files add are input to that discussion.
 
 ### Why it matters
 
