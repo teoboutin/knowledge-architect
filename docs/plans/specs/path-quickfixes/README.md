@@ -231,7 +231,8 @@ referencing each, on the main branch before this spec:
 
 Open entries that bear on the work, read again at the audit:
 
-- `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`: a fix that wrote a
+- `milestone@plans@per-crate-changelogs`, which schedules the check the issue `shipped-text-citing-an-entry-is-unchecked`,
+  since closed, asked for: a fix that wrote a
   project-specific anchor into shipped text would make a reference that dangles in every
   installing project. No respelling writes a new anchor, per
   `criterion@path-quickfixes@shipped-text-stays-portable`.
@@ -289,8 +290,8 @@ stated this reading of the words, and the owner's round 4 did not contest it.
 
 ### No fix writes a project-specific anchor into shipped text `##shipped-text-stays-portable`
 
-Weighed. Derived by the agent in the reply to round 1 from
-`issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`. Met: a respelling names the
+Weighed. Derived by the agent in the reply to round 1 from the issue
+`shipped-text-citing-an-entry-is-unchecked`, since closed. Met: a respelling names the
 target its span already names, so it writes no anchor the span did not already depend on, and the
 question form writes nothing.
 

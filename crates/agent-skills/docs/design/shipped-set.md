@@ -227,7 +227,7 @@ content/ and the snippets are in the walk, so every reference they hold is check
 repository. A reference to an entry that resolves here passes the check and would dangle in every
 installing project: the reviews of each change, and the release's hand check over the installed
 copies, judge that, until a mechanical check exists, which
-`issue@agent-skills@shipped-text-citing-an-entry-is-unchecked` tracks.
+`milestone@plans@per-crate-changelogs` schedules.
 
 ### Each installed instruction can be followed, and gives the result it intends, with what the project that installs it holds `##installed-text-works-with-what-an-installing-project-holds`
 

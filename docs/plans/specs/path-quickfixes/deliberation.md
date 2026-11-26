@@ -120,7 +120,7 @@ The reply to round 1. Bears on `thread@path-quickfixes@fix-run-order`, `thread@p
 table, so it must run after the phase gate, never over an incomplete model", from
 `tripwire@check@phases-gate-the-report-two`; and "a fix that writes a project-specific anchor into
 shipped text produces a reference that passes here and dangles in every installing project", from
-`issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`.
+the issue `shipped-text-citing-an-entry-is-unchecked`, since closed.
 
 ### The census of the unique-candidate rule: 7 apparent misbindings in 104 resolved cases `##arg-5`
 

@@ -34,7 +34,7 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@installed-text-assumes-pull-requests-and-ci`
 - `issue@agent-skills@the-upstream-set-omits-the-published-libraries`
 - `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer`
-- `issue@agent-skills@shipped-text-citing-an-entry-is-unchecked`
+- `milestone@plans@per-crate-changelogs`
 - `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`
 - `issue@check@manifest-table-exposes-the-toml-crate`
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`

@@ -5,7 +5,8 @@
 ### One source `CHANGELOG.md` per published crate, holding only its entries `##changelog-per-component`
 
 Proposed by the owner, R1. Final state: approved. Moved by `argument@per-crate-changelogs@arg-1`,
-`argument@per-crate-changelogs@arg-12`, `argument@per-crate-changelogs@arg-6`. Its shape is the
+`argument@per-crate-changelogs@arg-12`, `argument@per-crate-changelogs@arg-6`,
+`argument@per-crate-changelogs@arg-26`. Its shape is the
 milestone document's "One changelog per published crate"; slice 3 builds the model of the file and
 slice 5 writes the files. Closed by the owner's agreement at R2, with the argument that a separate
 changelog per published crate is the only shape that serves consuming projects, and confirmed with
@@ -126,9 +127,11 @@ session's default for Q2, ruled by the owner at R7. Final state: approved. Moved
 `argument@per-crate-changelogs@arg-29`, `argument@per-crate-changelogs@arg-32`,
 `argument@per-crate-changelogs@arg-33`, `argument@per-crate-changelogs@arg-44`,
 `argument@per-crate-changelogs@arg-45`, `argument@per-crate-changelogs@arg-46`,
-`argument@per-crate-changelogs@arg-56`, `argument@per-crate-changelogs@arg-58`. Its shape is in
-slice 1's spec. The owner agreed at R4 and ruled Q2 at R7, approving the two levels with the reason
-that installed text citing other installed text is useful; confirmed at R8.
+`argument@per-crate-changelogs@arg-56`, `argument@per-crate-changelogs@arg-58`,
+`argument@per-crate-changelogs@arg-60`. Its shape is in slice 1's spec. The owner agreed at R4 and
+ruled Q2 at R7, approving the two levels with the reason that installed text citing other installed
+text is useful; confirmed at R8. After the review, the owner ruled D2 of the milestone document,
+that the level `entries` reads the installed copies, `argument@per-crate-changelogs@arg-60`.
 
 ### No changelog file holds a reference; the released spans are rewritten in words `##changelog-holds-no-citation`
 
@@ -184,8 +187,10 @@ premortem cause 4. Final state: argued. Moved by `argument@per-crate-changelogs@
 Proposed by the session, R1. Final state: ruled-out, by the owner at R2, on two arguments: no check
 reads history beyond one branch, and a released text may be reworded without a change of meaning.
 Moved by `argument@per-crate-changelogs@arg-11`, `argument@per-crate-changelogs@arg-17`,
-`argument@per-crate-changelogs@arg-54`. Its `rejected` entry is written by slice 1, as its spec
-says.
+`argument@per-crate-changelogs@arg-54`. It is ruled out in the body of the root head slice 1 writes
+from `thread@per-crate-changelogs@no-history-beyond-the-branch`, with both arguments; the `rejected`
+entry the session proposed at R3, `argument@per-crate-changelogs@arg-35`, was dropped at the review
+of the milestone document, since it meets no recording test.
 
 ## Arguments
 
@@ -461,7 +466,9 @@ R3, the session. Bears on `thread@per-crate-changelogs@no-history-beyond-the-bra
 check and to `commits`, whose range already starts at the base. `--require-rebased` asks only
 whether `origin/main` is an ancestor of `HEAD` … so it is within the rule. Its rival,
 #released-content-check, gets a `rejected` entry: the issue `a-mechanical-changelog-check` lists
-that assertion as a thing to build, so someone could plausibly propose it again."
+that assertion as a thing to build, so someone could plausibly propose it again." The review of the
+milestone document dropped that entry: being proposed again is no recording test, and the head's
+body carries the rival with both arguments that defeat it.
 
 ### A required `repository` was proposed `##arg-36`
 
@@ -479,7 +486,7 @@ and `worklist` need phases 1 to 3 to pass. So one misspelt category would make `
 run. … This is your rule applied as you worded it, 'when constructing the model depends on it':
 nothing in the model depends on a changelog's content."
 
-### No Component reads Cargo, and the work needs it in two places `##arg-38`
+### One function of `check` reads a `Cargo.toml`, and the work needs Cargo in two more places `##arg-38`
 
 R4, the session, from the code-split scout's report. Bears on `thread@per-crate-changelogs@cargo-crate`.
 "The checks need it to tell which crates are published, their versions (with workspace
@@ -487,7 +494,9 @@ inheritance), `repository` and `include`. The registry command needs it to run `
 Its precedent is the `git` crate (`design@knowledge-architect@git-crate`). `model` and `query`
 depend on it, and no cycle forms. The rival is a module of `model`. It loses because `model` would
 gain a second reason to change, Cargo's formats, and the `cargo metadata` output would then be read
-in a second Component as well."
+in a second Component as well." The scout's report named the one reader there is, `declares` in
+`path@check@src/build_origin.rs`, which reads a package name from a `Cargo.toml`; slice 2 moves that
+read into `cargo`, so `cargo` is the one reader of Cargo's formats.
 
 ### The command does not fit `query` as it is defined `##arg-39`
 
@@ -651,3 +660,16 @@ implementation sequence. "Each slice is one branch, one pull request and one mer
 work crosses six Components and each part can fail on its own. … The rival, one spec on one branch,
 would put about six Components and a 1892-line conversion into one review. A failure in the checks
 could then not be told apart from a failure in the conversion."
+
+### The installed copies are read at the level `entries`, since no rule needs them out of the walk for this check `##arg-60`
+
+After the review of the milestone document, the owner, ruling D2, in the message that opens "I
+don't think there is any real reason"; no transcript holds it, so this attribution is its whole
+record. Bears on `thread@per-crate-changelogs@citation-free-paths`. The owner argued that no rule
+needs the installed text kept outside the walk for this check; that its one cost, a finding naming
+an installed file whose repair is in content/ and a re-install, is left to the agent's judgement,
+with a reminder in the root CLAUDE.md, the finding's message not adapted to this repository; and
+that applying the level to content/ loses, since it must handle the fragments and a `%%` exemption
+that applies in this repository alone. The session added that the reason of
+`design@check@installed-files-outside-the-walk` keeps every other rule, since the level reads an
+installed copy only where a project declares a glob that matches it.

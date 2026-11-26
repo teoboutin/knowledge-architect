@@ -690,7 +690,7 @@ changelog say two things of one version, and a consumer that planned its move fr
 fetched would never see the correction. The nearest rival, a released section corrected after its
 release, loses on that fact. A change of structure, such as a heading, changes nothing a consumer
 plans from, so it is allowed; whether respelling a released section's span as a reference is one is
-`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`'s question.
+a question `milestone@plans@per-crate-changelogs` answers.
 
 No check reads the changelog, per `design@knowledge-architect@the-changelog-is-outside-the-walk`,
 so no finding asks to change a released section.
@@ -701,8 +701,8 @@ The root CHANGELOG.md is a row of `[walk] skip-files`, as the copies each crate 
 `design@knowledge-architect@the-changelog-ships-in-every-crate`, so no check reads a released
 section or the `Next release` section. It is kept out on the owner's argument that the changelog
 faces outward, as a crate's page does, and should hold no reference to real content, a span shaped
-like one being read as a name or a syntax example; the entries do not meet that yet, per
-`issue@knowledge-architect@the-changelog-holds-references-no-check-reads`. A crate's page is kept
+like one being read as a name or a syntax example; the entries do not meet that yet, and
+`milestone@plans@per-crate-changelogs` schedules the work that brings them to it. A crate's page is kept
 free of references by a rule inside the walk instead, per
 `design@knowledge-architect@crates-io-page-file`, and the changelog cannot follow it: it writes
 syntax examples of the grammar, which a check would read as references. A check that read the
