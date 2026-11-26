@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-26 entries
+25 entries
 
 | kind | title |
 | --- | --- |
@@ -14,7 +14,6 @@
 | question | [Does a command find each test's recorded mutation whose quoted code has left the source?](no-command-finds-a-recorded-mutation-whose-code-left-the-source.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
-| question | [May the checker depend on every crate that does not depend on it, `query` and `render` among them?](the-checker-may-depend-on-every-crate-below-it.md) |
 | todo | [A CI run skipped on a draft pull request fills the run history and reads as passing](a-ci-run-skipped-on-a-draft-reads-as-passing.md) |
 | todo | [A pull request's first CI run starts with no build cache, since nothing runs on main to fill one](a-pull-request-s-first-ci-run-starts-with-no-cache.md) |
 | todo | [A typed command prints and can end the process, rather than returning its data](a-typed-command-prints-and-exits-rather-than-returning-data.md) |

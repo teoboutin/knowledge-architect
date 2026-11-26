@@ -28,8 +28,8 @@ no lint of `check` reads a quotation against the entry its paragraph cites; by
 
 A check of the same kind exists outside `check`: `judge` in `path@query@src/worklist.rs`, run by
 `cargo klarch worklist --verify`, refuses a searcher's quotation that is no run of whole words of
-the entry's own text. Where `check` could reach that matching is the open question of
-`issue@knowledge-architect@the-checker-may-depend-on-every-crate-below-it`.
+the entry's own text. No recorded decision says whether `check` may depend on `query` to reach that
+matching; the design discussion of such a lint decides it.
 
 Not measured: how many quotations beside a reference this tree holds, and how many of them
 paraphrase rather than quote, which a check would refuse wrongly. The report states it did not
