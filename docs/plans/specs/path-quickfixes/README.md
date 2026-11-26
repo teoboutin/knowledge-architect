@@ -702,8 +702,8 @@ harness, as `Sandbox::serve_claude` does; `check --fix` is never run inside `pla
    `design@model@harness-kinds-cited-without-anchor` and
    `design@check@backticked-bare-id`; the shipped setup, issue-tracking and planning skills
    where they say what `--fix` writes, then `cargo klarch install-agent-skills`. In this
-   repository the root CHANGELOG.md is walked and its copies in the crates are not, so a `--fix`
-   that respells the root file leaves the copies different until `cargo x changelog` runs. Entries in the
+   repository the root CHANGELOG.md and its copies in the crates are all rows of `[walk] skip-files`,
+   so no `--fix` reads or respells any of them. Entries in the
    `Next release` section of CHANGELOG.md, then `cargo x changelog`:
    - New features: `cli`, minor: `check --fix` respells a reference whose target its span names,
      and prints each rewrite.
