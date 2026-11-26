@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-87 entries
+88 entries
 
 | kind | title |
 | --- | --- |
@@ -67,6 +67,7 @@
 | question | [Whether the texts that include one fragment count as separate sites for entry test 2](whether-a-fragment-s-hosts-are-separate-sites-for-entry-test-2.md) |
 | question | [Whether a session in Claude Code's default permission mode is asked for permission, or needs an allow rule, to run an installed saved workflow](whether-a-saved-workflow-run-needs-a-permission-rule.md) |
 | todo | [A pointer that applies a whole standard, with no instruction to read it whole, was not searched for fragments](a-pointer-that-applies-a-whole-standard-without-asking-to-read-it-whole-was-not-searched.md) |
+| todo | [A retrospective's version line names no harness and no version of it, which a finding on the harness's behaviour needs](a-retrospective-s-version-line-names-no-harness.md) |
 | todo | [A review dispatched by a workflow keeps no reviewer's report in the session's transcript](a-review-run-by-a-workflow-keeps-no-report-in-the-transcript.md) |
 | todo | [No saved workflow runs the review before a merge, which the owner takes in](a-saved-workflow-runs-the-review-before-a-merge.md) |
 | todo | [A target project whose goal is judged in use collects no feedback from that use](a-target-project-collects-no-feedback-from-use.md) |
