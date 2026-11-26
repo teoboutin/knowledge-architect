@@ -181,10 +181,13 @@ and `design@check@check-reads-no-range-of-history`.
 Rewritten by this slice, as the milestone document's "Reversed or rewritten" lists them with the
 texts each repairs: `design@knowledge-architect@crates-io-page-file`, its rule enforced;
 `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree`,
-narrowed by the member of the level `entries`, on D2, closed on `argument@per-crate-changelogs@arg-60`;
+narrowed by the read of the installed copies at the level `entries`, on D2, closed on
+`argument@per-crate-changelogs@arg-60`, which the harvest records as a head of its own,
+`design@check@installed-copies-read-at-the-level-entries`, the two heads pointing to it;
 `design@model@a-reference-is-live-in-every-prose`, narrowed: in a file at the level `all` no span is
-resolved, and at the level `entries` a span is resolved as anywhere else and refused where it names
-an entry or an anchor of the project.
+resolved, and at the level `entries` a span is refused where it names an entry or an anchor of the
+project and takes the level's finding alone, and a span the level admits is resolved as anywhere
+else.
 
 The heads this slice's harvest touches, without reversing or rewriting them, drawn from the search
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
@@ -230,7 +233,7 @@ audit, and the conforming step each owes before the harvest:
 | --- | --- | --- |
 | `design@check@the-regime-has-no-opt-out` | conforms | none |
 | `design@check@check-reads-no-range-of-history` | conforms | none |
-| `design@check@unanchored-path-first-segment-here` | two decisions: the first-segment rule, and what a path-shaped span is | split: the definition moves, unchanged but "so each is a finding" read "so each is path-shaped", into a new head of `register@model@design`, `design@model@path-shaped-span`, since `path_shaped` in `path@model@src/scan.rs` is `model`'s code; the citing sites re-pointed |
+| `design@check@unanchored-path-first-segment-here` | two decisions: the first-segment rule, and what a path-shaped span is | split: the definition moves, unchanged but for three rewordings, "so each is a finding" read "so each is path-shaped", "outside the lint on purpose" read "not path-shaped, on purpose" and "a census of what it reports" read "a census of what the widened shape would report", and its title and its four shapes reworded on the advice of the auditor that checked it, into a new head of `register@model@design`, `design@model@path-shaped-span`, since `path_shaped` in `path@model@src/scan.rs` is `model`'s code; the citing sites re-pointed |
 | `design@check@backticked-bare-id` | two decisions: its last paragraph, that `check --fix` writes nothing for the three lints on ids | split: a new head of `register@check@design`, `design@check@id-lints-write-no-fix`, after `design@check@quotation-read-by-no-id-lint`; the citing sites re-pointed, those of `spec@plans@path-quickfixes` included |
 | `design@check@reference-shape-outside-span` | its title leaves out its exception beside an issue reference; its census names no command that re-takes it; it holds deliberation | retitled, slug kept; the re-take command added; "which a retrospective proposed" deleted |
 | `design@agent-skills@shipped-text-cites-no-entry` | names the owner as the source of an argument | the attribution removed, the argument kept |
@@ -261,16 +264,18 @@ From `thread@per-crate-changelogs@citation-free-paths`.
 
 - **The glob dialect**: `*` matches any run of characters within one path segment, never a `/`;
   `**` matches any number of whole segments, none included; a glob ending with `/` names every file
-  under that directory. A glob that matches no file it is matched against is a finding of the
-  manifest's resolve, as a `skip-files` row that names no file is; so is a path matched by a glob
-  of `all` and by one of `entries`. The matcher is hand-written in `model`, with no dependency, and
-  its tests are its unit tests there. The two findings are phase 2's, in `declarations` of
-  `path@model@src/tree.rs`, since the manifest's resolve reads no file.
+  under that directory. The matcher is hand-written in `model`, with no dependency, and its tests
+  are its unit tests there. A glob that matches no file it is matched against is a finding, and so
+  is a path matched by a glob of `all` and by one of `entries`. The two findings are phase 2's, in
+  `declarations` of `path@model@src/tree.rs`, beside the finding of a `skip-files` row that names
+  no file, since the manifest's resolve reads no file.
 - **`all`**: a span that parses as a reference is a finding whether or not it resolves, and no span
   of the file is resolved. Every finding a span or a link raises in such a file names a repair in
   words or a placeholder, a malformed span's, an anchor in the kind's position's and a link's
   included.
-- **`entries`**: each span is resolved as anywhere else, and its kind gives its verdict:
+- **`entries`**: a span's kind and its anchor give its verdict. A span the level admits is resolved
+  as anywhere else in a walked file; one it refuses takes the level's finding alone; in an
+  installed copy no span is resolved:
 
   | span | verdict |
   | --- | --- |
@@ -284,20 +289,23 @@ From `thread@per-crate-changelogs@citation-free-paths`.
   | a placeholder, a span holding an angle bracket | passes |
 
   This serves the installed copies, which may cite what every installing project holds, on the
-  owner's word at R7. The read of an installed copy at this level raises no finding of any other
-  rule, so the reason of `design@check@installed-files-outside-the-walk` keeps every other rule: an
-  admitted span that dangles is reported in a walked file the level matches, as anywhere else, and
-  not in an installed copy, whose resolution within the shipped set is the shipped-set test's.
+  owner's word at R7. No rule of the walk reads an installed copy, and the only other check that
+  reads it is the comparison of its bytes, `design@check@installed-files-compared-by-bytes`, so the
+  reason of `design@check@installed-files-outside-the-walk` keeps every other rule: an admitted span
+  that dangles is reported in a walked file the level matches, as anywhere else, and not in an
+  installed copy, whose resolution within the shipped set is the shipped-set test's.
   The level enforces `design@agent-skills@shipped-text-cites-no-entry` in part: it admits every
   `path@*@<path>`, where that head admits only a path every conforming project holds, which no
   checker can know of another project, so that part stays the release's review.
   Under `commits`, an earlier commit's installed copies are read at this level by the tip's checker
   where the manifest that commit holds declares the glob.
 - At both levels, a placeholder passes, as `primer@where-knowledge-goes` says of an illustration.
-- The id lints keep reading a matched file, and so does the unanchored-path lint. In a file at the
-  level `all`, the repair each names is a rewrite in words, since the reference form and the `path`
-  form are what the file refuses. The cost accepted: a citation-free file cannot print an existing
-  path of the tree in backticks.
+- The id lints keep reading a matched file, and so does the unanchored-path lint. No repair names
+  a form the file's level refuses: in a file a glob matches, at either level, the findings of the
+  id lints, of the unanchored-path lint, of an anchor in the kind's position and of a link name a
+  rewrite in words, the session's decision at the review before the merge. The cost accepted: a
+  file at the level `all` cannot print an existing path of the tree in backticks, and one at the
+  level `entries` only in a form the level admits.
 - A finding's repair names a rewrite in words or a placeholder, never the span with its backticks
   removed, per `design@agent-skills@plain-text-is-no-repair`.
 - The declaration adds obligations and removes none, so it is a member of
@@ -325,9 +333,10 @@ with the thread's slug, written in this slice because no work implements it.
 - Its argument, the owner's at R3: the cost of reading past history grows with every commit the
   project makes, for every future run, with no bound the project controls; and consumers'
   histories, with rewritten tags, shallow clones and imported squashes, would each cost design and
-  code. A premise, attributed as the owner's report, with its hedges kept: the owner judged the
-  value of such a check relatively low, since in the owner's belief a review would flag a deviation
-  easily, even without being asked to watch for it.
+  code. A premise of the rival below, attributed as the owner's report, with its hedges and its
+  scope kept: the owner judged the value of the released-content check relatively low, since in the
+  owner's belief any review would flag a deviation in that case easily, even without being asked
+  to watch for it.
 - Its rival, a check that a released section equals its content at the version's tag, is ruled
   out in its body with both defeating arguments: the comparison with the tag reads history before
   the branch, which this head refuses; and a rival that compares within the branch alone is
@@ -347,8 +356,8 @@ with the thread's slug, written in this slice because no work implements it.
 
 | what | thread | home |
 | --- | --- | --- |
-| the declaration, its two levels, its glob dialect, its findings and their repairs | `thread@per-crate-changelogs@citation-free-paths` | a head of `register@check@design` on the citation-free findings, and a head of `register@model@design` on the table, each by the tests of `skill@knowledge-architect-decision-recording`; the rewritten heads and the touched heads listed above |
-| the read of the installed copies at the level `entries` | `thread@per-crate-changelogs@citation-free-paths` | the members of `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree`, on D2, closed on `argument@per-crate-changelogs@arg-60` |
+| the declaration, its two levels, its glob dialect, its findings and their repairs | `thread@per-crate-changelogs@citation-free-paths` | a head of `register@check@design` on the citation-free findings, and two heads of `register@model@design`, on the table and on its glob dialect, each by the tests of `skill@knowledge-architect-decision-recording`; the rewritten heads and the touched heads listed above |
+| the read of the installed copies at the level `entries` | `thread@per-crate-changelogs@citation-free-paths` | a head of `register@check@design`, `design@check@installed-copies-read-at-the-level-entries`, to which `design@check@installed-files-outside-the-walk` and `design@model@installed-entities-from-the-tree` point, on D2, closed on `argument@per-crate-changelogs@arg-60`; planned as a member of both, and given a head at the review before the merge, since it loses to a rival of its own, `rejected@check@citation-free-entries-over-the-source` |
 | the narrowing of the live references | `thread@per-crate-changelogs@citation-free-paths` | the rewritten `design@model@a-reference-is-live-in-every-prose` |
 | the crates.io page's rule enforced | `thread@per-crate-changelogs@citation-free-paths` | the rewritten `design@knowledge-architect@crates-io-page-file` |
 | the rival of one level, and the rival of the read over content/ | `thread@per-crate-changelogs@citation-free-paths` | `register@check@rejected`, if a recording test holds |
