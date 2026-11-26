@@ -35,7 +35,7 @@
   `entries` names an installed copy, whose repair is in its source under content/, then
   `cargo klarch install-agent-skills`; the finding's message is not adapted to this repository.
 - The installed setup skill's proposal of a CRATES-IO.md, which also proposes the `all`
-  declaration of the page, per `design@agent-skills@setup-default-crates-io-page`.
+  declaration of the page, in `skill@knowledge-architect-setup@rust-project`.
 - `skill@klarch-release`'s step "The shipped text cites no entry": the check replaces the read by
   hand for the md files the check reads, the primer, the skills and the agents; the step's grep
   stays for the saved workflows, the `.js` files of `path@agent-config@workflows/` with the
@@ -194,7 +194,6 @@ design audit:
   a file at the level `all`, a rewrite in words.
 - `design@agent-skills@shipped-text-cites-no-entry`: the rule is now checked, over the installed
   copies.
-- `design@agent-skills@setup-default-crates-io-page`: the proposal includes the declaration.
 - `design@check@check-reads-no-range-of-history`: cites the new root head, which widens it.
 
 Added by the slice's design audit, from the verdicts of its record search, each a head whose text
@@ -232,7 +231,7 @@ audit, and the conforming step each owes before the harvest:
 | `design@check@backticked-bare-id` | two decisions: its last paragraph, that `check --fix` writes nothing for the three lints on ids | split: a new head of `register@check@design`, `id-lints-write-no-fix`, after `design@check@quotation-read-by-no-id-lint`; the citing sites re-pointed, those of `spec@plans@path-quickfixes` included |
 | `design@check@reference-shape-outside-span` | its title leaves out its exception beside an issue reference; its census names no command that re-takes it; it holds deliberation | retitled, slug kept; the re-take command added; "which a retrospective proposed" deleted |
 | `design@agent-skills@shipped-text-cites-no-entry` | names the owner as the source of an argument | the attribution removed, the argument kept |
-| `design@agent-skills@setup-default-crates-io-page` | no entry test admits it, and it quotes the owner | removed from the design home, its citations re-pointed to `skill@knowledge-architect-setup@rust-project`: D3 of the milestone document |
+| `setup-default-crates-io-page` | no entry test admits it, and it quotes the owner | removed from the design home, its citations re-pointed to `skill@knowledge-architect-setup@rust-project`: D3 of the milestone document |
 | `design@model@section-homes-carry-slugs` | quotes the owner, and names the owner as the source of an argument | the quotations replaced by the arguments they made, unattributed |
 | `design@check@plain-word-lint` | its census names no command that re-takes it | the re-take command added |
 | `design@check@every-path-names-its-anchor` | two decisions: its paragraph that a plan document is cited by its kind, never by its path; and its code is `model`'s alone | split: a new head, `plan-document-path-citation-refused`, after it, its citing sites re-pointed; the Component of both heads is D6 of the milestone document |

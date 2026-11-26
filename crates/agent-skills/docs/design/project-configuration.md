@@ -740,18 +740,6 @@ every target project is the second rival, which loses on the same facts: it woul
 integration and pull requests of two target projects that run neither, for the cost above, and no
 goal and no head argues for them.
 
-### The setup skill proposes a short CRATES-IO.md for a crate the project publishes `##setup-default-crates-io-page`
-
-For a crate the project publishes, the setup skill proposes to the owner a repository-facing
-README.md and a separate, short CRATES-IO.md as its crates.io page, named by `readme`: the split
-`design@knowledge-architect@crates-io-page-file` makes for this repository's own crates, for the
-same reason. It serves `goal@adoption-is-easy`.
-
-The owner's intent, on the owner's own proposal: "Maybe I'd also make it the default in the set-up
-skill: for published Rust crates, keep the README.md as a repo facing document, and use a separate
-CRATES-IO.md for what crates.io readers see." Asked whether it records the owner's intent, the
-owner answered: "Q5: yes".
-
 ### The installed skills do not mention a project whose name is the installer's namespace `##installed-text-omits-the-prefix-collision`
 
 The installed skills name a project's prefix rule, per `design@agent-skills@project-name-prefix`,
