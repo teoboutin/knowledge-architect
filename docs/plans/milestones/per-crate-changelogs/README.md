@@ -674,7 +674,7 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   whose change bears on no citation of a point inside a section, and the issue stays open at its
   re-entry point. Rival: hold that discussion before slice 1 merges.
 - **D6**, on `thread@per-crate-changelogs@citation-free-paths`, raised by slice 1's design audit.
-  `design@check@every-path-names-its-anchor`, which slice 1's harvest touches and splits, is
+  `design@model@every-path-names-its-anchor`, which slice 1's harvest touches and splits, is
   enforced by code of `model` alone: `path@model@src/resolver.rs` refuses `..`, computes the plan
   document's form and is the one Rust file that cites the head. Read one way,
   `skill@knowledge-architect-decision-recording@owning-component` places the head where the code

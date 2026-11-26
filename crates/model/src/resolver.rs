@@ -1191,7 +1191,7 @@ fn path_written(
                 Some(form) => form,
                 None => {
                     // The deepest anchor that holds the target and carries the `path` kind,
-                    // per `design@check@deepest-anchor-wins` and `design@check@plan-document-path-citation-refused`: a plan anchor carries
+                    // per `design@check@deepest-anchor-wins` and `design@model@plan-document-path-citation-refused`: a plan anchor carries
                     // none, and an anchor's own directory is named from the anchor above it.
                     let mut owner = anchors.owning(&target);
                     while owner.is_plan()

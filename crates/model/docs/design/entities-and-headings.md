@@ -201,7 +201,7 @@ finding for all six would send a reader to check the wrong segment of the pointe
 The third way is reached by any anchor that does not carry the register: a location that does not
 declare it, or a component naming an opt-in register, as the `spec` register only the anchor
 `plans` and the milestones carry. A kind resolved outside the table has ways of its own, each reported as the repair it
-needs: `path` and `planned` against the tree, per `design@check@every-path-names-its-anchor` and
+needs: `path` and `planned` against the tree, per `design@model@every-path-names-its-anchor` and
 `design@model@planned-path-form`, and `register` against the anchors, per
 `design@model@register-home-reference`.
 

@@ -128,6 +128,51 @@ no fix of `check --fix` respells it.
 
 The design this decision did not keep: `rejected@model@path-to-home-beside-register-form`.
 
+### Every path reference names its kind and its anchor, `` `path@<anchor>@<path>` `` `##every-path-names-its-anchor`
+
+A checked path reference is one backticked span in the one grammar of
+`design@model@an-entity-belongs-to-its-anchor`, with `path` as its kind and the path under the named
+anchor's directory as its id. The root is a component like any other, named by `project.name`.
+The kind prefix costs five characters at every path reference and buys one grammar: the scanner
+has one tokenizer, the old two-segment form `<anchor>@<path>` is reported as an anchor in kind
+position by `design@model@at-span-candidate-rule`, and the unanchored lint is left with
+one job, per `design@check@unanchored-path-first-segment-here`. There is no unanchored form for a
+path of this tree.
+
+**The path is plain**: `..`, a `.` segment and a leading `/` are refused. An upward path is
+anchored at the wrong place by definition, and it is the shape that breaks when the referencing
+file moves. The id is everything after the second `@`, so a path may itself hold an `@`. Which
+anchor a path names is `design@check@deepest-anchor-wins`.
+
+A plan document is cited by its kind, never by its path, per
+`design@model@plan-document-path-citation-refused`.
+
+**A fenced path reference is live**, as every reference is, per
+`design@model@a-reference-is-live-in-every-prose`: a sketch names its paths on purpose, and an
+illustration that needs a fake path writes the escape anchor or an angle-bracket placeholder.
+
+The designs this decision did not keep: `rejected@model@bare-root-relative-path`,
+`rejected@model@path-without-kind-prefix`, `rejected@model@at-prefix-root-relative-path` and
+`rejected@model@retired-form-rs-suffix`.
+
+### A `path` citation of a plan document, or of anything inside its directory, is refused, and its finding names the plan's kind `##plan-document-path-citation-refused`
+
+A plan document is cited by its kind, per `design@model@plan-document-kinds`. A `path` citation of
+a spec's or a milestone's directory, or of a file or a directory inside one, is refused from every
+anchor, and the finding names the form that resolves: `spec@plans@<id>`, `milestone@plans@<id>`,
+`spec@<milestone>@<slice>` for a live slice, and the milestone's form for what sits under its
+harvested/, a slice there being cited from inside its milestone alone, per
+`design@model@a-harvested-slice-is-cited-from-inside-its-milestone`. It is judged by where the
+target sits, before the deepest-anchor rule of `design@check@deepest-anchor-wins` and whether or not
+it exists, so a citation of a deleted plan's `README.md`, or of a file beside it, gets the same
+repair; a file under a deleted plan's `search/` is judged as any other path is. This overrides the
+ancestor's spelling of an anchor's own directory for a spec and a milestone. A plan anchor, a
+milestone or a spec, carries no `path` kind. One name per document is what keeps `show` complete: a
+citation written as a path is one `show spec@…` would not list. A plan's `README.md` reaches the
+files beside it by a relative navigation link, per `design@check@links-are-navigation-rows`, and an
+item by its item reference. The README of the plans directory, and the README and index of each of
+its two homes, are not plan documents, and are cited `path@plans@<file>`.
+
 ### The word `plans` names the anchor the tool constructs at the plans directory, and no project may declare it `##plans-is-a-reserved-anchor`
 
 The anchor is constructed per `design@model@plan-register`. The word is reserved like the two words

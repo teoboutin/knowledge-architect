@@ -153,7 +153,7 @@ A reference to a register the root alone carries, per
 its one repair the form with no anchor.
 
 - **One shape per meaning**: two spellings of one entry would put two shapes on one meaning, the
-  reason `rejected@check@at-prefix-root-relative-path` gives. The anchored goal form kept resolving
+  reason `rejected@model@at-prefix-root-relative-path` gives. The anchored goal form kept resolving
   beside the form with no anchor is `rejected@model@anchored-goal-form-as-a-second-spelling`.
 - **Installed text could not write the anchored form**: the root's name differs in each project.
 

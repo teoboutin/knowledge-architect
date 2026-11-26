@@ -49,7 +49,7 @@ Proposed by the owner in round 1 as proposal (c): a path to a subagent or a skil
 the reference form of a skill or an agent; shaped by the agent in the reply to round 1 as a new
 check, since such a citation is not a finding today. Approved. Arguments:
 `argument@path-quickfixes@arg-15`. Shape: Decided design, "The skill and agent citation". Harvest:
-`design@model@harness-kinds-cited-without-anchor` and `design@check@every-path-names-its-anchor`. The
+`design@model@harness-kinds-cited-without-anchor` and `design@model@every-path-names-its-anchor`. The
 owner's words, round 2: "skill-cited-by-path: approved."
 
 ### The respellings run after the gate, are printed one per line, and touch no commit message `##fix-run-order`
@@ -208,7 +208,7 @@ neither candidate is not pushed toward one".
 
 The reply to round 1. Bears on `thread@path-quickfixes@skill-cited-by-path`. "Today `path@agent-config@skills/<name>/SKILL.md`
 is **not a finding**", the skill's name written here as a placeholder, since the span is the
-finding step 3 adds. The argument of `design@check@plan-document-path-citation-refused` for a plan document
+finding step 3 adds. The argument of `design@model@plan-document-path-citation-refused` for a plan document
 holds for a skill: "one name per document is what keeps `show` complete". `show` on a skill lists
 no `path` citation of it: of the 3 citations then in the tree, 2 cited `skill@klarch-release` and
 1 `skill@klarch-retrospective-intake`. A path to another file inside a skill's directory, and the
