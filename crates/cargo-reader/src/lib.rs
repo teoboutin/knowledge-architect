@@ -2,8 +2,8 @@
 //!
 //! - the text of a `Cargo.toml`, [`read_manifest`]: the package name, and its `version`,
 //!   `publish`, `repository` and `include`, each as the manifest states it, with
-//!   [`Package::inherit`] resolving a field set to `{ workspace = true }` from the workspace's
-//!   `[workspace.package]`;
+//!   [`Package::inherit`] resolving a field set to a table whose `workspace` is `true` from the
+//!   workspace's `[workspace.package]`;
 //! - the output of `cargo metadata --format-version 1`, [`run_metadata`], which runs it in a
 //!   directory with the flags its caller passes, and [`read_metadata`], which reads its JSON: the
 //!   resolved graph, and each of its packages' name, version, manifest path and `repository`.
