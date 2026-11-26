@@ -5,10 +5,11 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 
 ## In order
 
-1. `issue@create@init-accepts-a-destination-git-ignores`
-2. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
-3. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
-4. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
+1. `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`
+2. `issue@create@init-accepts-a-destination-git-ignores`
+3. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
+4. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
+5. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
 
 ## Unordered
 
