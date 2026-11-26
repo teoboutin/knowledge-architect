@@ -130,8 +130,9 @@ session's default for Q2, ruled by the owner at R7. Final state: approved. Moved
 `argument@per-crate-changelogs@arg-56`, `argument@per-crate-changelogs@arg-58`,
 `argument@per-crate-changelogs@arg-60`. Its shape is in slice 1's spec. The owner agreed at R4 and
 ruled Q2 at R7, approving the two levels with the reason that installed text citing other installed
-text is useful; confirmed at R8. After the review, the owner ruled D2 of the milestone document,
-that the level `entries` reads the installed copies, `argument@per-crate-changelogs@arg-60`.
+text is useful; confirmed at R8. After the review, D2 of the milestone document, that the level
+`entries` reads the installed copies, was closed by the session on the owner's argument,
+`argument@per-crate-changelogs@arg-60`, which ruled no shape.
 
 ### No changelog file holds a reference; the released spans are rewritten in words `##changelog-holds-no-citation`
 
