@@ -50,8 +50,8 @@ workflow's gates command. rustfmt does not reach an included file, so
 `rustfmt --edition 2021 --check` the main by hand after an edit. The checker reads the main as
 Rust source: its comments are prose, a reference in them that resolves here passes the check and
 ships, and the text it ships cites no entry, as content/ does, per
-`design@agent-skills@shipped-text-cites-no-entry`. The release's hand check reads the installed
-copies, which hold the snippet inlined.
+`design@agent-skills@shipped-text-cites-no-entry`. The level `entries` of `[walk.citation-free]`
+reads the installed copies, which hold the snippet inlined.
 
 **A text several installed texts apply whole is a file under `path@agent-skills@fragments/`**,
 which each host names by a placeholder line, `{{fragment:<file>}}`, per

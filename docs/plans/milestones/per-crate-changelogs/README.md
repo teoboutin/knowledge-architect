@@ -123,8 +123,8 @@ before each slice. Additions this milestone's work needs:
   `path@model@src/model.rs` adds every path of the installer's namespace, as `owned_path` in
   `path@model@src/manifest.rs` matches it, to the paths the walk leaves out, per
   `design@check@installed-files-outside-the-walk`; their markdown files are parsed for the entities
-  they define, per `design@model@installed-entities-from-the-tree`, and no reference in them is
-  read. The saved workflows are `.js` files besides, which no walk would read, since the walk reads
+  they define, per `design@model@installed-entities-from-the-tree`, and their references are read
+  only at the level `entries`, where a glob matches them, per `design@check@citation-free-paths`. The saved workflows are `.js` files besides, which no walk would read, since the walk reads
   `md` and `rs` files alone (`LIVE_SUFFIXES` in `path@model@src/walk.rs`).
 - **a citation-free file**: a file a `[walk.citation-free]` glob matches, at the level `all` or
   `entries`, per `thread@per-crate-changelogs@citation-free-paths`.
@@ -161,14 +161,15 @@ What exists today at each site the work touches:
   reader to "read the changelog of each version from {pinned} to {version}".
 - **The crates.io pages.** Each of the 11 crates under crates/ holds a CRATES-IO.md
   (`ls crates/*/CRATES-IO.md | wc -l`), which `design@knowledge-architect@crates-io-page-file` says
-  holds no backticked reference. No code enforces it.
-- **The installed copies.** They are outside the walk, as Names says, and no reference in them is
-  read. Their source, content/ and the snippets the build inlines, is in the walk, per
+  holds no reference, and which this repository declares at the level `all` since slice 1.
+- **The installed copies.** They are outside the walk, as Names says. Their source, content/ and
+  the snippets the build inlines, is in the walk, per
   `design@agent-skills@shipped-text-cites-no-entry`, so every reference there is checked against
   this repository: one to an entry of this repository resolves here and would dangle in an
-  installing project. Only the reviews and the hand check of `skill@klarch-release`, its step "The
-  shipped text cites no entry", judge that, as the issue `shipped-text-citing-an-entry-is-unchecked`
-  recorded until this milestone, which schedules its work, closed it.
+  installing project. Since slice 1, the level `entries` judges that on the installed copies of the
+  primer, the skills and the agents, which this repository declares at that level; the reviews and
+  the hand check of `skill@klarch-release`, its step "The shipped text cites no entry", judge the
+  saved workflows and each `path@*@<path>` the level admits.
 - **Cargo.** One function of the checker's tools reads a Cargo file: `declares` in
   `path@check@src/build_origin.rs`, which `foreign_copy` calls on each candidate directory, reads its
   `Cargo.toml` with `std::fs::read_to_string`, parses it as a `toml::Table` and compares its

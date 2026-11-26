@@ -52,6 +52,41 @@ visible in the output rather than inferred from a finding list. The tripwire is 
 read a snapshot instead, from git objects alone, per `design@check@staged-tree-source` and
 `design@check@a-commit-message-is-a-document`.
 
+### `[walk.citation-free]` declares a file free of citations at one of two levels, by globs matched against git's listing, and a glob that names no file it is matched against is a finding `##citation-free-globs`
+
+The table holds two lists of globs, `all` and `entries`; what a file at each level may hold, and
+the findings on what it holds, are `design@check@citation-free-paths`. A glob of `all` is matched
+against the files the walk reads. A glob of `entries` is matched against those and against the
+installed copies, which the walk leaves out, per `design@check@installed-files-outside-the-walk`,
+so that a project can declare its installed copies at that level. A generated file is in neither
+set, so no glob matches it: its findings are its sources'. The resolved table is
+`Manifest::citation_free`, and the library's `declared` module names `CitationFree`, `Glob` and
+`Level`.
+
+**The dialect is three rules**: `*` matches any run of characters within one path segment, never a
+`/`; a segment that is exactly `**` matches any number of whole segments, none included; and a glob
+ending with `/` names every file under each directory it matches. Every other character is itself,
+`?` and `[` included, and a `**` inside a longer segment is two stars within that segment. The
+matcher is written in this crate, with no dependency: a glob library brings a dialect of its own,
+with character classes, alternatives and escapes, and each of its spellings would be one a manifest
+may write and a later version must keep accepting, by the manifest test of
+`design@knowledge-architect@versioning-policy`.
+
+**A glob is spelled the way git lists a path**, with no leading `/`, no `.` or `..` segment and no
+empty segment, as every declared path is, per `design@model@git-supplies-the-walk`: a glob spelled
+otherwise matches nothing git lists. Such a glob is a complaint of the manifest's resolve, and
+declares nothing.
+
+**A glob is checkable, as every other declaration of the walk is**, per
+`design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
+`entries` that matches no walked file and no installed copy, is a phase-2 finding at the manifest:
+it declares nothing, and silently covers whatever file is next created at a matching path, the case
+of a `skip-files` row that names no file. A walked file that a glob of each level matches is a
+phase-2 finding at the file: the two levels admit different spans, so the declaration says two
+things of one file. The file is read at the level `all`, the stricter, while the finding stops the
+run. Both findings are phase 2's, since `Manifest::parse` reads no file, and the tree's phase alone
+holds the walked paths and the installed copies.
+
 ### A symlink and a gitlink are read as no document, and each is a phase-2 finding naming it `##links-are-no-documents`
 
 Git records a symlink as mode `120000` and a submodule's gitlink as `160000`, in the index and in

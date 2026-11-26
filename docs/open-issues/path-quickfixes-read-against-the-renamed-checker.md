@@ -21,7 +21,10 @@ The spec's row on a raw path's finding quotes its repair as fixed text, "write
 every component's own copy", with line numbers in `path@check@src/check/references.rs`. The repair
 in `judge_part` of that file now also offers `register@<anchor>@<register>` for a register's home,
 and `path@elsewhere@<project>/<path>` for a file of another project, so the quotation and its line
-numbers no longer match the code; the two tests it names still pin the whole line.
+numbers no longer match the code; the two tests it names still pin the whole line. In a file at
+the level `all` of `[walk.citation-free]`, that finding, and every finding a span or a link raises,
+names a rewrite in words instead, per `design@check@citation-free-paths`, since the file refuses the
+`path` form a respelling of the raw path would write.
 
 ### Why it matters
 
