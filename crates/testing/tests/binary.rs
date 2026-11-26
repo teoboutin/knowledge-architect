@@ -121,6 +121,7 @@ fn the_binary_names_the_checker_s_directories_and_counts_the_files_under_them() 
         "crates/cli",
         "crates/check",
         "crates/git",
+        "crates/cargo-reader",
         "crates/model",
         "crates/create",
         "crates/query",
@@ -1465,7 +1466,7 @@ fn a_tree_holding_the_tool_at_another_path_than_the_binarys_is_refused() {
         assert!(
             // The profile of the clean is the binary's, which is this test's.
             stderr.contains(&format!(
-                "cargo clean{} -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-git -p knowledge-architect-model -p knowledge-architect-create -p knowledge-architect-query -p knowledge-architect-transcript -p knowledge-architect-agent-skills`",
+                "cargo clean{} -p knowledge-architect -p knowledge-architect-check -p knowledge-architect-git -p knowledge-architect-cargo-reader -p knowledge-architect-model -p knowledge-architect-create -p knowledge-architect-query -p knowledge-architect-transcript -p knowledge-architect-agent-skills`",
                 if cfg!(debug_assertions) {
                     ""
                 } else {

@@ -208,6 +208,7 @@ version = "0.10.0"
 dependencies = [
  "clap",
  "knowledge-architect-agent-skills",
+ "knowledge-architect-cargo-reader",
  "knowledge-architect-check",
  "knowledge-architect-create",
  "knowledge-architect-git",
@@ -221,6 +222,16 @@ dependencies = [
 [[package]]
 name = "knowledge-architect-agent-skills"
 version = "0.10.0"
+
+[[package]]
+name = "knowledge-architect-cargo-reader"
+version = "0.10.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tempfile",
+ "toml",
+]
 
 [[package]]
 name = "knowledge-architect-check"

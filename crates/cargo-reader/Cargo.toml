@@ -1,0 +1,27 @@
+[package]
+name = "knowledge-architect-cargo-reader"
+readme = "CRATES-IO.md"
+description = "Reads what the tools of knowledge-architect need of Cargo: the facts of a Cargo.toml, and the resolved graph that cargo metadata reports."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+# What the published package ships, as a whitelist: a new directory is shipped only once it is
+# listed here, so the tests over this repository and the design documents never reach the package.
+include = ["/src/**", "/Cargo.toml", "/README.md", "/CRATES-IO.md", "/LICENSE-MIT", "/LICENSE-APACHE", "/CHANGELOG.md"]
+
+[dependencies]
+# A `Cargo.toml` is TOML.
+toml = "1.1.4"
+# The output of `cargo metadata` is JSON, read into the types of `metadata.rs`.
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+# The guards its tests hold, per `design@knowledge-architect@scratch-removed-by-a-guard`: for tests
+# alone, per `design@knowledge-architect@tempfile-for-tests-alone`, since `testing` builds this crate.
+tempfile = "3"
+
+[lints]
+workspace = true

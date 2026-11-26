@@ -29,6 +29,7 @@ fn main() -> ExitCode {
     let dir = knowledge_architect::component_dir();
     let check_dir = knowledge_architect_check::component_dir();
     let git_dir = knowledge_architect_git::component_dir();
+    let cargo_reader_dir = knowledge_architect_cargo_reader::component_dir();
     let model_dir = knowledge_architect_model::component_dir();
     let create_dir = knowledge_architect_create::component_dir();
     let query_dir = knowledge_architect_query::component_dir();
@@ -37,6 +38,7 @@ fn main() -> ExitCode {
         dir.as_path(),
         check_dir.as_path(),
         git_dir.as_path(),
+        cargo_reader_dir.as_path(),
         model_dir.as_path(),
         create_dir.as_path(),
         query_dir.as_path(),
@@ -57,6 +59,10 @@ fn main() -> ExitCode {
         library(
             knowledge_architect_git::CRATE_DIR,
             knowledge_architect_git::PACKAGE,
+        ),
+        library(
+            knowledge_architect_cargo_reader::CRATE_DIR,
+            knowledge_architect_cargo_reader::PACKAGE,
         ),
         library(
             knowledge_architect_model::CRATE_DIR,
@@ -83,6 +89,7 @@ fn main() -> ExitCode {
         env!("CARGO_PKG_NAME"),
         knowledge_architect_check::PACKAGE,
         knowledge_architect_git::PACKAGE,
+        knowledge_architect_cargo_reader::PACKAGE,
         knowledge_architect_model::PACKAGE,
         knowledge_architect_create::PACKAGE,
         knowledge_architect_query::PACKAGE,
