@@ -44,6 +44,18 @@ edits would hide them, which the commit "[model, check, query, create, xtask] A 
 printed with slashes on every system, by one function of the model" argues. The weighing passes to the next
 work that changes the file's code after it.
 
+A later instance: the commit "[model] The manifest reads `[walk.citation-free]`, its glob dialect
+is matched by hand, and phase 2 reports a glob that matches nothing and a file both levels match"
+changed the file's code by a field of `Walk` and one call in `Manifest::parse`, which dispatches
+the table's resolve to a module of its own, `path@model@src/citation_free.rs`. Its branch weighed a
+split at its slice's design audit, recorded in the commit "[plans] The design audit of slice 1 of
+the per-crate changelogs: the glob findings in phase 2, the touched heads listed with their
+verdicts, and four defaults for the owner", and made none. The code-split scout, dispatched there,
+found the size signal holding on the code above the tests alone, and a second part of the file
+that changes apart, the plan layout's names; the work pushed neither,
+since it added a field and one call. The weighing passes to the next work that changes the file's
+code after it.
+
 ### Why it matters
 
 A review of a change to the file reads in parts a file it cannot read whole, which
