@@ -60,10 +60,13 @@ written in are `design@model@citation-free-glob-dialect`. A glob of `all` is mat
 files the walk reads, and against no installed copy: the shipped text cites the shipped skills,
 agents and primer on purpose, per `design@agent-skills@shipped-text-cites-no-entry`, so a copy at
 that level would hold findings that no edit of the project's own text removes. A glob of `entries`
-is matched against the walked files and against the installed copies, which the walk leaves out,
-per `design@check@installed-files-outside-the-walk`, since the level `entries` reads the installed
-copies, per `design@check@installed-copies-read-at-the-level-entries`, and not their source,
-`rejected@check@citation-free-entries-over-the-source`. A generated file is in
+is matched against the walked files and against the installed markdown copies git lists, which the
+walk leaves out, per `design@check@installed-files-outside-the-walk`, since the level `entries`
+reads the installed copies, per `design@check@installed-copies-read-at-the-level-entries`, and not
+their source, `rejected@check@citation-free-entries-over-the-source`. A copy is matched whether or
+not the checker can read it, since the comparison of its bytes,
+`design@check@installed-files-compared-by-bytes`, reports a copy it cannot read, with the repair
+that reaches it. A generated file is in
 neither set, so no glob matches it: its findings are its sources'. The resolved table is
 `Manifest::citation_free`, and the library's `declared` module names `CitationFree`, `Glob` and
 `Level`.
@@ -78,8 +81,11 @@ segment are dropped when the manifest loads, where a glob's are refused.
 `design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
 `entries` that matches no walked file and no installed copy, is a phase-2 finding at the manifest:
 it declares nothing, and silently covers whatever file is next created at a matching path, the case
-of a `skip-files` row that names no file. The finding is phase 2's, since `Manifest::parse` reads
-no file, and the tree's phase alone holds the walked paths and the installed copies.
+of a `skip-files` row that names no file. A glob of `entries` that matches only installed files that
+are not markdown, the saved workflows, is a phase-2 finding of its own, which says that no level
+reads them: it matches files, so the finding of a glob that matches nothing would be false of it.
+Each finding is phase 2's, since `Manifest::parse` reads no file, and the tree's phase alone holds
+the walked paths and the installed copies.
 
 ### A walked file that a glob of each level of `[walk.citation-free]` matches is a phase-2 finding at the file `##citation-free-levels-overlap`
 
@@ -87,8 +93,9 @@ The two levels admit different spans, so a declaration that puts one file under 
 things of it, and no precedence between them is what the manifest declared: the rival, `all`
 taking precedence in silence, would leave the declaration's contradiction unreported. The finding
 is the tree's phase's, since `Manifest::parse` reads no file and the tree's phase alone holds the
-walked paths. While the finding stops the run, the file is read at the level `all`, the stricter,
-per `design@check@citation-free-paths`.
+walked paths. `CitationFree::level` answers `all` for such a file, the stricter level: there every
+span that parses as a reference is a finding, per `design@check@citation-free-paths`, so a caller
+that reads the file past the phase-2 finding reports every span that either level reports.
 
 ### A glob of `[walk.citation-free]` is written in a dialect of three rules, and in no glob library's dialect `##citation-free-glob-dialect`
 
@@ -96,9 +103,10 @@ per `design@check@citation-free-paths`.
 `**` matches any number of whole segments, none included; and a glob ending with `/` names every
 file under each directory it matches. Every other character is itself, `?` and `[` included, and a
 `**` inside a longer segment is two stars within that segment. The matcher is `Glob` in
-`path@model@src/citation_free.rs`, with no dependency.
+`path@model@src/citation_free.rs`, one pass that returns only to the last star met, so its cost is
+polynomial in the lengths of the glob and the path.
 
-The nearest rival is a glob library's matcher. It brings a dialect of its own, with character
+The nearest rival is a glob library's dialect. It brings a dialect of its own, with character
 classes, alternatives and escapes, and each of its spellings would be one a manifest may write and
 a later version must keep accepting, by the manifest test of
 `design@knowledge-architect@versioning-policy`. A dialect of three rules, written here, holds no
