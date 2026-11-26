@@ -15,7 +15,7 @@
   `skip-files` row that names no file: `Manifest::parse` reads no file system, and only phase 2
   holds the walked paths and the installed copies.
 - The findings of a citation-free file, in `check`, in a module of its own,
-  `planned@check@src/check/citation_free.rs`, and the repair each names. The arms of `judge_part`,
+  `path@check@src/check/citation_free.rs`, and the repair each names. The arms of `judge_part`,
   `id_lint`, `id_finding` and `link` in `path@check@src/check/references.rs` write the findings and
   the repairs of a span today, so the work writes into them too: each asks the level of its file, and
   in a file at the level `all` names a repair in words.

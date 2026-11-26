@@ -62,7 +62,7 @@ pub(crate) const AGENT_KIND: &str = "agent";
 pub(crate) const PRIMER_KIND: &str = "primer";
 
 /// The kind of a section of the project's root instructions, its root CLAUDE.md.
-pub(crate) const INSTRUCTIONS_KIND: &str = "instructions";
+pub const INSTRUCTIONS_KIND: &str = "instructions";
 
 /// The four kinds a project serving the `claude` harness cites with no anchor.
 pub(crate) const HARNESS_KINDS: [&str; 4] =

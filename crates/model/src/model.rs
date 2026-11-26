@@ -93,7 +93,8 @@ pub struct Model {
     checker_sources: Vec<PathBuf>,
     /// The markdown files of the installer's namespace, parsed and scanned like a document, and
     /// walked by no check: they define the entities of the installed skills, agents and primer,
-    /// per `design@model@installed-entities-from-the-tree`, and no reference in them is read. A file the caller could not read as text is left out: the last phase judges
+    /// per `design@model@installed-entities-from-the-tree`; no reference in them is read but where
+    /// a glob of `[walk.citation-free] entries` matches one, for that level's findings alone. A file the caller could not read as text is left out: the last phase judges
     /// the bytes, and reports it.
     installed: Vec<Document>,
     /// The markdown files under a milestone's `harvested/`, the one frozen location, parsed and
@@ -461,8 +462,8 @@ impl Model {
         &self.frozen
     }
 
-    /// The installed copies, parsed: read by the entity table for definitions, by no check for
-    /// references.
+    /// The installed copies, parsed: read by the entity table for definitions, and for references
+    /// only by the findings of `[walk.citation-free] entries`, where a glob of it matches a copy.
     pub fn installed(&self) -> &[Document] {
         &self.installed
     }

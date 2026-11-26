@@ -120,7 +120,7 @@ pub mod table {
     pub use crate::entity::{
         candidate, is_anchor_name, is_entity_id, is_entry_id, is_reserved_anchor, spelled, Anchor,
         Anchors, Candidate, Constructed, Entities, EntryOf, Home, Kind, Resolution, Site,
-        EVERY_ANCHOR, REGISTER_KIND,
+        EVERY_ANCHOR, INSTRUCTIONS_KIND, REGISTER_KIND,
     };
     pub use crate::model::DumpRow;
     pub use crate::records::{cited_within, edges, records, EntryKey, Inbound, Record};

@@ -2,7 +2,9 @@
 //!
 //! These tests read the table's own vocabulary, such as its harness kinds, which is private, so they stay beside it and
 //! reach the shipped text by a dev-dependency, which builds into no consumer of this crate. No
-//! installing project judges them: a reference in an installed copy is read by nothing. The decision
+//! installing project judges them: a project that declares `[walk.citation-free] entries` over its
+//! installed copies reads their references for what names the project alone, not for whether each
+//! resolves within the shipped set. The decision
 //! is `design@knowledge-architect@shipped-set-tests-in-the-model`.
 
 use std::path::{Path, PathBuf};
@@ -85,7 +87,7 @@ fn shipped_set_violations(copies: &[(PathBuf, String)]) -> Vec<String> {
 /// heading of each shipped skill, agent and the primer carries a slug unique within its file,
 /// and every reference of a harness kind in the shipped text resolves within the shipped set,
 /// citing no project's own root CLAUDE.md. The set is judged here because no installing
-/// project reads a reference in its installed copies.
+/// project resolves a reference in its installed copies.
 #[test]
 fn the_shipped_set_cites_only_sections_it_defines() {
     let copies = shipped();

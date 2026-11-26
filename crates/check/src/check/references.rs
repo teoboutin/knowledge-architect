@@ -19,6 +19,10 @@
 //! `design@check@plain-word-lint`. Each matches
 //! this project's ids only, so another project's id, or one whose entry has left, is silent.
 //!
+//! **A file `[walk.citation-free]` matches is judged at its level**, `all` or `entries`: the level
+//! is asked in [`judge_part`] where a span's or a link's finding is written, and its rule is
+//! `super::citation_free`'s, as the goals home's rule is asked here and held apart.
+//!
 //! **A `rejected` entry that no design entry cites is reported**, per
 //! `design@check@orphan-rejected-entry`: the one finding of this family raised over the entities
 //! rather than over a span, and over a tree only, since a commit message holds no design entry.
@@ -36,7 +40,9 @@ use crate::model::Manifest;
 use crate::model::Model;
 use crate::model::{slashed, Finding};
 
+use super::citation_free;
 use super::Inputs;
+use crate::model::declared::{CitationFree, Level};
 use crate::model::resolve::{self, assert_target, in_plans_directory, is_navigation, refused};
 
 /// The finding at a site for a reference the resolver refuses, in the two texts of its cause.
@@ -56,7 +62,11 @@ pub(crate) struct Counts {
 }
 
 pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> (Vec<Finding>, Counts) {
-    check_under(model, inputs, &Anchors::of(manifest, inputs.present))
+    let anchors = Anchors::of(manifest, inputs.present);
+    let free = manifest.citation_free();
+    let (mut out, counts) = check_under(model, inputs, &anchors, free);
+    out.extend(super::citation_free::installed(model, free, &anchors));
+    (out, counts)
 }
 
 /// The same, over a stated anchor list.
@@ -68,9 +78,10 @@ pub(crate) fn check_under(
     model: &Model,
     inputs: &Inputs,
     anchors: &Anchors,
+    free: &CitationFree,
 ) -> (Vec<Finding>, Counts) {
     let entities = Entities::build(model, anchors);
-    let (mut out, counts) = judge(model.documents(), &entities, anchors, inputs);
+    let (mut out, counts) = judge(model.documents(), &entities, anchors, inputs, free);
     out.extend(orphans(model, &entities, anchors));
     (out, counts)
 }
@@ -116,8 +127,9 @@ pub(crate) fn judge(
     entities: &Entities,
     anchors: &Anchors,
     inputs: &Inputs,
+    free: &CitationFree,
 ) -> (Vec<Finding>, Counts) {
-    judge_part(docs, entities, anchors, inputs, Part::All)
+    judge_part(docs, entities, anchors, inputs, free, Part::All)
 }
 
 /// Which findings a judgement writes.
@@ -138,11 +150,16 @@ pub(crate) enum Part {
 }
 
 /// The same, writing only the findings of one part.
+///
+/// `free` is what `[walk.citation-free]` declares: a document a glob of it matches is judged at
+/// that level, as `super::citation_free` says. A commit message is matched by no glob, so its
+/// caller passes an empty table.
 pub(crate) fn judge_part(
     docs: &[crate::model::Document],
     entities: &Entities,
     anchors: &Anchors,
     inputs: &Inputs,
+    free: &CitationFree,
     part: Part,
 ) -> (Vec<Finding>, Counts) {
     let references = matches!(part, Part::All | Part::References);
@@ -161,9 +178,25 @@ pub(crate) fn judge_part(
     for doc in docs {
         let nav = is_navigation(&doc.rel);
         let goals_of = goals_home_owner(&doc.rel, anchors);
+        // In a file at the level `all`, every finding a span or a link raises names a rewrite in
+        // words, since the reference form and the `path` form its repair names elsewhere are what
+        // the file refuses.
+        let level = free.level(&doc.rel);
+        let all = level == Some(Level::All);
         for l in &doc.observations {
             match &l.what {
-                Observation::Span(span) if references => match table::candidate(span, anchors) {
+                Observation::Span(span) if references => {
+                    let candidate = table::candidate(span, anchors);
+                    // A span the file's level refuses is not resolved: its repair is to rewrite
+                    // it, and at the level `all` no span is resolved.
+                    if let Some(found) = citation_free::span_finding(
+                        level, &candidate, &doc.rel, l.line, span, anchors,
+                    ) {
+                        counts.references += 1;
+                        out.push(found);
+                        continue;
+                    }
+                    match candidate {
                     Candidate::Reference { kind, anchor, id } => {
                         counts.references += 1;
                         let citation = goals_of.and_then(|owner| {
@@ -218,7 +251,9 @@ pub(crate) fn judge_part(
                         &doc.rel,
                         l.line,
                         format!("`{span}` is malformed: {why}"),
-                        if goals_of.is_some() && !names_a_goal_form(span, anchors) {
+                        if all {
+                            citation_free::ALL_REPAIR
+                        } else if goals_of.is_some() && !names_a_goal_form(span, anchors) {
                             GOALS_HOME_REPAIR
                         } else {
                             repair
@@ -229,6 +264,7 @@ pub(crate) fn judge_part(
                         l.line,
                         format!("`{span}` opens with `{head}`, an anchor, where the kind goes"),
                         match goals_of {
+                            _ if all => citation_free::ALL_REPAIR.to_string(),
                             Some(_) => GOALS_HOME_REPAIR.to_string(),
                             None => format!(
                                 "prefix the kind, one of {}: a path is written `path@{head}@<path>`",
@@ -237,7 +273,8 @@ pub(crate) fn judge_part(
                         },
                     )),
                     Candidate::NotOne => {}
-                },
+                    }
+                }
                 Observation::UnanchoredPath(span) if lints => {
                     if !names_this_tree(span, &doc.rel, anchors, inputs) {
                         continue;
@@ -264,12 +301,16 @@ pub(crate) fn judge_part(
                     } else {
                         ""
                     };
-                    if goals_of.is_some() {
+                    if goals_of.is_some() || all {
                         out.push(Finding::at(
                             &doc.rel,
                             l.line,
                             format!("`{span}` is shaped like a path and names no anchor"),
-                            GOALS_HOME_REPAIR,
+                            if all {
+                                citation_free::ALL_REPAIR
+                            } else {
+                                GOALS_HOME_REPAIR
+                            },
                         ));
                         continue;
                     }
@@ -297,7 +338,10 @@ pub(crate) fn judge_part(
                 | Observation::UnquotedReference { .. }
                     if id_lints =>
                 {
-                    out.extend(id_lint(&doc.rel, l.line, &l.what, &tables));
+                    out.extend(
+                        id_lint(&doc.rel, l.line, &l.what, &tables)
+                            .map(|f| citation_free::id_lint_at(level, &l.what, f)),
+                    );
                 }
                 Observation::WrappedSpan(span) if references => out.push(Finding::at(
                     &doc.rel,
@@ -305,17 +349,35 @@ pub(crate) fn judge_part(
                     format!(
                         "`{span}` crosses a line break, so no check reads it as the pointer it is"
                     ),
-                    "keep the span on one line: a line break inside backticks is read as two \
-                     halves, and a renderer shows it as a space",
+                    if all {
+                        citation_free::ALL_REPAIR
+                    } else {
+                        "keep the span on one line: a line break inside backticks is read as two \
+                         halves, and a renderer shows it as a space"
+                    },
                 )),
                 // Markdown documents only: in Rust prose a markdown link is rustdoc's
                 // mechanism, resolved by rustdoc against the crate namespace, and this
                 // check reading those as index rows would report every intra-doc link.
                 Observation::Link(target) if references && doc.is_markdown() => {
                     let in_home = goals_of.is_some();
+                    let before = out.len();
                     link(
-                        &mut out, &mut counts, doc, l.line, target, nav, in_home, anchors, inputs,
+                        &mut out,
+                        &mut counts,
+                        doc,
+                        l.line,
+                        target,
+                        nav,
+                        in_home,
+                        anchors,
+                        inputs,
                     );
+                    if all {
+                        for found in &mut out[before..] {
+                            found.action = citation_free::ALL_LINK_REPAIR.to_string();
+                        }
+                    }
                 }
                 _ => {}
             }
@@ -942,7 +1004,7 @@ mod tests {
             shipped: &[],
             judged: crate::check::Judged::WorkingTree,
         };
-        let (found, counts) = check_under(&model, &inputs, anchors);
+        let (found, counts) = check_under(&model, &inputs, anchors, &CitationFree::default());
         (found.iter().map(|f| f.to_string()).collect(), counts)
     }
 
@@ -2950,6 +3012,7 @@ mod tests {
             &model,
             &inputs,
             &Anchors::of(&manifest(), &[] as &[std::path::PathBuf]),
+            &CitationFree::default(),
         );
         (found.iter().map(|f| f.to_string()).collect(), counts)
     }

@@ -157,11 +157,15 @@ fn judge_message(
         primary.ignored.union(message_ignored).cloned().collect();
     let mut primary_inputs = primary.inputs();
     primary_inputs.ignored = &primary_ignored;
+    // A message is no file of the tree, so no glob of `[walk.citation-free]` reads it: a glob
+    // such as `**` would otherwise match its name.
+    let no_glob = crate::model::declared::CitationFree::default();
     let (mine, _) = judge_part(
         model.documents(),
         primary_entities,
         &anchors,
         &primary_inputs,
+        &no_glob,
         Part::References,
     );
     let (mut lints, _) = judge_part(
@@ -169,6 +173,7 @@ fn judge_message(
         primary_entities,
         &anchors,
         &primary_inputs,
+        &no_glob,
         Part::Lints,
     );
     let references = match parent {
@@ -184,6 +189,7 @@ fn judge_message(
                 other_entities,
                 &other_anchors,
                 &other_inputs,
+                &no_glob,
                 Part::References,
             );
             let (their_lints, _) = judge_part(
@@ -191,6 +197,7 @@ fn judge_message(
                 other_entities,
                 &other_anchors,
                 &other_inputs,
+                &no_glob,
                 Part::Lints,
             );
             // **One finding per occurrence, as one tree reports it.** Each tree's lints hold one
