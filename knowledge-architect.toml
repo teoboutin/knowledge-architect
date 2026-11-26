@@ -28,6 +28,7 @@ components = [
     "crates/mutate",
     "tools/xtask",
     "crates/git",
+    "crates/cargo-reader",
     "crates/model",
     "crates/cli",
     "crates/transcript",
@@ -55,6 +56,7 @@ skip-dirs = []
 skip-files = [
     "CHANGELOG.md",
     "crates/agent-skills/CHANGELOG.md",
+    "crates/cargo-reader/CHANGELOG.md",
     "crates/check/CHANGELOG.md",
     "crates/cli/CHANGELOG.md",
     "crates/create/CHANGELOG.md",

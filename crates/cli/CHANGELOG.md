@@ -159,6 +159,12 @@ an empty subsection is omitted.
   `declared::Level` and `table::INSTRUCTIONS_KIND` in `knowledge-architect-model`.
 - `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which
   runs clippy for another target, such as `x86_64-pc-windows-gnu`, with no cross compiler.
+- `library`, minor: the published crate `knowledge-architect-cargo-reader` reads what the tools of
+  knowledge-architect need of Cargo: a `Cargo.toml`'s package name, `version`, `publish`,
+  `repository` and `include`, with their inheritance from `[workspace.package]`, and the resolved
+  graph that `cargo metadata` reports. `knowledge-architect` depends on it, so a project that names
+  `knowledge-architect` gets it with no change; the summary's checker-source line and the
+  `cargo clean` of the foreign-build refusal name the crate.
 
 ### Workflow
 

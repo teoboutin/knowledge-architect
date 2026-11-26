@@ -1,7 +1,8 @@
-# The workspace: the crate of the binary and its command line, the checker's crate, the crate that asks git what it reads, the crate that reads a
-# project into its model, the crate of the commands that read the record, the crate that creates a project and adds a Component to one, the
-# crate that reads an agent harness's session transcripts, the crate an extension's tests run the checks with, the crate that carries the agent
-# skills it installs, the gates library, the mutation library, and the maintenance tool.
+# The workspace: the crate of the binary and its command line, the checker's crate, the crate that asks git what it reads, the crate
+# that reads what the tools need of Cargo, the crate that reads a project into its model, the crate of the commands that read the record,
+# the crate that creates a project and adds a Component to one, the crate that reads an agent harness's session transcripts, the crate an
+# extension's tests run the checks with, the crate that carries the agent skills it installs, the gates library, the mutation library, and
+# the maintenance tool.
 # No Component's directory is named after the project, per
 # `design@knowledge-architect@no-component-directory-named-after-the-project`.
 
@@ -11,6 +12,7 @@ members = [
     "crates/cli",
     "crates/check",
     "crates/git",
+    "crates/cargo-reader",
     "crates/model",
     "crates/query",
     "crates/create",
