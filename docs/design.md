@@ -429,7 +429,7 @@ forms; the changes the goals predict, a mode of the run or a way to restore, sta
 
 tools/xtask is this repository's maintenance tool, run as `cargo x <command>`. It runs as commands
 the tasks this repository's own instructions require, or whose procedure they fix, per
-`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds` and `gates`, whose list, and the flags
+`design@xtask@a-local-task-is-the-maintenance-tool-s`: today `changelog`, `skill`, `transcript-kinds`, `gates` and `mutate`, whose list, and the flags
 CI passes, are this repository's, while the published library defines its own flags and runs the
 gates, per `design@knowledge-architect@gates-crate`; cargo's own `--locked`, which CI passes ahead of
 the `x` alias, is cargo's.
