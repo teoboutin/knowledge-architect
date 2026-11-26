@@ -356,8 +356,8 @@ judgement-free tasks, the anonymization. Two retrospectives hold a member.
   the intake's draft instances-C (not committed; its text is in the issue). The issue then holds three
   occurrences of the hand removal across three plan documents.
 
-Default: two instances added to the recorded issue.
-Outcome: decided by the session: two instances added to `issue@transcript@an-option-anonymizes-what-transcript-prints`. Ground: the issue records the task, and the two files are further occurrences of it; the issue records that the owner proposed the option, which this analysis reads as the owner's taking the task in under `goal@tasks-a-tool-does-better-are-the-tool-s`, and which answers the search's owner question for this task.
+Default: two instances added to the recorded issue; the task taken in, the issue staying open as the tool's work.
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner; the issue records that the owner proposed the option and left it for later, which is no taking in): pending
 
 ## past-one-read-trigger-met-by-any-edit: an issue on a split is met by any work that changes the file, so every such work owes a weighing
 
