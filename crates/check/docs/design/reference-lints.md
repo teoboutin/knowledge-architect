@@ -56,7 +56,7 @@ less the punctuation that ends a sentence or a clause and the markdown that clos
 quotation around it. A token holding an angle
 bracket is a placeholder, and is silent. The finding names its repair, the token in backticks, and,
 where the token names nothing of this project, a rewrite of the sentence; `check --fix` writes
-nothing for it, as for the other lints on ids, per `design@check@backticked-bare-id`.
+nothing for it, as for the other lints on ids, per `design@check@id-lints-write-no-fix`.
 
 **Beside a backticked reference to an issue entry, in the same paragraph, the token is silent.** It
 is then the first exception of `design@agent-skills@plain-text-is-no-repair`: text in the checker's
@@ -121,12 +121,6 @@ chooses none.** A skill and an agent of one name, and an agent's section slug sh
 are among the cases the census found, 18 such ids here and 41 in thaum, in the spec named above. Choosing the nearest definition would make the checker supply a meaning the writer did not
 write, so the writer chooses. The same holds for the plain-word lint.
 
-**The lints on ids report, and `check --fix` writes nothing for them**: no respelling of a
-hand-written file is among the fixes `design@check@fix-scope` admits, per
-`design@check@safe-fix-definition`. Respelling a span into its reference is the subject of
-`spec@plans@path-quickfixes`. The rule holds for the three lints on ids.
-
-
 ### A plain word that is exactly a defined id is a finding `##plain-word-lint`
 
 A word outside every backtick span and every quotation, per
@@ -174,6 +168,14 @@ a fence's edge, a list item or a table row, the blocks a renderer shows apart, s
 the rest of a file. A pointer someone writes inside a quotation goes unchecked, which is what the
 exemption costs. The nearest rival, no exemption, would report words the writer may not change. It
 is the exception for a quotation of `design@agent-skills@plain-text-is-no-repair`.
+
+### `check --fix` writes nothing for the lints on ids `##id-lints-write-no-fix`
+
+The three lints on ids, `design@check@reference-shape-outside-span`,
+`design@check@backticked-bare-id` and `design@check@plain-word-lint`, report, and none has a fix:
+no respelling of a hand-written file is among the fixes `design@check@fix-scope` admits, per
+`design@check@safe-fix-definition`. Respelling a span into its reference is the subject of
+`spec@plans@path-quickfixes`.
 
 ### The lints on ids make a check over this repository no more than 10% slower than one without them `##id-lints-cost-bound`
 
