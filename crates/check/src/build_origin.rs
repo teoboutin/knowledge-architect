@@ -249,6 +249,35 @@ mod tests {
         );
     }
 
+    /// The claim: a candidate whose `Cargo.toml` cannot be read, is no TOML, or names no package,
+    /// with a `[package]` and no `name` or with no `[package]`, is no copy, whatever else it holds,
+    /// so a read that fails is never taken for a match. Mutation checked: in `declares`, the `else`
+    /// of the TOML parse made `return true;`; caught.
+    #[test]
+    fn a_candidate_whose_manifest_cannot_be_read_or_names_no_package_is_no_copy() {
+        let scratch = Scratch::new("unreadable");
+        let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
+        // A directory where the manifest would be: the read fails.
+        std::fs::create_dir_all(scratch.path("dir/tools/tool/lib/Cargo.toml"))
+            .expect("a directory");
+        for (tree, text) in [
+            ("broken", "[package\nname = \"a-tool\"\n"),
+            ("nameless", "[package]\ndescription = \"a-tool\"\n"),
+            ("packageless", "[workspace]\nmembers = [\"a-tool\"]\n"),
+        ] {
+            let dir = scratch.path(&format!("{tree}/tools/tool/lib"));
+            std::fs::create_dir_all(&dir).expect("a crate directory");
+            std::fs::write(dir.join("Cargo.toml"), text).expect("a crate manifest");
+        }
+        for tree in ["dir", "broken", "nameless", "packageless"] {
+            assert_eq!(
+                foreign_copy(&scratch.path(tree), &[library(built.clone())]),
+                None,
+                "{tree}"
+            );
+        }
+    }
+
     #[test]
     fn a_crate_compiled_through_a_symlink_is_not_a_copy_of_itself() {
         // `cargo build --manifest-path` through a symlinked path compiles that path in.
