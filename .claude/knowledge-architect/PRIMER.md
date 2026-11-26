@@ -296,10 +296,8 @@ work is its carrier.
 **A dispatched piece is what its brief gives the agent, and the agent carries all of it**: the
 session does not take over a part of it while it is dispatched, such as its commit because that
 part alone is small. What an agent returns unfinished is a new piece, which the session judges. An
-agent reports what it acted on and what it did not, with why. **An agent that dispatches agents
-whose results it needs before it reports dispatches them in the foreground**: an agent sent to the
-background keeps running after its dispatcher hands back, and its result reaches the main session,
-not the dispatcher. Agents dispatched together each get a scratch directory of their own.
+agent reports what it acted on and what it did not, with why. Agents dispatched together each get
+a scratch directory of their own.
 
 **A conclusion that comes back gets an independent verification before the session acts on it**:
 a session other than the one that reported it, the dispatching session or an agent it dispatches,
