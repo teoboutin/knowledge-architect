@@ -544,7 +544,7 @@ git-ignored copy into it, then after deleting the copy.
 The design this decision did not keep:
 `rejected@knowledge-architect@changelog-copies-written-at-packaging`.
 
-### A published crate's crates.io page is a short CRATES-IO.md, and its README stays repository-facing `##crates-io-page-file`
+### A published crate's crates.io page is a short CRATES-IO.md that holds no reference, and its README stays repository-facing `##crates-io-page-file`
 
 Each crate under crates/ names a CRATES-IO.md beside its README as its crates.io page, with
 `readme = "CRATES-IO.md"` in its Cargo.toml. The page says what the crate is, how to install or use
@@ -1593,20 +1593,21 @@ where it judges commits, the commits of the branch alone: `commits` takes an exp
 starts at the branch's base, per `design@check@check-reads-no-range-of-history`, and no check
 compares a file with its content at a tag, a release or any commit before that base. A question to
 git about the base itself is within the rule: the gate `rebased` of `path@gates@src/gates.rs`, which
-`--require-rebased` runs, asks whether the base the project passes is an ancestor of `HEAD`, by
-`git merge-base --is-ancestor`, and a check that asks whether the range it lists is complete, as
+`--require-rebased` runs, per `design@gates@rebase-checks-behind-a-flag`, asks whether the base the
+project passes is an ancestor of `HEAD`, by `git merge-base --is-ancestor`, and a check that asks whether the range it lists is complete, as
 `issue@git@a-shallow-clone-shortens-the-range-commits-judges` needs, asks the same kind of question.
 
 A check that read past history would cost each run more with every commit the project makes, with
 no bound the project controls, for every future run. `goal@every-target-project-can-adopt-it`
 holds every target project as one that can adopt knowledge-architect, so a check is written for
 the histories consumers have, with rewritten tags, shallow clones and imported squashes, each of
-which would cost design and code of its own. The owner judged the value of such a check
-relatively low, believing that a review would flag such a deviation easily, even without being
-asked to watch for it: a judgement of expected use, open to challenge.
+which would cost design and code of its own.
 
 The nearest rival is a check that a released section of a changelog equals its content at the
-version's tag. Its comparison with the tag reads history before the branch. A narrower rival that
+version's tag. Its comparison with the tag reads history before the branch. The owner judged the
+value of that check relatively low, believing that any review would flag a released section changed
+in content easily, even without being asked to watch for that case: a judgement of expected use,
+open to challenge. A narrower rival that
 compares within the branch alone, and reports a released section the branch changes, cannot tell a
 rewording that keeps the meaning from a change of the content that
 `design@knowledge-architect@changelog-section-fixed-at-release` refuses: no comparison of bytes or
