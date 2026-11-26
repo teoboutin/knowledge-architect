@@ -150,7 +150,11 @@ A word meant as an ordinary term probably shows a slug wrongly chosen and not sp
 census of the design discussion, kept in its spec,
 `path@elsewhere@docs/plans/specs/defined-ids-outside-references.md`, bore it out in thaum, where it
 sorted the hits: every plain hit that was no pointer came from a subject slug, and every other hit
-was a pointer written in words. The rival, a listing of such words in `show`, would
+was a pointer written in words. Its scripts are in no tree, and the built lint is the instrument:
+re-take it with `cargo klarch check` over a tree that has not rewritten its plain ids, such as
+another project's at its upgrade, sorting this lint's findings; a finding on a word that is no
+pointer and whose slug names no subject reopens the repair that renames the entry. The rival, a
+listing of such words in `show`, would
 leave those pointers unchecked: `rejected@check@plain-word-mention`. A slug kept as a concept index,
 so that a term's mentions read as its pointers, buys little: the primer asks a pointer to be a
 reference, and `show` lists every citation of an entry. Its cost is bounded by
