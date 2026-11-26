@@ -949,9 +949,10 @@ fn outside_the_walk(
 /// The globs of `[walk.citation-free]` against the files each is matched against.
 ///
 /// **A glob that matches no file is a finding, as a `skip-files` row that names no file is**: it
-/// declares nothing, and silently covers whatever is created at a matching path next. A glob of
-/// `all` is matched against the files the walk reads, and one of `entries` against those and the
-/// installed markdown copies git lists, which the walk leaves out. A generated file is in neither,
+/// declares nothing, and silently covers whatever is created at a matching path next, per
+/// `design@model@citation-free-glob-matches-nothing`. A glob of `all` is matched against the files the walk reads, and one of `entries` against those and the
+/// installed markdown copies git lists, which the walk leaves out, per
+/// `design@model@citation-free-globs`. A generated file is in neither,
 /// so no glob matches it: its findings are its sources'.
 ///
 /// **An installed copy is matched as git lists it, not as the model could read it**: a copy that
