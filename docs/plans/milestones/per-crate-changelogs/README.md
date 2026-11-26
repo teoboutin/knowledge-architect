@@ -579,7 +579,7 @@ judged by slice 4 and lives in its spec, [the command](changelog-command/README.
 
 ## Implementation sequence
 
-1. [Files declared free of citations](citation-free-check/README.md): `[walk.citation-free]` with
+1. [Files declared free of citations](harvested/citation-free-check/README.md): `[walk.citation-free]` with
    its levels `all` and `entries`, applied to the 11 CRATES-IO.md files and to the installed copies;
    the root head that no work implements. Fails alone on a citation-free file's finding.
 2. [The `cargo` crate](cargo-library/README.md): the library that reads Cargo's manifest and runs
