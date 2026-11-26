@@ -34,3 +34,14 @@ refused it would declare no package for a manifest Cargo builds.
 directories, which reads files the caller already holds, as the checker holds the tree it walks,
 and makes a read of a manifest touch the file system.
 
+### A `[project]` table read as a manifest with no package `##project-table-read-as-no-package`
+
+`live`. Cargo 1.98 reports the package of a manifest whose `[project]` table names it, where the
+manifest sets no `edition`, measured in `path@cargo-reader@docs/grounding/cargo-manifest.md`; a read
+with no package there is an empty answer about a package Cargo reads, and misses a second checkout
+of the tool holding such a manifest.
+
+### A `[project]` table refused `##project-table-refused`
+
+`live`. The same measurement: Cargo reports the package of such a manifest, so a refusal is an
+error on a manifest Cargo reads, which no caller can repair in a project it does not own.

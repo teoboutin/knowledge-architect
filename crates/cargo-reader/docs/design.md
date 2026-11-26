@@ -53,12 +53,14 @@ grounding file.
 `read_manifest` reads a `[project]` table, the older name of `[package]`, as the package of a
 manifest that holds no `[package]`, and reads `[package]` where both are written, as Cargo 1.98
 reads them, measured in `path@cargo-reader@docs/grounding/cargo-manifest.md`; the item is named in
-prose, per `issue@model@a-rust-item-named-in-prose-has-no-checked-form`. Cargo builds such a
-manifest that sets no `edition`, as measured there, so a read of it as a manifest with no package would be an
-empty answer about a package Cargo builds, against `design@cargo-reader@failed-cargo-is-an-error`,
-and the checker's search for a second checkout of the same tool,
-`design@check@a-foreign-build-is-refused`, would miss one holding it. A refusal of the table loses
-for the same reason: it is an error on a manifest Cargo builds. Cargo's refusal of `[project]` under
+prose, per `issue@model@a-rust-item-named-in-prose-has-no-checked-form`. Cargo reports the package
+of such a manifest where it sets no `edition`, as measured there, so a read of it as a manifest with
+no package would be an empty answer about a package Cargo reads, against
+`design@cargo-reader@failed-cargo-is-an-error`, and the checker's search for a second checkout of
+the same tool, `design@check@a-foreign-build-is-refused`, would miss one holding it:
+`rejected@cargo-reader@project-table-read-as-no-package`. A refusal of the table loses for the
+same reason, an error on a manifest whose package Cargo reports:
+`rejected@cargo-reader@project-table-refused`. Cargo's refusal of `[project]` under
 the 2024 edition depends on a second field, `edition`, so the read takes no account of it, per
 `design@cargo-reader@a-field-is-refused-by-its-type`.
 

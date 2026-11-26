@@ -11,7 +11,8 @@ use std::fmt;
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Manifest {
     /// The `[package]` table, or the `[project]` table where the manifest holds no `[package]`, as
-    /// Cargo reads it; absent from a virtual workspace's manifest.
+    /// Cargo reads it, per `design@cargo-reader@project-table-read-as-the-package`; absent from a
+    /// virtual workspace's manifest.
     pub package: Option<Package>,
     /// The `[workspace.package]` keys, present whenever the manifest holds a `[workspace]` table,
     /// each `None` where that table does not set it. `None` for a manifest with no `[workspace]`.
@@ -120,7 +121,8 @@ pub fn read_manifest(text: &str) -> Result<Manifest, ManifestError> {
         .parse()
         .map_err(|error: toml::de::Error| ManifestError::new(error.message().to_string()))?;
     // Cargo reads the `[project]` table, the older name of `[package]`, where the manifest holds no
-    // `[package]`, as `path@cargo-reader@docs/grounding/cargo-manifest.md` records measured.
+    // `[package]`, as `path@cargo-reader@docs/grounding/cargo-manifest.md` records measured, per
+    // `design@cargo-reader@project-table-read-as-the-package`.
     let package = match table.get("package").or_else(|| table.get("project")) {
         None => None,
         Some(value) => Some(package(value)?),
