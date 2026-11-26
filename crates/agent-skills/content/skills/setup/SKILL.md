@@ -496,5 +496,8 @@ references the checker resolves, and gets a separate, short `CRATES-IO.md` as it
 named by `readme = "CRATES-IO.md"` in its `Cargo.toml`; cargo packages that file even when
 `include` does not name it. Propose this to the owner. The page says what the crate is and how to
 install or use it, and links, as absolute URLs, to the README in the repository and to docs.rs. It
-restates no contract, so the two texts cannot drift, and it holds no backticked reference: a
-reference that resolves passes `{{command}} check`, and crates.io renders it as dead code.
+restates no contract, so the two texts cannot drift, and it holds no backticked reference, which
+crates.io renders as dead code. Propose with it the declaration that has the check refuse one: a
+glob matching each page under `all` in the manifest's `[walk.citation-free]`, such as
+`all = ["crates/*/CRATES-IO.md"]`, under which every reference in the page is a finding, whether
+or not it resolves.

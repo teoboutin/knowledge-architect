@@ -157,6 +157,11 @@ project's own, is dispatched as that agent, and any other axis as a fresh genera
 subagent, per
 `skill@knowledge-architect-review`.
 
+**A finding of the level `entries` of `[walk.citation-free]` names an installed copy under .claude,
+which is never edited: its repair is in the copy's source under `path@agent-skills@content/`,
+then `cargo klarch install-agent-skills`.** The finding's message names the copy alone, as it does
+in a project that installs the text and holds no source.
+
 **Grounding in what a shipped skill, agent, saved workflow or the primer says, and why, goes
 through `cargo x skill <name>`**, whose usage is `path@xtask@README.md`: the installed copy of a
 skill, an agent or the primer holds none of the `%%` comments, which carry the reasons and the
