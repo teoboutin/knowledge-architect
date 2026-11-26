@@ -36,7 +36,7 @@ target project that uses the checker alone and declares no harness, is `issue@ch
 ### An anchor is a component or a location, and a location carries the registers it declares or the tool gives it `##anchors-are-components-and-locations`
 
 Both carry registers. Every anchor is a named directory and a path anchor under
-`design@check@every-path-names-its-anchor`, except the plan anchors the tool constructs, below,
+`design@model@every-path-names-its-anchor`, except the plan anchors the tool constructs, below,
 none of which carries the `path` kind. What separates them is what they owe. A **component**
 owes the compiled documents, every `component`-scoped register and every `opt-in` register the
 project attaches to it, with its homes under `<component>/docs/`, and the root the goals home

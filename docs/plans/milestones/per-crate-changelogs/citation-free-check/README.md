@@ -202,7 +202,7 @@ states a rule the slice narrows:
 - `design@model@section-homes-carry-slugs`: its bullet "An installed copy defines its sections and
   raises no finding", narrowed by the level `entries`.
 - `design@check@plain-word-lint`: its repair in a file at the level `all`, a rewrite in words.
-- `design@check@every-path-names-its-anchor`: its paragraph on a fenced path reference, whose
+- `design@model@every-path-names-its-anchor`: its paragraph on a fenced path reference, whose
   escape-anchor repair a file at the level `all` refuses.
 - `design@model@an-unresolved-reference-is-reported` and
   `design@model@an-unresolved-reference-is-never-dropped`: in a file at the level `all`, a span
@@ -234,7 +234,7 @@ audit, and the conforming step each owes before the harvest:
 | `setup-default-crates-io-page` | no entry test admits it, and it quotes the owner | removed from the design home, its citations re-pointed to `skill@knowledge-architect-setup@rust-project`: D3 of the milestone document |
 | `design@model@section-homes-carry-slugs` | quotes the owner, and names the owner as the source of an argument | the quotations replaced by the arguments they made, unattributed |
 | `design@check@plain-word-lint` | its census names no command that re-takes it | the re-take command added |
-| `design@check@every-path-names-its-anchor` | two decisions: its paragraph that a plan document is cited by its kind, never by its path; and its code is `model`'s alone | split: a new head, `design@check@plan-document-path-citation-refused`, after it, its citing sites re-pointed; the Component of both heads is D6 of the milestone document |
+| `design@model@every-path-names-its-anchor` | two decisions: its paragraph that a plan document is cited by its kind, never by its path; and its code is `model`'s alone | split: a new head, `design@model@plan-document-path-citation-refused`, after it, its citing sites re-pointed; the Component of both heads is D6 of the milestone document |
 | `design@model@an-unresolved-reference-is-reported` | conforms | none |
 | `design@model@an-unresolved-reference-is-never-dropped` | conforms | none |
 | `design@model@at-span-candidate-rule` | its title leaves out that a span holding whitespace or an angle bracket is no candidate | retitled, slug kept |

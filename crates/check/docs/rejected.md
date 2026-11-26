@@ -60,39 +60,6 @@ because the tree-level facts of phase 2 — a home that is not there, a refused 
 per-file scope to trace. It is the form the tripwire on the whole-report stop reopens with, which is
 why it is here.
 
-### A bare root-relative path form, with a targeted check on the collision cases `##bare-root-relative-path`
-
-`live`. It keeps prose short and costs no migration. It loses on what was counted: the required
-document set gives every component the same names, so a bare `docs/`-headed reference from inside a
-component silently names the project's file — twelve candidate sites in one component alone, nine of
-them wrong, counted by hand when the defect was recorded. A targeted check patrols the collision;
-retiring the form makes it unrepresentable, and an anchored reference is what a fixed-string grep
-can find.
-
-### Paths without the kind prefix, keeping `` `<anchor>@<path>` `` beside `` `<kind>@<anchor>@<id>` `` `##path-without-kind-prefix`
-
-`live`. It costs no migration of the path references. It loses on what it leaves in the scanner: two
-grammars, told apart by segment count, and an unsupported-shape lint that keeps its heuristic
-instead of becoming "unknown kind". Five characters at every path reference bought one tokenizer and
-one candidate rule.
-
-### The `@` prefix reused as the root-relative spelling `##at-prefix-root-relative-path`
-
-`live`. It is one character where the project's name is several. It loses on shape: the root is a
-component and already has a spelling under the one grammar, so a second one puts two shapes on one
-meaning. Its second reason, that it spends the prefix the census of the entry "Keeping the `@`
-prefix as the escape" shows is needed for the generic and escape meanings, no longer holds:
-`design@model@reserved-anchors` spells those meanings with the anchor words `elsewhere` and `*`, so
-the prefix carries none of them.
-
-### Widening the retired form's suffix set by one entry, `.rs` `##retired-form-rs-suffix`
-
-`live`. It was the repair a defect proposed: relocating thaum's nine game-driving suites moved every
-backticked Rust path across five of its knowledge documents, and the checker reported none of them,
-because no suffix in the set covered them; the sweep had to be grep-driven. It loses because the
-form that carried the set is retired: a path reference names its kind and its anchor and is
-checked whatever its suffix, so no set is left to widen and no suffix can be missing from one.
-
 ### `cargo klarch index` prints the diff it would apply, and `--write` applies it `##index-diff-with-write-flag`
 
 `live`. This is the `cargo fmt` / `cargo fmt --check` shape, and it lost to a prior-art survey

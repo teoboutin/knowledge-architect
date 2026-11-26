@@ -118,7 +118,7 @@ directory. Each milestone directory is an anchor carrying `spec` for its slices,
 `spec@<milestone>@<slice>`, naming the slice's directory, live or under `harvested/`, so a slice's
 name need only be unique inside its milestone, and two milestones may each have a slice called
 `the-harvest`. A `path` citation of a plan document, or of a file of its directory, is refused, per
-`design@check@plan-document-path-citation-refused`: with two names for one document, `show` would miss the
+`design@model@plan-document-path-citation-refused`: with two names for one document, `show` would miss the
 citations written the other way, and no plan anchor carries the `path` kind, so a `README.md`
 reaches the files beside it by relative navigation links, which the link check judges. A whole plan
 document may be cited from anywhere; when it leaves, each citation dangles, and that is the revisit
