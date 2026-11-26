@@ -285,6 +285,7 @@ mod tests {
             skip_dirs: vec![PathBuf::from("docs/past")],
             skip_files: vec![PathBuf::from("docs/rules/index.md")],
             exclude: vec![PathBuf::from("tests/projects")],
+            ..Walk::sample()
         };
         let listing: Vec<PathBuf> = [
             "README.md",

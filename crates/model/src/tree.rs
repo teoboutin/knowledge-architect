@@ -92,7 +92,7 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &TreeInputs) -> 
         }
     }
 
-    declarations(&mut out, manifest, inputs);
+    declarations(&mut out, model, manifest, inputs);
 
     let anchors = Anchors::of(manifest, inputs.present);
     for anchor in anchors.all() {
@@ -946,8 +946,74 @@ fn outside_the_walk(
     }
 }
 
+/// The globs of `[walk.citation-free]` against the files each is matched against.
+///
+/// **A glob that matches no file is a finding, as a `skip-files` row that names no file is**: it
+/// declares nothing, and silently covers whatever is created at a matching path next. A glob of
+/// `all` is matched against the files the walk reads, and one of `entries` against those and the
+/// installed copies, which the walk leaves out. A generated file is in neither, so no glob
+/// matches it: its findings are its sources'.
+///
+/// **A walked file a glob of each level matches is a finding**: the two levels admit different
+/// spans, so the declaration says two things of one file. It is read at the level `all` until the
+/// finding is repaired, and this phase stops the run meanwhile.
+fn citation_free(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest) {
+    use crate::citation_free::Level;
+    let free = manifest.citation_free();
+    let walked: Vec<&Path> = model.documents().iter().map(|d| d.rel.as_path()).collect();
+    let installed: Vec<&Path> = model.installed().iter().map(|d| d.rel.as_path()).collect();
+    for (level, glob) in free.globs() {
+        let against = match level {
+            Level::All => walked.clone(),
+            Level::Entries => walked.iter().chain(&installed).copied().collect(),
+        };
+        if against.iter().any(|rel| glob.matches(rel)) {
+            continue;
+        }
+        let (what, files) = match level {
+            Level::All => ("matches no file the walk reads", "a file the walk reads"),
+            Level::Entries => (
+                "matches no file the walk reads and no installed copy",
+                "a file the walk reads or an installed copy",
+            ),
+        };
+        out.push(Finding::in_file(
+            MANIFEST_NAME,
+            format!(
+                "`{}` in [walk.citation-free] {} {what}",
+                glob.as_str(),
+                level.key()
+            ),
+            format!(
+                "delete the glob, or correct it so it matches {files}; a glob that matches \
+                 nothing declares nothing, and silently covers whatever is created at a matching \
+                 path next. An installed copy is matched by `entries` alone"
+            ),
+        ));
+    }
+    for rel in walked {
+        let at = |level: Level| {
+            free.globs()
+                .find(|(l, g)| *l == level && g.matches(rel))
+                .map(|(_, g)| g.as_str())
+        };
+        if let (Some(all), Some(entries)) = (at(Level::All), at(Level::Entries)) {
+            out.push(Finding::in_file(
+                rel,
+                format!(
+                    "the file is matched by `{all}` in [walk.citation-free] all and by \
+                     `{entries}` in [walk.citation-free] entries"
+                ),
+                "narrow one of the two globs so that the file is declared at one level: `all` \
+                 refuses every reference, and `entries` admits what every installing project \
+                 holds",
+            ));
+        }
+    }
+}
+
 /// What the manifest declares about anchors, judged before anything is looked for on disk.
-fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs) {
+fn declarations(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inputs: &TreeInputs) {
     for (name, decl) in manifest.locations() {
         if inputs.present.contains(&decl.path) && !inputs.directories.contains(&decl.path) {
             // Presence alone is satisfied by a file, and every home under it then reads as
@@ -1004,6 +1070,8 @@ fn declarations(out: &mut Vec<Finding>, manifest: &Manifest, inputs: &TreeInputs
             ));
         }
     }
+
+    citation_free(out, model, manifest);
 
     // **A file git both tracks and ignores is a finding naming the file.** The two states
     // contradict each other and the contradiction is silent: the walk reads the file, because
@@ -1845,6 +1913,93 @@ mod plans_tests {
             .iter()
             .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
             .collect()
+    }
+
+    /// The phase-2 findings over a listing whose walked documents and installed copies are
+    /// named, each empty, under a manifest declaring `[walk.citation-free]` with `table`.
+    fn citation_free_findings(table: &str, walked: &[&str], installed: &[&str]) -> Vec<String> {
+        let text = format!(
+            "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n[walk.citation-free]\n{table}\n"
+        );
+        let manifest = Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration");
+        let mut present = all_of("");
+        present.extend(walked.iter().chain(installed).map(|p| p.to_string()));
+        let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+        let directories = crate::phases::testing::implied_directories(&present);
+        let inputs = TreeInputs {
+            present: &present,
+            directories: &directories,
+            outside: &[],
+            ignored: &HashSet::new(),
+            tracked_and_ignored: &[],
+            refused: &[],
+            links: &[],
+        };
+        let empty = |paths: &[&str]| -> Vec<(PathBuf, String)> {
+            paths
+                .iter()
+                .map(|p| (PathBuf::from(p), String::new()))
+                .collect()
+        };
+        let mut model = Model::from_documents(empty(walked));
+        model.set_installed(empty(installed));
+        check(&model, &manifest, &inputs)
+            .iter()
+            .map(|f| format!("{}  {}  → {}", f.location(), f.what, f.action))
+            .collect()
+    }
+
+    /// The claim: a glob of `[walk.citation-free]` that matches no file it is matched against is
+    /// one phase-2 finding naming it: `all` against the walked files alone, `entries` against
+    /// those and the installed copies. Mutations checked, each caught: the skip of a matching
+    /// glob made never to hold, `if false && ...`; and the installed copies left out of what
+    /// `entries` is matched against, `Level::Entries => walked.clone()`.
+    #[test]
+    fn a_citation_free_glob_that_matches_no_file_is_one_phase_two_finding() {
+        let walked = ["crates/a/CRATES-IO.md"];
+        let installed = [".claude/skills/knowledge-architect-x/SKILL.md"];
+        let found = citation_free_findings(
+            "all = [\"crates/*/CRATES-IO.md\", \".claude/skills/*/SKILL.md\"]\n\
+             entries = [\".claude/skills/knowledge-architect-*/\", \"nowhere/*.md\"]",
+            &walked,
+            &installed,
+        );
+        assert_eq!(found.len(), 2, "{found:#?}");
+        assert!(
+            found[0].contains("`.claude/skills/*/SKILL.md` in [walk.citation-free] all matches no file the walk reads"),
+            "{found:#?}"
+        );
+        assert!(
+            found[1].contains("`nowhere/*.md` in [walk.citation-free] entries matches no file the walk reads and no installed copy"),
+            "{found:#?}"
+        );
+        assert!(
+            found.iter().all(|f| f.starts_with(MANIFEST_NAME)),
+            "{found:#?}"
+        );
+    }
+
+    /// The claim: a walked file a glob of each level matches is one phase-2 finding at the file,
+    /// naming both globs; a file one level matches is none. Mutation checked, caught: the
+    /// finding's condition made to ask the level `all` twice, `(at(Level::All), at(Level::All))`.
+    #[test]
+    fn a_file_matched_at_both_levels_is_one_phase_two_finding() {
+        let found = citation_free_findings(
+            "all = [\"docs/all-*.md\", \"docs/b*.md\"]\nentries = [\"docs/both.md\", \"docs/entries-*.md\"]",
+            &["docs/both.md", "docs/entries-only.md", "docs/all-only.md"],
+            &[],
+        );
+        assert_eq!(
+            found,
+            vec![
+                "docs/both.md  the file is matched by `docs/b*.md` in [walk.citation-free] all and \
+                 by `docs/both.md` in [walk.citation-free] entries  → narrow one of the two \
+                 globs so that the file is declared at one level: `all` refuses every \
+                 reference, and `entries` admits what every installing project holds"
+                    .to_string()
+            ]
+        );
     }
 
     /// The claim: a missing plans directory, plans README or plans home is one phase-2
