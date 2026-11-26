@@ -34,8 +34,9 @@ fn shipped() -> Vec<(PathBuf, String)> {
 fn shipped_set_violations(copies: &[(PathBuf, String)]) -> Vec<String> {
     use crate::entity::{candidate, Anchors, Candidate, Entities, INSTRUCTIONS_KIND};
     let m = manifest("");
-    // The copies are read as walked documents, not as installed ones: an installed copy
-    // reports nothing in a project, and the shipped set is held to the section rule here.
+    // The copies are read as walked documents, not as installed ones: in a project an installed
+    // copy is read for no rule of the walk, its references at most for the level `entries` of
+    // `[walk.citation-free]`, and the shipped set is held to the section rule here.
     let model = crate::model::Model::from_documents(copies.to_vec());
     let anchors = Anchors::declared(&m);
     let entities = Entities::build(&model, &anchors);

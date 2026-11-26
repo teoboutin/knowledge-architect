@@ -612,7 +612,12 @@ impl Components {
     }
 }
 
-/// The manifest's `[walk]` table: which paths the walk leaves out.
+/// The manifest's `[walk]` table: which paths the walk leaves out, and, in its subtable
+/// `[walk.citation-free]`, which files are declared free of citations, which leaves nothing out.
+///
+/// A `Walk` comes from a parsed manifest alone, through [`Manifest::walk`]: the subtable is held
+/// in a field this crate keeps, so no struct literal outside it builds one. Its public fields may
+/// be read, and a pattern names them with `..`.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 pub struct Walk {

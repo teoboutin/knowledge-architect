@@ -951,17 +951,33 @@ fn outside_the_walk(
 /// **A glob that matches no file is a finding, as a `skip-files` row that names no file is**: it
 /// declares nothing, and silently covers whatever is created at a matching path next. A glob of
 /// `all` is matched against the files the walk reads, and one of `entries` against those and the
-/// installed copies, which the walk leaves out. A generated file is in neither, so no glob
-/// matches it: its findings are its sources'.
+/// installed markdown copies git lists, which the walk leaves out. A generated file is in neither,
+/// so no glob matches it: its findings are its sources'.
+///
+/// **An installed copy is matched as git lists it, not as the model could read it**: a copy that
+/// is not text, or that the working tree no longer holds, is still the file the glob names, and
+/// the comparison of the installed bytes reports what is wrong with it; a finding here would send
+/// the writer to delete a correct glob, and stop the run before that comparison. An installed file
+/// that is not markdown, a saved workflow, is read by no level, so a glob that matches only such
+/// files is a finding of its own, which says so.
 ///
 /// **A walked file a glob of each level matches is a finding**: the two levels admit different
 /// spans, so the declaration says two things of one file. It is read at the level `all` until the
 /// finding is repaired, and this phase stops the run meanwhile.
-fn citation_free(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest) {
+fn citation_free(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inputs: &TreeInputs) {
     use crate::citation_free::Level;
     let free = manifest.citation_free();
     let walked: Vec<&Path> = model.documents().iter().map(|d| d.rel.as_path()).collect();
-    let installed: Vec<&Path> = model.installed().iter().map(|d| d.rel.as_path()).collect();
+    let mut listed: Vec<&Path> = inputs
+        .present
+        .iter()
+        .filter(|rel| manifest.owned(rel) && !inputs.directories.contains(*rel))
+        .map(PathBuf::as_path)
+        .collect();
+    listed.sort();
+    let (installed, unread): (Vec<&Path>, Vec<&Path>) = listed
+        .into_iter()
+        .partition(|rel| rel.extension().is_some_and(|e| e == "md"));
     for (level, glob) in free.globs() {
         let against = match level {
             Level::All => walked.clone(),
@@ -970,11 +986,25 @@ fn citation_free(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest) {
         if against.iter().any(|rel| glob.matches(rel)) {
             continue;
         }
+        if level == Level::Entries && unread.iter().any(|rel| glob.matches(rel)) {
+            out.push(Finding::in_file(
+                MANIFEST_NAME,
+                format!(
+                    "`{}` in [walk.citation-free] entries matches only installed files that are \
+                     not markdown, which no level reads",
+                    glob.as_str()
+                ),
+                "delete the glob, or correct it so it matches a file the walk reads or an \
+                 installed markdown copy: the level reads the installed primer, skills and \
+                 agents, and no saved workflow",
+            ));
+            continue;
+        }
         let (what, files) = match level {
             Level::All => ("matches no file the walk reads", "a file the walk reads"),
             Level::Entries => (
                 "matches no file the walk reads and no installed copy",
-                "a file the walk reads or an installed copy",
+                "a file the walk reads or an installed markdown copy",
             ),
         };
         out.push(Finding::in_file(
@@ -1071,7 +1101,7 @@ fn declarations(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inpu
         }
     }
 
-    citation_free(out, model, manifest);
+    citation_free(out, model, manifest, inputs);
 
     // **A file git both tracks and ignores is a finding naming the file.** The two states
     // contradict each other and the contradiction is silent: the walk reads the file, because
@@ -1918,13 +1948,30 @@ mod plans_tests {
     /// The phase-2 findings over a listing whose walked documents and installed copies are
     /// named, each empty, under a manifest declaring `[walk.citation-free]` with `table`.
     fn citation_free_findings(table: &str, walked: &[&str], installed: &[&str]) -> Vec<String> {
+        citation_free_over(table, walked, installed, &[])
+    }
+
+    /// The same, the listing also holding `listed`, files git lists that the model holds no
+    /// document of, as an installed copy that is not text or that the working tree lacks.
+    fn citation_free_over(
+        table: &str,
+        walked: &[&str],
+        installed: &[&str],
+        listed: &[&str],
+    ) -> Vec<String> {
         let text = format!(
             "[project]\nchecker-version = \"fixture\"\nname = \"a-project\"\ncomponents = []\n\n\
              [walk]\nskip-dirs = []\nskip-files = []\n\n[walk.citation-free]\n{table}\n"
         );
         let manifest = Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration");
         let mut present = all_of("");
-        present.extend(walked.iter().chain(installed).map(|p| p.to_string()));
+        present.extend(
+            walked
+                .iter()
+                .chain(installed)
+                .chain(listed)
+                .map(|p| p.to_string()),
+        );
         let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
         let directories = crate::phases::testing::implied_directories(&present);
         let inputs = TreeInputs {
@@ -1977,6 +2024,37 @@ mod plans_tests {
         assert!(
             found.iter().all(|f| f.starts_with(MANIFEST_NAME)),
             "{found:#?}"
+        );
+    }
+
+    /// The claim: a glob of `entries` is matched against the installed copies git lists, so one
+    /// that names a copy the model could not read, as one that is not text or that the working
+    /// tree lacks, is no finding here; and one that matches only installed files that are not
+    /// markdown, the saved workflows, is a finding that says no level reads them. Mutations
+    /// checked, each caught: the installed copies taken from `model.installed()` again, so the
+    /// unread copy's glob matches nothing; and the arm of the files that are not markdown
+    /// removed, so the workflows' glob is said to match no installed copy.
+    #[test]
+    fn an_entries_glob_is_matched_against_the_installed_copies_git_lists() {
+        let found = citation_free_over(
+            "entries = [\".claude/knowledge-architect/PRIMER.md\", \
+             \".claude/workflows/knowledge-architect-*.js\"]",
+            &[],
+            &[],
+            &[
+                ".claude/knowledge-architect/PRIMER.md",
+                ".claude/workflows/knowledge-architect-x.js",
+            ],
+        );
+        assert_eq!(
+            found,
+            vec![format!(
+                "{MANIFEST_NAME}  `.claude/workflows/knowledge-architect-*.js` in \
+                 [walk.citation-free] entries matches only installed files that are not markdown, \
+                 which no level reads  → delete the glob, or correct it so it matches a file the \
+                 walk reads or an installed markdown copy: the level reads the installed primer, \
+                 skills and agents, and no saved workflow"
+            )]
         );
     }
 
