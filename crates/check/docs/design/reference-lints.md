@@ -56,8 +56,9 @@ less the punctuation that ends a sentence or a clause and the markdown that clos
 quotation around it. A token holding an angle
 bracket is a placeholder, and is silent. The finding names its repair, the token in backticks, and,
 where the token names nothing of this project, a rewrite of the sentence; in a file a glob of
-`[walk.citation-free]` matches, at either level, it names the rewrite in words alone, per
-`design@check@citation-free-paths`; `check --fix` writes
+`[walk.citation-free]` matches, it names the rewrite in words alone at the level `all`, and at the
+level `entries` where the level refuses the token's span, while a token whose span the level
+admits keeps the token in backticks, per `design@check@citation-free-paths`; `check --fix` writes
 nothing for it, as for the other lints on ids, per `design@check@id-lints-write-no-fix`.
 
 **Beside a backticked reference to an issue entry, in the same paragraph, the token is silent.** It
@@ -202,10 +203,7 @@ goal ranks: the session's ranking.
 
 Which files a project declares, at which level, by which globs, is
 `design@model@citation-free-globs`. The rule over each level is this head's, written in
-`path@check@src/check/citation_free.rs`. In a walked file the level is asked in `judge_part` of
-`path@check@src/check/references.rs` twice: before a span is resolved, by `span_finding`, and once
-after each observation over the findings it raised, by `repairs_at`. In an installed copy it is
-asked by `installed`, per `design@check@installed-copies-read-at-the-level-entries`.
+`path@check@src/check/citation_free.rs`.
 
 **At the level `all`, every span that parses as a reference is a finding, whether or not it
 resolves, and no span of the file is resolved.** Such a file faces a reader that no reference

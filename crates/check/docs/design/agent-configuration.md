@@ -70,8 +70,9 @@ resolved, since its resolution within the shipped set is the shipped-set test's,
 check that reads it is the comparison of its bytes with the shipped text,
 `design@check@installed-files-compared-by-bytes`. A glob of `all` is matched against the walked
 files alone, per `design@model@citation-free-globs`, so a copy is read at the level `entries` or
-not at all. A copy a glob matches that the checker cannot read is read by no level, and the
-comparison of its bytes reports it. Under `commits`, an earlier commit's installed copies are read at this level by the
+not at all. A copy a glob matches that the checker cannot read is read by no level; under `check`
+and `check --staged` the comparison of its bytes reports it, and under `commits`, which compares no
+installed file, per `design@check@only-check-compares-installed-files`, nothing does. Under `commits`, an earlier commit's installed copies are read at this level by the
 tip's checker where the manifest that commit holds declares the glob, per
 `design@model@installed-entities-from-the-tree`.
 

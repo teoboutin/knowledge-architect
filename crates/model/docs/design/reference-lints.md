@@ -7,8 +7,9 @@
 The scanner records every backticked span that holds an `@` and no whitespace, backtick or
 angle bracket, as written; it has no manifest, so it cannot tell a kind from an email address.
 The resolver reads the head — the text before the first `@` — and decides: a known kind is
-segmented and resolved, or, in a file at the level `all` of `[walk.citation-free]`, segmented and
-refused unresolved, per `design@check@citation-free-paths`; a declared anchor or a reserved anchor in that position is the old form
+segmented and resolved, or, in a file a glob of `[walk.citation-free]` matches, where the file's
+level refuses it, at either level, segmented and refused unresolved, per
+`design@check@citation-free-paths`; a declared anchor or a reserved anchor in that position is the old form
 and is reported with the repair "prefix the kind", a rewrite in words in a file a glob of
 `[walk.citation-free]` matches; anything else is not a reference and reports
 nothing, so an email address or a git remote in backticks is silent unless the word before its

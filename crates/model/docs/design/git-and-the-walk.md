@@ -55,8 +55,9 @@ read a snapshot instead, from git objects alone, per `design@check@staged-tree-s
 ### A glob of `[walk.citation-free]` at the level `all` is matched against the walked files, and one at the level `entries` against those and the installed copies `##citation-free-globs`
 
 The table holds two lists of globs, `all` and `entries`; what a file at each level may hold, and
-the findings on what it holds, are `design@check@citation-free-paths`, and the rules a glob is
-written in are `design@model@citation-free-glob-dialect`. A glob of `all` is matched against the
+the findings on what it holds, are `design@check@citation-free-paths`, the rules a glob is
+written in are `design@model@citation-free-glob-dialect`, and the spellings a glob refuses are
+`design@model@citation-free-glob-spelling`. A glob of `all` is matched against the
 files the walk reads, and against no installed copy: the shipped text cites the shipped skills,
 agents and primer on purpose, per `design@agent-skills@shipped-text-cites-no-entry`, so a copy at
 that level would hold findings that no edit of the project's own text removes. A glob of `entries`
@@ -64,22 +65,15 @@ is matched against the walked files and against the installed markdown copies gi
 walk leaves out, per `design@check@installed-files-outside-the-walk`, since the level `entries`
 reads the installed copies, per `design@check@installed-copies-read-at-the-level-entries`, and not
 their source, `rejected@check@citation-free-entries-over-the-source`. A copy is matched whether or
-not the checker can read it, since the comparison of its bytes,
-`design@check@installed-files-compared-by-bytes`, reports a copy it cannot read, with the repair
-that reaches it. A generated file is in
+not the checker can read it, since a glob that names a copy is no glob that matches nothing: a finding
+at the glob would send the writer to delete a correct glob. Under `check` and `check --staged`, the
+comparison of its bytes, `design@check@installed-files-compared-by-bytes`, reports a copy the
+checker cannot read, with the repair that reaches it; `commits` compares no installed file, per
+`design@check@only-check-compares-installed-files`, so under it such a copy is reported by
+nothing. A generated file is in
 neither set, so no glob matches it: its findings are its sources'. The resolved table is
 `Manifest::citation_free`, and the library's `declared` module names `CitationFree`, `Glob` and
 `Level`.
-
-**A glob is spelled the way git lists a path**, with no leading `/`, no `.` or `..` segment and no
-empty segment: a glob spelled otherwise matches nothing git lists. Such a glob is a complaint of
-the manifest's resolve, and declares nothing. A declared `[walk]` path is refused for a leading `/`
-or a `..` segment alike, per `design@model@git-supplies-the-walk`; its `.` segment and its empty
-segment are dropped when the manifest loads, where a glob's are refused: a `[walk]` path names one
-path, which the drop leaves the same, while a `*` beside an empty segment, as in `a/*//b`, leaves
-open which segment the star was meant to cover, so the writer, not the loader, spells it again. A
-`.` segment is refused with it, so a glob holds one rule for every segment it must not spell, at
-the cost of one respelling where the drop would have been safe.
 
 **A glob is checkable, as every other declaration of the walk is**, per
 `design@model@git-supplies-the-walk`. A glob of `all` that matches no walked file, and one of
@@ -115,6 +109,23 @@ classes, alternatives and escapes, and each of its spellings would be one a mani
 a later version must keep accepting, by the manifest test of
 `design@knowledge-architect@versioning-policy`. A dialect of three rules, written here, holds no
 spelling the project did not choose.
+
+### A glob of `[walk.citation-free]` holding a leading `/`, a `.`, a `..` or an empty segment is refused, where a `[walk]` path's `.` and empty segments are dropped `##citation-free-glob-spelling`
+
+A glob is compared with git's listing, which spells a path with no leading `/`, no `.` or `..`
+segment and no empty segment, so a glob spelled otherwise matches nothing git lists. Such a glob is
+a complaint of the manifest's resolve, and declares nothing, written by `Glob::parse` in
+`path@model@src/citation_free.rs`.
+
+A declared `[walk]` path is refused for a leading `/` or a `..` segment alike, per
+`design@model@git-supplies-the-walk`, the rule this one departs from for the other two. The
+nearest rival is the drop a `[walk]` path takes when the manifest loads: its `.` segment, per that
+head, and its empty segment with it, since `normalise_one` in `path@model@src/manifest.rs` reads
+the path by its components. A `[walk]` path names one path, which the drop leaves the same, while a
+`*` beside an empty segment, as in `a/*//b`, leaves open which segment the star was meant to
+cover, so the writer, not the loader, spells it again. That argument is the empty segment's. A `.`
+segment is refused with it: one rule for every segment a glob must not spell, over a respelling the
+drop would spare, which no goal ranks: the session's ranking.
 
 ### A symlink and a gitlink are read as no document, and each is a phase-2 finding naming it `##links-are-no-documents`
 
