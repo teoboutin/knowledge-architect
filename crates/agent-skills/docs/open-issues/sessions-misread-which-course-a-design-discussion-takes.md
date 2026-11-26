@@ -102,7 +102,7 @@ chooses by the size or the kind of the work.
   shape or a doubt returns the work to the loop, on the in-change path or the full path", and loop
   step 1 says "The classification after the search still decides the path". Read together they
   admit two readings, whether a search run after such a reply may still class the work bounded; the
-  session of instance 5 took the second. That file's three proposals, input to the discussion: remove the
+  session of instance 5 took the reading that it may. That file's three proposals, input to the discussion: remove the
   bounded path, the in-change and full paths covering the rest, with a spec for small changes as
   the cost to weigh (the owner reported thinking of it too); keep it and narrow it, so that a
   discussion in which a reply brought an argument, a shape or a doubt is never bounded, whatever the
