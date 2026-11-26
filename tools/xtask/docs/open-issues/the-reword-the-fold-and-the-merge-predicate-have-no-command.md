@@ -35,7 +35,7 @@ procedure they fix, so its command is this tool's, per
   skipped while it was a draft and a run in progress, so the predicate owes a wait: until no run on
   the head is in progress, then the `success` test. The procedure names no wait.
 
-`path@xtask@src/` holds the commands `gates`, `changelog`, `skill` and `mutate`, and none of these.
+`path@xtask@src/` holds the commands `gates`, `changelog`, `skill`, `mutate` and `transcript-kinds`, and none of these.
 
 Found by the whole-set review of this repository's goals on the branch that brought them to the
 goal standard, whose reviewers reported it in every layout round.
