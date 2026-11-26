@@ -230,7 +230,7 @@ so in one line rather than being omitted, so a reader can tell an empty section 
 | Implementation sequence | in a spec, its steps; in a milestone document, its slices, each linked to its spec, whose own steps it holds (`skill@knowledge-architect-planning@cutting-steps-and-slices`). Concise: what each builds and what it fails alone on, and, in a spec, each step's Claims, as a slice's entry states them |
 | Order rationale | one sentence per pair of adjacent steps or slices |
 | Defaults awaiting the owner | each default a reviewer's finding or the author's judgement produced that `primer@question-authority` gives the owner, labelled `D<n>`, with the thread it bears on, marked as ruled once the owner rules |
-| Harvest | what lands where and when. In a spec, its rows; in a milestone, each slice's row in that slice's spec, and the row of the milestone document itself in it |
+| Harvest | what lands where and when: each row names what it harvests, each thread among it, and the durable home each lands in. In a spec, its rows; in a milestone, each slice's row in that slice's spec, and the row of the milestone document itself in it |
 | Later consequences | what each later piece of work adds or replaces, so a later reader knows what was deliberately left |
 
 **A milestone's design is split across its documents from the start, by lifetime.** The milestone
