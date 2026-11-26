@@ -795,7 +795,7 @@ analysis of 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workf
   the admission standard's question, asked when a part is taken in.
 
 Default: none is taken in at this intake; the reports stay in this analysis and in history, and a part the owner takes in opens an issue in the Component that would ship it.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): none is taken in at this intake, the default. The owner: "defaults for all other items"
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): none is taken in at this intake, the default. The owner: "defaults for all other items" (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 1)
 
 ## code-rules-held: rules on code, tests and splits reported as held
 

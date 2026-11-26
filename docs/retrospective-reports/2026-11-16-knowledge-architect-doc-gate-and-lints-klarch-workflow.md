@@ -238,7 +238,7 @@ answer on judgement-free tasks, the line-joining search.
   stands.
 
 Default: the task taken in, and the issue opened in `query` from the draft.
-Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue opened in `query`. The owner: "6,7,8 should be taken in."
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue opened in `query`. The owner: "6,7,8 should be taken in." (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 7)
 
 ## transcript-anonymized-by-hand, members C2 and a standing answer
 

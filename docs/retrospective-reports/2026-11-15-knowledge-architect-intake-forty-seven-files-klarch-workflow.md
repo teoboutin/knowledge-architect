@@ -214,7 +214,7 @@ Members: 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow
 - **d. Its kind.** A defect of the text, needless at scale; its question is the recorded issue's.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Extend the issue's instance with the fact the file adds, by the text in
-  the intake's draft instances-B (not committed; its text is in the issue), item 2.
+  the intake's draft instances-B (not committed; its text is in the issue).
 
 Default: the instance's fact added to the recorded issue; no change to the text.
 Outcome: decided by the session: the fact added to `issue@agent-skills@an-intake-s-lines-per-section-go-in-the-conversation-at-any-count`. Ground: the issue holds the question and its rivals, and the undelivered file is evidence on its unmeasured premise; a change of the sentence goes through its design discussion, per `design@agent-skills@intake-outcome-authority`.
@@ -343,7 +343,7 @@ Members: 2026-11-15-knowledge-architect-intake-forty-seven-files-klarch-workflow
 - **d. Its kind.** An instance of a recorded question, whose close is the owner's take-in word.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Add the instance, by the text in
-  the intake's draft instances-B (not committed; its text is in the issue), item 3.
+  the intake's draft instances-B (not committed; its text is in the issue).
 
 Default: the instance added to the recorded issue.
 Outcome: decided by the session: an instance added to `issue@knowledge-architect@a-conflict-in-a-generated-file-is-resolved-by-hand`. Ground: the issue is the one the file means, and its question, whether the task is taken in, stays the owner's there.
@@ -398,7 +398,7 @@ tool or a procedure set up (the assembler and the ledger of review findings; the
   stay in this analysis and in history.
 
 Default: neither the intake's assembly nor the review ledger taken in at this intake; the reports stay in this analysis and in history, and a part taken in opens a `todo` issue in the Component that would ship it.
-Outcome: for the owner (a choice `goal@tasks-a-tool-does-better-are-the-tool-s` and `goal@generic-tools-and-procedures-are-shipped` reserve to the owner): the intake assembler taken in, opened as `issue@agent-skills@no-tool-assembles-an-intake-s-analyses`; the review ledger not taken in, the default. The owner: "The Intake assembler can get an issue, it looks useful and recuring." and, on the rest, "defaults for all other items"
+Outcome: for the owner (a choice `goal@tasks-a-tool-does-better-are-the-tool-s` and `goal@generic-tools-and-procedures-are-shipped` reserve to the owner): the intake assembler taken in, opened as `issue@agent-skills@no-tool-assembles-an-intake-s-analyses`; the review ledger not taken in, the default. The owner: "The Intake assembler can get an issue, it looks useful and recuring." and, on the rest, "defaults for all other items" (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 2)
 
 ## reviewer-reports-enter-context-whole: every reviewer's or agent's report enters the session's context whole
 
@@ -451,7 +451,7 @@ agent could have carried.
   run by a workflow and the reports returned whole, in one place.
 - **g. Its route.** An instance in the recorded issue.
 - **h. The proposal.** Add the instance, by the text in
-  the intake's draft instances-B (not committed; its text is in the issue), item 5. No change to the text.
+  the intake's draft instances-B (not committed; its text is in the issue). No change to the text.
 
 Default: the instance added to the recorded issue; no change to the review skill.
 Outcome: decided by the session: an instance added to `issue@agent-skills@a-review-run-by-a-workflow-keeps-no-report-in-the-transcript`; no change to the text. Ground: the proposal is the defeated rival of `design@agent-skills@reviewer-returns-its-report-whole`, which the issue's second closing shape reopens with the weight this file measures.
@@ -504,12 +504,12 @@ its standing answer on a procedure set up (repairs by area);
   occasions among them, and the design waits for the next.
 - **g. Its route.** Instances in the recorded issue; the take-in, the owner's word.
 - **h. The proposal.** Add the four instances, by the text in
-  the intake's draft instances-B (not committed; its text is in the issue), item 4, and put to the owner
+  the intake's draft instances-B (not committed; its text is in the issue), and put to the owner
   whether the procedure of appliers in worktrees combined by cherry-pick is taken in. Default: not
   taken in at this intake; its design stays the deferred issue's.
 
 Default: the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`; the procedure not taken in at this intake, its design left to that issue's trigger.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): the procedure not taken in; the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`. The owner: "item 3: what would even be factorizablein this kind of task ? I agree it is mechanical, but it is also too "variable" for a script to fully take care of it. There is quite a high chance of failure due to conflicts too."
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): the procedure not taken in; the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`. The owner: "item 3: what would even be factorizablein this kind of task ? I agree it is mechanical, but it is also too "variable" for a script to fully take care of it. There is quite a high chance of failure due to conflicts too." (the owner's numbers are those of the message that put the nine outcomes to the owner, items 1 to 9 being, in order, tools-built-in-sessions, intake-assembly-by-script, parallel-agents-combined-by-cherry-pick, workflow-item-routing-override, standing-misread-course-reentry, transcript-show-has-no-end, phrase-search-across-line-break, batch-worktrees-and-build-bounds and child-agents-outlive-parent-hand-back; this outcome was item 3)
 
 ## reviewer-reports-enter-context-whole: the re-entry point of `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`
 
