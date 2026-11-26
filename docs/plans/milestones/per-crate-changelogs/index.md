@@ -4,7 +4,7 @@
 
 | title |
 | --- |
-| [Slice 2: the `cargo` crate, which reads what the tools need of Cargo](cargo-library/README.md) |
+| [Slice 2: the `cargo-reader` crate, which reads what the tools need of Cargo](cargo-library/README.md) |
 | [Slice 3: the changelog's model, the `\[changelog\]` table and the checks, opt-in](changelog-checks/README.md) |
 | [Slice 4: `klarch changelog`, the pin move that runs it, and the pin refusal that names it](changelog-command/README.md) |
 | [Slice 5: the conversion of this repository to per-crate changelogs](repository-conversion/README.md) |

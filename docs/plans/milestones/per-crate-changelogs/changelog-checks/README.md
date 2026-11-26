@@ -10,7 +10,7 @@
     resolve. `[changelog]` becomes a built-in table, which takes the name from every extension,
     under `design@check@an-extension-claims-its-manifest-tables`;
   - the walk's gathering of the `Cargo.toml` of each Component, where `[changelog]` is declared, on
-    the working tree and in the snapshots of `--staged` and `commits`, read through `cargo`, which
+    the working tree and in the snapshots of `--staged` and `commits`, read through `cargo-reader`, which
     `model` now depends on;
   - the parse of a crate's changelog, which records its preamble, its version sections, its entries
     and its unread lines, and raises no finding;
@@ -159,7 +159,7 @@ The heads this slice's harvest touches, without reversing or rewriting them, dra
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
 design audit:
 
-- `design@knowledge-architect@model-crate`: "it depends on `git` alone" becomes `git` and `cargo`;
+- `design@knowledge-architect@model-crate`: "it depends on `git` alone" becomes `git` and `cargo-reader`;
   and it gains the member that divides the changelog's work, every parse and rendering in `model`,
   raising no finding, every finding in `check`'s last phase, as the line between phases 1 to 3 and
   the checks it holds applies.
@@ -191,7 +191,7 @@ From `thread@per-crate-changelogs@changelog-model-home` and
   `publish` as a list names the registries a package may be published to. So a package is a
   changelog crate where it sets a `version`, its own or inherited, and `publish` is absent, `true`,
   or a list naming a registry; an empty list names none, and is read as `false`, a reading of the
-  list form the reference does not state in words, recorded in the grounding file of `cargo`.
+  list form the reference does not state in words, recorded in the grounding file of `cargo-reader`.
   Reading `publish` is no discovery by filename, and it reports a new published crate with no
   changelog, which a hand list would miss.
 - `categories` is required in the table: the categories are the project's, so none is compiled in,
@@ -368,7 +368,7 @@ From `thread@per-crate-changelogs@assembled-changelog-location`,
 | what | thread | home |
 | --- | --- | --- |
 | the division of the changelog's work between `model` and `check` | `thread@per-crate-changelogs@changelog-model-home` | a member of `design@knowledge-architect@model-crate`, whose line between phases 1 to 3 and the checks it applies |
-| the opt-in, the crates read from Cargo's rule | `thread@per-crate-changelogs@changelog-model-home`, `thread@per-crate-changelogs@changelog-opt-in` | the members of the rewritten `design@model@registers-are-declared` and `design@check@nothing-of-a-project-is-compiled-in`; a head of `register@check@design` on the opt-in, by the tests of `skill@knowledge-architect-decision-recording`; the touched heads listed above; the reading of Cargo's `publish` and `version` in the grounding file of `cargo` |
+| the opt-in, the crates read from Cargo's rule | `thread@per-crate-changelogs@changelog-model-home`, `thread@per-crate-changelogs@changelog-opt-in` | the members of the rewritten `design@model@registers-are-declared` and `design@check@nothing-of-a-project-is-compiled-in`; a head of `register@check@design` on the opt-in, by the tests of `skill@knowledge-architect-decision-recording`; the touched heads listed above; the reading of Cargo's `publish` and `version` in the grounding file of `cargo-reader` |
 | the grammar and the classes compiled in, the categories declared | `thread@per-crate-changelogs@changelog-grammar-compiled-in`, `thread@per-crate-changelogs@changelog-entry-categories` | the member of `design@check@nothing-of-a-project-is-compiled-in`; a head on the grammar in `register@model@design` |
 | every finding in the last phase | `thread@per-crate-changelogs@changelog-findings-in-check` | the member of `design@knowledge-architect@model-crate` above; its rival, phase findings, in `register@knowledge-architect@rejected` if a recording test admits it, and otherwise in that head's body |
 | the bump check, the omitted versions, the `include` check | `thread@per-crate-changelogs@changelog-bump-check`, `thread@per-crate-changelogs@absent-version-section`, `thread@per-crate-changelogs@changelog-include-check` | heads of `register@check@design`; the reading of semver in a grounding file of `check` |
