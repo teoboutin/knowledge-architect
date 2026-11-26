@@ -76,7 +76,9 @@ impl Glob {
     ///
     /// A glob is compared with git's listing, which spells a path relative to the root with no
     /// leading `/`, no `.` or `..` segment and no empty segment; a glob spelled otherwise could
-    /// match nothing, or what it matched would depend on where the manifest sits.
+    /// match nothing, or what it matched would depend on where the manifest sits. A `[walk]` path
+    /// drops its `.` and empty segments where a glob refuses them, per
+    /// `design@model@citation-free-glob-spelling`.
     fn parse(text: &str) -> Result<Self, &'static str> {
         if text.is_empty() {
             return Err("is empty");

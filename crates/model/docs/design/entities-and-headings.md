@@ -198,9 +198,10 @@ directory, and the repair names the milestone whole, per
 `design@model@a-harvested-slice-is-cited-from-inside-its-milestone`;
 the anchor carries the register and does not define that id, and the reference is dangling. One
 finding for all six would send a reader to check the wrong segment of the pointer most of the time.
-In a file at the level `all` of `[walk.citation-free]` no span is resolved, so none meets these
-ways: each span that parses as a reference is that level's finding, whose repair is a rewrite in
-words, per `design@check@citation-free-paths`.
+In a file a glob of `[walk.citation-free]` matches, at either level, a span the level refuses is
+not resolved, so it meets none of these ways: it is that level's finding, whose repair is a rewrite
+in words, per `design@check@citation-free-paths`; at the level `all` the level refuses every span
+that parses as a reference.
 The third way is reached by any anchor that does not carry the register: a location that does not
 declare it, or a component naming an opt-in register, as the `spec` register only the anchor
 `plans` and the milestones carry. A kind resolved outside the table has ways of its own, each reported as the repair it
@@ -230,9 +231,10 @@ judged again.
 
 A span the candidate rule reads as a reference, in a file the walk reads, stays in the model
 whatever it resolves to, and one that resolves to nothing is a finding, whose repair is
-`design@model@an-unresolved-reference-is-reported`'s. In a file at the level `all` of
-`[walk.citation-free]`, such a span is not resolved and is a finding whatever it names, per
-`design@check@citation-free-paths`, so none is dropped there either. The scanner could require a resolvable shape
+`design@model@an-unresolved-reference-is-reported`'s. In a file a glob of
+`[walk.citation-free]` matches, at either level, a span the level refuses is not resolved and is
+the level's finding whatever it names, per `design@check@citation-free-paths`, so none is dropped
+there either. The scanner could require a resolvable shape
 and see nothing without one, which needs no finding and no migration. It would also mean every
 pointer written in an older form with an `@`, as `<anchor>@<path>`, stops being checked with
 nothing saying so; the older form with no `@`, a slug with a hash sign, is read by no check, per

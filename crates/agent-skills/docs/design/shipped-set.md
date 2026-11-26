@@ -228,7 +228,8 @@ content/ and the snippets are in the walk, so every reference they hold is check
 repository, and a reference to an entry that resolves here would dangle in every installing
 project. This repository declares its installed copies of the primer, the skills and the agents at
 the level `entries` of `[walk.citation-free]`, so `check` reports such a reference in the installed
-copy, per `design@check@citation-free-paths`, and its repair is in the source. That level admits
+copy, per `design@check@installed-copies-read-at-the-level-entries`, and its repair is in the
+source. That level admits
 every `path@*@<path>`, so whether such a path is one every conforming project holds stays the
 reviews' and the release's to judge, and so does every reference of the saved workflows, which no
 walk reads.

@@ -955,15 +955,17 @@ fn outside_the_walk(
 /// so no glob matches it: its findings are its sources'.
 ///
 /// **An installed copy is matched as git lists it, not as the model could read it**: a copy that
-/// is not text, or that the working tree no longer holds, is still the file the glob names, and
-/// the comparison of the installed bytes reports what is wrong with it; a finding here would send
-/// the writer to delete a correct glob, and stop the run before that comparison. An installed file
+/// is not text, or that the working tree no longer holds, is still the file the glob names; under
+/// `check` and `check --staged` the comparison of the installed bytes reports what is wrong with
+/// it, and `commits` compares no installed file. A finding here would send the writer to delete a
+/// correct glob, and stop the run before that comparison. An installed file
 /// that is not markdown, a saved workflow, is read by no level, so a glob that matches only such
 /// files is a finding of its own, which says so.
 ///
 /// **A walked file a glob of each level matches is a finding**: the two levels admit different
-/// spans, so the declaration says two things of one file. It is read at the level `all` until the
-/// finding is repaired, and this phase stops the run meanwhile.
+/// spans, so the declaration says two things of one file. `CitationFree::level` answers `all` for
+/// it, the stricter level, so a caller that reads the file past this finding reports every span
+/// either level reports, per `design@model@citation-free-levels-overlap`.
 fn citation_free(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inputs: &TreeInputs) {
     use crate::citation_free::Level;
     let free = manifest.citation_free();

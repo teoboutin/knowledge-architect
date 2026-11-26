@@ -191,12 +191,14 @@ pub(crate) fn repairs_at(
 /// The findings of the level `entries` over the installed copies a glob of it matches.
 ///
 /// **An installed copy is read for its backticked spans here, and for no other rule of the
-/// walk**: the walk leaves it out, per `design@check@installed-files-outside-the-walk`, so no lint
-/// reads it, a wrapped span and a reference outside backticks included, and its bytes are judged
-/// apart, by the comparison with the shipped set. A span the level admits is not resolved, since
-/// its resolution within the shipped set is the shipped set's own test. A glob of `all` is matched
-/// against the walked files alone, so a copy is read at the level `entries` or not at all, and a
-/// copy that is not text is read by nothing here: the comparison of its bytes reports it.
+/// walk**, per `design@check@installed-copies-read-at-the-level-entries`: the walk leaves it out,
+/// per `design@check@installed-files-outside-the-walk`, so no lint reads it, a wrapped span and a
+/// reference outside backticks included, and its bytes are judged apart, by the comparison with
+/// the shipped set. A span the level admits is not resolved, since its resolution within the
+/// shipped set is the shipped set's own test. A glob of `all` is matched against the walked files
+/// alone, so a copy is read at the level `entries` or not at all, and a copy that is not text is
+/// read by nothing here: under `check` and `check --staged` the comparison of its bytes reports
+/// it, and `commits` compares no installed file.
 pub(crate) fn installed(model: &Model, free: &CitationFree, anchors: &Anchors) -> Vec<Finding> {
     let mut out = Vec::new();
     for doc in model.installed() {
