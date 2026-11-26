@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-35 entries
+36 entries
 
 | kind | title |
 | --- | --- |
@@ -27,6 +27,7 @@
 | design | [No checked form cites a level-three subsection or a numbered point inside a section of a skill, an agent or the primer](no-checked-form-cites-a-point-inside-a-section.md) |
 | design | [No command applies the repair a finding on a commit message names](no-command-applies-the-repair-a-message-finding-names.md) |
 | design | [No head argues that a project can run the checker from its git pre-commit hook](no-head-argues-that-the-checker-runs-from-a-pre-commit-hook.md) |
+| design | [`references.rs` is past one read](references-rs-is-past-one-read.md) |
 | design | [No head argues that a relocation of a project's documents must cost mechanical edits alone, nor defines a relocation](the-cost-of-a-relocation-is-bounded-by-no-argued-head.md) |
 | observation | [`commits` passes a message with no blank line after its subject](a-message-with-no-blank-line-after-its-subject-passes.md) |
 | observation | [The lints on ids may cost as much as their bound of 10%](the-lints-on-ids-may-cost-as-much-as-their-bound.md) |
