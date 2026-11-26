@@ -398,7 +398,7 @@ tool or a procedure set up (the assembler and the ledger of review findings; the
   stay in this analysis and in history.
 
 Default: neither the intake's assembly nor the review ledger taken in at this intake; the reports stay in this analysis and in history, and a part taken in opens a `todo` issue in the Component that would ship it.
-Outcome: for the owner (a choice `goal@tasks-a-tool-does-better-are-the-tool-s` and `goal@generic-tools-and-procedures-are-shipped` reserve to the owner): pending
+Outcome: for the owner (a choice `goal@tasks-a-tool-does-better-are-the-tool-s` and `goal@generic-tools-and-procedures-are-shipped` reserve to the owner): the intake assembler taken in, opened as `issue@agent-skills@no-tool-assembles-an-intake-s-analyses`; the review ledger not taken in, the default. The owner: "The Intake assembler can get an issue, it looks useful and recuring." and, on the rest, "defaults for all other items"
 
 ## reviewer-reports-enter-context-whole: every reviewer's or agent's report enters the session's context whole
 

@@ -257,7 +257,7 @@ background work after reporting and had to be stopped".
   and its result reaches the main session, not the dispatcher." Adds 1 instruction, removes 0.
 
 Default: handle now, the sentence above in `primer@dispatching-work`, +1 instruction.
-Outcome: for the owner (a fact only the owner holds: what the sessions would have lacked without the instruction, which `design@agent-skills@behaviour-additions-need-real-use` asks of an addition about how an agent behaves): pending
+Outcome: for the owner (a fact only the owner holds: what the sessions would have lacked without the instruction, which `design@agent-skills@behaviour-additions-need-real-use` asks of an addition about how an agent behaves): the default: handle now, the sentence in `primer@dispatching-work`, +1 instruction. The owner: "defaults for all other items"
 
 ## workflow-script-comment-unchecked: a reference in a shipped workflow script's `%%` line is checked by nothing
 
