@@ -47,8 +47,8 @@ with `cargo x mutate`, as `skill@knowledge-architect-development` says.
    and `path@<component>@<path>` naming a declared Component are findings; `path@elsewhere@<path>`,
    a `path` and a `register` reference under the anchor `*` or `plans`, and `register@goal` are not,
    and each admitted span is still resolved, so one that dangles is reported as dangling. The cases
-   of the harness kinds, `skill@<shipped skill>`, `agent@<shipped agent>`, `primer@<slug>` and
-   `instructions@<slug>`, run in a sandbox copy that serves `claude`, as `Sandbox::serve_claude` in
+   of the harness kinds, `skill@<shipped skill>`, `agent@<shipped agent>`, `primer@<slug>`, admitted, and
+   `instructions@<slug>`, a finding, run in a sandbox copy that serves `claude`, as `Sandbox::serve_claude` in
    `path@testing@tests/binary.rs` does, since every mock project but `unsound` declares
    `harness = []`, under which those words name no kind.
 4. **The level `entries` reads an installed copy, and only where a glob matches it**: in that
@@ -196,7 +196,8 @@ From `thread@per-crate-changelogs@citation-free-paths`.
 
   | span | verdict |
   | --- | --- |
-  | `skill@<name>`, `agent@<name>`, `primer@<slug>`, `instructions@<slug>`, the harness kinds | admitted |
+  | `skill@<name>`, `agent@<name>`, `primer@<slug>`, the harness kinds every installing project holds | admitted |
+  | `instructions@<slug>` | a finding: it names a section of this project's root CLAUDE.md, which an installing project does not hold, per `design@agent-skills@shipped-text-cites-no-entry` |
   | `path@*@<path>`, `path@plans@<path>`, `register@*@<register>`, `register@plans@<register>`, `register@goal` | admitted |
   | `path@elsewhere@<path>` | admitted: it names no anchor of the project |
   | `planned@<anchor>@<path>` | a finding: the form is legal only under docs/plans/ |
