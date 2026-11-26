@@ -2,7 +2,10 @@
 //! dependency graph, and each of its packages' name, version, manifest path and `repository`.
 //!
 //! The output is read as `path@cargo-reader@docs/grounding/cargo-metadata.md` records it. This
-//! module is the one place of the published crates that runs Cargo or reads its output.
+//! module is the one place of the library code of the published crates that runs
+//! `cargo metadata` or reads its output, per
+//! `design@knowledge-architect@tools-read-cargo-through-the-crate`, which leaves out of that rule
+//! the runs of Cargo by `gates` and `mutate`.
 
 use serde::Deserialize;
 use std::collections::HashSet;
@@ -41,7 +44,8 @@ pub struct MetadataPackage {
 pub struct Graph {
     /// Every package of the graph.
     pub nodes: Vec<Node>,
-    /// The package of the directory cargo ran in, `None` in a virtual workspace.
+    /// The package of the directory cargo ran in, if `--manifest-path` is not given, and that
+    /// manifest's package where it is; `None` in a virtual workspace.
     pub root: Option<String>,
 }
 
@@ -59,14 +63,15 @@ pub struct Node {
 pub enum MetadataError {
     /// Cargo could not be started.
     Spawn {
-        /// The command line, as it was run.
+        /// The command line, as it was run: the program, the path `CARGO` names or else `cargo`,
+        /// and its arguments.
         command: String,
         /// The error of the spawn.
         error: std::io::Error,
     },
     /// Cargo ran and failed.
     Failed {
-        /// The command line, as it was run.
+        /// The command line, as it was run, named as in [`MetadataError::Spawn`].
         command: String,
         /// Its exit status.
         status: std::process::ExitStatus,
@@ -116,7 +121,8 @@ pub fn run_metadata(dir: &Path, flags: &[&str]) -> Result<Metadata, MetadataErro
     let cargo = std::env::var_os("CARGO").unwrap_or_else(|| "cargo".into());
     let mut words = vec!["metadata", "--format-version", "1"];
     words.extend_from_slice(flags);
-    let command = format!("cargo {}", words.join(" "));
+    // The program as it is run, `$CARGO` where it is set, so a failure names the Cargo that failed.
+    let command = format!("{} {}", cargo.to_string_lossy(), words.join(" "));
     let output = Command::new(cargo)
         .args(&words)
         .current_dir(dir)
@@ -151,8 +157,10 @@ struct Output {
 ///
 /// # Errors
 ///
-/// Returns [`MetadataError::Output`] when the text is no JSON, lacks a field read here, holds one
-/// of another type, or states a format version other than 1.
+/// Returns [`MetadataError::Output`] when the text is no JSON, lacks a field read here other than
+/// a package's `repository` and the output's `resolve`, holds one of another type, or states a
+/// format version other than 1. A missing `repository` or `resolve` reads as `None`, as a `null`
+/// does.
 pub fn read_metadata(json: &str) -> Result<Metadata, MetadataError> {
     let output: Output =
         serde_json::from_str(json).map_err(|error| MetadataError::Output(error.to_string()))?;
@@ -273,21 +281,76 @@ mod tests {
     }
 
     /// Claim 2, an output with no graph, as `--no-deps` prints: every package listed, and no graph.
-    /// Mutation checked: in `read_metadata`, `None => output.packages,` made `None => Vec::new(),`;
-    /// caught.
+    /// Mutations checked, each caught: in `read_metadata`, `None => output.packages,` made
+    /// `None => Vec::new(),`, and made `None => output.packages.into_iter().take(1).collect(),`.
     #[test]
     fn an_output_with_no_graph_yields_every_package_listed() {
         let json = r#"{"packages": [{"name": "a", "version": "1.0.0", "id": "a-id",
-            "manifest_path": "/w/a/Cargo.toml", "repository": null}],
+            "manifest_path": "/w/a/Cargo.toml", "repository": null},
+            {"name": "b", "version": "1.0.0", "id": "b-id",
+            "manifest_path": "/w/b/Cargo.toml", "repository": null}],
             "resolve": null, "version": 1}"#;
         let metadata = read_metadata(json).expect("the fixture is read");
         assert_eq!(metadata.graph, None);
-        assert_eq!(metadata.packages.len(), 1);
+        let names: Vec<&str> = metadata.packages.iter().map(|p| p.name.as_str()).collect();
+        assert_eq!(names, ["a", "b"]);
+    }
+
+    /// Claim 2, `resolve.root` is read: the package of the directory Cargo ran in. Mutation
+    /// checked: `#[serde(skip)]` added to `Graph::root`; caught.
+    #[test]
+    fn the_graph_s_root_is_read() {
+        let json = r#"{"packages": [{"name": "a", "version": "1.0.0", "id": "a-id",
+            "manifest_path": "/w/a/Cargo.toml", "repository": null}],
+            "resolve": {"nodes": [{"id": "a-id", "dependencies": []}], "root": "a-id"},
+            "version": 1}"#;
+        let graph = read_metadata(json)
+            .expect("the fixture is read")
+            .graph
+            .expect("the fixture has a graph");
+        assert_eq!(graph.root.as_deref(), Some("a-id"));
+    }
+
+    /// Claim 2, a key the reader reads as an `Option`, a package's `repository` or the output's
+    /// `resolve`, reads as `None` where the output omits it, rather than as an error. A regression
+    /// guard: serde's derive reads a missing `Option` field as `None`, which its first run
+    /// measured, and the `# Errors` of `read_metadata` states.
+    #[test]
+    fn a_missing_optional_key_reads_as_none() {
+        let json = r#"{"packages": [{"name": "a", "version": "1.0.0", "id": "a-id",
+            "manifest_path": "/w/a/Cargo.toml"}], "version": 1}"#;
+        let metadata = read_metadata(json).expect("the fixture is read");
+        assert_eq!(metadata.graph, None);
+        assert_eq!(metadata.packages[0].repository, None);
+    }
+
+    /// Claim 3, the caller's flags reach Cargo: with `--no-deps`, a package's metadata carries no
+    /// graph, and without it, a graph whose root is that package. Mutation checked: in
+    /// `run_metadata`, `words.extend_from_slice(flags);` made `let _ = flags;`; caught.
+    #[test]
+    fn the_caller_s_flags_reach_cargo() {
+        let dir = tempfile::TempDir::with_prefix("klarch-cargo-reader-flags-")
+            .expect("a scratch directory");
+        std::fs::create_dir(dir.path().join("src")).expect("a source directory");
+        std::fs::write(dir.path().join("src/lib.rs"), "").expect("a library");
+        std::fs::write(
+            dir.path().join("Cargo.toml"),
+            "[package]\nname = \"a-crate\"\nversion = \"0.1.0\"\nedition = \"2021\"\n",
+        )
+        .expect("a manifest");
+        let no_deps = run_metadata(dir.path(), &["--offline", "--no-deps"]).expect("cargo runs");
+        assert_eq!(no_deps.graph, None);
+        assert_eq!(no_deps.packages.len(), 1);
+        let graph = run_metadata(dir.path(), &["--offline"])
+            .expect("cargo runs")
+            .graph
+            .expect("a graph without `--no-deps`");
+        assert_eq!(graph.root.as_deref(), Some(no_deps.packages[0].id.as_str()));
     }
 
     /// Claim 2, an output this reader cannot read is an error: no JSON, a missing field, another
-    /// format version. Mutation checked: in `read_metadata`, `if output.version != 1 {` made
-    /// `if false {`; caught.
+    /// format version, above or below 1. Mutations checked, each caught: in `read_metadata`,
+    /// `if output.version != 1 {` made `if false {`, and made `if output.version > 1 {`.
     #[test]
     fn an_output_of_another_shape_is_an_error() {
         for json in [
@@ -295,6 +358,7 @@ mod tests {
             r#"{"resolve": null, "version": 1}"#,
             r#"{"packages": [{"name": "a"}], "resolve": null, "version": 1}"#,
             r#"{"packages": [], "resolve": null, "version": 2}"#,
+            r#"{"packages": [], "resolve": null, "version": 0}"#,
         ] {
             assert!(read_metadata(json).is_err(), "{json} was read");
         }

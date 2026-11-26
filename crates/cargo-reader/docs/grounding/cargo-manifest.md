@@ -30,6 +30,13 @@ source it names, or measured again with the command and manifest given.
   license-file is specified, it is always included", and "setting include will override an
   exclude". The `readme` file is not named among the files always included.
 
+- **`[project]` is read as `[package]` where the manifest holds no `[package]`**, measured:
+  `[project]` with `name = "a"` and `version = "1.0.0"` reports the package `a`; beside a
+  `[package]`, the `[package]` is the one read, and a `[project]` with no `name` is refused as
+  "missing field `package.name`". Under the 2024 edition it is refused, measured with
+  `edition = "2024"`, written or inherited: "`[project]` is not supported as of the 2024 Edition,
+  please use `[package]`".
+
 ## Inheritance from `[workspace.package]`
 
 - **A member inherits a key with `{key}.workspace = true`**: "The workspace.package table is where
@@ -38,7 +45,13 @@ source it names, or measured again with the command and manifest given.
   `version`, `publish`, `repository` and `include`; "include and exclude are relative to your
   package root". The inline form `repository = { workspace = true }` is the same TOML, measured
   inherited.
-- **`workspace = false` is refused**, measured: "`workspace` cannot be false".
+- **A table whose `workspace` is `true` inherits, whatever other key it holds**, measured with
+  `version = { workspace = true, other = 1 }` under a `[workspace.package]` setting `version`:
+  Cargo exits 0 and reports the workspace's version; `cargo check` warns "unused manifest key:
+  package.version.other". A table with no `workspace` key is refused, measured with
+  `version = { other = 1 }`: "missing field `workspace`".
+- **`workspace = false` is refused**, measured: "`workspace` cannot be false", with another key
+  beside it or not.
 - **A key inherited that `[workspace.package]` does not set is refused**, measured with
   `publish.workspace = true` under a `[workspace.package]` setting no `publish`: "error inheriting
   `publish` from workspace root manifest's `workspace.package.publish`".
