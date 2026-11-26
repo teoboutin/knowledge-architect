@@ -4,9 +4,9 @@
 
 - The command `klarch changelog <package> --from <version> [--to <version>] [--package <name>]...`:
   its declaration and dispatch in `cli`, per `design@cli@command-parsing-home`, and its logic in
-  `query`, behind a typed function, which `query` reaches through `cargo` for the registry sources
+  `query`, behind a typed function, which `query` reaches through `cargo-reader` for the registry sources
   and through `model` for the parse and the rendering.
-- `query` depending on `cargo`; its purpose widened from the project's record to the record of the
+- `query` depending on `cargo-reader`; its purpose widened from the project's record to the record of the
   project or of one of its dependencies, in the rewritten `design@knowledge-architect@query-crate`
   and in every text the milestone document's "Reversed or rewritten" lists beside it: the `query`
   row of the root CLAUDE.md's Component table, `path@query@CLAUDE.md`, `path@query@CRATES-IO.md`,
@@ -24,7 +24,7 @@
   `path@check@src/commands/mod.rs`, line 304, "read the changelog of each version from {pinned} to
   {version}", which names the command.
 - The measurement of `cargo metadata` with and without `--locked` and `--offline`, recorded in
-  a grounding file of `cargo`.
+  a grounding file of `cargo-reader`.
 - The entries of this slice in the shared changelog's `Next release` section, under its current
   grammar.
 
@@ -118,8 +118,8 @@ not cite below are restated here: `design@query@query-depends-on-no-check`,
 
 Rewritten by this slice, as the milestone document's "Reversed or rewritten" lists it with the
 texts it repairs: `design@knowledge-architect@query-crate`. Its purpose widens to the record of the
-project or of one of its dependencies; its dependency line gains `cargo`; its reasoning over the
-default criteria gains a second reason to change, a dependency's changelog read through `cargo`,
+project or of one of its dependencies; its dependency line gains `cargo-reader`; its reasoning over the
+default criteria gains a second reason to change, a dependency's changelog read through `cargo-reader`,
 argued at this slice's design audit; and the placement of `klarch changelog` in `klarch` lands in
 it, or in a root head beside it.
 
@@ -139,7 +139,7 @@ design audit:
 From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
 `thread@per-crate-changelogs@changelog-the-pin-reads`.
 
-- It runs `cargo metadata --format-version 1` in the consuming project, through `cargo`, with
+- It runs `cargo metadata --format-version 1` in the consuming project, through `cargo-reader`, with
   `--locked --offline` unless the slice's measurement shows otherwise: the discussion assumed that
   without them the run may write `Cargo.lock` or reach the network, and the slice measures it. The
   path of each package's source comes from `cargo metadata`, so the command needs no knowledge of
@@ -185,6 +185,6 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
 | the command's placement in `klarch`, with its declaration in `cli` and its logic in `query` | `thread@per-crate-changelogs@registry-changelog-command` | the root's design home: the rewritten `design@knowledge-architect@query-crate`, or a root head beside it, since the placement constrains `cli` and `query` together |
 | the command's selection over the resolved graph | `thread@per-crate-changelogs@registry-changelog-command` | a head of `register@query@design`; the rival selection in `register@query@rejected` if a recording test holds |
 | the pin move's step 2 | `thread@per-crate-changelogs@changelog-the-pin-reads` | the installed setup skill's text, and a head of `register@agent-skills@design` where the tests of `skill@knowledge-architect-decision-recording` admit one |
-| the measurement of the flags | | a grounding file of `cargo` |
+| the measurement of the flags | | a grounding file of `cargo-reader` |
 | the acceptance criterion | `thread@per-crate-changelogs@registry-changelog-command` | reported in this slice's landing commit, as `skill@knowledge-architect-planning@acceptance-criteria` says |
 | premortem cause 2 | `thread@per-crate-changelogs@registry-changelog-command` | claim 3; no tripwire |

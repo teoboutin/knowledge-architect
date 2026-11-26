@@ -2,13 +2,13 @@
 
 ## Builds
 
-- One `CHANGELOG.md` per published crate, 12 with `cargo`, each holding its crate's entries of
+- One `CHANGELOG.md` per published crate, 12 with `cargo-reader`, each holding its crate's entries of
   every version, converted from the shared changelog by the mapping table below, with the preamble
   written by hand from the expected text that slice 3's preamble finding gives.
 - The `[changelog]` declaration in knowledge-architect.toml, as slice 3's spec illustrates it, and
   the `CHANGELOG.md` of every crate added to `[walk.citation-free] all`.
 - The 13 rows of `[walk] skip-files` that list the changelogs removed, the root's and the 12
-  crates', `cargo`'s added by slice 2, with their comment.
+  crates', `cargo-reader`'s added by slice 2, with their comment.
 - The root CHANGELOG.md replaced by the assembled file, which `cargo klarch check --fix` writes once
   the shared changelog is removed from its path, since its writer refuses a file without the
   generated header.

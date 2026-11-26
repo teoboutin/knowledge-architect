@@ -152,13 +152,15 @@ approved. Moved by `argument@per-crate-changelogs@arg-17`, `argument@per-crate-c
 `argument@per-crate-changelogs@arg-35`, `argument@per-crate-changelogs@arg-53`. Its shape is in
 slice 1's spec, which writes the head. The owner agreed at R4 and confirmed at R8.
 
-### A new Component `cargo` reads what the tools need of Cargo, in lockstep `##cargo-crate`
+### A new Component `cargo-reader` reads what the tools need of Cargo, in lockstep `##cargo-crate`
 
 Proposed by the session, R4, from the code-split scout's report. Final state: argued, with its
 versioning ruled by the owner at R7: the question of per-crate versions goes to a `todo` issue at
 the top of the roadmap, to be discussed before the next release, since a new crate never argues
 versioning. Moved by `argument@per-crate-changelogs@arg-38`, `argument@per-crate-changelogs@arg-55`,
-`argument@per-crate-changelogs@arg-57`. Its shape is in slice 2's spec.
+`argument@per-crate-changelogs@arg-57`. Its shape is in slice 2's spec. Its name, `cargo-reader`,
+was the owner's choice at slice 2's design audit, after the owner found `cargo` misleading, since it
+reads as a reimplementation of Cargo.
 
 ### `klarch changelog` assembles the changelogs of a consumer's dependencies from the registry sources `##registry-changelog-command`
 
@@ -498,7 +500,7 @@ depend on it, and no cycle forms. The rival is a module of `model`. It loses bec
 gain a second reason to change, Cargo's formats, and the `cargo metadata` output would then be read
 in a second Component as well." The scout's report named the one reader there is, `declares` in
 `path@check@src/build_origin.rs`, which reads a package name from a `Cargo.toml`; slice 2 moves that
-read into `cargo`, so `cargo` is the one reader of Cargo's formats.
+read into `cargo-reader`, so `cargo-reader` is the one reader of Cargo's formats.
 
 ### The command does not fit `query` as it is defined `##arg-39`
 
@@ -625,7 +627,7 @@ R6, the session. Bears on `thread@per-crate-changelogs@released-content-check`. 
 argument defeats the comparison with the tag. A rival that compares only within the branch is
 defeated by the rewording argument alone."
 
-### Q1's default: the `cargo` crate in lockstep, the issue's trigger moved `##arg-55`
+### Q1's default: the `cargo-reader` crate in lockstep, the issue's trigger moved `##arg-55`
 
 R6, the session. Bears on `thread@per-crate-changelogs@cargo-crate`. "Default: `cargo` takes the
 workspace version like every other crate. The issue stays deferred, with its trigger moved to the

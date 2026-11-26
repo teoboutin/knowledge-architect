@@ -1,9 +1,9 @@
-# Slice 2: the `cargo` crate, which reads what the tools need of Cargo
+# Slice 2: the `cargo-reader` crate, which reads what the tools need of Cargo
 
 ## Builds
 
-- A new Component `cargo` at crates/cargo, package `knowledge-architect-cargo`, created under
-  `skill@knowledge-architect-component-creation`: its README, CLAUDE.md, CRATES-IO.md, the homes of
+- A new Component `cargo-reader` at crates/cargo-reader, package
+  `knowledge-architect-cargo-reader`, created under `skill@knowledge-architect-component-creation`: its README, CLAUDE.md, CRATES-IO.md, the homes of
   its component registers, its declaration in knowledge-architect.toml, its `include` listing
   `/CHANGELOG.md`, and its copy of the shared changelog written by `cargo x changelog`, which still
   runs until slice 5.
@@ -15,22 +15,43 @@
     `path@xtask@src/changelog.rs`, `assert_eq!(copies.len(), 11, …)`, which becomes 12;
   - the workspace's `members` and the header comment of the workspace's `Cargo.toml`, which names
     each crate;
-  - the two publish loops of `path@knowledge-architect@.github/workflows/release.yml`, in dependency order, `cargo` before
-    `check`, since this slice makes `check` depend on it, and so before `model` and `query` too, which
-    slices 3 and 4 make depend on it;
-  - the publish order `design@knowledge-architect@partial-publish-rerun` spells, which gains `cargo`
-    in the same place, as `issue@knowledge-architect@the-publish-order-is-spelled-by-hand` records
+  - the two loops over the crates of `path@knowledge-architect@.github/workflows/release.yml`, the
+    verify job's and the publish job's, the publish loop in dependency order, `cargo-reader` before
+    `check`, since this slice makes `check` depend on it, and so before `model` and `query` too,
+    which slices 3 and 4 make depend on it; and the publish step's comment, which spells that order;
+  - the publish order `design@knowledge-architect@partial-publish-rerun` spells, which gains
+    `cargo-reader` in the same place, as `issue@knowledge-architect@the-publish-order-is-spelled-by-hand` records
     of that order;
-  - the root CLAUDE.md's Component table, which gains its row.
-- Its library, behind a typed API:
+  - the root CLAUDE.md's Component table, which gains its row, and the table of the root README's
+    "Repository layout";
+  - the lists of the libraries `klarch` links, in `path@cli@src/main.rs`: `dirs`, `libraries` and
+    `packages`, since `klarch` links the new crate through `check`, so it exports a
+    `component_dir`, a `CRATE_DIR` and a `PACKAGE` as the other linked libraries do, per
+    `design@check@checker-source-literals-are-data` and `design@check@a-foreign-build-is-refused`;
+    and the `cargo clean` line that `path@testing@tests/binary.rs` asserts, which names every
+    linked package.
+- Its library, behind a typed API, in two modules, one per external format, as
+  `design@git@git-is-asked-through-one-module` keeps git's one effect in one module, and since slice
+  3 changes the first alone and slice 4 the second alone:
   - the read of a `Cargo.toml`'s text: the package name, the version with the inheritance of
     `version.workspace = true` from the workspace's manifest, `publish`, `repository` and `include`;
   - the run of `cargo metadata --format-version 1` in a given directory, with the further flags
     its caller passes, which slice 4 measures and fixes for its command, and the read of its output:
     the resolved graph, and each package's name, version, `manifest_path` and `repository`.
 - The read of a `Cargo.toml`'s package name that `declares` in `path@check@src/build_origin.rs` does
-  today, moved into `cargo`, so `check` depends on `cargo` from this slice on and `cargo` is the one
-  reader of Cargo's formats. `build_origin.rs` keeps its compiled constant, `Library.package`.
+  today, moved into `cargo-reader`, so `check` depends on `cargo-reader` from this slice on and
+  `cargo-reader` is the one reader of Cargo's formats in the code of the published crates.
+  `build_origin.rs` keeps its compiled constant, `Library.package`. The move lands in a commit of its
+  own, after the commit that creates the crate, per `design@agent-skills@move-lands-in-move-only-commits`.
+  Outside that scope, and left as they are: the tests and the maintenance tool that read Cargo for
+  their own assertions, `path@xtask@tests/checkout.rs` (`cargo metadata`), the test of
+  `path@xtask@src/changelog.rs` (`include`, removed at slice 5) and `path@testing@tests/dependency_rules.rs`
+  (the workspace's members and dependency tables), and the verify job of the release workflow, which
+  reads `cargo metadata` with `jq`.
+- Its entry in the root CHANGELOG.md's `Next release` section, `library`, minor, under New
+  features, as the entry of `knowledge-architect-git` did at its release, per
+  `design@knowledge-architect@changelog-entries`; the move of `declares`, a private function, owes
+  none.
 - The version in lockstep: `version.workspace = true`, and an exact pin wherever another crate of
   the workspace depends on it, per `design@knowledge-architect@version-lockstep`.
 - The readings of Cargo's manifest format and of `cargo metadata`'s output, in its grounding
@@ -56,7 +77,10 @@ with `cargo x mutate`.
 4. **The workspace's packages read through the library agree with this repository**: every
    crate under crates/ yields its package name, the workspace version and `publish` unset.
 5. **`check`'s detection of a foreign copy is unchanged** by the move of `declares`: its existing
-   tests in `path@check@src/build_origin.rs` pass, and fail on a mutation of the moved read.
+   tests in `path@check@src/build_origin.rs` pass, and fail on a mutation of the moved read; and a
+   candidate whose `Cargo.toml` is unreadable, is no TOML, or has no `[package] name` is no copy, a
+   test the existing ones lack, since each of their fixtures is a valid manifest, so a moved read
+   that turns those cases into an error or a match would pass them.
 6. **The copies stay current**: the xtask test passes with the count 12 and the new crate's copy,
    and the walk does not read the new crate's CHANGELOG.md.
 
@@ -71,7 +95,7 @@ crate's unit tests; no mock project is needed, since no check reads the facts ye
 - `design@knowledge-architect@version-lockstep`, `design@agent-skills@split-cost-by-publication`,
   `design@knowledge-architect@partial-publish-rerun`, `design@knowledge-architect@check-crate`.
 - `path@check@src/build_origin.rs`, whose `declares` reads a `Cargo.toml` today, and which this
-  slice makes read it through `cargo`.
+  slice makes read it through `cargo-reader`.
 - `issue@knowledge-architect@the-publish-order-is-spelled-by-hand`, which reads the same facts.
 - `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`, which this slice does
   not answer.
@@ -98,21 +122,33 @@ The heads this slice's harvest touches, without reversing or rewriting them, dra
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
 design audit:
 
-- The root CLAUDE.md's Component table, which gains the row of `cargo` (no head).
-- `design@knowledge-architect@check-crate`: its dependency line gains `cargo`.
-- `design@knowledge-architect@partial-publish-rerun`: its publish order gains `cargo`.
+- The root CLAUDE.md's Component table, which gains the row of `cargo-reader` (no head).
+- `design@knowledge-architect@check-crate`: its dependency line gains `cargo-reader`, a member its
+  argument covers, since the crate depends on nothing and no cycle forms. Its design audit found it
+  short of `skill@knowledge-architect-decision-recording@head-shape` on one point, conformed in the
+  audit's commit: it stated its six dependency edges with no reason why the many-dependencies signal
+  does not prevail.
+- `design@knowledge-architect@api-facade`: its body names the crates that carry
+  `#![warn(unreachable_pub)]`, and the new crate is one, a member its rule admits.
+- `design@knowledge-architect@partial-publish-rerun`: its publish order gains `cargo-reader`.
 - `design@knowledge-architect@model-crate` and `design@knowledge-architect@query-crate` change when
-  slices 3 and 4 make those crates depend on `cargo`, not in this slice.
+  slices 3 and 4 make those crates depend on `cargo-reader`, not in this slice.
 
 ## Decided design
 
-### A Component `cargo` reads Cargo's manifest and the output of `cargo metadata`
+### A Component `cargo-reader` reads Cargo's manifest and the output of `cargo metadata`
 
 From `thread@per-crate-changelogs@cargo-crate`, argued.
 
 - The library reads what the tools of knowledge-architect need of Cargo, as `git` wraps git for
-  them: it holds Cargo's formats, so no other Component reads one of them, once `declares` of
-  `check` moves into it.
+  them: it holds Cargo's formats, so the code of no other published crate reads one of them, once
+  `declares` of `check` moves into it. The tests and the maintenance tool that read Cargo for their
+  own assertions, listed under Builds, are outside that scope.
+- It is named `cargo-reader`, package `knowledge-architect-cargo-reader`, by what it does, per
+  `skill@knowledge-architect-component-creation@component-naming`: the owner chose the name at this
+  slice's design audit over `cargo`, which reads as Cargo itself or a reimplementation of it, and
+  over `cargo-metadata`, `cargo-manifest` and `cargo-facts`, each of which names one half of what
+  the crate reads, or names it vaguely, or, for `cargo-metadata`, names an existing crate's subject.
 - `check`, from this slice, and `model` and `query`, from slices 3 and 4, depend on it; it depends
   on no crate of the workspace, so no cycle forms.
 - It takes the workspace version, in lockstep. How the crates are versioned is
