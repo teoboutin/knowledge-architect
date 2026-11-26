@@ -78,6 +78,21 @@ exclude = [
     "crates/testing/tests",
 ]
 
+# The files declared free of citations, per `spec@per-crate-changelogs@citation-free-check`.
+#
+# `all`: each crate's crates.io page, which holds no backticked reference, per
+# `design@knowledge-architect@crates-io-page-file`. `entries`: the installed copies, the primer, each
+# installed skill and each installed agent, which cite only what every installing project holds,
+# per `design@agent-skills@shipped-text-cites-no-entry`. A finding there is repaired in the copy's
+# source under crates/agent-skills/content/, then `cargo klarch install-agent-skills`.
+[walk.citation-free]
+all = ["crates/*/CRATES-IO.md"]
+entries = [
+    ".claude/knowledge-architect/PRIMER.md",
+    ".claude/skills/knowledge-architect-*/",
+    ".claude/agents/knowledge-architect-*.md",
+]
+
 # GitHub's rebase merge gives a branch's commits new SHAs, so a message or a document of the
 # branch that cites one of them by SHA would name nothing once it merges, per
 # `design@check@branch-shas-are-refused`.
