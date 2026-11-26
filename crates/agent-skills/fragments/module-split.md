@@ -3,7 +3,7 @@
 %% guidelines and not rules, per `goal@projects-are-split-into-modular-units`, which fixes no rule of
 %% splitting. One fragment, hosted by the development skill, the code-shape reviewer and the
 %% code-split scout, per `design@agent-skills@shared-text-fragment`. Size's role rests on the
-%% measurement its head names: a read returns a file only up to a cap, and one with `allow_large`
+%% measurement its head names: a read returns a file only up to a cap on its size, and one with `allow_large`
 %% only up to what fits in the context left. A split is planned and committed as
 %% `design@agent-skills@splits-planned-before-work`, a signal the work does not need as
 %% `design@agent-skills@split-not-needed-is-an-issue` and
@@ -31,9 +31,10 @@ Each signal is weighed against the signals against a split:
   no owner.
 
 **Size has one role: a file a session cannot read whole in one pass is a signal**, since a review
-that reads it in parts judges code it has not read; a read that asks for the whole file, under the
-reader's usual size limit, and returns it cut short or refuses it shows the signal. No number of
-lines is a signal by itself.
+that reads it in parts judges code it has not read; a read that asks for every line of the file,
+under the reader's usual size limit, and is cut short by that limit or refused shows the signal. A
+read that stops at a default count of lines, as a read given no range can, does not show it. No
+number of lines is a signal by itself.
 
 **A split is a move before the work**, planned and committed as
 `skill@knowledge-architect-planning@cutting-steps-and-slices` says.
