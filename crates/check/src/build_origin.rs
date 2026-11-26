@@ -274,6 +274,38 @@ mod tests {
         }
     }
 
+    /// The claim: a candidate is a copy when its manifest declares the package name exactly, and
+    /// whatever Cargo accepts beside it, such as a `version` table whose `workspace` is `true` with
+    /// another key; a name the package's name only begins is someone else's. Mutations checked,
+    /// each caught: in `field` of `path@cargo-reader@src/manifest.rs`, the arm for a table whose
+    /// `workspace` is `true` given the guard `if inline.len() == 1`; in `declares`,
+    /// `p.name == package` made `p.name.starts_with(package)`.
+    #[test]
+    fn a_candidate_is_a_copy_when_its_manifest_declares_the_exact_name() {
+        let scratch = Scratch::new("exact-name");
+        let built = scratch.crate_at("one/tools/tool/lib", "a-tool");
+        for (tree, text) in [
+            (
+                "inheriting",
+                "[package]\nname = \"a-tool\"\nversion = { workspace = true, other = 1 }\n",
+            ),
+            ("longer", "[package]\nname = \"a-tool-fork\"\n"),
+        ] {
+            let dir = scratch.path(&format!("{tree}/tools/tool/lib"));
+            std::fs::create_dir_all(&dir).expect("a crate directory");
+            std::fs::write(dir.join("Cargo.toml"), text).expect("a crate manifest");
+        }
+        assert!(
+            foreign_copy(&scratch.path("inheriting"), &[library(built.clone())]).is_some(),
+            "a manifest Cargo accepts declares its name"
+        );
+        assert_eq!(
+            foreign_copy(&scratch.path("longer"), &[library(built)]),
+            None,
+            "a longer name is another package"
+        );
+    }
+
     #[test]
     fn a_crate_compiled_through_a_symlink_is_not_a_copy_of_itself() {
         // `cargo build --manifest-path` through a symlinked path compiles that path in.
