@@ -257,22 +257,6 @@ the standing-state review.
 **Watches until:** three commits on the main branch that add analyses of received retrospective
 workflow files, counted for both decisions from the commit that writes this line.
 
-## Guarding `design@agent-skills@test-economy`: a test of logic is called golden or integration to skip its mutation evidence `##logic-tests-relabelled`
-
-The decision rests on the premise that a writer classes a test by what it exercises, so mutation
-evidence, owed by a test of logic, is not skipped by naming the test another kind. A relabelled test
-passes every procedure, the code-shape reviewer's included where the label looks plausible.
-
-**Fires when:** an analysis of a retrospective workflow file received under `path@knowledge-architect@docs/retrospective-reports/`,
-or the review of a branch that did not write the test, reports on the main branch a test of pure
-logic classed as golden, mocked, integrated or external and carrying no recorded mutation.
-**Response:** reopen `design@agent-skills@test-economy` on how a test's kind is decided, with the
-instances.
-**Re-entry:** the intake of a retrospective workflow file, `skill@klarch-retrospective-intake`, and
-the standing-state review.
-**Watches until:** three commits on the main branch that add analyses of received retrospective
-workflow files, counted from the commit that writes this line.
-
 ## Guarding `design@agent-skills@what-shows-a-goal-met-is-design`: no installed instruction that a goal's measure used to name is removed as unneeded and then found missing `##a-measure-protected-instruction-is-removed-as-unneeded`
 
 A goal states no measure, so no goal names the act of an installed instruction any longer, and the
