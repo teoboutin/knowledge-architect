@@ -145,7 +145,7 @@ What exists today at each site the work touches:
   one crate (checks, manifest, library).
 - **The copies.** Every crate under crates/ lists `/CHANGELOG.md` in its `include`, and `cargo x
   changelog` writes the copies. Each copy and the root file is a row of `[walk] skip-files` in
-  knowledge-architect.toml, 12 rows (`sed -n '/^skip-files/,/^]/p' knowledge-architect.toml | grep -c
+  knowledge-architect.toml, 13 rows since slice 2 (`sed -n '/^skip-files/,/^]/p' knowledge-architect.toml | grep -c
   CHANGELOG.md`), per `design@knowledge-architect@the-changelog-is-outside-the-walk`: no check reads
   any of them. The list is written by hand, so a new crate's copy needs a row of its own.
 - **Citations in the changelog.** 85 lines of CHANGELOG.md hold a backticked span shaped as a
@@ -160,7 +160,7 @@ What exists today at each site the work touches:
   The refusal of a binary at another version than the pin, in the function
   `refuse_another_version_built_at` of `path@check@src/commands/mod.rs`, line 304, tells the
   reader to "read the changelog of each version from {pinned} to {version}".
-- **The crates.io pages.** Each of the 11 crates under crates/ holds a CRATES-IO.md
+- **The crates.io pages.** Each of the 12 crates under crates/ since slice 2 holds a CRATES-IO.md
   (`ls crates/*/CRATES-IO.md | wc -l`), which `design@knowledge-architect@crates-io-page-file` says
   holds no reference, and which this repository declares at the level `all` since slice 1.
 - **The installed copies.** They are outside the walk, as Names says. Their source, content/ and
@@ -171,13 +171,14 @@ What exists today at each site the work touches:
   primer, the skills and the agents, which this repository declares at that level; the reviews and
   the hand check of `skill@klarch-release`, its step "The shipped text cites no entry", judge the
   saved workflows and each `path@*@<path>` the level admits.
-- **Cargo.** One function of the checker's tools reads a Cargo file: `declares` in
-  `path@check@src/build_origin.rs`, which `foreign_copy` calls on each candidate directory, reads its
-  `Cargo.toml` with `std::fs::read_to_string`, parses it as a `toml::Table` and compares its
-  `[package] name` with the linked library's package name, a compiled constant (`Library.package`).
-  No crate runs `cargo metadata`. The walk reads `md` and `rs` files alone.
+- **Cargo.** Since slice 2, `cargo-reader` reads a `Cargo.toml` and runs and reads `cargo metadata`
+  for the tools, per `design@knowledge-architect@tools-read-cargo-through-the-crate`. Its one caller
+  is `declares` in `path@check@src/build_origin.rs`, which `foreign_copy` calls on each candidate
+  directory: it reads the `Cargo.toml` with `std::fs::read_to_string` and compares the package name
+  `read_manifest` reads with the linked library's package name, a compiled constant
+  (`Library.package`). No crate calls `run_metadata` yet. The walk reads `md` and `rs` files alone.
 - **Every crate under crates/ sets `repository.workspace = true`** (`grep -n repository
-  crates/*/Cargo.toml`, 11 files), and the workspace's `Cargo.toml` sets `repository`;
+  crates/*/Cargo.toml`, 12 files since slice 2), and the workspace's `Cargo.toml` sets `repository`;
   tools/xtask, never published, sets none. `path@cli@Cargo.toml`, the package
   `knowledge-architect`, depends on neither `knowledge-architect-gates` nor
   `knowledge-architect-mutate`.
@@ -311,7 +312,7 @@ each with its outcome. Every other verdict is in [the discussion's search](searc
 | `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` | the command is placed in `klarch` on the argument of `thread@per-crate-changelogs@registry-changelog-command`; the general rule stays that issue's question, and slice 4's commit names the argument for that issue |
 | `issue@git@a-shallow-clone-shortens-the-range-commits-judges` | the head of `thread@per-crate-changelogs@no-history-beyond-the-branch` admits asking git about the base; slice 1 |
 | `design@knowledge-architect@query-crate` | rewritten, listed in "Reversed or rewritten"; slice 4 |
-| `design@knowledge-architect@partial-publish-rerun` | the publish order it spells gains `cargo-reader` before `model`, since `check`, `model` and `query` depend on it; slice 2 |
+| `design@knowledge-architect@partial-publish-rerun` | the publish order it spells gains `cargo-reader` before each crate that depends on it: before `check` at slice 2, and before `model` and `query` at slices 3 and 4, which make them depend on it |
 | `issue@knowledge-architect@every-crate-takes-a-version-at-each-release` | its trigger met by the `cargo-reader` crate; the owner turned it into a `todo` at row 1 of the roadmap, R7, in the commit that adds this document |
 | the issue `shipped-text-citing-an-entry-is-unchecked` | scheduled by slice 1, whose `entries` level answers it on the owner's word at R7; closed by the review of this document, which moved its two other candidates to "Later consequences" and re-pointed its citations to this milestone |
 | the issues `a-mechanical-changelog-check` and `the-changelog-holds-references-no-check-reads` | scheduled by slices 3 and 5; closed by the review of this document, their instances moved into `criterion@per-crate-changelogs@shape-checked-mechanically`, and their citations re-pointed to this milestone |

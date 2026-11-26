@@ -159,6 +159,8 @@ The heads this slice's harvest touches, without reversing or rewriting them, dra
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
 design audit:
 
+- `design@knowledge-architect@partial-publish-rerun`: its publish order gains `cargo-reader` before
+  `model`, which this slice makes depend on it.
 - `design@knowledge-architect@model-crate`: "it depends on `git` alone" becomes `git` and `cargo-reader`;
   and it gains the member that divides the changelog's work, every parse and rendering in `model`,
   raising no finding, every finding in `check`'s last phase, as the line between phases 1 to 3 and

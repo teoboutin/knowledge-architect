@@ -127,6 +127,8 @@ The heads this slice's harvest touches, without reversing or rewriting them, dra
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
 design audit:
 
+- `design@knowledge-architect@partial-publish-rerun`: its publish order gains `cargo-reader` before
+  `query`, which this slice makes depend on it.
 - `design@query@a-function-takes-a-configured-manifest`: judged at the audit, since the command
   reads the changelogs of dependencies, which no manifest of the caller describes.
 - `design@agent-skills@pinned-binary-runs-inside-the-project`: judged at the audit, since the pin

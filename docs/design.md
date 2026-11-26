@@ -153,8 +153,9 @@ domain, the rules a document is held to, in `register@check@design`, which pays 
 read beside the other rules it must not contradict, apart from how a form is parsed. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `model`, `git`,
 `cargo-reader` and `agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; the
 many-dependencies signal does not prevail, since each edge is one the checks need wherever they
-sit: they judge what the model reads, ask git through its crate, read a package name through the
-crate that reads Cargo and compare the installed text, and
+sit: they judge what the model reads, ask git through its crate and compare the installed text, the
+commands it holds refuse a foreign build by a package name read through the crate that reads Cargo,
+and
 `create`, `testing` and `cli` each run them; a split of the
 checks from the commands that run them would have every new command cross the new boundary, and a
 split of the install would add a crate that depends on `model` and `agent-skills` for a side domain.
@@ -204,7 +205,7 @@ and each crate of the checker's tools depends on it, so no cycle forms; a new qu
 boundary as a function on one side and its call on the other, and a change of git itself changes
 this crate alone.
 
-### Cargo is read by a crate of its own, which the checker depends on, rather than by a module of the model `##cargo-reader-crate`
+### Cargo is read by a crate of its own, which the tools that need a fact of Cargo depend on, rather than by a module of the model `##cargo-reader-crate`
 
 `knowledge-architect-cargo-reader`, in crates/cargo-reader, reads what the tools of
 knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and the output of
@@ -212,13 +213,11 @@ knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and 
 Cargo describes, per `goal@serves-one-kind-of-project`. `check` depends on it by path and by exact
 version, per `design@knowledge-architect@version-lockstep`, for the package name that
 `design@check@a-foreign-build-is-refused` compares, and `cli` depends on it the same way, for the
-crate's directory and package name, which it compiles in. In the code of the published crates no
-other crate reads a format of Cargo's; the tests and the maintenance tool that read Cargo for their
-own assertions, and the release workflow, are outside that rule. It is one unit with one purpose,
+crate's directory and package name, which it compiles in. The other tools read Cargo through it, per
+`design@knowledge-architect@tools-read-cargo-through-the-crate`. It is one unit with one purpose,
 the direction `goal@projects-are-split-into-modular-units` gives the parts of a project. The
-nearest rival, a module of `model`, gives the model a second reason to change and puts its parsers
-into the build of every tool that needs a fact of Cargo:
-`rejected@knowledge-architect@cargo-read-in-model`.
+nearest rival, a module of `model`, gives the model a second reason to change, Cargo's formats
+beside the forms of a project's documents: `rejected@knowledge-architect@cargo-read-in-model`.
 
 Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, reading
 what the tools need of Cargo, pays because Cargo's formats then change in one crate, which the
@@ -233,6 +232,21 @@ Cargo. Of the signals of `skill@knowledge-architect-component-creation@split-sig
 on no crate of the workspace, and `check` and `cli` depend on it, so no cycle forms; a new fact a
 check or a command reads crosses its boundary as a function on one side and its call on the other,
 and a change of Cargo's formats changes this crate alone.
+
+### The library code of the published crates reads a `Cargo.toml` and the output of `cargo metadata` only through `cargo-reader` `##tools-read-cargo-through-the-crate`
+
+No published crate but `cargo-reader` parses a `Cargo.toml` or runs `cargo metadata` in its library
+code: every fact a tool needs of either is a function of
+`design@knowledge-architect@cargo-reader-crate`, so a change of either format, or of how a fact is
+read from it, changes that crate alone, and `register@cargo-reader@design` decides once what a
+failure of Cargo gives and whether a default of Cargo's is applied. The nearest rival, a crate
+keeping its own read of the fact it needs, as `check` parsed a package name with `toml::Table`,
+gives each format as many readers as there are tools, each deciding those two questions apart.
+
+The rule names these two formats alone. `gates` and `mutate` run Cargo as the commands of a
+project's gates and mutations, and `gates` reads the lines Cargo prints, which no tool needs as a
+fact of a package; a test, the maintenance tool and the release workflow may read Cargo for their
+own assertions.
 
 ### The commands that read the record and run no check are a crate of their own `##query-crate`
 
@@ -310,7 +324,7 @@ the crate that holds it, per `design@cli@command-parsing-home`; a project names 
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. A commands module in a crate that contributes a command would form a cycle with every other
 such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
-parser in them. It says nothing of which crates `check` may depend on. `cli` flattens no command of `gates`,
+parser in them. `cli` flattens no command of `gates`,
 per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
