@@ -509,7 +509,7 @@ its standing answer on a procedure set up (repairs by area);
   taken in at this intake; its design stays the deferred issue's.
 
 Default: the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`; the procedure not taken in at this intake, its design left to that issue's trigger.
-Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): pending
+Outcome: for the owner (a choice `goal@generic-tools-and-procedures-are-shipped` reserves to the owner): the procedure not taken in; the four instances added to `issue@agent-skills@how-parallel-work-is-partitioned-among-agents`. The owner: "item 3: what would even be factorizablein this kind of task ? I agree it is mechanical, but it is also too "variable" for a script to fully take care of it. There is quite a high chance of failure due to conflicts too."
 
 ## reviewer-reports-enter-context-whole: the re-entry point of `issue@agent-skills@no-head-argues-where-the-rule-against-unneeded-structure-applies`
 

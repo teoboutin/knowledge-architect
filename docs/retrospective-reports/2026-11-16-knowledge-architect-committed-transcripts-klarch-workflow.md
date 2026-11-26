@@ -330,7 +330,7 @@ answer on judgement-free tasks, the transcript cut at a message.
   as the tool's work; not taken in, it closes with that reason, and the cut by hand stays.
 
 Default: already recorded; the task taken in, the issue staying open as the tool's work.
-Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): pending
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue staying open as the tool's work. The owner: "6,7,8 should be taken in."
 
 ## transcript-anonymized-by-hand: the removal of home paths from a committed transcript is carried by hand
 

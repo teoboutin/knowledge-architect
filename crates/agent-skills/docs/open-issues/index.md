@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-85 entries
+86 entries
 
 | kind | title |
 | --- | --- |
@@ -79,6 +79,7 @@
 | todo | [No installed procedure says how a survey of prior art runs, which the owner takes in](no-installed-procedure-runs-a-survey-of-prior-art.md) |
 | todo | [No test runs the audit workflows' logic: the counts they report as exact are untested](no-test-runs-a-saved-workflow-s-logic.md) |
 | todo | [No test runs the body of the record search's workflow: its round loop, its report writer and its outputs are untested](no-test-runs-the-record-search-workflow-s-body.md) |
+| todo | [No tool assembles an intake's analyses from its drafts, which the owner takes in](no-tool-assembles-an-intake-s-analyses.md) |
 | todo | [A project cannot change one instruction of an installed skill](patching-an-installed-skill.md) |
 | todo | [Nothing checks mechanically that the shipped text cites no entry of this repository](shipped-text-citing-an-entry-is-unchecked.md) |
 | todo | [The agent-configuration skill names no place for an instruction local to one machine and never committed](the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction.md) |

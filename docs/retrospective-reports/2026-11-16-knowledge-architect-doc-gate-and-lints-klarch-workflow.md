@@ -238,7 +238,7 @@ answer on judgement-free tasks, the line-joining search.
   stands.
 
 Default: the task taken in, and the issue opened in `query` from the draft.
-Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): pending
+Outcome: for the owner (a task to take in, which `goal@tasks-a-tool-does-better-are-the-tool-s` reserves to the owner): the task taken in, the issue opened in `query`. The owner: "6,7,8 should be taken in."
 
 ## transcript-anonymized-by-hand, members C2 and a standing answer
 

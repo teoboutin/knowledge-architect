@@ -27,7 +27,8 @@ cut by hand after `show` has printed it.
 A cut by hand is a session reading the file for the end point and deleting the rest: a cut one
 message late commits words after the checkpoint, which `design@agent-skills@committed-transcript`
 leaves out, and a cut one message early loses the owner's word on the checkpoint, which no check
-reports.
+reports. The task is the tool's, per `goal@tasks-a-tool-does-better-are-the-tool-s`: the owner took
+it in at the intake of twenty files.
 
 ### What would close it
 
