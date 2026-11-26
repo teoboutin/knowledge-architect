@@ -124,8 +124,8 @@ project and of those a project declares, and keeps what it generates current. It
 of the last phase, the logic of the commands that run the checker or install the workflow behind a
 typed API, and what an extension is written against, per
 `design@check@an-extension-plugs-in-through-phased-hooks`. Why the install sits here is
-`design@knowledge-architect@install-beside-the-installed-file-check`. It depends on `model`, `git` and
-`agent-skills` by path and by exact version, per `design@knowledge-architect@version-lockstep`;
+`design@knowledge-architect@install-beside-the-installed-file-check`. It depends on `model`, `git`,
+`cargo-reader` and `agent-skills` by path and by exact version, per `design@knowledge-architect@version-lockstep`;
 `create` and `testing` depend on it, and `cli` re-exports what a consumer needs of it, per
 `design@knowledge-architect@the-binary-crate-keeps-the-package-name`. It serves
 `goal@documentation-stays-consistent`, under which conformance is established
@@ -150,10 +150,11 @@ which the model absorbs. Its own tests are the unit tests beside each check, bes
 projects' tests in `testing`, which pays because a rule changed is judged at its own check, apart
 from the run over a whole project that the mock projects judge. It takes the decisions of one
 domain, the rules a document is held to, in `register@check@design`, which pays because a rule is
-read beside the other rules it must not contradict, apart from how a form is parsed. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `model`, `git` and
-`agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; the
+read beside the other rules it must not contradict, apart from how a form is parsed. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `model`, `git`,
+`cargo-reader` and `agent-skills`, `create`, `testing` and `cli` depend on it, and no cycle forms; the
 many-dependencies signal does not prevail, since each edge is one the checks need wherever they
-sit: they judge what the model reads, ask git through its crate and compare the installed text, and
+sit: they judge what the model reads, ask git through its crate, read a package name through the
+crate that reads Cargo and compare the installed text, and
 `create`, `testing` and `cli` each run them; a split of the
 checks from the commands that run them would have every new command cross the new boundary, and a
 split of the install would add a crate that depends on `model` and `agent-skills` for a side domain.
@@ -202,6 +203,36 @@ workspace, per `design@git@the-library-brings-no-parse-of-the-model-into-a-tool-
 and each crate of the checker's tools depends on it, so no cycle forms; a new question crosses its
 boundary as a function on one side and its call on the other, and a change of git itself changes
 this crate alone.
+
+### Cargo is read by a crate of its own, which the checker depends on, rather than by a module of the model `##cargo-reader-crate`
+
+`knowledge-architect-cargo-reader`, in crates/cargo-reader, reads what the tools of
+knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and the output of
+`cargo metadata`. The tools read Cargo because the project serves Rust projects, whose packages
+Cargo describes, per `goal@serves-one-kind-of-project`. `check` depends on it by path and by exact
+version, per `design@knowledge-architect@version-lockstep`, for the package name that
+`design@check@a-foreign-build-is-refused` compares, and `cli` depends on it the same way, for the
+crate's directory and package name, which it compiles in. In the code of the published crates no
+other crate reads a format of Cargo's; the tests and the maintenance tool that read Cargo for their
+own assertions, and the release workflow, are outside that rule. It is one unit with one purpose,
+the direction `goal@projects-are-split-into-modular-units` gives the parts of a project. The
+nearest rival, a module of `model`, gives the model a second reason to change and puts its parsers
+into the build of every tool that needs a fact of Cargo:
+`rejected@knowledge-architect@cargo-read-in-model`.
+
+Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, reading
+what the tools need of Cargo, pays because Cargo's formats then change in one crate, which the
+tools call. Its interface, a typed read of a `Cargo.toml` and of `cargo metadata`'s output, changes
+on its own when Cargo's formats or the facts the tools read change, and stays as it is when a check
+or a command changes. Its own tests are its unit tests over fixture manifests and a fixture output,
+beside `path@cargo-reader@tests/this_repository.rs` over this repository's own crates, which pays
+because a read of Cargo is judged with no check built. It takes the decisions of one domain, how
+the tools read Cargo, in `register@cargo-reader@design`, which pays because what a failure of Cargo
+gives and whether a default of Cargo's is applied are decided once, not by each tool that reads
+Cargo. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends
+on no crate of the workspace, and `check` and `cli` depend on it, so no cycle forms; a new fact a
+check or a command reads crosses its boundary as a function on one side and its call on the other,
+and a change of Cargo's formats changes this crate alone.
 
 ### The commands that read the record and run no check are a crate of their own `##query-crate`
 
@@ -494,7 +525,7 @@ to gain a name, and an installed setup snippet would change with them; a migrati
 
 `check` and `cli` hold what an extension is written against. Each crate root re-exports the nouns every consumer meets, and
 role modules hold the rest, one per kind of use. Every other module is private. `model` has a facade of its own, per
-`design@model@model-facade`. `query`, `transcript` and `create` hold what no extension is written against, each crate root
+`design@model@model-facade`. `query`, `transcript`, `create`, `git` and `cargo-reader` hold what no extension is written against, each crate root
 re-exporting its typed functions, with no role module, and every module private by the same rule. `testing` holds what an extension's tests are written against, its crate root re-exporting `check`'s module `run`.
 
 - **The public surface is read in one file**, the crate's lib.rs, and the role modules beside it. It is not computed from
@@ -962,7 +993,7 @@ and the owner approved it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate before the `model` crate, that and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
+`git` crate before the `model` crate, that, `cargo-reader` and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
 `check` before `create` and `testing`, and every crate before `cli`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code
