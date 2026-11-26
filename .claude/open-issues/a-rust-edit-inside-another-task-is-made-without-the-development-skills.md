@@ -76,7 +76,8 @@ A delivery chosen may touch `design@agent-skills@no-routing-table`: a repair is 
 root mapping the project skill to the installed one, and the project's development skill stays an
 overlay.
 
-Re-entry point: the next instance, or the owner's word.
+Re-entry point: the owner's word. A further instance is added to the list above, as evidence for
+that discussion, and reopens nothing by itself.
 
 ### Why it matters
 

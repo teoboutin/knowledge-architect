@@ -38,8 +38,8 @@ The instances:
 The suspected mechanism, in one sentence: a writer who meets a finding with no form it recognises
 removes the backticks, and nothing reads text outside backticks unless it is reference-shaped.
 
-Re-entry point: a further instance, a pointer written bare that no check reads, or earlier on the
-owner's word.
+Re-entry point: the owner's word. A further instance is added to the list above, as evidence for
+that discussion, and reopens nothing by itself.
 
 The tripwire that watched for these instances left the tripwires home when it fired, per
 `skill@knowledge-architect-issue-tracking@movement-instruction`; this entry carries its instances.
