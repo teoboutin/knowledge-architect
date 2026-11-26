@@ -141,9 +141,10 @@ an empty subsection is omitted.
   placeholder. A file `entries` matches, an installed copy under .claude included, holds no
   reference to the project's own entries or anchors: it may cite a skill, an agent or a section of
   the primer, a `path` or `register` reference under `*`, `plans` or `elsewhere`, and the root's
-  goals home. A placeholder in angle brackets passes at both levels. A glob's `*` matches within one path segment, a segment
+  goals home, and no finding in it names a repair the level refuses. A placeholder in angle brackets passes at both levels. A glob's `*` matches within one path segment, a segment
   `**` any number of segments, and a trailing `/` every file under a directory; a glob that matches
-  no file, and a file both levels match, are findings. A manifest that declares no such table is
+  no file, a glob of `entries` that matches only installed files other than markdown, which no
+  level reads, and a file both levels match, are findings. A manifest that declares no such table is
   checked as before.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
