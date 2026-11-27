@@ -750,11 +750,15 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
 - **D13**, on `thread@per-crate-changelogs@changelog-opt-in`, raised by the review before the merge
   of slice 3. `design@model@changelog-crates-are-listed-or-published` argues that a list written by
   hand beside the `Cargo.toml` files drifts, yet keeps the hand list `[changelog] components` as its
-  first branch, and no premise in the record argues for it: the owner proposed "declared in
-  manifest or detected from the publish key" at R2 with no reason given. Default: the key is kept as
+  first branch, and no premise in the record argues for it: the owner proposed at R2 that the
+  changelog crates be declared in the manifest or detected from `publish`, with no reason given. Default: the key is kept as
   built, and the owner's premise for it, such as a published crate that has no changelog on
   purpose, is recorded in the head once given. Rival: the key is dropped, and the changelog crates
   are those Cargo would publish alone.
+  **Ruled**, after the review before the merge of slice 3: the default kept, on the owner's word,
+  with the owner's report as its premise, recorded in the head: a project may want a checked
+  changelog for a crate it does not publish, and a duplicated list drifts rarely, since a Component
+  is created rarely and a review sees it.
 - **D14**, on `thread@per-crate-changelogs@changelog-bump-check`, raised by the review before the
   merge of slice 3. `design@check@changelog-bump-check` takes `y` for a minor release under
   `0.y.z` in every project, on this repository's `design@knowledge-architect@versioning-policy`,
@@ -763,6 +767,9 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   finding, which strains `goal@every-target-project-can-adopt-it`. Default: `y`, as built. Rivals:
   a minor release under `0.y.z` admits both `0.y.(z+1)` and `0.(y+1).0`; or the reading is a key of
   `[changelog]`.
+  **Ruled**, after the review before the merge of slice 3: the default kept, on the owner's word; the
+  owner reported having taken `y` as the usual practice, and the question whether to follow the
+  book's reading is `issue@knowledge-architect@a-minor-change-under-zero-x-may-take-the-patch-number`.
 
 ## Harvest
 

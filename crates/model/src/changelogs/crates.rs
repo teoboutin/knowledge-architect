@@ -417,8 +417,8 @@ mod tests {
     /// where Cargo would publish it, its `version` its own or inherited, and an empty `publish`
     /// list, a `publish = false` and a missing `version` make none. Mutations checked, each caught:
     /// in `published`, `Field::Set(Publish::Registries(names)) => !names.is_empty(),` made
-    /// `Field::Set(Publish::Registries(_)) => true,`; `Field::Absent | Field::Set(Publish::Flag(true)) => true,`
-    /// made `Field::Set(Publish::Flag(true)) => true,`; and the test of the `version`,
+    /// `Field::Set(Publish::Registries(_)) => true,`;
+    /// `Field::Absent | Field::Set(Publish::Flag(true)) => true,` made `Field::Set(Publish::Flag(true)) => true,`; and the test of the `version`,
     /// `matches!(package.version, Field::Set(_))`, made `true`.
     #[test]
     fn a_component_is_a_changelog_crate_where_cargo_would_publish_it() {
