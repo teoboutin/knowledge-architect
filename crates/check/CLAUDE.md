@@ -2,7 +2,8 @@
 
 **Nothing about a project is compiled into the tool**, per
 `design@check@nothing-of-a-project-is-compiled-in`. Every list a check reads comes from the
-project's `knowledge-architect.toml`, which is both the manifest and the marker that makes a
+project's `knowledge-architect.toml`, or, for the changelog crates, from the `Cargo.toml` of each
+Component it declares; the manifest is both the manifest and the marker that makes a
 directory a project root. So one binary checks any project and a copy of a mock project with no special case anywhere. A path that should not be checked
 says so there, in one place, with a reason beside it. What is compiled in is the directory of each
 Component a binary's libraries belong to — `knowledge_architect_check::component_dir` for `check`,

@@ -16,9 +16,10 @@
     file from the disk, and a snapshot's model takes them from its blobs, which `read_tree` of
     `path@check@src/commands/history.rs` already reads for every file no walk row keeps out, so
     `read_tree`'s gathering does not change.
-    A package that inherits a field reads the workspace's `[workspace.package]` from the nearest
-    `Cargo.toml` at or above the Component's directory, within the project, that holds a
-    `[workspace]` table, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`. A
+    A package that inherits a field reads the workspace's `[workspace.package]` from the workspace
+    Cargo uses for it: the `Cargo.toml` its `package.workspace` names, or else the nearest one at or
+    above the Component's directory, within the project, whose `[workspace]` has the package as a
+    member, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`. A
     `Cargo.toml` that `cargo-reader` refuses is a finding of the last phase carrying its reason, never
     a failure of the model's build, so a parent tree's assembly does not fail on it;
   - the parse of a crate's changelog, which records its preamble, its version sections, its entries
@@ -27,8 +28,8 @@
     command of slice 4 also calls, in a module of its own, not in `path@model@src/index.rs`, whose
     reference is the register indexes' heads;
   - the assembled file among the generated paths, `generated_paths` of `path@model@src/index.rs`,
-    written by `cargo klarch index` and `cargo klarch check --fix`, each refusing under the same
-    conditions.
+    written by `cargo klarch index`, `cargo klarch index --staged` and `cargo klarch check --fix`,
+    each refusing under the same conditions.
 - In `check`, checks of the last phase: every finding below. The bump check, which reads Cargo's
   semver, and the `include` check, which reads Cargo's `include` patterns, are each a module of
   its own, since each brings an external reference.
@@ -96,8 +97,8 @@ with `cargo x mutate`.
 ## Fixtures
 
 The `[changelog]` table declared in `planted`, the one mock project where a phase-4 defect is
-planted, per `path@testing@CLAUDE.md`, which says the mock projects declare no table `check` does
-not own; `[changelog]` is a built-in table, so `planted` may declare it. Three of its Components
+planted, per `path@testing@CLAUDE.md`, which says the mock projects declare no table but the
+built-in ones; `[changelog]` is a built-in table, so `planted` may declare it. Three of its Components
 hold a `Cargo.toml` and a `CHANGELOG.md`: one with `publish = false`, two published, one of which
 restricts nothing and one of which carries the restricted category. Mock projects hold no
 `Cargo.toml` today: the addition this slice makes is that file in a mock Component's directory,
@@ -159,8 +160,8 @@ What this slice alone changes, beside what the milestone document's "What the wo
   refusals over the assembled path and over an unread line are computed by a function of `model`
   over the parsed changelogs and the generated texts `Inputs` already holds, `committed` and
   `generated_unreadable`, so the change to the runs part is one call and an error that carries its
-  own repair. It adds no part, and the milestone document keeps the split for slice 4, so the
-  issue stays open.
+  own repair. It adds no part, and slice 4's spec weighs the split again, so the issue stays
+  open.
 - **`issue@model@manifest-rs-is-past-one-read`, weighed.** The scout reports no new signal: the
   table's resolve goes in a module of its own; `path@model@src/manifest.rs` gains a field of
   `Declared`, one call in `Manifest::parse` after `resolve_components`, since `components` and
@@ -186,12 +187,12 @@ texts each repairs:
   premise, that a generated path cannot be asserted to exist, since a fresh clone may have none,
   holds for it too. The generated-files check reports it missing with its own finding, "the
   generated file is missing" (`MISSING` in `path@check@src/check/generated.rs`), or out of date.
-- `design@model@registers-are-declared` and `design@check@nothing-of-a-project-is-compiled-in`:
-  the set of changelog crates is declared in the manifest by `[changelog]`, opt-in, as "the
-  published crates", whose list each `Cargo.toml` already declares; a second list by hand drifts,
-  and the drift it would hide, a new published crate with no changelog, is what the check exists to
-  report. The second head also gains its sixth compiled-in member, the changelog's grammar and
-  classes.
+- `design@check@nothing-of-a-project-is-compiled-in`: the set of changelog crates is declared in
+  the manifest by `[changelog]`, opt-in, as "the published crates", whose list each `Cargo.toml`
+  already declares; a second list by hand drifts, and the drift it would hide, a new published
+  crate with no changelog, is what the check exists to report. The head also gains its sixth
+  compiled-in member, the changelog's grammar and classes. `design@model@registers-are-declared`
+  takes no member, since the changelog crates are no register, as the harvest found.
 
 The heads this slice's harvest touches, without reversing or rewriting them, drawn from the search
 the milestone document's "What is already decided" names; the audit of each is owed at this slice's
@@ -339,8 +340,9 @@ From `thread@per-crate-changelogs@changelog-bump-check` and
   may skip a version.
 - Otherwise, each crate's file is judged alone, the same way.
 - Following by a class: at 1.0 and above, major bumps the first number, minor the second, patch the
-  third, each resetting those after it; under 0.x, major and minor both bump the second number and
-  patch the third, as Cargo treats them.
+  third, each resetting those after it; under `0.y.z` with `y` at 1 or more, major and minor both
+  bump `y`, a major release may also give `1.0.0`, and patch bumps `z`; under `0.0.z`, every class
+  bumps `z`, a major release may also give `0.1.0` or `1.0.0`; as Cargo treats them.
 - A version `unclassed` lists, and the oldest version, are not judged; `Next release` carries no
   version and is not judged.
 - No history is read, per `thread@per-crate-changelogs@no-history-beyond-the-branch`.
@@ -349,8 +351,8 @@ From `thread@per-crate-changelogs@changelog-bump-check` and
 ### A crate that sets `include` lists its changelog
 
 From `thread@per-crate-changelogs@changelog-include-check`. A changelog crate whose `Cargo.toml`
-sets `include`, with no pattern matching its `CHANGELOG.md` as Cargo reads the pattern, is a
-finding. It replaces the assertion of the test in `path@xtask@src/changelog.rs`, which slice 5
+sets `include`, or `exclude` with no `include`, under which Cargo would not package its
+`CHANGELOG.md`, as Cargo reads the patterns and with the files it always packages, is a finding. It replaces the assertion of the test in `path@xtask@src/changelog.rs`, which slice 5
 removes. Argument: `argument@per-crate-changelogs@arg-40`.
 
 ### The preamble is the checker's
@@ -397,26 +399,30 @@ From `thread@per-crate-changelogs@assembled-changelog-location`,
 - **Where**: at the path `assembled` names, `CHANGELOG.md` at the root where the key is absent,
   spelled as git lists it and read by `normalise_one` of `path@model@src/manifest.rs`, as a `[walk]`
   row is, per `design@model@git-supplies-the-walk`.
-  With one changelog crate, nothing is assembled, whatever the key.
+  The path is no other generated path, no path of the installer's namespace, not empty and not
+  `.`, which the model refuses, and not a crate's own changelog, a finding.
+  With one changelog crate, nothing is assembled, whatever the key, and a file at the path that
+  opens with the generated header is a finding whose repair is its deletion.
 - **Layout**: a generated header, as an `index.md` opens with one; then each version, `Next
   release` first, as `## <version>`; under it each category in its declared order, as `###
   <category>`; under it each changelog crate in the manifest's order of the Components, as `####
   <package name>`, the published name with its prefix; under it the crate's entries of that category,
   each `- <class>: <text>`, in the order of the crate's file. A version `unclassed` lists has no
   category level: `#### <package name>`, then `- <text>`. An empty level is omitted.
-- **Written**: by `cargo klarch index` and `cargo klarch check --fix`, from the parsed changelogs;
+- **Written**: by `cargo klarch index`, `cargo klarch index --staged` and
+  `cargo klarch check --fix`, from the parsed changelogs;
   checked current by the check; outside the walk by construction, as an `index.md` is; listed in
   `generated_paths`. A missing assembled file is reported by the generated-files check with its own
   finding, "the generated file is missing", as a missing `index.md` is, and a stale one as out of
   date; `tree` does not assert that the declared path exists, per the rewritten
   `design@model@git-supplies-the-walk` above. Each finding names the repair the register indexes'
   name for the tree judged, `index_action` of `path@check@src/check/generated.rs`.
-- **Refusals**: `cargo klarch check --fix` and `cargo klarch index` each refuse to write over a file
-  at the path that lacks the generated header,
-  per `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`, and refuses to
+- **Refusals**: `cargo klarch check --fix`, `cargo klarch index` and `cargo klarch index --staged`
+  each refuse to write over a file at the path that lacks the generated header,
+  per `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`, and refuse to
   write while any changelog holds an unread line, or an entry whose category the manifest does not
-  declare for its crate, per `design@check@fix-before-the-checks`: the assembled file would omit
-  either. Each refusal names its repair. `cargo klarch index --staged` applies both to the staged
+  declare for its crate, or while a changelog crate's `CHANGELOG.md` or `Cargo.toml` cannot be read,
+  per `design@check@fix-before-the-checks`: the assembled file would omit each. Each refusal names its repair. `cargo klarch index --staged` applies both to the staged
   tree, its file at the path read from the staged blob. Both are computed in `model` from the
   parsed changelogs and the generated texts the gathering already reads, so the three writers
   refuse by one function.
@@ -453,9 +459,9 @@ From `thread@per-crate-changelogs@assembled-changelog-location`,
 | what | thread | home |
 | --- | --- | --- |
 | the division of the changelog's work between `model` and `check` | `thread@per-crate-changelogs@changelog-model-home` | a member of `design@knowledge-architect@model-crate`, whose line between phases 1 to 3 and the checks it applies |
-| the opt-in, the crates read from Cargo's rule | `thread@per-crate-changelogs@changelog-model-home`, `thread@per-crate-changelogs@changelog-opt-in` | the members of the rewritten `design@model@registers-are-declared` and `design@check@nothing-of-a-project-is-compiled-in`; a head of `register@check@design` on the opt-in, by the tests of `skill@knowledge-architect-decision-recording`; the touched heads listed above; the reading of Cargo's `publish` and `version` in the grounding file of `cargo-reader` |
+| the opt-in, the crates read from Cargo's rule | `thread@per-crate-changelogs@changelog-model-home`, `thread@per-crate-changelogs@changelog-opt-in` | the member of the rewritten `design@check@nothing-of-a-project-is-compiled-in`, `design@model@registers-are-declared` taking none since the changelog crates are no register; a head of `register@check@design` on the opt-in, by the tests of `skill@knowledge-architect-decision-recording`; the touched heads listed above; the reading of Cargo's `publish` and `version` in the grounding file of `cargo-reader` |
 | the grammar and the classes compiled in, the categories declared | `thread@per-crate-changelogs@changelog-grammar-compiled-in`, `thread@per-crate-changelogs@changelog-entry-categories` | the member of `design@check@nothing-of-a-project-is-compiled-in`; a head on the grammar in `register@model@design` |
 | every finding in the last phase | `thread@per-crate-changelogs@changelog-findings-in-check` | the member of `design@knowledge-architect@model-crate` above; its rival, phase findings, in `register@knowledge-architect@rejected` if a recording test admits it, and otherwise in that head's body |
-| the bump check, the omitted versions, the `include` check | `thread@per-crate-changelogs@changelog-bump-check`, `thread@per-crate-changelogs@absent-version-section`, `thread@per-crate-changelogs@changelog-include-check` | heads of `register@check@design`; the reading of semver in a grounding file of `check` |
+| the bump check, the omitted versions, the `include` check | `thread@per-crate-changelogs@changelog-bump-check`, `thread@per-crate-changelogs@absent-version-section`, `thread@per-crate-changelogs@changelog-include-check` | heads of `register@check@design`, but the omitted versions', a rule of the grammar, in `register@model@design` beside the grammar's head; the reading of semver in a grounding file of `check` |
 | the preamble, a finding with no fix | `thread@per-crate-changelogs@category-order-in-preamble` | a head of `register@check@design` |
 | the assembled file | `thread@per-crate-changelogs@assembled-changelog-location`, `thread@per-crate-changelogs@assembled-changelog-layout`, `thread@per-crate-changelogs@assembled-file-not-overwritten` | heads of `register@model@design`, the member of the rewritten `design@model@git-supplies-the-walk`, the members of `design@model@one-list-of-generated-files` and `design@check@fix-before-the-checks`; the rival layouts in `register@model@rejected` if a recording test holds |

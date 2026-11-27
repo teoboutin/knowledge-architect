@@ -66,6 +66,6 @@ directory is there. **An extension's generated files are read the same way**: th
 names their paths before the walk and renders their bytes when prepared, and the writer and the
 gate both take them from those two calls, per
 `design@check@an-extension-plugs-in-through-phased-hooks`. **So is the assembled changelog**, where
-two changelog crates or more are read, per `design@model@assembled-changelog-location`: its bytes
+two changelog crates or more are read, per `design@model@assembled-changelog-from-two-crates`: its bytes
 are rendered from the parsed changelogs, and its path is named before the walk, per
 `design@model@changelog-crates-read-before-the-walk`.

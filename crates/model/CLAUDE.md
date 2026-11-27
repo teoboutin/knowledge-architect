@@ -18,10 +18,13 @@ read them whole before changing how this crate asks git.
 
 **A new finding about what the model could not read — a home, a file, a declaration — goes in
 `Manifest::parse`, `tree` or `Entities::build`, never in a module of the last phase, or nothing gates
-it.** A changelog's line or a changelog crate's `Cargo.toml` the model could not read is the
-exception: nothing else in the model depends on it, so it is recorded for the last phase, per
-`design@knowledge-architect@model-crate`. A new check whose findings another check would read goes before its consumers, in `foundation`,
-and stops the run when it finds anything, per `design@check@phases-gate-the-report`.
+it.** What the model could not read of a changelog crate is the exception: a line of its
+changelog, its `CHANGELOG.md` missing or kept out by a `[walk]` row, and its `Cargo.toml` kept out,
+refused by `cargo-reader` or unusable. No finding of phases 1 to 3 depends on them, so each is
+recorded for the last phase, per `design@knowledge-architect@model-crate`; which of them stops the
+writers of the assembled changelog is `design@model@assembled-file-not-overwritten`. A new check
+whose findings another check would read goes before its consumers, in `foundation`, and stops the
+run when it finds anything, per `design@check@phases-gate-the-report`.
 
 **A test over a mock project is `testing`'s**, through this crate's facade, per
 `design@knowledge-architect@testing-crate`. What each mock is for is `path@testing@CLAUDE.md`.
