@@ -67,6 +67,15 @@ proposes that the design skill's round state the outcome of the act verdicts, an
 or the commit carry the light ones, which narrows `design@agent-skills@session-acts-on-the-verdicts`;
 another candidate is the lead below, an agent given the light lines with the work's diff.
 
+A fourth instance, the design audit of slice 2 of `milestone@plans@per-crate-changelogs`: its search
+gave `issue@model@a-rust-item-named-in-prose-has-no-checked-form` the verdict `touches, respect`,
+with the reason that the harvest's heads name the new crate's functions in prose and so cite it. The
+session read the act verdicts and the light lines' actions, not their reasons, and the two heads of
+`register@cargo-reader@design` the work wrote named five Rust items without the citation; the
+design-conformance reviewer of the review before the merge found it, and a repair of that review
+added the citations. It is the same verdict the first instance quotes, on another entry of the same
+kind, a head that names an item of the library.
+
 ### Why it matters
 
 A demand left unanswered is found after the work is built, where it costs rework, or is not found. It
