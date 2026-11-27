@@ -6,6 +6,12 @@
   its declaration and dispatch in `cli`, per `design@cli@command-parsing-home`, and its logic in
   `query`, behind a typed function, which `query` reaches through `cargo-reader` for the registry sources
   and through `model` for the parse and the rendering.
+- In `model`, beside `expected_preamble` and `assembled_text` in `path@model@src/changelogs/render.rs`,
+  public through its facade: the read of a crate's preamble that gives back the categories and the
+  unclassed versions it states, as the table of a crate read with no manifest of its publisher,
+  each line of another shape reported by its line; the rendering of the assembled layout of a
+  range of versions with no generated header; and the lines of a crate's changelog that the
+  rendering has no place for.
 - `query` depending on `cargo-reader`; its purpose widened from the project's record to the record of the
   project or of one of its dependencies, in the rewritten `design@knowledge-architect@query-crate`
   and in every text the milestone document's "Reversed or rewritten" lists beside it: the `query`
@@ -21,8 +27,9 @@
   which step 2 names. Its listing of the Migration entries that trigger an audit stays as it is
   until slice 5.
 - The message of the pin refusal in the function `refuse_another_version_built_at` of
-  `path@check@src/commands/mod.rs`, line 304, "read the changelog of each version from {pinned} to
-  {version}", which names the command.
+  `path@check@src/commands/mod.rs`, line 305, "read the changelog of each version from {pinned} to
+  {version}", which names the command, by the project's declared command, in the order the pin move
+  gives: the pin moved, the new version fetched, then the command run.
 - The measurement of `cargo metadata` with and without `--locked` and `--offline`, recorded in
   a grounding file of `cargo-reader`.
 - The entries of this slice in the shared changelog's `Next release` section, under its current
@@ -39,17 +46,24 @@ with `cargo x mutate`.
    `--package` given, it reads exactly the named set.
 2. **The range**: the output holds the versions in (`--from`, `--to`], and, with `--to` absent, every
    version above `--from` that the files hold, `Next release` excluded, in the assembled layout the
-   model renders.
+   model renders, with no generated header, the crates under each category in the order of
+   "Decided design", one selected crate included.
 3. **The order of the pin move**, premortem cause 2: run in the order step 2 gives, after the pin's
    edit and `cargo fetch`, the command succeeds over a mock consumer; run before the fetch, it fails
    with cargo's message and a repair naming the fetch.
 4. **No write**: a run writes no file of the consumer, `Cargo.lock` included, as the measurement of
    the flags shows.
-5. **An unreadable changelog is reported, never dropped**: a dependency whose changelog holds an
-   unread line, or whose preamble the parse cannot read, makes the command exit with the ladder's
-   negative code and name the file and the line, the rest of the output still printed.
+5. **An unreadable changelog is reported, never dropped**: a selected package with no
+   `CHANGELOG.md`, a line of its preamble the read does not take, and, in a section of the range, an
+   unread line or an entry the rendering has no place for, each make the command exit with the
+   ladder's negative code and name the file and the line, the rest of the output still printed.
 6. **The pin refusal names the command**: the refusal's text for a binary newer than the pin holds
-   `klarch changelog` with the two versions.
+   the project's declared command followed by `changelog`, the old pin as `--from`, and the order
+   pin, fetch, command. Its test is the unit test of `refuse_another_version_built_at` in
+   `path@check@src/commands/mod.rs`, so `path@testing@tests/binary.rs` does not change.
+7. **The preamble reads back**: the categories and the unclassed versions that `expected_preamble`
+   writes are what the read gives back, and a preamble line of no shape it writes is reported by its
+   line.
 
 ## Fixtures
 
@@ -93,21 +107,31 @@ measures before relying on it. The tests of the command go in a new file under
   document, ruled by the owner: no release is cut between this slice's merge and slice 5's.
 - The listing of the audit triggers in step 2 keeps its wording "cites an axis's section" until
   slice 5 rewrites it with `thread@per-crate-changelogs@axis-named-in-words`.
+- One range, `--from` and `--to`, is applied to every selected crate, which holds while every crate
+  of a project takes the same version, per `design@knowledge-architect@version-lockstep`. What ends
+  it: a reversal of the lockstep under
+  `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`, whose discussion the
+  milestone's "Later consequences" sends this command's range to.
 
 ## What the work is
 
 What this slice alone changes, beside what the milestone document's "What the work is" says:
 
 - **`issue@check@commands-mod-rs-holds-two-parts-that-change-apart`, weighed.** The slice changes
-  one string literal of the refusal part of `path@check@src/commands/mod.rs`, and nothing of the
-  runs of `check`. The default: no split is planned; the change adds to one of the two parts and
-  nothing to the other. The slice's design audit closes the issue on that argued decision or plans
-  the split before the work.
+  one string literal of the refusal part of `path@check@src/commands/mod.rs`, its unit test, and
+  nothing of the runs of `check`. No split is planned: this work does not need it. The signal still
+  holds, so the issue stays open at its re-entry point, per
+  `design@agent-skills@split-not-needed-is-an-issue`; its figures are taken again in a commit of
+  their own.
 - **`issue@testing@binary-rs-is-past-one-read`, weighed.** The tests of the new command go in a
   file of their own, so `path@testing@tests/binary.rs` does not change and the issue's re-entry
   point is not met; it stays open.
 
 ## What is already decided
+
+This slice's design audit recorded its fit lines in
+[the design audit's search](search/design-audit-1.txt), and its thread in
+[deliberation](deliberation.md).
 
 The seeds of this slice's design audit are the design entries this section cites, as
 `skill@knowledge-architect-planning@working-a-slice` takes them; those of "Audit subjects" it does
@@ -133,6 +157,15 @@ design audit:
   reads the changelogs of dependencies, which no manifest of the caller describes.
 - `design@agent-skills@pinned-binary-runs-inside-the-project`: judged at the audit, since the pin
   move now runs the pinned binary before the install.
+- `design@knowledge-architect@cargo-reader-crate`: the crates that depend on `cargo-reader` gain
+  `query`, a member its argument covers; added to this list at the design audit.
+
+The audit judged the four: `design@knowledge-architect@partial-publish-rerun` and
+`design@agent-skills@pinned-binary-runs-inside-the-project` conform;
+`design@query@a-function-takes-a-configured-manifest` and
+`design@knowledge-architect@cargo-reader-crate` are brought to the rules by a conforming step
+before the harvest. The command's function takes the manifest its caller configured, like every
+other function of `query`, and reads only its root, so the title of the first stays true.
 
 ## Decided design
 
@@ -164,6 +197,43 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
   `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`'s question,
   and this slice's commit names the argument for that issue.
 - The pin move's step 2 runs it after the fetch, and reads its output, as "Builds" says.
+- **The flags, measured**: `--locked --offline`, both. Measured with cargo 1.98.0 over a mock
+  consumer of path dependencies and over a registry dependency in an empty `CARGO_HOME`: without
+  `--locked`, the run writes `Cargo.lock` where it is missing or stale; without `--offline`, it
+  updates the index and downloads crates; with both, a lock made stale by the pin's edit fails with
+  "cannot update the lock file … because --locked was passed", and after `cargo fetch` the run
+  passes and writes nothing; with both, a registry source removed from `registry/src` is unpacked
+  again from the local cache, with no network. The grounding file of `cargo-reader` records it.
+- **Cargo's failure** is the ladder's could-not-run, with Cargo's message and a repair naming
+  `cargo fetch` after the pin's edit, since cargo's own help names `--offline` alone, which writes
+  the lock.
+- **The function takes the manifest its caller configured**, as every function of `query` does, per
+  `design@query@a-function-takes-a-configured-manifest`, and reads only its root, where `cargo
+  metadata` runs. It is dispatched like every command but `init`, so a binary of another version
+  than the pin refuses it: the pin refusal names the pin's edit and the fetch before the command.
+- **A named package or a `--package` name the graph does not hold** is a could-not-run, exit 2: the
+  invocation names nothing to read. A version that is no version is refused while parsing, per
+  `design@cli@command-parsing-home`, and `--to` not above `--from` by `cli::run`, by a type of
+  `query` that cannot hold it.
+- **A package the graph holds at several versions** is read in its newest version's file, which
+  holds the sections of every earlier one.
+- **The table of a dependency is read from its preamble**: its categories in their order and its
+  unclassed versions, with every category admitted for every crate, since a preamble states no
+  `[changelog.category-components]` and the publisher's check enforces it.
+- **The output** is the assembled layout of the selected crates over the range, with no generated
+  header, since it is no file; one selected crate is printed in the same layout, since
+  `design@model@assembled-changelog-from-two-crates` decides when a project's file is assembled,
+  not what this command prints. The crates under each category are the named package first, then
+  the others in the order of their package names, per
+  `thread@per-crate-changelogs@consumer-crate-order`: no file a consumer receives states the
+  publisher's order of `design@model@assembled-crates-in-the-manifest-s-order`.
+- **What the output cannot hold is reported**, never dropped: after the layout, one line per
+  selected package with no `CHANGELOG.md`, per line of a preamble the read does not take, and per
+  unread line or entry with no place in a section of the range, each naming the file and the line;
+  the exit is then 1. A defect in a section outside the range is not reported, since nothing of it
+  is printed.
+- **Its output is for a reader, not a contract**, as `anchors` and `worklist` say of theirs, per
+  `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 - Argument: `argument@per-crate-changelogs@arg-25`, `argument@per-crate-changelogs@arg-31`,
   `argument@per-crate-changelogs@arg-39`, `argument@per-crate-changelogs@arg-41`,
   `argument@per-crate-changelogs@arg-50`, `argument@per-crate-changelogs@arg-52`. Nearest rival: the
@@ -175,10 +245,13 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
 ### The command prints every Migration entry of the range from every crate of the consumer's graph `##selection-reaches-every-crate`
 
 - Guards `thread@per-crate-changelogs@registry-changelog-command`, its selection rule.
-- Judged by this slice, by its test over the mock consumer that depends on the stand-ins for
-  `knowledge-architect`, `-gates` and `-mutate`.
-- Fires when one Migration entry of the range, in any crate of the consumer's resolved graph that
-  shares the named package's project, is missing from the output: the selection rule is then wrong.
+- Judged by slice 5, whose conversion gives this repository's crates the per-crate files the
+  command reads, and at the deletion of the milestone document; slice 4 holds the selection rule as
+  claim 1, whose test is no observation of real use.
+- Fires when a pin move, in this repository or in a project that pins it, as a retrospective file
+  or an issue entry records, finds a Migration entry of a crossed version, in a crate of the named
+  package's project, missing from the command's output: the selection by `repository` then misses a
+  crate of the project, such as one whose `repository` is spelled otherwise.
 
 ## Harvest
 
@@ -190,3 +263,5 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
 | the measurement of the flags | | a grounding file of `cargo-reader` |
 | the acceptance criterion | `thread@per-crate-changelogs@registry-changelog-command` | reported in this slice's landing commit, as `skill@knowledge-architect-planning@acceptance-criteria` says |
 | premortem cause 2 | `thread@per-crate-changelogs@registry-changelog-command` | claim 3; no tripwire |
+| the crate order of the output | `thread@per-crate-changelogs@consumer-crate-order` | the head of `register@query@design` on the selection, or one beside it, where a recording test admits it; the rival in `register@query@rejected` if a recording test holds |
+| the read of a preamble | | `design@check@category-order-in-preamble`, whose reader with no manifest it builds, where a recording test admits a member |
