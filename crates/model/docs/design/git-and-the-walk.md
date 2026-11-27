@@ -6,9 +6,10 @@
 
 The walked set is git's listing from the manifest's directory, `git ls-files --cached --others
 --exclude-standard`, with `[walk] skip-dirs`, `skip-files` and `exclude` applied after it, and the
-generated indexes, the installed agent files and the frozen files of a harvested slice removed by
-construction, the last per `design@model@a-harvested-slice-is-frozen`. Nothing generated is declared: `target` and
-`path@agent-config@worktrees/` are covered by the ignore rules, so no `[walk]` row names them. A path
+generated files, the installed agent files and the frozen files of a harvested slice removed by
+construction, the last per `design@model@a-harvested-slice-is-frozen`. No generated path is
+declared by a `[walk]` row: `target` and `path@agent-config@worktrees/` are covered by the ignore
+rules, so no row names them. A path
 reference whose target the ignore rules cover is exempt from assertion the same way, per
 `design@model@ignored-targets-are-not-asserted`.
 
@@ -16,15 +17,19 @@ reference whose target the ignore rules cover is exempt from assertion the same 
 tool derives the set from the register instances rather than from a declared row, which is why no
 `[walk] skip-files` row names a file-register index and a new instance cannot arrive with its
 index inside the walk; an extension's generated files, such as thaum's rule index, are in the same
-set, so no row names them either. Outside the walk also means outside the files the survey hands
+set, so no row names them either, and so is the assembled changelog, where two changelog crates or
+more are read, per `design@model@one-list-of-generated-files`. Outside the walk also means outside the files the survey hands
 over as unwalked: a listing is a function of the tree rather than a claim anybody wrote, so no
 check reads its rows as one.
 
-**Every remaining declaration is checkable.** A generated path cannot be asserted to exist — a
-fresh clone has none of them. A manifest naming one holds a row no check can ask about: nobody
-is told the row is dead, and a file later created at that path inherits what the row granted. No
-generated path is declared, so every path in the manifest is one git tracks and
-`tree` asserts each one exists. **A declared path is spelled the way git lists
+**Every remaining declaration is checkable.** A generated path cannot be asserted to exist: a
+fresh clone may have none of them. A manifest naming one as a row holds a row no check can ask
+about: nobody is told the row is dead, and a file later created at that path inherits what the row
+granted. One generated path is declared, the assembled changelog's, `[changelog] assembled`, per
+`design@model@assembled-changelog-location`, and no file at it escapes a check: the
+generated-files check holds the file to the bytes it generates and reports it missing or out of
+date, as it reports an index, so `tree` does not assert that it exists. Every other path in the manifest is one git tracks, and `tree` asserts each one
+exists. **A declared path is spelled the way git lists
 it**, with no `.` segment, no `..` segment and no leading `/`: a `.` segment is dropped when
 the manifest loads, so two spellings of one directory are one declaration, and a row holding
 `..` or an absolute path is refused as a finding and acted on by nothing, because what it
@@ -40,7 +45,7 @@ hand-rolled matcher cannot promise, and it is the property the whole walk is
 chosen for; the matcher and the three things it could not do are
 `rejected@model@hand-rolled-gitignore-matcher`.
 
-A tracked path the working tree does not hold — a deletion nobody has staged — stays
+A tracked path the working tree does not hold, a deletion nobody has staged, stays
 in the walk and is reported, because dropping it would take a live document out of every check on
 the strength of a working-tree state.
 

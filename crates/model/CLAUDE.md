@@ -18,7 +18,9 @@ read them whole before changing how this crate asks git.
 
 **A new finding about what the model could not read — a home, a file, a declaration — goes in
 `Manifest::parse`, `tree` or `Entities::build`, never in a module of the last phase, or nothing gates
-it.** A new check whose findings another check would read goes before its consumers, in `foundation`,
+it.** A changelog's line or a changelog crate's `Cargo.toml` the model could not read is the
+exception: nothing else in the model depends on it, so it is recorded for the last phase, per
+`design@knowledge-architect@model-crate`. A new check whose findings another check would read goes before its consumers, in `foundation`,
 and stops the run when it finds anything, per `design@check@phases-gate-the-report`.
 
 **A test over a mock project is `testing`'s**, through this crate's facade, per
