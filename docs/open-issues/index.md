@@ -1,13 +1,12 @@
 **Generated — do not edit.** `cargo klarch index`
 
-26 entries
+25 entries
 
 | kind | title |
 | --- | --- |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [No head argues what becomes an ask of every target project, nor the asks that no goal states](no-head-argues-what-becomes-an-ask.md) |
 | design | [The head on how work reaches main bundles statements that each lose to a rival of their own, with no argument](the-git-flow-head-bundles-unargued-statements.md) |
-| design | [No head argues the rule that every tool of knowledge-architect is a command of one program](the-rule-of-one-program-for-the-tools-is-argued-by-no-head.md) |
 | observation | [On Windows a working directory spelled another way may rebuild the crates tied to their checkout, and on macOS `cargo run` copies a binary while another runs](a-cargo-run-rebuilds-or-replaces-a-binary-by-the-system.md) |
 | observation | [Whether a test's scratch directory is removed on Windows is not established](a-directory-a-test-holds-may-stay-on-windows.md) |
 | question | [A conflict in a generated file, met when commits are replayed, is resolved by hand](a-conflict-in-a-generated-file-is-resolved-by-hand.md) |

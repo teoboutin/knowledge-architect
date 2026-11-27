@@ -19,9 +19,8 @@ A task is local to this repository when its own instructions require it, or when
 procedure of a task the installed text requires. A local task that becomes a command is a command
 of this tool, however rarely it recurs: a command for a task done once is admitted. A task the
 installed text asks of every project, with no procedure of this repository's own, is no local task,
-and this head places none: which program holds it is the root's to decide, and
-`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds that
-rule. The line moves with what is shipped: the part of a task's procedure that
+and this head places none: which program holds it is the root's to decide, per
+`design@knowledge-architect@one-program-for-the-tools`. The line moves with what is shipped: the part of a task's procedure that
 knowledge-architect's owner takes in as generic stops being local once a published crate ships it,
 per `goal@generic-tools-and-procedures-are-shipped`, which has that part
 shipped so that it serves each target project that carries out the task. Until then the local

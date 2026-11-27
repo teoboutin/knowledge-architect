@@ -363,6 +363,54 @@ crosses its boundary, touching the crate of its logic and this one, the cost
 `design@cli@command-parsing-home` accepts against `rejected@cli@each-crate-parses-its-commands`, and a
 change of a command's logic alone crosses nothing.
 
+### Every tool of knowledge-architect that a target project runs is a command of `klarch` `##one-program-for-the-tools`
+
+`klarch` is the one program through which a target project runs the tools of knowledge-architect:
+the checks, the listings of the record and its search, the reader of the transcripts and
+`changelog` are its commands, and a tool added later is one more, but for
+`design@knowledge-architect@build-or-test-tools-outside-klarch`. It serves
+`goal@adoption-is-easy`, under which a person or an agent finds what to do where they already
+look for it: one program's `--help` lists every tool, where a program per tool puts more
+executables to find and to tell apart, a prefix on each name avoiding a collision only by becoming a
+set of subcommands that no one `--help` lists.
+
+The fact that defeats the nearest rival, one program per tool, such as a binary of its own for the
+transcripts: a command of `klarch` reaches every target project by its pin move alone. Every binary
+that offers the checker flattens `cli::Command`, per `design@cli@the-commands-are-a-library-module`,
+and a Rust project's maintenance crate offers it as one subcommand, `klarch`, as the main its setup
+shows does, `path@agent-skills@snippets/xtask-main.rs`; a tool beside it reaches a project only once
+that project adds a subcommand to the main of its maintenance crate, or installs a second program,
+a change per tool in every project. The refusals a binary owes before any command, of a build from
+another checkout and of a version other than the pin, per `design@check@a-foreign-build-is-refused`
+and `design@check@installed-binary-version-check`, are then made once, in one program.
+
+In a Rust project, `cargo klarch` runs `klarch` as a subcommand of the maintenance crate's one
+binary, whose `--help` lists it beside the gates and the hand mutation, so the argument from
+`goal@adoption-is-easy` holds there for those tools too, and the reach by the pin move is what
+places a tool in `klarch` rather than beside it. Each tool adds to the build of `klarch`, which a
+pin move rebuilds in release mode: a cost not measured.
+
+### A tool whose result does not exist without running the project's build or its tests is no command of `klarch` `##build-or-test-tools-outside-klarch`
+
+Such a tool is a library that a project's maintenance crate calls, as the gates runner and the hand
+mutation are, per `design@knowledge-architect@gates-crate` and
+`design@knowledge-architect@mutation-command-host`. A command that runs a command its caller names
+on the invocation, whose result exists without that run, may be a command of `klarch`: a command
+given its test command by its caller is one whose result exists without that run, over a reading
+that counts it as running the tests, which no goal ranks: the owner's ranking. The criterion's
+wording, a result that does not exist without the run, over a tool that runs the project's build or
+its tests, which places every tool the same way and which no goal ranks: the session's ranking.
+
+The fact that defeats the nearest rival, a `gates` command of `klarch`,
+`rejected@knowledge-architect@gates-command-of-the-checker`: `klarch` locates the manifest and
+refuses a version other than the pin before it dispatches any command but `init`, per
+`design@check@installed-binary-version-check`, and a manifest that is no TOML refuses the locate
+itself (`Manifest::find` in `path@model@src/manifest.rs`), each with exit 2. Hosted there, the gates
+and the hand mutation would not run in a checkout in that state, where the gates are what report
+it, beside the build, the lints and the tests. Neither tool needs the checker:
+`cargo tree -e normal -p knowledge-architect-gates` and the same for `knowledge-architect-mutate`
+list `clap` alone.
+
 ### The harness an extension's tests need is a published crate of its own `##testing-crate`
 
 `knowledge-architect-testing`, in crates/testing, publishes what an extension's tests need, since a project tests its extension as `check` tests
@@ -433,7 +481,7 @@ project that carries out its activity: the runner is the generic part of a proje
 adopting the workflow gets gates refined over two projects instead of writing its own. A `gates` command of
 `klarch` lost: it would make that binary run cargo, the linter and the tests, and a tool whose
 result does not exist without running the project's build or its tests is no command of `klarch`,
-per `design@knowledge-architect@mutation-command-host`. A published binary configured by a file lost because it leaves the project no place for its
+per `design@knowledge-architect@build-or-test-tools-outside-klarch`. A published binary configured by a file lost because it leaves the project no place for its
 other repeated tasks, and adds a configuration format a list in Rust does not need.
 
 The designs this decision did not keep: `rejected@knowledge-architect@gates-command-of-the-checker`,
@@ -465,17 +513,10 @@ The maintenance crate holds the project's repeated tasks beside its gates, per
 `design@agent-skills@xtask-pins-checker`, and every Rust target project has one. The gates library
 runs a project's merge gates, per `design@knowledge-architect@gates-crate`, and a mutation is no gate: hosted
 there, every user of the gates would build the mutation code, `rejected@knowledge-architect@gates-library-hosts-the-mutation`.
-`klarch` is no host either: a tool whose result does not exist without running the project's build
-or its tests is no command of `klarch`, and a command that runs a command its caller names on the
-invocation, whose result exists without that run, may be one. The rule is a decision, and this head
-holds the exception. The session chose this wording of the criterion over the owner's first
-wording, a tool that runs the project's build or its tests, which no goal ranks and which places
-every tool the same way; the owner approved it, and was unsure of the criterion. That a command
-given a test command by its caller is not running the tests is the owner's own reading. The hand mutation's result does not
-exist without running the project's tests, so it stays out, as the gates do, per
-`rejected@knowledge-architect@gates-command-of-the-checker`. The rule this exception belongs to, that every other
-tool is a command of `klarch`, is argued by no head, which
-`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` holds. A crate of its own stands on these two facts. It serves `goal@generic-tools-and-procedures-are-shipped`,
+`klarch` is no host either: the hand mutation's result does not exist without running the
+project's tests, so it is no command of `klarch`, per
+`design@knowledge-architect@build-or-test-tools-outside-klarch`, as the gates are not. A crate of its
+own stands on these two facts. It serves `goal@generic-tools-and-procedures-are-shipped`,
 whose generic part ships as a published crate. It costs one more crate in the
 publish order, after the gates library and before `cli`, per `design@knowledge-architect@partial-publish-rerun`.
 

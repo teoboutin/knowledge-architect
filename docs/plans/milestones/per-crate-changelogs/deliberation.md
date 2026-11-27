@@ -611,7 +611,7 @@ only job. Repairs: `design@knowledge-architect@xtask-crate`, the root CLAUDE.md 
 ### The pin move runs the binary it pinned, which links the model `##arg-52`
 
 R6, the session. Bears on `thread@per-crate-changelogs@registry-changelog-command`.
-"`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` says that
+"`the-rule-of-one-program-for-the-tools-is-argued-by-no-head` says that
 question is raised whenever a new tool is placed. The argument here: the pin move runs the binary
 the project already pinned, and that binary links the changelog model. The general rule stays that
 issue's question."

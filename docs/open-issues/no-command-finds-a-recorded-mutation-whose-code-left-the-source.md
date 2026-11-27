@@ -35,8 +35,7 @@ quoted lines against the source, with no command; or no change, on one instance.
 
 The placement is open: under `design@knowledge-architect@mutation-command-host`, a tool whose
 result exists without running the tests is no command of the mutation crate, and the rule that
-places every other tool in `klarch` is argued by no head, per
-`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`.
+places every other tool in `klarch` is `design@knowledge-architect@one-program-for-the-tools`.
 
 The question: does the owner take the task in? `goal@tasks-a-tool-does-better-are-the-tool-s`
 reserves it: "A task is taken in by a decision of knowledge-architect's owner, never because the

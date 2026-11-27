@@ -29,9 +29,8 @@ The task follows from the tree with no judgement: a phrase, a set of paths or a 
 with any run of whitespace, a line break included, between two words, and emphasis marks and
 backticks ignored. Its output is each hit with its file and line.
 
-Which program holds the command, and whether it is a command of its own or an option of an
-existing one, is open: `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`
-holds the placement rule unargued. It reads files and judges nothing, so placed in `query` it names
+Which program holds the command is `design@knowledge-architect@one-program-for-the-tools`'s to say, a command of `klarch`; whether it is a
+command of its own or an option of an existing one is open. It reads files and judges nothing, so placed in `query` it names
 and runs no check, per `design@query@query-depends-on-no-check`. It is no member of
 `issue@query@no-command-searches-the-entries-or-lists-an-audit-s-work`, a ranked search of the
 record's entries by keywords: this one matches a given phrase exactly over given paths.

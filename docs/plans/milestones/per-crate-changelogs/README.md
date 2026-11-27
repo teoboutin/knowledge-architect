@@ -309,7 +309,7 @@ each with its outcome. Every other verdict is in [the discussion's search](searc
 | `design@knowledge-architect@xtask-crate` | `cargo x changelog` is removed, slice 5 |
 | `design@query@a-function-takes-a-configured-manifest`, `design@knowledge-architect@package-include-whitelist` | no crate ships knowledge-architect.toml, so the category order is written into each preamble, `thread@per-crate-changelogs@category-order-in-preamble`; slice 3 |
 | `design@agent-skills@xtask-pins-checker` | the closure of `knowledge-architect` misses `gates` and `mutate`, so the command selects over the resolved graph; slice 4 |
-| `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head` | the command is placed in `klarch` on the argument of `thread@per-crate-changelogs@registry-changelog-command`; the general rule stays that issue's question, and slice 4's commit names the argument for that issue |
+| the issue `the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, closed by slice 4 | the command is placed in `klarch` on the argument of `thread@per-crate-changelogs@registry-changelog-command`; the general rule, the question of that issue, is argued in slice 4's branch, D17, in `design@knowledge-architect@one-program-for-the-tools` |
 | `issue@git@a-shallow-clone-shortens-the-range-commits-judges` | the head of `thread@per-crate-changelogs@no-history-beyond-the-branch` admits asking git about the base; slice 1 |
 | `design@knowledge-architect@query-crate` | rewritten, listed in "Reversed or rewritten"; slice 4 |
 | `design@knowledge-architect@partial-publish-rerun` | the publish order it spells gains `cargo-reader` before each crate that depends on it: before `check` at slice 2, and before `model` and `query` at slices 3 and 4, which make them depend on it |
@@ -786,12 +786,12 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   attributes to the owner, so the owner rules on it.
   **Ruled**, at slice 4's design audit: the default kept, on the owner's approval.
 - **D17**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by slice 4's design
-  audit as Q3. `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`
-  names as its re-entry point the placement of a new tool, which `klarch changelog` is. Default: the
+  audit as Q3. The issue `the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, now
+  closed, named as its re-entry point the placement of a new tool, which `klarch changelog` is. Default: the
   discussion is put off again, as for D4 and D12. Rival: hold it before slice 4 merges.
   **Ruled**, at slice 4's design audit: the rival, on the owner's word; the discussion is held in
   slice 4's branch on the in-change path, with no record search but the slice's design audit's,
-  and its head closes the issue.
+  and its head, `design@knowledge-architect@one-program-for-the-tools`, closes the issue.
 
 ## Harvest
 
@@ -817,8 +817,8 @@ Each slice's row is in its spec. The milestone document's own row:
   manifest, and that discussion weighs the frozen released sections the owner weighed at R7.
 - **`issue@knowledge-architect@the-publish-order-is-spelled-by-hand`** can read the published set
   and the dependencies through `cargo-reader`.
-- **`issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`** keeps
-  its question; this work adds one instance placed in `klarch`, with its argument.
+- **`design@knowledge-architect@one-program-for-the-tools`** holds the rule this work places `klarch changelog` by, argued in slice 4's
+  branch, D17.
 - **`issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`**: the
   level `entries` over the installed output is the check a future bundler crate reuses on the text
   it builds for another project. A premise that crate's design discussion weighs, not a decision of
