@@ -1,6 +1,6 @@
 # query
 
-Tools over a project's scanned record. What it is for is
+Tools over the record of a project or of one of its dependencies. What it is for is
 `design@knowledge-architect@query-crate`; what it does for a user is
 `path@query@README.md`; why it is shaped this way is `register@query@design`.
 
@@ -11,9 +11,10 @@ check's output, or an extension's hook, is no command of this crate: the command
 `path@query@src/lib.rs`. It holds no clap type.
 
 **`id` and `worklist --out` call `foundation::complete_working_tree` of `model` before they answer**, per
-`design@check@phases-gate-the-report`; `show`, `issues`, `tripwires` and `anchors` run no phase.
+`design@check@phases-gate-the-report`; `show`, `issues`, `tripwires` and `anchors` run no phase, and `changelog` builds no model.
 
 **`path@query@src/output.rs` is a copy of the writer**, per `design@knowledge-architect@a-copy-of-the-writer-per-crate`: every write to stdout goes through it, and a closed stdout ends the command
 with exit 2, per `design@cli@exit-code-ladder`. 
 
-The tests of the commands' output are the binary's, in `path@testing@tests/binary.rs`.
+The tests of the commands' output are the binary's, in `path@testing@tests/binary.rs`, and `changelog`'s in
+`path@testing@tests/changelog_command.rs`, over a consumer's graph.

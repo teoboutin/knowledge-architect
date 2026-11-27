@@ -29,8 +29,9 @@ its review before the merge asked for this entry, since the signal here is of pa
 the counts above, where the other modules the plan weighed, `references.rs`, `registers.rs` and `tree.rs`,
 hold one of size.
 
-A second instance: the slice of the per-crate changelogs that adds `klarch changelog` changes one string literal of the
-refusal and its unit test, and nothing of the runs. It plans no split, since that work does not need
+A second instance: the slice of the per-crate changelogs that adds `klarch changelog` changes the message of the
+refusal, a string literal with the binding and the comment before it, and its unit test, and
+nothing of the runs. It plans no split, since that work does not need
 one, and the signal stays as counted above.
 
 ### Why it matters

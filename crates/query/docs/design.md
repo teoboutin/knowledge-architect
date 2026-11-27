@@ -484,3 +484,52 @@ and output tokens of its last turn:
 A search whose searchers peak above 250,000 tokens reopens the bound, and one whose peaks stay well
 under it is the ground of a next raise. No measurement of recall stands behind any value of the
 bound; real sessions measure it, per `goal@the-workflow-improves-through-real-use`.
+
+## The changelogs of a project's dependencies
+
+### `changelog` reads every package of the consumer's resolved graph that shares the named package's `repository`, or the named set alone `##changelog-selects-by-repository`
+
+`klarch changelog <package> --from <version>` reads the changelog of each package of the graph
+`cargo metadata` resolves in the project, `--package` absent: every package whose `repository` equals
+the named package's, and the named package alone where it sets none; with `--package`, the named
+package and those names, and no other. A package the graph holds at several versions is read in its
+newest version's file, which holds every earlier version's section. Each file is read by the
+model's parse, its table by the read of its preamble, per `design@check@category-order-in-preamble`,
+since the consumer holds no manifest of the publisher, and the selected crates are rendered in the
+assembled layout of `design@model@assembled-changelog-layout` over the versions in (`--from`,
+`--to`], with no generated header, since the output is no file. A line the output cannot hold, a
+file missing, a preamble line of no shape the read takes, an unread line or an entry with no place
+in a section of the range, is reported after it, by file and line, with exit 1, per
+`design@cli@exit-code-ladder`, so a pin move never reads a partial list as whole.
+
+It serves `goal@generic-tools-and-procedures-are-shipped`, under which the reading a pin move does
+is done by a tool that serves every target project: the rule reads no name of this project, and
+reaches every crate a project publishes from one repository, which a project's maintenance crate
+depends on apart, as `design@agent-skills@xtask-pins-checker` pins the checker, the gates library
+and the mutation library. The nearest rival, the named package's dependency closure,
+`rejected@query@selection-by-dependency-closure`, misses the crates a project depends on beside it:
+`path@cli@Cargo.toml` depends on neither `knowledge-architect-gates` nor
+`knowledge-architect-mutate`.
+
+### `changelog` runs `cargo metadata` under `--locked` and `--offline`, so a run writes nothing and reaches no network `##changelog-runs-cargo-locked-and-offline`
+
+The command runs `cargo metadata --format-version 1 --locked --offline` at the project's root, and
+Cargo's failure is its could-not-run, with Cargo's message and a repair naming `cargo fetch` after
+the pin's edit. Measured, as `path@cargo-reader@docs/grounding/cargo-metadata.md` records with the
+commands that take it again: without `--locked`, the run writes `Cargo.lock` where it is missing or
+stale; without `--offline`, it updates the index and downloads crates; with both, a lock the pin's
+edit left stale fails, and a run after `cargo fetch` passes and writes nothing. A command that reads
+the changelogs of a pin move so stays a read, which a run in a sandbox that reaches the registry and
+no other host can make. Where the binary is built by Cargo first, as the alias of a project's
+maintenance crate builds it with `cargo run`, that build resolves the edited pin and writes the lock
+before the command runs, so the command's own run passes, writing nothing.
+
+### `changelog` prints the named package first, then the other selected crates by package name `##consumer-crate-order`
+
+Under each category, the crates follow the named package, then the others in the order of their
+package names. No file a consumer receives states the publisher's order of the Components, which
+`design@model@assembled-crates-in-the-manifest-s-order` fixes for the assembled file, so the output
+holds the publisher's entries, its crates in another order than the publisher's file. This order
+over each preamble stating the project's crates in the manifest's order,
+`rejected@query@crate-order-stated-in-the-preamble`: the owner ranked a preamble and a check left as
+built above an output in the publisher's crate order, which no goal ranks.

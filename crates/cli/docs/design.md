@@ -8,7 +8,7 @@ How the command line is built, and why. The designs this Component did not keep 
 ### The commands are a library module, so a binary that registers extensions offers them unchanged `##the-commands-are-a-library-module`
 
 The commands, `check`, `show`, `issues`, `tripwires`, `index`, `model`, `anchors`, `commits`,
-`install-agent-skills`, `init`, `new-component`, `worklist`, `transcript` and `id`, and the code that parses and
+`install-agent-skills`, `init`, `new-component`, `worklist`, `transcript`, `id` and `changelog`, and the code that parses and
 dispatches them, are a module of this crate's library rather than of its binary. A binary that registers extensions
 flattens the command enum into its own and adds the commands of its extensions beside them, so each command keeps one
 spelling, one set of arguments and one exit-code contract in every binary. `klarch` is that module with no extension

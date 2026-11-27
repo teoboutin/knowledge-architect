@@ -8,7 +8,7 @@ Raised by the record search of this slice's design audit, which graded
 `design@model@assembled-crates-in-the-manifest-s-order` `conflicts`: the command renders over a
 consumer's resolved graph, and no file a consumer receives states the publisher's order of the
 Components, since `expected_preamble` writes the categories and no crate order. Put to the owner at
-the design audit as Q1, a choice between two shapes stated in full:
+the design audit as D15 of the milestone, a choice between two shapes stated in full:
 
 - A, chosen: the named package first, then the other selected packages in the order of their
   package names. Nothing built changes; the output holds the publisher's entries, the crates under a
