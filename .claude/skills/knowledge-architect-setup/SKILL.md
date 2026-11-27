@@ -327,9 +327,10 @@ To move to another version:
    its CHANGELOG.md. Fetch the new version first, with `cargo fetch` after editing the pin in a
    Rust project, or by the install. Then, in a Rust project, run
    `cargo klarch changelog knowledge-architect --from <old pin>` and read what it prints: the
-   entries of every version above the old pin, from the changelog of every crate of the checker,
-   read in the sources cargo fetched, each version's Migration entries under one heading. It runs
-   Cargo under `--locked`, so a run before the fetch fails and names it. In a project with no Rust,
+   entries of every version above the old pin, from the changelog of every crate the project
+   depends on from the checker's repository, the gates and mutation libraries among them, read in
+   the sources cargo fetched, each version's Migration entries under one heading. In a project
+   with no Rust,
    read the CHANGELOG.md of each crate of the checker in the source the install fetched, under its
    registry directory, `$CARGO_HOME/registry/src/<index>/<package>-<version>/CHANGELOG.md`, for
    the packages `knowledge-architect`, `knowledge-architect-check`, `knowledge-architect-model`,

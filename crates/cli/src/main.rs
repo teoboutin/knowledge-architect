@@ -181,10 +181,12 @@ mod tests {
     }
 
     /// The claim: `changelog` takes a package and `--from`, `--to` and `--package` beside it,
-    /// and refuses while parsing a missing package or `--from`, and a value of `--from` or `--to`
-    /// that is no version. Mutation checked: in `version` of `path@cli@src/cli/mod.rs`,
-    /// `Version::parse(value).ok_or_else(` made
-    /// `Version::parse(value).or(Version::parse("0.0.0")).ok_or_else(`; caught.
+    /// and refuses while parsing a missing package or `--from`, a value of `--from` or `--to`
+    /// that is no version, and a `--to` not above `--from`, with exit 2. Mutations checked, each
+    /// caught: in `version` of `path@cli@src/cli/mod.rs`, `Version::parse(value).ok_or_else(` made
+    /// `Version::parse(value).or(Version::parse("0.0.0")).ok_or_else(`; and in
+    /// `ChangelogArgs::from_arg_matches`, the refusal `changelog_request(&args).map_err(` made
+    /// `Ok::<(), String>(()).map_err(`.
     #[test]
     fn changelog_takes_versions_checked_while_parsing() {
         let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "changelog"], args].concat());
@@ -203,6 +205,16 @@ mod tests {
         .is_ok());
         assert!(parse(&["--from", "0.1.0"]).is_err());
         assert!(parse(&["p"]).is_err());
+        for to in ["0.1.0", "0.0.9"] {
+            let refused = parse(&["p", "--from", "0.1.0", "--to", to])
+                .err()
+                .expect("refused");
+            assert_eq!(refused.exit_code(), 2, "{to}");
+            assert!(
+                refused.to_string().contains("`--to` is not above `--from`"),
+                "{refused}"
+            );
+        }
         for bad in ["0.1", "v0.1.0", "0.1.0-rc.1", "01.0.0"] {
             assert!(parse(&["p", "--from", bad]).is_err(), "{bad}");
             assert!(

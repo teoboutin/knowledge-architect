@@ -159,10 +159,10 @@ pub mod foundation {
 /// over them is a check's, none a phase's.
 pub mod changelog {
     pub use crate::changelogs::{
-        assembled_body, assembled_file, assembled_text, changelog_crates, expected_preamble,
-        hand_written, parse, read_preamble, refusal, unplaced, CargoTrouble, Changelog, Class,
-        Crate, Crates, Entry, Heading, ReadPreamble, Refused, Section, Tag, Unread, Version,
-        WrittenTree, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
+        assembled_body, assembled_body_by_table, assembled_file, assembled_text, changelog_crates,
+        expected_preamble, hand_written, parse, read_preamble, refusal, unplaced, CargoTrouble,
+        Changelog, Class, Crate, Crates, Entry, Heading, ReadPreamble, Refused, Section, Tag,
+        Unread, Version, WrittenTree, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
     };
 }
 
