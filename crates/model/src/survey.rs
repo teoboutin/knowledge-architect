@@ -140,7 +140,7 @@ pub fn from_listing(
         model.documents().iter().map(|d| d.rel.as_path()).collect();
     // A generated index is outside the walk by construction, and outside the inverse
     // assertion with it: its rows are a function of the tree rather than a claim anybody wrote.
-    let generated = crate::index::generated_paths(manifest, listing);
+    let generated = crate::index::generated_paths(manifest, model.changelog_crates(), listing);
     let mut present = HashSet::new();
     let mut directories = HashSet::new();
     let mut outside = Vec::new();

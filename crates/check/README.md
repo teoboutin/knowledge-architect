@@ -71,7 +71,8 @@ harness, a root CLAUDE.md the walk keeps out. Phase 3 builds the entity table: a
 defined twice. Each of these says the model is incomplete, and a finding computed from the model
 afterwards would be unreliable in both directions, so the run prints that phase's findings, says
 which phases were not judged, and exits 1. Phase 4 is every check, over the complete model:
-`check`'s `agents`, `generated`, `registers` and `references`, each a module under
+`check`'s `agents`, `generated`, `registers`, `references` and, where the manifest declares
+`[changelog]`, `changelog`, each a module under
 `path@check@src/check/`, then each registered extension's, per
 `design@check@an-extension-plugs-in-through-phased-hooks`. `agents` judges, under the `claude`
 harness, each installed agent file missing, differing or unshipped, a deletion of one not staged,
@@ -136,6 +137,39 @@ register's README, index, groups and entry shapes, and a directory home's links.
 gives no input to is printed as not run rather than counted. There is no way to select a subset:
 the checks cross the phases, and a run over a passing tree costs under a second. The argument is
 `design@check@phases-gate-the-report`.
+
+**A project that keeps one changelog per published crate declares `[changelog]`**, and the check
+`changelog` judges them; a project that declares none is asked nothing:
+
+```toml
+[changelog]
+assembled = "CHANGELOG.md"
+categories = ["Migration", "New features", "Workflow"]
+unclassed = ["0.1.0"]
+
+[changelog.category-components]
+Workflow = ["agent-skills"]
+```
+
+- **The changelog crates** are the Components `components` lists, or, where it lists none, every
+  Component whose `Cargo.toml` Cargo would publish: a `version` set, its own or inherited, and
+  `publish` absent, `true` or a list naming a registry. Each holds a `CHANGELOG.md` in its
+  directory, and one whose `include` is set lists it.
+- **A crate's changelog** opens with the preamble the manifest determines, which a finding gives
+  whole and `check --fix` does not write; then `## Next release`, then one `## <version>` per
+  released version with an entry in the crate, in descending order. An entry is
+  `- <category>, <class>: <text>`, of a category declared and admitted for the crate, a class among
+  patch, minor and major, its text continuing on the lines indented under it, or `- <text>` in a
+  version `unclassed` lists. A line of no grammar is a finding of the last phase, so a command that
+  asks for a complete model answers over it.
+- **Each released version follows the next lower one by its highest class**, as Cargo's semver
+  reads the three numbers: under `0.x`, major and minor both bump the second. Where every changelog
+  crate sets `version.workspace = true`, the versions of every file are judged together, and a
+  crate's file may skip a version. An `unclassed` version, and the oldest, are not judged.
+- **With two changelog crates or more, the assembled file** at `assembled` is a generated file,
+  outside the walk: each version, then each category, then each crate, then its entries.
+  `index`, `index --staged` and `check --fix` write it, and refuse, writing nothing, over a file at
+  its path without the generated header, and while a changelog holds a line the file would omit.
 
 `index`, `index --staged` over the staged tree, `check --fix`, `new-component` and a writing
 command of an extension run the first three phases too, and

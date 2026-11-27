@@ -1,0 +1,12 @@
+# The root's package, which publishes nowhere, so it is no changelog crate, and the workspace whose
+# version the two published crates inherit.
+[package]
+name = "planted"
+version = "0.4.0"
+publish = false
+
+[workspace]
+members = ["parts/widget", "parts/gizmo"]
+
+[workspace.package]
+version = "0.4.0"

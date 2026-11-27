@@ -101,6 +101,10 @@ pub struct Model {
     /// scanned like a document and walked by no check: they define the items and the slices of
     /// their milestone, and no reference in them is read, as `crate::plan` says.
     frozen: Vec<Document>,
+    /// The changelog crates, read from each Component's `Cargo.toml` before the walk, since they
+    /// decide whether the assembled file is a generated path; empty where the manifest declares no
+    /// `[changelog]`, and in a model assembled in memory until the caller sets it.
+    changelog_crates: crate::changelogs::Crates,
 }
 
 /// Each file parsed as markdown prose, as a file outside the walk read for its definitions is.
@@ -268,7 +272,10 @@ impl Model {
             .collect();
         // A generated file and an installed one are outside the walk by construction: the
         // first is a function of the tree, the second is judged by its bytes alone.
-        let mut generated = crate::index::generated_paths(manifest, &listing);
+        let changelog_crates = crate::changelogs::read_crates(manifest, &files, &|rel: &Path| {
+            std::fs::read_to_string(root.join(rel)).ok()
+        });
+        let mut generated = crate::index::generated_paths(manifest, &changelog_crates, &listing);
         generated.extend(files.iter().filter(|f| manifest.owned(f)).cloned());
         // A frozen file leaves the walk by construction, as an installed one does.
         generated.extend(files.iter().filter(|f| frozen_file(manifest, f)).cloned());
@@ -347,7 +354,9 @@ impl Model {
             checker_sources,
             installed: Vec::new(),
             frozen: Vec::new(),
+            changelog_crates: Default::default(),
         };
+        model.changelog_crates = changelog_crates;
         model.set_installed(installed);
         model.set_frozen(frozen);
         Ok(model)
@@ -435,7 +444,20 @@ impl Model {
             checker_sources: checker.iter().map(|p| p.to_path_buf()).collect(),
             installed: Vec::new(),
             frozen: Vec::new(),
+            changelog_crates: Default::default(),
         }
+    }
+
+    /// The changelog crates of the tree the model was built from, and what kept a Component's
+    /// `Cargo.toml` from being read.
+    pub fn changelog_crates(&self) -> &crate::changelogs::Crates {
+        &self.changelog_crates
+    }
+
+    /// Set the changelog crates of a model assembled from a tree's text rather than built from a
+    /// checkout, as [`changelog_crates`](crate::model::changelog_crates) reads them from that tree before its walk.
+    pub fn set_changelog_crates(&mut self, crates: crate::changelogs::Crates) {
+        self.changelog_crates = crates;
     }
 
     /// Set the installed copies the model holds, each project-relative with its text.
@@ -634,6 +656,20 @@ fn describe(what: &Observation) -> (&'static str, String) {
         // where the entity table defines its id, which the lints on ids judge.
         Observation::BareName(_) | Observation::PlainWord(_) => ("", String::new()),
     }
+}
+
+/// The changelog crates of a tree, from its listing and a reader of its files' text, which answers
+/// `None` where a file's bytes are not text; empty where the manifest declares no `[changelog]`.
+///
+/// What [`Model::build`] reads from the disk, for a caller that builds a model from a snapshot's
+/// blobs: it hands the result to [`generated_paths`](crate::index::generated_paths) before the
+/// walk, and to [`Model::set_changelog_crates`] after.
+pub fn changelog_crates(
+    manifest: &Manifest,
+    listing: &[PathBuf],
+    read: &dyn Fn(&Path) -> Option<String>,
+) -> crate::changelogs::Crates {
+    crate::changelogs::read_crates(manifest, listing, read)
 }
 
 #[cfg(test)]

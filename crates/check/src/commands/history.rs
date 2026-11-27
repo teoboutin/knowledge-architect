@@ -654,7 +654,15 @@ fn commit_tree(
     // and the ignore questions asked of this tree follow the homes of the tree it commits rather
     // than the working tree's.
     let anchors = Anchors::of(&manifest, &read.listing);
-    let generated = crate::model::generated::generated_paths(&manifest, &read.listing);
+    // The changelog crates are read from the commit's own `Cargo.toml` blobs, before the walk, as
+    // `Model::build` reads them off the disk: they decide whether the assembled changelog is a
+    // generated path.
+    let changelog_crates =
+        crate::model::changelog::changelog_crates(&manifest, &read.listing, &|rel: &Path| {
+            read.blobs.get(rel).cloned()
+        });
+    let generated =
+        crate::model::generated::generated_paths(&manifest, &changelog_crates, &read.listing);
     // The walk reads through no symlink and no gitlink, so the files alone are walked.
     let files: Vec<PathBuf> = read
         .listing
@@ -726,6 +734,7 @@ fn commit_tree(
         }
     }
     let mut model = Model::from_documents_under(docs, checker);
+    model.set_changelog_crates(changelog_crates);
     // The commit's own installed copies define its installed entities, so a commit is judged
     // against the set it holds rather than the one the running binary ships.
     model.set_installed(
@@ -974,10 +983,10 @@ pub(super) fn index_staged(
         Tree::Snapshot(snapshot),
         extensions,
     )
-    .map_err(|why| {
+    .map_err(|r| {
         Unloadable {
-            why,
-            repair: super::EXTENSION_REPAIR,
+            why: r.why,
+            repair: r.repair,
         }
         .refusal("the staged tree's generated files cannot be computed")
     })?;
@@ -1098,10 +1107,10 @@ pub(super) fn staged_generated(
         extensions,
     )
     .map(Some)
-    .map_err(|why| {
+    .map_err(|r| {
         Unloadable {
-            why,
-            repair: super::EXTENSION_REPAIR,
+            why: r.why,
+            repair: r.repair,
         }
         .refusal("the staged tree's generated files cannot be computed")
     })

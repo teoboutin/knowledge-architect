@@ -1,0 +1,5 @@
+# Published, in lockstep with the workspace. PLANTED: its `include` packages no CHANGELOG.md.
+[package]
+name = "planted-gizmo"
+version.workspace = true
+include = ["/src/**", "/README.md"]

@@ -50,7 +50,11 @@ impl Gathered {
         // run over the manifest.
         let mut committed = HashMap::new();
         let mut generated_unreadable = HashSet::new();
-        for rel in crate::model::generated::generated_paths(manifest, model.listing()) {
+        for rel in crate::model::generated::generated_paths(
+            manifest,
+            model.changelog_crates(),
+            model.listing(),
+        ) {
             // Git lists a file the working tree no longer holds until its deletion is staged, so
             // the listing cannot tell an absent file from one that would not read: the read
             // tells them apart, and an absent one is left out of both.

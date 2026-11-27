@@ -43,6 +43,11 @@ let entities = table::Entities::build(&model, &anchors);
 - [`resolve`](https://docs.rs/knowledge-architect-model/latest/knowledge_architect_model/resolve/) says
   what a reference names, or why it names nothing, with the words of each cause and no finding attached.
 - `foundation::Gathered` reads what phases 1 to 3 and the resolver read: one survey and the two git batches.
+- [`changelog`](https://docs.rs/knowledge-architect-model/latest/knowledge_architect_model/changelog/)
+  parses a crate's changelog, renders the preamble the manifest determines and the assembled file of
+  the whole project, and says which Components are changelog crates, read from each `Cargo.toml`
+  where the manifest declares `[changelog]`. It raises no finding: a line it cannot read is recorded,
+  for a check to judge.
 
 ## What it needs and guarantees
 

@@ -22,6 +22,9 @@ serde = { version = "1", features = ["derive"] }
 toml = "1.1.4"
 # Every git invocation, per `design@knowledge-architect@checker-asks-git-through-the-crate`.
 knowledge-architect-git = { path = "../git", version = "=0.10.0" }
+# What a Component's `Cargo.toml` declares, for the changelog crates, read through the one reader
+# of Cargo's formats, per `design@knowledge-architect@tools-read-cargo-through-the-crate`.
+knowledge-architect-cargo-reader = { path = "../cargo-reader", version = "=0.10.0" }
 
 [dev-dependencies]
 # The shipped text the tests of `shipped_set` hold to the entity table. By path alone, which cargo
