@@ -1,10 +1,12 @@
-//! Which Components hold a changelog, read from each one's `Cargo.toml` through `cargo-reader`.
+//! Which Components hold a changelog, read from each one's `Cargo.toml` through `cargo-reader`,
+//! per `design@model@changelog-crates-are-listed-or-published`.
 //!
-//! **Read before the walk.** The assembled file is a generated path, outside the walk, only where
-//! two changelog crates or more are assembled, and which Components are changelog crates is
-//! what their `Cargo.toml` says where `[changelog] components` lists none. So the read happens
-//! where the model is built, from the listing and the reader of the tree the model is built from,
-//! the disk or a snapshot's blobs, so `check`, `check --staged` and `commits` read one set.
+//! **Read before the walk**, per `design@model@changelog-crates-read-before-the-walk`. The
+//! assembled file is a generated path, outside the walk, only where two changelog crates or more
+//! are assembled, and which Components are changelog crates is what their `Cargo.toml` says where
+//! `[changelog] components` lists none. So the read happens where the model is built, from the
+//! listing and the reader of the tree the model is built from, the disk or a snapshot's blobs, so
+//! `check`, `check --staged` and `commits` read one set.
 //!
 //! **A `Cargo.toml` this read cannot use is a fact kept for the last phase, never a failure of
 //! the build**: the model is built whatever a manifest holds, so a parent tree of `commits`
@@ -102,7 +104,8 @@ impl Crates {
     }
 
     /// The path of the assembled file, where one is assembled: the manifest declares
-    /// `[changelog]` and two changelog crates or more are read. With one, nothing is assembled.
+    /// `[changelog]` and two changelog crates or more are read. With one, nothing is assembled,
+    /// per `design@model@assembled-changelog-from-two-crates`.
     pub fn assembled<'a>(&self, manifest: &'a Manifest) -> Option<&'a Path> {
         let table = manifest.changelog()?;
         (self.crates.len() >= 2).then(|| table.assembled())
@@ -221,8 +224,9 @@ pub fn read(
     out
 }
 
-/// Whether Cargo would publish the package, as `path@model@docs/grounding/cargo-packages.md` reads
-/// `version` and `publish`: a `version`
+/// Whether Cargo would publish the package, per
+/// `design@model@changelog-crates-are-listed-or-published`, as
+/// `path@model@docs/grounding/cargo-packages.md` reads `version` and `publish`: a `version`
 /// set, and `publish` absent, `true`, or a list naming a registry. An empty list names none and is
 /// read as `false`, a reading that grounding file records.
 fn published(package: &Package) -> bool {
@@ -235,7 +239,8 @@ fn published(package: &Package) -> bool {
 }
 
 /// The package with every inherited field resolved from the workspace's `[workspace.package]`,
-/// the workspace Cargo uses, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`, as
+/// the workspace Cargo uses, per `design@model@changelog-crates-are-listed-or-published` and
+/// `design@cargo-reader@the-caller-finds-the-workspace-manifest`, as
 /// `cargo metadata` was measured to find it, per
 /// `path@model@docs/grounding/cargo-packages.md`: the directory `package.workspace` names
 /// where it is set; otherwise the nearest at or above the Component's directory, within the

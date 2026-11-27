@@ -373,7 +373,8 @@ pub fn file_register_indexes(
 /// knows which files it reads.
 ///
 /// `crates` are the tree's changelog crates: where two or more are read, the assembled changelog
-/// is one of these paths, the one the manifest declares, per `design@model@git-supplies-the-walk`.
+/// is one of these paths, the one the manifest declares, per `design@model@git-supplies-the-walk`
+/// and `design@model@assembled-changelog-from-two-crates`.
 pub fn generated_paths<'a>(
     manifest: &Manifest,
     crates: &crate::changelogs::Crates,

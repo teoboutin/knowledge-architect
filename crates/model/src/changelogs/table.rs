@@ -1,8 +1,9 @@
 //! The manifest's `[changelog]` table: which Components hold a changelog, the categories, the
 //! versions with no category and no class, and where the assembled file is written.
 //!
-//! **The table is opt-in**: a manifest that declares none is asked nothing of its changelogs. It
-//! is a built-in table, so the name `changelog` is taken from every extension.
+//! **The table is opt-in**: a manifest that declares none is asked nothing of its changelogs, per
+//! `design@check@changelog-opt-in`. It is a built-in table, so the name `changelog` is taken from
+//! every extension, per `design@model@an-extension-claims-its-manifest-tables`.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -14,7 +15,7 @@ use crate::finding::Finding;
 use crate::manifest::{normalise_one, MANIFEST_NAME};
 
 /// The table as written. `categories` is required: the categories are the project's, so none is
-/// compiled in.
+/// compiled in, per `design@check@changelog-opt-in`.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 pub(crate) struct Declared {
@@ -113,7 +114,8 @@ pub(crate) fn resolve(
         found
     };
     // In the manifest's order of the Components, whatever order the list writes them in: that is
-    // the order of the assembled file's crates.
+    // the order of the assembled file's crates, per
+    // `design@model@assembled-crates-in-the-manifest-s-order`.
     let listed: Vec<&String> = declared
         .components
         .iter()
@@ -128,7 +130,8 @@ pub(crate) fn resolve(
     let mut categories: Vec<String> = Vec::new();
     for category in &declared.categories {
         // An entry writes its category before `, <class>: `, and the preamble lists them joined by
-        // `, `, so a category holding either separator could be read back as another.
+        // `, `, so a category holding either separator could be read back as another, per
+        // `design@model@changelog-entry-categories`.
         let why = if category.trim().is_empty() {
             Some("is empty")
         } else if category.trim() != category {
@@ -179,8 +182,9 @@ pub(crate) fn resolve(
         category_components.insert(category.clone(), kept);
     }
 
-    // A path refused here is a complaint of phase 1, which stops every run before a check or a
-    // writer reads the table, so the default it falls back to is never acted on.
+    // A path refused here, per `design@model@assembled-path-taken-by-no-other-file`, is a
+    // complaint of phase 1, which stops every run before a check or a writer reads the table, so
+    // the default it falls back to is never acted on.
     let mut assembled = declared
         .assembled
         .clone()

@@ -50,6 +50,10 @@ too, since it changes that number from zero. The readings of a release after eac
   dash such as 1.0.0-alpha", and "A metadata part can be added after a plus, such as
   1.0.0+21AF26D3. This is for informational purposes only and is generally ignored by Cargo." The
   book gives no class to a release whose version is a pre-release.
+- **Build metadata orders as the version without it**: item 10 of the Semantic Versioning
+  specification 2.0.0, <https://semver.org/spec/v2.0.0.html>, read on 2026-11-27: "Build metadata
+  MUST be ignored when determining version precedence. Thus two versions that differ only in the
+  build metadata, have the same precedence."
 - **No leading zero**: measured with `cargo metadata --format-version 1 --no-deps --offline` over a
   package whose `version` is `01.2.3`, Cargo refuses it, "invalid leading zero in major version
   number".

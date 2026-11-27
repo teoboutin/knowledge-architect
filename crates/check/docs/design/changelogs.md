@@ -67,7 +67,8 @@ Cargo would not package its `CHANGELOG.md`, is a finding; a crate that sets neit
 file Cargo does not leave out, and is judged nothing. The patterns are read as Cargo reads them:
 `exclude` only where `include` is unset, an empty `include` counting as unset, and the files Cargo
 packages whatever the patterns say, the `Cargo.toml` and the files `license-file` and `readme`
-name, counted as packaged. The match is `cargo-reader`'s, per
+name, counted as packaged; a pattern Cargo refuses, in either list, under which Cargo lists no file
+of the package, is a finding too. The match is `cargo-reader`'s, per
 `design@knowledge-architect@tools-read-cargo-through-the-crate`, and its reading of Cargo's patterns,
 measured with `cargo package --list`, is `path@cargo-reader@docs/grounding/cargo-manifest.md`. A crate
 whose package omits its changelog, by whichever key, publishes none, so a consumer reading the

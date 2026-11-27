@@ -6,12 +6,14 @@
 //! depends on a changelog's content, so the parse records what it could not read rather than
 //! raising a finding of phases 1 to 3, which say whether the model can be trusted, per
 //! `design@knowledge-architect@model-crate`; every changelog finding is a check of `check`'s last
-//! phase, so a tool that asks for a complete model answers over a malformed entry. The manifest's
+//! phase, per `design@check@changelog-opt-in`, so a tool that asks for a complete model answers
+//! over a malformed entry. The manifest's
 //! own table is the exception, as any table is: a declaration it refuses is a complaint of
 //! phase 1.
 //!
 //! The grammar and the classes are compiled in, as the tool's convention for a kind of document;
-//! the categories are the project's, declared in the manifest.
+//! the categories are the project's, declared in the manifest, per
+//! `design@model@changelog-entry-categories`.
 
 mod crates;
 mod parse;
@@ -35,7 +37,8 @@ pub const CHANGELOG_FILE: &str = "CHANGELOG.md";
 pub const NEXT_RELEASE: &str = "Next release";
 
 /// A released version, as a version heading writes it: three numbers joined by `.`, each with no
-/// leading zero, and no pre-release and no build part, as
+/// leading zero, and no pre-release and no build part, per
+/// `design@model@changelog-version-is-a-release-version`, as
 /// `path@check@docs/grounding/cargo-semver.md` reads Cargo's versions.
 ///
 /// Each number is at most `u64::MAX`: [`Version::parse`] refuses a larger one, and
@@ -76,7 +79,8 @@ impl Version {
     }
 
     /// The versions a release of the class `class` may take after this one, as Cargo's semver
-    /// reads the three numbers, `path@check@docs/grounding/cargo-semver.md`:
+    /// reads the three numbers, per `design@check@changelog-bump-check` and
+    /// `path@check@docs/grounding/cargo-semver.md`:
     ///
     /// - at `1.0.0` and above, a major change bumps the first number, a minor one the second and a
     ///   patch the third;

@@ -1,5 +1,6 @@
 //! The bump check: each released version follows the next lower one by its highest class, as
-//! Cargo's semver reads the three numbers, `path@check@docs/grounding/cargo-semver.md`.
+//! Cargo's semver reads the three numbers, per `design@check@changelog-bump-check` and
+//! `path@check@docs/grounding/cargo-semver.md`.
 //!
 //! **It reads the tree alone**: the versions are those the changelogs hold, and no history is
 //! read. Under the lockstep, where every changelog crate sets `version.workspace = true`, those

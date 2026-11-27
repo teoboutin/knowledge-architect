@@ -89,7 +89,7 @@ fn read(sandbox: &Sandbox, rel: &str) -> String {
     std::fs::read_to_string(sandbox.path(rel)).expect("a file of the project")
 }
 
-/// The claim, claim 1: a project with published crates, each `CHANGELOG.md` of another shape,
+/// The claim: a project with published crates, each `CHANGELOG.md` of another shape,
 /// that declares no `[changelog]`, yields no changelog finding, names no such check, and has no file
 /// assembled. Mutation checked, caught: in `run` of `path@check@src/check/mod.rs`,
 /// `.filter(|c| *c != "changelog" || manifest.changelog().is_some())` made `.filter(|_| true)`.
@@ -113,7 +113,7 @@ fn a_project_that_declares_no_changelog_is_asked_nothing() {
     assert_eq!(read(&sandbox, "CHANGELOG.md"), other);
 }
 
-/// The claim, claim 9: with two changelog crates, a missing assembled file and a stale one are
+/// The claim: with two changelog crates, a missing assembled file and a stale one are
 /// each a finding, and `check --fix` writes it in the layout of the assembled file. Mutation
 /// checked, caught: in `check` of `path@check@src/check/generated.rs`,
 /// `crate::model::changelog::assembled_file(manifest, model)` made
@@ -160,7 +160,7 @@ fn a_missing_or_stale_assembled_file_is_a_finding_and_check_fix_writes_it() {
     );
 }
 
-/// The claim, claim 9's other half: with one changelog crate, nothing is assembled, whatever the
+/// The claim: with one changelog crate, nothing is assembled, whatever the
 /// key, and its preamble names no assembled file. Mutation checked, caught: in
 /// `Crates::assembled`, `(self.crates.len() >= 2)` made `(self.crates.len() >= 1)`.
 #[test]
@@ -184,7 +184,7 @@ fn with_one_changelog_crate_nothing_is_assembled() {
     assert!(!sandbox.path("ALL-CHANGES.md").exists(), "{out}");
 }
 
-/// The claim, claim 3: a changelog holding a misspelt category and a line of no grammar stops no
+/// The claim: a changelog holding a misspelt category and a line of no grammar stops no
 /// phase, so `id` and `worklist` answer over it, and the last phase reports each line. Mutations
 /// checked, each caught: in `check` of `path@model@src/tree.rs`, phase 2, a finding pushed for each
 /// unread line of each changelog crate's file, after `declarations(&mut out, model, manifest, inputs);`;
@@ -336,7 +336,7 @@ fn every_writer_refuses_while_a_changelog_is_kept_out() {
     }
 }
 
-/// The claim, claim 8: a preamble that differs is a finding whose repair gives the expected text
+/// The claim: a preamble that differs is a finding whose repair gives the expected text
 /// whole, and `check --fix` writes no byte of the crate's changelog. Mutation checked, caught: in
 /// `check` of `path@check@src/check/changelog/mod.rs`,
 /// `expected_preamble(table, &crate_.package, assembled)` made
@@ -363,9 +363,9 @@ fn a_preamble_that_differs_is_a_finding_check_fix_does_not_repair() {
     assert_eq!(read(&sandbox, "lib/CHANGELOG.md"), edited);
 }
 
-/// The claim, claim 13: a changelog crate whose `CHANGELOG.md` a `[walk]` row keeps out is a
+/// The claim: a changelog crate whose `CHANGELOG.md` a `[walk]` row keeps out is a
 /// finding naming the row, never one that reports it missing; one whose `CHANGELOG.md` is not
-/// there is reported missing, claim 2's last part. Mutation checked, caught: in `check` of
+/// there is reported missing. Mutation checked, caught: in `check` of
 /// `path@check@src/check/changelog/mod.rs`, `.filter(|_| inputs.present.contains(&rel))` made
 /// `.filter(|_| false)`, so the file kept out is reported missing.
 #[test]
@@ -396,7 +396,7 @@ fn a_changelog_a_walk_row_keeps_out_is_named_by_the_row() {
     );
 }
 
-/// The claim, claim 13's other half: a changelog crate whose `Cargo.toml` `cargo-reader` refuses
+/// The claim: a changelog crate whose `Cargo.toml` `cargo-reader` refuses
 /// is a finding carrying its reason, of the last phase, so `id` answers over it. Mutation checked,
 /// caught: in `read` of `path@model@src/changelogs/crates.rs`,
 /// `out.trouble.push(unreadable(e.to_string()));` made `let _ = e;`.

@@ -21,7 +21,8 @@ pub const GENERATED_HEADER: &str = "**Generated — do not edit.**";
 /// The preamble a crate's changelog opens with, as the manifest determines it: the package's
 /// name, that the file holds that crate's entries only, the assembled file named in words where
 /// one is assembled, with its link where `assembled-url` sets one, the categories in their
-/// order, and the `unclassed` versions where any.
+/// order, and the `unclassed` versions where any, per `design@check@category-order-in-preamble`;
+/// the link as `design@check@preamble-links-only-the-declared-url` says.
 ///
 /// Each crate's file is thereby self-contained: a reader with no manifest of the publisher, such
 /// as a consumer's command over the registry sources, reads the categories and the unclassed
@@ -62,11 +63,12 @@ pub fn expected_preamble(
 /// name, which the crate's heading writes, and the crate's parse, in the manifest's order of the
 /// Components. `command` is the command the generated header names, as in `<command> index`.
 ///
-/// The layout: the generated header; then each version, `Next release` first and the released
-/// ones in descending order, as `## <version>`; under it each category in its declared order, as
-/// `### <category>`; under it each crate, as `#### <package>`; under it the crate's entries of
-/// that category, `- <class>: <text>`, in the order of its file. A version `unclassed` lists has
-/// no category level: `#### <package>`, then `- <text>`. An empty level is omitted.
+/// The layout, per `design@model@assembled-changelog-layout`: the generated header; then each
+/// version, `Next release` first and the released ones in descending order, as `## <version>`;
+/// under it each category in its declared order, as `### <category>`; under it each crate, as
+/// `#### <package>`; under it the crate's entries of that category, `- <class>: <text>`, in the
+/// order of its file. A version `unclassed` lists has no category level: `#### <package>`, then
+/// `- <text>`. An empty level is omitted.
 ///
 /// It omits a line the parse could not read, an entry with no tag in a classed version, and an
 /// entry whose category the manifest does not admit for its crate: a caller that must lose
@@ -153,7 +155,8 @@ fn is_unclassed(table: &ChangelogTable, heading: Heading) -> bool {
 /// `component`, and no entry with no tag.
 ///
 /// **The one rule of what the assembled file keeps**, which [`assembled_text`] writes by and
-/// [`omitted`] reads, so a writer never drops a line its refusal let through.
+/// [`omitted`] reads, so a writer never drops a line its refusal let through, per
+/// `design@model@assembled-file-not-overwritten`.
 fn place<'e>(
     table: &ChangelogTable,
     component: &str,
@@ -223,7 +226,8 @@ pub(super) fn parsed(model: &Model) -> Vec<(String, String, Changelog)> {
 }
 
 /// The assembled file, its path and the text it should hold, where one is assembled: the
-/// manifest declares `[changelog]`, and the model reads two changelog crates or more.
+/// manifest declares `[changelog]`, and the model reads two changelog crates or more, per
+/// `design@model@assembled-changelog-from-two-crates`.
 pub fn assembled_file(manifest: &Manifest, model: &Model) -> Option<(PathBuf, String)> {
     let table = manifest.changelog()?;
     let path = model.changelog_crates().assembled(manifest)?;
