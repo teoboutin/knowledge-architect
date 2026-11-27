@@ -261,6 +261,29 @@ mod tests {
         assert_eq!(found.len(), 5, "{found:#?}");
     }
 
+    /// The claim: a category that is empty, and one that opens or ends with white space, are each
+    /// a complaint saying which, and declare nothing, since no entry's tag could name it as
+    /// declared. Mutations checked, each caught: in `resolve`,
+    /// `let why = if category.trim().is_empty() {` made `let why = if false {`; and
+    /// `} else if category.trim() != category {` made `} else if false {`.
+    #[test]
+    fn an_empty_or_padded_category_is_refused() {
+        for (category, why) in [
+            ("", "is empty"),
+            ("  ", "is empty"),
+            (" A", "opens or ends with white space"),
+            ("A ", "opens or ends with white space"),
+        ] {
+            let (table, complaints) = resolved(&format!("categories = [\"{category}\"]\n"));
+            assert!(table.categories().is_empty(), "{category:?}: {table:?}");
+            assert_eq!(complaints.len(), 1, "{category:?}: {complaints:?}");
+            assert!(
+                complaints[0].what.ends_with(why),
+                "{category:?}: {complaints:?}"
+            );
+        }
+    }
+
     /// The claim: an `assembled` path that names the root, empty or `.`, is a complaint, as one
     /// that leaves the project is. Mutation checked: in `resolve`, the arm
     /// `} else if assembled.as_os_str().is_empty() {` made `} else if false {`; caught.

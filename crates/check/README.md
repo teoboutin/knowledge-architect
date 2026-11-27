@@ -178,7 +178,8 @@ Workflow = ["agent-skills"]
   installer's namespace, and not a crate's own changelog, per
   `design@model@assembled-path-taken-by-no-other-file`. `index`, `index --staged` and `check --fix` write
   it, and refuse, writing nothing, over a file at its path without the generated header, and while
-  the file would omit what a changelog crate holds: a line of no grammar, or a crate whose
+  the file would omit what a changelog crate holds: a line of no grammar, a line of a preamble
+  that the preamble the manifest determines lacks, or a crate whose
   `CHANGELOG.md` or `Cargo.toml` cannot be read, per `design@model@assembled-file-not-overwritten`.
   With one changelog crate, nothing is assembled, per
   `design@model@assembled-changelog-from-two-crates`, and a file at the path that opens with the

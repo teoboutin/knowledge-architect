@@ -311,6 +311,61 @@ fn every_writer_refuses_while_a_line_would_be_omitted() {
     }
 }
 
+/// The claim: each writer refuses while a changelog's preamble holds a line the preamble the
+/// manifest determines lacks, naming the line and its repair, and writes no byte, since the
+/// assembled file would omit it: the entries under a misspelled `## Next Release`, which the
+/// parse leaves in the preamble, and a paragraph above the first version heading. Mutation
+/// checked: in `omitted` of `path@model@src/changelogs/render.rs`,
+/// `.position(|line| !known.contains(&line.trim_end()))` made `.position(|_| false)`; caught.
+#[test]
+fn every_writer_refuses_while_the_preamble_holds_a_line_the_manifest_s_lacks() {
+    for (tag, text, line) in [
+        (
+            "changelog-refuse-misspelled",
+            changelog(
+                "core-lib",
+                "## Next Release\n\n- New features, patch: lost.\n",
+            ),
+            7,
+        ),
+        (
+            "changelog-refuse-preamble",
+            changelog("core-lib", &format!("An extra paragraph.\n\n{LIB_BODY}")),
+            7,
+        ),
+    ] {
+        let sandbox = current(tag);
+        let before = read(&sandbox, "ALL-CHANGES.md");
+        sandbox.write("lib/CHANGELOG.md", &text);
+        sandbox.stage();
+        for args in [&["check", "--fix"][..], &["index"], &["index", "--staged"]] {
+            let (out, err, code) = sandbox.run(args);
+            assert_eq!(code, 2, "{tag} {args:?}: {out}{err}");
+            assert!(
+                err.contains(&format!(
+                    "lib/CHANGELOG.md:{line}: the line is above the first version heading"
+                )),
+                "{tag} {args:?}: {err}"
+            );
+            let flat = err.split_whitespace().collect::<Vec<_>>().join(" ");
+            assert!(
+                flat.contains("move the line below its version heading, as an entry, or remove it"),
+                "{tag} {args:?}: {err}"
+            );
+            assert_eq!(read(&sandbox, "ALL-CHANGES.md"), before, "{tag} {args:?}");
+            let staged = sandbox
+                .git_command(&["show", ":ALL-CHANGES.md"])
+                .output()
+                .expect("git runs");
+            assert_eq!(
+                String::from_utf8_lossy(&staged.stdout),
+                before,
+                "{tag} {args:?}"
+            );
+        }
+    }
+}
+
 /// The claim: each writer refuses while a `[walk]` row keeps out a changelog the tree holds, naming
 /// the row, and writes no byte, since the assembled file would omit that crate's entries.
 /// Mutation checked, caught: in `generated_list` of `path@check@src/commands/mod.rs`, the
@@ -336,15 +391,19 @@ fn every_writer_refuses_while_a_changelog_is_kept_out() {
     }
 }
 
-/// The claim: a preamble that differs is a finding whose repair gives the expected text
-/// whole, and `check --fix` writes no byte of the crate's changelog. Mutation checked, caught: in
+/// The claim: a preamble that differs, by lacking lines of the expected one, is a finding whose
+/// repair gives the expected text whole, and `check --fix` writes no byte of the crate's changelog
+/// and does not refuse, since the assembled file omits nothing. Mutations checked, each caught: in
 /// `check` of `path@check@src/check/changelog/mod.rs`,
 /// `expected_preamble(table, &crate_.package, assembled)` made
-/// `expected_preamble(table, &crate_.package, None)`, so the repair gives another text.
+/// `expected_preamble(table, &crate_.package, None)`, so the repair gives another text; and in
+/// `omitted` of `path@model@src/changelogs/render.rs`,
+/// `.position(|line| !known.contains(&line.trim_end()))` made
+/// `.position(|_| log.preamble != expected)`, so any preamble that differs refuses.
 #[test]
 fn a_preamble_that_differs_is_a_finding_check_fix_does_not_repair() {
     let sandbox = current("changelog-preamble");
-    let edited = format!("# Changelog of core-lib\n\nAnother preamble.\n\n{LIB_BODY}");
+    let edited = format!("# Changelog of core-lib\n\n{LIB_BODY}");
     sandbox.write("lib/CHANGELOG.md", &edited);
     sandbox.stage();
     let (out, _, code) = sandbox.run(&["check", "--fix"]);

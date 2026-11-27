@@ -156,7 +156,8 @@ an empty subsection is omitted.
   With two changelog crates or more, the assembled file of the whole project is a generated file,
   written by `index`, `index --staged` and `check --fix`, which write no byte of a crate's
   changelog, and refuse, writing nothing, over a directory at its path, over a file there without
-  the generated header or that is not text, while a line would be omitted, and while a changelog
+  the generated header or that is not text, while a line would be omitted, a line of a preamble
+  that the preamble the manifest determines lacks included, and while a changelog
   crate's `CHANGELOG.md` or `Cargo.toml` above cannot be read; the finding over a file without the
   header names moving it away. An assembled path that is empty or `.`, in the installer's
   namespace, or the path of another generated file, is a complaint of the manifest or a finding of

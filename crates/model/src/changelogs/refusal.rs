@@ -10,7 +10,7 @@
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
-use super::render::{omitted, parsed, Omitted};
+use super::render::{expected_preamble, omitted, parsed, Omitted};
 use super::{CargoTrouble, GENERATED_HEADER};
 use crate::finding::slashed;
 use crate::manifest::Manifest;
@@ -31,6 +31,12 @@ const HAND_WRITTEN_REPAIR: &str = "move the file away, or set `[changelog] assem
 
 /// The repair of a line the assembled file would omit.
 const OMITTED_REPAIR: &str = "repair the line as the changelog check reports it, and run again";
+
+/// The repair of a line of a crate's preamble that the preamble the manifest determines lacks.
+const PREAMBLE_REPAIR: &str =
+    "move the line below its version heading, as an entry, or remove it, \
+     so the lines above the first version heading are those the changelog check gives, and run \
+     again; a misspelled version heading leaves every line below it above the first one";
 
 /// The repair of a directory at the assembled file's path, which no writer replaces.
 const DIRECTORY_REPAIR: &str = "move out what the directory holds, then remove it, and run again";
@@ -69,8 +75,10 @@ pub fn hand_written(text: &str) -> bool {
 /// [`hand_written`] or not text; where the changelog checks cannot read a changelog crate's file:
 /// a `Cargo.toml` that [`Crates::trouble`](super::Crates::trouble) names, or a `CHANGELOG.md` that
 /// the tree holds and a `[walk]` row keeps out; and where a changelog holds a line the
-/// assembled file would omit: an unread line, or an entry whose category the manifest does not
-/// declare for its crate, an entry with no tag in a classed version included. Nothing is refused
+/// assembled file would omit: a line of its preamble that the preamble the manifest determines
+/// lacks, an unread line, or an entry whose category the manifest does not declare for its crate,
+/// an entry with no tag in a classed version included. A preamble that lacks a line of the
+/// expected one is no refusal. Nothing is refused
 /// where nothing is assembled. A changelog crate whose tree holds no `CHANGELOG.md` is no refusal:
 /// it has no entry to omit.
 pub fn refusal(manifest: &Manifest, model: &Model, tree: WrittenTree) -> Option<Refused> {
@@ -145,23 +153,36 @@ pub fn refusal(manifest: &Manifest, model: &Model, tree: WrittenTree) -> Option<
         .all()
         .iter()
         .zip(parsed(model))
-        .find_map(|(crate_, (component, _, log))| {
+        .find_map(|(crate_, (component, package, log))| {
             let rel = slashed(&crate_.changelog());
-            let why = match omitted(table, &component, &log)? {
-                Omitted::Unread(line) => format!(
-                    "{rel}:{line}: the line is no entry, no version heading and no continuation \
-                     of an entry, and the assembled changelog would omit it. Nothing was written."
+            let expected = expected_preamble(table, &package, Some(path));
+            let (why, repair) = match omitted(table, &component, &expected, &log)? {
+                Omitted::Preamble(line) => (
+                    format!(
+                        "{rel}:{line}: the line is above the first version heading and is no line \
+                         of the preamble the manifest determines, and the assembled changelog \
+                         would omit it. Nothing was written."
+                    ),
+                    PREAMBLE_REPAIR,
                 ),
-                Omitted::Entry(line) => format!(
-                    "{rel}:{line}: the entry's category is none the manifest declares for \
-                     `{component}`, and the assembled changelog would omit it. Nothing was \
-                     written."
+                Omitted::Unread(line) => (
+                    format!(
+                        "{rel}:{line}: the line is no entry, no version heading and no \
+                         continuation of an entry, and the assembled changelog would omit it. \
+                         Nothing was written."
+                    ),
+                    OMITTED_REPAIR,
+                ),
+                Omitted::Entry(line) => (
+                    format!(
+                        "{rel}:{line}: the entry's category is none the manifest declares for \
+                         `{component}`, and the assembled changelog would omit it. Nothing was \
+                         written."
+                    ),
+                    OMITTED_REPAIR,
                 ),
             };
-            Some(Refused {
-                why,
-                repair: OMITTED_REPAIR,
-            })
+            Some(Refused { why, repair })
         })
 }
 
@@ -169,8 +190,6 @@ pub fn refusal(manifest: &Manifest, model: &Model, tree: WrittenTree) -> Option<
 mod tests {
     use super::*;
     use std::path::Path;
-
-    const PREAMBLE: &str = "# Changelog\n\n";
 
     /// A project of two changelog crates, `a` and `b`, whose manifest declares the categories `A`
     /// and `W`, `W` restricted to `b`, and `0.1.0` unclassed; each crate's changelog is the text
@@ -211,15 +230,14 @@ mod tests {
                 .ok_or_else(|| std::io::ErrorKind::NotFound.into())
         });
         assert_eq!(crates.all().len(), 2, "{crates:?}");
+        let table = manifest.changelog().expect("the table");
+        let assembled = crates.assembled(&manifest);
+        let log = |package: &str, body: &str| {
+            format!("{}\n\n{body}", expected_preamble(table, package, assembled))
+        };
         let mut model = Model::from_documents(vec![
-            (
-                PathBuf::from("a/CHANGELOG.md"),
-                format!("{PREAMBLE}{}", logs[0]),
-            ),
-            (
-                PathBuf::from("b/CHANGELOG.md"),
-                format!("{PREAMBLE}{}", logs[1]),
-            ),
+            (PathBuf::from("a/CHANGELOG.md"), log("pa", logs[0])),
+            (PathBuf::from("b/CHANGELOG.md"), log("pb", logs[1])),
         ]);
         model.set_changelog_crates(crates);
         (manifest, model)
@@ -242,6 +260,17 @@ mod tests {
     }
 
     const CLEAN: &str = "## Next release\n\n- A, patch: a fix\n";
+
+    /// The claim: a file at the assembled path that opens with the generated header after a
+    /// byte-order mark is this tool's, and one that holds the header after any other text is not.
+    /// Mutation checked: in `hand_written`, `.trim_start_matches('\u{feff}')` removed; caught.
+    #[test]
+    fn a_byte_order_mark_before_the_generated_header_is_not_hand_written() {
+        let generated = format!("{GENERATED_HEADER} `klarch index`\n");
+        assert!(!hand_written(&generated));
+        assert!(!hand_written(&format!("\u{feff}{generated}")));
+        assert!(hand_written(&format!(" {generated}")));
+    }
 
     /// The claim: a file at the assembled path whose bytes are not text is refused as one without
     /// the generated header, since it is not this tool's to replace. Mutation checked: in
@@ -274,7 +303,7 @@ mod tests {
         let refused = refused([restricted, CLEAN], &[]).expect("a refusal");
         assert_eq!(refused.repair, OMITTED_REPAIR);
         assert!(
-            refused.why.starts_with("a/CHANGELOG.md:5:"),
+            refused.why.starts_with("a/CHANGELOG.md:11:"),
             "{}",
             refused.why
         );
