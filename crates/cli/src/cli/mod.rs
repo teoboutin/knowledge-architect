@@ -151,7 +151,11 @@ impl clap::FromArgMatches for ChangelogArgs {
             packages: declared.packages,
         };
         changelog_request(&args).map_err(|why| {
-            clap::Error::raw(clap::error::ErrorKind::ArgumentConflict, format!("{why}\n"))
+            // Formatted here against the subcommand, so its usage line names `changelog`, as
+            // clap's own errors for it do. The path of commands above it, the binary's name among
+            // them, is not known here: a binary that flattens `Command` names its own.
+            let mut command = ChangelogDeclared::augment_args(clap::Command::new("changelog"));
+            clap::Error::raw(clap::error::ErrorKind::ArgumentConflict, why).format(&mut command)
         })?;
         Ok(args)
     }

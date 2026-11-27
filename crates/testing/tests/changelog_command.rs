@@ -425,8 +425,8 @@ fn what_the_output_cannot_hold_is_reported_after_it() {
 
 /// Claim 3 of the repairs of slice 4's first review: the command reads the Cargo project the
 /// project's root holds, never one of a package enclosing it. A project whose root holds no
-/// `Cargo.toml` is refused, exit 2, naming the reading by hand of a project with no Rust and no
-/// `cargo fetch`, even nested in the directory of the consumer's package. Mutation checked: in
+/// `Cargo.toml` is refused, exit 2, saying the command reads the graph of the root's
+/// `Cargo.toml`, naming no `cargo fetch`, even nested in the directory of the consumer's package. Mutation checked: in
 /// `changelog` of `path@query@src/changelog.rs`, `if !cargo_toml.is_file() {` made `if false {`;
 /// caught.
 #[test]
@@ -440,6 +440,11 @@ fn a_root_with_no_cargo_project_is_refused() {
     );
     assert_eq!((code, out.as_str()), (2, ""), "{err}");
     assert!(err.contains("holds no Cargo project at its root"), "{err}");
-    assert!(err.contains("a project with no Rust reads"), "{err}");
+    assert!(
+        err.contains(
+            "reads the dependency graph `cargo metadata` resolves from the root's Cargo.toml"
+        ),
+        "{err}"
+    );
     assert!(!err.contains("cargo fetch"), "{err}");
 }

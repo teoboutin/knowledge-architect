@@ -331,25 +331,30 @@ cargo klarch changelog knowledge-architect --from 0.10.0
 - **It reads the project's resolved dependency graph** with `cargo metadata --format-version 1
   --manifest-path <root>/Cargo.toml --locked --offline`, run at the project's root, so it reads the
   graph of the Cargo project the root holds, never one of a package enclosing it, writes no file,
-  `Cargo.lock` included, and reaches no network. A root with no `Cargo.toml` is refused, exit 2: a
-  project with no Rust reads the changelogs by hand, as the setup skill's pin move says. After the
+  `Cargo.lock` included, and reaches no network, per
+  `design@query@changelog-runs-cargo-locked-and-offline`. A root with no `Cargo.toml` is refused,
+  exit 2, since it holds no Cargo project for the command to read. After the
   versions a `Cargo.toml` requires are edited, the lock file is stale and a run of the binary
   fails with cargo's message, exit 2: run `cargo fetch` first. A package the graph holds at several
   versions is read in its newest.
 - **What it reads**: without `--package`, every package of the graph whose `repository` equals the
   named package's, or the named package alone where it sets none; with `--package`, exactly the
-  named package and those. A name the graph does not hold is refused, exit 2, and so is a `--to`
+  named package and those, per `design@query@changelog-selects-by-repository`. A name the graph
+  does not hold is refused, exit 2, and so is a `--to`
   not above `--from`, while parsing. Each package's `CHANGELOG.md` is the one beside its
   `Cargo.toml`, in the format the check named `changelog` judges, and each package's entries are
   placed by the categories and the unclassed versions its own preamble states.
 - **What it prints** is the layout of an assembled changelog with no generated header: each version
   as `## <version>`, newest first; under it each category, in the order of first appearance in the
   preambles, the named package's first; under it each crate, the named package first, then the
-  others by package name. In a version a crate's preamble lists as unclassed, that crate has no
-  category level, and its block comes before the categories.
+  others by package name, per `design@query@consumer-crate-order`. In a version a crate's preamble
+  lists as unclassed, that crate has no category level, and its block comes before the categories.
+  Where nothing is printed, a line says whether the range holds no entry, or holds entries the
+  layout has no place for.
 - **What the layout cannot hold is reported after it, never dropped**, under a line `Not printed,
   since the layout has no place for it:`: one line per selected package whose `CHANGELOG.md` cannot
-  be read, naming the file; one per line of a preamble of no shape the read takes, and per line the
+  be read, or holds a carriage return that no line feed follows, which the read would take as one
+  line, naming the file; one per line of a preamble of no shape the read takes, and per line the
   parse could not read, whatever its section, since a version heading the parse does not take is
   such a line and leaves its entries in the section above it; and, in a section of the range, one
   per entry of a category its preamble does not list, or with no tag in a classed version, each of

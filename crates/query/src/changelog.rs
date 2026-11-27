@@ -83,19 +83,25 @@ pub struct ChangelogRequest {
 /// It runs `cargo metadata --format-version 1 --manifest-path <root>/Cargo.toml --locked
 /// --offline` at the manifest's root, so the graph is that of the Cargo project the root holds,
 /// never one of a package enclosing it; it writes no file, `Cargo.lock` included, and reaches no
-/// network, as `path@cargo-reader@docs/grounding/cargo-metadata.md` measures the flags. Of the
-/// resolved graph it selects, each package in its newest version where the graph holds several:
-/// with `request.packages` empty, every package whose `repository` equals the named package's, or
-/// the named package alone where it sets none; otherwise the named package and those. It reads the
+/// network, per `design@query@changelog-runs-cargo-locked-and-offline`, as
+/// `path@cargo-reader@docs/grounding/cargo-metadata.md` measures the flags. Of the resolved graph
+/// it selects, each package in its newest version where the graph holds several, per
+/// `design@query@changelog-selects-by-repository`: with `request.packages` empty, every package
+/// whose `repository` equals the named package's, or the named package alone where it sets none;
+/// otherwise the named package and those. It reads the
 /// `CHANGELOG.md` beside each one's `Cargo.toml`, which lies in the sources cargo fetched or, for a
 /// member or a path dependency, in its directory, possibly inside the project; places each one's
 /// entries by the categories and the unclassed versions its own preamble states; and prints the
 /// sections of the range in the layout of an assembled changelog with no generated header, the
-/// named package first under each category, then the others by package name. A version none of
-/// them holds an entry of is not printed.
+/// named package first under each category, then the others by package name, per
+/// `design@query@consumer-crate-order`. A version none of them holds an entry of is not printed;
+/// where the range holds no entry, a line says so, and where it holds entries the layout has no
+/// place for alone, a line says that instead.
 ///
 /// After the layout, it prints one line per thing the layout cannot hold, naming the file and,
-/// but for a file it cannot read, the line: a selected package with no readable `CHANGELOG.md`;
+/// but for a file it does not read, the line: a selected package with no readable `CHANGELOG.md`,
+/// or one holding a carriage return that no line feed follows, which ends no line the parse
+/// takes, so that the file would read as one line;
 /// every line of a preamble of no shape the read takes and every line the parse could not read,
 /// whatever its section, since a version heading the parse does not take is such a line, and
 /// leaves its entries in the section above it; and, in a section of the range, each entry its
@@ -108,9 +114,7 @@ pub struct ChangelogRequest {
 ///
 /// # Errors
 ///
-/// An `Err`, the could-not-run exit 2, with nothing printed: a root that holds no `Cargo.toml`,
-/// whose message sends a project with no Rust to the reading by hand of the setup skill's pin
-/// move; Cargo's failure, with its message and the repair of running `cargo fetch` after the pin's
+/// An `Err`, the could-not-run exit 2, with nothing printed: a root that holds no `Cargo.toml`; Cargo's failure, with its message and the repair of running `cargo fetch` after the pin's
 /// edit, as a lock file that a pin's edit left stale fails under `--locked`; and a named package
 /// or a `request.packages` name that the resolved graph does not hold.
 pub fn changelog(manifest: &Manifest, request: &ChangelogRequest) -> Result<ExitCode, String> {
@@ -118,15 +122,15 @@ pub fn changelog(manifest: &Manifest, request: &ChangelogRequest) -> Result<Exit
     let cargo_toml = root.join("Cargo.toml");
     if !cargo_toml.is_file() {
         return Err(format!(
-            "the project holds no Cargo project at its root, {}: `changelog` reads the dependency              graph `cargo metadata` resolves from the root's Cargo.toml\n       a project with no \
-             Rust reads the CHANGELOG.md of each crate of the checker by hand, as the pin move of \
-             the setup skill says",
+            "the project holds no Cargo project at its root, {}: `changelog` reads the dependency \
+             graph `cargo metadata` resolves from the root's Cargo.toml",
             root.display()
         ));
     }
     let cargo_toml = cargo_toml
         .to_str()
         .ok_or_else(|| format!("the path {} is not UTF-8", cargo_toml.display()))?;
+    // Per `design@query@changelog-runs-cargo-locked-and-offline`: no write and no network.
     let flags = ["--manifest-path", cargo_toml, "--locked", "--offline"];
     let metadata = run_metadata(root, &flags).map_err(|e| {
         format!(
@@ -151,40 +155,42 @@ pub fn changelog(manifest: &Manifest, request: &ChangelogRequest) -> Result<Exit
             }
         })
         .collect();
-    let (body, unheld) = assemble(&request.range, &read);
-    let (text, code) = output(&body, &unheld);
+    let (text, code) = output(&assemble(&request.range, &read));
     outln!("{text}");
     Ok(ExitCode::from(code))
 }
 
 /// The text the command prints, with no final line break, and its exit code, from what
-/// [`assemble`] gives: the layout, or a line saying no entry is in the range, then, where any
-/// line cannot be held, a blank line, a heading and each such line, with the code 1; else 0.
-fn output(body: &str, unheld: &[String]) -> (String, u8) {
+/// [`assemble`] gives: the layout, or, where it is empty, a line saying the range holds no entry,
+/// or that no entry of it has a place in the layout; then, where any line cannot be held, a blank
+/// line, a heading and each such line, with the code 1; else 0.
+fn output(assembled: &Assembled) -> (String, u8) {
     // The body opens each version with a blank line, as the assembled file holds it below its
     // header; printed alone, that line would open the output.
-    let body = body
-        .strip_prefix('\n')
-        .unwrap_or(body)
-        .trim_end_matches('\n');
-    let mut text = if body.is_empty() {
-        "No entry of the selected changelogs is in the range.".to_string()
-    } else {
-        body.to_string()
+    let body = assembled.body.strip_prefix('\n').unwrap_or(&assembled.body);
+    let body = body.trim_end_matches('\n');
+    let mut text = match (body.is_empty(), assembled.in_range) {
+        (false, _) => body.to_string(),
+        (true, 0) => "No entry of the selected changelogs is in the range.".to_string(),
+        (true, _) => {
+            "No entry of the range has a place in the layout; each is listed below.".to_string()
+        }
     };
-    if unheld.is_empty() {
+    if assembled.unheld.is_empty() {
         return (text, 0);
     }
     text.push_str("\n\nNot printed, since the layout has no place for it:");
-    for line in unheld {
+    for line in &assembled.unheld {
         text.push('\n');
         text.push_str(line);
     }
     (text, 1)
 }
 
-/// The packages of the graph `packages` that a request selects, in the order of the output: the
-/// named package first, then the others by package name, each once, in its newest version.
+/// The packages of the graph `packages` that a request selects, per
+/// `design@query@changelog-selects-by-repository`, in the order of the output: the named package
+/// first, then the others by package name, per `design@query@consumer-crate-order`, each once, in
+/// its newest version.
 fn select<'m>(
     packages: &'m [MetadataPackage],
     named: &str,
@@ -244,8 +250,18 @@ struct Read {
     text: Result<String, String>,
 }
 
-/// The layout of `crates` over `range`, with no generated header, and one line per thing it
-/// cannot hold, in the order of the crates, then of the file.
+/// What [`assemble`] gives the output.
+struct Assembled {
+    /// The layout, with no generated header.
+    body: String,
+    /// One line per thing the layout cannot hold, in the order of the crates, then of the file.
+    unheld: Vec<String>,
+    /// The entries of the sections of the range, printed or not.
+    in_range: usize,
+}
+
+/// The layout of `crates` over `range`, with no generated header, one line per thing it cannot
+/// hold, in the order of the crates, then of the file, and the count of the range's entries.
 ///
 /// Each crate's entries are placed by the table its own preamble states, as its publisher's check
 /// judged them: an entry its preamble does not admit is reported, whatever another crate's
@@ -258,8 +274,10 @@ struct Read {
 /// Every unread line and every preamble line of no shape is reported, whatever section it lies
 /// in: a version heading the parse does not take, such as one followed by a date, is an unread
 /// line, and its entries sit in the section above it, so an unread line outside the range can
-/// stand for entries inside it.
-fn assemble(range: &VersionRange, crates: &[Read]) -> (String, Vec<String>) {
+/// stand for entries inside it. A file holding a carriage return that no line feed follows is
+/// reported and not read: the parse ends a line at a line feed alone, so such a file would read
+/// as one line of its preamble, and its entries would be dropped with no report.
+fn assemble(range: &VersionRange, crates: &[Read]) -> Assembled {
     // One list per crate, so the lines stay in the order of the crates, then of the file.
     let mut unheld: Vec<Vec<String>> = vec![Vec::new(); crates.len()];
     let mut read_logs: Vec<(usize, ChangelogTable, Changelog)> = Vec::new();
@@ -272,6 +290,13 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> (String, Vec<String>) {
                 continue;
             }
         };
+        if text.replace("\r\n", "").contains('\r') {
+            unheld[i].push(format!(
+                "{file}: not read: it holds a carriage return that no line feed follows, and a \
+                 line ends at a line feed alone"
+            ));
+            continue;
+        }
         let log = parse(text);
         let preamble = read_preamble(&log.preamble);
         for line in preamble.unread {
@@ -290,6 +315,7 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> (String, Vec<String>) {
         }
     }
     let mut ranged: Vec<(&str, ChangelogTable, Changelog)> = Vec::new();
+    let mut in_range = 0;
     for (i, table, log) in read_logs {
         let read = &crates[i];
         let (package, file) = (read.package.as_str(), read.file.display());
@@ -309,6 +335,7 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> (String, Vec<String>) {
             .filter(|s| range.contains(s.heading))
             .collect();
         for section in &sections {
+            in_range += section.entries.len();
             for line in unplaced(&table, package, section) {
                 lines.push((
                     line,
@@ -332,10 +359,11 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> (String, Vec<String>) {
     }
     let crates: Vec<(&str, &str, &ChangelogTable, &Changelog)> =
         ranged.iter().map(|(p, t, l)| (*p, *p, t, l)).collect();
-    (
-        assembled_body_by_table(&categories, &crates),
-        unheld.concat(),
-    )
+    Assembled {
+        body: assembled_body_by_table(&categories, &crates),
+        unheld: unheld.concat(),
+        in_range,
+    }
 }
 
 #[cfg(test)]
@@ -492,7 +520,7 @@ mod tests {
             "## Next release\n\n## 0.3.0\n\n- Migration, patch: b three.\n",
         );
         let range = VersionRange::new(v("0.1.0"), Some(v("0.3.0"))).unwrap();
-        let (body, unheld) = assemble(&range, &[a, b]);
+        let Assembled { body, unheld, .. } = assemble(&range, &[a, b]);
         assert_eq!(
             body,
             "\n## 0.3.0\n\n### Migration\n\n#### a\n\n- minor: a three.\n\n#### b\n\n- patch: b three.\n\
@@ -524,7 +552,7 @@ mod tests {
             text: Err("No such file or directory (os error 2)".to_string()),
         };
         let range = VersionRange::new(v("0.1.0"), None).unwrap();
-        let (body, unheld) = assemble(&range, &[a, missing]);
+        let Assembled { body, unheld, .. } = assemble(&range, &[a, missing]);
         assert_eq!(
             body,
             "\n## 0.3.0\n\n### Migration\n\n#### a\n\n- minor: kept.\n"
@@ -554,7 +582,7 @@ mod tests {
              - Migration, major: a three.\n\n## 0.2.0\n\n- Migration, minor: a two.\n",
         );
         let range = VersionRange::new(v("0.2.0"), Some(v("0.3.0"))).unwrap();
-        let (body, unheld) = assemble(&range, &[a]);
+        let Assembled { body, unheld, .. } = assemble(&range, &[a]);
         assert_eq!(body, "");
         assert_eq!(
             unheld,
@@ -589,7 +617,7 @@ mod tests {
                 .to_string()),
         };
         let range = VersionRange::new(v("0.1.0"), None).unwrap();
-        let (body, unheld) = assemble(&range, &[b, a]);
+        let Assembled { body, unheld, .. } = assemble(&range, &[b, a]);
         assert_eq!(
             body,
             "\n## 0.2.0\n\n#### a\n\n- a unclassed\n\n### Breaking\n\n#### b\n\n- major: b breaks.\n"
@@ -601,33 +629,117 @@ mod tests {
         );
     }
 
-    /// The claim: the text printed is the layout with no opening blank line, or a line saying no
-    /// entry is in the range, and the code is 0 with nothing it cannot hold; else the lines it
-    /// cannot hold follow a blank line and a heading, and the code is 1. Mutation checked: in
-    /// `output`, `return (text, 0);` made `return (text, 1);`; caught.
+    /// The claim: the text printed is the layout with no opening blank line, or, where it is
+    /// empty, a line saying the range holds no entry, or that no entry of it has a place in the
+    /// layout; the code is 0 with nothing it cannot hold, else the lines it cannot hold follow a
+    /// blank line and a heading, and the code is 1. Mutations checked, each caught: in `output`,
+    /// `return (text, 0);` made `return (text, 1);`; and `(true, 0) =>` made `(true, _) =>`.
     #[test]
     fn the_output_is_the_layout_then_what_it_cannot_hold() {
+        let made = |body: &str, unheld: &[&str], in_range: usize| Assembled {
+            body: body.to_string(),
+            unheld: unheld.iter().map(|l| l.to_string()).collect(),
+            in_range,
+        };
         let body = "\n## 0.2.0\n\n#### a\n\n- one\n";
         assert_eq!(
-            output(body, &[]),
+            output(&made(body, &[], 1)),
             ("## 0.2.0\n\n#### a\n\n- one".to_string(), 0)
         );
         assert_eq!(
-            output("", &[]),
+            output(&made("", &[], 0)),
             (
                 "No entry of the selected changelogs is in the range.".to_string(),
                 0
             )
         );
-        let unheld = ["/r/a:3: x".to_string(), "/r/b: y".to_string()];
         assert_eq!(
-            output(body, &unheld),
+            output(&made("", &["/r/a:9: x"], 1)),
+            (
+                "No entry of the range has a place in the layout; each is listed below.\n\n\
+                 Not printed, since the layout has no place for it:\n/r/a:9: x"
+                    .to_string(),
+                1
+            )
+        );
+        assert_eq!(
+            output(&made(body, &["/r/a:3: x", "/r/b: y"], 1)),
             (
                 "## 0.2.0\n\n#### a\n\n- one\n\nNot printed, since the layout has no place for \
                  it:\n/r/a:3: x\n/r/b: y"
                     .to_string(),
                 1
             )
+        );
+    }
+
+    /// The claim: the categories of the layout are every category of the crates' preambles, in
+    /// the order of first appearance in the order of the crates, two crates listing them in
+    /// different orders and each printing under several; and the count of the range's entries is
+    /// every entry of its sections. Mutations checked, each caught: in `assemble`,
+    /// `for (_, table, _) in &read_logs {` made `for (_, table, _) in read_logs.iter().rev() {`, and
+    /// made `for (_, table, _) in read_logs.iter().take(1) {`.
+    #[test]
+    fn the_categories_are_the_union_in_the_order_of_first_appearance() {
+        let crate_of = |package: &str, categories: &str, body: &str| Read {
+            package: package.to_string(),
+            file: PathBuf::from(format!("/r/{package}/CHANGELOG.md")),
+            text: Ok(format!(
+                "# Changelog of {package}\n\nCategories, in order: {categories}.\n\n{body}"
+            )),
+        };
+        let a = crate_of(
+            "a",
+            "Migration, New features",
+            "## 0.2.0\n\n- New features, minor: a adds.\n- Migration, minor: a moves.\n",
+        );
+        let b = crate_of(
+            "b",
+            "Workflow, New features, Migration",
+            "## 0.2.0\n\n- Workflow, patch: b works.\n- Migration, patch: b moves.\n",
+        );
+        let range = VersionRange::new(v("0.1.0"), None).unwrap();
+        let assembled = assemble(&range, &[a, b]);
+        assert_eq!(
+            assembled.body,
+            "\n## 0.2.0\n\n### Migration\n\n#### a\n\n- minor: a moves.\n\n#### b\n\n- patch: b moves.\n\
+             \n### New features\n\n#### a\n\n- minor: a adds.\n\n### Workflow\n\n#### b\n\n- patch: b works.\n"
+        );
+        assert_eq!(assembled.unheld, Vec::<String>::new());
+        assert_eq!(assembled.in_range, 4);
+    }
+
+    /// The claim: a file holding a carriage return that no line feed follows is reported and not
+    /// read, where a file of CRLF line endings is read. Mutation checked: in `assemble`,
+    /// `if text.replace("\r\n", "").contains('\r') {` made `if false {`; caught.
+    #[test]
+    fn a_lone_carriage_return_is_reported_and_the_file_not_read() {
+        let lone = Read {
+            package: "a".to_string(),
+            file: PathBuf::from("/r/a/CHANGELOG.md"),
+            text: Ok("# Changelog of a\r\rCategories, in order: Migration.\r\r\
+                      ## 0.2.0\r\r- Migration, major: a two.\r"
+                .to_string()),
+        };
+        let crlf = Read {
+            package: "b".to_string(),
+            file: PathBuf::from("/r/b/CHANGELOG.md"),
+            text: Ok(
+                "# Changelog of b\r\n\r\nCategories, in order: Migration.\r\n\r\n\
+                      ## 0.2.0\r\n\r\n- Migration, major: b two.\r\n"
+                    .to_string(),
+            ),
+        };
+        let range = VersionRange::new(v("0.1.0"), None).unwrap();
+        let assembled = assemble(&range, &[lone, crlf]);
+        assert_eq!(
+            assembled.body,
+            "\n## 0.2.0\n\n### Migration\n\n#### b\n\n- major: b two.\n"
+        );
+        assert_eq!(
+            assembled.unheld,
+            ["/r/a/CHANGELOG.md: not read: it holds a carriage return that no line feed follows, \
+              and a line ends at a line feed alone"]
         );
     }
 }

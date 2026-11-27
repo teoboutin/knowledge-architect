@@ -80,32 +80,28 @@ pub fn assembled_text(
     crates: &[(&str, &str, &Changelog)],
     command: &str,
 ) -> String {
-    format!(
-        "{GENERATED_HEADER} `{command} index`\n{}",
-        assembled_body(table, crates)
-    )
-}
-
-/// The layout of [`assembled_text`] with no generated header: each version of `crates`, `## <version>`
-/// preceded by a blank line, as the assembled file holds it below its header, in the same order,
-/// with the same omissions; empty where no crate holds an entry the layout has a place for.
-// One function the assembled file and a consumer's command both reach, through
-// [`assembled_body_by_table`], so the two keep one rule of the layout.
-pub fn assembled_body(table: &ChangelogTable, crates: &[(&str, &str, &Changelog)]) -> String {
+    // One layout for the assembled file and a consumer's command, `assembled_body_by_table`, here
+    // with the manifest's one table for every crate, so the two keep one rule of the layout.
     let tabled: Vec<(&str, &str, &ChangelogTable, &Changelog)> = crates
         .iter()
         .map(|(component, package, log)| (*component, *package, table, *log))
         .collect();
-    assembled_body_by_table(table.categories(), &tabled)
+    format!(
+        "{GENERATED_HEADER} `{command} index`\n{}",
+        assembled_body_by_table(table.categories(), &tabled)
+    )
 }
 
-/// The layout of [`assembled_body`] over crates each placed by a table of its own, each
+/// The layout of [`assembled_text`] with no generated header, over crates each placed by a table
+/// of its own, each
 /// `(component, package, table, log)`: an entry is placed under its own crate's table by the rule
 /// [`unplaced`] reads, and the categories are `categories`, in their order, each written where a
 /// crate has an entry of it. In a version a crate's table lists as `unclassed`, that crate has no category
 /// level, `#### <package>` then `- <text>`, and its blocks come first under the version, before
-/// the categories the other crates' entries take. With one table for every crate, as
-/// [`assembled_body`] passes, the text is the assembled file's below its header.
+/// the categories the other crates' entries take. Each version is `## <version>` preceded by a
+/// blank line, and the text is empty where no crate holds an entry the layout has a place for.
+/// With one table for every crate, as [`assembled_text`] passes, the text is the assembled
+/// file's below its header.
 ///
 /// For a text that is no file, such as a consumer's command over crates whose preambles it read
 /// one by one: the caller keeps in each [`Changelog`] the sections it prints, and passes as
@@ -199,7 +195,7 @@ fn is_unclassed(table: &ChangelogTable, heading: Heading) -> bool {
 /// `component`, and no entry with no tag.
 ///
 /// **The one rule of what the assembled file keeps**, which [`assembled_body_by_table`], and
-/// through it [`assembled_text`] and [`assembled_body`], writes by, and [`unplaced`] and
+/// through it [`assembled_text`], writes by, and [`unplaced`] and
 /// [`omitted`] read, so a writer never drops a line its refusal let through, per
 /// `design@model@assembled-file-not-overwritten`, and a consumer's command reports every entry it
 /// leaves out.
@@ -222,7 +218,7 @@ fn place<'e>(
 /// The first line of each entry of `section`, in `component`'s changelog, that the assembled
 /// layout has no place for, in the order of the file: in a version the table lists as
 /// `unclassed`, none; in any other, an entry with no tag, and one whose tag names a category the
-/// table does not admit for `component`. [`assembled_body`] leaves each of them out.
+/// table does not admit for `component`. [`assembled_body_by_table`] leaves each of them out.
 pub fn unplaced(table: &ChangelogTable, component: &str, section: &Section) -> Vec<u32> {
     section
         .entries
@@ -263,10 +259,13 @@ const OWN_ENTRIES: &str = "This file holds the entries of this crate only.";
 /// <c>, <c>.`; and `Versions with no category and no class: <v>, <v>.`. The first line of each
 /// kind is read where it has that shape whole, and any other line is in
 /// [`ReadPreamble::unread`]: a line of no kind, a second line of a kind, whether the first was
-/// read or not, a package or a name that is empty or opens with white space, a list of categories
-/// holding an empty, a padded or a repeated item, and a version that is no version.
-/// [`expected_preamble`] writes none of them, since the manifest's table refuses each. A version
-/// repeated in the list of unclassed versions is read, as the manifest's table admits it. A
+/// read or not, a package that is empty or opens with white space, which no Cargo package name
+/// does, an empty name of the whole project's changelog, a list of categories holding an empty,
+/// a padded or a repeated item, and a version that is no version: [`expected_preamble`] writes
+/// none of them, since a package's name and the manifest's table refuse each. The name of the
+/// whole project's changelog is whatever lies between the sentence's opening and its end, as the
+/// table admits an assembled path that opens with white space; a version repeated in the list of
+/// unclassed versions is read, as the table admits it. A
 /// category holds no `,`, `:` or line break, so the list reads back as it was written. A preamble
 /// that lacks the line of the categories gives a table with none, so every entry of a classed
 /// version has no place in the layout.
@@ -276,8 +275,8 @@ pub fn read_preamble(preamble: &str) -> ReadPreamble {
         " The changelog of the whole project is ",
         " in its repository.",
     );
-    // A name the line holds, read where it is not empty and opens with no white space, as
-    // `expected_preamble` writes it: the line's end is trimmed already.
+    // A package's name, read where it is not empty and opens with no white space, as no Cargo
+    // package name holds white space: the line's end is trimmed already.
     let named = |name: &str| !name.is_empty() && name.trim_start() == name;
     let mut categories: Option<Vec<String>> = None;
     let mut unclassed: Option<Vec<Version>> = None;
@@ -300,7 +299,7 @@ pub fn read_preamble(preamble: &str) -> ReadPreamble {
                     || rest
                         .strip_prefix(WHOLE.0)
                         .and_then(|r| r.strip_suffix(WHOLE.1))
-                        .is_some_and(named)
+                        .is_some_and(|name| !name.is_empty())
             }
             Some(2) => {
                 categories = listed(line, CATEGORIES, false)
@@ -600,11 +599,13 @@ mod tests {
 
     /// The claim, the preamble reads back: the categories in their order and the unclassed
     /// versions that `expected_preamble` writes are what `read_preamble` gives, with every line
-    /// read, an assembled file named or not, linked or not, unclassed versions listed or not, and
-    /// no category declared; and each line of no shape it writes is reported by its one-based
-    /// line, a second list of the categories, a padded or a repeated item and a version that is no
-    /// version among them. Mutation checked: in `read_preamble`,
-    /// `!package.trim().is_empty() && !std::mem::replace(&mut title, true)` made `true`; caught.
+    /// read, an assembled file named or not, its path opening with white space or not, linked or
+    /// not, unclassed versions listed or not, a version repeated among them, and no category
+    /// declared; and each line of no shape it writes is reported by its one-based line, a second
+    /// list of the categories, a padded or a repeated item and a version that is no version among
+    /// them. Mutations checked, each caught: in `read_preamble`, `unread.push(i as u32 + 1);` made
+    /// `unread.push(i as u32);`; and in `listed`, `&& (repeats || !items[..i].contains(item))` made
+    /// `&& !items[..i].contains(item)`.
     #[test]
     fn the_preamble_reads_back() {
         let declared = table("");
@@ -615,7 +616,12 @@ mod tests {
         // A version repeated in `unclassed`, which the manifest's table admits.
         let repeated = ChangelogTable::with_no_manifest(Vec::new(), vec![v("0.1.0"), v("0.1.0")]);
         for t in [&declared, &linked, &bare, &none, &repeated] {
-            for assembled in [None, Some(Path::new("docs/CHANGES.md"))] {
+            // An assembled path opening with white space, which the manifest's table admits.
+            for assembled in [
+                None,
+                Some(Path::new("docs/CHANGES.md")),
+                Some(Path::new(" C.md")),
+            ] {
                 let text = expected_preamble(t, "pa", assembled);
                 let read = read_preamble(&text);
                 assert_eq!(read.unread, Vec::<u32>::new(), "{text}");
@@ -650,13 +656,17 @@ mod tests {
     }
 
     /// The claim: the first line of each kind is read where it has that shape whole, and every
-    /// other line is unread: a second line of a kind, read or not the first, a package or a name
-    /// of the whole project's changelog that is empty or opens with white space, and a category
-    /// holding a `:`; a version repeated among the unclassed is read. Mutations checked, each
-    /// caught: in `read_preamble`, the guard `Some(k) if std::mem::replace(&mut seen[k], true) =>
-    /// false,` removed; `.is_some_and(named)` made `.is_some()`; `Some(0) => named(&line[TITLE.len()..]),`
-    /// made `Some(0) => true,`; and in `listed`, `&& !item.contains([',', ':'])` made
-    /// `&& !item.contains([','])`.
+    /// other line is unread: a second line of a kind, read or not the first, a package that is
+    /// empty or opens with white space, an empty name of the whole project's changelog, the
+    /// sentence naming it without its end, and a category holding a `:`; a line ending with white
+    /// space is read, as the publisher's check admits on the preamble's last line; a version
+    /// repeated among the unclassed is read. Mutations checked, each caught: in `read_preamble`,
+    /// the guard `Some(k) if std::mem::replace(&mut seen[k], true) => false,` made
+    /// `Some(_) if false => false,`; `.is_some_and(|name| !name.is_empty())` made `.is_some()`;
+    /// `.and_then(|r| r.strip_suffix(WHOLE.1))` made
+    /// `.map(|r| r.strip_suffix(WHOLE.1).unwrap_or(r))`; `Some(0) => named(&line[TITLE.len()..]),`
+    /// made `Some(0) => true,`; `let line = line.trim_end();` removed; and in `listed`,
+    /// `&& !item.contains([',', ':'])` made `&& !item.contains([','])`.
     #[test]
     fn each_kind_of_line_is_read_once_in_its_whole_shape() {
         let v = |t: &str| Version::parse(t).expect("a version");
@@ -688,6 +698,12 @@ mod tests {
                 vec![],
                 vec![v("0.1.0"), v("0.1.0")],
             ),
+            (
+                format!("{own} The changelog of the whole project is CHANGES.md"),
+                vec![1],
+                vec![],
+            ),
+            (format!("{versions} 0.1.0.   \t"), vec![], vec![v("0.1.0")]),
             ("Categories, in order: A: B.".to_string(), vec![1], vec![]),
             ("# Changelog of  pa".to_string(), vec![1], vec![]),
             ("# Changelog of".to_string(), vec![1], vec![]),

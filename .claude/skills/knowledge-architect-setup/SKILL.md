@@ -318,27 +318,19 @@ Setting up stops at a conformant structure, the goals, and that issue.
 To move to another version:
 
 1. Edit the pin: the three versions in the maintenance crate's `Cargo.toml`, the checker's, the
-   gates library's and the mutation library's, which move together, or, in a project with no Rust,
-   the version of the local install; and `[project] checker-version` in the manifest, which moves
-   with them. Nothing compares the two libraries' versions, so they are edited in the same change.
+   gates library's and the mutation library's, which move together, and `[project]
+   checker-version` in the manifest, which moves with them. Nothing compares the two libraries'
+   versions, so they are edited in the same change.
 2. Read the changelog of every version crossed. Any version but a patch may make a check
    stricter, a version may make one looser, and either changes what a test that pins findings
    sees; a major version may ask for a change to the project's layout. Each published crate ships
-   its CHANGELOG.md. Fetch the new version first, with `cargo fetch` after editing the pin in a
-   Rust project, or by the install. Then, in a Rust project, run
-   `cargo klarch changelog knowledge-architect --from <old pin>` and read what it prints: the
+   its CHANGELOG.md. Fetch the new version first, with `cargo fetch` after editing the pin. Then
+   run `cargo klarch changelog knowledge-architect --from <old pin>` and read what it prints: the
    entries of every version above the old pin, from the changelog of every crate the project
    depends on from the checker's repository, the gates and mutation libraries among them, read in
-   the sources cargo fetched, each version's Migration entries under one heading. In a project
-   with no Rust,
-   read the CHANGELOG.md of each crate of the checker in the source the install fetched, under its
-   registry directory, `$CARGO_HOME/registry/src/<index>/<package>-<version>/CHANGELOG.md`, for
-   the packages `knowledge-architect`, `knowledge-architect-check`, `knowledge-architect-model`,
-   `knowledge-architect-query`, `knowledge-architect-create`, `knowledge-architect-git`,
-   `knowledge-architect-cargo-reader`, `knowledge-architect-transcript` and
-   `knowledge-architect-agent-skills`. The Migration entries name what a project must change in its
-   own files when its pin crosses that version. List each Migration entry that cites an axis's
-   section of
+   the sources cargo fetched, each version's Migration entries under one heading. The Migration
+   entries name what a project must change in its own files when its pin crosses that version.
+   List each Migration entry that cites an axis's section of
    `skill@knowledge-architect-project-audit`, or the review of the whole goal set,
    `skill@knowledge-architect-goal-setting@whole-set-review`, for step 5.
 3. Run `cargo klarch install-agent-skills`, then follow

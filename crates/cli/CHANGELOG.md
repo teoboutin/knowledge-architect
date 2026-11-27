@@ -46,13 +46,11 @@ an empty subsection is omitted.
   The line of a malformed id without `@`, and the exit code 1, are unchanged. A consumer whose tests pin that line for such an argument
   changes them.
 - `cli`, patch: the refusal of a binary newer than the version the manifest pins names, as the
-  move of the pin, the order of the setup skill's pin move: set `[project] checker-version`; in a
-  Rust project, set the maintenance crate's versions of the checker's crates, run `cargo fetch`,
-  then run `<command> changelog knowledge-architect --from <pinned>`, by the project's declared
-  command, and read what it prints; in a project with no Rust, install the new version, then read
-  the CHANGELOG.md of each crate of the checker in the source the install fetched. It said to read
-  the changelog of each version, then set the pin. A consumer whose tests pin that text changes
-  them.
+  move of the pin, the order of the setup skill's pin move: set `[project] checker-version` and
+  the maintenance crate's versions of the checker's crates, run `cargo fetch`, then run
+  `<command> changelog knowledge-architect --from <pinned>`, by the project's declared command, and
+  read what it prints. It said to read the changelog of each version, then set the pin. A consumer
+  whose tests pin that text changes them.
 - `manifest`, major: `[changelog]` is a built-in table of the manifest, which
   `knowledge-architect-model` parses, so an extension that claimed a top-level table `changelog` no
   longer receives it: the manifest's resolve reads the table, whose
@@ -188,8 +186,8 @@ an empty subsection is omitted.
   `CHANGELOG.md`, naming the file, every line of a preamble of no shape the read takes and every
   line the parse could not read, whatever its section, and, in a section of the range, an entry of
   a category its preamble does not list or with no tag in a classed version, each naming the file
-  and the line, are reported after the layout, exit 1. A root with no `Cargo.toml` is exit 2,
-  naming the reading by hand of a project with no Rust; Cargo's failure, as over a lock file that a
+  and the line, are reported after the layout, exit 1. A root with no `Cargo.toml` is exit 2, since
+  it holds no Cargo project for the command to read; Cargo's failure, as over a lock file that a
   pin's edit left stale, is exit 2 with Cargo's message and the repair of `cargo fetch`, and so is a
   name the graph does not hold; a value of `--from` or `--to` that is no version, and a `--to` not
   above `--from`, are refused while parsing, exit 2.
@@ -230,9 +228,9 @@ an empty subsection is omitted.
   `Model::set_changelog_crates`, `listing::keeping_row`, and the module `changelog` in
   `knowledge-architect-model`: the changelog crates read from Cargo, the parse of a crate's
   changelog, its expected preamble and its read with no manifest, `read_preamble`, the assembled
-  file's text, its layout with no header, `assembled_body`, the entries of a section it has no
-  place for, `unplaced`, its layout over crates each placed by a table of its own,
-  `assembled_body_by_table`, and the refusal its writers share.
+  file's text, its layout with no header over crates each placed by a table of its own,
+  `assembled_body_by_table`, the entries of a section it has no place for, `unplaced`, and the
+  refusal its writers share.
 - `library`, minor: `changelog`, `ChangelogRequest` and `VersionRange` in
   `knowledge-architect-query`, the logic of the command `changelog`, and `cli::ChangelogArgs` with
   the variant `cli::Command::Changelog` in `knowledge-architect`, a binary that flattens
@@ -384,10 +382,9 @@ an empty subsection is omitted.
   proposes with it a glob matching each page under `all` in `[walk.citation-free]`, so the check
   reports any reference a page holds.
 - `agent-skills`, patch: the setup skill's pin move, step 2, runs
-  `<command> changelog knowledge-architect --from <old pin>` after the fetch, in a Rust project,
-  and reads what it prints, where it read the binary crate's CHANGELOG.md in the registry; a project
-  with no Rust reads the CHANGELOG.md of each crate of the checker, each named by its package, in
-  the source the install fetched.
+  `<command> changelog knowledge-architect --from <old pin>` after `cargo fetch` and reads what it
+  prints, where it read the binary crate's CHANGELOG.md in the registry. The pin move no longer
+  gives a case for a project with no Rust, in step 1 or in step 2.
 
 ## 0.10.0
 
