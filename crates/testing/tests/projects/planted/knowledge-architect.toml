@@ -9,8 +9,9 @@
 # binary runs in a copy that carries the version.
 checker-version = "fixture"
 name = "planted"
-# One component below the root, carrying every document and every register home.
-components = ["parts/widget"]
+# Two components below the root, carrying every document and every register home; the second
+# for the changelog checks.
+components = ["parts/widget", "parts/gizmo"]
 
 # A location carrying its issue directory; the one whose directory is not there is planted
 # in the `unsound` project.
@@ -34,3 +35,15 @@ entries = ["free/entries-*.md"]
 # fixture that held its installed copy would change with them.
 [agents]
 harness = []
+
+# The changelog checks. The root's package publishes nowhere, and the two below it are published, in
+# lockstep: each defect of the grammar is planted in parts/widget/CHANGELOG.md, the bump and the
+# preamble in parts/gizmo/CHANGELOG.md, and the `include` in parts/gizmo/Cargo.toml.
+[changelog]
+assembled = "notes/CHANGELOG.md"
+assembled-url = "https://example.org/planted/CHANGELOG.md"
+categories = ["Migration", "New features", "Workflow"]
+unclassed = ["0.1.0"]
+
+[changelog.category-components]
+Workflow = ["gizmo"]

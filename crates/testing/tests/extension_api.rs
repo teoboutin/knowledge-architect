@@ -145,7 +145,12 @@ fn an_extension_written_against_the_public_api_runs_over_a_mock_project() {
     assert_eq!(report.findings[0].file, PathBuf::from("README.md"));
     assert_eq!(report.findings[0].line, Some(line));
     assert!(report.failed(), "a finding fails the run");
-    let mut checks: Vec<&str> = CHECKS.to_vec();
+    // `changelog` runs where the manifest declares `[changelog]` alone, which dirhome does not.
+    let mut checks: Vec<&str> = CHECKS
+        .iter()
+        .copied()
+        .filter(|c| *c != "changelog")
+        .collect();
     checks.push("first-heading");
     assert_eq!(
         report.checks, checks,

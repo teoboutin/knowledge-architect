@@ -112,7 +112,8 @@ fn the_plans_indexes_are_outside_the_walk() {
 fn a_generated_index_is_outside_the_walk_and_outside_the_inverse_assertion() {
     let manifest = mock("minimal");
     let model = model("minimal");
-    let generated = km::generated::generated_paths(&manifest, model.listing());
+    let generated =
+        km::generated::generated_paths(&manifest, model.changelog_crates(), model.listing());
     // The issue home of the root and of the location, the readings home, and the two plans
     // homes, which every project carries.
     assert_eq!(generated.len(), 5, "{generated:?}");

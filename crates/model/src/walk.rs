@@ -123,6 +123,21 @@ pub(crate) fn kept_out(rel: &Path, walk: &Walk) -> bool {
     skipped(rel, walk) || walk.skip_files.iter().any(|f| f == rel)
 }
 
+/// The row of `[walk]` that keeps this path out, as a finding names it, or `None` where none does.
+pub fn keeping_row(rel: &Path, walk: &Walk) -> Option<String> {
+    let shown = |p: &Path| crate::finding::slashed(p);
+    if let Some(f) = walk.skip_files.iter().find(|f| *f == rel) {
+        return Some(format!("[walk] skip-files `{}`", shown(f)));
+    }
+    if let Some(d) = walk.skip_dirs.iter().find(|d| rel.starts_with(d)) {
+        return Some(format!("[walk] skip-dirs `{}`", shown(d)));
+    }
+    walk.exclude
+        .iter()
+        .find(|e| rel.starts_with(e))
+        .map(|e| format!("[walk] exclude `{}`", shown(e)))
+}
+
 /// The file kinds this tool can parse, and therefore the whole of the walk.
 ///
 /// **Compiled in rather than declared.** Which suffixes a project holds is a fact about that

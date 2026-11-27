@@ -41,6 +41,7 @@
 //! | [`generated`] | the files the checker generates and the paths they sit at |
 //! | [`foundation`] | phases 1 to 3: whether the model can be trusted |
 //! | [`extension`] | what an extension gives phase 1 |
+//! | [`changelog`] | a crate's changelog: the crates that hold one, its parse, its preamble and the assembled file |
 
 // A `pub` item no consumer can reach is refused, so an item is public only through the re-exports
 // below, as `check`'s facade is, per `design@knowledge-architect@api-facade`.
@@ -51,6 +52,7 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
+mod changelogs;
 mod citation_free;
 mod contribution;
 mod entity;
@@ -81,6 +83,7 @@ pub use model::{Document, Model};
 
 /// What a manifest declares.
 pub mod declared {
+    pub use crate::changelogs::ChangelogTable;
     pub use crate::citation_free::{CitationFree, Glob, Level};
     pub use crate::manifest::{
         normalise_list, normalise_one, owned_path, LocationDecl, Pin, PlanKind, Register,
@@ -112,7 +115,7 @@ pub mod listing {
         frozen_at, frozen_document, frozen_file, snapshot_checker_dirs, Frozen,
     };
     pub use crate::survey::{from_listing, survey, Outside, Survey};
-    pub use crate::walk::{live_files, skipped};
+    pub use crate::walk::{keeping_row, live_files, skipped};
 }
 
 /// The entity table, the anchors, and the records over them.
@@ -148,6 +151,18 @@ pub mod generated {
 /// Phases 1 to 3: whether the model can be trusted.
 pub mod foundation {
     pub use crate::phases::{complete_working_tree, foundation, Gathered, Phase, Stop, TreeInputs};
+}
+
+/// A crate's changelog: the crates that hold one, the parse of its file, the preamble the manifest
+/// determines, and the assembled file of the whole project, with the refusal its writers share.
+/// Every finding over them is a check's, none a phase's.
+pub mod changelog {
+    pub use crate::changelogs::{
+        assembled_file, assembled_text, expected_preamble, parse, refusal, CargoTrouble, Changelog,
+        Class, Crate, Crates, Entry, Heading, Refused, Section, Tag, Unread, Version,
+        CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
+    };
+    pub use crate::model::changelog_crates;
 }
 
 /// What an extension gives phase 1.

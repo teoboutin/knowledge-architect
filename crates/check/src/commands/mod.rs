@@ -415,10 +415,20 @@ pub fn model(
 /// what it needs.
 const EXTENSION_REPAIR: &str = "repair what the extension's reason names, and run again";
 
-/// The error of a command whose extension could not prepare over the working tree: the
-/// extension's reason, and the repair under it, indented under the `error: ` its caller prints.
-fn extension_refusal(why: String) -> String {
-    format!("{why}\n       {EXTENSION_REPAIR}")
+/// Why the generated files of a tree cannot be written, with the repair the cause names: an
+/// extension that cannot prepare over the tree, whose reason is its own, or the assembled
+/// changelog's refusal, per `crate::model::changelog::refusal`.
+pub(super) struct Refusal {
+    pub(super) why: String,
+    pub(super) repair: &'static str,
+}
+
+impl Refusal {
+    /// The error of a command that refuses: the reason, and the repair under it, indented under
+    /// the `error: ` its caller prints.
+    fn text(&self) -> String {
+        format!("{}\n       {}", self.why, self.repair)
+    }
 }
 
 /// Every check, over the working tree: `check`'s, then each extension's.
@@ -452,7 +462,13 @@ fn check_working(
                 Tree::Checkout(manifest.root()),
                 Purpose::Check,
             )
-            .map_err(extension_refusal)?;
+            .map_err(|why| {
+                Refusal {
+                    why,
+                    repair: EXTENSION_REPAIR,
+                }
+                .text()
+            })?;
         prepared.push((extension.checks(), p));
     }
     let with: Vec<(&[&'static str], &dyn Prepared)> =
@@ -563,7 +579,7 @@ fn fix_then_check(
         extensions,
     ) {
         Ok(generated) => generated,
-        Err(e) => return failed(written, extension_refusal(e)),
+        Err(e) => return failed(written, e.text()),
     };
     // **A partial commit's mismatch is refused before any generated file is written**, per
     // `design@check@fix-before-the-checks`: where the index differs from HEAD, the files written
@@ -743,7 +759,7 @@ fn index_working(
         Tree::Checkout(manifest.root()),
         extensions,
     )
-    .map_err(extension_refusal)?;
+    .map_err(|r| r.text())?;
     check_destinations(manifest, &generated)
         .map_err(|(what, repair)| format!("{what} Nothing was written.\n       {repair}"))?;
 
@@ -773,7 +789,12 @@ fn index_working(
 }
 
 /// Every generated file, destination and bytes, over a model the writer gate has passed: each
-/// extension's, then one index per file-register instance.
+/// extension's, then one index per file-register instance, then the assembled changelog where one
+/// is assembled.
+///
+/// It refuses where an extension cannot prepare over the tree, and where the assembled changelog
+/// may not be written over the tree `inputs` holds, by the one function of `model` the three
+/// writers share, so no writer writes a byte of any generated file.
 ///
 /// One function for `index`, `index --staged` and `check --fix`, so the three generate the same
 /// files from one tree, per `design@model@one-list-of-generated-files`. `tree` is the tree each
@@ -787,10 +808,15 @@ fn generated_list(
     inputs: &crate::check::Inputs,
     tree: Tree,
     extensions: &mut [Box<dyn Extension>],
-) -> Result<Vec<(std::path::PathBuf, String)>, String> {
+) -> Result<Vec<(std::path::PathBuf, String)>, Refusal> {
     let mut generated = Vec::new();
     for extension in extensions.iter_mut() {
-        let prepared = extension.prepare(manifest, model, tree, Purpose::Index)?;
+        let prepared = extension
+            .prepare(manifest, model, tree, Purpose::Index)
+            .map_err(|why| Refusal {
+                why,
+                repair: EXTENSION_REPAIR,
+            })?;
         generated.extend(
             prepared
                 .generated(model, manifest)
@@ -804,6 +830,18 @@ fn generated_list(
         inputs.present,
         inputs.directories,
     ));
+    if let Some(refused) = crate::model::changelog::refusal(
+        manifest,
+        model,
+        inputs.committed,
+        inputs.generated_unreadable,
+    ) {
+        return Err(Refusal {
+            why: refused.why,
+            repair: refused.repair,
+        });
+    }
+    generated.extend(crate::model::changelog::assembled_file(manifest, model));
     Ok(generated)
 }
 

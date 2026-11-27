@@ -5,6 +5,7 @@
 //! a check be run against a model assembled in memory.
 
 pub(crate) mod agents;
+pub(crate) mod changelog;
 pub(crate) mod citation_free;
 pub(crate) mod generated;
 pub(crate) mod references;
@@ -207,9 +208,17 @@ impl<'a> Inputs<'a> {
 /// `check`'s checks of the last phase, by the name the `checked:` line prints.
 ///
 /// One per module under `check/` that runs in the last phase. Every one runs on every run that
-/// reaches the last phase. An extension adds its own, per
+/// reaches the last phase, but `changelog`, which runs where the manifest declares `[changelog]`
+/// alone and is otherwise left out of a report's checks, since a project that declares none is
+/// asked nothing. An extension adds its own, per
 /// `design@check@an-extension-plugs-in-through-phased-hooks`.
-pub const CHECKS: [&str; 4] = ["agents", "generated", "registers", "references"];
+pub const CHECKS: [&str; 5] = [
+    "agents",
+    "generated",
+    "registers",
+    "references",
+    "changelog",
+];
 
 /// Run `check`'s checks of the last phase, over a model `foundation` found complete, with
 /// the files each extension generates compared by the `generated` check.
@@ -240,6 +249,7 @@ pub(crate) fn run(
         structure.references = c.references;
         structure.links = c.links;
     }
+    findings.extend(changelog::check(model, manifest, inputs));
     structure.walked = model.documents().len();
     structure.checker_sources = model.checker_sources().to_vec();
     structure.checker_files = model.checker_files();
@@ -248,7 +258,11 @@ pub(crate) fn run(
         phase: Phase::Content,
         findings,
         structure,
-        checks: CHECKS.to_vec(),
+        checks: CHECKS
+            .iter()
+            .copied()
+            .filter(|c| *c != "changelog" || manifest.changelog().is_some())
+            .collect(),
         // A project that serves no harness gives the family nothing to read.
         not_run: if manifest.serves_claude() {
             Vec::new()

@@ -1,0 +1,4 @@
+# Published, in lockstep with the workspace, and with no `include`.
+[package]
+name = "planted-widget"
+version.workspace = true

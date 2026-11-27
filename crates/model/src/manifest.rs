@@ -676,6 +676,10 @@ struct Declared {
     agents: Option<AgentsDecl>,
     #[serde(default)]
     commits: Option<CommitsDecl>,
+    /// `[changelog]`, opt-in, which [`Manifest::changelog`] returns resolved. A built-in table, so
+    /// no extension claims the name.
+    #[serde(default)]
+    changelog: Option<crate::changelogs::Declared>,
     #[serde(flatten)]
     tables: BTreeMap<String, toml::Value>,
 }
@@ -708,6 +712,8 @@ pub struct Manifest {
     pin: Option<Pin>,
     /// `[walk.citation-free]`, its refused globs removed.
     citation_free: CitationFree,
+    /// `[changelog]`, resolved, where the manifest declares it.
+    changelog: Option<crate::changelogs::ChangelogTable>,
 }
 
 impl Manifest {
@@ -775,6 +781,11 @@ impl Manifest {
         let pin = resolve_checker(&declared, &mut complaints);
         let citation_free =
             crate::citation_free::resolve(&declared.walk.citation_free, &mut complaints);
+        // After the Components are resolved, since `components` and `category-components` name
+        // them.
+        let changelog = declared.changelog.as_ref().map(|table| {
+            crate::changelogs::resolve(table, &component_names(&declared), &mut complaints)
+        });
         Ok(Self {
             root: root.to_path_buf(),
             declared,
@@ -785,6 +796,7 @@ impl Manifest {
             extension_generated: Vec::new(),
             pin,
             citation_free,
+            changelog,
         })
     }
 
@@ -803,6 +815,12 @@ impl Manifest {
     /// resolve refused removed. A glob that matches no file is still here: phase 2 reports it.
     pub fn citation_free(&self) -> &CitationFree {
         &self.citation_free
+    }
+
+    /// `[changelog]`, resolved, or `None` where the manifest declares no such table: the changelog
+    /// checks are opt-in, so a project that declares none is asked nothing of its changelogs.
+    pub fn changelog(&self) -> Option<&crate::changelogs::ChangelogTable> {
+        self.changelog.as_ref()
     }
 
     /// What `[project] checker-version` says, or `None` while its complaint stands.
@@ -1176,19 +1194,24 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
 /// the root's plans directory, or at the directory of another register it carries would give one
 /// directory two meanings: that Component leaves the list, and the finding says why. Run before
 /// the anchors are resolved, so a Component's homes are known when its collisions are judged.
+/// The name of every Component, the root's first, then the declared ones in declaration order.
+fn component_names(declared: &Declared) -> Vec<String> {
+    std::iter::once(declared.project.name.clone())
+        .chain(declared.project.components.iter().map(|p| {
+            p.file_name()
+                .map(|n| n.to_string_lossy().into_owned())
+                .unwrap_or_default()
+        }))
+        .collect()
+}
+
 fn resolve_components(
     declared: &Declared,
     registers: &mut Registers,
     complaints: &mut Vec<Finding>,
 ) {
     let root = declared.project.name.clone();
-    let names: Vec<String> = std::iter::once(root.clone())
-        .chain(declared.project.components.iter().map(|p| {
-            p.file_name()
-                .map(|n| n.to_string_lossy().into_owned())
-                .unwrap_or_default()
-        }))
-        .collect();
+    let names = component_names(declared);
     // The directories each Component keeps a home at so far: every component register's, then
     // those of the opt-in registers already attached, in name order.
     let mut taken: Vec<(String, String, String)> = Vec::new();

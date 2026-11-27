@@ -1133,7 +1133,8 @@ fn declarations(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inpu
     // generator, so the link is removed and the file generated in its place, never replaced by
     // the target or kept by a walk row. Which command writes it depends on the tree the run
     // judges, which this phase is not told, so the repair names both trees' commands.
-    let generated = crate::index::generated_paths(manifest, inputs.present);
+    let generated =
+        crate::index::generated_paths(manifest, model.changelog_crates(), inputs.present);
     let regenerate = format!(
         "remove the link, from the index too where it is staged, then write the generated file \
          in its place: `{command} index` writes it into the working tree, and \

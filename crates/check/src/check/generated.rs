@@ -1,4 +1,5 @@
-//! The generated indexes are current.
+//! The generated files are current: each extension's, the register indexes, and the assembled
+//! changelog.
 //!
 //! A generated file that drifts is worse than no generated file: thaum's `bumping-rules` skill
 //! calls the rule index, which thaum's rules extension generates, *the work list* for a
@@ -39,6 +40,17 @@ pub(crate) fn check(
     for (rel, expected) in
         generated::file_register_indexes(model, manifest, inputs.present, inputs.directories)
     {
+        compare(
+            &rel,
+            &expected,
+            inputs,
+            &index_action(manifest, inputs.judged),
+            &mut findings,
+        );
+    }
+    // The assembled changelog, where one is assembled, is missing or out of date as an index is,
+    // and its repair is the one the register indexes name for the tree judged.
+    if let Some((rel, expected)) = crate::model::changelog::assembled_file(manifest, model) {
         compare(
             &rel,
             &expected,

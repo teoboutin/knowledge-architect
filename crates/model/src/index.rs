@@ -9,7 +9,7 @@
 //! between commits. A comparison against a string needs neither.
 
 use std::collections::HashSet;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::entity::{entry_id, Anchor, Anchors, Home};
 use crate::finding::slashed;
@@ -371,12 +371,17 @@ pub fn file_register_indexes(
 /// `paths` is the tree's listing, before any exclusion: it places the entry anchors, each with an
 /// index for a file register it carries, per `Anchors::of`. So the walk asks this with git's listing, before it
 /// knows which files it reads.
+///
+/// `crates` are the tree's changelog crates: where two or more are read, the assembled changelog
+/// is one of these paths, the one the manifest declares, per `design@model@git-supplies-the-walk`.
 pub fn generated_paths<'a>(
     manifest: &Manifest,
+    crates: &crate::changelogs::Crates,
     paths: impl IntoIterator<Item = &'a PathBuf>,
 ) -> HashSet<PathBuf> {
     let mut out = generated_index_paths(manifest, paths);
     out.extend(manifest.extension_generated().iter().cloned());
+    out.extend(crates.assembled(manifest).map(Path::to_path_buf));
     out
 }
 

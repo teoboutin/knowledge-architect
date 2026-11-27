@@ -109,12 +109,14 @@ fn the_conformant_mocks_report_nothing_over_every_built_in_check() {
 mod planted {
     use super::*;
 
-    /// The file-register indexes this project would have if they were current.
+    /// The generated files this project would have if they were current: the file-register
+    /// indexes and the assembled changelog.
     fn current_indexes(manifest: &Manifest) -> HashMap<PathBuf, String> {
         let model = Model::build(manifest, &[]).expect("a model");
         let survey = km::listing::survey(manifest, &model).expect("a survey of the mock");
         km::generated::file_register_indexes(&model, manifest, &survey.present, &survey.directories)
             .into_iter()
+            .chain(km::changelog::assembled_file(manifest, &model))
             .collect()
     }
 
@@ -196,7 +198,7 @@ mod planted {
     ///
     /// The definition-site findings are not here: whether a home EXISTS is phase 2, and a slug
     /// or an entry id where none may sit is phase 3, and both are `unsound`'s.
-    const PLANTED: [(&str, &[&str]); 3] = [
+    const PLANTED: [(&str, &[&str]); 4] = [
         (
             "references",
             &[
@@ -301,6 +303,7 @@ mod planted {
                 // the six homes.
                 "docs/open-issues/index.md  the issue directory `docs/open-issues`",
                 "parts/widget/docs/open-issues/index.md  the issue directory `parts/widget/docs/open-issues`",
+                "parts/gizmo/docs/open-issues/index.md  the issue directory `parts/gizmo/docs/open-issues`",
                 "agent-config/open-issues/index.md  the issue directory `agent-config/open-issues`",
                 "docs/plans/specs/index.md  the spec directory `docs/plans/specs`",
                 "docs/plans/milestones/index.md  the milestone directory `docs/plans/milestones`",
@@ -310,14 +313,46 @@ mod planted {
         (
             "generated",
             &[
-                // Six register indexes: three issue homes, the two plans homes and the one
-                // milestone. This copy holds none of them, so each is reported missing.
+                // Seven register indexes, four issue homes, the two plans homes and the one
+                // milestone, and the assembled changelog. This copy holds none of them, so each
+                // is reported missing.
                 "docs/open-issues/index.md  the generated file is missing",
                 "parts/widget/docs/open-issues/index.md  the generated file is missing",
+                "parts/gizmo/docs/open-issues/index.md  the generated file is missing",
+                "notes/CHANGELOG.md  the generated file is missing",
                 "agent-config/open-issues/index.md  the generated file is missing",
                 "docs/plans/specs/index.md  the generated file is missing",
                 "docs/plans/milestones/index.md  the generated file is missing",
                 "docs/plans/milestones/m-one/index.md  the generated file is missing",
+            ],
+        ),
+        (
+            "changelog",
+            &[
+                // Each shown to discriminate by a mutation of `path@check@src/check/changelog/`,
+                // run over `every_check_has_a_row_and_the_run_is_their_sum`, each caught: in
+                // `grammar`, the order's `=> v < p,` made `=> true,`; each of the tests of an empty
+                // section, an undeclared category, a category not admitted, a class that is none
+                // and the preamble made `false`; the `unclassed` test made `false && ...`; in
+                // `bump.rs`, `if *version != expected {` made `if *version == expected {`; and in
+                // `include.rs`, `.is_some_and(` made `.is_none_or(`.
+                //
+                // In parts/widget/CHANGELOG.md, one defect per rule of the grammar: an undeclared
+                // category, a category the Component is not admitted to, a class that is none, a
+                // section out of order, an entry with no tag in a classed version, and a section
+                // with no entry.
+                "parts/widget/CHANGELOG.md:12  `Nonesuch` is no category",
+                "parts/widget/CHANGELOG.md:13  the category `Workflow` is restricted to `gizmo`",
+                "parts/widget/CHANGELOG.md:14  `mjor` is no class",
+                "parts/widget/CHANGELOG.md:20  the section `## 0.2.0` is out of order",
+                "parts/widget/CHANGELOG.md:23  the entry carries no category and no class",
+                "parts/widget/CHANGELOG.md:25  the section `## 0.1.5` holds no entry",
+                // In parts/gizmo/CHANGELOG.md, a preamble that does not name the assembled file,
+                // and a minor release after 0.2.1 numbered 0.4.0; in its Cargo.toml, an `include`
+                // that packages no changelog.
+                "parts/gizmo/CHANGELOG.md:1  the preamble, the lines above the first version heading, differs",
+                "parts/gizmo/CHANGELOG.md:13  `0.4.0` follows `0.2.1`",
+                "parts/gizmo/Cargo.toml  the `include` of `planted-gizmo` packages no CHANGELOG.md",
             ],
         ),
     ];
@@ -366,8 +401,10 @@ mod planted {
     /// register indexes are `ABSENT`, the registers check's planted missing index, and
     /// `STALE`, which lists no entry, beside the entry whose title says it was never
     /// regenerated.
-    const CURRENT: [&str; 4] = [
+    const CURRENT: [&str; 6] = [
         "agent-config/open-issues/index.md",
+        "notes/CHANGELOG.md",
+        "parts/gizmo/docs/open-issues/index.md",
         "docs/plans/milestones/index.md",
         "docs/plans/milestones/m-one/index.md",
         "docs/plans/specs/index.md",
@@ -440,8 +477,8 @@ mod planted {
         let gone = none();
         assert_eq!(
             gone.iter().filter(|f| f.contains("is missing")).count(),
-            6,
-            "the six register indexes: {gone:#?}"
+            8,
+            "the seven register indexes and the assembled changelog: {gone:#?}"
         );
     }
 
