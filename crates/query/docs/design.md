@@ -494,13 +494,16 @@ bound; real sessions measure it, per `goal@the-workflow-improves-through-real-us
 the named package's, and the named package alone where it sets none; with `--package`, the named
 package and those names, and no other. A package the graph holds at several versions is read in its
 newest version's file, which holds every earlier version's section. Each file is read by the
-model's parse, its table by the read of its preamble, per `design@check@category-order-in-preamble`,
-since the consumer holds no manifest of the publisher, and the selected crates are rendered in the
-assembled layout of `design@model@assembled-changelog-layout` over the versions in (`--from`,
-`--to`], with no generated header, since the output is no file. A line the output cannot hold, a
-file missing, a preamble line of no shape the read takes, an unread line or an entry with no place
-in a section of the range, is reported after it, by file and line, with exit 1, per
-`design@cli@exit-code-ladder`, so a pin move never reads a partial list as whole.
+model's parse, its table by the read of its own preamble, per `design@check@category-order-in-preamble`,
+since the consumer holds no manifest of the publisher, and each crate's entries are placed by its
+own table, the categories of the layout being those of the preambles in the order they first
+appear; the selected crates are rendered in the assembled layout of
+`design@model@assembled-changelog-layout` over the versions in (`--from`, `--to`], with no generated
+header, since the output is no file. What the output cannot hold is reported after it, by file and
+line, with exit 1, per `design@cli@exit-code-ladder`, so a pin move never reads a partial list as
+whole: a file missing, a preamble line of no shape the read takes, every unread line of a selected
+file, since one may be a version heading the parse did not take, whose entries then sit in the
+section above it, and an entry with no place in a section of the range.
 
 It serves `goal@generic-tools-and-procedures-are-shipped`, under which the reading a pin move does
 is done by a tool that serves every target project: the rule reads no name of this project, and
@@ -513,9 +516,11 @@ and the mutation library. The nearest rival, the named package's dependency clos
 
 ### `changelog` runs `cargo metadata` under `--locked` and `--offline`, so a run writes nothing and reaches no network `##changelog-runs-cargo-locked-and-offline`
 
-The command runs `cargo metadata --format-version 1 --locked --offline` at the project's root, and
-Cargo's failure is its could-not-run, with Cargo's message and a repair naming `cargo fetch` after
-the pin's edit. Measured, as `path@cargo-reader@docs/grounding/cargo-metadata.md` records with the
+The command runs `cargo metadata --format-version 1 --locked --offline` with `--manifest-path`
+naming the `Cargo.toml` at the project's root, so the graph of a package that encloses the project
+is never read; a root with no `Cargo.toml` is a could-not-run that sends a project with no Rust to
+the reading by hand of the pin move, and Cargo's failure is a could-not-run, with Cargo's message
+and a repair naming `cargo fetch` after the pin's edit. Measured, as `path@cargo-reader@docs/grounding/cargo-metadata.md` records with the
 commands that take it again: without `--locked`, the run writes `Cargo.lock` where it is missing or
 stale; without `--offline`, it updates the index and downloads crates; with both, a lock the pin's
 edit left stale fails, and a run after `cargo fetch` passes and writes nothing. A command that reads

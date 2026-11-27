@@ -49,8 +49,10 @@ with `cargo x mutate`.
    model renders, with no generated header, the crates under each category in the order of
    "Decided design", one selected crate included.
 3. **The order of the pin move**, premortem cause 2: run in the order step 2 gives, after the pin's
-   edit and `cargo fetch`, the command succeeds over a mock consumer; run before the fetch, it fails
-   with cargo's message and a repair naming the fetch.
+   edit and `cargo fetch`, the command succeeds over a mock consumer; the binary run before the
+   fetch fails with cargo's message and a repair naming the fetch. Through a maintenance crate's
+   alias, `cargo run` resolves the edited pin before the command runs, which the review measured,
+   so the command's run there passes.
 4. **No write**: a run writes no file of the consumer, `Cargo.lock` included, as the measurement of
    the flags shows.
 5. **An unreadable changelog is reported, never dropped**: a selected package with no
@@ -215,13 +217,20 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
   than the pin refuses it: the pin refusal names the pin's edit and the fetch before the command.
 - **A named package or a `--package` name the graph does not hold** is a could-not-run, exit 2: the
   invocation names nothing to read. A version that is no version is refused while parsing, per
-  `design@cli@command-parsing-home`, and `--to` not above `--from` by `cli::run`, by a type of
-  `query` that cannot hold it.
+  `design@cli@command-parsing-home`, and so is `--to` not above `--from`, by the declaration's
+  conversion into a type of `query` that cannot hold it, which `cli::run` also refuses for a value
+  built by hand.
 - **A package the graph holds at several versions** is read in its newest version's file, which
   holds the sections of every earlier one.
 - **The table of a dependency is read from its preamble**: its categories in their order and its
-  unclassed versions, with every category admitted for every crate, since a preamble states no
-  `[changelog.category-components]` and the publisher's check enforces it.
+  unclassed versions, with every category it lists admitted for that crate, since a preamble states
+  no `[changelog.category-components]` and the publisher's check enforces it. Each crate is placed
+  by its own table; the categories of the layout are those of the preambles, in the order they
+  first appear, and a crate whose table lists a version as unclassed is printed under that version
+  before its categories.
+- **The project's Cargo project is the one at its root**: `cargo metadata` runs with
+  `--manifest-path` naming the root's `Cargo.toml`, and a root with no `Cargo.toml` is a
+  could-not-run that sends a project with no Rust to the reading by hand of the pin move.
 - **The output** is the assembled layout of the selected crates over the range, with no generated
   header, since it is no file; one selected crate is printed in the same layout, since
   `design@model@assembled-changelog-from-two-crates` decides when a project's file is assembled,
@@ -230,10 +239,11 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
   `thread@per-crate-changelogs@consumer-crate-order`: no file a consumer receives states the
   publisher's order of `design@model@assembled-crates-in-the-manifest-s-order`.
 - **What the output cannot hold is reported**, never dropped: after the layout, one line per
-  selected package with no `CHANGELOG.md`, per line of a preamble the read does not take, and per
-  unread line or entry with no place in a section of the range, each naming the file and the line;
-  the exit is then 1. A defect in a section outside the range is not reported, since nothing of it
-  is printed.
+  selected package with no `CHANGELOG.md`, per line of a preamble the read does not take, per
+  unread line of a selected file, whatever its section, since an unread line can be a version
+  heading the parse did not take, and per entry with no place in a section of the range, each
+  naming the file, and the line where it has one; the exit is then 1. An entry with no place
+  outside the range is not reported, since nothing of its section is printed.
 - **Its output is for a reader, not a contract**, as `anchors` and `worklist` say of theirs, per
   `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 - Argument: `argument@per-crate-changelogs@arg-25`, `argument@per-crate-changelogs@arg-31`,
