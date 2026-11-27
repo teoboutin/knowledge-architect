@@ -17,7 +17,10 @@ use std::process::ExitCode;
 
 use clap::{Args, Subcommand};
 
-use knowledge_architect_query::{self as query, IssuesFilter, TripwiresFilter, WorklistMode};
+use knowledge_architect_model::changelog::Version;
+use knowledge_architect_query::{
+    self as query, ChangelogRequest, IssuesFilter, TripwiresFilter, VersionRange, WorklistMode,
+};
 
 use crate::check::commands::{self, CheckMode, IndexMode};
 use crate::extension::Extension;
@@ -74,6 +77,11 @@ pub enum Command {
     Model,
     /// Every anchor of the project, with its kind, its path, and each register's home.
     Anchors,
+    /// The changelogs of the project's dependencies over a range of versions, read from the
+    /// sources cargo fetched, in the layout of an assembled changelog: the packages of the named
+    /// package's `repository`, or the named set. It runs `cargo metadata --locked --offline`, so
+    /// it writes nothing and reaches no network; after a pin's edit, run `cargo fetch` first.
+    Changelog(ChangelogArgs),
     /// Judge every commit of a range, its message and its tree, each message against its own
     /// commit's tree.
     Commits(CommitsArgs),
@@ -94,6 +102,35 @@ pub enum Command {
     /// The sessions of Claude Code's transcripts that ran in this project: listed, one shown, or
     /// searched, each line labelled by its fields, and every line not recognised reported.
     Transcript(TranscriptArgs),
+}
+
+/// The arguments of `changelog`.
+#[derive(Args)]
+pub struct ChangelogArgs {
+    /// The package whose changelog to read first, as the project's resolved dependency graph
+    /// names it. Without `--package`, every package of the graph with the same `repository` is
+    /// read with it; where it sets none, it is read alone.
+    #[arg(value_name = "PACKAGE")]
+    pub package: String,
+    /// The version moved from: the versions above it are printed.
+    #[arg(long, value_name = "VERSION", value_parser = version)]
+    pub from: Version,
+    /// The version moved to, printed; without it, every version above `--from` the files hold.
+    /// It must be above `--from`.
+    #[arg(long, value_name = "VERSION", value_parser = version)]
+    pub to: Option<Version>,
+    /// A package to read beside PACKAGE, repeatable; with any, exactly PACKAGE and these are read.
+    #[arg(long = "package", value_name = "NAME")]
+    pub packages: Vec<String>,
+}
+
+/// A version of `changelog`, checked by the model's rule of a version heading while parsing.
+fn version(value: &str) -> Result<Version, String> {
+    Version::parse(value).ok_or_else(|| {
+        format!(
+            "`{value}` is no version: a version is three numbers joined by `.`, with no leading              zero, and no pre-release or build part"
+        )
+    })
 }
 
 /// The arguments of `id`.
@@ -338,7 +375,8 @@ pub struct TripwiresArgs {
 /// Returns a could-not-run message, which the caller prints before it exits 2. Refused before any
 /// extension runs: a value holding a combination the command refuses, such as `check` with both
 /// `fix` and `staged`, `worklist` with not exactly one of `out`, `verify` and `check` or with an
-/// argument its mode takes none of, or `transcript show` with both `from` and `from_line`; and a
+/// argument its mode takes none of, `changelog` with a `to` not above its `from`, or
+/// `transcript show` with both `from` and `from_line`; and a
 /// `worklist` subject that is no id in the grammar of an entry id, which clap refuses while
 /// parsing. Then `Command::Init`, which goes to [`init`], and every could-not-run of the
 /// command's own function.
@@ -353,6 +391,7 @@ pub fn run(
     match &command {
         Command::Check(args) => drop(check_mode(args)?),
         Command::Worklist(args) => drop(worklist_mode(args)?),
+        Command::Changelog(args) => drop(changelog_request(args)?),
         Command::Transcript(TranscriptArgs {
             verb: TranscriptVerb::Show(args),
         }) if args.from.is_some() && args.from_line.is_some() => {
@@ -396,6 +435,7 @@ pub fn run(
         }
         Command::Model => commands::model(manifest, checker, extensions),
         Command::Anchors => query::anchors(manifest, checker),
+        Command::Changelog(args) => query::changelog(manifest, &changelog_request(&args)?),
         Command::Commits(args) => commands::commits(manifest, &args.range, checker, extensions),
         Command::InstallAgentSkills => commands::install_agent_skills(manifest),
         Command::NewComponent(args) => {
@@ -425,6 +465,19 @@ fn check_mode(args: &CheckArgs) -> Result<CheckMode, String> {
         (false, true) => Ok(CheckMode::Staged),
         (false, false) => Ok(CheckMode::Working),
     }
+}
+
+/// The request of `changelog`, or the refusal of a `--to` not above `--from`, which the type of
+/// `query` cannot hold. clap declares no rule across two values, so this refusal is the one of a
+/// command line and of a value built by hand alike, before any work.
+fn changelog_request(args: &ChangelogArgs) -> Result<ChangelogRequest, String> {
+    let range = VersionRange::new(args.from, args.to)
+        .map_err(|why| format!("`--to` is not above `--from`: {why}"))?;
+    Ok(ChangelogRequest {
+        package: args.package.clone(),
+        range,
+        packages: args.packages.clone(),
+    })
 }
 
 /// The mode of `worklist`, or the refusal of a value clap would have refused while parsing.
@@ -608,6 +661,30 @@ mod tests {
 
     fn a_dir() -> Option<std::path::PathBuf> {
         Some(std::path::PathBuf::from("d"))
+    }
+
+    /// The claim: `run` refuses a `ChangelogArgs` whose `to` is not above its `from`, before an
+    /// extension runs, and takes one whose `to` is above it or absent. Mutation checked: in
+    /// `VersionRange::new` of `knowledge-architect-query`, `Some(to) if to <= from =>` made
+    /// `Some(to) if to < from =>`; caught.
+    #[test]
+    fn run_refuses_a_changelog_range_holding_no_version() {
+        let v = |t: &str| Version::parse(t).expect("a version");
+        let args = |to: Option<&str>| ChangelogArgs {
+            package: "p".to_string(),
+            from: v("0.2.0"),
+            to: to.map(v),
+            packages: Vec::new(),
+        };
+        for to in ["0.2.0", "0.1.9"] {
+            refused_by_run_saying(
+                Command::Changelog(args(Some(to))),
+                "`--to` is not above `--from`",
+            );
+        }
+        for to in [Some("0.2.1"), None] {
+            assert!(changelog_request(&args(to)).is_ok(), "{to:?}");
+        }
     }
 
     /// The claim: `run` refuses a `CheckArgs` that asks both modes, before an extension runs.
