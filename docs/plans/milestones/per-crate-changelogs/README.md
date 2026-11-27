@@ -575,7 +575,7 @@ on the checkpoint table:
 ## Acceptance criteria
 
 The one acceptance criterion, on `thread@per-crate-changelogs@registry-changelog-command`, lives
-in slice 4's spec, [the command](changelog-command/README.md), and is judged by real use from slice
+in slice 4's spec, [the command](harvested/changelog-command/README.md), and is judged by real use from slice
 5 on: slice 5's landing and the deletion of this document report on it, as
 `acceptance@per-crate-changelogs@selection-reaches-every-crate`'s own lines say.
 
@@ -590,7 +590,7 @@ in slice 4's spec, [the command](changelog-command/README.md), and is judged by 
 3. [The changelog model and its checks](harvested/changelog-checks/README.md): the parse and the rendering in
    `model`, the `[changelog]` table, and the checks in `check`, opt-in, tested over mock projects
    alone. Fails alone on a mock project's finding or its assembled file.
-4. [`klarch changelog`](changelog-command/README.md): the command, the rewrite of the pin move's
+4. [`klarch changelog`](harvested/changelog-command/README.md): the command, the rewrite of the pin move's
    step 2, and the pin refusal's message. Fails alone on the command's output over a mock consumer.
 5. [The conversion of this repository](repository-conversion/README.md): the per-crate files, the
    declaration, the generated root file, the removal of `cargo x changelog`, and the rewrites of the
