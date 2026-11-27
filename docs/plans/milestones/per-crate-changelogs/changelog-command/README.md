@@ -89,8 +89,9 @@ measures before relying on it. The tests of the command go in a new file under
   `design@query@query-depends-on-no-check`, `design@cli@command-parsing-home`,
   `design@cli@exit-code-ladder`, `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`,
   `design@agent-skills@xtask-pins-checker`, `design@agent-skills@pinned-binary-runs-inside-the-project`.
-- `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`,
-  `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`,
+- `design@knowledge-architect@one-program-for-the-tools`, which this slice's branch writes, closing
+  the issue `the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, D17 of the milestone.
+- `issue@knowledge-architect@a-typed-command-prints-and-exits-rather-than-returning-data`,
   `issue@knowledge-architect@command-output-is-not-declared-a-contract`.
 - `issue@check@commands-mod-rs-holds-two-parts-that-change-apart` and
   `issue@testing@binary-rs-is-past-one-read`, weighed below.
@@ -193,9 +194,8 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
   `goal@generic-tools-and-procedures-are-shipped`.
 - Its logic is in `query`, whose purpose widens to the record of the project or of one of its
   dependencies; its declaration is in `cli`. It is placed in `klarch`, since the pin move runs the
-  binary the project pinned, which links the model; the general rule of one program stays
-  `issue@knowledge-architect@the-rule-of-one-program-for-the-tools-is-argued-by-no-head`'s question,
-  and this slice's commit names the argument for that issue.
+  binary the project pinned, which links the model, by the rule of
+  `design@knowledge-architect@one-program-for-the-tools`, which this slice's branch argues, D17.
 - The pin move's step 2 runs it after the fetch, and reads its output, as "Builds" says.
 - **The flags, measured**: `--locked --offline`, both. Measured with cargo 1.98.0 over a mock
   consumer of path dependencies and over a registry dependency in an empty `CARGO_HOME`: without
