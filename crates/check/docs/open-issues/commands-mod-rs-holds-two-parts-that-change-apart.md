@@ -15,13 +15,12 @@ changes the file's code, per `design@agent-skills@split-issue-reenters-at-planni
 
 ### What
 
-- **Two parts that change apart.** At main 9f1efd7b, the refusal at lines 213 to 375 and the runs at lines
-  423 to 660: `git log -L` over each range, with its commits counted once, gives 9 and 8 commits, 4 of
+- **Two parts that change apart.** At main 863ad964, the refusal at lines 215 to 377 and the runs at lines
+  425 to 657: `git log -L` over each range, with its commits counted once, gives 9 and 14 commits, 4 of
   them both. They are read against different heads, `design@check@checked-sentinel-values` and
   `design@check@fix-scope`.
-- **Size.** 65 354 bytes there, returned whole by a Read with no range, whose cap is 25000 tokens; by the
-  tokens of another file of this crate per byte, 1000 to 3000 under it.
-- **The signals against.** The runs and the refusal share 4 commits of 13, and the runs share
+- **Size.** 68 158 bytes there, returned whole by a Read with no range, whose cap is 25000 tokens.
+- **The signals against.** The runs and the refusal share 4 commits of 19, and the runs share
   `generated_list`, `check_destinations` and `print_report`.
 
 The instance: the branch that made the gates run on Linux, Windows and macOS changed the file, nearly every
@@ -29,6 +28,10 @@ edit replacing one call at one site, and split nothing. Its plan weighed the sig
 its review before the merge asked for this entry, since the signal here is of parts that change apart, by
 the counts above, where the other modules the plan weighed, `references.rs`, `registers.rs` and `tree.rs`,
 hold one of size.
+
+A second instance: the slice of the per-crate changelogs that adds `klarch changelog` changes one string literal of the
+refusal and its unit test, and nothing of the runs. It plans no split, since that work does not need
+one, and the signal stays as counted above.
 
 ### Why it matters
 
