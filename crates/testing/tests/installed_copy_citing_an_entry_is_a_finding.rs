@@ -49,7 +49,7 @@ fn findings_at(out: &str, rel: &str) -> Vec<String> {
         .collect()
 }
 
-/// The claim, claim 9 over the sandbox: the installed set, read at the level `entries` with
+/// The claim, over the sandbox: the installed set, read at the level `entries` with
 /// the globs of the installed copies declared, passes. Mutation checked, caught: in
 /// `refused_at_entries` of `path@check@src/check/citation_free.rs`, the arm that admits a
 /// harness kind made to refuse it, so every `skill@<name>` citation of the copies is reported.
@@ -60,7 +60,7 @@ fn the_installed_set_passes_the_level_entries() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim, claim 10, the closing test of the issue the slice answers: a reference to an entry
+/// The claim, the closing test of the issue the slice answers: a reference to an entry
 /// of the project planted in an installed skill's copy, with `entries` declared over the
 /// installed copies, makes `check` exit 1 with the level's finding at the copy. Mutation
 /// checked, caught: the read of the installed copies skipped, `citation_free::installed` made to
@@ -79,7 +79,7 @@ fn an_installed_copy_citing_an_entry_is_a_finding() {
     assert!(found[0].contains(ENTRY), "{out}");
 }
 
-/// The claim, claim 4: the level `entries` reads an installed copy only where a glob matches it.
+/// The claim: the level `entries` reads an installed copy only where a glob matches it.
 /// The copy planted with a reference to an entry is the level's finding with the glob declared,
 /// and no finding of it without; and no rule of the walk reports anything in the copy either
 /// way, the comparison of its bytes with the shipped set apart, which reports the planted copy
@@ -116,7 +116,7 @@ fn an_installed_copy_is_read_only_where_a_glob_matches_it() {
     assert_eq!(others(&without), Vec::<String>::new(), "{without}");
 }
 
-/// The claim, claim 3, its cases of the harness kinds: at the level `entries`, in a walked file,
+/// The claim, its cases of the harness kinds: at the level `entries`, in a walked file,
 /// `skill@<name>`, `agent@<name>` and `primer@<slug>` of the shipped set are admitted, each
 /// resolved, so one naming no shipped skill is reported as dangling; and `instructions@<slug>`
 /// is the level's finding; the dangling one keeps the repair its resolution names, which cites
@@ -221,7 +221,7 @@ fn check_staged_reads_the_installed_copies_at_the_level_entries() {
     assert_eq!(code, 0, "{worktree}{err}");
 }
 
-/// The claim, claim 1 for the harness kinds and the read of the copies at the level `all`: in a
+/// The claim, for the harness kinds and the read of the copies at the level `all`: in a
 /// walked file a glob of `all` matches, `skill@<name>` is the level's finding though it resolves;
 /// and the same glob matching an installed copy reads nothing in it, since a copy is read at the
 /// level `entries` or not at all. Mutations checked, each caught: in `citation_free::span_finding`,

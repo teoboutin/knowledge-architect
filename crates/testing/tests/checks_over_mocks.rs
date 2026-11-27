@@ -724,7 +724,7 @@ mod planted {
         hits[0].action.clone()
     }
 
-    /// The claim, claim 1 of the slice: a reference in a file at the level `all` is the level's
+    /// The claim: a reference in a file at the level `all` is the level's
     /// finding whether or not it resolves, and the same two spans in a file no glob matches are
     /// nothing and a dangling reference. Mutation checked, caught: in `judge_part`, a reference
     /// resolved before the level is asked, its cause reported and the span left.
@@ -750,7 +750,7 @@ mod planted {
         );
     }
 
-    /// The claim, claim 2: a placeholder, a span holding an angle bracket, passes at both levels.
+    /// The claim: a placeholder, a span holding an angle bracket, passes at both levels.
     /// Mutation checked, caught: the angle brackets dropped from the second class of `AT_SPAN` in
     /// `path@model@src/scan.rs`, so the placeholder is read as a reference.
     #[test]
@@ -763,7 +763,7 @@ mod planted {
         );
     }
 
-    /// The claim, claim 3, its cases of no harness kind: at the level `entries`, a reference to a
+    /// The claim, its cases of no harness kind: at the level `entries`, a reference to a
     /// design entry or to an issue, a `planned` reference, and a `path` or a `register` reference
     /// naming a declared Component are findings; a `path` under `elsewhere`, `*` or `plans`, a
     /// `register` reference under `*` or `plans` and `register@goal` are not, and each admitted
@@ -800,7 +800,7 @@ mod planted {
         );
     }
 
-    /// The claim, claim 5: the id lints read a citation-free file, a backticked span and a plain
+    /// The claim: the id lints read a citation-free file, a backticked span and a plain
     /// word that are a defined id reported at both levels, and at both levels the repair is a
     /// rewrite in words, which names no reference to the entry: at the level `entries` that
     /// reference is what the file refuses too. Mutations checked, each caught, in
@@ -830,7 +830,7 @@ mod planted {
         assert!(repair(&free, "free/all-ids.md", 7).contains("rename what it names"));
     }
 
-    /// The claim, claim 6: the unanchored-path lint reads a citation-free file, and at the level
+    /// The claim: the unanchored-path lint reads a citation-free file, and at the level
     /// `all` its repair is a rewrite in words, not the `path` form. Mutation checked, caught: in
     /// `citation_free::repairs_at`, the arm of the level `all` made to leave an unanchored path's
     /// repair, `(Level::All, Observation::UnanchoredPath(_)) => return,` before the arm of every
@@ -850,7 +850,7 @@ mod planted {
         assert!(!action.contains("path@<anchor>"), "{action}");
     }
 
-    /// The claim, claim 7: no repair a finding under free/ names is the span with its backticks
+    /// The claim: no repair a finding under free/ names is the span with its backticks
     /// removed, and in a file at the level `all` each names a rewrite in words, a malformed
     /// span's, an anchor in the kind's position's, a link's and a wrapped span's included, a
     /// link's being the rewrite of the link. Tested on the repair text of each finding. Mutations
