@@ -247,7 +247,7 @@ mod tests {
         "metadata": null
     }"#;
 
-    /// Claim 2: the graph's packages are yielded, each with its manifest path and its
+    /// The claim: the graph's packages are yielded, each with its manifest path and its
     /// `repository`, and a package no node holds is not. Mutation checked: in `read_metadata`,
     /// `.filter(|package| ids.contains(package.id.as_str()))` made `.filter(|_| true)`; caught.
     #[test]
@@ -280,8 +280,8 @@ mod tests {
         );
     }
 
-    /// Claim 2, an output with no graph, as `--no-deps` prints: every package listed, and no graph.
-    /// Mutations checked, each caught: in `read_metadata`, `None => output.packages,` made
+    /// The claim, an output with no graph, as `--no-deps` prints: every package listed, and no
+    /// graph. Mutations checked, each caught: in `read_metadata`, `None => output.packages,` made
     /// `None => Vec::new(),`, and made `None => output.packages.into_iter().take(1).collect(),`.
     #[test]
     fn an_output_with_no_graph_yields_every_package_listed() {
@@ -296,7 +296,7 @@ mod tests {
         assert_eq!(names, ["a", "b"]);
     }
 
-    /// Claim 2, `resolve.root` is read: the package of the directory Cargo ran in. Mutation
+    /// The claim, `resolve.root` is read: the package of the directory Cargo ran in. Mutation
     /// checked: `#[serde(skip)]` added to `Graph::root`; caught.
     #[test]
     fn the_graph_s_root_is_read() {
@@ -311,7 +311,7 @@ mod tests {
         assert_eq!(graph.root.as_deref(), Some("a-id"));
     }
 
-    /// Claim 2, a key the reader reads as an `Option`, a package's `repository` or the output's
+    /// The claim, a key the reader reads as an `Option`, a package's `repository` or the output's
     /// `resolve`, reads as `None` where the output omits it, rather than as an error. A regression
     /// guard: serde's derive reads a missing `Option` field as `None`, which its first run
     /// measured, and the `# Errors` of `read_metadata` states.
@@ -324,7 +324,7 @@ mod tests {
         assert_eq!(metadata.packages[0].repository, None);
     }
 
-    /// Claim 3, the caller's flags reach Cargo: with `--no-deps`, a package's metadata carries no
+    /// The claim, the caller's flags reach Cargo: with `--no-deps`, a package's metadata carries no
     /// graph, and without it, a graph whose root is that package. Mutation checked: in
     /// `run_metadata`, `words.extend_from_slice(flags);` made `let _ = flags;`; caught.
     #[test]
@@ -348,7 +348,7 @@ mod tests {
         assert_eq!(graph.root.as_deref(), Some(no_deps.packages[0].id.as_str()));
     }
 
-    /// Claim 2, an output this reader cannot read is an error: no JSON, a missing field, another
+    /// The claim, an output this reader cannot read is an error: no JSON, a missing field, another
     /// format version, above or below 1. Mutations checked, each caught: in `read_metadata`,
     /// `if output.version != 1 {` made `if false {`, and made `if output.version > 1 {`.
     #[test]
@@ -364,7 +364,7 @@ mod tests {
         }
     }
 
-    /// Claim 3: a run where Cargo fails is an error carrying Cargo's message, never an empty
+    /// The claim: a run where Cargo fails is an error carrying Cargo's message, never an empty
     /// graph. Mutation checked: in `run_metadata`, `if !output.status.success()` made
     /// `if false`; caught.
     #[test]

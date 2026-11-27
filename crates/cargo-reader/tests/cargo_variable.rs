@@ -4,7 +4,7 @@
 
 use knowledge_architect_cargo_reader::{run_metadata, MetadataError};
 
-/// Claim 3: the Cargo that runs is the one `CARGO` names, and a failure to start it names that
+/// The claim: the Cargo that runs is the one `CARGO` names, and a failure to start it names that
 /// program, not `cargo`. Mutations checked, each caught: in `run_metadata`,
 /// `std::env::var_os("CARGO")` made `None::<std::ffi::OsString>`, and the command's program
 /// `cargo.to_string_lossy()` made `"cargo"`.
