@@ -261,11 +261,14 @@ const OWN_ENTRIES: &str = "This file holds the entries of this crate only.";
 /// [`ReadPreamble::unread`]: a line of no kind, a second line of a kind, whether the first was
 /// read or not, a package that is empty or opens with white space, which no Cargo package name
 /// does, an empty name of the whole project's changelog, a list of categories holding an empty,
-/// a padded or a repeated item, and a version that is no version: [`expected_preamble`] writes
-/// none of them, since a package's name and the manifest's table refuse each. The name of the
-/// whole project's changelog is whatever lies between the sentence's opening and its end, as the
-/// table admits an assembled path that opens with white space; a version repeated in the list of
-/// unclassed versions is read, as the table admits it. A
+/// a padded or a repeated item, and a version that is no version. A package's name and the
+/// manifest's table refuse each of these shapes, so [`expected_preamble`] writes none of them,
+/// but one: the table admits a line break in `[changelog] assembled` and `assembled-url`, which
+/// splits the sentence naming the whole project's changelog over lines the read reports, per
+/// `issue@model@an-assembled-url-with-a-line-break-injects-a-line-into-every-preamble`. The name of
+/// the whole project's changelog is whatever lies between the sentence's opening and its end, if
+/// not empty, as the table admits an assembled path that opens with white space or is white space
+/// alone; a version repeated in the list of unclassed versions is read, as the table admits it. A
 /// category holds no `,`, `:` or line break, so the list reads back as it was written. A preamble
 /// that lacks the line of the categories gives a table with none, so every entry of a classed
 /// version has no place in the layout.
@@ -604,7 +607,8 @@ mod tests {
     /// declared; and each line of no shape it writes is reported by its one-based line, a second
     /// list of the categories, a padded or a repeated item and a version that is no version among
     /// them. Mutations checked, each caught: in `read_preamble`, `unread.push(i as u32 + 1);` made
-    /// `unread.push(i as u32);`; and in `listed`, `&& (repeats || !items[..i].contains(item))` made
+    /// `unread.push(i as u32);`, and `.is_some_and(|name| !name.is_empty())` made
+    /// `.is_some_and(|name| !name.trim().is_empty())`; and in `listed`, `&& (repeats || !items[..i].contains(item))` made
     /// `&& !items[..i].contains(item)`.
     #[test]
     fn the_preamble_reads_back() {
@@ -616,11 +620,13 @@ mod tests {
         // A version repeated in `unclassed`, which the manifest's table admits.
         let repeated = ChangelogTable::with_no_manifest(Vec::new(), vec![v("0.1.0"), v("0.1.0")]);
         for t in [&declared, &linked, &bare, &none, &repeated] {
-            // An assembled path opening with white space, which the manifest's table admits.
+            // An assembled path opening with white space, and one of white space alone, which the
+            // manifest's table admits and the publisher's check passes.
             for assembled in [
                 None,
                 Some(Path::new("docs/CHANGES.md")),
                 Some(Path::new(" C.md")),
+                Some(Path::new(" ")),
             ] {
                 let text = expected_preamble(t, "pa", assembled);
                 let read = read_preamble(&text);
@@ -664,7 +670,8 @@ mod tests {
     /// the guard `Some(k) if std::mem::replace(&mut seen[k], true) => false,` made
     /// `Some(_) if false => false,`; `.is_some_and(|name| !name.is_empty())` made `.is_some()`;
     /// `.and_then(|r| r.strip_suffix(WHOLE.1))` made
-    /// `.map(|r| r.strip_suffix(WHOLE.1).unwrap_or(r))`; `Some(0) => named(&line[TITLE.len()..]),`
+    /// `.map(|r| r.strip_suffix(WHOLE.1).unwrap_or(r))`; `.strip_prefix(WHOLE.0)` made
+    /// `.split_once(" is ").map(|(_, n)| n)`; `Some(0) => named(&line[TITLE.len()..]),`
     /// made `Some(0) => true,`; `let line = line.trim_end();` removed; and in `listed`,
     /// `&& !item.contains([',', ':'])` made `&& !item.contains([','])`.
     #[test]
@@ -700,6 +707,11 @@ mod tests {
             ),
             (
                 format!("{own} The changelog of the whole project is CHANGES.md"),
+                vec![1],
+                vec![],
+            ),
+            (
+                format!("{own} The changelog is C.md in its repository."),
                 vec![1],
                 vec![],
             ),

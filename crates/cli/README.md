@@ -331,8 +331,8 @@ cargo klarch changelog knowledge-architect --from 0.10.0
 - **It reads the project's resolved dependency graph** with `cargo metadata --format-version 1
   --manifest-path <root>/Cargo.toml --locked --offline`, run at the project's root, so it reads the
   graph of the Cargo project the root holds, never one of a package enclosing it, per
-  `design@query@changelog-reads-the-root-s-graph`, writes no file,
-  `Cargo.lock` included, and reaches no network, per
+  `design@query@changelog-reads-the-root-s-graph`, writes nothing of the project, `Cargo.lock`
+  included, and reaches no network, per
   `design@query@changelog-runs-cargo-locked-and-offline`. A root with no `Cargo.toml` is refused,
   exit 2, since it holds no Cargo project for the command to read. After the
   versions a `Cargo.toml` requires are edited, the lock file is stale and a run of the binary
@@ -351,8 +351,9 @@ cargo klarch changelog knowledge-architect --from 0.10.0
   preambles, the named package's first; under it each crate, the named package first, then the
   others by package name, per `design@query@consumer-crate-order`. In a version a crate's preamble
   lists as unclassed, that crate has no category level, and its block comes before the categories.
-  Where nothing is printed, a line says whether the range holds no entry, or holds entries the
-  layout has no place for.
+  Where nothing is printed, a line says the range holds no entry, where it holds none and nothing
+  is listed below; otherwise it says that nothing of the range is printed, and what the layout
+  cannot hold is listed below.
 - **What the layout cannot hold is reported after it, never dropped**, per
   `design@query@changelog-reports-what-it-cannot-print`, under a line `Not printed,
   since the layout has no place for it:`: one line per selected package whose `CHANGELOG.md` cannot
