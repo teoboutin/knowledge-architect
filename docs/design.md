@@ -223,7 +223,7 @@ and each crate of the checker's tools depends on it, so no cycle forms; a new qu
 boundary as a function on one side and its call on the other, and a change of git itself changes
 this crate alone.
 
-### Cargo is read by a crate of its own, which the checker depends on, rather than by a module of the model `##cargo-reader-crate`
+### Cargo is read by a crate of its own rather than by a module of the model `##cargo-reader-crate`
 
 `knowledge-architect-cargo-reader`, in crates/cargo-reader, reads what the tools of
 knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and the output of
@@ -249,7 +249,11 @@ because a read of Cargo is judged with no check built. It takes the decisions of
 the tools read Cargo, in `register@cargo-reader@design`, which pays because what a failure of Cargo
 gives and whether a default of Cargo's is applied are decided once, not by each tool that reads
 Cargo. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends
-on no crate of the workspace, and `check`, `model` and `cli` depend on it, so no cycle forms; a new fact a
+on no crate of the workspace, and `check`, `model` and `cli` depend on it, so no cycle forms; the split
+adds one dependency per crate that reads Cargo, on this crate, where the module of `model` adds
+none, since `check` and `cli` already depend on `model`, and that signal does not prevail, since
+every such edge ends at a crate that depends on no other crate of the workspace, so it adds no path
+between two of them and a new reader adds one edge alone; a new fact a
 check or a command reads crosses its boundary as a function on one side and its call on the other,
 and a change of Cargo's formats changes this crate alone.
 
