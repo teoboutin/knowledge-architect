@@ -6,7 +6,9 @@
 //!   workspace's `[workspace.package]`;
 //! - the output of `cargo metadata --format-version 1`, [`run_metadata`], which runs it in a
 //!   directory with the flags its caller passes, and [`read_metadata`], which reads its JSON: the
-//!   resolved graph, and each of its packages' name, version, manifest path and `repository`.
+//!   resolved graph, and each of its packages' name, version, manifest path and `repository`;
+//! - the `include` patterns of a package, [`include_matches`], which says whether they package a
+//!   file as `cargo package` reads them.
 //!
 //! Reading a manifest touches no file and runs nothing; the caller reads the text, and finds the
 //! workspace's manifest a package inherits from. Running `cargo metadata` needs Cargo, named by the
@@ -35,9 +37,11 @@ const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
 // One module per external format, so a change of one format, or of the facts the tools read of
 // it, changes one module.
+mod include;
 mod manifest;
 mod metadata;
 
+pub use include::include_matches;
 pub use manifest::{
     read_manifest, Field, Manifest, ManifestError, Package, Publish, WorkspacePackage,
 };

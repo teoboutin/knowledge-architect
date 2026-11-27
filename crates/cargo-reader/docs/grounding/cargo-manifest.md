@@ -59,3 +59,63 @@ source it names, or measured again with the command and manifest given.
   for a Cargo.toml file with a [workspace] definition to determine which workspace to use. The
   package.workspace manifest key can be used in member crates to point at a workspace's root to
   override this automatic search."
+
+## Which package Cargo would publish
+
+Read from the passages of `[package]` above: `version` "is required for publishing packages", and
+omitting it keeps a package from being published; `publish = false` disables publishing; and
+`publish = [...]` names the registries a package may be published to. So a package Cargo would
+publish sets a `version`, its own or inherited, with `publish` absent, `true`, or a list naming a
+registry. **An empty list names no registry, and is read as `false`**: the reference does not say so
+in words, and `cargo metadata` was measured to report `false` and `[]` alike, as `[]`. The reader of
+`path@cargo-reader@src/manifest.rs` applies none of this, per
+`design@cargo-reader@a-manifest-is-read-as-written`: the caller makes the reading, as the checker's
+model does for the changelog crates.
+
+## The `include` patterns, as `cargo package` matches them
+
+The book's passage under "The `exclude` and `include` fields": "The patterns should be
+gitignore-style patterns": `foo` "matches any file or directory with the name foo anywhere in the
+package", `/foo` "only in the root of the package", `foo/` "any directory with the name foo";
+`*`, `?` and `[]` are supported and match no `/`; `**/` "matches in any directory", `/**` "matches
+everything inside", `/**/` "matches zero or more directories"; and "! prefix negates a pattern".
+
+Measured with `cargo package --list --allow-dirty --offline`, Cargo 1.98.0, in a scratch package
+`a` holding a `main.rs` in its directory `src` and one file more, its `Cargo.toml` setting `include`
+to the patterns named, each verdict whether the listing holds that file. The match of
+`path@cargo-reader@src/include.rs` answers each of them so. The patterns are in fenced blocks, one
+per line, since a pattern is no pointer to a file of this project.
+
+- **A file `CHANGELOG.md` at the package's root** is listed under each of these:
+
+  ```text
+  CHANGELOG.md  /CHANGELOG.md  *.md  /*.md  CHANGELOG*  CHANGE*.md  **/CHANGELOG.md
+  /**/CHANGELOG.md  /**  **  /*  *  /  /[C]HANGELOG.md  /?HANGELOG.md
+  ```
+
+  and not under `changelog.md`, so the match is case-sensitive, nor under these, the first of
+  which names a directory, then an empty pattern and `.`:
+
+  ```text
+  /CHANGELOG.md/  /src
+  ```
+
+- **The last matching pattern decides**: the file is not listed under `/CHANGELOG.md` then
+  `!CHANGELOG.md`, nor under `/*` then `!/CHANGELOG.md`, and is listed under `!CHANGELOG.md` then
+  `/CHANGELOG.md`.
+- **A file `CHANGELOG.md` in a directory `docs` of the package** is listed under each of these:
+
+  ```text
+  docs  docs/  /docs/*  docs/**  CHANGELOG.md  */CHANGELOG.md  /*/CHANGELOG.md  **/docs
+  docs/CHANGELOG.md  do*  /docs/**/CHANGELOG.md
+  ```
+
+  and not under these, nor under `docs` then `!docs/CHANGELOG.md`, nor under `docs/` then
+  `!CHANGELOG.md`:
+
+  ```text
+  /docs/CHANGELOG.md/  a/**/b
+  ```
+
+  So a pattern matches a file through a directory that holds it, and a pattern with a `/` before
+  its end is anchored at the root, as `*/CHANGELOG.md` shows.
