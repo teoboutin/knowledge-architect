@@ -3,7 +3,8 @@
 //!
 //! The parse and every rendering are `model`'s, and raise nothing, so a tool that asks for a
 //! complete model answers over a malformed entry; what they record is judged here. A project whose
-//! manifest declares no `[changelog]` is asked nothing. The bump check and the `include` check are
+//! manifest declares no `[changelog]` is asked nothing, per `design@check@changelog-opt-in`. The
+//! bump check and the `include` check are
 //! modules of their own, since each reads an external reference, Cargo's semver and Cargo's
 //! `include` patterns.
 
@@ -92,8 +93,9 @@ pub(crate) fn check(model: &Model, manifest: &Manifest, inputs: &Inputs) -> Vec<
 
 /// The finding of a file at the declared assembled path that opens with the generated header
 /// where no file is assembled, with fewer than two changelog crates: no writer writes it again and
-/// no other check compares it, so its stale text would stand judged by nothing. A crate's own
-/// changelog at that path is judged by the grammar instead.
+/// no other check compares it, so its stale text would stand judged by nothing, per
+/// `design@check@generated-header-at-an-unassembled-path`. A crate's own changelog at that path is
+/// judged by the grammar instead.
 fn stale_assembled(table: &ChangelogTable, crates: &[Crate], model: &Model) -> Option<Finding> {
     let path = table.assembled();
     if crates.iter().any(|c| c.changelog() == path) {

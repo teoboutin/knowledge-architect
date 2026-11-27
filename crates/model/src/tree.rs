@@ -1138,8 +1138,9 @@ fn declarations(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inpu
 
     // **The assembled changelog takes no other generated file's path**: two texts generated at one
     // path are both written, each over the other, and the comparison of one fails whichever wins,
-    // so no run of `index` clears it. A register index's path is known from the listing, which
-    // places the entry anchors, so this is judged here rather than where the table is parsed.
+    // so no run of `index` clears it, per `design@model@assembled-path-taken-by-no-other-file`. A
+    // register index's path is known from the listing, which places the entry anchors, so this is
+    // judged here rather than where the table is parsed.
     if let Some(assembled) = model.changelog_crates().assembled(manifest) {
         let index = crate::index::generated_index_paths(manifest, inputs.present);
         let taken = index.contains(assembled)

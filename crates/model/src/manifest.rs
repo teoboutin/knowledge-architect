@@ -1,9 +1,10 @@
 //! `knowledge-architect.toml` — what a project declares must stay conformant, and what is exempt.
 //!
-//! Nothing about any particular repository is compiled into this tool. Every list a check
-//! reads comes from here, so the same binary checks this repository and a copy of a mock project
-//! with no special case anywhere, and a path that should not be checked has
-//! to say so in one file with a reason beside it.
+//! Nothing about any particular repository is compiled into this tool, per
+//! `design@check@nothing-of-a-project-is-compiled-in`. Every list a check reads comes from here,
+//! or, for the changelog crates, from the `Cargo.toml` of each Component declared here, so the
+//! same binary checks this repository and a copy of a mock project with no special case anywhere,
+//! and a path that should not be checked has to say so in one file with a reason beside it.
 //!
 //! The file's presence is also what makes a directory a project root. That is one mechanism
 //! rather than two: a directory either declares itself a project or it does not, and the tool
@@ -800,7 +801,8 @@ impl Manifest {
         };
         // The assembled changelog may not sit in the installer's namespace: the install deletes
         // what it does not ship there, and the writers write it again, so `check --fix` would
-        // never pass. Whether the project serves the harness is known once it is built.
+        // never pass, per `design@model@assembled-path-taken-by-no-other-file`. Whether the project
+        // serves the harness is known once it is built.
         let assembled = manifest
             .changelog
             .as_ref()

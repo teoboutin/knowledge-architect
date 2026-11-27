@@ -9,7 +9,7 @@ are the Components its `components` key lists, in the manifest's order of the Co
 lists none, they are every Component whose `Cargo.toml` has a `[package]` table that Cargo would
 publish: a `version` set, its own or inherited, and `publish` absent, `true`, or a list naming a
 registry. That reading of Cargo's `version` and `publish`, an empty list read as `false`, is
-`path@cargo-reader@docs/grounding/cargo-manifest.md`, section "Which package Cargo would publish". An
+`path@model@docs/grounding/cargo-packages.md`, section "Which package Cargo would publish". An
 inherited field is resolved from the workspace Cargo uses for the package, per
 `design@cargo-reader@the-caller-finds-the-workspace-manifest`: the `Cargo.toml` that the package's
 `package.workspace` names, where set, and otherwise the nearest `Cargo.toml` at or above the
@@ -70,7 +70,8 @@ zero in major version number", cargo 1.99.1, so no package carries that version.
 pre-release version, such as `## 1.0.0-rc.1`, or of one with build metadata, such as
 `## 1.0.0+build.5`, is a line the parse records as unread: the bump check has no reading of a
 pre-release's class, since the Cargo book's semver chapter gives none, and build metadata is
-ignored when versions are ordered, by item 10 of the SemVer specification Cargo follows, so a
+ignored when versions are ordered, by item 10 of the SemVer specification Cargo follows, quoted in
+`path@check@docs/grounding/cargo-semver.md`, so a
 heading carrying it names no release the check could order apart from the same version without it.
 While such a line stands the writers refuse, per `design@model@assembled-file-not-overwritten`, so
 no entry is lost. The nearest rival, any version

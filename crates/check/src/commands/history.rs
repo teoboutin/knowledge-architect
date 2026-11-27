@@ -673,9 +673,10 @@ fn commit_tree(
         .collect();
     // The changelog crates are read from the commit's own `Cargo.toml` blobs, before the walk, as
     // `Model::build` reads them off the disk: they decide whether the assembled changelog is a
-    // generated path. Over the files alone, as `Model::build` lists them, so a `Cargo.toml` held
-    // as a symlink is no crate's in either tree; a blob that is not text answers as a file on disk
-    // that is not, and a listed file with no blob as one the tree does not hold.
+    // generated path, per `design@model@changelog-crates-read-before-the-walk`. Over the files
+    // alone, as `Model::build` lists them, so a `Cargo.toml` held as a symlink is no crate's in
+    // either tree; a blob that is not text answers as a file on disk that is not, and a listed file
+    // with no blob as one the tree does not hold.
     let changelog_crates =
         crate::model::changelog::changelog_crates(&manifest, &files, &|rel: &Path| match read
             .blobs

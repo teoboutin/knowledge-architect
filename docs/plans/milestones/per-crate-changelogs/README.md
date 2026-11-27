@@ -747,6 +747,22 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   merges.
   **Ruled**, at slice 3's design audit: the default kept, on the owner's approval; on the owner's
   word, the discussion is held once this milestone is finished, which the roadmap orders.
+- **D13**, on `thread@per-crate-changelogs@changelog-opt-in`, raised by the review before the merge
+  of slice 3. `design@model@changelog-crates-are-listed-or-published` argues that a list written by
+  hand beside the `Cargo.toml` files drifts, yet keeps the hand list `[changelog] components` as its
+  first branch, and no premise in the record argues for it: the owner proposed "declared in
+  manifest or detected from the publish key" at R2 with no reason given. Default: the key is kept as
+  built, and the owner's premise for it, such as a published crate that has no changelog on
+  purpose, is recorded in the head once given. Rival: the key is dropped, and the changelog crates
+  are those Cargo would publish alone.
+- **D14**, on `thread@per-crate-changelogs@changelog-bump-check`, raised by the review before the
+  merge of slice 3. `design@check@changelog-bump-check` takes `y` for a minor release under
+  `0.y.z` in every project, on this repository's `design@knowledge-architect@versioning-policy`,
+  while the Cargo book also admits `z`: releases under "0.y.z" "can treat changes in "y" as a major
+  release, and "z" as a minor release", as `path@check@docs/grounding/cargo-semver.md` quotes it. So an adopter that follows the book gets a
+  finding, which strains `goal@every-target-project-can-adopt-it`. Default: `y`, as built. Rivals:
+  a minor release under `0.y.z` admits both `0.y.(z+1)` and `0.(y+1).0`; or the reading is a key of
+  `[changelog]`.
 
 ## Harvest
 

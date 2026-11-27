@@ -61,8 +61,9 @@ pub fn hand_written(text: &str) -> bool {
 
 /// Whether a writer of the generated files, `index`, `index --staged` or `check --fix`, may write
 /// the assembled file of the tree it writes, or why not, per
-/// `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote` and
-/// `design@check@fix-before-the-checks`: one function, so the three refuse alike.
+/// `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`,
+/// `design@check@fix-before-the-checks` and `design@model@assembled-file-not-overwritten`: one
+/// function, so the three refuse alike.
 ///
 /// It refuses where a directory stands at the path, in that tree, and where a file there is
 /// [`hand_written`] or not text; where the changelog checks cannot read a changelog crate's file:

@@ -102,7 +102,8 @@ pub struct Model {
     /// their milestone, and no reference in them is read, as `crate::plan` says.
     frozen: Vec<Document>,
     /// The changelog crates, read from each Component's `Cargo.toml` before the walk, since they
-    /// decide whether the assembled file is a generated path; empty where the manifest declares no
+    /// decide whether the assembled file is a generated path, per
+    /// `design@model@changelog-crates-read-before-the-walk`; empty where the manifest declares no
     /// `[changelog]`, and in a model assembled in memory until the caller sets it.
     changelog_crates: crate::changelogs::Crates,
 }

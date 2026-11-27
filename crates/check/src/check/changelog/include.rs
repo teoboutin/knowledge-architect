@@ -1,6 +1,6 @@
 //! The `include` check: a changelog crate's package holds its own `CHANGELOG.md`, as Cargo lists
-//! the files of a package, through `cargo-reader`'s match of the patterns, per
-//! `design@knowledge-architect@tools-read-cargo-through-the-crate`.
+//! the files of a package, per `design@check@changelog-include-check`, through `cargo-reader`'s
+//! match of the patterns, per `design@knowledge-architect@tools-read-cargo-through-the-crate`.
 //!
 //! Cargo packages the file `readme` or `license-file` names whatever the patterns say, reads
 //! `exclude` only where `include` is unset or empty, and lists no file of a package one of whose

@@ -1,7 +1,8 @@
 //! The parse of a crate's changelog: its preamble, its sections, its entries and the lines it
 //! could not read. It raises no finding.
 //!
-//! The grammar, compiled in:
+//! The grammar, compiled in, per `design@model@changelog-entry-categories` and, for a version,
+//! `design@model@changelog-version-is-a-release-version`:
 //!
 //! - the preamble: every line above the first version heading;
 //! - a version heading: a level-two heading, as markdown reads one, per
