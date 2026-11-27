@@ -22,7 +22,8 @@ That is not an exception to `design@check@nothing-of-a-project-is-compiled-in`: 
 the four built-in component registers and the root's register `goal` in `manifest.rs` belong to
 no project, they are what the word
 _component_ means here. A project adds to that set, per
-`design@model@a-component-carries-what-a-project-attaches`, and removes nothing from it but the agent
+`design@model@a-component-carries-what-a-project-attaches`, and, by declaring `[changelog]`, a
+`CHANGELOG.md` in each changelog crate, per `design@check@changelog-opt-in`, and removes nothing from it but the agent
 document, below: a project free to declare its own set would be conformant with whatever it
 declared, which is the same as being checked against nothing, against
 `goal@documentation-stays-consistent`: a tree that passes the checker conforms to the rules the checker compiles in, and no project holds back any of them beyond what a declaration of its manifest

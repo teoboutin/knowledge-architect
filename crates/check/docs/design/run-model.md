@@ -5,7 +5,9 @@
 ### Nothing about a project is compiled into the tool, and the manifest declares every list a check reads `##nothing-of-a-project-is-compiled-in`
 
 Every list a check reads comes from the project's `knowledge-architect.toml`: the components, the
-locations, the registers, the walk's exclusions. The manifest is also the marker that makes a
+locations, the registers, the walk's exclusions, and the changelog crates, which `[changelog]`
+declares as the Components it lists or as the published ones, per
+`design@model@changelog-crates-are-listed-or-published`. The manifest is also the marker that makes a
 directory a project root. So one binary checks any project, a copy of a mock project included, with no special case in the code. A path that must not be
 checked is declared there, in one place, with its reason beside it.
 
@@ -14,7 +16,7 @@ compiled in for one project is a list every other project is checked against. It
 tests honest: a mock runs the same code path as a real tree, so a test over a mock tests the
 code that checks the real tree.
 
-Five things are compiled in, and none of them describes a project:
+These are compiled in, and none of them describes a project:
 
 - **What the word _component_ means**: the documents a component carries, the four built-in
   component registers and the register `goal` the root alone carries, per
@@ -44,6 +46,12 @@ Five things are compiled in, and none of them describes a project:
   project. The files `init --rust` writes are of the same kind:
   the setup skill's snippets, per `design@agent-skills@rust-templates-one-home`, with the version
   and the checkout variable derived from the project's name filled in.
+- **The grammar of a crate's changelog and the classes of its entries**, per
+  `design@model@changelog-entry-categories`. The classes are patch, minor and major, Cargo's
+  semver, which `goal@serves-one-kind-of-project` fixes, so the rival, classes declared in the
+  manifest, would let a project declare a class Cargo does not read. The grammar is the tool's
+  convention for a kind of document, as the plans layout is. The categories are the project's,
+  declared by `[changelog] categories`, which is required.
 
 ### The model is built once, and every check is a pure function over it `##model-then-checks`
 
@@ -79,9 +87,8 @@ needs a discarding checkout between commits.
 lives.** Whether a vendored corpus matches its pin, whether an archive has provenance, whether a
 needed release is present: there is no model to hand such a check, so an extension reads that
 state while it prepares a checkout, per `design@check@an-extension-plugs-in-through-phased-hooks`.
-That is a different thing from a check over documents, which stays pure. A check over another
-document than the model's, such as a changelog, is pure too: the extension hands it the text and
-the releases it names.
+That is a different thing from a check over documents, which stays pure. A check over a
+document the model does not read is pure too: the extension that reads it hands it the text.
 
 ### A finding is classified by the phase that produces it, the report stops at the first non-empty phase, and every check runs at the last `##phases-gate-the-report`
 
@@ -170,7 +177,7 @@ removes nothing, so conformance of a document means the same thing in every tree
 There is no flag, no list and no severity that holds a rule back: a rule either holds over a
 document or the run fails. The constraint derives
 from `goal@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
-`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which the third paragraph below says are documents a Component carries, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which the review before a merge judges a change of them, per `design@check@a-frozen-file-is-guarded-by-the-review`.
+`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which a paragraph below says are documents the project owes, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which the review before a merge judges a change of them, per `design@check@a-frozen-file-is-guarded-by-the-review`; the assembled changelog is a generated file, held to the bytes rendered from the crates' changelogs, which are walked, per `design@model@assembled-changelog-location`.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
@@ -183,9 +190,18 @@ holds each file it matches to a rule over its spans that no other file meets, pe
 `design@check@citation-free-paths`, so a matched file that passes would pass unmatched; a manifest
 that declares no such file is checked exactly as under the default.
 
+**A declared changelog adds obligations and removes none.** `[changelog]` holds each changelog
+crate's `CHANGELOG.md` and `Cargo.toml` to rules no other file meets, per
+`design@check@changelog-opt-in`, and its categories and the Components each admits are
+restrictions on the entries, per `design@model@changelog-entry-categories`, so a file that passes
+under the table would pass without it; a manifest that declares no `[changelog]` is checked exactly
+as under the default.
+
 **One declaration removes obligations, and they are the agent configuration's alone.** A project
-that declares no agent harness, per `design@check@agents-table`, owes no CLAUDE.md and no installed
-agent file: these are documents a component carries, not rules over the documents it has. Every
+that declares no agent harness, per `design@check@agents-table`, owes no CLAUDE.md, a document a
+component carries, per `design@model@components-carry-the-same-documents`, and no installed agent
+file, which the harness adds to the project: these are documents the project owes, not rules over
+the documents it has. Every
 document the project carries is checked exactly as under the default.
 
 **An exemption, where an extension offers one, names files rather than rules.** `check` offers

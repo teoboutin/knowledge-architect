@@ -83,7 +83,9 @@ reads the resolver. A writer's gate is these phases; `create`, which also ends a
 conforms. Every check can be argued to bear on the
 answers a tool reads, and the line between them is how far: a slug defined twice makes the entity table
 wrong, so it is the model's, where a reference to something missing or a bare id has little effect on
-them, so it is a check. The boundary is crossed by some changes and not by all: of the commits that changed the checker's
+them, so it is a check.
+
+The boundary is crossed by some changes and not by all: of the commits that changed the checker's
 source while it was one crate, crates/core/src, some touched the model's files alone and some the
 checks alone, as this command counts on any revision whose history holds that directory, printing the
 commits that touched the model alone, the checks alone, both, and neither:
@@ -96,6 +98,20 @@ git log --format=%H <revision> -- crates/core/src | while read h; do
   echo "$m $c"
 done | awk '{ if ($1 && $2) b++; else if ($1) m++; else if ($2) c++; else n++ } END { print m, c, b, n }'
 ```
+
+**A changelog is read by the model and judged by the checks.** Where the manifest declares
+`[changelog]`, `model` reads which Components hold a changelog, through `cargo-reader`, parses each
+crate's changelog and renders the preamble and the assembled changelog, per
+`design@model@changelog-entry-categories`, and raises no finding over any of it: a line its parse
+cannot read, and a `Cargo.toml` it cannot use, refused by `cargo-reader` or kept out by a `[walk]`
+row, are recorded with their reason, never a failure of the model's build, so a parent tree of
+`commits` assembles over them, where a parent that fails to assemble serves as no parent, per
+`issue@check@a-parent-tree-that-cannot-be-assembled-serves-as-no-parent`. Nothing else in the model
+depends on a changelog's content, so every changelog finding is a check of `check`'s last phase, per
+`design@check@changelog-opt-in`, except a declaration of the table that the manifest's resolve
+refuses, which is phase 1's as for any table. The nearest rival, a changelog's structural findings
+raised in phases 1 to 3, would stop `id` and `worklist` of `query`, which need those phases to pass,
+over one misspelt category.
 
 It serves
 `goal@documentation-has-a-structure-and-a-model`, which asks for a model that
@@ -112,8 +128,8 @@ counts. Its own tests are the unit tests beside the parse, the walk and the reso
 change of how a form is read is judged with no check built. It takes the
 decisions of one domain, what a document of the record is and how it is read, in
 `register@model@design`, which pays because every tool over the record reads one definition of a
-document there, and a tool that wants a form read otherwise meets the decision it would change. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` alone, and `check`, `query`,
-`create` and `cli` depend on it, with no cycle; a change that crosses its boundary, a form the model
+document there, and a tool that wants a form read otherwise meets the decision it would change. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` and `cargo-reader`, `check`, `query`,
+`create` and `cli` depend on it, and `testing` dev-depends on it, with no cycle; a change that crosses its boundary, a form the model
 reads and a check judges, is one of the four classes the command counts, and the commits that
 touched one side alone are the reason the boundary is there.
 
@@ -212,8 +228,10 @@ knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and 
 `cargo metadata`. The tools read Cargo because the project serves Rust projects, whose packages
 Cargo describes, per `goal@serves-one-kind-of-project`. `check` depends on it by path and by exact
 version, per `design@knowledge-architect@version-lockstep`, for the package name that
-`design@check@a-foreign-build-is-refused` compares, and `cli` depends on it the same way, for the
-crate's directory and package name, which it compiles in. The other tools read Cargo through it, per
+`design@check@a-foreign-build-is-refused` compares, `model` depends on it the same way, for the
+changelog crates a Component's `Cargo.toml` decides, per
+`design@model@changelog-crates-are-listed-or-published`, and `cli` depends on it the same way, for
+the crate's directory and package name, which it compiles in. The other tools read Cargo through it, per
 `design@knowledge-architect@tools-read-cargo-through-the-crate`. It is one unit with one purpose,
 the direction `goal@projects-are-split-into-modular-units` gives the parts of a project. The
 nearest rival, a module of `model`, gives the model a second reason to change, Cargo's formats
@@ -229,7 +247,7 @@ because a read of Cargo is judged with no check built. It takes the decisions of
 the tools read Cargo, in `register@cargo-reader@design`, which pays because what a failure of Cargo
 gives and whether a default of Cargo's is applied are decided once, not by each tool that reads
 Cargo. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends
-on no crate of the workspace, and `check` and `cli` depend on it, so no cycle forms; a new fact a
+on no crate of the workspace, and `check`, `model` and `cli` depend on it, so no cycle forms; a new fact a
 check or a command reads crosses its boundary as a function on one side and its call on the other,
 and a change of Cargo's formats changes this crate alone.
 
@@ -1006,7 +1024,7 @@ and the owner approved it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` crate before the `model` crate, that, `cargo-reader` and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
+`git` and `cargo-reader` crates before the `model` crate, `model`, `cargo-reader` and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
 `check` before `create` and `testing`, and every crate before `cli`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code

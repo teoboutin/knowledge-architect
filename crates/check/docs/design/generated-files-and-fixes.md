@@ -60,7 +60,10 @@ command never produced: the symlink refusal holds the claim, and removing it mak
 above false. A second refusal keeps a known cause of failure out of the writes: a destination
 directory the manifest declares but the tree does not have is a manifest defect rather than
 something to create, and nothing creates it, so a write there would fail, losing nothing, possibly
-after other writes. Both are checked over **every** destination before any is written, so a refusal
+after other writes. Where the assembled changelog is generated, two more refusals apply, per
+`design@model@assembled-file-not-overwritten`: no write over a file at its path without the
+generated header, which holds the claim at a path the manifest names, where the project may have
+written a file of its own, and no write while a changelog holds a line the file would omit. All are checked over **every** destination before any is written, so a refusal
 comes before the first write, exit 2. A write that fails for another reason exits 2 when nothing
 was written before it, and 1 once something was, naming what it wrote.
 
@@ -192,7 +195,10 @@ both trees, and after the gate, whose model the comparison reads; the generated 
 written, from the list `index` reads, after every destination is checked; the full check runs. The
 installed files' bytes do not depend on the model, so they are repaired before the gate, while a
 generated file is never written over an incomplete model, per `design@check@phases-gate-the-report`.
-A deletion the install made is left as `design@check@fix-leaves-its-deletion-unstaged` says, and a
+Among the refusals checked before the first generated file is written are the assembled
+changelog's: the run writes no generated file while a changelog holds a line the assembled
+changelog would omit, as a generated file is written over no model that misses what the tree
+holds, per `design@model@assembled-file-not-overwritten`. A deletion the install made is left as `design@check@fix-leaves-its-deletion-unstaged` says, and a
 failed write exits as `design@check@fix-exit-code-after-a-write` says. The check stays the only
 verifier: `--fix` only writes before it verifies, so the rejected design of an `index` that prints
 a diff and a `--write` that applies it, a second command answering whether a file is current in its

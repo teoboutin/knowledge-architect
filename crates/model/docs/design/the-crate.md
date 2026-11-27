@@ -88,8 +88,10 @@ with a value, and a tool with no extension has no trait to name. The nearest riv
 
 ### An extension claims the manifest tables it reads, and `model` refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
 
-`model` parses the built-in tables, each a field of its own in `Declared`. Every other top-level
-table goes to the registered extension that claims it. A table that no registered extension claims is a phase-1
+`model` parses the built-in tables, `[changelog]` among them, each a field of its own in `Declared`,
+an item named beside `issue@model@a-rust-item-named-in-prose-has-no-checked-form`, so no extension
+can claim a built-in table's name. Every other top-level table goes to the registered extension
+that claims it. A table that no registered extension claims is a phase-1
 finding, and so is a table a registered extension claims that the manifest does not hold.
 
 **Both refusals serve `design@check@the-regime-has-no-opt-out`.** An unclaimed table is a

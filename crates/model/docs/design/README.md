@@ -19,3 +19,4 @@ no decision; each decision is one level-three head below it.
 - [The agent configuration as entities](agent-configuration.md): what the entity table reads of the agent files
 - [Reference spans](reference-lints.md): which spans are references
 - [Generated files](generated-files-and-fixes.md): the generated indexes and the list of files that are generated
+- [The changelogs](changelogs.md): which Components hold a changelog, a crate's changelog's grammar, and the assembled changelog

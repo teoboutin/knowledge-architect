@@ -26,3 +26,4 @@ carries no decision; each decision is one level-three head below it.
 - [What is prose](prose.md): the checker's own directories, and how its version is pinned
 - [Commit messages](commit-messages.md): a commit message judged as a document, against its commit's tree
 - [The agent configuration](agent-configuration.md): the agent files, the declared command, and the installed set
+- [The changelog checks](changelogs.md): when the changelog checks run, the bump and `include` checks, and a crate's preamble
