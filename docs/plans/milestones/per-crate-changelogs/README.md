@@ -586,7 +586,7 @@ judged by slice 4 and lives in its spec, [the command](changelog-command/README.
 2. [The `cargo-reader` crate](harvested/cargo-library/README.md): the library that reads Cargo's manifest and runs
    `cargo metadata`, in lockstep, with no user yet but `check`'s read of a package name, moved into it. Fails alone on a fact it reads wrong
    from a fixture `Cargo.toml` or a fixture metadata output.
-3. [The changelog model and its checks](changelog-checks/README.md): the parse and the rendering in
+3. [The changelog model and its checks](harvested/changelog-checks/README.md): the parse and the rendering in
    `model`, the `[changelog]` table, and the checks in `check`, opt-in, tested over mock projects
    alone. Fails alone on a mock project's finding or its assembled file.
 4. [`klarch changelog`](changelog-command/README.md): the command, the rewrite of the pin move's
