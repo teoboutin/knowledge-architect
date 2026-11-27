@@ -152,14 +152,13 @@ What exists today at each site the work touches:
   reference with no angle bracket (`grep -E '\`[a-z]+@[^\`<]*\`' CHANGELOG.md | wc -l`), and line
   101 holds a backticked span of the path `path@knowledge-architect@.cargo/config.toml`, which
   `git ls-files .cargo` lists.
-- **The pin move.** Step 2 reads
-  `$CARGO_HOME/registry/src/<index>/knowledge-architect-<version>/CHANGELOG.md`, the binary
-  crate's copy, and lists each Migration entry that cites an axis's section of
+- **The pin move.** Step 2 runs `klarch changelog` in a Rust project since slice 4, and reads by
+  hand the `CHANGELOG.md` of each crate of the checker in the registry source otherwise; it lists each Migration entry that cites an axis's section of
   `skill@knowledge-architect-project-audit` or
   `skill@knowledge-architect-goal-setting@whole-set-review`, per `design@agent-skills@audit-triggers`.
   The refusal of a binary at another version than the pin, in the function
-  `refuse_another_version_built_at` of `path@check@src/commands/mod.rs`, line 305, tells the
-  reader to "read the changelog of each version from {pinned} to {version}".
+  `refuse_another_version_built_at` of `path@check@src/commands/mod.rs`, names that command since
+  slice 4.
 - **The crates.io pages.** Each of the 12 crates under crates/ since slice 2 holds a CRATES-IO.md
   (`ls crates/*/CRATES-IO.md | wc -l`), which `design@knowledge-architect@crates-io-page-file` says
   holds no reference, and which this repository declares at the level `all` since slice 1.
@@ -771,14 +770,14 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   owner reported having taken `y` as the usual practice, and the question whether to follow the
   book's reading is `issue@knowledge-architect@a-minor-change-under-zero-x-may-take-the-patch-number`.
 - **D15**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by slice 4's design
-  audit as Q1. No file a consumer receives states the publisher's order of the crates, which
+  audit. No file a consumer receives states the publisher's order of the crates, which
   `design@model@assembled-crates-in-the-manifest-s-order` fixes for the assembled file. Default: the
   command prints the named package first, then the others by package name. Rival: each preamble
   states the project's crates in the manifest's order, which the command follows.
   **Ruled**, at slice 4's design audit: the default kept, the owner's choice, recorded as
   `thread@per-crate-changelogs@consumer-crate-order`.
 - **D16**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by slice 4's design
-  audit as Q2. `design@query@a-function-takes-a-configured-manifest`, which slice 4's harvest
+  audit. `design@query@a-function-takes-a-configured-manifest`, which slice 4's harvest
   touches, attributes to the owner a reading of `goal@documentation-has-a-structure-and-a-model`
   that the owner gave of an earlier goal and its list, which the goals pass replaced. Default, built
   by slice 4's conforming step: the reading is stated as the session's, on the current goal's words.
@@ -786,7 +785,7 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   attributes to the owner, so the owner rules on it.
   **Ruled**, at slice 4's design audit: the default kept, on the owner's approval.
 - **D17**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by slice 4's design
-  audit as Q3. The issue `the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, now
+  audit. The issue `the-rule-of-one-program-for-the-tools-is-argued-by-no-head`, now
   closed, named as its re-entry point the placement of a new tool, which `klarch changelog` is. Default: the
   discussion is put off again, as for D4 and D12. Rival: hold it before slice 4 merges.
   **Ruled**, at slice 4's design audit: the rival, on the owner's word; the discussion is held in

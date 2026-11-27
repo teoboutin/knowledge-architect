@@ -96,3 +96,17 @@ lines had let all three through. The run's twelve cross-check files stayed in th
 space; the spec of that work, added by the commit "[plans] The spec of the record search's saved
 workflow, with the closing sections and the verdict order a passing `worklist --verify` writes",
 names the three entries.
+
+### `changelog` selecting the named package's dependency closure `##selection-by-dependency-closure`
+
+`live`. The closure of the binary's package misses the crates a project depends on beside it:
+`path@cli@Cargo.toml` depends on neither `knowledge-architect-gates` nor
+`knowledge-architect-mutate`, which a project's maintenance crate pins with the checker, so a pin
+move would miss their Migration entries.
+
+### Each crate's preamble stating the project's crates in the manifest's order, for `changelog` to follow `##crate-order-stated-in-the-preamble`
+
+`live`. It would change the preamble every changelog crate holds and the check of it, every crate's
+preamble changing when a changelog crate is added, removed or moved, and a graph holding two
+versions of a project's crates whose lists differ would need a rule for which wins; the output order
+it buys, the publisher's, changes no entry a pin move reads.

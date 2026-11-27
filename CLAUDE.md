@@ -16,7 +16,7 @@ The repository is a virtual workspace with Components:
 | `git` | crates/git | package `knowledge-architect-git`: the library that wraps git for the tools of knowledge-architect, the checker among them |
 | `cargo-reader` | crates/cargo-reader | package `knowledge-architect-cargo-reader`: the library that reads what the tools of knowledge-architect need of Cargo: the facts of a `Cargo.toml`, and the run and the output of `cargo metadata` |
 | `model` | crates/model | package `knowledge-architect-model`: the library of what knowledge-architect reads of a project: the manifest, the walk, the parse, the entity table, phases 1 to 3 and the resolver |
-| `query` | crates/query | package `knowledge-architect-query`: the library of the commands that read the record and run no check, behind a typed API |
+| `query` | crates/query | package `knowledge-architect-query`: the library of the commands that read the record of the project or of one of its dependencies and run no check, behind a typed API |
 | `transcript` | crates/transcript | package `knowledge-architect-transcript`: the library that reads an agent harness's session transcripts, behind a typed API |
 | `create` | crates/create | package `knowledge-architect-create`: the library that creates a project and adds a Component to one, behind a typed API |
 | `agent-skills` | crates/agent-skills | package `knowledge-architect-agent-skills`: the text the checker installs into a project |

@@ -83,7 +83,9 @@ the whole project in its repository, with a link only as `design@check@preamble-
 says; lists the categories in their declared order; and lists the `unclassed` versions, where any. A
 consumer reads a crate's changelog in the sources cargo fetched, where it holds no manifest of the
 publisher, since no crate ships knowledge-architect.toml: so each crate's file states what a reader
-needs to read it.
+needs to read it. `klarch changelog` reads it so, through the read of a preamble of `model`, which
+gives back the categories and the `unclassed` versions and reports each line of no shape the
+preamble takes, per `design@query@changelog-selects-by-repository`.
 
 A preamble that differs from the one the manifest determines by more than its line endings, read
 as `design@check@generated-text-compared-without-line-endings` reads a generated text, is a finding

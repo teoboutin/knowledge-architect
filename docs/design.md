@@ -233,7 +233,8 @@ version, per `design@knowledge-architect@version-lockstep`, for the package name
 `design@check@a-foreign-build-is-refused` compares, `model` depends on it the same way, for the
 changelog crates a Component's `Cargo.toml` decides, per
 `design@model@changelog-crates-are-listed-or-published`, and `cli` depends on it the same way, for
-the crate's directory and package name, which it compiles in. The other tools read Cargo through it, per
+the crate's directory and package name, which it compiles in, and `query` depends on it the same
+way, for the resolved graph of a consumer whose dependencies' changelogs `klarch changelog` reads. The other tools read Cargo through it, per
 `design@knowledge-architect@tools-read-cargo-through-the-crate`. It is one unit with one purpose,
 the direction `goal@projects-are-split-into-modular-units` gives the parts of a project. The
 nearest rival, a module of `model`, gives the model a second reason to change, Cargo's formats
@@ -249,9 +250,9 @@ because a read of Cargo is judged with no check built. It takes the decisions of
 the tools read Cargo, in `register@cargo-reader@design`, which pays because what a failure of Cargo
 gives and whether a default of Cargo's is applied are decided once, not by each tool that reads
 Cargo. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends
-on no crate of the workspace, and `check`, `model` and `cli` depend on it, so no cycle forms; the split
+on no crate of the workspace, and `check`, `model`, `cli` and `query` depend on it, so no cycle forms; the split
 adds one dependency per crate that reads Cargo, on this crate, where the module of `model` adds
-none, since `check` and `cli` already depend on `model`, and that signal does not prevail, since
+none, since `check`, `cli` and `query` already depend on `model`, and that signal does not prevail, since
 every such edge ends at a crate that depends on no other crate of the workspace, so it adds no path
 between two of them and a new reader adds one edge alone; a new fact a
 check or a command reads crosses its boundary as a function on one side and its call on the other,
@@ -271,32 +272,45 @@ project's gates and mutations, and `gates` reads the lines Cargo prints, which n
 fact of a package; a test, the maintenance tool and the release workflow may read Cargo for their
 own assertions.
 
-### The commands that read the record and run no check are a crate of their own `##query-crate`
+### The commands that read the record of a project, or of one of its dependencies, and run no check are a crate of their own `##query-crate`
 
 `knowledge-architect-query`, in crates/query, holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and `worklist`,
-and depends on `model`, and on `git` for the last column of `issues` and for what `worklist --since` asks of a commit, by path and by exact version, per
+which read the project's record, and of `changelog`, which reads the changelogs of the project's dependencies in the
+sources cargo fetched, and depends on `model`, on `git` for the last column of `issues` and for what `worklist --since`
+asks of a commit, and on `cargo-reader` for the resolved graph `changelog` reads, by path and by exact version, per
 `design@knowledge-architect@version-lockstep`. They need the model and at most phases 1 to 3, per
-`design@knowledge-architect@model-crate`, and they share one design, the record, the graph and the exchange with agents, for
+`design@knowledge-architect@model-crate`, and the commands over the project's record share one design, the record, the graph and the exchange with agents, for
 `goal@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project holds, and
-`goal@records-reach-their-reader`, under which a session that changes a recorded item can list what to read again. `cli`
-depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
+`goal@records-reach-their-reader`, under which a session that changes a recorded item can list what to read again.
+`changelog` serves `goal@generic-tools-and-procedures-are-shipped`, under which a pin move's reading of the versions it
+crosses is done by a tool: it reads any dependency whose changelogs follow the model, with the parse and the rendering of
+`model` and the run of Cargo of `cargo-reader`, so what it holds of its own is the selection of the crates, the range and
+the run's flags, per `register@query@design`. It is a command of `klarch`, per
+`design@knowledge-architect@one-program-for-the-tools`, and a pin move runs the binary the project pinned, which links
+the model. `cli` depends on it. `model`, the command, stays in `check`, since it calls each extension's dump hook. The rule that this crate
 depends on nothing of the checks is its own, `design@query@query-depends-on-no-check`. The nearest rival, these commands left in
 `check`, puts every check into the build of a tool over the record.
 
 Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, answering a question about the
 record without judging it, pays because those commands then build no check. Its interface, a typed
 function per command, changes on its own when a listing or the record search changes, and stays
-as it is when a check changes. Its own tests are the unit tests beside `show`, `id` and the record
-search, and `issues`, `tripwires` and `anchors`, which have none, are tested through the binary, by
-`path@testing@tests/binary.rs` and `path@cli@tests/fixture_pin.rs`: a command that reads the record
+as it is when a check changes. Its own tests are the unit tests beside `show`, `id`, the record
+search and `changelog`, and `issues`, `tripwires` and `anchors`, which have none, are tested through the binary, by
+`path@testing@tests/binary.rs` and `path@cli@tests/fixture_pin.rs`, as `changelog` is by
+`path@testing@tests/changelog_command.rs` over a consumer's graph: a command that reads the record
 is judged with no check built, and the three listings without unit tests are a cost accepted, since
 each prints rows the binary's tests read whole. It takes the decisions of one domain, what the
 commands that read the record answer and how the record search packs its work, in
 `register@query@design`, which pays because the reading of the record by its entries and their
-references, which every command here shares, is decided once. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
-`model` and `git`, `cli` depends on it, and no cycle forms; the listings and the record search
+references, which every command over it shares, is decided once; and a small side domain, which crates of a
+consumer's graph `changelog` reads and how it runs Cargo, beside it. That side domain is a second reason to change, a
+change of the selection or of the flags touching `changelog` alone, which this crate holds rather than a crate of its
+own since the command is thin: the parse, the rendering and the run of Cargo are `model`'s and `cargo-reader`'s, and
+a crate of its own would hold one function and two decisions. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
+`model`, `git` and `cargo-reader`, `cli` depends on it, and no cycle forms; the listings and the record search
 could be cut apart, but both read the record by its entries and their references, so a change of
-that reading would cross the new boundary.
+that reading would cross the new boundary; `changelog` could be cut out with no new dependency between crates, and
+is kept while its own decisions are two, a weighing a later command over a consumer's dependencies reopens.
 
 ### The reader of the harness's transcripts is a crate of its own, which `cli` depends on `##transcript-crate`
 
@@ -1071,7 +1085,7 @@ and the owner approved it.
 ### A publish that stopped part-way is completed by re-running the job, which skips a version crates.io already holds `##partial-publish-rerun`
 
 The publish job publishes the crates one at a time, each before the crates that depend on it, the
-`git` and `cargo-reader` crates before the `model` crate, `model`, `cargo-reader` and agent-skills before `check`, `model` before `query`, `git` before `transcript`,
+`git` and `cargo-reader` crates before the `model` crate, `model`, `cargo-reader` and agent-skills before `check`, `model` and `cargo-reader` before `query`, `git` before `transcript`,
 `check` before `create` and `testing`, and every crate before `cli`, and skips a crate when crates.io's API already
 returns the version. A re-run of the failed job runs on the same commit and tag, so it publishes
 only what is missing, and a release that stopped part-way completes with no change to the code

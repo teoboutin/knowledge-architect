@@ -56,7 +56,8 @@ with `cargo x mutate`.
 5. **An unreadable changelog is reported, never dropped**: a selected package with no
    `CHANGELOG.md`, a line of its preamble the read does not take, and, in a section of the range, an
    unread line or an entry the rendering has no place for, each make the command exit with the
-   ladder's negative code and name the file and the line, the rest of the output still printed.
+   ladder's negative code and name the file, with the line where it has one, the rest of the output
+   still printed.
 6. **The pin refusal names the command**: the refusal's text for a binary newer than the pin holds
    the project's declared command followed by `changelog`, the old pin as `--from`, and the order
    pin, fetch, command. Its test is the unit test of `refuse_another_version_built_at` in
@@ -77,8 +78,9 @@ dependencies on three mock published packages of one project, each holding a `Ca
 same `repository` and a `CHANGELOG.md` in the model's format, standing for `knowledge-architect`,
 `-gates` and `-mutate`, where the first does not depend on the other two, as
 `path@cli@Cargo.toml` depends on neither `gates` nor `mutate`; and one package of another project.
-A path dependency's source is reported by `cargo metadata` as a registry source is, which the slice
-measures before relying on it. The tests of the command go in a new file under
+A path dependency's `manifest_path` is reported by `cargo metadata` at its path, as a registry
+dependency's is at its unpacked source, which the slice measured: their `source` differs, and the
+command reads `manifest_path` alone. The tests of the command go in a new file under
 `path@testing@tests/`, not in `path@testing@tests/binary.rs`.
 
 ## Audit subjects
