@@ -7,10 +7,10 @@
 
 use knowledge_architect::cli::{
     complete_working_tree, init, locate, output::write, refuse_a_foreign_build,
-    refuse_another_version, run, this_library, CheckArgs, Command, CommitsArgs, Gathered, IdArgs,
-    IndexArgs, InitArgs, IssuesArgs, Library, NewComponentArgs, ShowArgs, TranscriptArgs,
-    TranscriptListArgs, TranscriptSearchArgs, TranscriptShowArgs, TranscriptVerb, TripwiresArgs,
-    Vcs, WorklistArgs,
+    refuse_another_version, run, this_library, ChangelogArgs, CheckArgs, Command, CommitsArgs,
+    Gathered, IdArgs, IndexArgs, InitArgs, IssuesArgs, Library, NewComponentArgs, ShowArgs,
+    TranscriptArgs, TranscriptListArgs, TranscriptSearchArgs, TranscriptShowArgs, TranscriptVerb,
+    TripwiresArgs, Vcs, WorklistArgs,
 };
 use knowledge_architect::document::{
     md, rs, Frontmatter, Literals, Located, Observation, Parsed, Prose, Scope, ScopeKind, SlugSite,

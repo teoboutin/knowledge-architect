@@ -1,9 +1,11 @@
-//! Tools over a project's scanned record, as a library: the logic of the commands `show`, `issues`,
-//! `tripwires`, `anchors`, `id` and `worklist` of `klarch`, behind typed functions with no argument
-//! parser in them. They read the model, run no check, and depend on nothing of the checks.
+//! Tools over the record of a project or of one of its dependencies, as a library: the logic of the
+//! commands `show`, `issues`, `tripwires`, `anchors`, `id`, `worklist` and `changelog` of `klarch`,
+//! behind typed functions with no argument parser in them. They read the model, or, for
+//! `changelog`, the changelogs of the project's dependencies through `cargo metadata`, run no check,
+//! and depend on nothing of the checks.
 //!
-//! Each function takes a manifest, and the directories of the running binary's own source, and
-//! prints as it works, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so
+//! Each function takes a manifest, and, but `changelog`, which builds no model, the directories of
+//! the running binary's own source, and prints as it works, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so
 //! a closed stdout ends the process with exit 2. **Its exit code says whether it ran before it says
 //! what it found**, per `design@cli@exit-code-ladder`: 0 ran-and-clean, 1 ran-and-negative, and `Err`
 //! could-not-run, which the caller prints before it exits 2. `id` and `worklist` writing a work list
@@ -40,11 +42,13 @@
 // cargo configuration, such as one from crates.io, sees it unset, and nothing changes.
 const _: Option<&str> = option_env!("KNOWLEDGE_ARCHITECT_CHECKOUT");
 
+use knowledge_architect_cargo_reader as cargo_reader;
 use knowledge_architect_git as git;
 use knowledge_architect_model as model;
 use model::{Manifest, Model};
 
 mod anchors;
+mod changelog;
 mod graph;
 mod id;
 mod output;
@@ -53,6 +57,7 @@ mod show;
 mod worklist;
 
 pub use anchors::anchors;
+pub use changelog::{changelog, ChangelogRequest, VersionRange};
 pub use id::id;
 pub use rows::{issues, tripwires, IssuesFilter, TripwiresFilter};
 pub use show::show;

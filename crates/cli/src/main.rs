@@ -180,6 +180,38 @@ mod tests {
         assert!(parse(&["--out", "d", "--subject", "Not-an-id"]).is_err());
     }
 
+    /// The claim: `changelog` takes a package and `--from`, `--to` and `--package` beside it,
+    /// and refuses while parsing a missing package or `--from`, and a value of `--from` or `--to`
+    /// that is no version. Mutation checked: in `version` of `path@cli@src/cli/mod.rs`,
+    /// `Version::parse(value).ok_or_else(` made
+    /// `Version::parse(value).or(Version::parse("0.0.0")).ok_or_else(`; caught.
+    #[test]
+    fn changelog_takes_versions_checked_while_parsing() {
+        let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "changelog"], args].concat());
+        assert!(parse(&["p", "--from", "0.1.0"]).is_ok());
+        assert!(parse(&[
+            "p",
+            "--from",
+            "0.1.0",
+            "--to",
+            "0.2.0",
+            "--package",
+            "q",
+            "--package",
+            "r"
+        ])
+        .is_ok());
+        assert!(parse(&["--from", "0.1.0"]).is_err());
+        assert!(parse(&["p"]).is_err());
+        for bad in ["0.1", "v0.1.0", "0.1.0-rc.1", "01.0.0"] {
+            assert!(parse(&["p", "--from", bad]).is_err(), "{bad}");
+            assert!(
+                parse(&["p", "--from", "0.1.0", "--to", bad]).is_err(),
+                "{bad}"
+            );
+        }
+    }
+
     /// The claim: `--fix` and `--staged` are refused together while parsing, since `--fix`
     /// repairs the working tree and `--staged` judges the index.
     #[test]

@@ -1,6 +1,6 @@
 # knowledge-architect-query
 
-Tools over a project's scanned record: one entry and what cites it, the standing entries, the anchors, whether an id is free, and the work list of a search of the whole record. It runs no check.
+Tools over the record of a project or of one of its dependencies: one entry and what cites it, the standing entries, the anchors, whether an id is free, the work list of a search of the whole record, and the changelogs of the project's dependencies over a range of versions. It runs no check.
 
 A project names the package [knowledge-architect](https://crates.io/crates/knowledge-architect) alone, whose binary offers
 these commands and whose page says how to install and run it.

@@ -167,6 +167,21 @@ an empty subsection is omitted.
   before, and its `checked:` line names no `changelog`.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
+- `cli`, minor: `changelog <package> --from <version> [--to <version>] [--package <name>]…` prints
+  the changelogs of the packages a Cargo project depends on, over the versions above `--from`, up
+  to `--to` included where given, `Next release` never, in the layout of an assembled changelog
+  with no generated header, the named package first under each category, then the others by
+  package name. It reads the resolved graph by `cargo metadata --format-version 1 --locked
+  --offline` at the project's root, so it writes no file and reaches no network, and each
+  package's `CHANGELOG.md` beside its `Cargo.toml`, in its newest version, with the categories and
+  the unclassed versions its preamble states. It reads every package whose `repository` equals the
+  named package's, the named package alone where it sets none, or, with `--package`, exactly the
+  named set. A package with no readable `CHANGELOG.md`, a line of a preamble of no shape the read
+  takes, and, in a section of the range, a line the parse could not read or an entry with no
+  place, are each reported after the layout with the file and the line, exit 1. Cargo's failure,
+  as over a lock file that a pin's edit left stale, is exit 2 with Cargo's message and the repair
+  of `cargo fetch`, and so is a name the graph does not hold, a value of `--from` or `--to` that is
+  no version, and a `--to` not above `--from`.
 - `cli`, minor: a passing `worklist --verify` writes `closing-sections.md`, every report's
   `## Decided` and `## Met outside the task` in the order of `agents.txt`, at every occasion. Each
   verdict file holds its act verdicts whole under `## Act verdicts`, then its light verdicts,
@@ -203,7 +218,14 @@ an empty subsection is omitted.
 - `library`, minor: `Manifest::changelog`, `declared::ChangelogTable`, `Model::changelog_crates`,
   `Model::set_changelog_crates`, `listing::keeping_row`, and the module `changelog` in
   `knowledge-architect-model`: the changelog crates read from Cargo, the parse of a crate's
-  changelog, its expected preamble, the assembled file's text, and the refusal its writers share.
+  changelog, its expected preamble and its read with no manifest, `read_preamble`, the assembled
+  file's text, its layout with no header, `assembled_body`, the entries of a section it has no
+  place for, `unplaced`, and the refusal its writers share; `ChangelogTable::merged` merges the
+  tables of several preambles.
+- `library`, minor: `changelog`, `ChangelogRequest` and `VersionRange` in
+  `knowledge-architect-query`, the logic of the command `changelog`, and `cli::ChangelogArgs` with
+  the variant `cli::Command::Changelog` in `knowledge-architect`, a binary that flattens
+  `cli::Command` offering the command with no change.
 - `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which
   runs clippy for another target, such as `x86_64-pc-windows-gnu`, with no cross compiler.
 - `library`, minor: the published crate `knowledge-architect-cargo-reader` reads what the tools of
