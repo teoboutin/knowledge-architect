@@ -12,7 +12,7 @@
 
 use std::path::{Path, PathBuf};
 
-use knowledge_architect_cargo_reader::{read_manifest, Field, Package, Publish, WorkspacePackage};
+use knowledge_architect_cargo_reader::{read_manifest, Field, Package, Publish, Readme, Workspace};
 
 use super::CHANGELOG_FILE;
 use crate::manifest::Manifest;
@@ -33,6 +33,13 @@ pub struct Crate {
     pub inherits_version: bool,
     /// Its `include` patterns, inherited ones resolved, or `None` where it sets none.
     pub include: Option<Vec<String>>,
+    /// Its `exclude` patterns, inherited ones resolved, or `None` where it sets none.
+    pub exclude: Option<Vec<String>>,
+    /// The file its `readme` names, project-relative, an inherited one read from the workspace's
+    /// root; `None` where it names no path, or one outside the project.
+    pub readme: Option<PathBuf>,
+    /// The file its `license-file` names, read as `readme` is.
+    pub license_file: Option<PathBuf>,
 }
 
 impl Crate {
@@ -193,7 +200,19 @@ pub fn read(
             dir: component.path.clone(),
             package: resolved.name.clone(),
             inherits_version,
+            readme: match &resolved.readme {
+                Field::Set(Readme::Path(path)) => normalised(&component.path.join(path)),
+                _ => None,
+            },
+            license_file: match &resolved.license_file {
+                Field::Set(path) => normalised(&component.path.join(path)),
+                _ => None,
+            },
             include: match resolved.include {
+                Field::Set(patterns) => Some(patterns),
+                _ => None,
+            },
+            exclude: match resolved.exclude {
                 Field::Set(patterns) => Some(patterns),
                 _ => None,
             },
@@ -202,8 +221,8 @@ pub fn read(
     out
 }
 
-/// Whether Cargo would publish the package, as
-/// `path@cargo-reader@docs/grounding/cargo-manifest.md` reads `version` and `publish`: a `version`
+/// Whether Cargo would publish the package, as `path@model@docs/grounding/cargo-packages.md` reads
+/// `version` and `publish`: a `version`
 /// set, and `publish` absent, `true`, or a list naming a registry. An empty list names none and is
 /// read as `false`, a reading that grounding file records.
 fn published(package: &Package) -> bool {
@@ -215,10 +234,16 @@ fn published(package: &Package) -> bool {
         }
 }
 
-/// The package with every inherited field resolved from the workspace's `[workspace.package]`:
-/// that of the nearest `Cargo.toml` at or above the Component's directory, within the project,
-/// that holds a `[workspace]` table, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`.
-/// A manifest on the way that a `[walk]` row keeps out, or that cannot be read, is passed over.
+/// The package with every inherited field resolved from the workspace's `[workspace.package]`,
+/// the workspace Cargo uses, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`, as
+/// `cargo metadata` was measured to find it, per
+/// `path@model@docs/grounding/cargo-packages.md`: the directory `package.workspace` names
+/// where it is set; otherwise the nearest at or above the Component's directory, within the
+/// project, whose `Cargo.toml` holds a `[workspace]` table that does not exclude the package. An
+/// inherited `readme` or `license-file` is a path from that workspace's root, and is rebased to
+/// the Component's directory. A manifest on the way that a `[walk]` row keeps out, or that cannot
+/// be read, is passed over. Cargo refuses a workspace that does not list the package among its
+/// members; that is not judged here, and the values are read from the workspace Cargo finds.
 fn inherited(
     package: &Package,
     dir: &Path,
@@ -231,25 +256,120 @@ fn inherited(
         package.publish == Field::Workspace,
         package.repository == Field::Workspace,
         package.include == Field::Workspace,
+        package.exclude == Field::Workspace,
+        package.readme == Field::Workspace,
+        package.license_file == Field::Workspace,
     ];
     if !inherits.contains(&true) {
         return Ok(package.clone());
     }
-    let workspace = dir
-        .ancestors()
-        .map(|d| d.join(CARGO_FILE))
-        .filter(|f| listing.contains(f) && !crate::walk::kept_out(f, walk))
-        .find_map(|f| {
-            read(&f)
-                .ok()
-                .and_then(|t| read_manifest(&t).ok()?.workspace)
-        });
-    let workspace: WorkspacePackage = workspace.ok_or_else(|| {
-        "it inherits a field from its workspace, and no `Cargo.toml` at or above its directory \
-         within the project holds a `[workspace]` table"
-            .to_string()
-    })?;
-    package.inherit(&workspace).map_err(|e| e.to_string())
+    let workspace_at = |d: &Path| -> Option<Workspace> {
+        let file = d.join(CARGO_FILE);
+        if !listing.contains(&file) || crate::walk::kept_out(&file, walk) {
+            return None;
+        }
+        read(&file)
+            .ok()
+            .and_then(|t| read_manifest(&t).ok()?.workspace)
+    };
+    let (root, workspace) = match &package.workspace {
+        Some(path) => {
+            let root = normalised(&dir.join(path)).ok_or_else(|| {
+                format!("its `package.workspace`, `{path}`, names a directory outside the project")
+            })?;
+            let workspace = workspace_at(&root).ok_or_else(|| {
+                format!(
+                    "it inherits a field from its workspace, and the `Cargo.toml` of `{path}`, \
+                     which its `package.workspace` names, holds no `[workspace]` table"
+                )
+            })?;
+            (root, workspace)
+        }
+        None => dir
+            .ancestors()
+            .find_map(|d| {
+                let workspace = workspace_at(d)?;
+                let member = dir.strip_prefix(d).unwrap_or(dir);
+                (d == dir || !excludes(&workspace, member)).then(|| (d.to_path_buf(), workspace))
+            })
+            .ok_or_else(|| {
+                "it inherits a field from its workspace, and no `Cargo.toml` at or above its \
+                 directory within the project holds a `[workspace]` table that does not exclude it"
+                    .to_string()
+            })?,
+    };
+    let mut resolved = package
+        .inherit(&workspace.package)
+        .map_err(|e| e.to_string())?;
+    // The inherited path names a file from the workspace's root; the Component's own is read from
+    // its directory, so both become project-relative where `read` joins them.
+    let from_root = |path: &str| {
+        relative(dir, &root)
+            .join(path)
+            .to_string_lossy()
+            .replace('\\', "/")
+    };
+    if package.readme == Field::Workspace {
+        if let Field::Set(Readme::Path(path)) = &resolved.readme {
+            resolved.readme = Field::Set(Readme::Path(from_root(path)));
+        }
+    }
+    if package.license_file == Field::Workspace {
+        if let Field::Set(path) = &resolved.license_file {
+            resolved.license_file = Field::Set(from_root(path));
+        }
+    }
+    Ok(resolved)
+}
+
+/// Whether the workspace excludes the package at `member`, its directory relative to the
+/// workspace's: an `exclude` entry names that directory or one above it, and no `members` entry
+/// does, each entry read as a literal path, so a glob in `members` names nothing, as measured.
+fn excludes(workspace: &Workspace, member: &Path) -> bool {
+    let covers = |entries: &Option<Vec<String>>| {
+        entries
+            .iter()
+            .flatten()
+            .any(|e| normalised(Path::new(e)).is_some_and(|p| member.starts_with(p)))
+    };
+    covers(&workspace.exclude) && !covers(&workspace.members)
+}
+
+/// `path` with each `.` taken off and each `..` taking off the segment before it, or `None` where
+/// a `..` would leave the project, or where the path is absolute.
+fn normalised(path: &Path) -> Option<PathBuf> {
+    let mut out = PathBuf::new();
+    for component in path.components() {
+        match component {
+            std::path::Component::CurDir => {}
+            std::path::Component::ParentDir => {
+                if !out.pop() {
+                    return None;
+                }
+            }
+            std::path::Component::Normal(name) => out.push(name),
+            std::path::Component::RootDir | std::path::Component::Prefix(_) => return None,
+        }
+    }
+    Some(out)
+}
+
+/// The path from the directory `from` to the directory `to`, both project-relative and
+/// normalised.
+fn relative(from: &Path, to: &Path) -> PathBuf {
+    let common = from
+        .components()
+        .zip(to.components())
+        .take_while(|(a, b)| a == b)
+        .count();
+    let mut out = PathBuf::new();
+    for _ in common..from.components().count() {
+        out.push("..");
+    }
+    for component in to.components().skip(common) {
+        out.push(component);
+    }
+    out
 }
 
 #[cfg(test)]
@@ -440,5 +560,130 @@ mod tests {
                 file: PathBuf::from("a/Cargo.toml")
             }]
         );
+    }
+
+    /// The changelog crates of a project whose one Component is `x/a`, each file of `files` in
+    /// its listing.
+    fn nested(files: &[(&str, &str)]) -> Crates {
+        let manifest = Manifest::parse(
+            Path::new("/nowhere"),
+            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"x/a\"]\n\n\
+             [walk]\nskip-dirs = []\nskip-files = []\n\n[changelog]\ncategories = [\"A\"]\n",
+        )
+        .expect("a declaration");
+        let files: HashMap<PathBuf, String> = files
+            .iter()
+            .map(|(p, t)| (PathBuf::from(p), t.to_string()))
+            .collect();
+        let listing: Vec<PathBuf> = files.keys().cloned().collect();
+        read(&manifest, &listing, &|rel| {
+            files
+                .get(rel)
+                .cloned()
+                .ok_or_else(|| std::io::ErrorKind::NotFound.into())
+        })
+    }
+
+    /// A workspace manifest whose `[workspace]` table holds `keys`, its `include` naming `tag`.
+    fn workspace(keys: &str, tag: &str) -> String {
+        format!(
+            "[workspace]\n{keys}\n\n[workspace.package]\nversion = \"0.1.0\"\ninclude = [\"{tag}\"]\n"
+        )
+    }
+
+    const MEMBER: &str =
+        "[package]\nname = \"pa\"\nversion.workspace = true\ninclude.workspace = true\n";
+
+    fn include_of(crates: &Crates) -> Vec<String> {
+        crates.all()[0].include.clone().unwrap_or_default()
+    }
+
+    /// The claim: the workspace a package inherits from is the nearest at or above it that does
+    /// not exclude it, an `exclude` entry naming its directory or one above it, written with a
+    /// `./` or a trailing `/` or not, and a `members` entry naming it overriding the `exclude`,
+    /// a glob in `members` naming nothing, as `cargo metadata` was measured to find it. Mutations
+    /// checked, each caught: in `inherited`, `(d == dir || !excludes(&workspace, member))` made
+    /// `(d == dir || true)`; in `excludes`, `covers(&workspace.exclude) &&
+    /// !covers(&workspace.members)` made `covers(&workspace.exclude)`; and in `normalised`, the
+    /// `CurDir` arm made `std::path::Component::CurDir => out.push("."),`.
+    #[test]
+    fn the_workspace_inherited_from_is_the_nearest_that_does_not_exclude_the_package() {
+        let root = workspace("members = [\"x/a\"]", "root");
+        for (inner, want) in [
+            ("exclude = [\"a\"]", "root"),
+            ("exclude = [\"./a/\"]", "root"),
+            ("exclude = [\".\"]", "root"),
+            ("exclude = [\"ab\"]", "inner"),
+            ("exclude = [\"*\"]", "inner"),
+            ("members = [\"a\"]\nexclude = [\"a\"]", "inner"),
+            ("members = [\"*\"]\nexclude = [\"a\"]", "root"),
+            ("members = [\"a\"]", "inner"),
+        ] {
+            let crates = nested(&[
+                ("Cargo.toml", &root),
+                ("x/Cargo.toml", &workspace(inner, "inner")),
+                ("x/a/Cargo.toml", MEMBER),
+            ]);
+            assert_eq!(include_of(&crates), [want], "{inner}");
+        }
+    }
+
+    /// The claim: `package.workspace` names the workspace, the nearer one passed over, and one
+    /// that names a directory outside the project, or one whose `Cargo.toml` holds no
+    /// `[workspace]`, is trouble with its reason. Mutation checked: in `inherited`,
+    /// `let (root, workspace) = match &package.workspace {` made
+    /// `let (root, workspace) = match &None::<String> {`; caught.
+    #[test]
+    fn package_workspace_names_the_workspace() {
+        let member = |path: &str| format!("{MEMBER}workspace = \"{path}\"\n");
+        let crates = nested(&[
+            ("Cargo.toml", &workspace("members = [\"x/a\"]", "root")),
+            ("x/Cargo.toml", &workspace("members = [\"a\"]", "inner")),
+            ("x/a/Cargo.toml", &member("../..")),
+        ]);
+        assert_eq!(include_of(&crates), ["root"]);
+        for path in ["../../..", "."] {
+            let crates = nested(&[
+                ("Cargo.toml", &workspace("members = [\"x/a\"]", "root")),
+                ("x/a/Cargo.toml", &member(path)),
+            ]);
+            assert!(crates.all().is_empty(), "{path}: {crates:?}");
+            assert!(
+                matches!(&crates.trouble()[0], CargoTrouble::Unreadable { reason, .. } if reason.contains("package.workspace")),
+                "{path}: {crates:?}"
+            );
+        }
+    }
+
+    /// The claim: the file `readme` and `license-file` name is project-relative, read from the
+    /// Component's directory where the package sets it and from the workspace's root where it
+    /// inherits it, as Cargo reads an inherited one, measured with `cargo package`; one outside
+    /// the project names none. Mutation checked: in `inherited`, `relative(dir, &root)` made
+    /// `PathBuf::new()`, so an inherited path is read from the Component's directory; caught.
+    #[test]
+    fn readme_and_license_file_name_a_file_from_where_cargo_reads_them() {
+        let crates = nested(&[
+            (
+                "Cargo.toml",
+                "[workspace]\nmembers = [\"x/a\"]\n\n[workspace.package]\nversion = \"0.1.0\"\n\
+                 readme = \"CHANGELOG.md\"\nlicense-file = \"x/a/CHANGELOG.md\"\n",
+            ),
+            (
+                "x/a/Cargo.toml",
+                "[package]\nname = \"pa\"\nversion.workspace = true\nreadme.workspace = true\n\
+                 license-file.workspace = true\n",
+            ),
+        ]);
+        let a = &crates.all()[0];
+        assert_eq!(a.readme, Some(PathBuf::from("CHANGELOG.md")));
+        assert_eq!(a.license_file, Some(PathBuf::from("x/a/CHANGELOG.md")));
+        let crates = nested(&[(
+            "x/a/Cargo.toml",
+            "[package]\nname = \"pa\"\nversion = \"0.1.0\"\nreadme = \"./docs/../CHANGELOG.md\"\n\
+             license-file = \"../../../LICENSE\"\n",
+        )]);
+        let a = &crates.all()[0];
+        assert_eq!(a.readme, Some(PathBuf::from("x/a/CHANGELOG.md")));
+        assert_eq!(a.license_file, None);
     }
 }

@@ -108,6 +108,9 @@ mod tests {
             package: format!("p{component}"),
             inherits_version,
             include: None,
+            exclude: None,
+            readme: None,
+            license_file: None,
         }
     }
 

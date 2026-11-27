@@ -1,20 +1,21 @@
 //! A library that reads what the tools of knowledge-architect need of Cargo, in two formats:
 //!
 //! - the text of a `Cargo.toml`, [`read_manifest`]: the package name, and its `version`,
-//!   `publish`, `repository` and `include`, each as the manifest states it, with
-//!   [`Package::inherit`] resolving a field set to a table whose `workspace` is `true` from the
-//!   workspace's `[workspace.package]`;
+//!   `publish`, `repository`, `include`, `exclude`, `readme`, `license-file` and `workspace`, each
+//!   as the manifest states it, with [`Package::inherit`] resolving a field set to a table whose
+//!   `workspace` is `true` from the workspace's `[workspace.package]`; and a `[workspace]` table's
+//!   `members`, `exclude` and `[workspace.package]`;
 //! - the output of `cargo metadata --format-version 1`, [`run_metadata`], which runs it in a
 //!   directory with the flags its caller passes, and [`read_metadata`], which reads its JSON: the
 //!   resolved graph, and each of its packages' name, version, manifest path and `repository`;
-//! - the `include` patterns of a package, [`include_matches`], which says whether they package a
-//!   file as `cargo package` reads them.
+//! - the `include` and `exclude` patterns of a package, [`include_matches`] and
+//!   [`exclude_matches`], which say whether they package a file as `cargo package` reads them.
 //!
 //! Reading a manifest touches no file and runs nothing; the caller reads the text, and finds the
 //! workspace's manifest a package inherits from. Running `cargo metadata` needs Cargo, named by the
 //! variable `CARGO` or found on the path. Every failure is an error carrying the reason, never an
 //! empty answer: a manifest that is no TOML or holds a field of a type Cargo refuses, Cargo's own
-//! failure with its message, an output of another shape.
+//! failure with its message, an output of another shape, a pattern Cargo refuses.
 //!
 //! ```
 //! use knowledge_architect_cargo_reader::{read_manifest, Field};
@@ -41,9 +42,10 @@ mod include;
 mod manifest;
 mod metadata;
 
-pub use include::include_matches;
+pub use include::{exclude_matches, include_matches, PatternError};
 pub use manifest::{
-    read_manifest, Field, Manifest, ManifestError, Package, Publish, WorkspacePackage,
+    read_manifest, Field, Manifest, ManifestError, Package, Publish, Readme, Workspace,
+    WorkspacePackage,
 };
 pub use metadata::{
     read_metadata, run_metadata, Graph, Metadata, MetadataError, MetadataPackage, Node,

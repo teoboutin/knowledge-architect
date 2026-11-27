@@ -4,11 +4,11 @@
 use knowledge_architect_cargo_reader::{read_manifest, Field};
 use std::path::Path;
 
-/// Claim 4: every crate under crates/ yields its package name, the workspace's version through
+/// The claim: every crate under crates/ yields its package name, the workspace's version through
 /// `version.workspace = true`, and `publish` unset. The version is compared with this crate's own,
 /// which Cargo resolved from the same workspace. Mutation checked: in `inherited` of
-/// `path@cargo-reader@src/manifest.rs`, `Field::Workspace => workspace.clone().map(Field::Set)` made
-/// `Field::Workspace => Some(Field::Absent)`; caught.
+/// `path@cargo-reader@src/manifest.rs`, `Field::Workspace => workspace.clone().map(Field::Set)`
+/// made `Field::Workspace => Some(Field::Absent)`; caught.
 #[test]
 fn every_crate_of_the_workspace_yields_its_name_the_workspace_version_and_no_publish() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -19,7 +19,8 @@ fn every_crate_of_the_workspace_yields_its_name_the_workspace_version_and_no_pub
     };
     let workspace = read(&root.join("Cargo.toml"))
         .workspace
-        .expect("the root manifest holds the workspace");
+        .expect("the root manifest holds the workspace")
+        .package;
     let mut crates = 0;
     for entry in std::fs::read_dir(root.join("crates")).expect("crates/ is readable") {
         let dir = entry.expect("an entry of crates/").path();
