@@ -86,8 +86,8 @@ pub struct ChangelogRequest {
 /// writes nothing of the project, `Cargo.lock` included, and reaches no network, per
 /// `design@query@changelog-runs-cargo-locked-and-offline`, as
 /// `path@cargo-reader@docs/grounding/cargo-metadata.md` measures the flags. Of the resolved graph
-/// it selects, each package in its newest version where the graph holds several, per
-/// `design@query@changelog-selects-by-repository`: with `request.packages` empty, every package
+/// it selects, per `design@query@changelog-selects-by-repository`, each package in its newest
+/// version where the graph holds several: with `request.packages` empty, every package
 /// whose `repository` equals the named package's, or the named package alone where it sets none;
 /// otherwise the named package and those. It reads the
 /// `CHANGELOG.md` beside each one's `Cargo.toml`, which lies in the sources cargo fetched or, for a
@@ -196,8 +196,8 @@ fn output(assembled: &Assembled) -> (String, u8) {
 
 /// The packages of the graph `packages` that a request selects, per
 /// `design@query@changelog-selects-by-repository`, in the order of the output: the named package
-/// first, then the others by package name, per `design@query@consumer-crate-order`, each once, in
-/// its newest version.
+/// first, then the others by package name, per `design@query@consumer-crate-order`, each once; each
+/// in its newest version, as the comment below says why.
 fn select<'m>(
     packages: &'m [MetadataPackage],
     named: &str,

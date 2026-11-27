@@ -507,7 +507,10 @@ and the mutation library. The nearest rival, the named package's dependency clos
 
 `--from` is the version a pin move leaves, whose entries the project has already acted on, so the
 range opens above it; `--to`, the version the pin reaches, closes it, and its absence runs the range
-to the newest version the files hold. `Next release` is in no range, since no pin crosses it.
+to the newest version the files hold. `Next release` is in no range, since no pin crosses it. One
+range serves every selected crate while every crate of a project takes one version, per
+`design@knowledge-architect@version-lockstep`: a project whose crates take versions of their own
+would need a range per crate.
 
 ### `changelog` places each crate's entries by the table its own preamble states `##changelog-places-each-crate-by-its-own-preamble`
 

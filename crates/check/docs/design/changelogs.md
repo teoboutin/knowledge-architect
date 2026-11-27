@@ -85,7 +85,8 @@ consumer reads a crate's changelog in the sources cargo fetched, where it holds 
 publisher, since no crate ships knowledge-architect.toml: so each crate's file states what a reader
 needs to read it. `klarch changelog` reads it so, through the read of a preamble of `model`, which
 gives back the categories and the `unclassed` versions and reports each line of no shape the
-preamble takes, per `design@query@changelog-places-each-crate-by-its-own-preamble`.
+preamble takes, per `design@query@changelog-places-each-crate-by-its-own-preamble` and
+`design@query@changelog-reports-what-it-cannot-print`.
 
 A preamble that differs from the one the manifest determines by more than its line endings, read
 as `design@check@generated-text-compared-without-line-endings` reads a generated text, is a finding
