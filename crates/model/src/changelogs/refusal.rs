@@ -32,8 +32,24 @@ const HAND_WRITTEN_REPAIR: &str = "move the file away, or set `[changelog] assem
 /// The repair of a line the assembled file would omit.
 const OMITTED_REPAIR: &str = "repair the line as the changelog check reports it, and run again";
 
+/// The repair of a directory at the assembled file's path, which no writer replaces.
+const DIRECTORY_REPAIR: &str = "move out what the directory holds, then remove it, and run again";
+
 /// The repair of a changelog crate's file the changelog checks cannot read.
 const UNREAD_FILE_REPAIR: &str = "repair the file as the changelog check reports it, and run again";
+
+/// What the tree a writer writes holds, as the gathering read it, which [`refusal`] judges.
+#[derive(Clone, Copy, Debug)]
+pub struct WrittenTree<'a> {
+    /// The tree's listing, every file it holds.
+    pub present: &'a HashSet<PathBuf>,
+    /// Every directory the tree holds.
+    pub directories: &'a HashSet<PathBuf>,
+    /// The tree's text of each generated path it holds as a text file.
+    pub committed: &'a HashMap<PathBuf, String>,
+    /// Each generated path the tree holds whose bytes could not be read as text.
+    pub unreadable: &'a HashSet<PathBuf>,
+}
 
 /// Whether `text`, the text of the file at the assembled file's path, is not this tool's to
 /// replace: it does not open with [`GENERATED_HEADER`], a byte-order mark aside.
@@ -48,25 +64,28 @@ pub fn hand_written(text: &str) -> bool {
 /// `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote` and
 /// `design@check@fix-before-the-checks`: one function, so the three refuse alike.
 ///
-/// It refuses where a file at the path, in that tree, is [`hand_written`], `committed` holding
-/// the tree's text of each generated path and `unreadable` each one whose bytes are not text; and
-/// where the changelog checks cannot read a changelog crate's file: a `Cargo.toml` that
-/// [`Crates::trouble`](super::Crates::trouble) names, or a `CHANGELOG.md` that `present`, the
-/// tree's listing, holds and a `[walk]` row keeps out; and where a changelog holds a line the
+/// It refuses where a directory stands at the path, in that tree, and where a file there is
+/// [`hand_written`] or not text; where the changelog checks cannot read a changelog crate's file:
+/// a `Cargo.toml` that [`Crates::trouble`](super::Crates::trouble) names, or a `CHANGELOG.md` that
+/// the tree holds and a `[walk]` row keeps out; and where a changelog holds a line the
 /// assembled file would omit: an unread line, or an entry whose category the manifest does not
 /// declare for its crate, an entry with no tag in a classed version included. Nothing is refused
 /// where nothing is assembled. A changelog crate whose tree holds no `CHANGELOG.md` is no refusal:
 /// it has no entry to omit.
-pub fn refusal(
-    manifest: &Manifest,
-    model: &Model,
-    present: &HashSet<PathBuf>,
-    committed: &HashMap<PathBuf, String>,
-    unreadable: &HashSet<PathBuf>,
-) -> Option<Refused> {
+pub fn refusal(manifest: &Manifest, model: &Model, tree: WrittenTree) -> Option<Refused> {
     let table = manifest.changelog()?;
     let path = model.changelog_crates().assembled(manifest)?;
-    if unreadable.contains(path) || committed.get(path).is_some_and(|text| hand_written(text)) {
+    if tree.directories.contains(path) {
+        return Some(Refused {
+            why: format!(
+                "{}: a directory stands at the assembled changelog's path. Nothing was written.",
+                slashed(path)
+            ),
+            repair: DIRECTORY_REPAIR,
+        });
+    }
+    let committed = tree.committed.get(path);
+    if tree.unreadable.contains(path) || committed.is_some_and(|text| hand_written(text)) {
         return Some(Refused {
             why: format!(
                 "{}: the file at the assembled changelog's path does not open with the generated \
@@ -108,7 +127,7 @@ pub fn refusal(
     for crate_ in model.changelog_crates().all() {
         let rel = crate_.changelog();
         let row =
-            crate::walk::keeping_row(&rel, manifest.walk()).filter(|_| present.contains(&rel));
+            crate::walk::keeping_row(&rel, manifest.walk()).filter(|_| tree.present.contains(&rel));
         if let Some(row) = row {
             return Some(Refused {
                 why: format!(
@@ -204,12 +223,16 @@ mod tests {
     fn refused(logs: [&str; 2], unreadable: &[&str]) -> Option<Refused> {
         let (manifest, model) = project(logs);
         let unreadable: HashSet<PathBuf> = unreadable.iter().map(PathBuf::from).collect();
+        let none = HashSet::new();
         refusal(
             &manifest,
             &model,
-            &HashSet::new(),
-            &HashMap::new(),
-            &unreadable,
+            WrittenTree {
+                present: &none,
+                directories: &none,
+                committed: &HashMap::new(),
+                unreadable: &unreadable,
+            },
         )
     }
 
@@ -217,7 +240,7 @@ mod tests {
 
     /// The claim: a file at the assembled path whose bytes are not text is refused as one without
     /// the generated header, since it is not this tool's to replace. Mutation checked: in
-    /// `refusal`, `if unreadable.contains(path) || committed` made `if committed`; caught.
+    /// `refusal`, `if tree.unreadable.contains(path) || committed` made `if committed`; caught.
     #[test]
     fn a_file_that_is_not_text_at_the_assembled_path_is_refused() {
         assert_eq!(refused([CLEAN, CLEAN], &[]), None);
@@ -259,14 +282,14 @@ mod tests {
     #[test]
     fn a_cargo_toml_the_checks_cannot_read_is_refused() {
         let (manifest, model) = project_with([CLEAN, CLEAN], "", Some("[package\n"));
-        let refused = refusal(
-            &manifest,
-            &model,
-            &HashSet::new(),
-            &HashMap::new(),
-            &HashSet::new(),
-        )
-        .expect("a refusal");
+        let none = HashSet::new();
+        let tree = WrittenTree {
+            present: &none,
+            directories: &none,
+            committed: &HashMap::new(),
+            unreadable: &none,
+        };
+        let refused = refusal(&manifest, &model, tree).expect("a refusal");
         assert!(refused.why.starts_with("c/Cargo.toml: "), "{}", refused.why);
         assert_eq!(refused.repair, UNREAD_FILE_REPAIR);
     }
@@ -274,21 +297,22 @@ mod tests {
     /// The claim: a crate's `CHANGELOG.md` that the tree holds and a `[walk]` row keeps out refuses
     /// the writers, naming the row, and one the tree does not hold is no refusal, as a missing
     /// file omits nothing. Mutations checked, each caught: in `refusal`,
-    /// `.filter(|_| present.contains(&rel));` made `.filter(|_| true);`, and the value of `row`,
-    /// `crate::walk::keeping_row(&rel, manifest.walk()).filter(|_| present.contains(&rel))`, made
+    /// `.filter(|_| tree.present.contains(&rel));` made `.filter(|_| true);`, and the value of
+    /// `row`, `crate::walk::keeping_row(&rel, manifest.walk())` with that filter, made
     /// `None::<String>`.
     #[test]
     fn a_changelog_a_walk_row_keeps_out_is_refused_where_the_tree_holds_it() {
         let (manifest, model) = project_with([CLEAN, CLEAN], "\"b/CHANGELOG.md\"", None);
         let refuse = |present: &[&str]| {
             let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
-            refusal(
-                &manifest,
-                &model,
-                &present,
-                &HashMap::new(),
-                &HashSet::new(),
-            )
+            let none = HashSet::new();
+            let tree = WrittenTree {
+                present: &present,
+                directories: &none,
+                committed: &HashMap::new(),
+                unreadable: &none,
+            };
+            refusal(&manifest, &model, tree)
         };
         assert_eq!(refuse(&["a/CHANGELOG.md"]), None);
         let refused = refuse(&["a/CHANGELOG.md", "b/CHANGELOG.md"]).expect("a refusal");
@@ -296,6 +320,29 @@ mod tests {
             refused
                 .why
                 .starts_with("b/CHANGELOG.md: [walk] skip-files `b/CHANGELOG.md`"),
+            "{}",
+            refused.why
+        );
+    }
+
+    /// The claim: a directory at the assembled path is refused as a directory, with the repair
+    /// that removes it, not as a file without the generated header. Mutation checked: in
+    /// `refusal`, `if tree.directories.contains(path) {` made `if false {`; caught.
+    #[test]
+    fn a_directory_at_the_assembled_path_is_refused_as_one() {
+        let (manifest, model) = project([CLEAN, CLEAN]);
+        let at = HashSet::from([PathBuf::from("CHANGELOG.md")]);
+        let none = HashSet::new();
+        let tree = WrittenTree {
+            present: &none,
+            directories: &at,
+            committed: &HashMap::new(),
+            unreadable: &at,
+        };
+        let refused = refusal(&manifest, &model, tree).expect("a refusal");
+        assert_eq!(refused.repair, DIRECTORY_REPAIR);
+        assert!(
+            refused.why.contains("a directory stands"),
             "{}",
             refused.why
         );

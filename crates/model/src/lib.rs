@@ -160,7 +160,7 @@ pub mod changelog {
     pub use crate::changelogs::{
         assembled_file, assembled_text, changelog_crates, expected_preamble, hand_written, parse,
         refusal, CargoTrouble, Changelog, Class, Crate, Crates, Entry, Heading, Refused, Section,
-        Tag, Unread, Version, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
+        Tag, Unread, Version, WrittenTree, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
     };
 }
 
