@@ -118,9 +118,9 @@ pub fn skipped(rel: &Path, walk: &Walk) -> bool {
 }
 
 /// Whether a row of `[walk]` keeps this path out: a skipped file, a skipped directory or an excluded
-/// location.
+/// location. One rule with [`keeping_row`], which names the row.
 pub(crate) fn kept_out(rel: &Path, walk: &Walk) -> bool {
-    skipped(rel, walk) || walk.skip_files.iter().any(|f| f == rel)
+    keeping_row(rel, walk).is_some()
 }
 
 /// The row of `[walk]` that keeps this path out, as a finding names it, or `None` where none does.
@@ -163,6 +163,38 @@ fn is_live(rel: &Path, walk: &Walk) -> bool {
 mod tests {
     use super::*;
     use crate::manifest::Walk;
+
+    /// The claim: the row that keeps a path out is named by its kind and its path, for each kind
+    /// of row, a directory row covering every path beneath it, and a path no row covers is kept
+    /// out by none. Mutations checked, each caught: in `keeping_row`,
+    /// `walk.skip_dirs.iter().find(|d| rel.starts_with(d))` made
+    /// `walk.skip_dirs.iter().find(|d| rel == d.as_path())`, and
+    /// `.find(|e| rel.starts_with(e))` made `.find(|e| rel == e.as_path())`.
+    #[test]
+    fn the_row_that_keeps_a_path_out_is_named() {
+        let walk = Walk {
+            skip_files: vec![PathBuf::from("a/Cargo.toml")],
+            skip_dirs: vec![PathBuf::from("b")],
+            exclude: vec![PathBuf::from("c/d")],
+            ..Walk::sample()
+        };
+        let row = |rel: &str| keeping_row(Path::new(rel), &walk);
+        assert_eq!(
+            row("a/Cargo.toml").as_deref(),
+            Some("[walk] skip-files `a/Cargo.toml`")
+        );
+        assert_eq!(
+            row("b/e/Cargo.toml").as_deref(),
+            Some("[walk] skip-dirs `b`")
+        );
+        assert_eq!(
+            row("c/d/Cargo.toml").as_deref(),
+            Some("[walk] exclude `c/d`")
+        );
+        assert_eq!(row("c/Cargo.toml"), None);
+        assert!(kept_out(Path::new("b/e/Cargo.toml"), &walk));
+        assert!(!kept_out(Path::new("a/CHANGELOG.md"), &walk));
+    }
 
     #[test]
     fn a_skipped_file_is_named_by_its_path_and_not_by_its_basename() {

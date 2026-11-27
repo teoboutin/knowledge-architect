@@ -78,7 +78,7 @@ fn git(dir: &Path, args: &[&str]) {
 
 #[test]
 fn the_binary_passes_over_a_project_that_declares_only_what_it_reads() {
-    // The smallest conformant mock, which declares no table `check` does not own.
+    // The smallest conformant mock, which declares no table but the built-in ones.
     let mock = project("core");
     let (code, out) = check(&mock.dir);
     assert_eq!(code, 0, "{out}");

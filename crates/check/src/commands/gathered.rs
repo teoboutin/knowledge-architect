@@ -45,8 +45,8 @@ impl Gathered {
         model: &Model,
     ) -> Gathered {
         // The generated files are outside the walk — an extension's by a declared row, every
-        // file-register index by construction — because a generated file is not a source of
-        // citations. The set includes the extensions' files once `extension::configure` has
+        // file-register index and the assembled changelog by construction — because a generated
+        // file is not a source of citations. The set includes the extensions' files once `extension::configure` has
         // run over the manifest.
         let mut committed = HashMap::new();
         let mut generated_unreadable = HashSet::new();

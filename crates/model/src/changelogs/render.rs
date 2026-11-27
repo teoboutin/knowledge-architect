@@ -1,13 +1,15 @@
 //! The texts the manifest determines: a crate's preamble, and the assembled file of the whole
-//! project, rendered from the parsed changelogs. Nothing here writes, as nothing in
-//! `crate::index` does.
+//! project, rendered from the parsed changelogs, with the rule of what the assembled file omits.
+//! Nothing here writes, as nothing in `crate::index` does.
 //!
-//! A module of its own, not `crate::index`, whose reference is the register indexes' heads.
+//! A module of its own, not `crate::index`, whose reference is the register indexes' heads. The
+//! rule of what the assembled file omits is here, beside the layout that applies it, since every
+//! change to one is read with the other; the writers' refusal, which reads that rule beside the
+//! heads on what a writer may lose, is `super::refusal`'s.
 
-use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
-use super::{parse, Changelog, ChangelogTable, Heading, Version};
+use super::{parse, Changelog, ChangelogTable, Entry, Heading, Tag, Version};
 use crate::finding::slashed;
 use crate::manifest::Manifest;
 use crate::model::Model;
@@ -55,15 +57,20 @@ pub fn expected_preamble(
     out
 }
 
-/// The assembled file's text over the changelogs of `crates`, each a package name and its parse,
-/// in the manifest's order of the Components.
+/// The assembled file's text over the changelogs of `crates`, each `(component, package, log)`:
+/// the Component's name, which `[changelog.category-components]` is read against, the package
+/// name, which the crate's heading writes, and the crate's parse, in the manifest's order of the
+/// Components. `command` is the command the generated header names, as in `<command> index`.
 ///
 /// The layout: the generated header; then each version, `Next release` first and the released
 /// ones in descending order, as `## <version>`; under it each category in its declared order, as
 /// `### <category>`; under it each crate, as `#### <package>`; under it the crate's entries of
 /// that category, `- <class>: <text>`, in the order of its file. A version `unclassed` lists has
-/// no category level: `#### <package>`, then `- <text>`. An empty level is omitted, and an entry
-/// whose category `admitted` refuses is left out, which `refusal` refuses to write.
+/// no category level: `#### <package>`, then `- <text>`. An empty level is omitted.
+///
+/// It omits a line the parse could not read, an entry with no tag in a classed version, and an
+/// entry whose category the manifest does not admit for its crate: a caller that must lose
+/// nothing, as a writer must, asks [`refusal`](super::refusal) first, which refuses over each.
 pub fn assembled_text(
     table: &ChangelogTable,
     crates: &[(&str, &str, &Changelog)],
@@ -85,17 +92,15 @@ pub fn assembled_text(
     });
     let mut out = format!("{GENERATED_HEADER} `{command} index`\n");
     for version in versions {
-        let unclassed = matches!(version, Heading::Version(v) if table.unclassed().contains(&v));
+        let unclassed = is_unclassed(table, version);
         let entries = |component: &str, log: &Changelog, category: Option<&str>| -> Vec<String> {
             log.sections
                 .iter()
                 .filter(|s| s.heading == version)
                 .flat_map(|s| &s.entries)
-                .filter_map(|e| match (category, &e.tag) {
-                    (None, _) => Some(format!("- {}", e.raw)),
-                    (Some(c), Some(tag))
-                        if tag.category == c && table.admits(&tag.category, component) =>
-                    {
+                .filter_map(|e| match (category, place(table, component, version, e)?) {
+                    (None, Place::Unclassed) => Some(format!("- {}", e.raw)),
+                    (Some(c), Place::Under(tag)) if tag.category == c => {
                         Some(format!("- {}: {}", tag.class, tag.text))
                     }
                     _ => None,
@@ -129,6 +134,66 @@ pub fn assembled_text(
     out
 }
 
+/// Where the assembled file writes an entry.
+enum Place<'e> {
+    /// In a version `unclassed` lists, with no category level, as written.
+    Unclassed,
+    /// Under its tag's category.
+    Under(&'e Tag),
+}
+
+/// Whether `unclassed` lists the version `heading` names.
+fn is_unclassed(table: &ChangelogTable, heading: Heading) -> bool {
+    matches!(heading, Heading::Version(v) if table.unclassed().contains(&v))
+}
+
+/// Where the assembled file writes `entry` of `component`'s changelog, in the section `heading`
+/// names, or `None` where it has no place for it: in a version `unclassed` lists, every entry,
+/// as written; in any other, an entry whose tag names a category the manifest admits for
+/// `component`, and no entry with no tag.
+///
+/// **The one rule of what the assembled file keeps**, which [`assembled_text`] writes by and
+/// [`omitted`] reads, so a writer never drops a line its refusal let through.
+fn place<'e>(
+    table: &ChangelogTable,
+    component: &str,
+    heading: Heading,
+    entry: &'e Entry,
+) -> Option<Place<'e>> {
+    if is_unclassed(table, heading) {
+        return Some(Place::Unclassed);
+    }
+    entry
+        .tag
+        .as_ref()
+        .filter(|tag| table.admits(&tag.category, component))
+        .map(Place::Under)
+}
+
+/// A line of a crate's changelog the assembled file omits.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Omitted {
+    /// A line the parse could not read, at this one-based line.
+    Unread(u32),
+    /// An entry the assembled file has no place for, at its first line.
+    Entry(u32),
+}
+
+/// The first line of `component`'s changelog `log` that the assembled file omits, or `None`
+/// where it omits nothing: an unread line first, then each entry [`place`] has no place for.
+pub(crate) fn omitted(table: &ChangelogTable, component: &str, log: &Changelog) -> Option<Omitted> {
+    if let Some(unread) = log.unread.first() {
+        return Some(Omitted::Unread(unread.line));
+    }
+    log.sections.iter().find_map(|section| {
+        section
+            .entries
+            .iter()
+            .find(|e| place(table, component, section.heading, e).is_none())
+            .map(|e| Omitted::Entry(e.line))
+    })
+}
+
 /// One crate's level: its heading and its entries, or nothing where it has none.
 fn block(package: &str, entries: &[String]) -> String {
     if entries.is_empty() {
@@ -139,7 +204,7 @@ fn block(package: &str, entries: &[String]) -> String {
 
 /// The changelog of each changelog crate, parsed from the walked document at its path, with its
 /// Component and its package; a crate whose file the walk does not hold has an empty one.
-fn parsed(model: &Model) -> Vec<(String, String, Changelog)> {
+pub(super) fn parsed(model: &Model) -> Vec<(String, String, Changelog)> {
     model
         .changelog_crates()
         .all()
@@ -173,97 +238,6 @@ pub fn assembled_file(manifest: &Manifest, model: &Model) -> Option<(PathBuf, St
     ))
 }
 
-/// Why no writer may write the assembled file, with the repair.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Refused {
-    /// What stands in the way, naming the file and the line.
-    pub why: String,
-    /// The repair.
-    pub repair: &'static str,
-}
-
-/// The repair of a hand-written file at the assembled file's path.
-const HAND_WRITTEN_REPAIR: &str = "move the file away, or set `[changelog] assembled` to another \
-     path, and run again; a file without the generated header is not this tool's to replace";
-
-/// The repair of a line the assembled file would omit.
-const OMITTED_REPAIR: &str = "repair the line as the changelog check reports it, and run again";
-
-/// Whether a writer of the generated files, `index`, `index --staged` or `check --fix`, may write
-/// the assembled file of the tree it writes, or why not, per
-/// `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote` and
-/// `design@check@fix-before-the-checks`: one function, so the three refuse alike.
-///
-/// It refuses where a file at the path, in that tree, does not open with the generated header,
-/// `committed` holding the tree's text of each generated path and `unreadable` each one whose
-/// bytes are not text; and where a changelog holds an unread line, or an entry whose category
-/// the manifest does not declare for its crate, an entry with no tag in a classed version
-/// included, since the assembled file would omit it. Nothing is refused where nothing is
-/// assembled.
-pub fn refusal(
-    manifest: &Manifest,
-    model: &Model,
-    committed: &HashMap<PathBuf, String>,
-    unreadable: &HashSet<PathBuf>,
-) -> Option<Refused> {
-    let table = manifest.changelog()?;
-    let path = model.changelog_crates().assembled(manifest)?;
-    let hand_written = unreadable.contains(path)
-        || committed.get(path).is_some_and(|text| {
-            !text
-                .trim_start_matches('\u{feff}')
-                .starts_with(GENERATED_HEADER)
-        });
-    if hand_written {
-        return Some(Refused {
-            why: format!(
-                "{}: the file at the assembled changelog's path does not open with the generated \
-                 header, so writing it would lose what it holds. Nothing was written.",
-                slashed(path)
-            ),
-            repair: HAND_WRITTEN_REPAIR,
-        });
-    }
-    for (crate_, (component, _, log)) in model.changelog_crates().all().iter().zip(parsed(model)) {
-        let rel = slashed(&crate_.changelog());
-        if let Some(unread) = log.unread.first() {
-            return Some(Refused {
-                why: format!(
-                    "{rel}:{}: the line is no entry, no version heading and no continuation of an \
-                     entry, and the assembled changelog would omit it. Nothing was written.",
-                    unread.line
-                ),
-                repair: OMITTED_REPAIR,
-            });
-        }
-        for section in &log.sections {
-            let unclassed =
-                matches!(section.heading, Heading::Version(v) if table.unclassed().contains(&v));
-            if unclassed {
-                continue;
-            }
-            for entry in &section.entries {
-                let admitted = entry
-                    .tag
-                    .as_ref()
-                    .is_some_and(|t| table.admits(&t.category, &component));
-                if !admitted {
-                    return Some(Refused {
-                        why: format!(
-                            "{rel}:{}: the entry's category is none the manifest declares for \
-                             `{component}`, and the assembled changelog would omit it. Nothing \
-                             was written.",
-                            entry.line
-                        ),
-                        repair: OMITTED_REPAIR,
-                    });
-                }
-            }
-        }
-    }
-    None
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -286,11 +260,11 @@ mod tests {
     const B: &str = "# Changelog of pb\n\n## Next release\n\n- Migration, minor: b moves\n- Workflow, patch: b's workflow\n\n\
         ## 0.3.0\n\n- New features, minor: b adds\n";
 
-    /// The claim, claim 9's layout: version, then category in its declared order, then crate in
+    /// The claim, the layout: version, then category in its declared order, then crate in
     /// the given order, an empty level omitted, and an unclassed version with no category level.
     /// Mutations checked, each caught: in `assembled_text`, the sort's `=> y.cmp(x),` made
-    /// `=> x.cmp(y),`; and an unclassed version's entries, `(None, _) => Some(format!("- {}", e.raw)),`,
-    /// made `(None, _) => None,`.
+    /// `=> x.cmp(y),`; and an unclassed version's entries, `(None, Place::Unclassed) => Some(format!("- {}", e.raw)),`,
+    /// made `(None, Place::Unclassed) => None,`.
     #[test]
     fn the_assembled_layout_is_version_then_category_then_crate() {
         let t = table("");
@@ -338,7 +312,7 @@ mod tests {
         out
     }
 
-    /// The claim, claim 11: the assembled text, read back per crate, yields every entry of every
+    /// The claim: the assembled text, read back per crate, yields every entry of every
     /// crate with its category, class and text unchanged. Mutation checked: in `assembled_text`,
     /// `Some(format!("- {}: {}", tag.class, tag.text))` made to write `tag.text` with each blank
     /// line of its continuation taken out, `tag.text.replace("\n\n", "\n")`; caught.
@@ -376,7 +350,7 @@ mod tests {
         assert_eq!(back, want);
     }
 
-    /// The claim, claim 8's expected text: the package, the assembled path named in words, its
+    /// The claim, the expected preamble: the package, the assembled path named in words, its
     /// link where set, the categories in their order, the unclassed versions; and no sentence on
     /// an assembled file where none is. Mutation checked: in `expected_preamble`, the
     /// `assembled_url` arm made to name the path alone; caught.

@@ -878,12 +878,12 @@ impl Manifest {
         self.serves_claude() && owned_path(rel)
     }
 
-    /// A top-level table `check` does not own, as written, for the extension that claims it.
+    /// A top-level table that is not a built-in one, as written, for the extension that claims it.
     pub fn table(&self, name: &str) -> Option<&toml::Value> {
         self.declared.tables.get(name)
     }
 
-    /// The names of every top-level table `check` does not own.
+    /// The names of every top-level table that is not a built-in one.
     pub(crate) fn extension_tables(&self) -> impl Iterator<Item = &str> {
         self.declared.tables.keys().map(String::as_str)
     }
@@ -1186,14 +1186,6 @@ fn resolve_carries(registers: &mut Registers, complaints: &mut Vec<Finding>) {
     }
 }
 
-/// The Components an `opt-in` register names carry it, each under its own `docs/`, per
-/// `design@model@a-component-carries-what-a-project-attaches`.
-///
-/// A name that is no declared Component carries nothing and is reported. A Component keeps the
-/// homes of the registers it carries under one `docs/`, so a home there at its `docs/` itself, at
-/// the root's plans directory, or at the directory of another register it carries would give one
-/// directory two meanings: that Component leaves the list, and the finding says why. Run before
-/// the anchors are resolved, so a Component's homes are known when its collisions are judged.
 /// The name of every Component, the root's first, then the declared ones in declaration order.
 fn component_names(declared: &Declared) -> Vec<String> {
     std::iter::once(declared.project.name.clone())
@@ -1205,6 +1197,14 @@ fn component_names(declared: &Declared) -> Vec<String> {
         .collect()
 }
 
+/// The Components an `opt-in` register names carry it, each under its own `docs/`, per
+/// `design@model@a-component-carries-what-a-project-attaches`.
+///
+/// A name that is no declared Component carries nothing and is reported. A Component keeps the
+/// homes of the registers it carries under one `docs/`, so a home there at its `docs/` itself, at
+/// the root's plans directory, or at the directory of another register it carries would give one
+/// directory two meanings: that Component leaves the list, and the finding says why. Run before
+/// the anchors are resolved, so a Component's homes are known when its collisions are judged.
 fn resolve_components(
     declared: &Declared,
     registers: &mut Registers,

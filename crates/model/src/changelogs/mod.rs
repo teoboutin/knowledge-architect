@@ -15,15 +15,14 @@
 
 mod crates;
 mod parse;
+mod refusal;
 mod render;
 mod table;
 
-pub(crate) use crates::read as read_crates;
-pub use crates::{CargoTrouble, Crate, Crates};
+pub use crates::{read as changelog_crates, CargoTrouble, Crate, Crates};
 pub use parse::{parse, Changelog, Entry, Heading, Section, Tag, Unread};
-pub use render::{
-    assembled_file, assembled_text, expected_preamble, refusal, Refused, GENERATED_HEADER,
-};
+pub use refusal::{hand_written, refusal, Refused};
+pub use render::{assembled_file, assembled_text, expected_preamble, GENERATED_HEADER};
 pub use table::ChangelogTable;
 pub(crate) use table::{resolve, Declared};
 

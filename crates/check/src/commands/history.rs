@@ -324,6 +324,16 @@ struct Unloadable {
     repair: &'static str,
 }
 
+/// A tree whose generated files cannot be written, as `super::generated_list` refuses it.
+impl From<crate::model::changelog::Refused> for Unloadable {
+    fn from(refused: crate::model::changelog::Refused) -> Self {
+        Unloadable {
+            why: refused.why,
+            repair: refused.repair,
+        }
+    }
+}
+
 /// Why a listed file has no bytes where its blob was asked for and git answered nothing: git's
 /// object store lacks the blob, as in a repository an object was lost from, and the repair,
 /// `NO_BLOB_REPAIR`, is git's, whatever the walk would make of the file.
@@ -984,11 +994,7 @@ pub(super) fn index_staged(
         extensions,
     )
     .map_err(|r| {
-        Unloadable {
-            why: r.why,
-            repair: r.repair,
-        }
-        .refusal("the staged tree's generated files cannot be computed")
+        Unloadable::from(r).refusal("the staged tree's generated files cannot be computed")
     })?;
     // A generated path the index holds as a symlink or a gitlink needs no refusal here: phase 2
     // reports every such entry no walk row keeps, so the gate above has stopped, and one a row
@@ -1108,16 +1114,13 @@ pub(super) fn staged_generated(
     )
     .map(Some)
     .map_err(|r| {
-        Unloadable {
-            why: r.why,
-            repair: r.repair,
-        }
-        .refusal("the staged tree's generated files cannot be computed")
+        Unloadable::from(r).refusal("the staged tree's generated files cannot be computed")
     })
 }
 
 /// Every generated file whose committed bytes a check compares against: each file an
-/// extension generates, and one index per file-register instance.
+/// extension generates, one index per file-register instance, and the assembled changelog where
+/// one is assembled.
 fn extra_generated(generated: &HashSet<PathBuf>) -> Vec<PathBuf> {
     let mut out: Vec<PathBuf> = generated.iter().cloned().collect();
     out.sort();
@@ -1763,8 +1766,11 @@ mod tests {
 
     /// The claim: an extension that cannot prepare over a snapshot is refused with its reason and
     /// the extension's repair, at each site that prepares one: `check --staged`, `index --staged`,
-    /// the staged side `check --fix` compares, and a commit of `commits`. Mutations checked: each
-    /// of the three sites' `super::EXTENSION_REPAIR` made `GIT_REPAIR` fails its case.
+    /// the staged side `check --fix` compares, and a commit of `commits`. Mutations checked, each
+    /// failing its cases: `repair: super::EXTENSION_REPAIR,` made `repair: GIT_REPAIR,` at the site
+    /// in this file that prepares an extension for `check --staged` and `commits`, and
+    /// `repair: EXTENSION_REPAIR,` made `repair: "",` at the site in `super::generated_list` that
+    /// `index --staged` and the staged side of `check --fix` share.
     #[test]
     fn an_extension_that_cannot_prepare_over_a_snapshot_names_its_repair() {
         let (scratch, head, mut manifest) = committed_project("unpreparable");

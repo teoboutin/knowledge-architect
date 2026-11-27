@@ -158,11 +158,10 @@ pub mod foundation {
 /// Every finding over them is a check's, none a phase's.
 pub mod changelog {
     pub use crate::changelogs::{
-        assembled_file, assembled_text, expected_preamble, parse, refusal, CargoTrouble, Changelog,
-        Class, Crate, Crates, Entry, Heading, Refused, Section, Tag, Unread, Version,
-        CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
+        assembled_file, assembled_text, changelog_crates, expected_preamble, hand_written, parse,
+        refusal, CargoTrouble, Changelog, Class, Crate, Crates, Entry, Heading, Refused, Section,
+        Tag, Unread, Version, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
     };
-    pub use crate::model::changelog_crates;
 }
 
 /// What an extension gives phase 1.
