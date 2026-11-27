@@ -570,10 +570,17 @@ mod tests {
     /// The changelog crates of a project whose one Component is `x/a`, each file of `files` in
     /// its listing.
     fn nested(files: &[(&str, &str)]) -> Crates {
+        nested_with("", files)
+    }
+
+    /// The same, `skip_files` the `[walk] skip-files` row.
+    fn nested_with(skip_files: &str, files: &[(&str, &str)]) -> Crates {
         let manifest = Manifest::parse(
             Path::new("/nowhere"),
-            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"x/a\"]\n\n\
-             [walk]\nskip-dirs = []\nskip-files = []\n\n[changelog]\ncategories = [\"A\"]\n",
+            &format!(
+                "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"x/a\"]\n\n\
+                 [walk]\nskip-dirs = []\nskip-files = [{skip_files}]\n\n[changelog]\ncategories = [\"A\"]\n"
+            ),
         )
         .expect("a declaration");
         let files: HashMap<PathBuf, String> = files
@@ -631,6 +638,40 @@ mod tests {
             ]);
             assert_eq!(include_of(&crates), [want], "{inner}");
         }
+    }
+
+    /// The claim: a package whose own `Cargo.toml` holds a `[workspace]` table inherits from it,
+    /// even where its `exclude` names the package's own directory, since a workspace's root
+    /// package is always its member. Mutation checked: in `inherited`,
+    /// `(d == dir || !excludes(&workspace, member))` made `(!excludes(&workspace, member))`;
+    /// caught.
+    #[test]
+    fn a_package_s_own_workspace_is_never_passed_over_for_its_exclude() {
+        let own = format!("{MEMBER}\n{}", workspace("exclude = [\".\"]", "own"));
+        let crates = nested(&[
+            ("Cargo.toml", &workspace("members = [\"x/a\"]", "root")),
+            ("x/a/Cargo.toml", &own),
+        ]);
+        assert_eq!(include_of(&crates), ["own"]);
+    }
+
+    /// The claim: a workspace `Cargo.toml` that a `[walk]` row keeps out is passed over, and the
+    /// package inherits from the next one above it. Mutation checked: in `inherited`, closure
+    /// `workspace_at`, `if !listing.contains(&file) || crate::walk::kept_out(&file, walk) {` made
+    /// `if !listing.contains(&file) {`; caught.
+    #[test]
+    fn a_workspace_manifest_a_walk_row_keeps_out_is_passed_over() {
+        let files = [
+            ("Cargo.toml", workspace("members = [\"x/a\"]", "root")),
+            ("x/Cargo.toml", workspace("members = [\"a\"]", "inner")),
+            ("x/a/Cargo.toml", MEMBER.to_string()),
+        ];
+        let files: Vec<(&str, &str)> = files.iter().map(|(p, t)| (*p, t.as_str())).collect();
+        assert_eq!(include_of(&nested(&files)), ["inner"]);
+        assert_eq!(
+            include_of(&nested_with("\"x/Cargo.toml\"", &files)),
+            ["root"]
+        );
     }
 
     /// The claim: `package.workspace` names the workspace, the nearer one passed over, and one

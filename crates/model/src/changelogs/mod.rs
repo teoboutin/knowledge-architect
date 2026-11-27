@@ -221,8 +221,10 @@ mod tests {
 
     /// The claim, a version heading is three numbers with no leading zero and nothing else.
     /// Mutations checked, each caught: `parts.next().is_none().then_some(version)` made
-    /// `Some(version)`; and the test of a leading zero,
-    /// `|| (part.len() > 1 && part.starts_with('0'))`, removed.
+    /// `Some(version)`; the test of a leading zero,
+    /// `|| (part.len() > 1 && part.starts_with('0'))`, removed; and the test of the digits,
+    /// `|| !part.bytes().all(|b| b.is_ascii_digit())`, removed, so a part with a sign in front,
+    /// which `u64::from_str` reads, is a number.
     #[test]
     fn a_version_is_three_numbers() {
         assert_eq!(v("0.10.0").to_string(), "0.10.0");
@@ -238,6 +240,8 @@ mod tests {
             "1.02.3",
             "1.2.03",
             "1.2.00",
+            "+1.2.3",
+            "1.+2.3",
         ] {
             assert_eq!(Version::parse(text), None, "{text}");
         }

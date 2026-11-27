@@ -174,12 +174,18 @@ the assembled changelog, and write no byte of any generated file, where:
 - a changelog holds a line the parse could not read, or an entry whose category the manifest does
   not declare for its crate, an entry with no tag in a classed version among them, since the
   assembled changelog has no place for either;
+- a changelog's preamble holds a line that the preamble the manifest determines, per
+  `design@check@category-order-in-preamble`, lacks, compared without the white space that ends a
+  line, since the assembled changelog writes no preamble, and a line no manifest gives again is
+  the project's own, as the entries under a misspelled version heading are, which the parse reads
+  as preamble; a preamble that only lacks a line of the expected one holds nothing to omit, so it
+  stops no writer, and its own finding stands;
 - a changelog crate's files cannot be read: its `CHANGELOG.md` is kept out by a `[walk]` row, or
   its `Cargo.toml` is kept out by a `[walk]` row, refused by `cargo-reader` or unusable, so the
   crate's entries, or the crate itself, are missing from the model.
 
 The assembled changelog is the one changelog of the whole project, so it must omit nothing the tree
-holds: written in any of the last two cases, it would leave out a line or a crate with no sign of
+holds: written in any of the last three cases, it would leave out a line or a crate with no sign of
 it, as a generated file is never written over a model that misses what the tree holds, per
 `design@check@phases-gate-the-report`. A changelog crate with no `CHANGELOG.md` holds no entry to
 leave out, so it stops no writer, and its own finding stands, per `design@check@changelog-opt-in`.

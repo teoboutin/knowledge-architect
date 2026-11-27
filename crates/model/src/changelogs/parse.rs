@@ -252,4 +252,48 @@ mod tests {
         assert_eq!(unread, [5, 12, 13, 14]);
         assert!(log.sections[0].entries[0].raw.contains("## 9.9.9"));
     }
+
+    /// The claim: a changelog written with CRLF line endings reads as the same text with LF
+    /// endings: no `\r` is kept in a preamble, an entry or a tag. Mutation checked: in `parse`,
+    /// `let line = line.strip_suffix('\r').unwrap_or(line);` removed; caught.
+    #[test]
+    fn a_crlf_changelog_reads_as_its_lf_text() {
+        assert_eq!(parse(&LOG.replace('\n', "\r\n")), parse(LOG));
+    }
+
+    /// The claim: a heading of another level indented under an entry, which markdown reads as a
+    /// heading in the list item, is unread, not a continuation of the entry. Mutation checked: in
+    /// `parse`, `if let (false, true, true, Some(entry)) =` made
+    /// `if let (_, true, true, Some(entry)) =`; caught.
+    #[test]
+    fn an_indented_heading_under_an_entry_is_unread() {
+        let log = parse("# P\n\n## 0.2.0\n\n- A, patch: x\n  ### Details\n");
+        assert_eq!(log.sections[0].entries[0].raw, "A, patch: x");
+        let unread: Vec<u32> = log.unread.iter().map(|u| u.line).collect();
+        assert_eq!(unread, [6]);
+    }
+
+    /// The claim: an unread line ends the entry above it, so an indented line after it is unread
+    /// too, never joined to that entry. Mutation checked: in `parse`, the `open = false;` before an
+    /// unread line is recorded removed; caught.
+    #[test]
+    fn an_unread_line_ends_the_entry_above_it() {
+        let log = parse("# P\n\n## 0.2.0\n\n- A, patch: x\nstray\n  tail\n");
+        assert_eq!(log.sections[0].entries[0].raw, "A, patch: x");
+        let unread: Vec<&str> = log.unread.iter().map(|u| u.text.as_str()).collect();
+        assert_eq!(unread, ["stray", "  tail"]);
+    }
+
+    /// The claim: the word in the class's place is read whatever its case, so a class written
+    /// with a capital is a tag whose class `Class::parse` does not read, not an entry with no tag.
+    /// Mutation checked: in `TAG`, `([A-Za-z]+)` made `([a-z]+)`; caught.
+    #[test]
+    fn a_class_word_is_read_whatever_its_case() {
+        let log = parse("# P\n\n## 0.2.0\n\n- Migration, Minor: x\n");
+        let tag = log.sections[0].entries[0].tag.as_ref().expect("a tag");
+        assert_eq!(
+            (tag.category.as_str(), tag.class.as_str()),
+            ("Migration", "Minor")
+        );
+    }
 }

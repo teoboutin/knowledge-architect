@@ -72,8 +72,8 @@ pub fn expected_preamble(
 /// order of its file. A version `unclassed` lists has no category level: `#### <package>`, then
 /// `- <text>`. An empty level is omitted.
 ///
-/// It omits a line the parse could not read, an entry with no tag in a classed version, and an
-/// entry whose category the manifest does not admit for its crate: a caller that must lose
+/// It omits every crate's preamble, a line the parse could not read, an entry with no tag in a
+/// classed version, and an entry whose category the manifest does not admit for its crate: a caller that must lose
 /// nothing, as a writer must, asks [`refusal`](super::refusal) first, which refuses over each.
 pub fn assembled_text(
     table: &ChangelogTable,
@@ -178,6 +178,9 @@ fn place<'e>(
 /// A line of a crate's changelog the assembled file omits.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Omitted {
+    /// A line of the preamble that the preamble the manifest determines lacks, at this one-based
+    /// line.
+    Preamble(u32),
     /// A line the parse could not read, at this one-based line.
     Unread(u32),
     /// An entry the assembled file has no place for, at its first line.
@@ -185,8 +188,31 @@ pub(crate) enum Omitted {
 }
 
 /// The first line of `component`'s changelog `log` that the assembled file omits, or `None`
-/// where it omits nothing: an unread line first, then each entry [`place`] has no place for.
-pub(crate) fn omitted(table: &ChangelogTable, component: &str, log: &Changelog) -> Option<Omitted> {
+/// where it omits nothing: a line of its preamble that `expected`, the preamble the manifest
+/// determines for the crate, lacks, first, then an unread line, then each entry [`place`] has no
+/// place for.
+///
+/// The assembled file writes no preamble, since each crate's is the manifest's own text, which
+/// [`expected_preamble`] gives again. A line the expected text lacks is the project's, such as
+/// an entry under a misspelled version heading, which leaves every line below it in the preamble.
+/// A line is compared without the white space that ends it, so a blank line, and a line that
+/// differs from one of `expected` by trailing spaces alone, hold nothing to omit. A preamble that
+/// lacks a line of `expected` omits nothing: the changelog check's finding on it stands alone.
+pub(crate) fn omitted(
+    table: &ChangelogTable,
+    component: &str,
+    expected: &str,
+    log: &Changelog,
+) -> Option<Omitted> {
+    let known: Vec<&str> = expected.split('\n').map(str::trim_end).collect();
+    if let Some(i) = log
+        .preamble
+        .split('\n')
+        .position(|line| !known.contains(&line.trim_end()))
+    {
+        // The preamble opens the file, so its `i`th line is the file's line `i + 1`.
+        return Some(Omitted::Preamble(i as u32 + 1));
+    }
     if let Some(unread) = log.unread.first() {
         return Some(Omitted::Unread(unread.line));
     }
@@ -354,6 +380,31 @@ mod tests {
         back.sort();
         want.sort();
         assert_eq!(back, want);
+    }
+
+    /// The claim: a line of a crate's preamble that the expected preamble lacks is omitted, at
+    /// its line, before any unread line, and so are the lines below a misspelled version
+    /// heading, which the parse leaves in the preamble; a preamble that lacks a line of the
+    /// expected one, or ends a line with spaces, omits nothing. Mutation checked: in `omitted`,
+    /// `.position(|line| !known.contains(&line.trim_end()))` made `.position(|_| false)`; caught.
+    #[test]
+    fn a_preamble_line_the_manifest_s_lacks_is_omitted() {
+        let t = table("");
+        let expected = expected_preamble(&t, "pa", None);
+        let body = "## Next release\n\n- Migration, patch: a fix\n";
+        let omits = |text: &str| omitted(&t, "a", &expected, &parse(text));
+        assert_eq!(omits(&format!("{expected}\n\n{body}")), None);
+        let trailing = expected.replace("only.", "only.  ");
+        assert_eq!(omits(&format!("{trailing}\n\n{body}")), None);
+        let lacking = expected.replace("This file holds the entries of this crate only.\n\n", "");
+        assert_ne!(lacking, expected);
+        assert_eq!(omits(&format!("{lacking}\n\n{body}")), None);
+        assert_eq!(
+            omits(&format!("{expected}\n\nAn extra line.\n\n{body}stray\n")),
+            Some(Omitted::Preamble(9))
+        );
+        let misspelled = format!("{expected}\n\n{}", body.replace("release", "Release"));
+        assert_eq!(omits(&misspelled), Some(Omitted::Preamble(9)));
     }
 
     /// The claim, the expected preamble: the package, the assembled path named in words, its
