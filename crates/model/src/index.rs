@@ -322,8 +322,8 @@ fn link_target(path: &str) -> String {
 /// the gate cannot disagree about which files exist or what is in them.
 ///
 /// **An instance whose directory is not there contributes nothing.** Generating into it would
-/// create a register home as a side effect of a listing; the missing home is a `registers`
-/// finding, which is where a reader is told about it.
+/// create a register home as a side effect of a listing; the missing home is a phase-2 finding
+/// of `tree`, which is where a reader is told about it.
 ///
 /// `present` is the tree's listing, which places the entry anchors, per `Anchors::of`.
 pub fn file_register_indexes(

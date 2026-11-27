@@ -68,7 +68,7 @@ the first phase of a run, per `design@check@phases-gate-the-report`. What a comp
 in the configuration: a refused register is no register, a refused anchor is no anchor, a refused
 row is not in its list, so nothing acts on it and its consequences are never reported as defects of
 the tree. An extension's tables follow the same rule, per
-`design@check@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
+`design@model@an-extension-claims-its-manifest-tables`: its complaints are phase-1 findings, and a
 run that holds one stops before the extension reads anything.
 
 The design this decision did not keep: `rejected@model@refusing-a-wrong-declaration`.

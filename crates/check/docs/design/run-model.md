@@ -59,13 +59,12 @@ The phases that precede the checks are pure over the same inputs, per
 `design@check@phases-gate-the-report`, and an extension prepares only once the last phase is
 reached.
 
-Four things follow, and the rival in which each check reads the tree for itself pays for each of them.
+Three things follow, and the rival in which each check reads the tree for itself pays for each of
+them; the paragraph after them states the one exception.
 
 **The single walk is a property of the design rather than of anyone's care.** One run reads each
 live document once and parses it once. `model` scans each line once; an extension scans the same
-parse again, as often as its checks need, per `design@check@an-extension-builds-its-own-model`. That rival, as built in thaum, performed four tree
-walks and 311 file reads over thaum's 104 documents per run, then spawned its citation checker twice more to
-do it again.
+parse again, as often as its checks need, per `design@check@an-extension-builds-its-own-model`.
 
 **A check is tested against a model assembled in memory**, so most tests need no fixture on disk at
 all, which keeps a planted-defect corpus cheap to build.
@@ -177,22 +176,22 @@ from `goal@documentation-stays-consistent`: a tree that passes the checker confo
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one
 gives a project a kind, a shape and a home to be checked against; it cannot loosen the built-in
 ones, and it cannot exempt a document from anything. A manifest that declares no register is checked
-exactly as it was.
+exactly as under the default.
 
 **A file declared free of citations adds obligations and removes none.** `[walk.citation-free]`
 holds each file it matches to a rule over its spans that no other file meets, per
 `design@check@citation-free-paths`, so a matched file that passes would pass unmatched; a manifest
-that declares no such file is checked exactly as it was.
+that declares no such file is checked exactly as under the default.
 
 **One declaration removes obligations, and they are the agent configuration's alone.** A project
 that declares no agent harness, per `design@check@agents-table`, owes no CLAUDE.md and no installed
 agent file: these are documents a component carries, not rules over the documents it has. Every
 document the project carries is checked exactly as under the default.
 
-**An exemption, where an extension offers one, names FILES rather than rules.** `check` offers
+**An exemption, where an extension offers one, names files rather than rules.** `check` offers
 none. A file named is one that is leaving the tree, so the exemption expires with its subject; a
 rule held back would have applied to every file and expired with nothing. The files of a
 harvested slice, which no rule of `check` reads once the slice is frozen, leave the tree with their
 milestone, so the same asymmetry holds of them. That asymmetry is the
-whole of it — exempting a document that is about to be deleted costs the guarantee nothing, and
+whole of it: exempting a document that is about to be deleted costs the guarantee nothing, and
 exempting a rule costs it everywhere at once.

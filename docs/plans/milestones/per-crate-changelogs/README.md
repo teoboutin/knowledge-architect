@@ -295,7 +295,7 @@ each with its outcome. Every other verdict is in [the discussion's search](searc
 | `design@check@nothing-of-a-project-is-compiled-in` | the grammar and the classes are a sixth compiled-in member, `thread@per-crate-changelogs@changelog-grammar-compiled-in`; slice 3 |
 | `design@model@components-carry-the-same-documents` | the checks run only where `[changelog]` is declared, `thread@per-crate-changelogs@changelog-opt-in`; reading `publish` is no discovery by filename |
 | `design@model@registers-are-declared`, `design@check@nothing-of-a-project-is-compiled-in` | the set of changelog crates read from `publish` is a member of both, argued in "Reversed or rewritten"; slice 3 |
-| `design@check@an-extension-claims-its-manifest-tables` | `[changelog]` becomes a built-in table, so the name `changelog` is taken from every extension; slice 3 lists it among the heads it touches. `[walk.citation-free]` is a subtable of the built-in `[walk]`, and an extension claims only top-level tables, so slice 1 does not touch the head, as its design audit found |
+| `design@model@an-extension-claims-its-manifest-tables` | `[changelog]` becomes a built-in table, so the name `changelog` is taken from every extension; slice 3 lists it among the heads it touches. `[walk.citation-free]` is a subtable of the built-in `[walk]`, and an extension claims only top-level tables, so slice 1 does not touch the head, as its design audit found |
 | `design@check@safe-fix-definition`, `design@check@fix-scope` | `--fix` writes no byte of a crate's changelog: a preamble that differs is a finding whose message gives the expected text; slice 3 |
 | `design@model@a-reference-is-live-in-every-prose` | narrowed for the citation-free files, listed in "Reversed or rewritten"; slice 1 |
 | `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` | answered by the opt-in: the work asks nothing of a project that declares no `[changelog]` |
@@ -719,20 +719,22 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   `skill@knowledge-architect-decision-recording@owning-component` puts a head that binds several
   Components in the root; read the other, it stays in `check`, as the checker's own interface. It
   stayed in `check` at the split of `model` under the rule that a head a cut divides stays in the
-  core, which argued no placement. No record states which reading holds. Default: it stays in
-  `register@check@design`. Rival: it moves to `register@knowledge-architect@design`.
+  core, which argued no placement. No record states which reading holds. Default, built by slice
+  3's conforming step: it stays in `register@check@design`. Rival: it moves to
+  `register@knowledge-architect@design`.
 - **D10**, on `thread@per-crate-changelogs@changelog-model-home`, raised by slice 3's design audit.
-  `design@check@an-extension-claims-its-manifest-tables`, which slice 3's harvest touches, is
+  `design@model@an-extension-claims-its-manifest-tables`, which slice 3's harvest touches, is
   enforced by `model`, whose `contribute` refuses a table no extension claims, while `check`'s
-  `configure` gathers the claims; its title names `model`. Default: it moves to
-  `register@model@design`, by the reading D6 took, the head beside the code that enforces it. Rival:
-  it stays in `register@check@design`.
+  `configure` gathers the claims; its title names `model`. Default, built by slice 3's conforming
+  step: it moves to `register@model@design`, by the reading D6 took, the head beside the code that
+  enforces it. Rival: it stays in `register@check@design`.
 - **D11**, on `thread@per-crate-changelogs@changelog-model-home`, raised by slice 3's design audit.
-  `design@check@fix-before-the-checks` says the owner chose one `git add` and one more run over
+  `design@check@fix-before-the-checks` said the owner chose one `git add` and one more run over
   treating the deletions its own install made as done. Its history shows the owner approving the
   session's default, on the owner's report that the deletion or the rename of a skill is rare, and
-  that rival first written by a later session. Default: the paragraph becomes a head of its own
-  that gives the ranking to the session, on the owner's report. Rival: the attribution stays. The
+  that rival first written by a later session. Default, built by slice 3's conforming step: the
+  paragraph becomes a head of its own, `design@check@fix-leaves-its-deletion-unstaged`, that gives
+  the ranking to the session, on the owner's report. Rival: the attribution stays. The
   default changes a ranking the record attributes to the owner, so the owner rules on it.
 - **D12**, on `thread@per-crate-changelogs@changelog-opt-in`, raised by slice 3's design audit.
   `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` names as its re-entry point the next

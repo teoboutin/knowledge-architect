@@ -201,7 +201,7 @@ word. A workflow file assumes a host, and the setup skill's block stays the rout
 
 An extension binary that dispatches `cli::init` writes a manifest holding none of the extension's
 tables, and its first check reports each, with its repair, per
-`design@check@an-extension-claims-its-manifest-tables`. On the owner's word, a project with an
+`design@model@an-extension-claims-its-manifest-tables`. On the owner's word, a project with an
 extension would not need to run `klarch init`, so a hook would serve no adoption the owner
 expects.
 

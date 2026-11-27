@@ -181,7 +181,7 @@ install-then-index sequence from an upgrade.
 
 The design this decision did not keep: `rejected@check@fix-converting-old-entries`.
 
-### A fix run repairs the installed files, gates the model, refuses a partial commit's mismatch, writes the generated files, then checks `##fix-before-the-checks`
+### A fix run over a manifest it accepts writes before the model's gate only what does not depend on the model, and the generated files only after the gate and every refusal, then runs the full check `##fix-before-the-checks`
 
 The order of a `--fix` run: `--fix` with `--staged` is refused while parsing; a manifest holding a
 refused declaration writes nothing; the installed files are repaired; phases 1 to 3 run over the
@@ -192,10 +192,24 @@ both trees, and after the gate, whose model the comparison reads; the generated 
 written, from the list `index` reads, after every destination is checked; the full check runs. The
 installed files' bytes do not depend on the model, so they are repaired before the gate, while a
 generated file is never written over an incomplete model, per `design@check@phases-gate-the-report`.
-An upgrade that removes a shipped file leaves one thing to do: the deletion is unstaged, the last phase
-reports it after the generated files are written, and staging it touches git, which no fix does. The rival,
-`--fix` treating the deletions its own install just made as done, adds a special case to the family. The owner chose one `git add` and one more run over that rival, which no goal ranks, judging deleting or renaming a skill rare. A failed
-write exits 2 with nothing written, and 1 after any write, since 2 promises an untouched tree. The check stays the only verifier: `--fix` only writes
-before it verifies, so the rejected design of an `index` that prints a diff and a `--write`
-that applies it, a second command answering whether a file is current in its own format,
-`rejected@check@index-diff-with-write-flag`, is not reopened.
+A deletion the install made is left as `design@check@fix-leaves-its-deletion-unstaged` says, and a
+failed write exits as `design@check@fix-exit-code-after-a-write` says. The check stays the only
+verifier: `--fix` only writes before it verifies, so the rejected design of an `index` that prints
+a diff and a `--write` that applies it, a second command answering whether a file is current in its
+own format, `rejected@check@index-diff-with-write-flag`, is not reopened.
+
+### A fix run leaves a deletion its own install made unstaged, for the last phase to report `##fix-leaves-its-deletion-unstaged`
+
+An upgrade that removes a shipped file leaves one thing to do: the deletion is unstaged, the last
+phase reports it after the generated files are written, and staging it touches git, which no fix
+does, per `design@check@safe-fix-definition`. The rival, `--fix` treating the deletions its own
+install just made as done, adds a special case to the family `agents` of the last phase. One
+`git add` and one more run over that rival: the session ranked the cost of that special case above
+the cost of the extra run, which no goal ranks, on the owner's report that deleting or renaming a
+skill is rare, and that more than one run to handle one is not much of a problem.
+
+### A fix run whose write fails exits 2 only while it has written nothing, and 1 once it has written `##fix-exit-code-after-a-write`
+
+A failed write exits 2 with nothing written, and 1 after any write, the install's writes and
+deletions counting as writes, since code 2 of `design@cli@exit-code-ladder`, the command could not
+run, promises an untouched tree.

@@ -660,7 +660,7 @@ impl Walk {
 /// What the manifest declares, as written.
 ///
 /// **Every other top-level table is kept, as written, for an extension to claim**, per
-/// `design@check@an-extension-claims-its-manifest-tables`. That is why this struct refuses no
+/// `design@model@an-extension-claims-its-manifest-tables`. That is why this struct refuses no
 /// unknown field: `serde(flatten)` cannot be combined with that refusal, and phase 1 refuses a
 /// table no registered extension claims instead, so a misspelt table is still reported.
 #[derive(Debug, Clone, Deserialize)]

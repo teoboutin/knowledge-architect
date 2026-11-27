@@ -66,6 +66,3 @@ directory is there. **An extension's generated files are read the same way**: th
 names their paths before the walk and renders their bytes when prepared, and the writer and the
 gate both take them from those two calls, per
 `design@check@an-extension-plugs-in-through-phased-hooks`.
-
-**An instance with no directory contributes no index**: generating into it would create a register home as a side effect of a listing, and the
-missing home is what `tree` reports.

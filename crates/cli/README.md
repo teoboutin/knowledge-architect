@@ -12,7 +12,7 @@ own commands beside them, per `design@cli@the-commands-are-a-library-module`. Ev
 `init` to `cli::init` before it locates a project, since `init` is what creates one. Over a manifest
 holding a table no extension of the binary claims, the binary reports that table in phase 1, rather
 than skip in silence what the table configures, per
-`design@check@an-extension-claims-its-manifest-tables`. The commands below are written
+`design@model@an-extension-claims-its-manifest-tables`. The commands below are written
 `cargo klarch <command>`, the command this repository declares: a cargo alias over the binary it runs,
 built from the checkout. A project declares its own command with `[project] command`, and `klarch` is the
 command when it declares none. The checker prints the declared command in its messages, in the header of
