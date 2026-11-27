@@ -334,8 +334,9 @@ mod planted {
                 // `grammar`, the order's `=> v < p,` made `=> true,`; each of the tests of an empty
                 // section, an undeclared category, a category not admitted, a class that is none
                 // and the preamble made `false`; the `unclassed` test made `false && ...`; in
-                // `bump.rs`, `if *version != expected {` made `if *version == expected {`; and in
-                // `include.rs`, `.is_some_and(` made `.is_none_or(`.
+                // `bump.rs`, `if !admitted.contains(version) {` made
+                // `if admitted.contains(version) {`; and in `include.rs`, the arm
+                // `(Some(Ok(false)), _) =>` made `(Some(Ok(true)), _) =>`.
                 //
                 // In parts/widget/CHANGELOG.md, one defect per rule of the grammar: an undeclared
                 // category, a category the Component is not admitted to, a class that is none, a
