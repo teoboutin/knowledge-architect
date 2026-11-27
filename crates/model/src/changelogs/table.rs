@@ -179,13 +179,22 @@ pub(crate) fn resolve(
         category_components.insert(category.clone(), kept);
     }
 
+    // A path refused here is a complaint of phase 1, which stops every run before a check or a
+    // writer reads the table, so the default it falls back to is never acted on.
     let mut assembled = declared
         .assembled
         .clone()
         .unwrap_or_else(|| PathBuf::from(DEFAULT_ASSEMBLED));
-    if !normalise_one("[changelog] assembled", &mut assembled, complaints)
-        || assembled.as_os_str().is_empty()
-    {
+    if !normalise_one("[changelog] assembled", &mut assembled, complaints) {
+        assembled = PathBuf::from(DEFAULT_ASSEMBLED);
+    } else if assembled.as_os_str().is_empty() {
+        complaints.push(Finding::in_file(
+            MANIFEST_NAME,
+            "[changelog] assembled names the project's root, which no file can be written at"
+                .to_string(),
+            "name the file the assembled changelog is written to, or remove the key for \
+             `CHANGELOG.md` at the root",
+        ));
         assembled = PathBuf::from(DEFAULT_ASSEMBLED);
     }
 
@@ -246,6 +255,18 @@ mod tests {
         assert!(table.restricted_to("Z").is_none());
         let found: Vec<&str> = complaints.iter().map(|f| f.what.as_str()).collect();
         assert_eq!(found.len(), 5, "{found:#?}");
+    }
+
+    /// The claim: an `assembled` path that names the root, empty or `.`, is a complaint, as one
+    /// that leaves the project is. Mutation checked: in `resolve`, the arm
+    /// `} else if assembled.as_os_str().is_empty() {` made `} else if false {`; caught.
+    #[test]
+    fn an_assembled_path_naming_the_root_is_refused() {
+        for path in ["", ".", "./", "../x.md"] {
+            let (_, complaints) =
+                resolved(&format!("categories = [\"A\"]\nassembled = \"{path}\"\n"));
+            assert_eq!(complaints.len(), 1, "{path:?}: {complaints:?}");
+        }
     }
 
     /// The claim, a category restricted by `[changelog.category-components]` is admitted in the

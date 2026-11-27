@@ -786,7 +786,7 @@ impl Manifest {
         let changelog = declared.changelog.as_ref().map(|table| {
             crate::changelogs::resolve(table, &component_names(&declared), &mut complaints)
         });
-        Ok(Self {
+        let mut manifest = Self {
             root: root.to_path_buf(),
             declared,
             registers,
@@ -797,7 +797,26 @@ impl Manifest {
             pin,
             citation_free,
             changelog,
-        })
+        };
+        // The assembled changelog may not sit in the installer's namespace: the install deletes
+        // what it does not ship there, and the writers write it again, so `check --fix` would
+        // never pass. Whether the project serves the harness is known once it is built.
+        let assembled = manifest
+            .changelog
+            .as_ref()
+            .map(|t| t.assembled().to_path_buf());
+        if let Some(path) = assembled.filter(|p| manifest.owned(p)) {
+            manifest.complaints.push(Finding::in_file(
+                MANIFEST_NAME,
+                format!(
+                    "[changelog] assembled names `{}`, in the installer's namespace",
+                    slashed(&path)
+                ),
+                "name a path outside the installer's namespace: the install deletes a file it \
+                 does not ship there",
+            ));
+        }
+        Ok(manifest)
     }
 
     /// The project's root: the directory `find` or `load` read the manifest from, or the root
@@ -2155,6 +2174,26 @@ pub(crate) mod tests {
              [walk]\nskip-dirs = []\nskip-files = []\n"
         );
         Manifest::parse(Path::new("/nowhere"), &text).expect("a declaration")
+    }
+
+    /// The claim: an assembled changelog in the installer's namespace is a complaint where the
+    /// project serves the harness, and none where it serves none, since nothing is installed.
+    /// Mutation checked: in `Manifest::parse`, `assembled.filter(|p| manifest.owned(p))` made
+    /// `assembled.filter(|_| false)`; caught.
+    #[test]
+    fn an_assembled_changelog_in_the_installer_s_namespace_is_refused() {
+        let table = "[changelog]\ncategories = [\"A\"]\nassembled = \".claude/knowledge-architect/ALL.md\"\n";
+        let served = with_agents(table);
+        assert_eq!(served.complaints().len(), 1, "{:?}", served.complaints());
+        assert!(served.complaints()[0]
+            .what
+            .contains("installer's namespace"));
+        let unserved = with_agents(&format!("[agents]\nharness = []\n\n{table}"));
+        assert!(
+            unserved.complaints().is_empty(),
+            "{:?}",
+            unserved.complaints()
+        );
     }
 
     /// The claim: `commits` refuses branch SHAs only where `[commits] refuse-branch-shas` is

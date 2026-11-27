@@ -1135,6 +1135,29 @@ fn declarations(out: &mut Vec<Finding>, model: &Model, manifest: &Manifest, inpu
     // judges, which this phase is not told, so the repair names both trees' commands.
     let generated =
         crate::index::generated_paths(manifest, model.changelog_crates(), inputs.present);
+
+    // **The assembled changelog takes no other generated file's path**: two texts generated at one
+    // path are both written, each over the other, and the comparison of one fails whichever wins,
+    // so no run of `index` clears it. A register index's path is known from the listing, which
+    // places the entry anchors, so this is judged here rather than where the table is parsed.
+    if let Some(assembled) = model.changelog_crates().assembled(manifest) {
+        let index = crate::index::generated_index_paths(manifest, inputs.present);
+        let taken = index.contains(assembled)
+            || manifest
+                .extension_generated()
+                .iter()
+                .any(|g| g == assembled);
+        if taken {
+            out.push(Finding::in_file(
+                MANIFEST_NAME,
+                format!(
+                    "[changelog] assembled names `{}`, which another generated file takes",
+                    slashed(assembled)
+                ),
+                "name a path no register index and no extension's generated file takes",
+            ));
+        }
+    }
     let regenerate = format!(
         "remove the link, from the index too where it is staged, then write the generated file \
          in its place: `{command} index` writes it into the working tree, and \
