@@ -272,9 +272,10 @@ impl Model {
             .collect();
         // A generated file and an installed one are outside the walk by construction: the
         // first is a function of the tree, the second is judged by its bytes alone.
-        let changelog_crates = crate::changelogs::read_crates(manifest, &files, &|rel: &Path| {
-            std::fs::read_to_string(root.join(rel)).ok()
-        });
+        let changelog_crates =
+            crate::changelogs::changelog_crates(manifest, &files, &|rel: &Path| {
+                std::fs::read_to_string(root.join(rel)).ok()
+            });
         let mut generated = crate::index::generated_paths(manifest, &changelog_crates, &listing);
         generated.extend(files.iter().filter(|f| manifest.owned(f)).cloned());
         // A frozen file leaves the walk by construction, as an installed one does.
@@ -401,7 +402,9 @@ impl Model {
     /// A model assembled from text rather than from a checkout, for a test.
     ///
     /// It takes no walk configuration: what the walk skips decides which files exist, and a
-    /// caller handing the text in has already decided that.
+    /// caller handing the text in has already decided that. It holds no changelog crates, whatever
+    /// a manifest declares, so nothing is assembled over it and the changelog checks judge nothing,
+    /// until the caller sets them with [`Model::set_changelog_crates`].
     pub fn from_documents(docs: Vec<(PathBuf, String)>) -> Self {
         Self::from_documents_under(docs, &[])
     }
@@ -413,7 +416,8 @@ impl Model {
     /// is stated. A Rust file under it reads its string literals as data, per
     /// `design@check@checker-source-literals-are-data`. `commits` needs this because a per-commit
     /// model is assembled from git objects and would otherwise read the tool's own fixtures as
-    /// live citations at every commit in the range.
+    /// live citations at every commit in the range. It holds no changelog crates, as
+    /// [`Model::from_documents`] holds none.
     pub fn from_documents_under(docs: Vec<(PathBuf, String)>, checker: &[&Path]) -> Self {
         let docs = docs
             .into_iter()
@@ -455,7 +459,7 @@ impl Model {
     }
 
     /// Set the changelog crates of a model assembled from a tree's text rather than built from a
-    /// checkout, as [`changelog_crates`](crate::model::changelog_crates) reads them from that tree before its walk.
+    /// checkout, as [`changelog_crates`](crate::changelogs::changelog_crates) reads them from that tree before its walk.
     pub fn set_changelog_crates(&mut self, crates: crate::changelogs::Crates) {
         self.changelog_crates = crates;
     }
@@ -656,20 +660,6 @@ fn describe(what: &Observation) -> (&'static str, String) {
         // where the entity table defines its id, which the lints on ids judge.
         Observation::BareName(_) | Observation::PlainWord(_) => ("", String::new()),
     }
-}
-
-/// The changelog crates of a tree, from its listing and a reader of its files' text, which answers
-/// `None` where a file's bytes are not text; empty where the manifest declares no `[changelog]`.
-///
-/// What [`Model::build`] reads from the disk, for a caller that builds a model from a snapshot's
-/// blobs: it hands the result to [`generated_paths`](crate::index::generated_paths) before the
-/// walk, and to [`Model::set_changelog_crates`] after.
-pub fn changelog_crates(
-    manifest: &Manifest,
-    listing: &[PathBuf],
-    read: &dyn Fn(&Path) -> Option<String>,
-) -> crate::changelogs::Crates {
-    crate::changelogs::read_crates(manifest, listing, read)
 }
 
 #[cfg(test)]

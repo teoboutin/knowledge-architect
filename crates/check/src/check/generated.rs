@@ -21,7 +21,8 @@ use crate::model::Model;
 use super::{Inputs, Judged};
 
 /// Compare each generated file with what it would be generated as now: every file an
-/// extension generates, then one index per file-register instance.
+/// extension generates, then one index per file-register instance, then the assembled changelog
+/// where one is assembled.
 ///
 /// An extension's files arrive already rendered, because only the extension can render them;
 /// the file-register indexes are rendered here, so a caller handing in no extension still has

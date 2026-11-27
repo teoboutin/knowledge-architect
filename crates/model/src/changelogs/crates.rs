@@ -105,7 +105,12 @@ impl Crates {
 /// The changelog crates of the tree whose listing is `listing`, each file's text given by `read`,
 /// which answers `None` for bytes it could not read as text. Empty where the manifest declares no
 /// `[changelog]`.
-pub(crate) fn read(
+///
+/// What [`Model::build`](crate::Model::build) reads from the disk, for a caller that builds a
+/// model from a snapshot's blobs: it hands the result to
+/// [`generated_paths`](crate::index::generated_paths) before the walk, and to
+/// [`Model::set_changelog_crates`](crate::Model::set_changelog_crates) after.
+pub fn read(
     manifest: &Manifest,
     listing: &[PathBuf],
     read: &dyn Fn(&Path) -> Option<String>,
@@ -256,7 +261,7 @@ mod tests {
         crates.all().iter().map(|c| c.component.as_str()).collect()
     }
 
-    /// The claim, claim 12 of the slice: with `components` absent, a package is a changelog crate
+    /// The claim: with `components` absent, a package is a changelog crate
     /// where Cargo would publish it, its `version` its own or inherited, and an empty `publish`
     /// list, a `publish = false` and a missing `version` make none. Mutations checked, each caught:
     /// in `published`, `Field::Set(Publish::Registries(names)) => !names.is_empty(),` made
@@ -312,7 +317,7 @@ mod tests {
         assert_eq!(all.all()[0].package, "pa");
     }
 
-    /// The claim, claim 2's listed half: with `components` listed, exactly those are read,
+    /// The claim: with `components` listed, exactly those are read,
     /// whatever `publish` says, and a listed one with no `Cargo.toml` or no package is trouble.
     /// Mutation checked: `if !listed && !published(&resolved)` made `if !published(&resolved)`;
     /// caught.
@@ -334,7 +339,7 @@ mod tests {
         );
     }
 
-    /// The claim, claim 13's Cargo half: a `Cargo.toml` that `cargo-reader` refuses, one that
+    /// The claim: a `Cargo.toml` that `cargo-reader` refuses, one that
     /// inherits from no workspace, and one a `[walk]` row keeps out are each trouble carrying its
     /// reason, and no crate. Mutation checked: in `read`,
     /// `out.trouble.push(unreadable(e.to_string()));` made `let _ = e;`; caught.

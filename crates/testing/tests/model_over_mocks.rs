@@ -1,7 +1,7 @@
 //! `model` driven through its public API over whole projects, not over strings.
 //!
 //! A mock project under `path@testing@tests/projects/` is a complete project: it carries its
-//! own `knowledge-architect.toml` and its own documents, and it declares no table `check` does not own.
+//! own `knowledge-architect.toml` and its own documents, and it declares no table but the built-in ones.
 //! That is what makes these tests worth more than the in-memory ones: a fixture written as a
 //! string cannot exercise the walk, the exclusions, or a layout different from this repository's.
 //!
