@@ -90,6 +90,49 @@ impl ChangelogTable {
     pub fn restricted_to(&self, category: &str) -> Option<&[String]> {
         self.category_components.get(category).map(Vec::as_slice)
     }
+
+    /// One table over several read with no manifest, as [`read_preamble`](super::read_preamble)
+    /// gives them: every category of each, in the order of first appearance, and every unclassed
+    /// version of each. Each category is admitted for every crate, as in each table it merges.
+    ///
+    /// For a rendering over the changelogs of several crates, each read from its own preamble:
+    /// where the crates' preambles agree, as those of one project do, the merged table is each
+    /// of them. A table the manifest resolved restricts its categories by Component, which the
+    /// merged table drops: it is meant for tables a preamble gives, which restrict none.
+    pub fn merged<'t>(tables: impl IntoIterator<Item = &'t ChangelogTable>) -> ChangelogTable {
+        let mut out = ChangelogTable::with_no_manifest(Vec::new(), Vec::new());
+        for table in tables {
+            for category in &table.categories {
+                if !out.categories.contains(category) {
+                    out.categories.push(category.clone());
+                }
+            }
+            for version in &table.unclassed {
+                if !out.unclassed.contains(version) {
+                    out.unclassed.push(*version);
+                }
+            }
+        }
+        out
+    }
+
+    /// The table of a crate read with no manifest of its publisher: `categories` in their order,
+    /// each admitted for every crate, since a preamble states no
+    /// `[changelog.category-components]`, and `unclassed`; no Component is listed, and the
+    /// assembled path is the default, which no reader of such a table writes.
+    pub(super) fn with_no_manifest(
+        categories: Vec<String>,
+        unclassed: Vec<Version>,
+    ) -> ChangelogTable {
+        ChangelogTable {
+            components: Vec::new(),
+            assembled: PathBuf::from(DEFAULT_ASSEMBLED),
+            assembled_url: None,
+            categories,
+            unclassed,
+            category_components: BTreeMap::new(),
+        }
+    }
 }
 
 /// Resolve the table against the project's Component names, `names` in the manifest's order, the
@@ -307,5 +350,28 @@ mod tests {
         assert!(table.admits("W", "beta"));
         assert!(!table.admits("W", "alpha"));
         assert!(!table.admits("Z", "alpha"));
+    }
+
+    /// The claim: tables read with no manifest merge into one holding every category of each, in
+    /// the order of first appearance, and every unclassed version of each, once. Mutation
+    /// checked: in `merged`, `if !out.categories.contains(category) {` made `if true {`; caught.
+    #[test]
+    fn tables_read_with_no_manifest_merge_in_the_order_of_first_appearance() {
+        let v = |t: &str| Version::parse(t).unwrap();
+        let named = |c: &[&str], u: &[&str]| {
+            ChangelogTable::with_no_manifest(
+                c.iter().map(|c| c.to_string()).collect(),
+                u.iter().map(|u| v(u)).collect(),
+            )
+        };
+        let first = named(&["Migration", "Workflow"], &["0.1.0"]);
+        let second = named(&["New features", "Migration", "Other"], &["0.1.0", "0.2.0"]);
+        let merged = ChangelogTable::merged([&first, &second]);
+        assert_eq!(
+            merged.categories(),
+            ["Migration", "Workflow", "New features", "Other"]
+        );
+        assert_eq!(merged.unclassed(), [v("0.1.0"), v("0.2.0")]);
+        assert!(merged.admits("Other", "any-crate"));
     }
 }

@@ -154,13 +154,15 @@ pub mod foundation {
 }
 
 /// A crate's changelog: the crates that hold one, the parse of its file, the preamble the manifest
-/// determines, and the assembled file of the whole project, with the refusal its writers share.
-/// Every finding over them is a check's, none a phase's.
+/// determines and its read with no manifest, and the assembled file of the whole project, with the
+/// refusal its writers share, and its layout with no header over chosen sections. Every finding
+/// over them is a check's, none a phase's.
 pub mod changelog {
     pub use crate::changelogs::{
-        assembled_file, assembled_text, changelog_crates, expected_preamble, hand_written, parse,
-        refusal, CargoTrouble, Changelog, Class, Crate, Crates, Entry, Heading, Refused, Section,
-        Tag, Unread, Version, WrittenTree, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
+        assembled_body, assembled_file, assembled_text, changelog_crates, expected_preamble,
+        hand_written, parse, read_preamble, refusal, unplaced, CargoTrouble, Changelog, Class,
+        Crate, Crates, Entry, Heading, ReadPreamble, Refused, Section, Tag, Unread, Version,
+        WrittenTree, CHANGELOG_FILE, GENERATED_HEADER, NEXT_RELEASE,
     };
 }
 
