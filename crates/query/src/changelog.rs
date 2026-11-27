@@ -82,7 +82,7 @@ pub struct ChangelogRequest {
 ///
 /// It runs `cargo metadata --format-version 1 --manifest-path <root>/Cargo.toml --locked
 /// --offline` at the manifest's root, so the graph is that of the Cargo project the root holds,
-/// never one of a package enclosing it; it writes no file, `Cargo.lock` included, and reaches no
+/// never one of a package enclosing it, per `design@query@changelog-reads-the-root-s-graph`; it writes no file, `Cargo.lock` included, and reaches no
 /// network, per `design@query@changelog-runs-cargo-locked-and-offline`, as
 /// `path@cargo-reader@docs/grounding/cargo-metadata.md` measures the flags. Of the resolved graph
 /// it selects, each package in its newest version where the graph holds several, per
@@ -91,14 +91,16 @@ pub struct ChangelogRequest {
 /// otherwise the named package and those. It reads the
 /// `CHANGELOG.md` beside each one's `Cargo.toml`, which lies in the sources cargo fetched or, for a
 /// member or a path dependency, in its directory, possibly inside the project; places each one's
-/// entries by the categories and the unclassed versions its own preamble states; and prints the
+/// entries by the categories and the unclassed versions its own preamble states, per
+/// `design@query@changelog-places-each-crate-by-its-own-preamble`; and prints the
 /// sections of the range in the layout of an assembled changelog with no generated header, the
 /// named package first under each category, then the others by package name, per
 /// `design@query@consumer-crate-order`. A version none of them holds an entry of is not printed;
 /// where the range holds no entry, a line says so, and where it holds entries the layout has no
 /// place for alone, a line says that instead.
 ///
-/// After the layout, it prints one line per thing the layout cannot hold, naming the file and,
+/// After the layout, it prints one line per thing the layout cannot hold, per
+/// `design@query@changelog-reports-what-it-cannot-print`, naming the file and,
 /// but for a file it does not read, the line: a selected package with no readable `CHANGELOG.md`,
 /// or one holding a carriage return that no line feed follows, which ends no line the parse
 /// takes, so that the file would read as one line;

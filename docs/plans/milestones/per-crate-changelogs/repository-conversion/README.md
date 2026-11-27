@@ -84,6 +84,9 @@ slice 4's.
 ## Premises that expire
 
 - None: this is the last slice.
+- Its landing reports on `acceptance@per-crate-changelogs@selection-reaches-every-crate`, which slice
+  4's spec holds and which real use judges from this slice on, as the milestone document's
+  "Acceptance criteria" says.
 
 ## What is already decided
 

@@ -1,6 +1,6 @@
 # query
 
-Tools over the record of a project or of one of its dependencies. What it is for is
+Tools over a project's record, or the changelogs of its dependencies. What it is for is
 `design@knowledge-architect@query-crate`; what it does for a user is
 `path@query@README.md`; why it is shaped this way is `register@query@design`.
 

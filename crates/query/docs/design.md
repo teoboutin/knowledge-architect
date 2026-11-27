@@ -15,7 +15,7 @@ every gate, so a reader of this head is what catches it. A command that needs a 
 
 ### Each function takes a manifest its caller configures, and a program that links no check reads a project with an extension as it stands `##a-function-takes-a-configured-manifest`
 
-`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. `goal@documentation-has-a-structure-and-a-model` asks that a tool of knowledge-architect can tell whether what it read is complete and right; `klarch` and an extension's binary are such tools, and read as their `check` does, while a program that links this crate and no check is a tool of its writer, which reads the project as it stands. A manifest its caller configures over a type only `extension::configure` returns, placed in `model`, which each function would take: the session ranked the rival's cost, a change to `Manifest` as the facades publish it whose extent is not established, above a program that links no check reading otherwise than a binary, which no goal ranks. The enforcement of the precondition is `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
+`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. `goal@documentation-has-a-structure-and-a-model` asks that a tool of knowledge-architect can tell whether what it read is complete and right. The interface the project offers a consumer is the command line of `klarch`, the gates and the mutation libraries and the framework an extension's binary is built on, the owner reported, and this crate holds what no extension is written against, per `design@knowledge-architect@api-facade`: so the binaries that offer these commands configure the manifest before they dispatch and read as their `check` does, while a program that links this crate and no check uses no interface the project offers, and reads the project as it stands. Which public items the project offers a consumer is `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`. A manifest its caller configures over a type only `extension::configure` returns, placed in `model`, which each function would take: the session ranked the rival's cost, a change to `Manifest` as the facades publish it whose extent is not established, above a program that links no check reading otherwise than a binary, which no goal ranks. The enforcement of the precondition is `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
 
 ### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
 
@@ -493,17 +493,8 @@ bound; real sessions measure it, per `goal@the-workflow-improves-through-real-us
 `cargo metadata` resolves in the project, `--package` absent: every package whose `repository` equals
 the named package's, and the named package alone where it sets none; with `--package`, the named
 package and those names, and no other. A package the graph holds at several versions is read in its
-newest version's file, which holds every earlier version's section. Each file is read by the
-model's parse, its table by the read of its own preamble, per `design@check@category-order-in-preamble`,
-since the consumer holds no manifest of the publisher, and each crate's entries are placed by its
-own table, the categories of the layout being those of the preambles in the order they first
-appear; the selected crates are rendered in the assembled layout of
-`design@model@assembled-changelog-layout` over the versions in (`--from`, `--to`], with no generated
-header, since the output is no file. What the output cannot hold is reported after it, by file and
-line, with exit 1, per `design@cli@exit-code-ladder`, so a pin move never reads a partial list as
-whole: a file missing, a preamble line of no shape the read takes, every unread line of a selected
-file, since one may be a version heading the parse did not take, whose entries then sit in the
-section above it, and an entry with no place in a section of the range.
+newest version's file, which holds every earlier version's section. The versions printed are those
+in (`--from`, `--to`].
 
 It serves `goal@generic-tools-and-procedures-are-shipped`, under which the reading a pin move does
 is done by a tool that serves every target project: the rule reads no name of this project, and
@@ -514,27 +505,59 @@ and the mutation library. The nearest rival, the named package's dependency clos
 `path@cli@Cargo.toml` depends on neither `knowledge-architect-gates` nor
 `knowledge-architect-mutate`.
 
-### `changelog` runs `cargo metadata` under `--locked` and `--offline`, so a run writes nothing and reaches no network `##changelog-runs-cargo-locked-and-offline`
+### `changelog` places each crate's entries by the table its own preamble states `##changelog-places-each-crate-by-its-own-preamble`
 
-The command runs `cargo metadata --format-version 1 --locked --offline` with `--manifest-path`
-naming the `Cargo.toml` at the project's root, so the graph of a package that encloses the project
-is never read; a root with no `Cargo.toml` is a could-not-run that sends a project with no Rust to
-the reading by hand of the pin move, and Cargo's failure is a could-not-run, with Cargo's message
-and a repair naming `cargo fetch` after the pin's edit. Measured, as `path@cargo-reader@docs/grounding/cargo-metadata.md` records with the
-commands that take it again: without `--locked`, the run writes `Cargo.lock` where it is missing or
-stale; without `--offline`, it updates the index and downloads crates; with both, a lock the pin's
-edit left stale fails, and a run after `cargo fetch` passes and writes nothing. A command that reads
-the changelogs of a pin move so stays a read, which a run in a sandbox that reaches the registry and
-no other host can make. Where the binary is built by Cargo first, as the alias of a project's
-maintenance crate builds it with `cargo run`, that build resolves the edited pin and writes the lock
-before the command runs, so the command's own run passes, writing nothing.
+Each selected file is read by the model's parse, and its table, its categories and its `unclassed`
+versions, by the read of its own preamble, per `design@check@category-order-in-preamble`, since a
+consumer holds no manifest of the publisher. Each crate's entries are placed by its own table, and
+the selected crates are rendered in the layout of `design@model@assembled-changelog-layout`, with no
+generated header, since the output is no file, one selected crate included, since
+`design@model@assembled-changelog-from-two-crates` decides when a project's file is assembled, not
+what this command prints. The nearest rival, every crate placed by one table merged from all the
+preambles, prints an entry of a category its own preamble does not list wherever another selected
+crate's preamble lists it, and reports it nowhere: `--package` selects crates of two projects
+together, whose preambles differ.
+
+### `changelog` reports after its output each line it cannot hold, and then exits 1 `##changelog-reports-what-it-cannot-print`
+
+What the output cannot hold is listed after it, by file, and by line where it has one, and the
+exit is 1, the ladder's negative answer, per `design@cli@exit-code-ladder`: a selected file missing,
+or holding a carriage return with no line feed after it; a preamble line of no shape the read takes;
+every unread line of a selected file, whatever its section; and an entry with no place in a
+section of the range. A pin move reads the output as the whole list of what it must act on, so a
+line dropped in silence is an entry missed. An unread line is reported outside the range too, since
+one may be a version heading the parse did not take, whose entries then sit in the section above
+it, outside a range bounded by `--to`; an entry with no place outside the range is not, since
+nothing of its section is printed.
+
+### `changelog` runs `cargo metadata` under `--locked` and `--offline`, so a run writes nothing of the project and reaches no network `##changelog-runs-cargo-locked-and-offline`
+
+The command runs `cargo metadata --format-version 1 --locked --offline`, and Cargo's failure is a
+could-not-run, with Cargo's message and a repair naming `cargo fetch` after the pin's edit, since
+Cargo's own help names `--offline` alone, under which the run writes the lock. Measured, as
+`path@cargo-reader@docs/grounding/cargo-metadata.md` records with the commands that take it again:
+without `--locked`, the run writes `Cargo.lock` where it is missing or stale; without `--offline`,
+it updates the index and downloads crates; with both, a lock the pin's edit left stale fails, and a
+run after `cargo fetch` passes and writes nothing of the project. A command that reads the
+changelogs of a pin move so stays a read, which a run in a sandbox that reaches the registry and no
+other host can make. Where the binary is built by Cargo first, as the alias of a project's
+maintenance crate builds it with `cargo run`, that build resolves the edited pin and writes the
+lock before the command runs, so the command's own run passes.
+
+### `changelog` reads the graph of the `Cargo.toml` at the project's root, and refuses a root with none `##changelog-reads-the-root-s-graph`
+
+The run names the root's `Cargo.toml` by `--manifest-path`, and a root with no `Cargo.toml` is a
+could-not-run, per `design@cli@exit-code-ladder`. Measured, as
+`path@cargo-reader@docs/grounding/cargo-metadata.md` records: run in a directory with no
+`Cargo.toml` inside a package, `cargo metadata` reads the enclosing package's graph, which would
+print the changelogs of another project's dependencies with exit 0.
 
 ### `changelog` prints the named package first, then the other selected crates by package name `##consumer-crate-order`
 
 Under each category, the crates follow the named package, then the others in the order of their
 package names. No file a consumer receives states the publisher's order of the Components, which
 `design@model@assembled-crates-in-the-manifest-s-order` fixes for the assembled file, so the output
-holds the publisher's entries, its crates in another order than the publisher's file. This order
-over each preamble stating the project's crates in the manifest's order,
-`rejected@query@crate-order-stated-in-the-preamble`: the owner ranked a preamble and a check left as
-built above an output in the publisher's crate order, which no goal ranks.
+holds the publisher's entries, its crates in another order than the publisher's file. The nearest
+rival, each preamble stating the project's crates in the manifest's order,
+`rejected@query@crate-order-stated-in-the-preamble`, changes the preamble every changelog crate
+holds and its check, where the order it buys changes no entry a pin move reads.

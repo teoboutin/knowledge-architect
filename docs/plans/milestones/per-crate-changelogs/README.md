@@ -574,8 +574,10 @@ on the checkpoint table:
 
 ## Acceptance criteria
 
-The one acceptance criterion, on `thread@per-crate-changelogs@registry-changelog-command`, is
-judged by slice 4 and lives in its spec, [the command](changelog-command/README.md).
+The one acceptance criterion, on `thread@per-crate-changelogs@registry-changelog-command`, lives
+in slice 4's spec, [the command](changelog-command/README.md), and is judged by real use from slice
+5 on: slice 5's landing and the deletion of this document report on it, as
+`acceptance@per-crate-changelogs@selection-reaches-every-crate`'s own lines say.
 
 ## Implementation sequence
 
@@ -774,7 +776,7 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   `design@model@assembled-crates-in-the-manifest-s-order` fixes for the assembled file. Default: the
   command prints the named package first, then the others by package name. Rival: each preamble
   states the project's crates in the manifest's order, which the command follows.
-  **Ruled**, at slice 4's design audit: the default kept, the owner's choice, recorded as
+  **Ruled**, at slice 4's design audit: the default kept, on the owner's approval, recorded as
   `thread@per-crate-changelogs@consumer-crate-order`.
 - **D16**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by slice 4's design
   audit. `design@query@a-function-takes-a-configured-manifest`, which slice 4's harvest
@@ -791,6 +793,27 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   **Ruled**, at slice 4's design audit: the rival, on the owner's word; the discussion is held in
   slice 4's branch on the in-change path, with no record search but the slice's design audit's,
   and its head, `design@knowledge-architect@one-program-for-the-tools`, closes the issue.
+- **D18**, on `thread@per-crate-changelogs@changelog-the-pin-reads`, raised by the design
+  conformance review before the merge of slice 4: whether a project with no Rust is a target
+  project, which `goal@serves-one-kind-of-project` leaves the owner to read, since slice 4 had
+  rewritten the pin move's reading by hand for one. Default: the reading by hand stays as it was on
+  main. Rival: the widening kept, a list of the checker's packages read by hand.
+  **Ruled**, at the review before the merge of slice 4: neither; on the owner's word, a project with
+  no Rust is no target project, nothing caters to it, and a consumer may try it at its own risk, as
+  with any other ask; so the pin move's steps 1 and 2 give no case for one, and
+  `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` keeps the
+  setup skill's other such texts.
+- **D19**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by the design
+  conformance review before the merge of slice 4: D16's premise was false, since the goals' glossary
+  defines a tool as a program, a command or a library function that runs without an agent's
+  judgement, so `query`'s functions are tools of knowledge-architect. Default: the head states the
+  strain on the goal. Rival: the choice reopened.
+  **Ruled**, at the review before the merge of slice 4: neither; the owner reported that the
+  interface offered to a consumer is the command line of `klarch`, the gates and the mutation
+  libraries and the extension framework, `query` among what is built for this project alone, and
+  asked for a later discussion of that line, now
+  `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`; the head
+  rests on that report and on `design@knowledge-architect@api-facade`.
 
 ## Harvest
 

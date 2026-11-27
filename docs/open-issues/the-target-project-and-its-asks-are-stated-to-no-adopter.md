@@ -41,7 +41,10 @@ conditions and the asks; and no design head names the command and its merge invo
 
 - Texts still offer what the asks rule out, or route a new ask otherwise:
   - the setup skill's case of a project with no Rust, which installs the checker locally, serves no
-    target project, since a target project's shipped code is Rust;
+    target project, since a target project's shipped code is Rust: the owner ruled that such a
+    project is no target project and that nothing caters to it, a consumer trying it at its own
+    risk, and the pin move no longer gives it a case, while the setup skill's other sections still
+    do;
   - `init --vcs none`, per `design@create@init-runs-git-init`, writes a project that is no git
     repository, a state that does not follow the git ask and whose working the goal does not guarantee;
 

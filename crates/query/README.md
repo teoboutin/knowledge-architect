@@ -1,6 +1,6 @@
 # knowledge-architect-query
 
-Tools over the record of a project or of one of its dependencies: one entry whole and what cites it, the issues and the
+Tools over a project's record, or the changelogs of its dependencies: one entry whole and what cites it, the issues and the
 tripwires one row each, the anchors and each register's home, whether an id is free, the work list of a search of the
 whole record with the check of its reports, and the changelogs of the project's dependencies over a range of versions,
 from the sources cargo fetched. They run no check, and this crate depends on nothing of the checks.

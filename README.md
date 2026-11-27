@@ -49,7 +49,7 @@ Windows, the documentation build and the tests, the list whose home is `design@x
 | crates/model | the library of what knowledge-architect reads of a project, `knowledge-architect-model` |
 | crates/git | the library that wraps git for the tools of knowledge-architect, `knowledge-architect-git` |
 | crates/cargo-reader | the library that reads what the tools of knowledge-architect need of Cargo, `knowledge-architect-cargo-reader` |
-| crates/query | the library of the commands that read the record of the project or of one of its dependencies and run no check, `knowledge-architect-query` |
+| crates/query | the library of the commands that read a project's record, or the changelogs of its dependencies, and run no check, `knowledge-architect-query` |
 | crates/transcript | the library that reads an agent harness's session transcripts, `knowledge-architect-transcript` |
 | crates/create | the library that creates a project and adds a Component to one, `knowledge-architect-create` |
 | crates/testing | what an extension's tests need, and this repository's mock projects with the tests over them, `knowledge-architect-testing` |

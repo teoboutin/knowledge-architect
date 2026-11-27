@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -10,6 +10,7 @@
 | defect | [A path reference that git reads as a pathspec it refuses stops the whole run, and one it reads as the repository's top is misjudged](a-path-git-reads-as-a-pathspec-stops-the-run-or-misreads.md) |
 | defect | [A backticked span whose head shortens a kind's name, as `arg@<plan>@<id>` for `argument`, passes the check silent](a-span-whose-head-shortens-a-kind-passes-the-check-silent.md) |
 | defect | [A backticked span with an empty head and a slash is reported as malformed, which the candidate rule says is silent](a-span-with-an-empty-head-is-malformed-against-its-head.md) |
+| defect | [A `\[changelog\] assembled-url` holding a line break is accepted, and writes a line of its own into every crate's preamble](an-assembled-url-with-a-line-break-injects-a-line-into-every-preamble.md) |
 | defect | [An ignored directory cited with no trailing slash gets a verdict that depends on what is on disk](an-ignored-path-with-no-slash-passes-by-build-state.md) |
 | design | [A Rust item named in prose has no checked form](a-rust-item-named-in-prose-has-no-checked-form.md) |
 | design | [A slug in the definition form inside a quotation is reported as a misplaced definition](a-slug-in-a-quotation-is-reported-as-a-misplaced-definition.md) |
