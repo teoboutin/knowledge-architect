@@ -2,14 +2,16 @@
 
 ## The model, the phases and the findings
 
-### Nothing about a project is compiled into the tool, and the manifest declares every list a check reads `##nothing-of-a-project-is-compiled-in`
+### Nothing about a project is compiled into the tool, and the project's own files declare every list a check reads `##nothing-of-a-project-is-compiled-in`
 
-Every list a check reads comes from the project's `knowledge-architect.toml`: the components, the
-locations, the registers, the walk's exclusions, and the changelog crates, which `[changelog]`
-declares as the Components it lists or as the published ones, per
+Every list a check reads comes from the project's `knowledge-architect.toml`, or from a file of the
+project that already declares it: the components, the locations, the registers and the walk's
+exclusions are the manifest's; the changelog crates are the Components `[changelog] components`
+lists, or, where it lists none, those whose `Cargo.toml` declares a package Cargo would publish,
+since a second list by hand beside the `Cargo.toml` files would drift, per
 `design@model@changelog-crates-are-listed-or-published`. The manifest is also the marker that makes a
 directory a project root. So one binary checks any project, a copy of a mock project included, with no special case in the code. A path that must not be
-checked is declared there, in one place, with its reason beside it.
+checked is declared in the manifest, in one place, with its reason beside it.
 
 The constraint derives from `goal@every-target-project-can-adopt-it`. A list
 compiled in for one project is a list every other project is checked against. It also keeps the
@@ -177,7 +179,7 @@ removes nothing, so conformance of a document means the same thing in every tree
 There is no flag, no list and no severity that holds a rule back: a rule either holds over a
 document or the run fails. The constraint derives
 from `goal@documentation-stays-consistent`: a tree that passes the checker conforms to every rule
-`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which a paragraph below says are documents the project owes, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which the review before a merge judges a change of them, per `design@check@a-frozen-file-is-guarded-by-the-review`; the assembled changelog is a generated file, held to the bytes rendered from the crates' changelogs, which are walked, per `design@model@assembled-changelog-location`.
+`check` compiles in, and no project holds back any of them beyond the paths its manifest leaves out of the walk, which the checker does not read, and the agent configuration's documents an empty list of harnesses removes, which a paragraph below says are documents the project owes, not rules over the documents it has. The files the tool itself leaves out of the walk by construction are each judged where they are written, the installed agent files in the shipped text, per `design@check@installed-files-outside-the-walk`, and a harvested slice's files while the slice was live, per `design@model@a-harvested-slice-is-frozen`, after which the review before a merge judges a change of them, per `design@check@a-frozen-file-is-guarded-by-the-review`; the assembled changelog, where two changelog crates or more are read, per `design@model@assembled-changelog-from-two-crates`, is a generated file, held to the bytes rendered from the crates' changelogs, which are walked, per `design@model@assembled-changelog-location`.
 
 **A declared register adds obligations and removes none**, which is what keeps
 `design@model@registers-are-declared` inside this head rather than an exception to it. Declaring one

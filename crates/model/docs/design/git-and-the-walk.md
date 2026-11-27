@@ -28,8 +28,11 @@ about: nobody is told the row is dead, and a file later created at that path inh
 granted. One generated path is declared, the assembled changelog's, `[changelog] assembled`, per
 `design@model@assembled-changelog-location`, and no file at it escapes a check: the
 generated-files check holds the file to the bytes it generates and reports it missing or out of
-date, as it reports an index, so `tree` does not assert that it exists. Every other path in the manifest is one git tracks, and `tree` asserts each one
-exists. **A declared path is spelled the way git lists
+date, as it reports an index, so `tree` does not assert that it exists. With one changelog crate the
+key generates nothing, per `design@model@assembled-changelog-from-two-crates`: the path is then
+walked as any other, so a file at it inherits nothing from the key, and one that opens with the
+generated header is a finding, per `design@check@generated-header-at-an-unassembled-path`. Every other path in the manifest is one
+git tracks, and `tree` asserts each one exists. **A declared path is spelled the way git lists
 it**, with no `.` segment, no `..` segment and no leading `/`: a `.` segment is dropped when
 the manifest loads, so two spellings of one directory are one declaration, and a row holding
 `..` or an absolute path is refused as a finding and acted on by nothing, because what it

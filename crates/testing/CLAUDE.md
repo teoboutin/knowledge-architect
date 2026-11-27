@@ -21,7 +21,7 @@ edited generated file in a copy of `planted`, since no caller assembles what a r
 `PLANTED` is of the state its test makes.
 
 **Five mock projects, each for one thing, under `path@testing@tests/projects/`.** They declare no table
-`check` does not own. The head comment of each `knowledge-architect.toml` says what its project
+but the built-in ones. The head comment of each `knowledge-architect.toml` says what its project
 exercises, and that comment is where a session decides which one to touch. In short: `planted` is detection
 in the last phase, one defect per built-in check, and it is clean through the phases before it so a
 run reaches them, the family `agents` apart, which needs a served harness; `unsound` is the phase gate, one defect per assertion of phase 2 that a
@@ -31,7 +31,7 @@ a file deleted or unreadable on disk, a nested repository — are built by the t
 `path@testing@tests/binary.rs` in a copy; `dirhome` is
 conformance, every built-in check running and finding nothing; `minimal` is the walk, the
 exclusions, a location and a declared register; `core` is the smallest conformant project, and
-the tests of `klarch`'s refusal of a table it does not own. **Plant a phase-4 defect in
+the tests of `klarch`'s refusal of a table nobody claims. **Plant a phase-4 defect in
 `planted`, the family `agents` apart, a phase-2 or phase-3 one in `unsound`, and nowhere else.** `klarch` over a pinned copy
 of `dirhome`, `minimal` or `core` reports no finding; anything else it reports there is a defect in
 the tool or in the fixture. In place it refuses the pin, per `design@testing@binary-tests-in-testing`.

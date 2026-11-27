@@ -152,24 +152,37 @@ Workflow = ["agent-skills"]
 ```
 
 - **The changelog crates** are the Components `components` lists, or, where it lists none, every
-  Component whose `Cargo.toml` Cargo would publish: a `version` set, its own or inherited, and
-  `publish` absent, `true` or a list naming a registry. Each holds a `CHANGELOG.md` in its
-  directory, and one whose `include` is set lists it.
+  Component whose `Cargo.toml` Cargo would publish: a `version` set, its own or inherited from the
+  workspace Cargo uses for it, and `publish` absent, `true` or a list naming a registry, per
+  `design@model@changelog-crates-are-listed-or-published`. Each holds a `CHANGELOG.md` in its
+  directory, which its package holds as Cargo lists the package's files, whether it sets `include`
+  or `exclude`, per `design@check@changelog-include-check`.
 - **A crate's changelog** opens with the preamble the manifest determines, which a finding gives
-  whole and `check --fix` does not write; then `## Next release`, then one `## <version>` per
-  released version with an entry in the crate, in descending order. An entry is
+  whole and `check --fix` does not write, per `design@check@category-order-in-preamble`; then
+  `## Next release`, required and possibly empty; then one `## <version>` per released version with
+  an entry in the crate, in descending order, a version being three numbers with no leading zero and
+  no pre-release or build metadata, per `design@model@changelog-version-is-a-release-version`. An entry is
   `- <category>, <class>: <text>`, of a category declared and admitted for the crate, a class among
   patch, minor and major, its text continuing on the lines indented under it, or `- <text>` in a
-  version `unclassed` lists. A line of no grammar is a finding of the last phase, so a command that
-  asks for a complete model answers over it.
+  version `unclassed` lists, per `design@model@changelog-entry-categories`. A line of no grammar is
+  a finding of the last phase, so a command that asks for a complete model answers over it.
 - **Each released version follows the next lower one by its highest class**, as Cargo's semver
-  reads the three numbers: under `0.x`, major and minor both bump the second. Where every changelog
-  crate sets `version.workspace = true`, the versions of every file are judged together, and a
-  crate's file may skip a version. An `unclassed` version, and the oldest, are not judged.
+  reads the three numbers, per `design@check@changelog-bump-check`: under `0.y.z`, major and minor
+  both bump `y`, and under `0.0.z` every class bumps `z`, a major release also admitting `1.0.0`,
+  and `0.1.0` from `0.0.z`. Where every changelog crate sets
+  `version.workspace = true`, the versions of every file are judged together, and a crate's file
+  may skip a version. An `unclassed` version, and the oldest, are not judged.
 - **With two changelog crates or more, the assembled file** at `assembled` is a generated file,
-  outside the walk: each version, then each category, then each crate, then its entries.
-  `index`, `index --staged` and `check --fix` write it, and refuse, writing nothing, over a file at
-  its path without the generated header, and while a changelog holds a line the file would omit.
+  outside the walk: each version, then each category, then each crate, then its entries, per
+  `design@model@assembled-changelog-layout`. Its path is no other generated path, no path of the
+  installer's namespace, and not a crate's own changelog, per
+  `design@model@assembled-path-taken-by-no-other-file`. `index`, `index --staged` and `check --fix` write
+  it, and refuse, writing nothing, over a file at its path without the generated header, and while
+  the file would omit what a changelog crate holds: a line of no grammar, or a crate whose
+  `CHANGELOG.md` or `Cargo.toml` cannot be read, per `design@model@assembled-file-not-overwritten`.
+  With one changelog crate, nothing is assembled, per
+  `design@model@assembled-changelog-from-two-crates`, and a file at the path that opens with the
+  generated header is a finding, per `design@check@generated-header-at-an-unassembled-path`.
 
 `index`, `index --staged` over the staged tree, `check --fix`, `new-component` and a writing
 command of an extension run the first three phases too, and
@@ -494,7 +507,8 @@ Two things are still read from the working tree, whatever the range: the binary 
 ## What to respect
 
 **Nothing about a project is compiled into the tool.** Every list a check reads comes from the
-project's `knowledge-architect.toml`, which is both the manifest and the marker that makes a
+project's `knowledge-architect.toml`, or, for the changelog crates, from the `Cargo.toml` of each
+Component it declares; the manifest is both the manifest and the marker that makes a
 directory a project root. So one binary checks any project, a copy of a mock project included, with no special case. A path that should not be checked says so
 there, in one place, with a reason beside it. What is compiled in describes the tool, not a tree:
 the directory of each Component a binary's libraries belong to, so that the string literals of

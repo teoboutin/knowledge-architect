@@ -101,15 +101,17 @@ done | awk '{ if ($1 && $2) b++; else if ($1) m++; else if ($2) c++; else n++ } 
 
 **A changelog is read by the model and judged by the checks.** Where the manifest declares
 `[changelog]`, `model` reads which Components hold a changelog, through `cargo-reader`, parses each
-crate's changelog and renders the preamble and the assembled changelog, per
-`design@model@changelog-entry-categories`, and raises no finding over any of it: a line its parse
+crate's changelog, per `design@model@changelog-entry-categories`, and renders the preamble, per
+`design@check@category-order-in-preamble`, and the assembled changelog, per
+`design@model@assembled-changelog-layout`, and raises no finding over any of it: a line its parse
 cannot read, and a `Cargo.toml` it cannot use, refused by `cargo-reader` or kept out by a `[walk]`
 row, are recorded with their reason, never a failure of the model's build, so a parent tree of
 `commits` assembles over them, where a parent that fails to assemble serves as no parent, per
 `issue@check@a-parent-tree-that-cannot-be-assembled-serves-as-no-parent`. Nothing else in the model
-depends on a changelog's content, so every changelog finding is a check of `check`'s last phase, per
-`design@check@changelog-opt-in`, except a declaration of the table that the manifest's resolve
-refuses, which is phase 1's as for any table. The nearest rival, a changelog's structural findings
+depends on a changelog's content, so every changelog finding is a check of `check`'s last phase,
+except a declaration of the table that the model refuses, where the manifest is resolved or where
+it lists the generated paths, as for any declaration, per
+`design@model@assembled-path-taken-by-no-other-file`. The nearest rival, a changelog's structural findings
 raised in phases 1 to 3, would stop `id` and `worklist` of `query`, which need those phases to pass,
 over one misspelt category.
 
@@ -128,8 +130,8 @@ counts. Its own tests are the unit tests beside the parse, the walk and the reso
 change of how a form is read is judged with no check built. It takes the
 decisions of one domain, what a document of the record is and how it is read, in
 `register@model@design`, which pays because every tool over the record reads one definition of a
-document there, and a tool that wants a form read otherwise meets the decision it would change. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` and `cargo-reader`, `check`, `query`,
-`create` and `cli` depend on it, and `testing` dev-depends on it, with no cycle; a change that crosses its boundary, a form the model
+document there, and a tool that wants a form read otherwise meets the decision it would change. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on `git` and `cargo-reader`; `check`, `query`,
+`create` and `cli` depend on it; and `testing` dev-depends on it, with no cycle; a change that crosses its boundary, a form the model
 reads and a check judges, is one of the four classes the command counts, and the commits that
 touched one side alone are the reason the boundary is there.
 
