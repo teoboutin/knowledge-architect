@@ -3,9 +3,9 @@
 Findings read in the Cargo book shipped with the toolchain 1.98.0, `cargo 1.98.0 (797e8a9bc
 2026-08-05)`, at `path@elsewhere@share/doc/rust/html/cargo/commands/cargo-metadata.html` of that
 toolchain, and online at <https://doc.rust-lang.org/cargo/commands/cargo-metadata.html>; and
-measured with that Cargo in this repository. They ground the run and the reader of
-`path@cargo-reader@src/metadata.rs`. Each is read again at the source it names, or measured again
-with the command given.
+measured with that Cargo in this repository and in scratch consumers. They ground the run and the
+reader of `path@cargo-reader@src/metadata.rs`. Each is read again at the source it names, or
+measured again with the command given.
 
 ## The format
 
@@ -43,3 +43,42 @@ with the command given.
   workspace of two members `a` and `b`: run in `a` with `--manifest-path ../b/Cargo.toml`, `root`
   is `b`'s ID; run at the virtual root with `--manifest-path a/Cargo.toml`, it is `a`'s, where the
   same run without the flag gives `null`.
+
+## The flags `--locked` and `--offline`, measured in scratch consumers
+
+Measured with that Cargo, outside this repository, in two scratch consumers, each a package with a
+`[workspace]` table of its own and an empty library source file: `c`, whose one dependency is a path
+dependency `d = { path = "../d", version = "=0.1.0" }` on a package `d` that sets `repository`;
+and `r`, whose one dependency is `itoa = "=1.0.9"` from crates.io, run with `CARGO_HOME` set to an
+empty directory. They ground the flags that the command `changelog` of the crate `query` passes
+to the run. Each is taken again by the command named, run in that consumer, its lock file's hash
+taken with `sha1sum Cargo.lock` before and after.
+
+- **With no `Cargo.lock`, `--locked` refuses to write one, and `--offline` alone writes it.**
+  `cargo metadata --format-version 1 --locked --offline` in `c` exits 101: "error: cannot create
+  the lock file <dir>/Cargo.lock because --locked was passed to prevent this", followed by "help:
+  to generate the lock file without accessing the network, remove the --locked flag and use
+  --offline instead.", and no file is written. `cargo metadata --format-version 1 --offline`
+  writes it, "Locking 1 package to highest compatible version".
+- **A lock that an edit of the versions left stale fails under `--locked`, until `cargo fetch`
+  updates it.** In `c`, with `d`'s `version` raised to `0.2.0` and the requirement to `=0.2.0`,
+  `--locked --offline` exits 101: "error: cannot update the lock file <dir>/Cargo.lock because
+  --locked was passed to prevent this", followed by the same help, the lock's hash unchanged.
+  `cargo fetch` then rewrites the lock, "Updating d v0.1.0 (<dir>/d) -> v0.2.0", and `--locked
+  --offline` passes, the lock's hash unchanged by it.
+- **`--locked --offline` over a current lock writes nothing**: in `c`, the lock's hash is the same
+  before and after the run.
+- **Without `--offline`, the run reaches the registry; with it, a package the local cache lacks is
+  not found.** In `r` with an empty `CARGO_HOME`, `--offline` exits 101: "error: no matching
+  package named `itoa` found", "location searched: crates.io index". With no flag, the run prints
+  "Updating crates.io index", "Downloading crates ...", "Downloaded itoa v1.0.9", and writes the
+  lock.
+- **`--locked --offline` unpacks a source from the local cache, with no network.** In `r`, after
+  `rm -rf "$CARGO_HOME/registry/src"`, the run exits 0, `registry/src/<index>/itoa-1.0.9/` is
+  written again, and the lock's hash is unchanged.
+- **A package's `source` and `manifest_path` say where its files are.** A path dependency reports
+  `"source": null` and a `manifest_path` at its path, `<dir>/d/Cargo.toml` in `c`; a registry one
+  reports `"source": "registry+https://github.com/rust-lang/crates.io-index"` and a
+  `manifest_path` under `$CARGO_HOME/registry/src/<index>/<name>-<version>/`, in `r`
+  `index.crates.io-1949cf8c6b5b557f/itoa-1.0.9/Cargo.toml`. `d` reports its `repository` as its
+  manifest sets it.
