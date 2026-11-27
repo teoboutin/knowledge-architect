@@ -722,12 +722,14 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   core, which argued no placement. No record states which reading holds. Default, built by slice
   3's conforming step: it stays in `register@check@design`. Rival: it moves to
   `register@knowledge-architect@design`.
+  **Ruled**, at slice 3's design audit: the default kept, on the owner's approval.
 - **D10**, on `thread@per-crate-changelogs@changelog-model-home`, raised by slice 3's design audit.
   `design@model@an-extension-claims-its-manifest-tables`, which slice 3's harvest touches, is
   enforced by `model`, whose `contribute` refuses a table no extension claims, while `check`'s
   `configure` gathers the claims; its title names `model`. Default, built by slice 3's conforming
   step: it moves to `register@model@design`, by the reading D6 took, the head beside the code that
   enforces it. Rival: it stays in `register@check@design`.
+  **Ruled**, at slice 3's design audit: the default kept, on the owner's approval.
 - **D11**, on `thread@per-crate-changelogs@changelog-model-home`, raised by slice 3's design audit.
   `design@check@fix-before-the-checks` said the owner chose one `git add` and one more run over
   treating the deletions its own install made as done. Its history shows the owner approving the
@@ -736,12 +738,15 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   paragraph becomes a head of its own, `design@check@fix-leaves-its-deletion-unstaged`, that gives
   the ranking to the session, on the owner's report. Rival: the attribution stays. The
   default changes a ranking the record attributes to the owner, so the owner rules on it.
+  **Ruled**, at slice 3's design audit: the default kept, on the owner's approval.
 - **D12**, on `thread@per-crate-changelogs@changelog-opt-in`, raised by slice 3's design audit.
   `issue@knowledge-architect@no-head-argues-what-becomes-an-ask` names as its re-entry point the next
   branch that takes in a tool that judges a project's quality, and slice 3 adds the changelog
   checks. Default: the discussion is put off again, as for D4: `[changelog]` is opt-in, so the
   checks ask nothing of a project that declares none. Rival: hold that discussion before slice 3
   merges.
+  **Ruled**, at slice 3's design audit: the default kept, on the owner's approval; on the owner's
+  word, the discussion is held once this milestone is finished, which the roadmap orders.
 
 ## Harvest
 

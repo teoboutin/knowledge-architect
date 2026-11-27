@@ -5,11 +5,13 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 
 ## In order
 
-1. `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`
-2. `issue@create@init-accepts-a-destination-git-ignores`
-3. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
-4. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
-5. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
+1. `milestone@plans@per-crate-changelogs`
+2. `issue@knowledge-architect@no-head-argues-what-becomes-an-ask`
+3. `issue@knowledge-architect@every-crate-takes-a-version-at-each-release`
+4. `issue@create@init-accepts-a-destination-git-ignores`
+5. `issue@knowledge-architect@no-published-command-rewrites-a-branch-s-history`
+6. `issue@knowledge-architect@the-skill-bundling-passes-are-tied-to-this-project-s-skills`
+7. `issue@knowledge-architect@the-documents-do-not-render-as-a-site`
 
 ## Unordered
 
@@ -34,7 +36,6 @@ document; the procedure that edits it is `skill@knowledge-architect-planning@spe
 - `issue@agent-skills@installed-text-assumes-pull-requests-and-ci`
 - `issue@agent-skills@the-upstream-set-omits-the-published-libraries`
 - `issue@agent-skills@the-agentic-workflow-audit-s-repair-agents-read-the-admission-standard-by-a-pointer`
-- `milestone@plans@per-crate-changelogs`
 - `issue@agent-skills@the-agent-configuration-skill-names-no-place-for-a-local-uncommitted-instruction`
 - `issue@check@manifest-table-exposes-the-toml-crate`
 - `issue@check@core-heads-bundle-decisions-with-many-citing-sites`

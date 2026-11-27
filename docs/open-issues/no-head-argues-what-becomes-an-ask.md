@@ -94,6 +94,7 @@ the scope goal itself names, per `goal@the-owner-decides`.
 
 ### Re-entry point
 
-That discussion, at the latest when a branch next takes in a tool that judges a project's quality,
-or when the work of `issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter`
-starts.
+That discussion, once `milestone@plans@per-crate-changelogs` is finished, on the owner's word,
+which the roadmap orders; earlier, when the work of
+`issue@knowledge-architect@the-target-project-and-its-asks-are-stated-to-no-adopter` starts. A
+branch of that milestone that takes in a tool that judges a project's quality does not re-enter it.
