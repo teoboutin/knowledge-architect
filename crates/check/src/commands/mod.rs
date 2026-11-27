@@ -300,10 +300,17 @@ fn refuse_another_version_built_at(
                      version the project runs"
                 )
             } else {
+                // The order of the pin move, `skill@knowledge-architect-setup@moving-the-pin`: the
+                // command reads the changelogs from the sources the fetch unpacked, and runs
+                // under `--locked`, which a lock the pin's edit left stale fails.
+                let command = manifest.command();
                 format!(
                     "run knowledge-architect {pinned}, the version the manifest pins, or move the \
-                     pin: read the changelog of each version from {pinned} to {version}, then set \
-                     [project] checker-version = \"{version}\""
+                     pin from {pinned} to {version}: set [project] checker-version = \
+                     \"{version}\", and in a Rust project the versions of the checker's crates \
+                     the maintenance crate depends on; run `cargo fetch`; then run \
+                     `{command} changelog knowledge-architect --from {pinned}` and read what it \
+                     prints, each version's Migration entries above all"
                 )
             };
             Err(format!(
@@ -1267,6 +1274,38 @@ mod tests {
         assert!(
             newer.contains("move the pin") && newer.contains("from 0.1.9 to 0.2.0"),
             "{newer}"
+        );
+        // Claim 6 of slice 4: the refusal names the project's declared command, followed by
+        // `changelog` and the old pin as `--from`, in the order pin, fetch, command. Mutations
+        // checked, each caught: `let command = manifest.command();` made
+        // `let command = "klarch";`, and the fetch, `run `cargo fetch`; `, removed from the text.
+        let declared = Manifest::parse(
+            &tree,
+            "[project]\nchecker-version = \"0.1.9\"\nname = \"p\"\ncomponents = []\n\
+             command = \"cargo klarch\"\n\n[walk]\nskip-dirs = []\nskip-files = []\n",
+        )
+        .expect("a declaration");
+        let named = err(refuse_another_version_built_at(
+            &declared,
+            &registry,
+            "0.2.0",
+            &[],
+            &always,
+        ));
+        let at = |what: &str| {
+            named
+                .find(what)
+                .unwrap_or_else(|| panic!("{what}: {named}"))
+        };
+        let (pin, fetch, run) = (
+            at("set [project] checker-version = \"0.2.0\""),
+            at("run `cargo fetch`"),
+            at("run `cargo klarch changelog knowledge-architect --from 0.1.9`"),
+        );
+        assert!(pin < fetch && fetch < run, "{named}");
+        assert!(
+            newer.contains("`klarch changelog knowledge-architect --from 0.1.9`"),
+            "the default command: {newer}"
         );
         assert!(
             err(refuse(&tree, "0.10.0", &registry)).contains("older than"),

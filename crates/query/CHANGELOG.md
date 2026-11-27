@@ -45,6 +45,12 @@ an empty subsection is omitted.
   ``not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+; give the id alone, the part after the last `@` ``.
   The line of a malformed id without `@`, and the exit code 1, are unchanged. A consumer whose tests pin that line for such an argument
   changes them.
+- `cli`, patch: the refusal of a binary newer than the version the manifest pins names, as the
+  move of the pin, the order of the setup skill's pin move: set `[project] checker-version` and, in
+  a Rust project, the maintenance crate's versions of the checker's crates; run `cargo fetch`; then
+  run `<command> changelog knowledge-architect --from <pinned>`, by the project's declared command,
+  and read what it prints. It said to read the changelog of each version, then set the pin. A
+  consumer whose tests pin that text changes them.
 - `manifest`, major: `[changelog]` is a built-in table of the manifest, which
   `knowledge-architect-model` parses, so an extension that claimed a top-level table `changelog` no
   longer receives it: the manifest's resolve reads the table, whose
@@ -372,6 +378,11 @@ an empty subsection is omitted.
 - `agent-skills`, patch: for a Rust project, the setup skill's proposal of a crate's CRATES-IO.md
   proposes with it a glob matching each page under `all` in `[walk.citation-free]`, so the check
   reports any reference a page holds.
+- `agent-skills`, patch: the setup skill's pin move, step 2, runs
+  `<command> changelog knowledge-architect --from <old pin>` after the fetch, in a Rust project,
+  and reads what it prints, where it read the binary crate's CHANGELOG.md in the registry; a project
+  with no Rust reads the CHANGELOG.md of each crate of the checker, each named by its package, in
+  the source the install fetched.
 
 ## 0.10.0
 
