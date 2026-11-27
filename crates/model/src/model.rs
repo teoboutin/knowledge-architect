@@ -274,7 +274,7 @@ impl Model {
         // first is a function of the tree, the second is judged by its bytes alone.
         let changelog_crates =
             crate::changelogs::changelog_crates(manifest, &files, &|rel: &Path| {
-                std::fs::read_to_string(root.join(rel)).ok()
+                std::fs::read_to_string(root.join(rel))
             });
         let mut generated = crate::index::generated_paths(manifest, &changelog_crates, &listing);
         generated.extend(files.iter().filter(|f| manifest.owned(f)).cloned());

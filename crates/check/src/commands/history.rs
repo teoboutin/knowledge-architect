@@ -664,15 +664,6 @@ fn commit_tree(
     // and the ignore questions asked of this tree follow the homes of the tree it commits rather
     // than the working tree's.
     let anchors = Anchors::of(&manifest, &read.listing);
-    // The changelog crates are read from the commit's own `Cargo.toml` blobs, before the walk, as
-    // `Model::build` reads them off the disk: they decide whether the assembled changelog is a
-    // generated path.
-    let changelog_crates =
-        crate::model::changelog::changelog_crates(&manifest, &read.listing, &|rel: &Path| {
-            read.blobs.get(rel).cloned()
-        });
-    let generated =
-        crate::model::generated::generated_paths(&manifest, &changelog_crates, &read.listing);
     // The walk reads through no symlink and no gitlink, so the files alone are walked.
     let files: Vec<PathBuf> = read
         .listing
@@ -680,6 +671,22 @@ fn commit_tree(
         .filter(|rel| !read.links.iter().any(|e| e.rel == **rel))
         .cloned()
         .collect();
+    // The changelog crates are read from the commit's own `Cargo.toml` blobs, before the walk, as
+    // `Model::build` reads them off the disk: they decide whether the assembled changelog is a
+    // generated path. Over the files alone, as `Model::build` lists them, so a `Cargo.toml` held
+    // as a symlink is no crate's in either tree; a blob that is not text answers as a file on disk
+    // that is not, and a listed file with no blob as one the tree does not hold.
+    let changelog_crates =
+        crate::model::changelog::changelog_crates(&manifest, &files, &|rel: &Path| match read
+            .blobs
+            .get(rel)
+        {
+            Some(text) => Ok(text.clone()),
+            None if read.not_text.contains_key(rel) => Err(std::io::ErrorKind::InvalidData.into()),
+            None => Err(std::io::ErrorKind::NotFound.into()),
+        });
+    let generated =
+        crate::model::generated::generated_paths(&manifest, &changelog_crates, &read.listing);
     // An installed file leaves the walk as a generated one does, per
     // `design@check@installed-files-outside-the-walk`. A commit's installed files are not compared, but
     // `read_tree` reads their blobs with every other unskipped file, and the survey keeps their

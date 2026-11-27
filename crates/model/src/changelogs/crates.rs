@@ -102,9 +102,14 @@ impl Crates {
     }
 }
 
-/// The changelog crates of the tree whose listing is `listing`, each file's text given by `read`,
-/// which answers `None` for bytes it could not read as text. Empty where the manifest declares no
+/// The changelog crates of the tree whose listing is `listing`, the files of that tree and no
+/// symlink or gitlink, each file's text given by `read`. Empty where the manifest declares no
 /// `[changelog]`.
+///
+/// `read` answers an error of the kind `NotFound` for a listed file the tree does not hold, such
+/// as one deleted in the working tree and not yet staged, which is read as a file the listing
+/// lacks; `InvalidData` for bytes that are not UTF-8 text; and any other error for a read that
+/// failed, which is trouble carrying the error.
 ///
 /// What [`Model::build`](crate::Model::build) reads from the disk, for a caller that builds a
 /// model from a snapshot's blobs: it hands the result to
@@ -113,7 +118,7 @@ impl Crates {
 pub fn read(
     manifest: &Manifest,
     listing: &[PathBuf],
-    read: &dyn Fn(&Path) -> Option<String>,
+    read: &dyn Fn(&Path) -> std::io::Result<String>,
 ) -> Crates {
     let mut out = Crates::default();
     let Some(table) = manifest.changelog() else {
@@ -126,10 +131,13 @@ pub fn read(
             continue;
         }
         let file = component.path.join(CARGO_FILE);
-        if !listing.contains(&file) {
+        let missing = |out: &mut Crates, file: PathBuf| {
             if listed {
                 out.trouble.push(CargoTrouble::Missing { file });
             }
+        };
+        if !listing.contains(&file) {
+            missing(&mut out, file);
             continue;
         }
         if let Some(row) = crate::walk::keeping_row(&file, walk) {
@@ -140,11 +148,21 @@ pub fn read(
             file: file.clone(),
             reason,
         };
-        let Some(text) = read(&file) else {
-            out.trouble.push(unreadable(
-                "its bytes cannot be read as UTF-8 text".to_string(),
-            ));
-            continue;
+        let text = match read(&file) {
+            Ok(text) => text,
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                missing(&mut out, file);
+                continue;
+            }
+            Err(e) => {
+                out.trouble.push(unreadable(match e.kind() {
+                    std::io::ErrorKind::InvalidData => {
+                        "its bytes cannot be read as UTF-8 text".to_string()
+                    }
+                    _ => format!("it cannot be read: {e}"),
+                }));
+                continue;
+            }
         };
         let package = match read_manifest(&text) {
             Ok(manifest) => manifest.package,
@@ -206,7 +224,7 @@ fn inherited(
     dir: &Path,
     listing: &[PathBuf],
     walk: &crate::manifest::Walk,
-    read: &dyn Fn(&Path) -> Option<String>,
+    read: &dyn Fn(&Path) -> std::io::Result<String>,
 ) -> Result<Package, String> {
     let inherits = [
         package.version == Field::Workspace,
@@ -221,7 +239,11 @@ fn inherited(
         .ancestors()
         .map(|d| d.join(CARGO_FILE))
         .filter(|f| listing.contains(f) && !crate::walk::kept_out(f, walk))
-        .find_map(|f| read(&f).and_then(|t| read_manifest(&t).ok()?.workspace));
+        .find_map(|f| {
+            read(&f)
+                .ok()
+                .and_then(|t| read_manifest(&t).ok()?.workspace)
+        });
     let workspace: WorkspacePackage = workspace.ok_or_else(|| {
         "it inherits a field from its workspace, and no `Cargo.toml` at or above its directory \
          within the project holds a `[workspace]` table"
@@ -254,7 +276,12 @@ mod tests {
             .map(|(p, t)| (PathBuf::from(p), t.to_string()))
             .collect();
         let listing: Vec<PathBuf> = files.keys().cloned().collect();
-        read(&manifest, &listing, &|rel| files.get(rel).cloned())
+        read(&manifest, &listing, &|rel| {
+            files
+                .get(rel)
+                .cloned()
+                .ok_or_else(|| std::io::ErrorKind::NotFound.into())
+        })
     }
 
     fn names(crates: &Crates) -> Vec<&str> {
@@ -370,6 +397,48 @@ mod tests {
         );
         assert!(
             matches!(&trouble[2], CargoTrouble::KeptOut { row, .. } if row.contains("skip-files"))
+        );
+    }
+
+    /// The claim: a listed `Cargo.toml` the tree does not hold, as one deleted and not staged, is
+    /// read as one the listing lacks: no crate, and trouble only where `[changelog] components`
+    /// lists its Component; one whose bytes are not text is trouble saying so. Mutation checked:
+    /// in `read`, the arm `Err(e) if e.kind() == std::io::ErrorKind::NotFound => {` made
+    /// `Err(e) if false => {`; caught.
+    #[test]
+    fn a_cargo_toml_the_tree_does_not_hold_is_read_as_unlisted() {
+        let manifest = |table: &str| {
+            Manifest::parse(
+                Path::new("/nowhere"),
+                &format!(
+                    "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"a\", \"b\"]\n\n\
+                     [walk]\nskip-dirs = []\nskip-files = []\n\n[changelog]\ncategories = [\"A\"]\n{table}"
+                ),
+            )
+            .expect("a declaration")
+        };
+        let listing = [PathBuf::from("a/Cargo.toml"), PathBuf::from("b/Cargo.toml")];
+        let reader = |rel: &Path| -> std::io::Result<String> {
+            Err(if rel.starts_with("a") {
+                std::io::ErrorKind::NotFound.into()
+            } else {
+                std::io::ErrorKind::InvalidData.into()
+            })
+        };
+        let unlisted = read(&manifest(""), &listing, &reader);
+        assert!(unlisted.all().is_empty());
+        assert_eq!(unlisted.trouble().len(), 1, "{unlisted:?}");
+        assert!(matches!(
+            &unlisted.trouble()[0],
+            CargoTrouble::Unreadable { file, reason }
+                if file == Path::new("b/Cargo.toml") && reason.contains("UTF-8")
+        ));
+        let listed = read(&manifest("components = [\"a\"]\n"), &listing, &reader);
+        assert_eq!(
+            listed.trouble(),
+            [CargoTrouble::Missing {
+                file: PathBuf::from("a/Cargo.toml")
+            }]
         );
     }
 }
