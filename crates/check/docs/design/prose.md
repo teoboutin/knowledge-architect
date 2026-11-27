@@ -15,7 +15,7 @@ be interpolated makes the tests harder to read than the code they test. Comments
 because the test modules point at decisions and paths for real, and those pointers stay checked wherever the walk reads them; `design@testing@test-files-outside-the-walk` states what it leaves out.
 
 **The directories are compiled in, never declared.** A binary's source spans several
-Components: `cli`'s, `check`'s, the `git` crate's, the `model` crate's, the crates of its commands, `create`, `query` and
+Components: `cli`'s, `check`'s, the `git` crate's, the `cargo-reader` crate's, the `model` crate's, the crates of its commands, `create`, `query` and
 `transcript`, and the Component of each extension the binary registers. Each library exports
 the directory of the Component it belongs to, evaluated at build time, and the binary hands the
 list of its libraries' directories to the walk. Each is one crate whose directory is its
