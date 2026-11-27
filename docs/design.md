@@ -188,7 +188,7 @@ cannot differ. The rival, the install inside `agent-skills`, makes
 that crate depend on `model` for the manifest, while `model` dev-depends on it, a cycle that
 `design@agent-skills@shared-test-component` avoids even among dev-dependencies.
 
-### Git is wrapped by a crate of its own, which the checker depends on, rather than by a module of the checker `##git-crate`
+### Git is wrapped by a crate of its own rather than by a module of the checker `##git-crate`
 
 `knowledge-architect-git`, in crates/git, wraps git for the checker's tools: `check`, `model`,
 `query`, `transcript` and `create` depend on it by path and by exact version, per
