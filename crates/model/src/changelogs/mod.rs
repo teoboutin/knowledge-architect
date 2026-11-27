@@ -24,7 +24,10 @@ mod table;
 pub use crates::{read as changelog_crates, CargoTrouble, Crate, Crates};
 pub use parse::{parse, Changelog, Entry, Heading, Section, Tag, Unread};
 pub use refusal::{hand_written, refusal, Refused, WrittenTree};
-pub use render::{assembled_file, assembled_text, expected_preamble, GENERATED_HEADER};
+pub use render::{
+    assembled_body, assembled_file, assembled_text, expected_preamble, read_preamble, unplaced,
+    ReadPreamble, GENERATED_HEADER,
+};
 pub use table::ChangelogTable;
 pub(crate) use table::{resolve, Declared};
 
