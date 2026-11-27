@@ -140,9 +140,10 @@ each `- <class>: <text>`, in the order of the crate's file. A version that `uncl
 category level: `#### <package name>`, then `- <text>`. An empty level is omitted. The rendering is a
 pure function of the parsed changelogs and the manifest, which raises no finding. Where each crate
 is placed by a table of its own, as a consumer's `klarch changelog` places the crates it reads, per
-`design@query@changelog-places-each-crate-by-its-own-preamble`, a version's categories are those of
-the tables in the order they first appear, and a crate whose table lists the version as unclassed is
-given under it before its categories, since it has no category to sit under.
+`design@query@changelog-places-each-crate-by-its-own-preamble`, the rendering is a pure function of
+the parsed changelogs, their tables and the categories its caller gives, in the caller's order, and
+a crate whose table lists the version as unclassed is given under it before its categories, since
+it has no category to sit under.
 
 **The category comes before the crate because a reader moving a pin acts on a version's Migration
 entries as one block.** The nearest rival, version then crate then category, scatters those entries

@@ -21,7 +21,7 @@ use crate::Manifest;
 
 /// The versions a run prints: those above `from`, up to `to` included where it is given, and
 /// every one above `from` where it is not. `Next release` is in no range, since it is no
-/// version a pin can cross.
+/// version a pin can cross, per `design@query@changelog-range-excludes-the-old-pin`.
 ///
 /// It cannot hold a `to` that is not above `from`: [`VersionRange::new`] refuses it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

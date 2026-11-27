@@ -15,7 +15,7 @@ every gate, so a reader of this head is what catches it. A command that needs a 
 
 ### Each function takes a manifest its caller configures, and a program that links no check reads a project with an extension as it stands `##a-function-takes-a-configured-manifest`
 
-`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. `goal@documentation-has-a-structure-and-a-model` asks that a tool of knowledge-architect can tell whether what it read is complete and right. The interface the project offers a consumer is the command line of `klarch`, the gates and the mutation libraries and the framework an extension's binary is built on, the owner reported, saying the list may be incomplete, and this crate holds what no extension is written against, per `design@knowledge-architect@api-facade`, as the session checked: so the binaries that offer these commands configure the manifest before they dispatch and read as their `check` does, while a program that links this crate and no check uses no interface the project offers, and reads the project as it stands. Which public items the project offers a consumer is `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`. A manifest its caller configures over a type only `extension::configure` returns, placed in `model`, which each function would take: the session ranked the rival's cost, a change to `Manifest` as the facades publish it whose extent is not established, above a program that links no check reading otherwise than a binary, which no goal ranks. The enforcement of the precondition is `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
+`cli::run` configures the manifest with each extension the binary registers before it dispatches, so a binary's commands of this crate read a project as that binary's `check` does. A program that links this crate and no check holds no extension: it walks what the extension generates, and `id` and `worklist --out` refuse the extension's table. No pin is refused here either, since a binary refuses it before dispatching. `goal@documentation-has-a-structure-and-a-model` asks that a tool of knowledge-architect can tell whether what it read is complete and right. The interface the project offers a consumer is the command line of `klarch`, the gates and the mutation libraries and the framework an extension's binary is built on, an intent of the owner not yet drafted as a goal, which the owner said may be incomplete, and this crate holds what no extension is written against, per `design@knowledge-architect@api-facade`: so the binaries that offer these commands configure the manifest before they dispatch and read as their `check` does, while a program that links this crate and no check uses no interface the project offers, and reads the project as it stands. Which public items the project offers a consumer is `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`. A manifest its caller configures over a type only `extension::configure` returns, placed in `model`, which each function would take: the session ranked the rival's cost, a change to `Manifest` as the facades publish it whose extent is not established, above a program that links no check reading otherwise than a binary, which no goal ranks. The enforcement of the precondition is `issue@knowledge-architect@a-typed-command-trusts-its-caller-to-have-configured-the-manifest`.
 
 ### `anchors` lists every anchor of a project, computed as a run computes them, with the home of each register it carries but a plan's `##anchors-listing-command`
 
@@ -492,9 +492,7 @@ bound; real sessions measure it, per `goal@the-workflow-improves-through-real-us
 `klarch changelog <package> --from <version>` reads the changelog of each package of the graph
 `cargo metadata` resolves in the project, `--package` absent: every package whose `repository` equals
 the named package's, and the named package alone where it sets none; with `--package`, the named
-package and those names, and no other. A package the graph holds at several versions is read in its
-newest version's file, which holds every earlier version's section. The versions printed are those
-in (`--from`, `--to`].
+package and those names, and no other.
 
 It serves `goal@generic-tools-and-procedures-are-shipped`, under which the reading a pin move does
 is done by a tool that serves every target project: the rule reads no name of this project, and
@@ -505,20 +503,23 @@ and the mutation library. The nearest rival, the named package's dependency clos
 `path@cli@Cargo.toml` depends on neither `knowledge-architect-gates` nor
 `knowledge-architect-mutate`.
 
+### `changelog` prints the versions above `--from` up to `--to` included, and every one above `--from` where `--to` is absent `##changelog-range-excludes-the-old-pin`
+
+`--from` is the version a pin move leaves, whose entries the project has already acted on, so the
+range opens above it; `--to`, the version the pin reaches, closes it, and its absence runs the range
+to the newest version the files hold. `Next release` is in no range, since no pin crosses it.
+
 ### `changelog` places each crate's entries by the table its own preamble states `##changelog-places-each-crate-by-its-own-preamble`
 
 Each selected file is read by the model's parse, and its table, its categories and its `unclassed`
 versions, by the read of its own preamble, per `design@check@category-order-in-preamble`, since a
-consumer holds no manifest of the publisher. Each crate's entries are placed by its own table, and
-the selected crates are rendered in the layout of `design@model@assembled-changelog-layout`, with no
-generated header, since the output is no file, one selected crate included, since
-`design@model@assembled-changelog-from-two-crates` decides when a project's file is assembled, not
-what this command prints. The nearest rival, every crate placed by one table merged from all the
+consumer holds no manifest of the publisher, and each crate's entries are placed by its own table.
+The nearest rival, every crate placed by one table merged from all the
 preambles, prints an entry of a category its own preamble does not list wherever another selected
 crate's preamble lists it, and reports it nowhere: `--package` selects crates of two projects
 together, whose preambles differ.
 
-### `changelog` reports after its output each line it cannot hold, and then exits 1 `##changelog-reports-what-it-cannot-print`
+### `changelog` reports after its output whatever of the selected files it cannot print, and then exits 1 `##changelog-reports-what-it-cannot-print`
 
 What the output cannot hold is listed after it, by file, and by line where it has one, and the
 exit is 1, the ladder's negative answer, per `design@cli@exit-code-ladder`: a selected file missing,
