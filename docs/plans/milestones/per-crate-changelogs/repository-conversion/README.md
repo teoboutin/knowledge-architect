@@ -71,6 +71,11 @@ slice 4's.
   step 6, and
   `path@xtask@docs/open-issues/the-reword-the-fold-and-the-merge-predicate-have-no-command.md`,
   which lists `changelog` among the commands of `path@xtask@src/`.
+- The bump check of `design@check@changelog-bump-check` run over the converted history before the
+  conversion is committed: a bump finding on a released section has no repair that
+  `design@knowledge-architect@changelog-section-fixed-at-release` admits, since a released
+  section's classes and version are content, so such a finding goes to
+  `skill@knowledge-architect-design` at this audit.
 
 ## Fails alone on
 

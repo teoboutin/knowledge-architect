@@ -139,6 +139,13 @@ without the header, and claim 12's Cargo forms, are built in copies by the tests
   not the assembled file until slice 5. The guard: claim 10's refusals, which keep the first
   `--fix` or `index` of slice 5 from writing over the shared changelog unless slice 5 first
   replaces it.
+- No released section of a real project is judged by the bump check until slice 5 converts this
+  repository's history. A bump finding on a released version can be repaired only by a change to
+  that section's classes or its version, which
+  `design@knowledge-architect@changelog-section-fixed-at-release` forbids as content. The guard:
+  slice 5's design audit runs the check over the converted history before its conversion is
+  committed, as slice 5's spec lists among its audit subjects, and a finding on a released section
+  goes to `skill@knowledge-architect-design` there.
 
 ## What the work is
 
