@@ -186,7 +186,7 @@ mod tests {
     /// caught: in `version` of `path@cli@src/cli/mod.rs`, `Version::parse(value).ok_or_else(` made
     /// `Version::parse(value).or(Version::parse("0.0.0")).ok_or_else(`; and in
     /// `ChangelogArgs::from_arg_matches`, the refusal `changelog_request(&args).map_err(` made
-    /// `Ok::<(), String>(()).map_err(`.
+    /// `Ok::<(), String>(()).map_err(`, and its `.format(&mut command)` removed.
     #[test]
     fn changelog_takes_versions_checked_while_parsing() {
         let parse = |args: &[&str]| Cli::try_parse_from([&["klarch", "changelog"], args].concat());
@@ -210,10 +210,11 @@ mod tests {
                 .err()
                 .expect("refused");
             assert_eq!(refused.exit_code(), 2, "{to}");
-            assert!(
-                refused.to_string().contains("`--to` is not above `--from`"),
-                "{refused}"
-            );
+            let text = refused.to_string();
+            assert!(text.contains("`--to` is not above `--from`"), "{text}");
+            // One blank line before the usage, which names the subcommand.
+            assert!(!text.contains("\n\n\n"), "{text}");
+            assert!(text.contains("version\n\nUsage: changelog "), "{text}");
         }
         for bad in ["0.1", "v0.1.0", "0.1.0-rc.1", "01.0.0"] {
             assert!(parse(&["p", "--from", bad]).is_err(), "{bad}");

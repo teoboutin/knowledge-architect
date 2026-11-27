@@ -5,8 +5,10 @@
 //! missing, stale and written, the writers' refusals, the preamble left unwritten, and what a
 //! changelog crate's files give.
 
+mod links;
 mod support;
 
+use links::link_file;
 use support::Sandbox;
 
 /// The table this project declares.
@@ -549,15 +551,13 @@ fn check_fix_over_a_staged_defect_the_working_tree_repaired() {
 /// neither names the row as keeping a changelog crate's manifest out. Mutation checked, caught: in
 /// `commit_tree` of `path@check@src/commands/history.rs`, the listing `&files` handed to
 /// `changelog_crates` made `&read.listing`.
-#[cfg(unix)]
 #[test]
 fn a_symlinked_cargo_toml_is_read_alike_in_the_working_tree_and_the_index() {
     let sandbox = current("changelog-symlinked-cargo");
     let lib = read(&sandbox, "lib/Cargo.toml");
     sandbox.write("lib/Cargo-real.toml", &lib);
     std::fs::remove_file(sandbox.path("lib/Cargo.toml")).expect("the file is removed");
-    std::os::unix::fs::symlink("Cargo-real.toml", sandbox.path("lib/Cargo.toml"))
-        .expect("a symlink");
+    link_file("Cargo-real.toml", sandbox.path("lib/Cargo.toml"));
     let manifest = read(&sandbox, "knowledge-architect.toml");
     sandbox.write(
         "knowledge-architect.toml",
