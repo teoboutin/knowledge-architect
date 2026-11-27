@@ -823,6 +823,7 @@ fn generated_list(
     if let Some(refused) = crate::model::changelog::refusal(
         manifest,
         model,
+        inputs.present,
         inputs.committed,
         inputs.generated_unreadable,
     ) {

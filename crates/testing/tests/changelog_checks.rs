@@ -254,11 +254,12 @@ fn every_writer_refuses_over_a_file_without_the_generated_header() {
     assert_eq!(String::from_utf8_lossy(&staged.stdout), hand);
 }
 
-/// The claim, claim 10, second half: each writer refuses while a changelog holds an unread line,
-/// or an entry whose category the manifest does not declare, naming the line, and writes no byte.
-/// Mutations checked, each caught: in `refusal`, `if let Some(unread) = log.unread.first() {` made
-/// `if let Some(unread) = log.unread.first().filter(|_| false) {`; and `if !admitted {` made
-/// `if false {`.
+/// The claim, the writers' refusals, second half: each writer refuses while a changelog holds an
+/// unread line, or an entry whose category the manifest does not declare, naming the line, and
+/// writes no byte. Mutations checked, each caught: in `omitted` of
+/// `path@model@src/changelogs/render.rs`, `if let Some(unread) = log.unread.first() {` made
+/// `if let Some(unread) = log.unread.first().filter(|_| false) {`; and
+/// `.find(|e| place(table, component, section.heading, e).is_none())` made `.find(|_| false)`.
 #[test]
 fn every_writer_refuses_while_a_line_would_be_omitted() {
     for (tag, body, line) in [
@@ -290,6 +291,31 @@ fn every_writer_refuses_while_a_line_would_be_omitted() {
             );
             assert_eq!(read(&sandbox, "ALL-CHANGES.md"), before, "{tag} {args:?}");
         }
+    }
+}
+
+/// The claim: each writer refuses while a `[walk]` row keeps out a changelog the tree holds, naming
+/// the row, and writes no byte, since the assembled file would omit that crate's entries.
+/// Mutation checked, caught: in `generated_list` of `path@check@src/commands/mod.rs`, the
+/// argument `inputs.present,` of `refusal` made `&Default::default(),`.
+#[test]
+fn every_writer_refuses_while_a_changelog_is_kept_out() {
+    let sandbox = current("changelog-refuse-kept-out");
+    let before = read(&sandbox, "ALL-CHANGES.md");
+    let manifest = read(&sandbox, "knowledge-architect.toml");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replace("skip-files = []", "skip-files = [\"lib/CHANGELOG.md\"]"),
+    );
+    sandbox.stage();
+    for args in [&["check", "--fix"][..], &["index"], &["index", "--staged"]] {
+        let (out, err, code) = sandbox.run(args);
+        assert_eq!(code, 2, "{args:?}: {out}{err}");
+        assert!(
+            err.contains("lib/CHANGELOG.md: [walk] skip-files `lib/CHANGELOG.md` keeps it out"),
+            "{args:?}: {err}"
+        );
+        assert_eq!(read(&sandbox, "ALL-CHANGES.md"), before, "{args:?}");
     }
 }
 

@@ -11,7 +11,7 @@ use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
 use super::render::{omitted, parsed, Omitted};
-use super::GENERATED_HEADER;
+use super::{CargoTrouble, GENERATED_HEADER};
 use crate::finding::slashed;
 use crate::manifest::Manifest;
 use crate::model::Model;
@@ -32,6 +32,9 @@ const HAND_WRITTEN_REPAIR: &str = "move the file away, or set `[changelog] assem
 /// The repair of a line the assembled file would omit.
 const OMITTED_REPAIR: &str = "repair the line as the changelog check reports it, and run again";
 
+/// The repair of a changelog crate's file the changelog checks cannot read.
+const UNREAD_FILE_REPAIR: &str = "repair the file as the changelog check reports it, and run again";
+
 /// Whether `text`, the text of the file at the assembled file's path, is not this tool's to
 /// replace: it does not open with [`GENERATED_HEADER`], a byte-order mark aside.
 pub fn hand_written(text: &str) -> bool {
@@ -47,12 +50,17 @@ pub fn hand_written(text: &str) -> bool {
 ///
 /// It refuses where a file at the path, in that tree, is [`hand_written`], `committed` holding
 /// the tree's text of each generated path and `unreadable` each one whose bytes are not text; and
-/// where a changelog holds a line the assembled file would omit: an unread line, or an entry whose
-/// category the manifest does not declare for its crate, an entry with no tag in a classed version
-/// included. Nothing is refused where nothing is assembled.
+/// where the changelog checks cannot read a changelog crate's file: a `Cargo.toml` that
+/// [`Crates::trouble`](super::Crates::trouble) names, or a `CHANGELOG.md` that `present`, the
+/// tree's listing, holds and a `[walk]` row keeps out; and where a changelog holds a line the
+/// assembled file would omit: an unread line, or an entry whose category the manifest does not
+/// declare for its crate, an entry with no tag in a classed version included. Nothing is refused
+/// where nothing is assembled. A changelog crate whose tree holds no `CHANGELOG.md` is no refusal:
+/// it has no entry to omit.
 pub fn refusal(
     manifest: &Manifest,
     model: &Model,
+    present: &HashSet<PathBuf>,
     committed: &HashMap<PathBuf, String>,
     unreadable: &HashSet<PathBuf>,
 ) -> Option<Refused> {
@@ -67,6 +75,50 @@ pub fn refusal(
             ),
             repair: HAND_WRITTEN_REPAIR,
         });
+    }
+    // **A file the changelog checks cannot read refuses as an unread line does**: the assembled
+    // file would omit what it holds, a crate's whole entries where its `Cargo.toml` cannot be read
+    // or its `CHANGELOG.md` is kept out, per `design@model@assembled-file-not-overwritten`.
+    // Every kind of trouble counts: a `Cargo.toml` that is missing or declares no package, where
+    // `[changelog] components` lists its Component, leaves that crate out as an unreadable one does.
+    if let Some(trouble) = model.changelog_crates().trouble().first() {
+        let why = match trouble {
+            CargoTrouble::Unreadable { file, reason } => format!(
+                "{}: the changelog checks cannot read it, {reason}",
+                slashed(file)
+            ),
+            CargoTrouble::KeptOut { file, row } => format!("{}: {row} keeps it out", slashed(file)),
+            CargoTrouble::Missing { file } => format!(
+                "{}: it is not there, and [changelog] components lists its Component",
+                slashed(file)
+            ),
+            CargoTrouble::NoPackage { file } => format!(
+                "{}: it declares no package, and [changelog] components lists its Component",
+                slashed(file)
+            ),
+        };
+        return Some(Refused {
+            why: format!(
+                "{why}; the assembled changelog would omit that crate's entries. Nothing was \
+                 written."
+            ),
+            repair: UNREAD_FILE_REPAIR,
+        });
+    }
+    for crate_ in model.changelog_crates().all() {
+        let rel = crate_.changelog();
+        let row =
+            crate::walk::keeping_row(&rel, manifest.walk()).filter(|_| present.contains(&rel));
+        if let Some(row) = row {
+            return Some(Refused {
+                why: format!(
+                    "{}: {row} keeps it out; the assembled changelog would omit its entries. \
+                     Nothing was written.",
+                    slashed(&rel)
+                ),
+                repair: UNREAD_FILE_REPAIR,
+            });
+        }
     }
     model
         .changelog_crates()
@@ -104,14 +156,22 @@ mod tests {
     /// and `W`, `W` restricted to `b`, and `0.1.0` unclassed; each crate's changelog is the text
     /// `logs` gives.
     fn project(logs: [&str; 2]) -> (Manifest, Model) {
+        project_with(logs, "", None)
+    }
+
+    /// The same, `skip_files` the `[walk] skip-files` row, and a third Component `c`, listed with
+    /// no changelog, whose `Cargo.toml` is `c_cargo` where given.
+    fn project_with(logs: [&str; 2], skip_files: &str, c_cargo: Option<&str>) -> (Manifest, Model) {
         let manifest = Manifest::parse(
             Path::new("/nowhere"),
-            "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"a\", \"b\"]\n\n\
-             [walk]\nskip-dirs = []\nskip-files = []\n\n[changelog]\ncategories = [\"A\", \"W\"]\n\
-             unclassed = [\"0.1.0\"]\n\n[changelog.category-components]\nW = [\"b\"]\n",
+            &format!(
+                "[project]\nchecker-version = \"fixture\"\nname = \"p\"\ncomponents = [\"a\", \"b\", \"c\"]\n\n\
+                 [walk]\nskip-dirs = []\nskip-files = [{skip_files}]\n\n[changelog]\ncategories = [\"A\", \"W\"]\n\
+                 unclassed = [\"0.1.0\"]\n\n[changelog.category-components]\nW = [\"b\"]\n"
+            ),
         )
         .expect("a declaration");
-        let cargo: HashMap<PathBuf, String> = ["a", "b"]
+        let mut cargo: HashMap<PathBuf, String> = ["a", "b"]
             .iter()
             .map(|c| {
                 (
@@ -120,6 +180,9 @@ mod tests {
                 )
             })
             .collect();
+        if let Some(text) = c_cargo {
+            cargo.insert(PathBuf::from("c/Cargo.toml"), text.to_string());
+        }
         let listing: Vec<PathBuf> = cargo.keys().cloned().collect();
         let crates =
             super::super::changelog_crates(&manifest, &listing, &|rel| cargo.get(rel).cloned());
@@ -141,7 +204,13 @@ mod tests {
     fn refused(logs: [&str; 2], unreadable: &[&str]) -> Option<Refused> {
         let (manifest, model) = project(logs);
         let unreadable: HashSet<PathBuf> = unreadable.iter().map(PathBuf::from).collect();
-        refusal(&manifest, &model, &HashMap::new(), &unreadable)
+        refusal(
+            &manifest,
+            &model,
+            &HashSet::new(),
+            &HashMap::new(),
+            &unreadable,
+        )
     }
 
     const CLEAN: &str = "## Next release\n\n- A, patch: a fix\n";
@@ -178,6 +247,55 @@ mod tests {
         assert_eq!(refused.repair, OMITTED_REPAIR);
         assert!(
             refused.why.starts_with("a/CHANGELOG.md:5:"),
+            "{}",
+            refused.why
+        );
+    }
+
+    /// The claim: a changelog crate's `Cargo.toml` that the changelog checks cannot read refuses
+    /// the writers, since the assembled file would omit that crate's entries. Mutation checked: in
+    /// `refusal`, `if let Some(trouble) = model.changelog_crates().trouble().first()` made
+    /// `if let Some(trouble) = None::<&CargoTrouble>`; caught.
+    #[test]
+    fn a_cargo_toml_the_checks_cannot_read_is_refused() {
+        let (manifest, model) = project_with([CLEAN, CLEAN], "", Some("[package\n"));
+        let refused = refusal(
+            &manifest,
+            &model,
+            &HashSet::new(),
+            &HashMap::new(),
+            &HashSet::new(),
+        )
+        .expect("a refusal");
+        assert!(refused.why.starts_with("c/Cargo.toml: "), "{}", refused.why);
+        assert_eq!(refused.repair, UNREAD_FILE_REPAIR);
+    }
+
+    /// The claim: a crate's `CHANGELOG.md` that the tree holds and a `[walk]` row keeps out refuses
+    /// the writers, naming the row, and one the tree does not hold is no refusal, as a missing
+    /// file omits nothing. Mutations checked, each caught: in `refusal`,
+    /// `.filter(|_| present.contains(&rel));` made `.filter(|_| true);`, and the value of `row`,
+    /// `crate::walk::keeping_row(&rel, manifest.walk()).filter(|_| present.contains(&rel))`, made
+    /// `None::<String>`.
+    #[test]
+    fn a_changelog_a_walk_row_keeps_out_is_refused_where_the_tree_holds_it() {
+        let (manifest, model) = project_with([CLEAN, CLEAN], "\"b/CHANGELOG.md\"", None);
+        let refuse = |present: &[&str]| {
+            let present: HashSet<PathBuf> = present.iter().map(PathBuf::from).collect();
+            refusal(
+                &manifest,
+                &model,
+                &present,
+                &HashMap::new(),
+                &HashSet::new(),
+            )
+        };
+        assert_eq!(refuse(&["a/CHANGELOG.md"]), None);
+        let refused = refuse(&["a/CHANGELOG.md", "b/CHANGELOG.md"]).expect("a refusal");
+        assert!(
+            refused
+                .why
+                .starts_with("b/CHANGELOG.md: [walk] skip-files `b/CHANGELOG.md`"),
             "{}",
             refused.why
         );
