@@ -1,6 +1,6 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+26 entries
 
 | kind | title |
 | --- | --- |
@@ -11,6 +11,7 @@
 | observation | [On Windows a working directory spelled another way may rebuild the crates tied to their checkout, and on macOS `cargo run` copies a binary while another runs](a-cargo-run-rebuilds-or-replaces-a-binary-by-the-system.md) |
 | observation | [Whether a test's scratch directory is removed on Windows is not established](a-directory-a-test-holds-may-stay-on-windows.md) |
 | question | [A conflict in a generated file, met when commits are replayed, is resolved by hand](a-conflict-in-a-generated-file-is-resolved-by-hand.md) |
+| question | [A minor change under 0.x may take the patch number, as the Cargo book admits, where this project and its bump check take the second number](a-minor-change-under-zero-x-may-take-the-patch-number.md) |
 | question | [Does a command find each test's recorded mutation whose quoted code has left the source?](no-command-finds-a-recorded-mutation-whose-code-left-the-source.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |

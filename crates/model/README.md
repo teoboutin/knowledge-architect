@@ -53,7 +53,8 @@ let entities = table::Entities::build(&model, &anchors);
 
 - **`git` on the path, and a project inside a git worktree**: the walk is git's listing.
 - **Nothing about a project is compiled in**: every list comes from the project's
-  `knowledge-architect.toml`.
+  `knowledge-architect.toml`, or, for the changelog crates, from the `Cargo.toml` of each Component
+  it declares, per `design@check@nothing-of-a-project-is-compiled-in`.
 - **A phase stops the run**: the first of phases 1 to 3 that finds anything is the answer, since what
   a later one computes over an incomplete model is unreliable in both directions.
 - **A model is built once and read**: a phase and the resolver spawn nothing and read no file. What

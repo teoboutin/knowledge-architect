@@ -63,7 +63,9 @@ pub fn expected_preamble(
 /// name, which the crate's heading writes, and the crate's parse, in the manifest's order of the
 /// Components. `command` is the command the generated header names, as in `<command> index`.
 ///
-/// The layout, per `design@model@assembled-changelog-layout`: the generated header; then each
+/// The layout, per `design@model@assembled-changelog-layout`, the crates in the manifest's order,
+/// per `design@model@assembled-crates-in-the-manifest-s-order`, and named by package, per
+/// `design@model@assembled-crates-named-by-package`: the generated header; then each
 /// version, `Next release` first and the released ones in descending order, as `## <version>`;
 /// under it each category in its declared order, as `### <category>`; under it each crate, as
 /// `#### <package>`; under it the crate's entries of that category, `- <class>: <text>`, in the

@@ -19,7 +19,11 @@ read through `cargo-reader`, per `design@knowledge-architect@tools-read-cargo-th
 
 **The published crates are a list each `Cargo.toml` already declares.** A list written by hand in
 the manifest beside it drifts, and the drift it hides, a new published crate with no changelog, is
-what the changelog checks exist to report. Reading `publish` discovers nothing by filename: it picks
+what the changelog checks exist to report. The `components` key stays beside it because a
+changelog is not tied to publishing alone: the owner reported that a project may want a checked
+changelog for a crate it does not publish, and judged that a crate published with no changelog on
+purpose is rarer. The owner also judged its drift unlikely, since a Component is created rarely and
+with strong consequences, so a review sees a list left behind. Reading `publish` discovers nothing by filename: it picks
 among the Components the manifest declares, by what each one's `Cargo.toml` holds, per
 `design@model@components-carry-the-same-documents`.
 
@@ -64,9 +68,8 @@ would exist in one file, as Workflow would in this repository.
 ### A version heading names a release version: three numbers with no leading zero, no pre-release and no build metadata `##changelog-version-is-a-release-version`
 
 The `<version>` of a version heading, per `design@model@changelog-entry-categories`, is three
-numbers joined by `.`, none with a leading zero. Cargo refuses a leading zero in a `version`:
-`cargo publish --dry-run` over a package whose `version` is `01.2.3` fails with "invalid leading
-zero in major version number", cargo 1.99.1, so no package carries that version. A heading of a
+numbers joined by `.`, none with a leading zero. Cargo refuses a leading zero in a `version`, as
+`path@check@docs/grounding/cargo-semver.md` measures it, so no package carries that version. A heading of a
 pre-release version, such as `## 1.0.0-rc.1`, or of one with build metadata, such as
 `## 1.0.0+build.5`, is a line the parse records as unread: the bump check has no reading of a
 pre-release's class, since the Cargo book's semver chapter gives none, and build metadata is
