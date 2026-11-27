@@ -1279,7 +1279,8 @@ mod tests {
         // `changelog` and the old pin as `--from`, in the order pin, fetch, command, with no case
         // for a project with no Rust. Mutations checked, each caught: `let command =
         // manifest.command();` made `let command = "klarch";`; the fetch, `run `cargo fetch`, `,
-        // removed from the text; and the maintenance crate's versions removed from it.
+        // removed from the text; the maintenance crate's versions removed from it; and the reading
+        // of what the command prints removed from it.
         let declared = Manifest::parse(
             &tree,
             "[project]\nchecker-version = \"0.1.9\"\nname = \"p\"\ncomponents = []\n\
@@ -1307,6 +1308,8 @@ mod tests {
         let versions =
             at("and the versions of the checker's crates the maintenance crate depends on");
         assert!(pin < versions && versions < fetch, "{named}");
+        let read = at("and read what it prints, each version's Migration entries above all");
+        assert!(run < read, "{named}");
         assert!(!named.contains("no Rust"), "{named}");
         assert!(
             newer.contains("`klarch changelog knowledge-architect --from 0.1.9`"),
