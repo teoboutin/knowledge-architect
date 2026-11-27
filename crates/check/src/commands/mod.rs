@@ -584,7 +584,18 @@ fn fix_then_check(
         Ok(differs) => differs,
         Err(e) => return failed(written, e.to_string()),
     };
-    if staged_differs {
+    // Only a file `--fix` would write can carry the working tree's bytes into a partial commit:
+    // one already current on disk is the user's, written by `index` or by hand, and refusing over
+    // it would refuse a run that writes nothing, which `index` cannot clear. So where `--fix`
+    // writes no generated file, the staged side is not computed either: a staged tree whose
+    // generated files cannot be computed, such as one whose changelog the working tree has
+    // already repaired, refuses nothing this run would do.
+    let written_here: Vec<(std::path::PathBuf, String)> = generated
+        .iter()
+        .filter(|(rel, text)| !crate::currency::is_current(&manifest.root().join(rel), text))
+        .cloned()
+        .collect();
+    if staged_differs && !written_here.is_empty() {
         let staged = match history::staged_generated(manifest.root(), checker, extensions) {
             Ok(staged) => staged,
             Err(e) => {
@@ -592,23 +603,14 @@ fn fix_then_check(
                     written,
                     format!(
                         "the generated files of the staged tree cannot be computed, so a partial \
-                         commit cannot be told apart, and no generated file was written: {e}"
+                         commit cannot be told apart, and no generated file was written: {e}\n  \
+                         → where the working tree already holds the repair: stage it, and run \
+                         again"
                     ),
                 )
             }
         };
         if let Some(staged) = staged {
-            // Only a file `--fix` would write can carry the working tree's bytes into a partial
-            // commit: one already current on disk is the user's, written by `index` or by hand,
-            // and refusing over it would refuse a run that writes nothing, which `index` cannot
-            // clear.
-            let written_here: Vec<(std::path::PathBuf, String)> = generated
-                .iter()
-                .filter(|(rel, text)| {
-                    !crate::currency::is_current(&manifest.root().join(rel), text)
-                })
-                .cloned()
-                .collect();
             let differing: Vec<String> = differing_paths(&generated, &staged)
                 .into_iter()
                 .filter(|path| written_here.iter().any(|(rel, _)| rel == path))
@@ -823,9 +825,12 @@ fn generated_list(
     if let Some(refused) = crate::model::changelog::refusal(
         manifest,
         model,
-        inputs.present,
-        inputs.committed,
-        inputs.generated_unreadable,
+        crate::model::changelog::WrittenTree {
+            present: inputs.present,
+            directories: inputs.directories,
+            committed: inputs.committed,
+            unreadable: inputs.generated_unreadable,
+        },
     ) {
         return Err(refused);
     }
@@ -888,8 +893,9 @@ fn check_destinations(
                     "{}: the directory this file is generated into is not there.",
                     dir.display()
                 ),
-                "create that directory, or configure the extension that generates this file to \
-                 write it into a directory the tree holds",
+                "create that directory, or give the file a path in a directory the tree holds: by \
+                 the configuration of the extension that generates it, or by `[changelog] \
+                 assembled` for the assembled changelog",
             ));
         }
         // `fs::write` follows a symlink and writes through it, so a generated path that is one
@@ -1335,8 +1341,9 @@ mod tests {
         );
         assert_eq!(
             repair,
-            "create that directory, or configure the extension that generates this file to \
-             write it into a directory the tree holds"
+            "create that directory, or give the file a path in a directory the tree holds: by \
+             the configuration of the extension that generates it, or by `[changelog] \
+             assembled` for the assembled changelog"
         );
 
         std::fs::write(tree.join("target.md"), "kept\n").expect("a file");

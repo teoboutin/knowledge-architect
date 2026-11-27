@@ -50,15 +50,25 @@ pub(crate) fn check(
         );
     }
     // The assembled changelog, where one is assembled, is missing or out of date as an index is,
-    // and its repair is the one the register indexes name for the tree judged.
+    // and its repair is the one the register indexes name for the tree judged; but over a file
+    // the writers refuse to replace, one with no generated header or not text, the repair moves
+    // it away first, since `index` refuses until then, per `design@check@finding-names-the-repair`.
     if let Some((rel, expected)) = crate::model::changelog::assembled_file(manifest, model) {
-        compare(
-            &rel,
-            &expected,
-            inputs,
-            &index_action(manifest, inputs.judged),
-            &mut findings,
-        );
+        let index = index_action(manifest, inputs.judged);
+        let hand_written = inputs.generated_unreadable.contains(&rel)
+            || inputs
+                .committed
+                .get(&rel)
+                .is_some_and(|text| crate::model::changelog::hand_written(text));
+        let action = if hand_written {
+            format!(
+                "move the file away, or set `[changelog] assembled` to another path, then {index}: \
+                 a file without the generated header is not this tool's to replace"
+            )
+        } else {
+            index
+        };
+        compare(&rel, &expected, inputs, &action, &mut findings);
     }
     findings
 }

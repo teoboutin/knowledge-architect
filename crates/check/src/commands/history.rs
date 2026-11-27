@@ -1004,9 +1004,10 @@ pub(super) fn index_staged(
         if !dir.as_os_str().is_empty() && !assembly.survey.directories.contains(dir) {
             return Err(format!(
                 "{}: the directory this file is generated into is not in the staged tree. \
-                 Nothing was written.\n       stage a file under that directory, or configure \
-                 the extension that generates this file to write it into a directory the staged \
-                 tree holds",
+                 Nothing was written.\n       stage a file under that directory, or give the \
+                 file a path in a directory the staged tree holds: by the configuration of the \
+                 extension that generates it, or by `[changelog] assembled` for the assembled \
+                 changelog",
                 slashed(dir)
             ));
         }
@@ -1865,9 +1866,10 @@ mod tests {
             index_staged(&manifest, &[], &mut extensions),
             Err(
                 "nowhere: the directory this file is generated into is not in the staged tree. \
-                 Nothing was written.\n       stage a file under that directory, or configure \
-                 the extension that generates this file to write it into a directory the staged \
-                 tree holds"
+                 Nothing was written.\n       stage a file under that directory, or give the \
+                 file a path in a directory the staged tree holds: by the configuration of the \
+                 extension that generates it, or by `[changelog] assembled` for the assembled \
+                 changelog"
                     .to_string()
             )
         );

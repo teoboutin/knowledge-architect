@@ -221,10 +221,14 @@ fn a_malformed_changelog_stops_no_phase() {
     assert_eq!(code, 0, "{out}{err}");
 }
 
-/// The claim, claim 10, first half: each writer refuses to write the assembled file over a file
-/// at its path, in the tree it writes, that lacks the generated header, and writes no byte of any
-/// generated file. Mutation checked, caught: in `refusal` of
-/// `path@model@src/changelogs/render.rs`, `if hand_written {` made `if false {`.
+/// The claim, the writers' refusals, first half: each writer refuses to write the assembled file
+/// over a file at its path, in the tree it writes, that lacks the generated header, and writes no
+/// byte of any generated file; and the check's finding on that file names the repair the writers
+/// accept, moving the file away, for each tree it judges. Mutations checked, each caught: in
+/// `refusal` of `path@model@src/changelogs/refusal.rs`,
+/// `|| committed.is_some_and(|text| hand_written(text))` made `|| false`; and in `check` of
+/// `path@check@src/check/generated.rs`, `let action = if hand_written {` made
+/// `let action = if false {`.
 #[test]
 fn every_writer_refuses_over_a_file_without_the_generated_header() {
     let sandbox = current("changelog-hand-written");
@@ -252,6 +256,19 @@ fn every_writer_refuses_over_a_file_without_the_generated_header() {
         .output()
         .expect("git runs");
     assert_eq!(String::from_utf8_lossy(&staged.stdout), hand);
+    for (args, then) in [
+        (&["check"][..], "index`"),
+        (&["check", "--staged"], "index --staged`"),
+    ] {
+        let (out, err, code) = sandbox.run(args);
+        assert_eq!(code, 1, "{args:?}: {out}{err}");
+        // The finding's repair may wrap onto the lines under it.
+        let flat = out.split_whitespace().collect::<Vec<_>>().join(" ");
+        let repair = format!(
+            "move the file away, or set `[changelog] assembled` to another path, then run `klarch {then}"
+        );
+        assert!(flat.contains(&repair), "{args:?}: {out}");
+    }
 }
 
 /// The claim, the writers' refusals, second half: each writer refuses while a changelog holds an
@@ -427,4 +444,43 @@ fn an_assembled_path_a_register_index_takes_is_refused() {
     let (out, err, code) = sandbox.run(&["index"]);
     assert_ne!(code, 0, "{out}{err}");
     assert_eq!(read(&sandbox, index), before);
+}
+
+/// The claim: where the staged tree holds a line the assembled file would omit and the working tree
+/// has repaired it, `check --fix` refuses only where it would write a generated file, and then
+/// names staging the working copy as a repair; with nothing to write, it runs the check, which
+/// passes. Mutations checked, each caught: in `fix_then_check` of
+/// `path@check@src/commands/mod.rs`, `if staged_differs && !written_here.is_empty() {` made
+/// `if staged_differs {`; and the refusal's last line,
+/// `→ where the working tree already holds the repair: stage it, and run`, made `→`.
+#[test]
+fn check_fix_over_a_staged_defect_the_working_tree_repaired() {
+    let sandbox = current("changelog-fix-staged-defect");
+    let clean = read(&sandbox, "lib/CHANGELOG.md");
+    sandbox.write(
+        "lib/CHANGELOG.md",
+        &changelog(
+            "core-lib",
+            &LIB_BODY.replacen("## 0.1.0", "A line of no grammar.\n\n## 0.1.0", 1),
+        ),
+    );
+    sandbox.stage();
+    sandbox.write("lib/CHANGELOG.md", &clean);
+    let (out, err, code) = sandbox.run(&["check", "--fix"]);
+    assert_eq!(
+        code, 0,
+        "nothing to write, and the working tree passes: {out}{err}"
+    );
+
+    let repaired = clean.replace("the library adds", "the library adds more");
+    sandbox.write("lib/CHANGELOG.md", &repaired);
+    let before = read(&sandbox, "ALL-CHANGES.md");
+    let (out, err, code) = sandbox.run(&["check", "--fix"]);
+    assert_eq!(code, 2, "{out}{err}");
+    let flat = err.split_whitespace().collect::<Vec<_>>().join(" ");
+    assert!(
+        flat.contains("where the working tree already holds the repair: stage it, and run again"),
+        "{err}"
+    );
+    assert_eq!(read(&sandbox, "ALL-CHANGES.md"), before);
 }
