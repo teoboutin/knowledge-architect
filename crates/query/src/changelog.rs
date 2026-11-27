@@ -96,9 +96,9 @@ pub struct ChangelogRequest {
 /// `design@query@changelog-places-each-crate-by-its-own-preamble`; and prints the
 /// sections of the range in the layout of an assembled changelog with no generated header, the
 /// named package first under each category, then the others by package name, per
-/// `design@query@consumer-crate-order`. A version none of them holds an entry of is not printed;
-/// where the range holds no entry, a line says so, and where it holds entries the layout has no
-/// place for alone, a line says that instead.
+/// `design@query@consumer-crate-order`. A version none of them holds an entry of is not printed.
+/// Where nothing is printed and nothing is listed below, a line says the range holds no entry;
+/// where nothing is printed and something is listed, a line says nothing of the range is printed.
 ///
 /// After the layout, it prints one line per thing the layout cannot hold, per
 /// `design@query@changelog-reports-what-it-cannot-print`, naming the file and,
@@ -164,21 +164,23 @@ pub fn changelog(manifest: &Manifest, request: &ChangelogRequest) -> Result<Exit
 }
 
 /// The text the command prints, with no final line break, and its exit code, from what
-/// [`assemble`] gives: the layout, or, where it is empty, a line saying the range holds no entry,
-/// where it holds none and nothing is listed below, or else that nothing of the range is printed;
-/// then, where any line cannot be held, a blank line, a heading and each such line, with the code
-/// 1; else 0. A file not read and a version heading the parse did not take hide entries
-/// `in_range` does not count, so the line claims an empty range only where nothing is listed.
+/// [`assemble`] gives: the layout; or, where it is empty, a line saying the range holds no entry,
+/// where nothing is listed below, or else a line saying nothing of the range is printed; then,
+/// where any line cannot be held, a blank line, a heading and each such line, with the code 1;
+/// else 0.
 fn output(assembled: &Assembled) -> (String, u8) {
     // The body opens each version with a blank line, as the assembled file holds it below its
     // header; printed alone, that line would open the output.
     let body = assembled.body.strip_prefix('\n').unwrap_or(&assembled.body);
     let body = body.trim_end_matches('\n');
     let nothing_listed = assembled.unheld.is_empty();
-    let mut text = match (body.is_empty(), assembled.in_range, nothing_listed) {
-        (false, _, _) => body.to_string(),
-        (true, 0, true) => "No entry of the selected changelogs is in the range.".to_string(),
-        (true, _, _) => {
+    // An empty layout with nothing listed means the range holds no entry: `assemble` prints or
+    // lists every entry of a section of the range, by `place`'s one rule, and lists every file it
+    // does not read and every line the parse does not take, which may hide entries.
+    let mut text = match (body.is_empty(), nothing_listed) {
+        (false, _) => body.to_string(),
+        (true, true) => "No entry of the selected changelogs is in the range.".to_string(),
+        (true, false) => {
             "Nothing of the range is printed; what the layout cannot hold is listed below."
                 .to_string()
         }
@@ -263,12 +265,10 @@ struct Assembled {
     body: String,
     /// One line per thing the layout cannot hold, in the order of the crates, then of the file.
     unheld: Vec<String>,
-    /// The entries of the sections of the range, printed or not.
-    in_range: usize,
 }
 
-/// The layout of `crates` over `range`, with no generated header, one line per thing it cannot
-/// hold, in the order of the crates, then of the file, and the count of the range's entries.
+/// The layout of `crates` over `range`, with no generated header, and one line per thing it
+/// cannot hold, in the order of the crates, then of the file.
 ///
 /// Each crate's entries are placed by the table its own preamble states, as its publisher's check
 /// judged them: an entry its preamble does not admit is reported, whatever another crate's
@@ -322,7 +322,6 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> Assembled {
         }
     }
     let mut ranged: Vec<(&str, ChangelogTable, Changelog)> = Vec::new();
-    let mut in_range = 0;
     for (i, table, log) in read_logs {
         let read = &crates[i];
         let (package, file) = (read.package.as_str(), read.file.display());
@@ -342,7 +341,6 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> Assembled {
             .filter(|s| range.contains(s.heading))
             .collect();
         for section in &sections {
-            in_range += section.entries.len();
             for line in unplaced(&table, package, section) {
                 lines.push((
                     line,
@@ -375,7 +373,6 @@ fn assemble(range: &VersionRange, crates: &[Read]) -> Assembled {
     Assembled {
         body: assembled_body_by_table(&categories, &crates),
         unheld: unheld.concat(),
-        in_range,
     }
 }
 
@@ -643,32 +640,32 @@ mod tests {
     }
 
     /// The claim: the text printed is the layout with no opening blank line, or, where it is
-    /// empty, a line saying the range holds no entry, or that no entry of it has a place in the
-    /// layout; the code is 0 with nothing it cannot hold, else the lines it cannot hold follow a
-    /// blank line and a heading, and the code is 1. Mutations checked, each caught: in `output`,
-    /// `return (text, 0);` made `return (text, 1);`; `(true, 0, true) =>` made `(true, _, _) =>`;
-    /// and made `(true, 0, _) =>`, which claims an empty range over a file not read.
+    /// empty, a line saying the range holds no entry where nothing is listed below, or else that
+    /// nothing of the range is printed, a file not read among the cases; the code is 0 with
+    /// nothing it cannot hold, else the lines it cannot hold follow a blank line and a heading, and
+    /// the code is 1. Mutations checked, each caught: in `output`, `return (text, 0);` made
+    /// `return (text, 1);`; `(true, true) =>` made `(true, _) =>`; and `(text, 1)` made
+    /// `(text, u8::from(!body.is_empty()))`.
     #[test]
     fn the_output_is_the_layout_then_what_it_cannot_hold() {
-        let made = |body: &str, unheld: &[&str], in_range: usize| Assembled {
+        let made = |body: &str, unheld: &[&str]| Assembled {
             body: body.to_string(),
             unheld: unheld.iter().map(|l| l.to_string()).collect(),
-            in_range,
         };
         let body = "\n## 0.2.0\n\n#### a\n\n- one\n";
         assert_eq!(
-            output(&made(body, &[], 1)),
+            output(&made(body, &[])),
             ("## 0.2.0\n\n#### a\n\n- one".to_string(), 0)
         );
         assert_eq!(
-            output(&made("", &[], 0)),
+            output(&made("", &[])),
             (
                 "No entry of the selected changelogs is in the range.".to_string(),
                 0
             )
         );
         assert_eq!(
-            output(&made("", &["/r/a:9: x"], 1)),
+            output(&made("", &["/r/a:9: x"])),
             (
                 "Nothing of the range is printed; what the layout cannot hold is listed below.\n\n\
                  Not printed, since the layout has no place for it:\n/r/a:9: x"
@@ -676,14 +673,18 @@ mod tests {
                 1
             )
         );
-        // A file not read holds entries `in_range` does not count.
+        // A file not read, which may hold entries of the range.
         assert_eq!(
-            output(&made("", &["/r/a: not read"], 0)).0,
-            "Nothing of the range is printed; what the layout cannot hold is listed below.\n\n\
-             Not printed, since the layout has no place for it:\n/r/a: not read"
+            output(&made("", &["/r/a: not read"])),
+            (
+                "Nothing of the range is printed; what the layout cannot hold is listed below.\n\n\
+                 Not printed, since the layout has no place for it:\n/r/a: not read"
+                    .to_string(),
+                1
+            )
         );
         assert_eq!(
-            output(&made(body, &["/r/a:3: x", "/r/b: y"], 1)),
+            output(&made(body, &["/r/a:3: x", "/r/b: y"])),
             (
                 "## 0.2.0\n\n#### a\n\n- one\n\nNot printed, since the layout has no place for \
                  it:\n/r/a:3: x\n/r/b: y"
@@ -695,8 +696,8 @@ mod tests {
 
     /// The claim: the categories of the layout are every category of the crates' preambles, in
     /// the order of first appearance in the order of the crates, two crates listing them in
-    /// different orders and each printing under several; and the count of the range's entries is
-    /// every entry of its sections. Mutations checked, each caught: in `assemble`,
+    /// different orders and each printing under several. Mutations checked, each caught: in
+    /// `assemble`,
     /// `for (_, table, _) in &read_logs {` made `for (_, table, _) in read_logs.iter().rev() {`, and
     /// made `for (_, table, _) in read_logs.iter().take(1) {`.
     #[test]
@@ -726,7 +727,6 @@ mod tests {
              \n### New features\n\n#### a\n\n- minor: a adds.\n\n### Workflow\n\n#### b\n\n- patch: b works.\n"
         );
         assert_eq!(assembled.unheld, Vec::<String>::new());
-        assert_eq!(assembled.in_range, 4);
     }
 
     /// The claim: a file holding a carriage return that no line feed follows is reported and not

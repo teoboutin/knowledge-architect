@@ -253,7 +253,7 @@ const OWN_ENTRIES: &str = "This file holds the entries of this crate only.";
 /// consumer's command over the sources cargo fetched, per `design@check@category-order-in-preamble`.
 ///
 /// Each line is read by its shape, compared without the white space that ends it, so a blank
-/// line is read as nothing. A line opening as one of these is of that kind: `# Changelog of
+/// line is read as nothing; a line opening with white space is of no kind. A line opening as one of these is of that kind: `# Changelog of
 /// <package>`; the sentence that the file holds the crate's entries only, alone or followed by
 /// ` The changelog of the whole project is <named> in its repository.`; `Categories, in order:
 /// <c>, <c>.`; and `Versions with no category and no class: <v>, <v>.`. The first line of each
@@ -664,7 +664,8 @@ mod tests {
     /// The claim: the first line of each kind is read where it has that shape whole, and every
     /// other line is unread: a second line of a kind, read or not the first, a package that is
     /// empty or opens with white space, an empty name of the whole project's changelog, the
-    /// sentence naming it without its end, and a category holding a `:`; a line ending with white
+    /// sentence naming it without its end, a category holding a `:`, and a line opening with white
+    /// space; a line ending with white
     /// space is read, as the publisher's check admits on the preamble's last line; a version
     /// repeated among the unclassed is read. Mutations checked, each caught: in `read_preamble`,
     /// the guard `Some(k) if std::mem::replace(&mut seen[k], true) => false,` made
@@ -672,8 +673,9 @@ mod tests {
     /// `.and_then(|r| r.strip_suffix(WHOLE.1))` made
     /// `.map(|r| r.strip_suffix(WHOLE.1).unwrap_or(r))`; `.strip_prefix(WHOLE.0)` made
     /// `.split_once(" is ").map(|(_, n)| n)`; `Some(0) => named(&line[TITLE.len()..]),`
-    /// made `Some(0) => true,`; `let line = line.trim_end();` removed; and in `listed`,
-    /// `&& !item.contains([',', ':'])` made `&& !item.contains([','])`.
+    /// made `Some(0) => true,`; `let line = line.trim_end();` removed, and made
+    /// `let line = line.trim();`; and in `listed`, `&& !item.contains([',', ':'])` made
+    /// `&& !item.contains([','])`.
     #[test]
     fn each_kind_of_line_is_read_once_in_its_whole_shape() {
         let v = |t: &str| Version::parse(t).expect("a version");
@@ -716,6 +718,9 @@ mod tests {
                 vec![],
             ),
             (format!("{versions} 0.1.0.   \t"), vec![], vec![v("0.1.0")]),
+            // A line opening with white space, which `expected_preamble` never writes.
+            ("  Categories, in order: A.".to_string(), vec![1], vec![]),
+            (" # Changelog of pa".to_string(), vec![1], vec![]),
             ("Categories, in order: A: B.".to_string(), vec![1], vec![]),
             ("# Changelog of  pa".to_string(), vec![1], vec![]),
             ("# Changelog of".to_string(), vec![1], vec![]),
