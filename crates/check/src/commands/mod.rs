@@ -300,17 +300,23 @@ fn refuse_another_version_built_at(
                      version the project runs"
                 )
             } else {
-                // The order of the pin move, `skill@knowledge-architect-setup@moving-the-pin`: the
-                // command reads the changelogs from the sources the fetch unpacked, and runs
-                // under `--locked`, which a lock the pin's edit left stale fails.
+                // The order of the pin move, `skill@knowledge-architect-setup@moving-the-pin`. In
+                // a Rust project the command reads the changelogs from the sources the fetch
+                // unpacked: run through an alias that builds it with `cargo run`, that build
+                // resolves the edited pin first, and a run of the binary itself before the fetch
+                // fails under `--locked` on the lock the edit left stale. A project with no Rust
+                // holds no graph for the command to read, so it reads the files by hand.
                 let command = manifest.command();
                 format!(
                     "run knowledge-architect {pinned}, the version the manifest pins, or move the \
                      pin from {pinned} to {version}: set [project] checker-version = \
-                     \"{version}\", and in a Rust project the versions of the checker's crates \
-                     the maintenance crate depends on; run `cargo fetch`; then run \
+                     \"{version}\"; in a Rust project, set the versions of the checker's crates \
+                     the maintenance crate depends on, run `cargo fetch`, then run \
                      `{command} changelog knowledge-architect --from {pinned}` and read what it \
-                     prints, each version's Migration entries above all"
+                     prints, each version's Migration entries above all; in a project with no \
+                     Rust, install {version}, then read the CHANGELOG.md of each crate of the \
+                     checker in the source the install fetched, as the pin move of the setup \
+                     skill says"
                 )
             };
             Err(format!(
@@ -1276,9 +1282,12 @@ mod tests {
             "{newer}"
         );
         // Claim 6 of slice 4: the refusal names the project's declared command, followed by
-        // `changelog` and the old pin as `--from`, in the order pin, fetch, command. Mutations
+        // `changelog` and the old pin as `--from`, in the order pin, fetch, command, for a Rust
+        // project, and the reading by hand for a project with no Rust after them. Mutations
         // checked, each caught: `let command = manifest.command();` made
-        // `let command = "klarch";`, and the fetch, `run `cargo fetch`; `, removed from the text.
+        // `let command = "klarch";`; the fetch, `run `cargo fetch`, `, removed from the text; and
+        // the clause of a project with no Rust, `above all; in a project with no \`, made
+        // `above all; \`.
         let declared = Manifest::parse(
             &tree,
             "[project]\nchecker-version = \"0.1.9\"\nname = \"p\"\ncomponents = []\n\
@@ -1303,6 +1312,11 @@ mod tests {
             at("run `cargo klarch changelog knowledge-architect --from 0.1.9`"),
         );
         assert!(pin < fetch && fetch < run, "{named}");
+        let by_hand = at("in a project with no Rust, install 0.2.0, then read the CHANGELOG.md");
+        assert!(
+            at("in a Rust project, set the versions") < fetch && run < by_hand,
+            "{named}"
+        );
         assert!(
             newer.contains("`klarch changelog knowledge-architect --from 0.1.9`"),
             "the default command: {newer}"

@@ -105,30 +105,79 @@ pub enum Command {
 }
 
 /// The arguments of `changelog`.
-#[derive(Args)]
+///
+/// A parse refuses a `to` not above `from`, before the project is located, as it refuses every
+/// value the declaration takes none of, and so does [`run`] for a value built by hand.
 pub struct ChangelogArgs {
+    /// The package named.
+    pub package: String,
+    /// The version moved from.
+    pub from: Version,
+    /// The version moved to, where given.
+    pub to: Option<Version>,
+    /// The packages `--package` names.
+    pub packages: Vec<String>,
+}
+
+/// The declaration of `changelog`'s arguments, which [`ChangelogArgs`] parses through: clap
+/// declares no rule across two values, so the range is refused in the conversion, where clap's
+/// parse fails with a usage error, exit 2, per `design@cli@command-parsing-home`.
+#[derive(Args)]
+struct ChangelogDeclared {
     /// The package whose changelog to read first, as the project's resolved dependency graph
     /// names it. Without `--package`, every package of the graph with the same `repository` is
     /// read with it; where it sets none, it is read alone.
     #[arg(value_name = "PACKAGE")]
-    pub package: String,
+    package: String,
     /// The version moved from: the versions above it are printed.
     #[arg(long, value_name = "VERSION", value_parser = version)]
-    pub from: Version,
+    from: Version,
     /// The version moved to, printed; without it, every version above `--from` the files hold.
     /// It must be above `--from`.
     #[arg(long, value_name = "VERSION", value_parser = version)]
-    pub to: Option<Version>,
+    to: Option<Version>,
     /// A package to read beside PACKAGE, repeatable; with any, exactly PACKAGE and these are read.
     #[arg(long = "package", value_name = "NAME")]
-    pub packages: Vec<String>,
+    packages: Vec<String>,
+}
+
+impl clap::FromArgMatches for ChangelogArgs {
+    fn from_arg_matches(matches: &clap::ArgMatches) -> Result<Self, clap::Error> {
+        let declared = ChangelogDeclared::from_arg_matches(matches)?;
+        let args = ChangelogArgs {
+            package: declared.package,
+            from: declared.from,
+            to: declared.to,
+            packages: declared.packages,
+        };
+        changelog_request(&args).map_err(|why| {
+            clap::Error::raw(clap::error::ErrorKind::ArgumentConflict, format!("{why}\n"))
+        })?;
+        Ok(args)
+    }
+
+    fn update_from_arg_matches(&mut self, matches: &clap::ArgMatches) -> Result<(), clap::Error> {
+        *self = Self::from_arg_matches(matches)?;
+        Ok(())
+    }
+}
+
+impl Args for ChangelogArgs {
+    fn augment_args(command: clap::Command) -> clap::Command {
+        ChangelogDeclared::augment_args(command)
+    }
+
+    fn augment_args_for_update(command: clap::Command) -> clap::Command {
+        ChangelogDeclared::augment_args_for_update(command)
+    }
 }
 
 /// A version of `changelog`, checked by the model's rule of a version heading while parsing.
 fn version(value: &str) -> Result<Version, String> {
     Version::parse(value).ok_or_else(|| {
         format!(
-            "`{value}` is no version: a version is three numbers joined by `.`, with no leading              zero, and no pre-release or build part"
+            "`{value}` is no version: a version is three numbers joined by `.`, with no leading \
+             zero, and no pre-release or build part"
         )
     })
 }
@@ -468,8 +517,8 @@ fn check_mode(args: &CheckArgs) -> Result<CheckMode, String> {
 }
 
 /// The request of `changelog`, or the refusal of a `--to` not above `--from`, which the type of
-/// `query` cannot hold. clap declares no rule across two values, so this refusal is the one of a
-/// command line and of a value built by hand alike, before any work.
+/// `query` cannot hold: the parse's refusal of a command line, through `ChangelogArgs`'s
+/// conversion, and `run`'s of a value built by hand, before any work.
 fn changelog_request(args: &ChangelogArgs) -> Result<ChangelogRequest, String> {
     let range = VersionRange::new(args.from, args.to)
         .map_err(|why| format!("`--to` is not above `--from`: {why}"))?;

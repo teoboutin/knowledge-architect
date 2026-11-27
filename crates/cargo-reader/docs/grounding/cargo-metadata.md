@@ -82,3 +82,19 @@ taken with `sha1sum Cargo.lock` before and after.
   `manifest_path` under `$CARGO_HOME/registry/src/<index>/<name>-<version>/`, in `r`
   `index.crates.io-1949cf8c6b5b557f/itoa-1.0.9/Cargo.toml`. `d` reports its `repository` as its
   manifest sets it.
+
+## `--manifest-path` and an enclosing package, measured in scratch packages
+
+Measured with that Cargo, outside this repository, in a package `outer` with a path dependency
+`d`, holding a directory `noproj` with no `Cargo.toml` and a package `inner` of its own
+workspace. They ground the run of the command `changelog` of the crate `query` with
+`--manifest-path`. Each is taken again by the command named, run in that directory.
+
+- **Without `--manifest-path`, a directory with no `Cargo.toml` reads the graph of the package
+  that encloses it.** `cargo metadata --format-version 1 --locked --offline` in `outer/noproj`
+  exits 0, `root` naming `outer` and `packages` holding `d` and `outer`.
+- **`--manifest-path` naming a file that does not exist exits 101**: in `outer/noproj`, with
+  `--manifest-path <dir>/outer/noproj/Cargo.toml`, "error: manifest path `<path>` does not exist".
+- **`--manifest-path` naming a package inside another package's directory reads that package's
+  graph alone**: in `outer/inner`, with `--manifest-path <dir>/outer/inner/Cargo.toml`, `root` is
+  `inner`'s ID and `packages` holds `inner` alone.

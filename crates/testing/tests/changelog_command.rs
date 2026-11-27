@@ -364,11 +364,12 @@ fn the_command_runs_after_the_fetch_and_writes_nothing() {
 }
 
 /// Claim 5 of slice 4, what the output cannot hold is reported, never dropped: a selected package
-/// with no `CHANGELOG.md`, a line of a preamble the read does not take, and, in a section of the
-/// range, an unread line and an entry with no place, each with its file and its line, the rest of
-/// the layout still printed, and exit 1; a defect below the range is not reported. Mutation
-/// checked: in `changelog` of `path@query@src/changelog.rs`, `if unheld.is_empty() {` made
-/// `if true {`, so nothing is reported and the exit is 0; caught.
+/// with no `CHANGELOG.md`, a line of a preamble the read does not take, every unread line whatever
+/// its section, and, in a section of the range, an entry with no place, each with its file and,
+/// but for the missing file, its line, the rest of the layout still printed, and exit 1; an entry
+/// with no place below the range is not reported. Mutation checked: in `changelog` of
+/// `path@query@src/changelog.rs`, `Ok(ExitCode::from(code))` made `Ok(ExitCode::SUCCESS)`;
+/// caught.
 #[test]
 fn what_the_output_cannot_hold_is_reported_after_it() {
     let sandbox = consumer("changelog-unheld");
@@ -397,7 +398,7 @@ fn what_the_output_cannot_hold_is_reported_after_it() {
         "## 0.2.0\n\n### Migration\n\n#### defects\n\n- minor: defects two moves."
     );
     let reported: Vec<String> = reported.lines().map(|l| l.replace('\\', "/")).collect();
-    assert_eq!(reported.len(), 4, "{reported:#?}");
+    assert_eq!(reported.len(), 5, "{reported:#?}");
     assert!(
         reported[0].starts_with(&format!(
             "{file}:4: a line of the preamble of no shape the read takes"
@@ -413,7 +414,32 @@ fn what_the_output_cannot_hold_is_reported_after_it() {
         "{reported:#?}"
     );
     assert!(
-        reported[3].starts_with(&format!("{nolog}: cannot be read")),
+        reported[3].starts_with(&format!("{file}:18: a line the parse could not read")),
         "{reported:#?}"
     );
+    assert!(
+        reported[4].starts_with(&format!("{nolog}: cannot be read")),
+        "{reported:#?}"
+    );
+}
+
+/// Claim 3 of the repairs of slice 4's first review: the command reads the Cargo project the
+/// project's root holds, never one of a package enclosing it. A project whose root holds no
+/// `Cargo.toml` is refused, exit 2, naming the reading by hand of a project with no Rust and no
+/// `cargo fetch`, even nested in the directory of the consumer's package. Mutation checked: in
+/// `changelog` of `path@query@src/changelog.rs`, `if !cargo_toml.is_file() {` made `if false {`;
+/// caught.
+#[test]
+fn a_root_with_no_cargo_project_is_refused() {
+    let sandbox = consumer("changelog-no-cargo");
+    let nested = sandbox.path("docs-project");
+    support::copy_dir(&support::source("core"), &nested);
+    let (out, err, code) = support::run_in(
+        &nested,
+        &["changelog", "knowledge-architect", "--from", "0.1.0"],
+    );
+    assert_eq!((code, out.as_str()), (2, ""), "{err}");
+    assert!(err.contains("holds no Cargo project at its root"), "{err}");
+    assert!(err.contains("a project with no Rust reads"), "{err}");
+    assert!(!err.contains("cargo fetch"), "{err}");
 }
