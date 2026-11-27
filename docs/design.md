@@ -272,7 +272,7 @@ project's gates and mutations, and `gates` reads the lines Cargo prints, which n
 fact of a package; a test, the maintenance tool and the release workflow may read Cargo for their
 own assertions.
 
-### The commands that read the record of a project, or of one of its dependencies, and run no check are a crate of their own `##query-crate`
+### The commands that read a project's record, or the changelogs of its dependencies, and run no check are a crate of their own `##query-crate`
 
 `knowledge-architect-query`, in crates/query, holds the logic of `show`, `issues`, `tripwires`, `anchors`, `id` and `worklist`,
 which read the project's record, and of `changelog`, which reads the changelogs of the project's dependencies in the
@@ -306,17 +306,17 @@ references, which every command over it shares, is decided once; and a small sid
 consumer's graph `changelog` reads and how it runs Cargo, beside it. That side domain is a second reason to change, a
 change of the selection or of the flags touching `changelog` alone, which this crate holds rather than a crate of its
 own since the command is thin: the parse, the rendering and the run of Cargo are `model`'s and `cargo-reader`'s, and
-a crate of its own would hold one function and two decisions. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
+a crate of its own would hold one function and the decisions of the subject of `register@query@design` on it. Of the signals of `skill@knowledge-architect-component-creation@split-signals`: it depends on
 `model`, `git` and `cargo-reader`, `cli` depends on it, and no cycle forms; the listings and the record search
 could be cut apart, but both read the record by its entries and their references, so a change of
 that reading would cross the new boundary; `changelog` could be cut out with no new dependency between crates, and
-is kept while its own decisions are two, a weighing a later command over a consumer's dependencies reopens.
+is kept while it is the one command over a consumer's dependencies, a weighing a second such command reopens.
 
 ### The reader of the harness's transcripts is a crate of its own, which `cli` depends on `##transcript-crate`
 
 `knowledge-architect-transcript`, in crates/transcript, depends on `git` alone, by path and by exact version, for the main
 worktree's path, and takes the project's root from its caller. It changes when the harness's format does, a reason the checks do
-not share, and imports nothing of them. `cli` depends on it, and offers the command, per `design@knowledge-architect@cli-crate`. It serves `goal@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project's past sessions said.
+not share, and imports nothing of them. `cli` depends on it, and offers the command, per `design@knowledge-architect@cli-crate` and `design@knowledge-architect@one-program-for-the-tools`. It serves `goal@tasks-a-tool-does-better-are-the-tool-s`, which reaches searching what a project's past sessions said.
 The nearest rival, a module of `check`, ties a change of that format to the checker's crate for no shared design.
 
 Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, reading the harness's
@@ -362,7 +362,8 @@ the crate that holds it, per `design@cli@command-parsing-home`; a project names 
 such crate that depends on it, so the module sits above them all, per
 `design@agent-skills@top-level-binary-crate`. A frontend that is no command line depends on the crates below it, with no
 parser in them. `cli` flattens no command of `gates`,
-per `rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
+per `design@knowledge-architect@build-or-test-tools-outside-klarch` and
+`rejected@knowledge-architect@gates-command-of-the-checker`. The rival, the library and the binary as one crate, saves no
 dependency once the commands span crates: `rejected@knowledge-architect@single-crate`.
 
 Against the default criteria of a Component, `skill@knowledge-architect-component-creation@component-criteria`: its one purpose, the program's command line, pays
@@ -381,7 +382,7 @@ crosses its boundary, touching the crate of its logic and this one, the cost
 `design@cli@command-parsing-home` accepts against `rejected@cli@each-crate-parses-its-commands`, and a
 change of a command's logic alone crosses nothing.
 
-### Every tool of knowledge-architect that a target project runs is a command of `klarch` `##one-program-for-the-tools`
+### Every tool of knowledge-architect that a target project runs is a command of `klarch`, but one whose result needs the project's build or its tests `##one-program-for-the-tools`
 
 `klarch` is the one program through which a target project runs the tools of knowledge-architect:
 the checks, the listings of the record and its search, the reader of the transcripts and
@@ -393,7 +394,7 @@ executables to find and to tell apart, a prefix on each name avoiding a collisio
 set of subcommands that no one `--help` lists.
 
 The fact that defeats the nearest rival, one program per tool, such as a binary of its own for the
-transcripts: a command of `klarch` reaches every target project by its pin move alone. Every binary
+transcripts, `rejected@knowledge-architect@one-program-per-tool`: a command of `klarch` reaches every target project by its pin move alone. Every binary
 that offers the checker flattens `cli::Command`, per `design@cli@the-commands-are-a-library-module`,
 and a Rust project's maintenance crate offers it as one subcommand, `klarch`, as the main its setup
 shows does, `path@agent-skills@snippets/xtask-main.rs`; a tool beside it reaches a project only once
@@ -418,6 +419,8 @@ given its test command by its caller is one whose result exists without that run
 that counts it as running the tests, which no goal ranks: the owner's ranking. The criterion's
 wording, a result that does not exist without the run, over a tool that runs the project's build or
 its tests, which places every tool the same way and which no goal ranks: the session's ranking.
+The owner reported being unsure of the criterion's wording; the rule's exception stands on the
+argument below, which no wording of it changes.
 
 The fact that defeats the nearest rival, a `gates` command of `klarch`,
 `rejected@knowledge-architect@gates-command-of-the-checker`: `klarch` locates the manifest and

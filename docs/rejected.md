@@ -170,3 +170,10 @@ drop, so a run that passes leaves its files, which
 `design@knowledge-architect@scratch-removed-by-a-guard` excludes. Its default place is the target
 directory, inside this worktree, where a test whose project must lie outside every worktree cannot
 work. It brings `cargo_metadata` and `sysinfo` into each package's tests.
+
+### One program per tool of knowledge-architect `##one-program-per-tool`
+
+`live`. A tool beside `klarch` reaches a project only once that project adds a subcommand to the main
+of its maintenance crate, or installs a second program, a change per tool in every project, where
+a command of `klarch` reaches every project by its pin move alone; and each program repeats the
+refusals of a foreign build and of a version other than the pin.

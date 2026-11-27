@@ -330,7 +330,8 @@ cargo klarch changelog knowledge-architect --from 0.10.0
 
 - **It reads the project's resolved dependency graph** with `cargo metadata --format-version 1
   --manifest-path <root>/Cargo.toml --locked --offline`, run at the project's root, so it reads the
-  graph of the Cargo project the root holds, never one of a package enclosing it, writes no file,
+  graph of the Cargo project the root holds, never one of a package enclosing it, per
+  `design@query@changelog-reads-the-root-s-graph`, writes no file,
   `Cargo.lock` included, and reaches no network, per
   `design@query@changelog-runs-cargo-locked-and-offline`. A root with no `Cargo.toml` is refused,
   exit 2, since it holds no Cargo project for the command to read. After the
@@ -343,7 +344,8 @@ cargo klarch changelog knowledge-architect --from 0.10.0
   does not hold is refused, exit 2, and so is a `--to`
   not above `--from`, while parsing. Each package's `CHANGELOG.md` is the one beside its
   `Cargo.toml`, in the format the check named `changelog` judges, and each package's entries are
-  placed by the categories and the unclassed versions its own preamble states.
+  placed by the categories and the unclassed versions its own preamble states, per
+  `design@query@changelog-places-each-crate-by-its-own-preamble`.
 - **What it prints** is the layout of an assembled changelog with no generated header: each version
   as `## <version>`, newest first; under it each category, in the order of first appearance in the
   preambles, the named package's first; under it each crate, the named package first, then the
@@ -351,7 +353,8 @@ cargo klarch changelog knowledge-architect --from 0.10.0
   lists as unclassed, that crate has no category level, and its block comes before the categories.
   Where nothing is printed, a line says whether the range holds no entry, or holds entries the
   layout has no place for.
-- **What the layout cannot hold is reported after it, never dropped**, under a line `Not printed,
+- **What the layout cannot hold is reported after it, never dropped**, per
+  `design@query@changelog-reports-what-it-cannot-print`, under a line `Not printed,
   since the layout has no place for it:`: one line per selected package whose `CHANGELOG.md` cannot
   be read, or holds a carriage return that no line feed follows, which the read would take as one
   line, naming the file; one per line of a preamble of no shape the read takes, and per line the

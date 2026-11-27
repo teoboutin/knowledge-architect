@@ -1,4 +1,4 @@
-//! Tools over the record of a project or of one of its dependencies, as a library: the logic of the
+//! Tools over a project's record, or the changelogs of its dependencies, as a library: the logic of the
 //! commands `show`, `issues`, `tripwires`, `anchors`, `id`, `worklist` and `changelog` of `klarch`,
 //! behind typed functions with no argument parser in them. They read the model, or, for
 //! `changelog`, the changelogs of the project's dependencies through `cargo metadata`, run no check,

@@ -1,9 +1,10 @@
 **Generated — do not edit.** `cargo klarch index`
 
-25 entries
+27 entries
 
 | kind | title |
 | --- | --- |
+| design | [A test left out on a system is held to the two kinds that the head on platform skips admits by a review alone, and one reached main](a-test-left-out-on-a-system-is-held-by-review-alone.md) |
 | design | [Nothing states which part of a command's printed output is a contract](command-output-is-not-declared-a-contract.md) |
 | design | [No head argues what becomes an ask of every target project, nor the asks that no goal states](no-head-argues-what-becomes-an-ask.md) |
 | design | [The head on how work reaches main bundles statements that each lose to a rival of their own, with no argument](the-git-flow-head-bundles-unargued-statements.md) |
@@ -12,6 +13,7 @@
 | question | [A conflict in a generated file, met when commits are replayed, is resolved by hand](a-conflict-in-a-generated-file-is-resolved-by-hand.md) |
 | question | [A minor change under 0.x may take the patch number, as the Cargo book admits, where this project and its bump check take the second number](a-minor-change-under-zero-x-may-take-the-patch-number.md) |
 | question | [Does a command find each test's recorded mutation whose quoted code has left the source?](no-command-finds-a-recorded-mutation-whose-code-left-the-source.md) |
+| question | [No head states which public items of the published crates a consumer may rely on](no-head-states-which-public-items-a-consumer-may-rely-on.md) |
 | question | [Does the quick-fixes spec still hold now that the lints on ids are built?](path-quickfixes-read-against-the-lints-on-ids.md) |
 | question | [Does the quick-fixes spec still hold now that the installed-file findings are in the last phase?](path-quickfixes-read-against-the-renamed-checker.md) |
 | todo | [A CI run skipped on a draft pull request fills the run history and reads as passing](a-ci-run-skipped-on-a-draft-reads-as-passing.md) |

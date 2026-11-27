@@ -21,11 +21,9 @@
   the command list of `path@cli@README.md`.
 - The installed setup skill's pin move, step 2: after the fetch, run `cargo klarch changelog
   <checker package> --from <old pin>` and read its output, in place of reading one file in the
-  registry, for a project that has a Cargo project for `cargo metadata` to read. A project with no
-  Rust, which the pin move's step 1 covers by "the version of the local install", keeps a reading by
-  hand: the `CHANGELOG.md` of each crate of the checker in the registry, listed by package name,
-  which step 2 names. Its listing of the Migration entries that trigger an audit stays as it is
-  until slice 5.
+  registry. A project with no Rust is no target project, on the owner's ruling D18 of the
+  milestone: the pin move's steps 1 and 2 give no case for one. Its listing of the Migration
+  entries that trigger an audit stays as it is until slice 5.
 - The message of the pin refusal in the function `refuse_another_version_built_at` of
   `path@check@src/commands/mod.rs`, line 305, "read the changelog of each version from {pinned} to
   {version}", which names the command, by the project's declared command, in the order the pin move
@@ -230,7 +228,7 @@ From `thread@per-crate-changelogs@registry-changelog-command`, argued, and
   before its categories.
 - **The project's Cargo project is the one at its root**: `cargo metadata` runs with
   `--manifest-path` naming the root's `Cargo.toml`, and a root with no `Cargo.toml` is a
-  could-not-run that sends a project with no Rust to the reading by hand of the pin move.
+  could-not-run.
 - **The output** is the assembled layout of the selected crates over the range, with no generated
   header, since it is no file; one selected crate is printed in the same layout, since
   `design@model@assembled-changelog-from-two-crates` decides when a project's file is assembled,

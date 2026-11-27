@@ -1,7 +1,7 @@
 [package]
 name = "knowledge-architect-query"
 readme = "CRATES-IO.md"
-description = "Tools that read the record of a project or of one of its dependencies and run no check: one entry and what cites it, the standing entries, the anchors, whether an id is free, the work list of a search, and the changelogs of the dependencies."
+description = "Tools that read a project's record, or the changelogs of its dependencies, and run no check: one entry and what cites it, the standing entries, the anchors, whether an id is free, the work list of a search, and the changelogs of the dependencies."
 version.workspace = true
 edition.workspace = true
 license.workspace = true

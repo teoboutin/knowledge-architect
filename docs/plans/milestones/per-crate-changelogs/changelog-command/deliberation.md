@@ -21,9 +21,10 @@ the design audit as D15 of the milestone, a choice between two shapes stated in 
   graph holding two versions of the project's crates whose lines differ needs a rule for which
   wins.
 
-Final state: approved. The owner chose A after the session's explanation of both shapes, with A as
-the session's default: A over B, the owner ranked a preamble and a check left as built above an
-output in the publisher's crate order, which no goal ranks. Its shape is in "Decided design" of this
+Final state: argued. The owner approved A, the session's default, after the session's explanation
+of both shapes; the approval is no ground, and the argument ranks them: B changes the preamble
+every changelog crate holds and its check, where the order it buys changes no entry a pin move
+reads. Its shape is in "Decided design" of this
 slice's `README.md`.
 
 ## Arguments
