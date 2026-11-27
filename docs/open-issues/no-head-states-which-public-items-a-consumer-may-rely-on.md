@@ -5,8 +5,8 @@ kind: question
 
 ## Summary
 
-Every published crate's public items are public in the Rust sense and on crates.io, but the owner
-reported that only some of them are offered to consumers as an interface they may rely on: the
+Every published crate's public items are public in the Rust sense and on crates.io, but the owner's
+intent is that only some of them are offered to consumers as an interface they may rely on: the
 command line of `klarch`, the gates and the mutation libraries, and the framework an extension's
 binary is built on. The other public crates, `git`, `cargo-reader` and `query` among them, are
 built for this project itself. No head defines the line, nor how an item enters the offered
@@ -22,14 +22,14 @@ interface, when, or what entering it binds.
   a facade; it does not say that the second group is no interface a consumer may rely on.
 - `design@knowledge-architect@versioning-policy` classes "a breaking change to the library API" as
   major, without saying which library API.
-- The owner reported, at the review before the merge of slice 4 of the per-crate changelogs, the
+- The owner stated, at the review before the merge of slice 4 of the per-crate changelogs, the
   list of the summary, said it may be incomplete, said that nothing is done to cater to an external
   consumer relying on an item outside it, and asked for a later discussion that defines the
   line and the methods to decide what enters the offered interface, when and how: the opt-in is
   item by item, and binds once documented as more stable.
 - The instance that raised it: `design@query@a-function-takes-a-configured-manifest` was argued
   from whether a program that links `query` and no check is served by
-  `goal@documentation-has-a-structure-and-a-model`; the head now rests on the owner's report.
+  `goal@documentation-has-a-structure-and-a-model`; the head now rests on that intent of the owner, not yet drafted as a goal.
 
 ### Why it matters
 
