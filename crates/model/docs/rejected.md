@@ -381,3 +381,9 @@ backticked Rust path across five of its knowledge documents, and the checker rep
 because no suffix in the set covered them; the sweep had to be grep-driven. It loses because the
 form that carried the set is retired: a path reference names its kind and its anchor and is
 checked whatever its suffix, so no set is left to widen and no suffix can be missing from one.
+
+### A namespace for an extension's tables, `[extensions.<name>]` `##extension-table-namespace`
+
+`live`. It shows in the manifest itself which tables are an extension's. It loses because the
+refusal of an unclaimed table already reports a table nobody owns, and because it changes the
+manifest format of every project and every mock for no check that reads the difference.

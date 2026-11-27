@@ -213,7 +213,7 @@ pub struct Resolution {
 /// its tables.
 ///
 /// **A table no registered extension claims, and a claimed table the manifest does not hold,
-/// are phase-1 findings**, per `design@check@an-extension-claims-its-manifest-tables`. The
+/// are phase-1 findings**, per `design@model@an-extension-claims-its-manifest-tables`. The
 /// first is a declaration nothing reads, which a session would take for a regime in force; the
 /// second would let a manifest switch an extension off by leaving its table out.
 pub fn configure(manifest: &mut Manifest, extensions: &mut [Box<dyn Extension>]) {

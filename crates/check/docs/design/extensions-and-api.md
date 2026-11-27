@@ -86,22 +86,6 @@ of the run comparable with the walk and the parse reopens caching the scan insid
 **An extension cannot add a kind to the entity table.** A reference kind is `check`'s, so an extension's
 subject cannot be cited as `<kind>@<anchor>@<id>`. Nothing needs that today.
 
-### An extension claims the manifest tables it reads, and `model` refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
-
-`model` parses the tables `check` owns. Every other top-level table goes to the registered extension
-that claims it. A table that no registered extension claims is a phase-1 finding, and so is a table a
-registered extension claims that the manifest does not hold.
-
-**Both refusals serve `design@check@the-regime-has-no-opt-out`.** An unclaimed table is a
-declaration nothing reads, which a session would take for a regime in force. A missing claimed
-table would let a manifest switch an extension off by leaving its table out. So the binary decides
-which extensions run over a tree, and the manifest cannot remove one: `klarch` run over a
-manifest that declares thaum's `[rules]` table reports the table as unclaimed, rather than
-skipping the regime in silence.
-
-**A table keeps the extension's own name at the top level.** A namespace for extension tables is
-`rejected@check@extension-table-namespace`.
-
 ### `check`'s role modules publish what a consumer of the library needs, and nothing for `check`'s own tests `##the-facade-publishes-what-a-consumer-needs`
 
 The library has five kinds of consumer: a binary that registers an extension, the extension, the

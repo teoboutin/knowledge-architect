@@ -8,7 +8,7 @@
     name into `tables`, for an extension to claim, and phase 1 refuses one no extension claims, so
     `Declared` gains a field for `[changelog]`, and `Manifest::parse` the call that dispatches its
     resolve. `[changelog]` becomes a built-in table, which takes the name from every extension,
-    under `design@check@an-extension-claims-its-manifest-tables`;
+    under `design@model@an-extension-claims-its-manifest-tables`;
   - the read of the `Cargo.toml` of each Component, where `[changelog]` is declared, through
     `cargo-reader`, which `model` now depends on. The survey of `path@model@src/survey.rs` already
     holds each `Cargo.toml` with its text in `outside`, on the working tree and in the snapshots of
@@ -117,7 +117,7 @@ without the header, and claim 12's Cargo forms, are built in copies by the tests
   `design@create@init-asks-no-confirmation`, `design@check@staged-tree-source`,
   `design@check@model-then-checks`, `design@knowledge-architect@versioning-policy`,
   `design@check@safe-fix-definition`, `design@check@fix-scope`,
-  `design@check@an-extension-claims-its-manifest-tables`.
+  `design@model@an-extension-claims-its-manifest-tables`.
 - `issue@model@the-structural-findings-might-be-checked-at-scan-time`,
   `issue@model@the-walk-may-exclude-a-file-the-model-requires`,
   `issue@check@index-staged-leaves-the-working-tree-s-generated-file-stale`,
@@ -174,7 +174,7 @@ not cite below are restated here: `design@check@phases-gate-the-report`,
 `design@knowledge-architect@a-tool-s-writes-lose-nothing-the-project-wrote`,
 `design@create@init-asks-no-confirmation`, `design@check@staged-tree-source`,
 `design@knowledge-architect@versioning-policy`, `design@check@safe-fix-definition`,
-`design@check@fix-scope` and `design@check@an-extension-claims-its-manifest-tables`.
+`design@check@fix-scope` and `design@model@an-extension-claims-its-manifest-tables`.
 
 Rewritten by this slice, as the milestone document's "Reversed or rewritten" lists them with the
 texts each repairs:
@@ -205,7 +205,7 @@ design audit:
   obligations and removes none.
 - `design@model@one-list-of-generated-files`: its list gains the assembled file.
 - `design@check@fix-before-the-checks`: gains the refusal while a line is unread.
-- `design@check@an-extension-claims-its-manifest-tables`: the built-in table takes the name
+- `design@model@an-extension-claims-its-manifest-tables`: the built-in table takes the name
   `changelog` from the extensions.
 - `design@check@model-then-checks`: its example "such as a changelog … the extension hands it the
   text" becomes false, since the changelog is part of the model.
@@ -231,7 +231,7 @@ the first eight, and a conforming step before the harvest brings these to the ru
 - `design@check@fix-before-the-checks`: retitled, since its title lists the steps of the run; its
   paragraph on the exit code after a write becomes a head of its own, and its paragraph on the
   deletion it leaves unstaged becomes another, whose attribution is D11.
-- `design@check@an-extension-claims-its-manifest-tables`: its Component is D10; its opening
+- `design@model@an-extension-claims-its-manifest-tables`: its Component is D10; its opening
   sentence names the built-in tables, which `model`'s `Declared` holds.
 - `design@check@model-then-checks`: its figures over thaum, which no command takes again, leave the
   head, and its "Four things follow" becomes three and one exception.

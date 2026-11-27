@@ -164,12 +164,6 @@ Two extensions would also need a hand-written composition of their two types.
 same data outside `check` with its type checked at compile time, so the slot adds a downcast that
 can fail at run time and gains nothing.
 
-### A namespace for an extension's tables, `[extensions.<name>]` `##extension-table-namespace`
-
-`live`. It shows in the manifest itself which tables are an extension's. It loses because the
-refusal of an unclaimed table already reports a table nobody owns, and because it changes the
-manifest format of every project and every mock for no check that reads the difference.
-
 ### The sentinels `"fixture"` and `"self"` accepted wherever a manifest writes them `##sentinels-accepted-everywhere`
 
 `live`. It made a fixture manifest and this repository's own pin read the same in every copy, needed

@@ -2,15 +2,15 @@
 
 ## Anchors and Components
 
-### Every component carries the same documents and the home of every component register `##components-carry-the-same-documents`
+### What every component carries at least is compiled in, and the manifest removes from it only the agent document `##components-carry-the-same-documents`
 
 The components are the manifest's `[project]` list, per
 `design@check@nothing-of-a-project-is-compiled-in`: the project root, named by `project.name`, and
 every other project-relative directory, named by the basename of its path. Nothing is discovered by filename, so a document in a
 directory that is not a component is not that kind of document: nothing counts it and nothing
 reports it. A component carries `README.md`, `CLAUDE.md` while the project serves the `claude`
-agent harness (per `design@check@agents-table`), and the home of every `component`-scoped register
-— `design`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
+agent harness (per `design@check@agents-table`), and the home of every `component`-scoped register:
+`design`, `tripwire`, `rejected` and `issue`, and any the manifest declares at that
 scope. No document of the compiled list lies under `docs/`, where those homes are. The root
 carries besides the goals home, of the register the root alone carries, per
 `design@model@goal-register-carried-by-the-root-alone`, and holds the plans directory, which is not a component's document but the anchor `plans`, per

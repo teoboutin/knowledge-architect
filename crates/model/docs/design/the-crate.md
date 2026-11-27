@@ -86,6 +86,22 @@ from each extension's `tables` and `resolve`, per
 with a value, and a tool with no extension has no trait to name. The nearest rival is
 `rejected@model@contribution-as-a-trait`.
 
+### An extension claims the manifest tables it reads, and `model` refuses a table nobody claims `##an-extension-claims-its-manifest-tables`
+
+`model` parses the built-in tables, each a field of its own in `Declared`. Every other top-level
+table goes to the registered extension that claims it. A table that no registered extension claims is a phase-1
+finding, and so is a table a registered extension claims that the manifest does not hold.
+
+**Both refusals serve `design@check@the-regime-has-no-opt-out`.** An unclaimed table is a
+declaration nothing reads, which a session would take for a regime in force. A missing claimed
+table would let a manifest switch an extension off by leaving its table out. So the binary decides
+which extensions run over a tree, and the manifest cannot remove one: `klarch` run over a
+manifest that declares thaum's `[rules]` table reports the table as unclaimed, rather than
+skipping the regime in silence.
+
+**A table keeps the extension's own name at the top level.** A namespace for extension tables is
+`rejected@model@extension-table-namespace`.
+
 ### This crate depends on no code that judges a document's content `##no-check-below-the-model`
 
 A tool over the documents needs the model and no check, per `design@knowledge-architect@model-crate`, so
