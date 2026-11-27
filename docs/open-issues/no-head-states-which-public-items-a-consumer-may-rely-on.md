@@ -42,6 +42,9 @@ tell whether a change to `query`'s functions is a library break, which strains
 ### What would close it
 
 A design discussion under `skill@knowledge-architect-design`, on the owner's word or when a change
-is classed by whether a consumer relies on a public item: it defines the offered interface, how an
-item enters it and what entering binds, in a head of `register@knowledge-architect@design` that
-`design@knowledge-architect@api-facade` and `design@knowledge-architect@versioning-policy` cite.
+is classed by whether a consumer relies on a public item: the line of the offered interface, the
+owner's intent that bounds what the project serves, drafted as a goal under
+`skill@knowledge-architect-goal-setting`, and how an item enters it and what entering binds, in a
+head of `register@knowledge-architect@design` that `design@knowledge-architect@api-facade` and
+`design@knowledge-architect@versioning-policy` cite; `design@query@a-function-takes-a-configured-manifest`
+then cites the goal.

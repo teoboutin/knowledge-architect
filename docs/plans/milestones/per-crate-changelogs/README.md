@@ -816,6 +816,17 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   asked for a later discussion of that line, now
   `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`; the head
   rests on that report and on `design@knowledge-architect@api-facade`.
+- **D20**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by the decision-record
+  re-review before the merge of slice 4: the owner's answer to D19 bounds what the project serves, a
+  scope, which lands as a goal, not as a reported fact. Default: the head names it the owner's intent
+  not yet drafted, and the issue's discussion drafts it as a goal. Rival: the goal drafted in slice
+  4's branch.
+  **Ruled**, at the review before the merge of slice 4: the default kept, on the owner's approval.
+- **D21**, on `thread@per-crate-changelogs@registry-changelog-command`, raised by the transcript
+  review before the merge of slice 4: whether the owner's arguments for
+  `design@knowledge-architect@build-or-test-tools-outside-klarch` settle the owner's doubt on its
+  criterion. Default: the doubt stays recorded. Rival: it is removed.
+  **Ruled**, at the review before the merge of slice 4: the default kept, on the owner's approval.
 
 ## Harvest
 
