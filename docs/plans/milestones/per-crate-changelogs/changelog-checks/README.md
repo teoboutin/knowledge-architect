@@ -10,10 +10,12 @@
     resolve. `[changelog]` becomes a built-in table, which takes the name from every extension,
     under `design@model@an-extension-claims-its-manifest-tables`;
   - the read of the `Cargo.toml` of each Component, where `[changelog]` is declared, through
-    `cargo-reader`, which `model` now depends on. The survey of `path@model@src/survey.rs` already
-    holds each `Cargo.toml` with its text in `outside`, on the working tree and in the snapshots of
-    `--staged` and `commits`, since `read_tree` of `path@check@src/commands/history.rs` reads every
-    file no walk row keeps out, so the read takes its text from there and no gathering changes.
+    `cargo-reader`, which `model` now depends on. The read runs where the model is built, before
+    the walk, since whether the assembled path is a generated path outside the walk depends on how
+    many changelog crates there are, and the survey runs after the walk: `Model::build` reads each
+    file from the disk, and a snapshot's model takes them from its blobs, which `read_tree` of
+    `path@check@src/commands/history.rs` already reads for every file no walk row keeps out, so
+    `read_tree`'s gathering does not change.
     A package that inherits a field reads the workspace's `[workspace.package]` from the nearest
     `Cargo.toml` at or above the Component's directory, within the project, that holds a
     `[workspace]` table, per `design@cargo-reader@the-caller-finds-the-workspace-manifest`. A
