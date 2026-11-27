@@ -484,3 +484,35 @@ fn check_fix_over_a_staged_defect_the_working_tree_repaired() {
     );
     assert_eq!(read(&sandbox, "ALL-CHANGES.md"), before);
 }
+
+/// The claim: a `Cargo.toml` held as a symlink, which a `[walk]` row keeps, is read alike by
+/// `check` and `check --staged`: the files alone are listed for the changelog crates in both, so
+/// neither names the row as keeping a changelog crate's manifest out. Mutation checked, caught: in
+/// `commit_tree` of `path@check@src/commands/history.rs`, the listing `&files` handed to
+/// `changelog_crates` made `&read.listing`.
+#[cfg(unix)]
+#[test]
+fn a_symlinked_cargo_toml_is_read_alike_in_the_working_tree_and_the_index() {
+    let sandbox = current("changelog-symlinked-cargo");
+    let lib = read(&sandbox, "lib/Cargo.toml");
+    sandbox.write("lib/Cargo-real.toml", &lib);
+    std::fs::remove_file(sandbox.path("lib/Cargo.toml")).expect("the file is removed");
+    std::os::unix::fs::symlink("Cargo-real.toml", sandbox.path("lib/Cargo.toml"))
+        .expect("a symlink");
+    let manifest = read(&sandbox, "knowledge-architect.toml");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replace("skip-files = []", "skip-files = [\"lib/Cargo.toml\"]"),
+    );
+    sandbox.stage();
+    let (working, err, _) = sandbox.run(&["check"]);
+    assert!(
+        !working.contains("keeps out `lib/Cargo.toml`"),
+        "{working}{err}"
+    );
+    let (staged, err, _) = sandbox.run(&["check", "--staged"]);
+    assert!(
+        !staged.contains("keeps out `lib/Cargo.toml`"),
+        "{staged}{err}"
+    );
+}

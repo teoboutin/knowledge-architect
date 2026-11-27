@@ -203,8 +203,12 @@ mod tests {
             cargo.insert(PathBuf::from("c/Cargo.toml"), text.to_string());
         }
         let listing: Vec<PathBuf> = cargo.keys().cloned().collect();
-        let crates =
-            super::super::changelog_crates(&manifest, &listing, &|rel| cargo.get(rel).cloned());
+        let crates = super::super::changelog_crates(&manifest, &listing, &|rel| {
+            cargo
+                .get(rel)
+                .cloned()
+                .ok_or_else(|| std::io::ErrorKind::NotFound.into())
+        });
         assert_eq!(crates.all().len(), 2, "{crates:?}");
         let mut model = Model::from_documents(vec![
             (
