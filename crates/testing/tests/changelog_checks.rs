@@ -397,3 +397,34 @@ fn a_cargo_toml_cargo_reader_refuses_is_a_finding_with_its_reason() {
     let (out, err, code) = sandbox.run(&["id", "a-free-id"]);
     assert_eq!(code, 0, "{out}{err}");
 }
+
+/// The claim: an assembled path that a register index takes is a finding of phase 2 naming the
+/// key, so `check` stops there and `index` writes neither text. Mutation checked, caught: in
+/// `declarations` of `path@model@src/tree.rs`, `let taken = index.contains(assembled)` made
+/// `let taken = false`.
+#[test]
+fn an_assembled_path_a_register_index_takes_is_refused() {
+    let sandbox = current("changelog-assembled-taken");
+    let index = "lib/docs/open-issues/index.md";
+    let before = read(&sandbox, index);
+    let manifest = read(&sandbox, "knowledge-architect.toml");
+    sandbox.write(
+        "knowledge-architect.toml",
+        &manifest.replace(
+            "assembled = \"ALL-CHANGES.md\"",
+            &format!("assembled = \"{index}\""),
+        ),
+    );
+    sandbox.stage();
+    let (out, err, code) = sandbox.run(&["check"]);
+    assert_eq!(code, 1, "{out}{err}");
+    assert!(
+        out.contains(&format!(
+            "[changelog] assembled names `{index}`, which another generated file takes"
+        )),
+        "{out}"
+    );
+    let (out, err, code) = sandbox.run(&["index"]);
+    assert_ne!(code, 0, "{out}{err}");
+    assert_eq!(read(&sandbox, index), before);
+}
