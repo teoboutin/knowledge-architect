@@ -583,7 +583,7 @@ judged by slice 4 and lives in its spec, [the command](changelog-command/README.
 1. [Files declared free of citations](harvested/citation-free-check/README.md): `[walk.citation-free]` with
    its levels `all` and `entries`, applied to the 11 CRATES-IO.md files and to the installed copies;
    the root head that no work implements. Fails alone on a citation-free file's finding.
-2. [The `cargo-reader` crate](cargo-library/README.md): the library that reads Cargo's manifest and runs
+2. [The `cargo-reader` crate](harvested/cargo-library/README.md): the library that reads Cargo's manifest and runs
    `cargo metadata`, in lockstep, with no user yet but `check`'s read of a package name, moved into it. Fails alone on a fact it reads wrong
    from a fixture `Cargo.toml` or a fixture metadata output.
 3. [The changelog model and its checks](changelog-checks/README.md): the parse and the rendering in
