@@ -45,6 +45,9 @@ an empty subsection is omitted.
   ``not an id: an id matches [a-z0-9]+(-[a-z0-9]+)+; give the id alone, the part after the last `@` ``.
   The line of a malformed id without `@`, and the exit code 1, are unchanged. A consumer whose tests pin that line for such an argument
   changes them.
+- `manifest`, major: `[changelog]` is a table of `check`'s own, so an extension that claimed a
+  top-level table `changelog` no longer receives it: the manifest's resolve reads the table, whose
+  key `categories` is required, and refuses one that does not deserialise.
 - `library`, major: `declared::Shape` gains the variant `Plan(PlanKind)`, which the registers `spec`
   and `milestone` now have, where they had `File` and `Directory`; `table::Constructed::Spec` is
   replaced by `Constructed::Plan(PlanKind)`, which a milestone's anchor also is, where it was
@@ -55,6 +58,11 @@ an empty subsection is omitted.
   `[walk.citation-free]` as written, so a program that builds a `Walk` by a struct literal, or
   destructures one without `..`, no longer compiles: it takes the value `Manifest::walk` returns, or
   matches with `..`.
+- `library`, major: `generated::generated_paths` of `knowledge-architect-model` takes the tree's
+  changelog crates as its second argument, what `Model::changelog_crates` returns, or
+  `changelog::changelog_crates` before a model is built from a snapshot; and `CHECKS` of the module
+  `run` gains `changelog`, its type `[&str; 5]`. A program that calls the first adds the argument,
+  and one that names the second's type changes it.
 - `agent-skills`, patch: a plan document under way when the pin moves, whose work is not yet
   harvested, adds to the section "What is already decided" of each live slice's spec, or of the
   spec, the heads its harvest will touch without reversing or rewriting them, each as a reference,
@@ -127,6 +135,20 @@ an empty subsection is omitted.
   on a `path` reference whose anchor is no anchor of the project, name, in their repairs, the form
   of a file of another project, `path@elsewhere@<project>/<path>`, the project's name as its first
   segment.
+- `checks`, minor: where the manifest declares `[changelog]`, the check named `changelog` judges
+  each changelog crate's `CHANGELOG.md`: its preamble, which the manifest determines and which a
+  finding gives whole; one section per version, `## Next release` first, then the released
+  versions in descending order, none empty; each entry `- <category>, <class>: <text>`, of a
+  category declared and admitted for its crate, and a class among patch, minor and major, or
+  `- <text>` in a version `unclassed` lists; each released version following the next lower one by
+  its highest class, as Cargo's semver reads it, over every crate together where every one inherits
+  the workspace's version; a crate's `include` packaging its changelog; and a changelog or a
+  `Cargo.toml` it cannot read, or that a `[walk]` row keeps out. A line of no grammar is the last
+  phase's finding, so `id` and `worklist` answer over it. With two changelog crates or more, the
+  assembled file of the whole project is a generated file, written by `index` and `check --fix`,
+  which write no byte of a crate's changelog, and refuse to write over a file without the generated
+  header or while a line would be omitted. A manifest that declares no such table is checked as
+  before, and its `checked:` line names no `changelog`.
 - `cli`, minor: `worklist --seeds-from` takes a plan document's directory or its `README.md`, and
   seeds from that `README.md`'s section "What is already decided"; it refuses a harvested slice.
 - `cli`, minor: a passing `worklist --verify` writes `closing-sections.md`, every report's
@@ -146,6 +168,11 @@ an empty subsection is omitted.
   no file, a glob of `entries` that matches only installed files other than markdown, which no
   level reads, and a file both levels match, are findings. A manifest that declares no such table is
   checked as before.
+- `manifest`, minor: `[changelog]` declares the changelog crates, by `components` or, where it
+  lists none, every Component whose `Cargo.toml` Cargo would publish; `categories`, in their order;
+  `[changelog.category-components]`, the Components a category is restricted to; `unclassed`, the
+  versions whose entries carry no category and no class; and `assembled` and `assembled-url`, the
+  path of the assembled file, `CHANGELOG.md` by default, and the link each preamble gives for it.
 - `library`, minor: `declared::PlanKind`, `declared::DELIBERATION_FILE`,
   `declared::DELIBERATION_SECTIONS`, `listing::frozen_file`, `listing::frozen_at`,
   `listing::frozen_document`, `listing::Frozen`, `Model::frozen`, `Model::set_frozen` and `table::Anchor::is_milestone` in
@@ -157,12 +184,17 @@ an empty subsection is omitted.
   each crate that depends on it, did not.
 - `library`, minor: `Manifest::citation_free`, `declared::CitationFree`, `declared::Glob`,
   `declared::Level` and `table::INSTRUCTIONS_KIND` in `knowledge-architect-model`.
+- `library`, minor: `Manifest::changelog`, `declared::ChangelogTable`, `Model::changelog_crates`,
+  `Model::set_changelog_crates`, `listing::keeping_row`, and the module `changelog` in
+  `knowledge-architect-model`: the changelog crates read from Cargo, the parse of a crate's
+  changelog, its expected preamble, the assembled file's text, and the refusal its writers share.
 - `gates`, minor: `cross_clippy` in `knowledge-architect-gates`, a gate a project adds to its list, which
   runs clippy for another target, such as `x86_64-pc-windows-gnu`, with no cross compiler.
 - `library`, minor: the published crate `knowledge-architect-cargo-reader` reads what the tools of
   knowledge-architect need of Cargo: a `Cargo.toml`'s package name, `version`, `publish`,
   `repository` and `include`, with their inheritance from `[workspace.package]`, and the resolved
-  graph that `cargo metadata` reports. `knowledge-architect` depends on it, so a project that names
+  graph that `cargo metadata` reports; and, by `include_matches`, whether a package's `include`
+  patterns package a file, as `cargo package` matches them. `knowledge-architect` depends on it, so a project that names
   `knowledge-architect` gets it with no change; the summary's checker-source line and the
   `cargo clean` of the foreign-build refusal name the crate.
 
