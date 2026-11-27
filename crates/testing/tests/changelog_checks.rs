@@ -564,12 +564,24 @@ fn a_symlinked_cargo_toml_is_read_alike_in_the_working_tree_and_the_index() {
         &manifest.replace("skip-files = []", "skip-files = [\"lib/Cargo.toml\"]"),
     );
     sandbox.stage();
-    let (working, err, _) = sandbox.run(&["check"]);
+    let (working, err, code) = sandbox.run(&["check"]);
+    // Both runs judge the tree, and give the same findings: the root's preamble, which names an
+    // assembled file one changelog crate does not have, and the assembled file at its path.
+    assert_eq!(code, 1, "{working}{err}");
     assert!(
         !working.contains("keeps out `lib/Cargo.toml`"),
         "{working}{err}"
     );
-    let (staged, err, _) = sandbox.run(&["check", "--staged"]);
+    let (staged, err, code) = sandbox.run(&["check", "--staged"]);
+    assert_eq!(code, 1, "{staged}{err}");
+    let findings = |out: &str| {
+        out.split_once("\nreferences:")
+            .and_then(|(_, rest)| rest.split_once('\n'))
+            .map(|(_, findings)| findings.to_string())
+            .expect("the findings after the summary")
+    };
+    assert_eq!(findings(&working), findings(&staged));
+    assert!(working.ends_with("FAILED: 2 findings above\n"), "{working}");
     assert!(
         !staged.contains("keeps out `lib/Cargo.toml`"),
         "{staged}{err}"

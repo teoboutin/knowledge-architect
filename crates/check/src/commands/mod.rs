@@ -1278,8 +1278,8 @@ mod tests {
         // Claim 6 of slice 4: the refusal names the project's declared command, followed by
         // `changelog` and the old pin as `--from`, in the order pin, fetch, command, with no case
         // for a project with no Rust. Mutations checked, each caught: `let command =
-        // manifest.command();` made `let command = "klarch";`; and the fetch, `run `cargo fetch`, `,
-        // removed from the text.
+        // manifest.command();` made `let command = "klarch";`; the fetch, `run `cargo fetch`, `,
+        // removed from the text; and the maintenance crate's versions removed from it.
         let declared = Manifest::parse(
             &tree,
             "[project]\nchecker-version = \"0.1.9\"\nname = \"p\"\ncomponents = []\n\
@@ -1304,6 +1304,9 @@ mod tests {
             at("run `cargo klarch changelog knowledge-architect --from 0.1.9`"),
         );
         assert!(pin < fetch && fetch < run, "{named}");
+        let versions =
+            at("and the versions of the checker's crates the maintenance crate depends on");
+        assert!(pin < versions && versions < fetch, "{named}");
         assert!(!named.contains("no Rust"), "{named}");
         assert!(
             newer.contains("`klarch changelog knowledge-architect --from 0.1.9`"),
