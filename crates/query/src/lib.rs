@@ -4,14 +4,14 @@
 //! `changelog`, the changelogs of the project's dependencies through `cargo metadata`, run no check,
 //! and depend on nothing of the checks.
 //!
-//! Each function takes a manifest, and, but `changelog`, which builds no model, the directories of
+//! Each command's function takes a manifest, and, but `changelog`, which builds no model, the directories of
 //! the running binary's own source, and prints as it works, per `design@knowledge-architect@a-typed-command-prints-and-returns-its-code`, so
 //! a closed stdout ends the process with exit 2. **Its exit code says whether it ran before it says
 //! what it found**, per `design@cli@exit-code-ladder`: 0 ran-and-clean, 1 ran-and-negative, and `Err`
 //! could-not-run, which the caller prints before it exits 2. `id` and `worklist` writing a work list
 //! refuse over a model whose first three phases stop.
 //!
-//! **Each function takes a manifest as its caller's extensions have configured it**, as
+//! **Each command's function takes a manifest as its caller's extensions have configured it**, as
 //! `knowledge_architect::cli::run` does with `extension::configure` of `knowledge-architect-check` before
 //! it calls one: a file an extension generates is outside every walk, and `id` and `worklist` refuse a
 //! table no extension claims, per `design@query@a-function-takes-a-configured-manifest`. Nothing here enforces that, per

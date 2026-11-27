@@ -27,7 +27,8 @@ publisher's preamble check accepts, since the file equals the expected text. A c
 - Ruled out: the read of the preamble, which reads the lines `expected_preamble` writes; the defect
   is the manifest accepting the value.
 - Related, met in the same review: `Manifest::parse` accepts an `assembled` path whose segments open
-  with white space, which `read_preamble` now reads; and the preamble check compares the preamble
+  with white space, which `read_preamble` now reads, or hold a line break, which would write a line
+  of its own into the preamble as the URL does (not reproduced); and the preamble check compares the preamble
   with the expected text trimming only the end of the whole preamble.
 
 ### Why it matters

@@ -245,7 +245,8 @@ what the tools need of Cargo, pays because Cargo's formats then change in one cr
 tools call. Its interface, a typed read of a `Cargo.toml` and of `cargo metadata`'s output, changes
 on its own when Cargo's formats or the facts the tools read change, and stays as it is when a check
 or a command changes. Its own tests are its unit tests over fixture manifests and a fixture output,
-beside `path@cargo-reader@tests/this_repository.rs` over this repository's own crates, which pays
+beside `path@cargo-reader@tests/this_repository.rs` over this repository's own crates and
+`path@cargo-reader@tests/cargo_variable.rs` over the Cargo the variable `CARGO` names, which pays
 because a read of Cargo is judged with no check built. It takes the decisions of one domain, how
 the tools read Cargo, in `register@cargo-reader@design`, which pays because what a failure of Cargo
 gives and whether a default of Cargo's is applied are decided once, not by each tool that reads
@@ -419,8 +420,7 @@ given its test command by its caller is one whose result exists without that run
 that counts it as running the tests, which no goal ranks: the owner's ranking. The criterion's
 wording, a result that does not exist without the run, over a tool that runs the project's build or
 its tests, which places every tool the same way and which no goal ranks: the session's ranking.
-The owner reported being unsure of the criterion's wording; the rule's exception stands on the
-argument below, which no wording of it changes.
+The owner reported being unsure of the criterion.
 
 The fact that defeats the nearest rival, a `gates` command of `klarch`,
 `rejected@knowledge-architect@gates-command-of-the-checker`: `klarch` locates the manifest and
