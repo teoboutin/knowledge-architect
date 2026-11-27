@@ -23,7 +23,8 @@ interface, when, or what entering it binds.
 - `design@knowledge-architect@versioning-policy` classes "a breaking change to the library API" as
   major, without saying which library API.
 - The owner reported, at the review before the merge of slice 4 of the per-crate changelogs, the
-  list of the summary, said it may be incomplete, and asked for a later discussion that defines the
+  list of the summary, said it may be incomplete, said that nothing is done to cater to an external
+  consumer relying on an item outside it, and asked for a later discussion that defines the
   line and the methods to decide what enters the offered interface, when and how: the opt-in is
   item by item, and binds once documented as more stable.
 - The instance that raised it: `design@query@a-function-takes-a-configured-manifest` was argued

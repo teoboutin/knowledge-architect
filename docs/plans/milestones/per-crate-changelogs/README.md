@@ -810,7 +810,9 @@ The milestone document carries `thread@per-crate-changelogs@changelog-per-compon
   strain on the goal. Rival: the choice reopened.
   **Ruled**, at the review before the merge of slice 4: neither; the owner reported that the
   interface offered to a consumer is the command line of `klarch`, the gates and the mutation
-  libraries and the extension framework, `query` among what is built for this project alone, and
+  libraries and the extension framework, saying the list may be incomplete, which the session
+  checked against `design@knowledge-architect@api-facade`, `query` among what is built for this
+  project alone, and
   asked for a later discussion of that line, now
   `issue@knowledge-architect@no-head-states-which-public-items-a-consumer-may-rely-on`; the head
   rests on that report and on `design@knowledge-architect@api-facade`.
